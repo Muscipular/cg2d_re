@@ -149471,6 +149471,271 @@
         "source_body_changed": true,
         "full_runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x422370",
+      "inventory_id": "F:00022370",
+      "status": "BAR01完整状态根仅400判定/scale发布取样实修，完整owner寿命运行未验",
+      "original_end_exclusive": "0x4225d0",
+      "instruction_count": 177,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "RestoreBattleStateEffects_422370"
+          ],
+          "relationship": "BAR01仅scale选择后先判400再两轴pub；原flags/调用/当前载荷复读保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "RestoreBattleStateEffects_422370"
+          ],
+          "relationship": "四已有入口声明之一保持，不新暴露CPP helper或节点布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+        "doc/cg2d_battle_attachment_recovery_evidence.json"
+      ],
+      "verification_level": "BAR01一完整177条608B和三父元数据/八窗401条1549B、比较前置16条66B分列，三根十一源片段精确重放及十普通入向4父有限静态；完整三父剩余1385条5495B、所有动作实参与数据资源/owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "固定入口FDC，scale选择后先保存400判定再pub两轴，用同判定进入原附着创建/标死；首10清位快照与其余live读改写、成对共用清位掩码/全部原子调用和当前parent.payload复读保持；不立即free/清rider或effect1060/type槽，不加guard/RNG/新owner或异常保护/回绕模拟。仅局部静态不代完整父/资源owner及运行；原格式明文和音频暂停保持。",
+      "battle_attachment_recovery": {
+        "spec_id": "BAR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+          "doc/cg2d_battle_attachment_recovery_evidence.json"
+        ],
+        "original_entry": "0x422370",
+        "original_metadata_instruction_count": 177,
+        "original_metadata_code_bytes": 608,
+        "full_original_body_reviewed": true,
+        "source_body_changed": true,
+        "helper_dependency_changed": false,
+        "scope_windows": [],
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x414050",
+      "inventory_id": "F:00014050",
+      "status": "BAR01已有真实父本体保持、仅本组退场/恢复窗和helper依赖纳管；父其余正文/完整owner寿命运行未验",
+      "original_end_exclusive": "0x4150eb",
+      "instruction_count": 1136,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction224_414050",
+            "ClearBattleRideAttachments",
+            "RestoreBattleRideGear"
+          ],
+          "relationship": "BAR01父正文不改；两CPP共用helper只处理本组退出/恢复窗的单次指针读取和原跨调用slot/payload复读，不称完整父验证"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleAction224_414050"
+          ],
+          "relationship": "四已有入口声明之一保持，不新暴露CPP helper或节点布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+        "doc/cg2d_battle_attachment_recovery_evidence.json"
+      ],
+      "verification_level": "BAR01一完整177条608B和三父元数据/八窗401条1549B、比较前置16条66B分列，三根十一源片段精确重放及十普通入向4父有限静态；完整三父剩余1385条5495B、所有动作实参与数据资源/owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "原完整元数据只识别函数；本步仅4窗201条/700B及相关helper依赖可追，父本体保持且未核其余正文。七槽各一次读供判空/MarkDeath后清，恢复三指针一次读且调用后原global/当前payload复读保持，不造helper原函数身份；不立即free/清rider或effect1060/type槽，不加guard/RNG/新owner或异常保护/回绕模拟。仅局部静态不代完整父/资源owner及运行；原格式明文和音频暂停保持。",
+      "battle_attachment_recovery": {
+        "spec_id": "BAR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+          "doc/cg2d_battle_attachment_recovery_evidence.json"
+        ],
+        "original_entry": "0x414050",
+        "original_metadata_instruction_count": 1136,
+        "original_metadata_code_bytes": 4251,
+        "full_original_body_reviewed": false,
+        "source_body_changed": false,
+        "helper_dependency_changed": true,
+        "scope_windows": [
+          {
+            "start": "0x414399",
+            "end_exclusive": "0x41444e",
+            "label": "clear_first",
+            "instruction_count": 52,
+            "code_bytes": 181
+          },
+          {
+            "start": "0x41445c",
+            "end_exclusive": "0x41450b",
+            "label": "clear_second",
+            "instruction_count": 49,
+            "code_bytes": 175
+          },
+          {
+            "start": "0x414c75",
+            "end_exclusive": "0x414d24",
+            "label": "clear_entry",
+            "instruction_count": 49,
+            "code_bytes": 175
+          },
+          {
+            "start": "0x414fa1",
+            "end_exclusive": "0x41504a",
+            "label": "restore_gear",
+            "instruction_count": 51,
+            "code_bytes": 169
+          }
+        ],
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4154c0",
+      "inventory_id": "F:000154C0",
+      "status": "BAR01已有真实父本体保持、仅本组退场/恢复窗和helper依赖纳管；父其余正文/完整owner寿命运行未验",
+      "original_end_exclusive": "0x415939",
+      "instruction_count": 277,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction226_4154C0",
+            "ClearBattleRideAttachments",
+            "RestoreBattleRideGear"
+          ],
+          "relationship": "BAR01父正文不改；两CPP共用helper只处理本组退出/恢复窗的单次指针读取和原跨调用slot/payload复读，不称完整父验证"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleAction226_4154C0"
+          ],
+          "relationship": "四已有入口声明之一保持，不新暴露CPP helper或节点布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+        "doc/cg2d_battle_attachment_recovery_evidence.json"
+      ],
+      "verification_level": "BAR01一完整177条608B和三父元数据/八窗401条1549B、比较前置16条66B分列，三根十一源片段精确重放及十普通入向4父有限静态；完整三父剩余1385条5495B、所有动作实参与数据资源/owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "原完整元数据只识别函数；本步仅2窗100条/420B及相关helper依赖可追，父本体保持且未核其余正文。七槽各一次读供判空/MarkDeath后清，恢复三指针一次读且调用后原global/当前payload复读保持，不造helper原函数身份；不立即free/清rider或effect1060/type槽，不加guard/RNG/新owner或异常保护/回绕模拟。仅局部静态不代完整父/资源owner及运行；原格式明文和音频暂停保持。",
+      "battle_attachment_recovery": {
+        "spec_id": "BAR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+          "doc/cg2d_battle_attachment_recovery_evidence.json"
+        ],
+        "original_entry": "0x4154c0",
+        "original_metadata_instruction_count": 277,
+        "original_metadata_code_bytes": 1145,
+        "full_original_body_reviewed": false,
+        "source_body_changed": false,
+        "helper_dependency_changed": true,
+        "scope_windows": [
+          {
+            "start": "0x415555",
+            "end_exclusive": "0x415620",
+            "label": "clear_entry",
+            "instruction_count": 49,
+            "code_bytes": 203
+          },
+          {
+            "start": "0x41578a",
+            "end_exclusive": "0x415863",
+            "label": "restore_gear",
+            "instruction_count": 51,
+            "code_bytes": 217
+          }
+        ],
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x415940",
+      "inventory_id": "F:00015940",
+      "status": "BAR01已有真实父本体保持、仅本组退场/恢复窗和helper依赖纳管；父其余正文/完整owner寿命运行未验",
+      "original_end_exclusive": "0x415ff2",
+      "instruction_count": 389,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction227_415940",
+            "ClearBattleRideAttachments",
+            "RestoreBattleRideGear"
+          ],
+          "relationship": "BAR01父正文不改；两CPP共用helper只处理本组退出/恢复窗的单次指针读取和原跨调用slot/payload复读，不称完整父验证"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleAction227_415940"
+          ],
+          "relationship": "四已有入口声明之一保持，不新暴露CPP helper或节点布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+        "doc/cg2d_battle_attachment_recovery_evidence.json"
+      ],
+      "verification_level": "BAR01一完整177条608B和三父元数据/八窗401条1549B、比较前置16条66B分列，三根十一源片段精确重放及十普通入向4父有限静态；完整三父剩余1385条5495B、所有动作实参与数据资源/owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "原完整元数据只识别函数；本步仅2窗100条/429B及相关helper依赖可追，父本体保持且未核其余正文。七槽各一次读供判空/MarkDeath后清，恢复三指针一次读且调用后原global/当前payload复读保持，不造helper原函数身份；不立即free/清rider或effect1060/type槽，不加guard/RNG/新owner或异常保护/回绕模拟。仅局部静态不代完整父/资源owner及运行；原格式明文和音频暂停保持。",
+      "battle_attachment_recovery": {
+        "spec_id": "BAR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
+          "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+          "doc/cg2d_battle_attachment_recovery_evidence.json"
+        ],
+        "original_entry": "0x415940",
+        "original_metadata_instruction_count": 389,
+        "original_metadata_code_bytes": 1714,
+        "full_original_body_reviewed": false,
+        "source_body_changed": false,
+        "helper_dependency_changed": true,
+        "scope_windows": [
+          {
+            "start": "0x415c01",
+            "end_exclusive": "0x415ccf",
+            "label": "clear_entry",
+            "instruction_count": 50,
+            "code_bytes": 206
+          },
+          {
+            "start": "0x415e6f",
+            "end_exclusive": "0x415f4e",
+            "label": "restore_gear",
+            "instruction_count": 50,
+            "code_bytes": 223
+          }
+        ],
+        "full_runtime_verified": false
+      }
     }
   ]
 }

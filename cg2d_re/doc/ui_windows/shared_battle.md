@@ -8153,3 +8153,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [源状态](../cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state)恢复422BC0原独立两参入口，正图号直接factory创建/发布/同指针更新，非正图号同指针MarkDeath后清槽；422C20独立保index==0才移除。其它九片段覆盖骑乘/辅助各槽取样和共用身份回调，原三工厂NewYobi(2,0)/字段/失败/播放后parent与坐标取样和正确主装备工厂保持。
 
 [原442条1393B/24call+3绑定15父](../cg2d_battle_attachment_producer_evidence.json)与6槽24B另列；辅助type1/2/3..5发布后同指针图号、type3先判后pub/三F32及原scaleY复读、type6只创建/不同原失败门禁保持。八入口已有声明可追，不增callback接口；全部父与动作/数据资源/owner重进退出与浅别名/SDK/ABI/PC53/时钟RNG/画面运行未闭，U08/U09继续open。
+
+## BAR01 退场七槽与恢复借用的实际分工（2026-10-06）
+
+[源状态](../cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state)落实七槽依次单次读取/MarkDeath后清及恢复gear/aux0/aux1单次快照；恢复中调用后重新取当前对象/载荷清槽和创建后发布、两aux之间所有复读保留。422370先保存400判定后scale两轴pub，原FDC入口/当前值及成对清位掩码/子调用不改。
+
+[一完整根与三父八窗](../cg2d_battle_attachment_recovery_evidence.json)只有578条2157B主体加16条66B比较前置，十普通入向/4父分列；父其余1385条5495B和完整owner寿命/数据资源/动作参数/SDK/ABI/PC53/时钟RNG/画面运行仍未闭。两个CPP helper不造原F/X，三父本体与五/三实际表达式保持，U08/U09继续open。

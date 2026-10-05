@@ -10786,9 +10786,10 @@ void RestoreBattleStateEffects_422370(YobiAction* const parent)
         payload->flagsFDC &= ~0x200u;
     }
     const float scale = (flags & 0x1000u) != 0 ? std::bit_cast<float>(0x3FA66666u) : 1.0F;
+    const bool hasAttachedEffect = (flags & 0x400u) != 0;
     parent->scaleX = scale;
     parent->scaleY = scale;
-    if ((flags & 0x400u) != 0) {
+    if (hasAttachedEffect) {
         static_cast<void>(NewBattleAttachedEffect_41FBE0(parent, 1));
     } else {
         static_cast<void>(MarkDeath(static_cast<BattleActorPayload*>(parent->payload)->attachedEffect1058));
@@ -28635,32 +28636,39 @@ namespace {
 // 三种拆分动作的固定载荷清理段；不含骑乘/1060，也不重取对象表。
 void ClearBattleRideAttachments(BattleActorPayload* const payload)
 {
-    if (payload->effect105C != nullptr) {
-        static_cast<void>(MarkDeath(payload->effect105C));
+    YobiAction* const reverseEffect = payload->effect105C;
+    if (reverseEffect != nullptr) {
+        static_cast<void>(MarkDeath(reverseEffect));
         payload->effect105C = nullptr;
     }
-    if (payload->effect1054 != nullptr) {
-        static_cast<void>(MarkDeath(payload->effect1054));
+    YobiAction* const debuffEffect = payload->effect1054;
+    if (debuffEffect != nullptr) {
+        static_cast<void>(MarkDeath(debuffEffect));
         payload->effect1054 = nullptr;
     }
-    if (payload->effect1068 != nullptr) {
-        static_cast<void>(MarkDeath(payload->effect1068));
+    YobiAction* const statusEffect = payload->effect1068;
+    if (statusEffect != nullptr) {
+        static_cast<void>(MarkDeath(statusEffect));
         payload->effect1068 = nullptr;
     }
-    if (payload->attachedEffect1058 != nullptr) {
-        static_cast<void>(MarkDeath(payload->attachedEffect1058));
+    YobiAction* const attachedEffect = payload->attachedEffect1058;
+    if (attachedEffect != nullptr) {
+        static_cast<void>(MarkDeath(attachedEffect));
         payload->attachedEffect1058 = nullptr;
     }
-    if (payload->gear13B4 != nullptr) {
-        static_cast<void>(MarkDeath(payload->gear13B4));
+    YobiAction* const gear = payload->gear13B4;
+    if (gear != nullptr) {
+        static_cast<void>(MarkDeath(gear));
         payload->gear13B4 = nullptr;
     }
-    if (payload->auxiliaryGear13B8[0] != nullptr) {
-        static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
+    YobiAction* const firstAuxiliaryGear = payload->auxiliaryGear13B8[0];
+    if (firstAuxiliaryGear != nullptr) {
+        static_cast<void>(MarkDeath(firstAuxiliaryGear));
         payload->auxiliaryGear13B8[0] = nullptr;
     }
-    if (payload->auxiliaryGear13B8[1] != nullptr) {
-        static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[1]));
+    YobiAction* const secondAuxiliaryGear = payload->auxiliaryGear13B8[1];
+    if (secondAuxiliaryGear != nullptr) {
+        static_cast<void>(MarkDeath(secondAuxiliaryGear));
         payload->auxiliaryGear13B8[1] = nullptr;
     }
 }
@@ -28669,8 +28677,9 @@ void ClearBattleRideAttachments(BattleActorPayload* const payload)
 void RestoreBattleRideGear(YobiAction** const slot, const BattleRideCarrierPayload* const carrier)
 {
     auto* payload = static_cast<BattleActorPayload*>((*slot)->payload);
-    if (payload->gear13B4 != nullptr) {
-        static_cast<void>(MarkDeath(payload->gear13B4));
+    YobiAction* const gear = payload->gear13B4;
+    if (gear != nullptr) {
+        static_cast<void>(MarkDeath(gear));
         static_cast<BattleActorPayload*>((*slot)->payload)->gear13B4 = nullptr;
     }
     const std::int32_t image = carrier->gearImage0C;
@@ -28679,13 +28688,15 @@ void RestoreBattleRideGear(YobiAction** const slot, const BattleRideCarrierPaylo
         static_cast<BattleActorPayload*>((*slot)->payload)->gear13B4 = gear;
     }
     payload = static_cast<BattleActorPayload*>((*slot)->payload);
-    if (payload->auxiliaryGear13B8[0] != nullptr) {
-        static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
+    YobiAction* const firstAuxiliaryGear = payload->auxiliaryGear13B8[0];
+    if (firstAuxiliaryGear != nullptr) {
+        static_cast<void>(MarkDeath(firstAuxiliaryGear));
         static_cast<BattleActorPayload*>((*slot)->payload)->auxiliaryGear13B8[0] = nullptr;
     }
     payload = static_cast<BattleActorPayload*>((*slot)->payload);
-    if (payload->auxiliaryGear13B8[1] != nullptr) {
-        static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[1]));
+    YobiAction* const secondAuxiliaryGear = payload->auxiliaryGear13B8[1];
+    if (secondAuxiliaryGear != nullptr) {
+        static_cast<void>(MarkDeath(secondAuxiliaryGear));
         static_cast<BattleActorPayload*>((*slot)->payload)->auxiliaryGear13B8[1] = nullptr;
     }
 }

@@ -3991,3 +3991,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [具名裁决/九差异](cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision)恢复422BC0独立原正文及直接422A30创建，422C20保三参index移除门槛；骑乘负路径首指针快照/后复读、辅助逐槽清理与type0单次判定、发布后同gear图号更新及type3先判后pub/scaleY复读、骑乘OR/W16与共用421F90取样已修。
 
 [八完整442条1393B](cg2d_battle_attachment_producer_evidence.json)和24普通call/3地址发布15父及独立6槽24B可追，三个工厂/四发布/共用回调纳管。正确主装备工厂全文保持，原分配/父空与调用者无额外保护的初始化各自保持，MarkDeath后清槽不立即free；两原caller index0/1仅有界计数/压栈/循环尾与当前消费对应，不验完整父。全部动作/父实参与数据资源、owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待。
+
+## BAR01 战斗退场清槽与装备/状态恢复（2026-10-06）
+
+[三根十一差异/裁决](cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision)修两个既有CPP helper的七清理/三恢复附件指针单次取样，以及422370在两轴scale发布前保存400判定。原七槽顺序/消费后清、恢复中所有当前global slot/payload跨调用复读与图号/创建/返回发布时点保持，不统一缓存、不新helper身份或立即free。
+
+[限定原基线](cg2d_battle_attachment_recovery_evidence.json)分列完整状态177条608B、三父元数据/八窗401条1549B和比较前置16条66B；三父其余1385条5495B未核，不能把父元数据当完整正文验收。当前五清理/三恢复调用与三父本体/四声明保持，完整动作/资源和owner重进退出/浅别名/SDK/ABI/PC53/时钟RNG/画面运行仍待。

@@ -308,3 +308,9 @@ E201→203只MAP本次I/S局部；六任务和完整功能门禁保持open，原
 [本组合同](cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state)实际将五像素运动/一投影增量恢复正常S32，原20读10写、取样/扰动/真实位型与投影低W32/快照序保持，另恢复kind4重设尾计数4→新Y速度原序。六新语义/限定adapted使1274条/1270有效ID、367/3680处置，MAP24→30明确成员；候选继续按同文档引用派生。
 
 E203→205只MAP本次I/S；六任务/完整功能门禁和10关闭数保持。908条2948B/六call三父只局部静态，不代全场景/特殊多轮/所有调度/alias/owner寿命/投影环境/实际SDK/像素RNG运行；R1/R7/R8仍未闭，异常不保护或模拟/称等价。
+
+## MFP01 局部验收增量（2026-10-05）
+
+[效果生产合同](cg2d_map_effect_producer_spec.md#map-effect-producer-acceptance)以原64条193B/三call一父和四原读取点/两缩放写为基线；一个本体/真实声明纳入sources和adapted，MAP30→31。E205→207只本次I/S局部静态，不将完整原体保存或数域推导当整个父、池生命周期、实际ABI/SDK/像素与RNG运行的证据。
+
+G01/G02/U11/R01/R04/V04追加同一具名引用且继续open。所有B/D/W/R、完整功能门禁、成员枚举、R1/R7/R8及整体判定保持；音频暂停、网络原格式明文和现行执行限制不变。

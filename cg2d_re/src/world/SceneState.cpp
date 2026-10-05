@@ -2159,15 +2159,21 @@ MapEffectRecord* Sub_46F090(
         WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
     }
     if (horizontalSign < 0) {
-        x = 240 - x;
+        x = 240 - std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x00));
         WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
     }
     if (verticalSign < 0) {
-        y = 80 - y;
+        y = 80 - std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x04));
         WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
     }
-    WriteMapEffectWord(*record, 0x08, static_cast<std::uint32_t>(x) << 16);
-    WriteMapEffectWord(*record, 0x0C, static_cast<std::uint32_t>(y) << 16);
+    const std::int32_t currentX =
+        std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x00));
+    const std::int32_t currentY =
+        std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x04));
+    const std::int32_t fixedX = currentX * 65536;
+    const std::int32_t fixedY = currentY * 65536;
+    WriteMapEffectWord(*record, 0x08, std::bit_cast<std::uint32_t>(fixedX));
+    WriteMapEffectWord(*record, 0x0C, std::bit_cast<std::uint32_t>(fixedY));
     WriteMapEffectWord(*record, 0x10, static_cast<std::uint32_t>(speed));
     WriteMapEffectWord(*record, 0x14, static_cast<std::uint32_t>(graphicIndex));
     ++gMapCharaSceneSlots.valueC8A756;

@@ -1,0 +1,887 @@
+{
+  "schema_version": 1,
+  "scope": "MFP01仅46F090镜像字段重读/固定点取样与正常缩放；完整原生产本体保存不代父/池/alias/寿命/运行",
+  "baseline_snapshot": "cg2d-re-map-coordinate-arithmetic-20261005",
+  "implementation_snapshot": "cg2d-re-map-effect-producer-20261005",
+  "original_functions": [
+    {
+      "entry": "0x46f090",
+      "actual_start": "0x46f090",
+      "end_exclusive": "0x46f151",
+      "chunks": [
+        {
+          "start": "0x46f090",
+          "end_exclusive": "0x46f151"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x46f2e5",
+          "type": 17,
+          "parent_entry": "0x46f1d0"
+        },
+        {
+          "site": "0x46f3f9",
+          "type": 17,
+          "parent_entry": "0x46f1d0"
+        },
+        {
+          "site": "0x46f4aa",
+          "type": 17,
+          "parent_entry": "0x46f1d0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x46f090",
+          "size": 5,
+          "bytes": "e8abf2ffff",
+          "text": "call    sub_46E340"
+        },
+        {
+          "ea": "0x46f095",
+          "size": 2,
+          "bytes": "8bc8",
+          "text": "mov     ecx, eax"
+        },
+        {
+          "ea": "0x46f097",
+          "size": 2,
+          "bytes": "85c9",
+          "text": "test    ecx, ecx"
+        },
+        {
+          "ea": "0x46f099",
+          "size": 2,
+          "bytes": "7501",
+          "text": "jnz     short loc_46F09C"
+        },
+        {
+          "ea": "0x46f09b",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x46f09c",
+          "size": 5,
+          "bytes": "668b442404",
+          "text": "mov     ax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x46f0a1",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x46f0a2",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x46f0a3",
+          "size": 4,
+          "bytes": "8b742414",
+          "text": "mov     esi, [esp+8+arg_8]"
+        },
+        {
+          "ea": "0x46f0a7",
+          "size": 1,
+          "bytes": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x46f0a8",
+          "size": 4,
+          "bytes": "8b7c2414",
+          "text": "mov     edi, [esp+0Ch+arg_4]"
+        },
+        {
+          "ea": "0x46f0ac",
+          "size": 2,
+          "bytes": "85f6",
+          "text": "test    esi, esi"
+        },
+        {
+          "ea": "0x46f0ae",
+          "size": 4,
+          "bytes": "6689413c",
+          "text": "mov     [ecx+3Ch], ax"
+        },
+        {
+          "ea": "0x46f0b2",
+          "size": 2,
+          "bytes": "7514",
+          "text": "jnz     short loc_46F0C8"
+        },
+        {
+          "ea": "0x46f0b4",
+          "size": 4,
+          "bytes": "8b44241c",
+          "text": "mov     eax, [esp+0Ch+arg_C]"
+        },
+        {
+          "ea": "0x46f0b8",
+          "size": 5,
+          "bytes": "bb70030000",
+          "text": "mov     ebx, 370h"
+        },
+        {
+          "ea": "0x46f0bd",
+          "size": 1,
+          "bytes": "99",
+          "text": "cdq"
+        },
+        {
+          "ea": "0x46f0be",
+          "size": 2,
+          "bytes": "f7fb",
+          "text": "idiv    ebx"
+        },
+        {
+          "ea": "0x46f0c0",
+          "size": 6,
+          "bytes": "81c210040000",
+          "text": "add     edx, 410h"
+        },
+        {
+          "ea": "0x46f0c6",
+          "size": 2,
+          "bytes": "eb15",
+          "text": "jmp     short loc_46F0DD"
+        },
+        {
+          "ea": "0x46f0c8",
+          "size": 4,
+          "bytes": "8b44241c",
+          "text": "mov     eax, [esp+0Ch+arg_C]"
+        },
+        {
+          "ea": "0x46f0cc",
+          "size": 5,
+          "bytes": "bb10040000",
+          "text": "mov     ebx, 410h"
+        },
+        {
+          "ea": "0x46f0d1",
+          "size": 2,
+          "bytes": "85ff",
+          "text": "test    edi, edi"
+        },
+        {
+          "ea": "0x46f0d3",
+          "size": 1,
+          "bytes": "99",
+          "text": "cdq"
+        },
+        {
+          "ea": "0x46f0d4",
+          "size": 2,
+          "bytes": "7405",
+          "text": "jz      short loc_46F0DB"
+        },
+        {
+          "ea": "0x46f0d6",
+          "size": 5,
+          "bytes": "bb80070000",
+          "text": "mov     ebx, 780h"
+        },
+        {
+          "ea": "0x46f0db",
+          "size": 2,
+          "bytes": "f7fb",
+          "text": "idiv    ebx"
+        },
+        {
+          "ea": "0x46f0dd",
+          "size": 6,
+          "bytes": "81fa10040000",
+          "text": "cmp     edx, 410h"
+        },
+        {
+          "ea": "0x46f0e3",
+          "size": 6,
+          "bytes": "c70170feffff",
+          "text": "mov     dword ptr [ecx], 0FFFFFE70h"
+        },
+        {
+          "ea": "0x46f0e9",
+          "size": 7,
+          "bytes": "c7410470feffff",
+          "text": "mov     dword ptr [ecx+4], 0FFFFFE70h"
+        },
+        {
+          "ea": "0x46f0f0",
+          "size": 2,
+          "bytes": "7d0a",
+          "text": "jge     short loc_46F0FC"
+        },
+        {
+          "ea": "0x46f0f2",
+          "size": 6,
+          "bytes": "81c270feffff",
+          "text": "add     edx, 0FFFFFE70h"
+        },
+        {
+          "ea": "0x46f0f8",
+          "size": 2,
+          "bytes": "8911",
+          "text": "mov     [ecx], edx"
+        },
+        {
+          "ea": "0x46f0fa",
+          "size": 2,
+          "bytes": "eb09",
+          "text": "jmp     short loc_46F105"
+        },
+        {
+          "ea": "0x46f0fc",
+          "size": 6,
+          "bytes": "81c260faffff",
+          "text": "add     edx, 0FFFFFA60h"
+        },
+        {
+          "ea": "0x46f102",
+          "size": 3,
+          "bytes": "895104",
+          "text": "mov     [ecx+4], edx"
+        },
+        {
+          "ea": "0x46f105",
+          "size": 2,
+          "bytes": "85ff",
+          "text": "test    edi, edi"
+        },
+        {
+          "ea": "0x46f107",
+          "size": 2,
+          "bytes": "7d0b",
+          "text": "jge     short loc_46F114"
+        },
+        {
+          "ea": "0x46f109",
+          "size": 2,
+          "bytes": "8b01",
+          "text": "mov     eax, [ecx]"
+        },
+        {
+          "ea": "0x46f10b",
+          "size": 5,
+          "bytes": "baf0000000",
+          "text": "mov     edx, 0F0h"
+        },
+        {
+          "ea": "0x46f110",
+          "size": 2,
+          "bytes": "2bd0",
+          "text": "sub     edx, eax"
+        },
+        {
+          "ea": "0x46f112",
+          "size": 2,
+          "bytes": "8911",
+          "text": "mov     [ecx], edx"
+        },
+        {
+          "ea": "0x46f114",
+          "size": 1,
+          "bytes": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x46f115",
+          "size": 2,
+          "bytes": "85f6",
+          "text": "test    esi, esi"
+        },
+        {
+          "ea": "0x46f117",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x46f118",
+          "size": 1,
+          "bytes": "5b",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": "0x46f119",
+          "size": 2,
+          "bytes": "7d0d",
+          "text": "jge     short loc_46F128"
+        },
+        {
+          "ea": "0x46f11b",
+          "size": 3,
+          "bytes": "8b5104",
+          "text": "mov     edx, [ecx+4]"
+        },
+        {
+          "ea": "0x46f11e",
+          "size": 5,
+          "bytes": "b850000000",
+          "text": "mov     eax, 50h ; 'P'"
+        },
+        {
+          "ea": "0x46f123",
+          "size": 2,
+          "bytes": "2bc2",
+          "text": "sub     eax, edx"
+        },
+        {
+          "ea": "0x46f125",
+          "size": 3,
+          "bytes": "894104",
+          "text": "mov     [ecx+4], eax"
+        },
+        {
+          "ea": "0x46f128",
+          "size": 2,
+          "bytes": "8b11",
+          "text": "mov     edx, [ecx]"
+        },
+        {
+          "ea": "0x46f12a",
+          "size": 3,
+          "bytes": "8b4104",
+          "text": "mov     eax, [ecx+4]"
+        },
+        {
+          "ea": "0x46f12d",
+          "size": 3,
+          "bytes": "c1e210",
+          "text": "shl     edx, 10h"
+        },
+        {
+          "ea": "0x46f130",
+          "size": 3,
+          "bytes": "c1e010",
+          "text": "shl     eax, 10h"
+        },
+        {
+          "ea": "0x46f133",
+          "size": 3,
+          "bytes": "895108",
+          "text": "mov     [ecx+8], edx"
+        },
+        {
+          "ea": "0x46f136",
+          "size": 4,
+          "bytes": "8b542414",
+          "text": "mov     edx, [esp+arg_10]"
+        },
+        {
+          "ea": "0x46f13a",
+          "size": 3,
+          "bytes": "89410c",
+          "text": "mov     [ecx+0Ch], eax"
+        },
+        {
+          "ea": "0x46f13d",
+          "size": 4,
+          "bytes": "8b442418",
+          "text": "mov     eax, [esp+arg_14]"
+        },
+        {
+          "ea": "0x46f141",
+          "size": 3,
+          "bytes": "895110",
+          "text": "mov     [ecx+10h], edx"
+        },
+        {
+          "ea": "0x46f144",
+          "size": 3,
+          "bytes": "894114",
+          "text": "mov     [ecx+14h], eax"
+        },
+        {
+          "ea": "0x46f147",
+          "size": 7,
+          "bytes": "66ff0556a7c800",
+          "text": "inc     word_C8A756"
+        },
+        {
+          "ea": "0x46f14e",
+          "size": 2,
+          "bytes": "8bc1",
+          "text": "mov     eax, ecx"
+        },
+        {
+          "ea": "0x46f150",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ]
+    }
+  ],
+  "caller_windows": [
+    {
+      "parent": "0x46f1d0",
+      "start": "0x46f2b2",
+      "end_exclusive": "0x46f2f1",
+      "reused_baseline": "doc/cg2d_map_effect_arithmetic_evidence.json",
+      "instructions": [
+        {
+          "ea": "0x46f2b2",
+          "size": 2,
+          "bytes": "dfe0",
+          "text": "fnstsw  ax"
+        },
+        {
+          "ea": "0x46f2b4",
+          "size": 3,
+          "bytes": "f6c401",
+          "text": "test    ah, 1"
+        },
+        {
+          "ea": "0x46f2b7",
+          "size": 2,
+          "bytes": "7403",
+          "text": "jz      short loc_46F2BC"
+        },
+        {
+          "ea": "0x46f2b9",
+          "size": 3,
+          "bytes": "83ceff",
+          "text": "or      esi, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x46f2bc",
+          "size": 7,
+          "bytes": "66392da2de5500",
+          "text": "cmp     word_55DEA2, bp"
+        },
+        {
+          "ea": "0x46f2c3",
+          "size": 6,
+          "bytes": "0f8582000000",
+          "text": "jnz     loc_46F34B"
+        },
+        {
+          "ea": "0x46f2c9",
+          "size": 7,
+          "bytes": "0fbf0d60a7c800",
+          "text": "movsx   ecx, word_C8A760"
+        },
+        {
+          "ea": "0x46f2d0",
+          "size": 2,
+          "bytes": "8bc1",
+          "text": "mov     eax, ecx"
+        },
+        {
+          "ea": "0x46f2d2",
+          "size": 5,
+          "bytes": "bf03000000",
+          "text": "mov     edi, 3"
+        },
+        {
+          "ea": "0x46f2d7",
+          "size": 1,
+          "bytes": "99",
+          "text": "cdq"
+        },
+        {
+          "ea": "0x46f2d8",
+          "size": 2,
+          "bytes": "f7ff",
+          "text": "idiv    edi"
+        },
+        {
+          "ea": "0x46f2da",
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x46f2db",
+          "size": 5,
+          "bytes": "68d0070000",
+          "text": "push    7D0h"
+        },
+        {
+          "ea": "0x46f2e0",
+          "size": 1,
+          "bytes": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x46f2e1",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x46f2e2",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x46f2e3",
+          "size": 2,
+          "bytes": "6a08",
+          "text": "push    8"
+        },
+        {
+          "ea": "0x46f2e5",
+          "size": 5,
+          "bytes": "e8a6fdffff",
+          "text": "call    sub_46F090"
+        },
+        {
+          "ea": "0x46f2ea",
+          "size": 1,
+          "bytes": "55",
+          "text": "push    ebp"
+        },
+        {
+          "ea": "0x46f2eb",
+          "size": 1,
+          "bytes": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x46f2ec",
+          "size": 5,
+          "bytes": "e8ef57f9ff",
+          "text": "call    YobiAction__new"
+        }
+      ]
+    },
+    {
+      "parent": "0x46f1d0",
+      "start": "0x46f3cf",
+      "end_exclusive": "0x46f40b",
+      "reused_baseline": "doc/cg2d_map_effect_arithmetic_evidence.json",
+      "instructions": [
+        {
+          "ea": "0x46f3cf",
+          "size": 2,
+          "bytes": "7530",
+          "text": "jnz     short loc_46F401"
+        },
+        {
+          "ea": "0x46f3d1",
+          "size": 5,
+          "bytes": "e8f3c00c00",
+          "text": "call    rand"
+        },
+        {
+          "ea": "0x46f3d6",
+          "size": 1,
+          "bytes": "99",
+          "text": "cdq"
+        },
+        {
+          "ea": "0x46f3d7",
+          "size": 5,
+          "bytes": "b903000000",
+          "text": "mov     ecx, 3"
+        },
+        {
+          "ea": "0x46f3dc",
+          "size": 2,
+          "bytes": "f7f9",
+          "text": "idiv    ecx"
+        },
+        {
+          "ea": "0x46f3de",
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x46f3df",
+          "size": 5,
+          "bytes": "e8e5c00c00",
+          "text": "call    rand"
+        },
+        {
+          "ea": "0x46f3e4",
+          "size": 1,
+          "bytes": "99",
+          "text": "cdq"
+        },
+        {
+          "ea": "0x46f3e5",
+          "size": 5,
+          "bytes": "b9e8030000",
+          "text": "mov     ecx, 3E8h"
+        },
+        {
+          "ea": "0x46f3ea",
+          "size": 2,
+          "bytes": "f7f9",
+          "text": "idiv    ecx"
+        },
+        {
+          "ea": "0x46f3ec",
+          "size": 2,
+          "bytes": "03d1",
+          "text": "add     edx, ecx"
+        },
+        {
+          "ea": "0x46f3ee",
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x46f3ef",
+          "size": 5,
+          "bytes": "e8d5c00c00",
+          "text": "call    rand"
+        },
+        {
+          "ea": "0x46f3f4",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x46f3f5",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x46f3f6",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x46f3f7",
+          "size": 2,
+          "bytes": "6a06",
+          "text": "push    6"
+        },
+        {
+          "ea": "0x46f3f9",
+          "size": 5,
+          "bytes": "e892fcffff",
+          "text": "call    sub_46F090"
+        },
+        {
+          "ea": "0x46f3fe",
+          "size": 3,
+          "bytes": "83c418",
+          "text": "add     esp, 18h"
+        },
+        {
+          "ea": "0x46f401",
+          "size": 7,
+          "bytes": "668b0d54a7c800",
+          "text": "mov     cx, word_C8A754"
+        },
+        {
+          "ea": "0x46f408",
+          "size": 3,
+          "bytes": "663bcd",
+          "text": "cmp     cx, bp"
+        }
+      ]
+    },
+    {
+      "parent": "0x46f1d0",
+      "start": "0x46f47c",
+      "end_exclusive": "0x46f4ba",
+      "reused_baseline": "doc/cg2d_map_effect_arithmetic_evidence.json",
+      "instructions": [
+        {
+          "ea": "0x46f47c",
+          "size": 2,
+          "bytes": "7534",
+          "text": "jnz     short loc_46F4B2"
+        },
+        {
+          "ea": "0x46f47e",
+          "size": 5,
+          "bytes": "e846c00c00",
+          "text": "call    rand"
+        },
+        {
+          "ea": "0x46f483",
+          "size": 1,
+          "bytes": "99",
+          "text": "cdq"
+        },
+        {
+          "ea": "0x46f484",
+          "size": 5,
+          "bytes": "b903000000",
+          "text": "mov     ecx, 3"
+        },
+        {
+          "ea": "0x46f489",
+          "size": 2,
+          "bytes": "f7f9",
+          "text": "idiv    ecx"
+        },
+        {
+          "ea": "0x46f48b",
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x46f48c",
+          "size": 5,
+          "bytes": "e838c00c00",
+          "text": "call    rand"
+        },
+        {
+          "ea": "0x46f491",
+          "size": 1,
+          "bytes": "99",
+          "text": "cdq"
+        },
+        {
+          "ea": "0x46f492",
+          "size": 5,
+          "bytes": "b9e8030000",
+          "text": "mov     ecx, 3E8h"
+        },
+        {
+          "ea": "0x46f497",
+          "size": 2,
+          "bytes": "f7f9",
+          "text": "idiv    ecx"
+        },
+        {
+          "ea": "0x46f499",
+          "size": 6,
+          "bytes": "81c2f4010000",
+          "text": "add     edx, 1F4h"
+        },
+        {
+          "ea": "0x46f49f",
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x46f4a0",
+          "size": 5,
+          "bytes": "e824c00c00",
+          "text": "call    rand"
+        },
+        {
+          "ea": "0x46f4a5",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x46f4a6",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x46f4a7",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x46f4a8",
+          "size": 2,
+          "bytes": "6a07",
+          "text": "push    7"
+        },
+        {
+          "ea": "0x46f4aa",
+          "size": 5,
+          "bytes": "e8e1fbffff",
+          "text": "call    sub_46F090"
+        },
+        {
+          "ea": "0x46f4af",
+          "size": 3,
+          "bytes": "83c418",
+          "text": "add     esp, 18h"
+        },
+        {
+          "ea": "0x46f4b2",
+          "size": 6,
+          "bytes": "8b352ca7c800",
+          "text": "mov     esi, dword_C8A72C"
+        },
+        {
+          "ea": "0x46f4b8",
+          "size": 2,
+          "bytes": "3bf5",
+          "text": "cmp     esi, ebp"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "instructions": 64,
+    "code_bytes": 193,
+    "direct_calls": 3,
+    "parents_count": 1,
+    "source_patterns": 3,
+    "changed_blocks": 3,
+    "added_field_read_points": 4,
+    "conditional_reads": 2,
+    "unconditional_reads": 2,
+    "fixed_coordinate_writes": 2
+  },
+  "source_path": "src/world/SceneState.cpp",
+  "source_patches": [
+    {
+      "owners": [
+        "Sub_46F090镜像X"
+      ],
+      "expected_occurrences": 1,
+      "before": "        x = 240 - x;\n        WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));",
+      "after": "        x = 240 - std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x00));\n        WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));"
+    },
+    {
+      "owners": [
+        "Sub_46F090镜像Y"
+      ],
+      "expected_occurrences": 1,
+      "before": "        y = 80 - y;\n        WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));",
+      "after": "        y = 80 - std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x04));\n        WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));"
+    },
+    {
+      "owners": [
+        "Sub_46F090固定点初值"
+      ],
+      "expected_occurrences": 1,
+      "before": "    WriteMapEffectWord(*record, 0x08, static_cast<std::uint32_t>(x) << 16);\n    WriteMapEffectWord(*record, 0x0C, static_cast<std::uint32_t>(y) << 16);",
+      "after": "    const std::int32_t currentX =\n        std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x00));\n    const std::int32_t currentY =\n        std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x04));\n    const std::int32_t fixedX = currentX * 65536;\n    const std::int32_t fixedY = currentY * 65536;\n    WriteMapEffectWord(*record, 0x08, std::bit_cast<std::uint32_t>(fixedX));\n    WriteMapEffectWord(*record, 0x0C, std::bit_cast<std::uint32_t>(fixedY));"
+    }
+  ],
+  "retained_contract": {
+    "mirror_reads": [
+      "0x46f109",
+      "0x46f11b"
+    ],
+    "fixed_reads": [
+      "0x46f128",
+      "0x46f12a"
+    ],
+    "fixed_writes": [
+      "0x46f133",
+      "0x46f13a"
+    ],
+    "scale": "正常S32×65536，真实W32位型写",
+    "source_sampling": "负水平条件X读写→负垂直条件Y读写→无条件X/Y两读→两正常缩放→X/Y固定点两写",
+    "static_domain_derivation": "signed余数小于除数，镜像后X[-2319,2559]/Y[-400,480]的缩放在S32可表示域；不新增输入限制/运行或异常结论",
+    "pool_owner_changed": false,
+    "field_widths_changed": false,
+    "new_guard": false,
+    "caller_rng_changed": false
+  },
+  "verification": "仅三模式三块精确差异、四原读取点/两缩放写和当前生产合同静态；完整父/所有池路径/间接alias与owner寿命、实际ABI/SDK/像素RNG运行未验，异常不专项模拟或保护"
+}

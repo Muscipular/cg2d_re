@@ -2171,3 +2171,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [六原根](cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state)F:0006E4E0/F:0006E6C0/F:0006E940/F:0006EBB0/F:0006ED50/F:0006F000各补唯一语义和真实源/声明，x64场景承载adapted只本次正常坐标局部。源六种片段/七块已修，kind4重设尾恢复计数4→新Y速度，不将原既有完整本体登记当新增效果/投影功能。
 
 原141/198/196/126/202/45共908条2948B和六call三父保存；独有E6C0取样/kind4随机轴序/投影真实窄化和快照保持。语义1268→1274/有效ID1264→1270、处置361→367；所有其他908条语义/完整调度父/场景/alias/owner寿命和实际ABI/SDK/像素RNG运行未验，异常不专项保护或模拟/称等价。
+
+## MFP01 效果生产取样与固定点身份（2026-10-05）
+
+一个既有46F090生产本体补正式语义/来源与adapted，依据[具名合同](cg2d_map_effect_producer_spec.md#map-effect-producer-source-state)及[原证据](cg2d_map_effect_producer_evidence.json)。原完整64条193B/三call一父可追，仅三源片段补四读取点和恢复两次正常S32缩放；真实W32位型及原池/失败/计数/返回保持。三caller窗复用MFA01保存体，不以身份纳管声称完整父/全部池/alias/owner寿命/运行通过。
+
+语义1274→1275、有效ID1270→1271、处置367→368；MAP30→31明确成员。未新增原函数或扩大数值字段/容量，旧历史定位、pending18、非FID4、R7及队列分母保持；完整功能门禁不提升。

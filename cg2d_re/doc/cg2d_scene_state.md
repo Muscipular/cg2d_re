@@ -7587,3 +7587,9 @@ wb失败只释放编码缓冲。成功才复制3C00CH共享相册到局部快照
 [六块修正](cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state)在46E4E0/46E6C0/46E940/46EBB0/46ED50五像素块及46F000投影增量恢复正常S32；20坐标/速度读后解释S32、10像素写回W32位型，独有E6C0写X后才读Y速度保持。kind4原随机轴序/(rand−1)分组和remaining门槛保持，重设尾恢复取最后RNG结果→写计数4→写+2C新Y速度。
 
 §20.7当前投影差改正常S32和输出原位累计，原浮点到低W32真实窄化、旧X=-1不访输出、X累计后才取旧Y以及最后新X/Y快照与返回保持。MFA01固定点/专用x87、全部计时/低W16编码/生成/循环/方向/回收及其它正文保持；908条2948B/六call三父保存仅正常坐标局部，不代完整调度/场景/所有alias和owner寿命/真实SDK/像素RNG运行。异常不专项保护或模拟。
+
+## MFP01 当前效果记录取样与固定点生产（2026-10-05）
+
+[生产增量](cg2d_map_effect_producer_spec.md#map-effect-producer-source-state)仅更新§20.6既有46F090：horizontalSign<0时重读记录X、verticalSign<0时重读记录Y后作原镜像；固定点转换再按X→Y重读当前字段、两次正常S32×65536后按X→Y写真实W32位型。补四读取点，替换旧节“负值按W32移位”的实施口径，不使用负S32左移。
+
+signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可由S32表示，不增phase/符号限制；原领取/失败/kind低W16、两-400先写及条件写、speed/graphicIndex、W16计数、返回和所有caller/RNG保持。64条193B/三call一父与三个复用caller窗保存，仅本次源取样/缩放和生产合同静态；原池/完整调度/所有alias/owner寿命及实际ABI/SDK/像素RNG运行未验，异常不保护或模拟/称等价。

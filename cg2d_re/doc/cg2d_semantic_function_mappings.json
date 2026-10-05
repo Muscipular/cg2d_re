@@ -145493,6 +145493,57 @@
       ],
       "verification_level": "六体908条2948B/六call三父保存，仅五像素/一投影正常块、原局部取样及六种片段七处/重设尾原序精确差异静态，不重验完整生产/调度/alias/寿命/运行",
       "boundary": "原点投影保两F32→F64+0.5→S64→低W32/S32；旧X=-1不访两输出，只更新新X/Y并返回Y。其余X差/原位累计→Y差/原位累计→新X/Y发布恢复正常S32，潜在输出/快照alias不另加快照或保护。 原计时/低W16/返回/失败/数据和其它语义未跨改，六原体保存不代全部908条/完整父/投影环境/间接alias/全部owner借用失效、实际ABI/SDK/像素RNG运行；数学异常不保护或模拟/称安全或故障等价。"
+    },
+    {
+      "original_entry": "0x46f090",
+      "inventory_id": "F:0006F090",
+      "status": "MFP01效果生产取样/正常固定点实修及原身份纳管；完整调度寿命运行未验",
+      "original_end_exclusive": "0x46f151",
+      "instruction_count": 64,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F090",
+            "ReadMapEffectWord",
+            "WriteMapEffectWord",
+            "Sub_46E340"
+          ],
+          "relationship": "既有唯一池的载荷生产，仅MFP01镜像字段重读/固定点取样及正常S32缩放实修；原失败/写序/计数/指针保持"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "MapEffectRecord",
+            "Sub_46F090"
+          ],
+          "relationship": "既有前置声明/非拥有原生指针与定宽值参数，不公开或改载荷布局"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46f2e5",
+          "parent_entry": "0x46f1d0"
+        },
+        {
+          "address": "0x46f3f9",
+          "parent_entry": "0x46f1d0"
+        },
+        {
+          "address": "0x46f4aa",
+          "parent_entry": "0x46f1d0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-baseline",
+        "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-decision",
+        "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-acceptance",
+        "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
+        "doc/cg2d_map_effect_producer_evidence.json"
+      ],
+      "verification_level": "原64条193B/三call一父及三个复用caller窗；三模式三块/四补回读取点和两缩放写精确差异及生产合同静态，不重验完整父/全部池或运行",
+      "boundary": "先领取、失败不写不加计数；成功kind低W16/三个signed余数分支/两-400先写与条件坐标写保持；负水平重读X作240-X、负垂直重读Y作80-Y；无条件X→Y重读，两S32×65536后按X→Y写真实W32固定点，再speed/graphicIndex与W16计数、返回原生记录指针。已证数域推导不代运行或新限实参；三已查caller弃值不代所有alias/地址逃逸。完整父/其它生产绘制及池owner重进退出/借用失效、实际ABI/SDK/像素RNG运行未验，异常不保护/回绕/故障模拟或称安全等价。"
     }
   ]
 }

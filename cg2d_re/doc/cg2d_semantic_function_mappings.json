@@ -13518,7 +13518,7 @@
     {
       "original_entry": "0x44B2A0",
       "inventory_id": "F:0004B2A0",
-      "status": "已有测宽本体，额外返回分支已修正，运行未验",
+      "status": "FWA01正常S32测宽算术已修、两adapted处置/原完整基线纳管；全父/字体/ABI/运行未验",
       "sources": [
         {
           "path": "src/render/Font.cpp",
@@ -13530,14 +13530,31 @@
       "evidence_documents": [
         "doc/cg2d_font_measure.md",
         "doc/cg2d_input_render_alignment_spec.md",
-        "doc/cg2d_input_render_alignment_evidence.json"
+        "doc/cg2d_input_render_alignment_evidence.json",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-acceptance",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_font_width_arithmetic_evidence.json"
       ],
-      "boundary": "直接读首字节，NUL返回0；否则按高位逐次推进1/2字节并读取当前字体度量。推进后先读新首字节再累加，没有字节预算、空指针/字体范围固定0返回或尾字节校验。异常不专项模拟。；RIN01原459248/4594C2两父测宽点始终沿原采样调用，第二点使用strlen前缓存的同一文本；叶/其他caller源码不改，不提升全局处置或运行。"
+      "boundary": "直接读首字节，NUL返回0；否则按高位逐次推进1/2字节并读取当前字体度量。推进后先读新首字节再累加，没有字节预算、空指针/字体范围固定0返回或尾字节校验。异常不专项模拟。；RIN01原459248/4594C2两父测宽点始终沿原采样调用，第二点使用strlen前缓存的同一文本；叶/其他caller源码不改，不提升全局处置或运行。；FWA01当前两叶已修正常S32 totalWidth，三参数consumed为S32，高位先计一次/加宽度后共尾再计一次，直接预算比较/返回，撤专项U32回绕。原字节/字段/早退/取样序及所有父不改；异常不专项处理或称等价。旧RIN01/ICA01不改叶为当时范围，本次叶实际增量另记。",
+      "original_end_exclusive": "0x44B2DC",
+      "instruction_count": 24,
+      "original_code_bytes": 60,
+      "original_direct_reference_count": 147,
+      "original_direct_call_reference_count": 147,
+      "function_chunks": [
+        {
+          "start": "0x44B2A0",
+          "end_exclusive": "0x44B2DC"
+        }
+      ],
+      "verification_level": "FWA01两完整原体57条/134B/147与6直接call及本组正常算术源补丁/当前说明限定静态，未核完整父/ABI/字体画面/运行或异常等价"
     },
     {
       "original_entry": "0x44B2E0",
       "inventory_id": "F:0004B2E0",
-      "status": "已有测宽本体，额外返回分支已修正，运行未验",
+      "status": "FWA01正常S32测宽算术已修、两adapted处置/原完整基线纳管；全父/字体/ABI/运行未验",
       "sources": [
         {
           "path": "src/render/Font.cpp",
@@ -13550,9 +13567,26 @@
         "doc/cg2d_font_measure.md",
         "doc/cg2d_input_caret.md",
         "doc/cg2d_input_caret_alignment_spec.md",
-        "doc/cg2d_input_caret_alignment_evidence.json"
+        "doc/cg2d_input_caret_alignment_evidence.json",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-acceptance",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_font_width_arithmetic_evidence.json"
       ],
-      "boundary": "有符号maxBytes<=0先返回0，不读文本或字体表；正预算按首字节高位推进1/2，剩余预算1也计入完整双字节宽度，尾部按有符号已耗字节比较。不合并为无预算入口，不附加空指针/字体索引拒绝。；ICA01补原44A4E1父点恒调用与前后当前对象取样证据，父额外字体/正游标门禁与组合预扫描已撤销；本叶/其他caller源码保持，未提升全功能或运行验收。"
+      "boundary": "有符号maxBytes<=0先返回0，不读文本或字体表；正预算按首字节高位推进1/2，剩余预算1也计入完整双字节宽度，尾部按有符号已耗字节比较。不合并为无预算入口，不附加空指针/字体索引拒绝。；ICA01补原44A4E1父点恒调用与前后当前对象取样证据，父额外字体/正游标门禁与组合预扫描已撤销；本叶/其他caller源码保持，未提升全功能或运行验收。；FWA01当前两叶已修正常S32 totalWidth，三参数consumed为S32，高位先计一次/加宽度后共尾再计一次，直接预算比较/返回，撤专项U32回绕。原字节/字段/早退/取样序及所有父不改；异常不专项处理或称等价。旧RIN01/ICA01不改叶为当时范围，本次叶实际增量另记。",
+      "original_end_exclusive": "0x44B32A",
+      "instruction_count": 33,
+      "original_code_bytes": 74,
+      "original_direct_reference_count": 6,
+      "original_direct_call_reference_count": 6,
+      "function_chunks": [
+        {
+          "start": "0x44B2E0",
+          "end_exclusive": "0x44B32A"
+        }
+      ],
+      "verification_level": "FWA01两完整原体57条/134B/147与6直接call及本组正常算术源补丁/当前说明限定静态，未核完整父/ABI/字体画面/运行或异常等价"
     },
     {
       "original_entry": "0x45D990",

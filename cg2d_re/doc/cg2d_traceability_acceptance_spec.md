@@ -202,3 +202,9 @@ API本机声明/源调用及导入关系不代加载、链接、SDK实际成功�
 [四字段解析基线](cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state)补四adapted处置与既有技能生产三解析边，网络已知成员40→44仍未全闭；只是原新关联/处置，不计四项新增实现、软件证据或已验收功能。
 原字节/容量/终止/正常返回、x64借地址及比较域取舍均有对应指令与当前源；原函数间隙、306/550完整业务父/字段布局/owner/alias、实际ABI/链接/互通与运行继续保留。
 六任务保持open，软件E179和完整门禁/范围及所有原分母保持，明文原格式、音频暂停与执行限制不变。
+
+
+## FWA01 测宽正常算术与处置（2026-10-05）
+
+[两原入口合同](cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state)补两adapted及限定I/S各一：实际源工作为撤专项U32回绕、保原正常S32字段/计数/读序。
+文本成员20→22仍未全闭，T03补具名open依据，其余五任务/完整门禁及所有原分母/范围保持。数学溢出不专项保护/模拟、不称异常等价/安全；全部父/owner/alias、ABI/字体字形与运行继续未验。

@@ -230,8 +230,8 @@ std::int32_t Font::measure(
     }
 
     const auto* cursor = reinterpret_cast<const std::uint8_t*>(text);
-    std::uint32_t totalWidth = 0;
-    std::uint32_t consumed = 0;
+    std::int32_t totalWidth = 0;
+    std::int32_t consumed = 0;
     const auto index = static_cast<std::size_t>(fontType);
 
     for (;;) {
@@ -243,21 +243,22 @@ std::int32_t Font::measure(
         std::int32_t width;
         if ((firstByte & 0x80U) == 0) {
             ++cursor;
-            consumed += 1U;
             width = gFontMetrics[index].sWidth;
         } else {
             cursor += 2;
-            consumed += 2U;
+            ++consumed;
             width = gFontMetrics[index].doubleWidth;
         }
-        totalWidth += static_cast<std::uint32_t>(width);
+        totalWidth += width;
+        // 原44B320为两支路共用的最后一次消费计数；高位分支此前另计一次。
+        ++consumed;
 
-        if (std::bit_cast<std::int32_t>(consumed) >= maxBytes) {
+        if (consumed >= maxBytes) {
             break;
         }
     }
 
-    return std::bit_cast<std::int32_t>(totalWidth);
+    return totalWidth;
 }
 
 } // namespace cg::render
@@ -297,7 +298,7 @@ std::int32_t TextMeasure(const char* text, std::int32_t fontType)
     }
 
     const auto index = static_cast<std::size_t>(fontType);
-    std::uint32_t totalWidth = 0;
+    std::int32_t totalWidth = 0;
     for (;;) {
         std::int32_t width;
         if ((firstByte & 0x80U) == 0) {
@@ -309,13 +310,13 @@ std::int32_t TextMeasure(const char* text, std::int32_t fontType)
         }
 
         firstByte = *cursor;
-        totalWidth += static_cast<std::uint32_t>(width);
+        totalWidth += width;
         if (firstByte == 0) {
             break;
         }
     }
 
-    return std::bit_cast<std::int32_t>(totalWidth);
+    return totalWidth;
 }
 
 std::int32_t& gValue558F78 = cg::render::gFontMetrics[0].doubleHeight;

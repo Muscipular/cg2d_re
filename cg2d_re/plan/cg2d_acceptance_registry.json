@@ -890,7 +890,8 @@
         "doc/cg2d_input_text_alignment_spec.md",
         "doc/cg2d_text_queue_alignment_spec.md",
         "doc/cg2d_font_lifecycle_alignment_spec.md",
-        "doc/cg2d_multibyte_string_spec.md"
+        "doc/cg2d_multibyte_string_spec.md",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -912,7 +913,9 @@
         "F:00121A30",
         "F:00056190",
         "F:00056530",
-        "F:00056D70"
+        "F:00056D70",
+        "F:0004B2A0",
+        "F:0004B2E0"
       ],
       "closure_task_ids": [
         "T01",
@@ -933,7 +936,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-decision",
-        "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision"
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -944,7 +948,8 @@
         "IAP01两追加/末单元体203条仅局部静态；四追加父/其它分类消费者、文本绘制/焦点/间接alias与完整输入寿命、SDK/运行未验，RPLAN.24异常不计安全/故障等价",
         "ITD01绘制332/测宽支持33仅局部静态；完整父/DrawText2/QueueText与消费、间接alias/焦点/输入渲染寿命、SDK/库优化/画面运行未验，RPLAN.24异常不计安全/故障等价",
         "TQP01四生产根262条/854原引用只局部静态，真实core复用/复制阶段/层先读及原计数写序对齐；完整上游/原新参数/间接alias、排序/文本消费/输入渲染寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
-        "FLC01三字体/消费根558条只局部静态，本地三族/保存族号/width-face-height和unsigned派生钳制已修；完整初始化退出/队列父、间接alias、共享Back/DC/句柄寿命、COM/native适配与SDK/字形/画面运行未验，RPLAN.24异常不计安全/故障等价"
+        "FLC01三字体/消费根558条只局部静态，本地三族/保存族号/width-face-height和unsigned派生钳制已修；完整初始化退出/队列父、间接alias、共享Back/DC/句柄寿命、COM/native适配与SDK/字形/画面运行未验，RPLAN.24异常不计安全/故障等价",
+        "FWA01两测宽入口已撤专项U32回绕并恢复正常S32算术/原计数与读取顺序；完整147/6父、字体/字形/owner/间接alias、生成ABI/画面/运行及整体文本仍待，不据原代码或局部静态称异常等价"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -956,7 +961,8 @@
         "doc/cg2d_input_append_alignment_spec.md#input-append-baseline",
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-baseline",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
-        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-baseline"
+        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-baseline",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
       ]
     },
     {
@@ -12043,6 +12049,68 @@
       "observation": "两原根/选定边、共享数据及源精确补丁/登记限定静态",
       "expected": "原字节分行、容量/正常失败/取样序、同源五行与非拥有指针发布保持",
       "actual": "仅本组源码/静态证据，不推全部100父/owner/间接alias/旧外路由/生成ABI/画面/运行通过，完整门禁不升级"
+    },
+    {
+      "id": "E-FONT-WIDTH-ARITHMETIC-I-20261005",
+      "feature_id": "FUNC-TEXT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原两体57条/134B、147/6引用及signed预算/正常读序；doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-font-width-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-acceptance",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_font_width_arithmetic_evidence.json",
+        "src/render/Font.cpp#TextMeasure",
+        "src/render/Font.cpp#Font::measure",
+        "include/cg/render/Font.hpp",
+        "src/LoginStateDependencies.hpp#TextMeasure"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24正常S32算术承载，不保异常回绕/不加保护/不声明故障等价；非正常域不在本组已验结论内",
+          "decision_ref": "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两原入口宽度/预算改正常S32，三参数高位/共尾消费计数按原序，旧回绕当前说明更新",
+      "expected": "原正常字段宽度/字节推进/早退/NUL/读取与预算顺序保持，数学溢出不专项模拟",
+      "actual": "仅本组源码与限定静态，不验所有父/owner/间接alias、目标字体/字形/生成ABI/画面/运行或异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-FONT-WIDTH-ARITHMETIC-S-20261005",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原两体57条/134B、147/6引用及signed预算/正常读序；doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-font-width-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-acceptance",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_font_width_arithmetic_evidence.json",
+        "src/render/Font.cpp#TextMeasure",
+        "src/render/Font.cpp#Font::measure",
+        "include/cg/render/Font.hpp",
+        "src/LoginStateDependencies.hpp#TextMeasure"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24正常S32算术承载，不保异常回绕/不加保护/不声明故障等价；非正常域不在本组已验结论内",
+          "decision_ref": "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两原体/引用集合/正常字段与精确源增量、现有声明及台账限定静态",
+      "expected": "原正常字段宽度/字节推进/早退/NUL/读取与预算顺序保持，数学溢出不专项模拟",
+      "actual": "仅本组源码与限定静态，不验所有父/owner/间接alias、目标字体/字形/生成ABI/画面/运行或异常等价，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -12293,7 +12361,8 @@
         "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure",
         "doc/cg2d_character_select_scene.md#character-message-storage-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
-        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
       ]
     },
     {
@@ -12311,7 +12380,8 @@
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
       ]
     },
     {
@@ -12395,7 +12465,8 @@
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
-        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
       ]
     },
     {
@@ -12470,7 +12541,8 @@
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
-        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
       ]
     },
     {
@@ -12481,7 +12553,8 @@
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
       ]
     },
     {
@@ -12525,6 +12598,14 @@
       "evidence_refs": [
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "T03",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
       ]
     }
   ],
@@ -15827,6 +15908,32 @@
         "doc/cg2d_delimited_field_identity_evidence.json"
       ],
       "reason": "原字节定位/提取/复制/整数对应既有真实本体，x64仅承载已证字节地址；本步身份登记，不新造协议/实现/保护或关闭全父及运行"
+    },
+    {
+      "inventory_id": "F:0004B2A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-acceptance",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_font_width_arithmetic_evidence.json"
+      ],
+      "reason": "已有测宽本体按RPLAN.24恢复正常S32宽度/预算算术，撤U32回绕模拟；正常字段/字节推进/取样/原早退保持，不计异常等价或全字体验收"
+    },
+    {
+      "inventory_id": "F:0004B2E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-baseline",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-decision",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-acceptance",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_font_width_arithmetic_evidence.json"
+      ],
+      "reason": "已有测宽本体按RPLAN.24恢复正常S32宽度/预算算术，撤U32回绕模拟；正常字段/字节推进/取样/原早退保持，不计异常等价或全字体验收"
     }
   ],
   "auxiliary_dispositions": [

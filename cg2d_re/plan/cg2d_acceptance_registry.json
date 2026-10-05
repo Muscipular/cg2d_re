@@ -1683,7 +1683,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1769,7 +1770,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1791,7 +1793,8 @@
         "BME01冲突/调度与正确初始化三原完整302条966B纳管、两根十三片段修复；2普通call与1绑定3父/10出向/五页可追，完整所有M事件消费和owner/SDK/ABI/PC53/时钟RNG/画面仍待",
         "BMF01完成/退休和场景清理两根850条3188B纳管，18项22处修复；非拥有事件/角色表、MarkDeath延迟回收与状态7/9不同顺序保留，完整427470/五父/全owner与ABI/PC53/画面运行仍待",
         "BMG01入口失活耗尽/延迟与恢复回存有界312条1201B纳管，四源码片段恢复先条件再pub；原25case/固定payload及Finish返回保持，四inline计时真实共用；完整17298父/SEH/全部消息及资源owner/ABI/画面仍待",
-        "BMH01六数据消息/共用完成尾329条1314B纳管，五取样差异和字段借用读取落码；四载体/两gear轮/live角色及Finish→父回存保持，完整其余消息/资源owner/ABI/SEH/画面仍待"
+        "BMH01六数据消息/共用完成尾329条1314B纳管，五取样差异和字段借用读取落码；四载体/两gear轮/live角色及Finish→父回存保持，完整其余消息/资源owner/ABI/SEH/画面仍待",
+        "BMI01六转场/宠物目标及三共用尾448条1743B纳管，单根七逻辑八处修复；角色存在/哨兵/玩家门禁、FDC W8及两Rand后不同借用序恢复，完整其余消息/所有列表消费者与owner/ABI/画面仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1815,7 +1818,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state"
       ]
     },
     {
@@ -1847,7 +1851,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -1934,7 +1939,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -1956,7 +1962,8 @@
         "BME01实际43B360→43B290→439B30/工厂/等待和32/22非拥有表初始化合同纳管，保两merge取样/失败及cached/live分工，同三F双域不双计；全部3父/事件资源消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
         "BMF01消息完成→Init/活动mask注销和十状态C/M队列/绘制/退出明文真实消费纳管，95call5父139出向/三表可追；两根共用不重复计，完整事件分派/资源/owner/时钟RNG/画面仍待",
         "BMG01失活CHT/BST/负延迟执行入口和四内联计时正常条件恢复；仅旧812追加和双域四局部I/S，不新成员/分类/身份，全部消息目标、owner/时钟RNG/画面未闭",
-        "BMH01ACTION/FP/CHT/变身/追加技能/结束六真实消费及63call/既有CopyPayload合同纳管，正常条件先pub和加载后取样恢复；仅局部I/S/旧812追加，不新完整分类/成员，全部父/owner/时钟RNG/画面未闭"
+        "BMH01ACTION/FP/CHT/变身/追加技能/结束六真实消费及63call/既有CopyPayload合同纳管，正常条件先pub和加载后取样恢复；仅局部I/S/旧812追加，不新完整分类/成员，全部父/owner/时钟RNG/画面未闭",
+        "BMI01Escape/Clear/Support/三宠物的原列表/seed/两Rand/不同ready和Finish→58/父回存合同纳管，60call与原分支可追；局部I/S且旧812追加不新分类/成员，全部资源owner/时钟RNG/画面未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1978,7 +1985,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state"
       ]
     },
     {
@@ -18213,6 +18221,142 @@
       "observation": "七有界区间329条1314B九页/63call、五CopyPayload点和原9条27B正确合同、两CPP六片段/唯一头声明与实际S32字段绑定/旧接口消费者保持有限静态",
       "expected": "FP/变身同actor存在条件先caster pub；CHT加载后caster/lifetime/角色重取，DX表基址先graphic字段后S16；400门禁先technique pub、1000比较仍pub后；原A4两pub后live重读和所有六块Finish/父回存",
       "actual": "仅DX字段借用取样承载和实际CHT消费者局部I/S，旧读取消费者/缓存owner保持；完整DX/像素/资源/ABI/画面未验，新helper无原F/X，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-M-TRANSITION-SAMPLING-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMI01六转场/宠物目标/三共用尾九区间448条1743B十二页/60call；doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-transition-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-acceptance",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMTransitionHeader",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/YobiRuntime.cpp#AppendBattleCast_4392A0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "单根七逻辑八处恢复两actor条件先caster pub、Escape先caster读取再resultFlags pub/玩家比较先角色借用、两255条件先caster pub、Support FDC W8与PetLeave X角色→点→载荷/Y角色载荷→点；所有其它正文和声明保持",
+          "decision_ref": "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "七正常取样差异八处实际落码，六转场/宠物目标和三共用就绪/增量/完成尾接线纳管；原同解析position seed/两Rand/所有列表/live角色及不同ready、Finish和父回存保持",
+      "expected": "两actor门禁先caster pub；Escape取result→先caster取样→flags pub/第一68，末玩家比较先角色；Clear/Support255条件先caster pub；FDC原W8位2；PetLeave seed一次/两Rand，Xactor→点→payload、Yactor/payload→点，原列表/ready/58增量与父回存",
+      "actual": "仅六目标/三共用尾和七差异局部I/S，旧812追加不新F/X/adapted或完整成员；完整其余17298父/SEH/SDK/ABI/全部列表消费者和owner/PC53/时钟RNG/画面未验，不宣编译指令/异常等价，所有完整门禁保留"
+    },
+    {
+      "id": "E-BATTLE-M-TRANSITION-SAMPLING-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMI01六转场/宠物目标/三共用尾九区间448条1743B十二页/60call；doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-transition-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-acceptance",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMTransitionHeader",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/YobiRuntime.cpp#AppendBattleCast_4392A0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "单根七逻辑八处恢复两actor条件先caster pub、Escape先caster读取再resultFlags pub/玩家比较先角色借用、两255条件先caster pub、Support FDC W8与PetLeave X角色→点→载荷/Y角色载荷→点；所有其它正文和声明保持",
+          "decision_ref": "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "448条1743B九区间十二页/60call和原跳转范围闭合、单CPP七逻辑八处与原W8/S32/不同X-Y借用序、所有其它源/头/共享布局和正确依赖保持有限静态",
+      "expected": "两actor门禁先caster pub；Escape取result→先caster取样→flags pub/第一68，末玩家比较先角色；Clear/Support255条件先caster pub；FDC原W8位2；PetLeave seed一次/两Rand，Xactor→点→payload、Yactor/payload→点，原列表/ready/58增量与父回存",
+      "actual": "仅六目标/三共用尾和七差异局部I/S，旧812追加不新F/X/adapted或完整成员；完整其余17298父/SEH/SDK/ABI/全部列表消费者和owner/PC53/时钟RNG/画面未验，不宣编译指令/异常等价，所有完整门禁保留"
+    },
+    {
+      "id": "E-BATTLE-M-TRANSITION-SAMPLING-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMI01六转场/宠物目标/三共用尾九区间448条1743B十二页/60call；doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-transition-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-acceptance",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMTransitionHeader",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/YobiRuntime.cpp#AppendBattleCast_4392A0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "单根七逻辑八处恢复两actor条件先caster pub、Escape先caster读取再resultFlags pub/玩家比较先角色借用、两255条件先caster pub、Support FDC W8与PetLeave X角色→点→载荷/Y角色载荷→点；所有其它正文和声明保持",
+          "decision_ref": "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "七正常取样差异八处实际落码，六转场/宠物目标和三共用就绪/增量/完成尾接线纳管；原同解析position seed/两Rand/所有列表/live角色及不同ready、Finish和父回存保持",
+      "expected": "两actor门禁先caster pub；Escape取result→先caster取样→flags pub/第一68，末玩家比较先角色；Clear/Support255条件先caster pub；FDC原W8位2；PetLeave seed一次/两Rand，Xactor→点→payload、Yactor/payload→点，原列表/ready/58增量与父回存",
+      "actual": "仅六目标/三共用尾和七差异局部I/S，旧812追加不新F/X/adapted或完整成员；完整其余17298父/SEH/SDK/ABI/全部列表消费者和owner/PC53/时钟RNG/画面未验，不宣编译指令/异常等价，所有完整门禁保留"
+    },
+    {
+      "id": "E-BATTLE-M-TRANSITION-SAMPLING-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMI01六转场/宠物目标/三共用尾九区间448条1743B十二页/60call；doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-transition-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-acceptance",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMTransitionHeader",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/YobiRuntime.cpp#AppendBattleCast_4392A0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "单根七逻辑八处恢复两actor条件先caster pub、Escape先caster读取再resultFlags pub/玩家比较先角色借用、两255条件先caster pub、Support FDC W8与PetLeave X角色→点→载荷/Y角色载荷→点；所有其它正文和声明保持",
+          "decision_ref": "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "448条1743B九区间十二页/60call和原跳转范围闭合、单CPP七逻辑八处与原W8/S32/不同X-Y借用序、所有其它源/头/共享布局和正确依赖保持有限静态",
+      "expected": "两actor门禁先caster pub；Escape取result→先caster取样→flags pub/第一68，末玩家比较先角色；Clear/Support255条件先caster pub；FDC原W8位2；PetLeave seed一次/两Rand，Xactor→点→payload、Yactor/payload→点，原列表/ready/58增量与父回存",
+      "actual": "仅六目标/三共用尾和七差异局部I/S，旧812追加不新F/X/adapted或完整成员；完整其余17298父/SEH/SDK/ABI/全部列表消费者和owner/PC53/时钟RNG/画面未验，不宣编译指令/异常等价，所有完整门禁保留"
     }
   ],
   "task_acceptance": [
@@ -18401,7 +18545,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state"
       ]
     },
     {
@@ -18666,7 +18811,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state"
       ]
     },
     {
@@ -18818,7 +18964,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state"
       ]
     },
     {
@@ -18876,7 +19023,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state"
       ]
     },
     {
@@ -18905,7 +19053,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state"
       ]
     },
     {
@@ -19089,7 +19238,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state"
       ]
     },
     {
@@ -19114,7 +19264,8 @@
         "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
         "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
-        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state"
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state"
       ]
     }
   ],

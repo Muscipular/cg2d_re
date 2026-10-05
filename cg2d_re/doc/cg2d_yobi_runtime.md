@@ -4075,3 +4075,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [五项实修](cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision)恢复FP/变身actor存在条件先caster pub、Chat加载后caster→lifetime→当前角色、DX缓存base→图号字段W32→高度低S16、400首门禁先technique pub而1000比较仍pub后。现代const S32&字段读取在render内承载，不暴露DX/SDL对象或新增原身份；旧接口和其它消费者保持。
 
 [六数据块及共用完成尾329条1314B](cg2d_battle_m_data_sampling_evidence.json)九页/63call与原CopyPayload9条27B/五弃返回点可追。正确encoded→mask→readCount逐读逐写、四构造析构/随机、Chat A4两pub后live复读和两gear轮/骑乘/Finish→父回存保持；旧812追加、不新完整分类/成员，全部其它消息/owner/ABI/SEH/画面仍待。
+
+## BMI01 转场与宠物消息七项取样（2026-10-06）
+
+[七差异八处实修](cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision)恢复Escape/PetLeave两actor条件先caster pub、Escape先caster读再resultFlags pub/末玩家比较先角色借用、Clear/Support255条件先caster pub、Support FDC W8位门禁，以及PetLeave X角色→点→载荷、Y角色/载荷→点的不同借用序。仅本根改变，seed同解析position/两Rand、原所有列表/字段和live角色复读、就绪/58增量及父回存保持。
+
+[六目标/三共用尾448条1743B](cg2d_battle_m_transition_sampling_evidence.json)十二页/60call和原分支闭合可追；两个共用尾沿BMH实际字节复用，旧812仅追加、不新F/X/adapted或完整成员。完整其它消息/所有列表消费者与资源owner/SDK/ABI/画面仍待，网络原格式明文/音频暂停保持。

@@ -2393,3 +2393,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [具名范围](cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state)补六数据块和共用完成尾329条1314B九页/63call的当前五取样修复，仅旧812追加。五点438270复制沿旧221/9条27B合同，原目标引用弃返回，正确核心保持；新ReadGraphicDxHeightFromField只承载base先字段读取，无独立F/X、新分类或完整成员。
 
 两CPP六片段/头一声明可追；语义1350/有效ID1345、片段5/分类456和关联1463保持。其余消息目标/完整17298父与所有资源/owner/运行继续，不把源码helper数量或63call当原函数数量。
+
+## BMI01 旧812的转场/宠物有界追加（2026-10-06）
+
+[九具名范围](cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state)六目标及三共用尾448条1743B十二页/60call，原ready/空/哨兵路由完整分列；一个源根七逻辑八处恢复正常取样/W8和不同X/Y借用。旧812追加ProcessBattleMTransitionHeader真实源码关系，不新原F/X、adapted或完整成员，helper数和区间不当原函数数。
+
+语义1350/有效ID1345、片段5/分类456与关联1463保持；其余消息目标/完整17298父及资源owner/运行继续。

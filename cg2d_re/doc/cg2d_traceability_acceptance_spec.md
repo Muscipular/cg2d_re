@@ -530,3 +530,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收边界](cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-acceptance)：六数据块及共用Finish尾329条1314B九页/63call、五CopyPayload点与正确9条27B核心；五取样差异、两CPP六片段/唯一头声明、实际S32字段const引用绑定及原DX读取接口/其它消费者保持有限静态。E347→353只YOBI/BATTLE/RENDER六局部I/S，Render仅新字段读取与Chat消费者。
 
 旧812追加无新F/X/adapted/完整成员；七任务open、60项已闭10/R7区间67/3061/队列175、全部计数和完整门禁保持。全部消息目标/SDK/SEH/ABI/资源owner/PC53/时钟RNG/像素/画面仍待，获准汇总不代运行或降低整体验收。
+
+## BMI01 转场/宠物有界实现与静态证据（2026-10-06）
+
+[验收标准](cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-acceptance)：九区间448条1743B十二页/60call与六目标原跳转范围闭合，单根七逻辑八处取样/byte门禁和两Rand后不同借用序；其它所有CPP/头、布局/正确依赖及列表/随机消费保持。E353→357仅YOBI/BATTLE四局部I/S，旧812追加无新原身份/分类/完整成员。
+
+七任务open及60已闭10、所有计数/R7和完整门禁保持；完整其余消息目标/列表消费/资源owner与SDK/SEH/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续。获准文本汇总不代运行或降低标准。

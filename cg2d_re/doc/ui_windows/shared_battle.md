@@ -8237,3 +8237,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前有界合同](../cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state)纳管Action12、FP13、Chat14、变身17、追加23、End24及空/失败共用Finish尾；六块helper返回后总入口仍13项回存，End ready成功才Finish后scene7。两角色存在条件先caster发布、LoadGraphic后重取caster/lifetime/角色和DX base先W32图号字段、400先technique发布恢复；其它正常/失败/返回保持。
 
 [329条1314B九页/63call](../cg2d_battle_m_data_sampling_evidence.json)不是全部17298父。FP原负值构造0、变身四载体/两附件轮和骑乘、Chat未清256B消息/A4两pub后复读保持；CopyPayload原9条正确，16B内存载体非网络cipher，音频暂停/原格式明文及完整运行门禁保留。
+
+## BMI01 六转场/宠物目标与共用尾（2026-10-06）
+
+[当前合同](../cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state)纳管Escape1/Clear2/Support3/PetNotice15/PetLeave16/PetDown18，区分Clear ready1与其余ready0、PetNotice/Leave就绪后406260再Finish，以及三共用就绪/增量/完成尾。Helper return仍由父13项回存；Clear/Support空槽continue、不增58，255仍pubcaster/共用增量，Escape/PetLeave先存在门禁而Notice/Down先pub再借角色。
+
+[448条1743B/60call](../cg2d_battle_m_transition_sampling_evidence.json)及单根七逻辑八处有限静态；Support FDC真实byte test、两Rand后的不同X/Y借用序与原动作/seed保持，不统一成缓存旧角色或新RNG流程，不据六块验全17298父/owner/运行。

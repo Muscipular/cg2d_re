@@ -121,3 +121,9 @@
 [角色消费取样](../cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision)修复FP/变身借actor门禁在caster pub前保存；取包/Construct/Subtract/Less/SetGear/SetAuxGear后live角色读取不提前缓存。Chat图形加载后先caster再lifetime/角色，render新字段引用读取先native DX表后同角色graphicIndex S32再S16高度；借用仅调用期，不新增资源owner、底层对象暴露或原F/X。
 
 [六块/共用尾原证据](../cg2d_battle_m_data_sampling_evidence.json)同时保四载体Construct/Copy/Destroy、两gear轮/骑乘与End Finish后scene7、A4真正复读。所有其它角色资源/完整分派/owner重进退出及SDK/ABI/画面未闭，现代helper不代整体寿命验收。
+
+## BMI01 转场列表与宠物位置借用（2026-10-06）
+
+[角色/载荷取样](../cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision)恢复Escape/PetLeave存在条件先caster pub、Escape结果第一68和末玩家分支取样、Support FDC W8及PetLeave不同X/Y顺序；X借角色后读点再取payload，Y先借角色/payload再读点，不跨第二Rand缓存。原所有Append/Move、Reaction/1018字段、原解析position一次seed/两Rand(0,19)及空返/58增量保持。
+
+[六目标及三共用尾](../cg2d_battle_m_transition_sampling_evidence.json)当前有界448条1743B十二页/60call不代所有列表消费者或全部资源owner重进退出/借用失效/SDK/ABI/画面。其它源/头/布局和正确附件/角色/RNG核心保持，完整范围继续。

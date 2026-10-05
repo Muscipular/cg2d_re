@@ -1323,10 +1323,7 @@ void CopyProtocolBytes_517080(
     const std::uint8_t* const source,
     const std::int32_t capacity)
 {
-    const std::uint32_t capacityBits =
-        std::bit_cast<std::uint32_t>(capacity);
-    const std::int32_t limit = std::bit_cast<std::int32_t>(
-        capacityBits - 1U);
+    const std::int32_t limit = capacity - 1;
 
     std::int32_t index = 0;
     while (index < limit) {

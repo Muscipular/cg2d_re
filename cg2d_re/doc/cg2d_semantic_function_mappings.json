@@ -141031,6 +141031,98 @@
         "parameter_transmission_order_verified": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x00517080",
+      "inventory_id": "F:00117080",
+      "status": "NCP01两既有复制入口具名纳管；仅复制容量表达式实修，整父/owner/实际ABI/运行未闭",
+      "original_chunks": [
+        [
+          "0x00517080",
+          "0x005170C1"
+        ]
+      ],
+      "instruction_count": 32,
+      "original_byte_count": 65,
+      "original_direct_reference_count": 6,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "CopyProtocolBytes_517080"
+          ],
+          "relationship": "已有完整本体；517080仅容量表达式按RPLAN.24更新，517690本体保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_protocol_copy_capacity_spec.md",
+        "doc/cg2d_protocol_copy_capacity_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "517087原W32容量减一，按S32 limit门禁；非正limit不读源仍写目标首NUL。正limit读源→写目标→重读源判NUL，非NUL递增S32下标，末写NUL，前向重叠读写不换批量复制。517690先517080再返回入口目的指针。源码仅撤旧无符号减一回绕片段，容量/接口/循环及包装保持；RPLAN.24不专项模拟/保护或记数学溢出等异常确定结果/故障等价。未知完整owner/alias、整分派/参数传递/全部回复、实际ABI/明文互通与运行未验。",
+      "verification_level": "两完整原根44条/93B、91直接call；一CPP一个容量片段、台账限定差异与新增引用静态检查；不全面核对，不构建/测试/运行/摘要",
+      "protocol_copy_contract": {
+        "group": "NCP01",
+        "spec": "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "CopyProtocolBytes_517080",
+        "existing_body_before_this_step": true,
+        "body_changed": true,
+        "capacity_type": "std::int32_t",
+        "index_type": "std::int32_t",
+        "capacity_expression": "capacity - 1",
+        "dedicated_wrap_simulation": false,
+        "new_owner": false,
+        "abnormal_equivalence_claimed": false,
+        "whole_dispatch_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x00517690",
+      "inventory_id": "F:00117690",
+      "status": "NCP01两既有复制入口具名纳管；仅复制容量表达式实修，整父/owner/实际ABI/运行未闭",
+      "original_chunks": [
+        [
+          "0x00517690",
+          "0x005176AC"
+        ]
+      ],
+      "instruction_count": 12,
+      "original_byte_count": 28,
+      "original_direct_reference_count": 85,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "CopyProtocolBytesAndReturn_517690"
+          ],
+          "relationship": "已有完整本体；517080仅容量表达式按RPLAN.24更新，517690本体保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_protocol_copy_capacity_spec.md",
+        "doc/cg2d_protocol_copy_capacity_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "517087原W32容量减一，按S32 limit门禁；非正limit不读源仍写目标首NUL。正limit读源→写目标→重读源判NUL，非NUL递增S32下标，末写NUL，前向重叠读写不换批量复制。517690先517080再返回入口目的指针。源码仅撤旧无符号减一回绕片段，容量/接口/循环及包装保持；RPLAN.24不专项模拟/保护或记数学溢出等异常确定结果/故障等价。未知完整owner/alias、整分派/参数传递/全部回复、实际ABI/明文互通与运行未验。",
+      "verification_level": "两完整原根44条/93B、91直接call；一CPP一个容量片段、台账限定差异与新增引用静态检查；不全面核对，不构建/测试/运行/摘要",
+      "protocol_copy_contract": {
+        "group": "NCP01",
+        "spec": "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "CopyProtocolBytesAndReturn_517690",
+        "existing_body_before_this_step": true,
+        "body_changed": false,
+        "capacity_type": "std::int32_t",
+        "index_type": "std::int32_t",
+        "capacity_expression": "capacity - 1",
+        "dedicated_wrap_simulation": false,
+        "new_owner": false,
+        "abnormal_equivalence_claimed": false,
+        "whole_dispatch_verified": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

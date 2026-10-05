@@ -1,0 +1,888 @@
+{
+  "schema_version": 1,
+  "group": "NCP01",
+  "recorded_on": "2026-10-05",
+  "spec": "doc/cg2d_protocol_copy_capacity_spec.md",
+  "implementation_reference": "Git固定命名快照 cg2d-re-protocol-copy-capacity-source-20261005",
+  "authority": {
+    "instance": "ida-17524",
+    "binary": "cg2d.exe",
+    "imagebase": "0x400000",
+    "method": "当前已打开原会话MCP只读Python；未改动/重载/导出数据库"
+  },
+  "original_roots": [
+    {
+      "entry": "0x00517080",
+      "chunks": [
+        [
+          "0x00517080",
+          "0x005170C1"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x00517080",
+          "size": 4,
+          "line": "mov     eax, [esp+a3]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x00517084",
+          "size": 1,
+          "line": "push    ebp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x00517085",
+          "size": 1,
+          "line": "push    esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x00517086",
+          "size": 1,
+          "line": "push    edi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x00517087",
+          "size": 3,
+          "line": "lea     edi, [eax-1]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0051708A",
+          "size": 2,
+          "line": "xor     ecx, ecx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0051708C",
+          "size": 2,
+          "line": "test    edi, edi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0051708E",
+          "size": 2,
+          "line": "jle     short loc_5170B5",
+          "code_refs": [
+            "0x005170B5"
+          ]
+        },
+        {
+          "ea": "0x00517090",
+          "size": 4,
+          "line": "mov     ebp, [esp+0Ch+a1]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x00517094",
+          "size": 4,
+          "line": "mov     eax, [esp+0Ch+a2]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x00517098",
+          "size": 2,
+          "line": "mov     esi, ebp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0051709A",
+          "size": 2,
+          "line": "sub     esi, eax",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0051709C",
+          "size": 2,
+          "line": "mov     dl, [eax]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0051709E",
+          "size": 3,
+          "line": "mov     [esi+eax], dl",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170A1",
+          "size": 2,
+          "line": "mov     dl, [eax]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170A3",
+          "size": 2,
+          "line": "test    dl, dl",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170A5",
+          "size": 2,
+          "line": "jz      short loc_5170AD",
+          "code_refs": [
+            "0x005170AD"
+          ]
+        },
+        {
+          "ea": "0x005170A7",
+          "size": 1,
+          "line": "inc     ecx",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170A8",
+          "size": 1,
+          "line": "inc     eax",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170A9",
+          "size": 2,
+          "line": "cmp     ecx, edi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170AB",
+          "size": 2,
+          "line": "jl      short loc_51709C",
+          "code_refs": [
+            "0x0051709C"
+          ]
+        },
+        {
+          "ea": "0x005170AD",
+          "size": 1,
+          "line": "pop     edi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170AE",
+          "size": 4,
+          "line": "mov     byte ptr [ecx+ebp], 0",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170B2",
+          "size": 1,
+          "line": "pop     esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170B3",
+          "size": 1,
+          "line": "pop     ebp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170B4",
+          "size": 1,
+          "line": "retn",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170B5",
+          "size": 4,
+          "line": "mov     eax, [esp+0Ch+a1]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170B9",
+          "size": 1,
+          "line": "pop     edi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170BA",
+          "size": 1,
+          "line": "pop     esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170BB",
+          "size": 1,
+          "line": "pop     ebp",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170BC",
+          "size": 4,
+          "line": "mov     byte ptr [ecx+eax], 0",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005170C0",
+          "size": 1,
+          "line": "retn",
+          "code_refs": []
+        }
+      ],
+      "instruction_count": 32,
+      "byte_count": 65,
+      "inbound": [
+        {
+          "from": "0x00512E5C",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517080"
+        },
+        {
+          "from": "0x00517063",
+          "type": 17,
+          "parent": "0x00517040",
+          "line": "call    sub_517080"
+        },
+        {
+          "from": "0x00517077",
+          "type": 17,
+          "parent": "0x00517040",
+          "line": "call    sub_517080"
+        },
+        {
+          "from": "0x0051713B",
+          "type": 17,
+          "parent": "0x00517120",
+          "line": "call    sub_517080"
+        },
+        {
+          "from": "0x005171CA",
+          "type": 17,
+          "parent": "0x005171B0",
+          "line": "call    sub_517080"
+        },
+        {
+          "from": "0x005176A0",
+          "type": 17,
+          "parent": "0x00517690",
+          "line": "call    sub_517080"
+        }
+      ]
+    },
+    {
+      "entry": "0x00517690",
+      "chunks": [
+        [
+          "0x00517690",
+          "0x005176AC"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x00517690",
+          "size": 4,
+          "line": "mov     eax, [esp+a3]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x00517694",
+          "size": 4,
+          "line": "mov     ecx, [esp+a2]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x00517698",
+          "size": 1,
+          "line": "push    esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x00517699",
+          "size": 4,
+          "line": "mov     esi, [esp+4+a1]",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0051769D",
+          "size": 1,
+          "line": "push    eax; a3",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0051769E",
+          "size": 1,
+          "line": "push    ecx; a2",
+          "code_refs": []
+        },
+        {
+          "ea": "0x0051769F",
+          "size": 1,
+          "line": "push    esi; a1",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005176A0",
+          "size": 5,
+          "line": "call    sub_517080",
+          "code_refs": [
+            "0x00517080"
+          ]
+        },
+        {
+          "ea": "0x005176A5",
+          "size": 3,
+          "line": "add     esp, 0Ch",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005176A8",
+          "size": 2,
+          "line": "mov     eax, esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005176AA",
+          "size": 1,
+          "line": "pop     esi",
+          "code_refs": []
+        },
+        {
+          "ea": "0x005176AB",
+          "size": 1,
+          "line": "retn",
+          "code_refs": []
+        }
+      ],
+      "instruction_count": 12,
+      "byte_count": 28,
+      "inbound": [
+        {
+          "from": "0x00513106",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005132F8",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513374",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005133F0",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051346C",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005134E8",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513689",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513790",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513831",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005139C5",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005139EF",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513ABD",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513C20",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513CAF",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513D2B",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513DB9",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513E8D",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513F09",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00513F85",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514013",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514108",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005141FD",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514279",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005142F5",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514375",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005143AD",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005143D3",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005143FB",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051444D",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514488",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005144C4",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005144EF",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514597",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514625",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005146FC",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051477C",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051480A",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005148AA",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514926",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005149A2",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514A30",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514ABF",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514B3C",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514BB8",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514C46",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514CC3",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514D3F",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514DBB",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514E49",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514EC6",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514F54",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00514FE3",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515060",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515220",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051529C",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515318",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515394",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515432",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005154B0",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051552C",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515611",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515705",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515794",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515AF5",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515B97",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00515F1A",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005160FF",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051617C",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005161B4",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00516232",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051625A",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005162D7",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005162FF",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051638E",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x0051640B",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00516433",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005164B0",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005165A4",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00516620",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005168D2",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x005168F8",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00516920",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00516949",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00516A50",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        },
+        {
+          "from": "0x00516B40",
+          "type": 17,
+          "parent": "0x00512E40",
+          "line": "call    sub_517690"
+        }
+      ]
+    }
+  ],
+  "capacity_contract": {
+    "original_limit": "0x00517087",
+    "nonpositive_branch": "0x0051708E",
+    "source_read": "0x0051709C",
+    "destination_write": "0x0051709E",
+    "source_reread": "0x005170A1",
+    "positive_final_nul": "0x005170AE",
+    "nonpositive_final_nul": "0x005170BC",
+    "wrapper_copy": "0x005176A0",
+    "wrapper_return_initial_destination": "0x005176A8",
+    "previous_expression": "bit_cast<S32>(bit_cast<U32>(capacity)-1U)",
+    "current_expression": "S32 limit = capacity - 1",
+    "abnormal_arithmetic": "原W32位型事实保留；RPLAN.24不专项模拟或给异常确定结果/故障等价PASS"
+  },
+  "scope": {
+    "changed_body": "CopyProtocolBytes_517080",
+    "changed_fragment": "容量减一表达式",
+    "unchanged_wrapper": "CopyProtocolBytesAndReturn_517690",
+    "existing_bodies": true,
+    "new_owner": false,
+    "whole_dispatch_verified": false,
+    "all_parameters_or_replies_verified": false,
+    "runtime_verified": false,
+    "focus": "只核已发现回绕模拟残留及直接返回依赖"
+  }
+}

@@ -85,13 +85,12 @@ callee，不访问全局或字符串。IDA 识别出 5 个 caller、6 个直接 
 `void CopyProtocolBytes_517080(std::uint8_t*, const std::uint8_t*, std::int32_t)`，只把两项
 指针适配为本机宽度，容量和下标仍保持有符号 W32，返回类型保持 `void`。
 
-入口先按位模式计算
-`limit = signed32(W32(capacity_bits - 1))`。实现使用 C++20 `std::bit_cast` 在
-`std::uint32_t` 中完成减一后再解释为 `std::int32_t`，因此不以可能溢出的有符号
-`capacity - 1` 代替。通常 `capacity >= 2` 时 `limit == capacity - 1`；
-`capacity == INT32_MIN` 时 W32 回绕得到 `INT32_MAX`，而
-`capacity` 位于 `[INT32_MIN + 1, 1]` 时 `limit <= 0`。复制下标从有符号 W32 的 0
-开始；正 `limit` 路径最多递增到 `limit`，不转换为 `size_t` 或无符号容量合同。
+原端517087按W32容量减一，51708E按有符号limit<=0分支；
+原INT32_MIN减一回绕事实仍保留在原证据，不能当新端异常确定结果。
+2026-10-05按现行RPLAN.24及[NCP01](cg2d_protocol_copy_capacity_spec.md#protocol-copy-decision)，
+源码撤去早期capacityBits/U32减一回绕模拟，使用S32 `limit = capacity - 1`。
+数学溢出等异常不专项模拟/保护或宣称故障等价；正常容量的门禁、S32下标与复制顺序保持，
+不改为size_t或无符号容量合同。下列控制流描述按现行适用范围读取，旧调用数量为当时阶段记录。
 
 控制流严格分为四类：
 
@@ -3742,3 +3741,12 @@ R1处置186/3680不增，完整业务/ABI/链接/失败及原格式明文互通/
 只修来源选择：输出W32先清零，随后一次读参数表首指针，非空复用快照、空用593850。
 目的指针/S32容量、517080复制/void接口及父调用保持；一个CPP一个片段外不改。
 按用户要求聚焦此缺口，不全面核对；整分派/参数传递/全部回复和实际ABI/运行仍待。
+
+## NCP01 协议复制容量与返回合同（2026-10-05）
+
+[局部合同](cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure)及
+[原证据](cg2d_protocol_copy_capacity_evidence.json)保517080/517690两完整根44条/93B、91直接call。
+一个CPP仅容量表达式由旧U32回绕片段改S32 capacity-1；循环/最终NUL与两个接口不改。
+非正limit不读源仍写首NUL，正limit写目标后重读源判零；包装先复制再返回入口目的指针。
+本页旧回绕实施段已按RPLAN.24定点更新，异常不专项模拟或宣称等价。
+两本体已存在，只补语义/adapted；整分派/所有参数传递/回复、owner/实际ABI及运行仍待。

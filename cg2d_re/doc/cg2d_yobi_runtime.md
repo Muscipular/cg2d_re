@@ -4087,3 +4087,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [四差异七处实修](cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision)恢复Equipment/StatusValue/QueuedValue三actor条件先caster pub、castSkillLevel的caster→actor→technique→payload/pub、两resultFlags W8位20和Rebirth flags先target。另将本根“仍待完整427470接入”具名注释纠正为已有调用/回存但完整战斗另验；其余所有源码/头/布局保持。
 
 [六目标/三共用尾643条2575B](cg2d_battle_m_status_sampling_evidence.json)十四页/89call纳管，原模式3/4 Append80后live mode、Debuff旧payload/当前槽区别、Power正常1/3、Queued任意非零substate与peek busy-phase/不耗包、所有列表/RID/58和父回存保持。旧812仅追加，不新身份/分类/成员，完整其余目标/owner/SDK/ABI/画面仍待。
+
+## BMK01 位置交换与怪物消息九项取样（2026-10-06）
+
+[九项实修](cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision)恢复POS位置/玩家条件与两方坐标各次点索引/角色/payload读取，MON存在条件、target100C、效果两路的caster位置寿命与defender先actor、失败W8/Reset后才位置重读、工厂同位置固定槽。单CPP两根九处，其它源/头/核心保持。
+
+[五区间647条2787B](cg2d_battle_m_position_monster_sampling_evidence.json)十二页61call含两个主目标及三个实际共用尾。固定旧槽、原非对称重复附件、工厂返回先pub/固定对象与payload、四载体/正常零写/列表和58及父回存保持，旧812仅追加不新身份/分类/成员；完整其余目标和owner/SDK/ABI/画面仍待。

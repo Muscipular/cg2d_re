@@ -133,3 +133,9 @@
 [三存在条件/技能等级/两W8/复活参数裁决](../cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision)恢复caster发布之前保存actor存在条件、caster/actor之后technique再取payload写1044，flags byte门禁独立live取样，Rebirth flags→target保持原{position,flags,0,image}值语义。当前角色与原固定payload区别、取包/动作后重读、Debuff/Power字段及Queued preview busy/phase门禁保持。
 
 [六目标与三共用尾](../cg2d_battle_m_status_sampling_evidence.json)有界643条2575B不代全部角色/列表状态消费和资源owner重进退出/借用失效/SDK/ABI/画面。原模式3/4追加80后重读mode必须保留，正常Power仅1/3、原零mode标签记录不造新业务或排除，完整范围继续。
+
+## BMK01 位置交换与怪物目标的借用区别（2026-10-06）
+
+[九项裁决](../cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision)恢复POS四moving坐标与pet位置/四坐标各次取样，不提前缓存整组点值；保固定旧槽T**及旧位置，原两次新辅助附件重绑/旧主gear非对称合同不去重。MON效果缓存跨分支S32 caster位置而每次借actor，失败W8 bit2、Reset后才defender重读，成功工厂同位置/同槽先pub，再固定对象与payload解析。
+
+[两目标/三尾证据](../cg2d_battle_m_position_monster_sampling_evidence.json)647条2787B不代完整owner重进退出/借用失效、全部列表消费与SDK/ABI/画面。四载体逐字段CopyPayload/析构、W16 fields288原零序和live W32高位、各坐标/正常零写及调用消费序保持，不新增空保护、默认对象或异常模型。

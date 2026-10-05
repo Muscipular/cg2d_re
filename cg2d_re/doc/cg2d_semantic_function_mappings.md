@@ -2405,3 +2405,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [九具名范围](../doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state)六装备/状态目标及三共用尾643条2575B十四页/89call，追加ProcessBattleMStatusHeader当前四差异七处/一过期接线注释状态。其它消息目标/历史和所有字段保持，不新原F/X、adapted或完整成员，区分已源码调用与完整分派/运行未验。
 
 语义1350/有效ID1345、片段5/分类456和关联1463保持；其余技能/消息、全部列表资源和owner/运行继续。
+
+## BMK01 旧812的位置交换/怪物有界追加（2026-10-06）
+
+[五具名范围](cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state)647条2787B十二页61call，追加ProcessBattleMPositionHeader/ProcessBattleMMonsterHeader两根九处修复状态，两个主目标和三个实际共用尾分列；所有旧历史/其它字段保持，不新F/X、adapted或完整成员，不以局部647或含两chunk的17298统计验全父。
+
+语义1350/有效ID1345、片段5/分类456及关联1463保持；其余技能/消息、所有消费者与owner/运行继续。

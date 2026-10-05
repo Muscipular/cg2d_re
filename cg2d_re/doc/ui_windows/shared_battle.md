@@ -8249,3 +8249,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前有界合同](../cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state)纳管Equipment6/StatusValue9/Debuff10/Power11/Rebirth19/QueuedValue20及推进42998C、就绪437248、空角色42AAFE三个共用尾。除Queued外只substate1就绪，Queued任意非零均ready0；StatusValue有RID消费，未知mode也Move/RID/58，helper return后仍父回存。
 
 [643条2575B十四页89call](../cg2d_battle_m_status_sampling_evidence.json)与四逻辑七处取样实修保持模式后live读取、固定旧payload/当前角色、原1/3状态映射和16B效果参数布局。不提前加空保护、默认动作、计时扣减或新载体写入；正确列表/依赖、原格式明文/音频暂停及完整运行门禁保留。
+
+## BMK01 POS/MON与共用完成/增量尾（2026-10-06）
+
+[有界合同](../cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state)纳管case4/5及42AAF5就绪406260/Finish、43703E失败空目标Finish、436E0B旧槽空或phase34增量三个尾；未把436E17后下一目标算入。POS仅0解析/1就绪，255只回存、空角色Finish后增58；MON0/2解析重试、pending busy==1仅写2、空失败Finish不增58，末共同效果/Move/58=1。
+
+[647条2787B十二页61call](../cg2d_battle_m_position_monster_sampling_evidence.json)对应九处取样实修；保原重复附件/固定槽与固定载荷/工厂失败路径/四CryptInt、各列表与当前角色重借、父回存。原格式明文、音频暂停和完整运行门禁保持。

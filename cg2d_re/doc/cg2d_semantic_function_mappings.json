@@ -148777,6 +148777,173 @@
         "source_body_changed": true,
         "full_runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x421fb0",
+      "inventory_id": "F:00021FB0",
+      "status": "BAS01三根十三片段的本根字节门禁/消费取样已修、原身份纳管；完整附件/战斗和owner寿命运行未验",
+      "original_end_exclusive": "0x4221c0",
+      "instruction_count": 139,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SyncBattleRider_421FB0"
+          ],
+          "relationship": "BAS01位置/低W8门禁/方向与三阶段flags及帧缩放次序；原phase/动作/属性保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SyncBattleRider_421FB0"
+          ],
+          "relationship": "既有真实原生非拥有YobiAction*和辅助S32索引声明，不新增布局或接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_sampling_evidence.json"
+      ],
+      "verification_level": "BAS01三完整421条1507B/4普通call同一父、四表44槽176B和三根十三片段全文精确重放、五低W8门禁/位置方向/flags/投影及辅助取样有限静态；全部生产/父实参与动作、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "原先位置后parent/表/payload再身份比较；phase0原动作映射/播放与frame投影、phase非零原flags/属性/scales，五片段只读取/发布次序及三原W8门禁，不补空保护；仅本组局部静态，原非拥有T*、MarkDeath/播放顺序与所有其它字段/布局/头/父调用保持。不添加Read/Ctor/Destroy/RNG、owner/guard或异常保护/回绕故障模拟；完整数据资源/owner寿命及SDK/ABI/PC53/时钟RNG/画面运行未验。",
+      "battle_attachment_sampling": {
+        "spec_id": "BAS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance",
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+          "doc/cg2d_battle_attachment_sampling_evidence.json"
+        ],
+        "original_entry": "0x421fb0",
+        "instruction_count": 139,
+        "code_bytes": 528,
+        "inbound_references": [
+          {
+            "site": "0x4056b3",
+            "type": 17,
+            "parent_entry": "0x404db0"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4225d0",
+      "inventory_id": "F:000225D0",
+      "status": "BAS01三根十三片段的本根字节门禁/消费取样已修、原身份纳管；完整附件/战斗和owner寿命运行未验",
+      "original_end_exclusive": "0x42277a",
+      "instruction_count": 126,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SyncBattleGear_4225D0"
+          ],
+          "relationship": "BAS01位置/比较及载荷取样、低W8门禁/方向/flags和投影；原initial flags与rider两读/两轴scaleX保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SyncBattleGear_4225D0"
+          ],
+          "relationship": "既有真实原生非拥有YobiAction*和辅助S32索引声明，不新增布局或接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_sampling_evidence.json"
+      ],
+      "verification_level": "BAS01三完整421条1507B/4普通call同一父、四表44槽176B和三根十三片段全文精确重放、五低W8门禁/位置方向/flags/投影及辅助取样有限静态；全部生产/父实参与动作、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "原先位置/parent/表比较再固定payload，保最初flags快照与另低W8新取值；骑乘两轴parent.scaleX、Xpub后再取rider供Y，自己scale不改；五片段只原取样/两W8门禁；仅本组局部静态，原非拥有T*、MarkDeath/播放顺序与所有其它字段/布局/头/父调用保持。不添加Read/Ctor/Destroy/RNG、owner/guard或异常保护/回绕故障模拟；完整数据资源/owner寿命及SDK/ABI/PC53/时钟RNG/画面运行未验。",
+      "battle_attachment_sampling": {
+        "spec_id": "BAS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance",
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+          "doc/cg2d_battle_attachment_sampling_evidence.json"
+        ],
+        "original_entry": "0x4225d0",
+        "instruction_count": 126,
+        "code_bytes": 426,
+        "inbound_references": [
+          {
+            "site": "0x4056c6",
+            "type": 17,
+            "parent_entry": "0x404db0"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x422780",
+      "inventory_id": "F:00022780",
+      "status": "BAS01三根十三片段的本根字节门禁/消费取样已修、原身份纳管；完整附件/战斗和owner寿命运行未验",
+      "original_end_exclusive": "0x4229a9",
+      "instruction_count": 156,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SyncBattleAuxGear_422780"
+          ],
+          "relationship": "BAS01方向/位置取样、类型3/4/5单次动作和截断后delta复读；原三空返回/八方向与播放保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SyncBattleAuxGear_422780"
+          ],
+          "relationship": "既有真实原生非拥有YobiAction*和辅助S32索引声明，不新增布局或接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_sampling_evidence.json"
+      ],
+      "verification_level": "BAS01三完整421条1507B/4普通call同一父、四表44槽176B和三根十三片段全文精确重放、五低W8门禁/位置方向/flags/投影及辅助取样有限静态；全部生产/父实参与动作、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "原action/parent/payload三空门禁保持，方向/位置先取再directionpub/表检查；type3/4/5一次parentAction和独立方向读取，八偏移、type2/6/default与graphicIndex/stopAtEnd保持；两轴截断后当前delta复读；仅本组局部静态，原非拥有T*、MarkDeath/播放顺序与所有其它字段/布局/头/父调用保持。不添加Read/Ctor/Destroy/RNG、owner/guard或异常保护/回绕故障模拟；完整数据资源/owner寿命及SDK/ABI/PC53/时钟RNG/画面运行未验。",
+      "battle_attachment_sampling": {
+        "spec_id": "BAS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance",
+          "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+          "doc/cg2d_battle_attachment_sampling_evidence.json"
+        ],
+        "original_entry": "0x422780",
+        "instruction_count": 156,
+        "code_bytes": 553,
+        "inbound_references": [
+          {
+            "site": "0x4056e5",
+            "type": 17,
+            "parent_entry": "0x404db0"
+          },
+          {
+            "site": "0x4056fa",
+            "type": 17,
+            "parent_entry": "0x404db0"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
     }
   ]
 }

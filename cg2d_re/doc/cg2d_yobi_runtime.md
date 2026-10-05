@@ -3979,3 +3979,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [四实际差异与裁决](cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-decision)仅404DB0：scene先判再固定入口payload；递增count先保存/pub后按快照判>=2，后续==1仍重读；Xpub后Y截断再屏幕Y；rider/gear与各aux保存原调用前非拥有指针，第三阶段重新判骑乘、先取firstAux再分流，secondAux在first消费及可能清槽后读取。
 
 [原完整684条2444B/13地址绑定10父](cg2d_battle_tail_sampling_evidence.json)和独立257槽1028B可追，现257case/200目标逐槽对应无缺口。入口载荷/全部原分发与MarkDeath后清槽、其它字段和头文件保持；不修改owner/立即free或新guard。仅本组局部静态，所有200动作/绑定父/数据资源与owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍未验。
+
+## BAS01 三战斗附件同步的字节门禁与取样（2026-10-06）
+
+[十三具名差异/裁决](cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision)修三真实同步根：五原W8门禁改首字节读取；位置先取、装备先比较再固定payload；方向单次快照、flags三阶段保存/逐次发布及每轴frame→F32 scale；辅助类型3/4/5一次动作、截断后delta重新取值。原不同失败门禁、phase/动作/播放、属性宽度与所有其它正文保持，不扩大修改公共低字节工具。
+
+[三完整421条1507B/4call同一父](cg2d_battle_attachment_sampling_evidence.json)及四表44槽176B另列；主装备X发布后rider重取和骑乘两轴parent.scaleX保持，不改自身scale或owner。三个原身份同YOBI/BATTLE纳管；完整附件生产/父动作实参与数据资源、owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待。

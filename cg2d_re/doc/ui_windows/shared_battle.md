@@ -8141,3 +8141,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [源状态](../cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state)在既有404DB0主回调落实四片段：场景判定/入口载荷、count递增快照/pub后比较、Y截断/屏幕偏移及指针消费取样。原rider两阶段分别读取、gear一次、firstAux在第三骑乘判定后且分流前读取，secondAux在first同步或MarkDeath清槽后才读；不跨调用缓存或按数组循环重排。
 
 [257原槽/200既有调用](../cg2d_battle_tail_sampling_evidence.json)逐项对应，完整684条2444B与13回调地址发布/10父分列，不能按13普通call或“所有动作验收”计数。U08/U09继续open；完整战斗状态/动作实参与数据资源/owner重进退出和浅别名/SDK/ABI/PC53/时钟RNG/画面运行仍待。
+
+## BAS01 主回调的三实际附件同步消费者（2026-10-06）
+
+[源状态](../cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state)在421FB0/4225D0/422780实修三根十三片段：五W8读取与注册位置/方向/父比较及载荷、三flags缓存发布、帧缩放次序和辅助动作/坐标复读。既有404DB0的1/1/2实际调用保持；骑乘/主装备只身份失败标死，辅助装备原三空返回与方向先于身份检查发布保持，不统一失败或立即free。
+
+[原421条1507B与四表44槽176B](../cg2d_battle_attachment_sampling_evidence.json)分列，4普通call同一原父；主装备两阶段rider/两轴scaleX与全部正常S32坐标/既有double乘积不改。全部附件生产、完整战斗动作/实参和数据资源、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行仍未闭，不据三同步根关闭U08/U09。

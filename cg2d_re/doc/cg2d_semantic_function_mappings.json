@@ -127179,7 +127179,7 @@
     {
       "original_entry": "0x534EF0",
       "inventory_id": "F:00134EF0",
-      "status": "已有父正文与一真实原格式接线，完整邮件/登录及CRT运行未验",
+      "status": "NAS01清零范围、单类型和六U8取样已修；SDK跳板/导入具名，全父/ABI/运行未验",
       "original_role": "本机适配器物理地址格式化",
       "original_end_exclusive": "0x535085",
       "instruction_count": 155,
@@ -127191,7 +127191,7 @@
           "symbols": [
             "Sub_534EF0"
           ],
-          "relationship": "现有父的唯一标准格式callee接回实际53B304，所有其他正文不动"
+          "relationship": "NAS01沿既有根恢复每槽13B清零及取样序，真实格式callee/API/失败及现有caller保持"
         }
       ],
       "business_call_connections": [
@@ -127219,7 +127219,7 @@
           ],
           "source_format_symbol": "Sub_534EF0",
           "source_format_expression": "\"%02x%02x%02x%02x%02x%02x\"",
-          "source_expression": "address[0], address[1], address[2], address[3], address[4], address[5]",
+          "source_expression": "byte0, byte1, byte2, byte3, byte4, byte5",
           "destination_expression": "text",
           "destination_capacity": 16,
           "condition_expression": "首个满足Up且IfType为6/71条目；两原分支共格式尾",
@@ -127237,7 +127237,7 @@
             "0x534FDD",
             "0x534FE0"
           ],
-          "relationship": "首个Up且IfType为6/71条目，六U8按原W32零扩展值格式为小写十六进制；源码默认int提升在0..255保持相同W32值，格式按U32消费。以太/无线两个既有已清16B局部按分支选text，一个原共尾；先检查以太再无线长度12才复制13B到output，否则不写也可返0。失败释放/成功匹配原不释放、caller弃返回继续复制未清输入、SDK本机字段映射均不变，不声明异常未写输出等价验收。",
+          "relationship": "NAS01两个16B当前承载仅各清13B，Up后保存同一类型，六U8按5→0取样为U32、按0→5给原共尾；先以太后无线长度12才复制13B，原失败释放/成功不释放和正常返回保持。原格式/宽度/调用点计数不变；完整caller/SDK/运行未验。",
           "original_branch_count": 2,
           "source_format_expression_count": 1,
           "original_format_push_sites": [
@@ -127260,7 +127260,8 @@
             2,
             1,
             0
-          ]
+          ],
+          "destination_initialized_bytes": 13
         }
       ],
       "business_format_source_expression_count": 1,
@@ -127274,10 +127275,49 @@
       ],
       "evidence_documents": [
         "doc/cg2d_login_state_controller.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-acceptance",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_network_adapter_sampling_evidence.json"
       ],
-      "verification_level": "155条统计仅读51格式局部指令、原call/参数/共尾与新旧原字节、源码仅callee静态核对，未重验余104条或caller/运行。",
-      "boundary": "首个Up且IfType为6/71条目，六U8按原W32零扩展值格式为小写十六进制；源码默认int提升在0..255保持相同W32值，格式按U32消费。以太/无线两个既有已清16B局部按分支选text，一个原共尾；先检查以太再无线长度12才复制13B到output，否则不写也可返0。失败释放/成功匹配原不释放、caller弃返回继续复制未清输入、SDK本机字段映射均不变，不声明异常未写输出等价验收。仅真实格式callee及适配器一已有内部声明头变化，未重验时间叶/适配器获取/原父或调用者，原跨模块容量/收发/启动/CRT与总PLAN门禁保留。"
+      "verification_level": "NAS01完整155条/405B连续覆盖、八局部清零原点/单类型/两支路各六U8及既有两API/失败/原格式尾限定静态；仅原caller邻窗，不验完整父或SDK/运行",
+      "boundary": "NAS01原每槽13B清零/16B间距与六U8读取顺序已校正；当前保留16B承载，仅交替清各三W32及偏移12的U8。Up后IfType一次读取供资格/目标，六byte按5→0由只读volatile BYTE取样并零扩展U32，格式按0→5消费。原两API的Family2/Flags0/null Reserved、111分配门槛、第二次非零/无合格项失败释放/成功原不释放、长度12才拷13B和正常0/-1保持；不补失败输出、尾三字节或地址长度门槛。仅本组原155条/405B、API跳板及现有父边限定静态，完整父/未知alias/owner/实际SDK返回/ABI/链接/原格式明文互通/运行未验，RPLAN.24及执行限制保持。",
+      "original_code_bytes": 405,
+      "function_chunks": [
+        {
+          "start": "0x534EF0",
+          "end_exclusive": "0x535085"
+        }
+      ],
+      "adapter_sampling_contract": {
+        "local_slot_distance": 16,
+        "local_clear_bytes": 13,
+        "word_clear_offsets": [
+          0,
+          4,
+          8
+        ],
+        "byte_clear_offset": 12,
+        "byte_read_order": [
+          5,
+          4,
+          3,
+          2,
+          1,
+          0
+        ],
+        "byte_argument_order": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "if_type_read_once": true
+      }
     },
     {
       "original_entry": "0x50DC70",
@@ -143368,6 +143408,53 @@
       ],
       "boundary": "原一条C3/一字节、4D664E分配结果条件判断未跳时顺序落入，EAX沿空分配结果返回。该RET不置零，只有已证正常失败语义由同一工厂承接，未知独立入向不能当固定空函数。原库存ID/范围/字节保留；不恢复音频、不造旧路由或默认成功，完整分配/全部父/alias/寿命/ABI及运行未验。",
       "verification_level": "三原库存身份55条/203B及四字节回调前缀、失败分支/实际表槽和现有源段限定静态；不构建或执行"
+    },
+    {
+      "original_entry": "0x54AB16",
+      "inventory_id": "F:0014AB16",
+      "status": "NAS01原API跳板由既有两真实SDK调用host承接；实际加载/ABI/运行未验",
+      "original_role": "GetAdaptersAddresses API导入跳板",
+      "original_end_exclusive": "0x54AB1C",
+      "instruction_count": 1,
+      "original_code_bytes": 6,
+      "original_direct_reference_count": 2,
+      "function_chunks": [
+        {
+          "start": "0x54AB16",
+          "end_exclusive": "0x54AB1C"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/platform/LegacyNetworkAdapter.cpp",
+          "symbols": [
+            "GetAdaptersAddresses",
+            "Sub_534EF0"
+          ],
+          "relationship": "现有两真实SDK调用分别承接原534F09/534F56；不新增跳板空体或封装"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-acceptance",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_network_adapter_sampling_evidence.json"
+      ],
+      "boundary": "原FF2588D35400仅跳54D388，I:0014D388 iphlpapi.GetAdaptersAddresses由既有本机SDK API调用承接；不把导入槽静态FFFFFFFF当代码/运行值，不保x86跳板字节或假本体。仅两直接caller/导入及已知字段地址拓宽，完整SDK/父/owner/ABI/加载/链接/运行未验。",
+      "inbound_evidence": [
+        {
+          "address": "0x534F09",
+          "parent_entry": "0x534EF0",
+          "reference_type": 17
+        },
+        {
+          "address": "0x534F56",
+          "parent_entry": "0x534EF0",
+          "reference_type": 17
+        }
+      ],
+      "verification_level": "原一条6B跳板/两直接call与唯一导入边、现有两源API位置限定静态，未执行"
     }
   ]
 }

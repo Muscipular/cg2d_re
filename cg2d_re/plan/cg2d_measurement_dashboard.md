@@ -8,14 +8,14 @@
 | 指标 | 当前值 | 含义/限制 |
 |---|---:|---|
 | 原函数纳管 | 3680/3680 | 仅库存身份完整 |
-| 合同文件关联 | 1358/3680（36.9%） | 文件关联率，不是功能/基线验收完成率 |
-| 尚无合同关联 | 2322 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
+| 合同文件关联 | 1359/3680（36.93%） | 文件关联率，不是功能/基线验收完成率 |
+| 尚无合同关联 | 2321 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1244条/1240个原ID | 无独立函数ID另列4条，其中原区间绑定 |
+| 语义登记 | 1245条/1241个原ID | 无独立函数ID另列4条，其中原区间绑定 |
 | 具名分类引用 | 119个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 2 | 不计为实现/验收；混合入口不得整体扣除 |
-| 已审核函数处置 | 329/3680 | 初始仅导入关系，未逐ID重新认定 |
-| 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置15 / 2 |
+| 已审核函数处置 | 331/3680 | 初始仅导入关系，未逐ID重新认定 |
+| 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置16 / 2 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
 | 已知收尾任务 | 60；验收关闭10 | 任务不是全功能目录 |
@@ -44,7 +44,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | FUNC-LOOP | included：主循环与场景分发 | [cg2d_main_loop](../doc/cg2d_main_loop.md)、[cg2d_scene_state](../doc/cg2d_scene_state.md) | 0/97 | U11、V02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-LOGIN | included：登录与连接状态 | [cg2d_login_outer_scene](../doc/cg2d_login_outer_scene.md)、[cg2d_login_mode_scene](../doc/cg2d_login_mode_scene.md)、[cg2d_login_state_controller](../doc/cg2d_login_state_controller.md)、[cg2d_login_input_controller](../doc/cg2d_login_input_controller.md)、[cg2d_login_request](../doc/cg2d_login_request.md) | 1/41 | P18、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-CHARACTER | included：角色选择与创建 | [cg2d_character_select_scene](../doc/cg2d_character_select_scene.md)、[cg2d_creation_gate_adaptation_spec](../doc/cg2d_creation_gate_adaptation_spec.md) | 1/13 | P08、U03、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-NETWORK | included：网络帧与协议处理 | [cg2d_network_compatibility_spec](../doc/cg2d_network_compatibility_spec.md)、[cg2d_network_runtime](../doc/cg2d_network_runtime.md)、[cg2d_network_dispatch](../doc/cg2d_network_dispatch.md)、[cg2d_network_plaintext_frame_spec](../doc/cg2d_network_plaintext_frame_spec.md)、[cg2d_winsock_import_binding_spec](../doc/cg2d_winsock_import_binding_spec.md)、[cg2d_network_buffer_lifecycle_spec](../doc/cg2d_network_buffer_lifecycle_spec.md)、[cg2d_command_checksum_publication_spec](../doc/cg2d_command_checksum_publication_spec.md)、[cg2d_append_transform_spec](../doc/cg2d_append_transform_spec.md)、[cg2d_dispatch_account_field_read_spec](../doc/cg2d_dispatch_account_field_read_spec.md)、[cg2d_workspace_byte_pointer_spec](../doc/cg2d_workspace_byte_pointer_spec.md)、[cg2d_header_single_read_spec](../doc/cg2d_header_single_read_spec.md)、[cg2d_protocol_copy_capacity_spec](../doc/cg2d_protocol_copy_capacity_spec.md) | 38/51 | P09、P10、P16、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-NETWORK | included：网络帧与协议处理 | [cg2d_network_compatibility_spec](../doc/cg2d_network_compatibility_spec.md)、[cg2d_network_runtime](../doc/cg2d_network_runtime.md)、[cg2d_network_dispatch](../doc/cg2d_network_dispatch.md)、[cg2d_network_plaintext_frame_spec](../doc/cg2d_network_plaintext_frame_spec.md)、[cg2d_winsock_import_binding_spec](../doc/cg2d_winsock_import_binding_spec.md)、[cg2d_network_buffer_lifecycle_spec](../doc/cg2d_network_buffer_lifecycle_spec.md)、[cg2d_command_checksum_publication_spec](../doc/cg2d_command_checksum_publication_spec.md)、[cg2d_append_transform_spec](../doc/cg2d_append_transform_spec.md)、[cg2d_dispatch_account_field_read_spec](../doc/cg2d_dispatch_account_field_read_spec.md)、[cg2d_workspace_byte_pointer_spec](../doc/cg2d_workspace_byte_pointer_spec.md)、[cg2d_header_single_read_spec](../doc/cg2d_header_single_read_spec.md)、[cg2d_protocol_copy_capacity_spec](../doc/cg2d_protocol_copy_capacity_spec.md)、[cg2d_network_adapter_sampling_spec](../doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline) | 40/53 | P09、P10、P16、U10、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-SAVED | included：配置与存档 | [cg2d_saved_state_initialize](../doc/cg2d_saved_state_initialize.md)、[cg2d_saved_state_loader](../doc/cg2d_saved_state_loader.md)、[cg2d_saved_state_persist](../doc/cg2d_saved_state_persist.md)、[cg2d_current_saved_record](../doc/cg2d_current_saved_record.md)、[cg2d_saved_codec_arithmetic_spec](../doc/cg2d_saved_codec_arithmetic_spec.md) | 2/4 | U10、V02、V03 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-INPUT | included：平台输入与IME | [cg2d_window_procedure](../doc/cg2d_window_procedure.md)、[cg2d_legacy_mouse](../doc/cg2d_legacy_mouse.md)、[cg2d_input_context](../doc/cg2d_input_context.md)、[cg2d_ime_composition](../doc/cg2d_ime_composition.md)、[cg2d_ime_lifecycle](../doc/cg2d_ime_lifecycle.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md)、[cg2d_ime_composition_alignment_spec](../doc/cg2d_ime_composition_alignment_spec.md)、[cg2d_input_caret_alignment_spec](../doc/cg2d_input_caret_alignment_spec.md)、[cg2d_input_render_alignment_spec](../doc/cg2d_input_render_alignment_spec.md)、[cg2d_input_edit_alignment_spec](../doc/cg2d_input_edit_alignment_spec.md)、[cg2d_input_append_alignment_spec](../doc/cg2d_input_append_alignment_spec.md)、[cg2d_input_text_alignment_spec](../doc/cg2d_input_text_alignment_spec.md) | 14/48 | T01、T02、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-TEXT | included：文本与字体显示 | [cg2d_text_encoding_spec](../doc/cg2d_text_encoding_spec.md)、[cg2d_font_measure](../doc/cg2d_font_measure.md)、[cg2d_text_pending_queue](../doc/cg2d_text_pending_queue.md)、[cg2d_ime_composition_alignment_spec](../doc/cg2d_ime_composition_alignment_spec.md)、[cg2d_input_caret_alignment_spec](../doc/cg2d_input_caret_alignment_spec.md)、[cg2d_input_render_alignment_spec](../doc/cg2d_input_render_alignment_spec.md)、[cg2d_input_edit_alignment_spec](../doc/cg2d_input_edit_alignment_spec.md)、[cg2d_input_append_alignment_spec](../doc/cg2d_input_append_alignment_spec.md)、[cg2d_input_text_alignment_spec](../doc/cg2d_input_text_alignment_spec.md)、[cg2d_text_queue_alignment_spec](../doc/cg2d_text_queue_alignment_spec.md)、[cg2d_font_lifecycle_alignment_spec](../doc/cg2d_font_lifecycle_alignment_spec.md)、[cg2d_multibyte_string_spec](../doc/cg2d_multibyte_string_spec.md) | 20/29 | T01、T03、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
@@ -234,9 +234,9 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 
 | 登记差集 | 数量 | 判定与下一步 |
 |---|---:|---|
-| 定位及语义关联均未登记 | 179 | 历史定位/语义/pending/source均空；先核当前源码和原身份 |
+| 定位及语义关联均未登记 | 178 | 历史定位/语义/pending/source均空；先核当前源码和原身份 |
 | 语义身份尚未登记 | 0 | 原语义引用/入口保留；已按原区间绑定的代码记录不混计，候选ID不自动赋值 |
-| 需先核范围/定位/身份 | 76 | 下方明细；不等于待实现或已允许运行的项数 |
+| 需先核范围/定位/身份 | 75 | 下方明细；不等于待实现或已允许运行的项数 |
 | 已明确暂停 / 具名排除的本队列项 | 0 / 103 | 全部保留快照；暂停数只限明确成员，不是整个音频分母 |
 | 已处置纯NOP元数据项 | 1 | 保留原库存/队列身份；不计源码实现或范围排除，不为填充生成空函数 |
 
@@ -317,6 +317,5 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | mapping_location_unrecorded | F:001478E9 | 0x5478E9 | __clrfp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:001478F8 | 0x5478F8 | __ctrlfp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:0014791B | 0x54791B | __set_statfp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| mapping_location_unrecorded | F:0014AB16 | 0x54AB16 | GetAdaptersAddresses | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 
 完整范围依据、已有处置及候选ID见快照development_gap_queue；metadata_only纯NOP项单列且保留原库存/队列身份，不计业务实现或范围排除；非函数代码绑定见semantic_without_inventory_id。逐项补事实后由汇总器更新，不手改队列，不以此关闭R1/R7或整体验收。

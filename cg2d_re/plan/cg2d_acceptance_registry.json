@@ -658,7 +658,8 @@
         "doc/cg2d_dispatch_account_field_read_spec.md",
         "doc/cg2d_workspace_byte_pointer_spec.md",
         "doc/cg2d_header_single_read_spec.md",
-        "doc/cg2d_protocol_copy_capacity_spec.md"
+        "doc/cg2d_protocol_copy_capacity_spec.md",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -698,7 +699,9 @@
         "F:00117730",
         "F:00117040",
         "F:00117080",
-        "F:00117690"
+        "F:00117690",
+        "F:00134EF0",
+        "F:0014AB16"
       ],
       "closure_task_ids": [
         "P09",
@@ -718,7 +721,8 @@
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision",
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision",
         "doc/cg2d_header_single_read_spec.md#header-single-read-decision",
-        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-decision"
+        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-decision",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -730,7 +734,8 @@
         "NDR01仅原账号与85文本取值窗口/32掩码源码校准；不据主根5779条元数据宣称整根、所有整数/108回复本体或完整owner/alias、实际ABI/链接/明文往返/运行通过，不新增R1处置",
         "NWT01工作区字节指针类型与四解码本体/90直接引用具名，SDK同域/读序/原失败释放保持；未知间接alias/完整owner/重进、整分派/全部回复及实际ABI/链接/正常失败/明文往返/运行未闭。NDR01限定父与三既有父不重复新增R1分类",
         "NHS01仅取包头首指针一次读取缺口已修，原22条/64B与唯一caller具名；不全量核对，不据取头关闭整分派/完整参数传递/全部回复/owner/alias、实际ABI/链接/原格式明文互通与运行",
-        "NCP01仅协议复制容量回绕模拟残留已按RPLAN.24更新；两既有完整根/返回与91原直接call具名，不全面复检；原正常/失败及读写序保持，整分派/全部参数传递/回复/owner/alias、实际ABI/链接/原格式明文互通和运行仍待，不宣称异常等价"
+        "NCP01仅协议复制容量回绕模拟残留已按RPLAN.24更新；两既有完整根/返回与91原直接call具名，不全面复检；原正常/失败及读写序保持，整分派/全部参数传递/回复/owner/alias、实际ABI/链接/原格式明文互通和运行仍待，不宣称异常等价",
+        "NAS01仅适配器根取样/清零与API跳板/导入已校正纳管，完整508360父/登录请求、SDK返回/加载/ABI/链接、全部owner/alias及原格式明文互通/运行未闭，不以局部源码关闭FUNC-NETWORK"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -742,7 +747,8 @@
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
-        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure"
+        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
       ]
     },
     {
@@ -11896,6 +11902,66 @@
       "observation": "原78条/172B/两入向与本组源补丁/SDK标准头/身份限定静态",
       "expected": "三阶段W32载荷/失配再次取值以compiler fence约束，原U8/数量/掩码/正常返回不改，不独立造共享RET空体",
       "actual": "仅源码表达/SDK头与逐ID归属限定静态；实际生成指令/读次数/ABI、全部caller/alias/完整CRT和运行未验，完整软件门禁不提升"
+    },
+    {
+      "id": "E-NETWORK-ADAPTER-SAMPLING-I-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "155条/405B适配器根、一条/6B跳板与导入/两API、局部父边；doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-adapter-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-acceptance",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_network_adapter_sampling_evidence.json",
+        "src/platform/LegacyNetworkAdapter.cpp#Sub_534EF0",
+        "include/cg/platform/LegacyNetworkAdapter.hpp#Sub_534EF0",
+        "src/LoginState.cpp#Sub_508360"
+      ],
+      "differences": [
+        {
+          "description": "x64地址使用既有SDK原生字段和调用；本组volatile BYTE只读视图表达六U8取样，不模拟x86栈/导入跳板或新增线程同步",
+          "decision_ref": "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "每槽只清13B、类型一次取样与5→0六U8读取已落既有正文",
+      "expected": "原清零和取样序、原字节格式与正常/失败/释放副作用保持",
+      "actual": "仅本组源/原端/本机SDK声明与身份限定静态；生成ABI/加载/链接、全父/owner/未知alias/实际API失败和明文互通/运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-NETWORK-ADAPTER-SAMPLING-S-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "155条/405B适配器根、一条/6B跳板与导入/两API、局部父边；doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-network-adapter-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-acceptance",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_network_adapter_sampling_evidence.json",
+        "src/platform/LegacyNetworkAdapter.cpp#Sub_534EF0",
+        "include/cg/platform/LegacyNetworkAdapter.hpp#Sub_534EF0",
+        "src/LoginState.cpp#Sub_508360"
+      ],
+      "differences": [
+        {
+          "description": "x64地址使用既有SDK原生字段和调用；本组volatile BYTE只读视图表达六U8取样，不模拟x86栈/导入跳板或新增线程同步",
+          "decision_ref": "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原连续155/405、跳板1/6和两API/导入关系、精确源与登记差异限定静态",
+      "expected": "原清零和取样序、原字节格式与正常/失败/释放副作用保持",
+      "actual": "仅本组源/原端/本机SDK声明与身份限定静态；生成ABI/加载/链接、全父/owner/未知alias/实际API失败和明文互通/运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -12196,7 +12262,8 @@
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
-        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
       ]
     },
     {
@@ -12212,7 +12279,8 @@
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
-        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
       ]
     },
     {
@@ -12238,7 +12306,8 @@
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
         "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
-        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state"
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
       ]
     },
     {
@@ -12255,7 +12324,8 @@
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
         "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
-        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
       ]
     },
     {
@@ -12309,7 +12379,8 @@
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
         "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
-        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state"
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
       ]
     },
     {
@@ -15551,6 +15622,32 @@
         "doc/cg2d_function_boundary_classifications.json#/records/1"
       ],
       "reason": "原C3分配失败返回由同一父正常空T*路径承接，不新增独立空体/新caller，不套NOP元数据类别，原ID/分母及全部alias/运行边界保持"
+    },
+    {
+      "inventory_id": "F:00134EF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-acceptance",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_network_adapter_sampling_evidence.json"
+      ],
+      "reason": "既有适配器根按原清零/单类型和六U8取样校正，x64地址沿SDK同源字段承载；正常/失败/成功原不释放保持，完整运行未验"
+    },
+    {
+      "inventory_id": "F:0014AB16",
+      "disposition": "host",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-acceptance",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_network_adapter_sampling_evidence.json"
+      ],
+      "reason": "原API跳板由既有两GetAdaptersAddresses真实本机SDK调用承接，不新增空跳板、改变参数或宣称运行提供者已验"
     }
   ],
   "auxiliary_dispositions": [
@@ -15760,6 +15857,18 @@
           "kind": "nop_padding",
           "bytes": 8
         }
+      ]
+    },
+    {
+      "id": "I:0014D388",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-acceptance",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_network_adapter_sampling_evidence.json"
       ]
     }
   ]

@@ -181,3 +181,10 @@ metadata_kind须为alignment_padding，metadata_reference须指向分类JSON确�
 数组item head的xref不能代替具体指针槽，BMR01保留实际第13项575B44及前缀索引读取证据。
 没有新客户端业务实现、软件证据或全模块完成声明；原ID/分母/范围及完整门禁保持。
 公共窗口机制一成员、Yobi两成员和四任务仍open，原其他未知/生命周期/运行及R1/R7/R8继续推进。
+
+
+## NAS01 适配器源修正与API处置（2026-10-05）
+
+[本组合同](cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state)登记534EF0 adapted、54AB16 host及I:0014D388 mapped，已有两真实SDK调用和原参数保持，不新造跳板空体。
+每槽13B清零、类型一次读取和六U8原序已落既有源；限定I/S证据各一，完整FUNC-NETWORK门禁、成员闭合和五任务仍open，原业务分母/范围/格式调用计数保持。
+API本机声明/源调用及导入关系不代加载、链接、SDK实际成功失败、全父/owner/未知alias或原格式明文互通/运行。

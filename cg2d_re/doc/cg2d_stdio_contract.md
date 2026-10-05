@@ -4326,3 +4326,11 @@ virtualTable从const void*改对应const方法表指针，内部头四块、stre
 [94条转换本体](cg2d_multibyte_string_spec.md#multibyte-string-source-state)已落既有LegacyMultibyte，不使用宿主mbstowcs或新代码页。C locale写W16后重读源、空目标直接真实长度；非C full/query flags9成功减1，仅错误122进原lead/旧remaining回退，flags1结果不减1；三API重读代码页、现有ctype/locale/errno同源，错误42/FFFFFFFF保持。
 最后53CAB5长度点使20真实＋4既有宿主/24，格式1001/1023/241及FILE计数保持；唯一455100/454C30音频业务父仍暂停/未接。数量/返回/跨度W32只在API边界作位型转换，目标/源仅地址拓宽；RPLAN.24异常不专项、无故障等价/x64安全声明。
 本组内部调用落位不代API实际成功失败、全状态生产/别名、完整文本/CRT/音频与运行；C12/T01/T03/V04保持open。
+
+
+## NAS01 适配器格式参数取样校正（2026-10-05）
+
+[具名修正](cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state)沿原534EF0两支路的六字节读取序，改成5→0独立U8取样为U32、0→5交既有53B304；原58F734的23B串、共尾534FEF/两分支与格式调用分母不变。
+[原155条及清零证据](cg2d_network_adapter_sampling_evidence.json)表明两局部槽相距16B，每槽交替清前三W32及偏移12的U8，共13B；当前仍用16B承载，尾三字节不补零，不能称原声明容量13或16。
+仅Up后保存一次类型，匹配长度12复制13B、失败释放/正常0或-1、成功原不释放保持；调用者未清输出和继续消费行为不补默认。旧局部“已清16B”为当时源码描述，当前字段已另记initialized_bytes=13。
+本步不新增格式调用/字符串长度或复核其他CRT本体，不验完整父/实际SDK返回/ABI/运行；RPLAN.24、明文原格式和执行限制保持。

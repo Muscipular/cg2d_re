@@ -17,8 +17,16 @@ std::int32_t Sub_534EF0(char* const output)
     ULONG size = 0;
     const ULONG firstResult =
         ::GetAdaptersAddresses(AF_INET, 0, nullptr, nullptr, &size);
-    char ethernetText[16] {};
-    char wirelessText[16] {};
+    char ethernetText[16];
+    char wirelessText[16];
+    // 原两槽相距16B，仅交替清三个W32及各自偏移12的U8；不补尾三字节。
+    constexpr std::uint32_t zero = 0;
+    for (std::uint32_t offset = 0; offset != 12; offset += 4) {
+        std::memcpy(ethernetText + offset, &zero, sizeof(zero));
+        std::memcpy(wirelessText + offset, &zero, sizeof(zero));
+    }
+    ethernetText[12] = 0;
+    wirelessText[12] = 0;
     if (firstResult != ERROR_BUFFER_OVERFLOW) {
         return -1;
     }
@@ -33,11 +41,15 @@ std::int32_t Sub_534EF0(char* const output)
     }
 
     const IP_ADAPTER_ADDRESSES* selected = adapters;
+    ULONG selectedType;
     while (selected != nullptr) {
-        if (selected->OperStatus == IfOperStatusUp
-            && (selected->IfType == IF_TYPE_ETHERNET_CSMACD
-                || selected->IfType == IF_TYPE_IEEE80211)) {
-            break;
+        if (selected->OperStatus == IfOperStatusUp) {
+            // 原534F77每项只取一次类型，资格和格式分支共用此值。
+            selectedType = selected->IfType;
+            if (selectedType == IF_TYPE_ETHERNET_CSMACD
+                || selectedType == IF_TYPE_IEEE80211) {
+                break;
+            }
         }
         selected = selected->Next;
     }
@@ -46,14 +58,20 @@ std::int32_t Sub_534EF0(char* const output)
         return -1;
     }
 
-    char* const text = selected->IfType == IF_TYPE_ETHERNET_CSMACD
+    char* const text = selectedType == IF_TYPE_ETHERNET_CSMACD
         ? ethernetText : wirelessText;
-    const BYTE* const address = selected->PhysicalAddress;
+    // 原两支路均按5→0取六U8；只读volatile视图保留取样序，格式仍按0→5。
+    const volatile BYTE* const address = selected->PhysicalAddress;
+    const std::uint32_t byte5 = address[5];
+    const std::uint32_t byte4 = address[4];
+    const std::uint32_t byte3 = address[3];
+    const std::uint32_t byte2 = address[2];
+    const std::uint32_t byte1 = address[1];
+    const std::uint32_t byte0 = address[0];
     FormatLegacyString_53B304(
         text,
         "%02x%02x%02x%02x%02x%02x",
-        address[0], address[1], address[2],
-        address[3], address[4], address[5]);
+        byte0, byte1, byte2, byte3, byte4, byte5);
 
     // 原端两条写出路径均未释放成功获取的适配器缓冲。
     if (std::strlen(ethernetText) == 12) {

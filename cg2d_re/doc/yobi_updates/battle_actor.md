@@ -157,3 +157,9 @@
 [四组裁决](../cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-decision)恢复一次58同值参数、LastCaster/BothCasters两点/CasterFlash四FDC原W8读取；不把其他W32 flags/phase或寄存器位运算误改成byte。state2的caster仅作phase门禁，真正Advance沿已借最后参与者；Both第一调用后重新借last，CasterFlash调用后重新借caster，Clear先Finish后逐次借caster清字段/3D门禁后的flags保持原序。五整数两条件/pub差异也已落码，不改变共享布局或owner。
 
 [五区间和五实际表](../cg2d_battle_m_skill_entry_waiting_sampling_evidence.json)490条1894B/512B不代42AE37后技能主体和完整父；skill98固定casterPayload/effects16B序列、全部资源owner重进退出/借用失效及消费者/SDK/ABI/画面继续。
+
+## BMO01 技能4的角色与效果参数取样（2026-10-06）
+
+[九组裁决](../cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-decision)恢复caster/target同解析位置借用与target比较先pub，初始payload先skill和下一字段caster-actor-level-payload；439400与43BC10分别按原图号/flags/位置及actor次序取样，不跨调用合并。player首256/52沿同目标、51重新live目标，165/27先kind再target/actor；两图索引S32，不新owner/布局/保护。
+
+[完整正常有界主体](../cg2d_battle_m_skill4_sampling_evidence.json)256条894B四页26call，原W32 flags入寄存器后AL/AH只局部操作，不误改byte读取；图值跨目标/各空出口/调用后live与Move/RID/58保持。其它各技能消费者及资源owner重进退出/借用失效、SDK/ABI/画面继续。

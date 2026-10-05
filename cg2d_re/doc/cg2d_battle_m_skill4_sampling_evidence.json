@@ -1,0 +1,3809 @@
+{
+  "spec_id": "BMO01",
+  "date": "2026-10-06",
+  "scope": "技能4完整正常主体有界合同与低段路由/入口原零上下文；单根九组九处，不代其它主体/完整父或运行。",
+  "original_regions": [
+    {
+      "start": "0x42b282",
+      "end_exclusive": "0x42b600",
+      "parent_entry": "0x427470",
+      "instruction_count": 256,
+      "code_bytes": 894,
+      "page_count": 4,
+      "outgoing_calls": [
+        {
+          "ea": "0x42b283",
+          "target": "0x438f70"
+        },
+        {
+          "ea": "0x42b28b",
+          "target": "0x438f70"
+        },
+        {
+          "ea": "0x42b291",
+          "target": "0x4237e0"
+        },
+        {
+          "ea": "0x42b2aa",
+          "target": "0x43b6c0"
+        },
+        {
+          "ea": "0x42b31e",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b334",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b34c",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b362",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b36b",
+          "target": "0x438f70"
+        },
+        {
+          "ea": "0x42b371",
+          "target": "0x4237e0"
+        },
+        {
+          "ea": "0x42b399",
+          "target": "0x438f70"
+        },
+        {
+          "ea": "0x42b3a4",
+          "target": "0x438f70"
+        },
+        {
+          "ea": "0x42b3d6",
+          "target": "0x43bf30"
+        },
+        {
+          "ea": "0x42b3ff",
+          "target": "0x439400"
+        },
+        {
+          "ea": "0x42b44b",
+          "target": "0x43bc10"
+        },
+        {
+          "ea": "0x42b460",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b493",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b4c7",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b4dc",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b549",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b57b",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b59d",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b5c3",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42b5d0",
+          "target": "0x43b6c0"
+        },
+        {
+          "ea": "0x42b5e6",
+          "target": "0x439380"
+        },
+        {
+          "ea": "0x42b5ec",
+          "target": "0x4239d0"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x42b2a7",
+          "target": "0x42b2b7"
+        },
+        {
+          "ea": "0x42b2b2",
+          "target": "0x437a29"
+        },
+        {
+          "ea": "0x42b383",
+          "target": "0x42b5d8"
+        },
+        {
+          "ea": "0x42b393",
+          "target": "0x42b5d0"
+        },
+        {
+          "ea": "0x42b3b8",
+          "target": "0x42b3de"
+        },
+        {
+          "ea": "0x42b412",
+          "target": "0x42b41f"
+        },
+        {
+          "ea": "0x42b41b",
+          "target": "0x42b40f"
+        },
+        {
+          "ea": "0x42b41d",
+          "target": "0x42b421"
+        },
+        {
+          "ea": "0x42b46f",
+          "target": "0x42b556"
+        },
+        {
+          "ea": "0x42b478",
+          "target": "0x42b556"
+        },
+        {
+          "ea": "0x42b480",
+          "target": "0x42b4e6"
+        },
+        {
+          "ea": "0x42b4a8",
+          "target": "0x42b4bc"
+        },
+        {
+          "ea": "0x42b4b7",
+          "target": "0x42b548"
+        },
+        {
+          "ea": "0x42b4e4",
+          "target": "0x42b551"
+        },
+        {
+          "ea": "0x42b4e8",
+          "target": "0x42b55a"
+        },
+        {
+          "ea": "0x42b4ec",
+          "target": "0x42b556"
+        },
+        {
+          "ea": "0x42b4f1",
+          "target": "0x42b4f7"
+        },
+        {
+          "ea": "0x42b4f5",
+          "target": "0x42b53a"
+        },
+        {
+          "ea": "0x42b4fa",
+          "target": "0x42b50e"
+        },
+        {
+          "ea": "0x42b50c",
+          "target": "0x42b548"
+        },
+        {
+          "ea": "0x42b511",
+          "target": "0x42b524"
+        },
+        {
+          "ea": "0x42b522",
+          "target": "0x42b548"
+        },
+        {
+          "ea": "0x42b529",
+          "target": "0x42b556"
+        },
+        {
+          "ea": "0x42b558",
+          "target": "0x42b563"
+        },
+        {
+          "ea": "0x42b55c",
+          "target": "0x42b563"
+        },
+        {
+          "ea": "0x42b561",
+          "target": "0x42b5aa"
+        },
+        {
+          "ea": "0x42b568",
+          "target": "0x42b5aa"
+        },
+        {
+          "ea": "0x42b58b",
+          "target": "0x42b5aa"
+        },
+        {
+          "ea": "0x42b5ac",
+          "target": "0x42b36a"
+        },
+        {
+          "ea": "0x42b5cb",
+          "target": "0x42b36a"
+        },
+        {
+          "ea": "0x42b5fb",
+          "target": "0x437a29"
+        }
+      ],
+      "instruction_pages": [
+        {
+          "start": "0x42b282",
+          "end_exclusive": "0x42b600",
+          "page_index": 0,
+          "instructions": [
+            {
+              "ea": "0x42b282",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; jumptable 0042AE60 case 4"
+            },
+            {
+              "ea": "0x42b283",
+              "size": 5,
+              "bytes": "e8e8dc0000",
+              "text": "call    Battle__ParsePacket_M__TakeInt"
+            },
+            {
+              "ea": "0x42b288",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x42b289",
+              "size": 2,
+              "bytes": "8bd8",
+              "text": "mov     ebx, eax"
+            },
+            {
+              "ea": "0x42b28b",
+              "size": 5,
+              "bytes": "e8e0dc0000",
+              "text": "call    Battle__ParsePacket_M__TakeInt"
+            },
+            {
+              "ea": "0x42b290",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x42b291",
+              "size": 5,
+              "bytes": "e84a85ffff",
+              "text": "call    GetBattlePosition"
+            },
+            {
+              "ea": "0x42b296",
+              "size": 5,
+              "bytes": "a364aa5a00",
+              "text": "mov     gBattleEntryCasterEffect.pos, eax"
+            },
+            {
+              "ea": "0x42b29b",
+              "size": 7,
+              "bytes": "8b048580e95900",
+              "text": "mov     eax, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b2a2",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x42b2a5",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x42b2a7",
+              "size": 2,
+              "bytes": "750e",
+              "text": "jnz     short loc_42B2B7"
+            },
+            {
+              "ea": "0x42b2a9",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x42b2aa",
+              "size": 5,
+              "bytes": "e811040100",
+              "text": "call    sub_43B6C0"
+            },
+            {
+              "ea": "0x42b2af",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x42b2b2",
+              "size": 5,
+              "bytes": "e972c70000",
+              "text": "jmp     def_427817; jumptable 00427817 default case"
+            },
+            {
+              "ea": "0x42b2b7",
+              "size": 3,
+              "bytes": "8b500c",
+              "text": "mov     edx, [eax+0Ch]"
+            },
+            {
+              "ea": "0x42b2ba",
+              "size": 5,
+              "bytes": "a178aa5a00",
+              "text": "mov     eax, gBattleScene__SkillId"
+            },
+            {
+              "ea": "0x42b2bf",
+              "size": 2,
+              "bytes": "6a19",
+              "text": "push    19h; a3"
+            },
+            {
+              "ea": "0x42b2c1",
+              "size": 6,
+              "bytes": "89823c100000",
+              "text": "mov     [edx+103Ch], eax"
+            },
+            {
+              "ea": "0x42b2c7",
+              "size": 6,
+              "bytes": "8b0d64aa5a00",
+              "text": "mov     ecx, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b2cd",
+              "size": 7,
+              "bytes": "8b148d80e95900",
+              "text": "mov     edx, gBattleEntry[ecx*4]"
+            },
+            {
+              "ea": "0x42b2d4",
+              "size": 6,
+              "bytes": "8b0d183a5a00",
+              "text": "mov     ecx, gBattleScene__SkillLevel2"
+            },
+            {
+              "ea": "0x42b2da",
+              "size": 3,
+              "bytes": "8b420c",
+              "text": "mov     eax, [edx+0Ch]"
+            },
+            {
+              "ea": "0x42b2dd",
+              "size": 6,
+              "bytes": "898844100000",
+              "text": "mov     [eax+1044h], ecx"
+            },
+            {
+              "ea": "0x42b2e3",
+              "size": 6,
+              "bytes": "8b1564aa5a00",
+              "text": "mov     edx, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b2e9",
+              "size": 7,
+              "bytes": "8b049580e95900",
+              "text": "mov     eax, gBattleEntry[edx*4]"
+            },
+            {
+              "ea": "0x42b2f0",
+              "size": 3,
+              "bytes": "8b480c",
+              "text": "mov     ecx, [eax+0Ch]"
+            },
+            {
+              "ea": "0x42b2f3",
+              "size": 6,
+              "bytes": "89b108100000",
+              "text": "mov     [ecx+1008h], esi"
+            },
+            {
+              "ea": "0x42b2f9",
+              "size": 6,
+              "bytes": "8b1564aa5a00",
+              "text": "mov     edx, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b2ff",
+              "size": 7,
+              "bytes": "8b049580e95900",
+              "text": "mov     eax, gBattleEntry[edx*4]"
+            },
+            {
+              "ea": "0x42b306",
+              "size": 3,
+              "bytes": "8b480c",
+              "text": "mov     ecx, [eax+0Ch]"
+            },
+            {
+              "ea": "0x42b309",
+              "size": 6,
+              "bytes": "8999f40f0000",
+              "text": "mov     [ecx+0FF4h], ebx"
+            },
+            {
+              "ea": "0x42b30f",
+              "size": 6,
+              "bytes": "8b1564aa5a00",
+              "text": "mov     edx, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b315",
+              "size": 7,
+              "bytes": "8b049580e95900",
+              "text": "mov     eax, gBattleEntry[edx*4]"
+            },
+            {
+              "ea": "0x42b31c",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x42b31d",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b31e",
+              "size": 5,
+              "bytes": "e87ddf0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b323",
+              "size": 6,
+              "bytes": "8b0d64aa5a00",
+              "text": "mov     ecx, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b329",
+              "size": 2,
+              "bytes": "6a37",
+              "text": "push    37h ; '7'; a3"
+            },
+            {
+              "ea": "0x42b32b",
+              "size": 7,
+              "bytes": "8b148d80e95900",
+              "text": "mov     edx, gBattleEntry[ecx*4]"
+            },
+            {
+              "ea": "0x42b332",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x42b333",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b334",
+              "size": 5,
+              "bytes": "e867df0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b339",
+              "size": 5,
+              "bytes": "a164aa5a00",
+              "text": "mov     eax, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b33e",
+              "size": 5,
+              "bytes": "6897000000",
+              "text": "push    97h; a3"
+            },
+            {
+              "ea": "0x42b343",
+              "size": 7,
+              "bytes": "8b0c8580e95900",
+              "text": "mov     ecx, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b34a",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x42b34b",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b34c",
+              "size": 5,
+              "bytes": "e84fdf0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b351",
+              "size": 6,
+              "bytes": "8b1564aa5a00",
+              "text": "mov     edx, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b357",
+              "size": 2,
+              "bytes": "6a46",
+              "text": "push    46h ; 'F'; a3"
+            },
+            {
+              "ea": "0x42b359",
+              "size": 7,
+              "bytes": "8b049580e95900",
+              "text": "mov     eax, gBattleEntry[edx*4]"
+            },
+            {
+              "ea": "0x42b360",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x42b361",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b362",
+              "size": 5,
+              "bytes": "e839df0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b367",
+              "size": 3,
+              "bytes": "83c430",
+              "text": "add     esp, 30h"
+            },
+            {
+              "ea": "0x42b36a",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x42b36b",
+              "size": 5,
+              "bytes": "e800dc0000",
+              "text": "call    Battle__ParsePacket_M__TakeInt"
+            },
+            {
+              "ea": "0x42b370",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x42b371",
+              "size": 5,
+              "bytes": "e86a84ffff",
+              "text": "call    GetBattlePosition"
+            },
+            {
+              "ea": "0x42b376",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x42b379",
+              "size": 5,
+              "bytes": "3dff000000",
+              "text": "cmp     eax, 0FFh"
+            },
+            {
+              "ea": "0x42b37e",
+              "size": 5,
+              "bytes": "a340aa5a00",
+              "text": "mov     gBattleScene__CastEffectTargetTmp.pos, eax"
+            },
+            {
+              "ea": "0x42b383",
+              "size": 6,
+              "bytes": "0f844f020000",
+              "text": "jz      loc_42B5D8"
+            },
+            {
+              "ea": "0x42b389",
+              "size": 7,
+              "bytes": "8b0c8580e95900",
+              "text": "mov     ecx, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b390",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x42b391",
+              "size": 2,
+              "bytes": "85c9",
+              "text": "test    ecx, ecx"
+            },
+            {
+              "ea": "0x42b393",
+              "size": 6,
+              "bytes": "0f8437020000",
+              "text": "jz      loc_42B5D0"
+            },
+            {
+              "ea": "0x42b399",
+              "size": 5,
+              "bytes": "e8d2db0000",
+              "text": "call    Battle__ParsePacket_M__TakeInt"
+            },
+            {
+              "ea": "0x42b39e",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x42b39f",
+              "size": 5,
+              "bytes": "a3204a5a00",
+              "text": "mov     gBattleScene__CastEffectResultFlg, eax"
+            },
+            {
+              "ea": "0x42b3a4",
+              "size": 5,
+              "bytes": "e8c7db0000",
+              "text": "call    Battle__ParsePacket_M__TakeInt"
+            },
+            {
+              "ea": "0x42b3a9",
+              "size": 2,
+              "bytes": "8bf0",
+              "text": "mov     esi, eax"
+            },
+            {
+              "ea": "0x42b3ab",
+              "size": 5,
+              "bytes": "a1204a5a00",
+              "text": "mov     eax, gBattleScene__CastEffectResultFlg"
+            },
+            {
+              "ea": "0x42b3b0",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x42b3b3",
+              "size": 5,
+              "bytes": "a900008000",
+              "text": "test    eax, 800000h"
+            },
+            {
+              "ea": "0x42b3b8",
+              "size": 2,
+              "bytes": "7424",
+              "text": "jz      short loc_42B3DE"
+            },
+            {
+              "ea": "0x42b3ba",
+              "size": 4,
+              "bytes": "8d4c2450",
+              "text": "lea     ecx, [esp+740h+a3]"
+            },
+            {
+              "ea": "0x42b3be",
+              "size": 4,
+              "bytes": "8d542448",
+              "text": "lea     edx, [esp+740h+imageNo]"
+            }
+          ]
+        },
+        {
+          "start": "0x42b282",
+          "end_exclusive": "0x42b600",
+          "page_index": 1,
+          "instructions": [
+            {
+              "ea": "0x42b3c2",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; int"
+            },
+            {
+              "ea": "0x42b3c3",
+              "size": 4,
+              "bytes": "8d442424",
+              "text": "lea     eax, [esp+744h+a2]"
+            },
+            {
+              "ea": "0x42b3c7",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; int *"
+            },
+            {
+              "ea": "0x42b3c8",
+              "size": 4,
+              "bytes": "8d4c2424",
+              "text": "lea     ecx, [esp+748h+var_724]"
+            },
+            {
+              "ea": "0x42b3cc",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; int"
+            },
+            {
+              "ea": "0x42b3cd",
+              "size": 4,
+              "bytes": "8d542420",
+              "text": "lea     edx, [esp+74Ch+a5]"
+            },
+            {
+              "ea": "0x42b3d1",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; int *"
+            },
+            {
+              "ea": "0x42b3d2",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; int *"
+            },
+            {
+              "ea": "0x42b3d3",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0; int"
+            },
+            {
+              "ea": "0x42b3d5",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; YobiAction *"
+            },
+            {
+              "ea": "0x42b3d6",
+              "size": 5,
+              "bytes": "e8550b0100",
+              "text": "call    sub_43BF30"
+            },
+            {
+              "ea": "0x42b3db",
+              "size": 3,
+              "bytes": "83c41c",
+              "text": "add     esp, 1Ch"
+            },
+            {
+              "ea": "0x42b3de",
+              "size": 4,
+              "bytes": "8b442414",
+              "text": "mov     eax, [esp+740h+a5]"
+            },
+            {
+              "ea": "0x42b3e2",
+              "size": 6,
+              "bytes": "8b0d204a5a00",
+              "text": "mov     ecx, gBattleScene__CastEffectResultFlg"
+            },
+            {
+              "ea": "0x42b3e8",
+              "size": 6,
+              "bytes": "8b1540aa5a00",
+              "text": "mov     edx, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b3ee",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a5"
+            },
+            {
+              "ea": "0x42b3ef",
+              "size": 5,
+              "bytes": "a164aa5a00",
+              "text": "mov     eax, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b3f4",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a4"
+            },
+            {
+              "ea": "0x42b3f5",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a3"
+            },
+            {
+              "ea": "0x42b3f6",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a5"
+            },
+            {
+              "ea": "0x42b3f7",
+              "size": 7,
+              "bytes": "8b0c8580e95900",
+              "text": "mov     ecx, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b3fe",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a1"
+            },
+            {
+              "ea": "0x42b3ff",
+              "size": 5,
+              "bytes": "e8fcdf0000",
+              "text": "call    BattleEntry__AppendEffect"
+            },
+            {
+              "ea": "0x42b404",
+              "size": 3,
+              "bytes": "83c414",
+              "text": "add     esp, 14h"
+            },
+            {
+              "ea": "0x42b407",
+              "size": 2,
+              "bytes": "33d2",
+              "text": "xor     edx, edx"
+            },
+            {
+              "ea": "0x42b409",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x42b40b",
+              "size": 4,
+              "bytes": "8d4c2420",
+              "text": "lea     ecx, [esp+740h+a2]"
+            },
+            {
+              "ea": "0x42b40f",
+              "size": 3,
+              "bytes": "833900",
+              "text": "cmp     dword ptr [ecx], 0"
+            },
+            {
+              "ea": "0x42b412",
+              "size": 2,
+              "bytes": "7f0b",
+              "text": "jg      short loc_42B41F"
+            },
+            {
+              "ea": "0x42b414",
+              "size": 1,
+              "bytes": "40",
+              "text": "inc     eax"
+            },
+            {
+              "ea": "0x42b415",
+              "size": 3,
+              "bytes": "83c104",
+              "text": "add     ecx, 4"
+            },
+            {
+              "ea": "0x42b418",
+              "size": 3,
+              "bytes": "83f802",
+              "text": "cmp     eax, 2"
+            },
+            {
+              "ea": "0x42b41b",
+              "size": 2,
+              "bytes": "7cf2",
+              "text": "jl      short loc_42B40F"
+            },
+            {
+              "ea": "0x42b41d",
+              "size": 2,
+              "bytes": "eb02",
+              "text": "jmp     short loc_42B421"
+            },
+            {
+              "ea": "0x42b41f",
+              "size": 2,
+              "bytes": "8bd0",
+              "text": "mov     edx, eax"
+            },
+            {
+              "ea": "0x42b421",
+              "size": 4,
+              "bytes": "8b549420",
+              "text": "mov     edx, [esp+edx*4+740h+a2]"
+            },
+            {
+              "ea": "0x42b425",
+              "size": 4,
+              "bytes": "8b44241c",
+              "text": "mov     eax, [esp+740h+var_724]"
+            },
+            {
+              "ea": "0x42b429",
+              "size": 4,
+              "bytes": "8b4c2414",
+              "text": "mov     ecx, [esp+740h+a5]"
+            },
+            {
+              "ea": "0x42b42d",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; int"
+            },
+            {
+              "ea": "0x42b42e",
+              "size": 6,
+              "bytes": "8b15204a5a00",
+              "text": "mov     edx, gBattleScene__CastEffectResultFlg"
+            },
+            {
+              "ea": "0x42b434",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; int"
+            },
+            {
+              "ea": "0x42b435",
+              "size": 5,
+              "bytes": "a140aa5a00",
+              "text": "mov     eax, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b43a",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; int"
+            },
+            {
+              "ea": "0x42b43b",
+              "size": 6,
+              "bytes": "8b0d64aa5a00",
+              "text": "mov     ecx, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b441",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; int"
+            },
+            {
+              "ea": "0x42b442",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; int"
+            },
+            {
+              "ea": "0x42b443",
+              "size": 7,
+              "bytes": "8b148d80e95900",
+              "text": "mov     edx, gBattleEntry[ecx*4]"
+            },
+            {
+              "ea": "0x42b44a",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; YobiAction *"
+            },
+            {
+              "ea": "0x42b44b",
+              "size": 5,
+              "bytes": "e8c0070100",
+              "text": "call    sub_43BC10"
+            },
+            {
+              "ea": "0x42b450",
+              "size": 5,
+              "bytes": "a140aa5a00",
+              "text": "mov     eax, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b455",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0; a3"
+            },
+            {
+              "ea": "0x42b457",
+              "size": 7,
+              "bytes": "8b0c8580e95900",
+              "text": "mov     ecx, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b45e",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x42b45f",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b460",
+              "size": 5,
+              "bytes": "e83bde0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b465",
+              "size": 5,
+              "bytes": "a1204a5a00",
+              "text": "mov     eax, gBattleScene__CastEffectResultFlg"
+            },
+            {
+              "ea": "0x42b46a",
+              "size": 3,
+              "bytes": "83c424",
+              "text": "add     esp, 24h"
+            },
+            {
+              "ea": "0x42b46d",
+              "size": 2,
+              "bytes": "a808",
+              "text": "test    al, 8"
+            },
+            {
+              "ea": "0x42b46f",
+              "size": 6,
+              "bytes": "0f85e1000000",
+              "text": "jnz     loc_42B556"
+            },
+            {
+              "ea": "0x42b475",
+              "size": 3,
+              "bytes": "f6c401",
+              "text": "test    ah, 1"
+            },
+            {
+              "ea": "0x42b478",
+              "size": 6,
+              "bytes": "0f85d8000000",
+              "text": "jnz     loc_42B556"
+            },
+            {
+              "ea": "0x42b47e",
+              "size": 2,
+              "bytes": "a840",
+              "text": "test    al, 40h"
+            },
+            {
+              "ea": "0x42b480",
+              "size": 2,
+              "bytes": "7464",
+              "text": "jz      short loc_42B4E6"
+            },
+            {
+              "ea": "0x42b482",
+              "size": 6,
+              "bytes": "8b1540aa5a00",
+              "text": "mov     edx, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b488",
+              "size": 2,
+              "bytes": "6a22",
+              "text": "push    22h ; '\"'; a3"
+            },
+            {
+              "ea": "0x42b48a",
+              "size": 7,
+              "bytes": "8b049580e95900",
+              "text": "mov     eax, gBattleEntry[edx*4]"
+            },
+            {
+              "ea": "0x42b491",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x42b492",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b493",
+              "size": 5,
+              "bytes": "e808de0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b498",
+              "size": 5,
+              "bytes": "a140aa5a00",
+              "text": "mov     eax, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b49d",
+              "size": 6,
+              "bytes": "8b0da4bc5a00",
+              "text": "mov     ecx, gMyPostion"
+            },
+            {
+              "ea": "0x42b4a3",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x42b4a6",
+              "size": 2,
+              "bytes": "3bc8",
+              "text": "cmp     ecx, eax"
+            },
+            {
+              "ea": "0x42b4a8",
+              "size": 2,
+              "bytes": "7512",
+              "text": "jnz     short loc_42B4BC"
+            },
+            {
+              "ea": "0x42b4aa",
+              "size": 7,
+              "bytes": "8b0c8580e95900",
+              "text": "mov     ecx, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b4b1",
+              "size": 5,
+              "bytes": "6800010000",
+              "text": "push    100h"
+            },
+            {
+              "ea": "0x42b4b6",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x42b4b7",
+              "size": 5,
+              "bytes": "e98c000000",
+              "text": "jmp     loc_42B548"
+            },
+            {
+              "ea": "0x42b4bc",
+              "size": 7,
+              "bytes": "8b148580e95900",
+              "text": "mov     edx, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b4c3",
+              "size": 2,
+              "bytes": "6a34",
+              "text": "push    34h ; '4'; a3"
+            }
+          ]
+        },
+        {
+          "start": "0x42b282",
+          "end_exclusive": "0x42b600",
+          "page_index": 2,
+          "instructions": [
+            {
+              "ea": "0x42b4c5",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x42b4c6",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b4c7",
+              "size": 5,
+              "bytes": "e8d4dd0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b4cc",
+              "size": 5,
+              "bytes": "a140aa5a00",
+              "text": "mov     eax, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b4d1",
+              "size": 2,
+              "bytes": "6a33",
+              "text": "push    33h ; '3'; a3"
+            },
+            {
+              "ea": "0x42b4d3",
+              "size": 7,
+              "bytes": "8b0c8580e95900",
+              "text": "mov     ecx, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b4da",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x42b4db",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b4dc",
+              "size": 5,
+              "bytes": "e8bfdd0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b4e1",
+              "size": 3,
+              "bytes": "83c418",
+              "text": "add     esp, 18h"
+            },
+            {
+              "ea": "0x42b4e4",
+              "size": 2,
+              "bytes": "eb6b",
+              "text": "jmp     short loc_42B551"
+            },
+            {
+              "ea": "0x42b4e6",
+              "size": 2,
+              "bytes": "85f6",
+              "text": "test    esi, esi"
+            },
+            {
+              "ea": "0x42b4e8",
+              "size": 2,
+              "bytes": "7470",
+              "text": "jz      short loc_42B55A"
+            },
+            {
+              "ea": "0x42b4ea",
+              "size": 2,
+              "bytes": "a803",
+              "text": "test    al, 3"
+            },
+            {
+              "ea": "0x42b4ec",
+              "size": 2,
+              "bytes": "7468",
+              "text": "jz      short loc_42B556"
+            },
+            {
+              "ea": "0x42b4ee",
+              "size": 3,
+              "bytes": "f6c480",
+              "text": "test    ah, 80h"
+            },
+            {
+              "ea": "0x42b4f1",
+              "size": 2,
+              "bytes": "7404",
+              "text": "jz      short loc_42B4F7"
+            },
+            {
+              "ea": "0x42b4f3",
+              "size": 2,
+              "bytes": "6a7b",
+              "text": "push    7Bh ; '{'"
+            },
+            {
+              "ea": "0x42b4f5",
+              "size": 2,
+              "bytes": "eb43",
+              "text": "jmp     short loc_42B53A"
+            },
+            {
+              "ea": "0x42b4f7",
+              "size": 3,
+              "bytes": "f6c440",
+              "text": "test    ah, 40h"
+            },
+            {
+              "ea": "0x42b4fa",
+              "size": 2,
+              "bytes": "7412",
+              "text": "jz      short loc_42B50E"
+            },
+            {
+              "ea": "0x42b4fc",
+              "size": 6,
+              "bytes": "8b0d40aa5a00",
+              "text": "mov     ecx, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b502",
+              "size": 2,
+              "bytes": "6a7a",
+              "text": "push    7Ah ; 'z'"
+            },
+            {
+              "ea": "0x42b504",
+              "size": 7,
+              "bytes": "8b148d80e95900",
+              "text": "mov     edx, gBattleEntry[ecx*4]"
+            },
+            {
+              "ea": "0x42b50b",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x42b50c",
+              "size": 2,
+              "bytes": "eb3a",
+              "text": "jmp     short loc_42B548"
+            },
+            {
+              "ea": "0x42b50e",
+              "size": 3,
+              "bytes": "f6c420",
+              "text": "test    ah, 20h"
+            },
+            {
+              "ea": "0x42b511",
+              "size": 2,
+              "bytes": "7411",
+              "text": "jz      short loc_42B524"
+            },
+            {
+              "ea": "0x42b513",
+              "size": 5,
+              "bytes": "a140aa5a00",
+              "text": "mov     eax, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b518",
+              "size": 2,
+              "bytes": "6a79",
+              "text": "push    79h ; 'y'"
+            },
+            {
+              "ea": "0x42b51a",
+              "size": 7,
+              "bytes": "8b0c8580e95900",
+              "text": "mov     ecx, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b521",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x42b522",
+              "size": 2,
+              "bytes": "eb24",
+              "text": "jmp     short loc_42B548"
+            },
+            {
+              "ea": "0x42b524",
+              "size": 5,
+              "bytes": "a900000020",
+              "text": "test    eax, 20000000h"
+            },
+            {
+              "ea": "0x42b529",
+              "size": 2,
+              "bytes": "752b",
+              "text": "jnz     short loc_42B556"
+            },
+            {
+              "ea": "0x42b52b",
+              "size": 2,
+              "bytes": "2402",
+              "text": "and     al, 2"
+            },
+            {
+              "ea": "0x42b52d",
+              "size": 2,
+              "bytes": "f6d8",
+              "text": "neg     al"
+            },
+            {
+              "ea": "0x42b52f",
+              "size": 2,
+              "bytes": "1bc0",
+              "text": "sbb     eax, eax"
+            },
+            {
+              "ea": "0x42b531",
+              "size": 5,
+              "bytes": "258a000000",
+              "text": "and     eax, 8Ah"
+            },
+            {
+              "ea": "0x42b536",
+              "size": 3,
+              "bytes": "83c01b",
+              "text": "add     eax, 1Bh"
+            },
+            {
+              "ea": "0x42b539",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a3"
+            },
+            {
+              "ea": "0x42b53a",
+              "size": 6,
+              "bytes": "8b1540aa5a00",
+              "text": "mov     edx, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b540",
+              "size": 7,
+              "bytes": "8b049580e95900",
+              "text": "mov     eax, gBattleEntry[edx*4]"
+            },
+            {
+              "ea": "0x42b547",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x42b548",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b549",
+              "size": 5,
+              "bytes": "e852dd0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b54e",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x42b551",
+              "size": 5,
+              "bytes": "a1204a5a00",
+              "text": "mov     eax, gBattleScene__CastEffectResultFlg"
+            },
+            {
+              "ea": "0x42b556",
+              "size": 2,
+              "bytes": "85f6",
+              "text": "test    esi, esi"
+            },
+            {
+              "ea": "0x42b558",
+              "size": 2,
+              "bytes": "7509",
+              "text": "jnz     short loc_42B563"
+            },
+            {
+              "ea": "0x42b55a",
+              "size": 2,
+              "bytes": "a808",
+              "text": "test    al, 8"
+            },
+            {
+              "ea": "0x42b55c",
+              "size": 2,
+              "bytes": "7505",
+              "text": "jnz     short loc_42B563"
+            },
+            {
+              "ea": "0x42b55e",
+              "size": 3,
+              "bytes": "f6c401",
+              "text": "test    ah, 1"
+            },
+            {
+              "ea": "0x42b561",
+              "size": 2,
+              "bytes": "7447",
+              "text": "jz      short loc_42B5AA"
+            },
+            {
+              "ea": "0x42b563",
+              "size": 5,
+              "bytes": "a900e00020",
+              "text": "test    eax, 2000E000h"
+            },
+            {
+              "ea": "0x42b568",
+              "size": 2,
+              "bytes": "7540",
+              "text": "jnz     short loc_42B5AA"
+            },
+            {
+              "ea": "0x42b56a",
+              "size": 6,
+              "bytes": "8b0d40aa5a00",
+              "text": "mov     ecx, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b570",
+              "size": 2,
+              "bytes": "6a0b",
+              "text": "push    0Bh; a3"
+            },
+            {
+              "ea": "0x42b572",
+              "size": 7,
+              "bytes": "8b148d80e95900",
+              "text": "mov     edx, gBattleEntry[ecx*4]"
+            },
+            {
+              "ea": "0x42b579",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x42b57a",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b57b",
+              "size": 5,
+              "bytes": "e820dd0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b580",
+              "size": 5,
+              "bytes": "a1204a5a00",
+              "text": "mov     eax, gBattleScene__CastEffectResultFlg"
+            },
+            {
+              "ea": "0x42b585",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x42b588",
+              "size": 3,
+              "bytes": "f6c401",
+              "text": "test    ah, 1"
+            },
+            {
+              "ea": "0x42b58b",
+              "size": 2,
+              "bytes": "741d",
+              "text": "jz      short loc_42B5AA"
+            },
+            {
+              "ea": "0x42b58d",
+              "size": 5,
+              "bytes": "a140aa5a00",
+              "text": "mov     eax, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b592",
+              "size": 2,
+              "bytes": "6a4c",
+              "text": "push    4Ch ; 'L'; a3"
+            },
+            {
+              "ea": "0x42b594",
+              "size": 7,
+              "bytes": "8b0c8580e95900",
+              "text": "mov     ecx, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x42b59b",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x42b59c",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b59d",
+              "size": 5,
+              "bytes": "e8fedc0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b5a2",
+              "size": 5,
+              "bytes": "a1204a5a00",
+              "text": "mov     eax, gBattleScene__CastEffectResultFlg"
+            },
+            {
+              "ea": "0x42b5a7",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x42b5aa",
+              "size": 2,
+              "bytes": "a820",
+              "text": "test    al, 20h"
+            },
+            {
+              "ea": "0x42b5ac",
+              "size": 6,
+              "bytes": "0f84b8fdffff",
+              "text": "jz      loc_42B36A"
+            },
+            {
+              "ea": "0x42b5b2",
+              "size": 6,
+              "bytes": "8b1540aa5a00",
+              "text": "mov     edx, gBattleScene__CastEffectTargetTmp.pos"
+            },
+            {
+              "ea": "0x42b5b8",
+              "size": 2,
+              "bytes": "6a2e",
+              "text": "push    2Eh ; '.'; a3"
+            },
+            {
+              "ea": "0x42b5ba",
+              "size": 7,
+              "bytes": "8b049580e95900",
+              "text": "mov     eax, gBattleEntry[edx*4]"
+            },
+            {
+              "ea": "0x42b5c1",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            }
+          ]
+        },
+        {
+          "start": "0x42b282",
+          "end_exclusive": "0x42b600",
+          "page_index": 3,
+          "instructions": [
+            {
+              "ea": "0x42b5c2",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b5c3",
+              "size": 5,
+              "bytes": "e8d8dc0000",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42b5c8",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x42b5cb",
+              "size": 5,
+              "bytes": "e99afdffff",
+              "text": "jmp     loc_42B36A"
+            },
+            {
+              "ea": "0x42b5d0",
+              "size": 5,
+              "bytes": "e8eb000100",
+              "text": "call    sub_43B6C0"
+            },
+            {
+              "ea": "0x42b5d5",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x42b5d8",
+              "size": 6,
+              "bytes": "8b0d64aa5a00",
+              "text": "mov     ecx, gBattleEntryCasterEffect.pos"
+            },
+            {
+              "ea": "0x42b5de",
+              "size": 7,
+              "bytes": "8b148d80e95900",
+              "text": "mov     edx, gBattleEntry[ecx*4]"
+            },
+            {
+              "ea": "0x42b5e5",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a1"
+            },
+            {
+              "ea": "0x42b5e6",
+              "size": 5,
+              "bytes": "e895dd0000",
+              "text": "call    BattleEntry__MoveState"
+            },
+            {
+              "ea": "0x42b5eb",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a1"
+            },
+            {
+              "ea": "0x42b5ec",
+              "size": 5,
+              "bytes": "e8df83ffff",
+              "text": "call    Battle__ParsePacket_M_RID"
+            },
+            {
+              "ea": "0x42b5f1",
+              "size": 4,
+              "bytes": "8b442418",
+              "text": "mov     eax, [esp+748h+var_730]"
+            },
+            {
+              "ea": "0x42b5f5",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x42b5f8",
+              "size": 3,
+              "bytes": "ff4058",
+              "text": "inc     dword ptr [eax+58h]"
+            },
+            {
+              "ea": "0x42b5fb",
+              "size": 5,
+              "bytes": "e929c40000",
+              "text": "jmp     def_427817; jumptable 00427817 default case"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "routing_context": {
+    "normal_skill_dispatch_boundary": "0x42ae37",
+    "selected_case": 4,
+    "selected_target": "0x42b282",
+    "compressed_switch": {
+      "ea": "0x42ae60",
+      "jumps": "0x437d54",
+      "jump_count": 21,
+      "jump_width": 4,
+      "jump_bytes": "255b430082b2420053c042002e414300ce2e4300acbe420000b6420067ae420041c242005ecb420036c7420066cf420067284300ba1c430032eb420095ec420035f04200f2f3420039f74200bff94200297a4300",
+      "values": "0x437da8",
+      "value_count": 118,
+      "value_width": 1,
+      "value_bytes": "000014000100001414141414021414141414140303030303030303030303030304040404040404040404040404040404040405050505040404040404040606060404040404141414000714000000000000000806000004000514141414090000000a0b0c0c0c0c0c0c000d0e0f10000d110012141413",
+      "lowcase": 0,
+      "default": "0x437a29",
+      "case_groups": [
+        {
+          "target": "0x42ae67",
+          "cases": [
+            73
+          ]
+        },
+        {
+          "target": "0x42b282",
+          "cases": [
+            4
+          ]
+        },
+        {
+          "target": "0x42b600",
+          "cases": [
+            61,
+            62,
+            63,
+            83
+          ]
+        },
+        {
+          "target": "0x42beac",
+          "cases": [
+            50,
+            51,
+            52,
+            53,
+            88
+          ]
+        },
+        {
+          "target": "0x42c053",
+          "cases": [
+            12
+          ]
+        },
+        {
+          "target": "0x42c241",
+          "cases": [
+            82
+          ]
+        },
+        {
+          "target": "0x42c736",
+          "cases": [
+            97
+          ]
+        },
+        {
+          "target": "0x42cb5e",
+          "cases": [
+            93
+          ]
+        },
+        {
+          "target": "0x42cf66",
+          "cases": [
+            98
+          ]
+        },
+        {
+          "target": "0x42eb32",
+          "cases": [
+            107
+          ]
+        },
+        {
+          "target": "0x42ec95",
+          "cases": [
+            108
+          ]
+        },
+        {
+          "target": "0x42f035",
+          "cases": [
+            109
+          ]
+        },
+        {
+          "target": "0x42f3f2",
+          "cases": [
+            112
+          ]
+        },
+        {
+          "target": "0x42f739",
+          "cases": [
+            114
+          ]
+        },
+        {
+          "target": "0x42f9bf",
+          "cases": [
+            117
+          ]
+        },
+        {
+          "target": "0x431cba",
+          "cases": [
+            106,
+            111
+          ]
+        },
+        {
+          "target": "0x432867",
+          "cases": [
+            99,
+            100,
+            101,
+            102,
+            103,
+            104
+          ]
+        },
+        {
+          "target": "0x432ece",
+          "cases": [
+            32,
+            33,
+            34,
+            35,
+            36,
+            37,
+            38,
+            39,
+            40,
+            41,
+            42,
+            43,
+            44,
+            45,
+            46,
+            47,
+            48,
+            49,
+            54,
+            55,
+            56,
+            57,
+            58,
+            59,
+            60,
+            64,
+            65,
+            66,
+            67,
+            68,
+            86
+          ]
+        },
+        {
+          "target": "0x43412e",
+          "cases": [
+            19,
+            20,
+            21,
+            22,
+            23,
+            24,
+            25,
+            26,
+            27,
+            28,
+            29,
+            30,
+            31
+          ]
+        },
+        {
+          "target": "0x435b25",
+          "cases": [
+            0,
+            1,
+            3,
+            5,
+            6,
+            72,
+            75,
+            76,
+            77,
+            78,
+            79,
+            80,
+            81,
+            84,
+            85,
+            87,
+            94,
+            95,
+            96,
+            105,
+            110,
+            113
+          ]
+        },
+        {
+          "target": "0x437a29",
+          "cases": [
+            2,
+            7,
+            8,
+            9,
+            10,
+            11,
+            13,
+            14,
+            15,
+            16,
+            17,
+            18,
+            69,
+            70,
+            71,
+            74,
+            89,
+            90,
+            91,
+            92,
+            115,
+            116
+          ]
+        }
+      ],
+      "lowcase_method": "switch_info_t.get_lowcase()，间接表使用ind_lowcase，raw低case字段与values共享",
+      "raw_lowcase_union": 4423080
+    },
+    "context_only_not_all_skill_routes_verified": true
+  },
+  "normal_initialization_original": {
+    "baseline_reference": "doc/cg2d_battle_event_execution_gates_spec.md",
+    "producer_and_w32_zero_writes": [
+      {
+        "ea": "0x427496",
+        "size": 2,
+        "bytes": "33ff",
+        "text": "xor     edi, edi"
+      },
+      {
+        "ea": "0x42749b",
+        "size": 4,
+        "bytes": "897c2414",
+        "text": "mov     [esp+740h+a5], edi"
+      },
+      {
+        "ea": "0x4274c3",
+        "size": 4,
+        "bytes": "897c241c",
+        "text": "mov     [esp+740h+var_724], edi"
+      },
+      {
+        "ea": "0x4274c7",
+        "size": 4,
+        "bytes": "897c2420",
+        "text": "mov     [esp+740h+a2], edi"
+      },
+      {
+        "ea": "0x4274cb",
+        "size": 4,
+        "bytes": "897c2424",
+        "text": "mov     [esp+740h+var_71C], edi"
+      },
+      {
+        "ea": "0x4274cf",
+        "size": 4,
+        "bytes": "897c2448",
+        "text": "mov     [esp+740h+imageNo], edi"
+      },
+      {
+        "ea": "0x4274d3",
+        "size": 4,
+        "bytes": "897c244c",
+        "text": "mov     [esp+740h+var_6F4], edi"
+      },
+      {
+        "ea": "0x4274d7",
+        "size": 4,
+        "bytes": "897c2450",
+        "text": "mov     [esp+740h+a3], edi"
+      },
+      {
+        "ea": "0x4274db",
+        "size": 4,
+        "bytes": "897c2454",
+        "text": "mov     [esp+740h+var_6EC], edi"
+      }
+    ],
+    "writes": 8,
+    "initialized_once_not_per_target": true
+  },
+  "source_body_before": [
+    {
+      "marker": "void ProcessBattleMSkill4(",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "text": "void ProcessBattleMSkill4(\n    YobiAction* const scene, BattleScenePayload* const payload, const std::int32_t fpUsed)\n{\n    using namespace world::detail;\n    std::int32_t firstImage = 0;\n    std::int32_t secondImage = 0;\n    std::array<std::int32_t, 2> firstImages {};\n    std::array<std::int32_t, 2> secondImages {};\n    std::array<std::int32_t, 2> values {};\n    const std::int32_t mode = TakeBattleMInteger_438F70(scene);\n    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));\n    YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];\n    if (caster == nullptr) {\n        FinishBattleEvent_43B6C0(scene);\n        return;\n    }\n    static_cast<BattleActorPayload*>(caster->payload)->castSkill103C = gBattleMSkill5AAA78;\n    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)\n        ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;\n    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->fpUsed1008 = fpUsed;\n    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->attackModeFF4 = mode;\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 55);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 151);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 70);\n    for (;;) {\n        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));\n        if (gBattleMTargetPosition5AAA40 == 255) {\n            break;\n        }\n        if (gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] == nullptr) {\n            FinishBattleEvent_43B6C0(scene);\n            break;\n        }\n        gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));\n        const std::int32_t amount = TakeBattleMInteger_438F70(scene);\n        if ((gBattleMResultFlags5A4A20 & 0x800000u) != 0) {\n            TakeBattleMAuxGraphics_43BF30(\n                scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());\n        }\n        AppendBattleEffect_439400(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],\n            {gBattleMTargetPosition5AAA40, gBattleMResultFlags5A4A20, amount, firstImage});\n        std::size_t imageIndex = 0;\n        for (std::size_t index = 0; index < 2; ++index) {\n            if (firstImages[index] > 0) {\n                imageIndex = index;\n                break;\n            }\n        }\n        AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],\n            gBattleMTargetPosition5AAA40, gBattleMResultFlags5A4A20, firstImage, secondImage, firstImages[imageIndex]);\n        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 0);\n        std::uint32_t flags = gBattleMResultFlags5A4A20;\n        if ((flags & 0x108u) == 0) {\n            if ((flags & 0x40u) != 0) {\n                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 34);\n                if (gBattleCurrentPosition5ABCA4 == gBattleMTargetPosition5AAA40) {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 256);\n                } else {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 52);\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 51);\n                }\n                flags = gBattleMResultFlags5A4A20;\n            } else if (amount != 0 && (flags & 3u) != 0) {\n                if ((flags & 0x8000u) != 0) {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 123);\n                    flags = gBattleMResultFlags5A4A20;\n                } else if ((flags & 0x4000u) != 0) {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 122);\n                    flags = gBattleMResultFlags5A4A20;\n                } else if ((flags & 0x2000u) != 0) {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 121);\n                    flags = gBattleMResultFlags5A4A20;\n                } else if ((flags & 0x20000000u) == 0) {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],\n                        (flags & 2u) != 0 ? 165 : 27);\n                    flags = gBattleMResultFlags5A4A20;\n                }\n            }\n        }\n        if ((amount != 0 || (flags & 0x108u) != 0) && (flags & 0x2000E000u) == 0) {\n            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 11);\n            flags = gBattleMResultFlags5A4A20;\n            if ((flags & 0x100u) != 0) {\n                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 76);\n                flags = gBattleMResultFlags5A4A20;\n            }\n        }\n        if ((flags & 0x20u) != 0) {\n            AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 46);\n        }\n    }\n    MoveBattleCastState_439380(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]);\n    ParseBattleMRide_4239D0(scene);\n    ++payload->packetSubState58;\n}"
+    }
+  ],
+  "source_patches": [
+    {
+      "label": "skill4_caster_pub_and_actor_use_same_parsed_position",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "scope_start": "void ProcessBattleMSkill4(",
+      "before": "    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));\n    YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];",
+      "after": "    const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));\n    gBattleMCasterPosition5AAA64 = casterPosition;\n    YobiAction* const caster = gBattleAllEntries59E980[casterPosition];",
+      "original_eas": [
+        "0x42b28b",
+        "0x42b291",
+        "0x42b296",
+        "0x42b29b"
+      ]
+    },
+    {
+      "label": "skill4_initial_skill_payload_before_live_skill",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "scope_start": "void ProcessBattleMSkill4(",
+      "before": "    static_cast<BattleActorPayload*>(caster->payload)->castSkill103C = gBattleMSkill5AAA78;",
+      "after": "    auto* const skillPayload = static_cast<BattleActorPayload*>(caster->payload);\n    skillPayload->castSkill103C = gBattleMSkill5AAA78;",
+      "original_eas": [
+        "0x42b2b7",
+        "0x42b2ba",
+        "0x42b2c1"
+      ]
+    },
+    {
+      "label": "skill4_level_caster_actor_level_payload_order",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "scope_start": "void ProcessBattleMSkill4(",
+      "before": "    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)\n        ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;",
+      "after": "    const std::int32_t levelCasterPosition = gBattleMCasterPosition5AAA64;\n    YobiAction* const levelCaster = gBattleAllEntries59E980[levelCasterPosition];\n    const std::int32_t skillLevel = gBattleMSkillLevelIndex5A3A18;\n    static_cast<BattleActorPayload*>(levelCaster->payload)->castSkillLevel1044 = skillLevel;",
+      "original_eas": [
+        "0x42b2c7",
+        "0x42b2cd",
+        "0x42b2d4",
+        "0x42b2da",
+        "0x42b2dd"
+      ]
+    },
+    {
+      "label": "skill4_target_condition_before_pub_and_same_parsed_position_borrow",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "scope_start": "void ProcessBattleMSkill4(",
+      "before": "        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));\n        if (gBattleMTargetPosition5AAA40 == 255) {\n            break;\n        }\n        if (gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] == nullptr) {",
+      "after": "        const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));\n        const bool targetUnavailable = targetPosition == 255;\n        gBattleMTargetPosition5AAA40 = targetPosition;\n        if (targetUnavailable) {\n            break;\n        }\n        if (gBattleAllEntries59E980[targetPosition] == nullptr) {",
+      "original_eas": [
+        "0x42b371",
+        "0x42b379",
+        "0x42b37e",
+        "0x42b383",
+        "0x42b389",
+        "0x42b391",
+        "0x42b393"
+      ]
+    },
+    {
+      "label": "skill4_effect_image_flags_target_caster_actor_order",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "scope_start": "void ProcessBattleMSkill4(",
+      "before": "        AppendBattleEffect_439400(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],\n            {gBattleMTargetPosition5AAA40, gBattleMResultFlags5A4A20, amount, firstImage});",
+      "after": "        const std::int32_t effectImage = firstImage;\n        const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;\n        const std::int32_t effectTargetPosition = gBattleMTargetPosition5AAA40;\n        const std::int32_t effectCasterPosition = gBattleMCasterPosition5AAA64;\n        const BattleEntryEffectRecord effectRecord {effectTargetPosition, effectFlags, amount, effectImage};\n        YobiAction* const effectCaster = gBattleAllEntries59E980[effectCasterPosition];\n        AppendBattleEffect_439400(effectCaster, effectRecord);",
+      "original_eas": [
+        "0x42b3de",
+        "0x42b3e2",
+        "0x42b3e8",
+        "0x42b3ef",
+        "0x42b3f7",
+        "0x42b3ff"
+      ]
+    },
+    {
+      "label": "skill4_two_graphic_array_indices_keep_s32",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "scope_start": "void ProcessBattleMSkill4(",
+      "before": "        std::size_t imageIndex = 0;\n        for (std::size_t index = 0; index < 2; ++index) {",
+      "after": "        std::int32_t imageIndex = 0;\n        for (std::int32_t index = 0; index < 2; ++index) {",
+      "original_eas": [
+        "0x42b407",
+        "0x42b409",
+        "0x42b40f",
+        "0x42b414",
+        "0x42b418",
+        "0x42b41b",
+        "0x42b41f",
+        "0x42b421"
+      ]
+    },
+    {
+      "label": "skill4_aux_selected_second_first_flags_target_caster_actor_order",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "scope_start": "void ProcessBattleMSkill4(",
+      "before": "        AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],\n            gBattleMTargetPosition5AAA40, gBattleMResultFlags5A4A20, firstImage, secondImage, firstImages[imageIndex]);",
+      "after": "        const std::int32_t auxiliaryImage = firstImages[imageIndex];\n        const std::int32_t auxiliarySecondImage = secondImage;\n        const std::int32_t auxiliaryFirstImage = firstImage;\n        const std::uint32_t auxiliaryFlags = gBattleMResultFlags5A4A20;\n        const std::int32_t auxiliaryTargetPosition = gBattleMTargetPosition5AAA40;\n        const std::int32_t auxiliaryCasterPosition = gBattleMCasterPosition5AAA64;\n        YobiAction* const auxiliaryCaster = gBattleAllEntries59E980[auxiliaryCasterPosition];\n        AppendBattleAuxEffects_43BC10(auxiliaryCaster, auxiliaryTargetPosition, auxiliaryFlags,\n            auxiliaryFirstImage, auxiliarySecondImage, auxiliaryImage);",
+      "original_eas": [
+        "0x42b421",
+        "0x42b425",
+        "0x42b429",
+        "0x42b42e",
+        "0x42b435",
+        "0x42b43b",
+        "0x42b443",
+        "0x42b44b"
+      ]
+    },
+    {
+      "label": "skill4_player_compare_and_first_cast_use_same_target_position",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "scope_start": "void ProcessBattleMSkill4(",
+      "before": "                if (gBattleCurrentPosition5ABCA4 == gBattleMTargetPosition5AAA40) {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 256);\n                } else {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 52);",
+      "after": "                const std::int32_t playerTargetPosition = gBattleMTargetPosition5AAA40;\n                if (gBattleCurrentPosition5ABCA4 == playerTargetPosition) {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[playerTargetPosition], 256);\n                } else {\n                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[playerTargetPosition], 52);",
+      "original_eas": [
+        "0x42b498",
+        "0x42b49d",
+        "0x42b4a6",
+        "0x42b4aa",
+        "0x42b4b1",
+        "0x42b4bc",
+        "0x42b4c7",
+        "0x42b4cc"
+      ]
+    },
+    {
+      "label": "skill4_reaction_kind_before_target_actor",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "scope_start": "void ProcessBattleMSkill4(",
+      "before": "                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],\n                        (flags & 2u) != 0 ? 165 : 27);",
+      "after": "                    const std::int32_t reactionKind = (flags & 2u) != 0 ? 165 : 27;\n                    const std::int32_t reactionTargetPosition = gBattleMTargetPosition5AAA40;\n                    YobiAction* const reactionTarget = gBattleAllEntries59E980[reactionTargetPosition];\n                    AppendBattleCast_4392A0(scene, reactionTarget, reactionKind);",
+      "original_eas": [
+        "0x42b52b",
+        "0x42b52d",
+        "0x42b52f",
+        "0x42b531",
+        "0x42b536",
+        "0x42b539",
+        "0x42b53a",
+        "0x42b540",
+        "0x42b549"
+      ]
+    }
+  ],
+  "previous_semantic_record": {
+    "index": 812,
+    "record": {
+      "original_entry": "0x427470",
+      "inventory_id": "F:00027470",
+      "status": "既有战斗M头表查找与一索引提示真实格式已接；其他依赖及完整战斗/运行未验；BMG01入口/失活耗尽/延迟条件与共享计时四片段实修、有界恢复回存纳管；完整父/owner运行未验；BMH01六数据消息有界五取样差异与现代字段读取落码，完整父/owner运行未验；BMI01六转场/宠物目标七取样差异八处修复纳管，完整父/owner运行未验；BMJ01六装备/状态目标四取样差异七处及接线注释修复纳管，完整父/owner运行未验；BMK01位置交换/怪物目标九取样差异九处修复纳管，完整父/owner运行未验；BML01骑乘/群体两目标九组取样差异十二处修复纳管，完整父/owner运行未验；BMM01道具/连击目标二十四组取样差异二十七处修复纳管，完整技能父/owner运行未验；BMN01技能入口/等待态与五整数归一化四组八处修复纳管，各正常技能主体/完整父/owner运行未验",
+      "original_end_exclusive": "0x437AD3",
+      "instruction_count": 17298,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleEvent_427470",
+            "PrepareBattleMExecution",
+            "DrainInactiveBattleMEvent",
+            "ProcessBattleMSkill32Family",
+            "ProcessBattleMSkillHeader",
+            "RestoreBattleMExecutionState",
+            "SaveBattleMExecutionState",
+            "ProcessBattleMDataHeader",
+            "ProcessBattleMTransitionHeader",
+            "ProcessBattleMStatusHeader",
+            "ProcessBattleMPositionHeader",
+            "ProcessBattleMMonsterHeader",
+            "ProcessBattleMRideHeader",
+            "ProcessBattleMGmnHeader",
+            "ProcessBattleMItemHeader",
+            "ProcessBattleMComboHeader",
+            "ProcessBattleMSkillWaitingState",
+            "ReadBattleMSkillHeader"
+          ],
+          "relationship": "BMG01同一既有父有界入口/失活/延迟和恢复回存纳管；三根四片段跨两CPP，非完整17298条或所有消息目标验收，helper不独立注册。；BMH01真实ProcessBattleMDataHeader六消息/共用完成尾五取样差异与现代字段读取接入，旧段/入口/恢复回存历史及所有其它目标保持，非完整父验收。；BMI01同一ProcessBattleMTransitionHeader六目标/三共用尾七正常取样差异八处修复，保所有列表、seed/Rand和借用/就绪/Finish→回存；仅有界合同，不代全父。；BMJ01真实ProcessBattleMStatusHeader六装备/状态目标及三共用尾四正常取样差异七处修复；唯一“仍待接入”更正为已有调用/回存但完整战斗另验，所有其它目标和历史保持。；BMK01真实ProcessBattleMPositionHeader/ProcessBattleMMonsterHeader两个主目标与三个共用尾九取样差异九处修复，固定旧槽与当前槽/重复附件、失败返回/工厂发布及固定payload/四载体/列表与58保持，所有其它目标和历史保持。；BML01真实ProcessBattleMRideHeader/ProcessBattleMGmnHeader及三个共用尾九组取样差异十二处，固定旧payload/当前对象与正确尾跳/载体核心、各取包RNG/失败返回/列表和58保持，所有其它目标/历史保持。；BMM01真实ProcessBattleMItemHeader/ProcessBattleMComboHeader及三个共用尾二十四组二十七处，四态表实际目标/间接表地址区别、所有不同正常失败/取包列表/调用后live读取与RID/58保持，其他目标和历史保持。；BMN01真实ProcessBattleMSkillHeader/ProcessBattleMSkillWaitingState/ReadBattleMSkillHeader及三个Caster尾四组七定义八处，五压缩表实际512B/37技能state2最后参与者与七finish/五整数归一化合同，所有正常取包/业务零写/调用后live与其它目标和历史保持。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConsumeBattlePlayerTimer"
+          ],
+          "relationship": "现代共享helper恢复四inline计时正常条件先pub；失活首/排空BST、43BAA0排空BST和411CB0队列动作166共用，原inline不造独立F或原callsite"
+        },
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "ReadGraphicDxHeightFromField"
+          ],
+          "relationship": "现代字段借用读取：先native DX表基址，再W32字段，再表内S16高度，不加载/保护或改变owner；无独立原F/X/注册，旧读取接口保持"
+        },
+        {
+          "path": "include/cg/render/GraphicDxCache.hpp",
+          "symbols": [
+            "ReadGraphicDxHeightFromField"
+          ],
+          "relationship": "唯一现代const S32&字段借用声明，调用期有效，不暴露DX/SDL对象；所有旧声明保持"
+        }
+      ],
+      "search_call_connections": [
+        {
+          "parent_entry": "0x427470",
+          "call_site": "0x42761D",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "DrainInactiveBattleMEvent",
+          "target_entry": "0x53BE40",
+          "target_symbol": "StrStr_53BE40",
+          "relationship": "4B header与原553E94当前3B头字符串逐项子串查找，按25项顺序首命中/失配分支及后续游标/动作保持",
+          "entry_symbol": "UpdateBattleEvent_427470",
+          "source_call_chain": [
+            "UpdateBattleEvent_427470",
+            "PrepareBattleMExecution",
+            "DrainInactiveBattleMEvent"
+          ]
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x43B610",
+          "is_code": false,
+          "reference_type": 1,
+          "reference_count": 1,
+          "reference_sites": [
+            "0x43B63D"
+          ],
+          "relationship": "原函数地址取用/回调绑定data xref，非直接call，不按入向数判全链"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/ui_windows/shared_battle.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+        "doc/cg2d_battle_event_execution_gates_evidence.json",
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-acceptance",
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_data_sampling_evidence.json",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-acceptance",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_evidence.json",
+        "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-baseline",
+        "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision",
+        "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-acceptance",
+        "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
+        "doc/cg2d_battle_m_status_sampling_evidence.json",
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-baseline",
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision",
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-acceptance",
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_position_monster_sampling_evidence.json",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-acceptance",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_evidence.json",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-baseline",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-acceptance",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state",
+        "doc/cg2d_battle_m_item_combo_sampling_evidence.json",
+        "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-baseline",
+        "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-decision",
+        "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-acceptance",
+        "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state",
+        "doc/cg2d_battle_m_skill_entry_waiting_sampling_evidence.json"
+      ],
+      "verification_level": "父17298条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行 本次仅读27格式邻指令、一个新ASCII含NUL格式、43390F原call与5A3A18/调试先后及真实源码两层调用链、一标识符静态核对，余17271条/原callback绑定及其他目标不重验，未执行。；BMG01四有界区间312条1201B七页与25槽100B/真实data绑定，四内联计时重合段去重、两CPP三根四片段/所有头与其它正文保持有限静态；17298仅包括两chunk的父统计，不称完整父原指令/SDK/SEH/ABI或运行已验；BMH01六数据块和共用完成尾329条1314B九页/63call，五CopyPayload点沿既有9条27B正确合同保持；Yobi五片段/缓存引用承载/头声明七处有限静态，所有其它源码/原读取消费者保持。不据此验17298全父/SDK/SEH/ABI或运行；BMI01九区间448条1743B十二页/60call含三共用尾与真实分支闭合，单根七逻辑八处/其它所有源和头保持有限静态；不以此验全部17298父/SDK/SEH/ABI/资源owner或画面运行；BMJ01九区间643条2575B十四页/89call与三共用推进/就绪/完成尾，单根四逻辑七处和唯一过期注释有限静态；原live mode/固定旧payload与当前槽/Queued任意非零substate及所有其它源码声明保持。不据此验全17298父/SDK/SEH/ABI/资源owner或画面；BMK01五区间647条2787B十二页61call含两个主目标和三个实际共用尾，单CPP两根九处指定差异及旧槽/重复附件/固定payload/四载体/列表与58取样有限静态；不以此验完整17298父/SDK/SEH/ABI/owner/画面；BML01五区间1198条4711B十八页170call及正确401EA0一条5B尾跳/入口W8零初始化、单CPP两根九组十一补丁定义十二处和正确载体核心保持有限静态；不以此验17298全父/SDK/SEH/ABI/资源owner/画面；BMM01五区间968条3545B十五页119call/四态表四W32-16B、两根二十四组二十七处及原正常失败/列表/调用后live取样保持有限静态；间接表不作代码目标，不以此验17298父/SDK/SEH/ABI/owner/画面；BMN01五区间490条1894B十页35call/五压缩表512B，三根四组七定义八处及原37技能state2/七类finish/五Take与归一化有限静态；不以此验42AE37后主体或17298父/SDK/SEH/ABI/owner/画面",
+      "boundary": "原42761D失活块在DrainInactiveBattleMEvent，真实入口经PrepareBattleMExecution调用；辅助函数不独立绑定。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 本次仅ProcessBattleMSkill32Family的43390F真实格式接口：技能2013、S32索引原采样/既有64B未清output/调试串输出在结果flags gate前。当前入口经ProcessBattleMSkillHeader的真实源码链保持，不造helper原地址；本次不证明原完整目的容量、不改M解析/目标/RNG/回调或424620待决值，不将单格式与旧查找接线算完整父/CRT运行通过。 BMG01追加入口253条942B和公共尾35条170B、两外部计时内联24条89B的有界合同：S32失活头、命中聊天条件和延迟零条件先发布、共享timer同remaining负条件先发布恢复；两256B原未清字符串/NUL边界、失配不第二次减、每轮live5C、15项恢复/13项回存且9C/A0不回存、完整25case正确正文保持。只有四处消费同共享timer，无独立原callee/F/X或新owner；不增adapted/完整成员、保护/异常模型或新零写，不覆盖旧查找/格式历史。 BMH01追加六数据case12/13/14/17/23/24与42AAFE共用完成尾有界合同，恢复FP/变身actor存在条件先caster发布、Chat加载后caster→lifetime→角色、DX base→角色图号W32→S16高度、400门禁先technique发布而1000比较仍发布后。新const S32&读取接口只借字段，在render边界内固定native表，不增原F/X或暴露底层对象/owner；原CHT A4两pub后live复读、四载体构造/逐字段copy/析构、两装备轮及骑乘和End Finish后scene7保持。既有CopyPayload9条及原弃返回合同不改，不引保护/异常模型或全父验收。 BMI01追加Escape/Clear/Support/PetNotice/PetLeave/PetDown和三共用尾有界合同，恢复两actor条件先caster pub、Escape先caster读再resultFlags pub及末玩家比较先角色借用、255条件先caster pub、Support FDC W8门禁、PetLeave X角色→点→载荷及Y角色/载荷→点的不同顺序。原seed同解析position/两Rand(0,19)、所有动作列表/字段/live角色复读/就绪参数/Finish和58增量及父回存保持；非拥有T*借用不跨Rand缓存，不增原F/X/保护/owner/注册或异常模型，完整其它消息和运行门禁仍待。 BMJ01追加装备6/状态值9/Debuff10/Power11/复活19/队列20及三共用尾有界合同，恢复三actor条件先caster pub、技能等级caster→actor→technique→payload/pub、两resultFlags W8门禁、Rebirth flags→target取样。原模式3/4 Append80后live mode重读、Debuff先旧payload借用再取state/type和当前角色判断、Power正常1/3、Queued任何非零substate就绪/peek busy-phase不耗包、所有列表/RID/58/父回存保持；原正常零mode标签仍raw，不新业务或排除/异常模型。仅更正具名接线注释，不增F/X/分类/成员/owner/保护或新零写，完整门禁仍待。 BMK01追加POS4/MON5及三个共用完成/增量尾有界合同；恢复POS哨兵比较先caster pub、玩家比较先moving借用、两方坐标与payload的各次原取样，MON actor条件先caster pub、target caster/actor后defender再payload、效果caster的分支寿命及defender先actor、失败W8与Reset后才重读位置、工厂固定槽与同位置。旧槽T**、非对称重复新附件重绑、工厂结果含null先pub后固定对象/payload、四CryptInt构造逐字段copy析构、正常W32/W16/零写/列表和58及父回存保持；不新F/X/分类/成员/保护/owner或异常模型，完整门禁仍待。 BML01追加RID22/GMN21及三个实际就绪/Move/增量尾有界合同；恢复RID同Take resultFlags局部、三效果同caster用于actor/记录、空payload效果Y点索引→effect→点值、三FDC W8门禁、骑手坐标caster→rider→source actor；GMN entrance2四坐标点索引先current actor/payload、linked条件先W8 field30F pub、caster条件先member借用。固定旧payload/载体两非拥有T*及16B非地址部分、RID三路径/四rider copy与十二构造析构、GMN mode0读palette一次/非零五载体/原entrance初始化与单Rand/MarkDeath和工厂先pub、正确401EA0尾跳401EC0/逐字段CopyPayload核心、正常零写/列表/5ABA7C/58和父回存保持；不新身份/分类/成员/owner/保护或异常模型，完整门禁待。 BMM01追加ITM7/COM8及三个实际共用尾；恢复ITM两target条件先pub、mode6 target先消息pub及正反效果参数、mode0 caster/target先消息pub/kind条件先技能零pub/actor先当前消息值再payload；COM序列lastValue先count W8/就绪FDC W8、caster条件先pub、同累计值pub/效果、caster-target-actor/参与者count先caster、两S32图索引/辅助参数原序、三player门禁和两不同165/27取样、末11/46目标位置跨分支寿命及调用后先target再flags。各模式/四state正常失败与返回、重复列表、图数组和未补空amount默认、原零写/核心/RID/58与父回存保持；24非技能头已分组有界纳管但全技能0/SEH及所有owner/消费者运行仍待，不增身份/分类/成员/保护或异常模型。 同解析位置用于pub和actor查找，ITM初始caster/两target及COM初始target/caster不在pub后额外重读全局。 BMN01追加SKL0入口/等待态/五整数及三Caster尾；入口58一次S32保存传private Waiting、四flagsFDC原W8对象字节、高段remainder<1先pub及低段>=50条件在skill pub后两tech/index pub前恢复。state2原37技能/最后参与者Advance、七类finish及68参数1、调用后live和Clear先Finish后逐次清字段、98固定16B效果序列、五Take及初始/live technique区别与原正常业务等级范围保持。五等待态表28W32跳槽112B/400W8索引400B按实际宽度/长度映射，42AE37正常主体分派边界明确；不增身份/分类/成员/保护或异常模型，全部各技能主体/owner/消费者运行仍待。",
+      "callback_address_evidence": [
+        {
+          "reference_site": "0x43B63D",
+          "target_entry": "0x427470",
+          "instruction": "mov",
+          "destination": "dword ptr [edi+8]",
+          "relationship": "原向对象+8写函数地址，data xref；当前同一callback赋值保持，不增加直接call"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x427470",
+          "call_site": "0x43390F",
+          "source": "src/YobiRuntime.cpp",
+          "symbol": "ProcessBattleMSkill32Family"
+        }
+      ],
+      "business_format_points": [
+        {
+          "parent_entry": "0x427470",
+          "call_site": "0x43390F",
+          "target_entry": "0x53B304",
+          "format_address": "0x553F64",
+          "format_bytes": "706572666f726d496e646578203d20256400",
+          "argument_widths": [
+            "S32"
+          ],
+          "source_format_symbol": "ProcessBattleMSkill32Family",
+          "source_format_expression": "\"performIndex = %d\"",
+          "source_expression": "gBattleMSkillLevelIndex5A3A18",
+          "original_value_address": "0x5A3A18",
+          "original_value_read_order": [
+            "0x4338FB"
+          ],
+          "destination_expression": "output.data()",
+          "destination_capacity": 64,
+          "original_destination_capacity": null,
+          "condition_expression": "ProcessBattleMSkillHeader路由的技能32族目标循环内skill==2013；原jump table case2013",
+          "consumer_expression": "platform::WriteLegacyDebugString(output.data())；之后新结果flags gate决定continue",
+          "entry_symbol": "UpdateBattleEvent_427470",
+          "source_call_chain": [
+            "UpdateBattleEvent_427470",
+            "ProcessBattleMSkillHeader",
+            "ProcessBattleMSkill32Family"
+          ],
+          "relationship": "只此标准callee交53B304；当前S32索引/原ASCII格式/既有未清64B缓冲与调试输出、输出后采结果旗标/continue及其后目标处理保持。原端完整目的容量本步不证明；现格式最大S32正文沿既有buffer，不加截断、默认值或原极值/越界模拟，不据callback地址/入向数量宣整父完成。"
+        }
+      ],
+      "business_format_source_expression_count": 1,
+      "event_execution_gates": {
+        "spec_id": "BMG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+          "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+          "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance",
+          "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+          "doc/cg2d_battle_event_execution_gates_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "parent_chunks": [
+          [
+            "0x427470",
+            "0x437ad3"
+          ],
+          [
+            "0x54b720",
+            "0x54b848"
+          ]
+        ],
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "start": "0x427470",
+            "end_exclusive": "0x42781e",
+            "meaning": "固定载荷/活动位、失活CHT/BST耗尽、延迟及15项恢复/25头分发表入口",
+            "parent_entry": "0x427470",
+            "instruction_count": 253,
+            "code_bytes": 942
+          },
+          {
+            "start": "0x437a29",
+            "end_exclusive": "0x437ad3",
+            "meaning": "13项逐项回存与公共返回；无9C/A0回存",
+            "parent_entry": "0x427470",
+            "instruction_count": 35,
+            "code_bytes": 170
+          },
+          {
+            "start": "0x43bbce",
+            "end_exclusive": "0x43bbfc",
+            "parent_entry": "0x43baa0",
+            "source_symbol": "Sub_43BAA0",
+            "source_expression_group": "scene_drained_bst",
+            "instruction_count": 12,
+            "code_bytes": 46
+          },
+          {
+            "start": "0x411cd2",
+            "end_exclusive": "0x411cfd",
+            "parent_entry": "0x411cb0",
+            "source_symbol": "UpdateBattleAction166_411CB0",
+            "source_expression_group": "queued_actor_166",
+            "instruction_count": 12,
+            "code_bytes": 43
+          }
+        ],
+        "unique_reviewed_instruction_count": 312,
+        "unique_reviewed_code_bytes": 1201,
+        "instruction_page_count": 7,
+        "direct_switch_slots": 25,
+        "direct_switch_bytes": 100,
+        "ordinary_inbound_calls": 0,
+        "callback_data_bindings": 1,
+        "source_body_changed": true,
+        "source_root_count": 3,
+        "source_patch_count": 4,
+        "shared_timer_source_expression_count": 4,
+        "shared_timer_original_inline_region_count": 4,
+        "full_runtime_verified": false
+      },
+      "battle_m_data_sampling": {
+        "spec_id": "BMH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
+          "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
+          "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-acceptance",
+          "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+          "doc/cg2d_battle_m_data_sampling_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "case": 12,
+            "start": "0x42a12d",
+            "end_exclusive": "0x42a166",
+            "parent_entry": "0x427470",
+            "instruction_count": 16,
+            "code_bytes": 57,
+            "page_count": 1
+          },
+          {
+            "case": 13,
+            "start": "0x42a166",
+            "end_exclusive": "0x42a22a",
+            "parent_entry": "0x427470",
+            "instruction_count": 41,
+            "code_bytes": 196,
+            "page_count": 1
+          },
+          {
+            "case": 14,
+            "start": "0x42a22a",
+            "end_exclusive": "0x42a34b",
+            "parent_entry": "0x427470",
+            "instruction_count": 82,
+            "code_bytes": 289,
+            "page_count": 2
+          },
+          {
+            "case": 17,
+            "start": "0x42a520",
+            "end_exclusive": "0x42a768",
+            "parent_entry": "0x427470",
+            "instruction_count": 134,
+            "code_bytes": 584,
+            "page_count": 2
+          },
+          {
+            "case": 23,
+            "start": "0x43797b",
+            "end_exclusive": "0x437a06",
+            "parent_entry": "0x427470",
+            "instruction_count": 42,
+            "code_bytes": 139,
+            "page_count": 1
+          },
+          {
+            "case": 24,
+            "start": "0x437a06",
+            "end_exclusive": "0x437a29",
+            "parent_entry": "0x427470",
+            "instruction_count": 10,
+            "code_bytes": 35,
+            "page_count": 1
+          },
+          {
+            "start": "0x42aafe",
+            "end_exclusive": "0x42ab0c",
+            "parent_entry": "0x427470",
+            "instruction_count": 4,
+            "code_bytes": 14,
+            "meaning": "三数据消息失败/FP非负/骑乘不更新路径共用Finish后回存"
+          }
+        ],
+        "unique_reviewed_instruction_count": 329,
+        "unique_reviewed_code_bytes": 1314,
+        "instruction_page_count": 9,
+        "outgoing_call_site_count": 63,
+        "case_numbers": [
+          12,
+          13,
+          14,
+          17,
+          23,
+          24
+        ],
+        "retained_copy_dependency_entry": "0x438270",
+        "retained_copy_dependency_instruction_count": 9,
+        "source_body_changed": true,
+        "behavioral_difference_count": 5,
+        "cpp_patch_count": 6,
+        "header_patch_count": 1,
+        "modern_helper": "ReadGraphicDxHeightFromField",
+        "modern_helper_has_original_identity": false,
+        "full_runtime_verified": false
+      },
+      "battle_m_transition_sampling": {
+        "spec_id": "BMI01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+          "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
+          "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-acceptance",
+          "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+          "doc/cg2d_battle_m_transition_sampling_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "case": 1,
+            "start": "0x427f98",
+            "end_exclusive": "0x428209",
+            "parent_entry": "0x427470",
+            "instruction_count": 163,
+            "code_bytes": 625,
+            "page_count": 3
+          },
+          {
+            "case": 2,
+            "start": "0x428209",
+            "end_exclusive": "0x4282cd",
+            "parent_entry": "0x427470",
+            "instruction_count": 52,
+            "code_bytes": 196,
+            "page_count": 1
+          },
+          {
+            "case": 3,
+            "start": "0x4282cd",
+            "end_exclusive": "0x4283b4",
+            "parent_entry": "0x427470",
+            "instruction_count": 58,
+            "code_bytes": 231,
+            "page_count": 1
+          },
+          {
+            "case": 18,
+            "start": "0x4283b4",
+            "end_exclusive": "0x428441",
+            "parent_entry": "0x427470",
+            "instruction_count": 36,
+            "code_bytes": 141,
+            "page_count": 1
+          },
+          {
+            "case": 15,
+            "start": "0x42a34b",
+            "end_exclusive": "0x42a3d8",
+            "parent_entry": "0x427470",
+            "instruction_count": 36,
+            "code_bytes": 141,
+            "page_count": 1
+          },
+          {
+            "case": 16,
+            "start": "0x42a3d8",
+            "end_exclusive": "0x42a520",
+            "parent_entry": "0x427470",
+            "instruction_count": 81,
+            "code_bytes": 328,
+            "page_count": 2
+          },
+          {
+            "start": "0x429fd9",
+            "end_exclusive": "0x42a014",
+            "parent_entry": "0x427470",
+            "meaning": "PetNotice/PetLeave共用substate1：ready0→406260→Finish",
+            "instruction_count": 16,
+            "code_bytes": 59,
+            "reused_from_bmh": false
+          },
+          {
+            "start": "0x42a2fb",
+            "end_exclusive": "0x42a303",
+            "parent_entry": "0x427470",
+            "meaning": "Clear/Support哨兵FF共用58增量后回存",
+            "instruction_count": 2,
+            "code_bytes": 8,
+            "reused_from_bmh": true
+          },
+          {
+            "start": "0x42aafe",
+            "end_exclusive": "0x42ab0c",
+            "parent_entry": "0x427470",
+            "meaning": "空角色共用Finish；Escape已压scene跳到AAFF",
+            "instruction_count": 4,
+            "code_bytes": 14,
+            "reused_from_bmh": true
+          }
+        ],
+        "unique_reviewed_instruction_count": 448,
+        "unique_reviewed_code_bytes": 1743,
+        "instruction_page_count": 12,
+        "outgoing_call_site_count": 60,
+        "case_numbers": [
+          1,
+          2,
+          3,
+          15,
+          16,
+          18
+        ],
+        "source_body_changed": true,
+        "behavioral_difference_count": 7,
+        "source_patch_count": 7,
+        "source_replaced_span_count": 8,
+        "source_roots": 1,
+        "full_runtime_verified": false
+      },
+      "battle_m_status_sampling": {
+        "spec_id": "BMJ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-baseline",
+          "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision",
+          "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-acceptance",
+          "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
+          "doc/cg2d_battle_m_status_sampling_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "case": 6,
+            "start": "0x4299ad",
+            "end_exclusive": "0x429ac2",
+            "parent_entry": "0x427470",
+            "instruction_count": 67,
+            "code_bytes": 277,
+            "page_count": 1
+          },
+          {
+            "case": 9,
+            "start": "0x429ac2",
+            "end_exclusive": "0x429e77",
+            "parent_entry": "0x427470",
+            "instruction_count": 222,
+            "code_bytes": 949,
+            "page_count": 3
+          },
+          {
+            "case": 10,
+            "start": "0x429e77",
+            "end_exclusive": "0x429fcd",
+            "parent_entry": "0x427470",
+            "instruction_count": 84,
+            "code_bytes": 342,
+            "page_count": 2
+          },
+          {
+            "case": 11,
+            "start": "0x429fcd",
+            "end_exclusive": "0x42a12d",
+            "parent_entry": "0x427470",
+            "instruction_count": 90,
+            "code_bytes": 352,
+            "page_count": 2
+          },
+          {
+            "case": 19,
+            "start": "0x436fd8",
+            "end_exclusive": "0x437104",
+            "parent_entry": "0x427470",
+            "instruction_count": 85,
+            "code_bytes": 300,
+            "page_count": 2
+          },
+          {
+            "case": 20,
+            "start": "0x437104",
+            "end_exclusive": "0x437203",
+            "parent_entry": "0x427470",
+            "instruction_count": 69,
+            "code_bytes": 255,
+            "page_count": 1
+          },
+          {
+            "start": "0x42998c",
+            "end_exclusive": "0x4299ad",
+            "parent_entry": "0x427470",
+            "instruction_count": 8,
+            "code_bytes": 33
+          },
+          {
+            "start": "0x437248",
+            "end_exclusive": "0x43727d",
+            "parent_entry": "0x427470",
+            "instruction_count": 14,
+            "code_bytes": 53
+          },
+          {
+            "start": "0x42aafe",
+            "end_exclusive": "0x42ab0c",
+            "parent_entry": "0x427470",
+            "instruction_count": 4,
+            "code_bytes": 14
+          }
+        ],
+        "unique_reviewed_instruction_count": 643,
+        "unique_reviewed_code_bytes": 2575,
+        "instruction_page_count": 14,
+        "outgoing_call_site_count": 89,
+        "case_numbers": [
+          6,
+          9,
+          10,
+          11,
+          19,
+          20
+        ],
+        "source_body_changed": true,
+        "behavioral_difference_count": 4,
+        "source_patch_count": 4,
+        "source_replaced_span_count": 7,
+        "comment_replaced_span_count": 1,
+        "source_roots": 1,
+        "full_runtime_verified": false
+      },
+      "battle_m_position_monster_sampling": {
+        "spec_id": "BMK01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-baseline",
+          "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision",
+          "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-acceptance",
+          "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+          "doc/cg2d_battle_m_position_monster_sampling_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "case": 4,
+            "start": "0x428441",
+            "end_exclusive": "0x4288f7",
+            "parent_entry": "0x427470",
+            "instruction_count": 280,
+            "code_bytes": 1206,
+            "page_count": 4
+          },
+          {
+            "case": 5,
+            "start": "0x4288f7",
+            "end_exclusive": "0x428ef3",
+            "parent_entry": "0x427470",
+            "instruction_count": 353,
+            "code_bytes": 1532,
+            "page_count": 5
+          },
+          {
+            "start": "0x42aaf5",
+            "end_exclusive": "0x42ab0c",
+            "parent_entry": "0x427470",
+            "instruction_count": 7,
+            "code_bytes": 23
+          },
+          {
+            "start": "0x43703e",
+            "end_exclusive": "0x43704c",
+            "parent_entry": "0x427470",
+            "instruction_count": 4,
+            "code_bytes": 14
+          },
+          {
+            "start": "0x436e0b",
+            "end_exclusive": "0x436e17",
+            "parent_entry": "0x427470",
+            "instruction_count": 3,
+            "code_bytes": 12
+          }
+        ],
+        "unique_reviewed_instruction_count": 647,
+        "unique_reviewed_code_bytes": 2787,
+        "instruction_page_count": 12,
+        "outgoing_call_site_count": 61,
+        "case_numbers": [
+          4,
+          5
+        ],
+        "source_body_changed": true,
+        "behavioral_difference_count": 9,
+        "source_patch_count": 9,
+        "source_replaced_span_count": 9,
+        "source_roots": 2,
+        "full_runtime_verified": false
+      },
+      "battle_m_ride_gmn_sampling": {
+        "spec_id": "BML01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+          "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
+          "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-acceptance",
+          "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+          "doc/cg2d_battle_m_ride_gmn_sampling_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "case": 22,
+            "start": "0x428ef3",
+            "end_exclusive": "0x42998c",
+            "parent_entry": "0x427470",
+            "instruction_count": 623,
+            "code_bytes": 2713,
+            "page_count": 8
+          },
+          {
+            "case": 21,
+            "start": "0x437203",
+            "end_exclusive": "0x43797b",
+            "parent_entry": "0x427470",
+            "instruction_count": 552,
+            "code_bytes": 1912,
+            "page_count": 7
+          },
+          {
+            "start": "0x427fa4",
+            "end_exclusive": "0x427fcd",
+            "parent_entry": "0x427470",
+            "instruction_count": 12,
+            "code_bytes": 41
+          },
+          {
+            "start": "0x42998c",
+            "end_exclusive": "0x4299ad",
+            "parent_entry": "0x427470",
+            "instruction_count": 8,
+            "code_bytes": 33
+          },
+          {
+            "start": "0x436e0b",
+            "end_exclusive": "0x436e17",
+            "parent_entry": "0x427470",
+            "instruction_count": 3,
+            "code_bytes": 12
+          }
+        ],
+        "unique_reviewed_instruction_count": 1198,
+        "unique_reviewed_code_bytes": 4711,
+        "instruction_page_count": 18,
+        "outgoing_call_site_count": 170,
+        "case_numbers": [
+          21,
+          22
+        ],
+        "retained_read_wrapper_entry": "0x401ea0",
+        "retained_read_wrapper_instruction_count": 1,
+        "retained_read_wrapper_code_bytes": 5,
+        "retained_read_core_entry": "0x401ec0",
+        "read_wrapper_has_semantic_difference": false,
+        "source_body_changed": true,
+        "behavioral_difference_count": 9,
+        "source_patch_count": 11,
+        "source_replaced_span_count": 12,
+        "source_roots": 2,
+        "full_runtime_verified": false
+      },
+      "battle_m_item_combo_sampling": {
+        "spec_id": "BMM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-baseline",
+          "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision",
+          "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-acceptance",
+          "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state",
+          "doc/cg2d_battle_m_item_combo_sampling_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "case": 7,
+            "start": "0x4369f9",
+            "end_exclusive": "0x436fd8",
+            "parent_entry": "0x427470",
+            "instruction_count": 391,
+            "code_bytes": 1503,
+            "page_count": 5
+          },
+          {
+            "case": 8,
+            "start": "0x42781e",
+            "end_exclusive": "0x427f98",
+            "parent_entry": "0x427470",
+            "instruction_count": 542,
+            "code_bytes": 1914,
+            "page_count": 7,
+            "indirect_switch": {
+              "ea": "0x42782e",
+              "jumps": "0x437b38",
+              "count": 4,
+              "width": 4,
+              "lowcase": 0,
+              "default": "0x437a29",
+              "bytes": "35784200c77e4200ea7e42005a7f4200",
+              "entries": [
+                {
+                  "case": 0,
+                  "slot": "0x437b38",
+                  "target": "0x427835"
+                },
+                {
+                  "case": 1,
+                  "slot": "0x437b3c",
+                  "target": "0x427ec7"
+                },
+                {
+                  "case": 2,
+                  "slot": "0x437b40",
+                  "target": "0x427eea"
+                },
+                {
+                  "case": 3,
+                  "slot": "0x437b44",
+                  "target": "0x427f5a"
+                }
+              ]
+            }
+          },
+          {
+            "start": "0x436feb",
+            "end_exclusive": "0x43701f",
+            "meaning": "ITM mode0就绪尾：ready0/406260/Finish",
+            "parent_entry": "0x427470",
+            "instruction_count": 14,
+            "code_bytes": 52
+          },
+          {
+            "start": "0x43710f",
+            "end_exclusive": "0x437144",
+            "meaning": "ITM mode6就绪尾：ready0/406260/Finish",
+            "parent_entry": "0x427470",
+            "instruction_count": 14,
+            "code_bytes": 53
+          },
+          {
+            "start": "0x42aaf5",
+            "end_exclusive": "0x42ab0c",
+            "parent_entry": "0x427470",
+            "instruction_count": 7,
+            "code_bytes": 23
+          }
+        ],
+        "unique_reviewed_instruction_count": 968,
+        "unique_reviewed_code_bytes": 3545,
+        "instruction_page_count": 15,
+        "outgoing_call_site_count": 119,
+        "case_numbers": [
+          7,
+          8
+        ],
+        "direct_substate_switch_slots": 4,
+        "direct_substate_switch_bytes": 16,
+        "indirect_table_address_is_not_code_target": true,
+        "source_body_changed": true,
+        "behavioral_difference_count": 24,
+        "source_patch_count": 24,
+        "source_replaced_span_count": 27,
+        "source_roots": 2,
+        "full_runtime_verified": false
+      },
+      "battle_m_skill_entry_waiting_sampling": {
+        "spec_id": "BMN01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-baseline",
+          "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-decision",
+          "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-acceptance",
+          "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state",
+          "doc/cg2d_battle_m_skill_entry_waiting_sampling_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "start": "0x42a768",
+            "end_exclusive": "0x42acfd",
+            "parent_entry": "0x427470",
+            "instruction_count": 357,
+            "code_bytes": 1429,
+            "page_count": 5,
+            "switches": [
+              {
+                "ea": "0x42a7b3",
+                "jumps": "0x437b48",
+                "jump_count": 3,
+                "jump_width": 4,
+                "jump_bytes": "c1a842001da84200297a4300",
+                "values": "0x437b54",
+                "value_count": 45,
+                "value_width": 1,
+                "value_bytes": "000000000000000000000000000202020202020202020202020202020202020202020202020202020202010101",
+                "lowcase": 19,
+                "default": "0x437a29",
+                "case_groups": [
+                  {
+                    "target": "0x42a81d",
+                    "cases": [
+                      61,
+                      62,
+                      63
+                    ]
+                  },
+                  {
+                    "target": "0x42a8c1",
+                    "cases": [
+                      19,
+                      20,
+                      21,
+                      22,
+                      23,
+                      24,
+                      25,
+                      26,
+                      27,
+                      28,
+                      29,
+                      30,
+                      31
+                    ]
+                  },
+                  {
+                    "target": "0x437a29",
+                    "cases": [
+                      32,
+                      33,
+                      34,
+                      35,
+                      36,
+                      37,
+                      38,
+                      39,
+                      40,
+                      41,
+                      42,
+                      43,
+                      44,
+                      45,
+                      46,
+                      47,
+                      48,
+                      49,
+                      50,
+                      51,
+                      52,
+                      53,
+                      54,
+                      55,
+                      56,
+                      57,
+                      58,
+                      59,
+                      60
+                    ]
+                  }
+                ]
+              },
+              {
+                "ea": "0x42a972",
+                "jumps": "0x437b84",
+                "jump_count": 10,
+                "jump_width": 4,
+                "jump_bytes": "5fac4200d9794300487243001bac4200ebab42008a9e4200daa942000cab420079a94200297a4300",
+                "values": "0x437bac",
+                "value_count": 118,
+                "value_width": 1,
+                "value_bytes": "00000900010000090909090902090909090909030303030303030303030303030404040404040404040404040404040404040101010104040404040404010101040404040409090900000900000000000000030100000400010909090901000000050604040404040400070202020007080002090902",
+                "lowcase": 0,
+                "default": "0x437a29",
+                "case_groups": [
+                  {
+                    "target": "0x429e8a",
+                    "cases": [
+                      97
+                    ]
+                  },
+                  {
+                    "target": "0x42a979",
+                    "cases": [
+                      112
+                    ]
+                  },
+                  {
+                    "target": "0x42a9da",
+                    "cases": [
+                      98
+                    ]
+                  },
+                  {
+                    "target": "0x42ab0c",
+                    "cases": [
+                      106,
+                      111
+                    ]
+                  },
+                  {
+                    "target": "0x42abeb",
+                    "cases": [
+                      32,
+                      33,
+                      34,
+                      35,
+                      36,
+                      37,
+                      38,
+                      39,
+                      40,
+                      41,
+                      42,
+                      43,
+                      44,
+                      45,
+                      46,
+                      47,
+                      48,
+                      49,
+                      54,
+                      55,
+                      56,
+                      57,
+                      58,
+                      59,
+                      60,
+                      64,
+                      65,
+                      66,
+                      67,
+                      68,
+                      86,
+                      99,
+                      100,
+                      101,
+                      102,
+                      103,
+                      104
+                    ]
+                  },
+                  {
+                    "target": "0x42ac1b",
+                    "cases": [
+                      19,
+                      20,
+                      21,
+                      22,
+                      23,
+                      24,
+                      25,
+                      26,
+                      27,
+                      28,
+                      29,
+                      30,
+                      31,
+                      82
+                    ]
+                  },
+                  {
+                    "target": "0x42ac5f",
+                    "cases": [
+                      0,
+                      1,
+                      3,
+                      5,
+                      6,
+                      72,
+                      73,
+                      75,
+                      76,
+                      77,
+                      78,
+                      79,
+                      80,
+                      81,
+                      84,
+                      85,
+                      87,
+                      94,
+                      95,
+                      96,
+                      105,
+                      110,
+                      113
+                    ]
+                  },
+                  {
+                    "target": "0x437248",
+                    "cases": [
+                      12,
+                      107,
+                      108,
+                      109,
+                      114,
+                      117
+                    ]
+                  },
+                  {
+                    "target": "0x4379d9",
+                    "cases": [
+                      4,
+                      50,
+                      51,
+                      52,
+                      53,
+                      61,
+                      62,
+                      63,
+                      83,
+                      88,
+                      93
+                    ]
+                  },
+                  {
+                    "target": "0x437a29",
+                    "cases": [
+                      2,
+                      7,
+                      8,
+                      9,
+                      10,
+                      11,
+                      13,
+                      14,
+                      15,
+                      16,
+                      17,
+                      18,
+                      69,
+                      70,
+                      71,
+                      74,
+                      89,
+                      90,
+                      91,
+                      92,
+                      115,
+                      116
+                    ]
+                  }
+                ]
+              },
+              {
+                "ea": "0x42aa98",
+                "jumps": "0x437c24",
+                "jump_count": 6,
+                "jump_width": 4,
+                "jump_bytes": "5fac42008a9e42001bac42009faa420048724300297a4300",
+                "values": "0x437c3c",
+                "value_count": 145,
+                "value_width": 1,
+                "value_bytes": "00010505000205050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050505050502020205030403",
+                "lowcase": 262,
+                "default": "0x437a29",
+                "case_groups": [
+                  {
+                    "target": "0x429e8a",
+                    "cases": [
+                      263
+                    ]
+                  },
+                  {
+                    "target": "0x42aa9f",
+                    "cases": [
+                      404,
+                      406
+                    ]
+                  },
+                  {
+                    "target": "0x42ac1b",
+                    "cases": [
+                      267,
+                      400,
+                      401,
+                      402
+                    ]
+                  },
+                  {
+                    "target": "0x42ac5f",
+                    "cases": [
+                      262,
+                      266
+                    ]
+                  },
+                  {
+                    "target": "0x437248",
+                    "cases": [
+                      405
+                    ]
+                  },
+                  {
+                    "target": "0x437a29",
+                    "cases": [
+                      264,
+                      265,
+                      268,
+                      269,
+                      270,
+                      271,
+                      272,
+                      273,
+                      274,
+                      275,
+                      276,
+                      277,
+                      278,
+                      279,
+                      280,
+                      281,
+                      282,
+                      283,
+                      284,
+                      285,
+                      286,
+                      287,
+                      288,
+                      289,
+                      290,
+                      291,
+                      292,
+                      293,
+                      294,
+                      295,
+                      296,
+                      297,
+                      298,
+                      299,
+                      300,
+                      301,
+                      302,
+                      303,
+                      304,
+                      305,
+                      306,
+                      307,
+                      308,
+                      309,
+                      310,
+                      311,
+                      312,
+                      313,
+                      314,
+                      315,
+                      316,
+                      317,
+                      318,
+                      319,
+                      320,
+                      321,
+                      322,
+                      323,
+                      324,
+                      325,
+                      326,
+                      327,
+                      328,
+                      329,
+                      330,
+                      331,
+                      332,
+                      333,
+                      334,
+                      335,
+                      336,
+                      337,
+                      338,
+                      339,
+                      340,
+                      341,
+                      342,
+                      343,
+                      344,
+                      345,
+                      346,
+                      347,
+                      348,
+                      349,
+                      350,
+                      351,
+                      352,
+                      353,
+                      354,
+                      355,
+                      356,
+                      357,
+                      358,
+                      359,
+                      360,
+                      361,
+                      362,
+                      363,
+                      364,
+                      365,
+                      366,
+                      367,
+                      368,
+                      369,
+                      370,
+                      371,
+                      372,
+                      373,
+                      374,
+                      375,
+                      376,
+                      377,
+                      378,
+                      379,
+                      380,
+                      381,
+                      382,
+                      383,
+                      384,
+                      385,
+                      386,
+                      387,
+                      388,
+                      389,
+                      390,
+                      391,
+                      392,
+                      393,
+                      394,
+                      395,
+                      396,
+                      397,
+                      398,
+                      399,
+                      403
+                    ]
+                  }
+                ]
+              },
+              {
+                "ea": "0x42abb6",
+                "jumps": "0x437cd0",
+                "jump_count": 4,
+                "jump_width": 4,
+                "jump_bytes": "c9ac4200ebab42005fac4200297a4300",
+                "values": "0x437ce0",
+                "value_count": 18,
+                "value_width": 1,
+                "value_bytes": "000102020301010101010102020301030202",
+                "lowcase": 2005,
+                "default": "0x437a29",
+                "case_groups": [
+                  {
+                    "target": "0x42abeb",
+                    "cases": [
+                      2006,
+                      2010,
+                      2011,
+                      2012,
+                      2013,
+                      2014,
+                      2015,
+                      2019
+                    ]
+                  },
+                  {
+                    "target": "0x42ac5f",
+                    "cases": [
+                      2007,
+                      2008,
+                      2016,
+                      2017,
+                      2021,
+                      2022
+                    ]
+                  },
+                  {
+                    "target": "0x42acc9",
+                    "cases": [
+                      2005
+                    ]
+                  },
+                  {
+                    "target": "0x437a29",
+                    "cases": [
+                      2009,
+                      2018,
+                      2020
+                    ]
+                  }
+                ]
+              },
+              {
+                "ea": "0x42abe4",
+                "jumps": "0x437cf4",
+                "jump_count": 5,
+                "jump_width": 4,
+                "jump_bytes": "d9794300ebab42001bac42005fac4200297a4300",
+                "values": "0x437d08",
+                "value_count": 74,
+                "value_width": 1,
+                "value_bytes": "0004040404040404040404040404040404040404040401010104040202020101010101010101010102020202020202020202020204040404040404040401010101010101030303030303",
+                "lowcase": 2028,
+                "default": "0x437a29",
+                "case_groups": [
+                  {
+                    "target": "0x42abeb",
+                    "cases": [
+                      2050,
+                      2051,
+                      2052,
+                      2058,
+                      2059,
+                      2060,
+                      2061,
+                      2062,
+                      2063,
+                      2064,
+                      2065,
+                      2066,
+                      2067,
+                      2089,
+                      2090,
+                      2091,
+                      2092,
+                      2093,
+                      2094,
+                      2095
+                    ]
+                  },
+                  {
+                    "target": "0x42ac1b",
+                    "cases": [
+                      2055,
+                      2056,
+                      2057,
+                      2068,
+                      2069,
+                      2070,
+                      2071,
+                      2072,
+                      2073,
+                      2074,
+                      2075,
+                      2076,
+                      2077,
+                      2078,
+                      2079
+                    ]
+                  },
+                  {
+                    "target": "0x42ac5f",
+                    "cases": [
+                      2096,
+                      2097,
+                      2098,
+                      2099,
+                      2100,
+                      2101
+                    ]
+                  },
+                  {
+                    "target": "0x4379d9",
+                    "cases": [
+                      2028
+                    ]
+                  },
+                  {
+                    "target": "0x437a29",
+                    "cases": [
+                      2029,
+                      2030,
+                      2031,
+                      2032,
+                      2033,
+                      2034,
+                      2035,
+                      2036,
+                      2037,
+                      2038,
+                      2039,
+                      2040,
+                      2041,
+                      2042,
+                      2043,
+                      2044,
+                      2045,
+                      2046,
+                      2047,
+                      2048,
+                      2049,
+                      2053,
+                      2054,
+                      2080,
+                      2081,
+                      2082,
+                      2083,
+                      2084,
+                      2085,
+                      2086,
+                      2087,
+                      2088
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "start": "0x42acfd",
+            "end_exclusive": "0x42ae37",
+            "parent_entry": "0x427470",
+            "instruction_count": 91,
+            "code_bytes": 314,
+            "page_count": 2
+          },
+          {
+            "start": "0x429e8a",
+            "end_exclusive": "0x429ebf",
+            "parent_entry": "0x427470",
+            "instruction_count": 14,
+            "code_bytes": 53
+          },
+          {
+            "start": "0x437248",
+            "end_exclusive": "0x43727d",
+            "parent_entry": "0x427470",
+            "instruction_count": 14,
+            "code_bytes": 53
+          },
+          {
+            "start": "0x4379d9",
+            "end_exclusive": "0x437a06",
+            "parent_entry": "0x427470",
+            "instruction_count": 14,
+            "code_bytes": 45
+          }
+        ],
+        "unique_reviewed_instruction_count": 490,
+        "unique_reviewed_code_bytes": 1894,
+        "instruction_page_count": 10,
+        "outgoing_call_site_count": 35,
+        "case_numbers": [
+          0
+        ],
+        "compressed_switch_tables": 5,
+        "compressed_jump_slots": 28,
+        "compressed_jump_bytes": 112,
+        "compressed_index_slots": 400,
+        "compressed_index_bytes": 400,
+        "normal_skill_dispatch_boundary": "0x42ae37",
+        "indirect_table_address_is_not_code_target": true,
+        "source_body_changed": true,
+        "behavioral_difference_count": 4,
+        "source_patch_count": 7,
+        "source_replaced_span_count": 8,
+        "source_roots": 3,
+        "full_runtime_verified": false
+      }
+    }
+  },
+  "verification_boundary": {
+    "full_original_parent_body_reviewed": false,
+    "parent_stat_including_chunks": 17298,
+    "unique_reviewed_parent_instructions": 256,
+    "unique_reviewed_parent_code_bytes": 894,
+    "instruction_pages": 4,
+    "outgoing_call_sites": 26,
+    "behavioral_differences": 9,
+    "source_replaced_spans": 9,
+    "comment_replaced_spans": 0,
+    "source_roots": 1,
+    "compiled": false,
+    "tests_added_or_executed": false,
+    "client_or_algorithm_executed": false,
+    "hash_computed": false,
+    "full_feature_gates_changed": false,
+    "compiled_instruction_shape_verified": false,
+    "exception_equivalence_claimed": false,
+    "audio": "暂停",
+    "network": "原格式，仅明文",
+    "source_patch_definitions": 9,
+    "compressed_switch_tables": 1,
+    "compressed_jump_slots": 21,
+    "compressed_jump_bytes": 84,
+    "compressed_index_slots": 118,
+    "compressed_index_bytes": 118,
+    "normal_skill_dispatch_boundary": "0x42ae37",
+    "table_is_routing_context_only": true
+  },
+  "implementation_tag": "cg2d-re-battle-m-skill4-sampling-20261006"
+}

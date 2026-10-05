@@ -4111,3 +4111,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [四组七定义八处实修](cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-decision)恢复Header一次S32子状态传private Waiting、四处flagsFDC原W8对象字节、高段remainder条件先pub和低段50条件在skill pub后tech-index两pub前。原37技能state2满足时推进最后参与者、七类finish及skill68参数1、调用后live角色与Clear先Finish后清字段、skill98固定16B效果序列和五Take/初始与live technique区别/正常等级范围保持。
 
 [五区间490条1894B](cg2d_battle_m_skill_entry_waiting_sampling_evidence.json)十页35call、五等待态压缩表28W32跳槽112B与400W8索引400B纳管，三Caster共用尾分列，表地址不作代码目标；42AE37明确为正常技能主体分派边界，后续各主体/完整17298父与SEH/owner/SDK/ABI/画面继续。
+
+## BMO01 技能4九组取样（2026-10-06）
+
+[九组九处实修](cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-decision)恢复同解析caster/target位置与条件pub、初始payload先skill/下一字段actor先level、主辅效果两套原参数读取次序、两非地址S32图索引及player/165-27取样。初始两图号/三数组八W32零写沿BMG生产者，循环间保留图值；空caster直接Finish回存、空target Finish后仍Move/RID/增58、255出口、重复列表与调用后live保持。
+
+[技能4主体256条894B](cg2d_battle_m_skill4_sampling_evidence.json)四页26call及全部直接目标纳管，入口低段21W32/118W8表实际202B仅case4定位，不代其他技能主体/全路由或完整17298父/SEH/owner/SDK/ABI/画面。

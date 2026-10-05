@@ -8273,3 +8273,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state)纳管技能头0的入口/等待态、五整数归一化及三个Caster就绪尾。state0一次58取样后按原顺序五Take；state2原37技能门禁及最后参与者Advance，state1原七类finish/skill68就绪参数1、Clear先Finish后live角色字段清理、skill98固定16B效果目标列表保持。不改变各调用后重新取样位置、技能集合/取包或业务零写。
 
 [490条1894B十页35call](../cg2d_battle_m_skill_entry_waiting_sampling_evidence.json)与五压缩表实际512B仅有界静态，42AE37后正常主体分派/所有技能主体另验。原格式明文/音频暂停、owner与整体门禁保持，四组八处不代完整SKL/427470或运行。
+
+## BMO01 技能4正常主体与不同失败消费（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-source-state)纳管技能4主体九组九处。mode/caster、target/flags/amount取包和800000辅图条件保持；初始空caster Finish立即返回，target空Finish后退出循环仍Move/RID/++58，255先pub再退出。两图号/三数组仅原入口零初值，沿目标循环复用，不补默认或每轮重清。
+
+[256条894B四页26call](../cg2d_battle_m_skill4_sampling_evidence.json)原门禁优先级/列表重复及调用后live、11/76/46末消费保持，入口202B表仅定位case4。其它技能/资源owner和运行门禁继续，网络原格式仅明文/音频暂停保持。

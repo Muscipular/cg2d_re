@@ -566,3 +566,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-acceptance)：五区间490条1894B十页35call、三个Caster尾及五压缩表512B按真实元素/长度与映射核，所有直接/等待态表目标闭合，42AE37明确后续主体分派边界；三根四组七定义八处、唯一private参数/一次58、四W8与两条件pub时序/原消费和其它源头核心保持有限静态。E373→377仅YOBI/BATTLE四局部I/S。
 
 旧812仅追加、不新分类/完整成员；七open任务/60项已闭10/R7及全部完整门禁保持。正常各技能主体/完整17298父与SEH/全部消费者和资源owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体按实际缺口继续，文本汇总不代运行或降低标准。
+
+## BMO01 技能4局部实现与静态证据（2026-10-06）
+
+[验收标准](cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-acceptance)：正常主体256条894B四页26call/所有直接目标、入口低段202B表实际映射case4及八原零写生产者，整CPP单根九组九处/两S32索引/两效果参数与条件pub、原消费和其它源头核心保持有限静态。E377→381仅YOBI/BATTLE四局部I/S。
+
+旧812仅追加，不新分类/完整成员；七open/60项已闭10/R7及所有完整门禁保持。其它各技能主体/全路由、完整17298父与SEH/全部消费者与资源owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续，文本汇总不代运行或降低标准。

@@ -127,3 +127,9 @@
 [角色/载荷取样](../cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision)恢复Escape/PetLeave存在条件先caster pub、Escape结果第一68和末玩家分支取样、Support FDC W8及PetLeave不同X/Y顺序；X借角色后读点再取payload，Y先借角色/payload再读点，不跨第二Rand缓存。原所有Append/Move、Reaction/1018字段、原解析position一次seed/两Rand(0,19)及空返/58增量保持。
 
 [六目标及三共用尾](../cg2d_battle_m_transition_sampling_evidence.json)当前有界448条1743B十二页/60call不代所有列表消费者或全部资源owner重进退出/借用失效/SDK/ABI/画面。其它源/头/布局和正确附件/角色/RNG核心保持，完整范围继续。
+
+## BMJ01 装备/状态中的角色与载荷取样（2026-10-06）
+
+[三存在条件/技能等级/两W8/复活参数裁决](../cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision)恢复caster发布之前保存actor存在条件、caster/actor之后technique再取payload写1044，flags byte门禁独立live取样，Rebirth flags→target保持原{position,flags,0,image}值语义。当前角色与原固定payload区别、取包/动作后重读、Debuff/Power字段及Queued preview busy/phase门禁保持。
+
+[六目标与三共用尾](../cg2d_battle_m_status_sampling_evidence.json)有界643条2575B不代全部角色/列表状态消费和资源owner重进退出/借用失效/SDK/ABI/画面。原模式3/4追加80后重读mode必须保留，正常Power仅1/3、原零mode标签记录不造新业务或排除，完整范围继续。

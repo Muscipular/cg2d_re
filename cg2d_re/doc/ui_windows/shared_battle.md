@@ -8243,3 +8243,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前合同](../cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state)纳管Escape1/Clear2/Support3/PetNotice15/PetLeave16/PetDown18，区分Clear ready1与其余ready0、PetNotice/Leave就绪后406260再Finish，以及三共用就绪/增量/完成尾。Helper return仍由父13项回存；Clear/Support空槽continue、不增58，255仍pubcaster/共用增量，Escape/PetLeave先存在门禁而Notice/Down先pub再借角色。
 
 [448条1743B/60call](../cg2d_battle_m_transition_sampling_evidence.json)及单根七逻辑八处有限静态；Support FDC真实byte test、两Rand后的不同X/Y借用序与原动作/seed保持，不统一成缓存旧角色或新RNG流程，不据六块验全17298父/owner/运行。
+
+## BMJ01 六装备/状态消费者与共用尾（2026-10-06）
+
+[当前有界合同](../cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state)纳管Equipment6/StatusValue9/Debuff10/Power11/Rebirth19/QueuedValue20及推进42998C、就绪437248、空角色42AAFE三个共用尾。除Queued外只substate1就绪，Queued任意非零均ready0；StatusValue有RID消费，未知mode也Move/RID/58，helper return后仍父回存。
+
+[643条2575B十四页89call](../cg2d_battle_m_status_sampling_evidence.json)与四逻辑七处取样实修保持模式后live读取、固定旧payload/当前角色、原1/3状态映射和16B效果参数布局。不提前加空保护、默认动作、计时扣减或新载体写入；正确列表/依赖、原格式明文/音频暂停及完整运行门禁保留。

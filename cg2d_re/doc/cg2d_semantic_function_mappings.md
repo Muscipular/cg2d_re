@@ -2399,3 +2399,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [九具名范围](cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state)六目标及三共用尾448条1743B十二页/60call，原ready/空/哨兵路由完整分列；一个源根七逻辑八处恢复正常取样/W8和不同X/Y借用。旧812追加ProcessBattleMTransitionHeader真实源码关系，不新原F/X、adapted或完整成员，helper数和区间不当原函数数。
 
 语义1350/有效ID1345、片段5/分类456与关联1463保持；其余消息目标/完整17298父及资源owner/运行继续。
+
+## BMJ01 旧812的装备/状态有界追加（2026-10-06）
+
+[九具名范围](../doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state)六装备/状态目标及三共用尾643条2575B十四页/89call，追加ProcessBattleMStatusHeader当前四差异七处/一过期接线注释状态。其它消息目标/历史和所有字段保持，不新原F/X、adapted或完整成员，区分已源码调用与完整分派/运行未验。
+
+语义1350/有效ID1345、片段5/分类456和关联1463保持；其余技能/消息、全部列表资源和owner/运行继续。

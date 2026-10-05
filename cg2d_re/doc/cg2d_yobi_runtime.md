@@ -4081,3 +4081,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [七差异八处实修](cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision)恢复Escape/PetLeave两actor条件先caster pub、Escape先caster读再resultFlags pub/末玩家比较先角色借用、Clear/Support255条件先caster pub、Support FDC W8位门禁，以及PetLeave X角色→点→载荷、Y角色/载荷→点的不同借用序。仅本根改变，seed同解析position/两Rand、原所有列表/字段和live角色复读、就绪/58增量及父回存保持。
 
 [六目标/三共用尾448条1743B](cg2d_battle_m_transition_sampling_evidence.json)十二页/60call和原分支闭合可追；两个共用尾沿BMH实际字节复用，旧812仅追加、不新F/X/adapted或完整成员。完整其它消息/所有列表消费者与资源owner/SDK/ABI/画面仍待，网络原格式明文/音频暂停保持。
+
+## BMJ01 装备与状态消息四项取样（2026-10-06）
+
+[四差异七处实修](cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision)恢复Equipment/StatusValue/QueuedValue三actor条件先caster pub、castSkillLevel的caster→actor→technique→payload/pub、两resultFlags W8位20和Rebirth flags先target。另将本根“仍待完整427470接入”具名注释纠正为已有调用/回存但完整战斗另验；其余所有源码/头/布局保持。
+
+[六目标/三共用尾643条2575B](cg2d_battle_m_status_sampling_evidence.json)十四页/89call纳管，原模式3/4 Append80后live mode、Debuff旧payload/当前槽区别、Power正常1/3、Queued任意非零substate与peek busy-phase/不耗包、所有列表/RID/58和父回存保持。旧812仅追加，不新身份/分类/成员，完整其余目标/owner/SDK/ABI/画面仍待。

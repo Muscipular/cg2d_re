@@ -536,3 +536,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-acceptance)：九区间448条1743B十二页/60call与六目标原跳转范围闭合，单根七逻辑八处取样/byte门禁和两Rand后不同借用序；其它所有CPP/头、布局/正确依赖及列表/随机消费保持。E353→357仅YOBI/BATTLE四局部I/S，旧812追加无新原身份/分类/完整成员。
 
 七任务open及60已闭10、所有计数/R7和完整门禁保持；完整其余消息目标/列表消费/资源owner与SDK/SEH/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续。获准文本汇总不代运行或降低标准。
+
+## BMJ01 六状态目标局部实现/静态证据（2026-10-06）
+
+[验收标准](cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-acceptance)：九区间643条2575B十四页/89call与本组原跳转闭合、四逻辑七处/唯一接线注释，三门禁/技能等级/两flags W8与flags→target取样有限静态。原live mode/旧payload与当前槽、Power1/3/Queued任意非零/列表/RID/58及所有其它源/头/布局核心保持，E357→361仅YOBI/BATTLE四局部I/S。
+
+旧812追加不新原身份/分类/完整成员，七open任务与60项已闭10/R7/全部计数和完整门禁保持。完整其它消息/技能/列表消费与资源owner/SDK/SEH/ABI/PC53/时钟RNG/画面以及R1/R7/R8/整体继续；文本汇总不代运行或降低标准。

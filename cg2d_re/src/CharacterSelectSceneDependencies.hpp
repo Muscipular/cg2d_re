@@ -137,7 +137,9 @@ using cg::network::Sub_512D30;
 // 原 0x9A5C10 的容量未决，只保留未定长外部数组声明。
 extern char gVersionPayload9A5C10[];
 
-// 原 0x9A4EAC 的动态文本；容量与生产者未决。
-extern char gText9A4EAC[];
+// 原9A4EAC唯一128B提示正文；508800真实回复生产，角色选择显示借用同一存储。
+// 容量不适用于独立9A5C10版本正文；SDB01合同见角色选择文档。
+extern char gText9A4EAC[128];
+static_assert(sizeof(gText9A4EAC) == 128);
 
 } // namespace cg::character_select::detail

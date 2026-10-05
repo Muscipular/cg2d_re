@@ -612,7 +612,8 @@
       ],
       "acceptance_focus": "角色记录、创建gate、version正文和请求往返",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_character_select_scene.md#character-message-storage-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档"
@@ -11540,6 +11541,36 @@
       "observation": "完整94条/唯一入向、两源限定补丁、数值/重读/回退及机器台账/新引用静态",
       "expected": "按原数量/返回、实际字符/别名读序与失败码补通用转换",
       "actual": "仅本组源码/内部接线；API/代码页与locale生产/全别名/SDK/音频完整链及运行未验，不升完整门禁"
+    },
+    {
+      "id": "E-CHARACTER-MESSAGE-STORAGE-S-20261005",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "既有9A4EAC/128B唯一存储、508800原生产及角色选择显示；doc/cg2d_character_select_scene.md#character-message-storage-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-message-storage-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_select_scene.md#character-message-storage-decision",
+        "doc/cg2d_character_select_scene.md#character-message-storage-baseline",
+        "doc/cg2d_character_select_scene.md#character-message-storage-source-state",
+        "src/CharacterSelectSceneDependencies.hpp#gText9A4EAC",
+        "src/CharacterSelectScene.cpp#gText9A4EAC",
+        "src/network/NetworkRuntimeDependencies.hpp#gText9A4EAC",
+        "src/network/NetworkRuntime.cpp#HandleResponse_508800",
+        "src/CharacterSelectSlot.cpp#gText9A4EAC"
+      ],
+      "differences": [
+        {
+          "description": "已知共享提示正文声明收敛为128B；仅修类型与过时说明，不改生产/显示/初始化，独立9A5C10容量/生产与U03仍缺",
+          "decision_ref": "doc/cg2d_character_select_scene.md#character-message-storage-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "本头精确补丁及三既有声明/定义/生产消费引用静态；原函数/数据正文保持",
+      "expected": "共享提示正文消费侧和唯一owner/生产端同一128B类型合同",
+      "actual": "声明char[128]与sizeof断言落实；无新函数/运行证据，T01/U03及完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -11782,7 +11813,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure",
-        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure"
+        "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure",
+        "doc/cg2d_character_select_scene.md#character-message-storage-source-state"
       ]
     },
     {
@@ -11891,6 +11923,14 @@
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
+      ]
+    },
+    {
+      "task_id": "U03",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_select_scene.md#character-message-storage-source-state"
       ]
     }
   ],

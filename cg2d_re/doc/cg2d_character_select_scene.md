@@ -2363,3 +2363,31 @@ needle分别为2000与814000，不转码、按token拆分或改成其他空白�
 未批准4626A0固定gate、重验完整创建/音效/画面或补输入保护，既有依赖沿原记录。
 仅本父及共同查找项限定JSON增量；合同/唯一进度只追加，未构建、测试、运行命名算法/
 客户端、读写资源或hash校验，总PLAN及整体门禁仍待。
+
+
+## SDB01 角色选择提示正文声明修正（2026-10-05）
+
+<a id="character-message-storage-decision"></a>
+
+按既有工程委托，将内部头中的`gText9A4EAC[]`收敛为已证的`char[128]`，并增加容量静态断言。
+此前“容量与生产者未决”的注释已经过时，不能继续据它寻找第二份存储或默认正文。
+这只修正共享存储的公开类型合同，已有写入、显示和初始化代码保持。
+
+<a id="character-message-storage-baseline"></a>
+
+当前唯一存储是[CharacterSelectScene.cpp](../src/CharacterSelectScene.cpp)的`char gText9A4EAC[128] {}`；
+[网络私有头](../src/network/NetworkRuntimeDependencies.hpp)已按128字节声明同一命名空间对象。
+已有[508800生产合同](cg2d_network_runtime.md)保留成功回复后的分隔符查找、128字节清区及原复制顺序，
+实际`whV`分派已接该生产者；[CharacterSelectSlot.cpp](../src/CharacterSelectSlot.cpp)将同一正文借给原文本显示。
+本步复用这些已登记事实，不重验旧回复本体，也不把容量声明算作新生产代码。
+
+`9A5C10`是独立版本发送正文，已有创建/升级消费者；它的容量、内容生产和寿命仍缺证据。
+提示正文128字节不能给版本正文借容量、别名或默认值；U03仍open。
+
+<a id="character-message-storage-source-state"></a>
+
+内部头声明与唯一存储、网络写入端现在同为128字节，`sizeof`断言使消费侧合同可直接检查。
+仅改本头两行说明/声明及一个断言；原版本正文声明、所有函数和数据初始化保持。
+限定静态验收检查精确补丁、共享声明/定义/消费引用、新增文档引用和台账汇总；
+不增加原身份、函数处置或运行证据，不提升T01/U03/完整功能门禁。
+固定快照`cg2d-re-character-message-storage-source-20261005`；不构建、测试、运行或计算摘要。

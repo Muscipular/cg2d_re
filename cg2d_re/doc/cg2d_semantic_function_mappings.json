@@ -97382,10 +97382,11 @@
       "evidence_documents": [
         "doc/cg2d_network_runtime.md",
         "doc/cg2d_network_dispatch.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_character_select_scene.md#character-message-storage-source-state"
       ],
       "verification_level": "原508800..508901完整90条、587B28含NUL的7c00及唯一51610E/512E40 caller；整份NetworkRuntime只50885B/508882两个标识符和Count U32转换、现有whV路由及旧时间/共享借用发布/清区/无分隔符与busy正文保持静态核对，未构建或执行",
-      "boundary": "请求状态1门禁后先状态2及低S16回复码；失败busy保持，成功协议模式1→同址旧time32→localtime借用返回保存→真实|查找→同一128B前缀清区。找到时按地址差低U32调用真实53BEC0，再原分隔符地址调用404600后返回；无分隔符仍strlen+1原内联复制。复用现有LegacyTime公开声明，不新建分派、缓冲、owner、判空、末NUL、限长或默认成功；上游whV/下游共享防护及窗口检查保持，完整登录/网络/防护/CRT与跨板块运行未验，音频/加解密不恢复。"
+      "boundary": "请求状态1门禁后先状态2及低S16回复码；失败busy保持，成功协议模式1→同址旧time32→localtime借用返回保存→真实|查找→同一128B前缀清区。找到时按地址差低U32调用真实53BEC0，再原分隔符地址调用404600后返回；无分隔符仍strlen+1原内联复制。复用现有LegacyTime公开声明，不新建分派、缓冲、owner、判空、末NUL、限长或默认成功；上游whV/下游共享防护及窗口检查保持，完整登录/网络/防护/CRT与跨板块运行未验，音频/加解密不恢复。；2026-10-05 SDB01修正角色选择私有头的过时未定长声明/容量未决说明，同一gText9A4EAC现为char[128]并有sizeof断言，唯一存储/本回复写入/显示原文保持；不将128B提示正文混作9A5C10独立版本正文，不新增原身份、函数实现或运行验收。"
     },
     {
       "original_entry": "0x404060",

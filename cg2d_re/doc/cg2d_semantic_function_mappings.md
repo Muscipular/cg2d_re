@@ -1941,3 +1941,12 @@ C04/C06/C07/V02仍open，关闭10/60、叶0/182及完整门禁不提升。
 [具名SPEC](cg2d_multibyte_string_spec.md#multibyte-string-source-state)及[原证据](cg2d_multibyte_string_evidence.json)保53C9DD完整94条/255B与唯一音频入向4551A6。
 新增父语义1、现53F9E0仅补53CAB5点/源/当前边界，其余1226旧记录及政策保持；语义1227→1228/1224→1225有效ID，pending18/分类引用不变。R1 202→203/3680，限定E162→165、导入15/218；长度20真实＋4宿主/24，格式1001/1023/241不增。
 复用已证共享locale/代码页/ctype/errno，C写后源重读、旧remaining续扫/回退和W32结果可追。唯一音频455100/454C30继续暂停/未接；一般转换/内部长度实现不计音频恢复/完整文本、SDK/运行或任务/叶验收。
+
+
+## SDB01 共享提示正文类型合同修正（2026-10-05）
+
+仅更新既有F:00108800/508800记录的边界与[角色选择合同](cg2d_character_select_scene.md#character-message-storage-source-state)引用。
+内部头gText9A4EAC由未定长声明收敛为已证char[128]及sizeof断言，修正过时容量/生产未决说明；
+唯一owner、网络写入和显示本体保持，独立9A5C10版本正文不借容量。
+无新函数/处置或原调用点，语义1228/1225有效ID、pending18/分类引用4不变；仅限定S证据E166。
+T01/U03及完整功能/运行门禁继续open，未构建、测试、运行或计算摘要。

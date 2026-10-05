@@ -464,3 +464,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [本次可度量验收](cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-acceptance)核完整389条1714B五页原指令字节/28调用与唯一父、十二源片段精确重放和22标量/四W32/五属性各目标/同对象取样、计数发布后offset门禁/两S32轨迹及尾序；仅本根静态，不沿动作226统一分支模板。
 
 已有F:00015940/index1323和adapted及双域只追加依据，身份/成员/处置与完整门禁保持；E301→305四局部I/S共用本根证据。旧100条429B与新增289条1285B分列，仅224余927条3519B、全部数据/owner/SDK/ABI/PC53/时钟RNG/画面仍待；七任务及R1/R7/R8/整体open。
+
+## BRC01 动作224完整根的有限I/S（2026-10-06）
+
+[可度量验收](cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-acceptance)核十五页1136条4251B指令原字节/90调用/唯一父与31源片段，来源/目标/同表行/同对象、预推进一次取样及两不同计数门禁和原失败/早退可核。旧209条732B/新增927条3519B及三父本体有限差集0分列，不外推运行等价。
+
+已有F:00014050/index1321及adapted/双域只追加依据，四局部I/S令E305→309，所有计数/成员与完整门禁保持；七任务、R1/R7/R8/整体open。所有其它动作/数据资源及owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/实际画面继续。

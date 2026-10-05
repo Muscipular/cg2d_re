@@ -4009,3 +4009,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [当前裁决](cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision)修十二片段：入口rider/carrierAction/entryTime序、恢复回调同角色、22动画标量与四W32逐读写/两offset及五首角色属性各先取目标、两volatile轴及位置/计数同对象借用和旧首槽消费。原finish先取样、counter发布后才判offset，两S32轨迹/helper及退出尾序保持，不沿226前移门禁。
 
 [完整基线](cg2d_battle_ride_animation_sampling_evidence.json)389条1714B/五页原字节、28call/唯一父，旧100条429B不双计、新增289条1285B，仅224余927条3519B未核。已有index1323/F:00015940追加当前依据；全部动作/数据资源和owner寿命、SDK/ABI/PC53/时钟RNG/画面运行仍待。
+
+## BRC01 动作224完整骑乘切换与恢复（2026-10-06）
+
+[31源差异裁决](cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision)修各字段/16载体的来源目标取样、五距离/四朝向参数、四点表同索引、两位置/运动基Y与不同计数门禁、五清槽借用/转移priority和当前position、预推进每轮field58一次及两恢复callback。原CopyPayload/两个helper、全部跨调用复读/失败/早退和尾序保持。
+
+[完整1136条4251B](cg2d_battle_ride_transition_sampling_evidence.json)十五页指令原字节/90call/唯一父、旧209条732B与新增927条3519B分列。已有index1321/F:00014050补当前完整依据；三退场父本体有限静态差集0，所有其它动作/数据资源与owner/SDK/ABI/PC53/时钟RNG/画面仍待。

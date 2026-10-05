@@ -2327,3 +2327,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [本次完整依据](cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline)及[原指令字节](cg2d_battle_ride_animation_sampling_evidence.json)追加到已有index1323/F:00015940：389条1714B/28call/唯一父、十二源片段与22标量/四W32/五属性读取发布。BAR01历史局部字段保留，battle_ride_animation_sampling及当前文字追加记录本次完整根静态；不造helper原身份。
 
 语义1324/有效ID1319、disposition426、YOBI25/BATTLE22、代码片段5/LOOP31/R7区间67/队列保持；E301→305仅双域四局部I/S。旧100条429B不双计、新增289条1285B，仅224余927条3519B未核；完整动作/数据/owner/SDK/ABI/PC53/时钟RNG/画面运行未验，计数不外推完成率。
+
+## BRC01 已有动作224的完整根增量（2026-10-06）
+
+[当前基线](cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline)与[原指令字节](cg2d_battle_ride_transition_sampling_evidence.json)在已有index1321/F:00014050追加1136条4251B/90call/唯一父及31源片段；BAR01历史局部字段保留，battle_ride_transition_sampling及当前文字追加表示本次完整根，不造helper原身份。
+
+旧209条732B/新增927条3519B分列，三父本体有限静态差集0；语义1324/有效ID1319、disposition426、YOBI25/BATTLE22/代码片段5/LOOP31/R7区间67/队列保持。E305→309仅双域四局部I/S，不以差集0代完整其它动作/数据/owner/SDK/ABI/PC53/时钟RNG/画面运行。

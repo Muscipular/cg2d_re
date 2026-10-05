@@ -1663,7 +1663,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1708,7 +1709,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1719,7 +1721,8 @@
         "BAP01三工厂/四发布与已有共用回调八身份纳管，七根九片段恢复BC0独立原正文/直接factory接线和各发布/清理取样，原失败/借用复读及分配域保持。全部创建者/父callback与动作/数据资源/owner重进退出和浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍未闭",
         "BAR01一完整状态恢复及三父退场/恢复窗纳管，三CPP根十一片段修指针单次取样和400判定先于scale pub，原七槽/跨调用当前slot-payload复读保持。三父其余1385条5495B与所有创建者/父callback/动作和资源owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未闭",
         "BRA01动作226完整原277条1145B、28call/唯一父与十二源片段取样/发布实修，原helper/正常S32及退出标死清槽/帧尾保持。224/227余1216条4804B、全部创建者/载荷和owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行仍未闭",
-        "BRB01动作227完整389条1714B/28call/唯一父与十二源片段取样、22标量和四W32复制实修，原正常S32/计数后offset门禁、helper及标死清槽/帧尾保持。仅224余927条3519B，全部创建者/数据和owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未闭"
+        "BRB01动作227完整389条1714B/28call/唯一父与十二源片段取样、22标量和四W32复制实修，原正常S32/计数后offset门禁、helper及标死清槽/帧尾保持。仅224余927条3519B，全部创建者/数据和owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未闭",
+        "BRC01动作224完整1136条4251B/90call/唯一父与31片段实修，16载体序和同表/同对象借用、预推进每轮计数一次/两不同计数门禁及原标死清槽/早退保持。三父本体有限静态差集0；全部其它创建者/数据和owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1732,7 +1735,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state"
       ]
     },
     {
@@ -1753,7 +1757,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -1799,7 +1804,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -1810,7 +1816,8 @@
         "BAP01八442条1393B/24call和3绑定15父可追，BC0/C20独立分工及发布清理、六槽表/type3缩放/原失败与回调取样落实；同八F跨YOBI不双计。全部绑定父/动作实参/战斗数据资源与owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
         "BAR01退场七槽五段/装备三段和完整状态根可追，八窗401条1549B与完整177条608B/前置16条66B分列；同四F跨YOBI不双计。完整三父/动作实参/战斗数据资源与owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未验",
         "BRA01真实case226→4154C0完整原体与入口/角色恢复/位置/计数/清槽取样已修；已有F:000154C0双域不双计，原28call保持。完整224/227/全部动作实参与数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
-        "BRB01真实case227→415940完整根及入口/恢复角色/动画/位置/计数与旧首槽消费已修，已有F:00015940双域不双计；原28call保持。224余927条3519B与所有动作实参/数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待"
+        "BRB01真实case227→415940完整根及入口/恢复角色/动画/位置/计数与旧首槽消费已修，已有F:00015940双域不双计；原28call保持。224余927条3519B与所有动作实参/数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+        "BRC01真实case224→414050完整根、来源目标/点表参数/循环/计数和角色恢复取样已修，已有F:00014050双域不双计，90call保持。224/226/227父本体有限原静态差集0；所有其它动作实参/数据资源生产消费与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1821,7 +1828,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state"
       ]
     },
     {
@@ -16472,6 +16480,134 @@
       "observation": "完整389条1714B五页指令原字节/十二指令片段、28call/唯一入向与旧窗/新增计数静态一致；十二源片段精确重放及22标量/四W32/五属性取样、计数后offset判定/两轨迹及尾序通过",
       "expected": "原入口和各阶段读取/发布序、22标量和四W32逐读写/五属性各取目标、同指针判空消费/同轴读写；finish先取样而offset>=0在counter pub后，所有原两S32轨迹/失败/MarkDeath后清/转态和帧尾保持",
       "actual": "已有F:00015940追加当前完整根依据，语义/库存ID/disposition/双域成员计数保持；四局部I/S共用本根证据，仅224余927条3519B，完整战斗/Yobi/数据资源和owner/SDK/ABI/PC53/时钟RNG/画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-RIDE-TRANSITION-SAMPLING-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRC01动作224完整1136条4251B/十五页指令原字节、90call/唯一父，旧209条732B/新增927条3519B及三父本体限定差集0分列；doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-ride-transition-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-acceptance",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction224_414050",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/YobiRuntime.cpp#ClearBattleRideAttachments",
+        "src/YobiRuntime.cpp#RestoreBattleRideGear",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "本根31源片段：来源/目标、同点表行Y后X、同对象位置/运动基Y、两不同计数门禁和预推进每轮一次field58、五清槽借用/priority/currentPosition及两恢复callback；原helper/CopyPayload/复读/S32及早退尾序保持",
+          "decision_ref": "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "动作224的31片段已落码，各来源/目标/同表行与位置/基Y、两计数门禁/预推进每轮计数一次/槽恢复等读取发布点明确；原16载体/两helper/CopyPayload及case224/其它CPP与既有头保持",
+      "expected": "原各来源/目标和同点表行/同对象、16载体序、每轮field58一次、非零oldTime门禁先于计数pub且frameY在pub后/零两门禁先于pub，原失败/MarkDeath后清/全部早退/转态及帧尾保持",
+      "actual": "已有F:00014050追加当前完整根依据，语义/库存ID/disposition/双域成员计数保持；四局部I/S共用本根，三父本体有限静态差集0不验完整战斗/Yobi/所有其它动作及数据资源/owner/SDK/ABI/PC53/时钟RNG/画面运行，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-RIDE-TRANSITION-SAMPLING-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRC01动作224完整1136条4251B/十五页指令原字节、90call/唯一父，旧209条732B/新增927条3519B及三父本体限定差集0分列；doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-ride-transition-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-acceptance",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction224_414050",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/YobiRuntime.cpp#ClearBattleRideAttachments",
+        "src/YobiRuntime.cpp#RestoreBattleRideGear",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "本根31源片段：来源/目标、同点表行Y后X、同对象位置/运动基Y、两不同计数门禁和预推进每轮一次field58、五清槽借用/priority/currentPosition及两恢复callback；原helper/CopyPayload/复读/S32及早退尾序保持",
+          "decision_ref": "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整1136条4251B十五页原指令字节/31范围、90call/唯一父及旧209条732B/新增927条3519B和三父本体限定差集0一致；31源码片段精确重放及读取发布/循环/两计数门禁和全部早退尾序通过",
+      "expected": "原各来源/目标和同点表行/同对象、16载体序、每轮field58一次、非零oldTime门禁先于计数pub且frameY在pub后/零两门禁先于pub，原失败/MarkDeath后清/全部早退/转态及帧尾保持",
+      "actual": "已有F:00014050追加当前完整根依据，语义/库存ID/disposition/双域成员计数保持；四局部I/S共用本根，三父本体有限静态差集0不验完整战斗/Yobi/所有其它动作及数据资源/owner/SDK/ABI/PC53/时钟RNG/画面运行，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-RIDE-TRANSITION-SAMPLING-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRC01动作224完整1136条4251B/十五页指令原字节、90call/唯一父，旧209条732B/新增927条3519B及三父本体限定差集0分列；doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-ride-transition-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-acceptance",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction224_414050",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/YobiRuntime.cpp#ClearBattleRideAttachments",
+        "src/YobiRuntime.cpp#RestoreBattleRideGear",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "本根31源片段：来源/目标、同点表行Y后X、同对象位置/运动基Y、两不同计数门禁和预推进每轮一次field58、五清槽借用/priority/currentPosition及两恢复callback；原helper/CopyPayload/复读/S32及早退尾序保持",
+          "decision_ref": "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "动作224的31片段已落码，各来源/目标/同表行与位置/基Y、两计数门禁/预推进每轮计数一次/槽恢复等读取发布点明确；原16载体/两helper/CopyPayload及case224/其它CPP与既有头保持",
+      "expected": "原各来源/目标和同点表行/同对象、16载体序、每轮field58一次、非零oldTime门禁先于计数pub且frameY在pub后/零两门禁先于pub，原失败/MarkDeath后清/全部早退/转态及帧尾保持",
+      "actual": "已有F:00014050追加当前完整根依据，语义/库存ID/disposition/双域成员计数保持；四局部I/S共用本根，三父本体有限静态差集0不验完整战斗/Yobi/所有其它动作及数据资源/owner/SDK/ABI/PC53/时钟RNG/画面运行，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-RIDE-TRANSITION-SAMPLING-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRC01动作224完整1136条4251B/十五页指令原字节、90call/唯一父，旧209条732B/新增927条3519B及三父本体限定差集0分列；doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-ride-transition-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-acceptance",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction224_414050",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/YobiRuntime.cpp#ClearBattleRideAttachments",
+        "src/YobiRuntime.cpp#RestoreBattleRideGear",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "本根31源片段：来源/目标、同点表行Y后X、同对象位置/运动基Y、两不同计数门禁和预推进每轮一次field58、五清槽借用/priority/currentPosition及两恢复callback；原helper/CopyPayload/复读/S32及早退尾序保持",
+          "decision_ref": "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整1136条4251B十五页原指令字节/31范围、90call/唯一父及旧209条732B/新增927条3519B和三父本体限定差集0一致；31源码片段精确重放及读取发布/循环/两计数门禁和全部早退尾序通过",
+      "expected": "原各来源/目标和同点表行/同对象、16载体序、每轮field58一次、非零oldTime门禁先于计数pub且frameY在pub后/零两门禁先于pub，原失败/MarkDeath后清/全部早退/转态及帧尾保持",
+      "actual": "已有F:00014050追加当前完整根依据，语义/库存ID/disposition/双域成员计数保持；四局部I/S共用本根，三父本体有限静态差集0不验完整战斗/Yobi/所有其它动作及数据资源/owner/SDK/ABI/PC53/时钟RNG/画面运行，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -16649,7 +16785,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state"
       ]
     },
     {
@@ -16903,7 +17040,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state"
       ]
     },
     {
@@ -17044,7 +17182,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state"
       ]
     },
     {
@@ -17091,7 +17230,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state"
       ]
     },
     {
@@ -17109,7 +17249,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state"
       ]
     },
     {
@@ -17282,7 +17423,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state"
       ]
     },
     {
@@ -17296,7 +17438,8 @@
         "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
-        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state"
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state"
       ]
     }
   ],
@@ -21686,7 +21829,12 @@
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
-        "doc/cg2d_battle_attachment_recovery_evidence.json"
+        "doc/cg2d_battle_attachment_recovery_evidence.json",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-acceptance",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_evidence.json"
       ]
     },
     {

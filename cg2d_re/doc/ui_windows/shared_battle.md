@@ -8171,3 +8171,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [源状态](../cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state)沿实际case227保留完整415940：首阶段恢复second/逐项动画复制与状态、转态和帧，清七附件；按flags选择原两条S32轨迹、finish先取样/计数pub后offset门禁，成功才恢复first/装备、转态并标死清槽，最终共用帧尾。十二片段实修，22标量/四字组/五属性及原复读和两helper保持，不加guard/free。
 
 [原389条1714B/28call](../cg2d_battle_ride_animation_sampling_evidence.json)完整静态可追，旧100条429B与新增289条1285B分列，仅224余927条3519B未核。完整战斗/所有动作实参、数据资源和owner/SDK/ABI/PC53/时钟RNG/画面运行未闭，U08/U09及完整门禁保持open。
+
+## BRC01 动作224的真实双路径（2026-10-06）
+
+[源状态](../cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state)落实31片段，保留flags非零初建/移动/合体转位与零路径点表归位/预推进/双角色恢复。非零oldTime门禁在pub前、frameY门禁在pub后；零oldTime和offset门禁在pub前，原失败/早退/帧尾保持，不沿226/227统一模板。
+
+[原完整根](../cg2d_battle_ride_transition_sampling_evidence.json)1136条4251B/90call，16载体为原内联三写序；四点表参数对各用同一索引Y后X，预推进每轮一次计数读取/消费后重取。旧209条732B/新增927条3519B不双计；三父本体差集0不等完整战斗、数据/owner或运行验收，U08/U09和完整门禁open。

@@ -4129,3 +4129,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [五处实修](cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-decision)恢复actor空比较先caster pub、两字段caster-actor-live skill或level-payload、自身效果actor/target同caster及level比较后caster先低段原偏移表。三Take、空角色Finish直接回存、flags255门禁/效果终结/64与图号/Move-增58原无RID、各次调用后live保持。
 
 [共用主体103条423B](cg2d_battle_m_skill50_sampling_evidence.json)两页13call及全部直接目标纳管，202B表仅五case定位/原48B偏移保持，不代其它各技能/完整父-SEH/owner/SDK/ABI/画面。
+
+## BMT01 技能12/82/97与共用目标二十二处（2026-10-06）
+
+[二十二处实修](cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-decision)恢复三技能入口/字段、12 caster先偏移与97偏移-caster-加法的不同图号序、82 X两索引-baseX-actor-otherX-delta-payload-中点/Y两索引与player、共用目标的条件pub/主辅参数/两S32索引/两字段/player-kind。12保amount调用后live caster及无RID，82/97保两原循环和正常Move-RID-增58、初始空与目标空不同出口、原八W32初值/图值跨目标与调用后live。
+
+[三主体749条2827B](cg2d_battle_m_skill12_82_97_sampling_evidence.json)十一页78call、全部直接目标闭合，共用尾已在97物理范围只计一次，202B入口仅三case定位/原48B偏移保持；其它技能/完整父-SEH/owner/SDK/ABI/画面继续。

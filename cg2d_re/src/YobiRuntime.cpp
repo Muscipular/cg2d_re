@@ -16430,19 +16430,25 @@ namespace {
         FinishBattleEvent_43B6C0(scene);
         return;
     }
-    static_cast<BattleActorPayload*>(caster->payload)->castSkill103C = gBattleMSkill5AAA78;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
-        ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+    auto* const skillPayload = static_cast<BattleActorPayload*>(caster->payload);
+    skillPayload->castSkill103C = gBattleMSkill5AAA78;
+    const std::int32_t levelCasterPosition = gBattleMCasterPosition5AAA64;
+    YobiAction* const levelCaster = gBattleAllEntries59E980[levelCasterPosition];
+    const std::int32_t skillLevel = gBattleMSkillLevelIndex5A3A18;
+    static_cast<BattleActorPayload*>(levelCaster->payload)->castSkillLevel1044 = skillLevel;
     static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->fpUsed1008 = fpUsed;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 55);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 40);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 139);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 64);
     const std::int32_t level = gBattleMSkillLevelIndex5A3A18;
-    const std::int32_t image = level < 12 ? kBattleMSkillEffectOffsets553E58[level] + 110180 : 111017;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->image1028 = image;
-    AppendBattleEffectList_4393A0(
-        gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], gBattleMCasterPosition5AAA64, 0, amount);
+    const bool useLevelOffset = level < 12;
+    const std::int32_t imageCasterPosition = gBattleMCasterPosition5AAA64;
+    const std::int32_t image = useLevelOffset ? kBattleMSkillEffectOffsets553E58[level] + 110180 : 111017;
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[imageCasterPosition]->payload)->image1028 = image;
+    const std::int32_t effectCasterPosition = gBattleMCasterPosition5AAA64;
+    YobiAction* const effectCaster = gBattleAllEntries59E980[effectCasterPosition];
+    AppendBattleEffectList_4393A0(effectCaster, effectCasterPosition, 0, amount);
     AppendBattleEffectList_4393A0(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], -1, 0, 0);
     static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->value1018 = 256;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 80);
@@ -16467,11 +16473,13 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
     std::array<std::int32_t, 2> secondImages {};
     std::array<std::int32_t, 2> values {};
     for (;;) {
-        gBattleMTargetPosition5AAA40 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
-        if (gBattleMTargetPosition5AAA40 == 255) {
+        const std::int32_t targetPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        const bool targetUnavailable = targetPosition == 255;
+        gBattleMTargetPosition5AAA40 = targetPosition;
+        if (targetUnavailable) {
             break;
         }
-        if (gBattleAllEntries59E980[gBattleMTargetPosition5AAA40] == nullptr) {
+        if (gBattleAllEntries59E980[targetPosition] == nullptr) {
             FinishBattleEvent_43B6C0(scene);
             break;
         }
@@ -16481,35 +16489,54 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
             TakeBattleMAuxGraphics_43BF30(
                 scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
-        AppendBattleEffect_439400(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
-            {gBattleMTargetPosition5AAA40, gBattleMResultFlags5A4A20, amount, firstImage});
-        std::size_t imageIndex = 0;
-        for (std::size_t index = 0; index < 2; ++index) {
+        const std::int32_t effectImage = firstImage;
+        const std::uint32_t effectFlags = gBattleMResultFlags5A4A20;
+        const std::int32_t effectTargetPosition = gBattleMTargetPosition5AAA40;
+        const std::int32_t effectCasterPosition = gBattleMCasterPosition5AAA64;
+        const BattleEntryEffectRecord effectRecord {effectTargetPosition, effectFlags, amount, effectImage};
+        YobiAction* const effectCaster = gBattleAllEntries59E980[effectCasterPosition];
+        AppendBattleEffect_439400(effectCaster, effectRecord);
+        std::int32_t imageIndex = 0;
+        for (std::int32_t index = 0; index < 2; ++index) {
             if (firstImages[index] > 0) {
                 imageIndex = index;
                 break;
             }
         }
-        AppendBattleAuxEffects_43BC10(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64],
-            gBattleMTargetPosition5AAA40, gBattleMResultFlags5A4A20, firstImage, secondImage, firstImages[imageIndex]);
-        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
-            ->castSkill103C = gBattleMSkill5AAA78;
-        static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMTargetPosition5AAA40]->payload)
-            ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+        const std::int32_t auxiliaryImage = firstImages[imageIndex];
+        const std::int32_t auxiliarySecondImage = secondImage;
+        const std::int32_t auxiliaryFirstImage = firstImage;
+        const std::uint32_t auxiliaryFlags = gBattleMResultFlags5A4A20;
+        const std::int32_t auxiliaryTargetPosition = gBattleMTargetPosition5AAA40;
+        const std::int32_t auxiliaryCasterPosition = gBattleMCasterPosition5AAA64;
+        YobiAction* const auxiliaryCaster = gBattleAllEntries59E980[auxiliaryCasterPosition];
+        AppendBattleAuxEffects_43BC10(auxiliaryCaster, auxiliaryTargetPosition, auxiliaryFlags,
+            auxiliaryFirstImage, auxiliarySecondImage, auxiliaryImage);
+        const std::int32_t targetSkillPosition = gBattleMTargetPosition5AAA40;
+        YobiAction* const targetSkillActor = gBattleAllEntries59E980[targetSkillPosition];
+        const std::int32_t targetSkill = gBattleMSkill5AAA78;
+        static_cast<BattleActorPayload*>(targetSkillActor->payload)->castSkill103C = targetSkill;
+        const std::int32_t targetLevelPosition = gBattleMTargetPosition5AAA40;
+        YobiAction* const targetLevelActor = gBattleAllEntries59E980[targetLevelPosition];
+        const std::int32_t targetLevel = gBattleMSkillLevelIndex5A3A18;
+        static_cast<BattleActorPayload*>(targetLevelActor->payload)->castSkillLevel1044 = targetLevel;
         std::uint32_t flags = gBattleMResultFlags5A4A20;
         if ((flags & 0x108u) == 0) {
             if ((flags & 0x40u) != 0) {
                 AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 34);
-                if (gBattleCurrentPosition5ABCA4 == gBattleMTargetPosition5AAA40) {
-                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 256);
+                const std::int32_t playerTargetPosition = gBattleMTargetPosition5AAA40;
+                if (gBattleCurrentPosition5ABCA4 == playerTargetPosition) {
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[playerTargetPosition], 256);
                 } else {
-                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 52);
+                    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[playerTargetPosition], 52);
                     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40], 51);
                 }
                 flags = gBattleMResultFlags5A4A20;
             } else if (amount != 0 && (flags & 3u) != 0) {
-                AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMTargetPosition5AAA40],
-                    (flags & 2u) != 0 ? 165 : 27);
+                const std::int32_t reactionKind = (flags & 2u) != 0 ? 165 : 27;
+                const std::int32_t reactionTargetPosition = gBattleMTargetPosition5AAA40;
+                YobiAction* const reactionTarget = gBattleAllEntries59E980[reactionTargetPosition];
+                AppendBattleCast_4392A0(scene, reactionTarget, reactionKind);
                 flags = gBattleMResultFlags5A4A20;
             }
         }
@@ -16532,15 +16559,19 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
 {
     using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
-    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
-    YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+    gBattleMCasterPosition5AAA64 = casterPosition;
+    YobiAction* const caster = gBattleAllEntries59E980[casterPosition];
     if (caster == nullptr) {
         FinishBattleEvent_43B6C0(scene);
         return;
     }
-    static_cast<BattleActorPayload*>(caster->payload)->castSkill103C = gBattleMSkill5AAA78;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
-        ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+    auto* const skillPayload = static_cast<BattleActorPayload*>(caster->payload);
+    skillPayload->castSkill103C = gBattleMSkill5AAA78;
+    const std::int32_t levelCasterPosition = gBattleMCasterPosition5AAA64;
+    YobiAction* const levelCaster = gBattleAllEntries59E980[levelCasterPosition];
+    const std::int32_t skillLevel = gBattleMSkillLevelIndex5A3A18;
+    static_cast<BattleActorPayload*>(levelCaster->payload)->castSkillLevel1044 = skillLevel;
     static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->fpUsed1008 = fpUsed;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 55);
@@ -16549,14 +16580,21 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 6);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 10);
     const std::int32_t position = gBattleMCasterPosition5AAA64;
-    const std::int32_t basePosition = position < 10 ? 10 : 5;
-    const std::int32_t otherPosition = position < 10 ? 15 : 0;
-    const std::int32_t baseX = gBattleGraphicPoints553758[gBattlePointIndices5536FC[basePosition]][2];
-    const std::int32_t otherX = gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][2];
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[position]->payload)
-        ->moveTargetXFE8 = baseX + (otherX - baseX) / 2;
-    const std::int32_t baseY = gBattleGraphicPoints553758[gBattlePointIndices5536FC[basePosition]][3];
-    const std::int32_t otherY = gBattleGraphicPoints553758[gBattlePointIndices5536FC[otherPosition]][3];
+    const bool firstSide = position < 10;
+    const std::int32_t basePosition = firstSide ? 10 : 5;
+    const std::int32_t otherPosition = firstSide ? 15 : 0;
+    const std::int32_t basePointIndexX = gBattlePointIndices5536FC[basePosition];
+    const std::int32_t otherPointIndexX = gBattlePointIndices5536FC[otherPosition];
+    const std::int32_t baseX = gBattleGraphicPoints553758[basePointIndexX][2];
+    YobiAction* const midpointXActor = gBattleAllEntries59E980[position];
+    const std::int32_t otherX = gBattleGraphicPoints553758[otherPointIndexX][2];
+    const std::int32_t deltaX = otherX - baseX;
+    auto* const midpointXPayload = static_cast<BattleActorPayload*>(midpointXActor->payload);
+    midpointXPayload->moveTargetXFE8 = baseX + deltaX / 2;
+    const std::int32_t basePointIndexY = gBattlePointIndices5536FC[basePosition];
+    const std::int32_t otherPointIndexY = gBattlePointIndices5536FC[otherPosition];
+    const std::int32_t baseY = gBattleGraphicPoints553758[basePointIndexY][3];
+    const std::int32_t otherY = gBattleGraphicPoints553758[otherPointIndexY][3];
     static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
         ->moveTargetYFEC = baseY + (otherY - baseY) / 2;
     static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->value1018 = 288;
@@ -16567,10 +16605,11 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 86);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 37);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 89);
-    if (gBattleCurrentPosition5ABCA4 == gBattleMCasterPosition5AAA64) {
-        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 256);
+    const std::int32_t playerCasterPosition = gBattleMCasterPosition5AAA64;
+    if (gBattleCurrentPosition5ABCA4 == playerCasterPosition) {
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[playerCasterPosition], 256);
     } else {
-        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 52);
+        AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[playerCasterPosition], 52);
         AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 51);
     }
     ProcessBattleMSkill82And97Targets(scene, payload);
@@ -16582,15 +16621,19 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
 {
     using namespace world::detail;
     static_cast<void>(TakeBattleMInteger_438F70(scene));
-    gBattleMCasterPosition5AAA64 = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
-    YobiAction* const caster = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
+    const std::int32_t casterPosition = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+    gBattleMCasterPosition5AAA64 = casterPosition;
+    YobiAction* const caster = gBattleAllEntries59E980[casterPosition];
     if (caster == nullptr) {
         FinishBattleEvent_43B6C0(scene);
         return;
     }
-    static_cast<BattleActorPayload*>(caster->payload)->castSkill103C = gBattleMSkill5AAA78;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)
-        ->castSkillLevel1044 = gBattleMSkillLevelIndex5A3A18;
+    auto* const skillPayload = static_cast<BattleActorPayload*>(caster->payload);
+    skillPayload->castSkill103C = gBattleMSkill5AAA78;
+    const std::int32_t levelCasterPosition = gBattleMCasterPosition5AAA64;
+    YobiAction* const levelCaster = gBattleAllEntries59E980[levelCasterPosition];
+    const std::int32_t skillLevel = gBattleMSkillLevelIndex5A3A18;
+    static_cast<BattleActorPayload*>(levelCaster->payload)->castSkillLevel1044 = skillLevel;
     static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->fpUsed1008 = fpUsed;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 25);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 55);
@@ -16599,8 +16642,17 @@ void ProcessBattleMSkill82And97Targets(YobiAction* const scene, BattleScenePaylo
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 139);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 64);
     const std::int32_t level = gBattleMSkillLevelIndex5A3A18;
-    const std::int32_t image = level < 12 ? kBattleMSkillEffectOffsets553E58[level] + 110052 : 111001;
-    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->image1028 = image;
+    std::int32_t image;
+    std::int32_t imageCasterPosition;
+    if (level < 12) {
+        const std::int32_t offset = kBattleMSkillEffectOffsets553E58[level];
+        imageCasterPosition = gBattleMCasterPosition5AAA64;
+        image = offset + 110052;
+    } else {
+        imageCasterPosition = gBattleMCasterPosition5AAA64;
+        image = 111001;
+    }
+    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[imageCasterPosition]->payload)->image1028 = image;
     static_cast<BattleActorPayload*>(gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->payload)->value1018 = 5;
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 80);
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[gBattleMCasterPosition5AAA64], 88);

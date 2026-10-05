@@ -175,3 +175,9 @@
 [五组裁决](../cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-decision)恢复actor空比较先位置pub及同条件消费、两字段actor先live skill或level、自身4393A0沿同caster样本作actor和target、level比较后caster先偏移读取。每次调用后重新借当前角色，不把初始actor跨调用用于字段/效果/终结或末Move；不改共享布局或owner。
 
 [完整正常有界主体](../cg2d_battle_m_skill50_sampling_evidence.json)103条423B两页13call，三Take/flags255/各正常常数和Move-增58无RID保持；其它各技能消费者与资源owner重进退出/借用失效、SDK/ABI/画面继续。
+
+## BMT01 82交错坐标取样与两循环角色借用（2026-10-06）
+
+[二十二组裁决](../cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-decision)恢复82 X两索引/base坐标后借同position actor，再other坐标/delta/该payload后中点pub，Y另读两索引/坐标后live caster；12与97图号次序分别恢复，不统一采样。两原目标循环的target条件pub、主辅参数/两S32索引/两字段和player-kind都核，原W32 flags入寄存器的AL/AH局部位保持，不误改成byte；不改owner或布局。
+
+[三完整正常有界主体](../cg2d_battle_m_skill12_82_97_sampling_evidence.json)749条2827B十一页78call，初始空/目标空不同Finish消费、12无RID/82-97共用尾RID、正常初值/图值复用与调用后live保持。其它各技能消费者与资源owner重进退出/借用失效、SDK/ABI/画面继续。

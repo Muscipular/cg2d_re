@@ -8291,3 +8291,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-source-state)纳管50/51/52/53/88共用主体五处。初始空actor Finish直接回存；非空三Take后逐次live caster Append25/55/40/139，flags非255才自身效果，不论flags均终结-1/0/0及64、正常图号/Move/++58，原本没有RID，保持该区别。
 
 [103条423B两页13call](../cg2d_battle_m_skill50_sampling_evidence.json)和原202B入口/48B偏移仅本步有界证据，其它技能/owner/运行门禁继续，网络原格式明文/音频暂停保持。
+
+## BMT01 三技能准备、两目标循环与共用尾（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-source-state)纳管12/82/97三主体和四现代根二十二处。12三Take后live caster/自身效果和字段/Move增58无RID；82两侧中点/不同准备、97图号偏移-caster-加法及准备后均进既有共用目标根，两原循环都取证。空target Finish与255出口在42CB37汇合后Move/RID/++58，初始空caster直接Finish回存，原图值跨目标/数组/门禁和调用后live保持。
+
+[749条2827B十一页78call](../cg2d_battle_m_skill12_82_97_sampling_evidence.json)包含共用尾只计一次，202B低段表仅12/82/97定位/原48B偏移保持；其它各技能/资源owner与整体运行门禁继续，原格式明文/音频暂停保持。

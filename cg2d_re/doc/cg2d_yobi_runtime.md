@@ -3949,3 +3949,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [裁决](cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision)将404C50两复合链接赋值改为先prev→next读取/写前驱next，写后再next→prev读取/写后继prev；两写后仍单独保存next，删除当前节点后沿它继续。末阶段计数一次读→正常S32+1→按局部result>=4判断→发布result→满足再清0，完整返回仍result。404D10仅一次保存void* payload，非空free快照后free原action，不清槽或增加action空检查。三片段，原四相门禁/callback后next复读和所有其它正文保持。
 
 519D50原八槽/文本/主玩家复读与尾链保持，仅纳管身份/分工，不计新的清理实现。[三原160条444B](cg2d_yobi_cleanup_sampling_evidence.json)完整保存与局部取样验收区分，两旧语义追加/一新语义，31type17call/10父。完整callback/callee/父实参/资源和数据生产/链别名与owner寿命/SDK/ABI/时钟RNG/画面运行仍待。
+
+## YSS01 初始哨兵四取样修正（2026-10-05）
+
+[具名裁决](cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision)实修404A40四片段：第二calloc返回保存allocatedEnd后取initialStart，发布end后用初start写prev空；forwardStart→forwardEnd/ backwardEnd→backwardStart读后写链接；priority写前保存result，当次end图形索引写后返回result。其它逐次目标读取/两独立std::calloc(1,sizeof原生YobiAction))、U8 priority0/FF与S32 -1、无失败门禁/未知字段和阶段计数保持。
+
+404D30/404D60正确本体不改、三旧语义只追加原身份/生命周期来源；清场先start.next快照→46DD40→逐节点death1/next/当次end比较，终止先清场再UpdateAll后首释放/再取尾释放，不清共享槽/反复回收或解四相门禁。[三完整59条225B](cg2d_yobi_sentinel_sampling_evidence.json)和局部验收分别记；全部父/应用初终/callee/资源生产和owner寿命/SDK/ABI/时钟RNG/场景画面运行未闭。

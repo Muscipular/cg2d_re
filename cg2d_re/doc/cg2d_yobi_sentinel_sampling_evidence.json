@@ -1,0 +1,576 @@
+{
+  "schema_version": 1,
+  "scope": "YSS01哨兵初始化四取样片段实修，既有清场/终止保持及三旧身份追加；完整生命周期/父/callee/运行未验",
+  "baseline_snapshot": "cg2d-re-yobi-cleanup-sampling-20261005",
+  "implementation_snapshot": "cg2d-re-yobi-sentinel-sampling-20261005",
+  "original_functions": [
+    {
+      "entry": "0x404a40",
+      "actual_start": "0x404a40",
+      "end_exclusive": "0x404ad1",
+      "chunks": [
+        {
+          "start": "0x404a40",
+          "end_exclusive": "0x404ad1"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x4577f5",
+          "type": 17,
+          "parent_entry": "0x4576b0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x404a40",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x404a41",
+          "size": 5,
+          "bytes": "6830030000",
+          "text": "push    330h; int"
+        },
+        {
+          "ea": "0x404a46",
+          "size": 2,
+          "bytes": "6a01",
+          "text": "push    1; Size"
+        },
+        {
+          "ea": "0x404a48",
+          "size": 5,
+          "bytes": "e8ab751300",
+          "text": "call    cAlloc"
+        },
+        {
+          "ea": "0x404a4d",
+          "size": 5,
+          "bytes": "6830030000",
+          "text": "push    330h; int"
+        },
+        {
+          "ea": "0x404a52",
+          "size": 2,
+          "bytes": "6a01",
+          "text": "push    1; Size"
+        },
+        {
+          "ea": "0x404a54",
+          "size": 5,
+          "bytes": "a36ce55900",
+          "text": "mov     YobiActionStart, eax"
+        },
+        {
+          "ea": "0x404a59",
+          "size": 5,
+          "bytes": "e89a751300",
+          "text": "call    cAlloc"
+        },
+        {
+          "ea": "0x404a5e",
+          "size": 6,
+          "bytes": "8b0d6ce55900",
+          "text": "mov     ecx, YobiActionStart"
+        },
+        {
+          "ea": "0x404a64",
+          "size": 5,
+          "bytes": "a368e55900",
+          "text": "mov     YobiActionEnd, eax"
+        },
+        {
+          "ea": "0x404a69",
+          "size": 2,
+          "bytes": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": "0x404a6b",
+          "size": 3,
+          "bytes": "83c410",
+          "text": "add     esp, 10h"
+        },
+        {
+          "ea": "0x404a6e",
+          "size": 2,
+          "bytes": "8901",
+          "text": "mov     [ecx], eax"
+        },
+        {
+          "ea": "0x404a70",
+          "size": 6,
+          "bytes": "8b156ce55900",
+          "text": "mov     edx, YobiActionStart"
+        },
+        {
+          "ea": "0x404a76",
+          "size": 6,
+          "bytes": "8b0d68e55900",
+          "text": "mov     ecx, YobiActionEnd"
+        },
+        {
+          "ea": "0x404a7c",
+          "size": 3,
+          "bytes": "894a04",
+          "text": "mov     [edx+4], ecx"
+        },
+        {
+          "ea": "0x404a7f",
+          "size": 6,
+          "bytes": "8b156ce55900",
+          "text": "mov     edx, YobiActionStart"
+        },
+        {
+          "ea": "0x404a85",
+          "size": 3,
+          "bytes": "894208",
+          "text": "mov     [edx+8], eax"
+        },
+        {
+          "ea": "0x404a88",
+          "size": 6,
+          "bytes": "8b0d6ce55900",
+          "text": "mov     ecx, YobiActionStart"
+        },
+        {
+          "ea": "0x404a8e",
+          "size": 3,
+          "bytes": "884114",
+          "text": "mov     [ecx+14h], al"
+        },
+        {
+          "ea": "0x404a91",
+          "size": 6,
+          "bytes": "8b156ce55900",
+          "text": "mov     edx, YobiActionStart"
+        },
+        {
+          "ea": "0x404a97",
+          "size": 3,
+          "bytes": "83c9ff",
+          "text": "or      ecx, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x404a9a",
+          "size": 3,
+          "bytes": "894a20",
+          "text": "mov     [edx+20h], ecx"
+        },
+        {
+          "ea": "0x404a9d",
+          "size": 6,
+          "bytes": "8b1568e55900",
+          "text": "mov     edx, YobiActionEnd"
+        },
+        {
+          "ea": "0x404aa3",
+          "size": 6,
+          "bytes": "8b356ce55900",
+          "text": "mov     esi, YobiActionStart"
+        },
+        {
+          "ea": "0x404aa9",
+          "size": 2,
+          "bytes": "8932",
+          "text": "mov     [edx], esi"
+        },
+        {
+          "ea": "0x404aab",
+          "size": 6,
+          "bytes": "8b1568e55900",
+          "text": "mov     edx, YobiActionEnd"
+        },
+        {
+          "ea": "0x404ab1",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x404ab2",
+          "size": 3,
+          "bytes": "894204",
+          "text": "mov     [edx+4], eax"
+        },
+        {
+          "ea": "0x404ab5",
+          "size": 6,
+          "bytes": "8b1568e55900",
+          "text": "mov     edx, YobiActionEnd"
+        },
+        {
+          "ea": "0x404abb",
+          "size": 3,
+          "bytes": "894208",
+          "text": "mov     [edx+8], eax"
+        },
+        {
+          "ea": "0x404abe",
+          "size": 5,
+          "bytes": "a168e55900",
+          "text": "mov     eax, YobiActionEnd"
+        },
+        {
+          "ea": "0x404ac3",
+          "size": 4,
+          "bytes": "c64014ff",
+          "text": "mov     byte ptr [eax+14h], 0FFh"
+        },
+        {
+          "ea": "0x404ac7",
+          "size": 6,
+          "bytes": "8b1568e55900",
+          "text": "mov     edx, YobiActionEnd"
+        },
+        {
+          "ea": "0x404acd",
+          "size": 3,
+          "bytes": "894a20",
+          "text": "mov     [edx+20h], ecx"
+        },
+        {
+          "ea": "0x404ad0",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "instruction_count": 36
+    },
+    {
+      "entry": "0x404d30",
+      "actual_start": "0x404d30",
+      "end_exclusive": "0x404d5b",
+      "chunks": [
+        {
+          "start": "0x404d30",
+          "end_exclusive": "0x404d5b"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x404d60",
+          "type": 17,
+          "parent_entry": "0x404d60"
+        },
+        {
+          "site": "0x43cc5b",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x43d2a3",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x43d435",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x457c15",
+          "type": 17,
+          "parent_entry": "0x457b10"
+        },
+        {
+          "site": "0x45c2ec",
+          "type": 17,
+          "parent_entry": "0x45c2d0"
+        },
+        {
+          "site": "0x45c4e4",
+          "type": 17,
+          "parent_entry": "0x45c2d0"
+        },
+        {
+          "site": "0x45ebe9",
+          "type": 17,
+          "parent_entry": "0x45ebb0"
+        },
+        {
+          "site": "0x45ec82",
+          "type": 17,
+          "parent_entry": "0x45ebb0"
+        },
+        {
+          "site": "0x45eca8",
+          "type": 17,
+          "parent_entry": "0x45ebb0"
+        },
+        {
+          "site": "0x45f1b5",
+          "type": 17,
+          "parent_entry": "0x45f190"
+        },
+        {
+          "site": "0x45f7dd",
+          "type": 17,
+          "parent_entry": "0x45f190"
+        },
+        {
+          "site": "0x46154b",
+          "type": 17,
+          "parent_entry": "0x460ff0"
+        },
+        {
+          "site": "0x46161d",
+          "type": 17,
+          "parent_entry": "0x460ff0"
+        },
+        {
+          "site": "0x4619ae",
+          "type": 17,
+          "parent_entry": "0x460ff0"
+        },
+        {
+          "site": "0x462517",
+          "type": 17,
+          "parent_entry": "0x462330"
+        },
+        {
+          "site": "0x462870",
+          "type": 17,
+          "parent_entry": "0x462870"
+        },
+        {
+          "site": "0x50d223",
+          "type": 17,
+          "parent_entry": "0x50d120"
+        },
+        {
+          "site": "0x51c679",
+          "type": 17,
+          "parent_entry": "0x51c430"
+        },
+        {
+          "site": "0x51c70c",
+          "type": 17,
+          "parent_entry": "0x51c430"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x404d30",
+          "size": 5,
+          "bytes": "a16ce55900",
+          "text": "mov     eax, YobiActionStart"
+        },
+        {
+          "ea": "0x404d35",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x404d36",
+          "size": 3,
+          "bytes": "8b7004",
+          "text": "mov     esi, [eax+4]"
+        },
+        {
+          "ea": "0x404d39",
+          "size": 5,
+          "bytes": "e802900600",
+          "text": "call    sub_46DD40"
+        },
+        {
+          "ea": "0x404d3e",
+          "size": 6,
+          "bytes": "3b3568e55900",
+          "text": "cmp     esi, YobiActionEnd"
+        },
+        {
+          "ea": "0x404d44",
+          "size": 2,
+          "bytes": "7413",
+          "text": "jz      short loc_404D59"
+        },
+        {
+          "ea": "0x404d46",
+          "size": 5,
+          "bytes": "b801000000",
+          "text": "mov     eax, 1"
+        },
+        {
+          "ea": "0x404d4b",
+          "size": 3,
+          "bytes": "89461c",
+          "text": "mov     [esi+1Ch], eax"
+        },
+        {
+          "ea": "0x404d4e",
+          "size": 3,
+          "bytes": "8b7604",
+          "text": "mov     esi, [esi+4]"
+        },
+        {
+          "ea": "0x404d51",
+          "size": 6,
+          "bytes": "3b3568e55900",
+          "text": "cmp     esi, YobiActionEnd"
+        },
+        {
+          "ea": "0x404d57",
+          "size": 2,
+          "bytes": "75f2",
+          "text": "jnz     short loc_404D4B"
+        },
+        {
+          "ea": "0x404d59",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x404d5a",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "instruction_count": 13
+    },
+    {
+      "entry": "0x404d60",
+      "actual_start": "0x404d60",
+      "end_exclusive": "0x404d85",
+      "chunks": [
+        {
+          "start": "0x404d60",
+          "end_exclusive": "0x404d85"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x457a81",
+          "type": 17,
+          "parent_entry": "0x457a40"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x404d60",
+          "size": 5,
+          "bytes": "e8cbffffff",
+          "text": "call    YobiClearUp"
+        },
+        {
+          "ea": "0x404d65",
+          "size": 5,
+          "bytes": "e8e6feffff",
+          "text": "call    Yobi__UpdateAll"
+        },
+        {
+          "ea": "0x404d6a",
+          "size": 5,
+          "bytes": "a16ce55900",
+          "text": "mov     eax, YobiActionStart"
+        },
+        {
+          "ea": "0x404d6f",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax; lpMem"
+        },
+        {
+          "ea": "0x404d70",
+          "size": 5,
+          "bytes": "e834731300",
+          "text": "call    free"
+        },
+        {
+          "ea": "0x404d75",
+          "size": 6,
+          "bytes": "8b0d68e55900",
+          "text": "mov     ecx, YobiActionEnd"
+        },
+        {
+          "ea": "0x404d7b",
+          "size": 1,
+          "bytes": "51",
+          "text": "push    ecx; lpMem"
+        },
+        {
+          "ea": "0x404d7c",
+          "size": 5,
+          "bytes": "e828731300",
+          "text": "call    free"
+        },
+        {
+          "ea": "0x404d81",
+          "size": 3,
+          "bytes": "83c408",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": "0x404d84",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "instruction_count": 10
+    }
+  ],
+  "source_path": "src/YobiRuntime.cpp",
+  "source_patches": [
+    {
+      "scope_start": "YobiAction* Sub_404A40()\n",
+      "scope_end": "YobiAction* NewYobiAction_404AE0(\n",
+      "old": "    gYobiActionEnd = static_cast<YobiAction*>(\n        std::calloc(std::size_t{1}, sizeof(YobiAction)));\n\n    gYobiActionStart->prev = nullptr;\n",
+      "new": "    YobiAction* const allocatedEnd = static_cast<YobiAction*>(\n        std::calloc(std::size_t{1}, sizeof(YobiAction)));\n    YobiAction* const initialStart = gYobiActionStart;\n    gYobiActionEnd = allocatedEnd;\n\n    initialStart->prev = nullptr;\n"
+    },
+    {
+      "scope_start": "YobiAction* Sub_404A40()\n",
+      "scope_end": "YobiAction* NewYobiAction_404AE0(\n",
+      "old": "    gYobiActionStart->next = gYobiActionEnd;\n",
+      "new": "    YobiAction* const forwardStart = gYobiActionStart;\n    YobiAction* const forwardEnd = gYobiActionEnd;\n    forwardStart->next = forwardEnd;\n"
+    },
+    {
+      "scope_start": "YobiAction* Sub_404A40()\n",
+      "scope_end": "YobiAction* NewYobiAction_404AE0(\n",
+      "old": "    gYobiActionEnd->prev = gYobiActionStart;\n",
+      "new": "    YobiAction* const backwardEnd = gYobiActionEnd;\n    YobiAction* const backwardStart = gYobiActionStart;\n    backwardEnd->prev = backwardStart;\n"
+    },
+    {
+      "scope_start": "YobiAction* Sub_404A40()\n",
+      "scope_end": "YobiAction* NewYobiAction_404AE0(\n",
+      "old": "    gYobiActionEnd->priority = 0xFF;\n    gYobiActionEnd->graphicIndex = -1;\n    return gYobiActionEnd;\n",
+      "new": "    YobiAction* const result = gYobiActionEnd;\n    result->priority = 0xFF;\n    gYobiActionEnd->graphicIndex = -1;\n    return result;\n"
+    }
+  ],
+  "counts": {
+    "instructions": 59,
+    "code_bytes": 225,
+    "direct_calls": 22,
+    "parent_entries": 13,
+    "registered_ids": 3,
+    "new_semantic_records": 0,
+    "updated_semantic_records": 3,
+    "source_patterns": 4,
+    "changed_blocks": 4,
+    "modified_roots": 1,
+    "unchanged_cleanup_roots": 2,
+    "sentinel_allocations": 2
+  },
+  "retained_contract": {
+    "original_pointer_type": "native YobiAction*",
+    "allocation_domain": "既有批准std::calloc(1,sizeof原生YobiAction))/std::free",
+    "initial_start_read_before_end_publication": true,
+    "returned_end_sampled_before_priority_write": true,
+    "graphic_index_destination_reread": true,
+    "clear_up_source_changed": false,
+    "termination_source_changed": false,
+    "shared_slots_cleared": false,
+    "new_guard": false,
+    "public_interface_changed": false,
+    "layout_or_owner_changed": false,
+    "other_sources_headers_asm_changed": false
+  },
+  "verification": "三原完整59条225B/22type17call13父和库存、初始化四具名源片段与未改清场/终止同序/原生承载有限静态；完整父实参/全部callback/callee及owner重进退出/借用失效/ABI/SDK/PC53/时钟RNG/完整场景画面运行未验"
+}

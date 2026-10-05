@@ -7671,3 +7671,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [具名合同](cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state)修Yobi通用UpdateAll摘链两轮指针读取/计数一次取样及Delete一次载荷取样；519D50已有入口/ClearMapActorAttachments未改，按原八槽04/08/0C/10/2C/4C/30/44逐次标死清槽，再文本释放清槽，主入口重读玩家标死并清共享槽、尾51A5B0/51BEC0/51BE50低S8合同保持。
 
 不清34/38、不在玩家清理中free主/payload；通用删除仍只free载荷再主节点，实际删除前由UpdateAll摘链，两写后独立保存next供释放后继续。[三原160条444B/31call10父](cg2d_yobi_cleanup_sampling_evidence.json)和局部源码实修分列，完整父/callback/callee/所有链别名与owner重进退出/借用失效/ABI/SDK/场景画面运行未验。
+
+## YSS01 哨兵初始化与清场/终止（2026-10-05）
+
+[局部生命周期合同](cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state)恢复初始化四取样点：第二分配后start先读/end后发布、两个链接目标/值读取序、尾priority前取得返回快照而graphic目标仍复读。真实InitializeClient_4576B0/ShutdownClient_457A40分别调用初始化和终止，本次只关联现调用，不验整个应用初终。
+
+[三原59条225B/22call13父](cg2d_yobi_sentinel_sampling_evidence.json)中清场/终止正文保持：清场先取首节点再46DD40/逐节点标死；终止ClearUp→YLC01 UpdateAll→首free后再读尾free。不清start/end或重置counter，不强制关闭四相门禁/多轮回收；完整应用与场景caller/callee/资源/链别名及owner寿命/ABI/SDK/画面运行未验。

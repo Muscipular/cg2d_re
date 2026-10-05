@@ -1565,21 +1565,28 @@ YobiAction* Sub_404A40()
 {
     gYobiActionStart = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
-    gYobiActionEnd = static_cast<YobiAction*>(
+    YobiAction* const allocatedEnd = static_cast<YobiAction*>(
         std::calloc(std::size_t{1}, sizeof(YobiAction)));
+    YobiAction* const initialStart = gYobiActionStart;
+    gYobiActionEnd = allocatedEnd;
 
-    gYobiActionStart->prev = nullptr;
-    gYobiActionStart->next = gYobiActionEnd;
+    initialStart->prev = nullptr;
+    YobiAction* const forwardStart = gYobiActionStart;
+    YobiAction* const forwardEnd = gYobiActionEnd;
+    forwardStart->next = forwardEnd;
     gYobiActionStart->callback = nullptr;
     gYobiActionStart->priority = 0;
     gYobiActionStart->graphicIndex = -1;
 
-    gYobiActionEnd->prev = gYobiActionStart;
+    YobiAction* const backwardEnd = gYobiActionEnd;
+    YobiAction* const backwardStart = gYobiActionStart;
+    backwardEnd->prev = backwardStart;
     gYobiActionEnd->next = nullptr;
     gYobiActionEnd->callback = nullptr;
-    gYobiActionEnd->priority = 0xFF;
+    YobiAction* const result = gYobiActionEnd;
+    result->priority = 0xFF;
     gYobiActionEnd->graphicIndex = -1;
-    return gYobiActionEnd;
+    return result;
 }
 
 YobiAction* NewYobiAction_404AE0(

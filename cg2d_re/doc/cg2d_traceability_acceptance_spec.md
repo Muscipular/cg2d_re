@@ -392,3 +392,9 @@ G01/G02/U11/R01/R04/V04仍open；全部完整门禁/功能及R1/R7/R8/整体仍�
 [限定验收](cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-acceptance)核三完整160条444B/31call10父、三源片段全文件精确重放，两个链接写之间原指针重取/计数单读局部判定完整返回/payload单次判空释放，原四相/回调和玩家八槽/文本/玩家槽尾链保持。新增一语义/追加两既有语义、三adapted、MAP60/LOOP25成员，E253→257仅双域各局部I/S同证据。
 
 六任务open、全部完整门禁/功能和R1/R7/R8/整体不升级；完整父/callback/callee/生产/链别名与owner寿命/ABI/SDK/PC53/时钟RNG/场景画面运行仍未验，完整原指令保存不代这些验收。
+
+## YSS01 初始化取样局部I/S（2026-10-05）
+
+[限定验收](cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance)核初始化四片段及三完整59条225B/22call13父，初start早于end发布、两链接原读序、priority前result快照/graphic目标复读返回result，原两分配/字段和已有清场终止保持。三既有语义仅追加/三adapted，MAP63/LOOP28成员，E257→261仅双域各局部I/S共用同一实修/原证据；语义条数和有效ID不增加。
+
+六任务open、全部完整功能/门禁和R1/R7/R8/整体保持未闭；全部应用/场景父与callee/callback、资源生产/实际跨门禁清场和链别名/owner重进退出/借用失效/SDK/ABI/PC53/时钟RNG/画面运行仍未验。

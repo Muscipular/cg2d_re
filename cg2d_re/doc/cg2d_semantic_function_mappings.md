@@ -2255,3 +2255,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原160条444B/31type17call10父](cg2d_yobi_cleanup_sampling_evidence.json)与[源状态](cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state)新增519D50真实入口/八槽helper与声明来源；既有404C50/404D10仅追加本组原取样实修和元数据证据，保留此前全部字段/来源与历史证据。玩家清理源码保持，通用回收只三片段，不把两旧根重复登记为新实现。
 
 语义1300→1301、有效ID1296→1297、处置394→397，MAP57→60/LOOP22→25成员，同三ID跨域不重复计函数。完整caller/callback/callee/所有资源生产及链别名/owner重进退出/borrow失效/真实ABI/SDK/运行未验，其它pending/队列/R7保持。
+
+## YSS01 哨兵初终三旧语义增量（2026-10-05）
+
+[原59条225B/22type17call13父](cg2d_yobi_sentinel_sampling_evidence.json)与[源状态](cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state)只向既有404A40/404D30/404D60追加本组证据/来源和边界，保全部旧字段/历史来源。初始化四取样实修，清场/终止未改；真实应用初终调用者另列，不能以源码位置代整个应用验收。
+
+语义1301/有效ID1297保持、处置397→400，MAP60→63/LOOP25→28成员，双域共用同三ID，不新增原函数或将三个旧入口都称新实现。原文档关联/其它pending/队列/R7保持，完整父/callee/应用与场景/所有资源生产和owner寿命/ABI/SDK/运行未验。

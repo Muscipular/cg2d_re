@@ -135602,7 +135602,7 @@
           "0x404AD1"
         ]
       ],
-      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "status": "YSS01哨兵初始化四取样实修，既有生命周期记录追加；完整应用/owner寿命运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -135617,20 +135617,61 @@
             "Sub_404A40"
           ],
           "relationship": "既有原生共享声明，参数不改"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_404A40"
+          ],
+          "relationship": "YSS01仅四初始化取样片段：第二分配后start先取再end发布、正反链接原读序、尾priority前快照返回和graphic目标复读"
+        },
+        {
+          "path": "src/platform/ClientInitialization.cpp",
+          "symbols": [
+            "InitializeClient_4576B0"
+          ],
+          "relationship": "真实应用初始化调用者4577F5；源码已有直接调用，本次仅关联、不验整个应用入口/全部callee"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_yobi_runtime.md",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_sentinel_sampling_evidence.json"
       ],
-      "boundary": "首尾哨兵真实分配/连接，不增加重复初始化或退出登记；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "boundary": "首尾哨兵真实分配/连接，不增加重复初始化或退出登记；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YSS01第二分配后先取start再发布end/写初start.prev，前向start→end/反向end→start读后写链接；尾priority前取result，graphicIndex仍当次end目标/返回保存result。两独立std::calloc(1,sizeof原生YobiAction))/原低W8 priority和S32 -1、其它写序/无失败保护及未知字段保持。完整所有父/callee/应用/链别名与owner寿命/SDK运行未验。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YSS01追加三完整59条225B/22type17call13父及四初始化源片段精确重放，限哨兵取样/字段和未改清场/终止分工与实际应用调用者，不代所有父/callee/owner寿命/实际ABI/SDK/场景运行",
       "native_signature": "YobiAction* Sub_404A40()",
       "interface_visibility": "既有YobiRuntime.hpp typed声明",
       "identity_evidence": {
         "inventory": "doc/cg2d_ida_inventory.json",
         "instruction_count_source": "doc/cg2d_yobi_runtime.md",
         "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "yobi_sentinel_sampling": {
+        "spec_id": "YSS01",
+        "evidence_refs": [
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance",
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+          "doc/cg2d_yobi_sentinel_sampling_evidence.json"
+        ],
+        "original_entry": "0x404a40",
+        "instruction_count": 36,
+        "code_bytes": 145,
+        "inbound_references": [
+          {
+            "site": "0x4577f5",
+            "type": 17,
+            "parent_entry": "0x4576b0"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
       }
     },
     {
@@ -135943,7 +135984,7 @@
           "0x404D5B"
         ]
       ],
-      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "status": "YSS01已有清场同序入口保持/生命周期关联追加；完整应用/owner寿命运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -135958,20 +135999,149 @@
             "YobiClearUp_404D30"
           ],
           "relationship": "既有原生共享声明，参数不改"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "YobiClearUp_404D30"
+          ],
+          "relationship": "YSS01既有清场先缓存首节点/46DD40后逐项标死、当次end比较，不立即摘链释放，正文未改"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_yobi_runtime.md",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_sentinel_sampling_evidence.json"
       ],
-      "boundary": "先保存首action，再真实46DD40清理，随后沿原链标死；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "boundary": "先保存首action，再真实46DD40清理，随后沿原链标死；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YSS01本体未改，start.next快照在46DD40前，随后按当次end比较逐节点标死/next重取，不立即free。三原完整保存只本组局部合同，完整所有父/callee/应用退出和链别名/owner寿命/实际SDK运行未验。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YSS01追加三完整59条225B/22type17call13父及四初始化源片段精确重放，限哨兵取样/字段和未改清场/终止分工与实际应用调用者，不代所有父/callee/owner寿命/实际ABI/SDK/场景运行",
       "native_signature": "void YobiClearUp_404D30()",
       "interface_visibility": "既有YobiRuntime.hpp typed声明",
       "identity_evidence": {
         "inventory": "doc/cg2d_ida_inventory.json",
         "instruction_count_source": "doc/cg2d_yobi_runtime.md",
         "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "yobi_sentinel_sampling": {
+        "spec_id": "YSS01",
+        "evidence_refs": [
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance",
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+          "doc/cg2d_yobi_sentinel_sampling_evidence.json"
+        ],
+        "original_entry": "0x404d30",
+        "instruction_count": 13,
+        "code_bytes": 43,
+        "inbound_references": [
+          {
+            "site": "0x404d60",
+            "type": 17,
+            "parent_entry": "0x404d60"
+          },
+          {
+            "site": "0x43cc5b",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d2a3",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d435",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x457c15",
+            "type": 17,
+            "parent_entry": "0x457b10"
+          },
+          {
+            "site": "0x45c2ec",
+            "type": 17,
+            "parent_entry": "0x45c2d0"
+          },
+          {
+            "site": "0x45c4e4",
+            "type": 17,
+            "parent_entry": "0x45c2d0"
+          },
+          {
+            "site": "0x45ebe9",
+            "type": 17,
+            "parent_entry": "0x45ebb0"
+          },
+          {
+            "site": "0x45ec82",
+            "type": 17,
+            "parent_entry": "0x45ebb0"
+          },
+          {
+            "site": "0x45eca8",
+            "type": 17,
+            "parent_entry": "0x45ebb0"
+          },
+          {
+            "site": "0x45f1b5",
+            "type": 17,
+            "parent_entry": "0x45f190"
+          },
+          {
+            "site": "0x45f7dd",
+            "type": 17,
+            "parent_entry": "0x45f190"
+          },
+          {
+            "site": "0x46154b",
+            "type": 17,
+            "parent_entry": "0x460ff0"
+          },
+          {
+            "site": "0x46161d",
+            "type": 17,
+            "parent_entry": "0x460ff0"
+          },
+          {
+            "site": "0x4619ae",
+            "type": 17,
+            "parent_entry": "0x460ff0"
+          },
+          {
+            "site": "0x462517",
+            "type": 17,
+            "parent_entry": "0x462330"
+          },
+          {
+            "site": "0x462870",
+            "type": 17,
+            "parent_entry": "0x462870"
+          },
+          {
+            "site": "0x50d223",
+            "type": 17,
+            "parent_entry": "0x50d120"
+          },
+          {
+            "site": "0x51c679",
+            "type": 17,
+            "parent_entry": "0x51c430"
+          },
+          {
+            "site": "0x51c70c",
+            "type": 17,
+            "parent_entry": "0x51c430"
+          }
+        ],
+        "source_body_changed": false,
+        "full_runtime_verified": false
       }
     },
     {
@@ -135986,7 +136156,7 @@
           "0x404D85"
         ]
       ],
-      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "status": "YSS01已有终止同序入口保持/生命周期关联追加；完整应用/owner寿命运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -136001,20 +136171,61 @@
             "Sub_404D60"
           ],
           "relationship": "既有原生共享声明，参数不改"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_404D60"
+          ],
+          "relationship": "YSS01既有终止ClearUp→UpdateAll→首free→再读尾free，不清共享槽或计数，正文未改"
+        },
+        {
+          "path": "src/platform/ClientShutdown.cpp",
+          "symbols": [
+            "ShutdownClient_457A40"
+          ],
+          "relationship": "真实应用终止调用者457A81；源码已有直接调用，本次仅关联、不验整个退出入口/全部callee"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_yobi_runtime.md",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_sentinel_sampling_evidence.json"
       ],
-      "boundary": "ClearUp→UpdateAll→free(head)→free(tail)，不补清槽或注册退出；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "boundary": "ClearUp→UpdateAll→free(head)→free(tail)，不补清槽或注册退出；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；YSS01本体未改，ClearUp/UpdateAll之后先读取start释放、释放后再读end释放，不一次缓存两槽/清共享槽或计数/强制解四相门禁。三原完整保存只本组局部合同，完整所有父/callee/应用退出和链别名/owner寿命/实际SDK运行未验。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；YSS01追加三完整59条225B/22type17call13父及四初始化源片段精确重放，限哨兵取样/字段和未改清场/终止分工与实际应用调用者，不代所有父/callee/owner寿命/实际ABI/SDK/场景运行",
       "native_signature": "void Sub_404D60()",
       "interface_visibility": "既有YobiRuntime.hpp typed声明",
       "identity_evidence": {
         "inventory": "doc/cg2d_ida_inventory.json",
         "instruction_count_source": "doc/cg2d_yobi_runtime.md",
         "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "yobi_sentinel_sampling": {
+        "spec_id": "YSS01",
+        "evidence_refs": [
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-acceptance",
+          "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+          "doc/cg2d_yobi_sentinel_sampling_evidence.json"
+        ],
+        "original_entry": "0x404d60",
+        "instruction_count": 10,
+        "code_bytes": 37,
+        "inbound_references": [
+          {
+            "site": "0x457a81",
+            "type": 17,
+            "parent_entry": "0x457a40"
+          }
+        ],
+        "source_body_changed": false,
+        "full_runtime_verified": false
       }
     },
     {

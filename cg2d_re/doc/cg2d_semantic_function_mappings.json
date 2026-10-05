@@ -136881,7 +136881,7 @@
           "0x41EB07"
         ]
       ],
-      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验；BCS01克隆入口/载荷和浅复制正确正文保持，完整战斗/owner寿命运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -136896,14 +136896,33 @@
             "CloneBattleAction_41EAB0"
           ],
           "relationship": "既有原生共享声明，参数不改"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "CloneBattleAction_41EAB0"
+          ],
+          "relationship": "BCS01既有Clone/残影创建正确正文保持，只原基线/分工和来源纳管"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "CloneBattleAction_41EAB0"
+          ],
+          "relationship": "既有真实原生非拥有YobiAction*和当前返回声明，不新增公开布局/接口"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_battle.md",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
       ],
-      "boundary": "入口快照源载荷；New失败原直接空返回，成功快照新prev/next/payload、成员复制、按next/prev/payload恢复并浅复制载荷；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "boundary": "入口快照源载荷；New失败原直接空返回，成功快照新prev/next/payload、成员复制、按next/prev/payload恢复并浅复制载荷；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；BCS01Clone原入口source.payload快照、分配失败空返和新prev/next/payload快照、调用成员复制后next→prev→payload恢复与原生BattleActorPayload sizeof浅复制保持；本体未改，不深复制/重绑定内指针或省原失败门禁。 全部父/callback/状态数据和资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验；不新增异常保护/钳制或故障/回绕模拟。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；BCS01五完整478条1989B/17普通call+1绑定和10父，五具名源片段全文重放/九字组/取样与原Clone入口快照/浅复制和十CryptInt保token/reserved有限静态；不验完整所有父/战斗/资源与owner浅别名寿命或SDK/ABI/PC53/实际RNG/画面运行",
       "native_signature": "YobiAction* CloneBattleAction_41EAB0(YobiAction* const source)",
       "interface_visibility": "既有YobiRuntime.hpp typed声明",
       "identity_evidence": {
@@ -136928,6 +136947,43 @@
         "test": "0x41EACE test ebx,ebx",
         "success_jump": "0x41EAD0 jnz 41EAD5",
         "empty_return": "0x41EAD2..41EAD4，当前if(action==nullptr)return nullptr为正确原分支"
+      },
+      "battle_copy_sampling": {
+        "spec_id": "BCS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+          "doc/cg2d_battle_copy_sampling_evidence.json"
+        ],
+        "original_entry": "0x41eab0",
+        "instruction_count": 38,
+        "code_bytes": 87,
+        "inbound_references": [
+          {
+            "site": "0x4135ab",
+            "type": 17,
+            "parent_entry": "0x413550"
+          },
+          {
+            "site": "0x413769",
+            "type": 17,
+            "parent_entry": "0x413750"
+          },
+          {
+            "site": "0x413999",
+            "type": 17,
+            "parent_entry": "0x413980"
+          },
+          {
+            "site": "0x41e5f6",
+            "type": 17,
+            "parent_entry": "0x41e5f0"
+          }
+        ],
+        "source_body_changed": false,
+        "full_runtime_verified": false
       }
     },
     {
@@ -136942,7 +136998,7 @@
           "0x41F106"
         ]
       ],
-      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验",
+      "status": "已有Yobi真实生命周期本体/实际内部接线，R1独立身份补齐；完整caller/字段生产及当前编译链接运行未验；BCS01九W32字组复制已修，完整战斗/owner寿命运行未验",
       "sources": [
         {
           "path": "src/YobiRuntime.cpp",
@@ -136950,20 +137006,54 @@
             "CopyYobiAction_41EB10"
           ],
           "relationship": "已有真实本体，本轮只登记原身份/接口及责任，正文不改"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "CopyYobiAction_41EB10"
+          ],
+          "relationship": "BCS01私有Copy helper只20B/16B九W32字组逐读逐写；十CryptInt三字段/所有其它字段复制保持"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_battle.md",
-        "doc/cg2d_yobi_runtime.md"
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
       ],
-      "boundary": "既有逐成员/原生指针联合槽及CryptInt CopyPayload；不新构造/RNG、不深拷贝或复制x86整blob；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。",
-      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。",
+      "boundary": "既有逐成员/原生指针联合槽及CryptInt CopyPayload；不新构造/RNG、不深拷贝或复制x86整blob；分类不表示新增本体/整链或运行通过。应用calloc/free保持已批域，不混原私有堆；非拥有观察者、资源/位宽/别名/RNG沿原代码。；BCS01仅bytes29020B五W32和drawMode16B四W32，每字组先取独立U32再对应偏移发布，不用整段先取；十CryptInt三字段原序并保目标token/reserved、其它字段/原生联合槽/文本与RNG保持；私有helper不新公开/生成额外资源。 全部父/callback/状态数据和资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验；不新增异常保护/钳制或故障/回绕模拟。",
+      "verification_level": "原库存身份/chunk与既有完整合同、当前实际定义和接口/内调用责任关联，源码保持。除41EAB0新疑点fresh38条，其余旧本体不复检；未构建/测试/算法或客户端运行/hash。；BCS01五完整478条1989B/17普通call+1绑定和10父，五具名源片段全文重放/九字组/取样与原Clone入口快照/浅复制和十CryptInt保token/reserved有限静态；不验完整所有父/战斗/资源与owner浅别名寿命或SDK/ABI/PC53/实际RNG/画面运行",
       "native_signature": "YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiAction* const source)",
       "interface_visibility": "同一CPP私有实际helper",
       "identity_evidence": {
         "inventory": "doc/cg2d_ida_inventory.json",
         "instruction_count_source": "doc/ui_windows/shared_battle.md",
         "implementation_state": "既有本体，非本轮新增代码"
+      },
+      "battle_copy_sampling": {
+        "spec_id": "BCS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+          "doc/cg2d_battle_copy_sampling_evidence.json"
+        ],
+        "original_entry": "0x41eb10",
+        "instruction_count": 335,
+        "code_bytes": 1526,
+        "inbound_references": [
+          {
+            "site": "0x41eae7",
+            "type": 17,
+            "parent_entry": "0x41eab0"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
       }
     },
     {
@@ -148355,6 +148445,218 @@
           }
         ],
         "source_body_changed": false,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41e5c0",
+      "inventory_id": "F:0001E5C0",
+      "status": "BCS01三根五片段中本根取样实修/原身份纳管；完整战斗/owner寿命运行未验",
+      "original_end_exclusive": "0x41e5e1",
+      "instruction_count": 11,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAfterimage_41E5C0"
+          ],
+          "relationship": "BCS01残影正常S32递增后先判>=12再pub，原MarkDeath分支保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleAfterimage_41E5C0"
+          ],
+          "relationship": "既有真实原生非拥有YobiAction*和当前返回声明，不新增公开布局/接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
+      ],
+      "verification_level": "；BCS01五完整478条1989B/17普通call+1绑定和10父，五具名源片段全文重放/九字组/取样与原Clone入口快照/浅复制和十CryptInt保token/reserved有限静态；不验完整所有父/战斗/资源与owner浅别名寿命或SDK/ABI/PC53/实际RNG/画面运行",
+      "boundary": "残影payload.FF0正常S32+1，先保存>=12判定再pubcount，然后同判定MarkDeath，不立即删除/解绑或添加新保护/回绕模拟。 仅本组局部静态，完整所有父/callback/状态数据和资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验；网络原格式明文和音频暂停保持，不添保护/故障回绕模拟。",
+      "battle_copy_sampling": {
+        "spec_id": "BCS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+          "doc/cg2d_battle_copy_sampling_evidence.json"
+        ],
+        "original_entry": "0x41e5c0",
+        "instruction_count": 11,
+        "code_bytes": 33,
+        "inbound_references": [
+          {
+            "site": "0x41e603",
+            "type": 1,
+            "parent_entry": "0x41e5f0"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x41e5f0",
+      "inventory_id": "F:0001E5F0",
+      "status": "BCS01既有残影创建正确正文保持、原身份纳管；完整战斗/owner寿命运行未验",
+      "original_end_exclusive": "0x41e636",
+      "instruction_count": 23,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleAfterimage_41E5F0"
+          ],
+          "relationship": "BCS01既有Clone/残影创建正确正文保持，只原基线/分工和来源纳管"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleAfterimage_41E5F0"
+          ],
+          "relationship": "既有真实原生非拥有YobiAction*和当前返回声明，不新增公开布局/接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
+      ],
+      "verification_level": "；BCS01五完整478条1989B/17普通call+1绑定和10父，五具名源片段全文重放/九字组/取样与原Clone入口快照/浅复制和十CryptInt保token/reserved有限静态；不验完整所有父/战斗/资源与owner浅别名寿命或SDK/ABI/PC53/实际RNG/画面运行",
+      "boundary": "既有Clone之后立即读实际payload，绑定41E5C0、counter.FF0清0，再读真实device状态与当前flags，按原两分支OR100000/8000并返回实际指针；原caller无Clone失败门禁保持，本次未改。 仅本组局部静态，完整所有父/callback/状态数据和资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验；网络原格式明文和音频暂停保持，不添保护/故障回绕模拟。",
+      "battle_copy_sampling": {
+        "spec_id": "BCS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+          "doc/cg2d_battle_copy_sampling_evidence.json"
+        ],
+        "original_entry": "0x41e5f0",
+        "instruction_count": 23,
+        "code_bytes": 70,
+        "inbound_references": [
+          {
+            "site": "0x405673",
+            "type": 17,
+            "parent_entry": "0x404db0"
+          },
+          {
+            "site": "0x418f49",
+            "type": 17,
+            "parent_entry": "0x418f10"
+          }
+        ],
+        "source_body_changed": false,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x438290",
+      "inventory_id": "F:00038290",
+      "status": "BCS01三根五片段中本根取样实修/原身份纳管；完整战斗/owner寿命运行未验",
+      "original_end_exclusive": "0x4383a1",
+      "instruction_count": 71,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleActor_438290"
+          ],
+          "relationship": "BCS01创建flags OR先于image发布/首pointIndex先于payload读取；六索引读取和其它全部创建/坐标/返回保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleActor_438290"
+          ],
+          "relationship": "既有真实原生非拥有YobiAction*和当前返回声明，不新增公开布局/接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
+      ],
+      "verification_level": "；BCS01五完整478条1989B/17普通call+1绑定和10父，五具名源片段全文重放/九字组/取样与原Clone入口快照/浅复制和十CryptInt保token/reserved有限静态；不验完整所有父/战斗/资源与owner浅别名寿命或SDK/ABI/PC53/实际RNG/画面运行",
+      "boundary": "原lowU8(position)*10+2优先级/原生载荷分配失败空返回，flags取样/callback写后先OR60054再image/flags pub；首pointIndex读取后才payload捕获供首X F32，其余五索引读、其它默认字段/PlayFrame后X截断/Y取样/Xpub/Y截断pub与实际返回保持。 仅本组局部静态，完整所有父/callback/状态数据和资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验；网络原格式明文和音频暂停保持，不添保护/故障回绕模拟。",
+      "battle_copy_sampling": {
+        "spec_id": "BCS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+          "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+          "doc/cg2d_battle_copy_sampling_evidence.json"
+        ],
+        "original_entry": "0x438290",
+        "instruction_count": 71,
+        "code_bytes": 273,
+        "inbound_references": [
+          {
+            "site": "0x423b93",
+            "type": 17,
+            "parent_entry": "0x4239d0"
+          },
+          {
+            "site": "0x423f0b",
+            "type": 17,
+            "parent_entry": "0x4239d0"
+          },
+          {
+            "site": "0x428ba8",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x4292ff",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x4296a4",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x42cc7b",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x430f8a",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x430ffd",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x43731f",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x43864f",
+            "type": 17,
+            "parent_entry": "0x438550"
+          }
+        ],
+        "source_body_changed": true,
         "full_runtime_verified": false
       }
     }

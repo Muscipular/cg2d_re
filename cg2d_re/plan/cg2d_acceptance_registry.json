@@ -1656,13 +1656,19 @@
         "doc/cg2d_yobi_runtime.md",
         "doc/cg2d_yobi_update_coverage.md",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
         "F:000D6650",
         "F:000FACE0",
-        "F:000EF5F0"
+        "F:000EF5F0",
+        "F:0001EAB0",
+        "F:0001EB10",
+        "F:0001E5C0",
+        "F:0001E5F0",
+        "F:00038290"
       ],
       "closure_task_ids": [
         "U09",
@@ -1673,17 +1679,20 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "UPS01实际共用创建/图号回调/结果状态链纳管，两F同UI及一原未定义代码片段；源只结果标志先判后取图，原失败/五族映射/九动作回调及资源owner保持。完整原成员、全部场景/生产消费、ABI/SDK/PC53/RNG/画面运行未验"
+        "UPS01实际共用创建/图号回调/结果状态链纳管，两F同UI及一原未定义代码片段；源只结果标志先判后取图，原失败/五族映射/九动作回调及资源owner保持。完整原成员、全部场景/生产消费、ABI/SDK/PC53/RNG/画面运行未验",
+        "BCS01实际克隆/残影/基础战斗节点五F纳管，三根五片段修九W32字组、残影先判后pub与创建flags/首索引取样；原入口载荷/浅复制和十CryptInt复制保留，不添Read/Ctor/RNG。完整原成员/全部父与callback和owner浅别名/资源寿命/ABI/SDK/PC53/实际RNG/画面运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state"
       ]
     },
     {
@@ -1697,10 +1706,16 @@
         "doc/ui_windows/shared_battle.md",
         "doc/yobi_updates/battle_scene.md",
         "doc/yobi_updates/battle_actor.md",
-        "doc/cg2d_battle_attack_targets_spec.md"
+        "doc/cg2d_battle_attack_targets_spec.md",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline"
       ],
       "original_inventory_ids": [
-        "F:00024620"
+        "F:00024620",
+        "F:0001EAB0",
+        "F:0001EB10",
+        "F:0001E5C0",
+        "F:0001E5F0",
+        "F:00038290"
       ],
       "closure_task_ids": [
         "P01",
@@ -1715,15 +1730,19 @@
       ],
       "acceptance_focus": "攻击生产、动作/事件、回合、载荷归属与清理",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
-        "音频传递依赖仍暂停；完整战斗原新对照与V04/V05未验，运行受执行限制"
+        "音频传递依赖仍暂停；完整战斗原新对照与V04/V05未验，运行受执行限制",
+        "BCS01两旧Clone/Copy增量及三既有残影/基础角色入口纳管，九字组与三取样差异已修；同五F跨YOBI不双计，全部战斗状态/目标和数据资源生产、浅别名owner重进退出/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state"
+      ]
     },
     {
       "id": "FUNC-AUDIO",
@@ -15469,6 +15488,134 @@
       "observation": "两完整126条453B/16call+1尾跳与3父，三源片段全文重放/先判再共享发布、原W8/窗口与索引复读和两场景实际16表达式/声明保持有限静态",
       "expected": "保存三原判定后对应发布共享count/元素索引/focus，原分流/窗口两id读取/回调后共享复读与W8保持；已有转生入口及两场景调用不改，不新增推测旧表遍历或保护",
       "actual": "单根三源实修、旧WMB/全部其它正文保持，一旧语义追加/一转生原F及两域同成员纳管；只局部I/S，不代旧99表真实来源/全callback/完整两场景和数据资源/owner寿命/生成EFLAGS/ABI/SDK/PC53/时钟RNG/画面运行"
+    },
+    {
+      "id": "E-BATTLE-COPY-SAMPLING-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BCS01五完整478条1989B/17普通call+1地址绑定10父；九W32字组复制和残影/创建取样；doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-copy-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json",
+        "src/YobiRuntime.cpp#CopyYobiAction_41EB10",
+        "src/YobiRuntime.cpp#UpdateBattleAfterimage_41E5C0",
+        "src/YobiRuntime.cpp#NewBattleActor_438290",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三根五具名片段：两字节组九W32各读后同偏移pub、残影先判count再pub、创建OR先于image和首索引先于payload；原Clone/浅复制/十CryptInt与所有其它正文保持",
+          "decision_ref": "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "三根五源片段已落码，原失败/入口载荷/新链接恢复/浅复制和十CryptInt三字段与token/reserved保持，无新Read/Ctor/RNG；两旧语义追加/三原身份纳管",
+      "expected": "20/16B非地址组按五/四W32逐读逐写，残影count判定先于共享pub，创建OR先于image且首索引先于payload；原CryptInt字段顺序/源载荷快照/原生浅复制和其它正文保持",
+      "actual": "同五片段/原证据的局部I/S、五F同双域不双计；完整战斗/全部父与callback、数据资源和owner浅别名寿命/本机指令及ABI/SDK/PC53/实际RNG/画面运行未验，不提升完整门禁"
+    },
+    {
+      "id": "E-BATTLE-COPY-SAMPLING-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BCS01五完整478条1989B/17普通call+1地址绑定10父；九W32字组复制和残影/创建取样；doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-copy-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json",
+        "src/YobiRuntime.cpp#CopyYobiAction_41EB10",
+        "src/YobiRuntime.cpp#UpdateBattleAfterimage_41E5C0",
+        "src/YobiRuntime.cpp#NewBattleActor_438290",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三根五具名片段：两字节组九W32各读后同偏移pub、残影先判count再pub、创建OR先于image和首索引先于payload；原Clone/浅复制/十CryptInt与所有其它正文保持",
+          "decision_ref": "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整478条1989B和17call/1绑定10父、五源片段全文重放/九字组及三判定取样和原CryptInt/Clone保持有限静态",
+      "expected": "20/16B非地址组按五/四W32逐读逐写，残影count判定先于共享pub，创建OR先于image且首索引先于payload；原CryptInt字段顺序/源载荷快照/原生浅复制和其它正文保持",
+      "actual": "同五片段/原证据的局部I/S、五F同双域不双计；完整战斗/全部父与callback、数据资源和owner浅别名寿命/本机指令及ABI/SDK/PC53/实际RNG/画面运行未验，不提升完整门禁"
+    },
+    {
+      "id": "E-BATTLE-COPY-SAMPLING-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BCS01五完整478条1989B/17普通call+1地址绑定10父；九W32字组复制和残影/创建取样；doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-copy-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json",
+        "src/YobiRuntime.cpp#CopyYobiAction_41EB10",
+        "src/YobiRuntime.cpp#UpdateBattleAfterimage_41E5C0",
+        "src/YobiRuntime.cpp#NewBattleActor_438290",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三根五具名片段：两字节组九W32各读后同偏移pub、残影先判count再pub、创建OR先于image和首索引先于payload；原Clone/浅复制/十CryptInt与所有其它正文保持",
+          "decision_ref": "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "三根五源片段已落码，原失败/入口载荷/新链接恢复/浅复制和十CryptInt三字段与token/reserved保持，无新Read/Ctor/RNG；两旧语义追加/三原身份纳管",
+      "expected": "20/16B非地址组按五/四W32逐读逐写，残影count判定先于共享pub，创建OR先于image且首索引先于payload；原CryptInt字段顺序/源载荷快照/原生浅复制和其它正文保持",
+      "actual": "同五片段/原证据的局部I/S、五F同双域不双计；完整战斗/全部父与callback、数据资源和owner浅别名寿命/本机指令及ABI/SDK/PC53/实际RNG/画面运行未验，不提升完整门禁"
+    },
+    {
+      "id": "E-BATTLE-COPY-SAMPLING-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BCS01五完整478条1989B/17普通call+1地址绑定10父；九W32字组复制和残影/创建取样；doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-copy-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json",
+        "src/YobiRuntime.cpp#CopyYobiAction_41EB10",
+        "src/YobiRuntime.cpp#UpdateBattleAfterimage_41E5C0",
+        "src/YobiRuntime.cpp#NewBattleActor_438290",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三根五具名片段：两字节组九W32各读后同偏移pub、残影先判count再pub、创建OR先于image和首索引先于payload；原Clone/浅复制/十CryptInt与所有其它正文保持",
+          "decision_ref": "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整478条1989B和17call/1绑定10父、五源片段全文重放/九字组及三判定取样和原CryptInt/Clone保持有限静态",
+      "expected": "20/16B非地址组按五/四W32逐读逐写，残影count判定先于共享pub，创建OR先于image且首索引先于payload；原CryptInt字段顺序/源载荷快照/原生浅复制和其它正文保持",
+      "actual": "同五片段/原证据的局部I/S、五F同双域不双计；完整战斗/全部父与callback、数据资源和owner浅别名寿命/本机指令及ABI/SDK/PC53/实际RNG/画面运行未验，不提升完整门禁"
     }
   ],
   "task_acceptance": [
@@ -15639,7 +15786,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state"
       ]
     },
     {
@@ -15886,7 +16034,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
-        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state"
       ]
     },
     {
@@ -16020,7 +16169,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
-        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state"
       ]
     },
     {
@@ -16060,7 +16210,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
-        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state"
       ]
     },
     {
@@ -16071,7 +16222,8 @@
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state"
       ]
     },
     {
@@ -16237,7 +16389,16 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state"
+      ]
+    },
+    {
+      "task_id": "U08",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state"
       ]
     }
   ],
@@ -20400,6 +20561,66 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_window_routing_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0001EAB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0001EB10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0001E5C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0001E5F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00038290",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_evidence.json"
       ]
     }
   ],

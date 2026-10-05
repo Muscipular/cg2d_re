@@ -1741,7 +1741,11 @@ YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiActio
     destination->field280 = source->field280;
     destination->walkSpeed = source->walkSpeed;
     destination->fields288 = source->fields288;
-    destination->bytes290 = source->bytes290;
+    for (std::size_t offset = 0; offset < 20; offset += sizeof(std::uint32_t)) {
+        std::uint32_t word;
+        std::memcpy(&word, source->bytes290.data() + offset, sizeof(word));
+        std::memcpy(destination->bytes290.data() + offset, &word, sizeof(word));
+    }
     destination->framePlayingRate = source->framePlayingRate;
     destination->imageNo = source->imageNo;
     destination->lastImageNo = source->lastImageNo;
@@ -1763,7 +1767,11 @@ YobiAction* CopyYobiAction_41EB10(YobiAction* const destination, const YobiActio
     destination->refresh2EC = source->refresh2EC;
     destination->frameX = source->frameX;
     destination->frameY = source->frameY;
-    destination->drawMode = source->drawMode;
+    for (std::size_t offset = 0; offset < 16; offset += sizeof(std::uint32_t)) {
+        std::uint32_t word;
+        std::memcpy(&word, source->drawMode.bytes.data() + offset, sizeof(word));
+        std::memcpy(destination->drawMode.bytes.data() + offset, &word, sizeof(word));
+    }
     destination->batchType = source->batchType;
     destination->rebirthValue1 = source->rebirthValue1;
     destination->color2 = source->color2;
@@ -1799,8 +1807,9 @@ void UpdateBattleAfterimage_41E5C0(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     const std::int32_t count = payload->valueFF0 + 1;
+    const bool expired = count >= 12;
     payload->valueFF0 = count;
-    if (count >= 12) {
+    if (expired) {
         static_cast<void>(MarkDeath(action));
     }
 }
@@ -20283,15 +20292,17 @@ YobiAction* NewBattleActor_438290(const std::int32_t position)
     }
     const std::uint32_t flags = action->flags;
     action->callback = UpdateBattleActor_404DB0;
+    const std::uint32_t configuredFlags = flags | 0x60054u;
     action->imageNo = 100500;
-    action->flags = flags | 0x60054u;
+    action->flags = configuredFlags;
     action->characterAction = 0;
     action->framePlayingRate = 100;
     action->value54 = 3.0F;
     action->direction = 1;
     action->displayPriority = 9;
+    const std::int32_t firstPointIndex = gBattlePointIndices5536FC[position];
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    action->offset40 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][0]);
+    action->offset40 = static_cast<float>(gBattleGraphicPoints553758[firstPointIndex][0]);
     action->offset44 = static_cast<float>(gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][1]);
     payload->x00 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][2];
     payload->y04 = gBattleGraphicPoints553758[gBattlePointIndices5536FC[position]][3];

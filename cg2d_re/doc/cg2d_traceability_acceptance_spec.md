@@ -422,3 +422,9 @@ E269→273为公共UI/旧39局部I/S共用同一源/原基线，一旧F/一adapt
 [限定验收](cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance)核两完整126条453B/16普通call+1尾跳与3父、单根三源片段全文精确重放，三判定先于共享发布、原WMB/窗口及共享索引复读，已有转生入口/两场景16表达式/声明保持。原现代路径不替代旧57C368尚待证明的+04来源。
 
 E273→277只两域局部I/S共用同三实修片段/原证据，旧F增证/一新F和跨域成员不多计函数。六任务与全部完整门禁/叶/R1/R7/R8/整体不提升；所有间接目标/场景分支与数据资源、owner寿命/SDK/ABI/本机EFLAGS/PC53/时钟RNG/画面运行仍待，原格式明文/音频暂停与不执行限制保持。
+
+## BCS01 字组复制/残影创建局部I/S（2026-10-06）
+
+[可度量验收](cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance)核五478条1989B/17call+1绑定/10父、三根五源片段全文重放、20/16B九W32字组各读后发布以及残影/创建三取样差异；原十CryptInt三字段与token/reserved、Clone/浅复制/其它正文保持，不添Read/Ctor/RNG或新失败门禁。
+
+两旧语义仅追加/三个既有本体原身份纳管、五F跨域和E277→281四局部I/S不等五全函数或战斗整体通过。U08原默认open补显式open，其余六任务及全门禁/叶/R1/R7/R8/整体保持未闭；完整父/callback与数据资源/owner浅别名寿命/ABI/SDK/PC53/实际RNG/画面运行仍待。

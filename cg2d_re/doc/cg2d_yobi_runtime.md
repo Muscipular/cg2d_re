@@ -3967,3 +3967,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [原结果判定先于图号读取](cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision)在4EF5F0空对象返回之后，先保存hasResult再读取image，两原写分支使用同一判定。六图号族选18/15、族外>100999选5/10、未匹配保旧动作保持；所有创建/回调/父调用、原生借用与owner布局不改。
 
 三已有完整入口390条1331B仅一根三具名替换，两个F进入YOBI/UI同依赖，工厂4FAAA0用X内代码片段身份不造函数；587B整区间两段90H与代码的用途mapped，[两错位只读解码及完整原证据](cg2d_ui_preview_sampling_evidence.json)不代全部调用者/资源生产与owner寿命/ABI/SDK/完整画面运行。本组无新增业务状态或假成功，网络原格式明文与音频暂停保持。
+
+## BCS01 克隆字组与残影/角色创建取样（2026-10-06）
+
+[五实际差异](cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision)只同CPP三根五片段：Copy的20B bytes290与16B descriptor分别五/四W32，每字组先取独立U32再对应偏移发布；残影count先判>=12再pub；基础角色先OR flags再写image/flags，首pointIndex先取再固定payload，其余五索引不缓存。两字组不是指针，局部word不补零、不引入公开工具。
+
+[五完整478条1989B](cg2d_battle_copy_sampling_evidence.json)纳管两旧Clone/Copy与三个既有残影/基础创建入口。Clone原入口载荷快照、失败空返回和新prev/next/payload恢复/原生浅复制、十CryptInt只encoded/mask/readCount并保token/reserved均保持，不新Read/Ctor/RNG。17call和1绑定/10父分列；所有完整父/战斗和callback、数据资源/owner浅别名寿命/ABI/SDK/PC53/实际RNG及画面运行未验。

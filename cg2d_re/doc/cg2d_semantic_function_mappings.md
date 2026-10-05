@@ -2285,3 +2285,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [两完整126条453B](cg2d_window_routing_sampling_evidence.json)和[源状态](cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state)只向旧1233/473F80追加三判定取样与原WMB保持证据，504120新增一独立语义；原16普通调用与504170一type19尾跳不混计，三个已知父和当前两个场景各8表达式可追，未据此验全父。
 
 语义1304→1305/有效ID1299→1300与代码片段5分列；处置404→405仅新F，旧adapted追加本组证据并保旧原因。公共UI14→15/LOOP29→31同两F不双计，R7区间67和队列保持。旧99表真实调用来源、所有callback/完整场景与owner寿命/ABI/SDK/PC53/时钟RNG/画面运行未验。
+
+## BCS01 两旧克隆身份与三战斗节点（2026-10-06）
+
+[原五完整478条1989B](cg2d_battle_copy_sampling_evidence.json)及[源状态](cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state)向旧1134/1135仅追加、另纳管三个已有真实残影/基础创建入口。三根五片段修九W32字组复制、残影先判后pub与创建flags/首索引次序；十CryptInt/原入口载荷及native浅复制和所有历史字段/来源保持，无新增RNG。
+
+语义1305→1308/有效ID1300→1303、代码片段5保持；五adapted405→410，YOBI4→9/BATTLE1→6同五F不双计，E277→281仅双域局部I/S共用同五片段/原证据。17普通call与1回调地址发布/10父分列；LOOP31/R7区间67/队列保持。全父/战斗状态和资源owner浅别名寿命/SDK/ABI/PC53/实际RNG/画面运行未验。

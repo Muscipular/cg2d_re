@@ -2315,3 +2315,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [原限定范围](cg2d_battle_attachment_recovery_evidence.json)和[源状态](cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state)新增一完整状态根/三父的本组片段身份，不造两个helper独立F/X。状态177条608B/父八窗401条1549B/比较前置16条66B与完整父元数据分列；三父其余1385条5495B未核，三父本体保持、仅helper依赖改变。
 
 语义1320→1324/有效ID1315→1319、代码片段5保持，四adapted422→426；YOBI21→25/BATTLE18→22同四F不双计，E293→297仅两域局部I/S共用同十一源片段/限定原证据。LOOP31/R7区间67/队列/完整门禁保持；十普通入向4父不是完整所有父/动作或owner寿命/SDK/ABI/PC53/时钟RNG/画面运行验收。
+
+## BRA01 已有动作226的完整根增量（2026-10-06）
+
+[当前完整依据](cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline)及[指令原字节](cg2d_battle_ride_exit_sampling_evidence.json)在已有index1322/F:000154C0追加277条1145B/28call/唯一父和十二源片段；BAR01历史字段只表示当时范围，新battle_ride_exit_sampling字段和当前文字追加表示本次完整根静态，原两个helper不造身份。
+
+语义1324/有效ID1319、disposition426、YOBI25/BATTLE22、代码片段5/LOOP31/R7区间67及队列保持；E297→301仅双域四局部I/S，不新增成员。旧108条454B不双计、新增169条691B，224/227余1216条4804B及完整所有父/资源/owner/SDK/ABI/PC53/时钟RNG/画面运行未验。

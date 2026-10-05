@@ -149606,7 +149606,7 @@
     {
       "original_entry": "0x4154c0",
       "inventory_id": "F:000154C0",
-      "status": "BAR01已有真实父本体保持、仅本组退场/恢复窗和helper依赖纳管；父其余正文/完整owner寿命运行未验",
+      "status": "BAR01已有真实父本体保持、仅本组退场/恢复窗和helper依赖纳管；父其余正文/完整owner寿命运行未验；BRA01当前动作226完整原体已核、十二源片段取样/发布实修，完整功能与owner寿命运行未验",
       "original_end_exclusive": "0x415939",
       "instruction_count": 277,
       "sources": [
@@ -149617,7 +149617,7 @@
             "ClearBattleRideAttachments",
             "RestoreBattleRideGear"
           ],
-          "relationship": "BAR01父正文不改；两CPP共用helper只处理本组退出/恢复窗的单次指针读取和原跨调用slot/payload复读，不称完整父验证"
+          "relationship": "BAR01父正文不改；两CPP共用helper只处理本组退出/恢复窗的单次指针读取和原跨调用slot/payload复读，不称完整父验证；BRA01当前本根十二片段取样/发布实修，完整277条1145B纳管；两既有helper保持，不新身份/布局/公开API"
         },
         {
           "path": "include/cg/YobiRuntime.hpp",
@@ -149632,10 +149632,15 @@
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance",
         "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
-        "doc/cg2d_battle_attachment_recovery_evidence.json"
+        "doc/cg2d_battle_attachment_recovery_evidence.json",
+        "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline",
+        "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision",
+        "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-acceptance",
+        "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
+        "doc/cg2d_battle_ride_exit_sampling_evidence.json"
       ],
-      "verification_level": "BAR01一完整177条608B和三父元数据/八窗401条1549B、比较前置16条66B分列，三根十一源片段精确重放及十普通入向4父有限静态；完整三父剩余1385条5495B、所有动作实参与数据资源/owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
-      "boundary": "原完整元数据只识别函数；本步仅2窗100条/420B及相关helper依赖可追，父本体保持且未核其余正文。七槽各一次读供判空/MarkDeath后清，恢复三指针一次读且调用后原global/当前payload复读保持，不造helper原函数身份；不立即free/清rider或effect1060/type槽，不加guard/RNG/新owner或异常保护/回绕模拟。仅局部静态不代完整父/资源owner及运行；原格式明文和音频暂停保持。",
+      "verification_level": "BAR01一完整177条608B和三父元数据/八窗401条1549B、比较前置16条66B分列，三根十一源片段精确重放及十普通入向4父有限静态；完整三父剩余1385条5495B、所有动作实参与数据资源/owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未验；BRA01完整277条1145B/四页指令与原字节全文、28call/唯一入向和全CPP十二片段精确重放有限静态通过；旧窗与前置108条454B不双计，新增169条691B，224/227余1216条4804B及完整数据/owner/SDK/ABI/PC53/时钟RNG/画面未验",
+      "boundary": "原完整元数据只识别函数；本步仅2窗100条/420B及相关helper依赖可追，父本体保持且未核其余正文。七槽各一次读供判空/MarkDeath后清，恢复三指针一次读且调用后原global/当前payload复读保持，不造helper原函数身份；不立即free/清rider或effect1060/type槽，不加guard/RNG/新owner或异常保护/回绕模拟。仅局部静态不代完整父/资源owner及运行；原格式明文和音频暂停保持。 BRA01当前本根完整静态依据追加：入口rider提前固定，恢复发布用同角色写回调、四offset目标先取再读F32、方向/volatile两轴/同轴位置借用顺序明确，先判退场再计数发布、旧首槽同指针判空标死；原helper/复读、正常S32/所有退出和帧尾保持，不加guard/free/RNG/回绕模拟。BAR01原字段仅承载当时范围，不能据历史局部限制否定本次完整根取证，亦不能把完整本根外推完整战斗运行。",
       "battle_attachment_recovery": {
         "spec_id": "BAR01",
         "evidence_refs": [
@@ -149667,6 +149672,36 @@
             "code_bytes": 217
           }
         ],
+        "full_runtime_verified": false
+      },
+      "battle_ride_exit_sampling": {
+        "spec_id": "BRA01",
+        "evidence_refs": [
+          "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline",
+          "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision",
+          "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-acceptance",
+          "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
+          "doc/cg2d_battle_ride_exit_sampling_evidence.json"
+        ],
+        "original_entry": "0x4154c0",
+        "original_end_exclusive": "0x415939",
+        "original_instruction_count": 277,
+        "original_code_bytes": 1145,
+        "full_original_body_reviewed": true,
+        "source_body_changed": true,
+        "source_patch_count": 12,
+        "incoming_references": [
+          {
+            "from": "0x405578",
+            "type": 17,
+            "parent": "0x404db0"
+          }
+        ],
+        "outgoing_call_count": 28,
+        "previous_observed_instruction_count": 108,
+        "previous_observed_code_bytes": 454,
+        "newly_observed_instruction_count": 169,
+        "newly_observed_code_bytes": 691,
         "full_runtime_verified": false
       }
     },

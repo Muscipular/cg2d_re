@@ -8159,3 +8159,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [源状态](../cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state)落实七槽依次单次读取/MarkDeath后清及恢复gear/aux0/aux1单次快照；恢复中调用后重新取当前对象/载荷清槽和创建后发布、两aux之间所有复读保留。422370先保存400判定后scale两轴pub，原FDC入口/当前值及成对清位掩码/子调用不改。
 
 [一完整根与三父八窗](../cg2d_battle_attachment_recovery_evidence.json)只有578条2157B主体加16条66B比较前置，十普通入向/4父分列；父其余1385条5495B和完整owner寿命/数据资源/动作参数/SDK/ABI/PC53/时钟RNG/画面运行仍未闭。两个CPP helper不造原F/X，三父本体与五/三实际表达式保持，U08/U09继续open。
+
+## BRA01 真实动作226的退场恢复（2026-10-06）
+
+[源状态](../cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state)沿UpdateBattleActor_404DB0的case226保留完整4154C0：首阶段恢复second/清七附件、位置/运动计数，offset非负恢复first/装备，依原点转态、标死rider/effect和action并清槽，最后按当时rider门禁播帧。十二取样/发布片段已修，两helper本体与其它动作保持，不加新guard或立即free。
+
+[本根原完整基线](../cg2d_battle_ride_exit_sampling_evidence.json)为277条1145B、28call/唯一父；旧108条454B不双计、新增169条691B。224/227余1216条4804B及所有动作/数据资源和owner/SDK/ABI/PC53/时钟RNG/画面运行未闭，U08/U09及完整门禁继续open。

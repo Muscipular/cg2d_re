@@ -452,3 +452,9 @@ E273→277只两域局部I/S共用同三实修片段/原证据，旧F增证/一�
 [可度量验收](cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-acceptance)核三根十一片段、七逐槽/三恢复快照与调用后原slot-payload复读及先判400后scale pub，完整状态177条608B/父八窗401条1549B/比较前置16条66B和十普通入向4父可追；三父本体/五清理三恢复及四既有声明保持，不据三父完整元数据验余1385条5495B。
 
 同四F双域不多计，E293→297只四局部I/S共用同源差异和限定原证据；不造CPP helper库存函数。七任务及所有完整门禁/叶/R1/R7/R8/整体open，完整三父/所有动作参数、数据资源与owner重进退出和浅别名/SDK/ABI/PC53/时钟RNG/实际画面仍需对应证据。
+
+## BRA01 动作226完整根的局部I/S（2026-10-06）
+
+[可度量验收](cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-acceptance)核一个完整277条1145B/四页指令原字节和28调用、唯一入向，以及十二源片段精确重放及读取/发布/清槽时点。已有F:000154C0在语义index1322/原adapted及双域追加依据，不增身份/成员/处置或完整门禁。
+
+E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition426和全部原成员/任务及门禁保持。BAR01旧108条454B与新增169条691B分列，224/227余1216条4804B及全部数据/owner/SDK/ABI/PC53/时钟RNG/画面运行仍待，七任务和R1/R7/R8/整体open。

@@ -3997,3 +3997,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [三根十一差异/裁决](cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision)修两个既有CPP helper的七清理/三恢复附件指针单次取样，以及422370在两轴scale发布前保存400判定。原七槽顺序/消费后清、恢复中所有当前global slot/payload跨调用复读与图号/创建/返回发布时点保持，不统一缓存、不新helper身份或立即free。
 
 [限定原基线](cg2d_battle_attachment_recovery_evidence.json)分列完整状态177条608B、三父元数据/八窗401条1549B和比较前置16条66B；三父其余1385条5495B未核，不能把父元数据当完整正文验收。当前五清理/三恢复调用与三父本体/四声明保持，完整动作/资源和owner重进退出/浅别名/SDK/ABI/PC53/时钟RNG/画面运行仍待。
+
+## BRA01 动作226完整退场与恢复取样（2026-10-06）
+
+[当前裁决](cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision)落实入口rider、恢复角色同指针写回调、四offset目标/方向/volatile两轴/同轴位置借用、计数发布前退场判定和旧首槽标死指针的十二片段。原helper/跨调用复读、正常S32、退出标死清槽和共用帧尾保持，其它根/公开头未改。
+
+[完整原指令](cg2d_battle_ride_exit_sampling_evidence.json)277条1145B/四页原字节与28call、唯一404DB0入向可追；BAR01旧108条454B与新增169条691B分列，224/227余1216条4804B未核。已有index1322/F:000154C0追加当前依据、不新增身份，完整所有父/数据资源与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待。

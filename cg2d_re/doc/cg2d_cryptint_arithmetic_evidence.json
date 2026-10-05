@@ -1,0 +1,768 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-05",
+  "scope": "CQA01四个既有CryptInt算术入口；仅正常算术承载/类型合同与原入向，异常按RPLAN.24不专项模拟",
+  "original_session": {
+    "binary": "cg2d.exe",
+    "bitness": 32,
+    "image_base": "0x400000",
+    "access": "既有IDA会话MCP只读；未运行/改DB"
+  },
+  "roots": [
+    {
+      "entry": "0x401e10",
+      "end_exclusive": "0x401e1c",
+      "chunks": [
+        [
+          4202000,
+          4202012
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x401e10",
+          "size": 5,
+          "bytes": "e8ab000000",
+          "line": "call    sub_401EC0"
+        },
+        {
+          "ea": "0x401e15",
+          "size": 4,
+          "bytes": "03442404",
+          "line": "add     eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x401e19",
+          "size": 3,
+          "bytes": "c20400",
+          "line": "retn    4"
+        }
+      ],
+      "inbound": [
+        {
+          "ea": "0x441c4e",
+          "parent": "0x4417e0",
+          "type": 17
+        },
+        {
+          "ea": "0x441c86",
+          "parent": "0x4417e0",
+          "type": 17
+        },
+        {
+          "ea": "0x446a46",
+          "parent": "0x4469c0",
+          "type": 17
+        },
+        {
+          "ea": "0x446a56",
+          "parent": "0x4469c0",
+          "type": 17
+        },
+        {
+          "ea": "0x446d26",
+          "parent": "0x446c10",
+          "type": 17
+        },
+        {
+          "ea": "0x446d3c",
+          "parent": "0x446c10",
+          "type": 17
+        },
+        {
+          "ea": "0x45787b",
+          "parent": "0x4576b0",
+          "type": 17
+        },
+        {
+          "ea": "0x457888",
+          "parent": "0x4576b0",
+          "type": 17
+        },
+        {
+          "ea": "0x468207",
+          "parent": "0x468200",
+          "type": 17
+        },
+        {
+          "ea": "0x468219",
+          "parent": "0x468200",
+          "type": 17
+        },
+        {
+          "ea": "0x46822b",
+          "parent": "0x468200",
+          "type": 17
+        },
+        {
+          "ea": "0x46823d",
+          "parent": "0x468200",
+          "type": 17
+        },
+        {
+          "ea": "0x4698f3",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469918",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469ae8",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469bce",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x46ced0",
+          "parent": "0x46cec0",
+          "type": 17
+        },
+        {
+          "ea": "0x46cef0",
+          "parent": "0x46cee0",
+          "type": 17
+        },
+        {
+          "ea": "0x470076",
+          "parent": "0x470050",
+          "type": 17
+        },
+        {
+          "ea": "0x470082",
+          "parent": "0x470050",
+          "type": 17
+        },
+        {
+          "ea": "0x470188",
+          "parent": "0x470150",
+          "type": 17
+        },
+        {
+          "ea": "0x470194",
+          "parent": "0x470150",
+          "type": 17
+        },
+        {
+          "ea": "0x4702ab",
+          "parent": "0x470270",
+          "type": 17
+        },
+        {
+          "ea": "0x4702b7",
+          "parent": "0x470270",
+          "type": 17
+        },
+        {
+          "ea": "0x4703e6",
+          "parent": "0x4703c0",
+          "type": 17
+        },
+        {
+          "ea": "0x4703f2",
+          "parent": "0x4703c0",
+          "type": 17
+        },
+        {
+          "ea": "0x4704db",
+          "parent": "0x4704a0",
+          "type": 17
+        },
+        {
+          "ea": "0x4704e7",
+          "parent": "0x4704a0",
+          "type": 17
+        },
+        {
+          "ea": "0x470502",
+          "parent": "0x4704a0",
+          "type": 17
+        },
+        {
+          "ea": "0x470511",
+          "parent": "0x4704a0",
+          "type": 17
+        },
+        {
+          "ea": "0x470696",
+          "parent": "0x470670",
+          "type": 17
+        },
+        {
+          "ea": "0x4706a2",
+          "parent": "0x470670",
+          "type": 17
+        },
+        {
+          "ea": "0x488b8a",
+          "parent": "0x488b10",
+          "type": 17
+        },
+        {
+          "ea": "0x488bb3",
+          "parent": "0x488b10",
+          "type": 17
+        },
+        {
+          "ea": "0x4948b2",
+          "parent": "0x4947f0",
+          "type": 17
+        },
+        {
+          "ea": "0x4948bf",
+          "parent": "0x4947f0",
+          "type": 17
+        },
+        {
+          "ea": "0x506f78",
+          "parent": "0x506e00",
+          "type": 17
+        },
+        {
+          "ea": "0x506f99",
+          "parent": "0x506e00",
+          "type": 17
+        },
+        {
+          "ea": "0x50704b",
+          "parent": "0x506e00",
+          "type": 17
+        },
+        {
+          "ea": "0x507058",
+          "parent": "0x506e00",
+          "type": 17
+        },
+        {
+          "ea": "0x509349",
+          "parent": "0x509100",
+          "type": 17
+        },
+        {
+          "ea": "0x509369",
+          "parent": "0x509100",
+          "type": 17
+        }
+      ]
+    },
+    {
+      "entry": "0x401e60",
+      "end_exclusive": "0x401e6c",
+      "chunks": [
+        [
+          4202080,
+          4202092
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x401e60",
+          "size": 5,
+          "bytes": "e85b000000",
+          "line": "call    sub_401EC0"
+        },
+        {
+          "ea": "0x401e65",
+          "size": 4,
+          "bytes": "2b442404",
+          "line": "sub     eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x401e69",
+          "size": 3,
+          "bytes": "c20400",
+          "line": "retn    4"
+        }
+      ],
+      "inbound": [
+        {
+          "ea": "0x441c35",
+          "parent": "0x4417e0",
+          "type": 17
+        },
+        {
+          "ea": "0x441c6d",
+          "parent": "0x4417e0",
+          "type": 17
+        },
+        {
+          "ea": "0x4698b3",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x4698cf",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469944",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469952",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469a0a",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469a18",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469af6",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469bc0",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x472d64",
+          "parent": "0x472d20",
+          "type": 17
+        },
+        {
+          "ea": "0x472d80",
+          "parent": "0x472d20",
+          "type": 17
+        },
+        {
+          "ea": "0x472f0a",
+          "parent": "0x472f00",
+          "type": 17
+        },
+        {
+          "ea": "0x472f23",
+          "parent": "0x472f00",
+          "type": 17
+        },
+        {
+          "ea": "0x47369d",
+          "parent": "0x473560",
+          "type": 17
+        },
+        {
+          "ea": "0x4736bc",
+          "parent": "0x473560",
+          "type": 17
+        },
+        {
+          "ea": "0x4741f5",
+          "parent": "0x4741a0",
+          "type": 17
+        },
+        {
+          "ea": "0x47977b",
+          "parent": "0x479700",
+          "type": 17
+        },
+        {
+          "ea": "0x479788",
+          "parent": "0x479700",
+          "type": 17
+        },
+        {
+          "ea": "0x48c06f",
+          "parent": "0x48bf30",
+          "type": 17
+        },
+        {
+          "ea": "0x48c07c",
+          "parent": "0x48bf30",
+          "type": 17
+        },
+        {
+          "ea": "0x48c09b",
+          "parent": "0x48bf30",
+          "type": 17
+        },
+        {
+          "ea": "0x48c0a8",
+          "parent": "0x48bf30",
+          "type": 17
+        },
+        {
+          "ea": "0x49210a",
+          "parent": "0x4920f0",
+          "type": 17
+        },
+        {
+          "ea": "0x492118",
+          "parent": "0x4920f0",
+          "type": 17
+        },
+        {
+          "ea": "0x4b190a",
+          "parent": "0x4b1900",
+          "type": 17
+        },
+        {
+          "ea": "0x4b1923",
+          "parent": "0x4b1900",
+          "type": 17
+        },
+        {
+          "ea": "0x4b2f00",
+          "parent": "0x4b2e00",
+          "type": 17
+        },
+        {
+          "ea": "0x4b2f0d",
+          "parent": "0x4b2e00",
+          "type": 17
+        },
+        {
+          "ea": "0x509339",
+          "parent": "0x509100",
+          "type": 17
+        },
+        {
+          "ea": "0x509359",
+          "parent": "0x509100",
+          "type": 17
+        },
+        {
+          "ea": "0x51b3fe",
+          "parent": "0x51b3e0",
+          "type": 17
+        },
+        {
+          "ea": "0x51b413",
+          "parent": "0x51b3e0",
+          "type": 17
+        },
+        {
+          "ea": "0x51b428",
+          "parent": "0x51b3e0",
+          "type": 17
+        },
+        {
+          "ea": "0x51b441",
+          "parent": "0x51b3e0",
+          "type": 17
+        },
+        {
+          "ea": "0x51b456",
+          "parent": "0x51b3e0",
+          "type": 17
+        },
+        {
+          "ea": "0x51b46b",
+          "parent": "0x51b3e0",
+          "type": 17
+        }
+      ]
+    },
+    {
+      "entry": "0x401e90",
+      "end_exclusive": "0x401e9d",
+      "chunks": [
+        [
+          4202128,
+          4202141
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x401e90",
+          "size": 5,
+          "bytes": "e82b000000",
+          "line": "call    sub_401EC0"
+        },
+        {
+          "ea": "0x401e95",
+          "size": 5,
+          "bytes": "0faf442404",
+          "line": "imul    eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x401e9a",
+          "size": 3,
+          "bytes": "c20400",
+          "line": "retn    4"
+        }
+      ],
+      "inbound": [
+        {
+          "ea": "0x440f84",
+          "parent": "0x440f50",
+          "type": 17
+        },
+        {
+          "ea": "0x46a482",
+          "parent": "0x46a410",
+          "type": 17
+        },
+        {
+          "ea": "0x46a4a0",
+          "parent": "0x46a410",
+          "type": 17
+        },
+        {
+          "ea": "0x46b27f",
+          "parent": "0x46b1b0",
+          "type": 17
+        },
+        {
+          "ea": "0x46b29d",
+          "parent": "0x46b1b0",
+          "type": 17
+        },
+        {
+          "ea": "0x46dde2",
+          "parent": "0x46dd90",
+          "type": 17
+        },
+        {
+          "ea": "0x46ddfb",
+          "parent": "0x46dd90",
+          "type": 17
+        }
+      ]
+    },
+    {
+      "entry": "0x401fe0",
+      "end_exclusive": "0x401ff2",
+      "chunks": [
+        [
+          4202464,
+          4202482
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x401fe0",
+          "size": 4,
+          "bytes": "8b4c2408",
+          "line": "mov     ecx, [esp+arg_4]"
+        },
+        {
+          "ea": "0x401fe4",
+          "size": 5,
+          "bytes": "e8b7feffff",
+          "line": "call    CryptInt__GetVal"
+        },
+        {
+          "ea": "0x401fe9",
+          "size": 4,
+          "bytes": "8b4c2404",
+          "line": "mov     ecx, [esp+arg_0]"
+        },
+        {
+          "ea": "0x401fed",
+          "size": 2,
+          "bytes": "2bc8",
+          "line": "sub     ecx, eax"
+        },
+        {
+          "ea": "0x401fef",
+          "size": 2,
+          "bytes": "8bc1",
+          "line": "mov     eax, ecx"
+        },
+        {
+          "ea": "0x401ff1",
+          "size": 1,
+          "bytes": "c3",
+          "line": "retn"
+        }
+      ],
+      "inbound": [
+        {
+          "ea": "0x4444cc",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x4444da",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x4444e6",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x4444fe",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x444510",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x444521",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x444537",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x444549",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x44455c",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x44456c",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x44457e",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x444591",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x44459d",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x4445af",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x4445c2",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x4445d2",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x4445e4",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x4445f5",
+          "parent": "0x444410",
+          "type": 17
+        },
+        {
+          "ea": "0x4698df",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469904",
+          "parent": "0x469870",
+          "type": 17
+        },
+        {
+          "ea": "0x469e6f",
+          "parent": "0x469c90",
+          "type": 17
+        },
+        {
+          "ea": "0x469e87",
+          "parent": "0x469c90",
+          "type": 17
+        },
+        {
+          "ea": "0x469ea2",
+          "parent": "0x469c90",
+          "type": 17
+        },
+        {
+          "ea": "0x469ec1",
+          "parent": "0x469c90",
+          "type": 17
+        },
+        {
+          "ea": "0x46b40b",
+          "parent": "0x46b370",
+          "type": 17
+        },
+        {
+          "ea": "0x46b427",
+          "parent": "0x46b370",
+          "type": 17
+        },
+        {
+          "ea": "0x51b4a4",
+          "parent": "0x51b3e0",
+          "type": 17
+        },
+        {
+          "ea": "0x51b4c0",
+          "parent": "0x51b3e0",
+          "type": 17
+        }
+      ]
+    }
+  ],
+  "read_alias": {
+    "entry": "0x401ea0",
+    "end_exclusive": "0x401ea5",
+    "instructions": [
+      {
+        "ea": "0x401ea0",
+        "size": 5,
+        "bytes": "e91b000000",
+        "line": "jmp     sub_401EC0"
+      }
+    ]
+  },
+  "totals": {
+    "roots": 4,
+    "instructions": 15,
+    "bytes": 55,
+    "direct_calls_into_roots": 114,
+    "internal_calls": 4,
+    "read_alias_instructions": 1,
+    "read_alias_bytes": 5
+  },
+  "source": {
+    "body": "src/platform/LegacyCryptInt.cpp",
+    "header": "include/cg/platform/LegacyCryptInt.hpp",
+    "change": "四个算术return片段撤ToBits/FromBits/U32；其他完整正文保持",
+    "unchanged": [
+      "Read_401EC0与共享RNG",
+      "SetNorVal_401F50实际异或",
+      "AddAssign_401E20与SubtractAssign_401E40原先算术后编码",
+      "构析/比较/复制和所有父"
+    ]
+  },
+  "verification": {
+    "level": "只读原指令与源码/台账限定静态，不构建/测试/运行或计算摘要",
+    "overflow_or_fault_equivalent": false,
+    "whole_callers_verified": false,
+    "whole_feature_verified": false,
+    "runtime_verified": false
+  }
+}

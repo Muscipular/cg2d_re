@@ -60,18 +60,18 @@ std::int32_t Read_401EC0(LegacyCryptInt* value);
 // 原401DE0：单次读取后自增并SetNorVal，返回新值；原未使用的S32参数保留。
 std::int32_t Increment_401DE0(LegacyCryptInt* value, std::int32_t unused);
 
-// 原 CryptInt::add@[0x401E10,0x401E1C)，只读取一次后作 int32 位模式回绕加法。
+// 原401E10：单读后S32加法；CQA01按RPLAN.24不专设数学回绕/异常结果。
 std::int32_t Add_401E10(LegacyCryptInt* value, std::int32_t amount);
 void AddAssign_401E20(LegacyCryptInt* value, std::int32_t amount); // 单次读取后加并SetNorVal。
 void SubtractAssign_401E40(LegacyCryptInt* value, std::int32_t amount); // 单次读取后减并SetNorVal。
 
-// 原 CryptInt::dec@[0x401E60,0x401E6C)，只读取一次后作完整 W32 差值。
+// 原401E60：单读后S32差值；异常域同CQA01，编码异或边界保持。
 std::int32_t Subtract_401E60(LegacyCryptInt* value, std::int32_t amount);
 
 // 原401E70@[401E70,401E8B)：先读右对象，再读左对象，返回lhs-rhs。
 std::int32_t Difference_401E70(LegacyCryptInt* lhs, LegacyCryptInt* rhs);
 
-// 原 CryptInt::mul@[0x401E90,0x401E9D)，单次读取后返回乘积低 W32。
+// 原401E90机器乘积取低W32；新端S32普通乘法，异常域同CQA01。
 std::int32_t Multiply_401E90(LegacyCryptInt* value, std::int32_t amount);
 
 // 下列比较按有符号int32；整数比较单读，加密双值比较按各自合同独立读取。
@@ -88,7 +88,7 @@ bool LessCrypt_401DC0(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左
 bool IntGreaterCrypt_401F80(std::int32_t lhs, LegacyCryptInt* rhs); // 右值单读，保留计数/RNG副作用。
 bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs);
 
-// 原 401FE0 经 401EA0 尾跳读取右侧一次，再作完整 W32 的 lhs-rhs。
+// 原401FE0经401EA0尾跳单读右对象；新端S32 lhs-rhs，异常域同CQA01。
 std::int32_t IntMinusCrypt_401FE0(std::int32_t lhs, LegacyCryptInt* rhs);
 
 } // namespace legacy_crypt_int

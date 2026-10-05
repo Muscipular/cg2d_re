@@ -119,9 +119,7 @@ std::int32_t Increment_401DE0(LegacyCryptInt* value, const std::int32_t unused)
 
 std::int32_t Add_401E10(LegacyCryptInt* value, const std::int32_t amount)
 {
-    const std::uint32_t result =
-        ToBits(Read_401EC0(value)) + ToBits(amount);
-    return FromBits(result);
+    return Read_401EC0(value) + amount;
 }
 
 void AddAssign_401E20(LegacyCryptInt* const value, const std::int32_t amount)
@@ -139,9 +137,7 @@ void SubtractAssign_401E40(LegacyCryptInt* const value, const std::int32_t amoun
 std::int32_t Subtract_401E60(
     LegacyCryptInt* value, const std::int32_t amount)
 {
-    const std::uint32_t result =
-        ToBits(Read_401EC0(value)) - ToBits(amount);
-    return FromBits(result);
+    return Read_401EC0(value) - amount;
 }
 
 std::int32_t Difference_401E70(LegacyCryptInt* lhs, LegacyCryptInt* rhs)
@@ -153,9 +149,7 @@ std::int32_t Difference_401E70(LegacyCryptInt* lhs, LegacyCryptInt* rhs)
 std::int32_t Multiply_401E90(
     LegacyCryptInt* value, const std::int32_t amount)
 {
-    const std::uint32_t result =
-        ToBits(Read_401EC0(value)) * ToBits(amount);
-    return FromBits(result);
+    return Read_401EC0(value) * amount;
 }
 
 bool Equal_401D00(LegacyCryptInt* value, std::int32_t expected)
@@ -220,7 +214,7 @@ bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs)
 std::int32_t IntMinusCrypt_401FE0(
     const std::int32_t lhs, LegacyCryptInt* const rhs)
 {
-    return FromBits(ToBits(lhs) - ToBits(Read_401EC0(rhs)));
+    return lhs - Read_401EC0(rhs);
 }
 
 LegacyCryptInt* DestroyAndFree_401CA0(LegacyCryptInt* value, std::uint32_t flags)

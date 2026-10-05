@@ -160,7 +160,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 | U08 / 战斗执行闭环 | 257表项/200动作及43CBB0→427470链已有 | P01攻击生产、载荷完整字段/归属、附属清理及事件执行 | 生产→动作→回调→释放顺序；[战斗](../doc/ui_windows/shared_battle.md) |
 | U09 / Yobi 生命周期 | New/四相更新/Clone/终止删除及8个新增身份已有 | 全部creator/cleanup、载荷浅复制后的共享寿命 | 保留Clone原失败返回，不能以基础生命周期存在称所有对象完成；[Yobi](../doc/cg2d_yobi_runtime.md) |
 | U10 / 跨页持久化与请求 | NDR01账号/读序保持；NWT01字节工作区同SDK域和四解码基线明确 | 各业务生产/回复/权限/回滚，整分派/整数/108回复与owner/alias | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；类型收敛/四基线不代每条业务链或原格式往返 |
-| U11 / 场景/主循环传递依赖 | MainLoop、普通22状态、部分场景重置与切换已有 | 逐状态核所有传递依赖、退出/断线/重进与资源清理 | 不重建通用分发框架；[主循环](../doc/cg2d_main_loop.md)、[场景](../doc/cg2d_scene_state.md) |
+| U11 / 场景/主循环传递依赖 | MainLoop、普通22状态、部分场景重置与切换已有；CQA01四算术叶原宽/单读保持 | 逐状态核所有传递依赖、退出/断线/重进与资源清理 | 不重建通用分发框架；[CQA01](../doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state)、[主循环](../doc/cg2d_main_loop.md)、[场景](../doc/cg2d_scene_state.md) |
 
 ### 6.3 渲染、资源与文本
 
@@ -179,7 +179,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 
 | 编号 / 范围 | 当前状态 | 下一步 | 关闭条件 |
 |---|---|---|---|
-| R01 / 函数分母 | SCA01两既有保存字节叶具名adapted，处置195/3680；编码仅三算术片段按RPLAN.24更新 | 其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[SCA01](../doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure)；只核缺口，不以两叶/原点数量当全部持久化或整体验收 |
+| R01 / 函数分母 | CQA01四个既有算术叶按RPLAN.24对齐并补adapted，处置207/3680；原宽/读取与编码保持 | 其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[CQA01](../doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state)、[SCA01](../doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure)；本组四叶/114引用不代全部父或整体验收 |
 | R02 / 数据/间接目标 | NWT01 DA3F98的90直接引用/三父与已知byte pointer类型/SDK域明确 | 未知间接alias/完整owner/重进/动态边，203导入及数据/常量/生命周期 | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；导入15/218保持，直接引用/类型不代所有权闭合 |
 | R03 / 未归属区间 | 3061原区间快照与部分后置回调/数据/填充分组已有 | 沿候选清单处理尚未归属区间，不重做已证分类 | 区间用途及剩余未知明确；不把无直接xref当不可达 |
 | R04 / 台账一致性 | 本表已识别总览、局部速查和机器自由文本的时效差 | 后续按任务更新同一记录的当前状态，保留历史字段证据 | 清单/源码/当前摘要相符；来源只有“关联”的项不升级成实现 |

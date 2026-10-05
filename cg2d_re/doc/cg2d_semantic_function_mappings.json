@@ -141764,6 +141764,836 @@
       ],
       "verification_level": "完整原94条/255B及唯一业务入向只读；源码/共享字段与限定差异静态，未执行",
       "boundary": "目标可空，MaxCount/返回保持U32；目标非空数量0不读source/locale；C locale U8→W16，写后重读源当前字节判NUL，NUL不计数且满不补。目标空/C locale真实53CAB5 strlen，非C全量/query flags9成功减1；失败立即取LastError仅122进回退。回退每字符缓存首U8、读可变58FC30的8000H lead位，剩余Count-1递减后按旧值判继续，Count1仍处理一字符；各API重新读代码页，实际字节跨度W32/API S32位型传递，flags1成功直接返回。错误errno42/U32 FFFFFFFF，成功不清errno/目标。locale、CP、ctype/errno唯一现有owner；不使用宿主locale/mbstowcs或新编码，原音频455100/454C30不改/不接线，实际API/生产/全别名/SDK/音频与运行未验；RPLAN.24不专项处理越界/数学溢出或宣称故障等价/x64安全。"
+    },
+    {
+      "original_entry": "0x401E10",
+      "inventory_id": "F:00001E10",
+      "status": "CQA01既有普通算术源码已按RPLAN.24对齐；四本体基线/直接入向/原新映射补齐，全部父/实际ABI和运行未验",
+      "original_end_exclusive": "0x401E1C",
+      "instruction_count": 3,
+      "original_direct_reference_count": 42,
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Add_401E10"
+          ],
+          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "Add_401E10"
+          ],
+          "relationship": "真实S32接口保持，只修现行算术/异常范围说明"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_cryptint_arithmetic_evidence.json"
+      ],
+      "boundary": "实际S32表达式 Read_401EC0(value) + amount，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部42原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
+      "function_chunks": [
+        {
+          "start": "0x401E10",
+          "end_exclusive": "0x401E1C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x441C4E",
+          "parent_entry": "0x4417E0",
+          "type": 17
+        },
+        {
+          "address": "0x441C86",
+          "parent_entry": "0x4417E0",
+          "type": 17
+        },
+        {
+          "address": "0x446A46",
+          "parent_entry": "0x4469C0",
+          "type": 17
+        },
+        {
+          "address": "0x446A56",
+          "parent_entry": "0x4469C0",
+          "type": 17
+        },
+        {
+          "address": "0x446D26",
+          "parent_entry": "0x446C10",
+          "type": 17
+        },
+        {
+          "address": "0x446D3C",
+          "parent_entry": "0x446C10",
+          "type": 17
+        },
+        {
+          "address": "0x45787B",
+          "parent_entry": "0x4576B0",
+          "type": 17
+        },
+        {
+          "address": "0x457888",
+          "parent_entry": "0x4576B0",
+          "type": 17
+        },
+        {
+          "address": "0x468207",
+          "parent_entry": "0x468200",
+          "type": 17
+        },
+        {
+          "address": "0x468219",
+          "parent_entry": "0x468200",
+          "type": 17
+        },
+        {
+          "address": "0x46822B",
+          "parent_entry": "0x468200",
+          "type": 17
+        },
+        {
+          "address": "0x46823D",
+          "parent_entry": "0x468200",
+          "type": 17
+        },
+        {
+          "address": "0x4698F3",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469918",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469AE8",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469BCE",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x46CED0",
+          "parent_entry": "0x46CEC0",
+          "type": 17
+        },
+        {
+          "address": "0x46CEF0",
+          "parent_entry": "0x46CEE0",
+          "type": 17
+        },
+        {
+          "address": "0x470076",
+          "parent_entry": "0x470050",
+          "type": 17
+        },
+        {
+          "address": "0x470082",
+          "parent_entry": "0x470050",
+          "type": 17
+        },
+        {
+          "address": "0x470188",
+          "parent_entry": "0x470150",
+          "type": 17
+        },
+        {
+          "address": "0x470194",
+          "parent_entry": "0x470150",
+          "type": 17
+        },
+        {
+          "address": "0x4702AB",
+          "parent_entry": "0x470270",
+          "type": 17
+        },
+        {
+          "address": "0x4702B7",
+          "parent_entry": "0x470270",
+          "type": 17
+        },
+        {
+          "address": "0x4703E6",
+          "parent_entry": "0x4703C0",
+          "type": 17
+        },
+        {
+          "address": "0x4703F2",
+          "parent_entry": "0x4703C0",
+          "type": 17
+        },
+        {
+          "address": "0x4704DB",
+          "parent_entry": "0x4704A0",
+          "type": 17
+        },
+        {
+          "address": "0x4704E7",
+          "parent_entry": "0x4704A0",
+          "type": 17
+        },
+        {
+          "address": "0x470502",
+          "parent_entry": "0x4704A0",
+          "type": 17
+        },
+        {
+          "address": "0x470511",
+          "parent_entry": "0x4704A0",
+          "type": 17
+        },
+        {
+          "address": "0x470696",
+          "parent_entry": "0x470670",
+          "type": 17
+        },
+        {
+          "address": "0x4706A2",
+          "parent_entry": "0x470670",
+          "type": 17
+        },
+        {
+          "address": "0x488B8A",
+          "parent_entry": "0x488B10",
+          "type": 17
+        },
+        {
+          "address": "0x488BB3",
+          "parent_entry": "0x488B10",
+          "type": 17
+        },
+        {
+          "address": "0x4948B2",
+          "parent_entry": "0x4947F0",
+          "type": 17
+        },
+        {
+          "address": "0x4948BF",
+          "parent_entry": "0x4947F0",
+          "type": 17
+        },
+        {
+          "address": "0x506F78",
+          "parent_entry": "0x506E00",
+          "type": 17
+        },
+        {
+          "address": "0x506F99",
+          "parent_entry": "0x506E00",
+          "type": 17
+        },
+        {
+          "address": "0x50704B",
+          "parent_entry": "0x506E00",
+          "type": 17
+        },
+        {
+          "address": "0x507058",
+          "parent_entry": "0x506E00",
+          "type": 17
+        },
+        {
+          "address": "0x509349",
+          "parent_entry": "0x509100",
+          "type": 17
+        },
+        {
+          "address": "0x509369",
+          "parent_entry": "0x509100",
+          "type": 17
+        }
+      ],
+      "verification_level": "原四完整根15条/55B与114直接入向及401EA0单尾跳；两源八片段及限定台账/新增引用静态，未构建/测试/运行或计算摘要；不核全父或故障等价",
+      "native_provider": {
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "Add_401E10",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "cryptint_arithmetic_adaptation": {
+        "source_expression": "Read_401EC0(value) + amount",
+        "value_width_bits": 32,
+        "read_calls": 1,
+        "specialized_unsigned_wrap_removed": true,
+        "encoding_bit_operations_unchanged": true,
+        "overflow_or_fault_equivalent": false,
+        "whole_callers_verified": false
+      },
+      "cryptint_internal_call_connections": [
+        {
+          "parent_entry": "0x401E10",
+          "call_site": "0x401E10",
+          "target_entry": "0x401EC0",
+          "native_target_symbol": "Read_401EC0",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "Add_401E10",
+          "relationship": "原唯一读取调用先于S32算术，不使用encoded^mask替代有副作用读取"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x401E60",
+      "inventory_id": "F:00001E60",
+      "status": "CQA01既有普通算术源码已按RPLAN.24对齐；四本体基线/直接入向/原新映射补齐，全部父/实际ABI和运行未验",
+      "original_end_exclusive": "0x401E6C",
+      "instruction_count": 3,
+      "original_direct_reference_count": 37,
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Subtract_401E60"
+          ],
+          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "Subtract_401E60"
+          ],
+          "relationship": "真实S32接口保持，只修现行算术/异常范围说明"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_cryptint_arithmetic_evidence.json"
+      ],
+      "boundary": "实际S32表达式 Read_401EC0(value) - amount，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部37原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
+      "function_chunks": [
+        {
+          "start": "0x401E60",
+          "end_exclusive": "0x401E6C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x441C35",
+          "parent_entry": "0x4417E0",
+          "type": 17
+        },
+        {
+          "address": "0x441C6D",
+          "parent_entry": "0x4417E0",
+          "type": 17
+        },
+        {
+          "address": "0x4698B3",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x4698CF",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469944",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469952",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469A0A",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469A18",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469AF6",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469BC0",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x472D64",
+          "parent_entry": "0x472D20",
+          "type": 17
+        },
+        {
+          "address": "0x472D80",
+          "parent_entry": "0x472D20",
+          "type": 17
+        },
+        {
+          "address": "0x472F0A",
+          "parent_entry": "0x472F00",
+          "type": 17
+        },
+        {
+          "address": "0x472F23",
+          "parent_entry": "0x472F00",
+          "type": 17
+        },
+        {
+          "address": "0x47369D",
+          "parent_entry": "0x473560",
+          "type": 17
+        },
+        {
+          "address": "0x4736BC",
+          "parent_entry": "0x473560",
+          "type": 17
+        },
+        {
+          "address": "0x4741F5",
+          "parent_entry": "0x4741A0",
+          "type": 17
+        },
+        {
+          "address": "0x47977B",
+          "parent_entry": "0x479700",
+          "type": 17
+        },
+        {
+          "address": "0x479788",
+          "parent_entry": "0x479700",
+          "type": 17
+        },
+        {
+          "address": "0x48C06F",
+          "parent_entry": "0x48BF30",
+          "type": 17
+        },
+        {
+          "address": "0x48C07C",
+          "parent_entry": "0x48BF30",
+          "type": 17
+        },
+        {
+          "address": "0x48C09B",
+          "parent_entry": "0x48BF30",
+          "type": 17
+        },
+        {
+          "address": "0x48C0A8",
+          "parent_entry": "0x48BF30",
+          "type": 17
+        },
+        {
+          "address": "0x49210A",
+          "parent_entry": "0x4920F0",
+          "type": 17
+        },
+        {
+          "address": "0x492118",
+          "parent_entry": "0x4920F0",
+          "type": 17
+        },
+        {
+          "address": "0x4B190A",
+          "parent_entry": "0x4B1900",
+          "type": 17
+        },
+        {
+          "address": "0x4B1923",
+          "parent_entry": "0x4B1900",
+          "type": 17
+        },
+        {
+          "address": "0x4B2F00",
+          "parent_entry": "0x4B2E00",
+          "type": 17
+        },
+        {
+          "address": "0x4B2F0D",
+          "parent_entry": "0x4B2E00",
+          "type": 17
+        },
+        {
+          "address": "0x509339",
+          "parent_entry": "0x509100",
+          "type": 17
+        },
+        {
+          "address": "0x509359",
+          "parent_entry": "0x509100",
+          "type": 17
+        },
+        {
+          "address": "0x51B3FE",
+          "parent_entry": "0x51B3E0",
+          "type": 17
+        },
+        {
+          "address": "0x51B413",
+          "parent_entry": "0x51B3E0",
+          "type": 17
+        },
+        {
+          "address": "0x51B428",
+          "parent_entry": "0x51B3E0",
+          "type": 17
+        },
+        {
+          "address": "0x51B441",
+          "parent_entry": "0x51B3E0",
+          "type": 17
+        },
+        {
+          "address": "0x51B456",
+          "parent_entry": "0x51B3E0",
+          "type": 17
+        },
+        {
+          "address": "0x51B46B",
+          "parent_entry": "0x51B3E0",
+          "type": 17
+        }
+      ],
+      "verification_level": "原四完整根15条/55B与114直接入向及401EA0单尾跳；两源八片段及限定台账/新增引用静态，未构建/测试/运行或计算摘要；不核全父或故障等价",
+      "native_provider": {
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "Subtract_401E60",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "cryptint_arithmetic_adaptation": {
+        "source_expression": "Read_401EC0(value) - amount",
+        "value_width_bits": 32,
+        "read_calls": 1,
+        "specialized_unsigned_wrap_removed": true,
+        "encoding_bit_operations_unchanged": true,
+        "overflow_or_fault_equivalent": false,
+        "whole_callers_verified": false
+      },
+      "cryptint_internal_call_connections": [
+        {
+          "parent_entry": "0x401E60",
+          "call_site": "0x401E60",
+          "target_entry": "0x401EC0",
+          "native_target_symbol": "Read_401EC0",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "Subtract_401E60",
+          "relationship": "原唯一读取调用先于S32算术，不使用encoded^mask替代有副作用读取"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x401E90",
+      "inventory_id": "F:00001E90",
+      "status": "CQA01既有普通算术源码已按RPLAN.24对齐；四本体基线/直接入向/原新映射补齐，全部父/实际ABI和运行未验",
+      "original_end_exclusive": "0x401E9D",
+      "instruction_count": 3,
+      "original_direct_reference_count": 7,
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Multiply_401E90"
+          ],
+          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "Multiply_401E90"
+          ],
+          "relationship": "真实S32接口保持，只修现行算术/异常范围说明"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_cryptint_arithmetic_evidence.json"
+      ],
+      "boundary": "实际S32表达式 Read_401EC0(value) * amount，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部7原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
+      "function_chunks": [
+        {
+          "start": "0x401E90",
+          "end_exclusive": "0x401E9D"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x440F84",
+          "parent_entry": "0x440F50",
+          "type": 17
+        },
+        {
+          "address": "0x46A482",
+          "parent_entry": "0x46A410",
+          "type": 17
+        },
+        {
+          "address": "0x46A4A0",
+          "parent_entry": "0x46A410",
+          "type": 17
+        },
+        {
+          "address": "0x46B27F",
+          "parent_entry": "0x46B1B0",
+          "type": 17
+        },
+        {
+          "address": "0x46B29D",
+          "parent_entry": "0x46B1B0",
+          "type": 17
+        },
+        {
+          "address": "0x46DDE2",
+          "parent_entry": "0x46DD90",
+          "type": 17
+        },
+        {
+          "address": "0x46DDFB",
+          "parent_entry": "0x46DD90",
+          "type": 17
+        }
+      ],
+      "verification_level": "原四完整根15条/55B与114直接入向及401EA0单尾跳；两源八片段及限定台账/新增引用静态，未构建/测试/运行或计算摘要；不核全父或故障等价",
+      "native_provider": {
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "Multiply_401E90",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "cryptint_arithmetic_adaptation": {
+        "source_expression": "Read_401EC0(value) * amount",
+        "value_width_bits": 32,
+        "read_calls": 1,
+        "specialized_unsigned_wrap_removed": true,
+        "encoding_bit_operations_unchanged": true,
+        "overflow_or_fault_equivalent": false,
+        "whole_callers_verified": false
+      },
+      "cryptint_internal_call_connections": [
+        {
+          "parent_entry": "0x401E90",
+          "call_site": "0x401E90",
+          "target_entry": "0x401EC0",
+          "native_target_symbol": "Read_401EC0",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "Multiply_401E90",
+          "relationship": "原唯一读取调用先于S32算术，不使用encoded^mask替代有副作用读取"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x401FE0",
+      "inventory_id": "F:00001FE0",
+      "status": "CQA01既有普通算术源码已按RPLAN.24对齐；四本体基线/直接入向/原新映射补齐，全部父/实际ABI和运行未验",
+      "original_end_exclusive": "0x401FF2",
+      "instruction_count": 6,
+      "original_direct_reference_count": 28,
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "IntMinusCrypt_401FE0"
+          ],
+          "relationship": "仅普通算术return片段撤U32/bit_cast回绕，读取一次及其他完整正文保持"
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "IntMinusCrypt_401FE0"
+          ],
+          "relationship": "真实S32接口保持，只修现行算术/异常范围说明"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_cryptint_arithmetic_evidence.json"
+      ],
+      "boundary": "实际S32表达式 lhs - Read_401EC0(rhs)，返回原宽S32；读取副作用/W8计数/门槛刷新/共享RNG/编码异或保持。401FE0原401EA0仅尾跳401EC0，仍右对象单读；其余三入口直接401EC0。四返回源片段外包括AddAssign/SubtractAssign的先算术后SetNorVal、Increment/Difference、构析/比较/复制与所有父原文保持。LegacyCryptInt*仅原生非拥有地址；数据16B/W32/W8不扩宽。RPLAN.24不专项模拟数学回绕/越界，不增拒绝/保护/补零/钳制，也不宣称异常确定值/故障等价或x64安全。仅本体/入向与限定源静态，全部28原引用父、所有owner/alias、实际ABI/运行未验；网络原格式明文、音频暂停保持。",
+      "function_chunks": [
+        {
+          "start": "0x401FE0",
+          "end_exclusive": "0x401FF2"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4444CC",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x4444DA",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x4444E6",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x4444FE",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x444510",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x444521",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x444537",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x444549",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x44455C",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x44456C",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x44457E",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x444591",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x44459D",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x4445AF",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x4445C2",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x4445D2",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x4445E4",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x4445F5",
+          "parent_entry": "0x444410",
+          "type": 17
+        },
+        {
+          "address": "0x4698DF",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469904",
+          "parent_entry": "0x469870",
+          "type": 17
+        },
+        {
+          "address": "0x469E6F",
+          "parent_entry": "0x469C90",
+          "type": 17
+        },
+        {
+          "address": "0x469E87",
+          "parent_entry": "0x469C90",
+          "type": 17
+        },
+        {
+          "address": "0x469EA2",
+          "parent_entry": "0x469C90",
+          "type": 17
+        },
+        {
+          "address": "0x469EC1",
+          "parent_entry": "0x469C90",
+          "type": 17
+        },
+        {
+          "address": "0x46B40B",
+          "parent_entry": "0x46B370",
+          "type": 17
+        },
+        {
+          "address": "0x46B427",
+          "parent_entry": "0x46B370",
+          "type": 17
+        },
+        {
+          "address": "0x51B4A4",
+          "parent_entry": "0x51B3E0",
+          "type": 17
+        },
+        {
+          "address": "0x51B4C0",
+          "parent_entry": "0x51B3E0",
+          "type": 17
+        }
+      ],
+      "verification_level": "原四完整根15条/55B与114直接入向及401EA0单尾跳；两源八片段及限定台账/新增引用静态，未构建/测试/运行或计算摘要；不核全父或故障等价",
+      "native_provider": {
+        "source": "src/platform/LegacyCryptInt.cpp",
+        "symbol": "IntMinusCrypt_401FE0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "cryptint_arithmetic_adaptation": {
+        "source_expression": "lhs - Read_401EC0(rhs)",
+        "value_width_bits": 32,
+        "read_calls": 1,
+        "specialized_unsigned_wrap_removed": true,
+        "encoding_bit_operations_unchanged": true,
+        "overflow_or_fault_equivalent": false,
+        "whole_callers_verified": false
+      },
+      "cryptint_internal_call_connections": [
+        {
+          "parent_entry": "0x401FE0",
+          "call_site": "0x401FE4",
+          "target_entry": "0x401EA0",
+          "native_target_symbol": "Read_401EC0",
+          "source": "src/platform/LegacyCryptInt.cpp",
+          "symbol": "IntMinusCrypt_401FE0",
+          "relationship": "原401EA0单尾跳401EC0，实际右对象读取一次；不增加第二次读取"
+        }
+      ]
     }
   ]
 }

@@ -289,7 +289,8 @@
         "doc/cg2d_hosted_stdio_init_spec.md",
         "doc/cg2d_array_counter_spec.md",
         "doc/cg2d_hosted_exception_filter_spec.md",
-        "doc/cg2d_multibyte_string_spec.md"
+        "doc/cg2d_multibyte_string_spec.md",
+        "doc/cg2d_cryptint_arithmetic_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -430,7 +431,11 @@
         "F:0013EA4A",
         "F:0013DDB5",
         "F:0013C4E0",
-        "F:0013C560"
+        "F:0013C560",
+        "F:00001E10",
+        "F:00001E60",
+        "F:00001E90",
+        "F:00001FE0"
       ],
       "closure_task_ids": [
         "C01",
@@ -463,7 +468,8 @@
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision",
         "doc/cg2d_array_counter_spec.md#array-counter-decision",
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision",
-        "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision"
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -11571,6 +11577,102 @@
       "observation": "本头精确补丁及三既有声明/定义/生产消费引用静态；原函数/数据正文保持",
       "expected": "共享提示正文消费侧和唯一owner/生产端同一128B类型合同",
       "actual": "声明char[128]与sizeof断言落实；无新函数/运行证据，T01/U03及完整门禁不提升"
+    },
+    {
+      "id": "E-CRYPTINT-ARITHMETIC-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原四根15条/55B、114直接入向与401EA0单尾跳；doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cryptint-arithmetic-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-baseline",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-acceptance",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "src/platform/LegacyCryptInt.cpp#Add_401E10",
+        "src/platform/LegacyCryptInt.cpp#Subtract_401E60",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "src/platform/LegacyCryptInt.cpp#IntMinusCrypt_401FE0",
+        "include/cg/platform/LegacyCryptInt.hpp#Add_401E10"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24不专项模拟数学溢出回绕或故障；普通S32算术、读取一次/编码与原宽保持，不加保护/拒绝/钳制/补零或x64安全声明",
+          "decision_ref": "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "四个既有算术入口撤专设U32/bit_cast回绕；其余完整源码保持",
+      "expected": "四个普通算术叶按S32原宽与现行异常裁决落实，正常读取/编码及调用序保持",
+      "actual": "仅本组源码/限定映射和静态；全部父/owner/alias、CRT/实际ABI/完整运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-CRYPTINT-ARITHMETIC-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原四根15条/55B、114直接入向与401EA0单尾跳；doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cryptint-arithmetic-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-baseline",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-acceptance",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "src/platform/LegacyCryptInt.cpp#Add_401E10",
+        "src/platform/LegacyCryptInt.cpp#Subtract_401E60",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "src/platform/LegacyCryptInt.cpp#IntMinusCrypt_401FE0",
+        "include/cg/platform/LegacyCryptInt.hpp#Add_401E10"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24不专项模拟数学溢出回绕或故障；普通S32算术、读取一次/编码与原宽保持，不加保护/拒绝/钳制/补零或x64安全声明",
+          "decision_ref": "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "读一次及既有赋值包装/SetNorVal/共享RNG接线保持，四原点/唯一尾跳明确",
+      "expected": "四个普通算术叶按S32原宽与现行异常裁决落实，正常读取/编码及调用序保持",
+      "actual": "仅本组源码/限定映射和静态；全部父/owner/alias、CRT/实际ABI/完整运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-CRYPTINT-ARITHMETIC-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原四根15条/55B、114直接入向与401EA0单尾跳；doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cryptint-arithmetic-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-baseline",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-acceptance",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "src/platform/LegacyCryptInt.cpp#Add_401E10",
+        "src/platform/LegacyCryptInt.cpp#Subtract_401E60",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "src/platform/LegacyCryptInt.cpp#IntMinusCrypt_401FE0",
+        "include/cg/platform/LegacyCryptInt.hpp#Add_401E10"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24不专项模拟数学溢出回绕或故障；普通S32算术、读取一次/编码与原宽保持，不加保护/拒绝/钳制/补零或x64安全声明",
+          "decision_ref": "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两源八片段、完整四根/入向、四语义/四处置和本组引用静态",
+      "expected": "四个普通算术叶按S32原宽与现行异常裁决落实，正常读取/编码及调用序保持",
+      "actual": "仅本组源码/限定映射和静态；全部父/owner/alias、CRT/实际ABI/完整运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -11894,7 +11996,8 @@
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
-        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
       ]
     },
     {
@@ -11931,6 +12034,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_character_select_scene.md#character-message-storage-source-state"
+      ]
+    },
+    {
+      "task_id": "U11",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
       ]
     }
   ],
@@ -13623,6 +13734,38 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_multibyte_string_spec.md#multibyte-string-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:00001E10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:00001E60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:00001E90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:00001FE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
       ]
     }
   ],

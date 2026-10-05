@@ -8285,3 +8285,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-source-state)纳管61/62/63/83共用主体十九处。83中点/两侧90-198/player与非83等级图号、10000累计/参与者及149不同20-21/target10门禁、40000-20000-10000优先及sameSide反向184-74保持。初始空caster Finish直接回存，目标空Finish后仍效果-1终结/累计回送/Move/RID/58=2，255先pub再退出，原调用后live/重复列表保持。
 
 [566条2220B八页56call](../cg2d_battle_m_skill61_sampling_evidence.json)及原202B入口/48B偏移仅本步有界证据，不代其他技能/owner或运行；网络原格式明文/音频暂停及完整门禁持续。
+
+## BMQ01 五技能共用主体的自身效果与结束消费（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-source-state)纳管50/51/52/53/88共用主体五处。初始空actor Finish直接回存；非空三Take后逐次live caster Append25/55/40/139，flags非255才自身效果，不论flags均终结-1/0/0及64、正常图号/Move/++58，原本没有RID，保持该区别。
+
+[103条423B两页13call](../cg2d_battle_m_skill50_sampling_evidence.json)和原202B入口/48B偏移仅本步有界证据，其它技能/owner/运行门禁继续，网络原格式明文/音频暂停保持。

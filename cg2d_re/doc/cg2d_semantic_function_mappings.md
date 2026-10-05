@@ -2441,3 +2441,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [正常共用主体](cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-source-state)566条2220B八页56call，追加ProcessBattleMSkill61Family单根十九处及原累计/反向消费合同；入口低段202B仅四case定位，十二S32偏移48B原新对应保持，不新F/X/adapted/分类/完整成员，旧历史与其它字段保持。
 
 语义1350/有效ID1345、片段5/分类456/关联1463保持；其它各技能/全路由与完整17298父-SEH、全部消费者/owner运行继续。
+
+## BMQ01 旧812的50/51/52/53/88主体追加（2026-10-06）
+
+[正常共用主体](cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-source-state)103条423B两页13call，追加ProcessBattleMSkill50Family单根五处和无RID的原结束合同；202B入口仅五case定位/原48B偏移保持，不新F/X/adapted/分类/完整成员，旧历史与其它字段保持。
+
+语义1350/有效ID1345、片段5/分类456及关联1463保持；其它各技能/全路由/完整17298父-SEH和全部消费者/owner运行继续。

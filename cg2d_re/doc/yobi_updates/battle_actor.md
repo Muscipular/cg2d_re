@@ -169,3 +169,9 @@
 [十九组裁决](../cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-decision)恢复X/Y分别两索引先两坐标、kind先actor/player首动作同caster，各target/last字段actor先skill或level，累计caster字段actor先live total，最后效果total-flags-caster-last-actor。反向效果沿已取位置/flags/amount，动作后重新借当前目标；仅42BB9A全局flags20原W8，其他W32和AL/AH寄存器局部运算保持，不改共享布局或owner。
 
 [完整正常有界主体](../cg2d_battle_m_skill61_sampling_evidence.json)566条2220B八页56call，参与者重复/原正常零/不同空出口、调用后live与累计/Move-RID-58=2保持。其它各技能全部消费者及资源owner重进退出/借用失效、SDK/ABI/画面继续。
+
+## BMQ01 自身效果角色与空条件回写（2026-10-06）
+
+[五组裁决](../cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-decision)恢复actor空比较先位置pub及同条件消费、两字段actor先live skill或level、自身4393A0沿同caster样本作actor和target、level比较后caster先偏移读取。每次调用后重新借当前角色，不把初始actor跨调用用于字段/效果/终结或末Move；不改共享布局或owner。
+
+[完整正常有界主体](../cg2d_battle_m_skill50_sampling_evidence.json)103条423B两页13call，三Take/flags255/各正常常数和Move-增58无RID保持；其它各技能消费者与资源owner重进退出/借用失效、SDK/ABI/画面继续。

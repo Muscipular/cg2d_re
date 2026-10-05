@@ -604,7 +604,8 @@
         "doc/cg2d_network_dispatch.md",
         "doc/cg2d_network_plaintext_frame_spec.md",
         "doc/cg2d_winsock_import_binding_spec.md",
-        "doc/cg2d_network_buffer_lifecycle_spec.md"
+        "doc/cg2d_network_buffer_lifecycle_spec.md",
+        "doc/cg2d_command_checksum_publication_spec.md"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -631,7 +632,8 @@
         "F:00108310",
         "F:00108360",
         "F:00116B60",
-        "F:00116DA0"
+        "F:00116DA0",
+        "F:00117510"
       ],
       "closure_task_ids": [
         "P09",
@@ -645,19 +647,22 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-decision",
-        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision"
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
         "murD及音频传递依赖仍暂停；完整登录/明文互通和V03未验，R受执行限制",
         "NWI01仅十五Winsock导入/跳板及26范围内API调用归属、八共享读取值时点；所有父/状态/字节与完整owner/alias/R1/R7、实际外部ABI/链接/互通及运行未闭，不以接口定位关闭FUNC-NETWORK",
-        "NLC01七根/九协议块/18槽局部生产消费/失败退出已具名映射，九缓冲17共享取值/三发布序及单flags实修；未知全部父/owner/alias/重进/R1/R7、SDK ABI/链接/正常失败/明文互通及运行未闭"
+        "NLC01七根/九协议块/18槽局部生产消费/失败退出已具名映射，九缓冲17共享取值/三发布序及单flags实修；未知全部父/owner/alias/重进/R1/R7、SDK ABI/链接/正常失败/明文互通及运行未闭",
+        "NCS01仅517510完整命令体的局部S32校验和/ASCII状态发布源码校准；83调用父完整业务、全部owner/alias/动态边、实际CRT ABI/失败、真实收发与运行未闭。六上下文根不按本轮新增源码/审核重复计数"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
-        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure"
       ]
     },
     {
@@ -10067,6 +10072,105 @@
       "observation": "七完整根607条/2068B、17读取点、单CPP限定静态对照",
       "expected": "不缓存跨malloc/清零的共享长度，不新增终止/保护；保持原活动/状态/收发/失败/清理顺序",
       "actual": "两体实修、九terminate撤销；原已存在七入口有具名源码/数据/生命周期映射，完整父/SDK/运行未闭"
+    },
+    {
+      "id": "E-COMMAND-CHECKSUM-PUBLICATION-I-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "517510完整113条/348B及83直接调用点；六上下文根199条/607B；doc/cg2d_command_checksum_publication_spec.md#command-checksum-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-command-checksum-publication-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-baseline",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-acceptance",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
+        "doc/cg2d_command_checksum_publication_evidence.json",
+        "src/network/NetworkRuntime.cpp#BuildProtocolCommand_517510",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState"
+      ],
+      "differences": [
+        {
+          "description": "局部S32校验和承接原ESI，移除逐字节共享和/二进制结果发布及读回；旧ASCII文本复制与W16长度发布、原命令/状态/校验规则保持；模式0从错误十进制59修回原0x59（十进制89）",
+          "decision_ref": "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision"
+        },
+        {
+          "description": "指针拓宽与既有受限CRT真实格式/itoa承接仍为adapted，不豁免全部调用父/owner/alias、实际ABI/失败/真实收发与运行；异常沿RPLAN.24",
+          "decision_ref": "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一CPP一既有命令体，三个校验和限定替换",
+      "expected": "共享FC4/FC6先清零，原ESI局部计算后交真实itoa，仅转换后发布ASCII文本与W16长度",
+      "actual": "删除循环中共享中间和与转换前二进制发布，S32局部计算/原两模式与密码字节拓展保持；完整调用父/运行未闭；模式0原59h常量以0x59（89）恢复"
+    },
+    {
+      "id": "E-COMMAND-CHECKSUM-PUBLICATION-W-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "517510完整113条/348B及83直接调用点；六上下文根199条/607B；doc/cg2d_command_checksum_publication_spec.md#command-checksum-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-command-checksum-publication-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-baseline",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-acceptance",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
+        "doc/cg2d_command_checksum_publication_evidence.json",
+        "src/network/NetworkRuntime.cpp#BuildProtocolCommand_517510",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState"
+      ],
+      "differences": [
+        {
+          "description": "局部S32校验和承接原ESI，移除逐字节共享和/二进制结果发布及读回；旧ASCII文本复制与W16长度发布、原命令/状态/校验规则保持；模式0从错误十进制59修回原0x59（十进制89）",
+          "decision_ref": "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision"
+        },
+        {
+          "description": "指针拓宽与既有受限CRT真实格式/itoa承接仍为adapted，不豁免全部调用父/owner/alias、实际ABI/失败/真实收发与运行；异常沿RPLAN.24",
+          "decision_ref": "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "83原直接call身份、三真实callee及命令/局部/共享发布序归档",
+      "expected": "共享FC4/FC6先清零，原ESI局部计算后交真实itoa，仅转换后发布ASCII文本与W16长度",
+      "actual": "删除循环中共享中间和与转换前二进制发布，S32局部计算/原两模式与密码字节拓展保持；完整调用父/运行未闭；模式0原59h常量以0x59（89）恢复"
+    },
+    {
+      "id": "E-COMMAND-CHECKSUM-PUBLICATION-S-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "517510完整113条/348B及83直接调用点；六上下文根199条/607B；doc/cg2d_command_checksum_publication_spec.md#command-checksum-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-command-checksum-publication-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-baseline",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-acceptance",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
+        "doc/cg2d_command_checksum_publication_evidence.json",
+        "src/network/NetworkRuntime.cpp#BuildProtocolCommand_517510",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState"
+      ],
+      "differences": [
+        {
+          "description": "局部S32校验和承接原ESI，移除逐字节共享和/二进制结果发布及读回；旧ASCII文本复制与W16长度发布、原命令/状态/校验规则保持；模式0从错误十进制59修回原0x59（十进制89）",
+          "decision_ref": "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision"
+        },
+        {
+          "description": "指针拓宽与既有受限CRT真实格式/itoa承接仍为adapted，不豁免全部调用父/owner/alias、实际ABI/失败/真实收发与运行；异常沿RPLAN.24",
+          "decision_ref": "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "113条/348B原命令体及六上下文完整根、限定源码/数据静态对照",
+      "expected": "共享FC4/FC6先清零，原ESI局部计算后交真实itoa，仅转换后发布ASCII文本与W16长度",
+      "actual": "删除循环中共享中间和与转换前二进制发布，S32局部计算/原两模式与密码字节拓展保持；完整调用父/运行未闭；模式0原59h常量以0x59（89）恢复"
     }
   ],
   "task_acceptance": [
@@ -10337,7 +10441,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
-        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure"
       ]
     },
     {
@@ -10346,7 +10451,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
-        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure"
       ]
     },
     {
@@ -10355,7 +10461,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
-        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure"
       ]
     },
     {
@@ -10364,7 +10471,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
-        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure"
       ]
     }
   ],
@@ -11881,6 +11989,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00117510",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure"
       ]
     }
   ],

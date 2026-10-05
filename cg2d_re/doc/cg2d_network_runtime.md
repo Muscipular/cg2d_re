@@ -3689,3 +3689,15 @@ phase71发送后先重读阶段，再发布状态1；socket创建返回及fd集�
 原部分收发/帧/两次指针表清零/30秒nr/错误日志后10035过滤和明文规则保持。
 完整父/所有借用/owner/alias/R1/R7、SDK ABI/链接/失败/互通和运行仍待，
 不以源修复宣称原x86故障或x64内存安全通过。
+
+## NCS01 命令校验和与共享文本发布（2026-10-05）
+
+[局部SPEC](cg2d_command_checksum_publication_spec.md#command-checksum-source-closure)与
+[归档](cg2d_command_checksum_publication_evidence.json)补517510原113条/348B、
+83直接call及六上下文199条/607B。原校验和仅在ESI局部S32计算，
+54ABDD基数16输出到独立局部后才复制ASCII文本/发布FCC W16长度。
+本轮撤当前逐字节共享和、二进制结果发布及读回，恢复局部S32并把模式0十进制59纠正为原0x59（89）；
+既有FC4/FC6清零、两次模式读取/密码字节扩展、命令与全部格式保持。
+三队列/重置/拷贝/observer/实际callback及两个明文帧源码不改。
+只审命令入口一新adapted；不据六上下文或83直接call宣称全部父/owner/alias、
+实际CRT ABI/失败、真实收发/运行闭合，完整网络与U10/V03/R01/R02保持open。

@@ -1099,26 +1099,23 @@ std::int32_t BuildProtocolCommand_517510(
     checksumSlot[2] = 0;
     gNetworkRuntimeState.protocolState593FC4[2] = 0;
 
+    // 原5175D3..51761B仅使用局部ESI；转换前不发布共享中间和。
+    std::int32_t checksum = 0;
     if (temp[0] != '\0') {
         std::size_t index = 0;
         do {
-            std::uint16_t sum = ReadProtocolStateW16(0);
-            sum = static_cast<std::uint16_t>(
-                sum
-                + (static_cast<std::uint8_t>(temp[index]) & 0x7FU));
-            if (sum > 255U) {
-                sum = static_cast<std::uint16_t>(sum - 255U);
+            checksum += static_cast<std::int32_t>(
+                static_cast<std::uint8_t>(temp[index]) & 0x7FU);
+            if (checksum > 255) {
+                checksum -= 255;
             }
-            WriteProtocolStateW16(0, sum);
             ++index;
         } while (temp[index] != '\0');
     }
-
-    std::uint16_t checksum = ReadProtocolStateW16(0);
     const std::uint16_t secondMode =
         gNetworkRuntimeState.protocolModeDA3B22;
     if (secondMode == 0) {
-        checksum = static_cast<std::uint16_t>(checksum ^ 59U);
+        checksum ^= 0x59;
     } else {
         const std::int32_t divisor = passwordLength == 0
             ? 1 : passwordLength;
@@ -1130,13 +1127,12 @@ std::int32_t BuildProtocolCommand_517510(
             static_cast<std::int16_t>(passwordByte);
         const std::uint32_t passwordValue = static_cast<std::uint32_t>(
             std::bit_cast<std::uint16_t>(widenedPasswordByte));
-        checksum = static_cast<std::uint16_t>(
+        checksum = static_cast<std::int32_t>(
             static_cast<std::uint32_t>(checksum) ^ passwordValue);
     }
-    WriteProtocolStateW16(0, checksum);
 
     static_cast<void>(platform::Itoa_54ABDD(
-        static_cast<int>(ReadProtocolStateW16(0)),
+        static_cast<int>(checksum),
         checksumSlot.data(),
         16));
     const std::size_t checksumLength = std::strlen(checksumSlot.data());

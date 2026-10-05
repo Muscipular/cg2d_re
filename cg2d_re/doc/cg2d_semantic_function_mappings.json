@@ -89950,7 +89950,7 @@
     {
       "original_entry": "0x517510",
       "inventory_id": "F:00117510",
-      "status": "既有回包提示/命令前缀父的全部格式已接真实核心；真实协议/启动/运行未验",
+      "status": "NCS01命令校验和恢复局部S32计算与转换后ASCII发布；原格式/调用保持，完整父/owner/真实收发与运行未闭",
       "original_end_exclusive": "0x51766C",
       "instruction_count": 113,
       "original_direct_reference_count": 83,
@@ -90329,10 +90329,67 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_command_checksum_publication_spec.md",
+        "doc/cg2d_command_checksum_publication_evidence.json"
       ],
-      "verification_level": "四父完整248条/86直接入向、四格式点/四表达式、六原字节组/两公会格式分支与参数/消息/存档/回写/命令前缀次序、整份源码/JSON限定差异静态核对；未重验原命令变换/校验和/分派/发送/公会存档/音频，未执行",
-      "boundary": "既有非加密命令构造父只将变换后temp以58AA5C %s加尾空格输出到原借用buffer，返回忽略；原8B temp/命令拷贝/4038A0调用、后继密码长度/校验和状态/itoa16/不含NUL复制/W16长度/0返回逐字保持。83原入向只证明直接消费范围，不记所有caller/队列/发送已验收，不恢复403C50/403E50排除链。"
+      "verification_level": "NCS01当前原会话完整113条/348B、83直接call及六上下文根199条/607B；一CPP三校验和片段限定重放，原两模式/真实callee/局部S32与共享文本发布序静态对照。其他1211语义及政策不变；未构建/测试/运行/摘要",
+      "boundary": "NCS01以原517510完整113条/348B及83直接call核：独立8B命令局部/DWORD与尾byte间第一次mode读取、原4038A0及53B304 %s加尾空格保持。FC4低W16/FC6 U8先清零；校验和仅局部ESI对应S32逐字节低7位相加、超过255减一次，第二次mode与密码S8→S16低W16异或保持。原54ABDD基数16转换到独立局部后才复制ASCII（不含NUL）到同一12B短状态，再扫描当前共享文本发布FCC低W16长度。删除原端没有的逐字节共享和/二进制发布与读回，并将模式0错误十进制59恢复为原59h即0x59（89）；当前只取证/源码校准，不闭83调用父/全部owner/alias、CRT实际ABI/失败、原格式明文互通或运行。两算法叶排除、RPLAN.24保持。",
+      "command_checksum_publication_contract": {
+        "group": "NCS01",
+        "spec": "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "BuildProtocolCommand_517510",
+        "original_accumulator": "ESI S32",
+        "mode0_xor": 89,
+        "shared_intermediate_sum": false,
+        "binary_result_published_before_conversion": false,
+        "publication_points": [
+          {
+            "ea": "0x005175B6",
+            "action": "shared_low_W16_clear",
+            "slot": "0x00593FC4"
+          },
+          {
+            "ea": "0x005175C7",
+            "action": "shared_third_U8_clear",
+            "slot": "0x00593FC6"
+          },
+          {
+            "range": [
+              "0x005175D3",
+              "0x005175EC"
+            ],
+            "action": "local_ESI_S32_accumulation_no_shared_publication"
+          },
+          {
+            "ea": "0x005175EE",
+            "action": "second_mode_read",
+            "slot": "0x00DA3B22"
+          },
+          {
+            "ea": "0x00517625",
+            "action": "local_ESI_to_real_Itoa",
+            "target": "0x0054ABDD"
+          },
+          {
+            "range": [
+              "0x00517649",
+              "0x00517650"
+            ],
+            "action": "copy_local_ASCII_without_NUL_to_shared_state"
+          },
+          {
+            "ea": "0x00517660",
+            "action": "shared_text_length_low_W16_publish",
+            "slot": "0x00593FCC"
+          }
+        ],
+        "wire_format_changed": false,
+        "new_algorithm": false,
+        "full_calling_parents_closed": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x4631D0",

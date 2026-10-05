@@ -2201,3 +2201,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [三原39条110B/九call七父](cg2d_map_chara_link_evidence.json)及[具名合同](cg2d_map_chara_link_spec.md#map-chara-link-source-state)为43F180/43F1B0/43F220补唯一语义/本体声明来源与adapted；两个链接叶只原next取样/复读实修，一个只清头本体未改，不记清头新增。MAP/LOOP同原ID关联，不加原函数或代码次数。
 
 语义1282→1285/有效ID1278→1281、处置375→378，MAP38→41/LOOP3→6成员；原历史位置、差集/pending/非FID/R7及其它域保持。九直接call不代全部七父/全producer/所有alias或owner寿命/运行，完整功能和关闭数不提升。
+
+## MCP01 三观察生产者原身份（2026-10-05）
+
+[原三体288条1126B/三call两父](cg2d_map_chara_producer_evidence.json)及[具名合同](cg2d_map_chara_producer_spec.md#map-chara-producer-source-state)为43F330/43FEB0/440B70补正式语义/真实本体声明与adapted；六片段仅三个生产者和前置注释，原九组内存数值复制、父payload/三子槽取样已实修，其他同形调用和通用工具保持。
+
+语义1285→1288/有效ID1281→1284、处置378→381，MAP41→44/LOOP6→9成员；同ID双域不加函数分母或代码次数。全部原历史位置/队列/pending/非FID/R7及其它功能保持，全288其他语义/完整父与callee/alias/owner寿命/实际RNG和场景运行不因局部修正升级。

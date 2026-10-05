@@ -3893,3 +3893,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [具名源修正](cg2d_map_chara_link_spec.md#map-chara-link-decision)在43F180先保存payload.next，再按该值判断空尾或前进；43F1B0在next==action之后重新读取payload.next，再沿它取removed载荷/next、重接并返回载荷，恢复原43F1DD点，不沿用比较缓存或参数action。空头/头命中/未命中、写点和返回保持，不清removed.next或释放节点。
 
 既有MapCharaPayload五值/五孩子/frame/原生next/0x50、唯一5F9750头、三个生产者和两回调、43F1F0/43F230保持；43F220只清头正文未改，仅补身份。三原39条110B/九call七父及两源块只是正常合同静态，全部parent/producer/间接alias与owner寿命/实际ABI/SDK/场景画面运行未闭；异常不保护、修链或模拟/称等价。
+
+## MCP01 当前三观察生产入口原序实修（2026-10-05）
+
+[具名生产修正](cg2d_map_chara_producer_spec.md#map-chara-producer-decision)将43F330四坐标局部构造/复制按mask/encoded/W8 count取读及发布；其readiness与43FEB0四坐标按W8 count/mask/encoded取读及发布。仍是五对/四对构造析构、原四目标/+270 W16位置和值参数，不改通用CopyPayload/AssignFromInt，不跨同形函数。
+
+440B70在头方向写/追加前保存当次方向/payload，之后五轮沿原payload；已发布成功子槽在方向/动作/index前各按原重新读取，第一图号用创建返回。失败局部发布、五项容量、原回调/投影/发布/返回与MapCharaPayload/头owner保持，旧失实回调声明注释改为实际绑定说明。三原288条1126B/三call两父保存仅六具名片段/正常生产局部，不代全部父/callee/上游/alias和所有owner重进退出/borrow失效/实际ABI/SDK/场景画面运行。

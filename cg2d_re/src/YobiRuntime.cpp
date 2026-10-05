@@ -2191,7 +2191,7 @@ YobiAction* NewMapCharaAction()
     return NewYobiAction_404AE0(2, sizeof(MapCharaPayload));
 }
 
-// 两种观察节点的真实回调尚待落位，不以空回调替代。
+// 两种观察节点的真实回调，声明供以下生产入口绑定。
 void Sub_43F520(YobiAction* action);
 void Sub_440070(YobiAction* action);
 
@@ -2211,11 +2211,23 @@ YobiAction* Sub_43F330(
     action->field58 = direction;
     action->displayPriority = 10;
     action->flags = 0x20u;
-    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, mapX);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, mapY);
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        const std::uint32_t mask = temporary.mask;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint8_t readCount = temporary.readCount;
+        target.mask = mask;
+        target.encoded = encoded;
+        target.readCount = readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    };
+    assignCoordinate(action->mapX200, mapX);
+    assignCoordinate(action->mapY210, mapY);
     action->field270 = 0;
-    platform::legacy_crypt_int::AssignFromInt(&action->mapX1E0, mapX);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapY1F0, mapY);
+    assignCoordinate(action->mapX1E0, mapX);
+    assignCoordinate(action->mapY1F0, mapY);
     const double scaledX = static_cast<double>(mapX) * 64.0F;
     action->field27C = 0;
     action->field280 = 0;
@@ -2224,9 +2236,12 @@ YobiAction* Sub_43F330(
 
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value170);
-    action->readiness.readCount = temporary.readCount;
-    action->readiness.encoded = temporary.encoded;
-    action->readiness.mask = temporary.mask;
+    const std::uint8_t readCount = temporary.readCount;
+    const std::uint32_t mask = temporary.mask;
+    const std::uint32_t encoded = temporary.encoded;
+    action->readiness.readCount = readCount;
+    action->readiness.mask = mask;
+    action->readiness.encoded = encoded;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     action->phase = 1;
     const float worldY = action->worldY;
@@ -2260,9 +2275,12 @@ YobiAction* Sub_43FEB0(
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
-        target.readCount = temporary.readCount;
-        target.encoded = temporary.encoded;
-        target.mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint32_t encoded = temporary.encoded;
+        target.readCount = readCount;
+        target.mask = mask;
+        target.encoded = encoded;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     };
     assignCoordinate(action->mapX200, mapX);
@@ -6201,14 +6219,14 @@ YobiAction* Sub_440B70()
     action->callback = Sub_440C50;
     action->imageNo = gMapImage5F9734;
     action->characterAction = 3;
-    action->direction = gMapDirection5F9740;
+    const std::int32_t initialDirection = gMapDirection5F9740;
+    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    action->direction = initialDirection;
     action->displayPriority = 10;
     action->flags = 0x20;
     action->x = -100;
     action->y = -100;
     static_cast<void>(Sub_43F180(action));
-
-    auto* const payload = static_cast<MapCharaPayload*>(action->payload);
     for (std::size_t index = 0; index < payload->values.size(); ++index) {
         payload->values[index] = 0;
         payload->partyActions[index] = nullptr;
@@ -6222,9 +6240,13 @@ YobiAction* Sub_440B70()
         payload->partyActions[index] = child;
         if (child != nullptr) {
             child->imageNo = gMapImages5AC4A0[index];
-            child->direction = gMapDirection5F9740;
-            child->characterAction = 3;
-            child->field1D0 = static_cast<std::int32_t>(index);
+            YobiAction* const directionChild = payload->partyActions[index];
+            const std::int32_t direction = gMapDirection5F9740;
+            directionChild->direction = direction;
+            YobiAction* const actionChild = payload->partyActions[index];
+            actionChild->characterAction = 3;
+            YobiAction* const indexChild = payload->partyActions[index];
+            indexChild->field1D0 = static_cast<std::int32_t>(index);
         }
     }
     return action;

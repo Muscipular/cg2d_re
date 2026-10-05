@@ -338,3 +338,9 @@ G01/G02/U11/R01/R04/V04继续open。五完整父/全producer/地址逃逸与alia
 [追加/摘链与已有清头限定验收](cg2d_map_chara_link_spec.md#map-chara-link-acceptance)以三体39条110B/九call七父为原基线；两源块恢复原next读/复读，已有清头未改，三语义/来源与adapted及MAP41/LOOP6成员同步。E217→221仅两域各局部I/S，共用两源实修/三原证据，不计清头新实现或双份函数。
 
 G01/G02/U11/R01/R04/V04仍open。三生产者/两回调及七完整父、全部producer/间接alias和owner重进退出/borrow失效/实际ABI/SDK/时钟RNG/场景画面运行未闭；全部B/D/W/R/完整功能、R1/R7/R8与整体判定不提升，执行限制/音频暂停/网络原格式明文保持。
+
+## MCP01 原生产复制/取样局部I/S（2026-10-05）
+
+[三个生产者限定验收](cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance)以288条1126B/三call两父及原九组内存数值复制、父载荷与三个子槽复读为基线。六具名源片段（五行为/一注释）实修，三语义/来源/adapted及MAP44/LOOP9成员同步，E221→225只两域各I/S，共用同一批源修正/三原证据，不记双份函数。
+
+G01/G02/U11/R01/R04/V04仍open；全288其他语义/完整父与所有callee/五槽全上游/间接alias及owner寿命/实际ABI/SDK/时钟RNG/场景画面运行未闭。全部B/D/W/R/完整功能、R1/R7/R8/整体判定不提升，现行执行限制、原格式明文及音频暂停保持。

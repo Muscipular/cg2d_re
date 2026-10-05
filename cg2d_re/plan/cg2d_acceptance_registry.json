@@ -560,7 +560,8 @@
         "doc/cg2d_scene_state.md",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-baseline"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -568,7 +569,10 @@
         "F:0003F230",
         "F:0003F180",
         "F:0003F1B0",
-        "F:0003F220"
+        "F:0003F220",
+        "F:0003F330",
+        "F:0003FEB0",
+        "F:00040B70"
       ],
       "closure_task_ids": [
         "U11",
@@ -583,20 +587,23 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-decision"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "MSS01真实250/252入口仅半字快照/gate复读两块实修，一个既有ID纳管且与MAP关联；全部场景分发成员/父/callee/初值时钟RNG/断线重进退出及owner寿命/空链机器返回/实际ABI/SDK/场景画面运行未闭，完整门禁不提升",
         "MQC01为真实场景快照的查找/尾接清理依赖绑定两原身份；仅查询next取样一块实修、已有清理未改，双功能共用同一ID/原证据。完整父/传递依赖/所有owner与alias/空链机器返回/时钟RNG/真实SDK/场景运行未闭",
-        "MCL01场景观察链追加/摘链/清头三依赖原身份纳管，两源块只修原next读取点、清头未改；双域共用同一ID/原证据。全部父/传递依赖和producer/owner重进退出与borrow失效/时钟RNG/实际SDK/场景运行未闭"
+        "MCL01场景观察链追加/摘链/清头三依赖原身份纳管，两源块只修原next读取点、清头未改；双域共用同一ID/原证据。全部父/传递依赖和producer/owner重进退出与borrow失效/时钟RNG/实际SDK/场景运行未闭",
+        "MCP01观察节点生产三依赖原身份纳管，原复制/父载荷和子槽取样已实修；六片段限三入口/前置声明，不跨其他同形函数或通用载体工具。全父/传递callee/上游与owner重进退出及borrow失效/时钟RNG/实际SDK/场景运行未闭，双域共用同ID/原证据"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state"
       ]
     },
     {
@@ -1059,7 +1066,8 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-baseline",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-baseline"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1102,7 +1110,10 @@
         "F:0003F230",
         "F:0003F180",
         "F:0003F1B0",
-        "F:0003F220"
+        "F:0003F220",
+        "F:0003F330",
+        "F:0003FEB0",
+        "F:00040B70"
       ],
       "closure_task_ids": [
         "U11",
@@ -1123,7 +1134,8 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-decision",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-decision"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1135,7 +1147,8 @@
         "MEP01池初始化恢复原低W16写、领取/回收三块落实原头/链接取样及写序，500项/499轮原生链和原载荷/计数/返回保持；四既有身份纳管，其中清理未改。完整场景/所有父与池alias/owner重进退出及borrow失效/实际ABI/SDK/画面RNG运行未闭，异常不保护或模拟",
         "MSS01共享快照恢复低W16读取/高W16缓存发布及停止路径gate原复读点，同一packed owner/低半保持；一个既有ID与LOOP共同关联，原短路/状态/回调/计数和尾接不改，全部父/callee/alias与owner寿命/实际ABI/SDK/场景画面RNG运行未闭，异常不保护或模拟",
         "MQC01查找恢复载荷取后/五编号比较前保存next，一源块实修；已有五孩子清理未改、两身份和原生链来源纳管且与LOOP关联。七引用六call一tailjump五父不代完整parent/producer/所有alias与owner寿命/空链机器返回/实际ABI/SDK/场景画面运行，异常不保护或模拟",
-        "MCL01追加一次next读取/摘链命中后复读两块已实修，原发布/重接/返回及原生载荷/头保持；三已有身份纳管，其中只清头未改，与LOOP同ID关联。全producer/七完整父/间接alias与所有owner寿命/实际ABI/SDK/场景画面运行未闭，异常不保护或模拟"
+        "MCL01追加一次next读取/摘链命中后复读两块已实修，原发布/重接/返回及原生载荷/头保持；三已有身份纳管，其中只清头未改，与LOOP同ID关联。全producer/七完整父/间接alias与所有owner寿命/实际ABI/SDK/场景画面运行未闭，异常不保护或模拟",
+        "MCP01三生产者六片段恢复九组内存数值载体原复制序、父payload/三子槽取样，失实注释已改；五对/四对构析及失败/0x50/投影/回调/发布和随机消费保持。三身份同ID关联LOOP，全288其他语义/完整父/callee/五槽上游/所有alias及owner寿命/真实ABI/SDK/场景画面运行未闭，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1148,7 +1161,8 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state"
       ]
     },
     {
@@ -13555,6 +13569,130 @@
       "observation": "三原39条110B/库存/九call七父、两源片段精确差异和正常追加摘链/只清头合同限定静态",
       "expected": "追加用一次next判断/前进；摘链命中后重读前驱next，再取被摘载荷/next重接，保原发布/返回/原生头/节点寿命职责",
       "actual": "四条I/S共用两源实修/三原证据，清头本体未改；三生产者/两回调/七完整父与全producer/alias/所有owner重进退出/borrow失效、实际ABI/SDK/场景画面RNG运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-MAP-CHARA-PRODUCER-MAP-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原288条1126B/三call两父，九组数值复制及原父payload/三子槽取样；doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-chara-producer-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F330",
+        "src/YobiRuntime.cpp#Sub_43FEB0",
+        "src/YobiRuntime.cpp#Sub_440B70",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "六模式六块仅三入口/前置声明：九组临时值取读/原复制序、父payload早取及三子槽复读实修，纠正失实回调注释，原构析/随机/失败/投影/回调保持",
+          "decision_ref": "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三已有生产者原复制/取样已落码，五行为块一注释；通用工具及其他同形函数不改，原九对构析/失败发布保持",
+      "expected": "四坐标第一变体mask/encoded/count，第二变体与readiness count/mask/encoded读后同序发布；440B70 payload在追加前保存、成功子后三字段复读发布槽，原构析/RNG和失败/投影/字段宽度/返回保持",
+      "actual": "四条I/S共用三原本体/一批实际实修证据，不计双份函数；全288其他语义/完整父与callee/五槽全上游/所有alias及owner寿命/真实ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-MAP-CHARA-PRODUCER-MAP-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原288条1126B/三call两父，九组数值复制及原父payload/三子槽取样；doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-chara-producer-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F330",
+        "src/YobiRuntime.cpp#Sub_43FEB0",
+        "src/YobiRuntime.cpp#Sub_440B70",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "六模式六块仅三入口/前置声明：九组临时值取读/原复制序、父payload早取及三子槽复读实修，纠正失实回调注释，原构析/随机/失败/投影/回调保持",
+          "decision_ref": "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三原288条1126B/库存/三call两父、六具名片段精确差异和九组复制/既有构析及父载荷/子槽取样限定静态",
+      "expected": "四坐标第一变体mask/encoded/count，第二变体与readiness count/mask/encoded读后同序发布；440B70 payload在追加前保存、成功子后三字段复读发布槽，原构析/RNG和失败/投影/字段宽度/返回保持",
+      "actual": "四条I/S共用三原本体/一批实际实修证据，不计双份函数；全288其他语义/完整父与callee/五槽全上游/所有alias及owner寿命/真实ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-MAP-CHARA-PRODUCER-LOOP-I-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原288条1126B/三call两父，九组数值复制及原父payload/三子槽取样；doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-chara-producer-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F330",
+        "src/YobiRuntime.cpp#Sub_43FEB0",
+        "src/YobiRuntime.cpp#Sub_440B70",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "六模式六块仅三入口/前置声明：九组临时值取读/原复制序、父payload早取及三子槽复读实修，纠正失实回调注释，原构析/随机/失败/投影/回调保持",
+          "decision_ref": "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三已有生产者原复制/取样已落码，五行为块一注释；通用工具及其他同形函数不改，原九对构析/失败发布保持",
+      "expected": "四坐标第一变体mask/encoded/count，第二变体与readiness count/mask/encoded读后同序发布；440B70 payload在追加前保存、成功子后三字段复读发布槽，原构析/RNG和失败/投影/字段宽度/返回保持",
+      "actual": "四条I/S共用三原本体/一批实际实修证据，不计双份函数；全288其他语义/完整父与callee/五槽全上游/所有alias及owner寿命/真实ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-MAP-CHARA-PRODUCER-LOOP-S-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原288条1126B/三call两父，九组数值复制及原父payload/三子槽取样；doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-chara-producer-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F330",
+        "src/YobiRuntime.cpp#Sub_43FEB0",
+        "src/YobiRuntime.cpp#Sub_440B70",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "六模式六块仅三入口/前置声明：九组临时值取读/原复制序、父payload早取及三子槽复读实修，纠正失实回调注释，原构析/随机/失败/投影/回调保持",
+          "decision_ref": "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三原288条1126B/库存/三call两父、六具名片段精确差异和九组复制/既有构析及父载荷/子槽取样限定静态",
+      "expected": "四坐标第一变体mask/encoded/count，第二变体与readiness count/mask/encoded读后同序发布；440B70 payload在追加前保存、成功子后三字段复读发布槽，原构析/RNG和失败/投影/字段宽度/返回保持",
+      "actual": "四条I/S共用三原本体/一批实际实修证据，不计双份函数；全288其他语义/完整父与callee/五槽全上游/所有alias及owner寿命/真实ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，异常不保护或模拟/称等价"
     }
   ],
   "task_acceptance": [
@@ -13714,7 +13852,8 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state"
       ]
     },
     {
@@ -13946,7 +14085,8 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state"
       ]
     },
     {
@@ -14004,7 +14144,8 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state"
       ]
     },
     {
@@ -14053,7 +14194,8 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state"
       ]
     },
     {
@@ -14079,7 +14221,8 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state"
       ]
     },
     {
@@ -14240,7 +14383,8 @@
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
-        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state"
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state"
       ]
     }
   ],
@@ -18074,6 +18218,42 @@
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-acceptance",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
         "doc/cg2d_map_chara_link_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0003F330",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0003FEB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00040B70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json"
       ]
     }
   ],

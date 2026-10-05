@@ -146118,6 +146118,142 @@
       ],
       "verification_level": "三原39条110B/九call七父保存，仅两模式两块/正常追加摘链和已有清头合同静态，双功能同ID，不代全producer/七父/所有alias或owner寿命/运行",
       "boundary": "已有清头本体未改：仅把唯一5F9750原生头写空，不遍历/标死/释放或统一不具值语义的返回；仅原身份/正常源纳管，不计新增清头。 既有五值/五孩子/frame/原生next/0x50载荷和唯一头owner保持。三生产者/两回调与全部父/间接alias及地址逃逸/所有owner重进退出与borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验；异常不加NULL/修链保护或回绕故障模拟/称等价。"
+    },
+    {
+      "original_entry": "0x43f330",
+      "inventory_id": "F:0003F330",
+      "status": "MCP01观察生产原复制/取样实修及原身份纳管；完整父/callee与场景寿命运行未验",
+      "original_end_exclusive": "0x43f511",
+      "instruction_count": 122,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43F330",
+            "NewMapCharaAction",
+            "Sub_43F520",
+            "Sub_43F180"
+          ],
+          "relationship": "既有真实生产入口，MCP01仅原数值复制/载荷及子槽取样修正；三个真实callback/优先级2原生payload和正常失败/投影/发布保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_43F330",
+            "NewMapCharaAction",
+            "YobiAction"
+          ],
+          "relationship": "既有真实声明/非拥有原生返回与定宽值参数、专用x64载荷创建接口保持，无新公开类型"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x440a87",
+          "parent_entry": "0x440920",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json"
+      ],
+      "verification_level": "三原288条1126B/三call两父保存，仅六模式六块/九组临时数值复制和既有构造析构/父载荷及三子槽复读局部静态；不代全部288其他语义/完整父与所有callee/owner寿命/运行",
+      "boundary": "43F330四坐标按原先读mask/encoded/W8 count、同序发布，field270 W16位于第二/第三组之间；readiness改先读W8 count/mask/encoded并同序发布。各组仍一次原构造/析构、参数/目标及随机消费保持，当前五组共五对。 原失败即空、优先级2/已定0x50载荷、其他动作字段/回调/投影与真实S64→低S32、父追加/返回及MCL01/MQC01保持；通用CopyPayload/AssignFromInt不改，不跨改其他同形函数。完整父参数/所有callee与五槽上游/间接alias和owner重进退出/borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护/回绕或故障模拟/称等价，网络原格式明文及音频暂停保持。"
+    },
+    {
+      "original_entry": "0x43feb0",
+      "inventory_id": "F:0003FEB0",
+      "status": "MCP01观察生产原复制/取样实修及原身份纳管；完整父/callee与场景寿命运行未验",
+      "original_end_exclusive": "0x440064",
+      "instruction_count": 106,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43FEB0",
+            "NewMapCharaAction",
+            "Sub_440070",
+            "Sub_43F180"
+          ],
+          "relationship": "既有真实生产入口，MCP01仅原数值复制/载荷及子槽取样修正；三个真实callback/优先级2原生payload和正常失败/投影/发布保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_43FEB0",
+            "NewMapCharaAction",
+            "YobiAction"
+          ],
+          "relationship": "既有真实声明/非拥有原生返回与定宽值参数、专用x64载荷创建接口保持，无新公开类型"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4409bc",
+          "parent_entry": "0x440920",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json"
+      ],
+      "verification_level": "三原288条1126B/三call两父保存，仅六模式六块/九组临时数值复制和既有构造析构/父载荷及三子槽复读局部静态；不代全部288其他语义/完整父与所有callee/owner寿命/运行",
+      "boundary": "43FEB0四坐标的原局部lambda按W8 count/mask/encoded读后同序发布；四目标顺序、field270 W16、同值参数和四对原构造析构/随机消费保持。 原失败即空、优先级2/已定0x50载荷、其他动作字段/回调/投影与真实S64→低S32、父追加/返回及MCL01/MQC01保持；通用CopyPayload/AssignFromInt不改，不跨改其他同形函数。完整父参数/所有callee与五槽上游/间接alias和owner重进退出/borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护/回绕或故障模拟/称等价，网络原格式明文及音频暂停保持。"
+    },
+    {
+      "original_entry": "0x440b70",
+      "inventory_id": "F:00040B70",
+      "status": "MCP01观察生产原复制/取样实修及原身份纳管；完整父/callee与场景寿命运行未验",
+      "original_end_exclusive": "0x440c41",
+      "instruction_count": 60,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_440B70",
+            "MapCharaPayload",
+            "NewMapCharaAction",
+            "Sub_440C50",
+            "Sub_43F180"
+          ],
+          "relationship": "既有真实生产入口，MCP01仅原数值复制/载荷及子槽取样修正；三个真实callback/优先级2原生payload和正常失败/投影/发布保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_440B70",
+            "NewMapCharaAction",
+            "YobiAction"
+          ],
+          "relationship": "既有真实声明/非拥有原生返回与定宽值参数、专用x64载荷创建接口保持，无新公开类型"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x440fe0",
+          "parent_entry": "0x440fe0",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-acceptance",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_chara_producer_evidence.json"
+      ],
+      "verification_level": "三原288条1126B/三call两父保存，仅六模式六块/九组临时数值复制和既有构造析构/父载荷及三子槽复读局部静态；不代全部288其他语义/完整父与所有callee/owner寿命/运行",
+      "boundary": "440B70方向先读后取payload，在方向及其余头字段写/原追加前保存payload；五轮保正值/空槽和子创建失败局部发布。成功子先用创建返回写图号，后分别复读已发布partyActions槽写方向/动作/index，三读取点原序，不加空槽拒绝或回滚。 原失败即空、优先级2/已定0x50载荷、其他动作字段/回调/投影与真实S64→低S32、父追加/返回及MCL01/MQC01保持；通用CopyPayload/AssignFromInt不改，不跨改其他同形函数。完整父参数/所有callee与五槽上游/间接alias和owner重进退出/borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护/回绕或故障模拟/称等价，网络原格式明文及音频暂停保持。"
     }
   ]
 }

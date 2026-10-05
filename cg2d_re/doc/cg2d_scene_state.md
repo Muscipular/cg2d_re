@@ -7617,3 +7617,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [链接合同](cg2d_map_chara_link_spec.md#map-chara-link-source-state)沿MQC01同一头owner修两源块：43F180每节点只保存一次next，用于空尾判断或前进；43F1B0先比较缓存next，命中后再取当时payload.next读取被摘载荷/后继，按原重接并返载荷。原空头发布/尾写/头命中/未命中返回与节点最终释放职责保持。
 
 43F220已有只清头本体不改、不新增节点死亡或释放；查询/清理和所有生产者/回调当前正文保持。三原39条110B/九call七父保存只正常链接合同及两源差异，三ID双功能不增函数分母或代码次数；全producer/七父/所有alias/owner重进退出与borrow失效/实际ABI/SDK/时钟RNG/场景画面运行未验，异常不加保护/修链或模拟/称等价。
+
+## MCP01 观察生产原复制与发布取样（2026-10-05）
+
+[生产合同](cg2d_map_chara_producer_spec.md#map-chara-producer-source-state)沿MCL01三个真实生产入口修五行为块/一注释。43F330四坐标按mask→encoded→count先读后写，readiness按count→mask→encoded；43FEB0四坐标同后一顺序。43F330不用通用CopyPayload的不同写序，通用工具及其他同形函数不改；九对原构造析构/参数/随机消费保持。
+
+440B70先取当次方向与payload再发布方向/头字段并追加，五轮沿原payload；成功子先用创建返回写图号，后三字段各复读已发布槽再写。失败即空/子失败正值+空槽、0x50载荷/回调/投影及真实S64→低S32保持；失实“回调尚待落位”已改，两回调正文未改。三原288条1126B/三call两父只正常复制/取样局部，全288其他语义/完整父及callee/全上游/alias/owner寿命/真实ABI/SDK/场景画面RNG运行未验，异常不保护或模拟/称等价。

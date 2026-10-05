@@ -4039,3 +4039,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [三项修复](cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision)恢复43B940的正常S32 next先算再累加/发布、43B8C0的S8条件先保存再首字节写和当前游标先读再written/offset推进。Peek/Find两个既有正确根、对象头和Input封装保持；原大写十六进制/旧字节/分隔/NUL及明文格式保持。
 
 [四完整根220条548B](cg2d_battle_m_read_sampling_evidence.json)、77普通call5父/14出向与五指令页纳管缺失原身份。仅两根三片段及局部I/S，不代全部M生产消费/5父正文和owner/ABI/画面运行。
+
+## BMS01 M预扫描与对象/预览读（2026-10-06）
+
+[七项修复](cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision)恢复对象整数next先算、两字符串S8条件/尾游标先取样、对象剩一格同局部连续两pub及扫描头索引S32。439600正确局部扫描/终止未消费位置→出口两全局pub、两字符串不同的第二字节取样/发布合同保持。
+
+[五完整328条911B](cg2d_battle_m_scan_sampling_evidence.json)、696普通call8父/27出向/六指令页十二引用页补完整基线和分类，旧439770记录追加不重复身份。RID失败恢复/成功first→second W8增计数再pub游标可追；全部M生产消费与owner/ABI/画面运行继续。

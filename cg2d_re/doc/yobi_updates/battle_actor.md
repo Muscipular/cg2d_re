@@ -85,3 +85,9 @@
 [裁决与原基线](../cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision)恢复整数next计算和字符串先S8判定/先游标取样三片段；原双字节截断扫描/双次游标发布、分隔与NUL、大写十六进制保持。Find的0x800000经实际原字节及操作数确认，保留原2+2*3项跳过与返回条件。
 
 [证据](../cg2d_battle_m_read_sampling_evidence.json)四完整220条548B/77call5父/14出向；Peek/Find正确正文保持，旧对象头/Input与所有父未改，不称表达式差异已证明运行故障或完整M/owner/画面通过。
+
+## BMS01 对象64与预览5AAA60读取差异（2026-10-06）
+
+[原合同与裁决](../cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision)恢复四根七片段：对象整数next、字符串S8条件/currentOffset、对象剩一格同next两pub与S32头索引。对象字符串第二字节先pub64再源读、预览字符串先源读再pub5AAA60，预览剩一格第二次复读自增及439600正确双pub不合并。
+
+[完整字节/引用](../cg2d_battle_m_scan_sampling_evidence.json)328条911B/696call8父/27出向；RID既有失败恢复和两W8自增→offset发布保持。同索引仍两次计数、不新增位置转换/清零/保护，完整M/owner/画面运行仍待。

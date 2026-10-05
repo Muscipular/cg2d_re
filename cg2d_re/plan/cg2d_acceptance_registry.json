@@ -1668,7 +1668,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1712,7 +1713,12 @@
         "F:0003B940",
         "F:0003B8C0",
         "F:0003B860",
-        "F:0003B9B0"
+        "F:0003B9B0",
+        "F:00039770",
+        "F:00039600",
+        "F:00039670",
+        "F:00038F70",
+        "F:00038FE0"
       ],
       "closure_task_ids": [
         "U09",
@@ -1735,7 +1741,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1751,7 +1758,8 @@
         "BEV01两工厂/三推进五原完整110条362B纳管，三flags/计数取样实修与两个正确叶保持。原439普通call/188父不是所有父正文验收；全部数据资源和owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行仍待",
         "BQR01参与者初始化/两追加/就绪四原完整211条751B和五W8/有序坐标片段纳管，正确两个叶/helper及原哨兵/计数/复读/各null和返回保持。七父/全部其他列表数据生产消费与owner重进退出/浅别名/借用失效、SDK/ABI/PC53/浮点状态/时钟RNG/画面仍待",
         "BQA01四既有正确重置/追加完整99条439B和原生T*/16B值语义承载、缺失基线/映射/分类纳管，全源与头保持。1206普通call26父仅引用元数据，所有其它列表数据/owner重进退出/浅别名/借用失效及SDK/ABI/PC53/时钟RNG/画面仍待",
-        "BMR01四原M读取完整220条548B/77普通call5父/14出向纳管；两根三处明示顺序修复，Peek/Find保持。全部M生产消费/5父正文、owner重进退出/浅别名/借用失效及SDK/ABI/PC53/时钟RNG/画面仍待"
+        "BMR01四原M读取完整220条548B/77普通call5父/14出向纳管；两根三处明示顺序修复，Peek/Find保持。全部M生产消费/5父正文、owner重进退出/浅别名/借用失效及SDK/ABI/PC53/时钟RNG/画面仍待",
+        "BMS01五M读取/预扫描完整328条911B纳管，四根七顺序/宽度片段实修，439600正确双全局pub保持；696普通call8父/27出向仅有限静态，全部M生产消费及owner/SDK/ABI/PC53/时钟RNG/画面仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1769,7 +1777,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
       ]
     },
     {
@@ -1795,7 +1804,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -1836,7 +1846,12 @@
         "F:0003B940",
         "F:0003B8C0",
         "F:0003B860",
-        "F:0003B9B0"
+        "F:0003B9B0",
+        "F:00039770",
+        "F:00039600",
+        "F:00039670",
+        "F:00038F70",
+        "F:00038FE0"
       ],
       "closure_task_ids": [
         "P01",
@@ -1863,7 +1878,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -1879,7 +1895,8 @@
         "BEV01真实4383F0→4383B0→43B360→43B610和三推进根可追，22动态mask/初始化后slot发布与各不同null/计数/哨兵保持。同五F双域不多计，完整188父/所有其它动作/实参/数据资源及owner/SDK/ABI/PC53/时钟RNG/画面运行未闭",
         "BQR01事件参与者初始化、动作/目标追加与22槽就绪/超时恢复五源差异已修，101普通call7父和8出向可追；同四F双域不多计。完整七父/其它动作实参/数据资源及owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未闭",
         "BQA01就绪恢复实调用重置/Append及显式索引追加/完整效果追加四身份纳管，原顺序/索引复读和各null/哨兵/返回保持、源码未新增。同四F双域不多计，完整26父/其它动作实参/列表数据资源和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
-        "BMR01整数与字符串当前游标、预读/目标扫描本地游标四身份纳管；旧格式/双字节/NUL及原调用合同保持，同四F双域不多计。全部M数据资源/动作生产消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭"
+        "BMR01整数与字符串当前游标、预读/目标扫描本地游标四身份纳管；旧格式/双字节/NUL及原调用合同保持，同四F双域不多计。全部M数据资源/动作生产消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+        "BMS01原RID头表/明确游标读→两参与者W8自增/游标成功pub或失败恢复合同纳管；同五F双域不双计、旧439770不重复身份。全部8父/其它M动作与资源生产消费和owner/SDK/ABI/PC53/时钟RNG/画面仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1895,7 +1912,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
       ]
     },
     {
@@ -17214,6 +17232,142 @@
       "observation": "四原完整220条548B字节/边界与77普通call5父/14出向五页、两根三片段原先算/先判/先取样再发布顺序有限静态通过；整CPP精确指定替换和公开头/Input保持",
       "expected": "整数本轮正常S32 next先算再W32累加pub；字符串先保存S8条件/写后复读currentOffset再两递增，原双字节/满扫描/两次pub/NUL后52D150与509080保持；预读和Find只本地推进、原退出/掩码/跳项不变",
       "actual": "同四F双域共用两根三顺序修复及另两既有实现/完整原对照，仅局部I/S；不声称运行故障已证/机器异常等价，77引用不代全部5父正文/所有M生产消费或owner/SDK/ABI/PC53/时钟RNG/画面，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-M-SCAN-SAMPLING-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMS01五原完整328条911B/696普通call8父/27出向、六指令页十二引用页；doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-scan-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ScanBattleMRideParticipants_439770",
+        "src/YobiRuntime.cpp#TakeBattleMPreviewInteger_439600",
+        "src/YobiRuntime.cpp#TakeBattleMPreviewString_439670",
+        "src/YobiRuntime.cpp#TakeBattleMInteger_438F70",
+        "src/YobiRuntime.cpp#TakeBattleMString_438FE0",
+        "src/Input.cpp#UnescapeLegacyTextAndNotify_52D2F0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "四既有根七表达式/宽度实修：对象正常S32 next先算、两字符串先S8条件/先游标取样、对象剩一格同next两pub和扫描S32头索引；439600正确双pub及旧头表/StrStr/BMR01/Input/其余CPP和头保持。新增四原身份及旧813追加完整证据、五adapted纳管",
+          "decision_ref": "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "四根七片段实际落码/预览整数正确正文保持、缺失四原身份与五分类纳管；RID头表与两明确游标读取消费、失败恢复或两W8计数后pub游标的现有接线和旧格式保持",
+      "expected": "对象S32 next先算、两字符串S8条件与当前offset先取，对象剩一格同局部两pub、预览剩一格第二次复读与第二字节先源读均保持；439600终止先未消费pub/再出口pub；扫描S32索引/原RID失败恢复与成功first/second W8写后pub游标不变",
+      "actual": "同五F双域共用四根七片段/正确预览整数，仅局部I/S。696普通入向不验全部8父正文或完整M生产消费/owner/SDK/ABI/PC53/时钟RNG/画面，不宣运行故障已证/机器异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-M-SCAN-SAMPLING-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMS01五原完整328条911B/696普通call8父/27出向、六指令页十二引用页；doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-scan-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ScanBattleMRideParticipants_439770",
+        "src/YobiRuntime.cpp#TakeBattleMPreviewInteger_439600",
+        "src/YobiRuntime.cpp#TakeBattleMPreviewString_439670",
+        "src/YobiRuntime.cpp#TakeBattleMInteger_438F70",
+        "src/YobiRuntime.cpp#TakeBattleMString_438FE0",
+        "src/Input.cpp#UnescapeLegacyTextAndNotify_52D2F0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "四既有根七表达式/宽度实修：对象正常S32 next先算、两字符串先S8条件/先游标取样、对象剩一格同next两pub和扫描S32头索引；439600正确双pub及旧头表/StrStr/BMR01/Input/其余CPP和头保持。新增四原身份及旧813追加完整证据、五adapted纳管",
+          "decision_ref": "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五原完整328条911B/696call8父/27出向、六指令页十二引用页和七片段原地址/顺序/宽度、整CPP指定差异与公开头/旧正确根保持有限静态通过",
+      "expected": "对象S32 next先算、两字符串S8条件与当前offset先取，对象剩一格同局部两pub、预览剩一格第二次复读与第二字节先源读均保持；439600终止先未消费pub/再出口pub；扫描S32索引/原RID失败恢复与成功first/second W8写后pub游标不变",
+      "actual": "同五F双域共用四根七片段/正确预览整数，仅局部I/S。696普通入向不验全部8父正文或完整M生产消费/owner/SDK/ABI/PC53/时钟RNG/画面，不宣运行故障已证/机器异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-M-SCAN-SAMPLING-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMS01五原完整328条911B/696普通call8父/27出向、六指令页十二引用页；doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-scan-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ScanBattleMRideParticipants_439770",
+        "src/YobiRuntime.cpp#TakeBattleMPreviewInteger_439600",
+        "src/YobiRuntime.cpp#TakeBattleMPreviewString_439670",
+        "src/YobiRuntime.cpp#TakeBattleMInteger_438F70",
+        "src/YobiRuntime.cpp#TakeBattleMString_438FE0",
+        "src/Input.cpp#UnescapeLegacyTextAndNotify_52D2F0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "四既有根七表达式/宽度实修：对象正常S32 next先算、两字符串先S8条件/先游标取样、对象剩一格同next两pub和扫描S32头索引；439600正确双pub及旧头表/StrStr/BMR01/Input/其余CPP和头保持。新增四原身份及旧813追加完整证据、五adapted纳管",
+          "decision_ref": "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "四根七片段实际落码/预览整数正确正文保持、缺失四原身份与五分类纳管；RID头表与两明确游标读取消费、失败恢复或两W8计数后pub游标的现有接线和旧格式保持",
+      "expected": "对象S32 next先算、两字符串S8条件与当前offset先取，对象剩一格同局部两pub、预览剩一格第二次复读与第二字节先源读均保持；439600终止先未消费pub/再出口pub；扫描S32索引/原RID失败恢复与成功first/second W8写后pub游标不变",
+      "actual": "同五F双域共用四根七片段/正确预览整数，仅局部I/S。696普通入向不验全部8父正文或完整M生产消费/owner/SDK/ABI/PC53/时钟RNG/画面，不宣运行故障已证/机器异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-M-SCAN-SAMPLING-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMS01五原完整328条911B/696普通call8父/27出向、六指令页十二引用页；doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-scan-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ScanBattleMRideParticipants_439770",
+        "src/YobiRuntime.cpp#TakeBattleMPreviewInteger_439600",
+        "src/YobiRuntime.cpp#TakeBattleMPreviewString_439670",
+        "src/YobiRuntime.cpp#TakeBattleMInteger_438F70",
+        "src/YobiRuntime.cpp#TakeBattleMString_438FE0",
+        "src/Input.cpp#UnescapeLegacyTextAndNotify_52D2F0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "四既有根七表达式/宽度实修：对象正常S32 next先算、两字符串先S8条件/先游标取样、对象剩一格同next两pub和扫描S32头索引；439600正确双pub及旧头表/StrStr/BMR01/Input/其余CPP和头保持。新增四原身份及旧813追加完整证据、五adapted纳管",
+          "decision_ref": "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五原完整328条911B/696call8父/27出向、六指令页十二引用页和七片段原地址/顺序/宽度、整CPP指定差异与公开头/旧正确根保持有限静态通过",
+      "expected": "对象S32 next先算、两字符串S8条件与当前offset先取，对象剩一格同局部两pub、预览剩一格第二次复读与第二字节先源读均保持；439600终止先未消费pub/再出口pub；扫描S32索引/原RID失败恢复与成功first/second W8写后pub游标不变",
+      "actual": "同五F双域共用四根七片段/正确预览整数，仅局部I/S。696普通入向不验全部8父正文或完整M生产消费/owner/SDK/ABI/PC53/时钟RNG/画面，不宣运行故障已证/机器异常等价，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -17396,7 +17550,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
       ]
     },
     {
@@ -17655,7 +17810,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
       ]
     },
     {
@@ -17801,7 +17957,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
       ]
     },
     {
@@ -17853,7 +18010,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
       ]
     },
     {
@@ -17876,7 +18034,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
       ]
     },
     {
@@ -18054,7 +18213,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
       ]
     },
     {
@@ -18073,7 +18233,8 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
-        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state"
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
       ]
     }
   ],
@@ -22707,6 +22868,66 @@
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
         "doc/cg2d_battle_m_read_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00039770",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00039600",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00039670",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00038F70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00038FE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_evidence.json"
       ]
     }
   ],

@@ -12835,8 +12835,9 @@ std::int32_t TakeBattleMInteger_438F70(YobiAction* const action)
             } else {
                 hasDigit = true;
             }
+            const std::int32_t next = offset + 1;
             result += static_cast<std::uint32_t>(value - (value < 'A' ? '0' : '7'));
-            payload->packetOffset64 = offset + 1;
+            payload->packetOffset64 = next;
         } else if (hasDigit || value == '|') {
             ++payload->packetOffset64;
             break;
@@ -12869,21 +12870,24 @@ void TakeBattleMString_438FE0(YobiAction* const action, char* const destination,
             ++payload->packetOffset64;
             continue;
         }
+        const bool hasTrail = value < 0;
         destination[written] = byte;
-        if (value < 0) {
+        if (hasTrail) {
             ++written;
             if (written >= capacity - 1) {
-                // 原439034保留已写首字节，源游标仍跳过两字节。
-                ++payload->packetOffset64;
-                ++payload->packetOffset64;
+                // 原439034..43903C用同一局部游标连续发布两次。
+                const std::int32_t next = payload->packetOffset64 + 1;
+                payload->packetOffset64 = next;
+                payload->packetOffset64 = next + 1;
                 continue;
             }
             const std::int32_t next = payload->packetOffset64 + 1;
             payload->packetOffset64 = next;
             destination[written] = world::detail::gBattleMText5AAA7C[next];
         }
+        const std::int32_t currentOffset = payload->packetOffset64;
         ++written;
-        ++payload->packetOffset64;
+        payload->packetOffset64 = currentOffset + 1;
     }
     destination[written] = '\0';
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);
@@ -12941,8 +12945,9 @@ void TakeBattleMPreviewString_439670(char* const destination, const std::int32_t
             ++gBattleMPreviewOffset5AAA60;
             continue;
         }
+        const bool hasTrail = value < 0;
         destination[written] = byte;
-        if (value < 0) {
+        if (hasTrail) {
             const std::int32_t offset = gBattleMPreviewOffset5AAA60;
             ++written;
             if (written >= capacity - 1) {
@@ -12955,8 +12960,9 @@ void TakeBattleMPreviewString_439670(char* const destination, const std::int32_t
             gBattleMPreviewOffset5AAA60 = offset + 1;
             destination[written] = nextByte;
         }
+        const std::int32_t currentOffset = gBattleMPreviewOffset5AAA60;
         ++written;
-        ++gBattleMPreviewOffset5AAA60;
+        gBattleMPreviewOffset5AAA60 = currentOffset + 1;
     }
     destination[written] = '\0';
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);
@@ -13104,8 +13110,8 @@ void ScanBattleMRideParticipants_439770(std::uint8_t* const participants)
     for (;;) {
         const std::int32_t savedOffset = gBattleMPreviewOffset5AAA60;
         static_cast<void>(GetBattleMPreviewHeader_439700(header.data()));
-        std::size_t kind = 0;
-        while (kind < kBattleMHeaders553E94.size()
+        std::int32_t kind = 0;
+        while (kind < static_cast<std::int32_t>(kBattleMHeaders553E94.size())
             && platform::StrStr_53BE40(header.data(), kBattleMHeaders553E94[kind]) == nullptr) {
             ++kind;
         }

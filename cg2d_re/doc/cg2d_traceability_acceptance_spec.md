@@ -494,3 +494,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [可度量验收](cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance)要求四根220条548B/77普通call5父/14出向五页完整、两根仅三片段修复与整CPP精确差异、正确预读/查找、旧对象头/Input/公开头保持。原格式明文及旧字节/正常S32/W32合同不扩展。
 
 新增四原身份和adapted、双域共用局部I/S；所有七任务及完整门禁保持open。源码明示顺序修复不证明运行故障/异常等价，全部M生产消费、owner/SDK/ABI/PC53/时钟RNG/画面继续。
+
+## BMS01 M读取/预扫描有限I/S（2026-10-06）
+
+[验收标准](cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance)要求五完整328条911B/696call8父/27出向、六指令页十二引用页，四根仅七片段与正确439600/旧依赖/公开头保持；RID失败恢复及成功两W8计数后pub游标、两字符串不同第二字节合同可追。
+
+新增四语义身份/五adapted，旧813历史追加不重复计数；双域共用局部I/S/七任务与所有完整门禁保持open。明示顺序/宽度修复不证明运行故障/异常等价，全部8父/M生产消费、owner/SDK/ABI/PC53/时钟RNG/画面继续。

@@ -8201,3 +8201,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前源状态](../cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state)纳管43B940/43B8C0/43B860/43B9B0四身份。两根三处计算/取样次序修复，字符串原52D150→509080由既有Input封装承载，预读/查找只推进本地游标的合同保持。
 
 [原完整字节与调用](../cg2d_battle_m_read_sampling_evidence.json)220条548B/77普通call5父/14出向可追。对象头既有基线不重复计数；U08/U09和完整门禁open，沿M实际生产消费继续开发。
+
+## BMS01 RID预扫描消费合同（2026-10-06）
+
+[当前状态](../cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state)纳管439770完整140条与对象/预览四读取器；四根七片段取样/宽度落码、正确439600保持。原25头首命中/RID22、mode及两flags低字节bit2失败恢复、成功两W8计数后pub本地offset保持，439770原23静态call不是运行消费数量。
+
+[五原完整328条911B](../cg2d_battle_m_scan_sampling_evidence.json)/696call8父/27出向可追，旧头表/439700/StrStr/Input及BMR01四根不重复取证。U08/U09与所有完整门禁open，沿439B30等实际M生产消费继续开发。

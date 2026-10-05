@@ -128,3 +128,12 @@ metrics.development_gap_counts分别给出定位缺口、语义身份缺口、�
 未归属项先核具体范围/原身份/当前代码，不能按名称或地址猜范围、恢复音频或生成默认业务。
 这些数量只说明登记差集，不是新函数、工作量或完成率；暂停计数仅限本队列的明确成员。
 原分母、处置/门禁、全软件验收及执行限制保持，R1/R7未因视图生成关闭。
+
+
+## CRI01 非函数代码身份登记规则（2026-10-05）
+
+[具名裁决](cg2d_code_range_identity_spec.md#code-range-identity-decision)允许已证代码片段保持inventory_id为空，使用code_identity绑定原库存X区间。
+kind为unassigned_range_fragment，原区间ID有效，start/end严格包含于该区间并分别等于原入口/已证边界；证据和源码关联不得缺失。
+汇总器校验绑定，semantic_without_inventory_id仍保存原记录，metrics.semantic_code_range_records另计有效区间身份。
+GQ01的semantic_identity_unrecorded只统计没有区间绑定的无函数ID记录；不能将有效非函数身份当缺失或补虚构FID。
+本组两X区间mapped仅表示完整字节用途/源码关联，不代完整业务、间接边/ABI或运行；原函数/区间分母及软件门禁保持。

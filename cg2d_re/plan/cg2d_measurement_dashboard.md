@@ -11,11 +11,11 @@
 | 合同文件关联 | 1351/3680（36.71%） | 文件关联率，不是功能/基线验收完成率 |
 | 尚无合同关联 | 2329 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1232条/1229个原ID | 无独立ID记录另列3条 |
+| 语义登记 | 1233条/1229个原ID | 无独立函数ID另列4条，其中原区间绑定 |
 | 具名分类引用 | 119个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 2 | 不计为实现/验收；混合入口不得整体扣除 |
 | 已审核函数处置 | 207/3680 | 初始仅导入关系，未逐ID重新认定 |
-| 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置15 / 0 |
+| 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置15 / 2 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
 | 已知收尾任务 | 60；验收关闭10 | 任务不是全功能目录 |
@@ -235,8 +235,8 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | 登记差集 | 数量 | 判定与下一步 |
 |---|---:|---|
 | 定位及语义关联均未登记 | 184 | 历史定位/语义/pending/source均空；先核当前源码和原身份 |
-| 语义身份尚未登记 | 3 | 原语义引用/入口保留；候选ID不自动赋值，先核完整函数或代码段 |
-| 需先核范围/定位/身份 | 84 | 下方明细；不等于待实现或已允许运行的项数 |
+| 语义身份尚未登记 | 0 | 原语义引用/入口保留；已按原区间绑定的代码记录不混计，候选ID不自动赋值 |
+| 需先核范围/定位/身份 | 81 | 下方明细；不等于待实现或已允许运行的项数 |
 | 已明确暂停 / 具名排除的本队列项 | 0 / 103 | 全部保留快照；暂停数只限明确成员，不是整个音频分母 |
 
 | 类别 | 原ID或语义引用 | 原入口 | 原库存名称 | 范围 | 下一步 |
@@ -322,8 +322,5 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | mapping_location_unrecorded | F:0014791B | 0x54791B | __set_statfp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:0014AB16 | 0x54AB16 | GetAdaptersAddresses | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
 | mapping_location_unrecorded | F:0014B1AC | 0x54B1AC | retnull_0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
-| semantic_identity_unrecorded | doc/cg2d_semantic_function_mappings.json#/records/901 | 0x4876B0 |  | identity_pending | 核代码段、原函数/chunk及未归属区间，保留真实代码身份 |
-| semantic_identity_unrecorded | doc/cg2d_semantic_function_mappings.json#/records/978 | 0x495E60 |  | identity_pending | 核代码段、原函数/chunk及未归属区间，保留真实代码身份 |
-| semantic_identity_unrecorded | doc/cg2d_semantic_function_mappings.json#/records/979 | 0x495EB0 |  | identity_pending | 核代码段、原函数/chunk及未归属区间，保留真实代码身份 |
 
-完整范围依据、已有处置及候选ID见快照development_gap_queue。逐项补事实后由汇总器更新，不手改队列，不以此关闭R1/R7或整体验收。
+完整范围依据、已有处置及候选ID见快照development_gap_queue；非函数代码绑定见semantic_without_inventory_id。逐项补事实后由汇总器更新，不手改队列，不以此关闭R1/R7或整体验收。

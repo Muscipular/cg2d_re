@@ -19,7 +19,8 @@
     "function_classification": {
       "state": "open",
       "evidence_refs": [
-        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state"
       ],
       "reason": "尚未按总SPEC收口"
     },
@@ -36,7 +37,8 @@
     "unassigned_ranges": {
       "state": "open",
       "evidence_refs": [
-        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state"
       ],
       "reason": "尚未按总SPEC收口"
     },
@@ -12002,7 +12004,8 @@
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
-        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state"
       ]
     },
     {
@@ -12054,7 +12057,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state"
       ]
     },
     {
@@ -12062,11 +12066,12 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state"
       ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。",
   "function_dispositions": [
     {
       "disposition": "adapted",
@@ -13909,6 +13914,94 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure"
+      ]
+    },
+    {
+      "id": "X:000876A7-00087AE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_code_range_identity_evidence.json"
+      ],
+      "reason": "整区间代码/90H NOP分项连续覆盖；只登记字节用途与源码关联，不算完整业务/原新ABI或运行通过",
+      "parts": [
+        {
+          "start": "0x4876A7",
+          "end_exclusive": "0x4876B0",
+          "kind": "nop_padding",
+          "bytes": 9
+        },
+        {
+          "start": "0x4876B0",
+          "end_exclusive": "0x487AD2",
+          "kind": "source_mapped_code",
+          "bytes": 1058,
+          "source_symbol": "Sub_4876B0"
+        },
+        {
+          "start": "0x487AD2",
+          "end_exclusive": "0x487AE0",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:00095E02-00095F00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_code_range_identity_evidence.json"
+      ],
+      "reason": "整区间代码/90H NOP分项连续覆盖；只登记字节用途与源码关联，不算完整业务/原新ABI或运行通过",
+      "parts": [
+        {
+          "start": "0x495E02",
+          "end_exclusive": "0x495E10",
+          "kind": "nop_padding",
+          "bytes": 14
+        },
+        {
+          "start": "0x495E10",
+          "end_exclusive": "0x495E56",
+          "kind": "source_mapped_code",
+          "bytes": 70,
+          "source_symbol": "Sub_495E10"
+        },
+        {
+          "start": "0x495E56",
+          "end_exclusive": "0x495E60",
+          "kind": "nop_padding",
+          "bytes": 10
+        },
+        {
+          "start": "0x495E60",
+          "end_exclusive": "0x495EA8",
+          "kind": "source_mapped_code",
+          "bytes": 72,
+          "source_symbol": "Sub_495E60"
+        },
+        {
+          "start": "0x495EA8",
+          "end_exclusive": "0x495EB0",
+          "kind": "nop_padding",
+          "bytes": 8
+        },
+        {
+          "start": "0x495EB0",
+          "end_exclusive": "0x495EF8",
+          "kind": "source_mapped_code",
+          "bytes": 72,
+          "source_symbol": "Sub_495EB0"
+        },
+        {
+          "start": "0x495EF8",
+          "end_exclusive": "0x495F00",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
       ]
     }
   ]

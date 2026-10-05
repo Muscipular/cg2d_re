@@ -60,6 +60,11 @@ foreach ($f in $inventory.functions) {
         feature_memberships=@(); sources=@()
     }
 }
+$unassignedRangeById=@{}
+foreach ($bounds in $inventory.unassigned_executable_ranges) {
+    $rangeId='X:{0:X8}-{1:X8}' -f ($bounds[0]-$inventory.baseline.imagebase),($bounds[1]-$inventory.baseline.imagebase)
+    $unassignedRangeById[$rangeId]=$bounds
+}
 $semanticWithoutId = [System.Collections.Generic.List[object]]::new()
 foreach ($section in @('records','pending_records')) {
     for ($i=0; $i -lt $semantic[$section].Count; $i++) {
@@ -67,7 +72,23 @@ foreach ($section in @('records','pending_records')) {
         $ref = "doc/cg2d_semantic_function_mappings.json#/$section/$i"
         foreach ($p in @($r.evidence_documents)) { if ($p) { Check-Path $p $ref } }
         if (-not $r.inventory_id) {
-            $semanticWithoutId.Add([ordered]@{reference=$ref;original_entry=$r.original_entry;status=$r.status})
+            $row=[ordered]@{reference=$ref;original_entry=$r.original_entry;status=$r.status}
+            if ($r.code_identity) {
+                $identity=$r.code_identity
+                $shapeValid=$identity.kind -eq 'unassigned_range_fragment' -and $unassignedRangeById.ContainsKey([string]$identity.inventory_range_id) -and $identity.start -match '^0x[0-9A-Fa-f]+$' -and $identity.end_exclusive -match '^0x[0-9A-Fa-f]+$'
+                Require $shapeValid "$ref 非函数代码身份形态/原区间无效"
+                if ($shapeValid) {
+                    $bounds=$unassignedRangeById[$identity.inventory_range_id]
+                    $start=[Convert]::ToInt64($identity.start.Substring(2),16)
+                    $end=[Convert]::ToInt64($identity.end_exclusive.Substring(2),16)
+                    Require ($start -ge $bounds[0] -and $end -le $bounds[1] -and $start -lt $end) "$ref 代码片段越出原库存区间"
+                    Require ($identity.start -eq $r.original_entry -and $identity.end_exclusive -eq $r.original_end_exclusive) "$ref 代码身份与原入口/边界不符"
+                }
+                Require (@($identity.evidence_refs).Count -gt 0 -and @($r.sources).Count -gt 0) "$ref 代码身份缺原证据或源码关联"
+                foreach ($path in @($identity.evidence_refs)) { Check-Path $path "$ref 代码身份" }
+                $row['code_identity']=$identity
+            }
+            $semanticWithoutId.Add($row)
             continue
         }
         Require ($functions.ContainsKey($r.inventory_id)) "$ref 身份不在原库存"
@@ -82,6 +103,8 @@ foreach ($section in @('records','pending_records')) {
         }
     }
 }
+$semanticCodeRangeCount=@($semanticWithoutId | Where-Object { $null -ne $_.code_identity }).Count
+$unboundSemanticCount=$semanticWithoutId.Count-$semanticCodeRangeCount
 foreach ($r in $direct.records) {
     Require ($functions.ContainsKey($r.inventory_id)) "直接定位未知ID：$($r.inventory_id)"
     if ($functions.ContainsKey($r.inventory_id)) {
@@ -341,7 +364,7 @@ foreach ($function in $functionRows) {
     })
 }
 $locationGapCount=$gapRows.Count
-foreach ($row in $semanticWithoutId) {
+foreach ($row in @($semanticWithoutId | Where-Object { $null -eq $_.code_identity })) {
     $candidateIds=@($functionRows | Where-Object original_entry -eq $row.original_entry | ForEach-Object id)
     $next=if ($candidateIds.Count -eq 1) {'核该原函数完整边界/上下文与当前源码，确认后补确切ID'} else {'核代码段、原函数/chunk及未归属区间，保留真实代码身份'}
     $gapRows.Add([ordered]@{
@@ -352,7 +375,7 @@ foreach ($row in $semanticWithoutId) {
 $reviewGapCount=@($gapRows | Where-Object { $_.scope -notin @('excluded','paused') }).Count
 $pausedGapCount=@($gapRows | Where-Object scope -eq 'paused').Count
 $excludedGapCount=@($gapRows | Where-Object scope -eq 'excluded').Count
-$gapCounts=[ordered]@{mapping_location_unrecorded=$locationGapCount;semantic_identity_unrecorded=$semanticWithoutId.Count;total=$gapRows.Count;needs_scope_or_mapping_review=$reviewGapCount;paused_receipt_items=$pausedGapCount;excluded_receipt_items=$excludedGapCount}
+$gapCounts=[ordered]@{mapping_location_unrecorded=$locationGapCount;semantic_identity_unrecorded=$unboundSemanticCount;total=$gapRows.Count;needs_scope_or_mapping_review=$reviewGapCount;paused_receipt_items=$pausedGapCount;excluded_receipt_items=$excludedGapCount}
 $metrics=[ordered]@{
     inventory_functions=$functions.Count
     development_gap_counts=$gapCounts
@@ -363,6 +386,7 @@ $metrics=[ordered]@{
     semantic_records=$semantic.records.Count
     semantic_inventory_ids=@($functionRows|Where-Object {$_.semantic_indices.Count -gt 0}).Count
     semantic_without_inventory_id=$semanticWithoutId.Count
+    semantic_code_range_records=$semanticCodeRangeCount
     pending_records=$semantic.pending_records.Count
     functions_with_classification_refs=@($functionRows|Where-Object {$_.classification_refs.Count -gt 0}).Count
     declared_excluded_ids=@($declaredExcluded.Keys|Sort-Object);declared_mixed_ids=@($declaredMixed.Keys|Sort-Object)
@@ -423,7 +447,7 @@ $lines.Add("| 原函数纳管 | $($functions.Count)/$($inventory.functions.Count
 $lines.Add("| 合同文件关联 | $linked/$($functions.Count)（$($metrics.document_link_percent)%） | 文件关联率，不是功能/基线验收完成率 |")
 $lines.Add("| 尚无合同关联 | $($functions.Count-$linked) | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |")
 $lines.Add("| 历史源码定位 | $($metrics.historical_direct_location_ids) | 自动定位快照，非当前实现数 |")
-$lines.Add("| 语义登记 | $($semantic.records.Count)条/$($metrics.semantic_inventory_ids)个原ID | 无独立ID记录另列$($semanticWithoutId.Count)条 |")
+$lines.Add("| 语义登记 | $($semantic.records.Count)条/$($metrics.semantic_inventory_ids)个原ID | 无独立函数ID另列$($semanticWithoutId.Count)条，其中原区间绑定$semanticCodeRangeCount条 |")
 $lines.Add("| 具名分类引用 | $($metrics.functions_with_classification_refs)个原ID | 含排除/混合/合并，不计为实现 |")
 $lines.Add("| 已具名全入口排除 / 混合入口 | $($declaredExcluded.Count) / $($declaredMixed.Count) | 不计为实现/验收；混合入口不得整体扣除 |")
 $lines.Add("| 已审核函数处置 | $($dispositionIds.Count)/$($functions.Count) | 初始仅导入关系，未逐ID重新认定 |")
@@ -464,7 +488,7 @@ $lines.Add('')
 $lines.Add('| 登记差集 | 数量 | 判定与下一步 |')
 $lines.Add('|---|---:|---|')
 $lines.Add("| 定位及语义关联均未登记 | $locationGapCount | 历史定位/语义/pending/source均空；先核当前源码和原身份 |")
-$lines.Add("| 语义身份尚未登记 | $($semanticWithoutId.Count) | 原语义引用/入口保留；候选ID不自动赋值，先核完整函数或代码段 |")
+$lines.Add("| 语义身份尚未登记 | $unboundSemanticCount | 原语义引用/入口保留；已按原区间绑定的代码记录不混计，候选ID不自动赋值 |")
 $lines.Add("| 需先核范围/定位/身份 | $reviewGapCount | 下方明细；不等于待实现或已允许运行的项数 |")
 $lines.Add("| 已明确暂停 / 具名排除的本队列项 | $pausedGapCount / $excludedGapCount | 全部保留快照；暂停数只限明确成员，不是整个音频分母 |")
 $lines.Add('')
@@ -475,7 +499,7 @@ foreach ($gap in @($gapRows | Where-Object { $_.scope -notin @('excluded','pause
     $lines.Add("| $($gap.kind) | $(Cell $identity) | $($gap.original_entry) | $(Cell $gap.original_name) | $($gap.scope) | $(Cell $gap.next_action) |")
 }
 $lines.Add('')
-$lines.Add('完整范围依据、已有处置及候选ID见快照development_gap_queue。逐项补事实后由汇总器更新，不手改队列，不以此关闭R1/R7或整体验收。')
+$lines.Add('完整范围依据、已有处置及候选ID见快照development_gap_queue；非函数代码绑定见semantic_without_inventory_id。逐项补事实后由汇总器更新，不手改队列，不以此关闭R1/R7或整体验收。')
 $dashboard=($lines -join [char]10)+[char]10
 $outputs=[ordered]@{'plan/cg2d_traceability_snapshot.json'=$json;'plan/cg2d_measurement_dashboard.md'=$dashboard}
 foreach ($path in $outputs.Keys) {

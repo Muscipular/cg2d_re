@@ -105801,7 +105801,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_13.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_code_range_identity_evidence.json"
       ],
       "boundary": "仅十一现std::sprintf标识符承接十二原53B304点：kind0/1原两个目标头格式共一现表达式，其余原点独立。保留原window参数T*及WindowAnimationData*返回、各元素4/5/6直接借用原text、目标名T*和S32数值/分类/结果，第七字段条件/未知分类旧文本及音频暂停边界不变。元素7原首字节置NUL后依endurance→dexterity→intelligence三个非0门槛，256B未清buffer分别格式/内联追加，不归一化原字节或容量。value04=1、动作5/10、47D170后重读结果并47D220动作6/8-方向5、真实T*返回及所有正文保持，内联扫描复制追加不增加其他CRT入口。4876B0仍为非IDA函数的已证[4876B0,487AD2)代码标签范围，inventory_id=null，不伪造函数ID或改函数目录；只读原23B纠正错位并补487879实际call，不改数据库。完整窗口13/结果生产/父链/CRT和运行不据本步验收。",
       "original_incoming": [
@@ -106047,7 +106049,17 @@
           "relationship": "原intelligence非0才格式并追加，顺序在dexterity之后"
         }
       ],
-      "verification_level": "IDA原范围324代码head统计；487867..48787E七错位head按原23B六指令纠正，实际323原指令。只读259head（含七错位）及六临时解码，有效258指令，余65/已过正文/核心不重验。十二原点/十一现callee分组/八新原格式字节及源码常量/S32-T*和原owner/顺序/整份源限定静态核对；一普通call487AE0@487AED仅登记；未构建或执行"
+      "verification_level": "IDA原范围324代码head统计；487867..48787E七错位head按原23B六指令纠正，实际323原指令。只读259head（含七错位）及六临时解码，有效258指令，余65/已过正文/核心不重验。十二原点/十一现callee分组/八新原格式字节及源码常量/S32-T*和原owner/顺序/整份源限定静态核对；一普通call487AE0@487AED仅登记；未构建或执行",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000876A7-00087AE0",
+        "start": "0x4876B0",
+        "end_exclusive": "0x487AD2",
+        "evidence_refs": [
+          "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+          "doc/cg2d_code_range_identity_evidence.json"
+        ]
+      }
     },
     {
       "original_entry": "0x48F8F0",
@@ -115281,7 +115293,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_33.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_code_range_identity_evidence.json"
       ],
       "boundary": "仅一现callee接一原格式点；原入口固定当前元素WindowTextData*，440B50非零时之后读取同一data的text、只清首NUL并返回0。否则独立读取gPlayerX的CryptInt S32、完成后才读取同一data->text，以既有553FCC %3d直接写借用载荷，返回0。两S32形参/未用state及全部正文保持；不提前缓存text、不造局部缓冲/固定容量，不预清、钳制、保护或改关联查询/坐标owner。",
       "original_incoming": [],
@@ -115316,7 +115330,17 @@
           "relationship": "先固定data T*→440B50，非零只清当前data的text首NUL/返回0；零才独立读取对应坐标S32→之后读取同一data->text→%3d直写/返回0；不缓存text地址跨查询或CryptInt读取"
         }
       ],
-      "verification_level": "原已证25指令代码段/RET边界仅读，IDA无函数元数据且entry call/data各0，沿既有窗口33元素绑定合同，不伪目录ID/不改数据库。495E9C或495EEC仍有至53B304的type17直接代码引用，按既有1022直接池计，不新增原字节补证。两完整源仅对应一个callee、S32/既有原字节/固定data-后取text/查询两路径与恒返回0限定静态核；不重验已过440B50/CryptInt/格式核心，未构建执行。"
+      "verification_level": "原已证25指令代码段/RET边界仅读，IDA无函数元数据且entry call/data各0，沿既有窗口33元素绑定合同，不伪目录ID/不改数据库。495E9C或495EEC仍有至53B304的type17直接代码引用，按既有1022直接池计，不新增原字节补证。两完整源仅对应一个callee、S32/既有原字节/固定data-后取text/查询两路径与恒返回0限定静态核；不重验已过440B50/CryptInt/格式核心，未构建执行。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00095E02-00095F00",
+        "start": "0x495E60",
+        "end_exclusive": "0x495EA8",
+        "evidence_refs": [
+          "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+          "doc/cg2d_code_range_identity_evidence.json"
+        ]
+      }
     },
     {
       "original_entry": "0x495EB0",
@@ -115337,7 +115361,9 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/window_33.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_code_range_identity_evidence.json"
       ],
       "boundary": "仅一现callee接一原格式点；原入口固定当前元素WindowTextData*，440B50非零时之后读取同一data的text、只清首NUL并返回0。否则独立读取gPlayerY的CryptInt S32、完成后才读取同一data->text，以既有553FCC %3d直接写借用载荷，返回0。两S32形参/未用state及全部正文保持；不提前缓存text、不造局部缓冲/固定容量，不预清、钳制、保护或改关联查询/坐标owner。",
       "original_incoming": [],
@@ -115372,7 +115398,17 @@
           "relationship": "先固定data T*→440B50，非零只清当前data的text首NUL/返回0；零才独立读取对应坐标S32→之后读取同一data->text→%3d直写/返回0；不缓存text地址跨查询或CryptInt读取"
         }
       ],
-      "verification_level": "原已证25指令代码段/RET边界仅读，IDA无函数元数据且entry call/data各0，沿既有窗口33元素绑定合同，不伪目录ID/不改数据库。495E9C或495EEC仍有至53B304的type17直接代码引用，按既有1022直接池计，不新增原字节补证。两完整源仅对应一个callee、S32/既有原字节/固定data-后取text/查询两路径与恒返回0限定静态核；不重验已过440B50/CryptInt/格式核心，未构建执行。"
+      "verification_level": "原已证25指令代码段/RET边界仅读，IDA无函数元数据且entry call/data各0，沿既有窗口33元素绑定合同，不伪目录ID/不改数据库。495E9C或495EEC仍有至53B304的type17直接代码引用，按既有1022直接池计，不新增原字节补证。两完整源仅对应一个callee、S32/既有原字节/固定data-后取text/查询两路径与恒返回0限定静态核；不重验已过440B50/CryptInt/格式核心，未构建执行。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00095E02-00095F00",
+        "start": "0x495EB0",
+        "end_exclusive": "0x495EF8",
+        "evidence_refs": [
+          "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+          "doc/cg2d_code_range_identity_evidence.json"
+        ]
+      }
     },
     {
       "original_entry": "0x47B6C0",
@@ -142592,6 +142628,54 @@
           "source": "src/platform/LegacyCryptInt.cpp",
           "symbol": "IntMinusCrypt_401FE0",
           "relationship": "原401EA0单尾跳401EC0，实际右对象读取一次；不增加第二次读取"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x495E10",
+      "inventory_id": null,
+      "status": "CRI01既有地图绘制回调按原未归属代码区间绑定；源码/入口未改，完整窗口/实际间接路由与运行未验",
+      "original_end_exclusive": "0x495E56",
+      "instruction_count": 25,
+      "original_direct_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_495E10"
+          ],
+          "relationship": "既有正文保持；原两S32参数/地图队列调用与0返回按实际70B代码片段登记，不造函数ID或新接线"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_code_range_identity_evidence.json",
+        "doc/cg2d_ui_window_runtime.md"
+      ],
+      "boundary": "440B50非零直接返回0；否则先当前窗口、元素指针/窗口Y，再元素Y、元素X，y=elementY+windowY-117；之后读同一windowX，x=elementX+windowX-14，521AA0(x,y,223)弃返回后返0。两S32参数、未用第二参数及现有完整正文保持。原70B/25条且无IDA函数元数据/直接xref，使用X:00095E02-00095F00内495E10..495E56代码身份，不假定不可达或完整间接接线；函数分母不增。所有父、窗口33/地图/队列生命周期、实际ABI/运行仍未闭，不构建/测试/运行/摘要，音频暂停与原格式明文保持。",
+      "verification_level": "当前原70B/25条临时解码、无函数owner/直接入向；原区间包含关系、现有源码调用/字段读取顺序与登记限定静态，未运行",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00095E02-00095F00",
+        "start": "0x495E10",
+        "end_exclusive": "0x495E56",
+        "evidence_refs": [
+          "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+          "doc/cg2d_code_range_identity_evidence.json"
+        ]
+      },
+      "original_internal_calls": [
+        {
+          "call_site": "0x495E10",
+          "target_entry": "0x440B50",
+          "source_symbol": "world::detail::Sub_440B50",
+          "relationship": "先于当前窗口/元素取样，非零返回0"
+        },
+        {
+          "call_site": "0x495E47",
+          "target_entry": "0x521AA0",
+          "source_symbol": "render::QueueMap_521AA0",
+          "relationship": "x/y/layer223实际地图入队，原返回弃用"
         }
       ]
     }

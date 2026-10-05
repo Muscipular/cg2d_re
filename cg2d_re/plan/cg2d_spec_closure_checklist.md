@@ -179,10 +179,10 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 
 | 编号 / 范围 | 当前状态 | 下一步 | 关闭条件 |
 |---|---|---|---|
-| R01 / 函数分母 | CQA01四个既有算术叶按RPLAN.24对齐并补adapted，处置207/3680；原宽/读取与编码保持 | GQ01队列显式列未定位/缺身份登记，先核范围/当前源码后推进；其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[GQ01](../doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state)、[CQA01](../doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state)、[SCA01](../doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure)；本组四叶/114引用不代全部父或整体验收 |
+| R01 / 函数分母 | CQA01四个既有算术叶按RPLAN.24对齐并补adapted，处置207/3680；原宽/读取与编码保持 | CRI01四片段按原区间绑定，不增函数分母；GQ01队列显式列未定位/未绑定身份，先核范围/当前源码后推进；其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[CRI01](../doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state)、[GQ01](../doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state)、[CQA01](../doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state)、[SCA01](../doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure)；本组四叶/114引用不代全部父或整体验收 |
 | R02 / 数据/间接目标 | NWT01 DA3F98的90直接引用/三父与已知byte pointer类型/SDK域明确 | 未知间接alias/完整owner/重进/动态边，203导入及数据/常量/生命周期 | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；导入15/218保持，直接引用/类型不代所有权闭合 |
-| R03 / 未归属区间 | 3061原区间快照与部分后置回调/数据/填充分组已有；GQ01另列3条缺原ID语义记录 | 沿候选清单处理尚未归属区间，不重做已证分类 | 区间用途及剩余未知明确；不把无直接xref当不可达；[GQ01](../doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state)候选不自动赋ID |
-| R04 / 台账一致性 | GQ01同一汇总器生成差集与需核队列，排除明细留快照；不以历史定位缺失判未实现 | 后续按任务更新同一记录的当前状态，保留历史字段证据 | [GQ01](../doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state)；清单/源码/当前摘要相符；来源只有“关联”的项不升级成实现 |
+| R03 / 未归属区间 | CRI01四片段绑定两原X区间，1335B代码/NOP用途连续覆盖；用途审2/3061 | 沿候选清单处理尚未归属区间，不重做已证分类 | 区间用途及剩余未知明确；不把无直接xref当不可达；[CRI01](../doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state)不造函数ID；完整区间闭包保持open |
+| R04 / 台账一致性 | CRI01汇总器校验非函数区间身份、差集排除已绑定四片段；GQ01定位缺失不判未实现 | 后续按任务更新同一记录的当前状态，保留历史字段证据 | [CRI01](../doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state)；清单/源码/当前摘要相符；来源只有“关联”的项不升级成实现 |
 | R05 / 例外收口 | 键盘/newest/两加密叶/低色深排除与窄替代已有 | 核共享callee、混合32位分支、参数/状态保留及排除接线 | 排除与替换有具体授权范围；音频/未知不混入；不降低总SPEC |
 | V01 / 环境与输入 | 基线/部分来源已有；运行环境未完整冻结 | 在运行准备获准后记录实际工具链、SDK、系统/编码、参数/配置/资源 | 可复核实际来源/版本/输入与缺失项，不设文件摘要门禁 |
 | V02 / 完整启动退出/链接 | HPI01已接兼容heap/lowio同TU前置与普通stdio收尾；源70＋SDK15角色保持 | 跨TU首次使用/SDK继承ABI、全部owner/alias、normal/quick/callable全序及完整链接/运行仍待 | 保持open；[HPI01](../doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure)；局部接线静态不代完整入口验收，执行限制保持 |

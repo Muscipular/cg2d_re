@@ -4069,3 +4069,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [四片段实际修复](cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision)恢复失活25头S32、命中CHT条件先计数pub、延迟零条件先68 pub、共享timer同remaining负条件先pub。原初始5C减/每轮live读取、未知头只continue、两256B未清字符串、0→−1延迟返回和原负值清零保持。15项恢复/13项回存和25case正确正文不改，9C/A0只局部不回存。
 
 [四有界区间312条1201B七页](cg2d_battle_event_execution_gates_evidence.json)、25槽100B与43B63D真实data绑定可追，四计时inline去重；旧812只追加，无新原F/X、adapted或完整成员。17298是含主/SEH两chunk的父统计，全部消息目标/SDK/SEH/ABI和资源owner/画面仍待。
+
+## BMH01 六类数据消息正常取样（2026-10-06）
+
+[五项实修](cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision)恢复FP/变身actor存在条件先caster pub、Chat加载后caster→lifetime→当前角色、DX缓存base→图号字段W32→高度低S16、400首门禁先technique pub而1000比较仍pub后。现代const S32&字段读取在render内承载，不暴露DX/SDL对象或新增原身份；旧接口和其它消费者保持。
+
+[六数据块及共用完成尾329条1314B](cg2d_battle_m_data_sampling_evidence.json)九页/63call与原CopyPayload9条27B/五弃返回点可追。正确encoded→mask→readCount逐读逐写、四构造析构/随机、Chat A4两pub后live复读和两gear轮/骑乘/Finish→父回存保持；旧812追加、不新完整分类/成员，全部其它消息/owner/ABI/SEH/画面仍待。

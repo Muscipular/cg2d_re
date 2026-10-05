@@ -2387,3 +2387,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [当前具名范围](cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state)追加入口/失活/延迟/恢复与回存及共享timer四inline接线；父427470有主/SEH两chunk，17298为统计，四区间312条1201B七页和25槽100B仅对应本步范围。旧查找/格式记录历史不覆盖，Restore/Save和timer是现代helper，不新F/X、adapted或完整成员。
 
 两CPP三根四片段实修，语义1350/有效ID1345、片段5/分类456与关联1463保持；全部消息目标和所有资源寿命/运行仍待。
+
+## BMH01 六数据目标/现代字段读取有界追加（2026-10-06）
+
+[具名范围](cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state)补六数据块和共用完成尾329条1314B九页/63call的当前五取样修复，仅旧812追加。五点438270复制沿旧221/9条27B合同，原目标引用弃返回，正确核心保持；新ReadGraphicDxHeightFromField只承载base先字段读取，无独立F/X、新分类或完整成员。
+
+两CPP六片段/头一声明可追；语义1350/有效ID1345、片段5/分类456和关联1463保持。其余消息目标/完整17298父与所有资源/owner/运行继续，不把源码helper数量或63call当原函数数量。

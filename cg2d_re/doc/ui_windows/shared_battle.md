@@ -8231,3 +8231,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [具名入口合同](../cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state)固定payload、slot先构bit再取活动mask；失活CHT之后live复读phase/substate再BST，初始remaining减/pub后每轮再读，取头终止或失配路径保持，命中聊天先比较再发布次数，Finish后立即返回。活动68>=0减并先保存零条件/发布后按条件扣组数且直接返回；仅负延迟恢复再25case/回存。
 
 [原区间](../cg2d_battle_event_execution_gates_evidence.json)只覆盖312条1201B/七页及25槽100B，不称完整17298父。timer四源码消费对应四原inline：首/队列失活BST、43BAA0场景BST、411CB0动作166；同正常剩余值负条件先pub，既有负值0保持，无新owner/原callee。原格式明文、音频暂停和所有运行门禁保持。
+
+## BMH01 数据消息到角色/聊天/退出消费（2026-10-06）
+
+[当前有界合同](../cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state)纳管Action12、FP13、Chat14、变身17、追加23、End24及空/失败共用Finish尾；六块helper返回后总入口仍13项回存，End ready成功才Finish后scene7。两角色存在条件先caster发布、LoadGraphic后重取caster/lifetime/角色和DX base先W32图号字段、400先technique发布恢复；其它正常/失败/返回保持。
+
+[329条1314B九页/63call](../cg2d_battle_m_data_sampling_evidence.json)不是全部17298父。FP原负值构造0、变身四载体/两附件轮和骑乘、Chat未清256B消息/A4两pub后复读保持；CopyPayload原9条正确，16B内存载体非网络cipher，音频暂停/原格式明文及完整运行门禁保留。

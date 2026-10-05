@@ -524,3 +524,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收边界](cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-acceptance)：四区间312条1201B七页/25槽100B和真实type1/data绑定、四inline计时去重；两CPP三根四片段恢复S32头与CHT/延迟零/同timer剩余值负条件先pub，其它正文/头保持。旧812追加、不新原身份/分类/完整成员，E343→347仅YOBI/BATTLE四局部I/S。
 
 七任务open、语义/有效ID/关联/成员、R7与60项已闭10和所有完整门禁保持。17298父统计不代全部消息目标/SEH/SDK/ABI/owner/时钟RNG/画面运行，R1/R7/R8和整体继续；获准汇总仅文本，不降标准或解除运行限制。
+
+## BMH01 数据消息与渲染字段承载局部证据（2026-10-06）
+
+[验收边界](cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-acceptance)：六数据块及共用Finish尾329条1314B九页/63call、五CopyPayload点与正确9条27B核心；五取样差异、两CPP六片段/唯一头声明、实际S32字段const引用绑定及原DX读取接口/其它消费者保持有限静态。E347→353只YOBI/BATTLE/RENDER六局部I/S，Render仅新字段读取与Chat消费者。
+
+旧812追加无新F/X/adapted/完整成员；七任务open、60项已闭10/R7区间67/3061/队列175、全部计数和完整门禁保持。全部消息目标/SDK/SEH/ABI/资源owner/PC53/时钟RNG/像素/画面仍待，获准汇总不代运行或降低整体验收。

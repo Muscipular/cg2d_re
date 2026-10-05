@@ -14217,8 +14217,9 @@ namespace {
     case BattleMDataHeader::ConsumeFp: {
         const std::int32_t position = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         YobiAction* const actor = gBattleAllEntries59E980[position];
+        const bool actorPresent = actor != nullptr;
         gBattleMCasterPosition5AAA64 = position;
-        if (actor != nullptr) {
+        if (actorPresent) {
             const std::int32_t amount = TakeBattleMInteger_438F70(scene);
             SubtractAssign_401E40(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, amount);
             if (Less_401DB0(&gBattleAllEntries59E980[gBattleMCasterPosition5AAA64]->barValue1B0, 0)) {
@@ -14251,9 +14252,10 @@ namespace {
                 YobiAction* const actor = gBattleAllEntries59E980[position];
                 if (actor != nullptr) {
                     static_cast<void>(render::LoadGraphic_522570(actor->graphicIndex));
+                    const std::int32_t currentPosition = gBattleMCasterPosition5AAA64;
                     const std::int32_t lifetime = gBattleMMessageValue59FA14;
-                    YobiAction* const current = gBattleAllEntries59E980[gBattleMCasterPosition5AAA64];
-                    const std::int32_t offsetY = -render::ReadGraphicDxHeight(current->graphicIndex);
+                    YobiAction* const current = gBattleAllEntries59E980[currentPosition];
+                    const std::int32_t offsetY = -render::ReadGraphicDxHeightFromField(current->graphicIndex);
                     static_cast<void>(NewBattleHitEffect_41F5B0(current, -30, offsetY, lifetime, 22335));
                 }
             }
@@ -14271,8 +14273,9 @@ namespace {
     case BattleMDataHeader::ChangeBody: {
         const std::int32_t position = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
         YobiAction* const actor = gBattleAllEntries59E980[position];
+        const bool actorPresent = actor != nullptr;
         gBattleMCasterPosition5AAA64 = position;
-        if (actor == nullptr) {
+        if (!actorPresent) {
             FinishBattleEvent_43B6C0(scene);
             return;
         }
@@ -14327,8 +14330,9 @@ namespace {
         gBattleMResultFlags5A4A20 = static_cast<std::uint32_t>(TakeBattleMInteger_438F70(scene));
         const std::int32_t technique = TakeBattleMInteger_438F70(scene);
         const std::uint32_t flags = gBattleMResultFlags5A4A20;
+        const bool appendEight = flags == 0x400u;
         gBattleMTechnique5A4A38 = technique;
-        if (flags == 0x400u) {
+        if (appendEight) {
             AddBattleAppendEffect_43BE00(8, technique, gBattleMCasterPosition5AAA64);
         } else if (flags == 0x1000u) {
             AddBattleAppendEffect_43BE00(11, technique, gBattleMCasterPosition5AAA64);

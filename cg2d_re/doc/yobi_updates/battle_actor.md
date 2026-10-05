@@ -115,3 +115,9 @@
 [共享倒计时裁决](../cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision)核411CD2..411CFD原12条43B，与两失活BST和43BAA0共四inline/四源码表达式。只恢复现代timer helper的同remaining负条件先pub，原FDA70C唯一owner/S32秒×1000和负值0不变；动作166的原队列index/值、数字特效和状态推进正文保持，原inline不造独立函数身份。
 
 [312条1201B有界证据](../cg2d_battle_event_execution_gates_evidence.json)不代动作166整个父/全部排空链或427470所有消息目标、资源owner/SDK/ABI/PC53/画面验收，恢复/回存保持、完整范围继续。
+
+## BMH01 角色借用与图号字段读取（2026-10-06）
+
+[角色消费取样](../cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision)修复FP/变身借actor门禁在caster pub前保存；取包/Construct/Subtract/Less/SetGear/SetAuxGear后live角色读取不提前缓存。Chat图形加载后先caster再lifetime/角色，render新字段引用读取先native DX表后同角色graphicIndex S32再S16高度；借用仅调用期，不新增资源owner、底层对象暴露或原F/X。
+
+[六块/共用尾原证据](../cg2d_battle_m_data_sampling_evidence.json)同时保四载体Construct/Copy/Destroy、两gear轮/骑乘与End Finish后scene7、A4真正复读。所有其它角色资源/完整分派/owner重进退出及SDK/ABI/画面未闭，现代helper不代整体寿命验收。

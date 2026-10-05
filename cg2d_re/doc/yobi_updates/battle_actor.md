@@ -163,3 +163,9 @@
 [九组裁决](../cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-decision)恢复caster/target同解析位置借用与target比较先pub，初始payload先skill和下一字段caster-actor-level-payload；439400与43BC10分别按原图号/flags/位置及actor次序取样，不跨调用合并。player首256/52沿同目标、51重新live目标，165/27先kind再target/actor；两图索引S32，不新owner/布局/保护。
 
 [完整正常有界主体](../cg2d_battle_m_skill4_sampling_evidence.json)256条894B四页26call，原W32 flags入寄存器后AL/AH只局部操作，不误改byte读取；图值跨目标/各空出口/调用后live与Move/RID/58保持。其它各技能消费者及资源owner重进退出/借用失效、SDK/ABI/画面继续。
+
+## BMP01 83中点与累计/反向效果角色取样（2026-10-06）
+
+[十九组裁决](../cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-decision)恢复X/Y分别两索引先两坐标、kind先actor/player首动作同caster，各target/last字段actor先skill或level，累计caster字段actor先live total，最后效果total-flags-caster-last-actor。反向效果沿已取位置/flags/amount，动作后重新借当前目标；仅42BB9A全局flags20原W8，其他W32和AL/AH寄存器局部运算保持，不改共享布局或owner。
+
+[完整正常有界主体](../cg2d_battle_m_skill61_sampling_evidence.json)566条2220B八页56call，参与者重复/原正常零/不同空出口、调用后live与累计/Move-RID-58=2保持。其它各技能全部消费者及资源owner重进退出/借用失效、SDK/ABI/画面继续。

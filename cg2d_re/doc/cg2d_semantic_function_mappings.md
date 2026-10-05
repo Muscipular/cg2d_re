@@ -2435,3 +2435,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [技能4正常主体](cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-source-state)256条894B四页26call，追加ProcessBattleMSkill4单根九组九处状态；低段入口21W32/118W8表202B仅定位case4，八原入口W32零写沿BMG生产者，不新F/X/adapted/分类/完整成员，旧历史和其它字段保持。
 
 语义1350/有效ID1345、片段5/分类456及关联1463保持；其它各技能/全分派及完整17298父/SEH、全部消费者与owner运行继续。
+
+## BMP01 旧812的61/62/63/83共用主体追加（2026-10-06）
+
+[正常共用主体](cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-source-state)566条2220B八页56call，追加ProcessBattleMSkill61Family单根十九处及原累计/反向消费合同；入口低段202B仅四case定位，十二S32偏移48B原新对应保持，不新F/X/adapted/分类/完整成员，旧历史与其它字段保持。
+
+语义1350/有效ID1345、片段5/分类456/关联1463保持；其它各技能/全路由与完整17298父-SEH、全部消费者/owner运行继续。

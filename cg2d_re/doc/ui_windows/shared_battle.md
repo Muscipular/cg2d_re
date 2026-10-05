@@ -8279,3 +8279,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-source-state)纳管技能4主体九组九处。mode/caster、target/flags/amount取包和800000辅图条件保持；初始空caster Finish立即返回，target空Finish后退出循环仍Move/RID/++58，255先pub再退出。两图号/三数组仅原入口零初值，沿目标循环复用，不补默认或每轮重清。
 
 [256条894B四页26call](../cg2d_battle_m_skill4_sampling_evidence.json)原门禁优先级/列表重复及调用后live、11/76/46末消费保持，入口202B表仅定位case4。其它技能/资源owner和运行门禁继续，网络原格式仅明文/音频暂停保持。
+
+## BMP01 四技能共用主体与累计回送（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-source-state)纳管61/62/63/83共用主体十九处。83中点/两侧90-198/player与非83等级图号、10000累计/参与者及149不同20-21/target10门禁、40000-20000-10000优先及sameSide反向184-74保持。初始空caster Finish直接回存，目标空Finish后仍效果-1终结/累计回送/Move/RID/58=2，255先pub再退出，原调用后live/重复列表保持。
+
+[566条2220B八页56call](../cg2d_battle_m_skill61_sampling_evidence.json)及原202B入口/48B偏移仅本步有界证据，不代其他技能/owner或运行；网络原格式明文/音频暂停及完整门禁持续。

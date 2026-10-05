@@ -4165,3 +4165,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [32处实修](cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-decision)恢复selected/target比较pub和字段、两类坐标中点/效果参数-S32图选择、player条件同位置及13的0/149条件重读，14双位置金额类型和两效果原序。12/13初始失败直接回存、循环失败selected终结/74而14无actor空门禁、两哨兵caster终结，原动作-金额/flags-图值跨目标和Move-RID-增58保持。
 
 [五范围681条2625B](cg2d_battle_m_skill98_mode12_13_14_sampling_evidence.json)十二页72call直接目标闭合；BMW两个既有尾19条73B非新增，六条27B选择比较/BMO八W32正常零和202B表仅上下文。状态目标/15-16/17-默认及完整98/owner/SDK/SEH/ABI/画面继续。
+
+## BMZ01 技能98 mode15/16共用根五处（2026-10-06）
+
+[五处实修](cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision)恢复target255比较先pub、effect image-flags-target-caster-actor、两S32图选择/aux graphics-flags-target-caster-actor、34后player同位置。两原主体分别核实后保留既有6/3共用根，无actor空门禁、图值跨目标和111011-250-amount/数字类型-159、flags条件重读/34或165-11/47/46保持。
+
+[五范围363条1280B](cg2d_battle_m_skill98_mode15_16_sampling_evidence.json)九页35call直接目标闭合；15经EAEF、16先E695压0/0经E7F8，同caster终结Move-RID-增58。BMX既有尾18条67B非新增，四条18B比较/正常零与202B仅上下文；状态目标/17-默认和完整98-owner/SDK/SEH/ABI/画面继续。

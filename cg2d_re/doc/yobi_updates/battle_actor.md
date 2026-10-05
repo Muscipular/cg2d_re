@@ -211,3 +211,9 @@
 [三根32组裁决](../cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-decision)恢复12两indices-baseX-固定位置actor-otherX-delta-payload、Y中点后live selected，13两轴各两indices/中点后live selected；效果参数和两字段各次actor先值、S32图选择/player同位置保持。13只有0动作实际调用后重取target给149，否则沿比较所得位置；14金额Take后另live位置和kind条件、金额payload/另类型payload、caster-target-actor效果原序，不复用解析位置或新owner/空保护。
 
 [三个完整有界主体与实际尾](../cg2d_battle_m_skill98_mode12_13_14_sampling_evidence.json)681条2625B十二页72call；两种原终结/正常失败保持，其它mode与全部actor owner重进退出借用失效、SDK/ABI/画面继续。
+
+## BMZ01 伤害效果参数与调用后取样（2026-10-06）
+
+[五组裁决](../cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision)恢复target比较pub、两次效果参数原序、两个S32选择计数与player同位置；首次效果和后续aux分别live caster/actor，不跨调用缓存，图号两值/三数组仅正常零一次跨目标。两路径6/3和111011/金额字段各次live、原flags W32到EAX/AL-AH与条件重读及47/46保持，不新owner/空保护。
+
+[两主体和三个实际尾](../cg2d_battle_m_skill98_mode15_16_sampling_evidence.json)363条1280B九页35call；BMX尾18条67B非新增，所有actor owner重进退出借用失效、状态目标/17-默认/SDK/ABI/画面继续。

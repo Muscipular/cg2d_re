@@ -8327,3 +8327,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state)纳管12十五/13十一/14六处。12/13先选中角色准备，初始无效直接返回，目标循环失败才走live selected效果终结/74和caster Move-RID-增58。14原没有actor判空/Finish，两位置哨兵都走caster终结尾，金额9/8/111015和target250/160再selected250/160保持。
 
 [681条2625B十二页72call](../cg2d_battle_m_skill98_mode12_13_14_sampling_evidence.json)三主体与两既有尾，六条27B比较仅入口，原中点-字段/不同效果参数和0/149调用后重读保持；其它mode/owner与完整运行门禁继续，原格式明文/音频暂停保持。
+
+## BMZ01 两伤害路径与真实终结尾（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state)两原路径完整分别核后纳管共用DamageTargets五处，6/3差别和原flags门禁/金额/图值保持；不只核第一路径。34后256/52用比较所得target，51再live；amount0才按原路径重读flags，局部20一次条件控制47/46而各次live角色。
+
+[363条1280B九页35call](../cg2d_battle_m_skill98_mode15_16_sampling_evidence.json)包括16的E695压零及E7F8真实caster参数尾，和15的EAEF尾同入EB02终结/Move-RID-增58；原无actor判空/Finish，不新增保护或选中74尾。其它mode/owner和完整运行门禁继续，原格式明文/音频暂停保持。

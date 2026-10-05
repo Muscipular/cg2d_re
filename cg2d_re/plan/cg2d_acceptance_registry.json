@@ -659,7 +659,8 @@
         "doc/cg2d_workspace_byte_pointer_spec.md",
         "doc/cg2d_header_single_read_spec.md",
         "doc/cg2d_protocol_copy_capacity_spec.md",
-        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline"
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -701,7 +702,11 @@
         "F:00117080",
         "F:00117690",
         "F:00134EF0",
-        "F:0014AB16"
+        "F:0014AB16",
+        "F:0012CEA0",
+        "F:0012CED0",
+        "F:0012CF30",
+        "F:0012CFA0"
       ],
       "closure_task_ids": [
         "P09",
@@ -722,7 +727,8 @@
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision",
         "doc/cg2d_header_single_read_spec.md#header-single-read-decision",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-decision",
-        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision"
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -735,7 +741,8 @@
         "NWT01工作区字节指针类型与四解码本体/90直接引用具名，SDK同域/读序/原失败释放保持；未知间接alias/完整owner/重进、整分派/全部回复及实际ABI/链接/正常失败/明文往返/运行未闭。NDR01限定父与三既有父不重复新增R1分类",
         "NHS01仅取包头首指针一次读取缺口已修，原22条/64B与唯一caller具名；不全量核对，不据取头关闭整分派/完整参数传递/全部回复/owner/alias、实际ABI/链接/原格式明文互通与运行",
         "NCP01仅协议复制容量回绕模拟残留已按RPLAN.24更新；两既有完整根/返回与91原直接call具名，不全面复检；原正常/失败及读写序保持，整分派/全部参数传递/回复/owner/alias、实际ABI/链接/原格式明文互通和运行仍待，不宣称异常等价",
-        "NAS01仅适配器根取样/清零与API跳板/导入已校正纳管，完整508360父/登录请求、SDK返回/加载/ABI/链接、全部owner/alias及原格式明文互通/运行未闭，不以局部源码关闭FUNC-NETWORK"
+        "NAS01仅适配器根取样/清零与API跳板/导入已校正纳管，完整508360父/登录请求、SDK返回/加载/ABI/链接、全部owner/alias及原格式明文互通/运行未闭，不以局部源码关闭FUNC-NETWORK",
+        "DFI01四字段基础依赖与既有技能生产三解析边已登记；本步未改源码或增加软件验收，所有306/550业务父/字段布局/owner/未知alias/Atoi内部、实际ABI/链接/原格式明文互通与运行仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -748,7 +755,8 @@
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
-        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
       ]
     },
     {
@@ -12284,7 +12292,8 @@
         "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure",
         "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-source-closure",
         "doc/cg2d_character_select_scene.md#character-message-storage-source-state",
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
       ]
     },
     {
@@ -12338,7 +12347,8 @@
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
-        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
       ]
     },
     {
@@ -12355,7 +12365,8 @@
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
-        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state"
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
       ]
     },
     {
@@ -12383,7 +12394,8 @@
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
       ]
     },
     {
@@ -12457,7 +12469,8 @@
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
       ]
     },
     {
@@ -12510,7 +12523,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
       ]
     }
   ],
@@ -15761,6 +15775,58 @@
         "doc/cg2d_legacy_line_sampling_evidence.json"
       ],
       "reason": "既有完整正文生产与旧/现代同源地址明确，x64行指针沿同一owner自然拓宽；不以现代创建调用代旧表路由"
+    },
+    {
+      "inventory_id": "F:0012CEA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-acceptance",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_field_identity_evidence.json"
+      ],
+      "reason": "原字节定位/提取/复制/整数对应既有真实本体，x64仅承载已证字节地址；本步身份登记，不新造协议/实现/保护或关闭全父及运行"
+    },
+    {
+      "inventory_id": "F:0012CED0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-acceptance",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_field_identity_evidence.json"
+      ],
+      "reason": "原字节定位/提取/复制/整数对应既有真实本体，x64仅承载已证字节地址；本步身份登记，不新造协议/实现/保护或关闭全父及运行"
+    },
+    {
+      "inventory_id": "F:0012CF30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-acceptance",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_field_identity_evidence.json"
+      ],
+      "reason": "原字节定位/提取/复制/整数对应既有真实本体，x64仅承载已证字节地址；本步身份登记，不新造协议/实现/保护或关闭全父及运行"
+    },
+    {
+      "inventory_id": "F:0012CFA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-acceptance",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_field_identity_evidence.json"
+      ],
+      "reason": "原字节定位/提取/复制/整数对应既有真实本体，x64仅承载已证字节地址；本步身份登记，不新造协议/实现/保护或关闭全父及运行"
     }
   ],
   "auxiliary_dispositions": [

@@ -1,0 +1,968 @@
+{
+  "schema_version": 1,
+  "spec_id": "DFI01",
+  "recorded_on": "2026-10-05",
+  "authority": {
+    "instance_id": "ida-17524",
+    "client_id": "a1def68e",
+    "binary_name": "cg2d.exe",
+    "bitness": 32,
+    "base_address": "0x400000",
+    "method": "既有cg2d会话只读Python，不改/保存/重载数据库，不执行原端"
+  },
+  "functions": [
+    {
+      "entry": "0x52cea0",
+      "end": "0x52cecb",
+      "instructions": [
+        {
+          "ea": "0x52cea0",
+          "size": 4,
+          "bytes": "8b4c2404",
+          "text": "mov     ecx, [esp+arg_0]"
+        },
+        {
+          "ea": "0x52cea4",
+          "size": 4,
+          "bytes": "8a542408",
+          "text": "mov     dl, [esp+arg_4]"
+        },
+        {
+          "ea": "0x52cea8",
+          "size": 2,
+          "bytes": "8a01",
+          "text": "mov     al, [ecx]"
+        },
+        {
+          "ea": "0x52ceaa",
+          "size": 2,
+          "bytes": "84c0",
+          "text": "test    al, al"
+        },
+        {
+          "ea": "0x52ceac",
+          "size": 2,
+          "bytes": "741a",
+          "text": "jz      short loc_52CEC8"
+        },
+        {
+          "ea": "0x52ceae",
+          "size": 2,
+          "bytes": "3c80",
+          "text": "cmp     al, 80h"
+        },
+        {
+          "ea": "0x52ceb0",
+          "size": 2,
+          "bytes": "7307",
+          "text": "jnb     short loc_52CEB9"
+        },
+        {
+          "ea": "0x52ceb2",
+          "size": 2,
+          "bytes": "3ac2",
+          "text": "cmp     al, dl"
+        },
+        {
+          "ea": "0x52ceb4",
+          "size": 2,
+          "bytes": "740e",
+          "text": "jz      short loc_52CEC4"
+        },
+        {
+          "ea": "0x52ceb6",
+          "size": 1,
+          "bytes": "41",
+          "text": "inc     ecx"
+        },
+        {
+          "ea": "0x52ceb7",
+          "size": 2,
+          "bytes": "ebef",
+          "text": "jmp     short loc_52CEA8"
+        },
+        {
+          "ea": "0x52ceb9",
+          "size": 3,
+          "bytes": "8a4101",
+          "text": "mov     al, [ecx+1]"
+        },
+        {
+          "ea": "0x52cebc",
+          "size": 1,
+          "bytes": "41",
+          "text": "inc     ecx"
+        },
+        {
+          "ea": "0x52cebd",
+          "size": 2,
+          "bytes": "84c0",
+          "text": "test    al, al"
+        },
+        {
+          "ea": "0x52cebf",
+          "size": 2,
+          "bytes": "7407",
+          "text": "jz      short loc_52CEC8"
+        },
+        {
+          "ea": "0x52cec1",
+          "size": 1,
+          "bytes": "41",
+          "text": "inc     ecx"
+        },
+        {
+          "ea": "0x52cec2",
+          "size": 2,
+          "bytes": "ebe4",
+          "text": "jmp     short loc_52CEA8"
+        },
+        {
+          "ea": "0x52cec4",
+          "size": 3,
+          "bytes": "8d4101",
+          "text": "lea     eax, [ecx+1]"
+        },
+        {
+          "ea": "0x52cec7",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x52cec8",
+          "size": 2,
+          "bytes": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52ceca",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "callers": [
+        {
+          "from": "0x52ceee",
+          "type": 17,
+          "owner": "0x52ced0"
+        }
+      ],
+      "inventory_id": "F:0012CEA0"
+    },
+    {
+      "entry": "0x52ced0",
+      "end": "0x52cf27",
+      "chunks": [
+        [
+          "0x52ced0",
+          "0x52cf27"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x52ced0",
+          "size": 4,
+          "bytes": "8b4c240c",
+          "text": "mov     ecx, [esp+arg_8]"
+        },
+        {
+          "ea": "0x52ced4",
+          "size": 4,
+          "bytes": "8b442404",
+          "text": "mov     eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x52ced8",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x52ced9",
+          "size": 4,
+          "bytes": "8b5c240c",
+          "text": "mov     ebx, [esp+4+arg_4]"
+        },
+        {
+          "ea": "0x52cedd",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x52cede",
+          "size": 1,
+          "bytes": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x52cedf",
+          "size": 3,
+          "bytes": "8d79ff",
+          "text": "lea     edi, [ecx-1]"
+        },
+        {
+          "ea": "0x52cee2",
+          "size": 2,
+          "bytes": "33f6",
+          "text": "xor     esi, esi"
+        },
+        {
+          "ea": "0x52cee4",
+          "size": 2,
+          "bytes": "85ff",
+          "text": "test    edi, edi"
+        },
+        {
+          "ea": "0x52cee6",
+          "size": 2,
+          "bytes": "7e13",
+          "text": "jle     short loc_52CEFB"
+        },
+        {
+          "ea": "0x52cee8",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x52ceea",
+          "size": 2,
+          "bytes": "7413",
+          "text": "jz      short loc_52CEFF"
+        },
+        {
+          "ea": "0x52ceec",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x52ceed",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x52ceee",
+          "size": 5,
+          "bytes": "e8adffffff",
+          "text": "call    sub_52CEA0"
+        },
+        {
+          "ea": "0x52cef3",
+          "size": 3,
+          "bytes": "83c408",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": "0x52cef6",
+          "size": 1,
+          "bytes": "46",
+          "text": "inc     esi"
+        },
+        {
+          "ea": "0x52cef7",
+          "size": 2,
+          "bytes": "3bf7",
+          "text": "cmp     esi, edi"
+        },
+        {
+          "ea": "0x52cef9",
+          "size": 2,
+          "bytes": "7ced",
+          "text": "jl      short loc_52CEE8"
+        },
+        {
+          "ea": "0x52cefb",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x52cefd",
+          "size": 2,
+          "bytes": "7510",
+          "text": "jnz     short loc_52CF0F"
+        },
+        {
+          "ea": "0x52ceff",
+          "size": 4,
+          "bytes": "8b542420",
+          "text": "mov     edx, [esp+0Ch+arg_10]"
+        },
+        {
+          "ea": "0x52cf03",
+          "size": 1,
+          "bytes": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x52cf04",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x52cf05",
+          "size": 5,
+          "bytes": "b801000000",
+          "text": "mov     eax, 1"
+        },
+        {
+          "ea": "0x52cf0a",
+          "size": 3,
+          "bytes": "c60200",
+          "text": "mov     byte ptr [edx], 0"
+        },
+        {
+          "ea": "0x52cf0d",
+          "size": 1,
+          "bytes": "5b",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": "0x52cf0e",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x52cf0f",
+          "size": 4,
+          "bytes": "8b4c2420",
+          "text": "mov     ecx, [esp+0Ch+arg_10]"
+        },
+        {
+          "ea": "0x52cf13",
+          "size": 4,
+          "bytes": "8b54241c",
+          "text": "mov     edx, [esp+0Ch+arg_C]"
+        },
+        {
+          "ea": "0x52cf17",
+          "size": 1,
+          "bytes": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x52cf18",
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x52cf19",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x52cf1a",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x52cf1b",
+          "size": 5,
+          "bytes": "e810000000",
+          "text": "call    sub_52CF30"
+        },
+        {
+          "ea": "0x52cf20",
+          "size": 3,
+          "bytes": "83c410",
+          "text": "add     esp, 10h"
+        },
+        {
+          "ea": "0x52cf23",
+          "size": 1,
+          "bytes": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x52cf24",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x52cf25",
+          "size": 1,
+          "bytes": "5b",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": "0x52cf26",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "reference_count": 306,
+      "selected_callers": [
+        {
+          "from": "0x4a066b",
+          "type": 17,
+          "owner": "0x4a0640"
+        },
+        {
+          "from": "0x4a0689",
+          "type": 17,
+          "owner": "0x4a0640"
+        },
+        {
+          "from": "0x52cfbf",
+          "type": 17,
+          "owner": "0x52cfa0"
+        }
+      ],
+      "inventory_id": "F:0012CED0"
+    },
+    {
+      "entry": "0x52cf30",
+      "end": "0x52cf98",
+      "instructions": [
+        {
+          "ea": "0x52cf30",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x52cf31",
+          "size": 1,
+          "bytes": "55",
+          "text": "push    ebp"
+        },
+        {
+          "ea": "0x52cf32",
+          "size": 4,
+          "bytes": "8b6c2414",
+          "text": "mov     ebp, [esp+8+arg_8]"
+        },
+        {
+          "ea": "0x52cf36",
+          "size": 2,
+          "bytes": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52cf38",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x52cf39",
+          "size": 4,
+          "bytes": "8b74241c",
+          "text": "mov     esi, [esp+0Ch+arg_C]"
+        },
+        {
+          "ea": "0x52cf3d",
+          "size": 2,
+          "bytes": "85ed",
+          "text": "test    ebp, ebp"
+        },
+        {
+          "ea": "0x52cf3f",
+          "size": 1,
+          "bytes": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x52cf40",
+          "size": 2,
+          "bytes": "7e3d",
+          "text": "jle     short loc_52CF7F"
+        },
+        {
+          "ea": "0x52cf42",
+          "size": 4,
+          "bytes": "8b7c2414",
+          "text": "mov     edi, [esp+10h+arg_0]"
+        },
+        {
+          "ea": "0x52cf46",
+          "size": 3,
+          "bytes": "8a0c38",
+          "text": "mov     cl, [eax+edi]"
+        },
+        {
+          "ea": "0x52cf49",
+          "size": 3,
+          "bytes": "80f980",
+          "text": "cmp     cl, 80h"
+        },
+        {
+          "ea": "0x52cf4c",
+          "size": 2,
+          "bytes": "731a",
+          "text": "jnb     short loc_52CF68"
+        },
+        {
+          "ea": "0x52cf4e",
+          "size": 5,
+          "bytes": "0fbe5c2418",
+          "text": "movsx   ebx, [esp+10h+arg_4]"
+        },
+        {
+          "ea": "0x52cf53",
+          "size": 2,
+          "bytes": "8bd1",
+          "text": "mov     edx, ecx"
+        },
+        {
+          "ea": "0x52cf55",
+          "size": 6,
+          "bytes": "81e2ff000000",
+          "text": "and     edx, 0FFh"
+        },
+        {
+          "ea": "0x52cf5b",
+          "size": 2,
+          "bytes": "3bd3",
+          "text": "cmp     edx, ebx"
+        },
+        {
+          "ea": "0x52cf5d",
+          "size": 2,
+          "bytes": "742e",
+          "text": "jz      short loc_52CF8D"
+        },
+        {
+          "ea": "0x52cf5f",
+          "size": 2,
+          "bytes": "84c9",
+          "text": "test    cl, cl"
+        },
+        {
+          "ea": "0x52cf61",
+          "size": 3,
+          "bytes": "880c30",
+          "text": "mov     [eax+esi], cl"
+        },
+        {
+          "ea": "0x52cf64",
+          "size": 2,
+          "bytes": "741d",
+          "text": "jz      short loc_52CF83"
+        },
+        {
+          "ea": "0x52cf66",
+          "size": 2,
+          "bytes": "eb12",
+          "text": "jmp     short loc_52CF7A"
+        },
+        {
+          "ea": "0x52cf68",
+          "size": 3,
+          "bytes": "880c30",
+          "text": "mov     [eax+esi], cl"
+        },
+        {
+          "ea": "0x52cf6b",
+          "size": 1,
+          "bytes": "40",
+          "text": "inc     eax"
+        },
+        {
+          "ea": "0x52cf6c",
+          "size": 2,
+          "bytes": "3bc5",
+          "text": "cmp     eax, ebp"
+        },
+        {
+          "ea": "0x52cf6e",
+          "size": 2,
+          "bytes": "7d0f",
+          "text": "jge     short loc_52CF7F"
+        },
+        {
+          "ea": "0x52cf70",
+          "size": 3,
+          "bytes": "8a0c38",
+          "text": "mov     cl, [eax+edi]"
+        },
+        {
+          "ea": "0x52cf73",
+          "size": 2,
+          "bytes": "84c9",
+          "text": "test    cl, cl"
+        },
+        {
+          "ea": "0x52cf75",
+          "size": 3,
+          "bytes": "880c30",
+          "text": "mov     [eax+esi], cl"
+        },
+        {
+          "ea": "0x52cf78",
+          "size": 2,
+          "bytes": "7409",
+          "text": "jz      short loc_52CF83"
+        },
+        {
+          "ea": "0x52cf7a",
+          "size": 1,
+          "bytes": "40",
+          "text": "inc     eax"
+        },
+        {
+          "ea": "0x52cf7b",
+          "size": 2,
+          "bytes": "3bc5",
+          "text": "cmp     eax, ebp"
+        },
+        {
+          "ea": "0x52cf7d",
+          "size": 2,
+          "bytes": "7cc7",
+          "text": "jl      short loc_52CF46"
+        },
+        {
+          "ea": "0x52cf7f",
+          "size": 4,
+          "bytes": "c6043000",
+          "text": "mov     byte ptr [eax+esi], 0"
+        },
+        {
+          "ea": "0x52cf83",
+          "size": 1,
+          "bytes": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x52cf84",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x52cf85",
+          "size": 1,
+          "bytes": "5d",
+          "text": "pop     ebp"
+        },
+        {
+          "ea": "0x52cf86",
+          "size": 5,
+          "bytes": "b801000000",
+          "text": "mov     eax, 1"
+        },
+        {
+          "ea": "0x52cf8b",
+          "size": 1,
+          "bytes": "5b",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": "0x52cf8c",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x52cf8d",
+          "size": 4,
+          "bytes": "c6043000",
+          "text": "mov     byte ptr [eax+esi], 0"
+        },
+        {
+          "ea": "0x52cf91",
+          "size": 1,
+          "bytes": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x52cf92",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x52cf93",
+          "size": 1,
+          "bytes": "5d",
+          "text": "pop     ebp"
+        },
+        {
+          "ea": "0x52cf94",
+          "size": 2,
+          "bytes": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52cf96",
+          "size": 1,
+          "bytes": "5b",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": "0x52cf97",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "callers": [
+        {
+          "from": "0x52cf1b",
+          "type": 17,
+          "owner": "0x52ced0"
+        }
+      ],
+      "inventory_id": "F:0012CF30"
+    },
+    {
+      "entry": "0x52cfa0",
+      "end": "0x52cfed",
+      "chunks": [
+        [
+          "0x52cfa0",
+          "0x52cfed"
+        ]
+      ],
+      "instructions": [
+        {
+          "ea": "0x52cfa0",
+          "size": 4,
+          "bytes": "8b4c240c",
+          "text": "mov     ecx, [esp+arg_8]"
+        },
+        {
+          "ea": "0x52cfa4",
+          "size": 4,
+          "bytes": "8b542408",
+          "text": "mov     edx, [esp+arg_4]"
+        },
+        {
+          "ea": "0x52cfa8",
+          "size": 6,
+          "bytes": "81ec80000000",
+          "text": "sub     esp, 80h"
+        },
+        {
+          "ea": "0x52cfae",
+          "size": 4,
+          "bytes": "8d442400",
+          "text": "lea     eax, [esp+80h+String]"
+        },
+        {
+          "ea": "0x52cfb2",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x52cfb3",
+          "size": 7,
+          "bytes": "8b842488000000",
+          "text": "mov     eax, [esp+84h+arg_0]"
+        },
+        {
+          "ea": "0x52cfba",
+          "size": 2,
+          "bytes": "6a7f",
+          "text": "push    7Fh"
+        },
+        {
+          "ea": "0x52cfbc",
+          "size": 1,
+          "bytes": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x52cfbd",
+          "size": 1,
+          "bytes": "52",
+          "text": "push    edx"
+        },
+        {
+          "ea": "0x52cfbe",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x52cfbf",
+          "size": 5,
+          "bytes": "e80cffffff",
+          "text": "call    sub_52CED0"
+        },
+        {
+          "ea": "0x52cfc4",
+          "size": 4,
+          "bytes": "8a442414",
+          "text": "mov     al, [esp+94h+String]"
+        },
+        {
+          "ea": "0x52cfc8",
+          "size": 3,
+          "bytes": "83c414",
+          "text": "add     esp, 14h"
+        },
+        {
+          "ea": "0x52cfcb",
+          "size": 2,
+          "bytes": "84c0",
+          "text": "test    al, al"
+        },
+        {
+          "ea": "0x52cfcd",
+          "size": 2,
+          "bytes": "750a",
+          "text": "jnz     short loc_52CFD9"
+        },
+        {
+          "ea": "0x52cfcf",
+          "size": 3,
+          "bytes": "83c8ff",
+          "text": "or      eax, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x52cfd2",
+          "size": 6,
+          "bytes": "81c480000000",
+          "text": "add     esp, 80h"
+        },
+        {
+          "ea": "0x52cfd8",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x52cfd9",
+          "size": 4,
+          "bytes": "8d4c2400",
+          "text": "lea     ecx, [esp+80h+String]"
+        },
+        {
+          "ea": "0x52cfdd",
+          "size": 1,
+          "bytes": "51",
+          "text": "push    ecx; String"
+        },
+        {
+          "ea": "0x52cfde",
+          "size": 5,
+          "bytes": "e866f60000",
+          "text": "call    _atoi"
+        },
+        {
+          "ea": "0x52cfe3",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x52cfe6",
+          "size": 6,
+          "bytes": "81c480000000",
+          "text": "add     esp, 80h"
+        },
+        {
+          "ea": "0x52cfec",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "reference_count": 550,
+      "selected_callers": [
+        {
+          "from": "0x4a0655",
+          "type": 17,
+          "owner": "0x4a0640"
+        }
+      ],
+      "inventory_id": "F:0012CFA0"
+    }
+  ],
+  "source_excerpt": {
+    "path": "src/network/NetworkRuntime.cpp",
+    "text": "// 原 [0x52CEA0,0x52CECB)：分隔符仅在低位字节上匹配。\nconst char* FindNextDelimitedField_52CEA0(\n    const char* source, const char delimiter)\n{\n    const auto delimiterByte = static_cast<unsigned char>(delimiter);\n    const auto* cursor = reinterpret_cast<const unsigned char*>(source);\n    for (;;) {\n        const unsigned char current = *cursor;\n        if (current == 0U) {\n            return nullptr;\n        }\n        if (current >= 0x80U) {\n            ++cursor;\n            if (*cursor == 0U) {\n                return nullptr;\n            }\n            ++cursor;\n        }\n        else if (current == delimiterByte) {\n            return reinterpret_cast<const char*>(cursor + 1);\n        }\n        else {\n            ++cursor;\n        }\n    }\n}\n\n// 原 [0x52CF30,0x52CF98)：高位首字节及后继字节按原容量门禁复制。\nstd::int32_t CopyDelimitedField_52CF30(\n    const char* const source,\n    const char delimiter,\n    const std::int32_t capacity,\n    char* const destination)\n{\n    const auto delimiterByte = static_cast<unsigned char>(delimiter);\n    const auto* bytes = reinterpret_cast<const unsigned char*>(source);\n    std::int32_t index = 0;\n    while (index < capacity) {\n        const unsigned char current = bytes[index];\n        if (current < 0x80U) {\n            if (current == delimiterByte) {\n                destination[index] = '\\0';\n                return 0;\n            }\n            destination[index] = static_cast<char>(current);\n            if (current == 0U) {\n                return 1;\n            }\n            ++index;\n        }\n        else {\n            destination[index] = static_cast<char>(current);\n            ++index;\n            if (index >= capacity) {\n                break;\n            }\n            const unsigned char second = bytes[index];\n            destination[index] = static_cast<char>(second);\n            if (second == 0U) {\n                return 1;\n            }\n            ++index;\n        }\n    }\n    destination[index] = '\\0';\n    return 1;\n}\n\n// 原 [0x52CED0,0x52CF27)：ordinal<=1 取首段，缺段只清首字节。\nstd::int32_t ExtractDelimitedField_52CED0(\n    const char* source,\n    const char delimiter,\n    const std::int32_t ordinal,\n    const std::int32_t capacity,\n    char* const destination)\n{\n    for (std::int32_t index = 1; index < ordinal && source != nullptr;\n         ++index) {\n        source = FindNextDelimitedField_52CEA0(source, delimiter);\n    }\n    if (source == nullptr) {\n        destination[0] = '\\0';\n        return 1;\n    }\n    return CopyDelimitedField_52CF30(\n        source, delimiter, capacity, destination);\n}\n\n// 原 [0x52CFA0,0x52CFED)：忽略字段复制返回，空字段返回 -1。\nstd::int32_t ParseDelimitedInteger_52CFA0(\n    const char* const source,\n    const char delimiter,\n    const std::int32_t ordinal)\n{\n    std::array<char, 128> field;\n    static_cast<void>(ExtractDelimitedField_52CED0(\n        source, delimiter, ordinal, 127, field.data()));\n    if (field[0] == '\\0') {\n        return -1;\n    }\n    return platform::Atoi_53C649(field.data());\n}\n\n"
+  },
+  "established_caller_excerpt": {
+    "path": "cg2d_re/src/ui/WindowRuntime.cpp",
+    "kind": "producer_root",
+    "text": "login::YobiAction* Sub_4A0640(const char* const text)\n{\n    gChoiceImageCC4890 = network::ParseDelimitedInteger_52CFA0(text, '|', 1);\n    char* const title = gNpcDialogLinesCC24D4[0].text.data();\n    static_cast<void>(network::ExtractDelimitedField_52CED0(text, '|', 2, 21, title));\n    input::UnescapeLegacyTextAndNotify_52D2F0(title);\n    FillChoiceDialogBody(text, 3, 255);\n    return Sub_49FCA0(title, gChoiceImageCC4890, gChoiceDialogLinesD672D8.data(), 5,\n        kSkillChoices57E6F0.data(), 3, kSkillHints57E6FC.data(), &Sub_4A05C0);\n}"
+  },
+  "copy_delimiter_comparison": {
+    "original_sign_extend_site": "0x52CF4E",
+    "original_source_zero_mask_site": "0x52CF55",
+    "original_compare_site": "0x52CF5B",
+    "source_domain": "仅低于0x80的源U8",
+    "same_when_delimiter_low": true,
+    "both_unmatched_when_delimiter_high": true,
+    "boundary": "仅已证分支的字节比较域，不外推任意整数/API/ABI/代码页"
+  },
+  "verification_scope": "四完整体及对应源/原声明、引用统计与选定4A0640/52CFA0父边、逐ID登记；不核全部306/550业务父或Atoi内部/完整owner/alias/原格式互通/运行",
+  "source_change": false,
+  "new_software_acceptance": false,
+  "reference_stats": [
+    {
+      "entry": "0x52cea0",
+      "reference_count": 1,
+      "reference_types": {
+        "17": 1
+      },
+      "direct_call_reference_count": 1
+    },
+    {
+      "entry": "0x52ced0",
+      "reference_count": 306,
+      "reference_types": {
+        "17": 306
+      },
+      "direct_call_reference_count": 306
+    },
+    {
+      "entry": "0x52cf30",
+      "reference_count": 1,
+      "reference_types": {
+        "17": 1
+      },
+      "direct_call_reference_count": 1
+    },
+    {
+      "entry": "0x52cfa0",
+      "reference_count": 550,
+      "reference_types": {
+        "17": 550
+      },
+      "direct_call_reference_count": 550
+    }
+  ],
+  "producer_field_parser_dependencies": [
+    {
+      "call_site": "0x4A0655",
+      "target_inventory_id": "F:0012CFA0",
+      "target_entry": "0x52CFA0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A0640",
+      "arguments": "text/'|'低U8/ordinal1；原parse结果发布CC4890"
+    },
+    {
+      "call_site": "0x4A066B",
+      "target_inventory_id": "F:0012CED0",
+      "target_entry": "0x52CED0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4A0640",
+      "arguments": "text/'|'/ordinal2/cap21/同一标题CC24D4"
+    },
+    {
+      "call_site": "0x4A0689",
+      "target_inventory_id": "F:0012CED0",
+      "target_entry": "0x52CED0",
+      "source": "src/ui/WindowRuntime.cpp",
+      "symbol": "FillChoiceDialogBody",
+      "arguments": "原4A0640字段3/cap255/未清256B正文；源helper参数3/255"
+    }
+  ]
+}

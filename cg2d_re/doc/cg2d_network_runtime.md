@@ -3750,3 +3750,11 @@ R1处置186/3680不增，完整业务/ABI/链接/失败及原格式明文互通/
 非正limit不读源仍写首NUL，正limit写目标后重读源判零；包装先复制再返回入口目的指针。
 本页旧回绕实施段已按RPLAN.24定点更新，异常不专项模拟或宣称等价。
 两本体已存在，只补语义/adapted；整分派/所有参数传递/回复、owner/实际ABI及运行仍待。
+
+
+## DFI01 原字段解析当前身份纳管（2026-10-05）
+
+[四身份合同](cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state)将既有52CEA0/52CED0/52CF30/52CFA0按原21/40/47/24条、43/87/104/77B逐项登记adapted；当前源及头不改，原分段格式/容量/返回/别名处理序保持。
+[只读原体与选定边](cg2d_delimited_field_identity_evidence.json)补技能4A0640的整数/标题/正文三字段关系：4A0655、4A066B、4A0689，对应既有ParseDelimitedInteger和ExtractDelimitedField/helper；不额外调用或补默认数据。
+Copy原delimiter S8扩展与源U8比较只在源0..127分支，现U8表达在该域同结果；高位源不比delimiter，不扩展为代码页/ABI或其他整数等价。
+引用点统计仍1/306/1/550，不重复将早期“未落位”当今天缺正文；登记不是新增软件验收，全部业务父/字段/owner/未知alias、Atoi内部、原格式明文互通和运行保持未闭。

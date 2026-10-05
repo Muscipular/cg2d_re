@@ -144065,7 +144065,10 @@
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-acceptance",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
-        "doc/cg2d_legacy_line_sampling_evidence.json"
+        "doc/cg2d_legacy_line_sampling_evidence.json",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_field_identity_evidence.json"
       ],
       "verification_level": "完整62条/192B/唯一caller集合、旧55共享绘制邻窗与现有源段限定静态；旧55完整父/外路由/运行未验",
       "boundary": "先图号字段1发布CC4890、标题字段2容量21→同一CC24D4并反转义；正文字段3容量255写未清256B局部/反转义后，以width20/cap81/行0..4将CC2525至CC26BA五81B旧共享行逐项写出，写后发布D672D8非拥有指针；现代创建使用这些T*，原5正文/3按钮与回调保持。旧55实际借同一行数组，旧“只生产现代正文”缺失标记撤，不新增生产体/空正文/镜像。仅当前数据边，不推旧99表外层、全部consumer/owner/alias、实际ABI/画面/运行完整；x64只拓已证行指针。",
@@ -144090,7 +144093,239 @@
         "source_owner": "src/ui/WindowRuntime.cpp:gNpcDialogLinesCC24D4",
         "pointer_publish_site": "0x4A06B7",
         "pointer_relation": "同一已写行的非拥有地址，指针在x64自然拓宽；不复制正文到另一区"
-      }
+      },
+      "field_parser_dependencies": [
+        {
+          "call_site": "0x4A0655",
+          "target_inventory_id": "F:0012CFA0",
+          "target_entry": "0x52CFA0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A0640",
+          "arguments": "text/'|'低U8/ordinal1；原parse结果发布CC4890"
+        },
+        {
+          "call_site": "0x4A066B",
+          "target_inventory_id": "F:0012CED0",
+          "target_entry": "0x52CED0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A0640",
+          "arguments": "text/'|'/ordinal2/cap21/同一标题CC24D4"
+        },
+        {
+          "call_site": "0x4A0689",
+          "target_inventory_id": "F:0012CED0",
+          "target_entry": "0x52CED0",
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "FillChoiceDialogBody",
+          "arguments": "原4A0640字段3/cap255/未清256B正文；源helper参数3/255"
+        }
+      ]
+    },
+    {
+      "original_entry": "0x52CEA0",
+      "inventory_id": "F:0012CEA0",
+      "status": "DFI01已有解析正文/声明及当前adapted处置纳管；完整业务父/alias/运行未验",
+      "original_role": "原字节下一字段定位",
+      "original_end_exclusive": "0x52CECB",
+      "instruction_count": 21,
+      "original_code_bytes": 43,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x52CEA0",
+          "end_exclusive": "0x52CECB"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "FindNextDelimitedField_52CEA0"
+          ],
+          "relationship": "既有完整原字节正文保持，只补原新身份与当前基线；本步未改源"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "FindNextDelimitedField_52CEA0"
+          ],
+          "relationship": "既有公开声明/原W32字段保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-acceptance",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_field_identity_evidence.json"
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x52ceee",
+          "parent_entry": "0x52ced0",
+          "reference_type": 17
+        }
+      ],
+      "boundary": "首U8一次读取，NUL空返回，低位字节才比delimiter低U8；高位字符的后继NUL空返回，否则跳两字节；返回分隔符后一借地址。 x64仅承载已证字节指针，既有正文/调用/owner保持。引用统计及选定父边不是全部306/550业务父、字段布局/间接alias/Atoi内部或原格式明文互通/ABI/链接/运行验收；原函数间隙不计本组代码或R7区间关闭。音频暂停/不构建测试运行摘要/原格式明文及RPLAN.24保持。",
+      "verification_level": "四组132条/311B完整指令与原引用统计/选定父边、当前源段及同名声明限定静态；无新源码或软件门禁"
+    },
+    {
+      "original_entry": "0x52CED0",
+      "inventory_id": "F:0012CED0",
+      "status": "DFI01已有解析正文/声明及当前adapted处置纳管；完整业务父/alias/运行未验",
+      "original_role": "按原序号提取字段",
+      "original_end_exclusive": "0x52CF27",
+      "instruction_count": 40,
+      "original_code_bytes": 87,
+      "original_direct_reference_count": 306,
+      "original_direct_call_reference_count": 306,
+      "function_chunks": [
+        {
+          "start": "0x52CED0",
+          "end_exclusive": "0x52CF27"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "ExtractDelimitedField_52CED0"
+          ],
+          "relationship": "既有完整原字节正文保持，只补原新身份与当前基线；本步未改源"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "ExtractDelimitedField_52CED0"
+          ],
+          "relationship": "既有公开声明/原W32字段保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-acceptance",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_field_identity_evidence.json"
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x4a066b",
+          "parent_entry": "0x4a0640",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x4a0689",
+          "parent_entry": "0x4a0640",
+          "reference_type": 17
+        },
+        {
+          "reference_site": "0x52cfbf",
+          "parent_entry": "0x52cfa0",
+          "reference_type": 17
+        }
+      ],
+      "boundary": "原正常ordinal<=1选首段，其余逐次定位；缺源/段只清目标首NUL返1，找到后直接透传复制0/1。不新增序号/容量门槛，数学溢出按RPLAN.24不专项模拟。 x64仅承载已证字节指针，既有正文/调用/owner保持。引用统计及选定父边不是全部306/550业务父、字段布局/间接alias/Atoi内部或原格式明文互通/ABI/链接/运行验收；原函数间隙不计本组代码或R7区间关闭。音频暂停/不构建测试运行摘要/原格式明文及RPLAN.24保持。",
+      "verification_level": "四组132条/311B完整指令与原引用统计/选定父边、当前源段及同名声明限定静态；无新源码或软件门禁"
+    },
+    {
+      "original_entry": "0x52CF30",
+      "inventory_id": "F:0012CF30",
+      "status": "DFI01已有解析正文/声明及当前adapted处置纳管；完整业务父/alias/运行未验",
+      "original_role": "原字节限长字段复制",
+      "original_end_exclusive": "0x52CF98",
+      "instruction_count": 47,
+      "original_code_bytes": 104,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "function_chunks": [
+        {
+          "start": "0x52CF30",
+          "end_exclusive": "0x52CF98"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "CopyDelimitedField_52CF30"
+          ],
+          "relationship": "既有完整原字节正文保持，只补原新身份与当前基线；本步未改源"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "CopyDelimitedField_52CF30"
+          ],
+          "relationship": "既有公开声明/原W32字段保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-acceptance",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_field_identity_evidence.json"
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x52cf1b",
+          "parent_entry": "0x52ced0",
+          "reference_type": 17
+        }
+      ],
+      "boundary": "S32容量非正只写首NUL返1；低位分隔符写NUL返0，源NUL/容量触顶写NUL返1；高位首字节先写，余量够才读后继并写，后继不比delimiter且NUL复制后返1。原S8 delimiter/源码U8比较只在源0..127域同结果，源/目标可能别名时首写后尾读保持。 x64仅承载已证字节指针，既有正文/调用/owner保持。引用统计及选定父边不是全部306/550业务父、字段布局/间接alias/Atoi内部或原格式明文互通/ABI/链接/运行验收；原函数间隙不计本组代码或R7区间关闭。音频暂停/不构建测试运行摘要/原格式明文及RPLAN.24保持。",
+      "verification_level": "四组132条/311B完整指令与原引用统计/选定父边、当前源段及同名声明限定静态；无新源码或软件门禁"
+    },
+    {
+      "original_entry": "0x52CFA0",
+      "inventory_id": "F:0012CFA0",
+      "status": "DFI01已有解析正文/声明及当前adapted处置纳管；完整业务父/alias/运行未验",
+      "original_role": "字段整数解析及空字段-1",
+      "original_end_exclusive": "0x52CFED",
+      "instruction_count": 24,
+      "original_code_bytes": 77,
+      "original_direct_reference_count": 550,
+      "original_direct_call_reference_count": 550,
+      "function_chunks": [
+        {
+          "start": "0x52CFA0",
+          "end_exclusive": "0x52CFED"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "ParseDelimitedInteger_52CFA0"
+          ],
+          "relationship": "既有完整原字节正文保持，只补原新身份与当前基线；本步未改源"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "ParseDelimitedInteger_52CFA0"
+          ],
+          "relationship": "既有公开声明/原W32字段保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-acceptance",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_field_identity_evidence.json"
+      ],
+      "inbound_evidence": [
+        {
+          "reference_site": "0x4a0655",
+          "parent_entry": "0x4a0640",
+          "reference_type": 17
+        }
+      ],
+      "boundary": "未清128B/cap127字段提取弃结果，首NUL返W32-1，非空调用既有真实Atoi_53C649透传；不补默认文本/严格校验或新的代码页。 x64仅承载已证字节指针，既有正文/调用/owner保持。引用统计及选定父边不是全部306/550业务父、字段布局/间接alias/Atoi内部或原格式明文互通/ABI/链接/运行验收；原函数间隙不计本组代码或R7区间关闭。音频暂停/不构建测试运行摘要/原格式明文及RPLAN.24保持。",
+      "verification_level": "四组132条/311B完整指令与原引用统计/选定父边、当前源段及同名声明限定静态；无新源码或软件门禁"
     }
   ]
 }

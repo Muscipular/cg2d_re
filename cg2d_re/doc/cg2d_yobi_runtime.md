@@ -3905,3 +3905,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [委托裁决](cg2d_map_observation_source_spec.md#map-observation-source-decision)在440F50仅增加局部S32图号快照，原图号读→payload取样→图号发布可追；未命中不写源、独立field58/乘60与原五槽清写/正值/非空子和返回保持，不加死亡过滤/空payload保护/回滚。返回既有原生子指针区，只保区域语义，不称x86/x64地址数值等价。
 
 440FE0源码保持两调用弃返回后完整0x25，音频仍暂停，不因callee扩父排除。两原40+4条/131+16B、两call两父及两个已有声明纳管；原历史“链未闭”继续限定完整父/所有callee/全上游/别名和owner寿命/实际场景运行，本次局部修正不升级该结论。
+
+## MOC01 当前440C50参数/排序取读（2026-10-05）
+
+[委托裁决](cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision)以五限定片段明确原入口frame/方向、两轴查询后的父frame/像素坐标与槽偏移、排序nextIndex/复读currentIndex/先两子指针后当前深度、子绘图描述符/图形/Y/X。原PC53叶、非空FrameMove后子指针复读、五槽坐标/序号发布与-1尾、deltaY降序及S8交换/绘主项/绘后frame递增保持；不变drawY排序，不添空/死亡过滤。
+
+233条767B完整原体保存仅取读局部，唯一type1来自440B70 callback绑定；只有私有void本体及YobiCallback签名，不捏造公开声明。完整其它语义/callee/上游与间接别名及owner寿命/真实ABI/PC53/SDK/场景画面运行未验。

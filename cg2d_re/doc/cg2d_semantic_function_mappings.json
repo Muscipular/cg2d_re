@@ -146337,6 +146337,42 @@
       ],
       "verification_level": "两原44条147B/两call两父保存，一限定源片段、图号/载荷取样与五槽/既有薄父局部静态；不代完整父/callee/owner寿命/运行",
       "boundary": "440FE0未改：原440B70→52B990两调用弃返回，后完整0x25；不因子创建失败跳过音频，音频callee仍暂停，不外推父暂停/排除。 完整两父与所有callee/全上游/间接别名及owner重进退出和借用失效、实际ABI/SDK/时钟RNG/场景画面运行未闭；不新增异常保护或回绕/故障模拟、称等价。"
+    },
+    {
+      "original_entry": "0x440c50",
+      "inventory_id": "F:00040C50",
+      "status": "MOC01观察回调五片段原读取序实修及身份纳管；完整父/callee与owner寿命运行未验",
+      "original_end_exclusive": "0x440f4f",
+      "instruction_count": 233,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_440C50",
+            "Sub_440B70",
+            "YobiCallback",
+            "MapCharaPayload"
+          ],
+          "relationship": "既有私有真实回调本体/YobiCallback签名及唯一生产者绑定，MOC01仅五片段读取序修正，无公开440C50声明或新接口"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x440b85",
+          "parent_entry": "0x440b70",
+          "type": 1
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-acceptance",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
+        "doc/cg2d_map_observer_callback_order_evidence.json"
+      ],
+      "verification_level": "原233条767B/唯一type1 callback地址写者，一回调五片段入口/两轴/排序与子绘图局部静态；不是直接call，不代其他语义/完整父/callee/owner寿命/运行",
+      "boundary": "payload后frame→方向取样；两轴查询返回后父frame→父像素坐标→加frame→读槽偏移→加父坐标/偏移；排序nextIndex判负后复读currentIndex、先两子指针后当前deltaY比较后deltaY；子绘图描述符→图形→Y→X。现有PC53/MASM数值叶、五槽/正负尾/原S32 deltaY降序和S8交换、父绘图/绘后frame递增保持。233条其它语义/所有数值及绘图callee、完整父与全上游/所有间接别名及owner重进退出和借用失效/实际ABI/SDK/PC53/时钟RNG/场景画面运行未验，异常不新增保护或回绕/故障模拟、称等价。"
     }
   ]
 }

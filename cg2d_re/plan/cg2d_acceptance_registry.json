@@ -562,7 +562,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-baseline",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -575,7 +576,8 @@
         "F:0003FEB0",
         "F:00040B70",
         "F:00040F50",
-        "F:00040FE0"
+        "F:00040FE0",
+        "F:00040C50"
       ],
       "closure_task_ids": [
         "U11",
@@ -592,7 +594,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-decision",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -600,7 +603,8 @@
         "MQC01为真实场景快照的查找/尾接清理依赖绑定两原身份；仅查询next取样一块实修、已有清理未改，双功能共用同一ID/原证据。完整父/传递依赖/所有owner与alias/空链机器返回/时钟RNG/真实SDK/场景运行未闭",
         "MCL01场景观察链追加/摘链/清头三依赖原身份纳管，两源块只修原next读取点、清头未改；双域共用同一ID/原证据。全部父/传递依赖和producer/owner重进退出与borrow失效/时钟RNG/实际SDK/场景运行未闭",
         "MCP01观察节点生产三依赖原身份纳管，原复制/父载荷和子槽取样已实修；六片段限三入口/前置声明，不跨其他同形函数或通用载体工具。全父/传递callee/上游与owner重进退出及borrow失效/时钟RNG/实际SDK/场景运行未闭，双域共用同ID/原证据",
-        "MOS01五槽观察源/创建薄父两依赖原身份纳管，440F50一行为块取样实修；440FE0原两调用弃返回/完整0x25保持，音频callee仍暂停不扩父排除。全父/传递callee/上游与owner重进退出和借用失效/实际SDK/场景运行未闭，双域共用同ID/原证据"
+        "MOS01五槽观察源/创建薄父两依赖原身份纳管，440F50一行为块取样实修；440FE0原两调用弃返回/完整0x25保持，音频callee仍暂停不扩父排除。全父/传递callee/上游与owner重进退出和借用失效/实际SDK/场景运行未闭，双域共用同ID/原证据",
+        "MOC01已接观察回调五片段读取序实修及原身份纳管，真实440B70 callback绑定保持；唯一地址写引用不是直接call。全父/传递callee/上游与所有间接目标和owner寿命/真实PC53/SDK/场景运行未闭，双域共用同ID/原证据"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -609,7 +613,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state"
       ]
     },
     {
@@ -1074,7 +1079,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-baseline",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1122,7 +1128,8 @@
         "F:0003FEB0",
         "F:00040B70",
         "F:00040F50",
-        "F:00040FE0"
+        "F:00040FE0",
+        "F:00040C50"
       ],
       "closure_task_ids": [
         "U11",
@@ -1145,7 +1152,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-decision",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1159,7 +1167,8 @@
         "MQC01查找恢复载荷取后/五编号比较前保存next，一源块实修；已有五孩子清理未改、两身份和原生链来源纳管且与LOOP关联。七引用六call一tailjump五父不代完整parent/producer/所有alias与owner寿命/空链机器返回/实际ABI/SDK/场景画面运行，异常不保护或模拟",
         "MCL01追加一次next读取/摘链命中后复读两块已实修，原发布/重接/返回及原生载荷/头保持；三已有身份纳管，其中只清头未改，与LOOP同ID关联。全producer/七完整父/间接alias与所有owner寿命/实际ABI/SDK/场景画面运行未闭，异常不保护或模拟",
         "MCP01三生产者六片段恢复九组内存数值载体原复制序、父payload/三子槽取样，失实注释已改；五对/四对构析及失败/0x50/投影/回调/发布和随机消费保持。三身份同ID关联LOOP，全288其他语义/完整父/callee/五槽上游/所有alias及owner寿命/真实ABI/SDK/场景画面运行未闭，异常不保护或模拟",
-        "MOS01五槽源图号→载荷→发布取样已实修，原未命中不写/独立field58/乘60及五轮正值和非空子保持；440FE0既有同序薄父未改并纳管。两ID共用LOOP，完整父/callee/全上游/所有别名及owner寿命/实际ABI/SDK/场景画面运行未闭，音频callee仍暂停"
+        "MOS01五槽源图号→载荷→发布取样已实修，原未命中不写/独立field58/乘60及五轮正值和非空子保持；440FE0既有同序薄父未改并纳管。两ID共用LOOP，完整父/callee/全上游/所有别名及owner寿命/实际ABI/SDK/场景画面运行未闭，音频callee仍暂停",
+        "MOC01真实440C50五片段入口/两轴、排序两子指针和子绘图读取序已实修，原数值叶/五槽/deltaY降序/S8交换与绘后frame递增保持；唯一type1写者不是call。同ID关联LOOP，全父/callee/上游与所有间接别名和owner寿命/实际PC53/SDK/画面运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1174,7 +1183,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state"
       ]
     },
     {
@@ -13825,6 +13835,126 @@
       "observation": "两原44条147B/库存/两call两父、一具名片段精确源差异和未命中/标量/五槽及已有薄父限定静态",
       "expected": "先取主图号再取payload后发布图号，独立field58及乘60，五轮清值/清图号、S32正值及非空子图号，原失败/返回与薄父调用序保持",
       "actual": "四条I/S共用一处实修/两原体和真实本体证据，不计双份函数或第二处源修正；完整父/callee/全上游/所有别名及owner寿命/真实ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，音频仍暂停、异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-MAP-OBSERVER-CALLBACK-ORDER-MAP-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "一原233条767B/唯一type1 callback地址写者，入口/两轴/排序/子绘图读取序；doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-observer-callback-order-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-acceptance",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
+        "doc/cg2d_map_observer_callback_order_evidence.json",
+        "src/YobiRuntime.cpp#Sub_440C50",
+        "src/YobiRuntime.cpp#Sub_440B70",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50"
+      ],
+      "differences": [
+        {
+          "description": "440C50五限定片段显式按原取frame/方向、查询后的两轴父坐标/槽偏移、排序两子指针及当前深度、子绘图描述符/图形/Y/X；原算法/数值叶/五槽和frame递增保持",
+          "decision_ref": "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "440C50五片段读取序已落码；不改既有数值叶、五槽/deltaY降序/S8交换或原生载荷，补一身份/私有本体及实际生产者绑定",
+      "expected": "入口frame再方向、两轴查询后父frame/坐标及槽偏移原关联、排序两指针先取后读当前深度、子绘图描述符/图形/Y/X顺序；原数值叶/五槽/降序和S8交换/父绘制/frame递增保持",
+      "actual": "四条I/S共用一回调五片段/一原体，不计双份函数；唯一type1地址写者不是直接call，233条其它语义/完整数值绘图callee/父与全上游/所有间接别名及owner寿命/真实ABI/SDK/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-OBSERVER-CALLBACK-ORDER-MAP-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "一原233条767B/唯一type1 callback地址写者，入口/两轴/排序/子绘图读取序；doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-observer-callback-order-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-acceptance",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
+        "doc/cg2d_map_observer_callback_order_evidence.json",
+        "src/YobiRuntime.cpp#Sub_440C50",
+        "src/YobiRuntime.cpp#Sub_440B70",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50"
+      ],
+      "differences": [
+        {
+          "description": "440C50五限定片段显式按原取frame/方向、查询后的两轴父坐标/槽偏移、排序两子指针及当前深度、子绘图描述符/图形/Y/X；原算法/数值叶/五槽和frame递增保持",
+          "decision_ref": "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一原233条767B/库存/唯一type1地址写者、五具名片段精确源差异与入口/两轴/排序/子绘图限定静态",
+      "expected": "入口frame再方向、两轴查询后父frame/坐标及槽偏移原关联、排序两指针先取后读当前深度、子绘图描述符/图形/Y/X顺序；原数值叶/五槽/降序和S8交换/父绘制/frame递增保持",
+      "actual": "四条I/S共用一回调五片段/一原体，不计双份函数；唯一type1地址写者不是直接call，233条其它语义/完整数值绘图callee/父与全上游/所有间接别名及owner寿命/真实ABI/SDK/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-OBSERVER-CALLBACK-ORDER-LOOP-I-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "一原233条767B/唯一type1 callback地址写者，入口/两轴/排序/子绘图读取序；doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-observer-callback-order-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-acceptance",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
+        "doc/cg2d_map_observer_callback_order_evidence.json",
+        "src/YobiRuntime.cpp#Sub_440C50",
+        "src/YobiRuntime.cpp#Sub_440B70",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50"
+      ],
+      "differences": [
+        {
+          "description": "440C50五限定片段显式按原取frame/方向、查询后的两轴父坐标/槽偏移、排序两子指针及当前深度、子绘图描述符/图形/Y/X；原算法/数值叶/五槽和frame递增保持",
+          "decision_ref": "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "440C50五片段读取序已落码；不改既有数值叶、五槽/deltaY降序/S8交换或原生载荷，补一身份/私有本体及实际生产者绑定",
+      "expected": "入口frame再方向、两轴查询后父frame/坐标及槽偏移原关联、排序两指针先取后读当前深度、子绘图描述符/图形/Y/X顺序；原数值叶/五槽/降序和S8交换/父绘制/frame递增保持",
+      "actual": "四条I/S共用一回调五片段/一原体，不计双份函数；唯一type1地址写者不是直接call，233条其它语义/完整数值绘图callee/父与全上游/所有间接别名及owner寿命/真实ABI/SDK/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-OBSERVER-CALLBACK-ORDER-LOOP-S-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "一原233条767B/唯一type1 callback地址写者，入口/两轴/排序/子绘图读取序；doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-observer-callback-order-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-acceptance",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
+        "doc/cg2d_map_observer_callback_order_evidence.json",
+        "src/YobiRuntime.cpp#Sub_440C50",
+        "src/YobiRuntime.cpp#Sub_440B70",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50"
+      ],
+      "differences": [
+        {
+          "description": "440C50五限定片段显式按原取frame/方向、查询后的两轴父坐标/槽偏移、排序两子指针及当前深度、子绘图描述符/图形/Y/X；原算法/数值叶/五槽和frame递增保持",
+          "decision_ref": "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一原233条767B/库存/唯一type1地址写者、五具名片段精确源差异与入口/两轴/排序/子绘图限定静态",
+      "expected": "入口frame再方向、两轴查询后父frame/坐标及槽偏移原关联、排序两指针先取后读当前深度、子绘图描述符/图形/Y/X顺序；原数值叶/五槽/降序和S8交换/父绘制/frame递增保持",
+      "actual": "四条I/S共用一回调五片段/一原体，不计双份函数；唯一type1地址写者不是直接call，233条其它语义/完整数值绘图callee/父与全上游/所有间接别名及owner寿命/真实ABI/SDK/PC53/场景画面运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -13986,7 +14116,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state"
       ]
     },
     {
@@ -14220,7 +14351,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state"
       ]
     },
     {
@@ -14280,7 +14412,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state"
       ]
     },
     {
@@ -14331,7 +14464,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state"
       ]
     },
     {
@@ -14359,7 +14493,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state"
       ]
     },
     {
@@ -14522,7 +14657,8 @@
         "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
         "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
-        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state"
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state"
       ]
     }
   ],
@@ -18416,6 +18552,18 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-acceptance",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observation_source_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00040C50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-acceptance",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
+        "doc/cg2d_map_observer_callback_order_evidence.json"
       ]
     }
   ],

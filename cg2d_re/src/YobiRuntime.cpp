@@ -6135,9 +6135,11 @@ std::int32_t ShowHpBar_43DB60(
 void Sub_440C50(YobiAction* const action)
 {
     auto* const payload = static_cast<MapCharaPayload*>(action->payload);
+    const std::int32_t initialFrame = payload->frame;
+    const std::int32_t initialDirection = action->direction;
     platform::detail::MapObserverProjection projection;
     platform::detail::Cg2dMapObserverProjection(
-        payload->frame, &gMapDuration5F9744, action->direction, &projection);
+        initialFrame, &gMapDuration5F9744, initialDirection, &projection);
     Sub_517880(action, 100, 0, 0);
     action->x = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(projection.x)) + 320;
@@ -6162,9 +6164,17 @@ void Sub_440C50(YobiAction* const action)
         const std::int32_t slot = child->field1D0;
         Sub_43FD90(action->imageNo, slot, direction, &offsetX, &offsetY);
         const std::int32_t graphicX = Sub_5182B0(payload->partyActions[index], 0);
-        drawX[index] = graphicX + action->frameX + action->x + offsetX;
+        const std::int32_t frameX = action->frameX;
+        const std::int32_t parentX = action->x;
+        const std::int32_t frameOffsetX = graphicX + frameX;
+        const std::int32_t slotOffsetX = offsetX;
+        drawX[index] = frameOffsetX + parentX + slotOffsetX;
         const std::int32_t graphicY = Sub_5182B0(payload->partyActions[index], 1);
-        const std::int32_t y = graphicY + action->frameY + action->y + offsetY;
+        const std::int32_t frameY = action->frameY;
+        const std::int32_t parentY = action->y;
+        const std::int32_t frameOffsetY = graphicY + frameY;
+        const std::int32_t slotOffsetY = offsetY;
+        const std::int32_t y = frameOffsetY + parentY + slotOffsetY;
         order[count] = static_cast<std::int8_t>(index);
         drawY[index] = y;
         ++count;
@@ -6179,14 +6189,17 @@ void Sub_440C50(YobiAction* const action)
             break;
         }
         for (std::size_t next = index + 1; next < order.size(); ++next) {
-            if (order[next] < 0) {
+            const std::int8_t nextIndex = order[next];
+            if (nextIndex < 0) {
                 break;
             }
-            if (payload->partyActions[order[index]]->deltaY
-                < payload->partyActions[order[next]]->deltaY) {
-                const std::int8_t previous = order[index];
-                order[index] = order[next];
-                order[next] = previous;
+            const std::int8_t currentIndex = order[index];
+            YobiAction* const currentChild = payload->partyActions[currentIndex];
+            YobiAction* const nextChild = payload->partyActions[nextIndex];
+            const std::int32_t currentDepth = currentChild->deltaY;
+            if (currentDepth < nextChild->deltaY) {
+                order[index] = nextIndex;
+                order[next] = currentIndex;
             }
         }
     }
@@ -6195,9 +6208,12 @@ void Sub_440C50(YobiAction* const action)
             break;
         }
         YobiAction* const child = payload->partyActions[index];
+        const render::GraphicDescriptor16* const childMode = &child->drawMode;
+        const std::int32_t childGraphicIndex = child->graphicIndex;
+        const std::int32_t childY = drawY[index];
+        const std::int32_t childX = drawX[index];
         render::DrawGraphic2_521DD0(
-            drawX[index], drawY[index], 10, child->graphicIndex, 0, 0,
-            &child->drawMode);
+            childX, childY, 10, childGraphicIndex, 0, 0, childMode);
     }
     const std::int32_t graphicIndex = action->graphicIndex;
     const render::GraphicDescriptor16* const mode = &action->drawMode;

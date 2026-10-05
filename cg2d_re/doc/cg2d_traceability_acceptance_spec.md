@@ -350,3 +350,9 @@ G01/G02/U11/R01/R04/V04仍open；全288其他语义/完整父与所有callee/五
 [限定验收](cg2d_map_observation_source_spec.md#map-observation-source-acceptance)用44条147B/两call两父，核440F50一具名源片段、图号/载荷/发布取样及原标量/五槽，440FE0原同序薄父源码保持。两语义/来源/adapted及MAP46/LOOP11成员同步，E225→229仅两域各局部I/S，共用一处实修/两原体，不记双份函数或第二处源修复。
 
 G01/G02/U11/R01/R04/V04仍open；完整父与callee/全上游/间接别名和owner寿命/实际ABI/SDK/时钟RNG/场景画面运行未闭，音频callee仍暂停，全部完整门禁/功能、R1/R7/R8及整体判定不提升。
+
+## MOC01 回调读取序局部I/S（2026-10-05）
+
+[限定验收](cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-acceptance)核一回调五片段/原233条767B/唯一type1地址写者，恢复入口/两轴/排序与子绘图读取序；原数值叶、五槽/降序/S8交换及绘后递增保持。一语义/来源/adapted、MAP47/LOOP12成员，E229→233只两域各局部I/S，共用一实修/一原体，不记双份函数或直接call。
+
+六任务G01/G02/U11/R01/R04/V04仍open，所有callee/完整父和全上游/间接别名及owner寿命/真实PC53/SDK/场景画面运行未闭；完整门禁/功能、R1/R7/R8及整体判定不提升。

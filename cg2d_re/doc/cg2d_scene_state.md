@@ -7629,3 +7629,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [源取样合同](cg2d_map_observation_source_spec.md#map-observation-source-source-state)沿MCP01上游修440F50一片段：先读图号，再取payload，后发布图号。未命中不写三标量/两表，独立field58、真实乘60、恰五轮清值→清图号→S32正值→发布值→非空子图号及原生返回保持。440FE0既有440B70→52B990→0x25同序，不因子创建失败跳过第二调用，本体不改。
 
 [两原44条147B/两call两父](cg2d_map_observation_source_evidence.json)及真实本体/声明纳管同ID双域；音频callee暂停保留，不扩父暂停/排除。完整父/callee/全上游/别名及owner重进退出和借用失效/真实ABI/SDK/场景画面运行未闭，局部静态不代完整观察场景。
+
+## MOC01 观察回调读取序实修（2026-10-05）
+
+[读取序合同](cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state)沿MOS01源/生产者修440C50五片段，入口frame→方向、两轴查询后父frame/像素坐标和槽偏移、排序先两子指针后当前deltaY、子绘图描述符→图形→Y→X。现有场景接线、PC53/MASM数值叶、五槽/原deltaY降序/S8交换和绘后frame递增保持。
+
+[一原233条767B](cg2d_map_observer_callback_order_evidence.json)与440B70@440B85唯一type1 callback地址写者纳管；它不是直接call。所有callee/完整父与全上游、间接别名及owner寿命/真实PC53/SDK/场景画面运行未闭，局部静态不代完整场景。

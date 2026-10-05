@@ -2213,3 +2213,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [两原44条147B/两call两父](cg2d_map_observation_source_evidence.json)与[源状态](cg2d_map_observation_source_spec.md#map-observation-source-source-state)为440F50/440FE0补正式语义、真实本体/声明及adapted；仅440F50一片段实修，440FE0已有同序薄父不改。音频callee暂停不外推父处置。
 
 语义1288→1290、有效ID1284→1286、处置381→383，MAP44→46/LOOP9→11成员；同ID双域不重复计函数或源码修改。原历史定位/队列/pending/非FID/R7及其它功能保持，完整父/callee/全上游/别名及owner寿命/真实ABI/SDK/场景运行未验。
+
+## MOC01 观察回调原身份（2026-10-05）
+
+[原233条767B/唯一type1地址写者](cg2d_map_observer_callback_order_evidence.json)及[源状态](cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state)为440C50补正式语义/真实私有本体、YobiCallback及生产者绑定/adapted；五片段读取序实修，原数值叶/排序和五槽保持。type1不是直接call，没有伪造公开440C50声明。
+
+语义1290→1291、有效ID1286→1287、处置383→384，MAP46→47/LOOP11→12成员，同ID不重复计函数。全部原定位/pending/队列/非FID/R7及其它功能保持；其它233语义/所有callee/完整父与上游/间接别名和owner寿命/真实PC53/SDK/运行未验。

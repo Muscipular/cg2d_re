@@ -565,7 +565,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-baseline",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -584,7 +585,8 @@
         "F:0003F910",
         "F:0003FE00",
         "F:00040440",
-        "F:00040070"
+        "F:00040070",
+        "F:0003F520"
       ],
       "closure_task_ids": [
         "U11",
@@ -604,7 +606,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-decision",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -615,7 +618,8 @@
         "MOS01五槽观察源/创建薄父两依赖原身份纳管，440F50一行为块取样实修；440FE0原两调用弃返回/完整0x25保持，音频callee仍暂停不扩父排除。全父/传递callee/上游与owner重进退出和借用失效/实际SDK/场景运行未闭，双域共用同ID/原证据",
         "MOC01已接观察回调五片段读取序实修及原身份纳管，真实440B70 callback绑定保持；唯一地址写引用不是直接call。全父/传递callee/上游与所有间接目标和owner寿命/真实PC53/SDK/场景运行未闭，双域共用同ID/原证据",
         "MCS01真实观察子生产/消费三身份纳管，一子更新及分类承接七片段恢复原取样，两创建者本体保持；原阶段1/2分支快照与后部phase复读、绘后frame保持。完整父/所有callee/上游及间接别名与owner寿命/SDK/场景运行未闭，双域共用同ID/三原证据",
-        "MCE01真实子/父退场两身份纳管，十取样片段恢复原阶段/参数/共用排序和绘子项序；43F520本体及其余语义不改，依赖窗不加全根身份。完整父与callee/上游/所有间接目标和owner寿命/SDK/PC53/场景运行未闭，双域共用同ID/原证据"
+        "MCE01真实子/父退场两身份纳管，十取样片段恢复原阶段/参数/共用排序和绘子项序；43F520本体及其余语义不改，依赖窗不加全根身份。完整父与callee/上游/所有间接目标和owner寿命/SDK/PC53/场景运行未闭，双域共用同ID/原证据",
+        "MOB01观察主回调初阶段/方向/父绘图索引/末frame五片段实修及一原身份纳管，后部阶段复读、子生产消费与MCE01共用保持；完整体保存不代全部语义/父与callee/上游和owner寿命/真实SDK/PC53/场景运行，双域共用同ID/原证据"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -627,7 +631,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state"
       ]
     },
     {
@@ -1095,7 +1100,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-baseline",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1149,7 +1155,8 @@
         "F:0003F910",
         "F:0003FE00",
         "F:00040440",
-        "F:00040070"
+        "F:00040070",
+        "F:0003F520"
       ],
       "closure_task_ids": [
         "U11",
@@ -1175,7 +1182,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-decision",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1192,7 +1200,8 @@
         "MOS01五槽源图号→载荷→发布取样已实修，原未命中不写/独立field58/乘60及五轮正值和非空子保持；440FE0既有同序薄父未改并纳管。两ID共用LOOP，完整父/callee/全上游/所有别名及owner寿命/实际ABI/SDK/场景画面运行未闭，音频callee仍暂停",
         "MOC01真实440C50五片段入口/两轴、排序两子指针和子绘图读取序已实修，原数值叶/五槽/deltaY降序/S8交换与绘后frame递增保持；唯一type1写者不是call。同ID关联LOOP，全父/callee/上游与所有间接别名和owner寿命/实际PC53/SDK/画面运行未闭",
         "MCS01子更新五取样块/共用分类两承接块已实修，图号与阶段快照按原读取点，单参数形式保其它调用者；两正确子创建者保持并纳管。原422条1479B/三call两父，全父/callee/上游及所有别名/owner寿命/真实ABI/SDK/场景画面运行未闭，同ID关联LOOP",
-        "MCE01子退场七/父初阶段一/共用排序绘图两片段实修，恢复当次玩家号及原数值叶/五槽/正常恢复和计数保持；两完整638条2111B、依赖窗92条250B只共用局部，1call/1type1不混。完整父/callee/上游与间接别名及owner寿命/SDK/PC53/画面运行未闭，同ID关联LOOP"
+        "MCE01子退场七/父初阶段一/共用排序绘图两片段实修，恢复当次玩家号及原数值叶/五槽/正常恢复和计数保持；两完整638条2111B、依赖窗92条250B只共用局部，1call/1type1不混。完整父/callee/上游与间接别名及owner寿命/SDK/PC53/画面运行未闭，同ID关联LOOP",
+        "MOB01真实43F520五片段/四类取样已实修，完整319条999B纳管、唯一type1绑定不是call；本轮新227条/复用92条，共用与子生产消费及正常飞行/就绪和死亡后继续保持。全其它语义/父与所有callee/上游/间接别名与owner寿命/真实SDK/PC53/画面运行未闭，同ID关联LOOP"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1210,7 +1219,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state"
       ]
     },
     {
@@ -14225,6 +14235,130 @@
       "observation": "两原638条2111B/库存、1call/1type1两父与依赖窗92条250B，十片段精确源差异及阶段/槽/转态参数、共用排序/绘制限定静态",
       "expected": "子槽先取后载荷，两偏移各自方向/槽/图号序，初阶段与恢复后currentPhase和绘后phase按原取样；soundX在状态写前；共用nextChild/currentChild及nextDepth/currentDepth、描述符/Y/X/父primary序，原算法和计数保持",
       "actual": "四条I/S共用十片段/两完整原与一依赖窗，不重复计函数或把依赖窗升全43F520，1call/1type1不混计；所有其它语义/完整父与callee/上游/间接别名及owner寿命/SDK/PC53/运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-OBSERVATION-BRANCH-MAP-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "一完整319条999B/唯一type1 callback写者，本轮新227条及MCE01已有92条复用，初阶段/方向/父绘图索引/末帧；doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-observation-branch-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-acceptance",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
+        "doc/cg2d_map_observation_branch_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F520",
+        "src/YobiRuntime.cpp#Sub_43F330",
+        "src/YobiRuntime.cpp#Sub_43F290",
+        "src/YobiRuntime.cpp#Sub_43F910"
+      ],
+      "differences": [
+        {
+          "description": "43F520五具名片段恢复阶段先读后counter写、两初分支同快照、计算方向局部判负、父绘图前图形索引、绘后frame单次取样；原数值叶/正常飞行/就绪/失败和共用保持",
+          "decision_ref": "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一真实主回调五片段已落码，初阶段/方向/父图形索引及末frame恢复原取样；保持原子生产消费/共用逻辑，補完整体身份但不称所有语义通过",
+      "expected": "初阶段先读再counter1DC=-1，1/2同快照且绘后阶段复读；计算方向发布后局部判负/局部+8，worldX/Y位型后图形索引取读；共用子绘制后frame一次读/非负+1写回，原就绪/失败/数值与共用保持",
+      "actual": "四条I/S共用一回调五片段/原319条999B，唯一type1不记call；全其它语义/完整父与所有callee/上游和间接别名及owner寿命/SDK/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-OBSERVATION-BRANCH-MAP-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "一完整319条999B/唯一type1 callback写者，本轮新227条及MCE01已有92条复用，初阶段/方向/父绘图索引/末帧；doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-observation-branch-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-acceptance",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
+        "doc/cg2d_map_observation_branch_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F520",
+        "src/YobiRuntime.cpp#Sub_43F330",
+        "src/YobiRuntime.cpp#Sub_43F290",
+        "src/YobiRuntime.cpp#Sub_43F910"
+      ],
+      "differences": [
+        {
+          "description": "43F520五具名片段恢复阶段先读后counter写、两初分支同快照、计算方向局部判负、父绘图前图形索引、绘后frame单次取样；原数值叶/正常飞行/就绪/失败和共用保持",
+          "decision_ref": "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原319条999B/库存/唯一type1写者、新227条及已有92条连续/复用和F32位型，五源片段精确差异/初阶段及后复读、方向/图形索引/末帧限定静态",
+      "expected": "初阶段先读再counter1DC=-1，1/2同快照且绘后阶段复读；计算方向发布后局部判负/局部+8，worldX/Y位型后图形索引取读；共用子绘制后frame一次读/非负+1写回，原就绪/失败/数值与共用保持",
+      "actual": "四条I/S共用一回调五片段/原319条999B，唯一type1不记call；全其它语义/完整父与所有callee/上游和间接别名及owner寿命/SDK/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-OBSERVATION-BRANCH-LOOP-I-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "一完整319条999B/唯一type1 callback写者，本轮新227条及MCE01已有92条复用，初阶段/方向/父绘图索引/末帧；doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-observation-branch-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-acceptance",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
+        "doc/cg2d_map_observation_branch_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F520",
+        "src/YobiRuntime.cpp#Sub_43F330",
+        "src/YobiRuntime.cpp#Sub_43F290",
+        "src/YobiRuntime.cpp#Sub_43F910"
+      ],
+      "differences": [
+        {
+          "description": "43F520五具名片段恢复阶段先读后counter写、两初分支同快照、计算方向局部判负、父绘图前图形索引、绘后frame单次取样；原数值叶/正常飞行/就绪/失败和共用保持",
+          "decision_ref": "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一真实主回调五片段已落码，初阶段/方向/父图形索引及末frame恢复原取样；保持原子生产消费/共用逻辑，補完整体身份但不称所有语义通过",
+      "expected": "初阶段先读再counter1DC=-1，1/2同快照且绘后阶段复读；计算方向发布后局部判负/局部+8，worldX/Y位型后图形索引取读；共用子绘制后frame一次读/非负+1写回，原就绪/失败/数值与共用保持",
+      "actual": "四条I/S共用一回调五片段/原319条999B，唯一type1不记call；全其它语义/完整父与所有callee/上游和间接别名及owner寿命/SDK/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-OBSERVATION-BRANCH-LOOP-S-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "一完整319条999B/唯一type1 callback写者，本轮新227条及MCE01已有92条复用，初阶段/方向/父绘图索引/末帧；doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-observation-branch-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-acceptance",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
+        "doc/cg2d_map_observation_branch_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F520",
+        "src/YobiRuntime.cpp#Sub_43F330",
+        "src/YobiRuntime.cpp#Sub_43F290",
+        "src/YobiRuntime.cpp#Sub_43F910"
+      ],
+      "differences": [
+        {
+          "description": "43F520五具名片段恢复阶段先读后counter写、两初分支同快照、计算方向局部判负、父绘图前图形索引、绘后frame单次取样；原数值叶/正常飞行/就绪/失败和共用保持",
+          "decision_ref": "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原319条999B/库存/唯一type1写者、新227条及已有92条连续/复用和F32位型，五源片段精确差异/初阶段及后复读、方向/图形索引/末帧限定静态",
+      "expected": "初阶段先读再counter1DC=-1，1/2同快照且绘后阶段复读；计算方向发布后局部判负/局部+8，worldX/Y位型后图形索引取读；共用子绘制后frame一次读/非负+1写回，原就绪/失败/数值与共用保持",
+      "actual": "四条I/S共用一回调五片段/原319条999B，唯一type1不记call；全其它语义/完整父与所有callee/上游和间接别名及owner寿命/SDK/PC53/场景画面运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -14389,7 +14523,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state"
       ]
     },
     {
@@ -14626,7 +14761,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state"
       ]
     },
     {
@@ -14689,7 +14825,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state"
       ]
     },
     {
@@ -14743,7 +14880,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state"
       ]
     },
     {
@@ -14774,7 +14912,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state"
       ]
     },
     {
@@ -14940,7 +15079,8 @@
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
-        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state"
       ]
     }
   ],
@@ -18906,6 +19046,18 @@
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_child_exit_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0003F520",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-acceptance",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
+        "doc/cg2d_map_observation_branch_evidence.json"
       ]
     }
   ],

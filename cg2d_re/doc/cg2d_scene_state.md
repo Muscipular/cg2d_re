@@ -7647,3 +7647,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [退场取样](cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state)实修子七/父一/共用两片段：子槽/两次偏移参数不同序、初阶段/currentPhase/绘后phase、转态前soundX和阶段3图号快照；父初阶段单次取样，后当前4/5保持。共用排序按两个原调用者先后一/当前子指针及深度，绘子描述符/Y/X/父primary取样，原五槽/数值叶/恢复和计数保持。
 
 [两完整638条2111B、依赖窗92条250B](cg2d_map_child_exit_sampling_evidence.json)只本次局部，1call/1type1两父不混计，43F520本体和其余语义不升级。MCS01误写440440两分类调用，已按实际一次更正。完整父/callee/上游/间接别名和owner寿命/SDK/PC53/场景画面运行未闭，音频继续暂停。
+
+## MOB01 观察主回调分支取样（2026-10-05）
+
+[主回调合同](cg2d_map_observation_branch_spec.md#map-observation-branch-source-state)在43F520修五片段/四类取样：counter1DC=-1前读initialPhase供1/2分支，绘后阶段仍当次读；计算方向发布后按局部结果判负/+8再发布；worldX/Y W32位型后保存图形索引；共用绘子项后frame单次取读/非负加1写回。
+
+[原319条999B/唯一type1绑定](cg2d_map_observation_branch_evidence.json)纳管，新227条749B与MCE01既有尾92条250B复用，不记直接call。原正常飞行/数值叶、五槽就绪/失败、死亡后继续父/子处理及共用逻辑保持；完整其它语义/父与所有callee/上游/间接别名及owner寿命/SDK/PC53/场景运行未闭。

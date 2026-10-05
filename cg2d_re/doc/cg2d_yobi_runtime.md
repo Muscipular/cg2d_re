@@ -3923,3 +3923,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [具名裁决](cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision)恢复440440七块：槽号先取后payload、首次方向/槽/图号和父X后阶段快照、阶段3相对Y/图号/相对X、恢复后currentPhase供早退/shift、第二方向/图号/槽、soundX在phase5/动作0前、绘前图形索引。末phase仍绘后读取，两计数原两临时值/发布保持，恢复分支仍当次取玩家号，不增保护/音频第三实参。
 
 440070初阶段快照与DrawObservationChildren排序/子绘图共三块；43F520依赖窗92条250B证明共享原读取序同440070，未改其本体或验全部语义。两完整638条2111B/1call/1type1两父只局部；数值叶/五槽和负图形门槛/分类正文及原生寿命保持。MCS01“440440两分类调用”为计数失实，实际一次，SPEC和旧进度短语已纠正；本轮该一次分类消费已有两参数快照。所有完整父/callee/owner寿命/真实ABI/SDK/PC53/画面运行未验。
+
+## MOB01 当前43F520初阶段/方向/末帧（2026-10-05）
+
+[具名裁决](cg2d_map_observation_branch_spec.md#map-observation-branch-decision)将入口阶段取样置于counter1DC=-1前，两初分支共用initialPhase，后部就绪仍复读阶段；旋转用同一计算值发布/判负/+8，再依原八S16角和PC53叶飞行；父绘图先worldX/Y位型后图形索引；共用子绘图后currentFrame一次读再非负+1。共五块，未改共用排序/子更新、任何数值叶或实际创建/失败及死亡后继续处理。
+
+319条999B完整保存，唯一43F330@43F36A type1 callback写者不是call；新227条与已核92条连续复用，54DD20 F32字节3333b3bf保持。原五槽/S8就绪、phase2/frame-1发布、后末负帧不写及原生寿命保持。全其它语义/完整父与全部callee/间接别名/SDK/PC53/RNG/场景画面运行未验。

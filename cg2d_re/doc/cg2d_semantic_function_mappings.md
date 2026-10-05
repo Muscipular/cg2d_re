@@ -2231,3 +2231,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [两完整638条2111B及依赖窗92条250B](cg2d_map_child_exit_sampling_evidence.json)与[源状态](cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state)为440440/440070补正式语义/真实本体、调用或callback写者/adapted；十片段实修，1call/1type1两父不混计。43F520仅共享依赖窗，不加全根身份或升级其余语义。
 
 语义1294→1296、有效ID1290→1292、处置387→389，MAP50→52/LOOP15→17成员，同ID不重复计函数；旧定位/pending/队列/非FID/R7及其它功能保持。完整父/callee/上游和间接别名及owner寿命/真实SDK/PC53/运行未验。
+
+## MOB01 主观察回调原身份（2026-10-05）
+
+[原319条999B/唯一type1写者](cg2d_map_observation_branch_evidence.json)与[源状态](cg2d_map_observation_branch_spec.md#map-observation-branch-source-state)为43F520补正式语义/真实私有本体、43F330绑定与子生产消费来源/adapted。完整体保存和五片段局部实修分开记录，复用旧92条不记重做共用或直接call。
+
+语义1296→1297、有效ID1292→1293、处置389→390，MAP52→53/LOOP17→18成员，同ID不重复计函数。原定位/pending/队列/非FID/R7及其它功能保持；完整父/callee/上游和间接别名及owner寿命/真实SDK/PC53/运行未验。

@@ -2675,10 +2675,11 @@ void Sub_43F520(YobiAction* const action)
         static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
     std::int32_t y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
+    const std::int32_t initialPhase = action->phase;
     action->counter1DC = -1;
-    if (action->phase == 1) {
+    if (initialPhase == 1) {
         static_cast<void>(Sub_517880(action, 100, 0, 0));
-    } else if (action->phase == 2) {
+    } else if (initialPhase == 2) {
         const std::int32_t frame = payload->frame;
         if (frame < 0) {
             action->characterAction = 2;
@@ -2693,9 +2694,10 @@ void Sub_43F520(YobiAction* const action)
                 static_cast<double>(frame)
                 * static_cast<double>(std::bit_cast<float>(0xBFB33333u))));
             const std::int32_t initialDirection = action->field58;
-            action->direction = initialDirection - ((frame + 8) % 120) / 15;
-            if (action->direction < 0) {
-                action->direction += 8;
+            const std::int32_t direction = initialDirection - ((frame + 8) % 120) / 15;
+            action->direction = direction;
+            if (direction < 0) {
+                action->direction = direction + 8;
             }
             const std::int32_t angle = angles[initialDirection] + frame * 3;
             std::int64_t offset[2];
@@ -2725,8 +2727,9 @@ void Sub_43F520(YobiAction* const action)
     const std::int32_t drawX = offsetX + action->x;
     const std::uint32_t worldXBits = std::bit_cast<std::uint32_t>(action->worldX);
     const std::uint32_t worldYBits = std::bit_cast<std::uint32_t>(action->worldY);
+    const std::int32_t graphicIndex = action->graphicIndex;
     action->value1D4 = world::detail::Sub_46BD60(
-        action->graphicIndex, worldXBits, worldYBits,
+        graphicIndex, worldXBits, worldYBits,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
     if (action->phase == 1) {
@@ -2761,8 +2764,9 @@ void Sub_43F520(YobiAction* const action)
         order[index] = -1;
     }
     DrawObservationChildren(action, payload, order);
-    if (payload->frame >= 0) {
-        ++payload->frame;
+    const std::int32_t currentFrame = payload->frame;
+    if (currentFrame >= 0) {
+        payload->frame = currentFrame + 1;
     }
 }
 

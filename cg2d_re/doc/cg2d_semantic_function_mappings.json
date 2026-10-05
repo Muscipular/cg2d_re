@@ -146551,6 +146551,43 @@
       ],
       "verification_level": "两完整638条2111B与43F520依赖窗92条250B，1直接call/1type1地址写者两父，十源片段局部静态；不计两call或全43F520/完整父/callee/owner寿命/运行",
       "boundary": "父initialPhase只初3/4/5，后当次4/5保持；共用排序nextIndex/currentIndex、nextChild/currentChild、nextDepth/currentDepth顺序，S32降序/S8交换保持；子图形负值门槛后描述符/Y/X/父primary取样。 原五槽/正常投影和数值叶、恢复前当次玩家号/实体恢复、死亡后继续处理/创建和失败、两计数/末frame、原生指针/布局与借用、单参数分类形式及音效两实参保持；全部其它原语义/完整父及全部callee/上游/间接别名和owner重进退出或借用失效/实际ABI/SDK/PC53/时钟RNG/场景画面运行未验，异常不新增保护或回绕/故障模拟、称等价。"
+    },
+    {
+      "original_entry": "0x43f520",
+      "inventory_id": "F:0003F520",
+      "status": "MOB01观察主回调五片段取样/分支实修及原身份纳管；完整父/callee与寿命运行未验",
+      "original_end_exclusive": "0x43f907",
+      "instruction_count": 319,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43F520",
+            "Sub_43F330",
+            "Sub_43F290",
+            "Sub_43F910",
+            "DrawObservationChildren"
+          ],
+          "relationship": "既有真实私有主回调/唯一43F330绑定与真实子生产消费，MOB01仅五片段初阶段/方向/图形索引/末帧取样，不改共用逻辑或公开接口"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x43f36a",
+          "parent_entry": "0x43f330",
+          "type": 1
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-acceptance",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
+        "doc/cg2d_map_observation_branch_evidence.json"
+      ],
+      "verification_level": "完整原319条999B/唯一type1 callback写者；本轮新227条749B及既有92条250B复用，仅五源片段/四类取样局部静态，不代全其它语义/完整父及所有callee/owner寿命/运行",
+      "boundary": "初阶段在counter1DC=-1前取，两个初分支用同一initialPhase，绘后阶段仍当次读取；旋转按计算方向发布/局部判负/+8再发布，worldX/worldY W32位型后取S32图形索引，绘后frame单次读/非负加1写回。原F32 BFB33333、PC53数值叶/角度表、五槽就绪与创建失败、当前玩家/初frame/越界条件和摘链标死后继续处理、负帧分支/原生载荷及MCS01/MCE01共用与子生产消费保持；唯一type1不是直接call。全319其它语义/完整父与所有callee/全上游/间接别名及owner重进退出/借用失效/真实ABI/SDK/PC53/时钟RNG/场景画面运行未验，异常不新增保护或回绕/故障模拟、称等价。"
     }
   ]
 }

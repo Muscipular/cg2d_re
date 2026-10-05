@@ -368,3 +368,9 @@ G01/G02/U11/R01/R04/V04仍open；其它422语义/完整父与callee/全上游/�
 [限定验收](cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance)核十具名片段、两完整638条2111B/1call与1type1两父及依赖窗92条250B，只子/父阶段与参数、两偏移各原序及共用排序/绘子项。两语义/来源/adapted、MAP52/LOOP17成员，E237→241仅双域各局部I/S，共用一批源修正/原证据；不计双份函数或全43F520。
 
 MCS01分类调用次数的失实短语已据实际一次修正，不重写历史或降标准。六任务G01/G02/U11/R01/R04/V04仍open，完整父与callee/上游/间接别名及owner寿命/真实SDK/PC53/场景运行未闭，全部完整门禁/功能、R1/R7/R8及整体判定不提升。
+
+## MOB01 主回调分支局部I/S（2026-10-05）
+
+[限定验收](cg2d_map_observation_branch_spec.md#map-observation-branch-acceptance)核五片段/四类取样及完整319条999B/唯一type1写者，新227条与旧92条连续复用及F32位型。原飞行/就绪/失败/死亡后继续、子生产消费和共用逻辑保持；一语义/来源/adapted，MAP53/LOOP18成员，E241→245只双域各局部I/S，不记双份函数或call。
+
+六任务G01/G02/U11/R01/R04/V04仍open，所有其它原语义/完整父与全部callee/全上游/间接别名及owner寿命/真实SDK/PC53/时钟RNG/场景画面运行未闭；全部完整门禁/功能、R1/R7/R8及整体判定不提升。

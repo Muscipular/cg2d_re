@@ -141207,6 +141207,104 @@
         "whole_dispatch_verified": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x0052D310",
+      "inventory_id": "F:0012D310",
+      "status": "SCA01两既有保存字节叶具名纳管；仅编码三算术片段按RPLAN.24实修，完整父/文件/owner/ABI及运行未闭",
+      "original_chunks": [
+        [
+          "0x0052D310",
+          "0x0052D457"
+        ]
+      ],
+      "instruction_count": 130,
+      "original_byte_count": 327,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/LoginSavedState.cpp",
+          "symbols": [
+            "EncodeLegacyBytes_52D310",
+            "EncodeSavedBytes"
+          ],
+          "relationship": "原已有私有核心与共享包装，编码仅三算术片段更新，解码/包装及caller保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_saved_codec_arithmetic_spec.md",
+        "doc/cg2d_saved_codec_arithmetic_evidence.json",
+        "doc/cg2d_saved_state_codec.md",
+        "doc/cg2d_saved_state_persist.md"
+      ],
+      "boundary": "两完整原根245条/592B，编码四/解码两直接call且无callee。编码原容量不足先发布容量后直拷/尾读长度；足容先发布required、原U8控制累加/短路模7与模2/源取反、插入控制及两侧低U8写、循环尾重读输出长度。required与两分支平方改S32普通表达式，保原字节算法截断，不造缓冲/owner或换接口。解码除法先于长度发布、两独立长度读/if和末循环尾读/返回保持，本体不改。RPLAN.24不专项模拟/保护或记数学溢出/除零等异常确定结果/故障等价；完整存档/配置/相册父与全owner/alias、正常文件失败、实际ABI/链接/运行未验。",
+      "verification_level": "两完整原根245条/592B/六直接call归档，基于既有核心合同仅核三改动/必要算术原点、限定源/台账与新增引用；不全面复检旧算法/所有父，不构建/测试/运行/摘要",
+      "saved_codec_arithmetic_contract": {
+        "group": "SCA01",
+        "spec": "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "source": "src/LoginSavedState.cpp",
+        "symbol": "EncodeLegacyBytes_52D310",
+        "existing_body_before_this_step": true,
+        "body_changed": true,
+        "normal_format_preserved": true,
+        "count_and_index_type": "std::int32_t",
+        "dedicated_wrap_simulation": false,
+        "shared_wrappers_unchanged": true,
+        "new_owner": false,
+        "abnormal_equivalence_claimed": false,
+        "full_parent_or_file_flow_verified": false,
+        "actual_abi_verified": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x0052D460",
+      "inventory_id": "F:0012D460",
+      "status": "SCA01两既有保存字节叶具名纳管；仅编码三算术片段按RPLAN.24实修，完整父/文件/owner/ABI及运行未闭",
+      "original_chunks": [
+        [
+          "0x0052D460",
+          "0x0052D569"
+        ]
+      ],
+      "instruction_count": 115,
+      "original_byte_count": 265,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/LoginSavedState.cpp",
+          "symbols": [
+            "DecodeLegacyBytes_52D460",
+            "DecodeSavedBytes"
+          ],
+          "relationship": "原已有私有核心与共享包装，编码仅三算术片段更新，解码/包装及caller保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_saved_codec_arithmetic_spec.md",
+        "doc/cg2d_saved_codec_arithmetic_evidence.json",
+        "doc/cg2d_saved_state_codec.md",
+        "doc/cg2d_saved_state_persist.md"
+      ],
+      "boundary": "两完整原根245条/592B，编码四/解码两直接call且无callee。编码原容量不足先发布容量后直拷/尾读长度；足容先发布required、原U8控制累加/短路模7与模2/源取反、插入控制及两侧低U8写、循环尾重读输出长度。required与两分支平方改S32普通表达式，保原字节算法截断，不造缓冲/owner或换接口。解码除法先于长度发布、两独立长度读/if和末循环尾读/返回保持，本体不改。RPLAN.24不专项模拟/保护或记数学溢出/除零等异常确定结果/故障等价；完整存档/配置/相册父与全owner/alias、正常文件失败、实际ABI/链接/运行未验。",
+      "verification_level": "两完整原根245条/592B/六直接call归档，基于既有核心合同仅核三改动/必要算术原点、限定源/台账与新增引用；不全面复检旧算法/所有父，不构建/测试/运行/摘要",
+      "saved_codec_arithmetic_contract": {
+        "group": "SCA01",
+        "spec": "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "source": "src/LoginSavedState.cpp",
+        "symbol": "DecodeLegacyBytes_52D460",
+        "existing_body_before_this_step": true,
+        "body_changed": false,
+        "normal_format_preserved": true,
+        "count_and_index_type": "std::int32_t",
+        "dedicated_wrap_simulation": false,
+        "shared_wrappers_unchanged": true,
+        "new_owner": false,
+        "abnormal_equivalence_claimed": false,
+        "full_parent_or_file_flow_verified": false,
+        "actual_abi_verified": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

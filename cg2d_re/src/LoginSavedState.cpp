@@ -92,10 +92,7 @@ SavedPhysicalRecord gCurrentSavedRecord {};
     std::int32_t* const encodedBytes,
     const std::int32_t destinationCapacity)
 {
-    const std::uint32_t requiredBits =
-        std::bit_cast<std::uint32_t>(sourceBytes) + 1U;
-    const std::int32_t required =
-        std::bit_cast<std::int32_t>(requiredBits);
+    const std::int32_t required = sourceBytes + 1;
     std::uint8_t control = 0;
 
     if (required > destinationCapacity) {
@@ -149,31 +146,15 @@ SavedPhysicalRecord gCurrentSavedRecord {};
     std::int32_t index = 0;
     do {
         if (index < controlIndex) {
-            const std::uint32_t indexBits =
-                std::bit_cast<std::uint32_t>(index);
-            const std::int32_t square = std::bit_cast<std::int32_t>(
-                indexBits * indexBits);
-            const std::int32_t factor = square % 3;
-            const std::uint32_t adjustment =
-                static_cast<std::uint32_t>(control) *
-                std::bit_cast<std::uint32_t>(factor);
+            const std::int32_t adjustment = control * ((index * index) % 3);
             const std::uint8_t value = source[index];
-            destination[index] = static_cast<std::uint8_t>(
-                static_cast<std::uint32_t>(value) + adjustment);
+            destination[index] = static_cast<std::uint8_t>(value + adjustment);
         } else if (index == controlIndex) {
             destination[index] = control;
         } else {
-            const std::uint32_t indexBits =
-                std::bit_cast<std::uint32_t>(index);
-            const std::int32_t square = std::bit_cast<std::int32_t>(
-                indexBits * indexBits);
-            const std::int32_t factor = square % 7;
-            const std::uint32_t adjustment =
-                static_cast<std::uint32_t>(control) *
-                std::bit_cast<std::uint32_t>(factor);
+            const std::int32_t adjustment = control * ((index * index) % 7);
             const std::uint8_t value = source[index - 1];
-            destination[index] = static_cast<std::uint8_t>(
-                static_cast<std::uint32_t>(value) + adjustment);
+            destination[index] = static_cast<std::uint8_t>(value + adjustment);
         }
 
         ++index;

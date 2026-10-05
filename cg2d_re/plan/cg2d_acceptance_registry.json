@@ -716,9 +716,13 @@
         "doc/cg2d_saved_state_initialize.md",
         "doc/cg2d_saved_state_loader.md",
         "doc/cg2d_saved_state_persist.md",
-        "doc/cg2d_current_saved_record.md"
+        "doc/cg2d_current_saved_record.md",
+        "doc/cg2d_saved_codec_arithmetic_spec.md"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:0012D310",
+        "F:0012D460"
+      ],
       "closure_task_ids": [
         "U10",
         "V02",
@@ -727,14 +731,16 @@
       "dependencies": [],
       "acceptance_focus": "文件原字节、读取/保存/迁移、共享owner和失败残留",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-decision"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "SCA01两已有codec叶/共享包装具名并按RPLAN.24校准编码三算术片段，格式/U8操作与其余源保持；仅两叶基线/分类不代全部存档/配置/相册父、文件成功失败/owner/alias及实际ABI/链接/运行，不给异常等价PASS"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
     },
     {
       "id": "FUNC-INPUT",
@@ -10841,6 +10847,99 @@
       "observation": "四原表52槽/208B/12引用，本步源码/四既有语义/登记簿限定差异与新增引用静态检查",
       "expected": "已知窄/宽方法表用对应原生非拥有T*承载，既有读写与生命周期顺序保持",
       "actual": "字段及十消费者已同型；codecvt实际生产/完整表、全owner/SDK ABI和运行仍待，完整功能门禁不提升"
+    },
+    {
+      "id": "E-SAVED-CODEC-ARITHMETIC-I-20261005",
+      "feature_id": "FUNC-SAVED",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整原根245条/592B、六直接call及52D31C/52D404/52D431必要算术原点；doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-saved-codec-arithmetic-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-baseline",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-decision",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-acceptance",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "doc/cg2d_saved_codec_arithmetic_evidence.json",
+        "src/LoginSavedState.cpp#EncodeLegacyBytes_52D310",
+        "src/LoginSavedState.cpp#DecodeLegacyBytes_52D460",
+        "src/LoginSavedState.cpp#EncodeSavedBytes",
+        "src/LoginSavedState.cpp#DecodeSavedBytes"
+      ],
+      "differences": [
+        {
+          "description": "按RPLAN.24把编码required/两分支平方的专项U32回绕片段改普通S32表达式；原低U8格式规则/长度重读与共享接口不改，异常事实不记为确定结果/故障等价PASS",
+          "decision_ref": "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一CPP三算术片段，既有编码算法及解码/共享包装不重写",
+      "expected": "按现行异常裁决承载长度和平方，原文件格式与普通容量/模式/访问和返回保持",
+      "actual": "仅编码三片段实修，两已有叶补基线/语义/adapted；全部持久化父/文件流/owner/ABI及运行仍待，功能门禁不提升"
+    },
+    {
+      "id": "E-SAVED-CODEC-ARITHMETIC-W-20261005",
+      "feature_id": "FUNC-SAVED",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整原根245条/592B、六直接call及52D31C/52D404/52D431必要算术原点；doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-saved-codec-arithmetic-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-baseline",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-decision",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-acceptance",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "doc/cg2d_saved_codec_arithmetic_evidence.json",
+        "src/LoginSavedState.cpp#EncodeLegacyBytes_52D310",
+        "src/LoginSavedState.cpp#DecodeLegacyBytes_52D460",
+        "src/LoginSavedState.cpp#EncodeSavedBytes",
+        "src/LoginSavedState.cpp#DecodeSavedBytes"
+      ],
+      "differences": [
+        {
+          "description": "按RPLAN.24把编码required/两分支平方的专项U32回绕片段改普通S32表达式；原低U8格式规则/长度重读与共享接口不改，异常事实不记为确定结果/故障等价PASS",
+          "decision_ref": "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原容量门禁/直拷、控制字节累加/取反/插入、最终U8和循环尾长度重读保留，无新owner",
+      "expected": "按现行异常裁决承载长度和平方，原文件格式与普通容量/模式/访问和返回保持",
+      "actual": "仅编码三片段实修，两已有叶补基线/语义/adapted；全部持久化父/文件流/owner/ABI及运行仍待，功能门禁不提升"
+    },
+    {
+      "id": "E-SAVED-CODEC-ARITHMETIC-S-20261005",
+      "feature_id": "FUNC-SAVED",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整原根245条/592B、六直接call及52D31C/52D404/52D431必要算术原点；doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-saved-codec-arithmetic-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-baseline",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-decision",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-acceptance",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "doc/cg2d_saved_codec_arithmetic_evidence.json",
+        "src/LoginSavedState.cpp#EncodeLegacyBytes_52D310",
+        "src/LoginSavedState.cpp#DecodeLegacyBytes_52D460",
+        "src/LoginSavedState.cpp#EncodeSavedBytes",
+        "src/LoginSavedState.cpp#DecodeSavedBytes"
+      ],
+      "differences": [
+        {
+          "description": "按RPLAN.24把编码required/两分支平方的专项U32回绕片段改普通S32表达式；原低U8格式规则/长度重读与共享接口不改，异常事实不记为确定结果/故障等价PASS",
+          "decision_ref": "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两完整根245条/592B、六直接call及本步源/语义/登记簿限定差异与新增引用静态检查",
+      "expected": "按现行异常裁决承载长度和平方，原文件格式与普通容量/模式/访问和返回保持",
+      "actual": "仅编码三片段实修，两已有叶补基线/语义/adapted；全部持久化父/文件流/owner/ABI及运行仍待，功能门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -11117,7 +11216,8 @@
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
-        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
       ]
     },
     {
@@ -11147,7 +11247,8 @@
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
-        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure"
+        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
       ]
     },
     {
@@ -11163,7 +11264,16 @@
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
-        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure"
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
+      ]
+    },
+    {
+      "task_id": "V02",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
       ]
     }
   ],
@@ -12776,6 +12886,22 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0012D310",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:0012D460",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
       ]
     }
   ],

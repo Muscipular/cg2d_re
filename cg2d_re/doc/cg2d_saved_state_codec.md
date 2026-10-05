@@ -6,8 +6,10 @@
   115 条指令、18 个基本块，无 callee。
 - 两个直接调用点分别是 `sub_518780@0x518823` 与
   `sub_532ED0@0x532F83`。
-- 源码仅在 `LoginSavedState.cpp` 匿名命名空间定义私有
-  `[[maybe_unused]] DecodeLegacyBytes_52D460`；本项不接 caller，也不增加公开声明。
+- 当前 `LoginSavedState.cpp` 仍保留同一私有解码核心，既有内部共享包装
+  `EncodeSavedBytes/DecodeSavedBytes` 已复用两核心供原调用链使用；下方早期“不接caller”
+  为当时取证阶段。2026-10-05 [SCA01](cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure)
+  仅对齐编码三算术片段并补两叶基线，不新增包装/caller或关闭完整持久化验收。
 
 ## 完整算法
 
@@ -72,3 +74,12 @@
 
 本项不实现 loader、map、caller 或 mode 0 专用包装，不修改 CMake。行为证据只取自
 当前 `ida-17524 / cg2d.exe`；STONAGE 不参与结论。
+
+## SCA01 保存编码算术裁决与两叶基线（2026-10-05）
+
+[合同](cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure)和
+[原证据](cg2d_saved_codec_arithmetic_evidence.json)保两完整根245条/592B及六直接call。
+仅编码required加一、两分支平方/调整改普通S32表达式，撤专项U32回绕模拟。
+原容量不足直拷/长度发布及尾读、控制U8累加/源取反/插入与最终U8截断全部保持；
+这些字节操作属于文件格式，未按异常裁决删去。解码、共享包装及caller源码不改。
+两叶原已存在，本步补语义/adapted与FUNC-SAVED成员；完整文件流/owner/ABI/运行未验。

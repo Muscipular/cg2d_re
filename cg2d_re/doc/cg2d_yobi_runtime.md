@@ -4189,3 +4189,7 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 ## BND01 技能108十处取样实修（2026-10-06）
 
 [具体SPEC](cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-decision)修复单根十处角色/字段、target先flags pub、比较后固定角色、图号位置先表与EffectList live flags-caster-target-actor。[两范围239条981B四页26call](cg2d_battle_m_skill108_sampling_evidence.json)包含真实436DE2尾，BMM旧尾13条53B非新增；原149/184与159门禁、失败68/22331/59、固定amount/各次live和末55-Move增58无RID保持，全部其它根头不改，完整父/所有消费者-owner运行另验。
+
+## BNE01 技能109九处取样实修（2026-10-06）
+
+[具体SPEC](cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-decision)修复单根九处角色/字段、target先flags pub、比较后固定角色与EffectList live flags-caster-target-actor。[两范围251条977B五页31call](cg2d_battle_m_skill109_sampling_evidence.json)含真实Move后缀，BMM旧后缀五条20B非新增；原105后一次W32/EAX-AL三级flags选择、22329/22331和各次live、两种失败与主体55后Move增58无RID保持，全部其它根头不改，完整父/所有消费者-owner运行另验。

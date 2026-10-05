@@ -235,3 +235,7 @@
 ## BND01 技能108目标与结果发布（2026-10-06）
 
 [单根十处](../cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-decision)明确初payload先skill/actor先level、同解析caster/target与比较先pub，Take flags后live target先flags pub/actor先skill、level独立取样；比较后的0/106或57角色沿原位置，两个图号路径先target后偏移表，EffectList最后另读live flags-caster-target-actor。固定amount、149/184原选择/159门禁、失败和末55共用尾保持；[实际239条981B](../cg2d_battle_m_skill108_sampling_evidence.json)不代完整父/消费-owner运行，所有其它正文/声明不改。
+
+## BNE01 技能109角色与三级flags选择（2026-10-06）
+
+[单根九处](../cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-decision)明确payload先skill/actor先level、同解析caster/target与比较先pub、Take flags后target先pub/actor先skill与独立level、比较后0/106或57沿同位置和最后EffectList另live flags-caster-target-actor。105后仅一次内存W32 flags沿EAX/AL作80000-200000-bit2选择、原22329/22331及各次live/55-Move无RID保持；[251条原证据](../cg2d_battle_m_skill109_sampling_evidence.json)不代完整父/消费者-owner运行，其它正文/声明保持。

@@ -2141,3 +2141,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [首批64个原X区间](cg2d_unassigned_range_classification_spec.md#range-classification-source-state)全部502B用途登记mapped，62纯90H段和两含跳转表段分别保存；原函数身份与分类不增，填充不生成空函数。现有4038A0/403A70两语义只追加表/边界数据依据，源/状态/既有处置类别保持。
 
 真实尾块与直接JMP、逐字节owner/directxref以及两表八同父代码目标可追；零直接引用不外推所有间接alias/整父/owner寿命、原新机器或运行通过。语义1260/有效ID1256、函数处置350与业务软件证据E194保持，R7区间66/3061仍未闭。
+
+## IMA01 输入法显示三匿名算术来源（2026-10-05）
+
+[既有F:000590E0](cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state)原语义/equivalent追加本次依据；来源补AddW32/SubW32/MulW32，不给匿名工具新F。正常S32保持23加/4减/5乘表达式、字段窄化/SDK DWORD、原长度下限2和取样/调用写序。
+
+357条1182B/21call三父身份保存，仅正常算术局部和源三body限定静态；完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/像素运行未验，异常不专项保护或模拟/称等价。

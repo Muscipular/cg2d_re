@@ -140,3 +140,9 @@ BuildProtocolCommand只替换原宿主_itoa调用，继续16进制、原校验�
 静态核两个入口65条和两个实际调用；不构建、测试、运行或校验哈希。
 
 2026-10-05当前说明：上节数字叶当时未改父的12B预清/字体条件；RIN01已根据原完整父撤销这些旧源码差异并消费真实返回，数字叶/协议调用不变。历史步骤不作为当前批准例外。
+
+## IMA01 组合与候选布局算术（2026-10-05）
+
+[当前具名SPEC](cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision)将RenderInput.cpp三个工具恢复正常S32加减乘；保组合/高亮框、属性宽度、候选序号/正文/框的32处既有表达式及原取样/调用写序。真实低S16/U16/S8、SDK DWORD、有效项重读/skip和signed长度下限2保持，不新增owner或拒绝。
+
+仅三个body变化；357条1182B和21call/三父保存不代全部原语义/完整父/坐标writer/间接alias/候选容量及完整寿命/实际SDK/画面运行。RPLAN.24异常不保护或模拟/称等价。

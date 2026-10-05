@@ -138950,9 +138950,12 @@
             "CandidateText",
             "FormatDecimalW32",
             "gImeDescriptionX5595EC",
-            "gImeDescriptionY5595F0"
+            "gImeDescriptionY5595F0",
+            "AddW32",
+            "SubW32",
+            "MulW32"
           ],
-          "relationship": "既有父完整实现；额外probe/拒绝/预清撤销，实际转换返回、原S16坐标及有效/skip候选条件重读对齐"
+          "relationship": "既有父完整实现；额外probe/拒绝/预清撤销，实际转换返回、原S16坐标及有效/skip候选条件重读对齐；IMA01三匿名工具恢复正常S32，保23加/4减/5乘、原窄化/SDK字段和候选取样"
         },
         {
           "path": "src/world/WorldUpdateDependencies.hpp",
@@ -138982,9 +138985,14 @@
         "doc/cg2d_input_render_alignment_spec.md",
         "doc/cg2d_input_render_alignment_evidence.json",
         "doc/cg2d_font_measure.md",
-        "doc/cg2d_text_encoding_spec.md"
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline",
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision",
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-acceptance",
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
+        "doc/cg2d_ime_display_arithmetic_evidence.json"
       ],
-      "boundary": "原[4590E0,45957E)完整357条；说明/组合/候选初始和每项U32 count原门禁保留。移除额外NUL/属性预扫描、辅助空对象/字体/重复Count拒绝及影子valid/宽度补0，两键态/序号局部不预清。原坐标5595F0→5595EC按S16实际存储Y/X读取；Itoa实际返回用于序号文字。组合/属性及候选各取样点、正文两表读取、strlen缓存/原signed长度下限2和units、选择框/原字节及坐标截断保持。有效项框后才重读候选，跳过项沿本轮表，页大小先读再增i/无符号比较。未知坐标writer/候选分配边界/完整父和寿命、SDK/画面未验，异常域不加保护或作故障等价。",
+      "boundary": "原[4590E0,45957E)完整357条；说明/组合/候选初始和每项U32 count原门禁保留。移除额外NUL/属性预扫描、辅助空对象/字体/重复Count拒绝及影子valid/宽度补0，两键态/序号局部不预清。原坐标5595F0→5595EC按S16实际存储Y/X读取；Itoa实际返回用于序号文字。组合/属性及候选各取样点、正文两表读取、strlen缓存/原signed长度下限2和units、选择框/原字节及坐标截断保持。有效项框后才重读候选，跳过项沿本轮表，页大小先读再增i/无符号比较。未知坐标writer/候选分配边界/完整父和寿命、SDK/画面未验，异常域不加保护或作故障等价。 IMA01三匿名工具恢复正常S32加减乘，保23加/4减/5乘源表达式、取样/字段窄化和候选SDK DWORD流程、原长度下限2及调用写序。357条1182B与21call/三父身份保存仅正常算术局部和三body精确静态；未重验全部语义/完整父/焦点/IME/alias/坐标writer/候选容量和完整寿命/实际机器/ABI/SDK/像素运行，数学异常不保护或模拟/称等价。",
       "instruction_count": 357,
       "function_chunks": [
         {

@@ -278,3 +278,9 @@ E192→194仅FUNC-INPUT本次I/S局部；T01/T02/R04/V04、完整两功能门禁
 [64项区间合同](cg2d_unassigned_range_classification_spec.md#range-classification-source-state)依既有辅助mapped规则纳管原全部502B，逐项parts连续覆盖；62段纯填充及两表/对齐/后缀有原字节、实际块和引用依据。原2项保留，reviewed_ranges=66/3061，剩余2995；原区间分母/函数分母不改，R03/R04保持open。
 
 无新增F/源实现/软件证据或范围排除；两表父语义/网络数据依据追加，成员47、E194、350函数处置与其余门禁保持。mapped是字节用途登记，不能作为相邻完整功能/未知间接目标、owner/SDK/ABI或实际运行验收。
+
+## IMA01 输入法显示正常算术实修（2026-10-05）
+
+[本组合同](cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state)实际撤三个工具的S32回绕承载，保32处表达式/原窄化/SDK字段与候选布局和取样。语义1260/有效ID1256、处置350/3680及输入/文本14/22明确成员保持，只加旧根依据和三匿名来源。
+
+E194→196只FUNC-INPUT本次I/S局部；T01/T02/R04/V04、完整两功能门禁和10/60关闭数保持。357条保存不代全语义/完整父/alias/候选容量寿命/SDK/画面运行；数学异常不保护或模拟/称故障等价，R1/R7/R8未闭。

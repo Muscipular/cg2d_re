@@ -150,7 +150,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 
 | 编号 / 范围 | 当前已具备 | 剩余任务 | 完成条件 / 证据 |
 |---|---|---|---|
-| U01 / 宠物技能目录 | 页面、共享图号CC3E64/页数C8AF84零初值与真实存储、页号D45F74已有 | CA0478数组定义/容量/生产；两标量运行时生产 | 生产记录→预览/翻页→使用/回复，不能补空目录；[旧58–61](../doc/ui_windows/legacy_pet_skill_catalog.md) |
+| U01 / 宠物技能目录 | 页面、三标量存储已有；PCP01三定点采集器已准备、未执行 | CA0478数组定义/容量/生产、图号/页数运行时生产；先获本项原端动态许可，捕写者后追完整循环/owner | 生产记录→预览/翻页→使用/回复及真实路由/寿命；[旧58–61](../doc/ui_windows/legacy_pet_skill_catalog.md)、[生产取证SPEC](../doc/cg2d_pet_catalog_production_spec.md)，不能补空目录或猜容量 |
 | U02 / 交易名单 | 4E4EA0消费、CC3208页号与D30134/CF46D0存储已有 | CB1D1C的17B名单容量/定义/生产及数量/页数写者 | 实际名单→选择→请求完整同源；[旧51](../doc/ui_windows/legacy_trade_target_list.md) |
 | U03 / version payload | 创建/升级消费者已有 | 9A5C10实际容量、内容、存活期与生产者 | 不造空正文或默认版本；[创建](../doc/cg2d_character_select_scene.md)、[声明](../src/CharacterSelectSceneDependencies.hpp) |
 | U04 / 旧表与键表真实分派 | 旧99条handler证据、许多页面/短入口已有 | 57C368外层间接路由、键表真实分派及输入焦点 | 地址token不当可调用函数；取证实际签名/状态/调用顺序；[旧表索引](../doc/cg2d_ui_window_runtime.md) |

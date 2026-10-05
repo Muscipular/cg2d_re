@@ -4724,7 +4724,8 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_pet_skill_catalog.md"
+        "doc/ui_windows/legacy_pet_skill_catalog.md",
+        "doc/cg2d_pet_catalog_production_spec.md"
       ],
       "original_inventory_ids": [],
       "closure_task_ids": [
@@ -4736,7 +4737,9 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation"
+      ],
       "blockers": [
         "原成员、传递依赖和逐门禁证据待归档"
       ],
@@ -4752,7 +4755,8 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_pet_skill_catalog.md"
+        "doc/ui_windows/legacy_pet_skill_catalog.md",
+        "doc/cg2d_pet_catalog_production_spec.md"
       ],
       "original_inventory_ids": [],
       "closure_task_ids": [
@@ -4764,7 +4768,9 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation"
+      ],
       "blockers": [
         "原成员、传递依赖和逐门禁证据待归档"
       ],
@@ -4780,7 +4786,8 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_pet_skill_catalog.md"
+        "doc/ui_windows/legacy_pet_skill_catalog.md",
+        "doc/cg2d_pet_catalog_production_spec.md"
       ],
       "original_inventory_ids": [],
       "closure_task_ids": [
@@ -4792,7 +4799,9 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation"
+      ],
       "blockers": [
         "原成员、传递依赖和逐门禁证据待归档"
       ],
@@ -4808,7 +4817,8 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_pet_skill_catalog.md"
+        "doc/ui_windows/legacy_pet_skill_catalog.md",
+        "doc/cg2d_pet_catalog_production_spec.md"
       ],
       "original_inventory_ids": [],
       "closure_task_ids": [
@@ -4820,7 +4830,9 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_pet_catalog_production_spec.md#pet-catalog-production-observation"
+      ],
       "blockers": [
         "原成员、传递依赖和逐门禁证据待归档"
       ],

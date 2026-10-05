@@ -1,0 +1,412 @@
+{
+  "schema_version": 1,
+  "step": "PCP01",
+  "recorded_on": "2026-10-05",
+  "scope": "U01旧宠物技能目录生产定位；动态工具仅准备，未执行",
+  "original_session": {
+    "binary": "cg2d.exe",
+    "base": "0x00400000",
+    "bits": 32,
+    "debugger_on": false,
+    "process_state": 0,
+    "method": "现有原IDA MCP只读身份/状态检查"
+  },
+  "fields": [
+    {
+      "target": "0x00CA0478",
+      "head": "0x00CA0478",
+      "item_size": 2,
+      "name": "word_CA0478",
+      "previous_head": "0x00CA0474",
+      "previous_name": "dword_CA0474",
+      "inbound": [
+        {
+          "from": "0x004D7603",
+          "type": 3,
+          "parent": "0x004D7470",
+          "line": "cmp     word_CA0478[eax], bx"
+        },
+        {
+          "from": "0x004D78F1",
+          "type": 3,
+          "parent": "0x004D7470",
+          "line": "cmp     word_CA0478[eax], bx"
+        }
+      ]
+    },
+    {
+      "target": "0x00CC3E64",
+      "head": "0x00CC3E64",
+      "item_size": 4,
+      "name": "dword_CC3E64",
+      "previous_head": "0x00CC3E60",
+      "previous_name": "dword_CC3E60",
+      "inbound": [
+        {
+          "from": "0x004D744B",
+          "type": 3,
+          "parent": "0x004D7440",
+          "line": "mov     edx, dword_CC3E64"
+        },
+        {
+          "from": "0x004D7BFB",
+          "type": 3,
+          "parent": "0x004D7BF0",
+          "line": "mov     edx, dword_CC3E64"
+        },
+        {
+          "from": "0x004D820B",
+          "type": 3,
+          "parent": "0x004D8200",
+          "line": "mov     edx, dword_CC3E64"
+        }
+      ]
+    },
+    {
+      "target": "0x00C8AF84",
+      "head": "0x00C8AF84",
+      "item_size": 4,
+      "name": "dword_C8AF84",
+      "previous_head": "0x00C8AF82",
+      "previous_name": "",
+      "inbound": [
+        {
+          "from": "0x004D777F",
+          "type": 3,
+          "parent": "0x004D7470",
+          "line": "mov     ecx, dword_C8AF84"
+        },
+        {
+          "from": "0x004D77A4",
+          "type": 3,
+          "parent": "0x004D7470",
+          "line": "mov     ecx, dword_C8AF84"
+        },
+        {
+          "from": "0x004D7896",
+          "type": 3,
+          "parent": "0x004D7470",
+          "line": "mov     edx, dword_C8AF84"
+        }
+      ]
+    }
+  ],
+  "route_words": {
+    "directory_route_words": [
+      {
+        "address": "0x0057C998",
+        "value": "0x004DF730"
+      },
+      {
+        "address": "0x0057C99C",
+        "value": "0x00000002"
+      },
+      {
+        "address": "0x0057C9A0",
+        "value": "0x00000000"
+      },
+      {
+        "address": "0x0057C9A4",
+        "value": "0x00000000"
+      },
+      {
+        "address": "0x0057C9A8",
+        "value": "0x0000003A"
+      },
+      {
+        "address": "0x0057C9AC",
+        "value": "0x004D7470"
+      },
+      {
+        "address": "0x0057C9B0",
+        "value": "0x00000002"
+      },
+      {
+        "address": "0x0057C9B4",
+        "value": "0x00000000"
+      },
+      {
+        "address": "0x0057C9B8",
+        "value": "0x00000000"
+      },
+      {
+        "address": "0x0057C9BC",
+        "value": "0x0000003B"
+      },
+      {
+        "address": "0x0057C9C0",
+        "value": "0x004D7C20"
+      },
+      {
+        "address": "0x0057C9C4",
+        "value": "0x00000002"
+      },
+      {
+        "address": "0x0057C9C8",
+        "value": "0x00000000"
+      },
+      {
+        "address": "0x0057C9CC",
+        "value": "0x00000000"
+      }
+    ],
+    "base_refs": [
+      {
+        "target": "0x0057C368",
+        "from": "0x005044C6",
+        "type": 1,
+        "parent": "0x005044C0",
+        "line": "mov     ecx, offset unk_57C368"
+      }
+    ]
+  },
+  "operand_locator": {
+    "directory_interval_operand_candidates": [
+      {
+        "ea": "0x004D7603",
+        "parent": "0x004D7470",
+        "line": "cmp     word_CA0478[eax], bx",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA0478"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D7695",
+        "parent": "0x004D7470",
+        "line": "cmp     ecx, dword_CA0480[edx]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA0480"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D78F1",
+        "parent": "0x004D7470",
+        "line": "cmp     word_CA0478[eax], bx",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA0478"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D78FE",
+        "parent": "0x004D7470",
+        "line": "lea     eax, byte_CA0484[eax]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA0484"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D7927",
+        "parent": "0x004D7470",
+        "line": "add     edx, offset byte_CA0484",
+        "operands": [
+          {
+            "kind": 5,
+            "value": "0x00CA0484"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D7966",
+        "parent": "0x004D7470",
+        "line": "mov     ecx, dword_CA047C[eax]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA047C"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D79BC",
+        "parent": "0x004D7470",
+        "line": "mov     eax, dword_CA0480[edx]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA0480"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D7A79",
+        "parent": "0x004D7470",
+        "line": "lea     edx, byte_CA049D[ecx+esi]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA049D"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D7E3A",
+        "parent": "0x004D7C20",
+        "line": "add     ecx, offset byte_CA0484",
+        "operands": [
+          {
+            "kind": 5,
+            "value": "0x00CA0484"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D7E63",
+        "parent": "0x004D7C20",
+        "line": "add     edx, offset byte_CA0484",
+        "operands": [
+          {
+            "kind": 5,
+            "value": "0x00CA0484"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D7EA3",
+        "parent": "0x004D7C20",
+        "line": "mov     eax, dword_CA047C[edx]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA047C"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D7EF7",
+        "parent": "0x004D7C20",
+        "line": "mov     edx, dword_CA0480[ecx]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA0480"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D844A",
+        "parent": "0x004D8230",
+        "line": "add     edx, offset byte_CA0484",
+        "operands": [
+          {
+            "kind": 5,
+            "value": "0x00CA0484"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D8476",
+        "parent": "0x004D8230",
+        "line": "add     ecx, offset byte_CA0484",
+        "operands": [
+          {
+            "kind": 5,
+            "value": "0x00CA0484"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D84B3",
+        "parent": "0x004D8230",
+        "line": "mov     edx, dword_CA047C[ecx]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA047C"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D8507",
+        "parent": "0x004D8230",
+        "line": "mov     ecx, dword_CA0480[eax]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA0480"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D8A75",
+        "parent": "0x004D88C0",
+        "line": "add     ecx, offset byte_CA0484",
+        "operands": [
+          {
+            "kind": 5,
+            "value": "0x00CA0484"
+          }
+        ]
+      },
+      {
+        "ea": "0x004D8C5A",
+        "parent": "0x004D88C0",
+        "line": "mov     edx, dword_CA0480[ecx]",
+        "operands": [
+          {
+            "kind": 4,
+            "value": "0x00CA0480"
+          }
+        ]
+      }
+    ],
+    "scope": "仅目录候选区间及三RVA定位；600H区间不是容量结论"
+  },
+  "locator_summary": [
+    {
+      "method": "已加载页W32地址字面值",
+      "result": "三个字段仍命中已知消费；另定位57C9AC的4D7470原地址槽",
+      "limitation": "不覆盖跨页字面值和任意算术/间接写入"
+    },
+    {
+      "method": "已识别指令96B步长、邻接owner、块写立即数及基本块内简单常量地址形成",
+      "result": "未取得可靠目录生产指令；CA0474为窗口55滚动，CA0A78为独立技能状态类别表",
+      "limitation": "候选定位不能证明生产不存在；块写候选未进行全程序实参传播"
+    }
+  ],
+  "preparation": {
+    "tool": "plan/cg2d_pet_catalog_capture.py",
+    "spec": "doc/cg2d_pet_catalog_production_spec.md",
+    "watch_ranges": [
+      {
+        "ea": "0x00CA0478",
+        "size": 2
+      },
+      {
+        "ea": "0x00C8AF84",
+        "size": 4
+      },
+      {
+        "ea": "0x00CC3E64",
+        "size": 4
+      }
+    ],
+    "dynamic_permission": "尚未恢复",
+    "dynamic_events": [],
+    "actual_writer": null,
+    "catalog_capacity": null,
+    "task_closed": false,
+    "gate_promoted": false
+  },
+  "static_validation": {
+    "python_ast": "pass，未导入/执行采集器",
+    "api_signatures": "当前原IDA只读查看",
+    "registry": "仅旧58–61四条基线/裁决引用",
+    "encoding": "9项UTF-8无BOM/LF",
+    "new_markdown_links": 11,
+    "diff_format": "pass",
+    "measurement": "文本生成及独立Check通过",
+    "runtime": "未执行"
+  }
+}

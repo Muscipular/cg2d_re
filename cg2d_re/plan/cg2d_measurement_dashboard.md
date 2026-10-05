@@ -181,10 +181,10 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | UI-L-055 | included：旧选择55：技能选择 | [legacy_skill_choice](../doc/ui_windows/legacy_skill_choice.md) | 0/3 | U04、V04、U07 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-056 | included：旧选择56：技能学习 | [legacy_skill_learning](../doc/ui_windows/legacy_skill_learning.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-057 | included：旧选择57：技能遗忘 | [legacy_skill_forgetting](../doc/ui_windows/legacy_skill_forgetting.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-058 | included：旧选择58：宠物技能目录 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-059 | included：旧选择59：候选宠物 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-060 | included：旧选择60：宠物技能槽 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-L-061 | included：旧选择61：宠物技能学习确认 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-058 | included：旧选择58：宠物技能目录 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md)、[cg2d_pet_catalog_production_spec](../doc/cg2d_pet_catalog_production_spec.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-059 | included：旧选择59：候选宠物 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md)、[cg2d_pet_catalog_production_spec](../doc/cg2d_pet_catalog_production_spec.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-060 | included：旧选择60：宠物技能槽 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md)、[cg2d_pet_catalog_production_spec](../doc/cg2d_pet_catalog_production_spec.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-L-061 | included：旧选择61：宠物技能学习确认 | [legacy_pet_skill_catalog](../doc/ui_windows/legacy_pet_skill_catalog.md)、[cg2d_pet_catalog_production_spec](../doc/cg2d_pet_catalog_production_spec.md) | 0/7 | U04、V04、U01 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-062 | included：旧选择62：买卖选择 | [legacy_shop_choice](../doc/ui_windows/legacy_shop_choice.md) | 2/2 | U04、V04、P07、U05 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-063 | included：旧选择63：买入列表 | [legacy_buy_list](../doc/ui_windows/legacy_buy_list.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-L-064 | included：旧选择64：卖出列表 | [legacy_sell_list](../doc/ui_windows/legacy_sell_list.md) | 0/2 | U04、V04、U05 | unassessed/unassessed/unassessed/unassessed/blocked |

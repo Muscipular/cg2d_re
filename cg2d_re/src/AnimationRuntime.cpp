@@ -252,8 +252,8 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
     if (gAnimateRecords9A4A58[index].count == 0) {
         return 0;
     }
-    gAnimateRecords9A4A58[index].actionList = std::malloc(
-        sizeof(detail::ActionEntry) * gAnimateRecords9A4A58[index].count);
+    gAnimateRecords9A4A58[index].actionList = static_cast<detail::ActionEntry*>(
+        std::malloc(sizeof(detail::ActionEntry) * gAnimateRecords9A4A58[index].count));
     if (gAnimateRecords9A4A58[index].actionList == nullptr) {
         Sub_45B440(&slot->index);
         return 0;
@@ -304,7 +304,8 @@ std::int32_t AnimeLoadAction_45B760(const std::int32_t index)
             Sub_45B440(&slot->index);
             return 0;
         }
-        action->frames = std::malloc(sizeof(detail::FrameEntry) * action->frameCount);
+        action->frames = static_cast<detail::FrameEntry*>(
+            std::malloc(sizeof(detail::FrameEntry) * action->frameCount));
         if (action->frames == nullptr) {
             Sub_45B440(&slot->index);
             return 0;
@@ -355,8 +356,8 @@ std::int32_t CoordInit_45C150(const std::int32_t index)
     const std::int32_t graphicBase = gGraphicStartIndices[fileIndex];
     platform::SeekLegacyStream_53BC41(file,
         static_cast<std::int32_t>(gAnimateRecords9A4A58[index].coordinateOffset), 0);
-    gAnimateRecords9A4A58[index].coordinates = std::malloc(
-        sizeof(detail::CoordinateEntry) * gAnimateRecords9A4A58[index].coordinateCount);
+    gAnimateRecords9A4A58[index].coordinates = static_cast<detail::CoordinateEntry*>(
+        std::malloc(sizeof(detail::CoordinateEntry) * gAnimateRecords9A4A58[index].coordinateCount));
     if (gAnimateRecords9A4A58[index].coordinates == nullptr) {
         return 0;
     }

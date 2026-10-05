@@ -693,3 +693,9 @@ read(1,1)版本仍只覆盖原路径参数低字节，未读保持现有地址�
 [本次裁决](cg2d_animation_capacity_spec.md#animation-capacity-decision)撤早期额外零哨兵，P1恢复固定20500项/无额外清零；三真实查询/比较源码保持，新增F:0005B390/F:0005B400/F:0005B420正式语义。BinarySearch跨度10/向零中点/unsigned键与包含max顺扫、GetIndex传count、Compare−1/0/1及真实回调保持。
 
 原四体186条548B/五call一回调身份和原固定预算/分配阶段静态纳管，分配入口已有真实父调用。满容量一过尾不专项保护或模拟/称确定值；完整加载/播放/场景/退出/alias/所有owner寿命和SDK/画面运行未验，不以三已有查询登记当新增查询实现。
+
+## ATP01 已证载荷指针与P4独立子项（2026-10-05）
+
+[当前指针合同](cg2d_animation_pointer_spec.md#animation-pointer-source-state)将主记录MainSlot/ActionEntry/CoordinateEntry、主动作FrameEntry及P4 CacheActionEntry五引用具名。三实际malloc结果对应类型承接；P4清理只使用新独立24B原字节前缀+void*帧引用，不把未知P4动作/帧生产套作主动作格式。
+
+主表56B/P4表48B、两类子项32B、帧12B/坐标8B及原控制/取样/发布/free后重取清槽保持。两清理补F:0005B440/F:0005B650身份，两个既有生产只补当前类型依据；565条1786B和七call六父保存仅载荷/清理局部，不重验全部生产语义/完整父/所有owner寿命。P4前缀/帧/buffer及9A4A54载荷生产仍未知，未知帧/缓冲继续void*，不猜固定空或补默认值；完整加载/播放/退出/SDK/画面未验。

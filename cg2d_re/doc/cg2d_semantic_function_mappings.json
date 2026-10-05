@@ -86958,7 +86958,24 @@
           "path": "src/AnimationRuntime.cpp",
           "symbols": [
             "AnimeLoadAction_45B760"
-          ]
+          ],
+          "relationship": "ATP01既有生产者具名载荷/分配返回承接，原数量/取样/发布/失败序保持"
+        },
+        {
+          "path": "include/cg/AnimationRuntime.hpp",
+          "symbols": [
+            "AnimateRecord"
+          ],
+          "relationship": "ATP01主记录已证三载荷具名指针，布局与原标量保持"
+        },
+        {
+          "path": "src/AnimationRuntimeState.hpp",
+          "symbols": [
+            "MainSlot",
+            "ActionEntry",
+            "FrameEntry"
+          ],
+          "relationship": "ATP01既有主槽/动作/帧承载，帧引用具名；无新owner"
         }
       ],
       "inbound_evidence": [
@@ -86999,10 +87016,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-baseline",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-acceptance",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_animation_pointer_evidence.json"
       ],
-      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
-      "boundary": "既有完整action/帧装载复用同一动画流槽别名，BEGIN0/S32偏移定位忽略结果；20或12B头/10*frameCount U32帧块读取均(长度,1)，忽略返回且复用未清2000B局部。只换真实FILE核心，数量门槛/发布/原清理/CoordInit调用及磁盘10B/运行12B帧、未写末2B、基址/槽字节/活动计数等全部正文保持，播放及资源内容/运行未验。",
+      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行；ATP01具名载荷与分配类型承接/十三片段限定静态",
+      "boundary": "既有完整action/帧装载复用同一动画流槽别名，BEGIN0/S32偏移定位忽略结果；20或12B头/10*frameCount U32帧块读取均(长度,1)，忽略返回且复用未清2000B局部。只换真实FILE核心，数量门槛/发布/原清理/CoordInit调用及磁盘10B/运行12B帧、未写末2B、基址/槽字节/活动计数等全部正文保持，播放及资源内容/运行未验。 ATP01主表MainSlot/ActionEntry/CoordinateEntry及主动作FrameEntry具名指针，原发布/取样/数量/清零/失败清理/逻辑字节及活动计数保持。 原565条1786B及七call六父保存仅载荷/清理局部，未重验全部生产语义/完整父/所有owner寿命/P4生产/实际分配失败/ABI/SDK/画面，异常不保护或模拟。",
       "business_shared_file_evidence": [
         {
           "address": "0x9A3A20",
@@ -87024,7 +87046,22 @@
           "path": "src/AnimationRuntime.cpp",
           "symbols": [
             "CoordInit_45C150"
-          ]
+          ],
+          "relationship": "ATP01既有生产者具名载荷/分配返回承接，原数量/取样/发布/失败序保持"
+        },
+        {
+          "path": "include/cg/AnimationRuntime.hpp",
+          "symbols": [
+            "AnimateRecord"
+          ],
+          "relationship": "ATP01主记录坐标引用具名，布局/标量保持"
+        },
+        {
+          "path": "src/AnimationRuntimeState.hpp",
+          "symbols": [
+            "CoordinateEntry"
+          ],
+          "relationship": "ATP01既有无指针8B坐标载荷，真实分配结果具名承接"
         }
       ],
       "inbound_evidence": [
@@ -87061,10 +87098,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_animation_runtime.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-baseline",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-acceptance",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_animation_pointer_evidence.json"
       ],
-      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行",
-      "boundary": "既有完整坐标装载保留U16来源、文件/action/坐标/count门槛及count>1000提示，容量格式接真实53B304。BEGIN0/S32偏移定位后沿既有分配发布，之后重取同一坐标流槽，读取(8,count U16零扩展U32)到未清1000项局部且忽略结果。逐项W32加基址/W16坐标与失败0/跳过1保持，其他堆/布局/播放正文未改。",
+      "verification_level": "七父完整876条/八入向、22文件格式调用与一处坐标槽传址、十二共享数据引用、EOF低U8/原字节/失败/短读/关闭/返回及限定源码差异静态核对；不重验分配/槽链/排序/播放，未执行；ATP01具名载荷与分配类型承接/十三片段限定静态",
+      "boundary": "既有完整坐标装载保留U16来源、文件/action/坐标/count门槛及count>1000提示，容量格式接真实53B304。BEGIN0/S32偏移定位后沿既有分配发布，之后重取同一坐标流槽，读取(8,count U16零扩展U32)到未清1000项局部且忽略结果。逐项W32加基址/W16坐标与失败0/跳过1保持，其他堆/布局/播放正文未改。 ATP01坐标分配真实返回以CoordinateEntry*承接，8B格式/分配长度、条件/发布及流重取与写序保持。 原565条1786B及七call六父保存仅载荷/清理局部，未重验全部生产语义/完整父/所有owner寿命/P4生产/实际分配失败/ABI/SDK/画面，异常不保护或模拟。",
       "business_byte_evidence": [
         {
           "address": "0x55994C",
@@ -144947,6 +144989,107 @@
       ],
       "verification_level": "本次完整48/11/11共70条正常查询/返回与unsigned键、包含上界和回调类型静态，不代完整父/生命周期/机器ABI/运行",
       "boundary": "两记录首U32升序比较，左小/等/大返回−1/0/1，45BEBD地址引用由真实SortLegacyRecords消费；不是直接call，不宣称全AnimeInit或全部排序ABI验收。 完整加载/播放/场景/退出、间接alias/所有owner与实际机器/ABI/SDK/画面未验；越界/数学溢出不专项处理/模拟或称安全/故障等价。"
+    },
+    {
+      "original_entry": "0x45b440",
+      "inventory_id": "F:0005B440",
+      "status": "ATP01既有动画清理正常路径与x64载荷承载身份纳管；完整生命周期/运行未验",
+      "original_end_exclusive": "0x45b522",
+      "instruction_count": 78,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/AnimationCleanup.cpp",
+          "symbols": [
+            "Sub_45B440"
+          ],
+          "relationship": "既有完整主表清理本体不改，ATP01仅类型/原身份正常合同"
+        },
+        {
+          "path": "include/cg/AnimationRuntime.hpp",
+          "symbols": [
+            "AnimateRecord"
+          ],
+          "relationship": "既有唯一主/P4表，ATP01具名指针，非地址字段/布局保持"
+        },
+        {
+          "path": "src/AnimationRuntimeState.hpp",
+          "symbols": [
+            "ActionEntry",
+            "FrameEntry"
+          ],
+          "relationship": "已证主动作/帧载荷类型，大小32/12B保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45b557",
+          "parent_entry": "0x45b530"
+        },
+        {
+          "address": "0x45b637",
+          "parent_entry": "0x45b630"
+        },
+        {
+          "address": "0x45bac7",
+          "parent_entry": "0x45b760"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-baseline",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-acceptance",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_animation_pointer_evidence.json"
+      ],
+      "verification_level": "本次两完整78/78共156条452B，仅清理正常取样/释放/清空序及x64类型承载静态，完整父/alias/P4生产/所有owner寿命/SDK/运行未验",
+      "boundary": "非负索引沿原低U16 count重取逐项释放帧，free后重取主表/索引/actionList清同一引用；再释放/清子表、清listNode，条件释放/清坐标、index=−1返回1；负索引0，不新加子表空/索引保护。 只正常域，不评数学异常/越界安全或故障等价，完整加载/播放/场景/退出、所有alias/借用失效、实际机器/ABI/SDK/分配失败及画面未验。"
+    },
+    {
+      "original_entry": "0x45b650",
+      "inventory_id": "F:0005B650",
+      "status": "ATP01既有动画清理正常路径与x64载荷承载身份纳管；完整生命周期/运行未验",
+      "original_end_exclusive": "0x45b732",
+      "instruction_count": 78,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/AnimationCleanup.cpp",
+          "symbols": [
+            "Sub_45B650"
+          ],
+          "relationship": "既有完整P4清理仅两类型读取改CacheActionEntry，原流程不改"
+        },
+        {
+          "path": "include/cg/AnimationRuntime.hpp",
+          "symbols": [
+            "AnimeCacheRecord"
+          ],
+          "relationship": "既有唯一主/P4表，ATP01具名指针，非地址字段/布局保持"
+        },
+        {
+          "path": "src/AnimationRuntimeState.hpp",
+          "symbols": [
+            "CacheActionEntry"
+          ],
+          "relationship": "P4子项只24B原字节前缀+void*帧引用，32B承载/+18保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45b747",
+          "parent_entry": "0x45b740"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-baseline",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-decision",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-acceptance",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_animation_pointer_evidence.json"
+      ],
+      "verification_level": "本次两完整78/78共156条452B，仅清理正常取样/释放/清空序及x64类型承载静态，完整父/alias/P4生产/所有owner寿命/SDK/运行未验",
+      "boundary": "P4按原低U16 count释放子项+18帧引用，free后重取同一cache/索引/子表清引用；再释放/清子表、清values[4]，条件释放/清buffer，index=−1返回1；使用独立CacheActionEntry，仅已证24B前缀/原生帧引用，不猜P4字段/帧格式。 只正常域，不评数学异常/越界安全或故障等价，完整加载/播放/场景/退出、所有alias/借用失效、实际机器/ABI/SDK/分配失败及画面未验。"
     }
   ]
 }

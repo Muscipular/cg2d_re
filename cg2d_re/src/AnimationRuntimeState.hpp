@@ -11,6 +11,8 @@ struct LegacyFile;
 
 namespace cg::resource::animation::detail {
 
+struct FrameEntry;
+
 // 原 action 子项步长 0x1C；+0x18 的可释放指针在 x64 拓宽。
 struct ActionEntry {
     std::int16_t direction;         // 原 +00，磁盘头低 W16。
@@ -21,7 +23,7 @@ struct ActionEntry {
     std::int16_t paletteIndex;      // 原 +10，扩展头 W16。
     std::uint16_t revert;           // 原 +12，扩展头 W16 位型。
     std::uint32_t value14;          // 原 +14，扩展头 W32；短头时为 FFFFFFFF。
-    void* frames;
+    FrameEntry* frames;             // 原 +18，45B760生产的12B帧表。
 };
 static_assert(std::is_trivially_copyable_v<ActionEntry>);
 static_assert(sizeof(ActionEntry) == 0x20);
@@ -32,6 +34,16 @@ static_assert(offsetof(ActionEntry, paletteIndex) == 0x10);
 static_assert(offsetof(ActionEntry, revert) == 0x12);
 static_assert(offsetof(ActionEntry, value14) == 0x14);
 static_assert(offsetof(ActionEntry, frames) == 0x18);
+
+// 原45B650只读取子项+18帧引用；P4前24B与帧载荷未证，不借用主表动作字段。
+struct CacheActionEntry {
+    std::array<std::uint8_t, 0x18> prefix;
+    void* frames;                  // 原+18只free/清空，未知载荷保留类型擦除。
+};
+static_assert(std::is_standard_layout_v<CacheActionEntry>);
+static_assert(std::is_trivially_copyable_v<CacheActionEntry>);
+static_assert(sizeof(CacheActionEntry) == 0x20);
+static_assert(offsetof(CacheActionEntry, frames) == 0x18);
 
 // 原 45B760 生产的 12B 帧；磁盘帧只有前 10B，末两字节不由装载写入。
 struct FrameEntry {

@@ -46,11 +46,11 @@ std::int32_t Sub_45B650(std::int32_t* const slotIndex)
     for (std::uint32_t action = 0;
          action < (gAnimateCache9A4A5C[*slotIndex].values[1] & 0xFFFFu);
          ++action) {
-        auto* const list = static_cast<detail::ActionEntry*>(
+        auto* const list = static_cast<detail::CacheActionEntry*>(
             gAnimateCache9A4A5C[*slotIndex].actionList);
         if (list[action].frames != nullptr) {
             std::free(list[action].frames);
-            static_cast<detail::ActionEntry*>(
+            static_cast<detail::CacheActionEntry*>(
                 gAnimateCache9A4A5C[*slotIndex].actionList)[action].frames = nullptr;
         }
     }

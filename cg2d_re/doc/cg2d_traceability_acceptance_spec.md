@@ -290,3 +290,9 @@ E194→196只FUNC-INPUT本次I/S局部；T01/T02/R04/V04、完整两功能门禁
 [当前合同](cg2d_animation_capacity_spec.md#animation-capacity-source-state)实际撤P1额外零哨兵/清零，恢复固定20500项，仅原指针步长适配；正常包含上界查询/四分配序保持。新增三查询语义、四处置及RESOURCE25→26/ANIMATION0→4明确成员，候选仍只按同文档引用派生。
 
 语义1263/有效ID1259、处置354/3680；E196→198仅RESOURCE本次I/S局部。G01/U11/R01/R04仍open，完整功能、10/60关闭数、R1/R7/R8未闭；原186条548B/五call一回调保存不代全父/寿命/SDK/画面运行，异常不专项保护或模拟/称等价。
+
+## ATP01 动画具名指针实修与清理纳管（2026-10-05）
+
+[本组合同](cg2d_animation_pointer_spec.md#animation-pointer-source-state)实际落实五具名引用/三malloc结果承接与P4独立子项、两清理类型读取，布局和业务流程保持。两旧生产补依据、两清理新身份及四adapted，使语义1265/有效ID1261、处置358/3680，ANIMATION4→8明确成员；候选仍按同文档引用派生。
+
+E198→201只本次ANIMATION I/W/S局部，W不代所有owner寿命。G01/U09/R01/R04、完整功能/10关闭数和R1/R7/R8仍未闭；565条1786B/七call六父保存不重验全部生产语义/完整父/P4生产/alias/实际机器ABI/SDK/画面，异常不保护或模拟/称安全/故障等价。

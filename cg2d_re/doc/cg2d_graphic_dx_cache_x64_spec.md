@@ -201,3 +201,9 @@ action仍归runtime/list，队列非拥有；清计数/覆盖/MarkDeath不释放
 [具名更新](cg2d_animation_capacity_spec.md#animation-capacity-source-state)覆盖§10旧20501预算：原45750F固定20500×36B，新端固定20500×56B仅拓宽已证三指针；撤一过尾额外清零，原成功容量重读/P2-P4预算和全部发布/失败/清理序保持。
 
 count包含上界不改，满容量一过尾按RPLAN.24不专项保护/补零或模拟/称安全/故障等价；现代分配字节/失败时机不称原x86逐次相同。实际上下游/完整生命周期/分配失败及SDK/画面运行继续G01/U11，不恢复异常门禁或扩大其它适配。
+
+## ATP01 动画载荷类型承接（2026-10-05）
+
+[具名类型实施](cg2d_animation_pointer_spec.md#animation-pointer-decision)在既有两头/装载/清理源完成五已证指针与三分配结果类型承接，P4 actionList只承接CacheActionEntry，前24B原字节+未知帧引用，不借主表动作字段。未知帧/P4.buffer/9A4A54继续void*；不新增对象owner或表容量。
+
+P1/P4表56/48B、主动作/P4子项32B和帧/坐标12/8B保持，分配/清理原控制与取样序不改；ACB01固定20500项预算保持。静态断言是源码要求，不称执行过编译或实际ABI/完整生命周期/画面验收，异常不专项保护或模拟。

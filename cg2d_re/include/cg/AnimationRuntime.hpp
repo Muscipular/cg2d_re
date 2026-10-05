@@ -5,6 +5,13 @@
 #include <cstdint>
 #include <type_traits>
 
+namespace cg::resource::animation::detail {
+struct MainSlot;
+struct ActionEntry;
+struct CoordinateEntry;
+struct CacheActionEntry;
+} // namespace cg::resource::animation::detail
+
 namespace cg::resource::animation {
 
 // 原 gAnimate 记录为 0x24 字节；三个原 W32 指针在 x64 承载为原生指针。
@@ -15,10 +22,10 @@ struct AnimateRecord {
     std::int16_t fileIndex;                  // 原 +08。
     std::uint16_t value0A;                   // 原 +0A，意义未证。
     std::uint32_t offset;                    // 原 +0C。
-    void* listNode;                          // 原 +10，装载时写入链节点。
+    detail::MainSlot* listNode;              // 原 +10，指向主索引链的实际槽。
     std::uint32_t coordinateOffset;          // 原 +14。
-    void* actionList;                        // 原 +18，可释放子表。
-    void* coordinates;                       // 原 +1C，可释放坐标。
+    detail::ActionEntry* actionList;         // 原 +18，45B760生产的动作子表。
+    detail::CoordinateEntry* coordinates;   // 原 +1C，45C150生产的8B坐标表。
     std::uint16_t flag;                      // 原 +20。
     std::array<std::uint8_t, 2> value22;    // 原 +22/+23，意义未证。
 };
@@ -26,7 +33,7 @@ struct AnimateRecord {
 // 原 9A4A5C 独立的 0x24 字节缓存记录；+18/+1C 是可释放引用。
 struct AnimeCacheRecord {
     std::array<std::uint32_t, 6> values;  // 原 +00..+17，字段暂不拆分。
-    void* actionList;                     // 原 +18，可释放子表。
+    detail::CacheActionEntry* actionList; // 原 +18，仅已证24B前缀/可释放帧引用。
     void* buffer;                         // 原 +1C，可释放缓冲。
     std::array<std::uint8_t, 4> tail;     // 原 +20..+23，意义未证。
 };

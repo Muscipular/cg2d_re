@@ -2267,3 +2267,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原118条354B/113type17call/86已知父+1未归属调用点](cg2d_yobi_allocation_sampling_evidence.json)及[源状态](cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state)只向既有404AE0追加本组载荷/描述符/插链取样实修与16B值类型来源、原元数据及边界，保留全部旧字段/历史来源。四片段不计新原函数或113调用点全部通过。
 
 语义1301/有效ID1297保持、处置400→401，MAP63→64/LOOP28→29成员，同ID跨域不多计函数；原关联/pending/队列/R7保持。所有父实参/载荷类型与全部callee/资源和链别名/未链接对象及owner寿命/SDK/ABI/运行未验。
+
+## UPS01 共用预览三入口与代码片段身份（2026-10-06）
+
+[完整三个390条1331B](cg2d_ui_preview_sampling_evidence.json)与[源状态](cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state)新增4FACE0/4EF5F0两原F及4FAAA0一个X内代码片段，三既有正文仅4EF5F0结果判定取样三替换；全旧语义/历史来源保留。8创建call/4状态call和1回调地址引用不混计，原错位head按临时解码恢复，不改数据库。
+
+语义1301→1304/有效ID1297→1299，非函数代码片段4→5，处置401→403/R7区间66→67；UIRUNTIME11→13与YOBI2→4为同两F，X整字节用途mapped不当新增业务函数或范围排除。完整caller/页面和所有资源/owner寿命/外层旧表/SDK/ABI/画面运行未验。

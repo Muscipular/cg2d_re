@@ -147860,6 +147860,297 @@
       ],
       "verification_level": "三原160条444B/31call10父及两实修根三片段；519D50原87条清理与现未改入口/八槽 helper/主槽重读/尾返回有限静态，全父/callee/场景寿命运行未验",
       "boundary": "初玩家空时跳过孩子/文本/主标死清槽，初玩家非空捕获payload，非空载荷只八槽04/08/0C/10/2C/4C/30/44按序非空MarkDeath后清、再文本free清，34/38不清；载荷空仍回主入口重读玩家MarkDeath并清共享槽，统一51A5B0→51BEC0完整S32判零，非零51BE50(0)返回低S8。 本次源码保持，仅原身份/分工纳管，不外推全部父实参/callback/callee/所有资源和链表别名/owner重进退出/借用失效/ABI/SDK/时钟RNG/PC53/完整画面运行；不新增保护或异常模拟/称等价。"
+    },
+    {
+      "original_entry": "0x4faaa0",
+      "inventory_id": null,
+      "original_entry_kind": "已证代码标签范围，IDA未定义函数",
+      "status": "UPS01既有完整预览创建/回调纳管；源正文未改、完整页面/owner寿命运行未验",
+      "original_end_exclusive": "0x4facd6",
+      "instruction_count": 160,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4FAAA0"
+          ],
+          "relationship": "UPS01既有完整预览创建/回调实现保持，仅原身份/代码区间纳管，不重写正文"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4FAAA0"
+          ],
+          "relationship": "既有真实原生借用/完整S32声明，未增加接口、改变布局或owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json"
+      ],
+      "verification_level": "三完整390条1331B/12直接调用8已知父与1回调地址发布；X587B完整分类/错位只读解码、单根三具名源替换和真实8工厂/4状态源表达式有限静态，不验所有完整父/资源和owner寿命/SDK/ABI或运行",
+      "boundary": "创建仍分配(2,0)/空返回，五族原映射和两例外/局部玩家图号取样与0..120原门禁、回调/默认标量/坐标和两rebirth不同分支保持；不把原未定义代码猜成库存函数。 本组局部静态不代8完整父/所有数据资源/外层旧表分派、ABI/SDK/PC53/时钟RNG和owner重进退出/借用失效/完整画面运行；网络原格式明文和音频暂停保持。",
+      "ui_preview_sampling": {
+        "spec_id": "UPS01",
+        "original_entry": "0x4faaa0",
+        "instruction_count": 160,
+        "code_bytes": 566,
+        "inbound_references": [
+          {
+            "site": "0x4edce7",
+            "type": 17,
+            "parent_entry": "0x4edb20"
+          },
+          {
+            "site": "0x4ef2a0",
+            "type": 17,
+            "parent_entry": "0x4ef0f0"
+          },
+          {
+            "site": "0x4f1e07",
+            "type": 17,
+            "parent_entry": "0x4f1c40"
+          },
+          {
+            "site": "0x4f2cd5",
+            "type": 17,
+            "parent_entry": "0x4f2a30"
+          },
+          {
+            "site": "0x4f409d",
+            "type": 17,
+            "parent_entry": "0x4f3ed0"
+          },
+          {
+            "site": "0x4f5430",
+            "type": 17,
+            "parent_entry": "0x4f51d0"
+          },
+          {
+            "site": "0x4fb0a8",
+            "type": 17,
+            "parent_entry": "0x4faef0"
+          },
+          {
+            "site": "0x505c03",
+            "type": 17,
+            "parent_entry": "0x505bc0"
+          }
+        ],
+        "source_body_changed": false,
+        "full_runtime_verified": false
+      },
+      "original_ida_code_head_count": 162,
+      "original_head_correction": {
+        "start": "0x4fac1b",
+        "end_exclusive": "0x4fac23",
+        "wrong_heads": [
+          {
+            "ea": "0x4fac1b",
+            "size": 1,
+            "is_code": false,
+            "bytes": "81",
+            "text": "db 81h"
+          },
+          {
+            "ea": "0x4fac1c",
+            "size": 1,
+            "is_code": true,
+            "bytes": "f9",
+            "text": "stc"
+          },
+          {
+            "ea": "0x4fac1d",
+            "size": 1,
+            "is_code": true,
+            "bytes": "53",
+            "text": "push    ebx"
+          },
+          {
+            "ea": "0x4fac1e",
+            "size": 2,
+            "is_code": true,
+            "bytes": "d501",
+            "text": "aad     1"
+          },
+          {
+            "ea": "0x4fac20",
+            "size": 3,
+            "is_code": true,
+            "bytes": "007f4a",
+            "text": "add     [edi+4Ah], bh"
+          }
+        ],
+        "decoded_instructions": [
+          {
+            "ea": "0x4fac1b",
+            "size": 6,
+            "bytes": "81f953d50100",
+            "mnemonic": "cmp",
+            "operands": [
+              {
+                "type": 1,
+                "reg": 1,
+                "addr": "0x0",
+                "value": "0x0",
+                "dtype": 2
+              },
+              {
+                "type": 5,
+                "reg": 0,
+                "addr": "0x0",
+                "value": "0x1d553",
+                "dtype": 2
+              }
+            ]
+          },
+          {
+            "ea": "0x4fac21",
+            "size": 2,
+            "bytes": "7f4a",
+            "mnemonic": "jg",
+            "operands": [
+              {
+                "type": 7,
+                "reg": 0,
+                "addr": "0x4fac6d",
+                "value": "0x0",
+                "dtype": 0
+              }
+            ]
+          }
+        ],
+        "original_code_heads": 162,
+        "corrected_instructions": 160,
+        "database_modified": false,
+        "original_body_items": 163
+      },
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:000FAA95-000FACE0",
+        "start": "0x4faaa0",
+        "end_exclusive": "0x4facd6",
+        "evidence_refs": [
+          "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+          "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+          "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+          "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+          "doc/cg2d_ui_preview_sampling_evidence.json"
+        ]
+      },
+      "original_ida_item_count": 163
+    },
+    {
+      "original_entry": "0x4face0",
+      "inventory_id": "F:000FACE0",
+      "status": "UPS01既有完整预览创建/回调纳管；源正文未改、完整页面/owner寿命运行未验",
+      "original_end_exclusive": "0x4faec3",
+      "instruction_count": 159,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4FACE0"
+          ],
+          "relationship": "UPS01既有完整预览创建/回调实现保持，仅原身份/代码区间纳管，不重写正文"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4FACE0"
+          ],
+          "relationship": "既有真实原生借用/完整S32声明，未增加接口、改变布局或owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json"
+      ],
+      "verification_level": "三完整390条1331B/12直接调用8已知父与1回调地址发布；X587B完整分类/错位只读解码、单根三具名源替换和真实8工厂/4状态源表达式有限静态，不验所有完整父/资源和owner寿命/SDK/ABI或运行",
+      "boundary": "回调一次玩家图号快照、四族更新/其它不写、两例外和九动作集合/停播参数与真实S32返回保持；type1绑定不计直接调用，借用owner与资源全链未验。 本组局部静态不代8完整父/所有数据资源/外层旧表分派、ABI/SDK/PC53/时钟RNG和owner重进退出/借用失效/完整画面运行；网络原格式明文和音频暂停保持。",
+      "ui_preview_sampling": {
+        "spec_id": "UPS01",
+        "original_entry": "0x4face0",
+        "instruction_count": 159,
+        "code_bytes": 483,
+        "inbound_references": [
+          {
+            "site": "0x4fac7c",
+            "type": 1,
+            "parent_entry": null
+          }
+        ],
+        "source_body_changed": false,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4ef5f0",
+      "inventory_id": "F:000EF5F0",
+      "status": "UPS01结果零判定先于图号读取已修/原身份纳管；完整页面/owner寿命运行未验",
+      "original_end_exclusive": "0x4ef70a",
+      "instruction_count": 71,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4EF5F0"
+          ],
+          "relationship": "UPS01仅结果判定先于图号读取的三具名替换；原空门禁/六图号族/四动作与未匹配保旧保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_4EF5F0"
+          ],
+          "relationship": "既有真实原生借用/完整S32声明，未增加接口、改变布局或owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json"
+      ],
+      "verification_level": "三完整390条1331B/12直接调用8已知父与1回调地址发布；X587B完整分类/错位只读解码、单根三具名源替换和真实8工厂/4状态源表达式有限静态，不验所有完整父/资源和owner寿命/SDK/ABI或运行",
+      "boundary": "空对象直接返；先保存result零判定再单次读取图号，两分支共用判定；六已证图号族选18/15、族外>100999选5/10，其余保旧动作，不补默认或新增输入/异常门槛。 本组局部静态不代8完整父/所有数据资源/外层旧表分派、ABI/SDK/PC53/时钟RNG和owner重进退出/借用失效/完整画面运行；网络原格式明文和音频暂停保持。",
+      "ui_preview_sampling": {
+        "spec_id": "UPS01",
+        "original_entry": "0x4ef5f0",
+        "instruction_count": 71,
+        "code_bytes": 282,
+        "inbound_references": [
+          {
+            "site": "0x4edcfc",
+            "type": 17,
+            "parent_entry": "0x4edb20"
+          },
+          {
+            "site": "0x4ef2b7",
+            "type": 17,
+            "parent_entry": "0x4ef0f0"
+          },
+          {
+            "site": "0x4f1e1c",
+            "type": 17,
+            "parent_entry": "0x4f1c40"
+          },
+          {
+            "site": "0x4f40b4",
+            "type": 17,
+            "parent_entry": "0x4f3ed0"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
     }
   ]
 }

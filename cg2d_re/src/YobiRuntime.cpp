@@ -33655,6 +33655,8 @@ void Sub_4EF5F0(YobiAction* const action, const std::int32_t result)
     if (action == nullptr) {
         return;
     }
+    // 原4EF600先保存结果判定，4EF602再取对象图号；两分支共用此快照。
+    const bool hasResult = result != 0;
     const std::int32_t image = action->imageNo;
     if ((image >= 110350 && image <= 110373)
         || (image >= 100000 && image <= 100999)
@@ -33662,9 +33664,9 @@ void Sub_4EF5F0(YobiAction* const action, const std::int32_t result)
         || (image >= 104400 && image <= 104520)
         || (image >= 120100 && image <= 120147)
         || (image >= 120156 && image <= 120163)) {
-        action->characterAction = result != 0 ? 18 : 15;
+        action->characterAction = hasResult ? 18 : 15;
     } else if (image > 100999) {
-        action->characterAction = result != 0 ? 5 : 10;
+        action->characterAction = hasResult ? 5 : 10;
     }
 }
 

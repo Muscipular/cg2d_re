@@ -1573,7 +1573,8 @@
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline"
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -1586,7 +1587,9 @@
         "F:00073560",
         "F:000C2634",
         "F:00103AB0",
-        "F:000A0640"
+        "F:000A0640",
+        "F:000FACE0",
+        "F:000EF5F0"
       ],
       "closure_task_ids": [
         "U04",
@@ -1606,13 +1609,15 @@
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision"
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
         "LSP01五旧共享正文生产/指针发布与旧55同源消费已证，503AB0取样已修；其余100完整父/全部owner/间接alias/旧99表外路由、生成ABI/画面/运行未闭，不以局部生产源码关闭公共窗口或U07",
-        "LUA01共用工具正常S32已修，149调用表达式保持；完整页面/原成员、外层路由/数据/寿命/ABI/画面/运行仍未验，不将本机工具当原独立函数"
+        "LUA01共用工具正常S32已修，149调用表达式保持；完整页面/原成员、外层路由/数据/寿命/ABI/画面/运行仍未验，不将本机工具当原独立函数",
+        "UPS01旧页共用预览三入口身份/一X587B用途纳管，结果判定先于图号读取已修；一代码片段不是库存函数，两F同YOBI。八父/所有页面和外层路由/数据资源、owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未闭，不计完整旧UI通过"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1620,7 +1625,8 @@
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
       ]
     },
     {
@@ -1633,11 +1639,14 @@
       "baseline_documents": [
         "doc/cg2d_yobi_runtime.md",
         "doc/cg2d_yobi_update_coverage.md",
-        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline"
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
-        "F:000D6650"
+        "F:000D6650",
+        "F:000FACE0",
+        "F:000EF5F0"
       ],
       "closure_task_ids": [
         "U09",
@@ -1647,15 +1656,18 @@
       "acceptance_focus": "创建、四相调度、克隆、显式更新、借用与清理",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision"
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "UPS01实际共用创建/图号回调/结果状态链纳管，两F同UI及一原未定义代码片段；源只结果标志先判后取图，原失败/五族映射/九动作回调及资源owner保持。完整原成员、全部场景/生产消费、ABI/SDK/PC53/RNG/画面运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline"
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
       ]
     },
     {
@@ -15065,6 +15077,134 @@
       "observation": "原118条354B/113type17call/86已知父+1未归属调用点/库存、四片段全文精确重放及同载荷快照/八描述符字段写序宽度/首尾与前驱重读和既有失败/FIFO/未插链有限静态",
       "expected": "载荷分配返回同一快照供原比较/发布/清零，描述符按五W16一W32两W8逐项默认发布，start/end先取再两next，插链新next/prev写后重读当前前驱；原失败消息/释放、unsigned<=和FIFO及到stop未插链返回保持",
       "actual": "四局部I/S共用一根四片段/完整118条354B，既有语义追加/一adapted同MAP/LOOP，不增函数或验全113调用点/载荷类型。所有caller/callee/资源与链别名和owner寿命/真实SDK/ABI/PC53/场景画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-UI-PREVIEW-SAMPLING-UI-I-20261006",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "UPS01三完整390条1331B/12直接调用8已知父和1回调地址发布，原587B区间整字节用途；doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ui-preview-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_4EF5F0",
+        "src/YobiRuntime.cpp#Sub_4FAAA0",
+        "src/YobiRuntime.cpp#Sub_4FACE0",
+        "include/cg/YobiRuntime.hpp#Sub_4FAAA0",
+        "src/LegacyUiRecord.cpp"
+      ],
+      "differences": [
+        {
+          "description": "原空门禁后先取结果零判定再图号，两状态写分支同判定；一根三替换，工厂/回调正文保持，仅两个F与一非函数片段、整X587B分类新增",
+          "decision_ref": "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "结果原取样次序已落码，空门禁/六图号族/四动作和未匹配保旧保持，真实8工厂/4状态表达式保持；三语义/两F及一X代码片段不双计函数",
+      "expected": "保持原空门禁后先保存完整S32结果零判定，再一次图号读取与两写入分支；源仅三替换，原六区间/四动作与未匹配保旧、创建/回调/父调用及owner布局保持",
+      "actual": "单根三替换及三既有入口身份/一完整X区间关联，局部I/S同源共证据；所有完整父/页面/外层路由和数据资源、ABI/SDK/PC53/时钟RNG/owner寿命与画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-UI-PREVIEW-SAMPLING-UI-S-20261006",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "UPS01三完整390条1331B/12直接调用8已知父和1回调地址发布，原587B区间整字节用途；doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ui-preview-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_4EF5F0",
+        "src/YobiRuntime.cpp#Sub_4FAAA0",
+        "src/YobiRuntime.cpp#Sub_4FACE0",
+        "include/cg/YobiRuntime.hpp#Sub_4FAAA0",
+        "src/LegacyUiRecord.cpp"
+      ],
+      "differences": [
+        {
+          "description": "原空门禁后先取结果零判定再图号，两状态写分支同判定；一根三替换，工厂/回调正文保持，仅两个F与一非函数片段、整X587B分类新增",
+          "decision_ref": "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整三390条1331B与587B X无隙用途、两错位临时解码、单根三替换全文重放/结果先判后取图及两共享分支有限静态",
+      "expected": "保持原空门禁后先保存完整S32结果零判定，再一次图号读取与两写入分支；源仅三替换，原六区间/四动作与未匹配保旧、创建/回调/父调用及owner布局保持",
+      "actual": "单根三替换及三既有入口身份/一完整X区间关联，局部I/S同源共证据；所有完整父/页面/外层路由和数据资源、ABI/SDK/PC53/时钟RNG/owner寿命与画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-UI-PREVIEW-SAMPLING-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "UPS01三完整390条1331B/12直接调用8已知父和1回调地址发布，原587B区间整字节用途；doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ui-preview-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_4EF5F0",
+        "src/YobiRuntime.cpp#Sub_4FAAA0",
+        "src/YobiRuntime.cpp#Sub_4FACE0",
+        "include/cg/YobiRuntime.hpp#Sub_4FAAA0",
+        "src/LegacyUiRecord.cpp"
+      ],
+      "differences": [
+        {
+          "description": "原空门禁后先取结果零判定再图号，两状态写分支同判定；一根三替换，工厂/回调正文保持，仅两个F与一非函数片段、整X587B分类新增",
+          "decision_ref": "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "结果原取样次序已落码，空门禁/六图号族/四动作和未匹配保旧保持，真实8工厂/4状态表达式保持；三语义/两F及一X代码片段不双计函数",
+      "expected": "保持原空门禁后先保存完整S32结果零判定，再一次图号读取与两写入分支；源仅三替换，原六区间/四动作与未匹配保旧、创建/回调/父调用及owner布局保持",
+      "actual": "单根三替换及三既有入口身份/一完整X区间关联，局部I/S同源共证据；所有完整父/页面/外层路由和数据资源、ABI/SDK/PC53/时钟RNG/owner寿命与画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-UI-PREVIEW-SAMPLING-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "UPS01三完整390条1331B/12直接调用8已知父和1回调地址发布，原587B区间整字节用途；doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ui-preview-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_4EF5F0",
+        "src/YobiRuntime.cpp#Sub_4FAAA0",
+        "src/YobiRuntime.cpp#Sub_4FACE0",
+        "include/cg/YobiRuntime.hpp#Sub_4FAAA0",
+        "src/LegacyUiRecord.cpp"
+      ],
+      "differences": [
+        {
+          "description": "原空门禁后先取结果零判定再图号，两状态写分支同判定；一根三替换，工厂/回调正文保持，仅两个F与一非函数片段、整X587B分类新增",
+          "decision_ref": "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整三390条1331B与587B X无隙用途、两错位临时解码、单根三替换全文重放/结果先判后取图及两共享分支有限静态",
+      "expected": "保持原空门禁后先保存完整S32结果零判定，再一次图号读取与两写入分支；源仅三替换，原六区间/四动作与未匹配保旧、创建/回调/父调用及owner布局保持",
+      "actual": "单根三替换及三既有入口身份/一完整X区间关联，局部I/S同源共证据；所有完整父/页面/外层路由和数据资源、ABI/SDK/PC53/时钟RNG/owner寿命与画面运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -15478,7 +15618,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
       ]
     },
     {
@@ -15557,7 +15698,8 @@
       "evidence_refs": [
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
       ]
     },
     {
@@ -15607,7 +15749,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
       ]
     },
     {
@@ -15644,7 +15787,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
       ]
     },
     {
@@ -15654,7 +15798,8 @@
       "evidence_refs": [
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
-        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state"
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
       ]
     },
     {
@@ -15681,7 +15826,8 @@
       "evidence_refs": [
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
-        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
       ]
     },
     {
@@ -19927,6 +20073,30 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_evidence.json"
       ]
+    },
+    {
+      "inventory_id": "F:000FACE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000EF5F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json"
+      ]
     }
   ],
   "auxiliary_dispositions": [
@@ -21715,6 +21885,40 @@
           "end_exclusive": "0x404160",
           "kind": "nop_padding",
           "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000FAA95-000FACE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-acceptance",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_evidence.json"
+      ],
+      "reason": "UPS01整个587B按两段90H填充和160条566B真实创建代码无隙分类；只记字节用途/原源关联，不造库存函数或算业务/ABI和运行通过",
+      "parts": [
+        {
+          "start": "0x4faa95",
+          "end_exclusive": "0x4faaa0",
+          "kind": "nop_padding",
+          "bytes": 11
+        },
+        {
+          "start": "0x4faaa0",
+          "end_exclusive": "0x4facd6",
+          "kind": "source_mapped_code",
+          "bytes": 566,
+          "source_symbol": "Sub_4FAAA0"
+        },
+        {
+          "start": "0x4facd6",
+          "end_exclusive": "0x4face0",
+          "kind": "nop_padding",
+          "bytes": 10
         }
       ]
     }

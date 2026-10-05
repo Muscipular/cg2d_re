@@ -146254,6 +146254,89 @@
       ],
       "verification_level": "三原288条1126B/三call两父保存，仅六模式六块/九组临时数值复制和既有构造析构/父载荷及三子槽复读局部静态；不代全部288其他语义/完整父与所有callee/owner寿命/运行",
       "boundary": "440B70方向先读后取payload，在方向及其余头字段写/原追加前保存payload；五轮保正值/空槽和子创建失败局部发布。成功子先用创建返回写图号，后分别复读已发布partyActions槽写方向/动作/index，三读取点原序，不加空槽拒绝或回滚。 原失败即空、优先级2/已定0x50载荷、其他动作字段/回调/投影与真实S64→低S32、父追加/返回及MCL01/MQC01保持；通用CopyPayload/AssignFromInt不改，不跨改其他同形函数。完整父参数/所有callee与五槽上游/间接alias和owner重进退出/borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护/回绕或故障模拟/称等价，网络原格式明文及音频暂停保持。"
+    },
+    {
+      "original_entry": "0x440f50",
+      "inventory_id": "F:00040F50",
+      "status": "MOS01五槽源图号/载荷取样实修及原身份纳管；完整场景与寿命运行未验",
+      "original_end_exclusive": "0x440fd3",
+      "instruction_count": 40,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_440F50",
+            "MapCharaPayload",
+            "Sub_43F1F0"
+          ],
+          "relationship": "既有真实五槽生产入口，MOS01一片段恢复图号/载荷/发布取样；原标量与五轮保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_440F50"
+          ],
+          "relationship": "既有真实声明，非拥有原生返回或完整S32返回保持，无新接口/类型"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51d5f9",
+          "parent_entry": "0x51d5b0",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline",
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision",
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-acceptance",
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observation_source_evidence.json"
+      ],
+      "verification_level": "两原44条147B/两call两父保存，一限定源片段、图号/载荷取样与五槽/既有薄父局部静态；不代完整父/callee/owner寿命/运行",
+      "boundary": "440F50图号先读、后取payload、再发布图号；未命中不写三标量/两表，field58独立/真实乘60、五轮清值再清图号、S32正值及非空子图号/既有原生返回保持。 完整两父与所有callee/全上游/间接别名及owner重进退出和借用失效、实际ABI/SDK/时钟RNG/场景画面运行未闭；不新增异常保护或回绕/故障模拟、称等价。"
+    },
+    {
+      "original_entry": "0x440fe0",
+      "inventory_id": "F:00040FE0",
+      "status": "MOS01已有薄父原同序调用保持及身份纳管；音频暂停/完整场景运行未验",
+      "original_end_exclusive": "0x440ff0",
+      "instruction_count": 4,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_440FE0",
+            "Sub_440B70"
+          ],
+          "relationship": "既有真实薄父入口，本体未改，原观察创建/既有音频调用和完整返回保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_440FE0"
+          ],
+          "relationship": "既有真实声明，非拥有原生返回或完整S32返回保持，无新接口/类型"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51cd83",
+          "parent_entry": "0x51c7d0",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline",
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision",
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-acceptance",
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observation_source_evidence.json"
+      ],
+      "verification_level": "两原44条147B/两call两父保存，一限定源片段、图号/载荷取样与五槽/既有薄父局部静态；不代完整父/callee/owner寿命/运行",
+      "boundary": "440FE0未改：原440B70→52B990两调用弃返回，后完整0x25；不因子创建失败跳过音频，音频callee仍暂停，不外推父暂停/排除。 完整两父与所有callee/全上游/间接别名及owner重进退出和借用失效、实际ABI/SDK/时钟RNG/场景画面运行未闭；不新增异常保护或回绕/故障模拟、称等价。"
     }
   ]
 }

@@ -2207,3 +2207,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原三体288条1126B/三call两父](cg2d_map_chara_producer_evidence.json)及[具名合同](cg2d_map_chara_producer_spec.md#map-chara-producer-source-state)为43F330/43FEB0/440B70补正式语义/真实本体声明与adapted；六片段仅三个生产者和前置注释，原九组内存数值复制、父payload/三子槽取样已实修，其他同形调用和通用工具保持。
 
 语义1285→1288/有效ID1281→1284、处置378→381，MAP41→44/LOOP6→9成员；同ID双域不加函数分母或代码次数。全部原历史位置/队列/pending/非FID/R7及其它功能保持，全288其他语义/完整父与callee/alias/owner寿命/实际RNG和场景运行不因局部修正升级。
+
+## MOS01 五槽源与薄父原身份（2026-10-05）
+
+[两原44条147B/两call两父](cg2d_map_observation_source_evidence.json)与[源状态](cg2d_map_observation_source_spec.md#map-observation-source-source-state)为440F50/440FE0补正式语义、真实本体/声明及adapted；仅440F50一片段实修，440FE0已有同序薄父不改。音频callee暂停不外推父处置。
+
+语义1288→1290、有效ID1284→1286、处置381→383，MAP44→46/LOOP9→11成员；同ID双域不重复计函数或源码修改。原历史定位/队列/pending/非FID/R7及其它功能保持，完整父/callee/全上游/别名及owner寿命/真实ABI/SDK/场景运行未验。

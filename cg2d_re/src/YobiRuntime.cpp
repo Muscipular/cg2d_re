@@ -6260,8 +6260,9 @@ void* Sub_440F50()
         return nullptr;
     }
 
+    const std::int32_t imageNo = action->imageNo;
     auto* const payload = static_cast<MapCharaPayload*>(action->payload);
-    gMapImage5F9734 = action->imageNo;
+    gMapImage5F9734 = imageNo;
     gMapDirection5F9740 = action->field58;
     gMapDuration5F9744 =
         platform::legacy_crypt_int::Multiply_401E90(&action->readiness, 60);

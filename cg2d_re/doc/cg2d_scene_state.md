@@ -7623,3 +7623,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [生产合同](cg2d_map_chara_producer_spec.md#map-chara-producer-source-state)沿MCL01三个真实生产入口修五行为块/一注释。43F330四坐标按mask→encoded→count先读后写，readiness按count→mask→encoded；43FEB0四坐标同后一顺序。43F330不用通用CopyPayload的不同写序，通用工具及其他同形函数不改；九对原构造析构/参数/随机消费保持。
 
 440B70先取当次方向与payload再发布方向/头字段并追加，五轮沿原payload；成功子先用创建返回写图号，后三字段各复读已发布槽再写。失败即空/子失败正值+空槽、0x50载荷/回调/投影及真实S64→低S32保持；失实“回调尚待落位”已改，两回调正文未改。三原288条1126B/三call两父只正常复制/取样局部，全288其他语义/完整父及callee/全上游/alias/owner寿命/真实ABI/SDK/场景画面RNG运行未验，异常不保护或模拟/称等价。
+
+## MOS01 五槽源与创建薄父（2026-10-05）
+
+[源取样合同](cg2d_map_observation_source_spec.md#map-observation-source-source-state)沿MCP01上游修440F50一片段：先读图号，再取payload，后发布图号。未命中不写三标量/两表，独立field58、真实乘60、恰五轮清值→清图号→S32正值→发布值→非空子图号及原生返回保持。440FE0既有440B70→52B990→0x25同序，不因子创建失败跳过第二调用，本体不改。
+
+[两原44条147B/两call两父](cg2d_map_observation_source_evidence.json)及真实本体/声明纳管同ID双域；音频callee暂停保留，不扩父暂停/排除。完整父/callee/全上游/别名及owner重进退出和借用失效/真实ABI/SDK/场景画面运行未闭，局部静态不代完整观察场景。

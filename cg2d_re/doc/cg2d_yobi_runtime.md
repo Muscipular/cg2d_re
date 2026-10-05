@@ -3899,3 +3899,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [具名生产修正](cg2d_map_chara_producer_spec.md#map-chara-producer-decision)将43F330四坐标局部构造/复制按mask/encoded/W8 count取读及发布；其readiness与43FEB0四坐标按W8 count/mask/encoded取读及发布。仍是五对/四对构造析构、原四目标/+270 W16位置和值参数，不改通用CopyPayload/AssignFromInt，不跨同形函数。
 
 440B70在头方向写/追加前保存当次方向/payload，之后五轮沿原payload；已发布成功子槽在方向/动作/index前各按原重新读取，第一图号用创建返回。失败局部发布、五项容量、原回调/投影/发布/返回与MapCharaPayload/头owner保持，旧失实回调声明注释改为实际绑定说明。三原288条1126B/三call两父保存仅六具名片段/正常生产局部，不代全部父/callee/上游/alias和所有owner重进退出/borrow失效/实际ABI/SDK/场景画面运行。
+
+## MOS01 当前观察源取样实修与薄父登记（2026-10-05）
+
+[委托裁决](cg2d_map_observation_source_spec.md#map-observation-source-decision)在440F50仅增加局部S32图号快照，原图号读→payload取样→图号发布可追；未命中不写源、独立field58/乘60与原五槽清写/正值/非空子和返回保持，不加死亡过滤/空payload保护/回滚。返回既有原生子指针区，只保区域语义，不称x86/x64地址数值等价。
+
+440FE0源码保持两调用弃返回后完整0x25，音频仍暂停，不因callee扩父排除。两原40+4条/131+16B、两call两父及两个已有声明纳管；原历史“链未闭”继续限定完整父/所有callee/全上游/别名和owner寿命/实际场景运行，本次局部修正不升级该结论。

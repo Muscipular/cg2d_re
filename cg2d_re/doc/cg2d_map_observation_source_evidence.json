@@ -1,0 +1,349 @@
+{
+  "schema_version": 1,
+  "scope": "MOS01仅440F50图号/载荷取样实修及440FE0已有薄父同序登记；完整父/callee与owner寿命/运行未闭",
+  "baseline_snapshot": "cg2d-re-map-chara-producer-20261005",
+  "implementation_snapshot": "cg2d-re-map-observation-source-20261005",
+  "original_functions": [
+    {
+      "entry": "0x440f50",
+      "actual_start": "0x440f50",
+      "end_exclusive": "0x440fd3",
+      "chunks": [
+        {
+          "start": "0x440f50",
+          "end_exclusive": "0x440fd3"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x51d5f9",
+          "type": 17,
+          "parent_entry": "0x51d5b0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x440f50",
+          "size": 5,
+          "bytes": "a180a8fd00",
+          "text": "mov     eax, gPlayerDataVal.ojbIndex"
+        },
+        {
+          "ea": "0x440f55",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x440f56",
+          "size": 5,
+          "bytes": "e895e2ffff",
+          "text": "call    sub_43F1F0"
+        },
+        {
+          "ea": "0x440f5b",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x440f5e",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x440f60",
+          "size": 2,
+          "bytes": "7470",
+          "text": "jz      short locret_440FD2"
+        },
+        {
+          "ea": "0x440f62",
+          "size": 6,
+          "bytes": "8b88a8020000",
+          "text": "mov     ecx, [eax+2A8h]"
+        },
+        {
+          "ea": "0x440f68",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x440f69",
+          "size": 3,
+          "bytes": "8b700c",
+          "text": "mov     esi, [eax+0Ch]"
+        },
+        {
+          "ea": "0x440f6c",
+          "size": 6,
+          "bytes": "890d34975f00",
+          "text": "mov     dword_5F9734, ecx"
+        },
+        {
+          "ea": "0x440f72",
+          "size": 3,
+          "bytes": "8b5058",
+          "text": "mov     edx, [eax+58h]"
+        },
+        {
+          "ea": "0x440f75",
+          "size": 1,
+          "bytes": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x440f76",
+          "size": 2,
+          "bytes": "6a3c",
+          "text": "push    3Ch ; '<'"
+        },
+        {
+          "ea": "0x440f78",
+          "size": 6,
+          "bytes": "8d8870010000",
+          "text": "lea     ecx, [eax+170h]"
+        },
+        {
+          "ea": "0x440f7e",
+          "size": 6,
+          "bytes": "891540975f00",
+          "text": "mov     dword_5F9740, edx"
+        },
+        {
+          "ea": "0x440f84",
+          "size": 5,
+          "bytes": "e8070ffcff",
+          "text": "call    CryptInt__mul"
+        },
+        {
+          "ea": "0x440f89",
+          "size": 5,
+          "bytes": "ba20975f00",
+          "text": "mov     edx, offset dword_5F9720"
+        },
+        {
+          "ea": "0x440f8e",
+          "size": 5,
+          "bytes": "bfa0c45a00",
+          "text": "mov     edi, offset dword_5AC4A0"
+        },
+        {
+          "ea": "0x440f93",
+          "size": 5,
+          "bytes": "a344975f00",
+          "text": "mov     dword_5F9744, eax"
+        },
+        {
+          "ea": "0x440f98",
+          "size": 2,
+          "bytes": "2bd6",
+          "text": "sub     edx, esi"
+        },
+        {
+          "ea": "0x440f9a",
+          "size": 2,
+          "bytes": "8bc6",
+          "text": "mov     eax, esi"
+        },
+        {
+          "ea": "0x440f9c",
+          "size": 2,
+          "bytes": "2bfe",
+          "text": "sub     edi, esi"
+        },
+        {
+          "ea": "0x440f9e",
+          "size": 5,
+          "bytes": "be05000000",
+          "text": "mov     esi, 5"
+        },
+        {
+          "ea": "0x440fa3",
+          "size": 7,
+          "bytes": "c7040200000000",
+          "text": "mov     dword ptr [edx+eax], 0"
+        },
+        {
+          "ea": "0x440faa",
+          "size": 7,
+          "bytes": "c7040700000000",
+          "text": "mov     dword ptr [edi+eax], 0"
+        },
+        {
+          "ea": "0x440fb1",
+          "size": 2,
+          "bytes": "8b08",
+          "text": "mov     ecx, [eax]"
+        },
+        {
+          "ea": "0x440fb3",
+          "size": 2,
+          "bytes": "85c9",
+          "text": "test    ecx, ecx"
+        },
+        {
+          "ea": "0x440fb5",
+          "size": 2,
+          "bytes": "7e13",
+          "text": "jle     short loc_440FCA"
+        },
+        {
+          "ea": "0x440fb7",
+          "size": 3,
+          "bytes": "890c02",
+          "text": "mov     [edx+eax], ecx"
+        },
+        {
+          "ea": "0x440fba",
+          "size": 3,
+          "bytes": "8b4814",
+          "text": "mov     ecx, [eax+14h]"
+        },
+        {
+          "ea": "0x440fbd",
+          "size": 2,
+          "bytes": "85c9",
+          "text": "test    ecx, ecx"
+        },
+        {
+          "ea": "0x440fbf",
+          "size": 2,
+          "bytes": "7409",
+          "text": "jz      short loc_440FCA"
+        },
+        {
+          "ea": "0x440fc1",
+          "size": 6,
+          "bytes": "8b89a8020000",
+          "text": "mov     ecx, [ecx+2A8h]"
+        },
+        {
+          "ea": "0x440fc7",
+          "size": 3,
+          "bytes": "890c07",
+          "text": "mov     [edi+eax], ecx"
+        },
+        {
+          "ea": "0x440fca",
+          "size": 3,
+          "bytes": "83c004",
+          "text": "add     eax, 4"
+        },
+        {
+          "ea": "0x440fcd",
+          "size": 1,
+          "bytes": "4e",
+          "text": "dec     esi"
+        },
+        {
+          "ea": "0x440fce",
+          "size": 2,
+          "bytes": "75d3",
+          "text": "jnz     short loc_440FA3"
+        },
+        {
+          "ea": "0x440fd0",
+          "size": 1,
+          "bytes": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x440fd1",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x440fd2",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x440fe0",
+      "actual_start": "0x440fe0",
+      "end_exclusive": "0x440ff0",
+      "chunks": [
+        {
+          "start": "0x440fe0",
+          "end_exclusive": "0x440ff0"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x51cd83",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x440fe0",
+          "size": 5,
+          "bytes": "e88bfbffff",
+          "text": "call    sub_440B70"
+        },
+        {
+          "ea": "0x440fe5",
+          "size": 5,
+          "bytes": "e8a6a90e00",
+          "text": "call    sub_52B990"
+        },
+        {
+          "ea": "0x440fea",
+          "size": 5,
+          "bytes": "b825000000",
+          "text": "mov     eax, 25h ; '%'"
+        },
+        {
+          "ea": "0x440fef",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "instructions": 44,
+    "code_bytes": 147,
+    "direct_calls": 2,
+    "parents_count": 2,
+    "source_patterns": 1,
+    "changed_blocks": 1,
+    "behavior_blocks": 1,
+    "modified_roots": 1,
+    "identity_roots": 2,
+    "party_slots": 5
+  },
+  "source_path": "src/YobiRuntime.cpp",
+  "source_patches": [
+    {
+      "scope_start": "void* Sub_440F50()\n",
+      "scope_end": "std::int32_t ReadMapObservationDirection() noexcept\n",
+      "old": "    auto* const payload = static_cast<MapCharaPayload*>(action->payload);\n    gMapImage5F9734 = action->imageNo;\n",
+      "new": "    const std::int32_t imageNo = action->imageNo;\n    auto* const payload = static_cast<MapCharaPayload*>(action->payload);\n    gMapImage5F9734 = imageNo;\n"
+    }
+  ],
+  "retained_contract": {
+    "sampling_order": "图号S32取读→payload取样→图号发布",
+    "lookup_miss": "立即空返回，三标量/两表不写",
+    "direction": "独立field58，不从direction推导",
+    "duration": "真实401E90(readiness,60)",
+    "party_order": "清值→清图号→S32正值→发布值→取子指针→非空图号→发布图号",
+    "party_count": 5,
+    "native_return": "原payload+14→既有x64子指针区+18，只保区域语义",
+    "thin_parent": "440B70→52B990→返回0x25，两调用弃返回",
+    "audio_implementation_changed": false,
+    "thin_parent_source_changed": false,
+    "new_guard": false,
+    "layout_or_owner_changed": false,
+    "other_sources_or_asm_changed": false
+  },
+  "verification": "仅一片段精确源差异/两个完整本体及声明、原范围/44条147B/两call两父、取样/五槽和薄父局部静态；完整父与callee/全上游/间接别名和owner寿命/真实ABI/SDK/时钟RNG/场景画面运行未验"
+}

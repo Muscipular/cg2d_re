@@ -2363,3 +2363,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [五完整原基线](cg2d_battle_m_scan_sampling_evidence.json)及[源码状态](cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state)追加旧813/F:00039770完整140条并补四缺失读取器身份，五adapted和双域成员纳管。四根七片段修复/正确439600保持，328条911B及696call8父/27出向不代全部父/完整生产消费验收。
 
 语义1341→1345/有效ID1336→1340、adapted443→448，YOBI42→47/BATTLE39→44同五F不双计；E325→329仅四局部I/S，片段5和全部完整门禁保持。
+
+## BMD01 三M分派/读取原身份（2026-10-06）
+
+[完整原基线](cg2d_battle_m_dispatch_sampling_evidence.json)与[当前状态](cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state)补三新F/adapted；父三片段实修、两个正确依赖/私有分类helper保持。1725条6015B/41call6父/435出向与6逻辑表646B及全部382技能槽+19表外不代完整父/资源消费验收。
+
+语义1345→1348/有效ID1340→1343、adapted448→451，YOBI47→50/BATTLE44→47同三F不双计、片段5保持；E329→333仅双域四局部I/S，全部完整门禁保持。

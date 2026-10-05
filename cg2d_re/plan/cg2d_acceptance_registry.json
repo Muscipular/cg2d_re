@@ -1669,7 +1669,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1718,7 +1719,10 @@
         "F:00039600",
         "F:00039670",
         "F:00038F70",
-        "F:00038FE0"
+        "F:00038FE0",
+        "F:00039B30",
+        "F:00039920",
+        "F:0003BF30"
       ],
       "closure_task_ids": [
         "U09",
@@ -1742,7 +1746,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1759,7 +1764,8 @@
         "BQR01参与者初始化/两追加/就绪四原完整211条751B和五W8/有序坐标片段纳管，正确两个叶/helper及原哨兵/计数/复读/各null和返回保持。七父/全部其他列表数据生产消费与owner重进退出/浅别名/借用失效、SDK/ABI/PC53/浮点状态/时钟RNG/画面仍待",
         "BQA01四既有正确重置/追加完整99条439B和原生T*/16B值语义承载、缺失基线/映射/分类纳管，全源与头保持。1206普通call26父仅引用元数据，所有其它列表数据/owner重进退出/浅别名/借用失效及SDK/ABI/PC53/时钟RNG/画面仍待",
         "BMR01四原M读取完整220条548B/77普通call5父/14出向纳管；两根三处明示顺序修复，Peek/Find保持。全部M生产消费/5父正文、owner重进退出/浅别名/借用失效及SDK/ABI/PC53/时钟RNG/画面仍待",
-        "BMS01五M读取/预扫描完整328条911B纳管，四根七顺序/宽度片段实修，439600正确双全局pub保持；696普通call8父/27出向仅有限静态，全部M生产消费及owner/SDK/ABI/PC53/时钟RNG/画面仍待"
+        "BMS01五M读取/预扫描完整328条911B纳管，四根七顺序/宽度片段实修，439600正确双全局pub保持；696普通call8父/27出向仅有限静态，全部M生产消费及owner/SDK/ABI/PC53/时钟RNG/画面仍待",
+        "BMD01三M分派/读取完整1725条6015B、父三顺序/宽度片段实修，六逻辑表/全部分类和共享数据生产纳管；41普通call6父/435出向有限静态，全部M消费及owner/SDK/ABI/PC53/时钟RNG/画面仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1778,7 +1784,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state"
       ]
     },
     {
@@ -1805,7 +1812,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -1851,7 +1859,10 @@
         "F:00039600",
         "F:00039670",
         "F:00038F70",
-        "F:00038FE0"
+        "F:00038FE0",
+        "F:00039B30",
+        "F:00039920",
+        "F:0003BF30"
       ],
       "closure_task_ids": [
         "P01",
@@ -1879,7 +1890,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -1896,7 +1908,8 @@
         "BQR01事件参与者初始化、动作/目标追加与22槽就绪/超时恢复五源差异已修，101普通call7父和8出向可追；同四F双域不多计。完整七父/其它动作实参/数据资源及owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未闭",
         "BQA01就绪恢复实调用重置/Append及显式索引追加/完整效果追加四身份纳管，原顺序/索引复读和各null/哨兵/返回保持、源码未新增。同四F双域不多计，完整26父/其它动作实参/列表数据资源和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
         "BMR01整数与字符串当前游标、预读/目标扫描本地游标四身份纳管；旧格式/双字节/NUL及原调用合同保持，同四F双域不多计。全部M数据资源/动作生产消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
-        "BMS01原RID头表/明确游标读→两参与者W8自增/游标成功pub或失败恢复合同纳管；同五F双域不双计、旧439770不重复身份。全部8父/其它M动作与资源生产消费和owner/SDK/ABI/PC53/时钟RNG/画面仍未闭"
+        "BMS01原RID头表/明确游标读→两参与者W8自增/游标成功pub或失败恢复合同纳管；同五F双域不双计、旧439770不重复身份。全部8父/其它M动作与资源生产消费和owner/SDK/ABI/PC53/时钟RNG/画面仍未闭",
+        "BMD01原25消息/技能382表槽和19表外分类、22B计数/W8次数/S32输出与特效对/20*36B名称表生产、正确攻击/辅助图形合同纳管；同三F双域不双计，全部6父与资源消费/owner/SDK/ABI/PC53/时钟RNG/画面未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1913,7 +1926,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state"
       ]
     },
     {
@@ -17368,6 +17382,142 @@
       "observation": "五原完整328条911B/696call8父/27出向、六指令页十二引用页和七片段原地址/顺序/宽度、整CPP指定差异与公开头/旧正确根保持有限静态通过",
       "expected": "对象S32 next先算、两字符串S8条件与当前offset先取，对象剩一格同局部两pub、预览剩一格第二次复读与第二字节先源读均保持；439600终止先未消费pub/再出口pub；扫描S32索引/原RID失败恢复与成功first/second W8写后pub游标不变",
       "actual": "同五F双域共用四根七片段/正确预览整数，仅局部I/S。696普通入向不验全部8父正文或完整M生产消费/owner/SDK/ABI/PC53/时钟RNG/画面，不宣运行故障已证/机器异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-M-DISPATCH-SAMPLING-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMD01三原完整1725条6015B/41普通call6父/435出向、23指令页及6逻辑表646B/407输入槽；doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-dispatch-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ScanBattleMParticipants_439B30",
+        "src/YobiRuntime.cpp#GetBattlePreviewSkillLayout",
+        "src/YobiRuntime.cpp#ScanBattleMAttackParticipants_439920",
+        "src/YobiRuntime.cpp#TakeBattleMAuxGraphics_43BF30",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "父三片段恢复五W32末W16原零写、W8取样递增/同源判定/同计数pub和2002先判再两S32清零；原25头/技能压缩382槽及19表外、共享数据生产与两正确依赖纳管，其它CPP/头/共享表保持",
+          "decision_ref": "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "M父三片段实际落码，25消息/17布局及共享特效对/名称表真实生产、两个正确读取依赖和缺失三原身份/分类纳管；原输出/参与次数/字段消费与SDK内联字符串现有承载保持",
+      "expected": "flag0后五W32末W16零写；Attack取/增W8目标count后先判同源再pub同count/后flags分支，Mode73不比较；2002先判再两S32零写。全部消息/技能消费、原首位/FF输出/两模式图形、共享S32对和20*36B表规则保持",
+      "actual": "同三F双域共用父三片段与既有正确依赖，仅局部I/S；引用不验全部6父正文/完整M资源消费或owner/SDK/ABI/PC53/时钟RNG/画面，不宣运行故障/编译指令形态/异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-M-DISPATCH-SAMPLING-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMD01三原完整1725条6015B/41普通call6父/435出向、23指令页及6逻辑表646B/407输入槽；doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-dispatch-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ScanBattleMParticipants_439B30",
+        "src/YobiRuntime.cpp#GetBattlePreviewSkillLayout",
+        "src/YobiRuntime.cpp#ScanBattleMAttackParticipants_439920",
+        "src/YobiRuntime.cpp#TakeBattleMAuxGraphics_43BF30",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "父三片段恢复五W32末W16原零写、W8取样递增/同源判定/同计数pub和2002先判再两S32清零；原25头/技能压缩382槽及19表外、共享数据生产与两正确依赖纳管，其它CPP/头/共享表保持",
+          "decision_ref": "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "三原完整1725条6015B/41call6父/435出向、23页/6逻辑表646B和全部382技能槽+19表外源分类、父三原零写/条件发布片段与两正确依赖有限静态通过；整CPP指定差异及公开头/共享表保持",
+      "expected": "flag0后五W32末W16零写；Attack取/增W8目标count后先判同源再pub同count/后flags分支，Mode73不比较；2002先判再两S32零写。全部消息/技能消费、原首位/FF输出/两模式图形、共享S32对和20*36B表规则保持",
+      "actual": "同三F双域共用父三片段与既有正确依赖，仅局部I/S；引用不验全部6父正文/完整M资源消费或owner/SDK/ABI/PC53/时钟RNG/画面，不宣运行故障/编译指令形态/异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-M-DISPATCH-SAMPLING-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMD01三原完整1725条6015B/41普通call6父/435出向、23指令页及6逻辑表646B/407输入槽；doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-dispatch-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ScanBattleMParticipants_439B30",
+        "src/YobiRuntime.cpp#GetBattlePreviewSkillLayout",
+        "src/YobiRuntime.cpp#ScanBattleMAttackParticipants_439920",
+        "src/YobiRuntime.cpp#TakeBattleMAuxGraphics_43BF30",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "父三片段恢复五W32末W16原零写、W8取样递增/同源判定/同计数pub和2002先判再两S32清零；原25头/技能压缩382槽及19表外、共享数据生产与两正确依赖纳管，其它CPP/头/共享表保持",
+          "decision_ref": "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "M父三片段实际落码，25消息/17布局及共享特效对/名称表真实生产、两个正确读取依赖和缺失三原身份/分类纳管；原输出/参与次数/字段消费与SDK内联字符串现有承载保持",
+      "expected": "flag0后五W32末W16零写；Attack取/增W8目标count后先判同源再pub同count/后flags分支，Mode73不比较；2002先判再两S32零写。全部消息/技能消费、原首位/FF输出/两模式图形、共享S32对和20*36B表规则保持",
+      "actual": "同三F双域共用父三片段与既有正确依赖，仅局部I/S；引用不验全部6父正文/完整M资源消费或owner/SDK/ABI/PC53/时钟RNG/画面，不宣运行故障/编译指令形态/异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-M-DISPATCH-SAMPLING-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BMD01三原完整1725条6015B/41普通call6父/435出向、23指令页及6逻辑表646B/407输入槽；doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-dispatch-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ScanBattleMParticipants_439B30",
+        "src/YobiRuntime.cpp#GetBattlePreviewSkillLayout",
+        "src/YobiRuntime.cpp#ScanBattleMAttackParticipants_439920",
+        "src/YobiRuntime.cpp#TakeBattleMAuxGraphics_43BF30",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "父三片段恢复五W32末W16原零写、W8取样递增/同源判定/同计数pub和2002先判再两S32清零；原25头/技能压缩382槽及19表外、共享数据生产与两正确依赖纳管，其它CPP/头/共享表保持",
+          "decision_ref": "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "三原完整1725条6015B/41call6父/435出向、23页/6逻辑表646B和全部382技能槽+19表外源分类、父三原零写/条件发布片段与两正确依赖有限静态通过；整CPP指定差异及公开头/共享表保持",
+      "expected": "flag0后五W32末W16零写；Attack取/增W8目标count后先判同源再pub同count/后flags分支，Mode73不比较；2002先判再两S32零写。全部消息/技能消费、原首位/FF输出/两模式图形、共享S32对和20*36B表规则保持",
+      "actual": "同三F双域共用父三片段与既有正确依赖，仅局部I/S；引用不验全部6父正文/完整M资源消费或owner/SDK/ABI/PC53/时钟RNG/画面，不宣运行故障/编译指令形态/异常等价，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -17551,7 +17701,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state"
       ]
     },
     {
@@ -17811,7 +17962,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state"
       ]
     },
     {
@@ -17958,7 +18110,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state"
       ]
     },
     {
@@ -18011,7 +18164,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state"
       ]
     },
     {
@@ -18035,7 +18189,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state"
       ]
     },
     {
@@ -18214,7 +18369,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state"
       ]
     },
     {
@@ -18234,7 +18390,8 @@
         "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
         "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
         "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
-        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state"
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state"
       ]
     }
   ],
@@ -22928,6 +23085,42 @@
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance",
         "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
         "doc/cg2d_battle_m_scan_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00039B30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00039920",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0003BF30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
       ]
     }
   ],

@@ -91,3 +91,9 @@
 [原合同与裁决](../cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision)恢复四根七片段：对象整数next、字符串S8条件/currentOffset、对象剩一格同next两pub与S32头索引。对象字符串第二字节先pub64再源读、预览字符串先源读再pub5AAA60，预览剩一格第二次复读自增及439600正确双pub不合并。
 
 [完整字节/引用](../cg2d_battle_m_scan_sampling_evidence.json)328条911B/696call8父/27出向；RID既有失败恢复和两W8自增→offset发布保持。同索引仍两次计数、不新增位置转换/清零/保护，完整M/owner/画面运行仍待。
+
+## BMD01 M参与计数和特效对/名称表生产（2026-10-06）
+
+[原生产合同](../cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision)恢复入口flag0后五W32/末W16清计数、同源门禁在W8计数pub前、2002门禁在S32对清零前。父保所有分派/字段数量与源flag输出；5A8A40对和20条36B名称表沿原首空/首同名/全无匹配规则，共享实际数组不改。
+
+[三完整字节与调用](../cg2d_battle_m_dispatch_sampling_evidence.json)1725条6015B/41call6父/435出向、6逻辑表646B及全技能分类可追。两个攻击/辅助读取正确根保持，原RID19与试读20整数差异保留，不据完整生产根宣全部消费/owner/画面运行通过。

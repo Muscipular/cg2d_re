@@ -4045,3 +4045,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [七项修复](cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision)恢复对象整数next先算、两字符串S8条件/尾游标先取样、对象剩一格同局部连续两pub及扫描头索引S32。439600正确局部扫描/终止未消费位置→出口两全局pub、两字符串不同的第二字节取样/发布合同保持。
 
 [五完整328条911B](cg2d_battle_m_scan_sampling_evidence.json)、696普通call8父/27出向/六指令页十二引用页补完整基线和分类，旧439770记录追加不重复身份。RID失败恢复/成功first→second W8增计数再pub游标可追；全部M生产消费与owner/ABI/画面运行继续。
+
+## BMD01 M分派父与数据生产（2026-10-06）
+
+[三项修复](cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision)恢复439B30五W32/末W16计数零写、Attack的W8计数取/增→同源条件→同计数pub、skill2002先判再两S32清零。全部消息/技能、正确439920/43BF30和私有分类helper保持；两个原模式图形字段顺序/原首位返回与FF退出不改。
+
+[三完整1725条6015B](cg2d_battle_m_dispatch_sampling_evidence.json)/41call6父/435出向、23指令页及6逻辑表646B补原身份。原25消息/382技能表槽与19表外分支及共享特效对/20*36B名称表生产可追，全部M资源消费和owner/ABI/画面运行继续。

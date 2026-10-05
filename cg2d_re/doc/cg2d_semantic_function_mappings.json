@@ -150974,6 +150974,166 @@
         "full_original_body_reviewed": true,
         "full_runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x439b30",
+      "inventory_id": "F:00039B30",
+      "status": "BMD01父三片段计算/宽度实修与完整原分派/生产合同纳管，完整消费/owner运行未验",
+      "original_end_exclusive": "0x43aff7",
+      "instruction_count": 1497,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ScanBattleMParticipants_439B30",
+            "GetBattlePreviewSkillLayout"
+          ],
+          "relationship": "父三片段恢复五W32/末W16原零写、W8目标计数取样/递增→同源判定→同计数pub、skill2002先判再两S32清零。25头/五压缩表和表外分类、全部M字段/原输出发布及共享特效/20*36B名称表生产保持；私有分类helper不造新F/X。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ScanBattleMParticipants_439B30"
+          ],
+          "relationship": "三既有公开声明与原非拥有参与/输出T*、W8次数/S32源flag游标保持，不新公共布局或ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
+      ],
+      "verification_level": "BMD01三完整1725条6015B/41普通call6父/435出向与23指令页、6逻辑表646B/407槽含382技能槽及19表外技能和父三片段精确原合同有限静态；不验6父全部全文/完整资源消费或owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "父三片段恢复五W32/末W16原零写、W8目标计数取样/递增→同源判定→同计数pub、skill2002先判再两S32清零。25头/五压缩表和表外分类、全部M字段/原输出发布及共享特效/20*36B名称表生产保持；私有分类helper不造新F/X。 不称已证运行故障/编译后指令形态或异常等价，不增保护/回绕/钳制/补零/协议业务，原格式明文及音频暂停。",
+      "battle_m_dispatch_sampling": {
+        "spec_id": "BMD01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+          "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
+        ],
+        "original_entry": "0x439b30",
+        "original_instruction_count": 1497,
+        "original_code_bytes": 5319,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "instruction_page_count": 19,
+        "outgoing_call_count": 391,
+        "source_body_changed": true,
+        "source_patch_count": 3,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x439920",
+      "inventory_id": "F:00039920",
+      "status": "BMD01正确依赖完整基线及缺失身份纳管，正文保持，完整资源/owner运行未验",
+      "original_end_exclusive": "0x439b22",
+      "instruction_count": 165,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ScanBattleMAttackParticipants_439920"
+          ],
+          "relationship": "既有正确完整攻击读取保持：首FF退FF、两W8计数与flags/skill81、260/200/94/72/2017分支及辅助八整数、原循环FF退出/currentSkill=-1和首位返回保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ScanBattleMAttackParticipants_439920"
+          ],
+          "relationship": "三既有公开声明与原非拥有参与/输出T*、W8次数/S32源flag游标保持，不新公共布局或ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
+      ],
+      "verification_level": "BMD01三完整1725条6015B/41普通call6父/435出向与23指令页、6逻辑表646B/407槽含382技能槽及19表外技能和父三片段精确原合同有限静态；不验6父全部全文/完整资源消费或owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确完整攻击读取保持：首FF退FF、两W8计数与flags/skill81、260/200/94/72/2017分支及辅助八整数、原循环FF退出/currentSkill=-1和首位返回保持。 不称已证运行故障/编译后指令形态或异常等价，不增保护/回绕/钳制/补零/协议业务，原格式明文及音频暂停。",
+      "battle_m_dispatch_sampling": {
+        "spec_id": "BMD01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+          "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
+        ],
+        "original_entry": "0x439920",
+        "original_instruction_count": 165,
+        "original_code_bytes": 514,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "instruction_page_count": 3,
+        "outgoing_call_count": 30,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x43bf30",
+      "inventory_id": "F:0003BF30",
+      "status": "BMD01正确依赖完整基线及缺失身份纳管，正文保持，完整资源/owner运行未验",
+      "original_end_exclusive": "0x43bfe6",
+      "instruction_count": 63,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "TakeBattleMAuxGraphics_43BF30"
+          ],
+          "relationship": "既有正确完整图形读取保持：mode1只取预览八整数不访问null输出；mode0对象64取数/51B740后两主输出及两组firstImage/secondImage/value，次序保持，其它mode无消费，不增guard/owner。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "TakeBattleMAuxGraphics_43BF30"
+          ],
+          "relationship": "三既有公开声明与原非拥有参与/输出T*、W8次数/S32源flag游标保持，不新公共布局或ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
+      ],
+      "verification_level": "BMD01三完整1725条6015B/41普通call6父/435出向与23指令页、6逻辑表646B/407槽含382技能槽及19表外技能和父三片段精确原合同有限静态；不验6父全部全文/完整资源消费或owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确完整图形读取保持：mode1只取预览八整数不访问null输出；mode0对象64取数/51B740后两主输出及两组firstImage/secondImage/value，次序保持，其它mode无消费，不增guard/owner。 不称已证运行故障/编译后指令形态或异常等价，不增保护/回绕/钳制/补零/协议业务，原格式明文及音频暂停。",
+      "battle_m_dispatch_sampling": {
+        "spec_id": "BMD01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance",
+          "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+          "doc/cg2d_battle_m_dispatch_sampling_evidence.json"
+        ],
+        "original_entry": "0x43bf30",
+        "original_instruction_count": 63,
+        "original_code_bytes": 182,
+        "incoming_reference_count": 39,
+        "incoming_parent_count": 5,
+        "instruction_page_count": 1,
+        "outgoing_call_count": 14,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
     }
   ]
 }

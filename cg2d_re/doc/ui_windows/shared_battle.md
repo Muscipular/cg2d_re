@@ -8207,3 +8207,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前状态](../cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state)纳管439770完整140条与对象/预览四读取器；四根七片段取样/宽度落码、正确439600保持。原25头首命中/RID22、mode及两flags低字节bit2失败恢复、成功两W8计数后pub本地offset保持，439770原23静态call不是运行消费数量。
 
 [五原完整328条911B](../cg2d_battle_m_scan_sampling_evidence.json)/696call8父/27出向可追，旧头表/439700/StrStr/Input及BMR01四根不重复取证。U08/U09与所有完整门禁open，沿439B30等实际M生产消费继续开发。
+
+## BMD01 M分发完整根与共享生产（2026-10-06）
+
+[当前基线](../cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state)纳管439B30/439920/43BF30三完整根及25消息、17布局/Mode98条件链；父三片段原零写/条件发布修复，两个正确依赖保持。私有分类helper不造原身份，原内联字符串比较/复制不伪称StrCmp/StrCpy原call；共享SceneState数组及现有消费者保持。
+
+[1725条6015B](../cg2d_battle_m_dispatch_sampling_evidence.json)/41call6父/435出向与23页；5压缩表分别按实际W8索引和W32目标取回，382技能槽+19表外与源逐项一致。旧完整合同不代当前源码增量或6父/所有M消费/owner运行验收，U08/U09及完整门禁open。

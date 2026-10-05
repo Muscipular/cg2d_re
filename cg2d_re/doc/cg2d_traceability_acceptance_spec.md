@@ -500,3 +500,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-acceptance)要求五完整328条911B/696call8父/27出向、六指令页十二引用页，四根仅七片段与正确439600/旧依赖/公开头保持；RID失败恢复及成功两W8计数后pub游标、两字符串不同第二字节合同可追。
 
 新增四语义身份/五adapted，旧813历史追加不重复计数；双域共用局部I/S/七任务与所有完整门禁保持open。明示顺序/宽度修复不证明运行故障/异常等价，全部8父/M生产消费、owner/SDK/ABI/PC53/时钟RNG/画面继续。
+
+## BMD01 M分派/生产有限I/S（2026-10-06）
+
+[验收标准](cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-acceptance)要求三完整1725条6015B/41call6父/435出向与23页、6逻辑表646B及407输入槽/382技能槽+19表外当前分类、父三片段精确差异/两个正确依赖和共享表/公开头保持，数据生产/原消费次数可追。
+
+三新F/adapted双域共用局部I/S/七任务及所有完整门禁保持open；源码零写/条件序不证明运行故障/编译后指令或异常等价，全部6父/M资源消费、owner/SDK/ABI/PC53/时钟RNG/画面继续。

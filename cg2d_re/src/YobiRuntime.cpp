@@ -13253,7 +13253,15 @@ void ScanBattleMParticipants_439B30(
     using namespace world::detail;
     std::int32_t position = -1;
     *flag = 0;
-    std::memset(participants, 0, 22);
+    // 原439B55..439B63依次发布五个W32零值和末W16零值。
+    const std::uint32_t zero32 = 0;
+    const std::uint16_t zero16 = 0;
+    std::memcpy(participants, &zero32, sizeof(zero32));
+    std::memcpy(participants + 4, &zero32, sizeof(zero32));
+    std::memcpy(participants + 8, &zero32, sizeof(zero32));
+    std::memcpy(participants + 12, &zero32, sizeof(zero32));
+    std::memcpy(participants + 16, &zero32, sizeof(zero32));
+    std::memcpy(participants + 20, &zero16, sizeof(zero16));
     std::array<char, 32> text;
     std::array<char, 256> message;
     const auto skip = [](const std::int32_t count) {
@@ -13308,14 +13316,17 @@ void ScanBattleMParticipants_439B30(
                     if (target == 255) {
                         break;
                     }
-                    ++participants[target];
+                    std::uint8_t targetCount = participants[target];
+                    ++targetCount;
+                    const bool sourceTarget = layout == BattlePreviewSkillLayout::Attack
+                        && target == position;
+                    participants[target] = targetCount;
                     const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
                     skip(1);
                     if ((targetFlags & 0x800000) != 0) {
                         TakeBattleMAuxGraphics_43BF30(nullptr, 1, nullptr, nullptr, nullptr, nullptr, nullptr);
                     }
-                    if (layout == BattlePreviewSkillLayout::Attack
-                        && target == position && (targetFlags & 0x200) != 0) {
+                    if (sourceTarget && (targetFlags & 0x200) != 0) {
                         ++participants[readPosition()];
                     }
                 }
@@ -13491,9 +13502,10 @@ void ScanBattleMParticipants_439B30(
                 const std::int32_t targetFlags = TakeBattleMPreviewInteger_439600();
                 skip(1);
                 auto& pair = gBattleEffectPairs5A8A40[target];
+                const bool namedEffect = skill == 2002;
                 pair[0] = 0;
                 pair[1] = 0;
-                if (skill == 2002) {
+                if (namedEffect) {
                     pair[0] = TakeBattleMPreviewInteger_439600();
                     pair[1] = TakeBattleMPreviewInteger_439600();
                     TakeBattleMPreviewString_439670(text.data(), 29);

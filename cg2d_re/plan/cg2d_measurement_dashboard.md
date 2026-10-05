@@ -227,3 +227,103 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 
 先从已有合同补原成员和B证据，再逐项推进I/W/S；R保持blocked。优先处理已知P/C/U任务及无合同关联ID的归属，不把历史定位缺失当作未实现。原格式明文、音频暂停、无构建/测试/运行/摘要限制保持。
 本看板只汇总结构化登记；变更后需做人工影响分析。静态汇总器退出0不等于软件验收通过。
+
+## 5. 开发差集队列
+
+下表只列定位/语义身份登记的缺口，供下一步选项推进；历史定位缺失不证明当前源码未实现。先核具名范围及当前代码，确有缺口再开发，原库存名称只供定位。音频暂停与原格式明文等限制保持，队列不参与完成率。
+
+| 登记差集 | 数量 | 判定与下一步 |
+|---|---:|---|
+| 定位及语义关联均未登记 | 184 | 历史定位/语义/pending/source均空；先核当前源码和原身份 |
+| 语义身份尚未登记 | 3 | 原语义引用/入口保留；候选ID不自动赋值，先核完整函数或代码段 |
+| 需先核范围/定位/身份 | 84 | 下方明细；不等于待实现或已允许运行的项数 |
+| 已明确暂停 / 具名排除的本队列项 | 0 / 103 | 全部保留快照；暂停数只限明确成员，不是整个音频分母 |
+
+| 类别 | 原ID或语义引用 | 原入口 | 原库存名称 | 范围 | 下一步 |
+|---|---|---|---|---|---|
+| mapping_location_unrecorded | F:0004FF40 | 0x44FF40 | sub_44FF40 | mixed | 核保留分支及其实际接线，不整体排除 |
+| mapping_location_unrecorded | F:00050190 | 0x450190 | sub_450190 | mixed | 核保留分支及其实际接线，不整体排除 |
+| mapping_location_unrecorded | F:00054FE0 | 0x454FE0 | sub_454FE0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00055030 | 0x455030 | sub_455030 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00055100 | 0x455100 | sub_455100 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00055260 | 0x455260 | sub_455260 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00055280 | 0x455280 | World::PlayFixedBGM | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000553B0 | 0x4553B0 | World::PlaySegment | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00055400 | 0x455400 | sub_455400 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00055450 | 0x455450 | World::StopBGM | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00055470 | 0x455470 | sub_455470 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000C48EB | 0x4C48EB | sub_4C48EB | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000D6650 | 0x4D6650 | nullsub_3 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000FD9F0 | 0x4FD9F0 | sub_4FD9F0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000FDA00 | 0x4FDA00 | sub_4FDA00 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000FDD70 | 0x4FDD70 | sub_4FDD70 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000FDDC0 | 0x4FDDC0 | sub_4FDDC0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000FDE10 | 0x4FDE10 | sub_4FDE10 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000FDE20 | 0x4FDE20 | sub_4FDE20 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000FE320 | 0x4FE320 | sub_4FE320 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000FE370 | 0x4FE370 | sub_4FE370 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:000FE3B0 | 0x4FE3B0 | sub_4FE3B0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0012B710 | 0x52B710 | sub_52B710 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0012B810 | 0x52B810 | sub_52B810 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0012B880 | 0x52B880 | sub_52B880 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0012BBE0 | 0x52BBE0 | sub_52BBE0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0012BD40 | 0x52BD40 | SoundThreadMain | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0012BE60 | 0x52BE60 | World::LoadAndPlayBGM | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0012C160 | 0x52C160 | sub_52C160 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0013B498 | 0x53B498 | __ftol | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0013BDC0 | 0x53BDC0 | __alloca_probe | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0013D000 | 0x53D000 | __CIpow | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0013D019 | 0x53D019 | _pow | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0013D022 | 0x53D022 | sub_53D022 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0013D1F5 | 0x53D1F5 | sub_53D1F5 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0013DEF3 | 0x53DEF3 | nullsub_7 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00143097 | 0x543097 | zerotoxdone | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001430E2 | 0x5430E2 | _expbigret | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0014310E | 0x54310E | __ffexpm1 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00143151 | 0x543151 | _isintTOS | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00143176 | 0x543176 | _isintTOSret | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00143177 | 0x543177 | notanint | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0014317E | 0x54317E | evenint | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00143185 | 0x543185 | _usepowhlp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00143390 | 0x543390 | __startTwoArgErrorHandling | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001433A7 | 0x5433A7 | __startOneArgErrorHandling | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001433F0 | 0x5433F0 | __twoToTOS | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00143405 | 0x543405 | __load_CW | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00143435 | 0x543435 | __fload_withFB | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00143489 | 0x543489 | special_exp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001434C5 | 0x5434C5 | __check_overflow_exit | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001434D9 | 0x5434D9 | __check_range_exit | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0014357C | 0x54357C | __powhlp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001436AC | 0x5436AC | __d_inttype | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145360 | 0x545360 | unknown_libname_51 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145477 | 0x545477 | unknown_libname_52 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145916 | 0x545916 | unknown_libname_53 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145929 | 0x545929 | unknown_libname_54 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145A65 | 0x545A65 | sub_545A65 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145B3C | 0x545B3C | unknown_libname_63 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145B51 | 0x545B51 | unknown_libname_64 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145B66 | 0x545B66 | unknown_libname_65 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145D6C | 0x545D6C | unknown_libname_66 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00145E1E | 0x545E1E | unknown_libname_67 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00146024 | 0x546024 | unknown_libname_68 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001460EB | 0x5460EB | __87except | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001461BB | 0x5461BB | __set_exp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001461E4 | 0x5461E4 | __sptype | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0014623E | 0x54623E | __decomp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001462FF | 0x5462FF | __frnd | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:00146311 | 0x546311 | __fpclass | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001473E8 | 0x5473E8 | __raise_exc | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0014769B | 0x54769B | __handle_exc | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001478B2 | 0x5478B2 | __set_errno | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001478D8 | 0x5478D8 | sub_5478D8 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001478DB | 0x5478DB | __statfp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001478E9 | 0x5478E9 | __clrfp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:001478F8 | 0x5478F8 | __ctrlfp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0014791B | 0x54791B | __set_statfp | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0014AB16 | 0x54AB16 | GetAdaptersAddresses | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| mapping_location_unrecorded | F:0014B1AC | 0x54B1AC | retnull_0 | included_unassigned | 先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移 |
+| semantic_identity_unrecorded | doc/cg2d_semantic_function_mappings.json#/records/901 | 0x4876B0 |  | identity_pending | 核代码段、原函数/chunk及未归属区间，保留真实代码身份 |
+| semantic_identity_unrecorded | doc/cg2d_semantic_function_mappings.json#/records/978 | 0x495E60 |  | identity_pending | 核代码段、原函数/chunk及未归属区间，保留真实代码身份 |
+| semantic_identity_unrecorded | doc/cg2d_semantic_function_mappings.json#/records/979 | 0x495EB0 |  | identity_pending | 核代码段、原函数/chunk及未归属区间，保留真实代码身份 |
+
+完整范围依据、已有处置及候选ID见快照development_gap_queue。逐项补事实后由汇总器更新，不手改队列，不以此关闭R1/R7或整体验收。

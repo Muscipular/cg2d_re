@@ -18,7 +18,9 @@
   "closures": {
     "function_classification": {
       "state": "open",
-      "evidence_refs": [],
+      "evidence_refs": [
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
+      ],
       "reason": "尚未按总SPEC收口"
     },
     "feature_enumeration": {
@@ -33,7 +35,9 @@
     },
     "unassigned_ranges": {
       "state": "open",
-      "evidence_refs": [],
+      "evidence_refs": [
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
+      ],
       "reason": "尚未按总SPEC收口"
     },
     "scope_exceptions": {
@@ -11997,7 +12001,8 @@
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
         "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
-        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
       ]
     },
     {
@@ -12043,9 +12048,25 @@
       "evidence_refs": [
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
       ]
+    },
+    {
+      "task_id": "R03",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
+      ]
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state"
+      ]
     }
   ],
-  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。",
+  "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。",
   "function_dispositions": [
     {
       "disposition": "adapted",

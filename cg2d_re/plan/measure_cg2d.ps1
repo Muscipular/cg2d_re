@@ -316,8 +316,46 @@ $acceptedCount=@($leaf|Where-Object accepted).Count
 $globalReady=(@($registry.closures.Values|Where-Object state -ne 'closed').Count -eq 0 -and $leaf.Count -gt 0 -and $acceptedCount -eq $leaf.Count -and @($tasks.Values|Where-Object acceptance -ne 'closed').Count -eq 0)
 if ($registry.closures.final_acceptance.state -eq 'closed') { Require $globalReady '整体验收声明不满足闭包、功能或60任务门禁' }
 $linked=@($functionRows|Where-Object {$_.baseline_documents.Count -gt 0}).Count
+# GQ01仅派生登记差集；历史定位空不等于当前源码不存在，不自动认定功能完成。
+$featureScopeById=@{}
+foreach ($feature in $featureRows) { $featureScopeById[$feature.id]=$feature.scope }
+$gapRows=[System.Collections.Generic.List[object]]::new()
+foreach ($function in $functionRows) {
+    if ($function.direct_snapshot_definitions.Count -gt 0 -or $function.semantic_indices.Count -gt 0 -or $function.pending_indices.Count -gt 0 -or $function.sources.Count -gt 0) { continue }
+    $memberIds=@($function.feature_memberships | Where-Object { $_ })
+    $scope='included_unassigned'
+    $next='先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移'
+    if ($declaredExcluded.ContainsKey($function.id)) {
+        $scope='excluded'; $next='核具名排除接线，本体保持排除'
+    } elseif ($declaredMixed.ContainsKey($function.id)) {
+        $scope='mixed'; $next='核保留分支及其实际接线，不整体排除'
+    } elseif ($memberIds.Count -gt 0 -and @($memberIds | Where-Object { $featureScopeById[$_] -eq 'paused' }).Count -eq $memberIds.Count) {
+        $scope='paused'; $next='保留未闭缺口，恢复本项后继续'
+    } elseif ($function.disposition.disposition -eq 'host') {
+        $scope='host'; $next='核实际宿主提供者、兼容字段与活动接线'
+    }
+    $gapRows.Add([ordered]@{
+        kind='mapping_location_unrecorded';inventory_id=$function.id;original_entry=$function.original_entry;original_name=$function.original_name
+        scope=$scope;disposition=$function.disposition.disposition;metadata_reference='doc/cg2d_ida_inventory.json'
+        evidence_references=@($function.baseline_documents | Where-Object { $_ });classification_refs=@($function.classification_refs);feature_memberships=$memberIds;next_action=$next
+    })
+}
+$locationGapCount=$gapRows.Count
+foreach ($row in $semanticWithoutId) {
+    $candidateIds=@($functionRows | Where-Object original_entry -eq $row.original_entry | ForEach-Object id)
+    $next=if ($candidateIds.Count -eq 1) {'核该原函数完整边界/上下文与当前源码，确认后补确切ID'} else {'核代码段、原函数/chunk及未归属区间，保留真实代码身份'}
+    $gapRows.Add([ordered]@{
+        kind='semantic_identity_unrecorded';inventory_id=$null;original_entry=$row.original_entry;original_name=$null
+        scope='identity_pending';status=$row.status;metadata_reference=$row.reference;candidate_inventory_ids=$candidateIds;next_action=$next
+    })
+}
+$reviewGapCount=@($gapRows | Where-Object { $_.scope -notin @('excluded','paused') }).Count
+$pausedGapCount=@($gapRows | Where-Object scope -eq 'paused').Count
+$excludedGapCount=@($gapRows | Where-Object scope -eq 'excluded').Count
+$gapCounts=[ordered]@{mapping_location_unrecorded=$locationGapCount;semantic_identity_unrecorded=$semanticWithoutId.Count;total=$gapRows.Count;needs_scope_or_mapping_review=$reviewGapCount;paused_receipt_items=$pausedGapCount;excluded_receipt_items=$excludedGapCount}
 $metrics=[ordered]@{
     inventory_functions=$functions.Count
+    development_gap_counts=$gapCounts
     functions_with_document_links=$linked
     document_link_percent=(Percent $linked $functions.Count)
     functions_without_document_links=@($functionRows|Where-Object {$_.baseline_documents.Count -eq 0}|ForEach-Object id)
@@ -345,6 +383,7 @@ $snapshot=[ordered]@{
     limitation='文件/身份关联与验收登记快照，不证明行为等价；直接定位为历史快照。导入/未归属区间尚未逐项重认定。'
     metrics=$metrics;closures=$registry.closures
     functions=$functionRows;semantic_without_inventory_id=@($semanticWithoutId)
+    development_gap_queue=@($gapRows)
     imports=$imports;unassigned_ranges=$ranges;classification_sources=@($classifications)
     features=@($featureRows);tasks=@($tasks.Keys|Sort-Object|ForEach-Object {$tasks[$_]})
 }
@@ -354,7 +393,7 @@ $jsonLines.Add('{')
 $keys=@($snapshot.Keys)
 for ($ki=0;$ki -lt $keys.Count;$ki++) {
     $key=$keys[$ki]; $suffix=if ($ki -lt $keys.Count-1) {','} else {''}
-    if ($key -in @('functions','imports','unassigned_ranges','features','tasks')) {
+    if ($key -in @('functions','imports','unassigned_ranges','features','tasks','development_gap_queue')) {
         $rows=@($snapshot[$key])
         $jsonLines.Add('  "'+$key+'": [')
         for ($ri=0;$ri -lt $rows.Count;$ri++) {
@@ -417,6 +456,26 @@ $lines.Add('## 4. 当前推进规则')
 $lines.Add('')
 $lines.Add('先从已有合同补原成员和B证据，再逐项推进I/W/S；R保持blocked。优先处理已知P/C/U任务及无合同关联ID的归属，不把历史定位缺失当作未实现。原格式明文、音频暂停、无构建/测试/运行/摘要限制保持。')
 $lines.Add('本看板只汇总结构化登记；变更后需做人工影响分析。静态汇总器退出0不等于软件验收通过。')
+$lines.Add('')
+$lines.Add('## 5. 开发差集队列')
+$lines.Add('')
+$lines.Add('下表只列定位/语义身份登记的缺口，供下一步选项推进；历史定位缺失不证明当前源码未实现。先核具名范围及当前代码，确有缺口再开发，原库存名称只供定位。音频暂停与原格式明文等限制保持，队列不参与完成率。')
+$lines.Add('')
+$lines.Add('| 登记差集 | 数量 | 判定与下一步 |')
+$lines.Add('|---|---:|---|')
+$lines.Add("| 定位及语义关联均未登记 | $locationGapCount | 历史定位/语义/pending/source均空；先核当前源码和原身份 |")
+$lines.Add("| 语义身份尚未登记 | $($semanticWithoutId.Count) | 原语义引用/入口保留；候选ID不自动赋值，先核完整函数或代码段 |")
+$lines.Add("| 需先核范围/定位/身份 | $reviewGapCount | 下方明细；不等于待实现或已允许运行的项数 |")
+$lines.Add("| 已明确暂停 / 具名排除的本队列项 | $pausedGapCount / $excludedGapCount | 全部保留快照；暂停数只限明确成员，不是整个音频分母 |")
+$lines.Add('')
+$lines.Add('| 类别 | 原ID或语义引用 | 原入口 | 原库存名称 | 范围 | 下一步 |')
+$lines.Add('|---|---|---|---|---|---|')
+foreach ($gap in @($gapRows | Where-Object { $_.scope -notin @('excluded','paused') })) {
+    $identity=if ($gap.inventory_id) { $gap.inventory_id } else { $gap.metadata_reference }
+    $lines.Add("| $($gap.kind) | $(Cell $identity) | $($gap.original_entry) | $(Cell $gap.original_name) | $($gap.scope) | $(Cell $gap.next_action) |")
+}
+$lines.Add('')
+$lines.Add('完整范围依据、已有处置及候选ID见快照development_gap_queue。逐项补事实后由汇总器更新，不手改队列，不以此关闭R1/R7或整体验收。')
 $dashboard=($lines -join [char]10)+[char]10
 $outputs=[ordered]@{'plan/cg2d_traceability_snapshot.json'=$json;'plan/cg2d_measurement_dashboard.md'=$dashboard}
 foreach ($path in $outputs.Keys) {

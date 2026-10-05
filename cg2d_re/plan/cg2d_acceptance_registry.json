@@ -1240,13 +1240,15 @@
       "baseline_documents": [
         "doc/ui_windows/shared_runtime.md",
         "doc/ui_windows/shared_legacy_panels.md",
-        "doc/cg2d_ui_input_lifecycle_spec.md"
+        "doc/cg2d_ui_input_lifecycle_spec.md",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
         "F:000883F0",
         "F:000998F0",
-        "F:000CD240"
+        "F:000CD240",
+        "F:00073F80"
       ],
       "closure_task_ids": [
         "U04",
@@ -1260,7 +1262,8 @@
       ],
       "acceptance_focus": "创建/输入/刷新/绘制/释放及旧99handler外层路由",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -11679,6 +11682,30 @@
       "observation": "两源八片段、完整四根/入向、四语义/四处置和本组引用静态",
       "expected": "四个普通算术叶按S32原宽与现行异常裁决落实，正常读取/编码及调用序保持",
       "actual": "仅本组源码/限定映射和静态；全部父/owner/alias、CRT/实际ABI/完整运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-WINDOW-MOUSE-BYTE-S-20261005",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原473F80完整103条/368B、唯一504170尾跳及三个W8操作；doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-mouse-byte-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-decision",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-acceptance",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
+        "doc/cg2d_window_mouse_byte_evidence.json",
+        "src/ui/WindowRuntime.cpp#UpdateWindows_473F80",
+        "include/cg/platform/LegacyMouse.hpp#LegacyMouseState"
+      ],
+      "differences": [],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一源三片段、原三访问指令及完整根/唯一入向和本组映射静态",
+      "expected": "两低字节写/一U8比较匹配原宽，W32共享owner/高三字节和所有其余正文及当前入口保持",
+      "actual": "仅本组源码修复/限定静态；全输入/回调目标、alias/寿命、旧99路由、ABI/链接/运行未验，完整软件门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -11937,7 +11964,8 @@
         "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure",
-        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure"
+        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-source-closure",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state"
       ]
     },
     {
@@ -12049,7 +12077,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state"
       ]
     },
     {
@@ -12068,6 +12097,14 @@
       "evidence_refs": [
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state"
+      ]
+    },
+    {
+      "task_id": "V04",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state"
       ]
     }
   ],
@@ -13793,6 +13830,16 @@
       "evidence_refs": [
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state"
       ]
+    },
+    {
+      "inventory_id": "F:00073F80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
+        "doc/cg2d_window_mouse_byte_evidence.json"
+      ],
+      "reason": "既有窗口更新根按原W8读写纠正；地址/回调按已批x64原生指针承载，本记录只指源码处置，全部ABI/输入/运行及间接边未验"
     }
   ],
   "auxiliary_dispositions": [

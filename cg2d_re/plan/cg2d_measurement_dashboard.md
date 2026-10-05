@@ -8,13 +8,13 @@
 | 指标 | 当前值 | 含义/限制 |
 |---|---:|---|
 | 原函数纳管 | 3680/3680 | 仅库存身份完整 |
-| 合同文件关联 | 1351/3680（36.71%） | 文件关联率，不是功能/基线验收完成率 |
-| 尚无合同关联 | 2329 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
+| 合同文件关联 | 1352/3680（36.74%） | 文件关联率，不是功能/基线验收完成率 |
+| 尚无合同关联 | 2328 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1233条/1229个原ID | 无独立函数ID另列4条，其中原区间绑定 |
+| 语义登记 | 1234条/1230个原ID | 无独立函数ID另列4条，其中原区间绑定 |
 | 具名分类引用 | 119个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 2 | 不计为实现/验收；混合入口不得整体扣除 |
-| 已审核函数处置 | 207/3680 | 初始仅导入关系，未逐ID重新认定 |
+| 已审核函数处置 | 208/3680 | 初始仅导入关系，未逐ID重新认定 |
 | 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置15 / 2 |
 | 已登记叶功能 | 182 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/182 | 仅登记集合，不能代表整体完成率 |
@@ -53,7 +53,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | FUNC-ANIMATION | included：动画索引与播放 | [cg2d_animation_runtime](../doc/cg2d_animation_runtime.md) | 0/14 | G01、U09、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-RENDER | included：32位渲染与缓存 | [cg2d_graphic_dx_cache_x64_spec](../doc/cg2d_graphic_dx_cache_x64_spec.md)、[cg2d_texture_rendering](../doc/cg2d_texture_rendering.md)、[cg2d_sdl_presenter](../doc/cg2d_sdl_presenter.md)、[cg2d_sub_507140](../doc/cg2d_sub_507140.md)、[cg2d_graphic_transform_lifecycle_spec](../doc/cg2d_graphic_transform_lifecycle_spec.md)、[cg2d_text_queue_alignment_spec](../doc/cg2d_text_queue_alignment_spec.md)、[cg2d_font_lifecycle_alignment_spec](../doc/cg2d_font_lifecycle_alignment_spec.md)、[cg2d_graphic_sort_alignment_spec](../doc/cg2d_graphic_sort_alignment_spec.md)、[cg2d_graphic_load_alignment_spec](../doc/cg2d_graphic_load_alignment_spec.md)、[cg2d_graphic_upload_alignment_spec](../doc/cg2d_graphic_upload_alignment_spec.md)、[cg2d_queued_draw_alignment_spec](../doc/cg2d_queued_draw_alignment_spec.md)、[cg2d_palette_cache_alignment_spec](../doc/cg2d_palette_cache_alignment_spec.md)、[cg2d_cache_lifecycle_alignment_spec](../doc/cg2d_cache_lifecycle_alignment_spec.md) | 26/52 | C09、G01、G02、G03、G04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-UI | included：窗口与旧面板 | [cg2d_ui_window_runtime](../doc/cg2d_ui_window_runtime.md)、[shared_runtime](../doc/ui_windows/shared_runtime.md)、[shared_legacy_panels](../doc/ui_windows/shared_legacy_panels.md) | 0/27 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| FUNC-UIRUNTIME | included：公共窗口机制与旧表路由 | [shared_runtime](../doc/ui_windows/shared_runtime.md)、[shared_legacy_panels](../doc/ui_windows/shared_legacy_panels.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md) | 4/36 | U04、U10、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| FUNC-UIRUNTIME | included：公共窗口机制与旧表路由 | [shared_runtime](../doc/ui_windows/shared_runtime.md)、[shared_legacy_panels](../doc/ui_windows/shared_legacy_panels.md)、[cg2d_ui_input_lifecycle_spec](../doc/cg2d_ui_input_lifecycle_spec.md)、[cg2d_window_mouse_byte_spec](../doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline) | 5/37 | U04、U10、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-YOBI | included：Yobi创建更新与释放 | [cg2d_yobi_runtime](../doc/cg2d_yobi_runtime.md)、[cg2d_yobi_update_coverage](../doc/cg2d_yobi_update_coverage.md) | 0/12 | U09、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-BATTLE | included：战斗状态与执行 | [shared_battle](../doc/ui_windows/shared_battle.md)、[battle_scene](../doc/yobi_updates/battle_scene.md)、[battle_actor](../doc/yobi_updates/battle_actor.md)、[cg2d_battle_attack_targets_spec](../doc/cg2d_battle_attack_targets_spec.md) | 1/21 | P01、U08、U09、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | FUNC-AUDIO | paused：音频状态与播放 | [cg2d_audio_update](../doc/cg2d_audio_update.md)、[cg2d_display_settings](../doc/cg2d_display_settings.md) | 0/8 | P11、P12、P13、P14、P15、P16、P17、V05 | unassessed/unassessed/unassessed/unassessed/blocked |

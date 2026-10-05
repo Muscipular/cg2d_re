@@ -43957,7 +43957,8 @@ std::int32_t UpdateWindows_473F80()
             gCurrentElementIndex57C12C = -1;
             if (focused != 0) {
                 const std::int32_t phase = gMousePhase57C128;
-                platform::gLegacyMouseState.valueD68DB4 = 212;
+                *reinterpret_cast<unsigned char*>(
+                    &platform::gLegacyMouseState.valueD68DB4) = 212;
                 gWindowHasFocusCA0AB4 = 1;
                 if (phase == 4) {
                     const WindowDragCallback callback = gDragCallback57C118;
@@ -43981,9 +43982,11 @@ std::int32_t UpdateWindows_473F80()
     static_cast<void>(input::ProcessPresetHotkeys_44B340());
     const std::int32_t phase = gMousePhase57C128;
     gCurrentWindowIdD67A1C = 0;
-    if (phase == 1 && platform::gLegacyMouseState.valueD68DB4 < 212u) {
+    if (phase == 1
+        && static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212u) {
         world::detail::gValueC8A780 = 1;
-        platform::gLegacyMouseState.valueD68DB4 = 212;
+        *reinterpret_cast<unsigned char*>(
+            &platform::gLegacyMouseState.valueD68DB4) = 212;
     }
     return 1;
 }

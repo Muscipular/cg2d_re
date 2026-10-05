@@ -142678,6 +142678,111 @@
           "relationship": "x/y/layer223实际地图入队，原返回弃用"
         }
       ]
+    },
+    {
+      "original_entry": "0x473F80",
+      "inventory_id": "F:00073F80",
+      "status": "WMB01既有窗口更新两W8写/一U8比较修正，完整原根与当前入口登记；全输入/回调/ABI/运行未验",
+      "original_end_exclusive": "0x4740F0",
+      "instruction_count": 103,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "UpdateWindows_473F80"
+          ],
+          "relationship": "既有完整根三处访问宽度修复；现代窗口/元素、拖动、快捷键与热键原序保持，504120真实调用未改"
+        },
+        {
+          "path": "include/cg/platform/LegacyMouse.hpp",
+          "symbols": [
+            "LegacyMouseState"
+          ],
+          "relationship": "唯一W32承载D68DB4低字节由本根别名写/取样，高三字节及整体布局不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-decision",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-acceptance",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
+        "doc/cg2d_window_mouse_byte_evidence.json"
+      ],
+      "boundary": "进入清C8A77C/C8A780/CA0AB4，鼠标后窗口排序/计数。按共享列表发布当前窗口/状态/ID，取焦点，再update(carry)。visible严格1处理元素并重读当前窗口/共享索引，元素循环后索引=-1。焦点非零先取phase、只写D68DB4低W8=212及focus=1；phase4可选拖动(4,0,sourceIndex)、重置并重读当前window，updateResult=0，draw返回续作carry，每轮重读共享窗口数量。窗口后快捷键/预设热键，先取phase再清当前ID；phase1且D68DB4低U8<212，写C8A780=1并只写低W8=212，正常返回1。三原字节操作与既有W32共享owner保留，高三字节不写；没有专项异常保护/拒绝/钳制/回绕。原103条/368B、唯一504170尾跳，三间接调用真实参数数/原序保留，但不据此验收全部目标、别名/寿命或本机ABI与运行；旧99表实际外路由仍未闭，音频暂停、原格式明文及不构建/测试/运行/摘要保持。",
+      "verification_level": "完整原根103条/368B与唯一入向、三原W8操作/既有源码三片段和本根调用/读取顺序限定静态；实际回调/输入/画面/ABI/运行未验",
+      "original_internal_calls": [
+        {
+          "call_site": "0x473F9C",
+          "target_entry": "0x473E40",
+          "source_symbol": "detail::Sub_473E40",
+          "relationship": "清三状态后处理鼠标"
+        },
+        {
+          "call_site": "0x473FA1",
+          "target_entry": "0x4730A0",
+          "source_symbol": "detail::Sub_4730A0",
+          "relationship": "排序并发布共享窗口更新数量"
+        },
+        {
+          "call_site": "0x473FEB",
+          "target_entry": "0x472D20",
+          "source_symbol": "detail::Sub_472D20",
+          "relationship": "发布当前窗口/状态/ID后取焦点"
+        },
+        {
+          "call_site": "0x474023",
+          "target_entry": "0x473560",
+          "source_symbol": "detail::Sub_473560",
+          "relationship": "严格visible==1后处理元素，重读当前窗口和共享元素索引"
+        },
+        {
+          "call_site": "0x474086",
+          "target_entry": "0x4763E0",
+          "source_symbol": "detail::Sub_4763E0",
+          "relationship": "焦点且phase==4时在可选拖动回调后重置，随后重读当前窗口"
+        },
+        {
+          "call_site": "0x4740B8",
+          "target_entry": "0x4C7AE0",
+          "source_symbol": "detail::ProcessWindowShortcuts_4C7AE0",
+          "relationship": "所有窗口处理后执行快捷键"
+        },
+        {
+          "call_site": "0x4740BD",
+          "target_entry": "0x44B340",
+          "source_symbol": "input::ProcessPresetHotkeys_44B340",
+          "relationship": "快捷键后处理预设热键，然后取尾phase与清current ID"
+        }
+      ],
+      "original_indirect_calls": [
+        {
+          "call_site": "0x473FF9",
+          "storage": "currentWindow+0x30",
+          "arguments": [
+            "carry"
+          ],
+          "relationship": "窗口update；原caller清栈4，返回作后续draw参数"
+        },
+        {
+          "call_site": "0x474081",
+          "storage": "MouseMoveState57C118",
+          "arguments": [
+            4,
+            0,
+            "DragSourceIndex57C114"
+          ],
+          "relationship": "phase4且callback非零时调用；原caller清栈12"
+        },
+        {
+          "call_site": "0x474094",
+          "storage": "currentWindow+0x34",
+          "arguments": [
+            "updateResult"
+          ],
+          "relationship": "窗口draw；原caller清栈4，返回续作carry"
+        }
+      ]
     }
   ]
 }

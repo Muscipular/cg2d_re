@@ -221,3 +221,11 @@
 ```powershell
 git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 810c6f75:cg2d_re/doc/cg2d_ui_window_runtime.md
 ```
+
+
+## WMB01 窗口更新低字节状态修正（2026-10-05）
+
+[具名SPEC](cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state)与[原103条/368B](cg2d_window_mouse_byte_evidence.json)对应现有UpdateWindows_473F80。
+焦点与尾部两次D68DB4赋值改为只写低W8，尾部阈值判断取低U8；修复整W32写入/比较偏差，保留高三字节和唯一owner。
+原窗口/元素、共享索引重读、焦点/拖动、update/draw返回传递和快捷键/预设热键顺序及504120入口保持。
+只登记本根语义、处置和限定静态；旧99表外层/键表、全回调与alias/寿命、输入/画面/ABI及运行仍未验收。

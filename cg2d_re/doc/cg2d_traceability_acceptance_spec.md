@@ -208,3 +208,10 @@ API本机声明/源调用及导入关系不代加载、链接、SDK实际成功�
 
 [两原入口合同](cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state)补两adapted及限定I/S各一：实际源工作为撤专项U32回绕、保原正常S32字段/计数/读序。
 文本成员20→22仍未全闭，T03补具名open依据，其余五任务/完整门禁及所有原分母/范围保持。数学溢出不专项保护/模拟、不称异常等价/安全；全部父/owner/alias、ABI/字体字形与运行继续未验。
+
+
+## LUA01 旧 UI 共用正常加法（2026-10-05）
+
+[本组合同](cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state)只改本线共用AddW32正文；五已有业务语义及adapted处置追加依据，无新原身份/语义项/功能成员。149调用表达式保持、原SHR/窄化保留，局部I/S各一不替完整功能门禁。
+
+公共窗口原11成员及未闭状态保持；U06补具名open依据，原派生状态本来open，六任务不计关闭。完整父/外层路由/生产/寿命/ABI/画面/运行仍待；数学溢出不专项模拟、保护或称异常等价。

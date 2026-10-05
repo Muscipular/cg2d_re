@@ -135850,9 +135850,14 @@
         "doc/ui_windows/legacy_log_viewer.md",
         "doc/cg2d_local_determinism_spec.md",
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_pe_zero_initialization_evidence.json"
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-acceptance",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_evidence.json"
       ],
-      "boundary": "P03仅本函数1000B局部入口清零一次；其后复用。原流/错误/页数/共享593F84保持；原两caller弃返回，成功返回S32页数非FILE*。私有state映射原身份，借唯一全局文件名/localtime。旧98外层路由和运行未闭。",
+      "boundary": "P03仅本函数1000B局部入口清零一次；其后复用。原流/错误/页数/共享593F84保持；原两caller弃返回，成功返回S32页数非FILE*。私有state映射原身份，借唯一全局文件名/localtime。旧98外层路由和运行未闭。 LUA01共用AddW32已撤U32回绕、恢复正常S32；149源码调用表达式及正常字段/取样/窄化/原SHR保持，不验异常等价或完整父/路由/寿命/运行。",
       "instruction_count": 102,
       "function_chunks": [
         {
@@ -135866,7 +135871,7 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "本轮原788条对应两函数新增源码逐段静态及具体文件/格式原点核对；未构建/测试/运行"
+      "verification_level": "本轮原788条对应两函数新增源码逐段静态及具体文件/格式原点核对；未构建/测试/运行；LUA01仅共用加法正常算术/149源码表达式保持的限定静态"
     },
     {
       "original_entry": "0x4021A0",
@@ -135885,9 +135890,14 @@
         "doc/ui_windows/legacy_log_viewer.md",
         "doc/cg2d_local_determinism_spec.md",
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_pe_zero_initialization_evidence.json"
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-acceptance",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_evidence.json"
       ],
-      "boundary": "P04独立1000B局部入口一次清零，原忽略fgets/EOF/error分工保持；[593A00,593F74)连续owner承接1040B显示、S32时间/4B保留/348B输入，完整对象字符视图保留相邻覆盖，不扩大显示容量或加裁剪。关闭返回原生T*不截W32，正常尾W32。日期day==32、15/16计数不正规化，旧表实际间接caller与运行仍待。",
+      "boundary": "P04独立1000B局部入口一次清零，原忽略fgets/EOF/error分工保持；[593A00,593F74)连续owner承接1040B显示、S32时间/4B保留/348B输入，完整对象字符视图保留相邻覆盖，不扩大显示容量或加裁剪。关闭返回原生T*不截W32，正常尾W32。日期day==32、15/16计数不正规化，旧表实际间接caller与运行仍待。 LUA01共用AddW32已撤U32回绕、恢复正常S32；149源码调用表达式及正常字段/取样/窄化/原SHR保持，不验异常等价或完整父/路由/寿命/运行。",
       "instruction_count": 686,
       "function_chunks": [
         {
@@ -135901,7 +135911,7 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "新增完整本体、两buffer、结构偏移/边界、原提示字节、文件/输入/按钮优先与返回合同静态；无构建/测试/运行"
+      "verification_level": "新增完整本体、两buffer、结构偏移/边界、原提示字节、文件/输入/按钮优先与返回合同静态；无构建/测试/运行；LUA01仅共用加法正常算术/149源码表达式保持的限定静态"
     },
     {
       "original_entry": "0x4F7870",
@@ -135919,9 +135929,14 @@
       "evidence_documents": [
         "doc/ui_windows/legacy_pet_list.md",
         "doc/cg2d_local_determinism_spec.md",
-        "doc/cg2d_pe_zero_initialization_evidence.json"
+        "doc/cg2d_pe_zero_initialization_evidence.json",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-acceptance",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_evidence.json"
       ],
-      "boundary": "仅两S32 hover入口各-1，正常扫描仍重新写-1；点击跳扫描但完整绘制/尾部重新命中与无命中提示保留。五待提交S16及两S16数量有真实独立owner，不写PetRuntime或复用现代窗口。首个2交换保持先旧槽后目标，无额外音效/数量变更；确认第五到第一再socket取数，真实511AE0后清open、SE78。唯一父弃返回沿void合同；旧表/明文帧/音频/输入/完整运行仍未验。",
+      "boundary": "仅两S32 hover入口各-1，正常扫描仍重新写-1；点击跳扫描但完整绘制/尾部重新命中与无命中提示保留。五待提交S16及两S16数量有真实独立owner，不写PetRuntime或复用现代窗口。首个2交换保持先旧槽后目标，无额外音效/数量变更；确认第五到第一再socket取数，真实511AE0后清open、SE78。唯一父弃返回沿void合同；旧表/明文帧/音频/输入/完整运行仍未验。 LUA01共用AddW32已撤U32回绕、恢复正常S32；149源码调用表达式及正常字段/取样/窄化/原SHR保持，不验异常等价或完整父/路由/寿命/运行。",
       "instruction_count": 634,
       "function_chunks": [
         {
@@ -135935,7 +135950,7 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "原634条及唯一caller/38共享直接引用/11提示原字节；新增本体及父声明/调用集中静态核对，不构建/测试/运行"
+      "verification_level": "原634条及唯一caller/38共享直接引用/11提示原字节；新增本体及父声明/调用集中静态核对，不构建/测试/运行；LUA01仅共用加法正常算术/149源码表达式保持的限定静态"
     },
     {
       "original_entry": "0x4FF650",
@@ -135961,7 +135976,12 @@
       "evidence_documents": [
         "doc/ui_windows/legacy_skill_panels.md",
         "doc/cg2d_local_determinism_spec.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-acceptance",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_evidence.json"
       ],
       "instruction_count": 919,
       "function_chunks": [
@@ -135970,14 +135990,14 @@
           "end_exclusive": "0x500358"
         }
       ],
-      "boundary": "仅第四32B局部入口清零，其他三个按钮/256B缓冲不清；后续查询先于能力门禁，不缓存入口布局条件。详情面板585640为0/0/272/448/19/22770，selected借同源5856E0并在三个调用后回写列表。关闭保留CC236C-25 W32及仅替换AL的高24位，真实61/62请求后写5F9754；正常尾完整W32。D67AD8低S8、配对低S16、D64E13低U8写/S8读与重取、原FP比较/成本W32、行底图Y=24*row+panel.x+90保持。旧57C368外层/四后续页面/明文帧/音频/运行未验。",
+      "boundary": "仅第四32B局部入口清零，其他三个按钮/256B缓冲不清；后续查询先于能力门禁，不缓存入口布局条件。详情面板585640为0/0/272/448/19/22770，selected借同源5856E0并在三个调用后回写列表。关闭保留CC236C-25 W32及仅替换AL的高24位，真实61/62请求后写5F9754；正常尾完整W32。D67AD8低S8、配对低S16、D64E13低U8写/S8读与重取、原FP比较/成本W32、行底图Y=24*row+panel.x+90保持。旧57C368外层/四后续页面/明文帧/音频/运行未验。 LUA01共用AddW32已撤U32回绕、恢复正常S32；149源码调用表达式及正常字段/取样/窄化/原SHR保持，不验异常等价或完整父/路由/寿命/运行。",
       "native_provider": {
         "source": "src/LegacyUiRecord.cpp",
         "symbol": "Sub_4FF650",
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "原919条全段、196B面板、八新提示/三既有格式原字节、五格式原点及四请求写点与现owner静态对照；没有构建/测试/运行"
+      "verification_level": "原919条全段、196B面板、八新提示/三既有格式原字节、五格式原点及四请求写点与现owner静态对照；没有构建/测试/运行；LUA01仅共用加法正常算术/149源码表达式保持的限定静态"
     },
     {
       "original_entry": "0x4D62A0",
@@ -135996,9 +136016,14 @@
         "doc/ui_windows/legacy_give_receive_confirmation.md",
         "doc/cg2d_local_determinism_spec.md",
         "doc/cg2d_stdio_contract.md",
-        "doc/ui_windows/legacy_give_receive_quantity.md"
+        "doc/ui_windows/legacy_give_receive_quantity.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-acceptance",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_evidence.json"
       ],
-      "boundary": "581C98唯一面板原0/0/448/240/85及零背景；按钮按旧坐标52x16后才居中。连续512B两256B文本不清；仅说明第二段格式后、首门禁前第一段[0]=1。46列提取无论空/返回仍绘再检查，32行距/无符号W32居中/hover低S8 marker保持。确认关闭/SE57后格式/转义/目标-请求-Y-X-socket发送，取消仅84/SE79；共享581800/D046C4/CAFEA4/C38H CC3210/对话槽均沿既有owner，无影子数据。旧表/全部生产与输入/明文帧/音频/运行未验。",
+      "boundary": "581C98唯一面板原0/0/448/240/85及零背景；按钮按旧坐标52x16后才居中。连续512B两256B文本不清；仅说明第二段格式后、首门禁前第一段[0]=1。46列提取无论空/返回仍绘再检查，32行距/无符号W32居中/hover低S8 marker保持。确认关闭/SE57后格式/转义/目标-请求-Y-X-socket发送，取消仅84/SE79；共享581800/D046C4/CAFEA4/C38H CC3210/对话槽均沿既有owner，无影子数据。旧表/全部生产与输入/明文帧/音频/运行未验。 LUA01共用AddW32已撤U32回绕、恢复正常S32；149源码调用表达式及正常字段/取样/窄化/原SHR保持，不验异常等价或完整父/路由/寿命/运行。",
       "instruction_count": 279,
       "function_chunks": [
         {
@@ -136012,7 +136037,7 @@
         "source_body_implemented": true,
         "runtime_verified": false
       },
-      "verification_level": "原279条、196B面板、八原文本/格式字节与587D70、两个原格式点、连续缓冲/首门禁位置和新增本体静态对照；未构建/测试/运行"
+      "verification_level": "原279条、196B面板、八原文本/格式字节与587D70、两个原格式点、连续缓冲/首门禁位置和新增本体静态对照；未构建/测试/运行；LUA01仅共用加法正常算术/149源码表达式保持的限定静态"
     },
     {
       "original_entry": "0x403C50",

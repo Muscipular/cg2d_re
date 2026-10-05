@@ -1280,7 +1280,8 @@
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-baseline",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-baseline",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -1312,19 +1313,22 @@
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-decision",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-decision",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-decision",
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "本组UI/输入5provider已接统一模块路径/四即时宿主登记与固定选择器退出；全应用序、完整成员EH/数组SEH/快速退出/SDK和运行仍未闭，整表接通须同小步移除四模块调用",
-        "LSP01五旧共享正文生产/指针发布与旧55同源消费已证，503AB0取样已修；其余100完整父/全部owner/间接alias/旧99表外路由、生成ABI/画面/运行未闭，不以局部生产源码关闭公共窗口或U07"
+        "LSP01五旧共享正文生产/指针发布与旧55同源消费已证，503AB0取样已修；其余100完整父/全部owner/间接alias/旧99表外路由、生成ABI/画面/运行未闭，不以局部生产源码关闭公共窗口或U07",
+        "LUA01共用工具正常S32已修，149调用表达式保持；完整页面/原成员、外层路由/数据/寿命/ABI/画面/运行仍未验，不将本机工具当原独立函数"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_ui_input_lifecycle_spec.md#ui-input-lifecycle-baseline",
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-baseline",
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12111,6 +12115,66 @@
       "observation": "两原体/引用集合/正常字段与精确源增量、现有声明及台账限定静态",
       "expected": "原正常字段宽度/字节推进/早退/NUL/读取与预算顺序保持，数学溢出不专项模拟",
       "actual": "仅本组源码与限定静态，不验所有父/owner/间接alias、目标字体/字形/生成ABI/画面/运行或异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-LEGACY-UI-ADD-ARITHMETIC-I-20261005",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "149源码调用表达式/六归属及原35条103B中心邻窗；doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-ui-add-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-acceptance",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_evidence.json",
+        "src/LegacyUiRecord.cpp#AddW32",
+        "src/LegacyUiRecord.cpp#Low16",
+        "src/Input.cpp#ExtractLegacyLine_503AB0"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24仅撤共用加法专项U32回绕，恢复正常S32；原SHR/窄化保持，不设异常等价门禁",
+          "decision_ref": "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "唯一共用加法正文恢复正常S32，149调用表达式及字段/窄化保持",
+      "expected": "正常算术、既有参数/取样/字段/调用/页面适配保持，不专项保护或模拟数学溢出",
+      "actual": "仅本组源码/限定静态；工具无独立原ID，完整父/原成员/路由/生产/owner/alias/ABI/画面/运行和异常等价未验，完整门禁不提升"
+    },
+    {
+      "id": "E-LEGACY-UI-ADD-ARITHMETIC-S-20261005",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "149源码调用表达式/六归属及原35条103B中心邻窗；doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-ui-add-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-acceptance",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_evidence.json",
+        "src/LegacyUiRecord.cpp#AddW32",
+        "src/LegacyUiRecord.cpp#Low16",
+        "src/Input.cpp#ExtractLegacyLine_503AB0"
+      ],
+      "differences": [
+        {
+          "description": "RPLAN.24仅撤共用加法专项U32回绕，恢复正常S32；原SHR/窄化保持，不设异常等价门禁",
+          "decision_ref": "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "唯一源码精确增量、149调用表达式/六归属、原SHR邻窗及台账限定静态",
+      "expected": "正常算术、既有参数/取样/字段/调用/页面适配保持，不专项保护或模拟数学溢出",
+      "actual": "仅本组源码/限定静态；工具无独立原ID，完整父/原成员/路由/生产/owner/alias/ABI/画面/运行和异常等价未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -12362,7 +12426,8 @@
         "doc/cg2d_character_select_scene.md#character-message-storage-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
-        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12418,7 +12483,8 @@
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
-        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12542,7 +12608,8 @@
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
-        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12554,7 +12621,8 @@
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
-        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12588,7 +12656,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
-        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state"
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12607,6 +12676,15 @@
       "evidence_refs": [
         "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state"
       ]
+    },
+    {
+      "task_id": "U06",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/ui_windows/legacy_give_receive_confirmation.md#give-receive-source-closure",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
+      ]
     }
   ],
   "maintenance": "更新本登记簿、原台账及唯一进度后运行plan/measure_cg2d.ps1；禁止手改生成快照。 GQ01由同一汇总器生成development_gap_queue与看板§5；只列定位/语义身份登记差集，不把缺历史定位当源码未实现，不手改队列。 CRI01无独立函数ID的已证代码片段可按原X区间/实际边界绑定；校验身份与证据后另计，不混入缺身份队列，不增加函数分母。",
@@ -12617,7 +12695,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/ui_windows/legacy_log_viewer.md#legacy-log-source-closure",
-        "doc/cg2d_local_determinism_spec.md"
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12626,7 +12705,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/ui_windows/legacy_log_viewer.md#legacy-log-source-closure",
-        "doc/cg2d_local_determinism_spec.md"
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12635,7 +12715,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/ui_windows/legacy_pet_list.md#pet-state-source-closure",
-        "doc/cg2d_local_determinism_spec.md"
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12644,7 +12725,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/ui_windows/legacy_skill_panels.md#skill-detail-source-closure",
-        "doc/cg2d_local_determinism_spec.md"
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {
@@ -12653,7 +12735,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/ui_windows/legacy_give_receive_confirmation.md#give-receive-source-closure",
-        "doc/cg2d_local_determinism_spec.md"
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state"
       ]
     },
     {

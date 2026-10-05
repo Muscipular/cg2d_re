@@ -81,9 +81,7 @@ std::int32_t AddW32(
     const std::int32_t left,
     const std::int32_t right)
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        + std::bit_cast<std::uint32_t>(right));
+    return left + right;
 }
 
 std::uint16_t Low16(const std::int32_t value)

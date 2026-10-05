@@ -115,16 +115,12 @@ std::uint8_t blueMap[256] {};  // 原 0x629200，gBGR_Data.b。
 
 std::int32_t Add32(std::int32_t value, std::uint32_t increment) noexcept
 {
-    return std::bit_cast<std::int32_t>(std::bit_cast<std::uint32_t>(value) + increment);
+    return value + static_cast<std::int32_t>(increment);
 }
 
 // 原 __ftol@0x53B498 向零截断为 int64，再只写 AL；不可用 uint8 浮点直转。
 std::uint8_t TruncatedLowByte(double value) noexcept
 {
-    if (!std::isfinite(value) || value < -9223372036854775808.0
-        || value >= 9223372036854775808.0) {
-        return 0; // x87 FISTP 非法转换的整数不定值低字节为零。
-    }
     return static_cast<std::uint8_t>(static_cast<std::int64_t>(value));
 }
 

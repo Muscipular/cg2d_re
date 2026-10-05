@@ -85160,9 +85160,14 @@
       "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行",
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-acceptance",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_compiler_helper_evidence.json"
       ],
-      "boundary": "保留入口活动编号/加载索引/能力门槛、512B未清path与rb失败返0且不发布状态；每色三次getc取低U8后才168号黑色修正和原浮点步长，关闭后重新取活动编号并发布过渡/已加载状态。三个原getc调用点保持逐次取样，不改CPU表、色调、节流、收尾或随机/状态次序；共享及32位原生替换保持，当前仅文件链局部核对，不据此宣布完整357条或渲染流程通过。"
+      "boundary": "保留入口活动编号/加载索引/能力门槛、512B未清path与rb失败返0且不发布状态；每色三次getc取低U8后才168号黑色修正和原浮点步长，关闭后重新取活动编号并发布过渡/已加载状态。三个原getc调用点保持逐次取样，不改CPU表、色调、节流、收尾或随机/状态次序；共享及32位原生替换保持，当前仅文件链局部核对，不据此宣布完整357条或渲染流程通过。 CPH01撤TruncatedLowByte非有限/越S64补0与Add32回绕模拟，恢复正常S64→U8/S32计数；六转换/五加法表达式和其他正文保持。六转换/计数邻窗仅局部静态，不代完整357条/全渲染/ABI/画面/运行；异常域不称等价或安全。"
     },
     {
       "original_entry": "0x522900",
@@ -144450,6 +144455,96 @@
       ],
       "boundary": "同源D9F2C9门禁0返回-100；读S32 D69790、正常加size后signed大于0x4000返-1，正常复制到原接收队列后发布next/返0。size原U32接口、复制数量/唯一owner保持，运算边界显式S32转换；不加负值/输入/越界保护或异常回绕。完整Loop/全部命令/共享寿命/间接alias、实际ABI/半包和明文互通未验。",
       "verification_level": "原27条75B完整叶与唯一507F13直接边、源本组增量限定静态；不称实际ABI或运行通过"
+    },
+    {
+      "original_entry": "0x53B498",
+      "inventory_id": "F:0013B498",
+      "status": "CPH01编译器私有职责按D02登记host；正常业务类型/现有表达式保留，全父/实际ABI/运行未验",
+      "original_role": "x87向零S64转换并返回EDX:EAX",
+      "original_end_exclusive": "0x53B4BF",
+      "instruction_count": 15,
+      "original_code_bytes": 39,
+      "original_direct_reference_count": 343,
+      "original_direct_call_reference_count": 340,
+      "function_chunks": [
+        {
+          "start": "0x53b498",
+          "end_exclusive": "0x53b4bf"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "TruncatedLowByte"
+          ],
+          "relationship": "正常S64→低U8；匿名本机帮助工具无独立原身份"
+        },
+        {
+          "path": "src/render/LegacyTextureDrawing.cpp",
+          "symbols": [
+            "TruncateTextureCoordinate"
+          ],
+          "relationship": "已有S64→S32，源码未改；仅列提供者样例"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-acceptance",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_compiler_helper_evidence.json"
+      ],
+      "host_provider": {
+        "kind": "native_compiler",
+        "new_named_legacy_body": false,
+        "mechanism_verified_by_generated_code": false,
+        "scope": "由现有明确S64转换及对应窄化表达式承担；不以浮点直接转U8改变正常值"
+      },
+      "boundary": "原完整帮助体保存/设向零/恢复控制字，FISTP S64返EDX:EAX；现用本机编译器转换，x87寄存器/CW/private机制按D02，不称原体等价。调色板六点S64→U8、纹理既有S64→S32保持；非有限/越域不再专项补0或模拟。仅提供者样例，不验全部340call/3jump父、正常宽返回消费/浮点环境、ABI/字形/像素/运行。",
+      "verification_level": "两原32条86B完整帮助体及引用统计/局部提供者角色限定静态；host不代原机制等价或当前生成ABI/运行"
+    },
+    {
+      "original_entry": "0x53BDC0",
+      "inventory_id": "F:0013BDC0",
+      "status": "CPH01编译器私有职责按D02登记host；正常业务类型/现有表达式保留，全父/实际ABI/运行未验",
+      "original_role": "x86自动局部栈探页与帧调整",
+      "original_end_exclusive": "0x53BDEF",
+      "instruction_count": 17,
+      "original_code_bytes": 47,
+      "original_direct_reference_count": 33,
+      "original_direct_call_reference_count": 33,
+      "function_chunks": [
+        {
+          "start": "0x53bdc0",
+          "end_exclusive": "0x53bdef"
+        }
+      ],
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_403C50",
+            "Sub_403E50"
+          ],
+          "relationship": "既有std::array自动局部；编译器生成机制，不新建帮助体或手工栈检查"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-acceptance",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_compiler_helper_evidence.json"
+      ],
+      "host_provider": {
+        "kind": "native_compiler",
+        "new_named_legacy_body": false,
+        "mechanism_verified_by_generated_code": false,
+        "scope": "由现有自动局部对象的编译器帧/探页承担；不声明/调用旧帮助体"
+      },
+      "boundary": "原以0x1000步长触页/调整ESP为编译器私有帧职责，x64自动帧/检查由本机提供者承担。现有std::array数量/类型/自动寿命/两明文父源码保持，原33call只列统计/样例，不称已生成特定__chkstk/阈值/ABI/栈故障等价或完整父验证。",
+      "verification_level": "两原32条86B完整帮助体及引用统计/局部提供者角色限定静态；host不代原机制等价或当前生成ABI/运行"
     }
   ]
 }

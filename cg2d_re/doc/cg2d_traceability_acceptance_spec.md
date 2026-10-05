@@ -236,3 +236,10 @@ U02补具名open依据，原派生状态本来open，R02/R04/V03保持；整体�
 [23成员范围依据](cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state)补FUNC-AUDIO的七既定暂停根和16依赖，scope保持paused/成员未闭；不新增equivalent/adapted/host/excluded或客户端门禁。十六已知队列项保留原ID/定位缺口，派生为paused，需范围/映射核定75→59/明确暂停0→16只是队列分类。
 
 P11–P17/V05补当前open依据，原派生状态本来open，R01/R04保持。原处置342/3680、语义/软件证据、全部原分母/其他范围和完整门禁不提高；R1最终处置及完整音乐两链/生命周期/真实执行仍待，不能将已列原成员当已实现/已验收。
+
+
+## CPH01 编译器host与调色板源码证据（2026-10-05）
+
+[本组合同](cg2d_compiler_helper_spec.md#compiler-helper-source-state)补53B498/53BDC0两个host语义/处置，CRT已知成员145→147，成员仍未全闭。原x86寄存器/栈检查私有机制由本机编译器承担，批准差异不代具体生成指令/ABI或全父/浮点环境验收。
+
+调色板两匿名工具实际撤异常补零/回绕，局部I/S各一只计本组源码及原六转换/计数邻窗；完整CRT/渲染门禁、C05/G04/R01/R04/V04和全357条调色板/资源/画面/运行仍未闭。D02不解除业务正常位宽，RPLAN.24不允许称数学异常/故障等价或x64安全。

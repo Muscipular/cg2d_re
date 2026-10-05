@@ -7593,3 +7593,9 @@ wb失败只释放编码缓冲。成功才复制3C00CH共享相册到局部快照
 [生产增量](cg2d_map_effect_producer_spec.md#map-effect-producer-source-state)仅更新§20.6既有46F090：horizontalSign<0时重读记录X、verticalSign<0时重读记录Y后作原镜像；固定点转换再按X→Y重读当前字段、两次正常S32×65536后按X→Y写真实W32位型。补四读取点，替换旧节“负值按W32移位”的实施口径，不使用负S32左移。
 
 signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可由S32表示，不增phase/符号限制；原领取/失败/kind低W16、两-400先写及条件写、speed/graphicIndex、W16计数、返回和所有caller/RNG保持。64条193B/三call一父与三个复用caller窗保存，仅本次源取样/缩放和生产合同静态；原池/完整调度/所有alias/owner寿命及实际ABI/SDK/像素RNG运行未验，异常不保护或模拟/称等价。
+
+## MEP01 当前效果池写宽与链接取样（2026-10-05）
+
+[池增量合同](cg2d_map_effect_pool_spec.md#map-effect-pool-source-state)仅修§20.4–20.5三源块：46E2A0的C8A744低半字以2B memcpy清零，保高半字且撤整U32读改写；46E340保存nextFree、先取旧活动头再清prev/接next，接next后重取活动头用于条件回链；46E390先取prev/条件写，再取当前next/条件写，尾段先取空闲头再清prev/接next/发布。原不改旧空闲头prev，不新增反向链修补。
+
+500项/499轮next→下项prev交替、末next/活动头、独立W16/F32槽与末记录返回保持；记录未知载荷不清、原生指针/失败/计数/种类/其它owner槽及生产绘制保持。46F160已有种类筛选/死亡清动作/缓存next回收/W16计数本体未改，只纳管身份。四原105条400B/25call十父保存仅正常池合同静态，不代全部父/所有alias与owner重进退出/借用失效/实际ABI/SDK/画面RNG运行，异常不保护或模拟/称等价。

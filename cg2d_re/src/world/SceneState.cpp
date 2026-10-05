@@ -1474,7 +1474,8 @@ MapEffectRecord* Sub_46E2A0()
 
     gMapCharaSceneSlots.valueC8A73E = 0;
     gMapCharaSceneSlots.valueC8A742 = 0;
-    gMapCharaSceneSlots.valueC8A744 &= 0xFFFF0000u;
+    const std::uint16_t clearedHalf = 0;
+    std::memcpy(&gMapCharaSceneSlots.valueC8A744, &clearedHalf, sizeof(clearedHalf));
     gMapCharaSceneSlots.valueC8A748 = 0;
     gMapCharaSceneSlots.value55DE98 = 0xFFFFu;
     gMapCharaSceneSlots.valueC8A74A = 0;
@@ -1496,14 +1497,17 @@ MapEffectRecord* Sub_46E340()
         return record;
     }
 
-    gFreeMapEffectHead = record->next;
-    if (gFreeMapEffectHead != nullptr) {
-        gFreeMapEffectHead->prev = nullptr;
+    MapEffectRecord* const nextFree = record->next;
+    gFreeMapEffectHead = nextFree;
+    if (nextFree != nullptr) {
+        nextFree->prev = nullptr;
     }
+    MapEffectRecord* const activeHead = gActiveMapEffectHead;
     record->prev = nullptr;
-    record->next = gActiveMapEffectHead;
-    if (gActiveMapEffectHead != nullptr) {
-        gActiveMapEffectHead->prev = record;
+    record->next = activeHead;
+    MapEffectRecord* const currentActiveHead = gActiveMapEffectHead;
+    if (currentActiveHead != nullptr) {
+        currentActiveHead->prev = record;
     }
     gActiveMapEffectHead = record;
     return record;
@@ -1515,17 +1519,20 @@ MapEffectRecord* Sub_46E390(MapEffectRecord* const record)
         return record;
     }
 
-    if (record->prev != nullptr) {
-        record->prev->next = record->next;
+    MapEffectRecord* const prev = record->prev;
+    if (prev != nullptr) {
+        prev->next = record->next;
     }
-    if (record->next != nullptr) {
-        record->next->prev = record->prev;
+    MapEffectRecord* const next = record->next;
+    if (next != nullptr) {
+        next->prev = record->prev;
     }
     if (gActiveMapEffectHead == record) {
         gActiveMapEffectHead = record->next;
     }
+    MapEffectRecord* const freeHead = gFreeMapEffectHead;
     record->prev = nullptr;
-    record->next = gFreeMapEffectHead;
+    record->next = freeHead;
     gFreeMapEffectHead = record;
     WriteMapEffectHalf(*record, 0x3C, 0);
     return record;

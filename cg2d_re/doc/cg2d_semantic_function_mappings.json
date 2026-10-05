@@ -145544,6 +145544,264 @@
       ],
       "verification_level": "原64条193B/三call一父及三个复用caller窗；三模式三块/四补回读取点和两缩放写精确差异及生产合同静态，不重验完整父/全部池或运行",
       "boundary": "先领取、失败不写不加计数；成功kind低W16/三个signed余数分支/两-400先写与条件坐标写保持；负水平重读X作240-X、负垂直重读Y作80-Y；无条件X→Y重读，两S32×65536后按X→Y写真实W32固定点，再speed/graphicIndex与W16计数、返回原生记录指针。已证数域推导不代运行或新限实参；三已查caller弃值不代所有alias/地址逃逸。完整父/其它生产绘制及池owner重进退出/借用失效、实际ABI/SDK/像素RNG运行未验，异常不保护/回绕/故障模拟或称安全等价。"
+    },
+    {
+      "original_entry": "0x46e2a0",
+      "inventory_id": "F:0006E2A0",
+      "status": "MEP01效果池原写宽/取样序实修及原身份纳管；完整场景寿命运行未验",
+      "original_end_exclusive": "0x46e33d",
+      "instruction_count": 27,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46E2A0",
+            "MapEffectRecord",
+            "gMapEffectRecords",
+            "gFreeMapEffectHead",
+            "gActiveMapEffectHead",
+            "gMapCharaSceneSlots"
+          ],
+          "relationship": "既有唯一500项池，MEP01局部写宽/链接取样实修；原生非拥有记录与原数值宽度"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "MapEffectRecord",
+            "Sub_46E2A0"
+          ],
+          "relationship": "既有真实私有声明，记录前置声明/原生指针与既有值参数/返回不改，不公开载荷"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51c58b",
+          "parent_entry": "0x51c430"
+        },
+        {
+          "address": "0x51cb6f",
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "address": "0x51d084",
+          "parent_entry": "0x51c7d0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-baseline",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-decision",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-acceptance",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_map_effect_pool_evidence.json"
+      ],
+      "verification_level": "四原105条400B/25call十父保存，三模式三块源差异与四体正常池合同局部静态；清理本体未改，不代完整父/所有alias与owner寿命/运行",
+      "boundary": "初始化首空闲头/首prev、499轮逐项next→下项prev、末next/活动头及各独立数值槽按原序；C8A744只写2B零低半字，不读改写高半字；返回末项，500池/未知载荷/其它启动计时投影动作槽不改。 原25直接引用身份不代完整父/间接alias、所有owner重进退出/清理后借用失效、实际ABI/SDK/像素RNG运行；RPLAN.24异常不保护/拒绝或回绕故障模拟/称等价。"
+    },
+    {
+      "original_entry": "0x46e340",
+      "inventory_id": "F:0006E340",
+      "status": "MEP01效果池原写宽/取样序实修及原身份纳管；完整场景寿命运行未验",
+      "original_end_exclusive": "0x46e383",
+      "instruction_count": 19,
+      "original_direct_reference_count": 11,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46E340",
+            "MapEffectRecord",
+            "gFreeMapEffectHead",
+            "gActiveMapEffectHead"
+          ],
+          "relationship": "既有唯一500项池，MEP01局部写宽/链接取样实修；原生非拥有记录与原数值宽度"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "MapEffectRecord",
+            "Sub_46E340"
+          ],
+          "relationship": "既有真实私有声明，记录前置声明/原生指针与既有值参数/返回不改，不公开载荷"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46e55d",
+          "parent_entry": "0x46e4e0"
+        },
+        {
+          "address": "0x46e5e1",
+          "parent_entry": "0x46e4e0"
+        },
+        {
+          "address": "0x46e73d",
+          "parent_entry": "0x46e6c0"
+        },
+        {
+          "address": "0x46e80b",
+          "parent_entry": "0x46e6c0"
+        },
+        {
+          "address": "0x46e9aa",
+          "parent_entry": "0x46e940"
+        },
+        {
+          "address": "0x46ea7a",
+          "parent_entry": "0x46e940"
+        },
+        {
+          "address": "0x46ec16",
+          "parent_entry": "0x46ebb0"
+        },
+        {
+          "address": "0x46ec7c",
+          "parent_entry": "0x46ebb0"
+        },
+        {
+          "address": "0x46edd5",
+          "parent_entry": "0x46ed50"
+        },
+        {
+          "address": "0x46ee83",
+          "parent_entry": "0x46ed50"
+        },
+        {
+          "address": "0x46f090",
+          "parent_entry": "0x46f090"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-baseline",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-decision",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-acceptance",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_map_effect_pool_evidence.json"
+      ],
+      "verification_level": "四原105条400B/25call十父保存，三模式三块源差异与四体正常池合同局部静态；清理本体未改，不代完整父/所有alias与owner寿命/运行",
+      "boundary": "空池原样返回0；保存record.next后发布新空闲头并按保存指针清prev；先取旧活动头后清record.prev/接next，再取活动头条件回链，最后发布活动头并返回record。原两活动头取样点和既有原生指针保留。 原25直接引用身份不代完整父/间接alias、所有owner重进退出/清理后借用失效、实际ABI/SDK/像素RNG运行；RPLAN.24异常不保护/拒绝或回绕故障模拟/称等价。"
+    },
+    {
+      "original_entry": "0x46e390",
+      "inventory_id": "F:0006E390",
+      "status": "MEP01效果池原写宽/取样序实修及原身份纳管；完整场景寿命运行未验",
+      "original_end_exclusive": "0x46e3df",
+      "instruction_count": 27,
+      "original_direct_reference_count": 7,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46E390",
+            "MapEffectRecord",
+            "gFreeMapEffectHead",
+            "gActiveMapEffectHead"
+          ],
+          "relationship": "既有唯一500项池，MEP01局部写宽/链接取样实修；原生非拥有记录与原数值宽度"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "MapEffectRecord",
+            "Sub_46E390"
+          ],
+          "relationship": "既有真实私有声明，记录前置声明/原生指针与既有值参数/返回不改，不公开载荷"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46e693",
+          "parent_entry": "0x46e4e0"
+        },
+        {
+          "address": "0x46e910",
+          "parent_entry": "0x46e6c0"
+        },
+        {
+          "address": "0x46eb6e",
+          "parent_entry": "0x46e940"
+        },
+        {
+          "address": "0x46ed10",
+          "parent_entry": "0x46ebb0"
+        },
+        {
+          "address": "0x46efd1",
+          "parent_entry": "0x46ed50"
+        },
+        {
+          "address": "0x46f1a9",
+          "parent_entry": "0x46f160"
+        },
+        {
+          "address": "0x46f657",
+          "parent_entry": "0x46f1d0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-baseline",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-decision",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-acceptance",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_map_effect_pool_evidence.json"
+      ],
+      "verification_level": "四原105条400B/25call十父保存，三模式三块源差异与四体正常池合同局部静态；清理本体未改，不代完整父/所有alias与owner寿命/运行",
+      "boundary": "空参原样返回；保存prev后条件取当前next写prev.next，前写后才取next并条件取当前prev写next.prev；活动头等于record才再取next/发布；先取freeHead后清prev/接next/发布/kind写W16，原不修旧空闲头prev。 原25直接引用身份不代完整父/间接alias、所有owner重进退出/清理后借用失效、实际ABI/SDK/像素RNG运行；RPLAN.24异常不保护/拒绝或回绕故障模拟/称等价。"
+    },
+    {
+      "original_entry": "0x46f160",
+      "inventory_id": "F:0006F160",
+      "status": "MEP01已有清理消费身份纳管，本体未修改；完整绘制寿命运行未验",
+      "original_end_exclusive": "0x46f1c1",
+      "instruction_count": 32,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F160",
+            "Sub_46E390",
+            "gActiveMapEffectHead",
+            "gMapCharaSceneSlots"
+          ],
+          "relationship": "既有活动清理消费未改；原生记录/动作及回收/W16计数原序，非新增本体"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "MapEffectRecord",
+            "Sub_46F160"
+          ],
+          "relationship": "既有真实私有声明，记录前置声明/原生指针与既有值参数/返回不改，不公开载荷"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51cb9c",
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "address": "0x51ccf9",
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "address": "0x51ce14",
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "address": "0x51d0b6",
+          "parent_entry": "0x51c7d0"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-baseline",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-decision",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-acceptance",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_map_effect_pool_evidence.json"
+      ],
+      "verification_level": "四原105条400B/25call十父保存，三模式三块源差异与四体正常池合同局部静态；清理本体未改，不代完整父/所有alias与owner寿命/运行",
+      "boundary": "既有清理本体不修改：筛种类6/7/8，8先死亡及清动作槽，再缓存next→回收→W16计数减一→缓存next续遍历；仅已有消费原身份/真实source纳管，不计新增清理功能。 原25直接引用身份不代完整父/间接alias、所有owner重进退出/清理后借用失效、实际ABI/SDK/像素RNG运行；RPLAN.24异常不保护/拒绝或回绕故障模拟/称等价。"
     }
   ]
 }

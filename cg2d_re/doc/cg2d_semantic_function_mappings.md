@@ -2177,3 +2177,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 一个既有46F090生产本体补正式语义/来源与adapted，依据[具名合同](cg2d_map_effect_producer_spec.md#map-effect-producer-source-state)及[原证据](cg2d_map_effect_producer_evidence.json)。原完整64条193B/三call一父可追，仅三源片段补四读取点和恢复两次正常S32缩放；真实W32位型及原池/失败/计数/返回保持。三caller窗复用MFA01保存体，不以身份纳管声称完整父/全部池/alias/owner寿命/运行通过。
 
 语义1274→1275、有效ID1270→1271、处置367→368；MAP30→31明确成员。未新增原函数或扩大数值字段/容量，旧历史定位、pending18、非FID4、R7及队列分母保持；完整功能门禁不提升。
+
+## MEP01 效果池与既有清理身份（2026-10-05）
+
+[池合同](cg2d_map_effect_pool_spec.md#map-effect-pool-source-state)和[四原证据](cg2d_map_effect_pool_evidence.json)为46E2A0/46E340/46E390/46F160补正式语义/真实本体与声明来源及adapted。前三根本次源实修低W16写/头与链接取样，最后一根已有清理消费未修改，不计新实现。四体105条400B/25call十父仅正常池合同及原引用身份，不代全父、所有alias或完整owner/运行。
+
+语义1275→1279/有效ID1271→1275，处置368→372、MAP31→35成员；池500项与原库存分母/历史位置、pending、非FID、R7/差集保持。所有完整功能门禁和任务关闭数不提升。

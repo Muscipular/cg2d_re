@@ -4313,3 +4313,9 @@ virtualTable从const void*改对应const方法表指针，内部头四块、stre
 仍为同一非拥有地址槽，保存/逐次重读、表内容与赋表、FILE/locale/游标别名和业务次序保持。
 96B缓冲/104B基类/152B filebuf与104B表的既有布局断言保持，未编译核ABI。
 本步不提供codecvt/facet非空生产或完整表，C03/C05/R02仍open；全活动流/owner/SDK/运行待。
+
+
+## SCP01：旧62最后一处格式接口落位（2026-10-05）
+
+[完整父本体](cg2d_shop_choice_body_spec.md#shop-choice-body-decision)在4D8F68接53B304：%d原256400/单S32命令→未清16B，再52D2D0到另16B/cap15；target/request/Y/X/socket依原新读、mode0发送弃返回，不加成功门槛。
+源码原点1000→1001/1023（1000直接+1既有补证），241格式保持；剩22=13范围排除+6音频暂停+3SDL原生替换。只说明格式接口接入，低两位零的未写第二命令/真实生产仍待P07，不能拿数量证明参数或整页可用。C12/完整CRT/运行保持open，FILE计数不变。

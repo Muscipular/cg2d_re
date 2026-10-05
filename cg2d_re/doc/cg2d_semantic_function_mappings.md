@@ -1927,3 +1927,10 @@ C04/C06/C07/V02仍open，关闭10/60、叶0/182及完整门禁不提升。
 [专项SPEC](cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure)及[原/SDK证据](cg2d_hosted_exception_filter_evidence.json)对应54503A/545080/545091/54B20C四既有身份，共49条/145B。
 原三参数事实保留，当前筛选适配本机x64四参数；安装在多字节之后/应用之前，既有同一宿主callback按stdio→console→filter恢复收尾。
 四记录补LegacyMouse活动消费和具名差异，其他1222记录/政策保持；原代码/魔数/terminate/旧槽重读、三provider及旧表/完整入口保持。语义1226/1223不增，处置197→201/3680，限定E156→159，导入15/218不变；C02/C04/C06/C07/C08/V02、任务10/60/叶0/182与完整门禁不提升。
+
+
+## SCP01：旧62完整本体与一格式接口（2026-10-05）
+
+[具名SPEC](cg2d_shop_choice_body_spec.md#shop-choice-body-source-state)及[完整原证据](cg2d_shop_choice_body_evidence.json)对应321条/1080B、25原call与八新常量；实际get_bytes保原内存，不用IDA字符串显示UTF-8充作原字节。
+新增父语义1、53B304原记录仅增4D8F68业务点/源和当前边界，其他1225旧记录/政策保持；P07只同步实现/仍缺事实，pending18保持。语义1226→1227/1223→1224有效ID，R1 total201→202/3680，本父mixed；限定E159→162，导入15/218不变。
+已确定1/2/3命令、内层顺序/接线与两类返回静态可追；低两位零的未写值/C++行为/原栈等价、真实模式/可达域和运行不评通过。P07/C12/U04/U05/V04、任务10/60/叶0/182与完整门禁不提升。

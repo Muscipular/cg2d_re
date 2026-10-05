@@ -221,6 +221,7 @@ std::int32_t gLegacyPetSkillCatalogPageD45F74 = 0; // 原虚拟零初值；旧58
 std::int32_t gLegacyPetSkillCatalogSelectionC8AF70 = 0;
 std::int32_t gLegacyPetSkillCatalogMessageD2E818 = 0;
 std::int32_t gLegacyPetSkillPetSelectionC8A94C = 0;
+std::int32_t gLegacyShopChoiceModeC9A94C = 0; // 原PE虚拟零S32；运行时生产仍须事实。
 // 原PE.data载入填零；人数/页数运行时生产仍待，不借现代名单计数。
 std::int32_t gLegacyTradeTargetCountD30134 = 0;
 std::int32_t gLegacyTradeTargetPageCountCF46D0 = 0;
@@ -434,7 +435,15 @@ constexpr char kLegacyRepairAcceptHint589084[] = "\xAD\xD7\xB2\x7A\xA1\x43";
 constexpr char kLegacyRepairQuestion58908C[] = "\xAD\xD7\xB2\x7A\xA5\x48\xA4\x57\xAA\xAB\xAB\x7E\xA1\x43\xA5\x69\xA5\x48\xB6\xDC\xA1\x48";
 constexpr char kLegacyRepairSummary5890A4[] = "\xAB\xF9\xA6\xB3\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4\x20\x20\x20\x20\xAD\xD7\xB2\x7A\xAA\xF7\xC3\x42\x20\x20\x25\x37\x64\x20\xAA\xF7\xB9\xF4";
 
-// 原旧62的独立面板与非拥有预览槽；父入口4D8DA0的模式边界仍待决。
+// SCP01旧62完整本体承载；独立面板/预览复用，模式生产与未写命令仍未闭。
+constexpr char kLegacyShopBuyInitial588DCC[] = "\x20\xB7\x51\x20\xB6\x52\x20";
+constexpr char kLegacyShopSellInitial588DC4[] = "\x20\xB7\x51\x20\xBD\xE6\x20";
+constexpr char kLegacyShopStopInitial588DB8[] = "\xA4\xA3\x20\xA5\xB2\x20\xA4\x46";
+constexpr char kLegacyShopBuy588DAC[] = "\x20\x20\xB7\x51\x20\x20\xB6\x52";
+constexpr char kLegacyShopSell588DA0[] = "\x20\x20\xB7\x51\x20\x20\xBD\xE6";
+constexpr char kLegacyShopCancel588D94[] = "\x20\xA4\xA3\x20\xA5\xB2\x20\xA4\x46";
+constexpr char kLegacyShopBuyHint588D84[] = "\xC1\xCA\xB6\x52\xA6\xB9\xA9\xB1\xAA\xAB\xAB\x7E\xA1\x43";
+constexpr char kLegacyShopSellHint588D70[] = "\xB1\x4E\xAA\xAB\xAB\x7E\xBD\xE6\xB5\xB9\xA6\xB9\xA9\xB1\xA1\x43";
 LegacyPanelRecord gLegacyShopChoicePanel5822D8 {
     0, 0, 292, 260, 62, {23050, 0, 0, 0, 0}, {}, 0, 0, {}, {},
 };
@@ -3851,6 +3860,122 @@ YobiAction* Sub_4D8D70()
     YobiAction* const action = Sub_4F9FF0(image, x + 45, y + 133, 213);
     gLegacyShopChoiceActionD67C68 = action;
     return action;
+}
+
+std::uintptr_t Sub_4D8DA0(const std::int32_t opened)
+{
+    const std::int32_t x = gLegacyShopChoicePanel5822D8.x;
+    const std::int32_t y = gLegacyShopChoicePanel5822D8.y;
+    std::array<character_select::detail::CharacterModalUiRecord, 3> options {{
+        {x + 137, y + 164, x + 112, y + 164, 136, 18, kLegacyShopBuyInitial588DCC},
+        {x + 137, y + 190, x + 112, y + 190, 136, 18, kLegacyShopSellInitial588DC4},
+        {x + 137, y + 216, x + 112, y + 216, 136, 18, kLegacyShopStopInitial588DB8},
+    }};
+    // 原三个W32只按低位分支/取消写入；低两位全零的第二命令未写，不能补默认值。
+    std::array<std::int32_t, 3> commands;
+    char buffer[16];
+    char escaped[16];
+    const std::int32_t state = Sub_503160(opened, &gLegacyShopChoicePanel5822D8,
+        +[] { static_cast<void>(Sub_4D8D70()); }, 1);
+    if (state == 0) {
+        return 0;
+    }
+    if (state == 2) {
+        YobiAction* result = gLegacyShopChoiceActionD67C68;
+        world::detail::gValue581800 = -1;
+        if (result != nullptr) {
+            result = MarkDeath(result);
+            gLegacyShopChoiceActionD67C68 = nullptr;
+        }
+        return reinterpret_cast<std::uintptr_t>(result);
+    }
+    if (gLegacyShopChoiceActionD67C68 != nullptr) {
+        gLegacyShopChoiceActionD67C68->flags &= ~2U;
+    }
+    if (ui::detail::Sub_4D3040(2, 2) != 0) {
+        static_cast<void>(audio::Sub_5042D0(gLegacyShopChoicePanel5822D8.id));
+    }
+
+    const std::int32_t mode = gLegacyShopChoiceModeC9A94C;
+    const std::int32_t count = mode == 3 ? 3 : 2;
+    std::int32_t next = 0;
+    if ((mode & 1) != 0) {
+        options[0].text = kLegacyShopBuy588DAC;
+        commands[0] = 1;
+        next = 1;
+    }
+    if ((mode & 2) != 0) {
+        commands[next] = 2;
+        options[next].text = kLegacyShopSell588DA0;
+        ++next;
+    }
+    commands[next] = 3;
+    options[next].text = kLegacyShopCancel588D94;
+    for (std::int32_t row = 0; row < count; ++row) {
+        if ((character_select::detail::Sub_503990(&options[row]) & 1) != 0) {
+            if (row <= 1) {
+                platform::FormatLegacyString_53B304(buffer, "%d", commands[row]);
+                static_cast<void>(input::Stringify_52D2D0(buffer, escaped, 15));
+                const std::int32_t target = world::detail::gDialogTargetD2DE6C;
+                const std::int32_t request = world::detail::gDialogRequestCC21E0;
+                const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
+                const std::int32_t playerX = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerX);
+                const auto socket = platform::gConnectionSocket;
+                static_cast<void>(network::Sub_512620(socket, playerX, playerY,
+                    request, target, 0, escaped));
+            }
+            static_cast<void>(audio::PlaySe_52C450(79, 320));
+            static_cast<void>(audio::Sub_5042D0(gLegacyShopChoicePanel5822D8.id));
+        }
+    }
+
+    const auto* const lines = ui::detail::BorrowNpcDialogLinesCC24D4();
+    const std::int32_t titleWidth = TextMeasure(lines[0].text.data(), 0);
+    const std::int32_t titleY = gLegacyShopChoicePanel5822D8.y + 8;
+    const std::int32_t titleX = gLegacyShopChoicePanel5822D8.x - titleWidth / 2 + 142;
+    static_cast<void>(DrawText(static_cast<std::int16_t>(titleX),
+        static_cast<std::int16_t>(titleY), 2, 0, 0, lines[0].text.data(), 0, 0));
+    for (std::int32_t row = 0; row < 5; ++row) {
+        const std::int32_t top = gLegacyShopChoicePanel5822D8.y + 16 * (row + 3);
+        const std::int32_t left = gLegacyShopChoicePanel5822D8.x + 90;
+        static_cast<void>(DrawText(static_cast<std::int16_t>(left),
+            static_cast<std::int16_t>(top), 2, 0, 0, lines[row + 1].text.data(), 0, 0));
+    }
+    for (std::int32_t row = 0; row < count; ++row) {
+        static_cast<void>(character_select::detail::Sub_503A20(
+            &options[row], 2, 0, 1, gValueD69768, 218));
+    }
+    const char* hint = nullptr;
+    if (count == 3) {
+        if (Sub_503590(&gLegacyShopChoicePanel5822D8) != 0) {
+            hint = kLegacyLogout553FD0;
+        } else if ((character_select::detail::Sub_503990(&options[0]) & 0x40) != 0) {
+            hint = kLegacyShopBuyHint588D84;
+        } else if ((character_select::detail::Sub_503990(&options[1]) & 0x40) != 0) {
+            hint = kLegacyShopSellHint588D70;
+        } else if ((character_select::detail::Sub_503990(&options[2]) & 0x40) != 0) {
+            hint = kLegacyTradeCancel5889AC;
+        }
+    } else {
+        if (Sub_503590(&gLegacyShopChoicePanel5822D8) != 0) {
+            hint = kLegacyLogout553FD0;
+        } else {
+            const std::int32_t firstState = character_select::detail::Sub_503990(&options[0]);
+            const std::int32_t firstCommand = commands[0];
+            if ((firstState & 0x40) != 0 && firstCommand == 1) {
+                hint = kLegacyShopBuyHint588D84;
+            } else if ((character_select::detail::Sub_503990(&options[0]) & 0x40) != 0
+                && firstCommand == 2) {
+                hint = kLegacyShopSellHint588D70;
+            } else if ((character_select::detail::Sub_503990(&options[1]) & 0x40) != 0) {
+                hint = kLegacyTradeCancel5889AC;
+            }
+        }
+    }
+    if (hint != nullptr) {
+        std::strcpy(ui::detail::gHoverTextD68AE8.data(), hint);
+    }
+    return Sub_503440(&gLegacyShopChoicePanel5822D8, 1);
 }
 
 YobiAction* Sub_4D91E0()

@@ -45,6 +45,7 @@ extern std::int32_t gLegacyPetSkillCatalogPageD45F74; // 唯一存储在LegacyUi
 extern std::int32_t gLegacyPetSkillCatalogSelectionC8AF70; // 旧58发布相对行，旧59/60/61共用。
 extern std::int32_t gLegacyPetSkillCatalogMessageD2E818; // 旧58错误说明选择，不属于邻接确认表。
 extern std::int32_t gLegacyPetSkillPetSelectionC8A94C; // 旧59发送后发布的候选下标，旧60/61消费。
+extern std::int32_t gLegacyShopChoiceModeC9A94C; // 旧62独立S32模式，生产/未写第二命令仍待事实。
 
 // 名单容量/定义/生产仍待；总数/页数已有真实PE填零初值存储，不推运行时生产。
 extern std::array<char, 17> gLegacyTradeTargetNamesCB1D1C[];
@@ -178,6 +179,7 @@ std::uint32_t Sub_4E4EA0(std::int32_t opened); // 旧51交易目标消费，发�
 std::uint32_t Sub_4F0CD0(std::int32_t opened); // 旧81固定文字提示；无格式指令的额外值不产生业务状态。
 std::uint32_t Sub_4F0E20(std::int32_t opened); // 旧82固定文字提示，完整确认/关闭及W32返回。
 YobiAction* Sub_4D8D70(); // 旧62预览初始化：借同源图号，发布并返回工厂结果。
+std::uintptr_t Sub_4D8DA0(std::int32_t opened); // 旧62三记录本体，W32/预览指针返回；模式边界未验。
 YobiAction* Sub_4D91E0(); // 旧63独立图号预览，发布D67C6C。
 std::uintptr_t Sub_4D9220(std::int32_t opened); // 旧63买入列表，正常返回相对悬停W32，关闭返回预览指针。
 void Sub_4DA400(std::int32_t x, std::int32_t y, std::int32_t index,

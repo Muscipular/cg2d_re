@@ -1,0 +1,1996 @@
+{
+  "schema_version": 1,
+  "step": "SCP01",
+  "recorded_on": "2026-10-05",
+  "scope": "完整旧62本体源承载；模式生产/未写命令/真实外路由未闭，不登记运行",
+  "original_root": {
+    "start": "0x4d8da0",
+    "end_exclusive": "0x4d91d8",
+    "instructions": [
+      {
+        "ea": "0x4d8da0",
+        "size": 6,
+        "line": "sub     esp, 80h"
+      },
+      {
+        "ea": "0x4d8da6",
+        "size": 6,
+        "line": "mov     ecx, dword_5822D8"
+      },
+      {
+        "ea": "0x4d8dac",
+        "size": 6,
+        "line": "mov     edx, dword_5822DC"
+      },
+      {
+        "ea": "0x4d8db2",
+        "size": 1,
+        "line": "push    ebx"
+      },
+      {
+        "ea": "0x4d8db3",
+        "size": 1,
+        "line": "push    esi"
+      },
+      {
+        "ea": "0x4d8db4",
+        "size": 6,
+        "line": "lea     eax, [ecx+89h]"
+      },
+      {
+        "ea": "0x4d8dba",
+        "size": 1,
+        "line": "push    edi"
+      },
+      {
+        "ea": "0x4d8dbb",
+        "size": 4,
+        "line": "mov     [esp+8Ch+var_54], eax"
+      },
+      {
+        "ea": "0x4d8dbf",
+        "size": 4,
+        "line": "mov     [esp+8Ch+var_38], eax"
+      },
+      {
+        "ea": "0x4d8dc3",
+        "size": 4,
+        "line": "mov     [esp+8Ch+var_1C], eax"
+      },
+      {
+        "ea": "0x4d8dc7",
+        "size": 6,
+        "line": "lea     eax, [edx+0D8h]"
+      },
+      {
+        "ea": "0x4d8dcd",
+        "size": 6,
+        "line": "lea     esi, [edx+0A4h]"
+      },
+      {
+        "ea": "0x4d8dd3",
+        "size": 4,
+        "line": "mov     [esp+8Ch+var_18], eax"
+      },
+      {
+        "ea": "0x4d8dd7",
+        "size": 4,
+        "line": "mov     [esp+8Ch+var_10], eax"
+      },
+      {
+        "ea": "0x4d8ddb",
+        "size": 7,
+        "line": "mov     eax, [esp+8Ch+arg_0]"
+      },
+      {
+        "ea": "0x4d8de2",
+        "size": 2,
+        "line": "push    1"
+      },
+      {
+        "ea": "0x4d8de4",
+        "size": 4,
+        "line": "mov     [esp+90h+var_50], esi"
+      },
+      {
+        "ea": "0x4d8de8",
+        "size": 4,
+        "line": "mov     [esp+90h+var_48], esi"
+      },
+      {
+        "ea": "0x4d8dec",
+        "size": 5,
+        "line": "push    offset sub_4D8D70"
+      },
+      {
+        "ea": "0x4d8df1",
+        "size": 3,
+        "line": "add     ecx, 70h ; 'p'"
+      },
+      {
+        "ea": "0x4d8df4",
+        "size": 5,
+        "line": "mov     ebx, 88h"
+      },
+      {
+        "ea": "0x4d8df9",
+        "size": 5,
+        "line": "mov     edi, 12h"
+      },
+      {
+        "ea": "0x4d8dfe",
+        "size": 6,
+        "line": "lea     esi, [edx+0BEh]"
+      },
+      {
+        "ea": "0x4d8e04",
+        "size": 5,
+        "line": "push    offset dword_5822D8"
+      },
+      {
+        "ea": "0x4d8e09",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d8e0a",
+        "size": 4,
+        "line": "mov     [esp+9Ch+var_4C], ecx"
+      },
+      {
+        "ea": "0x4d8e0e",
+        "size": 4,
+        "line": "mov     [esp+9Ch+var_44], ebx"
+      },
+      {
+        "ea": "0x4d8e12",
+        "size": 4,
+        "line": "mov     [esp+9Ch+var_40], edi"
+      },
+      {
+        "ea": "0x4d8e16",
+        "size": 8,
+        "line": "mov     [esp+9Ch+var_3C], offset asc_588DCC; \" 想 買 \""
+      },
+      {
+        "ea": "0x4d8e1e",
+        "size": 4,
+        "line": "mov     [esp+9Ch+var_34], esi"
+      },
+      {
+        "ea": "0x4d8e22",
+        "size": 4,
+        "line": "mov     [esp+9Ch+var_30], ecx"
+      },
+      {
+        "ea": "0x4d8e26",
+        "size": 4,
+        "line": "mov     [esp+9Ch+var_2C], esi"
+      },
+      {
+        "ea": "0x4d8e2a",
+        "size": 4,
+        "line": "mov     [esp+9Ch+var_28], ebx"
+      },
+      {
+        "ea": "0x4d8e2e",
+        "size": 4,
+        "line": "mov     [esp+9Ch+var_24], edi"
+      },
+      {
+        "ea": "0x4d8e32",
+        "size": 8,
+        "line": "mov     [esp+9Ch+var_20], offset asc_588DC4; \" 想 賣 \""
+      },
+      {
+        "ea": "0x4d8e3a",
+        "size": 7,
+        "line": "mov     [esp+9Ch+var_14], ecx"
+      },
+      {
+        "ea": "0x4d8e41",
+        "size": 7,
+        "line": "mov     [esp+9Ch+var_C], ebx"
+      },
+      {
+        "ea": "0x4d8e48",
+        "size": 7,
+        "line": "mov     [esp+9Ch+var_8], edi"
+      },
+      {
+        "ea": "0x4d8e4f",
+        "size": 11,
+        "line": "mov     [esp+9Ch+var_4], offset asc_588DB8; \"不 必 了\""
+      },
+      {
+        "ea": "0x4d8e5a",
+        "size": 5,
+        "line": "call    sub_503160"
+      },
+      {
+        "ea": "0x4d8e5f",
+        "size": 2,
+        "line": "xor     esi, esi"
+      },
+      {
+        "ea": "0x4d8e61",
+        "size": 3,
+        "line": "add     esp, 10h"
+      },
+      {
+        "ea": "0x4d8e64",
+        "size": 2,
+        "line": "cmp     eax, esi"
+      },
+      {
+        "ea": "0x4d8e66",
+        "size": 6,
+        "line": "jz      loc_4D91CE"
+      },
+      {
+        "ea": "0x4d8e6c",
+        "size": 3,
+        "line": "cmp     eax, 2"
+      },
+      {
+        "ea": "0x4d8e6f",
+        "size": 2,
+        "line": "jnz     short loc_4D8EA1"
+      },
+      {
+        "ea": "0x4d8e71",
+        "size": 5,
+        "line": "mov     eax, dword_D67C68"
+      },
+      {
+        "ea": "0x4d8e76",
+        "size": 10,
+        "line": "mov     dword_581800, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x4d8e80",
+        "size": 2,
+        "line": "cmp     eax, esi"
+      },
+      {
+        "ea": "0x4d8e82",
+        "size": 6,
+        "line": "jz      loc_4D91CE"
+      },
+      {
+        "ea": "0x4d8e88",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d8e89",
+        "size": 5,
+        "line": "call    Yobi__MarkDeath"
+      },
+      {
+        "ea": "0x4d8e8e",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d8e91",
+        "size": 6,
+        "line": "mov     dword_D67C68, esi"
+      },
+      {
+        "ea": "0x4d8e97",
+        "size": 1,
+        "line": "pop     edi"
+      },
+      {
+        "ea": "0x4d8e98",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x4d8e99",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x4d8e9a",
+        "size": 6,
+        "line": "add     esp, 80h"
+      },
+      {
+        "ea": "0x4d8ea0",
+        "size": 1,
+        "line": "retn"
+      },
+      {
+        "ea": "0x4d8ea1",
+        "size": 5,
+        "line": "mov     eax, dword_D67C68"
+      },
+      {
+        "ea": "0x4d8ea6",
+        "size": 2,
+        "line": "cmp     eax, esi"
+      },
+      {
+        "ea": "0x4d8ea8",
+        "size": 2,
+        "line": "jz      short loc_4D8EAE"
+      },
+      {
+        "ea": "0x4d8eaa",
+        "size": 4,
+        "line": "and     dword ptr [eax+24h], 0FFFFFFFDh"
+      },
+      {
+        "ea": "0x4d8eae",
+        "size": 2,
+        "line": "push    2"
+      },
+      {
+        "ea": "0x4d8eb0",
+        "size": 2,
+        "line": "push    2"
+      },
+      {
+        "ea": "0x4d8eb2",
+        "size": 5,
+        "line": "call    sub_4D3040"
+      },
+      {
+        "ea": "0x4d8eb7",
+        "size": 3,
+        "line": "add     esp, 8"
+      },
+      {
+        "ea": "0x4d8eba",
+        "size": 2,
+        "line": "test    eax, eax"
+      },
+      {
+        "ea": "0x4d8ebc",
+        "size": 2,
+        "line": "jz      short loc_4D8ECD"
+      },
+      {
+        "ea": "0x4d8ebe",
+        "size": 6,
+        "line": "mov     ecx, dword_5822E8"
+      },
+      {
+        "ea": "0x4d8ec4",
+        "size": 1,
+        "line": "push    ecx"
+      },
+      {
+        "ea": "0x4d8ec5",
+        "size": 5,
+        "line": "call    sub_5042D0"
+      },
+      {
+        "ea": "0x4d8eca",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d8ecd",
+        "size": 6,
+        "line": "mov     ecx, dword_C9A94C"
+      },
+      {
+        "ea": "0x4d8ed3",
+        "size": 2,
+        "line": "xor     edx, edx"
+      },
+      {
+        "ea": "0x4d8ed5",
+        "size": 3,
+        "line": "cmp     ecx, 3"
+      },
+      {
+        "ea": "0x4d8ed8",
+        "size": 1,
+        "line": "push    ebp"
+      },
+      {
+        "ea": "0x4d8ed9",
+        "size": 3,
+        "line": "setz    dl"
+      },
+      {
+        "ea": "0x4d8edc",
+        "size": 3,
+        "line": "add     edx, 2"
+      },
+      {
+        "ea": "0x4d8edf",
+        "size": 2,
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x4d8ee1",
+        "size": 3,
+        "line": "test    cl, 1"
+      },
+      {
+        "ea": "0x4d8ee4",
+        "size": 2,
+        "line": "mov     ebp, edx"
+      },
+      {
+        "ea": "0x4d8ee6",
+        "size": 2,
+        "line": "jz      short loc_4D8EFD"
+      },
+      {
+        "ea": "0x4d8ee8",
+        "size": 8,
+        "line": "mov     [esp+90h+var_3C], offset asc_588DAC; \"  想  買\""
+      },
+      {
+        "ea": "0x4d8ef0",
+        "size": 8,
+        "line": "mov     [esp+90h+var_80], 1"
+      },
+      {
+        "ea": "0x4d8ef8",
+        "size": 5,
+        "line": "mov     eax, 1"
+      },
+      {
+        "ea": "0x4d8efd",
+        "size": 3,
+        "line": "test    cl, 2"
+      },
+      {
+        "ea": "0x4d8f00",
+        "size": 2,
+        "line": "jz      short loc_4D8F1C"
+      },
+      {
+        "ea": "0x4d8f02",
+        "size": 7,
+        "line": "lea     ecx, ds:0[eax*8]"
+      },
+      {
+        "ea": "0x4d8f09",
+        "size": 8,
+        "line": "mov     [esp+eax*4+90h+var_80], 2"
+      },
+      {
+        "ea": "0x4d8f11",
+        "size": 2,
+        "line": "sub     ecx, eax"
+      },
+      {
+        "ea": "0x4d8f13",
+        "size": 1,
+        "line": "inc     eax"
+      },
+      {
+        "ea": "0x4d8f14",
+        "size": 8,
+        "line": "mov     [esp+ecx*4+90h+var_3C], offset asc_588DA0; \"  想  賣\""
+      },
+      {
+        "ea": "0x4d8f1c",
+        "size": 7,
+        "line": "lea     edx, ds:0[eax*8]"
+      },
+      {
+        "ea": "0x4d8f23",
+        "size": 8,
+        "line": "mov     [esp+eax*4+90h+var_80], 3"
+      },
+      {
+        "ea": "0x4d8f2b",
+        "size": 2,
+        "line": "sub     edx, eax"
+      },
+      {
+        "ea": "0x4d8f2d",
+        "size": 2,
+        "line": "cmp     ebp, esi"
+      },
+      {
+        "ea": "0x4d8f2f",
+        "size": 8,
+        "line": "mov     [esp+edx*4+90h+var_3C], offset asc_588D94; \" 不 必 了\""
+      },
+      {
+        "ea": "0x4d8f37",
+        "size": 6,
+        "line": "jle     loc_4D8FE9"
+      },
+      {
+        "ea": "0x4d8f3d",
+        "size": 4,
+        "line": "lea     edi, [esp+90h+var_80]"
+      },
+      {
+        "ea": "0x4d8f41",
+        "size": 4,
+        "line": "lea     ebx, [esp+90h+var_54]"
+      },
+      {
+        "ea": "0x4d8f45",
+        "size": 1,
+        "line": "push    ebx"
+      },
+      {
+        "ea": "0x4d8f46",
+        "size": 5,
+        "line": "call    sub_503990"
+      },
+      {
+        "ea": "0x4d8f4b",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d8f4e",
+        "size": 2,
+        "line": "test    al, 1"
+      },
+      {
+        "ea": "0x4d8f50",
+        "size": 6,
+        "line": "jz      loc_4D8FDA"
+      },
+      {
+        "ea": "0x4d8f56",
+        "size": 3,
+        "line": "cmp     esi, 1"
+      },
+      {
+        "ea": "0x4d8f59",
+        "size": 2,
+        "line": "jg      short loc_4D8FBA"
+      },
+      {
+        "ea": "0x4d8f5b",
+        "size": 2,
+        "line": "mov     eax, [edi]"
+      },
+      {
+        "ea": "0x4d8f5d",
+        "size": 4,
+        "line": "lea     ecx, [esp+90h+Buffer]"
+      },
+      {
+        "ea": "0x4d8f61",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d8f62",
+        "size": 5,
+        "line": "push    offset aD_0; \"%d\""
+      },
+      {
+        "ea": "0x4d8f67",
+        "size": 1,
+        "line": "push    ecx; Buffer"
+      },
+      {
+        "ea": "0x4d8f68",
+        "size": 5,
+        "line": "call    _sprintf"
+      },
+      {
+        "ea": "0x4d8f6d",
+        "size": 4,
+        "line": "lea     edx, [esp+9Ch+var_64]"
+      },
+      {
+        "ea": "0x4d8f71",
+        "size": 2,
+        "line": "push    0Fh"
+      },
+      {
+        "ea": "0x4d8f73",
+        "size": 4,
+        "line": "lea     eax, [esp+0A0h+Buffer]"
+      },
+      {
+        "ea": "0x4d8f77",
+        "size": 1,
+        "line": "push    edx"
+      },
+      {
+        "ea": "0x4d8f78",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d8f79",
+        "size": 5,
+        "line": "call    sub_52D2D0"
+      },
+      {
+        "ea": "0x4d8f7e",
+        "size": 6,
+        "line": "mov     edx, dword_D2DE6C"
+      },
+      {
+        "ea": "0x4d8f84",
+        "size": 5,
+        "line": "mov     eax, dword_CC21E0"
+      },
+      {
+        "ea": "0x4d8f89",
+        "size": 3,
+        "line": "add     esp, 18h"
+      },
+      {
+        "ea": "0x4d8f8c",
+        "size": 4,
+        "line": "lea     ecx, [esp+90h+var_64]"
+      },
+      {
+        "ea": "0x4d8f90",
+        "size": 1,
+        "line": "push    ecx"
+      },
+      {
+        "ea": "0x4d8f91",
+        "size": 2,
+        "line": "push    0"
+      },
+      {
+        "ea": "0x4d8f93",
+        "size": 1,
+        "line": "push    edx"
+      },
+      {
+        "ea": "0x4d8f94",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d8f95",
+        "size": 5,
+        "line": "mov     ecx, offset gPlayerY"
+      },
+      {
+        "ea": "0x4d8f9a",
+        "size": 5,
+        "line": "call    CryptInt__GetVal"
+      },
+      {
+        "ea": "0x4d8f9f",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d8fa0",
+        "size": 5,
+        "line": "mov     ecx, offset gPlayerX"
+      },
+      {
+        "ea": "0x4d8fa5",
+        "size": 5,
+        "line": "call    CryptInt__GetVal"
+      },
+      {
+        "ea": "0x4d8faa",
+        "size": 6,
+        "line": "mov     ecx, s"
+      },
+      {
+        "ea": "0x4d8fb0",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d8fb1",
+        "size": 1,
+        "line": "push    ecx"
+      },
+      {
+        "ea": "0x4d8fb2",
+        "size": 5,
+        "line": "call    sub_512620"
+      },
+      {
+        "ea": "0x4d8fb7",
+        "size": 3,
+        "line": "add     esp, 1Ch"
+      },
+      {
+        "ea": "0x4d8fba",
+        "size": 5,
+        "line": "push    0F0h"
+      },
+      {
+        "ea": "0x4d8fbf",
+        "size": 5,
+        "line": "push    140h"
+      },
+      {
+        "ea": "0x4d8fc4",
+        "size": 2,
+        "line": "push    4Fh ; 'O'"
+      },
+      {
+        "ea": "0x4d8fc6",
+        "size": 5,
+        "line": "call    World__PlaySe"
+      },
+      {
+        "ea": "0x4d8fcb",
+        "size": 6,
+        "line": "mov     edx, dword_5822E8"
+      },
+      {
+        "ea": "0x4d8fd1",
+        "size": 1,
+        "line": "push    edx"
+      },
+      {
+        "ea": "0x4d8fd2",
+        "size": 5,
+        "line": "call    sub_5042D0"
+      },
+      {
+        "ea": "0x4d8fd7",
+        "size": 3,
+        "line": "add     esp, 10h"
+      },
+      {
+        "ea": "0x4d8fda",
+        "size": 1,
+        "line": "inc     esi"
+      },
+      {
+        "ea": "0x4d8fdb",
+        "size": 3,
+        "line": "add     ebx, 1Ch"
+      },
+      {
+        "ea": "0x4d8fde",
+        "size": 3,
+        "line": "add     edi, 4"
+      },
+      {
+        "ea": "0x4d8fe1",
+        "size": 2,
+        "line": "cmp     esi, ebp"
+      },
+      {
+        "ea": "0x4d8fe3",
+        "size": 6,
+        "line": "jl      loc_4D8F45"
+      },
+      {
+        "ea": "0x4d8fe9",
+        "size": 2,
+        "line": "push    0"
+      },
+      {
+        "ea": "0x4d8feb",
+        "size": 5,
+        "line": "push    offset byte_CC24D4"
+      },
+      {
+        "ea": "0x4d8ff0",
+        "size": 5,
+        "line": "call    TextMeasure"
+      },
+      {
+        "ea": "0x4d8ff5",
+        "size": 6,
+        "line": "mov     ecx, dword_5822DC"
+      },
+      {
+        "ea": "0x4d8ffb",
+        "size": 2,
+        "line": "push    0; a8"
+      },
+      {
+        "ea": "0x4d8ffd",
+        "size": 1,
+        "line": "cdq"
+      },
+      {
+        "ea": "0x4d8ffe",
+        "size": 2,
+        "line": "sub     eax, edx"
+      },
+      {
+        "ea": "0x4d9000",
+        "size": 6,
+        "line": "mov     edx, dword_5822D8"
+      },
+      {
+        "ea": "0x4d9006",
+        "size": 2,
+        "line": "push    0; a7"
+      },
+      {
+        "ea": "0x4d9008",
+        "size": 5,
+        "line": "push    offset byte_CC24D4; a6"
+      },
+      {
+        "ea": "0x4d900d",
+        "size": 2,
+        "line": "sar     eax, 1"
+      },
+      {
+        "ea": "0x4d900f",
+        "size": 2,
+        "line": "push    0; a5"
+      },
+      {
+        "ea": "0x4d9011",
+        "size": 2,
+        "line": "sub     edx, eax"
+      },
+      {
+        "ea": "0x4d9013",
+        "size": 2,
+        "line": "push    0; a4"
+      },
+      {
+        "ea": "0x4d9015",
+        "size": 3,
+        "line": "add     ecx, 8"
+      },
+      {
+        "ea": "0x4d9018",
+        "size": 2,
+        "line": "push    2; a3"
+      },
+      {
+        "ea": "0x4d901a",
+        "size": 6,
+        "line": "add     edx, 8Eh"
+      },
+      {
+        "ea": "0x4d9020",
+        "size": 1,
+        "line": "push    ecx; a2"
+      },
+      {
+        "ea": "0x4d9021",
+        "size": 1,
+        "line": "push    edx; a1"
+      },
+      {
+        "ea": "0x4d9022",
+        "size": 5,
+        "line": "call    Renderer__DrawText"
+      },
+      {
+        "ea": "0x4d9027",
+        "size": 3,
+        "line": "add     esp, 28h"
+      },
+      {
+        "ea": "0x4d902a",
+        "size": 2,
+        "line": "xor     edi, edi"
+      },
+      {
+        "ea": "0x4d902c",
+        "size": 5,
+        "line": "mov     esi, offset stru_CC2525"
+      },
+      {
+        "ea": "0x4d9031",
+        "size": 6,
+        "line": "mov     edx, dword_5822DC"
+      },
+      {
+        "ea": "0x4d9037",
+        "size": 6,
+        "line": "mov     ecx, dword_5822D8"
+      },
+      {
+        "ea": "0x4d903d",
+        "size": 2,
+        "line": "push    0; a8"
+      },
+      {
+        "ea": "0x4d903f",
+        "size": 3,
+        "line": "lea     eax, [edi+3]"
+      },
+      {
+        "ea": "0x4d9042",
+        "size": 2,
+        "line": "push    0; a7"
+      },
+      {
+        "ea": "0x4d9044",
+        "size": 1,
+        "line": "push    esi; a6"
+      },
+      {
+        "ea": "0x4d9045",
+        "size": 3,
+        "line": "shl     eax, 4"
+      },
+      {
+        "ea": "0x4d9048",
+        "size": 2,
+        "line": "push    0; a5"
+      },
+      {
+        "ea": "0x4d904a",
+        "size": 2,
+        "line": "push    0; a4"
+      },
+      {
+        "ea": "0x4d904c",
+        "size": 2,
+        "line": "add     eax, edx"
+      },
+      {
+        "ea": "0x4d904e",
+        "size": 2,
+        "line": "push    2; a3"
+      },
+      {
+        "ea": "0x4d9050",
+        "size": 3,
+        "line": "add     ecx, 5Ah ; 'Z'"
+      },
+      {
+        "ea": "0x4d9053",
+        "size": 1,
+        "line": "push    eax; a2"
+      },
+      {
+        "ea": "0x4d9054",
+        "size": 1,
+        "line": "push    ecx; a1"
+      },
+      {
+        "ea": "0x4d9055",
+        "size": 5,
+        "line": "call    Renderer__DrawText"
+      },
+      {
+        "ea": "0x4d905a",
+        "size": 3,
+        "line": "add     esp, 20h"
+      },
+      {
+        "ea": "0x4d905d",
+        "size": 3,
+        "line": "add     esi, 51h ; 'Q'"
+      },
+      {
+        "ea": "0x4d9060",
+        "size": 1,
+        "line": "inc     edi"
+      },
+      {
+        "ea": "0x4d9061",
+        "size": 6,
+        "line": "cmp     esi, (offset stru_CC2669.field_0+51h)"
+      },
+      {
+        "ea": "0x4d9067",
+        "size": 2,
+        "line": "jl      short loc_4D9031"
+      },
+      {
+        "ea": "0x4d9069",
+        "size": 2,
+        "line": "test    ebp, ebp"
+      },
+      {
+        "ea": "0x4d906b",
+        "size": 2,
+        "line": "jle     short loc_4D9094"
+      },
+      {
+        "ea": "0x4d906d",
+        "size": 4,
+        "line": "lea     esi, [esp+90h+var_54]"
+      },
+      {
+        "ea": "0x4d9071",
+        "size": 2,
+        "line": "mov     edi, ebp"
+      },
+      {
+        "ea": "0x4d9073",
+        "size": 6,
+        "line": "mov     edx, gHoverImageSeq"
+      },
+      {
+        "ea": "0x4d9079",
+        "size": 5,
+        "line": "push    0DAh"
+      },
+      {
+        "ea": "0x4d907e",
+        "size": 1,
+        "line": "push    edx"
+      },
+      {
+        "ea": "0x4d907f",
+        "size": 2,
+        "line": "push    1"
+      },
+      {
+        "ea": "0x4d9081",
+        "size": 2,
+        "line": "push    0"
+      },
+      {
+        "ea": "0x4d9083",
+        "size": 2,
+        "line": "push    2"
+      },
+      {
+        "ea": "0x4d9085",
+        "size": 1,
+        "line": "push    esi"
+      },
+      {
+        "ea": "0x4d9086",
+        "size": 5,
+        "line": "call    sub_503A20"
+      },
+      {
+        "ea": "0x4d908b",
+        "size": 3,
+        "line": "add     esp, 18h"
+      },
+      {
+        "ea": "0x4d908e",
+        "size": 3,
+        "line": "add     esi, 1Ch"
+      },
+      {
+        "ea": "0x4d9091",
+        "size": 1,
+        "line": "dec     edi"
+      },
+      {
+        "ea": "0x4d9092",
+        "size": 2,
+        "line": "jnz     short loc_4D9073"
+      },
+      {
+        "ea": "0x4d9094",
+        "size": 3,
+        "line": "cmp     ebp, 3"
+      },
+      {
+        "ea": "0x4d9097",
+        "size": 1,
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x4d9098",
+        "size": 5,
+        "line": "push    offset dword_5822D8"
+      },
+      {
+        "ea": "0x4d909d",
+        "size": 2,
+        "line": "jnz     short loc_4D911D"
+      },
+      {
+        "ea": "0x4d909f",
+        "size": 5,
+        "line": "call    sub_503590"
+      },
+      {
+        "ea": "0x4d90a4",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d90a7",
+        "size": 2,
+        "line": "test    eax, eax"
+      },
+      {
+        "ea": "0x4d90a9",
+        "size": 2,
+        "line": "jz      short loc_4D90D0"
+      },
+      {
+        "ea": "0x4d90ab",
+        "size": 5,
+        "line": "mov     edi, offset asc_553FD0; \"關閉視窗。\""
+      },
+      {
+        "ea": "0x4d90b0",
+        "size": 3,
+        "line": "or      ecx, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x4d90b3",
+        "size": 2,
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x4d90b5",
+        "size": 2,
+        "line": "repne scasb"
+      },
+      {
+        "ea": "0x4d90b7",
+        "size": 2,
+        "line": "not     ecx"
+      },
+      {
+        "ea": "0x4d90b9",
+        "size": 2,
+        "line": "sub     edi, ecx"
+      },
+      {
+        "ea": "0x4d90bb",
+        "size": 2,
+        "line": "mov     eax, ecx"
+      },
+      {
+        "ea": "0x4d90bd",
+        "size": 2,
+        "line": "mov     esi, edi"
+      },
+      {
+        "ea": "0x4d90bf",
+        "size": 5,
+        "line": "mov     edi, offset byte_D68AE8"
+      },
+      {
+        "ea": "0x4d90c4",
+        "size": 3,
+        "line": "shr     ecx, 2"
+      },
+      {
+        "ea": "0x4d90c7",
+        "size": 2,
+        "line": "rep movsd"
+      },
+      {
+        "ea": "0x4d90c9",
+        "size": 2,
+        "line": "mov     ecx, eax"
+      },
+      {
+        "ea": "0x4d90cb",
+        "size": 5,
+        "line": "jmp     loc_4D91BA"
+      },
+      {
+        "ea": "0x4d90d0",
+        "size": 4,
+        "line": "lea     ecx, [esp+8Ch+var_54]"
+      },
+      {
+        "ea": "0x4d90d4",
+        "size": 1,
+        "line": "push    ecx"
+      },
+      {
+        "ea": "0x4d90d5",
+        "size": 5,
+        "line": "call    sub_503990"
+      },
+      {
+        "ea": "0x4d90da",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d90dd",
+        "size": 2,
+        "line": "test    al, 40h"
+      },
+      {
+        "ea": "0x4d90df",
+        "size": 2,
+        "line": "jz      short loc_4D90EB"
+      },
+      {
+        "ea": "0x4d90e1",
+        "size": 5,
+        "line": "mov     edi, offset asc_588D84; \"購買此店物品。\""
+      },
+      {
+        "ea": "0x4d90e6",
+        "size": 5,
+        "line": "jmp     loc_4D919F"
+      },
+      {
+        "ea": "0x4d90eb",
+        "size": 4,
+        "line": "lea     eax, [esp+8Ch+var_38]"
+      },
+      {
+        "ea": "0x4d90ef",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d90f0",
+        "size": 5,
+        "line": "call    sub_503990"
+      },
+      {
+        "ea": "0x4d90f5",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d90f8",
+        "size": 2,
+        "line": "test    al, 40h"
+      },
+      {
+        "ea": "0x4d90fa",
+        "size": 2,
+        "line": "jz      short loc_4D9106"
+      },
+      {
+        "ea": "0x4d90fc",
+        "size": 5,
+        "line": "mov     edi, offset asc_588D70; \"將物品賣給此店。\""
+      },
+      {
+        "ea": "0x4d9101",
+        "size": 5,
+        "line": "jmp     loc_4D919F"
+      },
+      {
+        "ea": "0x4d9106",
+        "size": 4,
+        "line": "lea     eax, [esp+8Ch+var_1C]"
+      },
+      {
+        "ea": "0x4d910a",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d910b",
+        "size": 5,
+        "line": "call    sub_503990"
+      },
+      {
+        "ea": "0x4d9110",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d9113",
+        "size": 2,
+        "line": "test    al, 40h"
+      },
+      {
+        "ea": "0x4d9115",
+        "size": 6,
+        "line": "jz      loc_4D91BF"
+      },
+      {
+        "ea": "0x4d911b",
+        "size": 2,
+        "line": "jmp     short loc_4D919A"
+      },
+      {
+        "ea": "0x4d911d",
+        "size": 5,
+        "line": "call    sub_503590"
+      },
+      {
+        "ea": "0x4d9122",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d9125",
+        "size": 2,
+        "line": "test    eax, eax"
+      },
+      {
+        "ea": "0x4d9127",
+        "size": 2,
+        "line": "jz      short loc_4D914B"
+      },
+      {
+        "ea": "0x4d9129",
+        "size": 5,
+        "line": "mov     edi, offset asc_553FD0; \"關閉視窗。\""
+      },
+      {
+        "ea": "0x4d912e",
+        "size": 3,
+        "line": "or      ecx, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x4d9131",
+        "size": 2,
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x4d9133",
+        "size": 2,
+        "line": "repne scasb"
+      },
+      {
+        "ea": "0x4d9135",
+        "size": 2,
+        "line": "not     ecx"
+      },
+      {
+        "ea": "0x4d9137",
+        "size": 2,
+        "line": "sub     edi, ecx"
+      },
+      {
+        "ea": "0x4d9139",
+        "size": 2,
+        "line": "mov     eax, ecx"
+      },
+      {
+        "ea": "0x4d913b",
+        "size": 2,
+        "line": "mov     esi, edi"
+      },
+      {
+        "ea": "0x4d913d",
+        "size": 5,
+        "line": "mov     edi, offset byte_D68AE8"
+      },
+      {
+        "ea": "0x4d9142",
+        "size": 3,
+        "line": "shr     ecx, 2"
+      },
+      {
+        "ea": "0x4d9145",
+        "size": 2,
+        "line": "rep movsd"
+      },
+      {
+        "ea": "0x4d9147",
+        "size": 2,
+        "line": "mov     ecx, eax"
+      },
+      {
+        "ea": "0x4d9149",
+        "size": 2,
+        "line": "jmp     short loc_4D91BA"
+      },
+      {
+        "ea": "0x4d914b",
+        "size": 4,
+        "line": "lea     ecx, [esp+8Ch+var_54]"
+      },
+      {
+        "ea": "0x4d914f",
+        "size": 1,
+        "line": "push    ecx"
+      },
+      {
+        "ea": "0x4d9150",
+        "size": 5,
+        "line": "call    sub_503990"
+      },
+      {
+        "ea": "0x4d9155",
+        "size": 4,
+        "line": "mov     esi, [esp+90h+var_80]"
+      },
+      {
+        "ea": "0x4d9159",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d915c",
+        "size": 2,
+        "line": "test    al, 40h"
+      },
+      {
+        "ea": "0x4d915e",
+        "size": 2,
+        "line": "jz      short loc_4D916C"
+      },
+      {
+        "ea": "0x4d9160",
+        "size": 3,
+        "line": "cmp     esi, 1"
+      },
+      {
+        "ea": "0x4d9163",
+        "size": 2,
+        "line": "jnz     short loc_4D916C"
+      },
+      {
+        "ea": "0x4d9165",
+        "size": 5,
+        "line": "mov     edi, offset asc_588D84; \"購買此店物品。\""
+      },
+      {
+        "ea": "0x4d916a",
+        "size": 2,
+        "line": "jmp     short loc_4D919F"
+      },
+      {
+        "ea": "0x4d916c",
+        "size": 4,
+        "line": "lea     eax, [esp+8Ch+var_54]"
+      },
+      {
+        "ea": "0x4d9170",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d9171",
+        "size": 5,
+        "line": "call    sub_503990"
+      },
+      {
+        "ea": "0x4d9176",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d9179",
+        "size": 2,
+        "line": "test    al, 40h"
+      },
+      {
+        "ea": "0x4d917b",
+        "size": 2,
+        "line": "jz      short loc_4D9189"
+      },
+      {
+        "ea": "0x4d917d",
+        "size": 3,
+        "line": "cmp     esi, 2"
+      },
+      {
+        "ea": "0x4d9180",
+        "size": 2,
+        "line": "jnz     short loc_4D9189"
+      },
+      {
+        "ea": "0x4d9182",
+        "size": 5,
+        "line": "mov     edi, offset asc_588D70; \"將物品賣給此店。\""
+      },
+      {
+        "ea": "0x4d9187",
+        "size": 2,
+        "line": "jmp     short loc_4D919F"
+      },
+      {
+        "ea": "0x4d9189",
+        "size": 4,
+        "line": "lea     eax, [esp+8Ch+var_38]"
+      },
+      {
+        "ea": "0x4d918d",
+        "size": 1,
+        "line": "push    eax"
+      },
+      {
+        "ea": "0x4d918e",
+        "size": 5,
+        "line": "call    sub_503990"
+      },
+      {
+        "ea": "0x4d9193",
+        "size": 3,
+        "line": "add     esp, 4"
+      },
+      {
+        "ea": "0x4d9196",
+        "size": 2,
+        "line": "test    al, 40h"
+      },
+      {
+        "ea": "0x4d9198",
+        "size": 2,
+        "line": "jz      short loc_4D91BF"
+      },
+      {
+        "ea": "0x4d919a",
+        "size": 5,
+        "line": "mov     edi, offset asc_5889AC; \"停止交易。\""
+      },
+      {
+        "ea": "0x4d919f",
+        "size": 3,
+        "line": "or      ecx, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x4d91a2",
+        "size": 2,
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x4d91a4",
+        "size": 2,
+        "line": "repne scasb"
+      },
+      {
+        "ea": "0x4d91a6",
+        "size": 2,
+        "line": "not     ecx"
+      },
+      {
+        "ea": "0x4d91a8",
+        "size": 2,
+        "line": "sub     edi, ecx"
+      },
+      {
+        "ea": "0x4d91aa",
+        "size": 2,
+        "line": "mov     edx, ecx"
+      },
+      {
+        "ea": "0x4d91ac",
+        "size": 2,
+        "line": "mov     esi, edi"
+      },
+      {
+        "ea": "0x4d91ae",
+        "size": 5,
+        "line": "mov     edi, offset byte_D68AE8"
+      },
+      {
+        "ea": "0x4d91b3",
+        "size": 3,
+        "line": "shr     ecx, 2"
+      },
+      {
+        "ea": "0x4d91b6",
+        "size": 2,
+        "line": "rep movsd"
+      },
+      {
+        "ea": "0x4d91b8",
+        "size": 2,
+        "line": "mov     ecx, edx"
+      },
+      {
+        "ea": "0x4d91ba",
+        "size": 3,
+        "line": "and     ecx, 3"
+      },
+      {
+        "ea": "0x4d91bd",
+        "size": 2,
+        "line": "rep movsb"
+      },
+      {
+        "ea": "0x4d91bf",
+        "size": 2,
+        "line": "push    1"
+      },
+      {
+        "ea": "0x4d91c1",
+        "size": 5,
+        "line": "push    offset dword_5822D8"
+      },
+      {
+        "ea": "0x4d91c6",
+        "size": 5,
+        "line": "call    sub_503440"
+      },
+      {
+        "ea": "0x4d91cb",
+        "size": 3,
+        "line": "add     esp, 8"
+      },
+      {
+        "ea": "0x4d91ce",
+        "size": 1,
+        "line": "pop     edi"
+      },
+      {
+        "ea": "0x4d91cf",
+        "size": 1,
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x4d91d0",
+        "size": 1,
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x4d91d1",
+        "size": 6,
+        "line": "add     esp, 80h"
+      },
+      {
+        "ea": "0x4d91d7",
+        "size": 1,
+        "line": "retn"
+      }
+    ],
+    "incoming": []
+  },
+  "literal_bytes": [
+    {
+      "ea": "0x588dcc",
+      "bytes_with_nul": "20b75120b6522000",
+      "byte_count": 8
+    },
+    {
+      "ea": "0x588dc4",
+      "bytes_with_nul": "20b75120bde62000",
+      "byte_count": 8
+    },
+    {
+      "ea": "0x588db8",
+      "bytes_with_nul": "a4a320a5b220a44600",
+      "byte_count": 9
+    },
+    {
+      "ea": "0x588dac",
+      "bytes_with_nul": "2020b7512020b65200",
+      "byte_count": 9
+    },
+    {
+      "ea": "0x588da0",
+      "bytes_with_nul": "2020b7512020bde600",
+      "byte_count": 9
+    },
+    {
+      "ea": "0x588d94",
+      "bytes_with_nul": "20a4a320a5b220a44600",
+      "byte_count": 10
+    },
+    {
+      "ea": "0x588d84",
+      "bytes_with_nul": "c1cab652a6b9a9b1aaabab7ea14300",
+      "byte_count": 15
+    },
+    {
+      "ea": "0x588d70",
+      "bytes_with_nul": "b14eaaabab7ebde6b5b9a6b9a9b1a14300",
+      "byte_count": 17
+    },
+    {
+      "ea": "0x5889ac",
+      "bytes_with_nul": "b0b1a4eea5e6a9f6a14300",
+      "byte_count": 11
+    },
+    {
+      "ea": "0x553fd0",
+      "bytes_with_nul": "c3f6b3acb5f8b5a1a14300",
+      "byte_count": 11
+    },
+    {
+      "ea": "0x5531a4",
+      "bytes_with_nul": "256400",
+      "byte_count": 3
+    }
+  ],
+  "route": {
+    "base": "0x57C368",
+    "physical_index": 68,
+    "record": "0x57C8B8",
+    "handler_slot": "0x57C8BC",
+    "handler_token": "0x4D8DA0",
+    "new_callable_registered": false
+  },
+  "mode": {
+    "original": "0xC9A94C",
+    "width": "S32",
+    "initial": "PE虚拟零",
+    "existing_direct_reference": "0x4D8ECD",
+    "producer": null,
+    "new_owner": "gLegacyShopChoiceModeC9A94C"
+  },
+  "uninitialized_boundary": {
+    "original_slot_count": 3,
+    "write_rules": [
+      "低位1写命令1",
+      "低位2写命令2",
+      "最后写命令3"
+    ],
+    "scan_count": "mode==3为3，否则2",
+    "unwritten_case": "低两位全零时commands[1]未写，第二行可读；不猜原值，不补命令，不拒绝或删按钮",
+    "native_boundary": "C++未初始化值行为，未证明值/原栈/故障等价；P07仍open"
+  },
+  "current_implementation": {
+    "source": "src/LegacyUiRecord.cpp",
+    "header": "src/LegacyPanelRuntime.hpp",
+    "symbol": "Sub_4D8DA0",
+    "return_storage": "uintptr_t，分别承载原W32结果/原生预览指针",
+    "format_call": "0x4D8F68",
+    "format_core": "0x53B304",
+    "input_size": 16,
+    "escape_size": 16,
+    "escape_capacity": 15
+  },
+  "accepted_scope": "本组源码/字节与确定模式命令分支，不包括未写值/实际生产与可达域",
+  "tasks_open": [
+    "P07",
+    "U04",
+    "U05",
+    "V04"
+  ],
+  "runtime_executed": false,
+  "full_gates_promoted": false,
+  "original_calls": [
+    {
+      "call_site": "0x4d8e5a",
+      "targets": [
+        {
+          "ea": "0x503160",
+          "name": "sub_503160"
+        }
+      ],
+      "line": "call    sub_503160"
+    },
+    {
+      "call_site": "0x4d8e89",
+      "targets": [
+        {
+          "ea": "0x404d00",
+          "name": "Yobi::MarkDeath"
+        }
+      ],
+      "line": "call    Yobi__MarkDeath"
+    },
+    {
+      "call_site": "0x4d8eb2",
+      "targets": [
+        {
+          "ea": "0x4d3040",
+          "name": "sub_4D3040"
+        }
+      ],
+      "line": "call    sub_4D3040"
+    },
+    {
+      "call_site": "0x4d8ec5",
+      "targets": [
+        {
+          "ea": "0x5042d0",
+          "name": "sub_5042D0"
+        }
+      ],
+      "line": "call    sub_5042D0"
+    },
+    {
+      "call_site": "0x4d8f46",
+      "targets": [
+        {
+          "ea": "0x503990",
+          "name": "sub_503990"
+        }
+      ],
+      "line": "call    sub_503990"
+    },
+    {
+      "call_site": "0x4d8f68",
+      "targets": [
+        {
+          "ea": "0x53b304",
+          "name": "_sprintf"
+        }
+      ],
+      "line": "call    _sprintf"
+    },
+    {
+      "call_site": "0x4d8f79",
+      "targets": [
+        {
+          "ea": "0x52d2d0",
+          "name": "sub_52D2D0"
+        }
+      ],
+      "line": "call    sub_52D2D0"
+    },
+    {
+      "call_site": "0x4d8f9a",
+      "targets": [
+        {
+          "ea": "0x401ea0",
+          "name": "CryptInt::GetVal"
+        }
+      ],
+      "line": "call    CryptInt__GetVal"
+    },
+    {
+      "call_site": "0x4d8fa5",
+      "targets": [
+        {
+          "ea": "0x401ea0",
+          "name": "CryptInt::GetVal"
+        }
+      ],
+      "line": "call    CryptInt__GetVal"
+    },
+    {
+      "call_site": "0x4d8fb2",
+      "targets": [
+        {
+          "ea": "0x512620",
+          "name": "sub_512620"
+        }
+      ],
+      "line": "call    sub_512620"
+    },
+    {
+      "call_site": "0x4d8fc6",
+      "targets": [
+        {
+          "ea": "0x52c450",
+          "name": "World::PlaySe"
+        }
+      ],
+      "line": "call    World__PlaySe"
+    },
+    {
+      "call_site": "0x4d8fd2",
+      "targets": [
+        {
+          "ea": "0x5042d0",
+          "name": "sub_5042D0"
+        }
+      ],
+      "line": "call    sub_5042D0"
+    },
+    {
+      "call_site": "0x4d8ff0",
+      "targets": [
+        {
+          "ea": "0x44b2a0",
+          "name": "TextMeasure"
+        }
+      ],
+      "line": "call    TextMeasure"
+    },
+    {
+      "call_site": "0x4d9022",
+      "targets": [
+        {
+          "ea": "0x456780",
+          "name": "Renderer::DrawText"
+        }
+      ],
+      "line": "call    Renderer__DrawText"
+    },
+    {
+      "call_site": "0x4d9055",
+      "targets": [
+        {
+          "ea": "0x456780",
+          "name": "Renderer::DrawText"
+        }
+      ],
+      "line": "call    Renderer__DrawText"
+    },
+    {
+      "call_site": "0x4d9086",
+      "targets": [
+        {
+          "ea": "0x503a20",
+          "name": "sub_503A20"
+        }
+      ],
+      "line": "call    sub_503A20"
+    },
+    {
+      "call_site": "0x4d909f",
+      "targets": [
+        {
+          "ea": "0x503590",
+          "name": "sub_503590"
+        }
+      ],
+      "line": "call    sub_503590"
+    },
+    {
+      "call_site": "0x4d90d5",
+      "targets": [
+        {
+          "ea": "0x503990",
+          "name": "sub_503990"
+        }
+      ],
+      "line": "call    sub_503990"
+    },
+    {
+      "call_site": "0x4d90f0",
+      "targets": [
+        {
+          "ea": "0x503990",
+          "name": "sub_503990"
+        }
+      ],
+      "line": "call    sub_503990"
+    },
+    {
+      "call_site": "0x4d910b",
+      "targets": [
+        {
+          "ea": "0x503990",
+          "name": "sub_503990"
+        }
+      ],
+      "line": "call    sub_503990"
+    },
+    {
+      "call_site": "0x4d911d",
+      "targets": [
+        {
+          "ea": "0x503590",
+          "name": "sub_503590"
+        }
+      ],
+      "line": "call    sub_503590"
+    },
+    {
+      "call_site": "0x4d9150",
+      "targets": [
+        {
+          "ea": "0x503990",
+          "name": "sub_503990"
+        }
+      ],
+      "line": "call    sub_503990"
+    },
+    {
+      "call_site": "0x4d9171",
+      "targets": [
+        {
+          "ea": "0x503990",
+          "name": "sub_503990"
+        }
+      ],
+      "line": "call    sub_503990"
+    },
+    {
+      "call_site": "0x4d918e",
+      "targets": [
+        {
+          "ea": "0x503990",
+          "name": "sub_503990"
+        }
+      ],
+      "line": "call    sub_503990"
+    },
+    {
+      "call_site": "0x4d91c6",
+      "targets": [
+        {
+          "ea": "0x503440",
+          "name": "sub_503440"
+        }
+      ],
+      "line": "call    sub_503440"
+    }
+  ],
+  "crypt_read_adapter": {
+    "original_entry": "0x401EA0",
+    "instruction": "jmp sub_401EC0",
+    "instruction_count": 1,
+    "bytes": 5,
+    "current_provider": "Read_401EC0",
+    "effect": "Y/X各读一次，保持计数/RNG顺序，不重复调用"
+  },
+  "static_validation": {
+    "source": "两源五片段精确对照，扣除新增后其余正文保持",
+    "raw_literals": "八新增常量与实际get_bytes逐串一致",
+    "baseline": "原321条/1080B与25call可追",
+    "data": "父1/printf1/P07边界及登记簿精确增量",
+    "documents": "四限定追加/三任务行",
+    "encoding": "13项UTF-8无BOM/LF",
+    "new_markdown_links": 14,
+    "new_evidence_links": 27,
+    "diff": "pass",
+    "measurement": "生成及独立Check通过",
+    "unwritten_values": "未计通过",
+    "runtime": "未执行"
+  }
+}

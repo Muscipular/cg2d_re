@@ -4850,7 +4850,8 @@
       "domain": "UI",
       "scope": "included",
       "baseline_documents": [
-        "doc/ui_windows/legacy_shop_choice.md"
+        "doc/ui_windows/legacy_shop_choice.md",
+        "doc/cg2d_shop_choice_body_spec.md"
       ],
       "original_inventory_ids": [
         "F:000D8D70",
@@ -4866,9 +4867,11 @@
         "FUNC-UIRUNTIME"
       ],
       "acceptance_focus": "按原合同核实际进入、数据生产、交互/绘制、状态副作用与关闭清理；单页本体不等于完整流程。",
-      "decision_refs": [],
+      "decision_refs": [
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision"
+      ],
       "blockers": [
-        "真实旧表物理68项指向4D8DA0；模式槽生产与mode0第二命令仍无可靠事实，不能猜默认命令或注册半页",
+        "SCP01完整本体已落位；独立模式真实生产、低两位零的未写第二命令与旧外层路由仍未证，不评原栈等价",
         "成员枚举、完整父/间接路由/生命周期及运行门禁未闭合"
       ],
       "gates": {},
@@ -11353,6 +11356,96 @@
       "observation": "四原根/必要数据槽及本机SDK参数合同、两源/四语义/处置与限定引用静态",
       "expected": "消除x86记录条件与本机抛出不匹配，接通已证安装/恢复和固定终止职责",
       "actual": "仅本组源码/批准差异处置通过；SDK生成ABI、实际API/异常/全部捕获/完整退出运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-SHOP-CHOICE-BODY-I-20261005",
+      "feature_id": "UI-L-062",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "321条/1080B、25原call/八新增原字节及57C8BC裸槽；doc/cg2d_shop_choice_body_spec.md#shop-choice-body-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shop-choice-body-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-baseline",
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-acceptance",
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state",
+        "doc/cg2d_shop_choice_body_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4D8DA0",
+        "src/LegacyUiRecord.cpp#gLegacyShopChoiceModeC9A94C",
+        "src/LegacyPanelRuntime.hpp#Sub_4D8DA0"
+      ],
+      "differences": [
+        {
+          "description": "x64仅拓文本/预览地址；未写第二命令保分支但不宣称C++未初始化值/原栈等价，事实与整页门禁未闭；本项不改变P07完成条件",
+          "decision_ref": "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "确定模式1/2/3命令与完整已知控制流、八原常量及唯一S32槽源承载；未写值不验",
+      "expected": "推进原完整本体的已证源码，保实际容量/原字节/正常命令与原读序，不编业务默认值",
+      "actual": "仅本组限定源码/确定分支静态；低两位零的未写值、真实模式生产/原路由/全流程寿命及运行不计通过；完整功能门禁、任务状态不提升"
+    },
+    {
+      "id": "E-SHOP-CHOICE-BODY-W-20261005",
+      "feature_id": "UI-L-062",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "321条/1080B、25原call/八新增原字节及57C8BC裸槽；doc/cg2d_shop_choice_body_spec.md#shop-choice-body-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shop-choice-body-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-baseline",
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-acceptance",
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state",
+        "doc/cg2d_shop_choice_body_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4D8DA0",
+        "src/LegacyUiRecord.cpp#gLegacyShopChoiceModeC9A94C",
+        "src/LegacyPanelRuntime.hpp#Sub_4D8DA0"
+      ],
+      "differences": [
+        {
+          "description": "x64仅拓文本/预览地址；未写第二命令保分支但不宣称C++未初始化值/原栈等价，事实与整页门禁未闭；本项不改变P07完成条件",
+          "decision_ref": "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "内层初始化/命中/格式/转义/发送/声音/关闭/绘制及提示重复查询顺序；外路由未接",
+      "expected": "推进原完整本体的已证源码，保实际容量/原字节/正常命令与原读序，不编业务默认值",
+      "actual": "仅本组限定源码/确定分支静态；低两位零的未写值、真实模式生产/原路由/全流程寿命及运行不计通过；完整功能门禁、任务状态不提升"
+    },
+    {
+      "id": "E-SHOP-CHOICE-BODY-S-20261005",
+      "feature_id": "UI-L-062",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "321条/1080B、25原call/八新增原字节及57C8BC裸槽；doc/cg2d_shop_choice_body_spec.md#shop-choice-body-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-shop-choice-body-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-baseline",
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision",
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-acceptance",
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state",
+        "doc/cg2d_shop_choice_body_evidence.json",
+        "src/LegacyUiRecord.cpp#Sub_4D8DA0",
+        "src/LegacyUiRecord.cpp#gLegacyShopChoiceModeC9A94C",
+        "src/LegacyPanelRuntime.hpp#Sub_4D8DA0"
+      ],
+      "differences": [
+        {
+          "description": "x64仅拓文本/预览地址；未写第二命令保分支但不宣称C++未初始化值/原栈等价，事实与整页门禁未闭；本项不改变P07完成条件",
+          "decision_ref": "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "完整321条/25原call、实际字节、限定源码/语义/台账与新引用静态；未知值/输入域不评",
+      "expected": "推进原完整本体的已证源码，保实际容量/原字节/正常命令与原读序，不编业务默认值",
+      "actual": "仅本组限定源码/确定分支静态；低两位零的未写值、真实模式生产/原路由/全流程寿命及运行不计通过；完整功能门禁、任务状态不提升"
     }
   ],
   "task_acceptance": [
@@ -13380,6 +13473,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:000D8DA0",
+      "disposition": "mixed",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state"
       ]
     }
   ],

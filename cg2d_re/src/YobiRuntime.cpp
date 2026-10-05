@@ -5402,11 +5402,12 @@ YobiAction* Sub_43F180(YobiAction* const action)
     }
     for (;;) {
         auto* const payload = static_cast<MapCharaPayload*>(current->payload);
-        if (payload->next == nullptr) {
+        YobiAction* const next = payload->next;
+        if (next == nullptr) {
             payload->next = action;
             return action;
         }
-        current = payload->next;
+        current = next;
     }
 }
 
@@ -5422,7 +5423,8 @@ void* Sub_43F1B0(YobiAction* const action)
         auto* const payload = static_cast<MapCharaPayload*>(current->payload);
         YobiAction* const next = payload->next;
         if (next == action) {
-            auto* const removed = static_cast<MapCharaPayload*>(next->payload);
+            YobiAction* const removedAction = payload->next;
+            auto* const removed = static_cast<MapCharaPayload*>(removedAction->payload);
             payload->next = removed->next;
             return removed;
         }

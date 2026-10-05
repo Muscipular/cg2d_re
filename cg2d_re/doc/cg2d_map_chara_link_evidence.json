@@ -1,0 +1,381 @@
+{
+  "schema_version": 1,
+  "scope": "MCL01追加一次next取样/摘链命中后重读取链两块实修及已有清头身份；七完整父/全producer/alias及owner寿命/运行未闭",
+  "baseline_snapshot": "cg2d-re-map-chara-lookup-20261005",
+  "implementation_snapshot": "cg2d-re-map-chara-link-20261005",
+  "original_functions": [
+    {
+      "entry": "0x43f180",
+      "actual_start": "0x43f180",
+      "end_exclusive": "0x43f1a9",
+      "chunks": [
+        {
+          "start": "0x43f180",
+          "end_exclusive": "0x43f1a9"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x43f4ff",
+          "type": 17,
+          "parent_entry": "0x43f330"
+        },
+        {
+          "site": "0x440053",
+          "type": 17,
+          "parent_entry": "0x43feb0"
+        },
+        {
+          "site": "0x440bc9",
+          "type": 17,
+          "parent_entry": "0x440b70"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x43f180",
+          "size": 5,
+          "bytes": "a150975f00",
+          "text": "mov     eax, dword_5F9750"
+        },
+        {
+          "ea": "0x43f185",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x43f187",
+          "size": 2,
+          "bytes": "7415",
+          "text": "jz      short loc_43F19E"
+        },
+        {
+          "ea": "0x43f189",
+          "size": 3,
+          "bytes": "8b480c",
+          "text": "mov     ecx, [eax+0Ch]"
+        },
+        {
+          "ea": "0x43f18c",
+          "size": 3,
+          "bytes": "8b412c",
+          "text": "mov     eax, [ecx+2Ch]"
+        },
+        {
+          "ea": "0x43f18f",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x43f191",
+          "size": 2,
+          "bytes": "7403",
+          "text": "jz      short loc_43F196"
+        },
+        {
+          "ea": "0x43f193",
+          "size": 2,
+          "bytes": "75f4",
+          "text": "jnz     short loc_43F189"
+        },
+        {
+          "ea": "0x43f195",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x43f196",
+          "size": 4,
+          "bytes": "8b442404",
+          "text": "mov     eax, [esp+arg_0]"
+        },
+        {
+          "ea": "0x43f19a",
+          "size": 3,
+          "bytes": "89412c",
+          "text": "mov     [ecx+2Ch], eax"
+        },
+        {
+          "ea": "0x43f19d",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x43f19e",
+          "size": 4,
+          "bytes": "8b4c2404",
+          "text": "mov     ecx, [esp+arg_0]"
+        },
+        {
+          "ea": "0x43f1a2",
+          "size": 6,
+          "bytes": "890d50975f00",
+          "text": "mov     dword_5F9750, ecx"
+        },
+        {
+          "ea": "0x43f1a8",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x43f1b0",
+      "actual_start": "0x43f1b0",
+      "end_exclusive": "0x43f1ea",
+      "chunks": [
+        {
+          "start": "0x43f1b0",
+          "end_exclusive": "0x43f1ea"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x43f6e1",
+          "type": 17,
+          "parent_entry": "0x43f520"
+        },
+        {
+          "site": "0x440258",
+          "type": 17,
+          "parent_entry": "0x440070"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x43f1b0",
+          "size": 5,
+          "bytes": "a150975f00",
+          "text": "mov     eax, dword_5F9750"
+        },
+        {
+          "ea": "0x43f1b5",
+          "size": 4,
+          "bytes": "8b542404",
+          "text": "mov     edx, [esp+arg_0]"
+        },
+        {
+          "ea": "0x43f1b9",
+          "size": 2,
+          "bytes": "3bc2",
+          "text": "cmp     eax, edx"
+        },
+        {
+          "ea": "0x43f1bb",
+          "size": 2,
+          "bytes": "750d",
+          "text": "jnz     short loc_43F1CA"
+        },
+        {
+          "ea": "0x43f1bd",
+          "size": 3,
+          "bytes": "8b420c",
+          "text": "mov     eax, [edx+0Ch]"
+        },
+        {
+          "ea": "0x43f1c0",
+          "size": 3,
+          "bytes": "8b482c",
+          "text": "mov     ecx, [eax+2Ch]"
+        },
+        {
+          "ea": "0x43f1c3",
+          "size": 6,
+          "bytes": "890d50975f00",
+          "text": "mov     dword_5F9750, ecx"
+        },
+        {
+          "ea": "0x43f1c9",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x43f1ca",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x43f1cc",
+          "size": 2,
+          "bytes": "741b",
+          "text": "jz      short locret_43F1E9"
+        },
+        {
+          "ea": "0x43f1ce",
+          "size": 3,
+          "bytes": "8b480c",
+          "text": "mov     ecx, [eax+0Ch]"
+        },
+        {
+          "ea": "0x43f1d1",
+          "size": 3,
+          "bytes": "8b412c",
+          "text": "mov     eax, [ecx+2Ch]"
+        },
+        {
+          "ea": "0x43f1d4",
+          "size": 2,
+          "bytes": "3bc2",
+          "text": "cmp     eax, edx"
+        },
+        {
+          "ea": "0x43f1d6",
+          "size": 2,
+          "bytes": "7405",
+          "text": "jz      short loc_43F1DD"
+        },
+        {
+          "ea": "0x43f1d8",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x43f1da",
+          "size": 2,
+          "bytes": "75f2",
+          "text": "jnz     short loc_43F1CE"
+        },
+        {
+          "ea": "0x43f1dc",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x43f1dd",
+          "size": 3,
+          "bytes": "8b512c",
+          "text": "mov     edx, [ecx+2Ch]"
+        },
+        {
+          "ea": "0x43f1e0",
+          "size": 3,
+          "bytes": "8b420c",
+          "text": "mov     eax, [edx+0Ch]"
+        },
+        {
+          "ea": "0x43f1e3",
+          "size": 3,
+          "bytes": "8b502c",
+          "text": "mov     edx, [eax+2Ch]"
+        },
+        {
+          "ea": "0x43f1e6",
+          "size": 3,
+          "bytes": "89512c",
+          "text": "mov     [ecx+2Ch], edx"
+        },
+        {
+          "ea": "0x43f1e9",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x43f220",
+      "actual_start": "0x43f220",
+      "end_exclusive": "0x43f22b",
+      "chunks": [
+        {
+          "start": "0x43f220",
+          "end_exclusive": "0x43f22b"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x51c5df",
+          "type": 17,
+          "parent_entry": "0x51c430"
+        },
+        {
+          "site": "0x51c683",
+          "type": 17,
+          "parent_entry": "0x51c430"
+        },
+        {
+          "site": "0x51c839",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51cf9d",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x43f220",
+          "size": 10,
+          "bytes": "c70550975f0000000000",
+          "text": "mov     dword_5F9750, 0"
+        },
+        {
+          "ea": "0x43f22a",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "instructions": 39,
+    "code_bytes": 110,
+    "direct_calls": 9,
+    "parents_count": 7,
+    "parents": {
+      "0x43f330": 1,
+      "0x43feb0": 1,
+      "0x440b70": 1,
+      "0x43f520": 1,
+      "0x440070": 1,
+      "0x51c430": 2,
+      "0x51c7d0": 2
+    },
+    "source_patterns": 2,
+    "changed_blocks": 2,
+    "modified_roots": 2,
+    "identity_roots": 3,
+    "unchanged_clear_head_roots": 1
+  },
+  "source_path": "src/YobiRuntime.cpp",
+  "source_patches": [
+    {
+      "owners": [
+        "Sub_43F180尾链接取样"
+      ],
+      "expected_occurrences": 1,
+      "before": "        auto* const payload = static_cast<MapCharaPayload*>(current->payload);\n        if (payload->next == nullptr) {\n            payload->next = action;\n            return action;\n        }\n        current = payload->next;",
+      "after": "        auto* const payload = static_cast<MapCharaPayload*>(current->payload);\n        YobiAction* const next = payload->next;\n        if (next == nullptr) {\n            payload->next = action;\n            return action;\n        }\n        current = next;"
+    },
+    {
+      "owners": [
+        "Sub_43F1B0命中后重读取链"
+      ],
+      "expected_occurrences": 1,
+      "before": "        if (next == action) {\n            auto* const removed = static_cast<MapCharaPayload*>(next->payload);\n            payload->next = removed->next;\n            return removed;\n        }",
+      "after": "        if (next == action) {\n            YobiAction* const removedAction = payload->next;\n            auto* const removed = static_cast<MapCharaPayload*>(removedAction->payload);\n            payload->next = removed->next;\n            return removed;\n        }"
+    }
+  ],
+  "retained_contract": {
+    "append": "取头→空则发布action/返旧零，非空逐载荷取一次next→条件尾写action/返参数或缓存next前进",
+    "unlink": "头命中改头返载荷，否则取当前载荷/next比较→命中再读payload.next→取被摘载荷/next→前驱重接/返载荷；未命中空",
+    "clear_head_unchanged": "只清唯一头，不遍历/死亡/释放节点",
+    "native_pointer_and_layout_unchanged": true,
+    "reset_removed_next": false,
+    "new_owner_or_guard": false,
+    "other_sources_or_asm_changed": false
+  },
+  "verification": "仅两模式两块源精确差异/追加摘链原取样和已有清头正常合同、三原39条110B/九call七父/台账静态；七完整父/全producer/间接alias与地址逃逸/所有owner寿命、实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护或模拟/称等价"
+}

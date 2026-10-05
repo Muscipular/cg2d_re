@@ -145960,6 +145960,164 @@
       ],
       "verification_level": "两原57条134B/七引用六call一tailjump五父、一模式一块精确差异及查找/已有清理正常合同静态；同一原ID双功能，不代完整父/producer/alias/owner寿命/运行",
       "boundary": "本体未改：取头/载荷/缓存next，逐槽取五孩子指针，非空死亡，后当前节点死亡，沿缓存next继续/清头。原空链EAX未定义的现有返回空值承载和注释保持，不验机器返回等价。 原生MapCharaPayload五值/五孩子/frame/next与头owner保持；全producer/五完整父/间接alias或地址逃逸和owner重进退出/borrow失效、实际ABI/SDK/场景画面RNG运行未验，异常不专项保护/回绕或故障模拟/称等价。"
+    },
+    {
+      "original_entry": "0x43f180",
+      "inventory_id": "F:0003F180",
+      "status": "MCL01观察链追加/摘链原取样实修及原身份纳管；完整场景寿命运行未验",
+      "original_end_exclusive": "0x43f1a9",
+      "instruction_count": 15,
+      "original_direct_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43F180",
+            "MapCharaPayload",
+            "gMapCharaHead"
+          ],
+          "relationship": "既有原生链本体，MCL01仅追加一次next取样/摘链命中后复读；原布局/写序/返回/寿命职责保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_43F180",
+            "YobiAction"
+          ],
+          "relationship": "既有真实声明，非拥有action指针/摘链opaque payload返回及清头void接口保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x43f4ff",
+          "parent_entry": "0x43f330",
+          "type": 17
+        },
+        {
+          "address": "0x440053",
+          "parent_entry": "0x43feb0",
+          "type": 17
+        },
+        {
+          "address": "0x440bc9",
+          "parent_entry": "0x440b70",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-baseline",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-decision",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-acceptance",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_link_evidence.json"
+      ],
+      "verification_level": "三原39条110B/九call七父保存，仅两模式两块/正常追加摘链和已有清头合同静态，双功能同ID，不代全producer/七父/所有alias或owner寿命/运行",
+      "boundary": "取同一原生头，空链发布action并返回旧零；非空每节点取载荷后只保存一次next，用它判断尾或前进，零尾才写action/返参数，不预清参数next或拒绝空参数。 既有五值/五孩子/frame/原生next/0x50载荷和唯一头owner保持。三生产者/两回调与全部父/间接alias及地址逃逸/所有owner重进退出与borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验；异常不加NULL/修链保护或回绕故障模拟/称等价。"
+    },
+    {
+      "original_entry": "0x43f1b0",
+      "inventory_id": "F:0003F1B0",
+      "status": "MCL01观察链追加/摘链原取样实修及原身份纳管；完整场景寿命运行未验",
+      "original_end_exclusive": "0x43f1ea",
+      "instruction_count": 22,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43F1B0",
+            "MapCharaPayload",
+            "gMapCharaHead"
+          ],
+          "relationship": "既有原生链本体，MCL01仅追加一次next取样/摘链命中后复读；原布局/写序/返回/寿命职责保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_43F1B0",
+            "YobiAction"
+          ],
+          "relationship": "既有真实声明，非拥有action指针/摘链opaque payload返回及清头void接口保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x43f6e1",
+          "parent_entry": "0x43f520",
+          "type": 17
+        },
+        {
+          "address": "0x440258",
+          "parent_entry": "0x440070",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-baseline",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-decision",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-acceptance",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_link_evidence.json"
+      ],
+      "verification_level": "三原39条110B/九call七父保存，仅两模式两块/正常追加摘链和已有清头合同静态，双功能同ID，不代全producer/七父/所有alias或owner寿命/运行",
+      "boundary": "头等于action时改头/返被摘载荷；否则取当前载荷/next比较，命中后再次读payload.next再取其载荷/next重接前驱，返回被摘载荷，不清removed.next或释放节点；未命中返空，原空或链异常不保护。 既有五值/五孩子/frame/原生next/0x50载荷和唯一头owner保持。三生产者/两回调与全部父/间接alias及地址逃逸/所有owner重进退出与borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验；异常不加NULL/修链保护或回绕故障模拟/称等价。"
+    },
+    {
+      "original_entry": "0x43f220",
+      "inventory_id": "F:0003F220",
+      "status": "MCL01已有清头原身份纳管，本体未修改；完整场景寿命运行未验",
+      "original_end_exclusive": "0x43f22b",
+      "instruction_count": 2,
+      "original_direct_reference_count": 4,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43F220",
+            "gMapCharaHead"
+          ],
+          "relationship": "既有只清头本体未改，原生唯一链及节点/载荷最终释放职责不变"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_43F220",
+            "YobiAction"
+          ],
+          "relationship": "既有真实声明，非拥有action指针/摘链opaque payload返回及清头void接口保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x51c5df",
+          "parent_entry": "0x51c430",
+          "type": 17
+        },
+        {
+          "address": "0x51c683",
+          "parent_entry": "0x51c430",
+          "type": 17
+        },
+        {
+          "address": "0x51c839",
+          "parent_entry": "0x51c7d0",
+          "type": 17
+        },
+        {
+          "address": "0x51cf9d",
+          "parent_entry": "0x51c7d0",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-baseline",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-decision",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-acceptance",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_link_evidence.json"
+      ],
+      "verification_level": "三原39条110B/九call七父保存，仅两模式两块/正常追加摘链和已有清头合同静态，双功能同ID，不代全producer/七父/所有alias或owner寿命/运行",
+      "boundary": "已有清头本体未改：仅把唯一5F9750原生头写空，不遍历/标死/释放或统一不具值语义的返回；仅原身份/正常源纳管，不计新增清头。 既有五值/五孩子/frame/原生next/0x50载荷和唯一头owner保持。三生产者/两回调与全部父/间接alias及地址逃逸/所有owner重进退出与borrow失效、实际ABI/SDK/时钟RNG/场景画面运行未验；异常不加NULL/修链保护或回绕故障模拟/称等价。"
     }
   ]
 }

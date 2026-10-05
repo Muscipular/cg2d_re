@@ -2195,3 +2195,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 43F1F0/43F230两既有本体补唯一语义、真实本体/声明来源及adapted，见[具名合同](cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state)及[原证据](cg2d_map_chara_lookup_evidence.json)。查询仅一源块实修先取next后比较五编号，清理本体未改；七引用为六call/一type19尾jump、五父，不记七call或新增清理功能。
 
 语义1280→1282/有效ID1276→1278、处置373→375；两ID分别关联MAP36→38与LOOP1→3，双功能不加原函数分母或代码次数。所有原历史位置、差集/非FID/pending/R7及其它功能保持，完整父/producer/owner寿命和运行门禁不提升。
+
+## MCL01 观察链接与已有清头原身份（2026-10-05）
+
+[三原39条110B/九call七父](cg2d_map_chara_link_evidence.json)及[具名合同](cg2d_map_chara_link_spec.md#map-chara-link-source-state)为43F180/43F1B0/43F220补唯一语义/本体声明来源与adapted；两个链接叶只原next取样/复读实修，一个只清头本体未改，不记清头新增。MAP/LOOP同原ID关联，不加原函数或代码次数。
+
+语义1282→1285/有效ID1278→1281、处置375→378，MAP38→41/LOOP3→6成员；原历史位置、差集/pending/非FID/R7及其它域保持。九直接call不代全部七父/全producer/所有alias或owner寿命/运行，完整功能和关闭数不提升。

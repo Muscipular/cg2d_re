@@ -332,3 +332,9 @@ G01/G02/U11/R01/R04/V04追加具名引用且继续open，V02及其他任务保�
 [查询/清理限定验收](cg2d_map_chara_lookup_spec.md#map-chara-lookup-acceptance)以两体57条134B/七引用六call一tailjump五父为原基线。一查询源块恢复next读取点、已有清理未改，两正式语义/来源及adapted与MAP38/LOOP3成员同步；E213→217只两域各I/S，共用一源码改动/两原证据，不计四函数或新清理功能。
 
 G01/G02/U11/R01/R04/V04继续open。五完整父/全producer/地址逃逸与alias、所有owner重进退出/borrow失效/空链机器EAX/实际ABI/SDK/时钟RNG/场景画面运行未闭；全部B/D/W/R/完整功能和R1/R7/R8/整体判定不提升，现行执行限制/音频暂停与原格式明文保持。
+
+## MCL01 共用链接原证据的局部I/S（2026-10-05）
+
+[追加/摘链与已有清头限定验收](cg2d_map_chara_link_spec.md#map-chara-link-acceptance)以三体39条110B/九call七父为原基线；两源块恢复原next读/复读，已有清头未改，三语义/来源与adapted及MAP41/LOOP6成员同步。E217→221仅两域各局部I/S，共用两源实修/三原证据，不计清头新实现或双份函数。
+
+G01/G02/U11/R01/R04/V04仍open。三生产者/两回调及七完整父、全部producer/间接alias和owner重进退出/borrow失效/实际ABI/SDK/时钟RNG/场景画面运行未闭；全部B/D/W/R/完整功能、R1/R7/R8与整体判定不提升，执行限制/音频暂停/网络原格式明文保持。

@@ -137,3 +137,12 @@ kind为unassigned_range_fragment，原区间ID有效，start/end严格包含于�
 汇总器校验绑定，semantic_without_inventory_id仍保存原记录，metrics.semantic_code_range_records另计有效区间身份。
 GQ01的semantic_identity_unrecorded只统计没有区间绑定的无函数ID记录；不能将有效非函数身份当缺失或补虚构FID。
 本组两X区间mapped仅表示完整字节用途/源码关联，不代完整业务、间接边/ABI或运行；原函数/区间分母及软件门禁保持。
+
+
+## SER01 已批准排除身份的R1登记（2026-10-05）
+
+[逐ID登记SPEC](cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state)将原113个具名完整入口排除同步到function_dispositions，原六条保留，本组补107条。
+每条保留原分类JSON记录位置或newest五入口依据；没有修改授权/范围、源码或语义记录，没有按名字/地址扩张集合。
+键盘共享509080/53A200、两个混合入口、网络两父/原格式明文职责、8位索引资源/调色板及音频范围保持。
+排除身份登记参与R1处置数量，不能当实现/验收通过或降低原分母；原定位差集和全部软件门禁保持。
+本组排除身份登记完成，不代表R1全量分类、R7未知差集或R8/整体SPEC已经关闭。

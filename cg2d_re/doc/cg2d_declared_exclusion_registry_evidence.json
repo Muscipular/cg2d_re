@@ -1,0 +1,2998 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-05",
+  "scope": "SER01仅原具名全入口排除缺失登记，不新增排除",
+  "epoch": "2026-10-04.1",
+  "declared_excluded_ids": [
+    "F:00001960",
+    "F:00001AB0",
+    "F:0004ED70",
+    "F:0004F000",
+    "F:0004F650",
+    "F:0004F920",
+    "F:00051190",
+    "F:00051270",
+    "F:00051FA0",
+    "F:000522F0",
+    "F:00052CF0",
+    "F:0010FC30",
+    "F:0010FE30",
+    "F:0010FF10",
+    "F:0010FF70",
+    "F:00110120",
+    "F:00134AB0",
+    "F:00134B80",
+    "F:00135090",
+    "F:00135290",
+    "F:00135310",
+    "F:001354C0",
+    "F:001354D0",
+    "F:00135540",
+    "F:00136970",
+    "F:00136C30",
+    "F:00136EA0",
+    "F:00136EE0",
+    "F:00136F00",
+    "F:00136FD0",
+    "F:00137090",
+    "F:001371A0",
+    "F:00137220",
+    "F:001375F0",
+    "F:00137660",
+    "F:001378F0",
+    "F:00137920",
+    "F:00137950",
+    "F:00137980",
+    "F:001379E0",
+    "F:00137A30",
+    "F:00137A40",
+    "F:00137A70",
+    "F:00137AE0",
+    "F:00137AF0",
+    "F:00137B10",
+    "F:00137B20",
+    "F:00137B80",
+    "F:00137D30",
+    "F:00137D40",
+    "F:00137D50",
+    "F:00137D60",
+    "F:00137D70",
+    "F:00137D90",
+    "F:00137DA0",
+    "F:00137DC0",
+    "F:00137DE0",
+    "F:00137E40",
+    "F:00137E60",
+    "F:00137F40",
+    "F:00137FC0",
+    "F:00137FE0",
+    "F:00138170",
+    "F:00138200",
+    "F:00138270",
+    "F:001382E0",
+    "F:00138390",
+    "F:001384A0",
+    "F:00138870",
+    "F:00138940",
+    "F:00138960",
+    "F:001389D0",
+    "F:00138C60",
+    "F:00138C90",
+    "F:00138CF0",
+    "F:00138D40",
+    "F:00138F60",
+    "F:00139070",
+    "F:001390D0",
+    "F:00139100",
+    "F:00139110",
+    "F:00139120",
+    "F:00139270",
+    "F:00139450",
+    "F:00139490",
+    "F:00139540",
+    "F:00139630",
+    "F:001396A0",
+    "F:001397C0",
+    "F:001397F0",
+    "F:00139870",
+    "F:00139980",
+    "F:00139A50",
+    "F:00139E20",
+    "F:00139E90",
+    "F:0013A120",
+    "F:0013A150",
+    "F:0013A1B0",
+    "F:0013A220",
+    "F:0013A3D0",
+    "F:0013A470",
+    "F:0013A490",
+    "F:0013A4D0",
+    "F:0013A500",
+    "F:0013A5D0",
+    "F:0013A9A0",
+    "F:0013AA20",
+    "F:0013AB30",
+    "F:0013ABB0",
+    "F:0013AC20",
+    "F:0013AEB0",
+    "F:0013AEE0",
+    "F:0013AF40"
+  ],
+  "declared_mixed_ids": [
+    "F:0004FF40",
+    "F:00050190"
+  ],
+  "protected_inventory_ids": [
+    "F:0013A200",
+    "F:00109080",
+    "F:00003C50",
+    "F:00003E50",
+    "F:0004FF40",
+    "F:00050190"
+  ],
+  "previous_excluded_dispositions": [
+    {
+      "inventory_id": "F:00137A30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137A40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137A70",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137AE0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137AF0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    },
+    {
+      "inventory_id": "F:00137B10",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json",
+        "doc/cg2d_external_keyboard_wrapper.md#excluded-keyboard-production-wiring"
+      ]
+    }
+  ],
+  "rows": [
+    {
+      "inventory_id": "F:00001960",
+      "original_entry": "0x401960",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_network_cipher_scope.json",
+          "index": 0,
+          "status": "用户范围排除：网络包加解密"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_network_cipher_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00001960",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_network_cipher_scope.json#/records/0",
+          "doc/cg2d_network_exclusion_wiring_spec.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00001AB0",
+      "original_entry": "0x401AB0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_network_cipher_scope.json",
+          "index": 1,
+          "status": "用户范围排除：网络包加解密"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_network_cipher_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00001AB0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_network_cipher_scope.json#/records/1",
+          "doc/cg2d_network_exclusion_wiring_spec.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0004ED70",
+      "original_entry": "0x44ED70",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 0,
+          "status": "用户范围排除：低色深渲染"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_render_depth_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0004ED70",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_render_depth_scope.json#/records/0",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0004F000",
+      "original_entry": "0x44F000",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 1,
+          "status": "用户范围排除：低色深渲染"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_render_depth_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0004F000",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_render_depth_scope.json#/records/1",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0004F650",
+      "original_entry": "0x44F650",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 2,
+          "status": "用户范围排除：低色深渲染"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_render_depth_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0004F650",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_render_depth_scope.json#/records/2",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0004F920",
+      "original_entry": "0x44F920",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 3,
+          "status": "用户范围排除：低色深渲染"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_render_depth_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0004F920",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_render_depth_scope.json#/records/3",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00051190",
+      "original_entry": "0x451190",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 9,
+          "status": "用户范围排除：低色深渲染"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_render_depth_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00051190",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_render_depth_scope.json#/records/9",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00051270",
+      "original_entry": "0x451270",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 10,
+          "status": "用户范围排除：低色深渲染"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_render_depth_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00051270",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_render_depth_scope.json#/records/10",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00051FA0",
+      "original_entry": "0x451FA0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 4,
+          "status": "用户范围排除：低色深渲染"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_render_depth_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00051FA0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_render_depth_scope.json#/records/4",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:000522F0",
+      "original_entry": "0x4522F0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 5,
+          "status": "用户范围排除：低色深渲染"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_render_depth_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:000522F0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_render_depth_scope.json#/records/5",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00052CF0",
+      "original_entry": "0x452CF0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_render_depth_scope.json",
+          "index": 6,
+          "status": "用户范围排除：低色深渲染"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_render_depth_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00052CF0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_render_depth_scope.json#/records/6",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0010FC30",
+      "original_entry": "0x50FC30",
+      "classification_refs": [
+        {
+          "path": "plan/cg2d_full_reconstruction_plan.md",
+          "index": null,
+          "status": "用户范围排除：newest五函数链"
+        }
+      ],
+      "groups": [
+        "newest"
+      ],
+      "disposition": {
+        "inventory_id": "F:0010FC30",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_login_state_controller.md",
+          "plan/cg2d_full_reconstruction_plan.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0010FE30",
+      "original_entry": "0x50FE30",
+      "classification_refs": [
+        {
+          "path": "plan/cg2d_full_reconstruction_plan.md",
+          "index": null,
+          "status": "用户范围排除：newest五函数链"
+        }
+      ],
+      "groups": [
+        "newest"
+      ],
+      "disposition": {
+        "inventory_id": "F:0010FE30",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_login_state_controller.md",
+          "plan/cg2d_full_reconstruction_plan.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0010FF10",
+      "original_entry": "0x50FF10",
+      "classification_refs": [
+        {
+          "path": "plan/cg2d_full_reconstruction_plan.md",
+          "index": null,
+          "status": "用户范围排除：newest五函数链"
+        }
+      ],
+      "groups": [
+        "newest"
+      ],
+      "disposition": {
+        "inventory_id": "F:0010FF10",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_login_state_controller.md",
+          "plan/cg2d_full_reconstruction_plan.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0010FF70",
+      "original_entry": "0x50FF70",
+      "classification_refs": [
+        {
+          "path": "plan/cg2d_full_reconstruction_plan.md",
+          "index": null,
+          "status": "用户范围排除：newest五函数链"
+        }
+      ],
+      "groups": [
+        "newest"
+      ],
+      "disposition": {
+        "inventory_id": "F:0010FF70",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_login_state_controller.md",
+          "plan/cg2d_full_reconstruction_plan.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00110120",
+      "original_entry": "0x510120",
+      "classification_refs": [
+        {
+          "path": "plan/cg2d_full_reconstruction_plan.md",
+          "index": null,
+          "status": "用户范围排除：newest五函数链"
+        }
+      ],
+      "groups": [
+        "newest"
+      ],
+      "disposition": {
+        "inventory_id": "F:00110120",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_login_state_controller.md",
+          "plan/cg2d_full_reconstruction_plan.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00134AB0",
+      "original_entry": "0x534AB0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 0,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00134AB0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/0",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00134B80",
+      "original_entry": "0x534B80",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 1,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00134B80",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/1",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00135090",
+      "original_entry": "0x535090",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 2,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00135090",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/2",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00135290",
+      "original_entry": "0x535290",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 3,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00135290",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/3",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00135310",
+      "original_entry": "0x535310",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 4,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00135310",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/4",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001354C0",
+      "original_entry": "0x5354C0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 5,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001354C0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/5",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001354D0",
+      "original_entry": "0x5354D0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 64,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001354D0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/64",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00135540",
+      "original_entry": "0x535540",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 6,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00135540",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/6",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00136970",
+      "original_entry": "0x536970",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 7,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00136970",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/7",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00136C30",
+      "original_entry": "0x536C30",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 8,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00136C30",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/8",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00136EA0",
+      "original_entry": "0x536EA0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 9,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00136EA0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/9",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00136EE0",
+      "original_entry": "0x536EE0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 65,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00136EE0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/65",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00136F00",
+      "original_entry": "0x536F00",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 66,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00136F00",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/66",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00136FD0",
+      "original_entry": "0x536FD0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 10,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00136FD0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/10",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137090",
+      "original_entry": "0x537090",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 67,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137090",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/67",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001371A0",
+      "original_entry": "0x5371A0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 11,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001371A0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/11",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137220",
+      "original_entry": "0x537220",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 68,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137220",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/68",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001375F0",
+      "original_entry": "0x5375F0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 69,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001375F0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/69",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137660",
+      "original_entry": "0x537660",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 70,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137660",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/70",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001378F0",
+      "original_entry": "0x5378F0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 71,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001378F0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/71",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137920",
+      "original_entry": "0x537920",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 72,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137920",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/72",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137950",
+      "original_entry": "0x537950",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 73,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137950",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/73",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137980",
+      "original_entry": "0x537980",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 74,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137980",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/74",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001379E0",
+      "original_entry": "0x5379E0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 75,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001379E0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/75",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137B20",
+      "original_entry": "0x537B20",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 49,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137B20",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/49",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137B80",
+      "original_entry": "0x537B80",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 12,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137B80",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/12",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137D30",
+      "original_entry": "0x537D30",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 13,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137D30",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/13",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137D40",
+      "original_entry": "0x537D40",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 14,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137D40",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/14",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137D50",
+      "original_entry": "0x537D50",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 15,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137D50",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/15",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137D60",
+      "original_entry": "0x537D60",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 16,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137D60",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/16",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137D70",
+      "original_entry": "0x537D70",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 17,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137D70",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/17",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137D90",
+      "original_entry": "0x537D90",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 18,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137D90",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/18",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137DA0",
+      "original_entry": "0x537DA0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 19,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137DA0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/19",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137DC0",
+      "original_entry": "0x537DC0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 20,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137DC0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/20",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137DE0",
+      "original_entry": "0x537DE0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 21,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137DE0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/21",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137E40",
+      "original_entry": "0x537E40",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 22,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137E40",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/22",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137E60",
+      "original_entry": "0x537E60",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 23,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137E60",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/23",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137F40",
+      "original_entry": "0x537F40",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 24,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137F40",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/24",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137FC0",
+      "original_entry": "0x537FC0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 25,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137FC0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/25",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00137FE0",
+      "original_entry": "0x537FE0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 50,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00137FE0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/50",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138170",
+      "original_entry": "0x538170",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 51,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138170",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/51",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138200",
+      "original_entry": "0x538200",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 52,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138200",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/52",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138270",
+      "original_entry": "0x538270",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 53,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138270",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/53",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001382E0",
+      "original_entry": "0x5382E0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 54,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001382E0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/54",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138390",
+      "original_entry": "0x538390",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 55,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138390",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/55",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001384A0",
+      "original_entry": "0x5384A0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 56,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001384A0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/56",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138870",
+      "original_entry": "0x538870",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 57,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138870",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/57",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138940",
+      "original_entry": "0x538940",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 58,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138940",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/58",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138960",
+      "original_entry": "0x538960",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 59,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138960",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/59",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001389D0",
+      "original_entry": "0x5389D0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 60,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001389D0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/60",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138C60",
+      "original_entry": "0x538C60",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 61,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138C60",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/61",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138C90",
+      "original_entry": "0x538C90",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 62,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138C90",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/62",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138CF0",
+      "original_entry": "0x538CF0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 63,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138CF0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/63",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138D40",
+      "original_entry": "0x538D40",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 26,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138D40",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/26",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00138F60",
+      "original_entry": "0x538F60",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 27,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00138F60",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/27",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139070",
+      "original_entry": "0x539070",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 76,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139070",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/76",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001390D0",
+      "original_entry": "0x5390D0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 77,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001390D0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/77",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139100",
+      "original_entry": "0x539100",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 78,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139100",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/78",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139110",
+      "original_entry": "0x539110",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 79,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139110",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/79",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139120",
+      "original_entry": "0x539120",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 28,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139120",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/28",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139270",
+      "original_entry": "0x539270",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 29,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139270",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/29",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139450",
+      "original_entry": "0x539450",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 30,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139450",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/30",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139490",
+      "original_entry": "0x539490",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 31,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139490",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/31",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139540",
+      "original_entry": "0x539540",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 32,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139540",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/32",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139630",
+      "original_entry": "0x539630",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 33,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139630",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/33",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001396A0",
+      "original_entry": "0x5396A0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 34,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001396A0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/34",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001397C0",
+      "original_entry": "0x5397C0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 80,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001397C0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/80",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:001397F0",
+      "original_entry": "0x5397F0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 35,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:001397F0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/35",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139870",
+      "original_entry": "0x539870",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 81,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139870",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/81",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139980",
+      "original_entry": "0x539980",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 82,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139980",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/82",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139A50",
+      "original_entry": "0x539A50",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 83,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139A50",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/83",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139E20",
+      "original_entry": "0x539E20",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 84,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139E20",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/84",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:00139E90",
+      "original_entry": "0x539E90",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 85,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:00139E90",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/85",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A120",
+      "original_entry": "0x53A120",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 86,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A120",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/86",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A150",
+      "original_entry": "0x53A150",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 87,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A150",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/87",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A1B0",
+      "original_entry": "0x53A1B0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 88,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A1B0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/88",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A220",
+      "original_entry": "0x53A220",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 36,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A220",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/36",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A3D0",
+      "original_entry": "0x53A3D0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 37,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A3D0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/37",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A470",
+      "original_entry": "0x53A470",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 38,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A470",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/38",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A490",
+      "original_entry": "0x53A490",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 39,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A490",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/39",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A4D0",
+      "original_entry": "0x53A4D0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 40,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A4D0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/40",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A500",
+      "original_entry": "0x53A500",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 89,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A500",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/89",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A5D0",
+      "original_entry": "0x53A5D0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 90,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A5D0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/90",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013A9A0",
+      "original_entry": "0x53A9A0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 41,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013A9A0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/41",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013AA20",
+      "original_entry": "0x53AA20",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 91,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013AA20",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/91",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013AB30",
+      "original_entry": "0x53AB30",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 42,
+          "status": "用户范围排除：屏幕键盘专用链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013AB30",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/42",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013ABB0",
+      "original_entry": "0x53ABB0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 92,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013ABB0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/92",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013AC20",
+      "original_entry": "0x53AC20",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 93,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013AC20",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/93",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013AEB0",
+      "original_entry": "0x53AEB0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 94,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013AEB0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/94",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013AEE0",
+      "original_entry": "0x53AEE0",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 95,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013AEE0",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/95",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    },
+    {
+      "inventory_id": "F:0013AF40",
+      "original_entry": "0x53AF40",
+      "classification_refs": [
+        {
+          "path": "doc/cg2d_external_keyboard_scope.json",
+          "index": 96,
+          "status": "用户范围排除：屏幕键盘专用支撑链"
+        }
+      ],
+      "groups": [
+        "doc/cg2d_external_keyboard_scope.json"
+      ],
+      "disposition": {
+        "inventory_id": "F:0013AF40",
+        "disposition": "excluded",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_external_keyboard_scope.json#/records/96",
+          "doc/cg2d_external_keyboard_wrapper.md",
+          "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+          "doc/cg2d_declared_exclusion_registry_evidence.json"
+        ],
+        "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+      }
+    }
+  ],
+  "counts": [
+    {
+      "Name": "doc/cg2d_external_keyboard_scope.json",
+      "Count": 91
+    },
+    {
+      "Name": "doc/cg2d_network_cipher_scope.json",
+      "Count": 2
+    },
+    {
+      "Name": "doc/cg2d_render_depth_scope.json",
+      "Count": 9
+    },
+    {
+      "Name": "newest",
+      "Count": 5
+    }
+  ],
+  "verification": {
+    "method": "限定静态",
+    "source_changed": false,
+    "authorization_changed": false,
+    "software_gate_changed": false,
+    "limits": "只补排除身份，全部函数分类/间接归属/未知与完整软件验收未闭"
+  }
+}

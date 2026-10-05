@@ -12147,7 +12147,8 @@
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
-        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state"
       ]
     },
     {
@@ -12213,7 +12214,8 @@
       "evidence_refs": [
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
-        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state"
       ]
     },
     {
@@ -14022,6 +14024,1290 @@
         "doc/cg2d_palette_global_memory_evidence.json"
       ],
       "reason": "原完整根与当前独立调色板SDK域/存储及释放取样序可追；索引T*/私有容器沿已批x64/宿主承接，全部alias/SDK/ABI和运行未验"
+    },
+    {
+      "inventory_id": "F:00001960",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_cipher_scope.json#/records/0",
+        "doc/cg2d_network_exclusion_wiring_spec.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00001AB0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_network_cipher_scope.json#/records/1",
+        "doc/cg2d_network_exclusion_wiring_spec.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0004ED70",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_render_depth_scope.json#/records/0",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0004F000",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_render_depth_scope.json#/records/1",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0004F650",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_render_depth_scope.json#/records/2",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0004F920",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_render_depth_scope.json#/records/3",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00051190",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_render_depth_scope.json#/records/9",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00051270",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_render_depth_scope.json#/records/10",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00051FA0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_render_depth_scope.json#/records/4",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:000522F0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_render_depth_scope.json#/records/5",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00052CF0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_render_depth_scope.json#/records/6",
+        "doc/cg2d_render_depth_scope.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0010FC30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_state_controller.md",
+        "plan/cg2d_full_reconstruction_plan.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0010FE30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_state_controller.md",
+        "plan/cg2d_full_reconstruction_plan.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0010FF10",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_state_controller.md",
+        "plan/cg2d_full_reconstruction_plan.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0010FF70",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_state_controller.md",
+        "plan/cg2d_full_reconstruction_plan.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00110120",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_state_controller.md",
+        "plan/cg2d_full_reconstruction_plan.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00134AB0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/0",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00134B80",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/1",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00135090",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/2",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00135290",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/3",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00135310",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/4",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001354C0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/5",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001354D0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/64",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00135540",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/6",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00136970",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/7",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00136C30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/8",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00136EA0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/9",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00136EE0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/65",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00136F00",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/66",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00136FD0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/10",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137090",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/67",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001371A0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/11",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137220",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/68",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001375F0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/69",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137660",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/70",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001378F0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/71",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137920",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/72",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137950",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/73",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137980",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/74",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001379E0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/75",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137B20",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/49",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137B80",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/12",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137D30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/13",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137D40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/14",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137D50",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/15",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137D60",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/16",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137D70",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/17",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137D90",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/18",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137DA0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/19",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137DC0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/20",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137DE0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/21",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137E40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/22",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137E60",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/23",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137F40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/24",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137FC0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/25",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00137FE0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/50",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138170",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/51",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138200",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/52",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138270",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/53",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001382E0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/54",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138390",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/55",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001384A0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/56",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138870",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/57",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138940",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/58",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138960",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/59",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001389D0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/60",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138C60",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/61",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138C90",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/62",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138CF0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/63",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138D40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/26",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00138F60",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/27",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139070",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/76",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001390D0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/77",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139100",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/78",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139110",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/79",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139120",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/28",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139270",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/29",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139450",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/30",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139490",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/31",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139540",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/32",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139630",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/33",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001396A0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/34",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001397C0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/80",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:001397F0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/35",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139870",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/81",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139980",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/82",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139A50",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/83",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139E20",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/84",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:00139E90",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/85",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A120",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/86",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A150",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/87",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A1B0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/88",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A220",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/36",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A3D0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/37",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A470",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/38",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A490",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/39",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A4D0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/40",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A500",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/89",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A5D0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/90",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013A9A0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/41",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013AA20",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/91",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013AB30",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/42",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013ABB0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/92",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013AC20",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/93",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013AEB0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/94",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013AEE0",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/95",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
+    },
+    {
+      "inventory_id": "F:0013AF40",
+      "disposition": "excluded",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_external_keyboard_scope.json#/records/96",
+        "doc/cg2d_external_keyboard_wrapper.md",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_declared_exclusion_registry_evidence.json"
+      ],
+      "reason": "仅补原已批准完整入口排除的身份登记，不算实现/验收；共享/混合/父职责、原范围及完整门禁保持"
     }
   ],
   "auxiliary_dispositions": [

@@ -1,0 +1,5798 @@
+{
+  "schema_version": 1,
+  "scope": "BTS01战斗主回调场景/计数/坐标及附件指针消费取样；仅一根四片段与257槽静态对应，不验200完整动作/全部绑定父/owner寿命或运行",
+  "baseline_snapshot": "cg2d-re-battle-copy-sampling-20261006",
+  "implementation_snapshot": "cg2d-re-battle-tail-sampling-20261006",
+  "original_functions": [
+    {
+      "entry": "0x404db0",
+      "actual_start": "0x404db0",
+      "end_exclusive": "0x40573c",
+      "chunks": [
+        {
+          "start": "0x404db0",
+          "end_exclusive": "0x40573c"
+        }
+      ],
+      "instruction_count": 684,
+      "references": [
+        {
+          "site": "0x414f3a",
+          "type": 1,
+          "parent_entry": "0x414050"
+        },
+        {
+          "site": "0x414fa1",
+          "type": 1,
+          "parent_entry": "0x414050"
+        },
+        {
+          "site": "0x415504",
+          "type": 1,
+          "parent_entry": "0x4154c0"
+        },
+        {
+          "site": "0x415773",
+          "type": 1,
+          "parent_entry": "0x4154c0"
+        },
+        {
+          "site": "0x415994",
+          "type": 1,
+          "parent_entry": "0x415940"
+        },
+        {
+          "site": "0x415e27",
+          "type": 1,
+          "parent_entry": "0x415940"
+        },
+        {
+          "site": "0x418ba7",
+          "type": 1,
+          "parent_entry": "0x418b70"
+        },
+        {
+          "site": "0x4191b4",
+          "type": 1,
+          "parent_entry": "0x419180"
+        },
+        {
+          "site": "0x4193c2",
+          "type": 1,
+          "parent_entry": "0x419390"
+        },
+        {
+          "site": "0x41961c",
+          "type": 1,
+          "parent_entry": "0x4195f0"
+        },
+        {
+          "site": "0x419dda",
+          "type": 1,
+          "parent_entry": "0x419da0"
+        },
+        {
+          "site": "0x42060c",
+          "type": 1,
+          "parent_entry": "0x4205f0"
+        },
+        {
+          "site": "0x4382bc",
+          "type": 1,
+          "parent_entry": "0x438290"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x404db0",
+          "size": 5,
+          "bytes": "a1640dff00",
+          "text": "mov     eax, gWorld__SceneState"
+        },
+        {
+          "ea": "0x404db5",
+          "size": 1,
+          "bytes": "55",
+          "text": "push    ebp"
+        },
+        {
+          "ea": "0x404db6",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x404db7",
+          "size": 4,
+          "bytes": "8b74240c",
+          "text": "mov     esi, [esp+8+a2]"
+        },
+        {
+          "ea": "0x404dbb",
+          "size": 3,
+          "bytes": "83f807",
+          "text": "cmp     eax, 7"
+        },
+        {
+          "ea": "0x404dbe",
+          "size": 3,
+          "bytes": "8b6e0c",
+          "text": "mov     ebp, [esi+0Ch]"
+        },
+        {
+          "ea": "0x404dc1",
+          "size": 6,
+          "bytes": "0f8472090000",
+          "text": "jz      loc_405739"
+        },
+        {
+          "ea": "0x404dc7",
+          "size": 3,
+          "bytes": "8b462c",
+          "text": "mov     eax, [esi+2Ch]"
+        },
+        {
+          "ea": "0x404dca",
+          "size": 5,
+          "bytes": "3d00010000",
+          "text": "cmp     eax, 100h; switch 257 cases"
+        },
+        {
+          "ea": "0x404dcf",
+          "size": 6,
+          "bytes": "0f876d080000",
+          "text": "ja      def_404DD5; jumptable 00404DD5 default case"
+        },
+        {
+          "ea": "0x404dd5",
+          "size": 7,
+          "bytes": "ff24853c574000",
+          "text": "jmp     ds:jpt_404DD5[eax*4]; switch jump"
+        },
+        {
+          "ea": "0x404ddc",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 236"
+        },
+        {
+          "ea": "0x404ddd",
+          "size": 5,
+          "bytes": "e84e180000",
+          "text": "call    sub_406630"
+        },
+        {
+          "ea": "0x404de2",
+          "size": 5,
+          "bytes": "e958080000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404de7",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 0"
+        },
+        {
+          "ea": "0x404de8",
+          "size": 5,
+          "bytes": "e863180000",
+          "text": "call    sub_406650"
+        },
+        {
+          "ea": "0x404ded",
+          "size": 5,
+          "bytes": "e94d080000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404df2",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 1"
+        },
+        {
+          "ea": "0x404df3",
+          "size": 5,
+          "bytes": "e828190000",
+          "text": "call    sub_406720"
+        },
+        {
+          "ea": "0x404df8",
+          "size": 5,
+          "bytes": "e942080000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404dfd",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 2"
+        },
+        {
+          "ea": "0x404dfe",
+          "size": 5,
+          "bytes": "e85d190000",
+          "text": "call    sub_406760"
+        },
+        {
+          "ea": "0x404e03",
+          "size": 5,
+          "bytes": "e937080000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e08",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 11"
+        },
+        {
+          "ea": "0x404e09",
+          "size": 5,
+          "bytes": "e8e2190000",
+          "text": "call    sub_4067F0"
+        },
+        {
+          "ea": "0x404e0e",
+          "size": 5,
+          "bytes": "e92c080000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e13",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 12"
+        },
+        {
+          "ea": "0x404e14",
+          "size": 5,
+          "bytes": "e8171b0000",
+          "text": "call    sub_406930"
+        },
+        {
+          "ea": "0x404e19",
+          "size": 5,
+          "bytes": "e921080000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e1e",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 13"
+        },
+        {
+          "ea": "0x404e1f",
+          "size": 5,
+          "bytes": "e85c1c0000",
+          "text": "call    sub_406A80"
+        },
+        {
+          "ea": "0x404e24",
+          "size": 5,
+          "bytes": "e916080000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e29",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 25"
+        },
+        {
+          "ea": "0x404e2a",
+          "size": 5,
+          "bytes": "e8711d0000",
+          "text": "call    sub_406BA0"
+        },
+        {
+          "ea": "0x404e2f",
+          "size": 5,
+          "bytes": "e90b080000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e34",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 3"
+        },
+        {
+          "ea": "0x404e35",
+          "size": 5,
+          "bytes": "e8f61d0000",
+          "text": "call    sub_406C30"
+        },
+        {
+          "ea": "0x404e3a",
+          "size": 5,
+          "bytes": "e900080000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e3f",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 6"
+        },
+        {
+          "ea": "0x404e40",
+          "size": 5,
+          "bytes": "e88b1e0000",
+          "text": "call    sub_406CD0"
+        },
+        {
+          "ea": "0x404e45",
+          "size": 5,
+          "bytes": "e9f5070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e4a",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 4"
+        },
+        {
+          "ea": "0x404e4b",
+          "size": 5,
+          "bytes": "e8201f0000",
+          "text": "call    sub_406D70"
+        },
+        {
+          "ea": "0x404e50",
+          "size": 5,
+          "bytes": "e9ea070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e55",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 15"
+        },
+        {
+          "ea": "0x404e56",
+          "size": 5,
+          "bytes": "e8b51f0000",
+          "text": "call    Battle__Boomerange__runEffect"
+        },
+        {
+          "ea": "0x404e5b",
+          "size": 5,
+          "bytes": "e9df070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e60",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 70"
+        },
+        {
+          "ea": "0x404e61",
+          "size": 5,
+          "bytes": "e87a220000",
+          "text": "call    Battle__SpiracleShot__runEffect"
+        },
+        {
+          "ea": "0x404e66",
+          "size": 5,
+          "bytes": "e9d4070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e6b",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 249"
+        },
+        {
+          "ea": "0x404e6c",
+          "size": 5,
+          "bytes": "e84f230000",
+          "text": "call    Battle__BlastWave__runEffect"
+        },
+        {
+          "ea": "0x404e71",
+          "size": 5,
+          "bytes": "e9c9070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e76",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 16"
+        },
+        {
+          "ea": "0x404e77",
+          "size": 5,
+          "bytes": "e864240000",
+          "text": "call    sub_4072E0"
+        },
+        {
+          "ea": "0x404e7c",
+          "size": 5,
+          "bytes": "e9be070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e81",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 18"
+        },
+        {
+          "ea": "0x404e82",
+          "size": 5,
+          "bytes": "e8e9320000",
+          "text": "call    Battle__BowShot__runEffect"
+        },
+        {
+          "ea": "0x404e87",
+          "size": 5,
+          "bytes": "e9b3070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e8c",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 19"
+        },
+        {
+          "ea": "0x404e8d",
+          "size": 5,
+          "bytes": "e85e340000",
+          "text": "call    Battle__RandomShot__runEffect"
+        },
+        {
+          "ea": "0x404e92",
+          "size": 5,
+          "bytes": "e9a8070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404e97",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 20"
+        },
+        {
+          "ea": "0x404e98",
+          "size": 5,
+          "bytes": "e873350000",
+          "text": "call    sub_408410"
+        },
+        {
+          "ea": "0x404e9d",
+          "size": 5,
+          "bytes": "e99d070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404ea2",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 21"
+        },
+        {
+          "ea": "0x404ea3",
+          "size": 5,
+          "bytes": "e8a8380000",
+          "text": "call    sub_408750"
+        },
+        {
+          "ea": "0x404ea8",
+          "size": 5,
+          "bytes": "e992070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404ead",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 22"
+        },
+        {
+          "ea": "0x404eae",
+          "size": 5,
+          "bytes": "e80d390000",
+          "text": "call    sub_4087C0"
+        },
+        {
+          "ea": "0x404eb3",
+          "size": 5,
+          "bytes": "e987070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404eb8",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 23"
+        },
+        {
+          "ea": "0x404eb9",
+          "size": 5,
+          "bytes": "e832420000",
+          "text": "call    sub_4090F0"
+        },
+        {
+          "ea": "0x404ebe",
+          "size": 5,
+          "bytes": "e97c070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404ec3",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 24"
+        },
+        {
+          "ea": "0x404ec4",
+          "size": 5,
+          "bytes": "e8b7440000",
+          "text": "call    sub_409380"
+        },
+        {
+          "ea": "0x404ec9",
+          "size": 5,
+          "bytes": "e971070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404ece",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 17"
+        },
+        {
+          "ea": "0x404ecf",
+          "size": 5,
+          "bytes": "e8dc440000",
+          "text": "call    sub_4093B0"
+        },
+        {
+          "ea": "0x404ed4",
+          "size": 5,
+          "bytes": "e966070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404ed9",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 7"
+        },
+        {
+          "ea": "0x404eda",
+          "size": 5,
+          "bytes": "e831450000",
+          "text": "call    sub_409410"
+        },
+        {
+          "ea": "0x404edf",
+          "size": 5,
+          "bytes": "e95b070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404ee4",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 8"
+        },
+        {
+          "ea": "0x404ee5",
+          "size": 5,
+          "bytes": "e8b6450000",
+          "text": "call    sub_4094A0"
+        },
+        {
+          "ea": "0x404eea",
+          "size": 5,
+          "bytes": "e950070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404eef",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 9"
+        },
+        {
+          "ea": "0x404ef0",
+          "size": 5,
+          "bytes": "e81b460000",
+          "text": "call    sub_409510"
+        },
+        {
+          "ea": "0x404ef5",
+          "size": 5,
+          "bytes": "e945070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404efa",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 10"
+        },
+        {
+          "ea": "0x404efb",
+          "size": 5,
+          "bytes": "e810470000",
+          "text": "call    sub_409610"
+        },
+        {
+          "ea": "0x404f00",
+          "size": 5,
+          "bytes": "e93a070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f05",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 14"
+        },
+        {
+          "ea": "0x404f06",
+          "size": 5,
+          "bytes": "e875470000",
+          "text": "call    sub_409680"
+        },
+        {
+          "ea": "0x404f0b",
+          "size": 5,
+          "bytes": "e92f070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f10",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 26"
+        },
+        {
+          "ea": "0x404f11",
+          "size": 5,
+          "bytes": "e8ca5a0000",
+          "text": "call    sub_40A9E0"
+        },
+        {
+          "ea": "0x404f16",
+          "size": 5,
+          "bytes": "e924070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f1b",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 27"
+        },
+        {
+          "ea": "0x404f1c",
+          "size": 5,
+          "bytes": "e84f5b0000",
+          "text": "call    sub_40AA70"
+        },
+        {
+          "ea": "0x404f21",
+          "size": 5,
+          "bytes": "e919070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f26",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 28"
+        },
+        {
+          "ea": "0x404f27",
+          "size": 5,
+          "bytes": "e8c45d0000",
+          "text": "call    sub_40ACF0"
+        },
+        {
+          "ea": "0x404f2c",
+          "size": 5,
+          "bytes": "e90e070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f31",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 29"
+        },
+        {
+          "ea": "0x404f32",
+          "size": 5,
+          "bytes": "e8195f0000",
+          "text": "call    sub_40AE50"
+        },
+        {
+          "ea": "0x404f37",
+          "size": 5,
+          "bytes": "e903070000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f3c",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 30"
+        },
+        {
+          "ea": "0x404f3d",
+          "size": 5,
+          "bytes": "e8ee5f0000",
+          "text": "call    sub_40AF30"
+        },
+        {
+          "ea": "0x404f42",
+          "size": 5,
+          "bytes": "e9f8060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f47",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 31"
+        },
+        {
+          "ea": "0x404f48",
+          "size": 5,
+          "bytes": "e8d3600000",
+          "text": "call    sub_40B020"
+        },
+        {
+          "ea": "0x404f4d",
+          "size": 5,
+          "bytes": "e9ed060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f52",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 45"
+        },
+        {
+          "ea": "0x404f53",
+          "size": 5,
+          "bytes": "e8d8610000",
+          "text": "call    sub_40B130"
+        },
+        {
+          "ea": "0x404f58",
+          "size": 5,
+          "bytes": "e9e2060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f5d",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 251"
+        },
+        {
+          "ea": "0x404f5e",
+          "size": 5,
+          "bytes": "e81d620000",
+          "text": "call    sub_40B180"
+        },
+        {
+          "ea": "0x404f63",
+          "size": 5,
+          "bytes": "e9d7060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f68",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 46"
+        },
+        {
+          "ea": "0x404f69",
+          "size": 5,
+          "bytes": "e892620000",
+          "text": "call    sub_40B200"
+        },
+        {
+          "ea": "0x404f6e",
+          "size": 5,
+          "bytes": "e9cc060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f73",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 50"
+        },
+        {
+          "ea": "0x404f74",
+          "size": 5,
+          "bytes": "e847640000",
+          "text": "call    sub_40B3C0"
+        },
+        {
+          "ea": "0x404f79",
+          "size": 5,
+          "bytes": "e9c1060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f7e",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 47"
+        },
+        {
+          "ea": "0x404f7f",
+          "size": 5,
+          "bytes": "e86c640000",
+          "text": "call    sub_40B3F0"
+        },
+        {
+          "ea": "0x404f84",
+          "size": 5,
+          "bytes": "e9b6060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f89",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 32"
+        },
+        {
+          "ea": "0x404f8a",
+          "size": 5,
+          "bytes": "e881640000",
+          "text": "call    sub_40B410"
+        },
+        {
+          "ea": "0x404f8f",
+          "size": 5,
+          "bytes": "e9ab060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f94",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 33"
+        },
+        {
+          "ea": "0x404f95",
+          "size": 5,
+          "bytes": "e8b6640000",
+          "text": "call    sub_40B450"
+        },
+        {
+          "ea": "0x404f9a",
+          "size": 5,
+          "bytes": "e9a0060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404f9f",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 48"
+        },
+        {
+          "ea": "0x404fa0",
+          "size": 5,
+          "bytes": "e8eb640000",
+          "text": "call    sub_40B490"
+        },
+        {
+          "ea": "0x404fa5",
+          "size": 5,
+          "bytes": "e995060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404faa",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 49"
+        },
+        {
+          "ea": "0x404fab",
+          "size": 5,
+          "bytes": "e800660000",
+          "text": "call    sub_40B5B0"
+        },
+        {
+          "ea": "0x404fb0",
+          "size": 5,
+          "bytes": "e98a060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404fb5",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 34"
+        },
+        {
+          "ea": "0x404fb6",
+          "size": 5,
+          "bytes": "e825660000",
+          "text": "call    sub_40B5E0"
+        },
+        {
+          "ea": "0x404fbb",
+          "size": 5,
+          "bytes": "e97f060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404fc0",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 35"
+        },
+        {
+          "ea": "0x404fc1",
+          "size": 5,
+          "bytes": "e86a690000",
+          "text": "call    sub_40B930"
+        },
+        {
+          "ea": "0x404fc6",
+          "size": 5,
+          "bytes": "e974060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404fcb",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 36"
+        },
+        {
+          "ea": "0x404fcc",
+          "size": 5,
+          "bytes": "e8ff6a0000",
+          "text": "call    sub_40BAD0"
+        },
+        {
+          "ea": "0x404fd1",
+          "size": 5,
+          "bytes": "e969060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404fd6",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 37"
+        },
+        {
+          "ea": "0x404fd7",
+          "size": 5,
+          "bytes": "e8446b0000",
+          "text": "call    sub_40BB20"
+        },
+        {
+          "ea": "0x404fdc",
+          "size": 5,
+          "bytes": "e95e060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404fe1",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 38"
+        },
+        {
+          "ea": "0x404fe2",
+          "size": 5,
+          "bytes": "e8896b0000",
+          "text": "call    sub_40BB70"
+        },
+        {
+          "ea": "0x404fe7",
+          "size": 5,
+          "bytes": "e953060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404fec",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 39"
+        },
+        {
+          "ea": "0x404fed",
+          "size": 5,
+          "bytes": "e8ce6b0000",
+          "text": "call    sub_40BBC0"
+        },
+        {
+          "ea": "0x404ff2",
+          "size": 5,
+          "bytes": "e948060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x404ff7",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 40"
+        },
+        {
+          "ea": "0x404ff8",
+          "size": 5,
+          "bytes": "e8436d0000",
+          "text": "call    sub_40BD40"
+        },
+        {
+          "ea": "0x404ffd",
+          "size": 5,
+          "bytes": "e93d060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405002",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 41"
+        },
+        {
+          "ea": "0x405003",
+          "size": 5,
+          "bytes": "e8586d0000",
+          "text": "call    sub_40BD60"
+        },
+        {
+          "ea": "0x405008",
+          "size": 5,
+          "bytes": "e932060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40500d",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 42"
+        },
+        {
+          "ea": "0x40500e",
+          "size": 5,
+          "bytes": "e89d6d0000",
+          "text": "call    sub_40BDB0"
+        },
+        {
+          "ea": "0x405013",
+          "size": 5,
+          "bytes": "e927060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405018",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 44"
+        },
+        {
+          "ea": "0x405019",
+          "size": 5,
+          "bytes": "e8d26d0000",
+          "text": "call    sub_40BDF0"
+        },
+        {
+          "ea": "0x40501e",
+          "size": 5,
+          "bytes": "e91c060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405023",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 43"
+        },
+        {
+          "ea": "0x405024",
+          "size": 5,
+          "bytes": "e8076e0000",
+          "text": "call    sub_40BE30"
+        },
+        {
+          "ea": "0x405029",
+          "size": 5,
+          "bytes": "e911060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40502e",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 51"
+        },
+        {
+          "ea": "0x40502f",
+          "size": 5,
+          "bytes": "e83c6e0000",
+          "text": "call    sub_40BE70"
+        },
+        {
+          "ea": "0x405034",
+          "size": 5,
+          "bytes": "e906060000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405039",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 52"
+        },
+        {
+          "ea": "0x40503a",
+          "size": 5,
+          "bytes": "e8516e0000",
+          "text": "call    sub_40BE90"
+        },
+        {
+          "ea": "0x40503f",
+          "size": 5,
+          "bytes": "e9fb050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405044",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 53"
+        },
+        {
+          "ea": "0x405045",
+          "size": 5,
+          "bytes": "e8d66e0000",
+          "text": "call    sub_40BF20"
+        },
+        {
+          "ea": "0x40504a",
+          "size": 5,
+          "bytes": "e9f0050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40504f",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 54"
+        },
+        {
+          "ea": "0x405050",
+          "size": 5,
+          "bytes": "e88b6f0000",
+          "text": "call    sub_40BFE0"
+        },
+        {
+          "ea": "0x405055",
+          "size": 5,
+          "bytes": "e9e5050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40505a",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 55"
+        },
+        {
+          "ea": "0x40505b",
+          "size": 5,
+          "bytes": "e860700000",
+          "text": "call    sub_40C0C0"
+        },
+        {
+          "ea": "0x405060",
+          "size": 5,
+          "bytes": "e9da050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405065",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 68"
+        },
+        {
+          "ea": "0x405066",
+          "size": 5,
+          "bytes": "e875700000",
+          "text": "call    sub_40C0E0"
+        },
+        {
+          "ea": "0x40506b",
+          "size": 5,
+          "bytes": "e9cf050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405070",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 69"
+        },
+        {
+          "ea": "0x405071",
+          "size": 5,
+          "bytes": "e8aa700000",
+          "text": "call    sub_40C120"
+        },
+        {
+          "ea": "0x405076",
+          "size": 5,
+          "bytes": "e9c4050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40507b",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 56"
+        },
+        {
+          "ea": "0x40507c",
+          "size": 5,
+          "bytes": "e8df700000",
+          "text": "call    sub_40C160"
+        },
+        {
+          "ea": "0x405081",
+          "size": 5,
+          "bytes": "e9b9050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405086",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 57"
+        },
+        {
+          "ea": "0x405087",
+          "size": 5,
+          "bytes": "e814710000",
+          "text": "call    sub_40C1A0"
+        },
+        {
+          "ea": "0x40508c",
+          "size": 5,
+          "bytes": "e9ae050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405091",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 58"
+        },
+        {
+          "ea": "0x405092",
+          "size": 5,
+          "bytes": "e849710000",
+          "text": "call    sub_40C1E0"
+        },
+        {
+          "ea": "0x405097",
+          "size": 5,
+          "bytes": "e9a3050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40509c",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 60"
+        },
+        {
+          "ea": "0x40509d",
+          "size": 5,
+          "bytes": "e87e710000",
+          "text": "call    sub_40C220"
+        },
+        {
+          "ea": "0x4050a2",
+          "size": 5,
+          "bytes": "e998050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4050a7",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 59"
+        },
+        {
+          "ea": "0x4050a8",
+          "size": 5,
+          "bytes": "e893710000",
+          "text": "call    sub_40C240"
+        },
+        {
+          "ea": "0x4050ad",
+          "size": 5,
+          "bytes": "e98d050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4050b2",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 61"
+        },
+        {
+          "ea": "0x4050b3",
+          "size": 5,
+          "bytes": "e8c8710000",
+          "text": "call    sub_40C280"
+        },
+        {
+          "ea": "0x4050b8",
+          "size": 5,
+          "bytes": "e982050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4050bd",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 62"
+        },
+        {
+          "ea": "0x4050be",
+          "size": 5,
+          "bytes": "e8ed710000",
+          "text": "call    sub_40C2B0"
+        },
+        {
+          "ea": "0x4050c3",
+          "size": 5,
+          "bytes": "e977050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4050c8",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 63"
+        },
+        {
+          "ea": "0x4050c9",
+          "size": 5,
+          "bytes": "e812720000",
+          "text": "call    sub_40C2E0"
+        },
+        {
+          "ea": "0x4050ce",
+          "size": 5,
+          "bytes": "e96c050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4050d3",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 65"
+        },
+        {
+          "ea": "0x4050d4",
+          "size": 5,
+          "bytes": "e8a7720000",
+          "text": "call    sub_40C380"
+        },
+        {
+          "ea": "0x4050d9",
+          "size": 5,
+          "bytes": "e961050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4050de",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 66"
+        },
+        {
+          "ea": "0x4050df",
+          "size": 5,
+          "bytes": "e89c730000",
+          "text": "call    sub_40C480"
+        },
+        {
+          "ea": "0x4050e4",
+          "size": 5,
+          "bytes": "e956050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4050e9",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 71"
+        },
+        {
+          "ea": "0x4050ea",
+          "size": 5,
+          "bytes": "e8e1730000",
+          "text": "call    sub_40C4D0"
+        },
+        {
+          "ea": "0x4050ef",
+          "size": 5,
+          "bytes": "e94b050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4050f4",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 86"
+        },
+        {
+          "ea": "0x4050f5",
+          "size": 5,
+          "bytes": "e826740000",
+          "text": "call    sub_40C520"
+        },
+        {
+          "ea": "0x4050fa",
+          "size": 5,
+          "bytes": "e940050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4050ff",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 87"
+        },
+        {
+          "ea": "0x405100",
+          "size": 5,
+          "bytes": "e87b760000",
+          "text": "call    sub_40C780"
+        },
+        {
+          "ea": "0x405105",
+          "size": 5,
+          "bytes": "e935050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40510a",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 88"
+        },
+        {
+          "ea": "0x40510b",
+          "size": 5,
+          "bytes": "e8c0770000",
+          "text": "call    sub_40C8D0"
+        },
+        {
+          "ea": "0x405110",
+          "size": 5,
+          "bytes": "e92a050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405115",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 89"
+        },
+        {
+          "ea": "0x405116",
+          "size": 5,
+          "bytes": "e8d5770000",
+          "text": "call    sub_40C8F0"
+        },
+        {
+          "ea": "0x40511b",
+          "size": 5,
+          "bytes": "e91f050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405120",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 90"
+        },
+        {
+          "ea": "0x405121",
+          "size": 5,
+          "bytes": "e8ea770000",
+          "text": "call    sub_40C910"
+        },
+        {
+          "ea": "0x405126",
+          "size": 5,
+          "bytes": "e914050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40512b",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 72"
+        },
+        {
+          "ea": "0x40512c",
+          "size": 5,
+          "bytes": "e86f790000",
+          "text": "call    sub_40CAA0"
+        },
+        {
+          "ea": "0x405131",
+          "size": 5,
+          "bytes": "e909050000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405136",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 73"
+        },
+        {
+          "ea": "0x405137",
+          "size": 5,
+          "bytes": "e884790000",
+          "text": "call    sub_40CAC0"
+        },
+        {
+          "ea": "0x40513c",
+          "size": 5,
+          "bytes": "e9fe040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405141",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 74"
+        },
+        {
+          "ea": "0x405142",
+          "size": 5,
+          "bytes": "e8a9790000",
+          "text": "call    sub_40CAF0"
+        },
+        {
+          "ea": "0x405147",
+          "size": 5,
+          "bytes": "e9f3040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40514c",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 75"
+        },
+        {
+          "ea": "0x40514d",
+          "size": 5,
+          "bytes": "e8be790000",
+          "text": "call    sub_40CB10"
+        },
+        {
+          "ea": "0x405152",
+          "size": 5,
+          "bytes": "e9e8040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405157",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 76"
+        },
+        {
+          "ea": "0x405158",
+          "size": 5,
+          "bytes": "e8d3790000",
+          "text": "call    sub_40CB30"
+        },
+        {
+          "ea": "0x40515d",
+          "size": 5,
+          "bytes": "e9dd040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405162",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 77"
+        },
+        {
+          "ea": "0x405163",
+          "size": 5,
+          "bytes": "e8e8790000",
+          "text": "call    sub_40CB50"
+        },
+        {
+          "ea": "0x405168",
+          "size": 5,
+          "bytes": "e9d2040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40516d",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 78"
+        },
+        {
+          "ea": "0x40516e",
+          "size": 5,
+          "bytes": "e80d7a0000",
+          "text": "call    sub_40CB80"
+        },
+        {
+          "ea": "0x405173",
+          "size": 5,
+          "bytes": "e9c7040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405178",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 64"
+        },
+        {
+          "ea": "0x405179",
+          "size": 5,
+          "bytes": "e8327a0000",
+          "text": "call    sub_40CBB0"
+        },
+        {
+          "ea": "0x40517e",
+          "size": 5,
+          "bytes": "e9bc040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405183",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 79"
+        },
+        {
+          "ea": "0x405184",
+          "size": 5,
+          "bytes": "e8477a0000",
+          "text": "call    sub_40CBD0"
+        },
+        {
+          "ea": "0x405189",
+          "size": 5,
+          "bytes": "e9b1040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40518e",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 80"
+        },
+        {
+          "ea": "0x40518f",
+          "size": 5,
+          "bytes": "e8ec7a0000",
+          "text": "call    sub_40CC80"
+        },
+        {
+          "ea": "0x405194",
+          "size": 5,
+          "bytes": "e9a6040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405199",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 81"
+        },
+        {
+          "ea": "0x40519a",
+          "size": 5,
+          "bytes": "e8117b0000",
+          "text": "call    sub_40CCB0"
+        },
+        {
+          "ea": "0x40519f",
+          "size": 5,
+          "bytes": "e99b040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4051a4",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 82"
+        },
+        {
+          "ea": "0x4051a5",
+          "size": 5,
+          "bytes": "e8367b0000",
+          "text": "call    sub_40CCE0"
+        },
+        {
+          "ea": "0x4051aa",
+          "size": 5,
+          "bytes": "e990040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4051af",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 83"
+        },
+        {
+          "ea": "0x4051b0",
+          "size": 5,
+          "bytes": "e85b7b0000",
+          "text": "call    sub_40CD10"
+        },
+        {
+          "ea": "0x4051b5",
+          "size": 5,
+          "bytes": "e985040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4051ba",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 84"
+        },
+        {
+          "ea": "0x4051bb",
+          "size": 5,
+          "bytes": "e8b07b0000",
+          "text": "call    sub_40CD70"
+        },
+        {
+          "ea": "0x4051c0",
+          "size": 5,
+          "bytes": "e97a040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4051c5",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 85"
+        },
+        {
+          "ea": "0x4051c6",
+          "size": 5,
+          "bytes": "e8157c0000",
+          "text": "call    sub_40CDE0"
+        },
+        {
+          "ea": "0x4051cb",
+          "size": 5,
+          "bytes": "e96f040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4051d0",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 91"
+        },
+        {
+          "ea": "0x4051d1",
+          "size": 5,
+          "bytes": "e85a7d0000",
+          "text": "call    sub_40CF30"
+        },
+        {
+          "ea": "0x4051d6",
+          "size": 5,
+          "bytes": "e964040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4051db",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 92"
+        },
+        {
+          "ea": "0x4051dc",
+          "size": 5,
+          "bytes": "e86f7d0000",
+          "text": "call    sub_40CF50"
+        },
+        {
+          "ea": "0x4051e1",
+          "size": 5,
+          "bytes": "e959040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4051e6",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 93"
+        },
+        {
+          "ea": "0x4051e7",
+          "size": 5,
+          "bytes": "e8847d0000",
+          "text": "call    sub_40CF70"
+        },
+        {
+          "ea": "0x4051ec",
+          "size": 5,
+          "bytes": "e94e040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4051f1",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 5"
+        },
+        {
+          "ea": "0x4051f2",
+          "size": 5,
+          "bytes": "e8a97d0000",
+          "text": "call    sub_40CFA0"
+        },
+        {
+          "ea": "0x4051f7",
+          "size": 5,
+          "bytes": "e943040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4051fc",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 94"
+        },
+        {
+          "ea": "0x4051fd",
+          "size": 5,
+          "bytes": "e80e7e0000",
+          "text": "call    sub_40D010"
+        },
+        {
+          "ea": "0x405202",
+          "size": 5,
+          "bytes": "e938040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405207",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 95"
+        },
+        {
+          "ea": "0x405208",
+          "size": 5,
+          "bytes": "e8a37e0000",
+          "text": "call    sub_40D0B0"
+        },
+        {
+          "ea": "0x40520d",
+          "size": 5,
+          "bytes": "e92d040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405212",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 96"
+        },
+        {
+          "ea": "0x405213",
+          "size": 5,
+          "bytes": "e8587f0000",
+          "text": "call    sub_40D170"
+        },
+        {
+          "ea": "0x405218",
+          "size": 5,
+          "bytes": "e922040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40521d",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 97"
+        },
+        {
+          "ea": "0x40521e",
+          "size": 5,
+          "bytes": "e87d7f0000",
+          "text": "call    sub_40D1A0"
+        },
+        {
+          "ea": "0x405223",
+          "size": 5,
+          "bytes": "e917040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405228",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 98"
+        },
+        {
+          "ea": "0x405229",
+          "size": 5,
+          "bytes": "e8a27f0000",
+          "text": "call    sub_40D1D0"
+        },
+        {
+          "ea": "0x40522e",
+          "size": 5,
+          "bytes": "e90c040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405233",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 99"
+        },
+        {
+          "ea": "0x405234",
+          "size": 5,
+          "bytes": "e857810000",
+          "text": "call    sub_40D390"
+        },
+        {
+          "ea": "0x405239",
+          "size": 5,
+          "bytes": "e901040000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40523e",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 100"
+        },
+        {
+          "ea": "0x40523f",
+          "size": 5,
+          "bytes": "e87c810000",
+          "text": "call    sub_40D3C0"
+        },
+        {
+          "ea": "0x405244",
+          "size": 5,
+          "bytes": "e9f6030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405249",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 101"
+        },
+        {
+          "ea": "0x40524a",
+          "size": 5,
+          "bytes": "e831830000",
+          "text": "call    sub_40D580"
+        },
+        {
+          "ea": "0x40524f",
+          "size": 5,
+          "bytes": "e9eb030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405254",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 102"
+        },
+        {
+          "ea": "0x405255",
+          "size": 5,
+          "bytes": "e866840000",
+          "text": "call    sub_40D6C0"
+        },
+        {
+          "ea": "0x40525a",
+          "size": 5,
+          "bytes": "e9e0030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40525f",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 103"
+        },
+        {
+          "ea": "0x405260",
+          "size": 5,
+          "bytes": "e87b890000",
+          "text": "call    sub_40DBE0"
+        },
+        {
+          "ea": "0x405265",
+          "size": 5,
+          "bytes": "e9d5030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40526a",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 104"
+        },
+        {
+          "ea": "0x40526b",
+          "size": 5,
+          "bytes": "e8208a0000",
+          "text": "call    sub_40DC90"
+        },
+        {
+          "ea": "0x405270",
+          "size": 5,
+          "bytes": "e9ca030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405275",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 105"
+        },
+        {
+          "ea": "0x405276",
+          "size": 5,
+          "bytes": "e8c58b0000",
+          "text": "call    sub_40DE40"
+        },
+        {
+          "ea": "0x40527b",
+          "size": 5,
+          "bytes": "e9bf030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405280",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 106"
+        },
+        {
+          "ea": "0x405281",
+          "size": 5,
+          "bytes": "e8ca8c0000",
+          "text": "call    sub_40DF50"
+        },
+        {
+          "ea": "0x405286",
+          "size": 5,
+          "bytes": "e9b4030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40528b",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 107"
+        },
+        {
+          "ea": "0x40528c",
+          "size": 5,
+          "bytes": "e8df8c0000",
+          "text": "call    sub_40DF70"
+        },
+        {
+          "ea": "0x405291",
+          "size": 5,
+          "bytes": "e9a9030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405296",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 108"
+        },
+        {
+          "ea": "0x405297",
+          "size": 5,
+          "bytes": "e8e48c0000",
+          "text": "call    sub_40DF80"
+        },
+        {
+          "ea": "0x40529c",
+          "size": 5,
+          "bytes": "e99e030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4052a1",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 109"
+        },
+        {
+          "ea": "0x4052a2",
+          "size": 5,
+          "bytes": "e809920000",
+          "text": "call    sub_40E4B0"
+        },
+        {
+          "ea": "0x4052a7",
+          "size": 5,
+          "bytes": "e993030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4052ac",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 110"
+        },
+        {
+          "ea": "0x4052ad",
+          "size": 5,
+          "bytes": "e8ae920000",
+          "text": "call    sub_40E560"
+        },
+        {
+          "ea": "0x4052b2",
+          "size": 5,
+          "bytes": "e988030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4052b7",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 111"
+        },
+        {
+          "ea": "0x4052b8",
+          "size": 5,
+          "bytes": "e8b3960000",
+          "text": "call    sub_40E970"
+        },
+        {
+          "ea": "0x4052bd",
+          "size": 5,
+          "bytes": "e97d030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4052c2",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 112"
+        },
+        {
+          "ea": "0x4052c3",
+          "size": 5,
+          "bytes": "e838980000",
+          "text": "call    sub_40EB00"
+        },
+        {
+          "ea": "0x4052c8",
+          "size": 5,
+          "bytes": "e972030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4052cd",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 113"
+        },
+        {
+          "ea": "0x4052ce",
+          "size": 5,
+          "bytes": "e80d9d0000",
+          "text": "call    sub_40EFE0"
+        },
+        {
+          "ea": "0x4052d3",
+          "size": 5,
+          "bytes": "e967030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4052d8",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 114"
+        },
+        {
+          "ea": "0x4052d9",
+          "size": 5,
+          "bytes": "e8c29d0000",
+          "text": "call    sub_40F0A0"
+        },
+        {
+          "ea": "0x4052de",
+          "size": 5,
+          "bytes": "e95c030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4052e3",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 154"
+        },
+        {
+          "ea": "0x4052e4",
+          "size": 5,
+          "bytes": "e8a7a40000",
+          "text": "call    sub_40F790"
+        },
+        {
+          "ea": "0x4052e9",
+          "size": 5,
+          "bytes": "e951030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4052ee",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 155"
+        },
+        {
+          "ea": "0x4052ef",
+          "size": 5,
+          "bytes": "e80ca50000",
+          "text": "call    sub_40F800"
+        },
+        {
+          "ea": "0x4052f4",
+          "size": 5,
+          "bytes": "e946030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4052f9",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 156"
+        },
+        {
+          "ea": "0x4052fa",
+          "size": 5,
+          "bytes": "e831a80000",
+          "text": "call    sub_40FB30"
+        },
+        {
+          "ea": "0x4052ff",
+          "size": 5,
+          "bytes": "e93b030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405304",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 115"
+        },
+        {
+          "ea": "0x405305",
+          "size": 5,
+          "bytes": "e876a80000",
+          "text": "call    sub_40FB80"
+        },
+        {
+          "ea": "0x40530a",
+          "size": 5,
+          "bytes": "e930030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40530f",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 cases 116-126,130-137,146,149-153,157,158,161,217,250,252"
+        },
+        {
+          "ea": "0x405310",
+          "size": 5,
+          "bytes": "e8fba80000",
+          "text": "call    sub_40FC10"
+        },
+        {
+          "ea": "0x405315",
+          "size": 5,
+          "bytes": "e925030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40531a",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 253"
+        },
+        {
+          "ea": "0x40531b",
+          "size": 5,
+          "bytes": "e830ab0000",
+          "text": "call    sub_40FE50"
+        },
+        {
+          "ea": "0x405320",
+          "size": 5,
+          "bytes": "e91a030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405325",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 254"
+        },
+        {
+          "ea": "0x405326",
+          "size": 5,
+          "bytes": "e885ab0000",
+          "text": "call    sub_40FEB0"
+        },
+        {
+          "ea": "0x40532b",
+          "size": 5,
+          "bytes": "e90f030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405330",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 148"
+        },
+        {
+          "ea": "0x405331",
+          "size": 5,
+          "bytes": "e8baab0000",
+          "text": "call    sub_40FEF0"
+        },
+        {
+          "ea": "0x405336",
+          "size": 5,
+          "bytes": "e904030000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40533b",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 138"
+        },
+        {
+          "ea": "0x40533c",
+          "size": 5,
+          "bytes": "e8ffab0000",
+          "text": "call    sub_40FF40"
+        },
+        {
+          "ea": "0x405341",
+          "size": 5,
+          "bytes": "e9f9020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405346",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 cases 127-129"
+        },
+        {
+          "ea": "0x405347",
+          "size": 5,
+          "bytes": "e844ac0000",
+          "text": "call    sub_40FF90"
+        },
+        {
+          "ea": "0x40534c",
+          "size": 5,
+          "bytes": "e9ee020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405351",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 139"
+        },
+        {
+          "ea": "0x405352",
+          "size": 5,
+          "bytes": "e8a9ac0000",
+          "text": "call    sub_410000"
+        },
+        {
+          "ea": "0x405357",
+          "size": 5,
+          "bytes": "e9e3020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40535c",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 67"
+        },
+        {
+          "ea": "0x40535d",
+          "size": 5,
+          "bytes": "e84eb30000",
+          "text": "call    sub_4106B0"
+        },
+        {
+          "ea": "0x405362",
+          "size": 5,
+          "bytes": "e9d8020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405367",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 140"
+        },
+        {
+          "ea": "0x405368",
+          "size": 5,
+          "bytes": "e8c3b30000",
+          "text": "call    sub_410730"
+        },
+        {
+          "ea": "0x40536d",
+          "size": 5,
+          "bytes": "e9cd020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405372",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 159"
+        },
+        {
+          "ea": "0x405373",
+          "size": 5,
+          "bytes": "e848b40000",
+          "text": "call    sub_4107C0"
+        },
+        {
+          "ea": "0x405378",
+          "size": 5,
+          "bytes": "e9c2020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40537d",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 160"
+        },
+        {
+          "ea": "0x40537e",
+          "size": 5,
+          "bytes": "e87db70000",
+          "text": "call    sub_410B00"
+        },
+        {
+          "ea": "0x405383",
+          "size": 5,
+          "bytes": "e9b7020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405388",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 162"
+        },
+        {
+          "ea": "0x405389",
+          "size": 5,
+          "bytes": "e8a2ba0000",
+          "text": "call    sub_410E30"
+        },
+        {
+          "ea": "0x40538e",
+          "size": 5,
+          "bytes": "e9ac020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405393",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 141"
+        },
+        {
+          "ea": "0x405394",
+          "size": 5,
+          "bytes": "e8f7ba0000",
+          "text": "call    sub_410E90"
+        },
+        {
+          "ea": "0x405399",
+          "size": 5,
+          "bytes": "e9a1020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40539e",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 142"
+        },
+        {
+          "ea": "0x40539f",
+          "size": 5,
+          "bytes": "e8ccbb0000",
+          "text": "call    sub_410F70"
+        },
+        {
+          "ea": "0x4053a4",
+          "size": 5,
+          "bytes": "e996020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4053a9",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 143"
+        },
+        {
+          "ea": "0x4053aa",
+          "size": 5,
+          "bytes": "e811bc0000",
+          "text": "call    sub_410FC0"
+        },
+        {
+          "ea": "0x4053af",
+          "size": 5,
+          "bytes": "e98b020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4053b4",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 144"
+        },
+        {
+          "ea": "0x4053b5",
+          "size": 5,
+          "bytes": "e886be0000",
+          "text": "call    sub_411240"
+        },
+        {
+          "ea": "0x4053ba",
+          "size": 5,
+          "bytes": "e980020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4053bf",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 145"
+        },
+        {
+          "ea": "0x4053c0",
+          "size": 5,
+          "bytes": "e8cbbe0000",
+          "text": "call    sub_411290"
+        },
+        {
+          "ea": "0x4053c5",
+          "size": 5,
+          "bytes": "e975020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4053ca",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 147"
+        },
+        {
+          "ea": "0x4053cb",
+          "size": 5,
+          "bytes": "e850bf0000",
+          "text": "call    sub_411320"
+        },
+        {
+          "ea": "0x4053d0",
+          "size": 5,
+          "bytes": "e96a020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4053d5",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 163"
+        },
+        {
+          "ea": "0x4053d6",
+          "size": 5,
+          "bytes": "e8c5bf0000",
+          "text": "call    sub_4113A0"
+        },
+        {
+          "ea": "0x4053db",
+          "size": 5,
+          "bytes": "e95f020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4053e0",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 164"
+        },
+        {
+          "ea": "0x4053e1",
+          "size": 5,
+          "bytes": "e86ac60000",
+          "text": "call    sub_411A50"
+        },
+        {
+          "ea": "0x4053e6",
+          "size": 5,
+          "bytes": "e954020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4053eb",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 166"
+        },
+        {
+          "ea": "0x4053ec",
+          "size": 5,
+          "bytes": "e8bfc80000",
+          "text": "call    sub_411CB0"
+        },
+        {
+          "ea": "0x4053f1",
+          "size": 5,
+          "bytes": "e949020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4053f6",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 165"
+        },
+        {
+          "ea": "0x4053f7",
+          "size": 5,
+          "bytes": "e834c90000",
+          "text": "call    sub_411D30"
+        },
+        {
+          "ea": "0x4053fc",
+          "size": 5,
+          "bytes": "e93e020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405401",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 167"
+        },
+        {
+          "ea": "0x405402",
+          "size": 5,
+          "bytes": "e899cb0000",
+          "text": "call    sub_411FA0"
+        },
+        {
+          "ea": "0x405407",
+          "size": 5,
+          "bytes": "e933020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40540c",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 168"
+        },
+        {
+          "ea": "0x40540d",
+          "size": 5,
+          "bytes": "e8aecb0000",
+          "text": "call    sub_411FC0"
+        },
+        {
+          "ea": "0x405412",
+          "size": 5,
+          "bytes": "e928020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405417",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 169"
+        },
+        {
+          "ea": "0x405418",
+          "size": 5,
+          "bytes": "e8c3cb0000",
+          "text": "call    sub_411FE0"
+        },
+        {
+          "ea": "0x40541d",
+          "size": 5,
+          "bytes": "e91d020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405422",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 170"
+        },
+        {
+          "ea": "0x405423",
+          "size": 5,
+          "bytes": "e8d8cb0000",
+          "text": "call    sub_412000"
+        },
+        {
+          "ea": "0x405428",
+          "size": 5,
+          "bytes": "e912020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40542d",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 171"
+        },
+        {
+          "ea": "0x40542e",
+          "size": 5,
+          "bytes": "e8edcb0000",
+          "text": "call    sub_412020"
+        },
+        {
+          "ea": "0x405433",
+          "size": 5,
+          "bytes": "e907020000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405438",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 cases 172,173"
+        },
+        {
+          "ea": "0x405439",
+          "size": 5,
+          "bytes": "e8b2cc0000",
+          "text": "call    sub_4120F0"
+        },
+        {
+          "ea": "0x40543e",
+          "size": 5,
+          "bytes": "e9fc010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405443",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 174"
+        },
+        {
+          "ea": "0x405444",
+          "size": 5,
+          "bytes": "e887cd0000",
+          "text": "call    sub_4121D0"
+        },
+        {
+          "ea": "0x405449",
+          "size": 5,
+          "bytes": "e9f1010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40544e",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 175"
+        },
+        {
+          "ea": "0x40544f",
+          "size": 5,
+          "bytes": "e8bccd0000",
+          "text": "call    sub_412210"
+        },
+        {
+          "ea": "0x405454",
+          "size": 5,
+          "bytes": "e9e6010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405459",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 176"
+        },
+        {
+          "ea": "0x40545a",
+          "size": 5,
+          "bytes": "e801ce0000",
+          "text": "call    sub_412260"
+        },
+        {
+          "ea": "0x40545f",
+          "size": 5,
+          "bytes": "e9db010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405464",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 177"
+        },
+        {
+          "ea": "0x405465",
+          "size": 5,
+          "bytes": "e826ce0000",
+          "text": "call    sub_412290"
+        },
+        {
+          "ea": "0x40546a",
+          "size": 5,
+          "bytes": "e9d0010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40546f",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 178"
+        },
+        {
+          "ea": "0x405470",
+          "size": 5,
+          "bytes": "e84bce0000",
+          "text": "call    sub_4122C0"
+        },
+        {
+          "ea": "0x405475",
+          "size": 5,
+          "bytes": "e9c5010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40547a",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 179"
+        },
+        {
+          "ea": "0x40547b",
+          "size": 5,
+          "bytes": "e860ce0000",
+          "text": "call    sub_4122E0"
+        },
+        {
+          "ea": "0x405480",
+          "size": 5,
+          "bytes": "e9ba010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405485",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 cases 180-203"
+        },
+        {
+          "ea": "0x405486",
+          "size": 5,
+          "bytes": "e885ce0000",
+          "text": "call    sub_412310"
+        },
+        {
+          "ea": "0x40548b",
+          "size": 5,
+          "bytes": "e9af010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405490",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 204"
+        },
+        {
+          "ea": "0x405491",
+          "size": 5,
+          "bytes": "e84ad00000",
+          "text": "call    sub_4124E0"
+        },
+        {
+          "ea": "0x405496",
+          "size": 5,
+          "bytes": "e9a4010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40549b",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 205"
+        },
+        {
+          "ea": "0x40549c",
+          "size": 5,
+          "bytes": "e80fd30000",
+          "text": "call    sub_4127B0"
+        },
+        {
+          "ea": "0x4054a1",
+          "size": 5,
+          "bytes": "e999010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4054a6",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 206"
+        },
+        {
+          "ea": "0x4054a7",
+          "size": 5,
+          "bytes": "e844d30000",
+          "text": "call    sub_4127F0"
+        },
+        {
+          "ea": "0x4054ac",
+          "size": 5,
+          "bytes": "e98e010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4054b1",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 207"
+        },
+        {
+          "ea": "0x4054b2",
+          "size": 5,
+          "bytes": "e879d30000",
+          "text": "call    sub_412830"
+        },
+        {
+          "ea": "0x4054b7",
+          "size": 5,
+          "bytes": "e983010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4054bc",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 208"
+        },
+        {
+          "ea": "0x4054bd",
+          "size": 5,
+          "bytes": "e8aed30000",
+          "text": "call    sub_412870"
+        },
+        {
+          "ea": "0x4054c2",
+          "size": 5,
+          "bytes": "e978010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4054c7",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 209"
+        },
+        {
+          "ea": "0x4054c8",
+          "size": 5,
+          "bytes": "e833d40000",
+          "text": "call    sub_412900"
+        },
+        {
+          "ea": "0x4054cd",
+          "size": 5,
+          "bytes": "e96d010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4054d2",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 210"
+        },
+        {
+          "ea": "0x4054d3",
+          "size": 5,
+          "bytes": "e898da0000",
+          "text": "call    sub_412F70"
+        },
+        {
+          "ea": "0x4054d8",
+          "size": 5,
+          "bytes": "e962010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4054dd",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 211"
+        },
+        {
+          "ea": "0x4054de",
+          "size": 5,
+          "bytes": "e88ddb0000",
+          "text": "call    sub_413070"
+        },
+        {
+          "ea": "0x4054e3",
+          "size": 5,
+          "bytes": "e957010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4054e8",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 212"
+        },
+        {
+          "ea": "0x4054e9",
+          "size": 5,
+          "bytes": "e822dc0000",
+          "text": "call    sub_413110"
+        },
+        {
+          "ea": "0x4054ee",
+          "size": 5,
+          "bytes": "e94c010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4054f3",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 213"
+        },
+        {
+          "ea": "0x4054f4",
+          "size": 5,
+          "bytes": "e8b7dc0000",
+          "text": "call    sub_4131B0"
+        },
+        {
+          "ea": "0x4054f9",
+          "size": 5,
+          "bytes": "e941010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4054fe",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 214"
+        },
+        {
+          "ea": "0x4054ff",
+          "size": 5,
+          "bytes": "e8acdd0000",
+          "text": "call    sub_4132B0"
+        },
+        {
+          "ea": "0x405504",
+          "size": 5,
+          "bytes": "e936010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405509",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 215"
+        },
+        {
+          "ea": "0x40550a",
+          "size": 5,
+          "bytes": "e8c1de0000",
+          "text": "call    sub_4133D0"
+        },
+        {
+          "ea": "0x40550f",
+          "size": 5,
+          "bytes": "e92b010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405514",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 216"
+        },
+        {
+          "ea": "0x405515",
+          "size": 5,
+          "bytes": "e8e6de0000",
+          "text": "call    sub_413400"
+        },
+        {
+          "ea": "0x40551a",
+          "size": 5,
+          "bytes": "e920010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40551f",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 218"
+        },
+        {
+          "ea": "0x405520",
+          "size": 5,
+          "bytes": "e82be00000",
+          "text": "call    sub_413550"
+        },
+        {
+          "ea": "0x405525",
+          "size": 5,
+          "bytes": "e915010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40552a",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 219"
+        },
+        {
+          "ea": "0x40552b",
+          "size": 5,
+          "bytes": "e820e20000",
+          "text": "call    sub_413750"
+        },
+        {
+          "ea": "0x405530",
+          "size": 5,
+          "bytes": "e90a010000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405535",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 220"
+        },
+        {
+          "ea": "0x405536",
+          "size": 5,
+          "bytes": "e845e40000",
+          "text": "call    sub_413980"
+        },
+        {
+          "ea": "0x40553b",
+          "size": 5,
+          "bytes": "e9ff000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405540",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 221"
+        },
+        {
+          "ea": "0x405541",
+          "size": 5,
+          "bytes": "e8fae50000",
+          "text": "call    sub_413B40"
+        },
+        {
+          "ea": "0x405546",
+          "size": 5,
+          "bytes": "e9f4000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40554b",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 222"
+        },
+        {
+          "ea": "0x40554c",
+          "size": 5,
+          "bytes": "e83fe90000",
+          "text": "call    sub_413E90"
+        },
+        {
+          "ea": "0x405551",
+          "size": 5,
+          "bytes": "e9e9000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405556",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 223"
+        },
+        {
+          "ea": "0x405557",
+          "size": 5,
+          "bytes": "e884ea0000",
+          "text": "call    sub_413FE0"
+        },
+        {
+          "ea": "0x40555c",
+          "size": 5,
+          "bytes": "e9de000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405561",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 224"
+        },
+        {
+          "ea": "0x405562",
+          "size": 5,
+          "bytes": "e8e9ea0000",
+          "text": "call    sub_414050"
+        },
+        {
+          "ea": "0x405567",
+          "size": 5,
+          "bytes": "e9d3000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40556c",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 225"
+        },
+        {
+          "ea": "0x40556d",
+          "size": 5,
+          "bytes": "e87efb0000",
+          "text": "call    sub_4150F0"
+        },
+        {
+          "ea": "0x405572",
+          "size": 5,
+          "bytes": "e9c8000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405577",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 226"
+        },
+        {
+          "ea": "0x405578",
+          "size": 5,
+          "bytes": "e843ff0000",
+          "text": "call    sub_4154C0"
+        },
+        {
+          "ea": "0x40557d",
+          "size": 5,
+          "bytes": "e9bd000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405582",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 227"
+        },
+        {
+          "ea": "0x405583",
+          "size": 5,
+          "bytes": "e8b8030100",
+          "text": "call    sub_415940"
+        },
+        {
+          "ea": "0x405588",
+          "size": 5,
+          "bytes": "e9b2000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x40558d",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 228"
+        },
+        {
+          "ea": "0x40558e",
+          "size": 5,
+          "bytes": "e86d0a0100",
+          "text": "call    sub_416000"
+        },
+        {
+          "ea": "0x405593",
+          "size": 5,
+          "bytes": "e9a7000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x405598",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 229"
+        },
+        {
+          "ea": "0x405599",
+          "size": 5,
+          "bytes": "e8820a0100",
+          "text": "call    sub_416020"
+        },
+        {
+          "ea": "0x40559e",
+          "size": 5,
+          "bytes": "e99c000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4055a3",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 230"
+        },
+        {
+          "ea": "0x4055a4",
+          "size": 5,
+          "bytes": "e8f70a0100",
+          "text": "call    sub_4160A0"
+        },
+        {
+          "ea": "0x4055a9",
+          "size": 5,
+          "bytes": "e991000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4055ae",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 231"
+        },
+        {
+          "ea": "0x4055af",
+          "size": 5,
+          "bytes": "e89c0b0100",
+          "text": "call    sub_416150"
+        },
+        {
+          "ea": "0x4055b4",
+          "size": 5,
+          "bytes": "e986000000",
+          "text": "jmp     loc_40563F"
+        },
+        {
+          "ea": "0x4055b9",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 232"
+        },
+        {
+          "ea": "0x4055ba",
+          "size": 5,
+          "bytes": "e8610c0100",
+          "text": "call    sub_416220"
+        },
+        {
+          "ea": "0x4055bf",
+          "size": 2,
+          "bytes": "eb7e",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x4055c1",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 233"
+        },
+        {
+          "ea": "0x4055c2",
+          "size": 5,
+          "bytes": "e899120100",
+          "text": "call    sub_416860"
+        },
+        {
+          "ea": "0x4055c7",
+          "size": 2,
+          "bytes": "eb76",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x4055c9",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 234"
+        },
+        {
+          "ea": "0x4055ca",
+          "size": 5,
+          "bytes": "e8e1140100",
+          "text": "call    sub_416AB0"
+        },
+        {
+          "ea": "0x4055cf",
+          "size": 2,
+          "bytes": "eb6e",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x4055d1",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 235"
+        },
+        {
+          "ea": "0x4055d2",
+          "size": 5,
+          "bytes": "e8d9170100",
+          "text": "call    sub_416DB0"
+        },
+        {
+          "ea": "0x4055d7",
+          "size": 2,
+          "bytes": "eb66",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x4055d9",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 237"
+        },
+        {
+          "ea": "0x4055da",
+          "size": 5,
+          "bytes": "e8f1170100",
+          "text": "call    sub_416DD0"
+        },
+        {
+          "ea": "0x4055df",
+          "size": 2,
+          "bytes": "eb5e",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x4055e1",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 cases 238,239"
+        },
+        {
+          "ea": "0x4055e2",
+          "size": 5,
+          "bytes": "e8291e0100",
+          "text": "call    sub_417410"
+        },
+        {
+          "ea": "0x4055e7",
+          "size": 2,
+          "bytes": "eb56",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x4055e9",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 240"
+        },
+        {
+          "ea": "0x4055ea",
+          "size": 5,
+          "bytes": "e8d1240100",
+          "text": "call    sub_417AC0"
+        },
+        {
+          "ea": "0x4055ef",
+          "size": 2,
+          "bytes": "eb4e",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x4055f1",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 241"
+        },
+        {
+          "ea": "0x4055f2",
+          "size": 5,
+          "bytes": "e889250100",
+          "text": "call    sub_417B80"
+        },
+        {
+          "ea": "0x4055f7",
+          "size": 2,
+          "bytes": "eb46",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x4055f9",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 242"
+        },
+        {
+          "ea": "0x4055fa",
+          "size": 5,
+          "bytes": "e8c1260100",
+          "text": "call    sub_417CC0"
+        },
+        {
+          "ea": "0x4055ff",
+          "size": 2,
+          "bytes": "eb3e",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x405601",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 243"
+        },
+        {
+          "ea": "0x405602",
+          "size": 5,
+          "bytes": "e879270100",
+          "text": "call    sub_417D80"
+        },
+        {
+          "ea": "0x405607",
+          "size": 2,
+          "bytes": "eb36",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x405609",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 244"
+        },
+        {
+          "ea": "0x40560a",
+          "size": 5,
+          "bytes": "e8412f0100",
+          "text": "call    sub_418550"
+        },
+        {
+          "ea": "0x40560f",
+          "size": 2,
+          "bytes": "eb2e",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x405611",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 245"
+        },
+        {
+          "ea": "0x405612",
+          "size": 5,
+          "bytes": "e8692f0100",
+          "text": "call    sub_418580"
+        },
+        {
+          "ea": "0x405617",
+          "size": 2,
+          "bytes": "eb26",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x405619",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 246"
+        },
+        {
+          "ea": "0x40561a",
+          "size": 5,
+          "bytes": "e8a12f0100",
+          "text": "call    sub_4185C0"
+        },
+        {
+          "ea": "0x40561f",
+          "size": 2,
+          "bytes": "eb1e",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x405621",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 247"
+        },
+        {
+          "ea": "0x405622",
+          "size": 5,
+          "bytes": "e8c92f0100",
+          "text": "call    sub_4185F0"
+        },
+        {
+          "ea": "0x405627",
+          "size": 2,
+          "bytes": "eb16",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x405629",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 248"
+        },
+        {
+          "ea": "0x40562a",
+          "size": 5,
+          "bytes": "e8f12f0100",
+          "text": "call    sub_418620"
+        },
+        {
+          "ea": "0x40562f",
+          "size": 2,
+          "bytes": "eb0e",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x405631",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 255"
+        },
+        {
+          "ea": "0x405632",
+          "size": 5,
+          "bytes": "e879300100",
+          "text": "call    sub_4186B0"
+        },
+        {
+          "ea": "0x405637",
+          "size": 2,
+          "bytes": "eb06",
+          "text": "jmp     short loc_40563F"
+        },
+        {
+          "ea": "0x405639",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi; jumptable 00404DD5 case 256"
+        },
+        {
+          "ea": "0x40563a",
+          "size": 5,
+          "bytes": "e811350100",
+          "text": "call    sub_418B50"
+        },
+        {
+          "ea": "0x40563f",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x405642",
+          "size": 7,
+          "bytes": "83bd0410000001",
+          "text": "cmp     dword ptr [ebp+1004h], 1; jumptable 00404DD5 default case"
+        },
+        {
+          "ea": "0x405649",
+          "size": 2,
+          "bytes": "7530",
+          "text": "jnz     short loc_40567B"
+        },
+        {
+          "ea": "0x40564b",
+          "size": 6,
+          "bytes": "8b8d00100000",
+          "text": "mov     ecx, [ebp+1000h]"
+        },
+        {
+          "ea": "0x405651",
+          "size": 1,
+          "bytes": "41",
+          "text": "inc     ecx"
+        },
+        {
+          "ea": "0x405652",
+          "size": 2,
+          "bytes": "8bc1",
+          "text": "mov     eax, ecx"
+        },
+        {
+          "ea": "0x405654",
+          "size": 6,
+          "bytes": "898d00100000",
+          "text": "mov     [ebp+1000h], ecx"
+        },
+        {
+          "ea": "0x40565a",
+          "size": 3,
+          "bytes": "83f802",
+          "text": "cmp     eax, 2"
+        },
+        {
+          "ea": "0x40565d",
+          "size": 2,
+          "bytes": "7c0a",
+          "text": "jl      short loc_405669"
+        },
+        {
+          "ea": "0x40565f",
+          "size": 10,
+          "bytes": "c7850010000000000000",
+          "text": "mov     dword ptr [ebp+1000h], 0"
+        },
+        {
+          "ea": "0x405669",
+          "size": 7,
+          "bytes": "83bd0010000001",
+          "text": "cmp     dword ptr [ebp+1000h], 1"
+        },
+        {
+          "ea": "0x405670",
+          "size": 2,
+          "bytes": "7509",
+          "text": "jnz     short loc_40567B"
+        },
+        {
+          "ea": "0x405672",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x405673",
+          "size": 5,
+          "bytes": "e8788f0100",
+          "text": "call    sub_41E5F0"
+        },
+        {
+          "ea": "0x405678",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x40567b",
+          "size": 7,
+          "bytes": "f7462400008000",
+          "text": "test    dword ptr [esi+24h], 800000h"
+        },
+        {
+          "ea": "0x405682",
+          "size": 2,
+          "bytes": "7524",
+          "text": "jnz     short loc_4056A8"
+        },
+        {
+          "ea": "0x405684",
+          "size": 3,
+          "bytes": "d94640",
+          "text": "fld     dword ptr [esi+40h]"
+        },
+        {
+          "ea": "0x405687",
+          "size": 5,
+          "bytes": "e80c5e1300",
+          "text": "call    __ftol"
+        },
+        {
+          "ea": "0x40568c",
+          "size": 6,
+          "bytes": "8b15fcf95900",
+          "text": "mov     edx, gRenderXForBattle"
+        },
+        {
+          "ea": "0x405692",
+          "size": 3,
+          "bytes": "d94644",
+          "text": "fld     dword ptr [esi+44h]"
+        },
+        {
+          "ea": "0x405695",
+          "size": 2,
+          "bytes": "03c2",
+          "text": "add     eax, edx"
+        },
+        {
+          "ea": "0x405697",
+          "size": 3,
+          "bytes": "894630",
+          "text": "mov     [esi+30h], eax"
+        },
+        {
+          "ea": "0x40569a",
+          "size": 5,
+          "bytes": "e8f95d1300",
+          "text": "call    __ftol"
+        },
+        {
+          "ea": "0x40569f",
+          "size": 6,
+          "bytes": "030500fa5900",
+          "text": "add     eax, gRenderYForBattle"
+        },
+        {
+          "ea": "0x4056a5",
+          "size": 3,
+          "bytes": "894634",
+          "text": "mov     [esi+34h], eax"
+        },
+        {
+          "ea": "0x4056a8",
+          "size": 6,
+          "bytes": "8b85c8130000",
+          "text": "mov     eax, [ebp+13C8h]"
+        },
+        {
+          "ea": "0x4056ae",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4056b0",
+          "size": 2,
+          "bytes": "7409",
+          "text": "jz      short loc_4056BB"
+        },
+        {
+          "ea": "0x4056b2",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x4056b3",
+          "size": 5,
+          "bytes": "e8f8c80100",
+          "text": "call    sub_421FB0"
+        },
+        {
+          "ea": "0x4056b8",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x4056bb",
+          "size": 6,
+          "bytes": "8b85b4130000",
+          "text": "mov     eax, [ebp+13B4h]"
+        },
+        {
+          "ea": "0x4056c1",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4056c3",
+          "size": 2,
+          "bytes": "7409",
+          "text": "jz      short loc_4056CE"
+        },
+        {
+          "ea": "0x4056c5",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x4056c6",
+          "size": 5,
+          "bytes": "e805cf0100",
+          "text": "call    sub_4225D0"
+        },
+        {
+          "ea": "0x4056cb",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x4056ce",
+          "size": 6,
+          "bytes": "8b85c8130000",
+          "text": "mov     eax, [ebp+13C8h]"
+        },
+        {
+          "ea": "0x4056d4",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4056d6",
+          "size": 6,
+          "bytes": "8b85b8130000",
+          "text": "mov     eax, [ebp+13B8h]"
+        },
+        {
+          "ea": "0x4056dc",
+          "size": 2,
+          "bytes": "7527",
+          "text": "jnz     short loc_405705"
+        },
+        {
+          "ea": "0x4056de",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4056e0",
+          "size": 2,
+          "bytes": "740b",
+          "text": "jz      short loc_4056ED"
+        },
+        {
+          "ea": "0x4056e2",
+          "size": 2,
+          "bytes": "6a00",
+          "text": "push    0"
+        },
+        {
+          "ea": "0x4056e4",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x4056e5",
+          "size": 5,
+          "bytes": "e896d00100",
+          "text": "call    sub_422780"
+        },
+        {
+          "ea": "0x4056ea",
+          "size": 3,
+          "bytes": "83c408",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": "0x4056ed",
+          "size": 6,
+          "bytes": "8b85bc130000",
+          "text": "mov     eax, [ebp+13BCh]"
+        },
+        {
+          "ea": "0x4056f3",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x4056f5",
+          "size": 2,
+          "bytes": "7442",
+          "text": "jz      short loc_405739"
+        },
+        {
+          "ea": "0x4056f7",
+          "size": 2,
+          "bytes": "6a01",
+          "text": "push    1"
+        },
+        {
+          "ea": "0x4056f9",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x4056fa",
+          "size": 5,
+          "bytes": "e881d00100",
+          "text": "call    sub_422780"
+        },
+        {
+          "ea": "0x4056ff",
+          "size": 3,
+          "bytes": "83c408",
+          "text": "add     esp, 8"
+        },
+        {
+          "ea": "0x405702",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x405703",
+          "size": 1,
+          "bytes": "5d",
+          "text": "pop     ebp"
+        },
+        {
+          "ea": "0x405704",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x405705",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x405707",
+          "size": 2,
+          "bytes": "7413",
+          "text": "jz      short loc_40571C"
+        },
+        {
+          "ea": "0x405709",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x40570a",
+          "size": 5,
+          "bytes": "e8f1f5ffff",
+          "text": "call    Yobi__MarkDeath"
+        },
+        {
+          "ea": "0x40570f",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x405712",
+          "size": 10,
+          "bytes": "c785b813000000000000",
+          "text": "mov     dword ptr [ebp+13B8h], 0"
+        },
+        {
+          "ea": "0x40571c",
+          "size": 6,
+          "bytes": "8b85bc130000",
+          "text": "mov     eax, [ebp+13BCh]"
+        },
+        {
+          "ea": "0x405722",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x405724",
+          "size": 2,
+          "bytes": "7413",
+          "text": "jz      short loc_405739"
+        },
+        {
+          "ea": "0x405726",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x405727",
+          "size": 5,
+          "bytes": "e8d4f5ffff",
+          "text": "call    Yobi__MarkDeath"
+        },
+        {
+          "ea": "0x40572c",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x40572f",
+          "size": 10,
+          "bytes": "c785bc13000000000000",
+          "text": "mov     dword ptr [ebp+13BCh], 0"
+        },
+        {
+          "ea": "0x405739",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x40573a",
+          "size": 1,
+          "bytes": "5d",
+          "text": "pop     ebp"
+        },
+        {
+          "ea": "0x40573b",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ]
+    }
+  ],
+  "dispatch_table": {
+    "start": "0x40573c",
+    "end_exclusive": "0x405b40",
+    "bytes": "e74d4000f24d4000fd4d4000344e40004a4e4000f15140003f4e4000d94e4000e44e4000ef4e4000fa4e4000084e4000134e40001e4e4000054f4000554e4000764e4000ce4e4000814e40008c4e4000974e4000a24e4000ad4e4000b84e4000c34e4000294e4000104f40001b4f4000264f4000314f40003c4f4000474f4000894f4000944f4000b54f4000c04f4000cb4f4000d64f4000e14f4000ec4f4000f74f4000025040000d5040002350400018504000524f4000684f40007e4f40009f4f4000aa4f4000734f40002e50400039504000445040004f5040005a5040007b5040008650400091504000a75040009c504000b2504000bd504000c850400078514000d3504000de5040005c5340006550400070504000604e4000e95040002b51400036514000415140004c51400057514000625140006d514000835140008e51400099514000a4514000af514000ba514000c5514000f4504000ff5040000a5140001551400020514000d0514000db514000e6514000fc51400007524000125240001d52400028524000335240003e52400049524000545240005f5240006a52400075524000805240008b52400096524000a1524000ac524000b7524000c2524000cd524000d8524000045340000f5340000f5340000f5340000f5340000f5340000f5340000f5340000f5340000f5340000f5340000f5340004653400046534000465340000f5340000f5340000f5340000f5340000f5340000f5340000f5340000f5340003b5340005153400067534000935340009e534000a9534000b4534000bf5340000f534000ca534000305340000f5340000f5340000f5340000f5340000f534000e3524000ee524000f95240000f5340000f534000725340007d5340000f53400088534000d5534000e0534000f6534000eb534000015440000c54400017544000225440002d5440003854400038544000435440004e54400059544000645440006f5440007a544000855440008554400085544000855440008554400085544000855440008554400085544000855440008554400085544000855440008554400085544000855440008554400085544000855440008554400085544000855440008554400085544000905440009b544000a6544000b1544000bc544000c7544000d2544000dd544000e8544000f3544000fe54400009554000145540000f5340001f5540002a55400035554000405540004b55400056554000615540006c55400077554000825540008d55400098554000a3554000ae554000b9554000c1554000c9554000d1554000dc4d4000d9554000e1554000e1554000e9554000f1554000f95540000156400009564000115640001956400021564000295640006b4e40000f5340005d4f40000f5340001a534000255340003156400039564000",
+    "entries": [
+      {
+        "case": 0,
+        "slot": "0x40573c",
+        "branch": "0x404de7",
+        "call_target": "0x406650"
+      },
+      {
+        "case": 1,
+        "slot": "0x405740",
+        "branch": "0x404df2",
+        "call_target": "0x406720"
+      },
+      {
+        "case": 2,
+        "slot": "0x405744",
+        "branch": "0x404dfd",
+        "call_target": "0x406760"
+      },
+      {
+        "case": 3,
+        "slot": "0x405748",
+        "branch": "0x404e34",
+        "call_target": "0x406c30"
+      },
+      {
+        "case": 4,
+        "slot": "0x40574c",
+        "branch": "0x404e4a",
+        "call_target": "0x406d70"
+      },
+      {
+        "case": 5,
+        "slot": "0x405750",
+        "branch": "0x4051f1",
+        "call_target": "0x40cfa0"
+      },
+      {
+        "case": 6,
+        "slot": "0x405754",
+        "branch": "0x404e3f",
+        "call_target": "0x406cd0"
+      },
+      {
+        "case": 7,
+        "slot": "0x405758",
+        "branch": "0x404ed9",
+        "call_target": "0x409410"
+      },
+      {
+        "case": 8,
+        "slot": "0x40575c",
+        "branch": "0x404ee4",
+        "call_target": "0x4094a0"
+      },
+      {
+        "case": 9,
+        "slot": "0x405760",
+        "branch": "0x404eef",
+        "call_target": "0x409510"
+      },
+      {
+        "case": 10,
+        "slot": "0x405764",
+        "branch": "0x404efa",
+        "call_target": "0x409610"
+      },
+      {
+        "case": 11,
+        "slot": "0x405768",
+        "branch": "0x404e08",
+        "call_target": "0x4067f0"
+      },
+      {
+        "case": 12,
+        "slot": "0x40576c",
+        "branch": "0x404e13",
+        "call_target": "0x406930"
+      },
+      {
+        "case": 13,
+        "slot": "0x405770",
+        "branch": "0x404e1e",
+        "call_target": "0x406a80"
+      },
+      {
+        "case": 14,
+        "slot": "0x405774",
+        "branch": "0x404f05",
+        "call_target": "0x409680"
+      },
+      {
+        "case": 15,
+        "slot": "0x405778",
+        "branch": "0x404e55",
+        "call_target": "0x406e10"
+      },
+      {
+        "case": 16,
+        "slot": "0x40577c",
+        "branch": "0x404e76",
+        "call_target": "0x4072e0"
+      },
+      {
+        "case": 17,
+        "slot": "0x405780",
+        "branch": "0x404ece",
+        "call_target": "0x4093b0"
+      },
+      {
+        "case": 18,
+        "slot": "0x405784",
+        "branch": "0x404e81",
+        "call_target": "0x408170"
+      },
+      {
+        "case": 19,
+        "slot": "0x405788",
+        "branch": "0x404e8c",
+        "call_target": "0x4082f0"
+      },
+      {
+        "case": 20,
+        "slot": "0x40578c",
+        "branch": "0x404e97",
+        "call_target": "0x408410"
+      },
+      {
+        "case": 21,
+        "slot": "0x405790",
+        "branch": "0x404ea2",
+        "call_target": "0x408750"
+      },
+      {
+        "case": 22,
+        "slot": "0x405794",
+        "branch": "0x404ead",
+        "call_target": "0x4087c0"
+      },
+      {
+        "case": 23,
+        "slot": "0x405798",
+        "branch": "0x404eb8",
+        "call_target": "0x4090f0"
+      },
+      {
+        "case": 24,
+        "slot": "0x40579c",
+        "branch": "0x404ec3",
+        "call_target": "0x409380"
+      },
+      {
+        "case": 25,
+        "slot": "0x4057a0",
+        "branch": "0x404e29",
+        "call_target": "0x406ba0"
+      },
+      {
+        "case": 26,
+        "slot": "0x4057a4",
+        "branch": "0x404f10",
+        "call_target": "0x40a9e0"
+      },
+      {
+        "case": 27,
+        "slot": "0x4057a8",
+        "branch": "0x404f1b",
+        "call_target": "0x40aa70"
+      },
+      {
+        "case": 28,
+        "slot": "0x4057ac",
+        "branch": "0x404f26",
+        "call_target": "0x40acf0"
+      },
+      {
+        "case": 29,
+        "slot": "0x4057b0",
+        "branch": "0x404f31",
+        "call_target": "0x40ae50"
+      },
+      {
+        "case": 30,
+        "slot": "0x4057b4",
+        "branch": "0x404f3c",
+        "call_target": "0x40af30"
+      },
+      {
+        "case": 31,
+        "slot": "0x4057b8",
+        "branch": "0x404f47",
+        "call_target": "0x40b020"
+      },
+      {
+        "case": 32,
+        "slot": "0x4057bc",
+        "branch": "0x404f89",
+        "call_target": "0x40b410"
+      },
+      {
+        "case": 33,
+        "slot": "0x4057c0",
+        "branch": "0x404f94",
+        "call_target": "0x40b450"
+      },
+      {
+        "case": 34,
+        "slot": "0x4057c4",
+        "branch": "0x404fb5",
+        "call_target": "0x40b5e0"
+      },
+      {
+        "case": 35,
+        "slot": "0x4057c8",
+        "branch": "0x404fc0",
+        "call_target": "0x40b930"
+      },
+      {
+        "case": 36,
+        "slot": "0x4057cc",
+        "branch": "0x404fcb",
+        "call_target": "0x40bad0"
+      },
+      {
+        "case": 37,
+        "slot": "0x4057d0",
+        "branch": "0x404fd6",
+        "call_target": "0x40bb20"
+      },
+      {
+        "case": 38,
+        "slot": "0x4057d4",
+        "branch": "0x404fe1",
+        "call_target": "0x40bb70"
+      },
+      {
+        "case": 39,
+        "slot": "0x4057d8",
+        "branch": "0x404fec",
+        "call_target": "0x40bbc0"
+      },
+      {
+        "case": 40,
+        "slot": "0x4057dc",
+        "branch": "0x404ff7",
+        "call_target": "0x40bd40"
+      },
+      {
+        "case": 41,
+        "slot": "0x4057e0",
+        "branch": "0x405002",
+        "call_target": "0x40bd60"
+      },
+      {
+        "case": 42,
+        "slot": "0x4057e4",
+        "branch": "0x40500d",
+        "call_target": "0x40bdb0"
+      },
+      {
+        "case": 43,
+        "slot": "0x4057e8",
+        "branch": "0x405023",
+        "call_target": "0x40be30"
+      },
+      {
+        "case": 44,
+        "slot": "0x4057ec",
+        "branch": "0x405018",
+        "call_target": "0x40bdf0"
+      },
+      {
+        "case": 45,
+        "slot": "0x4057f0",
+        "branch": "0x404f52",
+        "call_target": "0x40b130"
+      },
+      {
+        "case": 46,
+        "slot": "0x4057f4",
+        "branch": "0x404f68",
+        "call_target": "0x40b200"
+      },
+      {
+        "case": 47,
+        "slot": "0x4057f8",
+        "branch": "0x404f7e",
+        "call_target": "0x40b3f0"
+      },
+      {
+        "case": 48,
+        "slot": "0x4057fc",
+        "branch": "0x404f9f",
+        "call_target": "0x40b490"
+      },
+      {
+        "case": 49,
+        "slot": "0x405800",
+        "branch": "0x404faa",
+        "call_target": "0x40b5b0"
+      },
+      {
+        "case": 50,
+        "slot": "0x405804",
+        "branch": "0x404f73",
+        "call_target": "0x40b3c0"
+      },
+      {
+        "case": 51,
+        "slot": "0x405808",
+        "branch": "0x40502e",
+        "call_target": "0x40be70"
+      },
+      {
+        "case": 52,
+        "slot": "0x40580c",
+        "branch": "0x405039",
+        "call_target": "0x40be90"
+      },
+      {
+        "case": 53,
+        "slot": "0x405810",
+        "branch": "0x405044",
+        "call_target": "0x40bf20"
+      },
+      {
+        "case": 54,
+        "slot": "0x405814",
+        "branch": "0x40504f",
+        "call_target": "0x40bfe0"
+      },
+      {
+        "case": 55,
+        "slot": "0x405818",
+        "branch": "0x40505a",
+        "call_target": "0x40c0c0"
+      },
+      {
+        "case": 56,
+        "slot": "0x40581c",
+        "branch": "0x40507b",
+        "call_target": "0x40c160"
+      },
+      {
+        "case": 57,
+        "slot": "0x405820",
+        "branch": "0x405086",
+        "call_target": "0x40c1a0"
+      },
+      {
+        "case": 58,
+        "slot": "0x405824",
+        "branch": "0x405091",
+        "call_target": "0x40c1e0"
+      },
+      {
+        "case": 59,
+        "slot": "0x405828",
+        "branch": "0x4050a7",
+        "call_target": "0x40c240"
+      },
+      {
+        "case": 60,
+        "slot": "0x40582c",
+        "branch": "0x40509c",
+        "call_target": "0x40c220"
+      },
+      {
+        "case": 61,
+        "slot": "0x405830",
+        "branch": "0x4050b2",
+        "call_target": "0x40c280"
+      },
+      {
+        "case": 62,
+        "slot": "0x405834",
+        "branch": "0x4050bd",
+        "call_target": "0x40c2b0"
+      },
+      {
+        "case": 63,
+        "slot": "0x405838",
+        "branch": "0x4050c8",
+        "call_target": "0x40c2e0"
+      },
+      {
+        "case": 64,
+        "slot": "0x40583c",
+        "branch": "0x405178",
+        "call_target": "0x40cbb0"
+      },
+      {
+        "case": 65,
+        "slot": "0x405840",
+        "branch": "0x4050d3",
+        "call_target": "0x40c380"
+      },
+      {
+        "case": 66,
+        "slot": "0x405844",
+        "branch": "0x4050de",
+        "call_target": "0x40c480"
+      },
+      {
+        "case": 67,
+        "slot": "0x405848",
+        "branch": "0x40535c",
+        "call_target": "0x4106b0"
+      },
+      {
+        "case": 68,
+        "slot": "0x40584c",
+        "branch": "0x405065",
+        "call_target": "0x40c0e0"
+      },
+      {
+        "case": 69,
+        "slot": "0x405850",
+        "branch": "0x405070",
+        "call_target": "0x40c120"
+      },
+      {
+        "case": 70,
+        "slot": "0x405854",
+        "branch": "0x404e60",
+        "call_target": "0x4070e0"
+      },
+      {
+        "case": 71,
+        "slot": "0x405858",
+        "branch": "0x4050e9",
+        "call_target": "0x40c4d0"
+      },
+      {
+        "case": 72,
+        "slot": "0x40585c",
+        "branch": "0x40512b",
+        "call_target": "0x40caa0"
+      },
+      {
+        "case": 73,
+        "slot": "0x405860",
+        "branch": "0x405136",
+        "call_target": "0x40cac0"
+      },
+      {
+        "case": 74,
+        "slot": "0x405864",
+        "branch": "0x405141",
+        "call_target": "0x40caf0"
+      },
+      {
+        "case": 75,
+        "slot": "0x405868",
+        "branch": "0x40514c",
+        "call_target": "0x40cb10"
+      },
+      {
+        "case": 76,
+        "slot": "0x40586c",
+        "branch": "0x405157",
+        "call_target": "0x40cb30"
+      },
+      {
+        "case": 77,
+        "slot": "0x405870",
+        "branch": "0x405162",
+        "call_target": "0x40cb50"
+      },
+      {
+        "case": 78,
+        "slot": "0x405874",
+        "branch": "0x40516d",
+        "call_target": "0x40cb80"
+      },
+      {
+        "case": 79,
+        "slot": "0x405878",
+        "branch": "0x405183",
+        "call_target": "0x40cbd0"
+      },
+      {
+        "case": 80,
+        "slot": "0x40587c",
+        "branch": "0x40518e",
+        "call_target": "0x40cc80"
+      },
+      {
+        "case": 81,
+        "slot": "0x405880",
+        "branch": "0x405199",
+        "call_target": "0x40ccb0"
+      },
+      {
+        "case": 82,
+        "slot": "0x405884",
+        "branch": "0x4051a4",
+        "call_target": "0x40cce0"
+      },
+      {
+        "case": 83,
+        "slot": "0x405888",
+        "branch": "0x4051af",
+        "call_target": "0x40cd10"
+      },
+      {
+        "case": 84,
+        "slot": "0x40588c",
+        "branch": "0x4051ba",
+        "call_target": "0x40cd70"
+      },
+      {
+        "case": 85,
+        "slot": "0x405890",
+        "branch": "0x4051c5",
+        "call_target": "0x40cde0"
+      },
+      {
+        "case": 86,
+        "slot": "0x405894",
+        "branch": "0x4050f4",
+        "call_target": "0x40c520"
+      },
+      {
+        "case": 87,
+        "slot": "0x405898",
+        "branch": "0x4050ff",
+        "call_target": "0x40c780"
+      },
+      {
+        "case": 88,
+        "slot": "0x40589c",
+        "branch": "0x40510a",
+        "call_target": "0x40c8d0"
+      },
+      {
+        "case": 89,
+        "slot": "0x4058a0",
+        "branch": "0x405115",
+        "call_target": "0x40c8f0"
+      },
+      {
+        "case": 90,
+        "slot": "0x4058a4",
+        "branch": "0x405120",
+        "call_target": "0x40c910"
+      },
+      {
+        "case": 91,
+        "slot": "0x4058a8",
+        "branch": "0x4051d0",
+        "call_target": "0x40cf30"
+      },
+      {
+        "case": 92,
+        "slot": "0x4058ac",
+        "branch": "0x4051db",
+        "call_target": "0x40cf50"
+      },
+      {
+        "case": 93,
+        "slot": "0x4058b0",
+        "branch": "0x4051e6",
+        "call_target": "0x40cf70"
+      },
+      {
+        "case": 94,
+        "slot": "0x4058b4",
+        "branch": "0x4051fc",
+        "call_target": "0x40d010"
+      },
+      {
+        "case": 95,
+        "slot": "0x4058b8",
+        "branch": "0x405207",
+        "call_target": "0x40d0b0"
+      },
+      {
+        "case": 96,
+        "slot": "0x4058bc",
+        "branch": "0x405212",
+        "call_target": "0x40d170"
+      },
+      {
+        "case": 97,
+        "slot": "0x4058c0",
+        "branch": "0x40521d",
+        "call_target": "0x40d1a0"
+      },
+      {
+        "case": 98,
+        "slot": "0x4058c4",
+        "branch": "0x405228",
+        "call_target": "0x40d1d0"
+      },
+      {
+        "case": 99,
+        "slot": "0x4058c8",
+        "branch": "0x405233",
+        "call_target": "0x40d390"
+      },
+      {
+        "case": 100,
+        "slot": "0x4058cc",
+        "branch": "0x40523e",
+        "call_target": "0x40d3c0"
+      },
+      {
+        "case": 101,
+        "slot": "0x4058d0",
+        "branch": "0x405249",
+        "call_target": "0x40d580"
+      },
+      {
+        "case": 102,
+        "slot": "0x4058d4",
+        "branch": "0x405254",
+        "call_target": "0x40d6c0"
+      },
+      {
+        "case": 103,
+        "slot": "0x4058d8",
+        "branch": "0x40525f",
+        "call_target": "0x40dbe0"
+      },
+      {
+        "case": 104,
+        "slot": "0x4058dc",
+        "branch": "0x40526a",
+        "call_target": "0x40dc90"
+      },
+      {
+        "case": 105,
+        "slot": "0x4058e0",
+        "branch": "0x405275",
+        "call_target": "0x40de40"
+      },
+      {
+        "case": 106,
+        "slot": "0x4058e4",
+        "branch": "0x405280",
+        "call_target": "0x40df50"
+      },
+      {
+        "case": 107,
+        "slot": "0x4058e8",
+        "branch": "0x40528b",
+        "call_target": "0x40df70"
+      },
+      {
+        "case": 108,
+        "slot": "0x4058ec",
+        "branch": "0x405296",
+        "call_target": "0x40df80"
+      },
+      {
+        "case": 109,
+        "slot": "0x4058f0",
+        "branch": "0x4052a1",
+        "call_target": "0x40e4b0"
+      },
+      {
+        "case": 110,
+        "slot": "0x4058f4",
+        "branch": "0x4052ac",
+        "call_target": "0x40e560"
+      },
+      {
+        "case": 111,
+        "slot": "0x4058f8",
+        "branch": "0x4052b7",
+        "call_target": "0x40e970"
+      },
+      {
+        "case": 112,
+        "slot": "0x4058fc",
+        "branch": "0x4052c2",
+        "call_target": "0x40eb00"
+      },
+      {
+        "case": 113,
+        "slot": "0x405900",
+        "branch": "0x4052cd",
+        "call_target": "0x40efe0"
+      },
+      {
+        "case": 114,
+        "slot": "0x405904",
+        "branch": "0x4052d8",
+        "call_target": "0x40f0a0"
+      },
+      {
+        "case": 115,
+        "slot": "0x405908",
+        "branch": "0x405304",
+        "call_target": "0x40fb80"
+      },
+      {
+        "case": 116,
+        "slot": "0x40590c",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 117,
+        "slot": "0x405910",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 118,
+        "slot": "0x405914",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 119,
+        "slot": "0x405918",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 120,
+        "slot": "0x40591c",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 121,
+        "slot": "0x405920",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 122,
+        "slot": "0x405924",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 123,
+        "slot": "0x405928",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 124,
+        "slot": "0x40592c",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 125,
+        "slot": "0x405930",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 126,
+        "slot": "0x405934",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 127,
+        "slot": "0x405938",
+        "branch": "0x405346",
+        "call_target": "0x40ff90"
+      },
+      {
+        "case": 128,
+        "slot": "0x40593c",
+        "branch": "0x405346",
+        "call_target": "0x40ff90"
+      },
+      {
+        "case": 129,
+        "slot": "0x405940",
+        "branch": "0x405346",
+        "call_target": "0x40ff90"
+      },
+      {
+        "case": 130,
+        "slot": "0x405944",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 131,
+        "slot": "0x405948",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 132,
+        "slot": "0x40594c",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 133,
+        "slot": "0x405950",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 134,
+        "slot": "0x405954",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 135,
+        "slot": "0x405958",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 136,
+        "slot": "0x40595c",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 137,
+        "slot": "0x405960",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 138,
+        "slot": "0x405964",
+        "branch": "0x40533b",
+        "call_target": "0x40ff40"
+      },
+      {
+        "case": 139,
+        "slot": "0x405968",
+        "branch": "0x405351",
+        "call_target": "0x410000"
+      },
+      {
+        "case": 140,
+        "slot": "0x40596c",
+        "branch": "0x405367",
+        "call_target": "0x410730"
+      },
+      {
+        "case": 141,
+        "slot": "0x405970",
+        "branch": "0x405393",
+        "call_target": "0x410e90"
+      },
+      {
+        "case": 142,
+        "slot": "0x405974",
+        "branch": "0x40539e",
+        "call_target": "0x410f70"
+      },
+      {
+        "case": 143,
+        "slot": "0x405978",
+        "branch": "0x4053a9",
+        "call_target": "0x410fc0"
+      },
+      {
+        "case": 144,
+        "slot": "0x40597c",
+        "branch": "0x4053b4",
+        "call_target": "0x411240"
+      },
+      {
+        "case": 145,
+        "slot": "0x405980",
+        "branch": "0x4053bf",
+        "call_target": "0x411290"
+      },
+      {
+        "case": 146,
+        "slot": "0x405984",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 147,
+        "slot": "0x405988",
+        "branch": "0x4053ca",
+        "call_target": "0x411320"
+      },
+      {
+        "case": 148,
+        "slot": "0x40598c",
+        "branch": "0x405330",
+        "call_target": "0x40fef0"
+      },
+      {
+        "case": 149,
+        "slot": "0x405990",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 150,
+        "slot": "0x405994",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 151,
+        "slot": "0x405998",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 152,
+        "slot": "0x40599c",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 153,
+        "slot": "0x4059a0",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 154,
+        "slot": "0x4059a4",
+        "branch": "0x4052e3",
+        "call_target": "0x40f790"
+      },
+      {
+        "case": 155,
+        "slot": "0x4059a8",
+        "branch": "0x4052ee",
+        "call_target": "0x40f800"
+      },
+      {
+        "case": 156,
+        "slot": "0x4059ac",
+        "branch": "0x4052f9",
+        "call_target": "0x40fb30"
+      },
+      {
+        "case": 157,
+        "slot": "0x4059b0",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 158,
+        "slot": "0x4059b4",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 159,
+        "slot": "0x4059b8",
+        "branch": "0x405372",
+        "call_target": "0x4107c0"
+      },
+      {
+        "case": 160,
+        "slot": "0x4059bc",
+        "branch": "0x40537d",
+        "call_target": "0x410b00"
+      },
+      {
+        "case": 161,
+        "slot": "0x4059c0",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 162,
+        "slot": "0x4059c4",
+        "branch": "0x405388",
+        "call_target": "0x410e30"
+      },
+      {
+        "case": 163,
+        "slot": "0x4059c8",
+        "branch": "0x4053d5",
+        "call_target": "0x4113a0"
+      },
+      {
+        "case": 164,
+        "slot": "0x4059cc",
+        "branch": "0x4053e0",
+        "call_target": "0x411a50"
+      },
+      {
+        "case": 165,
+        "slot": "0x4059d0",
+        "branch": "0x4053f6",
+        "call_target": "0x411d30"
+      },
+      {
+        "case": 166,
+        "slot": "0x4059d4",
+        "branch": "0x4053eb",
+        "call_target": "0x411cb0"
+      },
+      {
+        "case": 167,
+        "slot": "0x4059d8",
+        "branch": "0x405401",
+        "call_target": "0x411fa0"
+      },
+      {
+        "case": 168,
+        "slot": "0x4059dc",
+        "branch": "0x40540c",
+        "call_target": "0x411fc0"
+      },
+      {
+        "case": 169,
+        "slot": "0x4059e0",
+        "branch": "0x405417",
+        "call_target": "0x411fe0"
+      },
+      {
+        "case": 170,
+        "slot": "0x4059e4",
+        "branch": "0x405422",
+        "call_target": "0x412000"
+      },
+      {
+        "case": 171,
+        "slot": "0x4059e8",
+        "branch": "0x40542d",
+        "call_target": "0x412020"
+      },
+      {
+        "case": 172,
+        "slot": "0x4059ec",
+        "branch": "0x405438",
+        "call_target": "0x4120f0"
+      },
+      {
+        "case": 173,
+        "slot": "0x4059f0",
+        "branch": "0x405438",
+        "call_target": "0x4120f0"
+      },
+      {
+        "case": 174,
+        "slot": "0x4059f4",
+        "branch": "0x405443",
+        "call_target": "0x4121d0"
+      },
+      {
+        "case": 175,
+        "slot": "0x4059f8",
+        "branch": "0x40544e",
+        "call_target": "0x412210"
+      },
+      {
+        "case": 176,
+        "slot": "0x4059fc",
+        "branch": "0x405459",
+        "call_target": "0x412260"
+      },
+      {
+        "case": 177,
+        "slot": "0x405a00",
+        "branch": "0x405464",
+        "call_target": "0x412290"
+      },
+      {
+        "case": 178,
+        "slot": "0x405a04",
+        "branch": "0x40546f",
+        "call_target": "0x4122c0"
+      },
+      {
+        "case": 179,
+        "slot": "0x405a08",
+        "branch": "0x40547a",
+        "call_target": "0x4122e0"
+      },
+      {
+        "case": 180,
+        "slot": "0x405a0c",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 181,
+        "slot": "0x405a10",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 182,
+        "slot": "0x405a14",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 183,
+        "slot": "0x405a18",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 184,
+        "slot": "0x405a1c",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 185,
+        "slot": "0x405a20",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 186,
+        "slot": "0x405a24",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 187,
+        "slot": "0x405a28",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 188,
+        "slot": "0x405a2c",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 189,
+        "slot": "0x405a30",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 190,
+        "slot": "0x405a34",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 191,
+        "slot": "0x405a38",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 192,
+        "slot": "0x405a3c",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 193,
+        "slot": "0x405a40",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 194,
+        "slot": "0x405a44",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 195,
+        "slot": "0x405a48",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 196,
+        "slot": "0x405a4c",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 197,
+        "slot": "0x405a50",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 198,
+        "slot": "0x405a54",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 199,
+        "slot": "0x405a58",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 200,
+        "slot": "0x405a5c",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 201,
+        "slot": "0x405a60",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 202,
+        "slot": "0x405a64",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 203,
+        "slot": "0x405a68",
+        "branch": "0x405485",
+        "call_target": "0x412310"
+      },
+      {
+        "case": 204,
+        "slot": "0x405a6c",
+        "branch": "0x405490",
+        "call_target": "0x4124e0"
+      },
+      {
+        "case": 205,
+        "slot": "0x405a70",
+        "branch": "0x40549b",
+        "call_target": "0x4127b0"
+      },
+      {
+        "case": 206,
+        "slot": "0x405a74",
+        "branch": "0x4054a6",
+        "call_target": "0x4127f0"
+      },
+      {
+        "case": 207,
+        "slot": "0x405a78",
+        "branch": "0x4054b1",
+        "call_target": "0x412830"
+      },
+      {
+        "case": 208,
+        "slot": "0x405a7c",
+        "branch": "0x4054bc",
+        "call_target": "0x412870"
+      },
+      {
+        "case": 209,
+        "slot": "0x405a80",
+        "branch": "0x4054c7",
+        "call_target": "0x412900"
+      },
+      {
+        "case": 210,
+        "slot": "0x405a84",
+        "branch": "0x4054d2",
+        "call_target": "0x412f70"
+      },
+      {
+        "case": 211,
+        "slot": "0x405a88",
+        "branch": "0x4054dd",
+        "call_target": "0x413070"
+      },
+      {
+        "case": 212,
+        "slot": "0x405a8c",
+        "branch": "0x4054e8",
+        "call_target": "0x413110"
+      },
+      {
+        "case": 213,
+        "slot": "0x405a90",
+        "branch": "0x4054f3",
+        "call_target": "0x4131b0"
+      },
+      {
+        "case": 214,
+        "slot": "0x405a94",
+        "branch": "0x4054fe",
+        "call_target": "0x4132b0"
+      },
+      {
+        "case": 215,
+        "slot": "0x405a98",
+        "branch": "0x405509",
+        "call_target": "0x4133d0"
+      },
+      {
+        "case": 216,
+        "slot": "0x405a9c",
+        "branch": "0x405514",
+        "call_target": "0x413400"
+      },
+      {
+        "case": 217,
+        "slot": "0x405aa0",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 218,
+        "slot": "0x405aa4",
+        "branch": "0x40551f",
+        "call_target": "0x413550"
+      },
+      {
+        "case": 219,
+        "slot": "0x405aa8",
+        "branch": "0x40552a",
+        "call_target": "0x413750"
+      },
+      {
+        "case": 220,
+        "slot": "0x405aac",
+        "branch": "0x405535",
+        "call_target": "0x413980"
+      },
+      {
+        "case": 221,
+        "slot": "0x405ab0",
+        "branch": "0x405540",
+        "call_target": "0x413b40"
+      },
+      {
+        "case": 222,
+        "slot": "0x405ab4",
+        "branch": "0x40554b",
+        "call_target": "0x413e90"
+      },
+      {
+        "case": 223,
+        "slot": "0x405ab8",
+        "branch": "0x405556",
+        "call_target": "0x413fe0"
+      },
+      {
+        "case": 224,
+        "slot": "0x405abc",
+        "branch": "0x405561",
+        "call_target": "0x414050"
+      },
+      {
+        "case": 225,
+        "slot": "0x405ac0",
+        "branch": "0x40556c",
+        "call_target": "0x4150f0"
+      },
+      {
+        "case": 226,
+        "slot": "0x405ac4",
+        "branch": "0x405577",
+        "call_target": "0x4154c0"
+      },
+      {
+        "case": 227,
+        "slot": "0x405ac8",
+        "branch": "0x405582",
+        "call_target": "0x415940"
+      },
+      {
+        "case": 228,
+        "slot": "0x405acc",
+        "branch": "0x40558d",
+        "call_target": "0x416000"
+      },
+      {
+        "case": 229,
+        "slot": "0x405ad0",
+        "branch": "0x405598",
+        "call_target": "0x416020"
+      },
+      {
+        "case": 230,
+        "slot": "0x405ad4",
+        "branch": "0x4055a3",
+        "call_target": "0x4160a0"
+      },
+      {
+        "case": 231,
+        "slot": "0x405ad8",
+        "branch": "0x4055ae",
+        "call_target": "0x416150"
+      },
+      {
+        "case": 232,
+        "slot": "0x405adc",
+        "branch": "0x4055b9",
+        "call_target": "0x416220"
+      },
+      {
+        "case": 233,
+        "slot": "0x405ae0",
+        "branch": "0x4055c1",
+        "call_target": "0x416860"
+      },
+      {
+        "case": 234,
+        "slot": "0x405ae4",
+        "branch": "0x4055c9",
+        "call_target": "0x416ab0"
+      },
+      {
+        "case": 235,
+        "slot": "0x405ae8",
+        "branch": "0x4055d1",
+        "call_target": "0x416db0"
+      },
+      {
+        "case": 236,
+        "slot": "0x405aec",
+        "branch": "0x404ddc",
+        "call_target": "0x406630"
+      },
+      {
+        "case": 237,
+        "slot": "0x405af0",
+        "branch": "0x4055d9",
+        "call_target": "0x416dd0"
+      },
+      {
+        "case": 238,
+        "slot": "0x405af4",
+        "branch": "0x4055e1",
+        "call_target": "0x417410"
+      },
+      {
+        "case": 239,
+        "slot": "0x405af8",
+        "branch": "0x4055e1",
+        "call_target": "0x417410"
+      },
+      {
+        "case": 240,
+        "slot": "0x405afc",
+        "branch": "0x4055e9",
+        "call_target": "0x417ac0"
+      },
+      {
+        "case": 241,
+        "slot": "0x405b00",
+        "branch": "0x4055f1",
+        "call_target": "0x417b80"
+      },
+      {
+        "case": 242,
+        "slot": "0x405b04",
+        "branch": "0x4055f9",
+        "call_target": "0x417cc0"
+      },
+      {
+        "case": 243,
+        "slot": "0x405b08",
+        "branch": "0x405601",
+        "call_target": "0x417d80"
+      },
+      {
+        "case": 244,
+        "slot": "0x405b0c",
+        "branch": "0x405609",
+        "call_target": "0x418550"
+      },
+      {
+        "case": 245,
+        "slot": "0x405b10",
+        "branch": "0x405611",
+        "call_target": "0x418580"
+      },
+      {
+        "case": 246,
+        "slot": "0x405b14",
+        "branch": "0x405619",
+        "call_target": "0x4185c0"
+      },
+      {
+        "case": 247,
+        "slot": "0x405b18",
+        "branch": "0x405621",
+        "call_target": "0x4185f0"
+      },
+      {
+        "case": 248,
+        "slot": "0x405b1c",
+        "branch": "0x405629",
+        "call_target": "0x418620"
+      },
+      {
+        "case": 249,
+        "slot": "0x405b20",
+        "branch": "0x404e6b",
+        "call_target": "0x4071c0"
+      },
+      {
+        "case": 250,
+        "slot": "0x405b24",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 251,
+        "slot": "0x405b28",
+        "branch": "0x404f5d",
+        "call_target": "0x40b180"
+      },
+      {
+        "case": 252,
+        "slot": "0x405b2c",
+        "branch": "0x40530f",
+        "call_target": "0x40fc10"
+      },
+      {
+        "case": 253,
+        "slot": "0x405b30",
+        "branch": "0x40531a",
+        "call_target": "0x40fe50"
+      },
+      {
+        "case": 254,
+        "slot": "0x405b34",
+        "branch": "0x405325",
+        "call_target": "0x40feb0"
+      },
+      {
+        "case": 255,
+        "slot": "0x405b38",
+        "branch": "0x405631",
+        "call_target": "0x4186b0"
+      },
+      {
+        "case": 256,
+        "slot": "0x405b3c",
+        "branch": "0x405639",
+        "call_target": "0x418b50"
+      }
+    ]
+  },
+  "source_path": "src/YobiRuntime.cpp",
+  "source_patches": [
+    {
+      "scope_start": "void UpdateBattleActor_404DB0(",
+      "scope_end": "\n}\n",
+      "old": "    const std::int32_t scene = world::gCurrentSceneState;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    if (scene == 7) {\n",
+      "new": "    const std::int32_t scene = world::gCurrentSceneState;\n    const bool isSceneSeven = scene == 7;\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    if (isSceneSeven) {\n"
+    },
+    {
+      "scope_start": "void UpdateBattleActor_404DB0(",
+      "scope_end": "\n}\n",
+      "old": "        ++payload->flashCounter1000;\n        if (payload->flashCounter1000 >= 2) {\n",
+      "new": "        const std::int32_t count = payload->flashCounter1000 + 1;\n        payload->flashCounter1000 = count;\n        if (count >= 2) {\n"
+    },
+    {
+      "scope_start": "void UpdateBattleActor_404DB0(",
+      "scope_end": "\n}\n",
+      "old": "        action->x = x + offsetX;\n        action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);\n",
+      "new": "        action->x = x + offsetX;\n        const std::int32_t yCoordinate = static_cast<std::int32_t>(y);\n        const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);\n        action->y = yCoordinate + offsetY;\n"
+    },
+    {
+      "scope_start": "void UpdateBattleActor_404DB0(",
+      "scope_end": "\n}\n",
+      "old": "    if (payload->rider13C8 != nullptr) {\n        SyncBattleRider_421FB0(payload->rider13C8);\n    }\n    if (payload->gear13B4 != nullptr) {\n        SyncBattleGear_4225D0(payload->gear13B4);\n    }\n    if (payload->rider13C8 != nullptr) {\n        if (payload->auxiliaryGear13B8[0] != nullptr) {\n            static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));\n            payload->auxiliaryGear13B8[0] = nullptr;\n        }\n        if (payload->auxiliaryGear13B8[1] != nullptr) {\n            static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[1]));\n            payload->auxiliaryGear13B8[1] = nullptr;\n        }\n    } else {\n        if (payload->auxiliaryGear13B8[0] != nullptr) {\n            SyncBattleAuxGear_422780(payload->auxiliaryGear13B8[0], 0);\n        }\n        if (payload->auxiliaryGear13B8[1] != nullptr) {\n            SyncBattleAuxGear_422780(payload->auxiliaryGear13B8[1], 1);\n        }\n    }",
+      "new": "    YobiAction* const rider = payload->rider13C8;\n    if (rider != nullptr) {\n        SyncBattleRider_421FB0(rider);\n    }\n    YobiAction* const gear = payload->gear13B4;\n    if (gear != nullptr) {\n        SyncBattleGear_4225D0(gear);\n    }\n    const bool hasRider = payload->rider13C8 != nullptr;\n    YobiAction* const firstAuxiliaryGear = payload->auxiliaryGear13B8[0];\n    if (hasRider) {\n        if (firstAuxiliaryGear != nullptr) {\n            static_cast<void>(MarkDeath(firstAuxiliaryGear));\n            payload->auxiliaryGear13B8[0] = nullptr;\n        }\n        YobiAction* const secondAuxiliaryGear = payload->auxiliaryGear13B8[1];\n        if (secondAuxiliaryGear != nullptr) {\n            static_cast<void>(MarkDeath(secondAuxiliaryGear));\n            payload->auxiliaryGear13B8[1] = nullptr;\n        }\n    } else {\n        if (firstAuxiliaryGear != nullptr) {\n            SyncBattleAuxGear_422780(firstAuxiliaryGear, 0);\n        }\n        YobiAction* const secondAuxiliaryGear = payload->auxiliaryGear13B8[1];\n        if (secondAuxiliaryGear != nullptr) {\n            SyncBattleAuxGear_422780(secondAuxiliaryGear, 1);\n        }\n    }"
+    }
+  ],
+  "counts": {
+    "instructions": 684,
+    "code_bytes": 2444,
+    "inbound_callback_address_references": 13,
+    "known_parent_entries": 10,
+    "dispatch_table_bytes": 1028,
+    "dispatch_cases": 257,
+    "distinct_action_targets": 200,
+    "source_patterns": 4,
+    "modified_roots": 1,
+    "new_semantic_records": 1,
+    "registered_function_ids": 1
+  },
+  "retained_contract": {
+    "fixed_entry_payload": true,
+    "dispatch_changed": false,
+    "counter_compare_order": "increment_snapshot→publish→compare_snapshot_ge2→optional_zero→reread_eq1",
+    "projection_order": "truncate_X→screen_X→read_F32_Y→publish_X→truncate_Y→screen_Y→publish_Y",
+    "rider_reads": 2,
+    "gear_reads": 1,
+    "first_auxiliary_gear_reads": 1,
+    "second_auxiliary_gear_reads_per_path": 1,
+    "second_auxiliary_read_after_first_consumption": true,
+    "mark_death_before_clear": true,
+    "free_owner_layout_or_public_interface_changed": false,
+    "new_guards": false,
+    "other_sources_headers_asm_changed": false
+  },
+  "verification": "原完整684条2444B与13地址绑定/10父、独立257槽1028B/200目标和源逐槽对应、一根四片段全文重放及指针/计数/坐标原取样有限静态；不验200完整动作/全部父与原实参、战斗数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG和画面运行"
+}

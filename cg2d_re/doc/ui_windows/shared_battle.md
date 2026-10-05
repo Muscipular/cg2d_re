@@ -8135,3 +8135,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [源状态](../cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state)落实Copy私有helper九W32读后发布、残影先判后计数pub和基础创建flags/首索引取样；原Clone/残影创建与全部其它正文、原有浅别名/生命周期分工保持。十CryptInt三字段复制不扩大为整对象复制/新RNG，原失败和无保护的caller各自保持，不根据caller反推Clone无空返回。
 
 [478条1989B/17call与1地址绑定10父](../cg2d_battle_copy_sampling_evidence.json)只本组字段/取样局部静态，五F同YOBI/BATTLE不双计；U08只从默认open补显式open登记，完整攻击生产/战斗状态、资源与owner/ABI/SDK/PC53/实际RNG/画面运行继续待证，不据本组关闭执行闭环。
+
+## BTS01 真实动作回调的附件与残影消费（2026-10-06）
+
+[源状态](../cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state)在既有404DB0主回调落实四片段：场景判定/入口载荷、count递增快照/pub后比较、Y截断/屏幕偏移及指针消费取样。原rider两阶段分别读取、gear一次、firstAux在第三骑乘判定后且分流前读取，secondAux在first同步或MarkDeath清槽后才读；不跨调用缓存或按数组循环重排。
+
+[257原槽/200既有调用](../cg2d_battle_tail_sampling_evidence.json)逐项对应，完整684条2444B与13回调地址发布/10父分列，不能按13普通call或“所有动作验收”计数。U08/U09继续open；完整战斗状态/动作实参与数据资源/owner重进退出和浅别名/SDK/ABI/PC53/时钟RNG/画面运行仍待。

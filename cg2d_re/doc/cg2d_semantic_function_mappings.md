@@ -2291,3 +2291,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原五完整478条1989B](cg2d_battle_copy_sampling_evidence.json)及[源状态](cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state)向旧1134/1135仅追加、另纳管三个已有真实残影/基础创建入口。三根五片段修九W32字组复制、残影先判后pub与创建flags/首索引次序；十CryptInt/原入口载荷及native浅复制和所有历史字段/来源保持，无新增RNG。
 
 语义1305→1308/有效ID1300→1303、代码片段5保持；五adapted405→410，YOBI4→9/BATTLE1→6同五F不双计，E277→281仅双域局部I/S共用同五片段/原证据。17普通call与1回调地址发布/10父分列；LOOP31/R7区间67/队列保持。全父/战斗状态和资源owner浅别名寿命/SDK/ABI/PC53/实际RNG/画面运行未验。
+
+## BTS01 战斗主回调原身份与消费取样（2026-10-06）
+
+[完整原684条2444B](cg2d_battle_tail_sampling_evidence.json)和[源状态](cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state)新增404DB0一个独立语义，纳管已有真实257case/200目标及本轮四片段实修；13地址发布与10父不是普通call，257槽1028B不混代码字节。全部旧记录不改；1308→1309/有效ID1303→1304、非函数片段5保持，一adapted410→411。
+
+YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/四源差异，LOOP31/R7区间67/队列和完整门禁保持。完整所有子动作/绑定父/callback实参、数据资源与owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍未验。

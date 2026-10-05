@@ -428,3 +428,9 @@ E273→277只两域局部I/S共用同三实修片段/原证据，旧F增证/一�
 [可度量验收](cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-acceptance)核五478条1989B/17call+1绑定/10父、三根五源片段全文重放、20/16B九W32字组各读后发布以及残影/创建三取样差异；原十CryptInt三字段与token/reserved、Clone/浅复制/其它正文保持，不添Read/Ctor/RNG或新失败门禁。
 
 两旧语义仅追加/三个既有本体原身份纳管、五F跨域和E277→281四局部I/S不等五全函数或战斗整体通过。U08原默认open补显式open，其余六任务及全门禁/叶/R1/R7/R8/整体保持未闭；完整父/callback与数据资源/owner浅别名寿命/ABI/SDK/PC53/实际RNG/画面运行仍待。
+
+## BTS01 战斗回调公共尾局部I/S（2026-10-06）
+
+[可度量验收](cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-acceptance)核原完整684条2444B/13地址绑定10父、独立257槽1028B/200目标与源对应，以及一根四片段全文精确重放和scene/count/坐标/附件取样。原完整分发与入口载荷、跨消费重新取第二槽及MarkDeath后清槽保持。
+
+一新F跨两域不多计，E281→285只共用本组源与原证据的四局部I/S；七任务、全部完整门禁/叶/R1/R7/R8/整体保持open。所有200动作/13绑定父的实参、数据资源/owner重进退出和浅别名/SDK/ABI/PC53/时钟RNG/画面运行另验，不据局部表对应放宽整体标准。

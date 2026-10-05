@@ -21723,8 +21723,9 @@ std::int32_t SeedBattleRandom_4065A0(const std::int32_t value)
 void UpdateBattleActor_404DB0(YobiAction* const action)
 {
     const std::int32_t scene = world::gCurrentSceneState;
+    const bool isSceneSeven = scene == 7;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    if (scene == 7) {
+    if (isSceneSeven) {
         return;
     }
     switch (action->phase) {
@@ -22390,8 +22391,9 @@ void UpdateBattleActor_404DB0(YobiAction* const action)
     }
     // 公共尾沿用入口载荷；动作可能改写对象表，不在此重取载荷。
     if (payload->flash1004 == 1) {
-        ++payload->flashCounter1000;
-        if (payload->flashCounter1000 >= 2) {
+        const std::int32_t count = payload->flashCounter1000 + 1;
+        payload->flashCounter1000 = count;
+        if (count >= 2) {
             payload->flashCounter1000 = 0;
         }
         if (payload->flashCounter1000 == 1) {
@@ -22403,29 +22405,37 @@ void UpdateBattleActor_404DB0(YobiAction* const action)
         const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
         const float y = action->offset44;
         action->x = x + offsetX;
-        action->y = static_cast<std::int32_t>(y) + static_cast<std::int32_t>(gYobiScreenOffsetY);
+        const std::int32_t yCoordinate = static_cast<std::int32_t>(y);
+        const std::int32_t offsetY = static_cast<std::int32_t>(gYobiScreenOffsetY);
+        action->y = yCoordinate + offsetY;
     }
-    if (payload->rider13C8 != nullptr) {
-        SyncBattleRider_421FB0(payload->rider13C8);
+    YobiAction* const rider = payload->rider13C8;
+    if (rider != nullptr) {
+        SyncBattleRider_421FB0(rider);
     }
-    if (payload->gear13B4 != nullptr) {
-        SyncBattleGear_4225D0(payload->gear13B4);
+    YobiAction* const gear = payload->gear13B4;
+    if (gear != nullptr) {
+        SyncBattleGear_4225D0(gear);
     }
-    if (payload->rider13C8 != nullptr) {
-        if (payload->auxiliaryGear13B8[0] != nullptr) {
-            static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
+    const bool hasRider = payload->rider13C8 != nullptr;
+    YobiAction* const firstAuxiliaryGear = payload->auxiliaryGear13B8[0];
+    if (hasRider) {
+        if (firstAuxiliaryGear != nullptr) {
+            static_cast<void>(MarkDeath(firstAuxiliaryGear));
             payload->auxiliaryGear13B8[0] = nullptr;
         }
-        if (payload->auxiliaryGear13B8[1] != nullptr) {
-            static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[1]));
+        YobiAction* const secondAuxiliaryGear = payload->auxiliaryGear13B8[1];
+        if (secondAuxiliaryGear != nullptr) {
+            static_cast<void>(MarkDeath(secondAuxiliaryGear));
             payload->auxiliaryGear13B8[1] = nullptr;
         }
     } else {
-        if (payload->auxiliaryGear13B8[0] != nullptr) {
-            SyncBattleAuxGear_422780(payload->auxiliaryGear13B8[0], 0);
+        if (firstAuxiliaryGear != nullptr) {
+            SyncBattleAuxGear_422780(firstAuxiliaryGear, 0);
         }
-        if (payload->auxiliaryGear13B8[1] != nullptr) {
-            SyncBattleAuxGear_422780(payload->auxiliaryGear13B8[1], 1);
+        YobiAction* const secondAuxiliaryGear = payload->auxiliaryGear13B8[1];
+        if (secondAuxiliaryGear != nullptr) {
+            SyncBattleAuxGear_422780(secondAuxiliaryGear, 1);
         }
     }
 }

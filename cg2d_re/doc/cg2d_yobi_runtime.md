@@ -3973,3 +3973,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [五实际差异](cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision)只同CPP三根五片段：Copy的20B bytes290与16B descriptor分别五/四W32，每字组先取独立U32再对应偏移发布；残影count先判>=12再pub；基础角色先OR flags再写image/flags，首pointIndex先取再固定payload，其余五索引不缓存。两字组不是指针，局部word不补零、不引入公开工具。
 
 [五完整478条1989B](cg2d_battle_copy_sampling_evidence.json)纳管两旧Clone/Copy与三个既有残影/基础创建入口。Clone原入口载荷快照、失败空返回和新prev/next/payload恢复/原生浅复制、十CryptInt只encoded/mask/readCount并保token/reserved均保持，不新Read/Ctor/RNG。17call和1绑定/10父分列；所有完整父/战斗和callback、数据资源/owner浅别名寿命/ABI/SDK/PC53/实际RNG及画面运行未验。
+
+## BTS01 战斗主回调公共尾消费取样（2026-10-06）
+
+[四实际差异与裁决](cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-decision)仅404DB0：scene先判再固定入口payload；递增count先保存/pub后按快照判>=2，后续==1仍重读；Xpub后Y截断再屏幕Y；rider/gear与各aux保存原调用前非拥有指针，第三阶段重新判骑乘、先取firstAux再分流，secondAux在first消费及可能清槽后读取。
+
+[原完整684条2444B/13地址绑定10父](cg2d_battle_tail_sampling_evidence.json)和独立257槽1028B可追，现257case/200目标逐槽对应无缺口。入口载荷/全部原分发与MarkDeath后清槽、其它字段和头文件保持；不修改owner/立即free或新guard。仅本组局部静态，所有200动作/绑定父/数据资源与owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍未验。

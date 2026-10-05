@@ -2345,3 +2345,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [本次完整原根](cg2d_battle_queue_readiness_sampling_evidence.json)及[当前源状态](cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state)新增四F，211条751B/五页与101普通call7父/8出向；两个根五片段实修，另两叶/helper及四声明保持。
 
 语义1329→1333/有效ID1324→1328、adapted431→435，YOBI30→34/BATTLE27→31同四F不双计、代码片段5保持。E313→317仅共用有限I/S；LOOP31/R7区间67/队列及全部完整门禁保持，不据七父引用或普通坐标源形式验全部其它动作/数据/owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面。
+
+## BQA01 四既有正确追加/重置原身份（2026-10-06）
+
+[四原完整99条439B](cg2d_battle_reset_append_baseline_evidence.json)及[当前语义边界](cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state)补映射与R1分类，1206普通call26父/无出向和18分页全集可追。四源正文/共享helper/父和头保持；439400原五参数按现有16B四成员值语义承载，不宣机器ABI等价。
+
+语义1333→1337/有效ID1328→1332、adapted435→439，YOBI34→38/BATTLE31→35同四F不双计、代码片段5保持，E317→321仅共用已有实现/本次有限静态I/S。LOOP31/R7区间67/队列及完整门禁保持，不以26父引用、正确叶或关联百分比推完整功能/运行。

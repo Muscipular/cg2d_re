@@ -73,3 +73,9 @@
 [四完整根指令原字节](../cg2d_battle_queue_readiness_sampling_evidence.json)纳管4390E0/4393A0/43B7F0/4394A0，211条751B/五页与101普通call7父、8出向可追。初始化三W8/就绪FE0一W8、C3对应普通有序位移/X后Y短路已修，原200项仅position/重复0和1哨兵、各S32/六-1、两追加五/三次计数读取和最后pub保持，未写position4。
 
 [局部验收](../cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance)保留busy==1/计数pub后1200和22槽调用后复读恢复、原返回与四声明；不加容量guard/非有限检测/异常模型，不宣PC53/ABI/浮点状态或完整七父/数据/owner/画面运行通过。
+
+## BQA01 原重置与队列追加合同（2026-10-06）
+
+[四完整原指令字节](../cg2d_battle_reset_append_baseline_evidence.json)99条439B/1206普通call26父、无出向，补当前四正确根原身份。Reset和Init分工不合并，重复position哨兵/200项仅position及先负值后零值保持；两Append同next写state后当前FC8复读写下一-1，4392F0的index+1独立于旧FC8，busy最后。
+
+[验收边界](../cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance)记录439400六CA0读与四W32到既有16B值语义承载、源码/四声明保持，不称逐栈ABI同形或源码新增。18引用页只补全集，完整26父/所有其他数据列表/owner/SDK/ABI/PC53/时钟RNG/画面仍待。

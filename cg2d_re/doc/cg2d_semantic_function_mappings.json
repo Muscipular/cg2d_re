@@ -150302,6 +150302,210 @@
         "full_original_body_reviewed": true,
         "full_runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4391e0",
+      "inventory_id": "F:000391E0",
+      "status": "BQA01既有正确重置/追加正文保持，缺失完整原基线/语义映射与分类纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x439295",
+      "instruction_count": 41,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ResetBattleCastList_4391E0"
+          ],
+          "relationship": "既有正确恢复重置保持：入口action/payload固定而hidden目标重取，原十零写/重复position哨兵和200项仅position、四-1先于四0，不引Init的FDC/phase13门禁/清busy技能/转向或406260。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ResetBattleCastList_4391E0"
+          ],
+          "relationship": "四既有公开声明/原生T*与16B值语义接口保持，不增公共布局或原机器ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+        "doc/cg2d_battle_reset_append_baseline_evidence.json"
+      ],
+      "verification_level": "BQA01四完整99条439B/1206普通入向26父与18分页全集、四现有正确源合同/全CPP和头保持有限静态；不验26父/所有其它列表数据生产消费、owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确恢复重置保持：入口action/payload固定而hidden目标重取，原十零写/重复position哨兵和200项仅position、四-1先于四0，不引Init的FDC/phase13门禁/清busy技能/转向或406260。 不计源码新增/运行通过，不增保护/free/owner/RNG/补零/钳制/回绕或故障模型；原格式明文和音频暂停。",
+      "battle_reset_append_baseline": {
+        "spec_id": "BQA01",
+        "evidence_refs": [
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+          "doc/cg2d_battle_reset_append_baseline_evidence.json"
+        ],
+        "original_entry": "0x4391e0",
+        "original_instruction_count": 41,
+        "original_code_bytes": 181,
+        "incoming_reference_count": 6,
+        "incoming_parent_count": 3,
+        "reference_page_count": 1,
+        "source_body_changed": false,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4392a0",
+      "inventory_id": "F:000392A0",
+      "status": "BQA01既有正确重置/追加正文保持，缺失完整原基线/语义映射与分类纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x4392e9",
+      "instruction_count": 15,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AppendBattleCast_4392A0"
+          ],
+          "relationship": "既有正确Append保持：只检actor，caster原生非拥有T*先pub，当前FC8+1取next/pubFC8/同next写state，再重读FC8写下一-1、最后busy=1；不保护caster/固定sentinel索引。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "AppendBattleCast_4392A0"
+          ],
+          "relationship": "四既有公开声明/原生T*与16B值语义接口保持，不增公共布局或原机器ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+        "doc/cg2d_battle_reset_append_baseline_evidence.json"
+      ],
+      "verification_level": "BQA01四完整99条439B/1206普通入向26父与18分页全集、四现有正确源合同/全CPP和头保持有限静态；不验26父/所有其它列表数据生产消费、owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确Append保持：只检actor，caster原生非拥有T*先pub，当前FC8+1取next/pubFC8/同next写state，再重读FC8写下一-1、最后busy=1；不保护caster/固定sentinel索引。 不计源码新增/运行通过，不增保护/free/owner/RNG/补零/钳制/回绕或故障模型；原格式明文和音频暂停。",
+      "battle_reset_append_baseline": {
+        "spec_id": "BQA01",
+        "evidence_refs": [
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+          "doc/cg2d_battle_reset_append_baseline_evidence.json"
+        ],
+        "original_entry": "0x4392a0",
+        "original_instruction_count": 15,
+        "original_code_bytes": 73,
+        "incoming_reference_count": 1114,
+        "incoming_parent_count": 13,
+        "reference_page_count": 14,
+        "source_body_changed": false,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x439400",
+      "inventory_id": "F:00039400",
+      "status": "BQA01既有正确重置/追加正文保持，缺失完整原基线/语义映射与分类纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x439470",
+      "instruction_count": 28,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AppendBattleEffect_439400"
+          ],
+          "relationship": "既有正确完整效果追加保持：六次CA0依次消费四成员、下一position哨兵和最后递增；原五参到现有action/16B四W32值类型语义承载纳管，不改接口/调用者、不称逐栈机器ABI相同。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "AppendBattleEffect_439400"
+          ],
+          "relationship": "四既有公开声明/原生T*与16B值语义接口保持，不增公共布局或原机器ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+        "doc/cg2d_battle_reset_append_baseline_evidence.json"
+      ],
+      "verification_level": "BQA01四完整99条439B/1206普通入向26父与18分页全集、四现有正确源合同/全CPP和头保持有限静态；不验26父/所有其它列表数据生产消费、owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确完整效果追加保持：六次CA0依次消费四成员、下一position哨兵和最后递增；原五参到现有action/16B四W32值类型语义承载纳管，不改接口/调用者、不称逐栈机器ABI相同。 不计源码新增/运行通过，不增保护/free/owner/RNG/补零/钳制/回绕或故障模型；原格式明文和音频暂停。",
+      "battle_reset_append_baseline": {
+        "spec_id": "BQA01",
+        "evidence_refs": [
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+          "doc/cg2d_battle_reset_append_baseline_evidence.json"
+        ],
+        "original_entry": "0x439400",
+        "original_instruction_count": 28,
+        "original_code_bytes": 112,
+        "incoming_reference_count": 85,
+        "incoming_parent_count": 21,
+        "reference_page_count": 2,
+        "source_body_changed": false,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4392f0",
+      "inventory_id": "F:000392F0",
+      "status": "BQA01既有正确重置/追加正文保持，缺失完整原基线/语义映射与分类纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x439339",
+      "instruction_count": 15,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AppendBattleCastAt_4392F0"
+          ],
+          "relationship": "既有正确指定追加保持：只检actor，casterpub后显式index+1为next，pubFC8/同next写state，再重读FC8写下一-1、最后busy=1，不转发普通Append或改用旧FC8。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "AppendBattleCastAt_4392F0"
+          ],
+          "relationship": "四既有公开声明/原生T*与16B值语义接口保持，不增公共布局或原机器ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+        "doc/cg2d_battle_reset_append_baseline_evidence.json"
+      ],
+      "verification_level": "BQA01四完整99条439B/1206普通入向26父与18分页全集、四现有正确源合同/全CPP和头保持有限静态；不验26父/所有其它列表数据生产消费、owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确指定追加保持：只检actor，casterpub后显式index+1为next，pubFC8/同next写state，再重读FC8写下一-1、最后busy=1，不转发普通Append或改用旧FC8。 不计源码新增/运行通过，不增保护/free/owner/RNG/补零/钳制/回绕或故障模型；原格式明文和音频暂停。",
+      "battle_reset_append_baseline": {
+        "spec_id": "BQA01",
+        "evidence_refs": [
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance",
+          "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+          "doc/cg2d_battle_reset_append_baseline_evidence.json"
+        ],
+        "original_entry": "0x4392f0",
+        "original_instruction_count": 15,
+        "original_code_bytes": 73,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "reference_page_count": 1,
+        "source_body_changed": false,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
     }
   ]
 }

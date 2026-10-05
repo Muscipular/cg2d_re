@@ -482,3 +482,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [可度量验收](cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance)核四完整211条751B/五页指令原字节、101普通call7父/8出向与两根五片段精确重放，四W8/普通有序坐标短路、原五/三计数读取及各初始化/恢复/返回可追。
 
 四新F/adapted与双域同成员同步，E313→317只共用五片段和原证据，不验全部父/流程。七任务及R1/R7/R8/整体和完整门禁open，所有其它动作/列表数据资源和owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面继续。
+
+## BQA01 正确既有叶的基线/身份有限I/S（2026-10-06）
+
+[可度量验收](cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance)核四原99条439B字节/边界、1206普通call26父/无出向/18引用页和四现有正确源合同/全CPP及头保持，不计源码改动；Reset次序/门禁差异、两next/复读与439400六CA0和16B值语义可追。
+
+四新F/adapted与双域同成员同步，E317→321仅已有实现/有限静态证据，所有完整门禁/七任务/R1/R7/R8/整体open。不据引用全集验26父/完整数据列表和owner/SDK/ABI/PC53/时钟RNG/画面，不宣异常/机器ABI等价。

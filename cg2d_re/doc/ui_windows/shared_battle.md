@@ -8189,3 +8189,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前源状态](../cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state)沿事件初始化参与者/原动作及目标追加和22槽就绪检查，五片段恢复四W8与普通有序坐标短路。超时按当时mask/槽逐个Reset→重取Append11→再取Append40→再取Move→waitCount清0后返回0，归位分支两Append/Move后返回0，全部通过才1；两正确追加叶原计数读取/哨兵序保持。
 
 [原211条751B](../cg2d_battle_queue_readiness_sampling_evidence.json)、101call7父/8出向有限静态可追，不据引用全集验七父/全部流程。U08/U09及完整门禁open，所有其它动作/列表数据资源、owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面继续。
+
+## BQA01 就绪恢复调用叶的缺失身份（2026-10-06）
+
+[当前基线](../cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state)纳管Reset4391E0/Append4392A0和指定索引4392F0/完整效果439400；CheckReady的原Reset→Append11→Append40→Move实际消费与所有父保持。四正确正文/共享helper及原失败/返回/发布/复读保持，不新增框架或声称原逐栈ABI桥。
+
+[原99条439B](../cg2d_battle_reset_append_baseline_evidence.json)、1206普通call26父及18引用页可追；1114调用点通过≤80条页取回，截断响应未作完整证据。U08/U09及完整门禁open，所有其它动作/列表数据资源、owner/SDK/ABI/PC53/时钟RNG/画面继续。

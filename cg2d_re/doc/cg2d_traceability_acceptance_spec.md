@@ -458,3 +458,9 @@ E273→277只两域局部I/S共用同三实修片段/原证据，旧F增证/一�
 [可度量验收](cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-acceptance)核一个完整277条1145B/四页指令原字节和28调用、唯一入向，以及十二源片段精确重放及读取/发布/清槽时点。已有F:000154C0在语义index1322/原adapted及双域追加依据，不增身份/成员/处置或完整门禁。
 
 E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition426和全部原成员/任务及门禁保持。BAR01旧108条454B与新增169条691B分列，224/227余1216条4804B及全部数据/owner/SDK/ABI/PC53/时钟RNG/画面运行仍待，七任务和R1/R7/R8/整体open。
+
+## BRB01 动作227完整根的局部I/S（2026-10-06）
+
+[本次可度量验收](cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-acceptance)核完整389条1714B五页原指令字节/28调用与唯一父、十二源片段精确重放和22标量/四W32/五属性各目标/同对象取样、计数发布后offset门禁/两S32轨迹及尾序；仅本根静态，不沿动作226统一分支模板。
+
+已有F:00015940/index1323和adapted及双域只追加依据，身份/成员/处置与完整门禁保持；E301→305四局部I/S共用本根证据。旧100条429B与新增289条1285B分列，仅224余927条3519B、全部数据/owner/SDK/ABI/PC53/时钟RNG/画面仍待；七任务及R1/R7/R8/整体open。

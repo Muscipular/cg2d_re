@@ -8165,3 +8165,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [源状态](../cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state)沿UpdateBattleActor_404DB0的case226保留完整4154C0：首阶段恢复second/清七附件、位置/运动计数，offset非负恢复first/装备，依原点转态、标死rider/effect和action并清槽，最后按当时rider门禁播帧。十二取样/发布片段已修，两helper本体与其它动作保持，不加新guard或立即free。
 
 [本根原完整基线](../cg2d_battle_ride_exit_sampling_evidence.json)为277条1145B、28call/唯一父；旧108条454B不双计、新增169条691B。224/227余1216条4804B及所有动作/数据资源和owner/SDK/ABI/PC53/时钟RNG/画面运行未闭，U08/U09及完整门禁继续open。
+
+## BRB01 实际动作227及两条轨迹（2026-10-06）
+
+[源状态](../cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state)沿实际case227保留完整415940：首阶段恢复second/逐项动画复制与状态、转态和帧，清七附件；按flags选择原两条S32轨迹、finish先取样/计数pub后offset门禁，成功才恢复first/装备、转态并标死清槽，最终共用帧尾。十二片段实修，22标量/四字组/五属性及原复读和两helper保持，不加guard/free。
+
+[原389条1714B/28call](../cg2d_battle_ride_animation_sampling_evidence.json)完整静态可追，旧100条429B与新增289条1285B分列，仅224余927条3519B未核。完整战斗/所有动作实参、数据资源和owner/SDK/ABI/PC53/时钟RNG/画面运行未闭，U08/U09及完整门禁保持open。

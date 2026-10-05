@@ -3929,3 +3929,11 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [具名裁决](cg2d_map_observation_branch_spec.md#map-observation-branch-decision)将入口阶段取样置于counter1DC=-1前，两初分支共用initialPhase，后部就绪仍复读阶段；旋转用同一计算值发布/判负/+8，再依原八S16角和PC53叶飞行；父绘图先worldX/Y位型后图形索引；共用子绘图后currentFrame一次读再非负+1。共五块，未改共用排序/子更新、任何数值叶或实际创建/失败及死亡后继续处理。
 
 319条999B完整保存，唯一43F330@43F36A type1 callback写者不是call；新227条与已核92条连续复用，54DD20 F32字节3333b3bf保持。原五槽/S8就绪、phase2/frame-1发布、后末负帧不写及原生寿命保持。全其它语义/完整父与全部callee/间接别名/SDK/PC53/RNG/场景画面运行未验。
+
+## AAS01 五附件路径四读取序（2026-10-05）
+
+[裁决](cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision)修正此前共用附件函数统一取样的偏差：阶段1骑乘Y/X相加后取槽，阶段1效果两次相加前取槽，阶段2骑乘/效果Y相加前及X相加后取槽，普通骑乘Y相加后及X相加前取槽。私有四值枚举由五实际路径明确选择，效果函数只透传，不从1AE10/1AE11图号猜取样。每路径三次槽取读/两查询、初descriptor/当次graphicIndex及原before/batch/S16保持。
+
+442F70保原空action返回；frameX→payload→frameY→initialRide→index，两帧用同一骑乘指针。首附件复用末次非空判断的子指针写X，后Y/worldX/worldY各先目标槽后主字段，再当次子槽动画、高度/偏移和图形取样。创建/刷新/失败/MarkDeath清槽、条/聊天/索引别名/名称10点/状态/挂件和action30尾部不改；43E490其它阶段数值/恢复/音效保持。十具名片段，公开接口/布局/owner不改。
+
+[证据](cg2d_actor_attachment_sampling_evidence.json)715条2252B；4417E0全466仅本组局部取样验收，442F70仅143条不重验其余1077，43E490四窗106条不登记完整根。整体实体、全部父/callee/上游及owner寿命/ABI/SDK/PC53/画面运行未验。

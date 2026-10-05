@@ -374,3 +374,9 @@ MCS01分类调用次数的失实短语已据实际一次修正，不重写历史
 [限定验收](cg2d_map_observation_branch_spec.md#map-observation-branch-acceptance)核五片段/四类取样及完整319条999B/唯一type1写者，新227条与旧92条连续复用及F32位型。原飞行/就绪/失败/死亡后继续、子生产消费和共用逻辑保持；一语义/来源/adapted，MAP53/LOOP18成员，E241→245只双域各局部I/S，不记双份函数或call。
 
 六任务G01/G02/U11/R01/R04/V04仍open，所有其它原语义/完整父与全部callee/全上游/间接别名及owner寿命/真实SDK/PC53/时钟RNG/场景画面运行未闭；全部完整门禁/功能、R1/R7/R8及整体判定不提升。
+
+## AAS01 附件取样局部I/S（2026-10-05）
+
+[限定验收](cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-acceptance)为五路径四种读序及附加入口/首附件十片段归档：原715条2252B，完整4417E0和442F70两局部窗/43E490四依赖窗分别计；1type1绑定、1type17call分列。新增一语义/追加一既有语义及两adapted，MAP55/LOOP20成员，E245→249只双域各局部I/S，共用同源证据。
+
+G01/G02/U11/R01/R04/V04仍open；全部完整门禁/功能及R1/R7/R8/整体仍未闭。其它原语义/完整父与callee、全上游/间接别名及owner重进退出和借用失效/真实SDK/PC53/时钟RNG/场景画面运行继续，不以四局部pass替代完整验收。

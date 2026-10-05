@@ -2237,3 +2237,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原319条999B/唯一type1写者](cg2d_map_observation_branch_evidence.json)与[源状态](cg2d_map_observation_branch_spec.md#map-observation-branch-source-state)为43F520补正式语义/真实私有本体、43F330绑定与子生产消费来源/adapted。完整体保存和五片段局部实修分开记录，复用旧92条不记重做共用或直接call。
 
 语义1296→1297、有效ID1292→1293、处置389→390，MAP52→53/LOOP17→18成员，同ID不重复计函数。原定位/pending/队列/非FID/R7及其它功能保持；完整父/callee/上游和间接别名及owner寿命/真实SDK/PC53/运行未验。
+
+## AAS01 实体回调/附加绘制关联（2026-10-05）
+
+[原715条2252B与引用类型](cg2d_actor_attachment_sampling_evidence.json)和[源状态](cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state)新增4417E0语义，唯一441DB0@441DEA type1回调地址写入；既有442F70语义仅追加本组两窗/源取样边界，保留原名称10点/一源码表达式及全部既有字段。其唯一4417E0@441D9B为type17直接call。43E490只四依赖窗，不借此登记完整身份或验收。
+
+语义1297→1298、有效ID1293→1294、处置390→392，MAP53→55/LOOP18→20成员，共用同两ID不重复计函数；四局部I/S共用同一实修证据。完整原语义/父与callee/所有上游和间接别名/owner寿命/真实SDK/PC53/运行未验，既有pending/队列/R7等不按本组代码量推完成率。

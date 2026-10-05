@@ -7653,3 +7653,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [主回调合同](cg2d_map_observation_branch_spec.md#map-observation-branch-source-state)在43F520修五片段/四类取样：counter1DC=-1前读initialPhase供1/2分支，绘后阶段仍当次读；计算方向发布后按局部结果判负/+8再发布；worldX/Y W32位型后保存图形索引；共用绘子项后frame单次取读/非负加1写回。
 
 [原319条999B/唯一type1绑定](cg2d_map_observation_branch_evidence.json)纳管，新227条749B与MCE01既有尾92条250B复用，不记直接call。原正常飞行/数值叶、五槽就绪/失败、死亡后继续父/子处理及共用逻辑保持；完整其它语义/父与所有callee/上游/间接别名及owner寿命/SDK/PC53/场景运行未闭。
+
+## AAS01 实体附件取样（2026-10-05）
+
+[具名合同](cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state)恢复五条真实实体附件路径的四种槽取样顺序，初描述符与最终图形子对象分别借用；附加入口用同一骑乘快照取两帧偏移，首附件按原目标/主字段顺序同步并逐次重读动画/查询子槽。实体创建/阶段/玩家与World状态同源、旧失败/清理及其它场景正文保持。
+
+[原715条2252B](cg2d_actor_attachment_sampling_evidence.json)含4417E0完整466条、442F70两窗143条、43E490四窗106条；完整保存不代全部语义，局部窗不代完整根。真实441DB0 type1回调写者与4417E0 type17附加调用分列；完整实体/上游和callee/所有owner寿命/SDK/PC53/画面运行未闭。

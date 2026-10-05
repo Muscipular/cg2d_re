@@ -128062,7 +128062,7 @@
       "original_entry": "0x442F70",
       "inventory_id": "F:00042F70",
       "original_role": "地图实体附加绘制、名称与状态图标",
-      "status": "已有实体附加绘制父正文及名称十原格式接线；完整画面/资源/运行未验",
+      "status": "AAS01附加入口骑乘快照/首附件逐次取样实修；既有名称十原格式点保留，完整实体/运行未验",
       "original_end_exclusive": "0x443FF1",
       "instruction_count": 1220,
       "original_direct_reference_count": 1,
@@ -128074,6 +128074,14 @@
             "Sub_442F70"
           ],
           "relationship": "现同一%s表达式承接十个原名称格式点，不新增原helper或显示路径"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_442F70",
+            "Sub_4417E0"
+          ],
+          "relationship": "AAS01仅入口frameX/payload/frameY/initialRide/index同指针快照及首附件逐次目标/源字段取样；真实4417E0末端调用保持"
         }
       ],
       "business_call_connections": [
@@ -128409,10 +128417,29 @@
       ],
       "evidence_documents": [
         "doc/cg2d_yobi_runtime.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-acceptance",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_attachment_sampling_evidence.json"
       ],
-      "verification_level": "原1220条统计仅读268名称及邻控制流；十真实call/同格式字节复用、六玩家借用映射/非玩家字段与三共尾/现源码一个标识符静态核对，余952条及状态图标/玩家和资源生产/4417E0调用者不重验，未执行。",
-      "boundary": "名称S16mode>0门禁；玩家模式1..6/name和ownTitle/动态原称号表/三文本，颜色1/4/5/2/0/0；非玩家100/非80000及image非0时六字段/颜色0/1/4/5/2/2，其他80200回退不限制正模式<=6，含200且非空title优先否则name；未清256B格式后Y/测宽/X/绘制。只stdcallee变化，旧对象/状态/字段别名/生命周期/原声效与所有其他正文保持，不加空串skip/转码/截断/保护；十原点共一个现表达式，原父/完整名称/画面/资源和CRT/运行/总PLAN未闭合。"
+      "verification_level": "原1220条统计仅读268名称及邻控制流；十真实call/同格式字节复用、六玩家借用映射/非玩家字段与三共尾/现源码一个标识符静态核对，余952条及状态图标/玩家和资源生产/4417E0调用者不重验，未执行。；AAS01追加两局部窗143条495B和两root元数据/type17关系，原全1220其它1077条不重验；新增静态不代先前名称10点/一源码表达式或完整父/运行",
+      "boundary": "名称S16mode>0门禁；玩家模式1..6/name和ownTitle/动态原称号表/三文本，颜色1/4/5/2/0/0；非玩家100/非80000及image非0时六字段/颜色0/1/4/5/2/2，其他80200回退不限制正模式<=6，含200且非空title优先否则name；未清256B格式后Y/测宽/X/绘制。只stdcallee变化，旧对象/状态/字段别名/生命周期/原声效与所有其他正文保持，不加空串skip/转码/截断/保护；十原点共一个现表达式，原父/完整名称/画面/资源和CRT/运行/总PLAN未闭合。；AAS01入口保真实空action早退，frameX→payload→frameY→骑乘槽→index，两帧偏移用同骑乘快照；首附件绘制初空值判断复用initialChild写X，后三目标槽先取再读主Y/worldX/Y、动画及两偏移子槽逐次读取，图形槽在X相加前取。创建/刷新/失败/MarkDeath清槽和条/聊天/索引别名/名称/挂件/action30正文保持；不新增保护或回绕/故障模拟，不冒称其它1077条、完整callee/生产/owner寿命/SDK/CPU浮点/场景运行已验。",
+      "actor_attachment_sampling": {
+        "spec_id": "AAS01",
+        "partial_windows": 2,
+        "instruction_count": 143,
+        "code_bytes": 495,
+        "evidence_refs": [
+          "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline",
+          "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
+          "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-acceptance",
+          "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+          "doc/cg2d_actor_attachment_sampling_evidence.json"
+        ],
+        "full_body_reverified": false
+      }
     },
     {
       "original_entry": "0x50B380",
@@ -146588,6 +146615,42 @@
       ],
       "verification_level": "完整原319条999B/唯一type1 callback写者；本轮新227条749B及既有92条250B复用，仅五源片段/四类取样局部静态，不代全其它语义/完整父及所有callee/owner寿命/运行",
       "boundary": "初阶段在counter1DC=-1前取，两个初分支用同一initialPhase，绘后阶段仍当次读取；旋转按计算方向发布/局部判负/+8再发布，worldX/worldY W32位型后取S32图形索引，绘后frame单次读/非负加1写回。原F32 BFB33333、PC53数值叶/角度表、五槽就绪与创建失败、当前玩家/初frame/越界条件和摘链标死后继续处理、负帧分支/原生载荷及MCS01/MCE01共用与子生产消费保持；唯一type1不是直接call。全319其它语义/完整父与所有callee/全上游/间接别名及owner重进退出/借用失效/真实ABI/SDK/PC53/时钟RNG/场景画面运行未验，异常不新增保护或回绕/故障模拟、称等价。"
+    },
+    {
+      "original_entry": "0x4417e0",
+      "inventory_id": "F:000417E0",
+      "status": "AAS01普通骑乘附件取样实修与真实回调身份纳管；完整实体/父/callee及运行未验",
+      "original_end_exclusive": "0x441dab",
+      "instruction_count": 466,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4417E0",
+            "Sub_441DB0",
+            "DrawActorPhaseAttachment",
+            "Sub_442F70"
+          ],
+          "relationship": "既有实体回调/真实441DB0绑定和末端附加绘制，AAS01仅普通骑乘选择BeforeXAddition，完整其它正文不改"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x441dea",
+          "parent_entry": "0x441db0",
+          "type": 1
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-acceptance",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_attachment_sampling_evidence.json"
+      ],
+      "verification_level": "原466条1483B/唯一type1 callback绑定完整保存；仅附件五路径与共同读取点、两局部入口及源码十片段静态，完整其它语义/父/callee/owner寿命/运行未验",
+      "boundary": "既有真实实体回调，在普通骑乘路径恢复Y相加后取X查询子槽、X相加前取图形子槽，初descriptor与最后graphicIndex分别借用，原Y→X查询/before0/batch0及窄化保持。共用选择不套用阶段1/2其它三种顺序；本轮不重验原466条的其它语义/父与callee/生产/ABI/SDK/PC53/RNG/场景画面及owner重进退出/borrow失效，异常不增加保护/模拟或称等价。"
     }
   ]
 }

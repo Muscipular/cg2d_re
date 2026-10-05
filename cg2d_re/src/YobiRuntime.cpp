@@ -4454,18 +4454,47 @@ void RestoreActorOriginalImage(YobiAction* const action, MapActorPayload* const 
             world::detail::gWorldObjects[static_cast<std::size_t>(index)].imageNo);
 }
 
-// 阶段1/2及实体骑乘附件追加；两个偏移调用之间和取图号时均重新读取槽。
+// 原五条附件路径的槽取样时点不同，见 AAS01；只在本文件选择已证顺序。
+enum class ActorAttachmentReadOrder {
+    AfterYAndXAddition,
+    BeforeYAndXAddition,
+    BeforeYAddition,
+    BeforeXAddition,
+};
+
+// 两次偏移查询使用各自当次槽；描述符始终借用初次取样的子对象。
 void DrawActorPhaseAttachment(
     YobiAction* const action, YobiAction** const slot,
-    const std::int32_t primaryIndex, const std::int32_t before)
+    const std::int32_t primaryIndex, const std::int32_t before,
+    const ActorAttachmentReadOrder readOrder)
 {
+    const bool readBeforeY = readOrder == ActorAttachmentReadOrder::BeforeYAndXAddition
+        || readOrder == ActorAttachmentReadOrder::BeforeYAddition;
+    const bool readBeforeX = readOrder == ActorAttachmentReadOrder::BeforeYAndXAddition
+        || readOrder == ActorAttachmentReadOrder::BeforeXAddition;
     YobiAction* const child = *slot;
     const render::GraphicDescriptor16* const descriptor = &child->drawMode;
     const std::int32_t offsetY = Sub_5182B0(child, 1);
-    const std::int32_t drawY = offsetY + action->y;
-    const std::int32_t offsetX = Sub_5182B0(*slot, 0);
-    const std::int32_t drawX = offsetX + action->x;
-    const std::int32_t graphicIndex = (*slot)->graphicIndex;
+    const std::int32_t parentY = action->y;
+    YobiAction* nextChild;
+    if (readBeforeY) {
+        nextChild = *slot;
+    }
+    const std::int32_t drawY = offsetY + parentY;
+    if (!readBeforeY) {
+        nextChild = *slot;
+    }
+    const std::int32_t offsetX = Sub_5182B0(nextChild, 0);
+    const std::int32_t parentX = action->x;
+    YobiAction* graphicChild;
+    if (readBeforeX) {
+        graphicChild = *slot;
+    }
+    const std::int32_t drawX = offsetX + parentX;
+    if (!readBeforeX) {
+        graphicChild = *slot;
+    }
+    const std::int32_t graphicIndex = graphicChild->graphicIndex;
     world::detail::DrawGearNormal_46C060(
         primaryIndex, before, graphicIndex,
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
@@ -4475,7 +4504,8 @@ void DrawActorPhaseAttachment(
 // 原两个阶段的action08创建/播放；分配后的首写原本不判空，不增加失败门禁。
 void DrawActorPhaseEffect(
     YobiAction* const action, MapActorPayload* const payload,
-    const std::int32_t primaryIndex, const std::int32_t imageNo)
+    const std::int32_t primaryIndex, const std::int32_t imageNo,
+    const ActorAttachmentReadOrder readOrder)
 {
     if (payload->action08 == nullptr) {
         payload->action08 = NewYobiAction_404AE0(2, 0);
@@ -4488,7 +4518,7 @@ void DrawActorPhaseEffect(
     YobiAction* const child = payload->action08;
     if (child != nullptr) {
         static_cast<void>(Sub_517880(child, 100, 0, 0));
-        DrawActorPhaseAttachment(action, &payload->action08, primaryIndex, 1);
+        DrawActorPhaseAttachment(action, &payload->action08, primaryIndex, 1, readOrder);
     }
 }
 
@@ -4531,8 +4561,10 @@ void UpdateActorMountPhase(YobiAction* const action, MapActorPayload* const payl
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
     static_cast<void>(Sub_517880(payload->action44, 100, 0, 0));
-    DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0);
-    DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE10);
+    DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0,
+        ActorAttachmentReadOrder::AfterYAndXAddition);
+    DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE10,
+        ActorAttachmentReadOrder::BeforeYAndXAddition);
     if (payload->counter48 == 0) {
         static_cast<void>(audio::PlaySe_52C450(0x1D1, action->x));
     }
@@ -4606,8 +4638,10 @@ void UpdateActorDismountPhase(YobiAction* const action, MapActorPayload* const p
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
         std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
     static_cast<void>(Sub_517880(payload->action44, 100, 0, 0));
-    DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0);
-    DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE11);
+    DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0,
+        ActorAttachmentReadOrder::BeforeYAddition);
+    DrawActorPhaseEffect(action, payload, primaryIndex, 0x1AE11,
+        ActorAttachmentReadOrder::BeforeYAddition);
     if (payload->counter48 == 0) {
         static_cast<void>(audio::PlaySe_52C450(0x1CF, action->x));
     }
@@ -5010,7 +5044,8 @@ void Sub_4417E0(YobiAction* const action)
             graphicIndex, worldXBits, worldYBits,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), 1, descriptor);
-        DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0);
+        DrawActorPhaseAttachment(action, &payload->action44, primaryIndex, 0,
+            ActorAttachmentReadOrder::BeforeXAddition);
     } else if ((action->flags & 0x400u) != 0) {
         if (world::detail::ReadPlayerAction() != action) {
             const std::int32_t lowerX =
@@ -5762,13 +5797,14 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
     if (action == nullptr) {
         return;
     }
-    auto* const payload = static_cast<MapActorPayload*>(action->payload);
     std::int32_t frameX = action->frameX;
+    auto* const payload = static_cast<MapActorPayload*>(action->payload);
     std::int32_t frameY = action->frameY;
+    YobiAction* const initialRide = payload->action44;
     std::int32_t stateIndex = payload->index;
-    if (payload->action44 != nullptr) {
-        frameX += payload->action44->frameX;
-        frameY += payload->action44->frameY;
+    if (initialRide != nullptr) {
+        frameX += initialRide->frameX;
+        frameY += initialRide->frameY;
     }
 
     std::uint16_t flags;
@@ -5835,21 +5871,40 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
                && payload->action04 != nullptr) {
         MarkDeath(payload->action04);
         payload->action04 = nullptr;
-    } else if ((flags & 0x100u) != 0 && payload->action04 != nullptr) {
-        payload->action04->x = action->x;
-        payload->action04->y = action->y;
-        payload->action04->worldX = action->worldX;
-        payload->action04->worldY = action->worldY;
-        Sub_517880(payload->action04, 100, 0, 0);
-        const std::int32_t height = Sub_4417A0(action->imageNo);
-        const std::int32_t offsetY = Sub_5182B0(payload->action04, 1);
-        const std::int32_t drawY = height + offsetY + action->y;
-        const std::int32_t offsetX = Sub_5182B0(payload->action04, 0);
-        const std::int32_t drawX = offsetX + action->x;
-        const std::int32_t graphicIndex = payload->action04->graphicIndex;
-        world::detail::DrawGearNormal_46C060(
-            primaryIndex, 1, graphicIndex, static_cast<std::int16_t>(drawX),
-            static_cast<std::int16_t>(drawY), nullptr, 0);
+    } else if ((flags & 0x100u) != 0) {
+        YobiAction* const initialChild = payload->action04;
+        if (initialChild != nullptr) {
+            const std::int32_t parentX = action->x;
+            initialChild->x = parentX;
+            YobiAction* const yChild = payload->action04;
+            const std::int32_t parentY = action->y;
+            yChild->y = parentY;
+            YobiAction* const worldXChild = payload->action04;
+            const float worldX = action->worldX;
+            worldXChild->worldX = worldX;
+            YobiAction* const worldYChild = payload->action04;
+            const float worldY = action->worldY;
+            worldYChild->worldY = worldY;
+            YobiAction* const animatedChild = payload->action04;
+            Sub_517880(animatedChild, 100, 0, 0);
+            const std::int32_t imageNo = action->imageNo;
+            const std::int32_t height = Sub_4417A0(imageNo);
+            YobiAction* const yOffsetChild = payload->action04;
+            const std::int32_t offsetY = Sub_5182B0(yOffsetChild, 1);
+            const std::int32_t currentY = action->y;
+            const std::int32_t heightOffsetY = height + offsetY;
+            YobiAction* const xOffsetChild = payload->action04;
+            const std::int32_t drawY = heightOffsetY + currentY;
+            const std::int32_t offsetX = Sub_5182B0(xOffsetChild, 0);
+            const std::int32_t currentX = action->x;
+            YobiAction* const graphicChild = payload->action04;
+            const std::int32_t drawX = offsetX + currentX;
+            const std::int32_t graphicIndex = graphicChild->graphicIndex;
+            world::detail::DrawGearNormal_46C060(
+                primaryIndex, 1, graphicIndex,
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), nullptr, 0);
+        }
     }
 
     if ((flags & 0x2000u) != 0) {

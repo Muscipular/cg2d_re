@@ -159,7 +159,7 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 | U07 / 旧55技能正文 | 对话/技能选择/学习/遗忘本体已有 | 五行正文完整生产、独立状态/图号与外层路由 | 正文来源/容量/布局/请求对应；[技能选择](../doc/ui_windows/legacy_skill_choice.md) |
 | U08 / 战斗执行闭环 | 257表项/200动作及43CBB0→427470链已有 | P01攻击生产、载荷完整字段/归属、附属清理及事件执行 | 生产→动作→回调→释放顺序；[战斗](../doc/ui_windows/shared_battle.md) |
 | U09 / Yobi 生命周期 | New/四相更新/Clone/终止删除及8个新增身份已有 | 全部creator/cleanup、载荷浅复制后的共享寿命 | 保留Clone原失败返回，不能以基础生命周期存在称所有对象完成；[Yobi](../doc/cg2d_yobi_runtime.md) |
-| U10 / 跨页持久化与请求 | NDR01分派使用原账号，85文本字段取值序修正；前轮命令/缓冲修复保持 | 各业务生产/回复/权限/回滚，全部分派/整数/108回复与owner/alias | 保持open；[NDR01](../doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure)；仅账号/字段修正不代每条跨页业务链 |
+| U10 / 跨页持久化与请求 | NDR01账号/读序保持；NWT01字节工作区同SDK域和四解码基线明确 | 各业务生产/回复/权限/回滚，整分派/整数/108回复与owner/alias | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；类型收敛/四基线不代每条业务链或原格式往返 |
 | U11 / 场景/主循环传递依赖 | MainLoop、普通22状态、部分场景重置与切换已有 | 逐状态核所有传递依赖、退出/断线/重进与资源清理 | 不重建通用分发框架；[主循环](../doc/cg2d_main_loop.md)、[场景](../doc/cg2d_scene_state.md) |
 
 ### 6.3 渲染、资源与文本
@@ -179,14 +179,14 @@ FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”
 
 | 编号 / 范围 | 当前状态 | 下一步 | 关闭条件 |
 |---|---|---|---|
-| R01 / 函数分母 | NAT01处置186/3680保持；NDR01只补分派父限定语义，不新增整根处置 | 其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[NDR01](../doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure)；5779条为大小元数据，不能当完整已验 |
-| R02 / 数据/间接目标 | NDR01原账号/密码操作数与独立owner、85同编号槽/38与47取值序具名 | 全部消费者/alias/owner/重进/动态边，203导入及数据/常量/生命周期 | 保持open；[NDR01](../doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure)；导入15/218不增，限定窗口不代完整寿命/ABI/运行 |
+| R01 / 函数分母 | NWT01四既有解码入口新adapted，处置190/3680；三父类型补充不重复分类 | 其余逐ID归属/语义/完整本体/混合共享与未知继续核定 | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；NDR01完整父未验，不以基线/数量当全功能完成率 |
+| R02 / 数据/间接目标 | NWT01 DA3F98的90直接引用/三父与已知byte pointer类型/SDK域明确 | 未知间接alias/完整owner/重进/动态边，203导入及数据/常量/生命周期 | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；导入15/218保持，直接引用/类型不代所有权闭合 |
 | R03 / 未归属区间 | 3061原区间快照与部分后置回调/数据/填充分组已有 | 沿候选清单处理尚未归属区间，不重做已证分类 | 区间用途及剩余未知明确；不把无直接xref当不可达 |
 | R04 / 台账一致性 | 本表已识别总览、局部速查和机器自由文本的时效差 | 后续按任务更新同一记录的当前状态，保留历史字段证据 | 清单/源码/当前摘要相符；来源只有“关联”的项不升级成实现 |
 | R05 / 例外收口 | 键盘/newest/两加密叶/低色深排除与窄替代已有 | 核共享callee、混合32位分支、参数/状态保留及排除接线 | 排除与替换有具体授权范围；音频/未知不混入；不降低总SPEC |
 | V01 / 环境与输入 | 基线/部分来源已有；运行环境未完整冻结 | 在运行准备获准后记录实际工具链、SDK、系统/编码、参数/配置/资源 | 可复核实际来源/版本/输入与缺失项，不设文件摘要门禁 |
 | V02 / 完整启动退出/链接 | 三静态库，父源码不等于可运行入口 | 先静态收口C/U依赖；获准后才配置可执行目标、构建/链接及验证启动退出 | 无假实现/重复构析/遗漏清理；不能拿历史静态库编译代当前完整链接 |
-| V03 / 登录与网络真实流程 | NDR01纠正分派账号槽并恢复38字段工作区先读，原108命令/返回规则保持 | 完整分派/整数/108回复、数据/owner/失败、CRT与SDK ABI/链接及真实流程 | 保持open；[NDR01](../doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure)；静态两类修正不代登录/创建/断线/命令往返与真实明文互通 |
+| V03 / 登录与网络真实流程 | NDR01账号/字段修复保持；NWT01字节工作区与四解码基线可追 | 整分派/整数/108回复、数据/owner/失败、CRT与SDK ABI/链接及真实流程 | 保持open；[NWT01](../doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure)；静态类型/基线不代登录/创建/断线/原格式明文互通 |
 | V04 / 世界/UI/渲染/输入 | 局部源码/静态证据 | 获准后按同输入、资源、初值核地图/UI/战斗、焦点/IME、模式和画面 | 时间/RNG消费、坐标/裁剪/像素、状态及生命周期有对照证据 |
 | V05 / 音频真实流程 | 暂停且未验 | 用户恢复P11–P17并允许运行后核播放、通知、音量、循环与退出 | 真实设备/资源/时序通过；暂停不得据此宣称整体完成 |
 | V06 / 最终验收报告 | 尚无完整R8结果 | 汇总R01–R05和V01–V05，逐适用门禁列结果/未决/例外 | 总SPEC §10全部适用条件闭合；未知/未验尚在则保持整体未完成 |

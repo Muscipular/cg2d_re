@@ -607,7 +607,8 @@
         "doc/cg2d_network_buffer_lifecycle_spec.md",
         "doc/cg2d_command_checksum_publication_spec.md",
         "doc/cg2d_append_transform_spec.md",
-        "doc/cg2d_dispatch_account_field_read_spec.md"
+        "doc/cg2d_dispatch_account_field_read_spec.md",
+        "doc/cg2d_workspace_byte_pointer_spec.md"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -640,7 +641,11 @@
         "F:00003A70",
         "F:001170D0",
         "F:00117160",
-        "F:00112E40"
+        "F:00112E40",
+        "F:00117190",
+        "F:001171B0",
+        "F:001176B0",
+        "F:00117730"
       ],
       "closure_task_ids": [
         "P09",
@@ -657,7 +662,8 @@
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-decision",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-decision",
         "doc/cg2d_append_transform_spec.md#append-transform-decision",
-        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision"
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-decision",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -666,7 +672,8 @@
         "NLC01七根/九协议块/18槽局部生产消费/失败退出已具名映射，九缓冲17共享取值/三发布序及单flags实修；未知全部父/owner/alias/重进/R1/R7、SDK ABI/链接/正常失败/明文互通及运行未闭",
         "NCS01仅517510完整命令体的局部S32校验和/ASCII状态发布源码校准；83调用父完整业务、全部owner/alias/动态边、实际CRT ABI/失败、真实收发与运行未闭。六上下文根不按本轮新增源码/审核重复计数",
         "NAT01四既有入口、两实际跳表/234原直接call已具名，追加体写后源读取/NUL与限长表达实修；完整调用父/owner/alias/动态边、实际CRT ABI/失败、命令往返/明文互通与运行未闭，不称新增四业务本体",
-        "NDR01仅原账号与85文本取值窗口/32掩码源码校准；不据主根5779条元数据宣称整根、所有整数/108回复本体或完整owner/alias、实际ABI/链接/明文往返/运行通过，不新增R1处置"
+        "NDR01仅原账号与85文本取值窗口/32掩码源码校准；不据主根5779条元数据宣称整根、所有整数/108回复本体或完整owner/alias、实际ABI/链接/明文往返/运行通过，不新增R1处置",
+        "NWT01工作区字节指针类型与四解码本体/90直接引用具名，SDK同域/读序/原失败释放保持；未知间接alias/完整owner/重进、整分派/全部回复及实际ABI/链接/正常失败/明文往返/运行未闭。NDR01限定父与三既有父不重复新增R1分类"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -675,7 +682,8 @@
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
-        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
       ]
     },
     {
@@ -10418,6 +10426,123 @@
       "observation": "108原命令含NUL字节、85完整文本取值窗口/原点和32掩码归档；整体分派未验",
       "expected": "原账号参与逆向命令变换；文本解码后逐点恢复基址/容量读取顺序，槽在两者之后取",
       "actual": "第五参数用DA38DC；38处工作区基址先读、47处容量先读，原108行/类型/回调/返回保留；仅限定静态修正"
+    },
+    {
+      "id": "E-WORKSPACE-BYTE-I-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "DA3F98的90直接引用/三父，四解码根196条/518B/244call和63B原表；doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-workspace-byte-pointer-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-baseline",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-acceptance",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_workspace_byte_pointer_evidence.json",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArgument",
+        "src/network/NetworkRuntime.cpp#AllocateNetworkWorkspace_516B60",
+        "src/network/NetworkRuntime.cpp#ShutdownNetworkRuntime_5081A0",
+        "src/network/NetworkRuntime.cpp#ParseProtocolInteger_517190",
+        "src/network/NetworkRuntime.cpp#Sub_5171B0",
+        "src/network/NetworkRuntime.cpp#Sub_5176B0",
+        "src/network/NetworkRuntime.cpp#Sub_517730"
+      ],
+      "differences": [
+        {
+          "description": "原native已知字节缓冲表由void**收敛为std::uint8_t**，表/局部借用/元素malloc/目的槽同型；保持18槽/SDK同域、原读序/失败/退出，无新owner/清理/保护或格式",
+          "decision_ref": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision"
+        },
+        {
+          "description": "四解码/格式本体不改、补adapted；x64地址与既有SDK承接不豁免完整owner/alias/ABI/链接/失败/运行，RPLAN.24不模拟或宣称异常等价",
+          "decision_ref": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一CPP五字节指针类型块，业务/解码算法不改",
+      "expected": "原byte buffer用原生std::uint8_t*承载，原数量/读取/SDK域和所有生命周期路径保持",
+      "actual": "workspace成员/借用/表与元素malloc/目标槽同型；四已存在解码入口补语义和分类，未改算法或完整门禁"
+    },
+    {
+      "id": "E-WORKSPACE-BYTE-W-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "DA3F98的90直接引用/三父，四解码根196条/518B/244call和63B原表；doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-workspace-byte-pointer-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-baseline",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-acceptance",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_workspace_byte_pointer_evidence.json",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArgument",
+        "src/network/NetworkRuntime.cpp#AllocateNetworkWorkspace_516B60",
+        "src/network/NetworkRuntime.cpp#ShutdownNetworkRuntime_5081A0",
+        "src/network/NetworkRuntime.cpp#ParseProtocolInteger_517190",
+        "src/network/NetworkRuntime.cpp#Sub_5171B0",
+        "src/network/NetworkRuntime.cpp#Sub_5176B0",
+        "src/network/NetworkRuntime.cpp#Sub_517730"
+      ],
+      "differences": [
+        {
+          "description": "原native已知字节缓冲表由void**收敛为std::uint8_t**，表/局部借用/元素malloc/目的槽同型；保持18槽/SDK同域、原读序/失败/退出，无新owner/清理/保护或格式",
+          "decision_ref": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision"
+        },
+        {
+          "description": "四解码/格式本体不改、补adapted；x64地址与既有SDK承接不豁免完整owner/alias/ABI/链接/失败/运行，RPLAN.24不模拟或宣称异常等价",
+          "decision_ref": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "90原直接引用及85同编号工作区/三父、SDK同域分配/消费/失败/退出可追",
+      "expected": "原byte buffer用原生std::uint8_t*承载，原数量/读取/SDK域和所有生命周期路径保持",
+      "actual": "workspace成员/借用/表与元素malloc/目标槽同型；四已存在解码入口补语义和分类，未改算法或完整门禁"
+    },
+    {
+      "id": "E-WORKSPACE-BYTE-S-20261005",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "DA3F98的90直接引用/三父，四解码根196条/518B/244call和63B原表；doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-workspace-byte-pointer-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-baseline",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-acceptance",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_workspace_byte_pointer_evidence.json",
+        "src/network/NetworkRuntime.cpp#NetworkRuntimeState",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArgument",
+        "src/network/NetworkRuntime.cpp#AllocateNetworkWorkspace_516B60",
+        "src/network/NetworkRuntime.cpp#ShutdownNetworkRuntime_5081A0",
+        "src/network/NetworkRuntime.cpp#ParseProtocolInteger_517190",
+        "src/network/NetworkRuntime.cpp#Sub_5171B0",
+        "src/network/NetworkRuntime.cpp#Sub_5176B0",
+        "src/network/NetworkRuntime.cpp#Sub_517730"
+      ],
+      "differences": [
+        {
+          "description": "原native已知字节缓冲表由void**收敛为std::uint8_t**，表/局部借用/元素malloc/目的槽同型；保持18槽/SDK同域、原读序/失败/退出，无新owner/清理/保护或格式",
+          "decision_ref": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision"
+        },
+        {
+          "description": "四解码/格式本体不改、补adapted；x64地址与既有SDK承接不豁免完整owner/alias/ABI/链接/失败/运行，RPLAN.24不模拟或宣称异常等价",
+          "decision_ref": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "四完整根196条/518B/244call、63B原表及限定源/数据静态对照",
+      "expected": "原byte buffer用原生std::uint8_t*承载，原数量/读取/SDK域和所有生命周期路径保持",
+      "actual": "workspace成员/借用/表与元素malloc/目标槽同型；四已存在解码入口补语义和分类，未改算法或完整门禁"
     }
   ],
   "task_acceptance": [
@@ -10691,7 +10816,8 @@
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
-        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
       ]
     },
     {
@@ -10703,7 +10829,8 @@
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
-        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
       ]
     },
     {
@@ -10715,7 +10842,8 @@
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
-        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
       ]
     },
     {
@@ -10727,7 +10855,8 @@
         "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
         "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
-        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure"
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
       ]
     }
   ],
@@ -12284,6 +12413,38 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00117190",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001171B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:001176B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
+      ]
+    },
+    {
+      "inventory_id": "F:00117730",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
       ]
     }
   ],

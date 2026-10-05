@@ -104,7 +104,7 @@ struct NetworkRuntimeState {
     char sendLogPathDA3B58[0x400];
     std::string receiveLogPathDA3F9C; // 原字节路径；固定容量未证，不据相邻地址猜测。
     std::uint8_t integerFormatScratch[64]; // 原 [0xDA3F58,0xDA3F98)。
-    void** workspaceSlots; // 原 0xDA3F98，18 个本机指针槽。
+    std::uint8_t** workspaceSlots; // 原 0xDA3F98，18 个同SDK域的字节缓冲指针。
     std::uint8_t active;   // 原 0xD9F2C8，网络运行期活动门禁。
     std::uint32_t valueD9F2D0; // 原 0xD9F2D0，仅保留地址身份的 W32。
     // 原 [0xD8F2B8,0xD9F2C0)：发送窗口、接收区与发送长度共享地址别名。
@@ -4332,7 +4332,7 @@ Value DecodeDispatchArgument(
     } else {
         std::uint8_t* const decoded = Sub_5171B0(gNetworkRuntimeState.pointerTable58B614[index]);
         std::int32_t capacity;
-        void** workspace;
+        std::uint8_t** workspace;
         // 原85字段分两种基址/容量读取顺序；槽解引用均在两次读取后。
         if (workspaceBeforeCapacity) {
             workspace = gNetworkRuntimeState.workspaceSlots;
@@ -4341,7 +4341,7 @@ Value DecodeDispatchArgument(
             capacity = std::bit_cast<std::int32_t>(gNetworkRuntimeState.bufferLength);
             workspace = gNetworkRuntimeState.workspaceSlots;
         }
-        auto* const destination = static_cast<std::uint8_t*>(workspace[index]);
+        std::uint8_t* const destination = workspace[index];
         return reinterpret_cast<char*>(
             CopyProtocolBytesAndReturn_517690(destination, capacity, decoded));
     }
@@ -4532,8 +4532,8 @@ std::int32_t AllocateNetworkWorkspace_516B60(
 
     static_cast<void>(AllocateProtocolBuffers_516DA0(bufferLength));
 
-    gNetworkRuntimeState.workspaceSlots = static_cast<void**>(
-        std::malloc(kWorkspaceSlotCount * sizeof(void*)));
+    gNetworkRuntimeState.workspaceSlots = static_cast<std::uint8_t**>(
+        std::malloc(kWorkspaceSlotCount * sizeof(std::uint8_t*)));
     if (gNetworkRuntimeState.workspaceSlots == nullptr) {
         return -1;
     }
@@ -4543,8 +4543,8 @@ std::int32_t AllocateNetworkWorkspace_516B60(
         kWorkspaceSlotCount,
         nullptr);
     for (std::size_t index = 0; index < kWorkspaceSlotCount; ++index) {
-        gNetworkRuntimeState.workspaceSlots[index] =
-            std::malloc(static_cast<std::size_t>(bufferLength));
+        gNetworkRuntimeState.workspaceSlots[index] = static_cast<std::uint8_t*>(
+            std::malloc(static_cast<std::size_t>(bufferLength)));
         if (gNetworkRuntimeState.workspaceSlots[index] == nullptr) {
             std::free(gNetworkRuntimeState.workspaceSlots[0]);
             return -1;

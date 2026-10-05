@@ -140380,10 +140380,12 @@
       "evidence_documents": [
         "doc/cg2d_network_buffer_lifecycle_spec.md",
         "doc/cg2d_network_buffer_lifecycle_evidence.json",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_workspace_byte_pointer_spec.md",
+        "doc/cg2d_workspace_byte_pointer_evidence.json"
       ],
-      "boundary": "沿NLC01逐段原事实：九协议块/18槽同一SDK malloc/free域；516DA0保17共享长度重读/三发布序/清零后九检查/首快照及原失败释放，移除九新增terminate；516B60失败只free首项、不清槽。启动弃工作区返回后active1；Loop单次flags、状态/8帧/部分收发/帧/重复指针表清零/30秒nr及U8返回；退出active门禁/四状态/close→WSA→协议重置→九块→18槽→外表，指针不清。地址/SDK结构按既有x64/宿主adapted；不闭全部owner/alias/父/R1/R7或SDK实际ABI/失败/运行，不模拟故障。",
-      "verification_level": "七完整原根607条/2068B及既有源码逐段静态对照；本步一CPP两体/一include限定校准，不构建/测试/运行/摘要",
+      "boundary": "沿NLC01逐段原事实：九协议块/18槽同一SDK malloc/free域；516DA0保17共享长度重读/三发布序/清零后九检查/首快照及原失败释放，移除九新增terminate；516B60失败只free首项、不清槽。启动弃工作区返回后active1；Loop单次flags、状态/8帧/部分收发/帧/重复指针表清零/30秒nr及U8返回；退出active门禁/四状态/close→WSA→协议重置→九块→18槽→外表，指针不清。地址/SDK结构按既有x64/宿主adapted；不闭全部owner/alias/父/R1/R7或SDK实际ABI/失败/运行，不模拟故障。；2026-10-05 NWT01已证DA3F98的90直接引用仅三父及85文本字段，workspaceSlots/借用快照/表与元素分配/目的槽收敛std::uint8_t**/std::uint8_t*，18槽/SDK同域、原失败/不清槽/退出/两类读序不改；未知间接alias/owner/重进及整分派/整数/回复/真实ABI/运行不据此提升。",
+      "verification_level": "七完整原根607条/2068B及既有源码逐段静态对照；本步一CPP两体/一include限定校准，不构建/测试/运行/摘要；NWT01五类型块及90直接引用限定对照，三父分类不重复增量",
       "inbound_evidence": [
         {
           "from": "0x00457A86",
@@ -140457,6 +140459,18 @@
         "memory_fault_equivalence_claim": false,
         "full_owners_closed": false,
         "runtime_verified": false
+      },
+      "workspace_byte_pointer_contract": {
+        "group": "NWT01",
+        "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "type": "std::uint8_t**",
+        "element": "std::uint8_t*",
+        "slots": 18,
+        "allocator": "既有SDK malloc/free",
+        "new_owner": false,
+        "read_or_lifecycle_order_changed": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
       }
     },
     {
@@ -140484,10 +140498,12 @@
       "evidence_documents": [
         "doc/cg2d_network_buffer_lifecycle_spec.md",
         "doc/cg2d_network_buffer_lifecycle_evidence.json",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_workspace_byte_pointer_spec.md",
+        "doc/cg2d_workspace_byte_pointer_evidence.json"
       ],
-      "boundary": "沿NLC01逐段原事实：九协议块/18槽同一SDK malloc/free域；516DA0保17共享长度重读/三发布序/清零后九检查/首快照及原失败释放，移除九新增terminate；516B60失败只free首项、不清槽。启动弃工作区返回后active1；Loop单次flags、状态/8帧/部分收发/帧/重复指针表清零/30秒nr及U8返回；退出active门禁/四状态/close→WSA→协议重置→九块→18槽→外表，指针不清。地址/SDK结构按既有x64/宿主adapted；不闭全部owner/alias/父/R1/R7或SDK实际ABI/失败/运行，不模拟故障。",
-      "verification_level": "七完整原根607条/2068B及既有源码逐段静态对照；本步一CPP两体/一include限定校准，不构建/测试/运行/摘要",
+      "boundary": "沿NLC01逐段原事实：九协议块/18槽同一SDK malloc/free域；516DA0保17共享长度重读/三发布序/清零后九检查/首快照及原失败释放，移除九新增terminate；516B60失败只free首项、不清槽。启动弃工作区返回后active1；Loop单次flags、状态/8帧/部分收发/帧/重复指针表清零/30秒nr及U8返回；退出active门禁/四状态/close→WSA→协议重置→九块→18槽→外表，指针不清。地址/SDK结构按既有x64/宿主adapted；不闭全部owner/alias/父/R1/R7或SDK实际ABI/失败/运行，不模拟故障。；2026-10-05 NWT01已证DA3F98的90直接引用仅三父及85文本字段，workspaceSlots/借用快照/表与元素分配/目的槽收敛std::uint8_t**/std::uint8_t*，18槽/SDK同域、原失败/不清槽/退出/两类读序不改；未知间接alias/owner/重进及整分派/整数/回复/真实ABI/运行不据此提升。",
+      "verification_level": "七完整原根607条/2068B及既有源码逐段静态对照；本步一CPP两体/一include限定校准，不构建/测试/运行/摘要；NWT01五类型块及90直接引用限定对照，三父分类不重复增量",
       "inbound_evidence": [
         {
           "from": "0x00508173",
@@ -140504,6 +140520,18 @@
         "existing_body_before_this_step": true,
         "new_protection": false,
         "memory_fault_equivalence_claim": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
+      },
+      "workspace_byte_pointer_contract": {
+        "group": "NWT01",
+        "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "type": "std::uint8_t**",
+        "element": "std::uint8_t*",
+        "slots": 18,
+        "allocator": "既有SDK malloc/free",
+        "new_owner": false,
+        "read_or_lifecycle_order_changed": false,
         "full_owners_closed": false,
         "runtime_verified": false
       }
@@ -140758,10 +140786,12 @@
         "doc/cg2d_dispatch_account_field_read_spec.md",
         "doc/cg2d_dispatch_account_field_read_evidence.json",
         "doc/cg2d_network_dispatch.md",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_workspace_byte_pointer_spec.md",
+        "doc/cg2d_workspace_byte_pointer_evidence.json"
       ],
-      "boundary": "原512E8D账号操作数DA38DC、512E94密码DA3A5C；现有两个64B char owner独立，错误DA3A1C改原DA38DC，不执行/改可执行文件校验。108原命令含NUL字节与既有顺序、85源字段槽=同编号工作区槽=源码T位置具名；38处/32命令工作区基址→容量→槽，47处容量→基址→槽。文本解码后才两次取值，各字段先完成再下字段；私有掩码不进协议/状态，不造owner。108 callback/类型/位置与首105返回0/末三继续比较和尾-1保持。限定原操作数/窗口/接口映射，不归档或验收整根5779条/所有整数路径/108回复，不新增R1整根处置；owner/alias/真实ABI/链接/失败/明文互通与运行仍待，音频暂停/算法叶排除及RPLAN.24保持。",
-      "verification_level": "当前原会话账号四操作数/108命令字节/85文本窗口及源码同编号位置与38/47读取序静态核；一CPP37块、限定新语义/登记簿重放；未构建/测试/运行/摘要",
+      "boundary": "原512E8D账号操作数DA38DC、512E94密码DA3A5C；现有两个64B char owner独立，错误DA3A1C改原DA38DC，不执行/改可执行文件校验。108原命令含NUL字节与既有顺序、85源字段槽=同编号工作区槽=源码T位置具名；38处/32命令工作区基址→容量→槽，47处容量→基址→槽。文本解码后才两次取值，各字段先完成再下字段；私有掩码不进协议/状态，不造owner。108 callback/类型/位置与首105返回0/末三继续比较和尾-1保持。限定原操作数/窗口/接口映射，不归档或验收整根5779条/所有整数路径/108回复，不新增R1整根处置；owner/alias/真实ABI/链接/失败/明文互通与运行仍待，音频暂停/算法叶排除及RPLAN.24保持。；2026-10-05 NWT01已证DA3F98的90直接引用仅三父及85文本字段，workspaceSlots/借用快照/表与元素分配/目的槽收敛std::uint8_t**/std::uint8_t*，18槽/SDK同域、原失败/不清槽/退出/两类读序不改；未知间接alias/owner/重进及整分派/整数/回复/真实ABI/运行不据此提升。",
+      "verification_level": "当前原会话账号四操作数/108命令字节/85文本窗口及源码同编号位置与38/47读取序静态核；一CPP37块、限定新语义/登记簿重放；未构建/测试/运行/摘要；NWT01五类型块及90直接引用限定对照，三父分类不重复增量",
       "dispatch_account_field_contract": {
         "group": "NDR01",
         "spec": "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
@@ -140777,6 +140807,182 @@
         "all_integer_paths_verified": false,
         "new_r1_disposition": false,
         "wire_format_changed": false,
+        "runtime_verified": false
+      },
+      "workspace_byte_pointer_contract": {
+        "group": "NWT01",
+        "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "type": "std::uint8_t**",
+        "element": "std::uint8_t*",
+        "slots": 18,
+        "allocator": "既有SDK malloc/free",
+        "new_owner": false,
+        "read_or_lifecycle_order_changed": false,
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x00517190",
+      "inventory_id": "F:00117190",
+      "status": "NWT01四既有解码/格式入口静态纳管；本体不改，完整父/owner/实际ABI/运行未闭",
+      "original_chunks": [
+        [
+          "0x00517190",
+          "0x005171A3"
+        ]
+      ],
+      "instruction_count": 8,
+      "original_byte_count": 19,
+      "original_direct_reference_count": 157,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "ParseProtocolInteger_517190"
+          ],
+          "relationship": "原已存在完整本体；NWT01只补基线/语义分类，不新增算法"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_workspace_byte_pointer_spec.md",
+        "doc/cg2d_workspace_byte_pointer_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "四完整原根196条/518B/244直接call。517190空指针0/非空真实5176B0；5171B0非空真实反转义、空指针先容量/缓冲/593850复制再读当前缓冲返回。5176B0保首负号/三组ASCII合法范围/非法0、原W32基数62/S32返回；S8原比较与当前U8区间对接受集合相同。517730原63B表含NUL/第64字节不补零，单字符不读容量，原负号/首字符写序、多字符S32余数及capacity-2后置检查、失败保前缀不补NUL/目的或NULL返回保持。本体不改；NWT01仅已知工作区18 byte pointer类型收敛，SDK同域/原失败与退出/读序保持，不闭完整父/owner/alias/实际ABI/链接/正常失败/真实明文收发或运行，不专项模拟/保护或宣称异常等价。",
+      "verification_level": "四完整原根196条/518B、244直接call和63B原表及DA3F98的90直接引用/三父；一CPP五类型块与语义/登记簿限定静态核，不构建/测试/运行/摘要",
+      "workspace_byte_decoder_contract": {
+        "group": "NWT01",
+        "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "ParseProtocolInteger_517190",
+        "existing_body_before_this_step": true,
+        "body_changed": false,
+        "workspace_type": "std::uint8_t**",
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x005171B0",
+      "inventory_id": "F:001171B0",
+      "status": "NWT01四既有解码/格式入口静态纳管；本体不改，完整父/owner/实际ABI/运行未闭",
+      "original_chunks": [
+        [
+          "0x005171B0",
+          "0x005171E2"
+        ]
+      ],
+      "instruction_count": 16,
+      "original_byte_count": 50,
+      "original_direct_reference_count": 85,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_5171B0"
+          ],
+          "relationship": "原已存在完整本体；NWT01只补基线/语义分类，不新增算法"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_workspace_byte_pointer_spec.md",
+        "doc/cg2d_workspace_byte_pointer_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "四完整原根196条/518B/244直接call。517190空指针0/非空真实5176B0；5171B0非空真实反转义、空指针先容量/缓冲/593850复制再读当前缓冲返回。5176B0保首负号/三组ASCII合法范围/非法0、原W32基数62/S32返回；S8原比较与当前U8区间对接受集合相同。517730原63B表含NUL/第64字节不补零，单字符不读容量，原负号/首字符写序、多字符S32余数及capacity-2后置检查、失败保前缀不补NUL/目的或NULL返回保持。本体不改；NWT01仅已知工作区18 byte pointer类型收敛，SDK同域/原失败与退出/读序保持，不闭完整父/owner/alias/实际ABI/链接/正常失败/真实明文收发或运行，不专项模拟/保护或宣称异常等价。",
+      "verification_level": "四完整原根196条/518B、244直接call和63B原表及DA3F98的90直接引用/三父；一CPP五类型块与语义/登记簿限定静态核，不构建/测试/运行/摘要",
+      "workspace_byte_decoder_contract": {
+        "group": "NWT01",
+        "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_5171B0",
+        "existing_body_before_this_step": true,
+        "body_changed": false,
+        "workspace_type": "std::uint8_t**",
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x005176B0",
+      "inventory_id": "F:001176B0",
+      "status": "NWT01四既有解码/格式入口静态纳管；本体不改，完整父/owner/实际ABI/运行未闭",
+      "original_chunks": [
+        [
+          "0x005176B0",
+          "0x00517721"
+        ]
+      ],
+      "instruction_count": 49,
+      "original_byte_count": 113,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_5176B0"
+          ],
+          "relationship": "原已存在完整本体；NWT01只补基线/语义分类，不新增算法"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_workspace_byte_pointer_spec.md",
+        "doc/cg2d_workspace_byte_pointer_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "四完整原根196条/518B/244直接call。517190空指针0/非空真实5176B0；5171B0非空真实反转义、空指针先容量/缓冲/593850复制再读当前缓冲返回。5176B0保首负号/三组ASCII合法范围/非法0、原W32基数62/S32返回；S8原比较与当前U8区间对接受集合相同。517730原63B表含NUL/第64字节不补零，单字符不读容量，原负号/首字符写序、多字符S32余数及capacity-2后置检查、失败保前缀不补NUL/目的或NULL返回保持。本体不改；NWT01仅已知工作区18 byte pointer类型收敛，SDK同域/原失败与退出/读序保持，不闭完整父/owner/alias/实际ABI/链接/正常失败/真实明文收发或运行，不专项模拟/保护或宣称异常等价。",
+      "verification_level": "四完整原根196条/518B、244直接call和63B原表及DA3F98的90直接引用/三父；一CPP五类型块与语义/登记簿限定静态核，不构建/测试/运行/摘要",
+      "workspace_byte_decoder_contract": {
+        "group": "NWT01",
+        "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_5176B0",
+        "existing_body_before_this_step": true,
+        "body_changed": false,
+        "workspace_type": "std::uint8_t**",
+        "full_owners_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x00517730",
+      "inventory_id": "F:00117730",
+      "status": "NWT01四既有解码/格式入口静态纳管；本体不改，完整父/owner/实际ABI/运行未闭",
+      "original_chunks": [
+        [
+          "0x00517730",
+          "0x00517880"
+        ]
+      ],
+      "instruction_count": 123,
+      "original_byte_count": 336,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_517730"
+          ],
+          "relationship": "原已存在完整本体；NWT01只补基线/语义分类，不新增算法"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_workspace_byte_pointer_spec.md",
+        "doc/cg2d_workspace_byte_pointer_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "四完整原根196条/518B/244直接call。517190空指针0/非空真实5176B0；5171B0非空真实反转义、空指针先容量/缓冲/593850复制再读当前缓冲返回。5176B0保首负号/三组ASCII合法范围/非法0、原W32基数62/S32返回；S8原比较与当前U8区间对接受集合相同。517730原63B表含NUL/第64字节不补零，单字符不读容量，原负号/首字符写序、多字符S32余数及capacity-2后置检查、失败保前缀不补NUL/目的或NULL返回保持。本体不改；NWT01仅已知工作区18 byte pointer类型收敛，SDK同域/原失败与退出/读序保持，不闭完整父/owner/alias/实际ABI/链接/正常失败/真实明文收发或运行，不专项模拟/保护或宣称异常等价。",
+      "verification_level": "四完整原根196条/518B、244直接call和63B原表及DA3F98的90直接引用/三父；一CPP五类型块与语义/登记簿限定静态核，不构建/测试/运行/摘要",
+      "workspace_byte_decoder_contract": {
+        "group": "NWT01",
+        "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_517730",
+        "existing_body_before_this_step": true,
+        "body_changed": false,
+        "workspace_type": "std::uint8_t**",
+        "full_owners_closed": false,
         "runtime_verified": false
       }
     }

@@ -4033,3 +4033,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [现有正确合同](cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision)补四根缺失映射/分类：Reset4391E0原入口payload/重取hidden与先四-1后四0，无Init门禁/清busy技能或转向；4392A0/4392F0分别从当前FC8/显式index+1取next、同next发布state后重读FC8写哨兵，busy最后。439400六次CA0/四成员和现有16B值语义接口保持，全CPP/头未改，不计源码新增。
 
 [四完整99条439B](cg2d_battle_reset_append_baseline_evidence.json)与1206普通call26父/18引用页、无出向可追；正确正文不代完整26父/所有其它数据列表和owner/SDK/ABI/PC53/时钟RNG/画面运行，整体范围继续。
+
+## BMR01 M读取计算与游标取样（2026-10-06）
+
+[三项修复](cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision)恢复43B940的正常S32 next先算再累加/发布、43B8C0的S8条件先保存再首字节写和当前游标先读再written/offset推进。Peek/Find两个既有正确根、对象头和Input封装保持；原大写十六进制/旧字节/分隔/NUL及明文格式保持。
+
+[四完整根220条548B](cg2d_battle_m_read_sampling_evidence.json)、77普通call5父/14出向与五指令页纳管缺失原身份。仅两根三片段及局部I/S，不代全部M生产消费/5父正文和owner/ABI/画面运行。

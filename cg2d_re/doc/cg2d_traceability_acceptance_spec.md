@@ -488,3 +488,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [可度量验收](cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-acceptance)核四原99条439B字节/边界、1206普通call26父/无出向/18引用页和四现有正确源合同/全CPP及头保持，不计源码改动；Reset次序/门禁差异、两next/复读与439400六CA0和16B值语义可追。
 
 四新F/adapted与双域同成员同步，E317→321仅已有实现/有限静态证据，所有完整门禁/七任务/R1/R7/R8/整体open。不据引用全集验26父/完整数据列表和owner/SDK/ABI/PC53/时钟RNG/画面，不宣异常/机器ABI等价。
+
+## BMR01 M读取局部I/S（2026-10-06）
+
+[可度量验收](cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance)要求四根220条548B/77普通call5父/14出向五页完整、两根仅三片段修复与整CPP精确差异、正确预读/查找、旧对象头/Input/公开头保持。原格式明文及旧字节/正常S32/W32合同不扩展。
+
+新增四原身份和adapted、双域共用局部I/S；所有七任务及完整门禁保持open。源码明示顺序修复不证明运行故障/异常等价，全部M生产消费、owner/SDK/ABI/PC53/时钟RNG/画面继续。

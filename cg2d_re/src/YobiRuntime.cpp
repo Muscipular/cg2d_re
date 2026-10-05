@@ -13004,8 +13004,9 @@ std::int32_t TakeBattleMIntegerAt_43B940(std::int32_t* const offset)
             } else {
                 hasDigit = true;
             }
+            const std::int32_t next = position + 1;
             result += static_cast<std::uint32_t>(value - (value < 'A' ? '0' : '7'));
-            *offset = position + 1;
+            *offset = next;
         } else if (hasDigit || value == '|') {
             ++*offset;
             break;
@@ -13073,8 +13074,9 @@ void TakeBattleMStringAt_43B8C0(
             ++*offset;
             continue;
         }
+        const bool hasTrail = value < 0;
         destination[written] = byte;
-        if (value < 0) {
+        if (hasTrail) {
             ++written;
             if (written >= capacity - 1) {
                 const std::int32_t next = *offset + 1;
@@ -13086,8 +13088,9 @@ void TakeBattleMStringAt_43B8C0(
             *offset = next;
             destination[written] = world::detail::gBattleMText5AAA7C[next];
         }
+        const std::int32_t currentOffset = *offset;
         ++written;
-        ++*offset;
+        *offset = currentOffset + 1;
     }
     destination[written] = '\0';
     input::UnescapeLegacyTextAndNotify_52D2F0(destination);

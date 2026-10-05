@@ -150506,6 +150506,218 @@
         "full_original_body_reviewed": true,
         "full_runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x43b940",
+      "inventory_id": "F:0003B940",
+      "status": "BMR01既有M读取计算/取样顺序三片段修复、缺失原身份纳管；完整M生产消费/owner运行未验",
+      "original_end_exclusive": "0x43b9a4",
+      "instruction_count": 43,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "TakeBattleMIntegerAt_43B940"
+          ],
+          "relationship": "正常S32 next先计算，再原W32移位后累加并发布同next；S8读入/大写十六进制/未开始扫描/首终止一次消费、NUL不消费与位型返回保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "TakeBattleMIntegerAt_43B940"
+          ],
+          "relationship": "四既有公开声明保持，offset/capacity/结果S32与非拥有T*语义不变，不暴露私有payload/新增ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_read_sampling_evidence.json"
+      ],
+      "verification_level": "BMR01四原完整220条548B/77普通call5父/14出向与五指令页、两源根三片段精确顺序修复及另两正确根保持有限静态；引用全集不验5父正文/完整M生产消费、owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "正常S32 next先计算，再原W32移位后累加并发布同next；S8读入/大写十六进制/未开始扫描/首终止一次消费、NUL不消费与位型返回保持。 只局部I/S，不宣源码表达式差异已证明运行故障/异常等价；不加保护/回绕/补零/钳制/通知业务/加解密，原格式明文与音频暂停。",
+      "battle_m_read_sampling": {
+        "spec_id": "BMR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+          "doc/cg2d_battle_m_read_sampling_evidence.json"
+        ],
+        "original_entry": "0x43b940",
+        "original_instruction_count": 43,
+        "original_code_bytes": 100,
+        "incoming_reference_count": 66,
+        "incoming_parent_count": 4,
+        "instruction_page_count": 1,
+        "outgoing_call_count": 0,
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x43b8c0",
+      "inventory_id": "F:0003B8C0",
+      "status": "BMR01既有M读取计算/取样顺序三片段修复、缺失原身份纳管；完整M生产消费/owner运行未验",
+      "original_end_exclusive": "0x43b93b",
+      "instruction_count": 57,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "TakeBattleMStringAt_43B8C0"
+          ],
+          "relationship": "先保存S8双字节条件再发布首字节、general尾先复读currentOffset再递增written/同游标并发布；cap-1/原截断扫描及双次游标写/NUL后原解转义顺序保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "TakeBattleMStringAt_43B8C0"
+          ],
+          "relationship": "四既有公开声明保持，offset/capacity/结果S32与非拥有T*语义不变，不暴露私有payload/新增ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_read_sampling_evidence.json"
+      ],
+      "verification_level": "BMR01四原完整220条548B/77普通call5父/14出向与五指令页、两源根三片段精确顺序修复及另两正确根保持有限静态；引用全集不验5父正文/完整M生产消费、owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "先保存S8双字节条件再发布首字节、general尾先复读currentOffset再递增written/同游标并发布；cap-1/原截断扫描及双次游标写/NUL后原解转义顺序保持。 只局部I/S，不宣源码表达式差异已证明运行故障/异常等价；不加保护/回绕/补零/钳制/通知业务/加解密，原格式明文与音频暂停。",
+      "battle_m_read_sampling": {
+        "spec_id": "BMR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+          "doc/cg2d_battle_m_read_sampling_evidence.json"
+        ],
+        "original_entry": "0x43b8c0",
+        "original_instruction_count": 57,
+        "original_code_bytes": 123,
+        "incoming_reference_count": 6,
+        "incoming_parent_count": 3,
+        "instruction_page_count": 1,
+        "outgoing_call_count": 2,
+        "source_body_changed": true,
+        "source_patch_count": 2,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x43b860",
+      "inventory_id": "F:0003B860",
+      "status": "BMR01既有正确预读/查找保持、完整原基线及缺失身份纳管；完整M生产消费/owner运行未验",
+      "original_end_exclusive": "0x43b8c0",
+      "instruction_count": 39,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "PeekBattleMInteger_43B860"
+          ],
+          "relationship": "既有正确完整正文保持：从payload64取本地原生指针，只推进本地，不写共享offset/不消费终止分隔；大写十六进制/S8/W32语义保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "PeekBattleMInteger_43B860"
+          ],
+          "relationship": "四既有公开声明保持，offset/capacity/结果S32与非拥有T*语义不变，不暴露私有payload/新增ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_read_sampling_evidence.json"
+      ],
+      "verification_level": "BMR01四原完整220条548B/77普通call5父/14出向与五指令页、两源根三片段精确顺序修复及另两正确根保持有限静态；引用全集不验5父正文/完整M生产消费、owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确完整正文保持：从payload64取本地原生指针，只推进本地，不写共享offset/不消费终止分隔；大写十六进制/S8/W32语义保持。 只局部I/S，不宣源码表达式差异已证明运行故障/异常等价；不加保护/回绕/补零/钳制/通知业务/加解密，原格式明文与音频暂停。",
+      "battle_m_read_sampling": {
+        "spec_id": "BMR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+          "doc/cg2d_battle_m_read_sampling_evidence.json"
+        ],
+        "original_entry": "0x43b860",
+        "original_instruction_count": 39,
+        "original_code_bytes": 96,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "instruction_page_count": 1,
+        "outgoing_call_count": 0,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x43b9b0",
+      "inventory_id": "F:0003B9B0",
+      "status": "BMR01既有正确预读/查找保持、完整原基线及缺失身份纳管；完整M生产消费/owner运行未验",
+      "original_end_exclusive": "0x43ba95",
+      "instruction_count": 81,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "FindBattleMTarget_43B9B0"
+          ],
+          "relationship": "既有正确完整正文保持：本地S32 offset与skip扫描、first255/flags1010退-1/匹配返second，未匹配原单项及800000的2+2*3项读取；不改共享offset/掩码或原格式。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "FindBattleMTarget_43B9B0"
+          ],
+          "relationship": "四既有公开声明保持，offset/capacity/结果S32与非拥有T*语义不变，不暴露私有payload/新增ABI桥"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_read_sampling_evidence.json"
+      ],
+      "verification_level": "BMR01四原完整220条548B/77普通call5父/14出向与五指令页、两源根三片段精确顺序修复及另两正确根保持有限静态；引用全集不验5父正文/完整M生产消费、owner/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确完整正文保持：本地S32 offset与skip扫描、first255/flags1010退-1/匹配返second，未匹配原单项及800000的2+2*3项读取；不改共享offset/掩码或原格式。 只局部I/S，不宣源码表达式差异已证明运行故障/异常等价；不加保护/回绕/补零/钳制/通知业务/加解密，原格式明文与音频暂停。",
+      "battle_m_read_sampling": {
+        "spec_id": "BMR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-acceptance",
+          "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+          "doc/cg2d_battle_m_read_sampling_evidence.json"
+        ],
+        "original_entry": "0x43b9b0",
+        "original_instruction_count": 81,
+        "original_code_bytes": 229,
+        "incoming_reference_count": 4,
+        "incoming_parent_count": 1,
+        "instruction_page_count": 2,
+        "outgoing_call_count": 12,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
     }
   ]
 }

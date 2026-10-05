@@ -8195,3 +8195,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前基线](../cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state)纳管Reset4391E0/Append4392A0和指定索引4392F0/完整效果439400；CheckReady的原Reset→Append11→Append40→Move实际消费与所有父保持。四正确正文/共享helper及原失败/返回/发布/复读保持，不新增框架或声称原逐栈ABI桥。
 
 [原99条439B](../cg2d_battle_reset_append_baseline_evidence.json)、1206普通call26父及18引用页可追；1114调用点通过≤80条页取回，截断响应未作完整证据。U08/U09及完整门禁open，所有其它动作/列表数据资源、owner/SDK/ABI/PC53/时钟RNG/画面继续。
+
+## BMR01 战斗M读取根（2026-10-06）
+
+[当前源状态](../cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state)纳管43B940/43B8C0/43B860/43B9B0四身份。两根三处计算/取样次序修复，字符串原52D150→509080由既有Input封装承载，预读/查找只推进本地游标的合同保持。
+
+[原完整字节与调用](../cg2d_battle_m_read_sampling_evidence.json)220条548B/77普通call5父/14出向可追。对象头既有基线不重复计数；U08/U09和完整门禁open，沿M实际生产消费继续开发。

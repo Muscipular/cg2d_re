@@ -2351,3 +2351,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [四原完整99条439B](cg2d_battle_reset_append_baseline_evidence.json)及[当前语义边界](cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state)补映射与R1分类，1206普通call26父/无出向和18分页全集可追。四源正文/共享helper/父和头保持；439400原五参数按现有16B四成员值语义承载，不宣机器ABI等价。
 
 语义1333→1337/有效ID1328→1332、adapted435→439，YOBI34→38/BATTLE31→35同四F不双计、代码片段5保持，E317→321仅共用已有实现/本次有限静态I/S。LOOP31/R7区间67/队列及完整门禁保持，不以26父引用、正确叶或关联百分比推完整功能/运行。
+
+## BMR01 四M读取原身份（2026-10-06）
+
+[完整基线](cg2d_battle_m_read_sampling_evidence.json)与[源码状态](cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state)补四F/adapted；两根三顺序片段落码，另两正确根与旧对象头身份保持。四完整220条548B、77普通call5父/14出向不是完整父与生产消费验收。
+
+语义1337→1341/有效ID1332→1336、adapted439→443，YOBI38→42/BATTLE35→39同四F不双计、片段5保持；E321→325仅双域四局部I/S，完整门禁保持。

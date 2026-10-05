@@ -139,3 +139,9 @@
 [九项裁决](../cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision)恢复POS四moving坐标与pet位置/四坐标各次取样，不提前缓存整组点值；保固定旧槽T**及旧位置，原两次新辅助附件重绑/旧主gear非对称合同不去重。MON效果缓存跨分支S32 caster位置而每次借actor，失败W8 bit2、Reset后才defender重读，成功工厂同位置/同槽先pub，再固定对象与payload解析。
 
 [两目标/三尾证据](../cg2d_battle_m_position_monster_sampling_evidence.json)647条2787B不代完整owner重进退出/借用失效、全部列表消费与SDK/ABI/画面。四载体逐字段CopyPayload/析构、W16 fields288原零序和live W32高位、各坐标/正常零写及调用消费序保持，不新增空保护、默认对象或异常模型。
+
+## BML01 骑乘载体与群体队员取样（2026-10-06）
+
+[九组裁决](../cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision)使RID效果记录与actor索引共用单次caster，三FDC门禁W8、效果Y点索引先当前effect、骑手坐标caster→rider→source；GMN入场点索引先current actor/payload、linked比较先W8 pub与caster比较先member借用。保两原生非拥有T*及16B非地址骑乘载体、固定旧payload/之后当前角色及原三路径/两路径。
+
+[两目标与三尾](../cg2d_battle_m_ride_gmn_sampling_evidence.json)1198条4711B只有限合同；RID十二构造/析构和四rider copy、GMN五载体/正确401EA0尾跳/入口I8/单Rand及MarkDeath不立即free、工厂结果先pub、正常零写与各成员消费保持。全部owner重进退出/借用失效、列表消费者和SDK/ABI/画面仍待，不新空保护/默认对象或异常模型。

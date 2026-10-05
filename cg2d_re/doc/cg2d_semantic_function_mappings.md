@@ -2411,3 +2411,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [五具名范围](cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state)647条2787B十二页61call，追加ProcessBattleMPositionHeader/ProcessBattleMMonsterHeader两根九处修复状态，两个主目标和三个实际共用尾分列；所有旧历史/其它字段保持，不新F/X、adapted或完整成员，不以局部647或含两chunk的17298统计验全父。
 
 语义1350/有效ID1345、片段5/分类456及关联1463保持；其余技能/消息、所有消费者与owner/运行继续。
+
+## BML01 旧812的RID/GMN有界追加（2026-10-06）
+
+[五具名范围](cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state)1198条4711B十八页170call，追加ProcessBattleMRideHeader/ProcessBattleMGmnHeader两根九组十二处状态；三个共用尾分列，GMN内就绪不重复计数。已有F:00001EA0真实尾跳401EC0正确保持，不新接口差异/F/X、adapted或完整成员。
+
+语义1350/有效ID1345、片段5/分类456、关联1463保持；旧历史/其它字段不改，完整其余父/技能/全部消费者和owner/运行继续。

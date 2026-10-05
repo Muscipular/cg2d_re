@@ -8255,3 +8255,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state)纳管case4/5及42AAF5就绪406260/Finish、43703E失败空目标Finish、436E0B旧槽空或phase34增量三个尾；未把436E17后下一目标算入。POS仅0解析/1就绪，255只回存、空角色Finish后增58；MON0/2解析重试、pending busy==1仅写2、空失败Finish不增58，末共同效果/Move/58=1。
 
 [647条2787B十二页61call](../cg2d_battle_m_position_monster_sampling_evidence.json)对应九处取样实修；保原重复附件/固定槽与固定载荷/工厂失败路径/四CryptInt、各列表与当前角色重借、父回存。原格式明文、音频暂停和完整运行门禁保持。
+
+## BML01 RID/GMN与三个共用尾（2026-10-06）
+
+[有界合同](../cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state)纳管RID22/GMN21、427FA4非零substate就绪/完成、42998C公共Move/58增量、436E0B GMN mode0增量。RID1只ready0→Finish，不加406260；GMN1先20/21 busy==1门禁再ready0→406260→Finish。RID三路径效果与列表保持，GMN mode0不写caster/5ABA7C，非零模式才末写5ABA7C。
+
+[1198条4711B十八页170call](../cg2d_battle_m_ride_gmn_sampling_evidence.json)对应九组十二处实修；保重复58、固定旧payload/当前slot与载体、GMN入口I8和单Rand/读palette副作用/MarkDeath/工厂先pub/成员列表及正确核心。原格式明文/音频暂停与完整运行门禁保留。

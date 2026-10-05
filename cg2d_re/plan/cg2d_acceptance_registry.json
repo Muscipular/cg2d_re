@@ -1686,7 +1686,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-baseline",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-baseline"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-baseline",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1775,7 +1776,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1800,7 +1802,8 @@
         "BMH01六数据消息/共用完成尾329条1314B纳管，五取样差异和字段借用读取落码；四载体/两gear轮/live角色及Finish→父回存保持，完整其余消息/资源owner/ABI/SEH/画面仍待",
         "BMI01六转场/宠物目标及三共用尾448条1743B纳管，单根七逻辑八处修复；角色存在/哨兵/玩家门禁、FDC W8及两Rand后不同借用序恢复，完整其余消息/所有列表消费者与owner/ABI/画面仍待",
         "BMJ01六装备/状态目标/三共用尾643条2575B纳管，四差异七处/具名接线注释修复；旧payload/当前角色、模式后live读取与Queued任意非零就绪、列表/RID/58和回存保持，完整技能/其它目标及owner/ABI/画面仍待",
-        "BMK01位置交换/怪物两目标及三个共用尾647条2787B纳管，两根九取样差异九处修复；旧槽/重复附件/固定payload和工厂失败/四载体/列表/58保持，完整技能/其余目标及owner/ABI/画面仍待"
+        "BMK01位置交换/怪物两目标及三个共用尾647条2787B纳管，两根九取样差异九处修复；旧槽/重复附件/固定payload和工厂失败/四载体/列表/58保持，完整技能/其余目标及owner/ABI/画面仍待",
+        "BML01RID/GMN两目标/三个共用尾1198条4711B纳管，两根九组十二处修复；原三路径/两路径、固定旧payload/当前角色、正确401EA0尾跳/载体与RNG/列表/58保持，完整技能/其它消息和owner/ABI/画面仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1827,7 +1830,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state"
       ]
     },
     {
@@ -1862,7 +1866,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-baseline",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-baseline"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-baseline",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -1952,7 +1957,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -1977,7 +1983,8 @@
         "BMH01ACTION/FP/CHT/变身/追加技能/结束六真实消费及63call/既有CopyPayload合同纳管，正常条件先pub和加载后取样恢复；仅局部I/S/旧812追加，不新完整分类/成员，全部父/owner/时钟RNG/画面未闭",
         "BMI01Escape/Clear/Support/三宠物的原列表/seed/两Rand/不同ready和Finish→58/父回存合同纳管，60call与原分支可追；局部I/S且旧812追加不新分类/成员，全部资源owner/时钟RNG/画面未闭",
         "BMJ01Equipment/StatusValue/Debuff/Power/Rebirth/QueuedValue正常消费、89call与有界原分支纳管，三存在条件/技能等级/两W8/flags→target恢复；只旧812追加及四局部I/S，不新完整分类/成员，全部资源owner/时钟RNG/画面未闭",
-        "BMK01POS/MON正常/失败返回及61call与原跳转纳管，坐标/玩家/target/效果/失败W8/工厂固定槽取样恢复；仅旧812追加和四局部I/S，不新完整分类/成员，资源owner/时钟RNG/画面未闭"
+        "BMK01POS/MON正常/失败返回及61call与原跳转纳管，坐标/玩家/target/效果/失败W8/工厂固定槽取样恢复；仅旧812追加和四局部I/S，不新完整分类/成员，资源owner/时钟RNG/画面未闭",
+        "BML01RID/GMN取包、工厂发布/载体与成员列表和170call原跳转纳管，flags/效果/坐标/三W8/linked与caster门禁恢复；仅旧812追加及四局部I/S，不新完整分类/成员，全部资源owner/时钟RNG/画面未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2002,7 +2009,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state"
       ]
     },
     {
@@ -18665,6 +18673,166 @@
       "observation": "647条2787B五区间十二页61call与原跳转闭合，两根九处精确差异及原S32/W8/W16/W32/正常零写/取包调用消费序和其它源头核心保持有限静态",
       "expected": "POS255条件先caster pub、玩家条件先moving借用、坐标点索引/actor/payload/点值逐次原序；MONactor条件先pub、caster/actor后defender再payload、效果分支位置寿命及defender先actor、失败byte bit2/Reset后才位置重读、工厂同位置固定槽先pub；原重复附件/固定payload/四载体/列表与58保持",
       "actual": "仅两目标/三个共用尾及九差异局部I/S，旧812追加不新F/X/adapted/完整成员；完整其余17298父/技能和全部消费者/资源owner、SDK/SEH/ABI/PC53/时钟RNG/画面未验，不宣编译指令/异常等价，完整门禁保持"
+    },
+    {
+      "id": "E-BATTLE-M-RIDE-GMN-SAMPLING-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BML01RID/GMN及三共用尾五区间1198条4711B十八页170call，正确401EA0尾跳1条5B；doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-ride-gmn-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-acceptance",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMRideHeader",
+        "src/YobiRuntime.cpp#ProcessBattleMGmnHeader",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/YobiRuntime.cpp#NewBattleActor_438290",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/platform/LegacyCryptInt.cpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两根九组十一补丁定义十二处恢复RID同返回flags/三效果同caster/空载体Y/三W8/骑手坐标取样，GMN入场坐标/linked条件先W8 pub与caster条件先member借用；正确401EA0尾跳/载体与RNG核心保持",
+          "decision_ref": "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "九组十二处落码，骑乘与群体两主目标/三共用尾纳管；RID三路径/固定旧payload和当前角色、GMN两路径/原入口I8初值/单Rand/MarkDeath工厂先pub、全部载体与成员列表/5ABA7C/58保持",
+      "expected": "RID同Take flags判位、三效果同caster索引与记录、效果Y点索引→effect→点值、三FDC W8 bit2、骑手caster→rider→source actor；GMN四入场坐标index先actor/payload、linked条件先W8 30F pub、caster条件先member；原固定payload/载体与随机计数、列表/5ABA7C/58保持",
+      "actual": "仅两目标/三共用尾和九组取样局部I/S；旧812追加不新原F/X/adapted/完整成员，不将正确401EA0尾跳制造接口差异；其余17298父/技能、所有消费者/owner/SDK/SEH/ABI/PC53/时钟RNG/画面未验，完整门禁保持，不宣编译访问指令/异常等价"
+    },
+    {
+      "id": "E-BATTLE-M-RIDE-GMN-SAMPLING-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BML01RID/GMN及三共用尾五区间1198条4711B十八页170call，正确401EA0尾跳1条5B；doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-ride-gmn-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-acceptance",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMRideHeader",
+        "src/YobiRuntime.cpp#ProcessBattleMGmnHeader",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/YobiRuntime.cpp#NewBattleActor_438290",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/platform/LegacyCryptInt.cpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两根九组十一补丁定义十二处恢复RID同返回flags/三效果同caster/空载体Y/三W8/骑手坐标取样，GMN入场坐标/linked条件先W8 pub与caster条件先member借用；正确401EA0尾跳/载体与RNG核心保持",
+          "decision_ref": "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "1198条4711B五区间十八页170call及原跳转闭合，正确401EA0一条5B尾跳与原初始化沿既有合同；九组十一补丁定义十二处精确差异、三flags W8/每次取样和其它源头核心保持有限静态",
+      "expected": "RID同Take flags判位、三效果同caster索引与记录、效果Y点索引→effect→点值、三FDC W8 bit2、骑手caster→rider→source actor；GMN四入场坐标index先actor/payload、linked条件先W8 30F pub、caster条件先member；原固定payload/载体与随机计数、列表/5ABA7C/58保持",
+      "actual": "仅两目标/三共用尾和九组取样局部I/S；旧812追加不新原F/X/adapted/完整成员，不将正确401EA0尾跳制造接口差异；其余17298父/技能、所有消费者/owner/SDK/SEH/ABI/PC53/时钟RNG/画面未验，完整门禁保持，不宣编译访问指令/异常等价"
+    },
+    {
+      "id": "E-BATTLE-M-RIDE-GMN-SAMPLING-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BML01RID/GMN及三共用尾五区间1198条4711B十八页170call，正确401EA0尾跳1条5B；doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-ride-gmn-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-acceptance",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMRideHeader",
+        "src/YobiRuntime.cpp#ProcessBattleMGmnHeader",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/YobiRuntime.cpp#NewBattleActor_438290",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/platform/LegacyCryptInt.cpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两根九组十一补丁定义十二处恢复RID同返回flags/三效果同caster/空载体Y/三W8/骑手坐标取样，GMN入场坐标/linked条件先W8 pub与caster条件先member借用；正确401EA0尾跳/载体与RNG核心保持",
+          "decision_ref": "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "九组十二处落码，骑乘与群体两主目标/三共用尾纳管；RID三路径/固定旧payload和当前角色、GMN两路径/原入口I8初值/单Rand/MarkDeath工厂先pub、全部载体与成员列表/5ABA7C/58保持",
+      "expected": "RID同Take flags判位、三效果同caster索引与记录、效果Y点索引→effect→点值、三FDC W8 bit2、骑手caster→rider→source actor；GMN四入场坐标index先actor/payload、linked条件先W8 30F pub、caster条件先member；原固定payload/载体与随机计数、列表/5ABA7C/58保持",
+      "actual": "仅两目标/三共用尾和九组取样局部I/S；旧812追加不新原F/X/adapted/完整成员，不将正确401EA0尾跳制造接口差异；其余17298父/技能、所有消费者/owner/SDK/SEH/ABI/PC53/时钟RNG/画面未验，完整门禁保持，不宣编译访问指令/异常等价"
+    },
+    {
+      "id": "E-BATTLE-M-RIDE-GMN-SAMPLING-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BML01RID/GMN及三共用尾五区间1198条4711B十八页170call，正确401EA0尾跳1条5B；doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-m-ride-gmn-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-acceptance",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_evidence.json",
+        "src/YobiRuntime.cpp#ProcessBattleMRideHeader",
+        "src/YobiRuntime.cpp#ProcessBattleMGmnHeader",
+        "src/YobiRuntime.cpp#UpdateBattleEvent_427470",
+        "src/YobiRuntime.cpp#NewBattleActor_438290",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/YobiRuntime.cpp#AppendBattleEffect_439400",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#MoveBattleCastState_439380",
+        "src/YobiRuntime.cpp#FinishBattleEvent_43B6C0",
+        "src/platform/LegacyCryptInt.cpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两根九组十一补丁定义十二处恢复RID同返回flags/三效果同caster/空载体Y/三W8/骑手坐标取样，GMN入场坐标/linked条件先W8 pub与caster条件先member借用；正确401EA0尾跳/载体与RNG核心保持",
+          "decision_ref": "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "1198条4711B五区间十八页170call及原跳转闭合，正确401EA0一条5B尾跳与原初始化沿既有合同；九组十一补丁定义十二处精确差异、三flags W8/每次取样和其它源头核心保持有限静态",
+      "expected": "RID同Take flags判位、三效果同caster索引与记录、效果Y点索引→effect→点值、三FDC W8 bit2、骑手caster→rider→source actor；GMN四入场坐标index先actor/payload、linked条件先W8 30F pub、caster条件先member；原固定payload/载体与随机计数、列表/5ABA7C/58保持",
+      "actual": "仅两目标/三共用尾和九组取样局部I/S；旧812追加不新原F/X/adapted/完整成员，不将正确401EA0尾跳制造接口差异；其余17298父/技能、所有消费者/owner/SDK/SEH/ABI/PC53/时钟RNG/画面未验，完整门禁保持，不宣编译访问指令/异常等价"
     }
   ],
   "task_acceptance": [
@@ -18856,7 +19024,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state"
       ]
     },
     {
@@ -19124,7 +19293,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state"
       ]
     },
     {
@@ -19279,7 +19449,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state"
       ]
     },
     {
@@ -19340,7 +19511,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state"
       ]
     },
     {
@@ -19372,7 +19544,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state"
       ]
     },
     {
@@ -19559,7 +19732,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state"
       ]
     },
     {
@@ -19587,7 +19761,8 @@
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
         "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
-        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state"
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state"
       ]
     }
   ],

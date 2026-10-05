@@ -548,3 +548,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-acceptance)：五区间647条2787B十二页61call、本组原跳转及三个共用尾，两根九处指定取样差异/其它源头核心保持有限静态；原旧槽/重复附件/失败完成/工厂先pub与固定payload/四载体/正常W8-W16-W32及列表/58保持。E361→365仅YOBI/BATTLE四局部I/S。
 
 旧812仅追加、七open任务/60项已闭10/R7及完整门禁保持；完整其余消息/技能/列表消费者、资源owner/SDK/SEH/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续，文本汇总不代运行或降低标准。
+
+## BML01 骑乘/群体目标局部实现与静态证据（2026-10-06）
+
+[验收标准](cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-acceptance)：五区间1198条4711B十八页170call、本组原跳转与三个共用尾，九组十一补丁定义十二处/原三W8和取样及其它源头正确核心保持有限静态。正确401EA0一条5B尾跳、入口I8零初始化沿既有合同，不混父分母或造差异；E365→369仅YOBI/BATTLE四局部I/S。
+
+旧812仅追加，不新分类/完整成员，七open/60项已闭10/R7与所有完整门禁保持。完整其余消息/技能/全部列表消费、资源owner/SDK/SEH/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续；文本汇总不代运行或降低标准。

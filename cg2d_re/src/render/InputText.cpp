@@ -19,18 +19,14 @@ std::int32_t AddW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        + std::bit_cast<std::uint32_t>(right));
+    return left + right;
 }
 
 std::int32_t SubW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        - std::bit_cast<std::uint32_t>(right));
+    return left - right;
 }
 
 std::int16_t LowS16(const std::int32_t value) noexcept

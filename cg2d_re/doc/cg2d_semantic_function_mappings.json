@@ -96035,9 +96035,11 @@
         {
           "path": "src/render/InputText.cpp",
           "symbols": [
-            "DrawInputText_4568A0"
+            "DrawInputText_4568A0",
+            "AddW32",
+            "SubW32"
           ],
-          "relationship": "ITD01同文件恢复绘制原阶段/写序，撤销额外保护与固定快照；真实复制/分类/绘制/测宽/QueueText及唯一数据保持"
+          "relationship": "ITD01同文件恢复绘制原阶段/写序，撤销额外保护与固定快照；真实复制/分类/绘制/测宽/QueueText及唯一数据保持；ITA01两个匿名工具恢复正常S32，保13加/8减表达式、数量/窄化/取样与排队发布"
         }
       ],
       "copy_call_connections": [
@@ -96277,10 +96279,15 @@
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_input_text_draw.md",
         "doc/cg2d_input_text_alignment_spec.md",
-        "doc/cg2d_input_text_alignment_evidence.json"
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-acceptance",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
+        "doc/cg2d_input_text_arithmetic_evidence.json"
       ],
       "verification_level": "原完整绘制332条/支持测宽33条合365、十实际调用/七data operand、32原点与25当前父/31词法调用；同文件三限定块外全文保持、两既有语义及登记限定增量外保持，未构建/测试/运行/摘要；不据支持叶计新处置或称全功能/故障等价",
-      "boundary": "原signed计数>=4096早退/当前context相等才锚点等门禁保持；撤销新增负计数/空context、NUL/容量/索引/零推进/模式/尾token/字体及源探测拒绝，不新增保护。256B destination不预清，逐普通字节重取行预算；复制前先保存预算再取strlen低U32/unsigned比较，复制后/分类后分别重取预算写NUL/删孤立高位字节/推进。逐段低W8模式/颜色/字体/Y/X按原点取样。单行先写记录字段，星号写后每轮重取total/visible；原后缀先扫描含NUL低U32并逐W32再W8复制，保读取写入顺序。field154非零才再扫已写记录，测宽返回后取当前限制，超宽重取原后缀/分类及计数，原完全不截断分支保持。next清0后完整模式取尾，空尾更新后再读模式取层；非空先连旧尾再读计数/模式更新尾，最终当前计数加一。两锚点真实测宽，负差回写后重取font/visible源；x/y原先取后写，W32/低W16/W8及marker/field108非写保持。现有token/owner不变，32原点/25父含两滚动父委托一helper；完整父、DrawText2/QueueText/消费、间接alias/焦点/寿命、SDK/运行未验，异常域依RPLAN.24不计安全/故障等价。",
+      "boundary": "原signed计数>=4096早退/当前context相等才锚点等门禁保持；撤销新增负计数/空context、NUL/容量/索引/零推进/模式/尾token/字体及源探测拒绝，不新增保护。256B destination不预清，逐普通字节重取行预算；复制前先保存预算再取strlen低U32/unsigned比较，复制后/分类后分别重取预算写NUL/删孤立高位字节/推进。逐段低W8模式/颜色/字体/Y/X按原点取样。单行先写记录字段，星号写后每轮重取total/visible；原后缀先扫描含NUL低U32并逐W32再W8复制，保读取写入顺序。field154非零才再扫已写记录，测宽返回后取当前限制，超宽重取原后缀/分类及计数，原完全不截断分支保持。next清0后完整模式取尾，空尾更新后再读模式取层；非空先连旧尾再读计数/模式更新尾，最终当前计数加一。两锚点真实测宽，负差回写后重取font/visible源；x/y原先取后写，W32/低W16/W8及marker/field108非写保持。现有token/owner不变，32原点/25父含两滚动父委托一helper；完整父、DrawText2/QueueText/消费、间接alias/焦点/寿命、SDK/运行未验，异常域依RPLAN.24不计安全/故障等价。 ITA01两匿名工具恢复正常S32加减，13加/8减源表达式与原阶段/操作数保持；数量低W32、窄化/复制/测宽/队列令牌与发布不改。332条1159B及32引用/25父身份保存仅正常算术局部与两body精确静态，不重验全部语义/完整父/字体队列消费/焦点/IME/alias/全部owner寿命/PC53机器环境/ABI/SDK/像素画面运行；数学异常不保护或模拟/称等价。",
       "input_text_draw_alignment": {
         "spec": "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
         "evidence": "doc/cg2d_input_text_alignment_evidence.json",

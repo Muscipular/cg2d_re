@@ -68,3 +68,10 @@ destination预清、局部门禁及maxCharBits/textLength快照保持，
 ## 2026-10-05：下游文本生产当前进展
 
 [TQP01](cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)已校正真实DrawText2/DrawText及QueueText的额外拒绝、复制阶段和空链layer取样；本输入绘制源码及其三完整模式取样/QueueText写序不改。两函数空链取层顺序不同须各按原保留，不能把下游的“层先读”套入ITD01已证原序。完整上游/图形排序/文本消费、间接alias与输入渲染寿命及SDK/运行继续待验。
+
+
+## ITA01 正常数量、偏移与坐标工具（2026-10-05）
+
+[当前具名SPEC](cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision)将DrawInputText_4568A0使用的两个匿名工具改正常S32加减；覆盖多行推进/行数/显示偏移、星号数量/索引、裁宽减量、锚点预算和X/Y的21个既有源表达式。真实原窄化、低W32数量、复制/测宽与队列令牌发布保持，无新原身份/owner或额外拒绝。
+
+源仅两body变化，其余ITD01取样/阶段与所有callee/声明保持；332条1159B完整体及32引用/25父身份保存不代全部语义/父/owner/alias/焦点/IME/像素画面运行。RPLAN.24数学异常不保护或模拟/称等价。

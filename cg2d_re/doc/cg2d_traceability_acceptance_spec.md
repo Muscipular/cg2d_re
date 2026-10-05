@@ -326,3 +326,9 @@ G01/G02/U11/R01/R04/V04追加同一具名引用并保持open。完整池/场景/
 [半字快照合同](cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-acceptance)以31条138B/两call两父及原2B取样/高半发布、复读gate→清计数为基线。一语义/来源/adapted分别关联MAP36与LOOP1，E209→213仅各一组I/S；四条记录共用同一实际改动/原证据，不当四项开发或完整功能门禁。
 
 G01/G02/U11/R01/R04/V04追加具名引用且继续open，V02及其他任务保持。完整父/callee/alias及owner寿命/空链机器返回、真实ABI/SDK/时钟RNG/场景画面运行未闭，所有B/D/W/R/完整功能、R1/R7/R8与整体判定不提升；现行执行限制、音频暂停与网络原格式明文保持。
+
+## MQC01 两域共用观察链局部I/S（2026-10-05）
+
+[查询/清理限定验收](cg2d_map_chara_lookup_spec.md#map-chara-lookup-acceptance)以两体57条134B/七引用六call一tailjump五父为原基线。一查询源块恢复next读取点、已有清理未改，两正式语义/来源及adapted与MAP38/LOOP3成员同步；E213→217只两域各I/S，共用一源码改动/两原证据，不计四函数或新清理功能。
+
+G01/G02/U11/R01/R04/V04继续open。五完整父/全producer/地址逃逸与alias、所有owner重进退出/borrow失效/空链机器EAX/实际ABI/SDK/时钟RNG/场景画面运行未闭；全部B/D/W/R/完整功能和R1/R7/R8/整体判定不提升，现行执行限制/音频暂停与原格式明文保持。

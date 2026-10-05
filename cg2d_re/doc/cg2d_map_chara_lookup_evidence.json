@@ -1,0 +1,458 @@
+{
+  "schema_version": 1,
+  "scope": "MQC01仅43F1F0提前保存next取样实修与已有43F230清理身份；完整父/producer/alias/所有owner寿命/运行未闭",
+  "baseline_snapshot": "cg2d-re-scene-snapshot-width-20261005",
+  "implementation_snapshot": "cg2d-re-map-chara-lookup-20261005",
+  "original_functions": [
+    {
+      "entry": "0x43f1f0",
+      "actual_start": "0x43f1f0",
+      "end_exclusive": "0x43f21f",
+      "chunks": [
+        {
+          "start": "0x43f1f0",
+          "end_exclusive": "0x43f21f"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x43f6ba",
+          "type": 17,
+          "parent_entry": "0x43f520"
+        },
+        {
+          "site": "0x440f56",
+          "type": 17,
+          "parent_entry": "0x440f50"
+        },
+        {
+          "site": "0x51d5da",
+          "type": 17,
+          "parent_entry": "0x51d5b0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x43f1f0",
+          "size": 5,
+          "bytes": "a150975f00",
+          "text": "mov     eax, dword_5F9750"
+        },
+        {
+          "ea": "0x43f1f5",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x43f1f6",
+          "size": 1,
+          "bytes": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x43f1f7",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x43f1f9",
+          "size": 2,
+          "bytes": "741f",
+          "text": "jz      short loc_43F21A"
+        },
+        {
+          "ea": "0x43f1fb",
+          "size": 4,
+          "bytes": "8b7c240c",
+          "text": "mov     edi, [esp+8+arg_0]"
+        },
+        {
+          "ea": "0x43f1ff",
+          "size": 3,
+          "bytes": "8b500c",
+          "text": "mov     edx, [eax+0Ch]"
+        },
+        {
+          "ea": "0x43f202",
+          "size": 2,
+          "bytes": "33c9",
+          "text": "xor     ecx, ecx"
+        },
+        {
+          "ea": "0x43f204",
+          "size": 3,
+          "bytes": "8b722c",
+          "text": "mov     esi, [edx+2Ch]"
+        },
+        {
+          "ea": "0x43f207",
+          "size": 2,
+          "bytes": "393a",
+          "text": "cmp     [edx], edi"
+        },
+        {
+          "ea": "0x43f209",
+          "size": 2,
+          "bytes": "7411",
+          "text": "jz      short loc_43F21C"
+        },
+        {
+          "ea": "0x43f20b",
+          "size": 1,
+          "bytes": "41",
+          "text": "inc     ecx"
+        },
+        {
+          "ea": "0x43f20c",
+          "size": 3,
+          "bytes": "83c204",
+          "text": "add     edx, 4"
+        },
+        {
+          "ea": "0x43f20f",
+          "size": 3,
+          "bytes": "83f905",
+          "text": "cmp     ecx, 5"
+        },
+        {
+          "ea": "0x43f212",
+          "size": 2,
+          "bytes": "7cf3",
+          "text": "jl      short loc_43F207"
+        },
+        {
+          "ea": "0x43f214",
+          "size": 2,
+          "bytes": "85f6",
+          "text": "test    esi, esi"
+        },
+        {
+          "ea": "0x43f216",
+          "size": 2,
+          "bytes": "8bc6",
+          "text": "mov     eax, esi"
+        },
+        {
+          "ea": "0x43f218",
+          "size": 2,
+          "bytes": "75e5",
+          "text": "jnz     short loc_43F1FF"
+        },
+        {
+          "ea": "0x43f21a",
+          "size": 2,
+          "bytes": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": "0x43f21c",
+          "size": 1,
+          "bytes": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x43f21d",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x43f21e",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ]
+    },
+    {
+      "entry": "0x43f230",
+      "actual_start": "0x43f230",
+      "end_exclusive": "0x43f287",
+      "chunks": [
+        {
+          "start": "0x43f230",
+          "end_exclusive": "0x43f287"
+        }
+      ],
+      "references": [
+        {
+          "site": "0x45ef73",
+          "type": 17,
+          "parent_entry": "0x45eee0"
+        },
+        {
+          "site": "0x51d39c",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51d3f7",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51d635",
+          "type": 19,
+          "parent_entry": "0x51d5b0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x43f230",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x43f231",
+          "size": 6,
+          "bytes": "8b1d50975f00",
+          "text": "mov     ebx, dword_5F9750"
+        },
+        {
+          "ea": "0x43f237",
+          "size": 2,
+          "bytes": "85db",
+          "text": "test    ebx, ebx"
+        },
+        {
+          "ea": "0x43f239",
+          "size": 2,
+          "bytes": "7440",
+          "text": "jz      short loc_43F27B"
+        },
+        {
+          "ea": "0x43f23b",
+          "size": 1,
+          "bytes": "55",
+          "text": "push    ebp"
+        },
+        {
+          "ea": "0x43f23c",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x43f23d",
+          "size": 1,
+          "bytes": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x43f23e",
+          "size": 3,
+          "bytes": "8b430c",
+          "text": "mov     eax, [ebx+0Ch]"
+        },
+        {
+          "ea": "0x43f241",
+          "size": 5,
+          "bytes": "bf05000000",
+          "text": "mov     edi, 5"
+        },
+        {
+          "ea": "0x43f246",
+          "size": 3,
+          "bytes": "8b682c",
+          "text": "mov     ebp, [eax+2Ch]"
+        },
+        {
+          "ea": "0x43f249",
+          "size": 3,
+          "bytes": "8d7014",
+          "text": "lea     esi, [eax+14h]"
+        },
+        {
+          "ea": "0x43f24c",
+          "size": 2,
+          "bytes": "8b06",
+          "text": "mov     eax, [esi]"
+        },
+        {
+          "ea": "0x43f24e",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x43f250",
+          "size": 2,
+          "bytes": "7409",
+          "text": "jz      short loc_43F25B"
+        },
+        {
+          "ea": "0x43f252",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x43f253",
+          "size": 5,
+          "bytes": "e8a85afcff",
+          "text": "call    Yobi__MarkDeath"
+        },
+        {
+          "ea": "0x43f258",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x43f25b",
+          "size": 3,
+          "bytes": "83c604",
+          "text": "add     esi, 4"
+        },
+        {
+          "ea": "0x43f25e",
+          "size": 1,
+          "bytes": "4f",
+          "text": "dec     edi"
+        },
+        {
+          "ea": "0x43f25f",
+          "size": 2,
+          "bytes": "75eb",
+          "text": "jnz     short loc_43F24C"
+        },
+        {
+          "ea": "0x43f261",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x43f262",
+          "size": 5,
+          "bytes": "e8995afcff",
+          "text": "call    Yobi__MarkDeath"
+        },
+        {
+          "ea": "0x43f267",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x43f26a",
+          "size": 2,
+          "bytes": "8bdd",
+          "text": "mov     ebx, ebp"
+        },
+        {
+          "ea": "0x43f26c",
+          "size": 2,
+          "bytes": "85ed",
+          "text": "test    ebp, ebp"
+        },
+        {
+          "ea": "0x43f26e",
+          "size": 2,
+          "bytes": "75ce",
+          "text": "jnz     short loc_43F23E"
+        },
+        {
+          "ea": "0x43f270",
+          "size": 1,
+          "bytes": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x43f271",
+          "size": 6,
+          "bytes": "892d50975f00",
+          "text": "mov     dword_5F9750, ebp"
+        },
+        {
+          "ea": "0x43f277",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x43f278",
+          "size": 1,
+          "bytes": "5d",
+          "text": "pop     ebp"
+        },
+        {
+          "ea": "0x43f279",
+          "size": 1,
+          "bytes": "5b",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": "0x43f27a",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        },
+        {
+          "ea": "0x43f27b",
+          "size": 10,
+          "bytes": "c70550975f0000000000",
+          "text": "mov     dword_5F9750, 0"
+        },
+        {
+          "ea": "0x43f285",
+          "size": 1,
+          "bytes": "5b",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": "0x43f286",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ]
+    }
+  ],
+  "counts": {
+    "instructions": 57,
+    "code_bytes": 134,
+    "references": 7,
+    "direct_calls": 6,
+    "tail_jumps": 1,
+    "parents_count": 5,
+    "source_patterns": 1,
+    "changed_blocks": 1,
+    "modified_roots": 1,
+    "identity_roots": 2,
+    "unchanged_cleanup_roots": 1,
+    "values_per_record": 5,
+    "party_actions_per_record": 5
+  },
+  "source_path": "src/YobiRuntime.cpp",
+  "source_patches": [
+    {
+      "owners": [
+        "Sub_43F1F0下一节点取样"
+      ],
+      "expected_occurrences": 1,
+      "before": "        const auto* const payload =\n            static_cast<const MapCharaPayload*>(current->payload);\n        for (const std::uint32_t entry : payload->values) {\n            if (entry == value) {\n                return current;\n            }\n        }\n        current = payload->next;",
+      "after": "        const auto* const payload =\n            static_cast<const MapCharaPayload*>(current->payload);\n        YobiAction* const next = payload->next;\n        for (const std::uint32_t entry : payload->values) {\n            if (entry == value) {\n                return current;\n            }\n        }\n        current = next;"
+    }
+  ],
+  "retained_contract": {
+    "query_order": [
+      "取头",
+      "取当前action载荷",
+      "保存payload.next",
+      "顺序比较五W32编号",
+      "匹配返回当前action/全不匹配用缓存next继续",
+      "无命中返回空"
+    ],
+    "cleanup_unchanged": "每节点取载荷/保存next→五孩子逐槽非空死亡→当前节点死亡→缓存next继续，尾清头；空链现有承载及注释不验原机器EAX",
+    "typed_native_pointer": true,
+    "values_are_words_not_pointers": true,
+    "owner_or_layout_changed": false,
+    "new_alias_or_null_guard": false,
+    "other_sources_or_asm_changed": false
+  },
+  "verification": "仅一模式一块/查找原取样及已有清理正常合同、两体57条134B/七引用六call一tailjump五父与台账静态；五完整父/所有producer/地址逃逸和alias/全部owner寿命、原空链EAX/实际ABI/SDK/场景画面RNG运行未验，异常不专项模拟或保护/称等价"
+}

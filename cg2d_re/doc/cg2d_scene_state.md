@@ -7605,3 +7605,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [快照子SPEC](cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state)仅修§116既有51D5B0两块：C8A744低半以2B memcpy取样，先写独立C8A740、取首次D67E78后，再向同一packed owner的+2高半写2B缓存值；不重读低半或读改写整W32。停止/未命中路径先保存复读gate，再清FF0D74并依据已复读值决定51BEF0。
 
 原短路/玩家索引与查找、250/252状态/回调、计数两读取及callee后原位加一、尾43F230和现有返回承载保持。MEP01/MFP01/MFA01/MCA01及所有父/callee不改；31条138B/两call两父保存仅正常入口和两源块静态，一原ID同时关联地图与场景分发，不计两次代码开发。完整父/传递callee/所有alias和owner重进退出/borrow失效、空链原机器返回/实际ABI/SDK/时钟RNG/场景画面运行未验，异常不保护或模拟/称等价。
+
+## MQC01 场景观察依赖的查找取样（2026-10-05）
+
+[查找/清理合同](cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state)沿MSS01真实51D5B0依赖，仅修43F1F0一源块：取当前载荷后先保存原生next，再顺序比较五W32编号；匹配返回当前action，未匹配用缓存next前进。原空/无命中返回、头owner/载荷和状态250252/回调保持。
+
+43F230已有缓存next/五孩子逐槽死亡/当前节点死亡/清头本体未改，只补原身份；空链现有返回空值及不验原EAX注释保持。两原57条134B/七引用六call一tailjump五父保存仅正常查询/清理合同与一源差异，不代五完整父/所有producer/alias/owner寿命/空链原机器返回、实际ABI/SDK/场景画面RNG运行，异常不保护或模拟/称等价。

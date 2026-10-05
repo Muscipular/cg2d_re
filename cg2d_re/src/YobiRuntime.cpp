@@ -5437,12 +5437,13 @@ YobiAction* Sub_43F1F0(const std::uint32_t value)
     while (current != nullptr) {
         const auto* const payload =
             static_cast<const MapCharaPayload*>(current->payload);
+        YobiAction* const next = payload->next;
         for (const std::uint32_t entry : payload->values) {
             if (entry == value) {
                 return current;
             }
         }
-        current = payload->next;
+        current = next;
     }
     return nullptr;
 }

@@ -3881,3 +3881,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 现有定义/声明/内调用/私有边界、source全文不变、限定JSON与两文档末追加/编码/差异。
 其余旧本体不重复取证；全部creator/字段生产/cleanup、SDK/模式3、RNG/画面及完整运行仍待。
 未构建、查产物、测试、算法/客户端运行或hash，不代批CRT总提案，不恢复音频或降总PLAN门禁。
+
+## MQC01 当前地图观察链next取样与清理身份（2026-10-05）
+
+[具名增量](cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision)在既有43F1F0恢复原43F204读取点：取载荷后先保存next，随后五values依序比较，不匹配沿缓存next继续。YobiAction*查询返回/原五W32位型、MapCharaPayload五值/五孩子/frame/原生next、唯一5F9750头及生产/append/unlink不改。
+
+43F230已有清理消费未改：每节点先缓存next，五孩子逐槽非空死亡，再标死当前节点并沿缓存next续遍历，最后清头。两原身份正式来源与adapted纳管，一查询源实修不计清理新增。两体57条134B/六call一tailjump五父仅局部正常合同；原空链EAX、全producer/父/间接alias与全部owner重进退出/borrow失效/实际ABI/SDK/场景画面运行未验，异常不保护或模拟/称等价。

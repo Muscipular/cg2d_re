@@ -558,10 +558,13 @@
       "baseline_documents": [
         "doc/cg2d_main_loop.md",
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline"
       ],
       "original_inventory_ids": [
-        "F:0011D5B0"
+        "F:0011D5B0",
+        "F:0003F1F0",
+        "F:0003F230"
       ],
       "closure_task_ids": [
         "U11",
@@ -574,16 +577,19 @@
       "acceptance_focus": "真实状态入口、时钟/RNG、断线/重进及退出",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "MSS01真实250/252入口仅半字快照/gate复读两块实修，一个既有ID纳管且与MAP关联；全部场景分发成员/父/callee/初值时钟RNG/断线重进退出及owner寿命/空链机器返回/实际ABI/SDK/场景画面运行未闭，完整门禁不提升"
+        "MSS01真实250/252入口仅半字快照/gate复读两块实修，一个既有ID纳管且与MAP关联；全部场景分发成员/父/callee/初值时钟RNG/断线重进退出及owner寿命/空链机器返回/实际ABI/SDK/场景画面运行未闭，完整门禁不提升",
+        "MQC01为真实场景快照的查找/尾接清理依赖绑定两原身份；仅查询next取样一块实修、已有清理未改，双功能共用同一ID/原证据。完整父/传递依赖/所有owner与alias/空链机器返回/时钟RNG/真实SDK/场景运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state"
       ]
     },
     {
@@ -1044,7 +1050,8 @@
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-baseline",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-baseline",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-baseline",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-baseline",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1082,7 +1089,9 @@
         "F:0006E340",
         "F:0006E390",
         "F:0006F160",
-        "F:0011D5B0"
+        "F:0011D5B0",
+        "F:0003F1F0",
+        "F:0003F230"
       ],
       "closure_task_ids": [
         "U11",
@@ -1101,7 +1110,8 @@
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-decision",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-decision",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-decision",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-decision",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1111,7 +1121,8 @@
         "MCA01五像素运动/一投影块正常S32已落码，20读/10写与原投影取样/真实窄化、计时/低W16/RNG/方向/回收保持，kind4重设尾恢复计数4→新Y速度；六身份局部纳管，全调度/场景/多轮/alias/所有owner寿命/投影环境/实际ABI/SDK/像素RNG运行未验，异常不保护或模拟",
         "MFP01效果记录镜像/固定点补回四原字段读取点，正常S32×65536及两W32写已落码；原池/失败/参数/写序/计数/指针返回及MFA01/MCA01保持，一个生产身份局部纳管；完整父/所有池alias与owner寿命/实际ABI/SDK/像素RNG运行未闭，异常不保护或模拟",
         "MEP01池初始化恢复原低W16写、领取/回收三块落实原头/链接取样及写序，500项/499轮原生链和原载荷/计数/返回保持；四既有身份纳管，其中清理未改。完整场景/所有父与池alias/owner重进退出及borrow失效/实际ABI/SDK/画面RNG运行未闭，异常不保护或模拟",
-        "MSS01共享快照恢复低W16读取/高W16缓存发布及停止路径gate原复读点，同一packed owner/低半保持；一个既有ID与LOOP共同关联，原短路/状态/回调/计数和尾接不改，全部父/callee/alias与owner寿命/实际ABI/SDK/场景画面RNG运行未闭，异常不保护或模拟"
+        "MSS01共享快照恢复低W16读取/高W16缓存发布及停止路径gate原复读点，同一packed owner/低半保持；一个既有ID与LOOP共同关联，原短路/状态/回调/计数和尾接不改，全部父/callee/alias与owner寿命/实际ABI/SDK/场景画面RNG运行未闭，异常不保护或模拟",
+        "MQC01查找恢复载荷取后/五编号比较前保存next，一源块实修；已有五孩子清理未改、两身份和原生链来源纳管且与LOOP关联。七引用六call一tailjump五父不代完整parent/producer/所有alias与owner寿命/空链机器返回/实际ABI/SDK/场景画面运行，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1122,7 +1133,8 @@
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state"
       ]
     },
     {
@@ -13285,6 +13297,126 @@
       "observation": "原31条138B/库存/两call两父，原半字/gate取样与两源片段精确差异、真实本体/声明限定静态",
       "expected": "保原字段读序/独立W16写/首次gate点，高半只写原缓存低半；停止路径先复读gate再清计数，按已读值回调",
       "actual": "只一源码本体/一原证据双关联，四条I/S记录不代表四项开发；完整父/callee/所有owner与alias/空链机器返回/实际ABI/SDK/时钟RNG/场景画面运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-MAP-CHARA-LOOKUP-MAP-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原57条134B/七引用六call一tailjump五父，查找next原取样与已有清理正常消费；doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-chara-lookup-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-acceptance",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
+        "doc/cg2d_map_chara_lookup_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F1F0",
+        "src/YobiRuntime.cpp#Sub_43F230",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "查找先保存next再比较五编号，一源块实修；已有清理本体未修改/两原身份双功能关联，不计四函数或清理新实现",
+          "decision_ref": "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一模式一块query原取样已落实，原五值/命中/空返回保持；已有cleanup未改、两真实来源纳管",
+      "expected": "按原载荷→保存next→五W32比较→命中/缓存next前进，保原生指针/头owner；清理既有逐孩子/节点死亡与缓存next/清头保持",
+      "actual": "两域四I/S共用一源码改动/两原证据，清理本体非新增；全producer/五完整父/地址逃逸和alias/所有owner寿命/原空链EAX/实际ABI/SDK/场景画面RNG运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-MAP-CHARA-LOOKUP-MAP-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原57条134B/七引用六call一tailjump五父，查找next原取样与已有清理正常消费；doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-chara-lookup-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-acceptance",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
+        "doc/cg2d_map_chara_lookup_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F1F0",
+        "src/YobiRuntime.cpp#Sub_43F230",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "查找先保存next再比较五编号，一源块实修；已有清理本体未修改/两原身份双功能关联，不计四函数或清理新实现",
+          "decision_ref": "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两原57条134B/库存/六call一tailjump五父、一源片段精确差异及现有查询/清理正常合同限定静态",
+      "expected": "按原载荷→保存next→五W32比较→命中/缓存next前进，保原生指针/头owner；清理既有逐孩子/节点死亡与缓存next/清头保持",
+      "actual": "两域四I/S共用一源码改动/两原证据，清理本体非新增；全producer/五完整父/地址逃逸和alias/所有owner寿命/原空链EAX/实际ABI/SDK/场景画面RNG运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-MAP-CHARA-LOOKUP-LOOP-I-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原57条134B/七引用六call一tailjump五父，查找next原取样与已有清理正常消费；doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-chara-lookup-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-acceptance",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
+        "doc/cg2d_map_chara_lookup_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F1F0",
+        "src/YobiRuntime.cpp#Sub_43F230",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "查找先保存next再比较五编号，一源块实修；已有清理本体未修改/两原身份双功能关联，不计四函数或清理新实现",
+          "decision_ref": "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一模式一块query原取样已落实，原五值/命中/空返回保持；已有cleanup未改、两真实来源纳管",
+      "expected": "按原载荷→保存next→五W32比较→命中/缓存next前进，保原生指针/头owner；清理既有逐孩子/节点死亡与缓存next/清头保持",
+      "actual": "两域四I/S共用一源码改动/两原证据，清理本体非新增；全producer/五完整父/地址逃逸和alias/所有owner寿命/原空链EAX/实际ABI/SDK/场景画面RNG运行未验，完整门禁不提升，异常不保护或模拟/称等价"
+    },
+    {
+      "id": "E-MAP-CHARA-LOOKUP-LOOP-S-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两原57条134B/七引用六call一tailjump五父，查找next原取样与已有清理正常消费；doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-chara-lookup-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-acceptance",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
+        "doc/cg2d_map_chara_lookup_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43F1F0",
+        "src/YobiRuntime.cpp#Sub_43F230",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "查找先保存next再比较五编号，一源块实修；已有清理本体未修改/两原身份双功能关联，不计四函数或清理新实现",
+          "decision_ref": "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两原57条134B/库存/六call一tailjump五父、一源片段精确差异及现有查询/清理正常合同限定静态",
+      "expected": "按原载荷→保存next→五W32比较→命中/缓存next前进，保原生指针/头owner；清理既有逐孩子/节点死亡与缓存next/清头保持",
+      "actual": "两域四I/S共用一源码改动/两原证据，清理本体非新增；全producer/五完整父/地址逃逸和alias/所有owner寿命/原空链EAX/实际ABI/SDK/场景画面RNG运行未验，完整门禁不提升，异常不保护或模拟/称等价"
     }
   ],
   "task_acceptance": [
@@ -13442,7 +13574,8 @@
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state"
       ]
     },
     {
@@ -13672,7 +13805,8 @@
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state"
       ]
     },
     {
@@ -13728,7 +13862,8 @@
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state"
       ]
     },
     {
@@ -13775,7 +13910,8 @@
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state"
       ]
     },
     {
@@ -13799,7 +13935,8 @@
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state"
       ]
     },
     {
@@ -13958,7 +14095,8 @@
         "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
         "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
         "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
-        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state"
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state"
       ]
     }
   ],
@@ -17732,6 +17870,30 @@
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-acceptance",
         "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
         "doc/cg2d_scene_snapshot_width_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0003F1F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-acceptance",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
+        "doc/cg2d_map_chara_lookup_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0003F230",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-baseline",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-decision",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-acceptance",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
+        "doc/cg2d_map_chara_lookup_evidence.json"
       ]
     }
   ],

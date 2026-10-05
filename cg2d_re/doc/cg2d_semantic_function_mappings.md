@@ -2189,3 +2189,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 51D5B0一个既有本体补唯一语义/本体声明来源及adapted，依据[具名合同](cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state)和[31条138B原证据](cg2d_scene_snapshot_width_evidence.json)。本次仅两源块恢复两半字2B宽度与gate复读点，状态/回调/计数/尾接保持；两call/两父身份不代完整父/callee/所有alias/owner寿命/运行。
 
 语义1279→1280/有效ID1275→1276、处置372→373；同一原ID关联MAP35→36与LOOP0→1明确成员，双关联不增函数分母或代码次数。原历史位置、队列/pending/非FID/R7/其他域保持，完整功能和任务门禁不提升。
+
+## MQC01 地图观察查找与已有清理身份（2026-10-05）
+
+43F1F0/43F230两既有本体补唯一语义、真实本体/声明来源及adapted，见[具名合同](cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state)及[原证据](cg2d_map_chara_lookup_evidence.json)。查询仅一源块实修先取next后比较五编号，清理本体未改；七引用为六call/一type19尾jump、五父，不记七call或新增清理功能。
+
+语义1280→1282/有效ID1276→1278、处置373→375；两ID分别关联MAP36→38与LOOP1→3，双功能不加原函数分母或代码次数。所有原历史位置、差集/非FID/pending/R7及其它功能保持，完整父/producer/owner寿命和运行门禁不提升。

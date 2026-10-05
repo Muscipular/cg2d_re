@@ -4159,3 +4159,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [十八处实修](cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-decision)恢复mode7目标与当前位置/caster比较原序、固定oldSlot/moving、八坐标/initialOther字段和三附件路径各次取样；mode8解析目标/首次效果、flagsFDC低W8与Reset固定目标。原非对称门禁/槽交换、210或205/各动作和phase34、255或空Finish后仍终结-Move-RID-增58保持。
 
 [五范围341条1410B](cg2d_battle_m_skill98_mode7_8_sampling_evidence.json)七页23call直接目标闭合；其中BMW两尾22条82B沿现证据非新增，两个选择比较五条22B和SKL202B表仅入口。其它模式/完整98与所有owner/SDK/SEH/ABI/画面继续。
+
+## BMY01 技能98 mode12/13/14三根32处（2026-10-06）
+
+[32处实修](cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-decision)恢复selected/target比较pub和字段、两类坐标中点/效果参数-S32图选择、player条件同位置及13的0/149条件重读，14双位置金额类型和两效果原序。12/13初始失败直接回存、循环失败selected终结/74而14无actor空门禁、两哨兵caster终结，原动作-金额/flags-图值跨目标和Move-RID-增58保持。
+
+[五范围681条2625B](cg2d_battle_m_skill98_mode12_13_14_sampling_evidence.json)十二页72call直接目标闭合；BMW两个既有尾19条73B非新增，六条27B选择比较/BMO八W32正常零和202B表仅上下文。状态目标/15-16/17-默认及完整98/owner/SDK/SEH/ABI/画面继续。

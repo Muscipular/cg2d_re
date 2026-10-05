@@ -205,3 +205,9 @@
 [十八组裁决](../cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-decision)恢复mode7八坐标的position-index-actor/payload-point次序、initialOther payload先live target以及当前rider/gear/两aux指针链和值共用同一次target。native非拥有oldSlot地址和moving跨首次效果/换位固定，后其它字段/附件各次live重借，原不对称空门禁/parent重绑与槽发布保持。mode8 flags对象低W8、Reset用该次target，不新owner/立即释放/null保护。
 
 [完整有界两个主体与三个尾](../cg2d_battle_m_skill98_mode7_8_sampling_evidence.json)341条1410B七页23call，BMW既有两尾22条82B非新增；其它模式/所有actor owner重进退出借用失效、SDK/ABI/画面继续。
+
+## BMY01 中点、字段与按条件重新借用（2026-10-06）
+
+[三根32组裁决](../cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-decision)恢复12两indices-baseX-固定位置actor-otherX-delta-payload、Y中点后live selected，13两轴各两indices/中点后live selected；效果参数和两字段各次actor先值、S32图选择/player同位置保持。13只有0动作实际调用后重取target给149，否则沿比较所得位置；14金额Take后另live位置和kind条件、金额payload/另类型payload、caster-target-actor效果原序，不复用解析位置或新owner/空保护。
+
+[三个完整有界主体与实际尾](../cg2d_battle_m_skill98_mode12_13_14_sampling_evidence.json)681条2625B十二页72call；两种原终结/正常失败保持，其它mode与全部actor owner重进退出借用失效、SDK/ABI/画面继续。

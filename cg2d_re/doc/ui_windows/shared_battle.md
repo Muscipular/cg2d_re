@@ -8321,3 +8321,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state)纳管mode7十五处、mode8三处。moving和oldSlot跨效果/换位保持固定，source-replacement-pub target-pub两槽原序及含null写保持；caster判空却重绑当前target gear/两aux、旧槽rider/gear与phase34条件不对称化。mode8 W8测试2后Reset沿该次目标，后GetPet/live目标比较与可选-2/223保持。
 
 [341条1410B七页23call](../cg2d_battle_m_skill98_mode7_8_sampling_evidence.json)两个主体/三个尾，255或空Finish均终结-Move-RID-增58；两既有尾不重复称新增，两模式选择比较只作入口。其它mode和完整运行门禁继续，原格式明文/音频暂停保持。
+
+## BMY01 选中角色与双位置的不同结束路径（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state)纳管12十五/13十一/14六处。12/13先选中角色准备，初始无效直接返回，目标循环失败才走live selected效果终结/74和caster Move-RID-增58。14原没有actor判空/Finish，两位置哨兵都走caster终结尾，金额9/8/111015和target250/160再selected250/160保持。
+
+[681条2625B十二页72call](../cg2d_battle_m_skill98_mode12_13_14_sampling_evidence.json)三主体与两既有尾，六条27B比较仅入口，原中点-字段/不同效果参数和0/149调用后重读保持；其它mode/owner与完整运行门禁继续，原格式明文/音频暂停保持。

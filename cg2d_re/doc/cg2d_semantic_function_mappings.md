@@ -2477,3 +2477,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [两根十八处](cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state)对应五范围341条1410B七页23call，追加ProcessBattleMSkill98Mode7/Mode8，保固定oldSlot-moving与各次字段/附件借用、W8重置/原状态消费。两个选择比较五条22B和202B SKL表仅入口，BMW两尾22条82B不称新增；不新F/X/adapted/分类/完整成员，历史和其它字段保持。
 
 语义1350/有效ID1345、片段5/分类456及关联1463保持；状态目标/12-13-14/15-16/17-默认、其它技能-全路由-完整父-SEH/所有消费者-owner运行继续。
+
+## BMY01 旧812的技能98 mode12/13/14追加（2026-10-06）
+
+[三根32处](cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state)对应五范围681条2625B十二页72call，追加ProcessBattleMSkill98Mode12/13/14；BMW两既有尾19条73B非新增，六条27B比较/BMO正常初始化/202B入口仅上下文。保两种中点-效果参数/字段-S32选择及不同失败/终结尾，不新F/X/adapted/分类/完整成员，历史和其它字段保持。
+
+语义1350/有效ID1345、片段5/分类456及关联1463保持；状态目标/15-16/17-默认、其它技能-全路由-完整父-SEH/所有消费者-owner运行继续。

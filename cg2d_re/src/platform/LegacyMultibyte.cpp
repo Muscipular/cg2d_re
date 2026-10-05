@@ -3,6 +3,7 @@
 #include "LegacyStringCompareState.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/LegacyMemory.hpp"
+#include "cg/platform/LegacyStringCompare.hpp"
 
 #include <bit>
 #include <cstring>
@@ -661,6 +662,82 @@ std::uint16_t Btowc_54AAD5(const std::int32_t character)
     wchar_t converted;
     const std::int32_t result = Mbrtowc_54A9C3(&converted, &byte, 1, &state, nullptr);
     return result < 0 ? 0xFFFFu : static_cast<std::uint16_t>(converted);
+}
+
+// 原53C9DD：整串转换；数量/返回保持U32，目标可空，不使用宿主locale。
+std::uint32_t Mbstowcs_53C9DD(wchar_t* const destination, const char* const source,
+    const std::uint32_t destinationCount)
+{
+    if (destination == nullptr) {
+        if (gLegacyTextLocale1086160.ctypeLocale == 0) {
+            return StrLen_53F9E0(source);
+        }
+        const std::int32_t converted = ::MultiByteToWideChar(
+            gConversionCodePage_1086170, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,
+            source, -1, nullptr, 0);
+        if (converted != 0) {
+            return static_cast<std::uint32_t>(converted - 1);
+        }
+        gLegacyErrno_1085FE0 = 42;
+        return 0xFFFFFFFFu;
+    }
+    if (destinationCount == 0) {
+        return 0;
+    }
+    if (gLegacyTextLocale1086160.ctypeLocale == 0) {
+        std::uint32_t completed = 0;
+        wchar_t* target = destination;
+        do {
+            *target = static_cast<std::uint8_t>(source[completed]);
+            // 原53CA19在W16写入之后重读同一源字节，保源/目标可能的别名。
+            if (source[completed] == '\0') {
+                break;
+            }
+            ++completed;
+            ++target;
+        } while (completed < destinationCount);
+        return completed;
+    }
+
+    const std::int32_t converted = ::MultiByteToWideChar(
+        gConversionCodePage_1086170, MB_PRECOMPOSED | MB_ERR_INVALID_CHARS,
+        source, -1, destination, std::bit_cast<std::int32_t>(destinationCount));
+    if (converted != 0) {
+        return static_cast<std::uint32_t>(converted - 1);
+    }
+    if (::GetLastError() != ERROR_INSUFFICIENT_BUFFER) {
+        gLegacyErrno_1085FE0 = 42;
+        return 0xFFFFFFFFu;
+    }
+
+    const char* cursor = source;
+    std::uint32_t remaining = destinationCount - 1u;
+    for (;;) {
+        const std::uint8_t current = static_cast<std::uint8_t>(*cursor);
+        if (current == 0) {
+            break;
+        }
+        if ((gCtypePointer58FC30[current] & 0x8000u) != 0) {
+            ++cursor;
+        }
+        ++cursor;
+        const std::uint32_t previous = remaining;
+        --remaining;
+        if (previous == 0) {
+            break;
+        }
+    }
+    // 原53CA93以W32字节差传API，截取转换的结果不再减去NUL。
+    const std::uint32_t sourceBytes = static_cast<std::uint32_t>(cursor - source);
+    const std::int32_t prefixConverted = ::MultiByteToWideChar(
+        gConversionCodePage_1086170, MB_PRECOMPOSED, source,
+        std::bit_cast<std::int32_t>(sourceBytes), destination,
+        std::bit_cast<std::int32_t>(destinationCount));
+    if (prefixConverted != 0) {
+        return static_cast<std::uint32_t>(prefixConverted);
+    }
+    gLegacyErrno_1085FE0 = 42;
+    return 0xFFFFFFFFu;
 }
 
 // 原53BDEF；完整入口保留共享最大宽度门禁，0..255/EOF域沿同一分类表。

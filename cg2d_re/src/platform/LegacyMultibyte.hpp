@@ -88,6 +88,10 @@ std::int32_t Mbrtowc_54A9C3(wchar_t* destination, const char* source,
 // 原54AAD5；S32仅-1作EOF，其余取低U8，负转换结果返回W16 FFFF。
 std::uint16_t Btowc_54AAD5(std::int32_t character);
 
+// 原53C9DD；目标可空，数量/返回保持U32，旧locale/代码页/ctype和errno同源。
+std::uint32_t Mbstowcs_53C9DD(wchar_t* destination, const char* source,
+    std::uint32_t destinationCount);
+
 // 原53BDEF/53BE17；保留S32输入和mask8/20H返回，不使用宿主ctype。
 std::int32_t ClassifyLegacySpace_53BDEF(std::int32_t character);
 std::int32_t ClassifyLegacyControl_53BE17(std::int32_t character);

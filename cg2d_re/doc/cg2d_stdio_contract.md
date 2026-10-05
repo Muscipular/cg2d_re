@@ -4319,3 +4319,10 @@ virtualTable从const void*改对应const方法表指针，内部头四块、stre
 
 [完整父本体](cg2d_shop_choice_body_spec.md#shop-choice-body-decision)在4D8F68接53B304：%d原256400/单S32命令→未清16B，再52D2D0到另16B/cap15；target/request/Y/X/socket依原新读、mode0发送弃返回，不加成功门槛。
 源码原点1000→1001/1023（1000直接+1既有补证），241格式保持；剩22=13范围排除+6音频暂停+3SDL原生替换。只说明格式接口接入，低两位零的未写第二命令/真实生产仍待P07，不能拿数量证明参数或整页可用。C12/完整CRT/运行保持open，FILE计数不变。
+
+
+## MWS01：通用整串转换与内部长度（2026-10-05）
+
+[94条转换本体](cg2d_multibyte_string_spec.md#multibyte-string-source-state)已落既有LegacyMultibyte，不使用宿主mbstowcs或新代码页。C locale写W16后重读源、空目标直接真实长度；非C full/query flags9成功减1，仅错误122进原lead/旧remaining回退，flags1结果不减1；三API重读代码页、现有ctype/locale/errno同源，错误42/FFFFFFFF保持。
+最后53CAB5长度点使20真实＋4既有宿主/24，格式1001/1023/241及FILE计数保持；唯一455100/454C30音频业务父仍暂停/未接。数量/返回/跨度W32只在API边界作位型转换，目标/源仅地址拓宽；RPLAN.24异常不专项、无故障等价/x64安全声明。
+本组内部调用落位不代API实际成功失败、全状态生产/别名、完整文本/CRT/音频与运行；C12/T01/T03/V04保持open。

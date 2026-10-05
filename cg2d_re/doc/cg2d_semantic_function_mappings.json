@@ -34290,6 +34290,13 @@
             "ThrowLegacyStringRange_54A899"
           ],
           "relationship": "本次五Raise/两字符串异常真实父点；既有copy/字符串算法不改或复检，54B123仍仅真实声明"
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "Mbstowcs_53C9DD"
+          ],
+          "relationship": "原53CAB5通用转换内长度查询，音频父暂停/未接"
         }
       ],
       "evidence_documents": [
@@ -34297,9 +34304,10 @@
         "doc/cg2d_game_time.md",
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_multibyte_string_spec.md"
       ],
-      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。；2026-10-04新549025@549043仅共享路径，旧buffer保留/Tidy减引用后按NUL重新取U32长度再assign，未用旧字段长度替代；其余8原引用、音频/异常与标准流/locale及完整运行仍待。；2026-10-04新54B079/54B0B6异常对象两个真实原点由LegacyException本体调用承接，U32长度+1/分配结果先发布、复制源在分配发布后重取，分配空保留原标志/原分支；实际长度14/24（另4已批宿主、6未迁），实际复制9/11（另2已批宿主），不称完整异常类型/抛出或原堆/运行验收。；2026-10-04新增locale构析原点0x54A54F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54A46F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；新增原clear真实父点0x549FBA源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。；本次五Raise/两字符串异常新增实际父点0x54A67A@0x54A69E/0x54A899@0x54A8BD源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。",
+      "boundary": "返回首NUL前U32字节数；源对齐后用原探零式，候选命中重读块才定位，不把候选误报当NUL。原24处直接调用中TZ一处与错误报告三处及字符串流/扫描包装两处和输出/浮点三原点共9处已接，其余15原引用仍待；应用大量内联扫描不冒充原函数直接xref。 文件名U32长度+1及尾59B借用按原数值宽度，不复用第一次取样或增加上限，原长度算法逐字保持。 两新父只按原text/buffer取长度，保留已有数值转换/临时缓冲写流及FILE准备/va_list顺序，整份源仅两个标识符/一个已有头，不重验已过长度算法或整体验收。 新三原长度点由四源表达式承接，原U32→S32或U32+1数值转换保持，不改其他扫描/写流/布局/浮点/已批准替代与暂停状态。 原四个GetEnv私有长度点另列既有宿主承接，实际9原点保持；其余11未决含暂停音频/CRT启动和C++布局生命周期，不以排除收口。；2026-10-04新增543F8E两遍环境项长度543FB4/543FEE：第一遍先检查首字节=再对全部项取U32长度+1推进，第二遍先对全部项取长度+1再判=，不把第一遍缓存复用或只计算入表项。完整CRT启动/退出、暂停音频及其余私有字符串/流/locale/异常承接仍待。；2026-10-04新549025@549043仅共享路径，旧buffer保留/Tidy减引用后按NUL重新取U32长度再assign，未用旧字段长度替代；其余8原引用、音频/异常与标准流/locale及完整运行仍待。；2026-10-04新54B079/54B0B6异常对象两个真实原点由LegacyException本体调用承接，U32长度+1/分配结果先发布、复制源在分配发布后重取，分配空保留原标志/原分支；实际长度14/24（另4已批宿主、6未迁），实际复制9/11（另2已批宿主），不称完整异常类型/抛出或原堆/运行验收。；2026-10-04新增locale构析原点0x54A54F，实际原堆/共享名称叶与正常及展开次序保持，原共享54A30D尾不新增身份；旧本体/既有点不复检，全局locale/SDK迁移与完整运行仍待。；2026-10-04新增真实locale全局原点0x54A46F；实际64B原堆/原Ctor0/退出表与原名称叶/状态1释放，不额外保护/回滚或SDK双执行，旧本体不复检；启动/其余exit迁移/原堆模式3与运行仍待。；新增原clear真实父点0x549FBA源码消费；旧本体/数组不回核，实际抛出/元数据及完整运行仍未闭。；本次五Raise/两字符串异常新增实际父点0x54A67A@0x54A69E/0x54A899@0x54A8BD源码消费，旧算法/数组保持；实际54B123/ThrowInfo生产及SDK传播未完成。；MWS01补原53C9DD@53CAB5目标空/C locale真实长度分支，直接返回U32、忽略MaxCount；长度19→20/24、另4既有宿主，唯一音频业务父455100/454C30保持暂停/未接，不误记为音频实现或完整文本/CRT验收。",
       "original_direct_reference_count": 24,
       "length_call_connections": [
         {
@@ -34498,6 +34506,17 @@
           "source": "src/platform/LegacyException.cpp",
           "symbol": "ThrowLegacyStringRange_54A899",
           "relationship": "原字符串异常真实消息地址重新取U32长度再assign；算法不改/复检，SDK抛出与完整链运行未闭"
+        },
+        {
+          "parent_entry": "0x53C9DD",
+          "call_site": "0x53CAB5",
+          "source": "src/platform/LegacyMultibyte.cpp",
+          "symbol": "Mbstowcs_53C9DD",
+          "target_entry": "0x53F9E0",
+          "target_symbol": "StrLen_53F9E0",
+          "source_expression": "source（目标空/C locale）",
+          "result_width": "U32",
+          "relationship": "原查询分支忽略MaxCount，直接返回真实长度；通用本体已接，唯一音频业务父保持暂停/未接"
         }
       ],
       "verification_level": "既有长度全文逐字保持，仅公开唯一声明并接错误父三原调用；原U32返回/两次GUI采样和stderr长度/消息重取次序、整份限定源码头静态核对，未构建或执行；两新父49统计32长度邻读取、2/22入向与长度时点/U32和FILE S32位型、两源码限定差异静态核对，余17及核心不重验；输出/浮点三新长度原点/四源表达式与Z空源直跳共用、移位/舍入后长度+NUL及限定源码静态核对；原44条长度本体/声明不变；仅新增5451C5/5451D4/547FC7/54814D的已批GetEnv宿主归属，9实际接线不变；新543F8E完整71条及544294上游/53DE34捕获、两个真实长度点/一复制点、两遍采样/数值宽度和原错误退出/发布清理次序限定静态核对；核心/九已接点不重验，未构建或执行；原549025全23条与旧共享字节状态/Tidy/strlen/assign真实链及限定源码/JSON静态核对，核心/11已接点不复检，未构建或执行；新54B079/54B0B6两个异常对象真实调用点与源重取/目标发布/原堆域和限定新增静态核对，核心/已接点未复检，未构建或执行",
@@ -141703,6 +141722,47 @@
       ],
       "verification_level": "现有原IDA只读核完整321条、25原call及原get_bytes；限定源码静态，未执行/未验未写值",
       "boundary": "三个原28B记录仅文本指针拓宽、首X/Y/三Y164/190/216；完整mode==3扫描3否则2，低位写1/2/末尾3，低两位零的commands[1]不补值/删行/模拟原栈。503160返0→0/返2→581800=-1与非空预览标死清槽并返原生指针；普通清flag2/退出键只关闭仍继续。行<=1 %d 16B→Stringify16B/cap15，target/request/Y/X/socket单次新读、mode0发送弃返回；各命中行SE79/关闭并继续。标题及五81B正文逐Y/X新读/绘制，文字按钮font2/color0/mode1/218；两行提示第一Query后缓存command0，失败后重查第一，再第二；三行close/买/卖/停止优先，末尾503440(panel,1)完整W32。原401EA0单尾跳401EC0，Y/X读序和RNG保持；未改原99表、现代4A0140或已有callee。不证明模式生产/可达域、未初始化命令值/原栈等价，P07/U04/U05/V04仍open。"
+    },
+    {
+      "original_entry": "0x53C9DD",
+      "inventory_id": "F:0013C9DD",
+      "status": "MWS01通用整串转换本体已实现；唯一音频业务父暂停/未接，SDK与运行未验",
+      "original_end_exclusive": "0x53CADC",
+      "instruction_count": 94,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/platform/LegacyMultibyte.cpp",
+          "symbols": [
+            "Mbstowcs_53C9DD"
+          ]
+        },
+        {
+          "path": "src/platform/LegacyMultibyte.hpp",
+          "symbols": [
+            "Mbstowcs_53C9DD"
+          ]
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4551A6",
+          "parent_entry": "0x455100",
+          "relationship": "唯一原音频业务入向，当前暂停/未接线"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_multibyte_string_spec.md",
+        "doc/cg2d_multibyte_string_evidence.json"
+      ],
+      "function_chunks": [
+        {
+          "start": "0x53C9DD",
+          "end_exclusive": "0x53CADC"
+        }
+      ],
+      "verification_level": "完整原94条/255B及唯一业务入向只读；源码/共享字段与限定差异静态，未执行",
+      "boundary": "目标可空，MaxCount/返回保持U32；目标非空数量0不读source/locale；C locale U8→W16，写后重读源当前字节判NUL，NUL不计数且满不补。目标空/C locale真实53CAB5 strlen，非C全量/query flags9成功减1；失败立即取LastError仅122进回退。回退每字符缓存首U8、读可变58FC30的8000H lead位，剩余Count-1递减后按旧值判继续，Count1仍处理一字符；各API重新读代码页，实际字节跨度W32/API S32位型传递，flags1成功直接返回。错误errno42/U32 FFFFFFFF，成功不清errno/目标。locale、CP、ctype/errno唯一现有owner；不使用宿主locale/mbstowcs或新编码，原音频455100/454C30不改/不接线，实际API/生产/全别名/SDK/音频与运行未验；RPLAN.24不专项处理越界/数学溢出或宣称故障等价/x64安全。"
     }
   ]
 }

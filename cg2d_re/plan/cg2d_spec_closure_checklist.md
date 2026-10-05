@@ -128,7 +128,7 @@ P 编号对应机器 pending_records 的原入口，不增加或缩减该分母�
 | C09 / 图形双树 | AIS01两图形调用原序/旧模块删除保持；70源投影＋15SDK角色分列对应 | 两暂停音频/完整应用入口及逐surface/快速退出清理和SDK运行仍待 | 保持open；[双树源码](../doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-source-closure)、[SSO01](../doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure)；TextureSurfaceOwner独立清理保持 |
 | C10 / FILE 剩余原调用 | HSI01已在lowio后/登记及multibyte前接唯一stdio表初始化；SCH01分配与512/20/错误26保持 | 其他原点/全FILE配置、跨TU首次使用/描述符/owner/alias、SDK实际成功失败与退出运行仍待 | 保持open；[HSI01](../doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure)；取流/刷新/WinMain正文保持，不拿活动表生产代全FILE验收 |
 | C11 / 应用分配域 | 通用mode3五操作及各独立域保持；三私有核心接口退休，两个迁移释放由SDK内部承担 | 全部producer/owner配对、稳定模式/未知alias与SDK运行仍待 | 保持open；[M3P01](../doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure)、[内存](../doc/cg2d_crt_memory_contract.md)；不重复free或引入混域 |
-| C12 / 字符串与格式剩余 | SCP01最后4D8F68格式接口已接，1001/1023/241格式；长度点沿既有计数 | 格式余22为13排除/6暂停/3原生替换；P07未写参数/模式实际生产及长度余1/全CRT与运行仍未闭 | [stdio](../doc/cg2d_stdio_contract.md)、[SCP01](../doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state)；接口数量不代未知参数或完整验收 |
+| C12 / 字符串与格式剩余 | MWS01通用整串转换/最后长度点已接，20真实＋4宿主/24；格式1001/1023/241 | 格式余22为13排除/6暂停/3替换；P07未写参数、转换唯一音频父暂停、全状态/SDK/完整CRT与运行 | [MWS01](../doc/cg2d_multibyte_string_spec.md#multibyte-string-source-state)、[stdio](../doc/cg2d_stdio_contract.md)；直接清单归属不代业务父/完整验收 |
 
 FILE 数量沿现有合同，原点去重，库点与业务点分列；“余”仅为该函数原引用差集，不是新任务总数：
 

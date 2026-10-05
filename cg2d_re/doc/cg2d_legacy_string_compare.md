@@ -1285,3 +1285,10 @@ LegacyException.cpp已有MatchLegacyExceptionType_5404FA真实名称比较，
 静态核声明/定义签名与现有include、两真实原点归属、
 两个CPP正文不变、限定两记录/文档末追加和UTF-8无BOM/LF。
 当前不构建、查产物、测试、客户端/算法运行或hash；完整CRT、异常父链与总PLAN仍未完成。
+
+
+## MWS01：整串转换内最后一处原长度（2026-10-05）
+
+[通用转换SPEC](cg2d_multibyte_string_spec.md#multibyte-string-decision)补53C9DD目标空/C locale分支的53CAB5：直接调用现有StrLen_53F9E0并返U32，忽略MaxCount，不造固定长度/Unicode长度。
+真实长度19→20/24，另4已批准宿主承接，原24直接入向已逐点有当前源码或具名宿主归属；这只收口该直接清单，不称未知间接入向或完整调用链/运行。原唯一业务455100属于暂停音频，未接或恢复，不能当字体转换。
+原算法/其他19点/宿主4归属保持；[94条原证据](cg2d_multibyte_string_evidence.json)与同源状态可追，C12/T01/T03/V04和完整门禁继续open。

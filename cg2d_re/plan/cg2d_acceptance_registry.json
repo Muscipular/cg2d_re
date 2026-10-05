@@ -288,7 +288,8 @@
         "doc/cg2d_hosted_runtime_prefix_spec.md",
         "doc/cg2d_hosted_stdio_init_spec.md",
         "doc/cg2d_array_counter_spec.md",
-        "doc/cg2d_hosted_exception_filter_spec.md"
+        "doc/cg2d_hosted_exception_filter_spec.md",
+        "doc/cg2d_multibyte_string_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -461,7 +462,8 @@
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-decision",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-decision",
         "doc/cg2d_array_counter_spec.md#array-counter-decision",
-        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision"
+        "doc/cg2d_hosted_exception_filter_spec.md#hosted-filter-decision",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -855,7 +857,8 @@
         "doc/cg2d_input_append_alignment_spec.md",
         "doc/cg2d_input_text_alignment_spec.md",
         "doc/cg2d_text_queue_alignment_spec.md",
-        "doc/cg2d_font_lifecycle_alignment_spec.md"
+        "doc/cg2d_font_lifecycle_alignment_spec.md",
+        "doc/cg2d_multibyte_string_spec.md"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -897,7 +900,8 @@
         "doc/cg2d_input_append_alignment_spec.md#input-append-decision",
         "doc/cg2d_input_text_alignment_spec.md#input-text-draw-decision",
         "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision",
-        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-decision"
+        "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-decision",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -11446,6 +11450,96 @@
       "observation": "完整321条/25原call、实际字节、限定源码/语义/台账与新引用静态；未知值/输入域不评",
       "expected": "推进原完整本体的已证源码，保实际容量/原字节/正常命令与原读序，不编业务默认值",
       "actual": "仅本组限定源码/确定分支静态；低两位零的未写值、真实模式生产/原路由/全流程寿命及运行不计通过；完整功能门禁、任务状态不提升"
+    },
+    {
+      "id": "E-MULTIBYTE-STRING-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原53C9DD完整94条/255B、53CAB5长度点/三API与唯一暂停音频入向；doc/cg2d_multibyte_string_spec.md#multibyte-string-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-multibyte-string-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-baseline",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-acceptance",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-source-state",
+        "doc/cg2d_multibyte_string_evidence.json",
+        "src/platform/LegacyMultibyte.cpp#Mbstowcs_53C9DD",
+        "src/platform/LegacyMultibyte.hpp#Mbstowcs_53C9DD",
+        "src/platform/LegacyStringCompareState.hpp#LegacyTextLocaleStorage"
+      ],
+      "differences": [
+        {
+          "description": "仅地址拓宽、数量/返回/跨度W32；RPLAN.24不专项处理越界/数学溢出、不声称x64安全/故障等价；唯一音频父暂停及当前文本边界不变",
+          "decision_ref": "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "完整C/非C、空目标/0数量、全量/查询/截取回退与errno42本体源承载",
+      "expected": "按原数量/返回、实际字符/别名读序与失败码补通用转换",
+      "actual": "仅本组源码/内部接线；API/代码页与locale生产/全别名/SDK/音频完整链及运行未验，不升完整门禁"
+    },
+    {
+      "id": "E-MULTIBYTE-STRING-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原53C9DD完整94条/255B、53CAB5长度点/三API与唯一暂停音频入向；doc/cg2d_multibyte_string_spec.md#multibyte-string-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-multibyte-string-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-baseline",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-acceptance",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-source-state",
+        "doc/cg2d_multibyte_string_evidence.json",
+        "src/platform/LegacyMultibyte.cpp#Mbstowcs_53C9DD",
+        "src/platform/LegacyMultibyte.hpp#Mbstowcs_53C9DD",
+        "src/platform/LegacyStringCompareState.hpp#LegacyTextLocaleStorage"
+      ],
+      "differences": [
+        {
+          "description": "仅地址拓宽、数量/返回/跨度W32；RPLAN.24不专项处理越界/数学溢出、不声称x64安全/故障等价；唯一音频父暂停及当前文本边界不变",
+          "decision_ref": "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "真实长度/Win32 API及现有locale/CP/ctype/errno同源；写后源重读/旧remaining续扫，音频业务未接",
+      "expected": "按原数量/返回、实际字符/别名读序与失败码补通用转换",
+      "actual": "仅本组源码/内部接线；API/代码页与locale生产/全别名/SDK/音频完整链及运行未验，不升完整门禁"
+    },
+    {
+      "id": "E-MULTIBYTE-STRING-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "原53C9DD完整94条/255B、53CAB5长度点/三API与唯一暂停音频入向；doc/cg2d_multibyte_string_spec.md#multibyte-string-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-multibyte-string-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-baseline",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-acceptance",
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-source-state",
+        "doc/cg2d_multibyte_string_evidence.json",
+        "src/platform/LegacyMultibyte.cpp#Mbstowcs_53C9DD",
+        "src/platform/LegacyMultibyte.hpp#Mbstowcs_53C9DD",
+        "src/platform/LegacyStringCompareState.hpp#LegacyTextLocaleStorage"
+      ],
+      "differences": [
+        {
+          "description": "仅地址拓宽、数量/返回/跨度W32；RPLAN.24不专项处理越界/数学溢出、不声称x64安全/故障等价；唯一音频父暂停及当前文本边界不变",
+          "decision_ref": "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "完整94条/唯一入向、两源限定补丁、数值/重读/回退及机器台账/新引用静态",
+      "expected": "按原数量/返回、实际字符/别名读序与失败码补通用转换",
+      "actual": "仅本组源码/内部接线；API/代码页与locale生产/全别名/SDK/音频完整链及运行未验，不升完整门禁"
     }
   ],
   "task_acceptance": [
@@ -13481,6 +13575,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_shop_choice_body_spec.md#shop-choice-body-source-state"
+      ]
+    },
+    {
+      "inventory_id": "F:0013C9DD",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_multibyte_string_spec.md#multibyte-string-source-state"
       ]
     }
   ],

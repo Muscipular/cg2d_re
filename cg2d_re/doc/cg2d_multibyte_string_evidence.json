@@ -1,0 +1,451 @@
+{
+  "schema_version": 1,
+  "step": "MWS01",
+  "recorded_on": "2026-10-05",
+  "scope": "通用53C9DD及内部长度调用；音频父保持暂停，未执行",
+  "original_root": {
+    "start": "0x53c9dd",
+    "end_exclusive": "0x53cadc",
+    "instructions": [
+      {
+        "ea": "0x53c9dd",
+        "line": "push    ebp"
+      },
+      {
+        "ea": "0x53c9de",
+        "line": "mov     ebp, esp"
+      },
+      {
+        "ea": "0x53c9e0",
+        "line": "mov     edx, [ebp+lpWideCharStr]"
+      },
+      {
+        "ea": "0x53c9e3",
+        "line": "push    ebx"
+      },
+      {
+        "ea": "0x53c9e4",
+        "line": "push    esi"
+      },
+      {
+        "ea": "0x53c9e5",
+        "line": "xor     esi, esi"
+      },
+      {
+        "ea": "0x53c9e7",
+        "line": "xor     eax, eax"
+      },
+      {
+        "ea": "0x53c9e9",
+        "line": "cmp     edx, esi"
+      },
+      {
+        "ea": "0x53c9eb",
+        "line": "push    edi"
+      },
+      {
+        "ea": "0x53c9ec",
+        "line": "jz      loc_53CAAA"
+      },
+      {
+        "ea": "0x53c9f2",
+        "line": "mov     edi, [ebp+cchWideChar]"
+      },
+      {
+        "ea": "0x53c9f5",
+        "line": "cmp     edi, esi"
+      },
+      {
+        "ea": "0x53c9f7",
+        "line": "jz      loc_53CAD7"
+      },
+      {
+        "ea": "0x53c9fd",
+        "line": "cmp     dword_1086160, esi"
+      },
+      {
+        "ea": "0x53ca03",
+        "line": "jnz     short loc_53CA2E"
+      },
+      {
+        "ea": "0x53ca05",
+        "line": "cmp     edi, esi"
+      },
+      {
+        "ea": "0x53ca07",
+        "line": "jbe     loc_53CAD7"
+      },
+      {
+        "ea": "0x53ca0d",
+        "line": "mov     ecx, [ebp+lpMultiByteStr]"
+      },
+      {
+        "ea": "0x53ca10",
+        "line": "add     ecx, eax"
+      },
+      {
+        "ea": "0x53ca12",
+        "line": "movzx   si, byte ptr [ecx]"
+      },
+      {
+        "ea": "0x53ca16",
+        "line": "mov     [edx], si"
+      },
+      {
+        "ea": "0x53ca19",
+        "line": "cmp     byte ptr [ecx], 0"
+      },
+      {
+        "ea": "0x53ca1c",
+        "line": "jz      loc_53CAD7"
+      },
+      {
+        "ea": "0x53ca22",
+        "line": "inc     eax"
+      },
+      {
+        "ea": "0x53ca23",
+        "line": "inc     edx"
+      },
+      {
+        "ea": "0x53ca24",
+        "line": "inc     edx"
+      },
+      {
+        "ea": "0x53ca25",
+        "line": "cmp     eax, edi"
+      },
+      {
+        "ea": "0x53ca27",
+        "line": "jb      short loc_53CA0D"
+      },
+      {
+        "ea": "0x53ca29",
+        "line": "jmp     loc_53CAD7"
+      },
+      {
+        "ea": "0x53ca2e",
+        "line": "mov     ebx, [ebp+lpMultiByteStr]"
+      },
+      {
+        "ea": "0x53ca31",
+        "line": "mov     esi, ds:MultiByteToWideChar"
+      },
+      {
+        "ea": "0x53ca37",
+        "line": "push    edi; cchWideChar"
+      },
+      {
+        "ea": "0x53ca38",
+        "line": "push    edx; lpWideCharStr"
+      },
+      {
+        "ea": "0x53ca39",
+        "line": "push    0FFFFFFFFh; cbMultiByte"
+      },
+      {
+        "ea": "0x53ca3b",
+        "line": "push    ebx; lpMultiByteStr"
+      },
+      {
+        "ea": "0x53ca3c",
+        "line": "push    9; dwFlags"
+      },
+      {
+        "ea": "0x53ca3e",
+        "line": "push    CodePage; CodePage"
+      },
+      {
+        "ea": "0x53ca44",
+        "line": "call    esi ; MultiByteToWideChar"
+      },
+      {
+        "ea": "0x53ca46",
+        "line": "test    eax, eax"
+      },
+      {
+        "ea": "0x53ca48",
+        "line": "jnz     loc_53CAD6"
+      },
+      {
+        "ea": "0x53ca4e",
+        "line": "call    ds:GetLastError"
+      },
+      {
+        "ea": "0x53ca54",
+        "line": "cmp     eax, 7Ah ; 'z'"
+      },
+      {
+        "ea": "0x53ca57",
+        "line": "jz      short loc_53CA68"
+      },
+      {
+        "ea": "0x53ca59",
+        "line": "mov     dword_1085FE0, 2Ah ; '*'"
+      },
+      {
+        "ea": "0x53ca63",
+        "line": "or      eax, 0FFFFFFFFh"
+      },
+      {
+        "ea": "0x53ca66",
+        "line": "jmp     short loc_53CAD7"
+      },
+      {
+        "ea": "0x53ca68",
+        "line": "lea     ecx, [edi-1]"
+      },
+      {
+        "ea": "0x53ca6b",
+        "line": "mov     eax, ebx"
+      },
+      {
+        "ea": "0x53ca6d",
+        "line": "mov     [ebp+lpMultiByteStr], ecx"
+      },
+      {
+        "ea": "0x53ca70",
+        "line": "mov     cl, [eax]"
+      },
+      {
+        "ea": "0x53ca72",
+        "line": "test    cl, cl"
+      },
+      {
+        "ea": "0x53ca74",
+        "line": "jz      short loc_53CA92"
+      },
+      {
+        "ea": "0x53ca76",
+        "line": "mov     edx, off_58FC30"
+      },
+      {
+        "ea": "0x53ca7c",
+        "line": "movzx   ecx, cl"
+      },
+      {
+        "ea": "0x53ca7f",
+        "line": "test    byte ptr [edx+ecx*2+1], 80h"
+      },
+      {
+        "ea": "0x53ca84",
+        "line": "jz      short loc_53CA87"
+      },
+      {
+        "ea": "0x53ca86",
+        "line": "inc     eax"
+      },
+      {
+        "ea": "0x53ca87",
+        "line": "mov     ecx, [ebp+lpMultiByteStr]"
+      },
+      {
+        "ea": "0x53ca8a",
+        "line": "inc     eax"
+      },
+      {
+        "ea": "0x53ca8b",
+        "line": "dec     [ebp+lpMultiByteStr]"
+      },
+      {
+        "ea": "0x53ca8e",
+        "line": "test    ecx, ecx"
+      },
+      {
+        "ea": "0x53ca90",
+        "line": "jnz     short loc_53CA70"
+      },
+      {
+        "ea": "0x53ca92",
+        "line": "push    edi; cchWideChar"
+      },
+      {
+        "ea": "0x53ca93",
+        "line": "sub     eax, ebx"
+      },
+      {
+        "ea": "0x53ca95",
+        "line": "push    [ebp+lpWideCharStr]; lpWideCharStr"
+      },
+      {
+        "ea": "0x53ca98",
+        "line": "push    eax; cbMultiByte"
+      },
+      {
+        "ea": "0x53ca99",
+        "line": "push    ebx; lpMultiByteStr"
+      },
+      {
+        "ea": "0x53ca9a",
+        "line": "push    1; dwFlags"
+      },
+      {
+        "ea": "0x53ca9c",
+        "line": "push    CodePage; CodePage"
+      },
+      {
+        "ea": "0x53caa2",
+        "line": "call    esi ; MultiByteToWideChar"
+      },
+      {
+        "ea": "0x53caa4",
+        "line": "test    eax, eax"
+      },
+      {
+        "ea": "0x53caa6",
+        "line": "jnz     short loc_53CAD7"
+      },
+      {
+        "ea": "0x53caa8",
+        "line": "jmp     short loc_53CA59"
+      },
+      {
+        "ea": "0x53caaa",
+        "line": "cmp     dword_1086160, esi"
+      },
+      {
+        "ea": "0x53cab0",
+        "line": "jnz     short loc_53CABD"
+      },
+      {
+        "ea": "0x53cab2",
+        "line": "push    [ebp+lpMultiByteStr]; Str"
+      },
+      {
+        "ea": "0x53cab5",
+        "line": "call    _strlen"
+      },
+      {
+        "ea": "0x53caba",
+        "line": "pop     ecx"
+      },
+      {
+        "ea": "0x53cabb",
+        "line": "jmp     short loc_53CAD7"
+      },
+      {
+        "ea": "0x53cabd",
+        "line": "push    esi; cchWideChar"
+      },
+      {
+        "ea": "0x53cabe",
+        "line": "push    esi; lpWideCharStr"
+      },
+      {
+        "ea": "0x53cabf",
+        "line": "push    0FFFFFFFFh; cbMultiByte"
+      },
+      {
+        "ea": "0x53cac1",
+        "line": "push    [ebp+lpMultiByteStr]; lpMultiByteStr"
+      },
+      {
+        "ea": "0x53cac4",
+        "line": "push    9; dwFlags"
+      },
+      {
+        "ea": "0x53cac6",
+        "line": "push    CodePage; CodePage"
+      },
+      {
+        "ea": "0x53cacc",
+        "line": "call    ds:MultiByteToWideChar"
+      },
+      {
+        "ea": "0x53cad2",
+        "line": "cmp     eax, esi"
+      },
+      {
+        "ea": "0x53cad4",
+        "line": "jz      short loc_53CA59"
+      },
+      {
+        "ea": "0x53cad6",
+        "line": "dec     eax"
+      },
+      {
+        "ea": "0x53cad7",
+        "line": "pop     edi"
+      },
+      {
+        "ea": "0x53cad8",
+        "line": "pop     esi"
+      },
+      {
+        "ea": "0x53cad9",
+        "line": "pop     ebx"
+      },
+      {
+        "ea": "0x53cada",
+        "line": "pop     ebp"
+      },
+      {
+        "ea": "0x53cadb",
+        "line": "retn"
+      }
+    ],
+    "inbound": [
+      {
+        "ea": "0x4551a6",
+        "type": 17,
+        "parent": "0x455100",
+        "line": "call    _mbstowcs"
+      }
+    ]
+  },
+  "root_instruction_count": 94,
+  "root_bytes": 255,
+  "paused_consumer": {
+    "entry": "0x455100",
+    "call_site": "0x4551A6",
+    "role": "DirectMusic装载描述符文件名转换",
+    "incoming_parent": "0x454C30",
+    "incoming_site": "0x454EBE",
+    "source_connected": false,
+    "audio_resumed": false
+  },
+  "existing_owners": {
+    "locale": "gLegacyTextLocale1086160.ctypeLocale",
+    "codepage": "gConversionCodePage_1086170，引用同一1086170字段",
+    "classification": "gCtypePointer58FC30",
+    "errno": "gLegacyErrno_1085FE0"
+  },
+  "implementation": {
+    "source": "src/platform/LegacyMultibyte.cpp",
+    "header": "src/platform/LegacyMultibyte.hpp",
+    "symbol": "Mbstowcs_53C9DD",
+    "pointer_width": "本机地址",
+    "count_and_return": "U32",
+    "wide_unit_bytes": 2,
+    "length_call": "0x53CAB5",
+    "failure_result": "0xFFFFFFFF",
+    "failure_errno": 42
+  },
+  "api_branches": {
+    "full": "flags9/sourceSize-1/MaxCount，成功减1",
+    "query": "flags9/sourceSize-1/null0，成功减1",
+    "fallback": "错误122时lead表扫描，flags1/实际字节跨度/MaxCount，成功不减1"
+  },
+  "rereads": [
+    "C locale写W16后重读源当前字节",
+    "各API前重新读代码页",
+    "回退每字符读可变ctype指针",
+    "回退按remaining递减前值续扫"
+  ],
+  "runtime_executed": false,
+  "task_closed": false,
+  "full_gates_promoted": false,
+  "static_validation": {
+    "source": "两源三片段，扣除新增后既有正文保持",
+    "data": "新增父1/长度1/两功能基线/一adapted/三限定E精确转换",
+    "documents": "四限定追加/C12一行",
+    "original_direct_length_list": "24项逐一归属，20真实＋4宿主，无缺/重",
+    "encoding": "13项UTF-8无BOM/LF",
+    "new_markdown_links": 12,
+    "new_evidence_links": 27,
+    "diff": "pass",
+    "measurement": "生成及独立Check通过",
+    "runtime": "未执行",
+    "audio": "暂停/业务父未接"
+  }
+}

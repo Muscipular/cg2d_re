@@ -4099,3 +4099,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [九组十二处实修](cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision)恢复RID同Take flags分派、三效果记录/actor同caster、效果Y与三W8/骑手坐标取样，GMN四入场坐标与linked条件先30F pub/caster条件先member借用。单CPP两根，原固定旧payload/当前角色、三路径与两路径的全部取包/载体/列表/RNG和58保持。
 
 [五区间1198条4711B](cg2d_battle_m_ride_gmn_sampling_evidence.json)十八页170call含三个真实共用尾；GMN内就绪段不重复加总。401EA0一条5B尾跳401EC0，当前单读正确；入口I8零值与正确CopyPayload沿既有证据，不造差异或新身份。旧812仅追加，完整其余目标/owner/SDK/ABI/画面仍待。
+
+## BMM01 道具/连击二十四组取样（2026-10-06）
+
+[二十四组二十七处实修](cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision)恢复ITM目标与消息pub/正反效果/技能零pub条件和当前消息取样，COM序列与就绪两W8、累计值/效果/参与者/两S32图索引和辅助参数、player/165-27/末11-46目标位置寿命。单CPP两根，原正常失败/返回与调用后live消息/flags、重复列表/RID/58及所有其它源头核心保持。
+
+[五区间968条3545B](cg2d_battle_m_item_combo_sampling_evidence.json)十五页119call及四态四W32/16B表纳管，三个共用尾分列，表地址不作代码目标。24非技能消息头已按既有分组纳管有界基线，仍不代完整技能0/17298父与SEH/owner/SDK/ABI/画面。

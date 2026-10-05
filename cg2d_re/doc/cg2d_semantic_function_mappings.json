@@ -97016,7 +97016,7 @@
     {
       "original_entry": "0x427470",
       "inventory_id": "F:00027470",
-      "status": "既有战斗M头表查找与一索引提示真实格式已接；其他依赖及完整战斗/运行未验；BMG01入口/失活耗尽/延迟条件与共享计时四片段实修、有界恢复回存纳管；完整父/owner运行未验；BMH01六数据消息有界五取样差异与现代字段读取落码，完整父/owner运行未验；BMI01六转场/宠物目标七取样差异八处修复纳管，完整父/owner运行未验；BMJ01六装备/状态目标四取样差异七处及接线注释修复纳管，完整父/owner运行未验；BMK01位置交换/怪物目标九取样差异九处修复纳管，完整父/owner运行未验；BML01骑乘/群体两目标九组取样差异十二处修复纳管，完整父/owner运行未验",
+      "status": "既有战斗M头表查找与一索引提示真实格式已接；其他依赖及完整战斗/运行未验；BMG01入口/失活耗尽/延迟条件与共享计时四片段实修、有界恢复回存纳管；完整父/owner运行未验；BMH01六数据消息有界五取样差异与现代字段读取落码，完整父/owner运行未验；BMI01六转场/宠物目标七取样差异八处修复纳管，完整父/owner运行未验；BMJ01六装备/状态目标四取样差异七处及接线注释修复纳管，完整父/owner运行未验；BMK01位置交换/怪物目标九取样差异九处修复纳管，完整父/owner运行未验；BML01骑乘/群体两目标九组取样差异十二处修复纳管，完整父/owner运行未验；BMM01道具/连击目标二十四组取样差异二十七处修复纳管，完整技能父/owner运行未验",
       "original_end_exclusive": "0x437AD3",
       "instruction_count": 17298,
       "original_direct_reference_count": 1,
@@ -97038,9 +97038,11 @@
             "ProcessBattleMPositionHeader",
             "ProcessBattleMMonsterHeader",
             "ProcessBattleMRideHeader",
-            "ProcessBattleMGmnHeader"
+            "ProcessBattleMGmnHeader",
+            "ProcessBattleMItemHeader",
+            "ProcessBattleMComboHeader"
           ],
-          "relationship": "BMG01同一既有父有界入口/失活/延迟和恢复回存纳管；三根四片段跨两CPP，非完整17298条或所有消息目标验收，helper不独立注册。；BMH01真实ProcessBattleMDataHeader六消息/共用完成尾五取样差异与现代字段读取接入，旧段/入口/恢复回存历史及所有其它目标保持，非完整父验收。；BMI01同一ProcessBattleMTransitionHeader六目标/三共用尾七正常取样差异八处修复，保所有列表、seed/Rand和借用/就绪/Finish→回存；仅有界合同，不代全父。；BMJ01真实ProcessBattleMStatusHeader六装备/状态目标及三共用尾四正常取样差异七处修复；唯一“仍待接入”更正为已有调用/回存但完整战斗另验，所有其它目标和历史保持。；BMK01真实ProcessBattleMPositionHeader/ProcessBattleMMonsterHeader两个主目标与三个共用尾九取样差异九处修复，固定旧槽与当前槽/重复附件、失败返回/工厂发布及固定payload/四载体/列表与58保持，所有其它目标和历史保持。；BML01真实ProcessBattleMRideHeader/ProcessBattleMGmnHeader及三个共用尾九组取样差异十二处，固定旧payload/当前对象与正确尾跳/载体核心、各取包RNG/失败返回/列表和58保持，所有其它目标/历史保持。"
+          "relationship": "BMG01同一既有父有界入口/失活/延迟和恢复回存纳管；三根四片段跨两CPP，非完整17298条或所有消息目标验收，helper不独立注册。；BMH01真实ProcessBattleMDataHeader六消息/共用完成尾五取样差异与现代字段读取接入，旧段/入口/恢复回存历史及所有其它目标保持，非完整父验收。；BMI01同一ProcessBattleMTransitionHeader六目标/三共用尾七正常取样差异八处修复，保所有列表、seed/Rand和借用/就绪/Finish→回存；仅有界合同，不代全父。；BMJ01真实ProcessBattleMStatusHeader六装备/状态目标及三共用尾四正常取样差异七处修复；唯一“仍待接入”更正为已有调用/回存但完整战斗另验，所有其它目标和历史保持。；BMK01真实ProcessBattleMPositionHeader/ProcessBattleMMonsterHeader两个主目标与三个共用尾九取样差异九处修复，固定旧槽与当前槽/重复附件、失败返回/工厂发布及固定payload/四载体/列表与58保持，所有其它目标和历史保持。；BML01真实ProcessBattleMRideHeader/ProcessBattleMGmnHeader及三个共用尾九组取样差异十二处，固定旧payload/当前对象与正确尾跳/载体核心、各取包RNG/失败返回/列表和58保持，所有其它目标/历史保持。；BMM01真实ProcessBattleMItemHeader/ProcessBattleMComboHeader及三个共用尾二十四组二十七处，四态表实际目标/间接表地址区别、所有不同正常失败/取包列表/调用后live读取与RID/58保持，其他目标和历史保持。"
         },
         {
           "path": "src/world/SceneState.cpp",
@@ -97126,10 +97128,15 @@
         "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
         "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-acceptance",
         "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
-        "doc/cg2d_battle_m_ride_gmn_sampling_evidence.json"
+        "doc/cg2d_battle_m_ride_gmn_sampling_evidence.json",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-baseline",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-acceptance",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state",
+        "doc/cg2d_battle_m_item_combo_sampling_evidence.json"
       ],
-      "verification_level": "父17298条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行 本次仅读27格式邻指令、一个新ASCII含NUL格式、43390F原call与5A3A18/调试先后及真实源码两层调用链、一标识符静态核对，余17271条/原callback绑定及其他目标不重验，未执行。；BMG01四有界区间312条1201B七页与25槽100B/真实data绑定，四内联计时重合段去重、两CPP三根四片段/所有头与其它正文保持有限静态；17298仅包括两chunk的父统计，不称完整父原指令/SDK/SEH/ABI或运行已验；BMH01六数据块和共用完成尾329条1314B九页/63call，五CopyPayload点沿既有9条27B正确合同保持；Yobi五片段/缓存引用承载/头声明七处有限静态，所有其它源码/原读取消费者保持。不据此验17298全父/SDK/SEH/ABI或运行；BMI01九区间448条1743B十二页/60call含三共用尾与真实分支闭合，单根七逻辑八处/其它所有源和头保持有限静态；不以此验全部17298父/SDK/SEH/ABI/资源owner或画面运行；BMJ01九区间643条2575B十四页/89call与三共用推进/就绪/完成尾，单根四逻辑七处和唯一过期注释有限静态；原live mode/固定旧payload与当前槽/Queued任意非零substate及所有其它源码声明保持。不据此验全17298父/SDK/SEH/ABI/资源owner或画面；BMK01五区间647条2787B十二页61call含两个主目标和三个实际共用尾，单CPP两根九处指定差异及旧槽/重复附件/固定payload/四载体/列表与58取样有限静态；不以此验完整17298父/SDK/SEH/ABI/owner/画面；BML01五区间1198条4711B十八页170call及正确401EA0一条5B尾跳/入口W8零初始化、单CPP两根九组十一补丁定义十二处和正确载体核心保持有限静态；不以此验17298全父/SDK/SEH/ABI/资源owner/画面",
-      "boundary": "原42761D失活块在DrainInactiveBattleMEvent，真实入口经PrepareBattleMExecution调用；辅助函数不独立绑定。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 本次仅ProcessBattleMSkill32Family的43390F真实格式接口：技能2013、S32索引原采样/既有64B未清output/调试串输出在结果flags gate前。当前入口经ProcessBattleMSkillHeader的真实源码链保持，不造helper原地址；本次不证明原完整目的容量、不改M解析/目标/RNG/回调或424620待决值，不将单格式与旧查找接线算完整父/CRT运行通过。 BMG01追加入口253条942B和公共尾35条170B、两外部计时内联24条89B的有界合同：S32失活头、命中聊天条件和延迟零条件先发布、共享timer同remaining负条件先发布恢复；两256B原未清字符串/NUL边界、失配不第二次减、每轮live5C、15项恢复/13项回存且9C/A0不回存、完整25case正确正文保持。只有四处消费同共享timer，无独立原callee/F/X或新owner；不增adapted/完整成员、保护/异常模型或新零写，不覆盖旧查找/格式历史。 BMH01追加六数据case12/13/14/17/23/24与42AAFE共用完成尾有界合同，恢复FP/变身actor存在条件先caster发布、Chat加载后caster→lifetime→角色、DX base→角色图号W32→S16高度、400门禁先technique发布而1000比较仍发布后。新const S32&读取接口只借字段，在render边界内固定native表，不增原F/X或暴露底层对象/owner；原CHT A4两pub后live复读、四载体构造/逐字段copy/析构、两装备轮及骑乘和End Finish后scene7保持。既有CopyPayload9条及原弃返回合同不改，不引保护/异常模型或全父验收。 BMI01追加Escape/Clear/Support/PetNotice/PetLeave/PetDown和三共用尾有界合同，恢复两actor条件先caster pub、Escape先caster读再resultFlags pub及末玩家比较先角色借用、255条件先caster pub、Support FDC W8门禁、PetLeave X角色→点→载荷及Y角色/载荷→点的不同顺序。原seed同解析position/两Rand(0,19)、所有动作列表/字段/live角色复读/就绪参数/Finish和58增量及父回存保持；非拥有T*借用不跨Rand缓存，不增原F/X/保护/owner/注册或异常模型，完整其它消息和运行门禁仍待。 BMJ01追加装备6/状态值9/Debuff10/Power11/复活19/队列20及三共用尾有界合同，恢复三actor条件先caster pub、技能等级caster→actor→technique→payload/pub、两resultFlags W8门禁、Rebirth flags→target取样。原模式3/4 Append80后live mode重读、Debuff先旧payload借用再取state/type和当前角色判断、Power正常1/3、Queued任何非零substate就绪/peek busy-phase不耗包、所有列表/RID/58/父回存保持；原正常零mode标签仍raw，不新业务或排除/异常模型。仅更正具名接线注释，不增F/X/分类/成员/owner/保护或新零写，完整门禁仍待。 BMK01追加POS4/MON5及三个共用完成/增量尾有界合同；恢复POS哨兵比较先caster pub、玩家比较先moving借用、两方坐标与payload的各次原取样，MON actor条件先caster pub、target caster/actor后defender再payload、效果caster的分支寿命及defender先actor、失败W8与Reset后才重读位置、工厂固定槽与同位置。旧槽T**、非对称重复新附件重绑、工厂结果含null先pub后固定对象/payload、四CryptInt构造逐字段copy析构、正常W32/W16/零写/列表和58及父回存保持；不新F/X/分类/成员/保护/owner或异常模型，完整门禁仍待。 BML01追加RID22/GMN21及三个实际就绪/Move/增量尾有界合同；恢复RID同Take resultFlags局部、三效果同caster用于actor/记录、空payload效果Y点索引→effect→点值、三FDC W8门禁、骑手坐标caster→rider→source actor；GMN entrance2四坐标点索引先current actor/payload、linked条件先W8 field30F pub、caster条件先member借用。固定旧payload/载体两非拥有T*及16B非地址部分、RID三路径/四rider copy与十二构造析构、GMN mode0读palette一次/非零五载体/原entrance初始化与单Rand/MarkDeath和工厂先pub、正确401EA0尾跳401EC0/逐字段CopyPayload核心、正常零写/列表/5ABA7C/58和父回存保持；不新身份/分类/成员/owner/保护或异常模型，完整门禁待。",
+      "verification_level": "父17298条统计，只读查找/循环相邻28条、真实参数/引用类型/25项原头与当前表；整份源码七标识符、核心/头保持及两合同追加/JSON限定增量静态核对，不重验其余父正文/调用方，未构建或执行 本次仅读27格式邻指令、一个新ASCII含NUL格式、43390F原call与5A3A18/调试先后及真实源码两层调用链、一标识符静态核对，余17271条/原callback绑定及其他目标不重验，未执行。；BMG01四有界区间312条1201B七页与25槽100B/真实data绑定，四内联计时重合段去重、两CPP三根四片段/所有头与其它正文保持有限静态；17298仅包括两chunk的父统计，不称完整父原指令/SDK/SEH/ABI或运行已验；BMH01六数据块和共用完成尾329条1314B九页/63call，五CopyPayload点沿既有9条27B正确合同保持；Yobi五片段/缓存引用承载/头声明七处有限静态，所有其它源码/原读取消费者保持。不据此验17298全父/SDK/SEH/ABI或运行；BMI01九区间448条1743B十二页/60call含三共用尾与真实分支闭合，单根七逻辑八处/其它所有源和头保持有限静态；不以此验全部17298父/SDK/SEH/ABI/资源owner或画面运行；BMJ01九区间643条2575B十四页/89call与三共用推进/就绪/完成尾，单根四逻辑七处和唯一过期注释有限静态；原live mode/固定旧payload与当前槽/Queued任意非零substate及所有其它源码声明保持。不据此验全17298父/SDK/SEH/ABI/资源owner或画面；BMK01五区间647条2787B十二页61call含两个主目标和三个实际共用尾，单CPP两根九处指定差异及旧槽/重复附件/固定payload/四载体/列表与58取样有限静态；不以此验完整17298父/SDK/SEH/ABI/owner/画面；BML01五区间1198条4711B十八页170call及正确401EA0一条5B尾跳/入口W8零初始化、单CPP两根九组十一补丁定义十二处和正确载体核心保持有限静态；不以此验17298全父/SDK/SEH/ABI/资源owner/画面；BMM01五区间968条3545B十五页119call/四态表四W32-16B、两根二十四组二十七处及原正常失败/列表/调用后live取样保持有限静态；间接表不作代码目标，不以此验17298父/SDK/SEH/ABI/owner/画面",
+      "boundary": "原42761D失活块在DrainInactiveBattleMEvent，真实入口经PrepareBattleMExecution调用；辅助函数不独立绑定。本步仅M头表查找交真实53BE40；4B header/25项3B旧头顺序/首次命中或失配及现有游标/计数/参与者/动作/音效/RNG/owner/生命周期逐字保持。整份YobiRuntime仅七标识符替换、核心与声明不改，不初始化、转码、加保护或触碰424620待批var_50；其他依赖/数据生产/完整战斗/跨板块运行验收仍待，音频/加解密不恢复。 本次仅ProcessBattleMSkill32Family的43390F真实格式接口：技能2013、S32索引原采样/既有64B未清output/调试串输出在结果flags gate前。当前入口经ProcessBattleMSkillHeader的真实源码链保持，不造helper原地址；本次不证明原完整目的容量、不改M解析/目标/RNG/回调或424620待决值，不将单格式与旧查找接线算完整父/CRT运行通过。 BMG01追加入口253条942B和公共尾35条170B、两外部计时内联24条89B的有界合同：S32失活头、命中聊天条件和延迟零条件先发布、共享timer同remaining负条件先发布恢复；两256B原未清字符串/NUL边界、失配不第二次减、每轮live5C、15项恢复/13项回存且9C/A0不回存、完整25case正确正文保持。只有四处消费同共享timer，无独立原callee/F/X或新owner；不增adapted/完整成员、保护/异常模型或新零写，不覆盖旧查找/格式历史。 BMH01追加六数据case12/13/14/17/23/24与42AAFE共用完成尾有界合同，恢复FP/变身actor存在条件先caster发布、Chat加载后caster→lifetime→角色、DX base→角色图号W32→S16高度、400门禁先technique发布而1000比较仍发布后。新const S32&读取接口只借字段，在render边界内固定native表，不增原F/X或暴露底层对象/owner；原CHT A4两pub后live复读、四载体构造/逐字段copy/析构、两装备轮及骑乘和End Finish后scene7保持。既有CopyPayload9条及原弃返回合同不改，不引保护/异常模型或全父验收。 BMI01追加Escape/Clear/Support/PetNotice/PetLeave/PetDown和三共用尾有界合同，恢复两actor条件先caster pub、Escape先caster读再resultFlags pub及末玩家比较先角色借用、255条件先caster pub、Support FDC W8门禁、PetLeave X角色→点→载荷及Y角色/载荷→点的不同顺序。原seed同解析position/两Rand(0,19)、所有动作列表/字段/live角色复读/就绪参数/Finish和58增量及父回存保持；非拥有T*借用不跨Rand缓存，不增原F/X/保护/owner/注册或异常模型，完整其它消息和运行门禁仍待。 BMJ01追加装备6/状态值9/Debuff10/Power11/复活19/队列20及三共用尾有界合同，恢复三actor条件先caster pub、技能等级caster→actor→technique→payload/pub、两resultFlags W8门禁、Rebirth flags→target取样。原模式3/4 Append80后live mode重读、Debuff先旧payload借用再取state/type和当前角色判断、Power正常1/3、Queued任何非零substate就绪/peek busy-phase不耗包、所有列表/RID/58/父回存保持；原正常零mode标签仍raw，不新业务或排除/异常模型。仅更正具名接线注释，不增F/X/分类/成员/owner/保护或新零写，完整门禁仍待。 BMK01追加POS4/MON5及三个共用完成/增量尾有界合同；恢复POS哨兵比较先caster pub、玩家比较先moving借用、两方坐标与payload的各次原取样，MON actor条件先caster pub、target caster/actor后defender再payload、效果caster的分支寿命及defender先actor、失败W8与Reset后才重读位置、工厂固定槽与同位置。旧槽T**、非对称重复新附件重绑、工厂结果含null先pub后固定对象/payload、四CryptInt构造逐字段copy析构、正常W32/W16/零写/列表和58及父回存保持；不新F/X/分类/成员/保护/owner或异常模型，完整门禁仍待。 BML01追加RID22/GMN21及三个实际就绪/Move/增量尾有界合同；恢复RID同Take resultFlags局部、三效果同caster用于actor/记录、空payload效果Y点索引→effect→点值、三FDC W8门禁、骑手坐标caster→rider→source actor；GMN entrance2四坐标点索引先current actor/payload、linked条件先W8 field30F pub、caster条件先member借用。固定旧payload/载体两非拥有T*及16B非地址部分、RID三路径/四rider copy与十二构造析构、GMN mode0读palette一次/非零五载体/原entrance初始化与单Rand/MarkDeath和工厂先pub、正确401EA0尾跳401EC0/逐字段CopyPayload核心、正常零写/列表/5ABA7C/58和父回存保持；不新身份/分类/成员/owner/保护或异常模型，完整门禁待。 BMM01追加ITM7/COM8及三个实际共用尾；恢复ITM两target条件先pub、mode6 target先消息pub及正反效果参数、mode0 caster/target先消息pub/kind条件先技能零pub/actor先当前消息值再payload；COM序列lastValue先count W8/就绪FDC W8、caster条件先pub、同累计值pub/效果、caster-target-actor/参与者count先caster、两S32图索引/辅助参数原序、三player门禁和两不同165/27取样、末11/46目标位置跨分支寿命及调用后先target再flags。各模式/四state正常失败与返回、重复列表、图数组和未补空amount默认、原零写/核心/RID/58与父回存保持；24非技能头已分组有界纳管但全技能0/SEH及所有owner/消费者运行仍待，不增身份/分类/成员/保护或异常模型。 同解析位置用于pub和actor查找，ITM初始caster/两target及COM初始target/caster不在pub后额外重读全局。",
       "callback_address_evidence": [
         {
           "reference_site": "0x43B63D",
@@ -97710,6 +97717,110 @@
         "behavioral_difference_count": 9,
         "source_patch_count": 11,
         "source_replaced_span_count": 12,
+        "source_roots": 2,
+        "full_runtime_verified": false
+      },
+      "battle_m_item_combo_sampling": {
+        "spec_id": "BMM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-baseline",
+          "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision",
+          "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-acceptance",
+          "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state",
+          "doc/cg2d_battle_m_item_combo_sampling_evidence.json"
+        ],
+        "parent_entry": "0x427470",
+        "parent_instruction_count_including_chunks": 17298,
+        "full_original_parent_body_reviewed": false,
+        "original_regions": [
+          {
+            "case": 7,
+            "start": "0x4369f9",
+            "end_exclusive": "0x436fd8",
+            "parent_entry": "0x427470",
+            "instruction_count": 391,
+            "code_bytes": 1503,
+            "page_count": 5
+          },
+          {
+            "case": 8,
+            "start": "0x42781e",
+            "end_exclusive": "0x427f98",
+            "parent_entry": "0x427470",
+            "instruction_count": 542,
+            "code_bytes": 1914,
+            "page_count": 7,
+            "indirect_switch": {
+              "ea": "0x42782e",
+              "jumps": "0x437b38",
+              "count": 4,
+              "width": 4,
+              "lowcase": 0,
+              "default": "0x437a29",
+              "bytes": "35784200c77e4200ea7e42005a7f4200",
+              "entries": [
+                {
+                  "case": 0,
+                  "slot": "0x437b38",
+                  "target": "0x427835"
+                },
+                {
+                  "case": 1,
+                  "slot": "0x437b3c",
+                  "target": "0x427ec7"
+                },
+                {
+                  "case": 2,
+                  "slot": "0x437b40",
+                  "target": "0x427eea"
+                },
+                {
+                  "case": 3,
+                  "slot": "0x437b44",
+                  "target": "0x427f5a"
+                }
+              ]
+            }
+          },
+          {
+            "start": "0x436feb",
+            "end_exclusive": "0x43701f",
+            "meaning": "ITM mode0就绪尾：ready0/406260/Finish",
+            "parent_entry": "0x427470",
+            "instruction_count": 14,
+            "code_bytes": 52
+          },
+          {
+            "start": "0x43710f",
+            "end_exclusive": "0x437144",
+            "meaning": "ITM mode6就绪尾：ready0/406260/Finish",
+            "parent_entry": "0x427470",
+            "instruction_count": 14,
+            "code_bytes": 53
+          },
+          {
+            "start": "0x42aaf5",
+            "end_exclusive": "0x42ab0c",
+            "parent_entry": "0x427470",
+            "instruction_count": 7,
+            "code_bytes": 23
+          }
+        ],
+        "unique_reviewed_instruction_count": 968,
+        "unique_reviewed_code_bytes": 3545,
+        "instruction_page_count": 15,
+        "outgoing_call_site_count": 119,
+        "case_numbers": [
+          7,
+          8
+        ],
+        "direct_substate_switch_slots": 4,
+        "direct_substate_switch_bytes": 16,
+        "indirect_table_address_is_not_code_target": true,
+        "source_body_changed": true,
+        "behavioral_difference_count": 24,
+        "source_patch_count": 24,
+        "source_replaced_span_count": 27,
         "source_roots": 2,
         "full_runtime_verified": false
       }

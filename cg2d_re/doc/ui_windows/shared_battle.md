@@ -8261,3 +8261,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state)纳管RID22/GMN21、427FA4非零substate就绪/完成、42998C公共Move/58增量、436E0B GMN mode0增量。RID1只ready0→Finish，不加406260；GMN1先20/21 busy==1门禁再ready0→406260→Finish。RID三路径效果与列表保持，GMN mode0不写caster/5ABA7C，非零模式才末写5ABA7C。
 
 [1198条4711B十八页170call](../cg2d_battle_m_ride_gmn_sampling_evidence.json)对应九组十二处实修；保重复58、固定旧payload/当前slot与载体、GMN入口I8和单Rand/读palette副作用/MarkDeath/工厂先pub/成员列表及正确核心。原格式明文/音频暂停与完整运行门禁保留。
+
+## BMM01 ITM/COM模式、子状态及共用尾（2026-10-06）
+
+[有界合同](../cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state)纳管ITM7/COM8及ITM0/6就绪、COM406260/Finish三个尾。ITM0/6/7各不同耗包/哨兵/空角色结束和58保持，mode0空目标Finish后仍公共效果-1/Move/增量；COM四state原真实16B分派表、序列I8参数、参与者/图数组/末RID及58保持，不补空列表amount默认。
+
+[968条3545B十五页119call](../cg2d_battle_m_item_combo_sampling_evidence.json)对应二十四组二十七处修复，特别保调用后live消息/flags和末11后先target再flags、46使用同缓存target。24非技能头有界纳管不代技能头0/全部消费者owner或运行，原格式明文/音频暂停与完整门禁保留。

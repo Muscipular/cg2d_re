@@ -554,3 +554,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-acceptance)：五区间1198条4711B十八页170call、本组原跳转与三个共用尾，九组十一补丁定义十二处/原三W8和取样及其它源头正确核心保持有限静态。正确401EA0一条5B尾跳、入口I8零初始化沿既有合同，不混父分母或造差异；E365→369仅YOBI/BATTLE四局部I/S。
 
 旧812仅追加，不新分类/完整成员，七open/60项已闭10/R7与所有完整门禁保持。完整其余消息/技能/全部列表消费、资源owner/SDK/SEH/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续；文本汇总不代运行或降低标准。
+
+## BMM01 道具/连击局部实现/静态证据（2026-10-06）
+
+[验收标准](cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-acceptance)：五区间968条3545B十五页119call、三个共用尾和实际四态四W32/16B、原直接与间接分派目标闭合，二十四组二十七处/两W8/两S32索引、调用后live读取/末target寿命及其它源头核心保持有限静态。E369→373仅YOBI/BATTLE四局部I/S。
+
+旧812仅追加、不新分类/完整成员，七open任务/60项已闭10/R7及全部完整门禁保持；24非技能头有界基线不代完整技能0/SEH/全部消费者与资源owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体，文本汇总不代运行或降低标准。

@@ -145,3 +145,9 @@
 [九组裁决](../cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision)使RID效果记录与actor索引共用单次caster，三FDC门禁W8、效果Y点索引先当前effect、骑手坐标caster→rider→source；GMN入场点索引先current actor/payload、linked比较先W8 pub与caster比较先member借用。保两原生非拥有T*及16B非地址骑乘载体、固定旧payload/之后当前角色及原三路径/两路径。
 
 [两目标与三尾](../cg2d_battle_m_ride_gmn_sampling_evidence.json)1198条4711B只有限合同；RID十二构造/析构和四rider copy、GMN五载体/正确401EA0尾跳/入口I8/单Rand及MarkDeath不立即free、工厂结果先pub、正常零写与各成员消费保持。全部owner重进退出/借用失效、列表消费者和SDK/ABI/画面仍待，不新空保护/默认对象或异常模型。
+
+## BMM01 道具/连击中的当前角色与目标寿命（2026-10-06）
+
+[二十四组裁决](../cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision)恢复target条件/pub、caster/target与actor/payload的取样、参与者count先caster和player比较先同位置actor、循环/末165-27两种原序，COM末11/46跨分支目标位置借用及11调用后target先flags。序列count和就绪FDC均原W8对象字节读取，两图非地址索引S32，不改共享布局/owner或新增保护。
+
+[两主目标/三尾和实际四态表](../cg2d_battle_m_item_combo_sampling_evidence.json)968条3545B仅有限合同。原重复列表、未补empty amount、调用后live消息flags与当前槽重借、RID/58及其它源头正确核心保持；全部资源owner重进退出/借用失效、消费者与SDK/ABI/画面继续。

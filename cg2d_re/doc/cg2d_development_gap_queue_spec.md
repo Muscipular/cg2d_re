@@ -57,3 +57,12 @@ R01/R03/R04与R1/R7/完整SPEC保持open；该工具把证据缺口显式化，�
 已证非函数片段以原X区间/真实边界登记，不自动配函数ID；仍列在快照semantic_without_inventory_id，并单列semantic_code_range_records。
 四片段身份绑定后本类为0；定位登记差集184项、其中需先核81项保持，不能据此称源码/软件缺口归零。
 代码片段、函数、区间用途和完整软件验收分开计数，暂停/排除及既有分母/门禁不变。
+
+
+## MPL01 纯NOP回执与真实定位缺口分开度量（2026-10-05）
+
+[汇总开发合同](cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state)为已证完整五NOP元数据项增加metadata_padding类别和metadata_only范围。
+F:000C48EB仍留在development_gap_queue并保留原库存/分类及本组处置依据，队列总数仍182；没有空源码或新语义映射。
+普通定位未登记182→181、需范围/定位核定79→78，metadata_only_receipt_items=1另列；明细表只列仍需核定的项。
+原暂停0/排除103及全部其他队列记录保持；这些数只描述本队列，不是整个音频/范围/未完成业务分母。
+元数据身份不能当函数实现、功能验收或原范围排除；只有严格分类条件成立才允许该处置，其他未知仍继续推进。

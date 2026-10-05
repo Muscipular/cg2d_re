@@ -1,0 +1,61 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-05",
+  "scope": "MPL01只将已证五NOP原库存条目作metadata_only纳管；不改原范围或分母",
+  "inventory_id": "F:000C48EB",
+  "original": {
+    "start": "0x4c48eb",
+    "end": "0x4c48f0",
+    "chunks": [
+      [
+        4999403,
+        4999408
+      ]
+    ],
+    "rows": [
+      [
+        "0x4c48eb",
+        "90",
+        "nop"
+      ],
+      [
+        "0x4c48ec",
+        "90",
+        "nop"
+      ],
+      [
+        "0x4c48ed",
+        "90",
+        "nop"
+      ],
+      [
+        "0x4c48ee",
+        "90",
+        "nop"
+      ],
+      [
+        "0x4c48ef",
+        "90",
+        "nop"
+      ]
+    ],
+    "direct_refs": [],
+    "preceding_return": [
+      "0x4c48e9",
+      "c3",
+      "retn"
+    ],
+    "next_entry": "0x4c48f0"
+  },
+  "classification_reference": "doc/cg2d_function_boundary_classifications.json#/records/2",
+  "metadata_kind": "alignment_padding",
+  "implementation_spec": "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-decision",
+  "verification": {
+    "method": "限定静态",
+    "client_source_changed": false,
+    "original_metadata_changed": false,
+    "scope_changed": false,
+    "software_gate_changed": false,
+    "limits": "只证明五字节完整NOP用途，不以直接xref为空称不可达，不外推相邻入口/全alias/完整运行"
+  }
+}

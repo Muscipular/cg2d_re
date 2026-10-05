@@ -51,8 +51,10 @@ Require ($registry.inventory_expected.functions -eq $inventory.counts.function_c
 Require ($registry.inventory_expected.unassigned_ranges -eq $inventory.unassigned_executable_ranges.Count) '区间分母变化须登记依据'
 
 $functions = @{}
+$originalFunctionById = @{} # MPL01只用于核原元数据范围，不进入源码映射或改变分母。
 foreach ($f in $inventory.functions) {
     Require (-not $functions.ContainsKey($f.id)) "重复原函数ID：$($f.id)"
+    $originalFunctionById[$f.id] = $f
     $functions[$f.id] = [ordered]@{
         id=$f.id; original_entry=('0x{0:X}' -f $f.va); original_name=$f.name
         semantic_indices=@(); pending_indices=@(); direct_snapshot_definitions=@()
@@ -114,9 +116,11 @@ foreach ($r in $direct.records) {
 }
 $classifications = [System.Collections.Generic.List[object]]::new()
 $declaredExcluded=@{}; $declaredMixed=@{}
+$classificationDataByPath=@{} # MPL01处置只可引用本次已纳管的权威边界记录。
 foreach ($ref in $semantic.classification_references) {
     Check-Path $ref.path '分类引用'
     $data = Read-Json $ref.path
+    $classificationDataByPath[$ref.path]=$data
     $classifications.Add([ordered]@{path=$ref.path;record_count=$data.records.Count;scope=$ref.scope})
     for ($i=0; $i -lt $data.records.Count; $i++) {
         $r = $data.records[$i]
@@ -274,10 +278,33 @@ $dispositionIds=@{}
 foreach ($d in @($registry.function_dispositions)) {
     if (-not $d) { continue }
     Require ($functions.ContainsKey($d.inventory_id) -and -not $dispositionIds.ContainsKey($d.inventory_id)) "无效/重复处置ID：$($d.inventory_id)"
-    Require ($d.disposition -in @('equivalent','adapted','host','excluded','mixed','merged')) "$($d.inventory_id) 无效处置"
+    Require ($d.disposition -in @('equivalent','adapted','host','excluded','mixed','merged','metadata_only')) "$($d.inventory_id) 无效处置"
     Require ($d.epoch -eq $registry.epoch -and @($d.evidence_refs).Count -gt 0) "$($d.inventory_id) 处置证据未闭合"
     foreach ($p in $d.evidence_refs) { Check-Path $p $d.inventory_id }
     if ($d.disposition -eq 'excluded') { Require ($declaredExcluded.ContainsKey($d.inventory_id) -and -not $declaredMixed.ContainsKey($d.inventory_id)) "$($d.inventory_id) 不在完整入口具名排除集合" }
+    if ($d.disposition -eq 'metadata_only') {
+        $referenceShape=[string]$d.metadata_reference -match '^(doc/cg2d_function_boundary_classifications\.json)#/records/([0-9]+)$'
+        Require ($referenceShape -and $d.metadata_kind -eq 'alignment_padding' -and $d.evidence_refs -contains $d.metadata_reference) "$($d.inventory_id) 元数据处置缺确切NOP分类引用"
+        Require (-not $declaredExcluded.ContainsKey($d.inventory_id) -and -not $declaredMixed.ContainsKey($d.inventory_id)) "$($d.inventory_id) 元数据处置与具名范围重叠"
+        if ($referenceShape) {
+            $path=$Matches[1]; $index=[int]$Matches[2]
+            $proofAvailable=$classificationDataByPath.ContainsKey($path) -and $index -lt @($classificationDataByPath[$path].records).Count -and $originalFunctionById.ContainsKey($d.inventory_id)
+            Require $proofAvailable "$($d.inventory_id) 元数据分类记录或原库存不存在"
+            if ($proofAvailable) {
+                $r=$classificationDataByPath[$path].records[$index]; $original=$originalFunctionById[$d.inventory_id]
+                $addressShape=$r.original_entry -match '^0x[0-9A-Fa-f]+$' -and $r.original_end -match '^0x[0-9A-Fa-f]+$' -and $r.preceding_return -match '^0x[0-9A-Fa-f]+$' -and $r.next_entry -match '^0x[0-9A-Fa-f]+$'
+                Require ($r.inventory_id -eq $d.inventory_id -and $r.status -eq '已确认五字节NOP填充区间' -and $addressShape) "$($d.inventory_id) 元数据分类身份/用途不符"
+                if ($addressShape) {
+                    $start=[Convert]::ToInt64($r.original_entry.Substring(2),16); $end=[Convert]::ToInt64($r.original_end.Substring(2),16)
+                    $returnAddress=[Convert]::ToInt64($r.preceding_return.Substring(2),16); $nextEntry=[Convert]::ToInt64($r.next_entry.Substring(2),16)
+                    $completePadding=$start -eq $original.va -and $end -eq $original.entry_chunk_end -and @($original.chunks).Count -eq 1 -and $original.chunks[0][0] -eq $start -and $original.chunks[0][1] -eq $end -and ($end-$start) -eq 5 -and @($r.bytes).Count -eq 5 -and @($r.bytes | Where-Object { $_ -ne 144 }).Count -eq 0 -and $returnAddress -lt $start -and $nextEntry -eq $end
+                    Require $completePadding "$($d.inventory_id) 元数据处置未覆盖完整原NOP范围"
+                }
+                $f=$functions[$d.inventory_id]
+                Require ($f.direct_snapshot_definitions.Count -eq 0 -and $f.semantic_indices.Count -eq 0 -and $f.pending_indices.Count -eq 0 -and $f.sources.Count -eq 0) "$($d.inventory_id) 元数据处置不能覆盖源码/语义实现"
+            }
+        }
+    }
     $dispositionIds[$d.inventory_id]=$true
     if ($functions.ContainsKey($d.inventory_id)) { $functions[$d.inventory_id].disposition=$d }
 }
@@ -346,24 +373,29 @@ $gapRows=[System.Collections.Generic.List[object]]::new()
 foreach ($function in $functionRows) {
     if ($function.direct_snapshot_definitions.Count -gt 0 -or $function.semantic_indices.Count -gt 0 -or $function.pending_indices.Count -gt 0 -or $function.sources.Count -gt 0) { continue }
     $memberIds=@($function.feature_memberships | Where-Object { $_ })
+    $kind='mapping_location_unrecorded'
     $scope='included_unassigned'
     $next='先核具名范围、当前源码与原身份，确认真实缺口后开发或迁移'
     if ($declaredExcluded.ContainsKey($function.id)) {
         $scope='excluded'; $next='核具名排除接线，本体保持排除'
     } elseif ($declaredMixed.ContainsKey($function.id)) {
         $scope='mixed'; $next='核保留分支及其实际接线，不整体排除'
+    } elseif ($function.disposition.disposition -eq 'metadata_only') {
+        $kind='metadata_padding'; $scope='metadata_only'; $next='已按完整NOP范围处置；保留原库存/分类依据，不生成空函数，相邻入口及未知alias另跟踪'
     } elseif ($memberIds.Count -gt 0 -and @($memberIds | Where-Object { $featureScopeById[$_] -eq 'paused' }).Count -eq $memberIds.Count) {
         $scope='paused'; $next='保留未闭缺口，恢复本项后继续'
     } elseif ($function.disposition.disposition -eq 'host') {
         $scope='host'; $next='核实际宿主提供者、兼容字段与活动接线'
     }
+    $receiptEvidence=@($function.baseline_documents | Where-Object { $_ })
+    if ($scope -eq 'metadata_only') { $receiptEvidence=Unique (@($receiptEvidence)+@($function.disposition.evidence_refs)) }
     $gapRows.Add([ordered]@{
-        kind='mapping_location_unrecorded';inventory_id=$function.id;original_entry=$function.original_entry;original_name=$function.original_name
+        kind=$kind;inventory_id=$function.id;original_entry=$function.original_entry;original_name=$function.original_name
         scope=$scope;disposition=$function.disposition.disposition;metadata_reference='doc/cg2d_ida_inventory.json'
-        evidence_references=@($function.baseline_documents | Where-Object { $_ });classification_refs=@($function.classification_refs);feature_memberships=$memberIds;next_action=$next
+        evidence_references=@($receiptEvidence);classification_refs=@($function.classification_refs);feature_memberships=$memberIds;next_action=$next
     })
 }
-$locationGapCount=$gapRows.Count
+$locationGapCount=@($gapRows | Where-Object kind -eq 'mapping_location_unrecorded').Count
 foreach ($row in @($semanticWithoutId | Where-Object { $null -eq $_.code_identity })) {
     $candidateIds=@($functionRows | Where-Object original_entry -eq $row.original_entry | ForEach-Object id)
     $next=if ($candidateIds.Count -eq 1) {'核该原函数完整边界/上下文与当前源码，确认后补确切ID'} else {'核代码段、原函数/chunk及未归属区间，保留真实代码身份'}
@@ -372,10 +404,11 @@ foreach ($row in @($semanticWithoutId | Where-Object { $null -eq $_.code_identit
         scope='identity_pending';status=$row.status;metadata_reference=$row.reference;candidate_inventory_ids=$candidateIds;next_action=$next
     })
 }
-$reviewGapCount=@($gapRows | Where-Object { $_.scope -notin @('excluded','paused') }).Count
+$reviewGapCount=@($gapRows | Where-Object { $_.scope -notin @('excluded','paused','metadata_only') }).Count
 $pausedGapCount=@($gapRows | Where-Object scope -eq 'paused').Count
 $excludedGapCount=@($gapRows | Where-Object scope -eq 'excluded').Count
-$gapCounts=[ordered]@{mapping_location_unrecorded=$locationGapCount;semantic_identity_unrecorded=$unboundSemanticCount;total=$gapRows.Count;needs_scope_or_mapping_review=$reviewGapCount;paused_receipt_items=$pausedGapCount;excluded_receipt_items=$excludedGapCount}
+$metadataGapCount=@($gapRows | Where-Object scope -eq 'metadata_only').Count
+$gapCounts=[ordered]@{mapping_location_unrecorded=$locationGapCount;semantic_identity_unrecorded=$unboundSemanticCount;total=$gapRows.Count;needs_scope_or_mapping_review=$reviewGapCount;paused_receipt_items=$pausedGapCount;excluded_receipt_items=$excludedGapCount;metadata_only_receipt_items=$metadataGapCount}
 $metrics=[ordered]@{
     inventory_functions=$functions.Count
     development_gap_counts=$gapCounts
@@ -491,15 +524,16 @@ $lines.Add("| 定位及语义关联均未登记 | $locationGapCount | 历史定�
 $lines.Add("| 语义身份尚未登记 | $unboundSemanticCount | 原语义引用/入口保留；已按原区间绑定的代码记录不混计，候选ID不自动赋值 |")
 $lines.Add("| 需先核范围/定位/身份 | $reviewGapCount | 下方明细；不等于待实现或已允许运行的项数 |")
 $lines.Add("| 已明确暂停 / 具名排除的本队列项 | $pausedGapCount / $excludedGapCount | 全部保留快照；暂停数只限明确成员，不是整个音频分母 |")
+$lines.Add("| 已处置纯NOP元数据项 | $metadataGapCount | 保留原库存/队列身份；不计源码实现或范围排除，不为填充生成空函数 |")
 $lines.Add('')
 $lines.Add('| 类别 | 原ID或语义引用 | 原入口 | 原库存名称 | 范围 | 下一步 |')
 $lines.Add('|---|---|---|---|---|---|')
-foreach ($gap in @($gapRows | Where-Object { $_.scope -notin @('excluded','paused') })) {
+foreach ($gap in @($gapRows | Where-Object { $_.scope -notin @('excluded','paused','metadata_only') })) {
     $identity=if ($gap.inventory_id) { $gap.inventory_id } else { $gap.metadata_reference }
     $lines.Add("| $($gap.kind) | $(Cell $identity) | $($gap.original_entry) | $(Cell $gap.original_name) | $($gap.scope) | $(Cell $gap.next_action) |")
 }
 $lines.Add('')
-$lines.Add('完整范围依据、已有处置及候选ID见快照development_gap_queue；非函数代码绑定见semantic_without_inventory_id。逐项补事实后由汇总器更新，不手改队列，不以此关闭R1/R7或整体验收。')
+$lines.Add('完整范围依据、已有处置及候选ID见快照development_gap_queue；metadata_only纯NOP项单列且保留原库存/队列身份，不计业务实现或范围排除；非函数代码绑定见semantic_without_inventory_id。逐项补事实后由汇总器更新，不手改队列，不以此关闭R1/R7或整体验收。')
 $dashboard=($lines -join [char]10)+[char]10
 $outputs=[ordered]@{'plan/cg2d_traceability_snapshot.json'=$json;'plan/cg2d_measurement_dashboard.md'=$dashboard}
 foreach ($path in $outputs.Keys) {

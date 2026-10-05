@@ -83,7 +83,7 @@ source文件存在不证明符号或行为正确；候选关联和已审成员�
 - 功能目录、数据/间接目标、未归属区间、排除边界四类闭包都有具体证据；未知数为零有依据。
 - 已登记所有范围内叶功能accepted，且域内无尚未拆分的业务路径；暂停未恢复不能豁免。
 - V01–V06及总SPEC§10的全部适用门禁闭合；最终报告同时列原体对照、批准替换/适配、范围排除。
-- function_dispositions逐F ID登记equivalent/adapted/host/excluded/mixed/merged，附epoch/evidence_refs；
+- function_dispositions逐F ID登记equivalent/adapted/host/excluded/mixed/merged/metadata_only，附epoch/evidence_refs；
   auxiliary_dispositions逐I/X ID登记mapped/excluded/merged及当前证据。区间分类可以引用共享的整段证明，但原区间ID仍逐一处置。
 - 不能仅把closure改成closed：必须引用存在的证据文件并给出具体归并/差集结论；人工仍须检查真实性。
 
@@ -154,3 +154,13 @@ GQ01的semantic_identity_unrecorded只统计没有区间绑定的无函数ID记�
 原两混合入口的保留/排除分支不变，父职责保留；新增两mixed/一adapted处置、三语义身份和资源组已知成员，成员集合仍未全闭。
 定位差集减少两项只表示已有源段现在可对照；本组不新增实现/软件证据，不升级完整门禁。
 原第六参非空和1020EC4源的生产/地址/alias仍未闭，不能按没有直接写xref推为不可达或造空producer。
+
+
+## MPL01 纯NOP元数据的独立处置（2026-10-05）
+
+[处置合同](cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state)增加metadata_only，限已纳管边界分类中完整五NOP的原元数据条目。
+metadata_kind须为alignment_padding，metadata_reference须指向分类JSON确切records/N且出现在evidence_refs中。
+汇总器核原ID/入口/末界/唯一chunk、五个90/相邻位置、无已有源/语义映射及无范围重叠；条件不满足则沿既有错误出口拒绝发布派生文件。
+该处置保持原函数库存分母，既不是源码实现/语义映射，也不是用户范围排除或功能accepted。
+队列保留同一身份，记metadata_padding/metadata_only并单列metadata_only_receipt_items；普通定位差集与需核定位数分开统计。
+本组只登记F:000C48EB；其他RET/库/无xref入口或区间不能套用，全部软件门禁和R1/R7/R8保持。

@@ -179,3 +179,12 @@ JSON保留每个W32目标、每段U8原字节、引用指令及对齐原字节�
 不增加函数ID、不修改IDA、不把32B表算入623条指令。
 89B压缩字符分类/转移表的读取方式另见[输出核心合同](cg2d_stdio_contract.md#格式化输出核心与fprintf链2026-10-02)。
 父核心的n、精度、宽串失败与浮点初始化差异仍未闭合，不因表归属确认而计完整格式化通过。
+
+
+## MPL01 F:000C48EB的当前R1处置（2026-10-05）
+
+[独立元数据处置](cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state)与[本组原基线](cg2d_metadata_padding_disposition_evidence.json)把既有records/2的五NOP用途纳入metadata_only。
+原库存F:000C48EB/4C48EB..4C48F0及唯一chunk保持；已开IDA只读确认五个90、前4C48E9的C3/RET、后4C48F0真实入口。
+登记含确切分类指针和alignment_padding类型，汇总器对完整范围/五字节/无源映射等条件作严格核定。
+不修改原分类JSON、IDA或3680分母，不为其造空函数、附业务源码或按无xref称不可达。
+同一条队列身份独立计数；原其他边界、相邻真实入口、共享RET及未知alias/运行均不由本项收口。

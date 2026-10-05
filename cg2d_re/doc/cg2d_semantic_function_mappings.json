@@ -90629,7 +90629,7 @@
     {
       "original_entry": "0x4631D0",
       "inventory_id": "F:000631D0",
-      "status": "既有创建页三数值格式及两真实名称查找已接；入口gate/完整创建与画面运行未验",
+      "status": "既有创建页三数值格式及两真实名称查找已接；入口gate/完整创建与画面运行未验 HSC01当前FDA6F8确认写入/同源消费已有，P08显式gate=1已源级落位；完整创建/SDK/运行仍未验。",
       "original_end_exclusive": "0x46428D",
       "instruction_count": 1146,
       "original_direct_reference_count": 1,
@@ -90732,10 +90732,13 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_character_select_scene.md"
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_source_gap_status_evidence.json",
+        "doc/cg2d_creation_and_module_adaptation_evidence.md"
       ],
       "verification_level": "完整父边界/1146指令统计/唯一入向及共同显示尾83条取证，三格式点/三个表达式与七动态显示、S8→S32/唯一格式/即刻绘制及整份源码/JSON限定差异静态核对；仅三格式，不重验其余创建本体/消费者内部，未执行；本步1146统计/23查找邻读取、两实际call/两原needle含NUL字节/唯一入向、整份源码限定两标识符和已有头静态核对，余1123条及入口gate不重验或批准",
-      "boundary": "同一32B未清局部的全部三格式改接真实53B304，原%02d/CreationSignedByte S32参数保持。中间五轮重读4B低字节与独立第五槽，原连续五字节别名、每轮格式/绘制及两端数值时点保持，不扩大字段或取无符号参数。原编辑/按钮/确认/输入/预览/元素与两背景、返回S32正文不改；只核新增显示格式接线，不放行4626A0待决入口gate、不记创建流程或画面运行已验收。 本步两个name查找接真实53BE40，单字节空格/8140字节及短路后404060检查保持；整份CharacterSelectScene仅两标识符/已有公开头，复制/cursor NUL及其他全部正文不变。",
+      "boundary": "同一32B未清局部的全部三格式改接真实53B304，原%02d/CreationSignedByte S32参数保持。中间五轮重读4B低字节与独立第五槽，原连续五字节别名、每轮格式/绘制及两端数值时点保持，不扩大字段或取无符号参数。原编辑/按钮/确认/输入/预览/元素与两背景、返回S32正文不改；只核新增显示格式接线，不放行4626A0待决入口gate、不记创建流程或画面运行已验收。 本步两个name查找接真实53BE40，单字节空格/8140字节及短路后404060检查保持；整份CharacterSelectScene仅两标识符/已有公开头，复制/cursor NUL及其他全部正文不变。 HSC01现行状态：原463B91 W32写0至FDA6F8/519A3C W32读与现有共享S32一致，4631D0确认分支已有该写入。P08的WorldUpdate显式gate=1已落码，先前“待决入口gate”只属历史时点，以当前创建入口静态证据为准；不据此评完整创建、所有上游/生命周期/ABI或运行通过。",
       "search_byte_evidence": [
         {
           "call_site": "0x4638B2",

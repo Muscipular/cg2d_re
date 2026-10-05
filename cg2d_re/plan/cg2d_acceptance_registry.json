@@ -12109,7 +12109,8 @@
         "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
-        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure"
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
       ]
     },
     {
@@ -12124,7 +12125,8 @@
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
-        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure"
+        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
       ]
     },
     {
@@ -12191,7 +12193,8 @@
       "evidence_refs": [
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
-        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state"
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
       ]
     },
     {
@@ -12209,7 +12212,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
-        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state"
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
       ]
     },
     {
@@ -12220,6 +12224,14 @@
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
+      ]
+    },
+    {
+      "task_id": "U09",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state"
       ]
     }
   ],

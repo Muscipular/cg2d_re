@@ -857,7 +857,7 @@ std::uint32_t __cdecl Sub_46BD20(
 std::int32_t __cdecl Sub_50C8D0(
     std::int32_t x, std::int32_t y,
     const char* text); // 原 [0x50C8D0,0x50C8F5)，透传 zA 请求返回。
-extern std::int32_t gValueFDA6F8; // 5199A0读取、4631D0待接写入；不是联系人索引的一过尾元素。
+extern std::int32_t gValueFDA6F8; // 4631D0确认已写、5199A0同源W32读取；不是联系人索引的一过尾元素。
 void Sub_5199A0(); // 六块同源重置及设置/称号/配方恢复；唯一caller不消费原残留EAX。
 std::int32_t Sub_444FA0(std::int32_t objectIndex); // 原编号查槽，命中更新查找游标。
 login::YobiAction* FindObjectYobi_4462B0(std::int32_t objectIndex); // 复用原查槽后借用action。

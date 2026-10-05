@@ -1,0 +1,200 @@
+{
+  "schema_version": 1,
+  "recorded_on": "2026-10-05",
+  "scope": "HSC01四个过时缺口标记与一当前语义说明，原会话只读",
+  "original_entry_references": [
+    {
+      "entry": "0x50ec50",
+      "inbound": [
+        {
+          "ea": "0x513f93",
+          "type": 17,
+          "parent": "0x512e40",
+          "text": "call    sub_50EC50"
+        }
+      ]
+    },
+    {
+      "entry": "0x4631d0",
+      "inbound": [
+        {
+          "ea": "0x462770",
+          "type": 17,
+          "parent": "0x4626a0",
+          "text": "call    sub_4631D0"
+        }
+      ]
+    }
+  ],
+  "original_scalar_references": {
+    "address": "0xFDA6F8",
+    "references": [
+      {
+        "ea": "0x463b91",
+        "type": 2,
+        "parent": "0x4631d0",
+        "raw": "c705f8a6fd0000000000",
+        "text": "mov     dword_FDA6F8, 0",
+        "ops": [
+          {
+            "type": 2,
+            "dtype": 2,
+            "value": "0x0",
+            "addr": "0xfda6f8"
+          },
+          {
+            "type": 5,
+            "dtype": 2,
+            "value": "0x0",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x4eb477",
+        "type": 1,
+        "parent": "0x4eb1c0",
+        "raw": "81fef8a6fd00",
+        "text": "cmp     esi, offset dword_FDA6F8",
+        "ops": [
+          {
+            "type": 1,
+            "dtype": 2,
+            "value": "0x0",
+            "addr": "0x0"
+          },
+          {
+            "type": 5,
+            "dtype": 2,
+            "value": "0xfda6f8",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x4ec1ad",
+        "type": 1,
+        "parent": "0x4ec1a0",
+        "raw": "3df8a6fd00",
+        "text": "cmp     eax, offset dword_FDA6F8",
+        "ops": [
+          {
+            "type": 1,
+            "dtype": 2,
+            "value": "0x0",
+            "addr": "0x0"
+          },
+          {
+            "type": 5,
+            "dtype": 2,
+            "value": "0xfda6f8",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x518dfc",
+        "type": 1,
+        "parent": "0x518da0",
+        "raw": "81fff8a6fd00",
+        "text": "cmp     edi, offset dword_FDA6F8",
+        "ops": [
+          {
+            "type": 1,
+            "dtype": 2,
+            "value": "0x0",
+            "addr": "0x0"
+          },
+          {
+            "type": 5,
+            "dtype": 2,
+            "value": "0xfda6f8",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x518f5a",
+        "type": 1,
+        "parent": "0x518f00",
+        "raw": "81fef8a6fd00",
+        "text": "cmp     esi, offset dword_FDA6F8",
+        "ops": [
+          {
+            "type": 1,
+            "dtype": 2,
+            "value": "0x0",
+            "addr": "0x0"
+          },
+          {
+            "type": 5,
+            "dtype": 2,
+            "value": "0xfda6f8",
+            "addr": "0x0"
+          }
+        ]
+      },
+      {
+        "ea": "0x519a3c",
+        "type": 3,
+        "parent": "0x5199a0",
+        "raw": "8b0df8a6fd00",
+        "text": "mov     ecx, dword_FDA6F8",
+        "ops": [
+          {
+            "type": 1,
+            "dtype": 2,
+            "value": "0x0",
+            "addr": "0x0"
+          },
+          {
+            "type": 2,
+            "dtype": 2,
+            "value": "0x0",
+            "addr": "0xfda6f8"
+          }
+        ]
+      }
+    ]
+  },
+  "current_source_evidence": [
+    {
+      "path": "src/network/NetworkRuntime.cpp",
+      "symbols": [
+        "UpdateOrderedRecordBatch_50EC50"
+      ],
+      "detail": "TryDispatchReply<login::detail::UpdateOrderedRecordBatch_50EC50, T>(head, \"yuD\", socket)"
+    },
+    {
+      "path": "src/YobiRuntime.cpp",
+      "symbols": [
+        "Sub_43F330",
+        "Sub_43F520",
+        "Sub_43FEB0",
+        "Sub_440070",
+        "Sub_442F70"
+      ],
+      "detail": "两个callback赋值、三已存在定义及实体尾调用；未重审完整回调/生命周期"
+    },
+    {
+      "path": "src/CharacterSelectScene.cpp",
+      "symbols": [
+        "Sub_4631D0"
+      ],
+      "detail": "world::detail::gValueFDA6F8 = 0"
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbols": [
+        "Sub_5199A0"
+      ],
+      "detail": "读取同源S32并写player.value104；唯一S32存储已有"
+    }
+  ],
+  "verification": {
+    "method": "限定静态",
+    "body_changed": false,
+    "layout_changed": false,
+    "limits": "仅状态说明一致性；全部父/数据/alias/生命周期/SDK/ABI/原格式往返与运行未验"
+  }
+}

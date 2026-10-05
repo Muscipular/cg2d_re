@@ -90,7 +90,7 @@ YobiAction* Sub_4ACE80(
 
 // 三种地图角色生产者共用的 x64 payload 分配，不改变通用 404AE0 的尺寸合同。
 YobiAction* NewMapCharaAction();
-// 原43F330/43FEB0：观察链两种生产者，绑定43F520/440070；回调本体待实现。
+// 原43F330/43FEB0：观察链两种生产者，43F520/440070绑定及正文已有，完整寿命/运行未验。
 YobiAction* Sub_43F330(
     std::int32_t imageNo, std::int32_t mapX, std::int32_t mapY,
     std::int32_t direction, std::int32_t value170);
@@ -102,7 +102,7 @@ void Sub_4408C0(
     YobiAction* action, std::int32_t first, std::int32_t second,
     std::int32_t third, std::int32_t fourth, std::int32_t fifth);
 
-// 原441DB0：独立载荷、四次坐标赋值/投影；4417E0已有本体，挂件尾442F70仍待实现。
+// 原441DB0：独立载荷、四次坐标赋值/投影；4417E0与实体尾442F70正文已有，完整链/运行未验。
 YobiAction* Sub_441DB0(
     std::int32_t imageNo, std::int32_t mapX,
     std::int32_t mapY, std::int32_t direction);

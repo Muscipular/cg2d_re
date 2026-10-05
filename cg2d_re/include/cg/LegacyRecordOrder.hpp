@@ -63,7 +63,7 @@ std::int32_t ParseOrderedRecord_50EF70(std::int32_t index, const char* text);
 std::uintptr_t UpdateOrderedRecords_50EEB0(
     std::uint32_t ignored0, std::uint32_t ignored1, const char* text);
 // 原 50EC50：重置并按序解析最多 200 组，重算计数后清理所选角色的失配公会邮件。
-// 返回门禁 W32、零或表末 key 游标；第一参数不读取，网络派发尚待接入。
+// 返回门禁W32、零或表末key游标；第一参数不读取，yuD派发已接，完整业务/运行未验。
 std::uintptr_t UpdateOrderedRecordBatch_50EC50(
     std::uintptr_t ignoredSocket, const char* text);
 // 原 5195C0：仅查找 +8 W16 为 1 且 +0xC 与 key 相等的首条索引。

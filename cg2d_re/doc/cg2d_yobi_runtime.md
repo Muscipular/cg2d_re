@@ -4153,3 +4153,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [四处实修](cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-decision)恢复解析target255比较先pub/同位置actor空门禁，首次效果沿解析target后live caster-actor，两字段各target-actor-skill或level-payload。288/22404/168、80/83/68/81/56各次live和循环保持；255或空Finish break均走效果终结-Move-RID-增58，不将失败改return。
 
 [主体与两个实际尾98条405B](cg2d_battle_m_skill98_mode6_sampling_evidence.json)三页12call/全部直接目标闭合，26条114B原mode比较链与202B SKL表仅入口上下文；准备/wrapper/正确尾helper保持，其它各mode和完整父/owner/SDK/SEH/ABI/画面继续。
+
+## BMX01 技能98 mode7/8十八处取样（2026-10-06）
+
+[十八处实修](cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-decision)恢复mode7目标与当前位置/caster比较原序、固定oldSlot/moving、八坐标/initialOther字段和三附件路径各次取样；mode8解析目标/首次效果、flagsFDC低W8与Reset固定目标。原非对称门禁/槽交换、210或205/各动作和phase34、255或空Finish后仍终结-Move-RID-增58保持。
+
+[五范围341条1410B](cg2d_battle_m_skill98_mode7_8_sampling_evidence.json)七页23call直接目标闭合；其中BMW两尾22条82B沿现证据非新增，两个选择比较五条22B和SKL202B表仅入口。其它模式/完整98与所有owner/SDK/SEH/ABI/画面继续。

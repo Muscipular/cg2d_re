@@ -608,3 +608,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-acceptance)：三范围98条405B三页12call/全部直接目标闭合；26条114B原比较链及202B表仅入口。整CPP单根四处、目标比较pub/同位置空门禁-解析目标效果/两字段actor先值，单Take循环-五动作-原常数及255或空Finish均终结-Move-RID-增58，正确尾helper及其它正文/头保持有限静态。E401→405仅YOBI/BATTLE四局部I/S。
 
 旧812仅追加，不新分类/完整成员；七open/60项已闭10/R7及全部完整门禁保持。其它mode/完整98、其它技能-全路由/完整父-SEH/所有消费者-owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续，不降低标准。
+
+## BMX01 技能98 mode7/8局部实现与静态证据（2026-10-06）
+
+[验收标准](cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-acceptance)：五范围341条1410B七页23call/全部直接目标闭合，两个选择比较五条22B与202B表仅入口；整CPP两根十八处、目标/位置/八坐标-三附件路径与mode8低W8/同位置Reset、原固定与live/非对称门禁-含null槽交换及255或空Finish后的RID状态有限静态。正确尾helper/其它正文和头保持，BMW两尾22条82B与当前证据一致不称新增；E405→409仅YOBI/BATTLE四局部I/S。
+
+旧812有界追加，七open/60项已闭10/R7及全部完整门禁保持。其它98模式/技能-全路由/完整父-SEH/所有消费者-owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续，不降低标准。

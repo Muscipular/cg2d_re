@@ -8315,3 +8315,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state)纳管mode6四处；目标先比较255再pub，同解析target用于空门禁及首次4393A0，效果调用后字段和五次动作另借live目标。255或空Finish仍走终结(-1,0,0)、Move/RID/固定scene58递增，正确共用尾保持。
 
 [三范围98条405B三页12call](../cg2d_battle_m_skill98_mode6_sampling_evidence.json)含42D68D失败/终结参数尾与42EB02实际消费尾，26条114B比较链不计主体/不代其它mode覆盖。其它模式及所有owner/完整运行门禁继续，原格式明文/音频暂停保持。
+
+## BMX01 98换位与列表重置（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state)纳管mode7十五处、mode8三处。moving和oldSlot跨效果/换位保持固定，source-replacement-pub target-pub两槽原序及含null写保持；caster判空却重绑当前target gear/两aux、旧槽rider/gear与phase34条件不对称化。mode8 W8测试2后Reset沿该次目标，后GetPet/live目标比较与可选-2/223保持。
+
+[341条1410B七页23call](../cg2d_battle_m_skill98_mode7_8_sampling_evidence.json)两个主体/三个尾，255或空Finish均终结-Move-RID-增58；两既有尾不重复称新增，两模式选择比较只作入口。其它mode和完整运行门禁继续，原格式明文/音频暂停保持。

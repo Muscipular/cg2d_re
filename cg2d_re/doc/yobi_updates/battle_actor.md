@@ -199,3 +199,9 @@
 [四组裁决](../cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-decision)恢复同解析target/255比较先pub、首次效果沿解析target而后live caster-actor；两字段各次live target→actor→技能或level→payload，不复用空门禁actor。288/22404/168和五动作重新借live目标；空Finish后仍走原尾，不新caster保护/owner或异常模型。
 
 [主体与两个实际尾](../cg2d_battle_m_skill98_mode6_sampling_evidence.json)98条405B三页12call纳管；其它98模式及全部actor owner重进退出/借用失效、SDK/ABI/画面继续。
+
+## BMX01 mode7/8固定槽与各次字段借用（2026-10-06）
+
+[十八组裁决](../cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-decision)恢复mode7八坐标的position-index-actor/payload-point次序、initialOther payload先live target以及当前rider/gear/两aux指针链和值共用同一次target。native非拥有oldSlot地址和moving跨首次效果/换位固定，后其它字段/附件各次live重借，原不对称空门禁/parent重绑与槽发布保持。mode8 flags对象低W8、Reset用该次target，不新owner/立即释放/null保护。
+
+[完整有界两个主体与三个尾](../cg2d_battle_m_skill98_mode7_8_sampling_evidence.json)341条1410B七页23call，BMW既有两尾22条82B非新增；其它模式/所有actor owner重进退出借用失效、SDK/ABI/画面继续。

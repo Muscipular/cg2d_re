@@ -61,3 +61,9 @@
 [原1136条4251B/十五页及31范围](../cg2d_battle_ride_transition_sampling_evidence.json)、90call/唯一405562普通call父404DB0与真实case224可追。31源片段修来源/目标、同对象坐标/运动基Y和同点表参数、两个计数阶段、预推进每轮field58一次、槽消费及恢复回调；原16载体encoded/mask/count序、三清理/一次恢复helper、全部其它字段/失败/早退保持。
 
 [本次验收](../cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-acceptance)分列旧209条732B/新增927条3519B，已有F/index1321仅追加依据。三父本体有限原静态差集0后仍需所有其它动作/实参/数据资源生产消费及owner/SDK/ABI/PC53/时钟RNG/画面证据，不升完整门禁或引guard/free/RNG/回绕模拟。
+
+## BEV01 事件创建与队列推进当前基线（2026-10-06）
+
+[五完整110条362B/指令原字节及全部入向](../cg2d_battle_event_production_sampling_evidence.json)纳管4383B0/43B610两个工厂和439340/439380/439470三个推进根。439340先判next>=200再pubFC4、-1写236；439380只按当前索引取值pubphase；439470先pubC9C+1再判position==-1返回1/0，各null规则保持，不追加200/-1统一处理。
+
+[本次三处修复](../cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision)还落实两工厂flags取样/发布时点；原B4仅B0已证T*拓宽、22动态mask/调用后slot发布/wait-group及实际失败/返回不改。439call188父是引用元数据，完整其它动作/数据资源、共享owner和运行沿[验收](../cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance)继续。

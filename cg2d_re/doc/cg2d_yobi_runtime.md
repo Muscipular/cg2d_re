@@ -4015,3 +4015,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [31源差异裁决](cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision)修各字段/16载体的来源目标取样、五距离/四朝向参数、四点表同索引、两位置/运动基Y与不同计数门禁、五清槽借用/转移priority和当前position、预推进每轮field58一次及两恢复callback。原CopyPayload/两个helper、全部跨调用复读/失败/早退和尾序保持。
 
 [完整1136条4251B](cg2d_battle_ride_transition_sampling_evidence.json)十五页指令原字节/90call/唯一父、旧209条732B与新增927条3519B分列。已有index1321/F:00014050补当前完整依据；三退场父本体有限静态差集0，所有其它动作/数据资源与owner/SDK/ABI/PC53/时钟RNG/画面仍待。
+
+## BEV01 场景/事件工厂与推进叶（2026-10-06）
+
+[三处差异裁决](cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision)修事件flags先OR再取payload、场景callback后先OR再image pub和439340的200完成判定先于FC4pub。另439380/439470正确正文保持，各null/计数/哨兵和真实返回分工不统一；两工厂原分配失败、22动态mask初始化后slot重取发布/wait-group序保持。
+
+[五完整110条362B](cg2d_battle_event_production_sampling_evidence.json)及439普通入向/188父、3出向可追，五已有公开来源和4383F0/43B360真实父接线纳管；只是引用元数据，不验188父完整正文/流程。五F同YOBI/BATTLE不双计，完整其它动作/数据资源和owner/SDK/ABI/PC53/时钟RNG/画面仍待。

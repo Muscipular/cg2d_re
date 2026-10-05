@@ -149852,6 +149852,256 @@
         "offset_gate_after_counter_publication": true,
         "full_runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x43b610",
+      "inventory_id": "F:0003B610",
+      "status": "BEV01工厂/动作推进取样实修、原完整根纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x43b6bb",
+      "instruction_count": 53,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleEvent_43B610"
+          ],
+          "relationship": "入口flags先OR2再payload取样/同flags发布；原22动态mask/初始化、调用后eventSlot重取发布、wait/group和实际工厂失败返回保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleEvent_43B610"
+          ],
+          "relationship": "五已有公开声明保持，不暴露私有载荷/新owner或ABI布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_event_production_sampling_evidence.json"
+      ],
+      "verification_level": "BEV01五完整110条362B/439普通入向188父和3出向、三源片段精确重放及五原完整指令字节/入向全集有限静态；不验全部188父/其它动作/实参/数据资源与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "入口flags先OR2再payload取样/同flags发布；原22动态mask/初始化、调用后eventSlot重取发布、wait/group和实际工厂失败返回保持。 原分配/null/返回和S32/U32/原生非拥有T*保持，不加guard/钳制/补零/free/RNG/回绕或故障模拟；网络原格式明文与音频暂停。",
+      "battle_event_production_sampling": {
+        "spec_id": "BEV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+          "doc/cg2d_battle_event_production_sampling_evidence.json"
+        ],
+        "original_entry": "0x43b610",
+        "original_instruction_count": 53,
+        "original_code_bytes": 171,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4383b0",
+      "inventory_id": "F:000383B0",
+      "status": "BEV01工厂/动作推进取样实修、原完整根纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x4383ec",
+      "instruction_count": 15,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleScene_4383B0"
+          ],
+          "relationship": "callback发布后先OR2再image0/flags发布、之后payload/A8全位；原分配失败和实际返回、4383F0共享发布保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleScene_4383B0"
+          ],
+          "relationship": "五已有公开声明保持，不暴露私有载荷/新owner或ABI布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_event_production_sampling_evidence.json"
+      ],
+      "verification_level": "BEV01五完整110条362B/439普通入向188父和3出向、三源片段精确重放及五原完整指令字节/入向全集有限静态；不验全部188父/其它动作/实参/数据资源与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "callback发布后先OR2再image0/flags发布、之后payload/A8全位；原分配失败和实际返回、4383F0共享发布保持。 原分配/null/返回和S32/U32/原生非拥有T*保持，不加guard/钳制/补零/free/RNG/回绕或故障模拟；网络原格式明文与音频暂停。",
+      "battle_event_production_sampling": {
+        "spec_id": "BEV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+          "doc/cg2d_battle_event_production_sampling_evidence.json"
+        ],
+        "original_entry": "0x4383b0",
+        "original_instruction_count": 15,
+        "original_code_bytes": 60,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x439340",
+      "inventory_id": "F:00039340",
+      "status": "BEV01工厂/动作推进取样实修、原完整根纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x439378",
+      "instruction_count": 16,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AdvanceBattleCastState_439340"
+          ],
+          "relationship": "正常S32 FC4+1先保存signed>=200判定再pubFC4；按同判定/原-1哨兵写phase236或真实队列值，不钳制索引。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "AdvanceBattleCastState_439340"
+          ],
+          "relationship": "五已有公开声明保持，不暴露私有载荷/新owner或ABI布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_event_production_sampling_evidence.json"
+      ],
+      "verification_level": "BEV01五完整110条362B/439普通入向188父和3出向、三源片段精确重放及五原完整指令字节/入向全集有限静态；不验全部188父/其它动作/实参/数据资源与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "正常S32 FC4+1先保存signed>=200判定再pubFC4；按同判定/原-1哨兵写phase236或真实队列值，不钳制索引。 原分配/null/返回和S32/U32/原生非拥有T*保持，不加guard/钳制/补零/free/RNG/回绕或故障模拟；网络原格式明文与音频暂停。",
+      "battle_event_production_sampling": {
+        "spec_id": "BEV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+          "doc/cg2d_battle_event_production_sampling_evidence.json"
+        ],
+        "original_entry": "0x439340",
+        "original_instruction_count": 16,
+        "original_code_bytes": 56,
+        "incoming_reference_count": 304,
+        "incoming_parent_count": 180,
+        "source_body_changed": true,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x439380",
+      "inventory_id": "F:00039380",
+      "status": "BEV01既有正确推进叶正文保持、原完整根纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x43939c",
+      "instruction_count": 8,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "MoveBattleCastState_439380"
+          ],
+          "relationship": "既有正确正文保持：null返回，入口payload/当前FC4/同队列读取后phasepub，不推进或添加200/-1处理。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "MoveBattleCastState_439380"
+          ],
+          "relationship": "五已有公开声明保持，不暴露私有载荷/新owner或ABI布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_event_production_sampling_evidence.json"
+      ],
+      "verification_level": "BEV01五完整110条362B/439普通入向188父和3出向、三源片段精确重放及五原完整指令字节/入向全集有限静态；不验全部188父/其它动作/实参/数据资源与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确正文保持：null返回，入口payload/当前FC4/同队列读取后phasepub，不推进或添加200/-1处理。 原分配/null/返回和S32/U32/原生非拥有T*保持，不加guard/钳制/补零/free/RNG/回绕或故障模拟；网络原格式明文与音频暂停。",
+      "battle_event_production_sampling": {
+        "spec_id": "BEV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+          "doc/cg2d_battle_event_production_sampling_evidence.json"
+        ],
+        "original_entry": "0x439380",
+        "original_instruction_count": 8,
+        "original_code_bytes": 28,
+        "incoming_reference_count": 60,
+        "incoming_parent_count": 11,
+        "source_body_changed": false,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x439470",
+      "inventory_id": "F:00039470",
+      "status": "BEV01既有正确推进叶正文保持、原完整根纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x43949f",
+      "instruction_count": 18,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AdvanceBattleEffect_439470"
+          ],
+          "relationship": "既有正确正文保持：null返回0，C9C+1先pub，再用同next读取position==-1返回真实1/0，不统一到439340或添加保护。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "AdvanceBattleEffect_439470"
+          ],
+          "relationship": "五已有公开声明保持，不暴露私有载荷/新owner或ABI布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_event_production_sampling_evidence.json"
+      ],
+      "verification_level": "BEV01五完整110条362B/439普通入向188父和3出向、三源片段精确重放及五原完整指令字节/入向全集有限静态；不验全部188父/其它动作/实参/数据资源与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行",
+      "boundary": "既有正确正文保持：null返回0，C9C+1先pub，再用同next读取position==-1返回真实1/0，不统一到439340或添加保护。 原分配/null/返回和S32/U32/原生非拥有T*保持，不加guard/钳制/补零/free/RNG/回绕或故障模拟；网络原格式明文与音频暂停。",
+      "battle_event_production_sampling": {
+        "spec_id": "BEV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
+          "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+          "doc/cg2d_battle_event_production_sampling_evidence.json"
+        ],
+        "original_entry": "0x439470",
+        "original_instruction_count": 18,
+        "original_code_bytes": 47,
+        "incoming_reference_count": 73,
+        "incoming_parent_count": 43,
+        "source_body_changed": false,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
     }
   ]
 }

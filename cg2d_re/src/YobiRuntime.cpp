@@ -20305,9 +20305,9 @@ YobiAction* NewBattleEvent_43B610(
     if (scene == nullptr) {
         return nullptr;
     }
-    const std::uint32_t flags = scene->flags;
+    const std::uint32_t flags = scene->flags | 2U;
     auto* const payload = static_cast<BattleScenePayload*>(scene->payload);
-    scene->flags = flags | 2U;
+    scene->flags = flags;
     scene->callback = UpdateBattleEvent_427470;
     scene->imageNo = 0;
     scene->phase = kind;
@@ -20335,8 +20335,9 @@ YobiAction* NewBattleScene_4383B0()
     }
     const std::uint32_t flags = scene->flags;
     scene->callback = DispatchBattleEvents_43B360;
+    const std::uint32_t updatedFlags = flags | 2U;
     scene->imageNo = 0;
-    scene->flags = flags | 2U;
+    scene->flags = updatedFlags;
     static_cast<BattleScenePayload*>(scene->payload)->entryMaskA8 = 0xFFFFFFFFU;
     return scene;
 }
@@ -27666,8 +27667,9 @@ void AdvanceBattleCastState_439340(YobiAction* const action)
     }
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     const std::int32_t next = payload->castPlayIndexFC4 + 1;
+    const bool completed = next >= 200;
     payload->castPlayIndexFC4 = next;
-    if (next >= 200) {
+    if (completed) {
         action->phase = 236;
     } else {
         const std::int32_t state = payload->castListCA4[next];

@@ -2333,3 +2333,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [当前基线](cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline)与[原指令字节](cg2d_battle_ride_transition_sampling_evidence.json)在已有index1321/F:00014050追加1136条4251B/90call/唯一父及31源片段；BAR01历史局部字段保留，battle_ride_transition_sampling及当前文字追加表示本次完整根，不造helper原身份。
 
 旧209条732B/新增927条3519B分列，三父本体有限静态差集0；语义1324/有效ID1319、disposition426、YOBI25/BATTLE22/代码片段5/LOOP31/R7区间67/队列保持。E305→309仅双域四局部I/S，不以差集0代完整其它动作/数据/owner/SDK/ABI/PC53/时钟RNG/画面运行。
+
+## BEV01 两工厂/三推进五原身份（2026-10-06）
+
+[原完整根](cg2d_battle_event_production_sampling_evidence.json)和[当前来源](cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state)新增五F、每根≤80条，合110条362B/439普通入向188父及3出向；三根三源片段实修，两个正确推进叶与五声明/两当前父保持。
+
+语义1324→1329/有效ID1319→1324、adapted426→431，代码片段5保持；YOBI25→30/BATTLE22→27同五F不双计，E309→313仅共用局部I/S。LOOP31/R7区间67/队列及全部完整门禁保持，不以188父引用全集称所有父/其它动作/数据资源与owner/SDK/ABI/PC53/时钟RNG/画面已验。

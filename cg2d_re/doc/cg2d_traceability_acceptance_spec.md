@@ -470,3 +470,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [可度量验收](cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-acceptance)核十五页1136条4251B指令原字节/90调用/唯一父与31源片段，来源/目标/同表行/同对象、预推进一次取样及两不同计数门禁和原失败/早退可核。旧209条732B/新增927条3519B及三父本体有限差集0分列，不外推运行等价。
 
 已有F:00014050/index1321及adapted/双域只追加依据，四局部I/S令E305→309，所有计数/成员与完整门禁保持；七任务、R1/R7/R8/整体open。所有其它动作/数据资源及owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/实际画面继续。
+
+## BEV01 场景事件生产和推进有限I/S（2026-10-06）
+
+[可度量验收](cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance)核五原110条362B的实际字节/边界、439普通call188父和3出向及三根三片段精确重放；各flags OR/pub、动态mask/初始化后slot发布及不同null/计数/哨兵/返回分工可追。
+
+五新F/五adapted与双域同成员同步，E309→313四局部I/S共用同组三片段/原证据，不能据188父引用当父正文或完整流程；全部其它字段/完整门禁及七任务、R1/R7/R8/整体open，所有其它动作/数据资源和owner/SDK/ABI/PC53/时钟RNG/画面继续。

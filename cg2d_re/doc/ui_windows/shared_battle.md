@@ -8177,3 +8177,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [源状态](../cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state)落实31片段，保留flags非零初建/移动/合体转位与零路径点表归位/预推进/双角色恢复。非零oldTime门禁在pub前、frameY门禁在pub后；零oldTime和offset门禁在pub前，原失败/早退/帧尾保持，不沿226/227统一模板。
 
 [原完整根](../cg2d_battle_ride_transition_sampling_evidence.json)1136条4251B/90call，16载体为原内联三写序；四点表参数对各用同一索引Y后X，预推进每轮一次计数读取/消费后重取。旧209条732B/新增927条3519B不双计；三父本体差集0不等完整战斗、数据/owner或运行验收，U08/U09和完整门禁open。
+
+## BEV01 真实场景/事件生产与推进分工（2026-10-06）
+
+[当前源状态](../cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state)沿4383F0发布4383B0实际节点、4383B0绑定43B360、43B360四参创建43B610事件并成功后推进槽，43B610绑定完整427470。三个取样片段已修；每位置动态读mask/初始化结束才读eventSlot发布、两个工厂失败及各推进null/计数/哨兵不改，不造新事件框架。
+
+[五原完整根](../cg2d_battle_event_production_sampling_evidence.json)110条362B、439普通call188父与3出向分列；事件及场景两个当前父正文保持，不以全部引用或既有场景源码推完整父/流程验收。U08/U09和完整门禁保持open，所有其它动作/实参、数据资源/owner及SDK/ABI/PC53/时钟RNG/画面继续。

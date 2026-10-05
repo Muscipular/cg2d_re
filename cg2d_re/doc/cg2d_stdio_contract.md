@@ -4303,3 +4303,13 @@ FILE重取、fseek/fsetpos/fgetpos完整0、scratch条件/state/erase、原四�
 SDK分桶/尾零/容量/失败策略适配，不声称原私有calloc体等价。
 已知表只allocate/clear/借用，动态FILE项Malloc/Free保持；
 全表未知alias/free/完整启动退出及SDK正常失败运行不据此关闭。
+
+## STP01 流缓冲表指针类型收敛（2026-10-05）
+
+[合同](cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure)与
+[原表证据](cg2d_stream_table_pointer_evidence.json)保四表52槽/208B、12原赋表引用。
+实际窄55000C/54FFD4、宽5500A8/550070表及13字段接口已有，旧表/方法算法不重写。
+virtualTable从const void*改对应const方法表指针，内部头四块、streambuf六/filebuf两/ios两读取去强转。
+仍为同一非拥有地址槽，保存/逐次重读、表内容与赋表、FILE/locale/游标别名和业务次序保持。
+96B缓冲/104B基类/152B filebuf与104B表的既有布局断言保持，未编译核ABI。
+本步不提供codecvt/facet非空生产或完整表，C03/C05/R02仍open；全活动流/owner/SDK/运行待。

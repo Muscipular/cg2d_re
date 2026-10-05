@@ -748,15 +748,13 @@ namespace {
 
 std::int32_t SynchronizeOutputBuffer(LegacyNarrowStreamBufferObject* const buffer)
 {
-    const auto* const methods = reinterpret_cast<const LegacyNarrowStreamBufferMethods*>(
-        buffer->buffer.virtualTable);
+    const auto* const methods = buffer->buffer.virtualTable;
     return methods->sync(buffer);
 }
 
 std::int32_t SynchronizeOutputBuffer(LegacyWideStreamBufferObject* const buffer)
 {
-    const auto* const methods = reinterpret_cast<const LegacyWideStreamBufferMethods*>(
-        buffer->buffer.virtualTable);
+    const auto* const methods = buffer->buffer.virtualTable;
     return methods->sync(buffer);
 }
 

@@ -1,0 +1,207 @@
+{
+  "schema_version": 1,
+  "group": "STP01",
+  "recorded_on": "2026-10-05",
+  "spec": "doc/cg2d_stream_table_pointer_spec.md",
+  "implementation_reference": "Git固定命名快照 cg2d-re-stream-table-pointer-source-20261005",
+  "authority": {
+    "instance": "ida-17524",
+    "binary": "cg2d.exe",
+    "imagebase": "0x400000",
+    "method": "当前原会话MCP只读，四实际表原字节/目标和直接赋表引用；未改动/重载/导出数据库"
+  },
+  "original_tables": [
+    {
+      "entry": "0x0055000C",
+      "bytes": "318d5400bf865400bf8654007f975400c5865400c9865400e68654005a875400b7985400ee985400259954007f975400d0875400",
+      "targets": [
+        "0x00548D31",
+        "0x005486BF",
+        "0x005486BF",
+        "0x0054977F",
+        "0x005486C5",
+        "0x005486C9",
+        "0x005486E6",
+        "0x0054875A",
+        "0x005498B7",
+        "0x005498EE",
+        "0x00549925",
+        "0x0054977F",
+        "0x005487D0"
+      ],
+      "references": [
+        {
+          "from": "0x0054861D",
+          "type": 1,
+          "parent": "0x005485FE",
+          "line": "mov     dword ptr [esi], offset ??_7?$basic_streambuf@DU?$char_traits@D@std@@@std@@6B@; const std::streambuf::`vftable'"
+        },
+        {
+          "from": "0x005486B1",
+          "type": 1,
+          "parent": "0x005486B1",
+          "line": "mov     dword ptr [ecx], offset ??_7?$basic_streambuf@DU?$char_traits@D@std@@@std@@6B@; const std::streambuf::`vftable'"
+        },
+        {
+          "from": "0x0054882A",
+          "type": 1,
+          "parent": "0x005487DE",
+          "line": "mov     dword ptr [esi], offset ??_7?$basic_streambuf@DU?$char_traits@D@std@@@std@@6B@; const std::streambuf::`vftable'"
+        }
+      ]
+    },
+    {
+      "entry": "0x0054FFD4",
+      "bytes": "4d8d540043885400798954007f975400268a5400538a5400e68654005a875400688b5400ea8b5400ac8c5400139d5400d0875400",
+      "targets": [
+        "0x00548D4D",
+        "0x00548843",
+        "0x00548979",
+        "0x0054977F",
+        "0x00548A26",
+        "0x00548A53",
+        "0x005486E6",
+        "0x0054875A",
+        "0x00548B68",
+        "0x00548BEA",
+        "0x00548CAC",
+        "0x00549D13",
+        "0x005487D0"
+      ],
+      "references": [
+        {
+          "from": "0x00548642",
+          "type": 1,
+          "parent": "0x005485FE",
+          "line": "mov     dword ptr [esi], offset ??_7?$basic_filebuf@DU?$char_traits@D@std@@@std@@6B@; const std::filebuf::`vftable'"
+        },
+        {
+          "from": "0x005487D5",
+          "type": 1,
+          "parent": "0x005487D3",
+          "line": "mov     dword ptr [eax], offset ??_7?$basic_filebuf@DU?$char_traits@D@std@@@std@@6B@; const std::filebuf::`vftable'"
+        },
+        {
+          "from": "0x005487F0",
+          "type": 1,
+          "parent": "0x005487DE",
+          "line": "mov     dword ptr [esi], offset ??_7?$basic_filebuf@DU?$char_traits@D@std@@@std@@6B@; const std::filebuf::`vftable'"
+        }
+      ]
+    },
+    {
+      "entry": "0x005500A8",
+      "bytes": "869d540078975400789754007f9754008297540087975400a89754002f985400b7985400ee985400259954007f975400d0875400",
+      "targets": [
+        "0x00549D86",
+        "0x00549778",
+        "0x00549778",
+        "0x0054977F",
+        "0x00549782",
+        "0x00549787",
+        "0x005497A8",
+        "0x0054982F",
+        "0x005498B7",
+        "0x005498EE",
+        "0x00549925",
+        "0x0054977F",
+        "0x005487D0"
+      ],
+      "references": [
+        {
+          "from": "0x00549729",
+          "type": 1,
+          "parent": "0x0054970A",
+          "line": "mov     dword ptr [esi], offset ??_7?$basic_streambuf@GU?$char_traits@G@std@@@std@@6B@; const std::basic_streambuf<ushort>::`vftable'"
+        },
+        {
+          "from": "0x0054976A",
+          "type": 1,
+          "parent": "0x0054976A",
+          "line": "mov     dword ptr [ecx], offset ??_7?$basic_streambuf@GU?$char_traits@G@std@@@std@@6B@; const std::basic_streambuf<ushort>::`vftable'"
+        },
+        {
+          "from": "0x00549981",
+          "type": 1,
+          "parent": "0x00549935",
+          "line": "mov     dword ptr [esi], offset ??_7?$basic_streambuf@GU?$char_traits@G@std@@@std@@6B@; const std::basic_streambuf<ushort>::`vftable'"
+        }
+      ]
+    },
+    {
+      "entry": "0x00550070",
+      "bytes": "a29d54009a995400e29a54007f975400999b5400c79b5400a89754002f985400688b5400ea8b5400e59c5400139d5400d0875400",
+      "targets": [
+        "0x00549DA2",
+        "0x0054999A",
+        "0x00549AE2",
+        "0x0054977F",
+        "0x00549B99",
+        "0x00549BC7",
+        "0x005497A8",
+        "0x0054982F",
+        "0x00548B68",
+        "0x00548BEA",
+        "0x00549CE5",
+        "0x00549D13",
+        "0x005487D0"
+      ],
+      "references": [
+        {
+          "from": "0x0054974E",
+          "type": 1,
+          "parent": "0x0054970A",
+          "line": "mov     dword ptr [esi], offset ??_7?$basic_filebuf@GU?$char_traits@G@std@@@std@@6B@; const std::basic_filebuf<ushort>::`vftable'"
+        },
+        {
+          "from": "0x0054992C",
+          "type": 1,
+          "parent": "0x0054992A",
+          "line": "mov     dword ptr [eax], offset ??_7?$basic_filebuf@GU?$char_traits@G@std@@@std@@6B@; const std::basic_filebuf<ushort>::`vftable'"
+        },
+        {
+          "from": "0x00549947",
+          "type": 1,
+          "parent": "0x00549935",
+          "line": "mov     dword ptr [esi], offset ??_7?$basic_filebuf@GU?$char_traits@G@std@@@std@@6B@; const std::basic_filebuf<ushort>::`vftable'"
+        }
+      ]
+    }
+  ],
+  "source_contract": {
+    "previous_field": "const void* virtualTable",
+    "current_field": "const LegacyStreamBufferMethods<Character>* virtualTable",
+    "character_types": [
+      "char",
+      "std::uint16_t"
+    ],
+    "narrow_methods": "LegacyNarrowStreamBufferMethods",
+    "wide_methods": "LegacyWideStreamBufferMethods",
+    "existing_table_bodies_unchanged": true,
+    "source_files": [
+      "cg2d_re/src/platform/LegacyStreamBuffer.hpp",
+      "cg2d_re/src/platform/LegacyStreamBuffer.cpp",
+      "cg2d_re/src/platform/LegacyFileBuffer.cpp",
+      "cg2d_re/src/platform/LegacyIos.cpp"
+    ],
+    "header_fragments": 4,
+    "cast_reads_replaced": 10,
+    "consumer_reads": {
+      "streambuf": 6,
+      "filebuf": 2,
+      "ios_sync": 2
+    },
+    "table_publish_sites_preserved": 12,
+    "read_timing_changed": false,
+    "new_owner": false
+  },
+  "scope": {
+    "new_original_functions": 0,
+    "original_method_bodies_reverified": false,
+    "codecvt_producer_verified": false,
+    "full_owners_closed": false,
+    "actual_abi_verified": false,
+    "runtime_verified": false,
+    "focus": "仅已知streambuf/filebuf表指针的类型擦除及十处读取缺口"
+  }
+}

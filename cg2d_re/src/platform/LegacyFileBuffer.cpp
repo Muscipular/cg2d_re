@@ -298,8 +298,7 @@ std::int32_t PeekLegacyNarrowFileBuffer_548A26(LegacyNarrowFileBuffer* const sto
             return static_cast<std::uint8_t>(*current);
         }
     }
-    const auto* const savedMethods = static_cast<const LegacyNarrowStreamBufferMethods*>(
-        storage->base.buffer.virtualTable);
+    const auto* const savedMethods = storage->base.buffer.virtualTable;
     const std::int32_t character = savedMethods->uflow(&storage->base);
     // 原即使EOF也调同一保存表的pbackfail，不重取表或省略回推副作用。
     return savedMethods->pbackfail(&storage->base, character);
@@ -314,8 +313,7 @@ std::uint16_t PeekLegacyWideFileBuffer_549B99(LegacyWideFileBuffer* const storag
             return *current;
         }
     }
-    const auto* const savedMethods = static_cast<const LegacyWideStreamBufferMethods*>(
-        storage->base.buffer.virtualTable);
+    const auto* const savedMethods = storage->base.buffer.virtualTable;
     const std::uint16_t character = savedMethods->uflow(&storage->base);
     return savedMethods->pbackfail(&storage->base, character);
 }

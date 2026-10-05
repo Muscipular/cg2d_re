@@ -246,8 +246,7 @@ LegacyWideStreamBufferObject* DeleteLegacyWideStreamBuffer_549D86(
 std::int32_t ConsumeLegacyNarrowStreamBuffer_5486C9(
     LegacyNarrowStreamBufferObject* const storage)
 {
-    const auto* const methods = static_cast<const LegacyNarrowStreamBufferMethods*>(
-        storage->buffer.virtualTable);
+    const auto* const methods = storage->buffer.virtualTable;
     if (methods->underflow(storage) == -1) {
         return -1;
     }
@@ -258,8 +257,7 @@ std::int32_t ConsumeLegacyNarrowStreamBuffer_5486C9(
 std::uint16_t ConsumeLegacyWideStreamBuffer_549787(
     LegacyWideStreamBufferObject* const storage)
 {
-    const auto* const methods = static_cast<const LegacyWideStreamBufferMethods*>(
-        storage->buffer.virtualTable);
+    const auto* const methods = storage->buffer.virtualTable;
     if (methods->underflow(storage) == 0xFFFFu) {
         return 0xFFFFu;
     }
@@ -294,8 +292,7 @@ std::int32_t ReadLegacyNarrowStreamBuffer_5486E6(
             output += copied;
             *currentSlot += copied;
         } else {
-            const auto* const methods = static_cast<const LegacyNarrowStreamBufferMethods*>(
-                storage->buffer.virtualTable);
+            const auto* const methods = storage->buffer.virtualTable;
             const std::int32_t character = methods->uflow(storage);
             if (character == -1) {
                 break;
@@ -337,8 +334,7 @@ std::int32_t WriteLegacyNarrowStreamBuffer_54875A(
         } else {
             // 原先从源U8零扩展，再读取当时虚表；不能先缓存整个循环的表。
             const std::uint8_t character = static_cast<std::uint8_t>(*input);
-            const auto* const methods = static_cast<const LegacyNarrowStreamBufferMethods*>(
-                storage->buffer.virtualTable);
+            const auto* const methods = storage->buffer.virtualTable;
             if (methods->overflow(storage, character) == -1) {
                 break;
             }
@@ -382,8 +378,7 @@ std::int32_t ReadLegacyWideStreamBuffer_5497A8(
             output += copied;
             BumpLegacyWideReadCursor_549E08(&storage->buffer, copied);
         } else {
-            const auto* const methods = static_cast<const LegacyWideStreamBufferMethods*>(
-                storage->buffer.virtualTable);
+            const auto* const methods = storage->buffer.virtualTable;
             const std::uint16_t character = methods->uflow(storage);
             if (character == 0xFFFFu) {
                 break;
@@ -429,8 +424,7 @@ std::int32_t WriteLegacyWideStreamBuffer_54982F(
             BumpLegacyWideWriteCursor_549E3D(&storage->buffer, copied);
         } else {
             const std::uint16_t character = *input;
-            const auto* const methods = static_cast<const LegacyWideStreamBufferMethods*>(
-                storage->buffer.virtualTable);
+            const auto* const methods = storage->buffer.virtualTable;
             if (methods->overflow(storage, character) == 0xFFFFu) {
                 break;
             }

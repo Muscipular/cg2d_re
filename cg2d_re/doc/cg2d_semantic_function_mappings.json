@@ -65410,7 +65410,7 @@
       "original_end_exclusive": "0x54865E",
       "instruction_count": 37,
       "original_direct_reference_count": 3,
-      "verification_level": "新六体158条（含原分离清理chunk）、四FuncInfo/prev链与state写、+44指针消费、四实际表/仅声明边界、30原数值目标及五文件新增静态核对；未构建/测试/运行；两派生表26原DD目标与源码/类型化地址适配新增静态核对，未执行，不计本体/完整运行验收；新控制器父原数值call与新增消费者静态，不执行",
+      "verification_level": "新六体158条（含原分离清理chunk）、四FuncInfo/prev链与state写、+44指针消费、四实际表/仅声明边界、30原数值目标及五文件新增静态核对；未构建/测试/运行；两派生表26原DD目标与源码/类型化地址适配新增静态核对，未执行，不计本体/完整运行验收；新控制器父原数值call与新增消费者静态，不执行；STP01仅内部头四块/三CPP十表读取及四表52槽/208B/12赋表引用、限定源/台账/新增引用静态核，未构建/测试/运行",
       "function_chunks": [
         {
           "start": "0x5485FE",
@@ -65463,9 +65463,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_stream_table_pointer_spec.md",
+        "doc/cg2d_stream_table_pointer_evidence.json"
       ],
-      "boundary": "窄filebuf完整构造：先+34 locale、基类虚表/reset，再+4C locale、派生虚表和_Init(FILE,0)，返回this；分离异常块有按阶段清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04本组真实基类表已定义绑定其13原槽，既有构析赋表地址现在引用实际原生常量表；派生表/三个种子/启动owner和SDK ABI、完整运行仍待，旧构析/父点不复检。；2026-10-04新输入槽消费确认原+38为转换器facet地址，改真实8B指针native104，原备份3C/current40 W32移112/116；利用旧对齐空隙，scratch120之后与总152B保持。Init先seed采样/后清转换器/再保存备份的顺序保持，旧算法不复检；实际转换器/派生表和全owner运行待。；2026-10-04原54FFD4/550070两派生13槽实际const原生表已定义/26源码目标绑定，17地址适配函数/22字符实例仅调用已过真实原本体、4批量直接原基类地址，不新增原身份或复检旧算法。既有构析方法表写现接实际定义；末槽12签名、转换器全表/生产、三个状态种子、SDK/owner/启动退出/模式3与完整运行继续待。；2026-10-04新增标准流控制器原实际点0x548327/0x548342/0x5483B5，真实已消费对象/FILE/参数与单当前state展开；旧本体不改/复检，全局owner数据初值/退出启动、clear抛出/SDK及运行继续待。",
+      "boundary": "窄filebuf完整构造：先+34 locale、基类虚表/reset，再+4C locale、派生虚表和_Init(FILE,0)，返回this；分离异常块有按阶段清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04本组真实基类表已定义绑定其13原槽，既有构析赋表地址现在引用实际原生常量表；派生表/三个种子/启动owner和SDK ABI、完整运行仍待，旧构析/父点不复检。；2026-10-04新输入槽消费确认原+38为转换器facet地址，改真实8B指针native104，原备份3C/current40 W32移112/116；利用旧对齐空隙，scratch120之后与总152B保持。Init先seed采样/后清转换器/再保存备份的顺序保持，旧算法不复检；实际转换器/派生表和全owner运行待。；2026-10-04原54FFD4/550070两派生13槽实际const原生表已定义/26源码目标绑定，17地址适配函数/22字符实例仅调用已过真实原本体、4批量直接原基类地址，不新增原身份或复检旧算法。既有构析方法表写现接实际定义；末槽12签名、转换器全表/生产、三个状态种子、SDK/owner/启动退出/模式3与完整运行继续待。；2026-10-04新增标准流控制器原实际点0x548327/0x548342/0x5483B5，真实已消费对象/FILE/参数与单当前state展开；旧本体不改/复检，全局owner数据初值/退出启动、clear抛出/SDK及运行继续待。；2026-10-05 STP01四实际streambuf/filebuf const表的52槽/208B与12赋表引用明确；同一virtualTable从const void*收敛为对应窄/宽const方法表指针，三个CPP十消费直接读同字段。既有表/槽/赋表/全部业务、快照与逐次读序和构析/locale/FILE/游标别名保持；仅类型收敛，不重验旧方法/全父或关闭codecvt真实生产/完整表、owner/SDK ABI/链接/运行。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyNarrowFileBuffer",
@@ -66706,7 +66708,26 @@
           "arguments": "&gLegacyNarrowStandardErrorBuffer10863D8, &gLegacyStaticFiles58F8B8[2]",
           "relationship": "原顺序真实构造与同一原FILE槽，输入/输出/错误/日志传完整原参数，错误日志共用实际缓冲"
         }
-      ]
+      ],
+      "stream_table_pointer_contract": {
+        "group": "STP01",
+        "spec": "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "field": "virtualTable",
+        "type": "const LegacyStreamBufferMethods<Character>*",
+        "character_types": [
+          "char",
+          "std::uint16_t"
+        ],
+        "existing_tables": 4,
+        "original_slots": 52,
+        "source_consumer_reads": 10,
+        "new_owner": false,
+        "business_or_read_order_changed": false,
+        "codecvt_producer_verified": false,
+        "actual_abi_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5487DE",
@@ -68217,7 +68238,7 @@
       "original_end_exclusive": "0x54976A",
       "instruction_count": 37,
       "original_direct_reference_count": 3,
-      "verification_level": "新六体158条（含原分离清理chunk）、四FuncInfo/prev链与state写、+44指针消费、四实际表/仅声明边界、30原数值目标及五文件新增静态核对；未构建/测试/运行；两派生表26原DD目标与源码/类型化地址适配新增静态核对，未执行，不计本体/完整运行验收；新控制器父原数值call与新增消费者静态，不执行",
+      "verification_level": "新六体158条（含原分离清理chunk）、四FuncInfo/prev链与state写、+44指针消费、四实际表/仅声明边界、30原数值目标及五文件新增静态核对；未构建/测试/运行；两派生表26原DD目标与源码/类型化地址适配新增静态核对，未执行，不计本体/完整运行验收；新控制器父原数值call与新增消费者静态，不执行；STP01仅内部头四块/三CPP十表读取及四表52槽/208B/12赋表引用、限定源/台账/新增引用静态核，未构建/测试/运行",
       "function_chunks": [
         {
           "start": "0x54970A",
@@ -68270,9 +68291,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_stream_table_pointer_spec.md",
+        "doc/cg2d_stream_table_pointer_evidence.json"
       ],
-      "boundary": "宽filebuf完整构造：先+34 locale与基类reset，再+4C locale及_Init(FILE,0)；虚表为宽字符版本，保留阶段异常清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04本组真实基类表已定义绑定其13原槽，既有构析赋表地址现在引用实际原生常量表；派生表/三个种子/启动owner和SDK ABI、完整运行仍待，旧构析/父点不复检。；2026-10-04新输入槽消费确认原+38为转换器facet地址，改真实8B指针native104，原备份3C/current40 W32移112/116；利用旧对齐空隙，scratch120之后与总152B保持。Init先seed采样/后清转换器/再保存备份的顺序保持，旧算法不复检；实际转换器/派生表和全owner运行待。；2026-10-04原54FFD4/550070两派生13槽实际const原生表已定义/26源码目标绑定，17地址适配函数/22字符实例仅调用已过真实原本体、4批量直接原基类地址，不新增原身份或复检旧算法。既有构析方法表写现接实际定义；末槽12签名、转换器全表/生产、三个状态种子、SDK/owner/启动退出/模式3与完整运行继续待。；2026-10-04新增标准流控制器原实际点0x5493E1/0x5493FC/0x54941B，真实已消费对象/FILE/参数与单当前state展开；旧本体不改/复检，全局owner数据初值/退出启动、clear抛出/SDK及运行继续待。",
+      "boundary": "宽filebuf完整构造：先+34 locale与基类reset，再+4C locale及_Init(FILE,0)；虚表为宽字符版本，保留阶段异常清理。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04本组真实基类表已定义绑定其13原槽，既有构析赋表地址现在引用实际原生常量表；派生表/三个种子/启动owner和SDK ABI、完整运行仍待，旧构析/父点不复检。；2026-10-04新输入槽消费确认原+38为转换器facet地址，改真实8B指针native104，原备份3C/current40 W32移112/116；利用旧对齐空隙，scratch120之后与总152B保持。Init先seed采样/后清转换器/再保存备份的顺序保持，旧算法不复检；实际转换器/派生表和全owner运行待。；2026-10-04原54FFD4/550070两派生13槽实际const原生表已定义/26源码目标绑定，17地址适配函数/22字符实例仅调用已过真实原本体、4批量直接原基类地址，不新增原身份或复检旧算法。既有构析方法表写现接实际定义；末槽12签名、转换器全表/生产、三个状态种子、SDK/owner/启动退出/模式3与完整运行继续待。；2026-10-04新增标准流控制器原实际点0x5493E1/0x5493FC/0x54941B，真实已消费对象/FILE/参数与单当前state展开；旧本体不改/复检，全局owner数据初值/退出启动、clear抛出/SDK及运行继续待。；2026-10-05 STP01四实际streambuf/filebuf const表的52槽/208B与12赋表引用明确；同一virtualTable从const void*收敛为对应窄/宽const方法表指针，三个CPP十消费直接读同字段。既有表/槽/赋表/全部业务、快照与逐次读序和构析/locale/FILE/游标别名保持；仅类型收敛，不重验旧方法/全父或关闭codecvt真实生产/完整表、owner/SDK ABI/链接/运行。",
       "native_storage": {
         "source": "src/platform/LegacyFileBuffer.hpp",
         "type": "LegacyWideFileBuffer",
@@ -69513,7 +69536,26 @@
           "arguments": "&gLegacyWideStandardErrorBuffer10866A0, &gLegacyStaticFiles58F8B8[2]",
           "relationship": "原顺序真实构造与同一原FILE槽，输入/输出/错误/日志传完整原参数，错误日志共用实际缓冲"
         }
-      ]
+      ],
+      "stream_table_pointer_contract": {
+        "group": "STP01",
+        "spec": "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "field": "virtualTable",
+        "type": "const LegacyStreamBufferMethods<Character>*",
+        "character_types": [
+          "char",
+          "std::uint16_t"
+        ],
+        "existing_tables": 4,
+        "original_slots": 52,
+        "source_consumer_reads": 10,
+        "new_owner": false,
+        "business_or_read_order_changed": false,
+        "codecvt_producer_verified": false,
+        "actual_abi_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x549935",
@@ -71016,7 +71058,7 @@
       "original_end_exclusive": "0x5486BF",
       "instruction_count": 3,
       "original_direct_reference_count": 3,
-      "verification_level": "新六体158条（含原分离清理chunk）、四FuncInfo/prev链与state写、+44指针消费、四实际表/仅声明边界、30原数值目标及五文件新增静态核对；未构建/测试/运行",
+      "verification_level": "新六体158条（含原分离清理chunk）、四FuncInfo/prev链与state写、+44指针消费、四实际表/仅声明边界、30原数值目标及五文件新增静态核对；未构建/测试/运行；STP01仅内部头四块/三CPP十表读取及四表52槽/208B/12赋表引用、限定源/台账/新增引用静态核，未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x548d34",
@@ -71059,9 +71101,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_stream_table_pointer_spec.md",
+        "doc/cg2d_stream_table_pointer_evidence.json"
       ],
-      "boundary": "窄基类析构只重写streambuf虚表，this+34尾调locale析构；不关闭FILE。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04本组真实基类表已定义绑定其13原槽，既有构析赋表地址现在引用实际原生常量表；派生表/三个种子/启动owner和SDK ABI、完整运行仍待，旧构析/父点不复检。",
+      "boundary": "窄基类析构只重写streambuf虚表，this+34尾调locale析构；不关闭FILE。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04本组真实基类表已定义绑定其13原槽，既有构析赋表地址现在引用实际原生常量表；派生表/三个种子/启动owner和SDK ABI、完整运行仍待，旧构析/父点不复检。；2026-10-05 STP01四实际streambuf/filebuf const表的52槽/208B与12赋表引用明确；同一virtualTable从const void*收敛为对应窄/宽const方法表指针，三个CPP十消费直接读同字段。既有表/槽/赋表/全部业务、快照与逐次读序和构析/locale/FILE/游标别名保持；仅类型收敛，不重验旧方法/全父或关闭codecvt真实生产/完整表、owner/SDK ABI/链接/运行。",
       "native_storage": {
         "source": "src/platform/LegacyStreamBuffer.hpp",
         "type": "LegacyNarrowStreamBufferObject",
@@ -71608,7 +71652,26 @@
           ],
           "boundary": "该真实基类表源码已定义；派生表仍声明，启动owner/种子/完整运行与SDK ABI不据本组闭合"
         }
-      ]
+      ],
+      "stream_table_pointer_contract": {
+        "group": "STP01",
+        "spec": "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "field": "virtualTable",
+        "type": "const LegacyStreamBufferMethods<Character>*",
+        "character_types": [
+          "char",
+          "std::uint16_t"
+        ],
+        "existing_tables": 4,
+        "original_slots": 52,
+        "source_consumer_reads": 10,
+        "new_owner": false,
+        "business_or_read_order_changed": false,
+        "codecvt_producer_verified": false,
+        "actual_abi_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x54976A",
@@ -71617,7 +71680,7 @@
       "original_end_exclusive": "0x549778",
       "instruction_count": 3,
       "original_direct_reference_count": 3,
-      "verification_level": "新六体158条（含原分离清理chunk）、四FuncInfo/prev链与state写、+44指针消费、四实际表/仅声明边界、30原数值目标及五文件新增静态核对；未构建/测试/运行",
+      "verification_level": "新六体158条（含原分离清理chunk）、四FuncInfo/prev链与state写、+44指针消费、四实际表/仅声明边界、30原数值目标及五文件新增静态核对；未构建/测试/运行；STP01仅内部头四块/三CPP十表读取及四表52槽/208B/12赋表引用、限定源/台账/新增引用静态核，未构建/测试/运行",
       "inbound_evidence": [
         {
           "address": "0x549d89",
@@ -71660,9 +71723,11 @@
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_stream_table_pointer_spec.md",
+        "doc/cg2d_stream_table_pointer_evidence.json"
       ],
-      "boundary": "宽基类析构同职责但使用宽虚表，this+34尾调locale析构。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04本组真实基类表已定义绑定其13原槽，既有构析赋表地址现在引用实际原生常量表；派生表/三个种子/启动owner和SDK ABI、完整运行仍待，旧构析/父点不复检。",
+      "boundary": "宽基类析构同职责但使用宽虚表，this+34尾调locale析构。 仅登记原身份和职责，不扩大既有标准流公开对象映射或待批CRT宿主提案。；2026-10-04真实原生本体接现有Locale/Reset/Init/Close/窄字符串/同域原堆。构造+34locale先，reset保护只清+34；基类完成后私有Ctor失败只完整基类，Init失败先私有再完整基类。析构flag非0才close弃返回，+44仅一次缓存窄字符串，Tidy正常才原堆delete且不清槽；正常私有后基类表/+34，原未降state1，任一locale正常清理失败仍按state1私有→state0基类展开。两基类3条叶只恢复各自表并尾调+34。方法表为真实extern地址未定义，不用空表/数值牌或SDK转换；两种子/虚删/上游owner/全启动退出和EH ABI/运行待。；2026-10-04原生基类改104B真实子对象，filebuf以base首成员承载，buffer0/locale96/派生104之后全部偏移及152B总大小保持；基类两已过本体只迁既有streambuf文件/调整字段投影，原父四点传&storage->base，数值/别名/分阶段和清理/调用顺序不改，不安排旧本体复检。此源路径对齐不算新增原身份或虚表路由，表/种子/完整owner与运行仍待。；2026-10-04本组真实基类表已定义绑定其13原槽，既有构析赋表地址现在引用实际原生常量表；派生表/三个种子/启动owner和SDK ABI、完整运行仍待，旧构析/父点不复检。；2026-10-05 STP01四实际streambuf/filebuf const表的52槽/208B与12赋表引用明确；同一virtualTable从const void*收敛为对应窄/宽const方法表指针，三个CPP十消费直接读同字段。既有表/槽/赋表/全部业务、快照与逐次读序和构析/locale/FILE/游标别名保持；仅类型收敛，不重验旧方法/全父或关闭codecvt真实生产/完整表、owner/SDK ABI/链接/运行。",
       "native_storage": {
         "source": "src/platform/LegacyStreamBuffer.hpp",
         "type": "LegacyWideStreamBufferObject",
@@ -72209,7 +72274,26 @@
           ],
           "boundary": "该真实基类表源码已定义；派生表仍声明，启动owner/种子/完整运行与SDK ABI不据本组闭合"
         }
-      ]
+      ],
+      "stream_table_pointer_contract": {
+        "group": "STP01",
+        "spec": "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "source": "src/platform/LegacyStreamBuffer.hpp",
+        "field": "virtualTable",
+        "type": "const LegacyStreamBufferMethods<Character>*",
+        "character_types": [
+          "char",
+          "std::uint16_t"
+        ],
+        "existing_tables": 4,
+        "original_slots": 52,
+        "source_consumer_reads": 10,
+        "new_owner": false,
+        "business_or_read_order_changed": false,
+        "codecvt_producer_verified": false,
+        "actual_abi_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x5487D0",

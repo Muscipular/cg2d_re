@@ -283,7 +283,8 @@
         "doc/cg2d_sdk_standard_stream_owners_spec.md",
         "doc/cg2d_stdio_table_heap_spec.md",
         "doc/cg2d_mode3_heap_facade_spec.md",
-        "doc/cg2d_mode3_private_core_spec.md"
+        "doc/cg2d_mode3_private_core_spec.md",
+        "doc/cg2d_stream_table_pointer_spec.md"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -414,7 +415,11 @@
         "F:0013FCFB",
         "F:00141FB1",
         "F:00141C88",
-        "F:00142466"
+        "F:00142466",
+        "F:001485FE",
+        "F:0014970A",
+        "F:001486B1",
+        "F:0014976A"
       ],
       "closure_task_ids": [
         "C01",
@@ -441,7 +446,8 @@
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-decision",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-decision",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-decision",
-        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision"
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-decision",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -462,7 +468,8 @@
         "SLN01原553134窄Init已接完整公开SDK构析，当前70项/15活动项待接为最新状态；宽_Winit受_CRTBLD隐藏，不改宏/声明。SDK计数/注册/现代flush差异adapted，旧Legacy消费者/全registry/alias/facet、全应用normal/quick/callable退出及SDK运行仍未闭",
         "SSO01最新标准流表角色已由70源投影＋15完整SDK预先提供对应85项，十五非新增同TU调用，原null/暂停音频/键盘排除另列；此前15待接为固定快照历史。六已知Init接口有型且正文保持，旧Legacy消费者/registry全容量/较大索引/facet/codecvt/计算alias/R1和全应用normal/quick/callable退出/SDK运行仍未闭",
         "SCH01stdio表两个真实allocate/clear点已SDK承接，保原calloc/W32/new-mode/handler与512/20/错误26；无新整表释放/query/resize或启动，十直接引用不排除未知alias/free。原通用calloc/21应用域和其他Heap保持，完整STDIO/owner/C08与SDK退出运行未闭",
-        "M3H01通用mode3五操作已成组SDK化，七未实现旧核心调用移除；模式1/2及raw元数据保留。SDK私有容量/分桶/复制尾/失败策略含realloc handler统一原输入数量具名adapted，存活模式稳定/同域、全部owner/alias/R1及SDK实际ABI/失败/退出/运行仍未闭，C08不完整关闭"
+        "M3H01通用mode3五操作已成组SDK化，七未实现旧核心调用移除；模式1/2及raw元数据保留。SDK私有容量/分桶/复制尾/失败策略含realloc handler统一原输入数量具名adapted，存活模式稳定/同域、全部owner/alias/R1及SDK实际ABI/失败/退出/运行仍未闭，C08不完整关闭",
+        "STP01仅四已有streambuf/filebuf方法表地址的const T*与十消费类型接线闭合，不新增原函数/处置或重验旧算法；真实codecvt/facet生产/完整表、全活动流/owner/alias及SDK ABI/链接/退出/运行仍待，C03/C05保持open"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -486,7 +493,8 @@
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-baseline",
         "doc/cg2d_stdio_table_heap_spec.md#stdio-table-heap-baseline",
         "doc/cg2d_mode3_heap_facade_spec.md#mode3-heap-facade-baseline",
-        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure"
+        "doc/cg2d_mode3_private_core_spec.md#mode3-private-core-source-closure",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure"
       ]
     },
     {
@@ -10734,6 +10742,105 @@
       "observation": "两完整根44条/93B、六与85直接call，限定源码/台账差异和新增引用静态检查",
       "expected": "按现行异常裁决承载容量减一；正常复制顺序、原接口/返回与实际非正limit动作保持",
       "actual": "仅撤专项回绕片段，两已有入口补语义/adapted；不据局部检查关闭父/owner/全部回复或实际ABI/运行"
+    },
+    {
+      "id": "E-STREAM-TABLE-POINTER-I-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四实际原表52槽/208B，12赋表引用，已有窄/宽13字段接口与十读取点；doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stream-table-pointer-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-baseline",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-acceptance",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "doc/cg2d_stream_table_pointer_evidence.json",
+        "src/platform/LegacyStreamBuffer.hpp#LegacyStreamBufferStorage",
+        "src/platform/LegacyStreamBuffer.cpp#gLegacyNarrowStreamBufferMethods55000C",
+        "src/platform/LegacyStreamBuffer.cpp#gLegacyWideStreamBufferMethods5500A8",
+        "src/platform/LegacyFileBuffer.cpp#gLegacyNarrowFileBufferMethods54FFD4",
+        "src/platform/LegacyFileBuffer.cpp#gLegacyWideFileBufferMethods550070",
+        "src/platform/LegacyIos.cpp"
+      ],
+      "differences": [
+        {
+          "description": "已知实际窄/宽方法表指针由const void*收敛为对应const T*；十处读取直接承接同一字段，表/槽/读序和全部业务保持，无新owner/SDK对象/RTTI/外部依赖",
+          "decision_ref": "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "四源码文件：内部头四块类型调整，三CPP十读取点去强转",
+      "expected": "已知窄/宽方法表用对应原生非拥有T*承载，既有读写与生命周期顺序保持",
+      "actual": "字段及十消费者已同型；codecvt实际生产/完整表、全owner/SDK ABI和运行仍待，完整功能门禁不提升"
+    },
+    {
+      "id": "E-STREAM-TABLE-POINTER-W-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "W",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四实际原表52槽/208B，12赋表引用，已有窄/宽13字段接口与十读取点；doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stream-table-pointer-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-baseline",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-acceptance",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "doc/cg2d_stream_table_pointer_evidence.json",
+        "src/platform/LegacyStreamBuffer.hpp#LegacyStreamBufferStorage",
+        "src/platform/LegacyStreamBuffer.cpp#gLegacyNarrowStreamBufferMethods55000C",
+        "src/platform/LegacyStreamBuffer.cpp#gLegacyWideStreamBufferMethods5500A8",
+        "src/platform/LegacyFileBuffer.cpp#gLegacyNarrowFileBufferMethods54FFD4",
+        "src/platform/LegacyFileBuffer.cpp#gLegacyWideFileBufferMethods550070",
+        "src/platform/LegacyIos.cpp"
+      ],
+      "differences": [
+        {
+          "description": "已知实际窄/宽方法表指针由const void*收敛为对应const T*；十处读取直接承接同一字段，表/槽/读序和全部业务保持，无新owner/SDK对象/RTTI/外部依赖",
+          "decision_ref": "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "四已有真实表与十二赋表保持，savedMethods快照/逐次表读取/同步调用时点保持",
+      "expected": "已知窄/宽方法表用对应原生非拥有T*承载，既有读写与生命周期顺序保持",
+      "actual": "字段及十消费者已同型；codecvt实际生产/完整表、全owner/SDK ABI和运行仍待，完整功能门禁不提升"
+    },
+    {
+      "id": "E-STREAM-TABLE-POINTER-S-20261005",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四实际原表52槽/208B，12赋表引用，已有窄/宽13字段接口与十读取点；doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-stream-table-pointer-source-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-baseline",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-acceptance",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure",
+        "doc/cg2d_stream_table_pointer_evidence.json",
+        "src/platform/LegacyStreamBuffer.hpp#LegacyStreamBufferStorage",
+        "src/platform/LegacyStreamBuffer.cpp#gLegacyNarrowStreamBufferMethods55000C",
+        "src/platform/LegacyStreamBuffer.cpp#gLegacyWideStreamBufferMethods5500A8",
+        "src/platform/LegacyFileBuffer.cpp#gLegacyNarrowFileBufferMethods54FFD4",
+        "src/platform/LegacyFileBuffer.cpp#gLegacyWideFileBufferMethods550070",
+        "src/platform/LegacyIos.cpp"
+      ],
+      "differences": [
+        {
+          "description": "已知实际窄/宽方法表指针由const void*收敛为对应const T*；十处读取直接承接同一字段，表/槽/读序和全部业务保持，无新owner/SDK对象/RTTI/外部依赖",
+          "decision_ref": "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "四原表52槽/208B/12引用，本步源码/四既有语义/登记簿限定差异与新增引用静态检查",
+      "expected": "已知窄/宽方法表用对应原生非拥有T*承载，既有读写与生命周期顺序保持",
+      "actual": "字段及十消费者已同型；codecvt实际生产/完整表、全owner/SDK ABI和运行仍待，完整功能门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -10892,7 +10999,8 @@
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-source-closure",
         "doc/cg2d_sdk_classic_locale_spec.md#sdk-classic-locale-source-closure",
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
-        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure"
+        "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure"
       ]
     },
     {
@@ -10986,7 +11094,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure"
+        "doc/cg2d_file_buffer_output_alignment_spec.md#file-buffer-output-source-closure",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure"
       ]
     },
     {
@@ -11053,7 +11162,8 @@
         "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
         "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
         "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
-        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure"
+        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
+        "doc/cg2d_stream_table_pointer_spec.md#stream-table-pointer-source-closure"
       ]
     }
   ],

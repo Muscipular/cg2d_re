@@ -2,16 +2,28 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 
 #include "LegacyLocale.hpp"
 
 namespace cg::platform {
 
+struct LegacyNarrowStreamBufferMethods;
+struct LegacyWideStreamBufferMethods;
+
+// 窄/宽实际13槽表分别承载，保持同一指针槽，不擦除为void地址。
+template <typename Character>
+using LegacyStreamBufferMethods = std::conditional_t<
+    std::is_same_v<Character, char>,
+    LegacyNarrowStreamBufferMethods, LegacyWideStreamBufferMethods>;
+
 // 原streambuf已证+00..+33视图：真实指针拓宽，余量S32；不含未决locale/派生字段。
 // 不自动初始化/构析/分配，不接宿主streambuf；六间接槽可指向自身或实际外部字段。
 template <typename Character>
 struct LegacyStreamBufferStorage final {
-    const void* virtualTable;             // 原+00；实际原生方法表，按已证槽类型化调用。
+    static_assert(std::is_same_v<Character, char>
+        || std::is_same_v<Character, std::uint16_t>);
+    const LegacyStreamBufferMethods<Character>* virtualTable; // 原+00；实际窄/宽方法表。
     Character* readBase;                  // 原+04。
     Character* writeBase;                 // 原+08。
     Character** readBaseSlot;             // 原+0C。
@@ -39,8 +51,6 @@ static_assert(offsetof(LegacyWideStreamBuffer, readRemainingSlot) == 80);
 static_assert(sizeof(LegacyWideStreamBuffer) == 96);
 
 // 四个真实原表接口均已定义/绑定各13槽；仅原生函数地址，不接SDK vft。
-struct LegacyNarrowStreamBufferMethods;
-struct LegacyWideStreamBufferMethods;
 extern const LegacyNarrowStreamBufferMethods gLegacyNarrowStreamBufferMethods55000C;
 extern const LegacyNarrowStreamBufferMethods gLegacyNarrowFileBufferMethods54FFD4;
 extern const LegacyWideStreamBufferMethods gLegacyWideStreamBufferMethods5500A8;

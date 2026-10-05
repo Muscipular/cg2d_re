@@ -148944,6 +148944,533 @@
         "source_body_changed": true,
         "full_runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4221f0",
+      "inventory_id": "F:000221F0",
+      "status": "BAP01七根九片段的本根原正文/接线或取样实修，原身份纳管；完整生产与owner寿命运行未验",
+      "original_end_exclusive": "0x4222a3",
+      "instruction_count": 51,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleRider_4221F0"
+          ],
+          "relationship": "BAP01本根独立原正文/槽位生产清理和取样修正，原字段/失败/返回/owner保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleRider_4221F0"
+          ],
+          "relationship": "既有八入口声明之一，共用callback已有公开声明，不新增接口或暴露布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ],
+      "verification_level": "BAP01八完整442条1393B/24call与3地址绑定15父、独立6槽24B和七根九片段精确重放/正确工厂保持有限静态；所有绑定父与完整动作实参、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "原NewYobi(2,0)/分配失败返回与字段保持，仅image后OR先于callback/flags；原无父空门禁、PlayFrame后重新取parent及X/Y截断和屏幕偏移发布/对象返回保持；原非地址宽度与非拥有T*/原分配域、不同失败与MarkDeath顺序、其余源/头/汇编和BAS/BTS链保持。不新增Read/Ctor/Destroy/RNG或异常保护/回绕模拟；原格式明文与音频暂停保持。",
+      "battle_attachment_producer": {
+        "spec_id": "BAP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+          "doc/cg2d_battle_attachment_producer_evidence.json"
+        ],
+        "original_entry": "0x4221f0",
+        "instruction_count": 51,
+        "code_bytes": 179,
+        "inbound_references": [
+          {
+            "site": "0x4140bd",
+            "type": 17,
+            "parent_entry": "0x414050"
+          },
+          {
+            "site": "0x415125",
+            "type": 17,
+            "parent_entry": "0x4150f0"
+          },
+          {
+            "site": "0x4222db",
+            "type": 17,
+            "parent_entry": "0x4222b0"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4222b0",
+      "inventory_id": "F:000222B0",
+      "status": "BAP01七根九片段的本根原正文/接线或取样实修，原身份纳管；完整生产与owner寿命运行未验",
+      "original_end_exclusive": "0x422366",
+      "instruction_count": 57,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetBattleRider_4222B0"
+          ],
+          "relationship": "BAP01本根独立原正文/槽位生产清理和取样修正，原字段/失败/返回/owner保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetBattleRider_4222B0"
+          ],
+          "relationship": "既有八入口声明之一，共用callback已有公开声明，不新增接口或暴露布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ],
+      "verification_level": "BAP01八完整442条1393B/24call与3地址绑定15父、独立6槽24B和七根九片段精确重放/正确工厂保持有限静态；所有绑定父与完整动作实参、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "入口payload固定；正路径两次映射与各次槽复读、创建后原未判空初始化保持；负路径首rider快照供phase、后独立槽取field58与MarkDeath后清，完整S32图号返回保持；原非地址宽度与非拥有T*/原分配域、不同失败与MarkDeath顺序、其余源/头/汇编和BAS/BTS链保持。不新增Read/Ctor/Destroy/RNG或异常保护/回绕模拟；原格式明文与音频暂停保持。",
+      "battle_attachment_producer": {
+        "spec_id": "BAP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+          "doc/cg2d_battle_attachment_producer_evidence.json"
+        ],
+        "original_entry": "0x4222b0",
+        "instruction_count": 57,
+        "code_bytes": 182,
+        "inbound_references": [
+          {
+            "site": "0x40648f",
+            "type": 17,
+            "parent_entry": "0x406390"
+          },
+          {
+            "site": "0x4064e6",
+            "type": 17,
+            "parent_entry": "0x406390"
+          },
+          {
+            "site": "0x4103c4",
+            "type": 17,
+            "parent_entry": "0x410000"
+          },
+          {
+            "site": "0x42a752",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x43879d",
+            "type": 17,
+            "parent_entry": "0x438550"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x422a30",
+      "inventory_id": "F:00022A30",
+      "status": "BAP01正确工厂正文保持/原身份纳管；完整生产与owner寿命运行未验",
+      "original_end_exclusive": "0x422af2",
+      "instruction_count": 55,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleGear_422A30"
+          ],
+          "relationship": "BAP01既有正确主装备工厂全文保持，仅原身份/生产分工纳管"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleGear_422A30"
+          ],
+          "relationship": "既有八入口声明之一，共用callback已有公开声明，不新增接口或暴露布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ],
+      "verification_level": "BAP01八完整442条1393B/24call与3地址绑定15父、独立6槽24B和七根九片段精确重放/正确工厂保持有限静态；所有绑定父与完整动作实参、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "正确全文保持：原父空/分配空返回、flags/回调及全部字段/原NewYobi(2,0)/PlayFrame后parent及投影/返回，不增加字段或失败处理；原非地址宽度与非拥有T*/原分配域、不同失败与MarkDeath顺序、其余源/头/汇编和BAS/BTS链保持。不新增Read/Ctor/Destroy/RNG或异常保护/回绕模拟；原格式明文与音频暂停保持。",
+      "battle_attachment_producer": {
+        "spec_id": "BAP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+          "doc/cg2d_battle_attachment_producer_evidence.json"
+        ],
+        "original_entry": "0x422a30",
+        "instruction_count": 55,
+        "code_bytes": 194,
+        "inbound_references": [
+          {
+            "site": "0x41487b",
+            "type": 17,
+            "parent_entry": "0x414050"
+          },
+          {
+            "site": "0x414feb",
+            "type": 17,
+            "parent_entry": "0x414050"
+          },
+          {
+            "site": "0x4157e9",
+            "type": 17,
+            "parent_entry": "0x4154c0"
+          },
+          {
+            "site": "0x415ed4",
+            "type": 17,
+            "parent_entry": "0x415940"
+          },
+          {
+            "site": "0x422bdd",
+            "type": 17,
+            "parent_entry": "0x422bc0"
+          },
+          {
+            "site": "0x422c3d",
+            "type": 17,
+            "parent_entry": "0x422c20"
+          }
+        ],
+        "source_body_changed": false,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x422b00",
+      "inventory_id": "F:00022B00",
+      "status": "BAP01七根九片段的本根原正文/接线或取样实修，原身份纳管；完整生产与owner寿命运行未验",
+      "original_end_exclusive": "0x422bbf",
+      "instruction_count": 55,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleAuxGear_422B00"
+          ],
+          "relationship": "BAP01本根独立原正文/槽位生产清理和取样修正，原字段/失败/返回/owner保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleAuxGear_422B00"
+          ],
+          "relationship": "既有八入口声明之一，共用callback已有公开声明，不新增接口或暴露布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ],
+      "verification_level": "BAP01八完整442条1393B/24call与3地址绑定15父、独立6槽24B和七根九片段精确重放/正确工厂保持有限静态；所有绑定父与完整动作实参、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "仅方向pub后取sortIndex低W16，再phase/parent/payload/position读取与field270 pub；原父空/分配空返、parent flags/回调/其它字段和投影/对象返回保持；原非地址宽度与非拥有T*/原分配域、不同失败与MarkDeath顺序、其余源/头/汇编和BAS/BTS链保持。不新增Read/Ctor/Destroy/RNG或异常保护/回绕模拟；原格式明文与音频暂停保持。",
+      "battle_attachment_producer": {
+        "spec_id": "BAP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+          "doc/cg2d_battle_attachment_producer_evidence.json"
+        ],
+        "original_entry": "0x422b00",
+        "instruction_count": 55,
+        "code_bytes": 191,
+        "inbound_references": [
+          {
+            "site": "0x422d2b",
+            "type": 17,
+            "parent_entry": "0x422c90"
+          },
+          {
+            "site": "0x422d57",
+            "type": 17,
+            "parent_entry": "0x422c90"
+          },
+          {
+            "site": "0x422d83",
+            "type": 17,
+            "parent_entry": "0x422c90"
+          },
+          {
+            "site": "0x422ddd",
+            "type": 17,
+            "parent_entry": "0x422c90"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x422bc0",
+      "inventory_id": "F:00022BC0",
+      "status": "BAP01七根九片段的本根原正文/接线或取样实修，原身份纳管；完整生产与owner寿命运行未验",
+      "original_end_exclusive": "0x422c1e",
+      "instruction_count": 32,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetBattleGear_422BC0"
+          ],
+          "relationship": "BAP01本根独立原正文/槽位生产清理和取样修正，原字段/失败/返回/owner保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetBattleGear_422BC0"
+          ],
+          "relationship": "既有八入口声明之一，共用callback已有公开声明，不新增接口或暴露布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ],
+      "verification_level": "BAP01八完整442条1393B/24call与3地址绑定15父、独立6槽24B和七根九片段精确重放/正确工厂保持有限静态；所有绑定父与完整动作实参、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "恢复原独立完整BC0正文及直接422A30创建；正路径发布后一次取gear判空/图号，负路径一次gear判空/MarkDeath后清，没有index门槛或新增C20转发；原非地址宽度与非拥有T*/原分配域、不同失败与MarkDeath顺序、其余源/头/汇编和BAS/BTS链保持。不新增Read/Ctor/Destroy/RNG或异常保护/回绕模拟；原格式明文与音频暂停保持。",
+      "battle_attachment_producer": {
+        "spec_id": "BAP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+          "doc/cg2d_battle_attachment_producer_evidence.json"
+        ],
+        "original_entry": "0x422bc0",
+        "instruction_count": 32,
+        "code_bytes": 94,
+        "inbound_references": [
+          {
+            "site": "0x4064fc",
+            "type": 17,
+            "parent_entry": "0x406390"
+          },
+          {
+            "site": "0x4103ee",
+            "type": 17,
+            "parent_entry": "0x410000"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x422c20",
+      "inventory_id": "F:00022C20",
+      "status": "BAP01七根九片段的本根原正文/接线或取样实修，原身份纳管；完整生产与owner寿命运行未验",
+      "original_end_exclusive": "0x422c86",
+      "instruction_count": 35,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetBattleGear_422C20"
+          ],
+          "relationship": "BAP01本根独立原正文/槽位生产清理和取样修正，原字段/失败/返回/owner保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetBattleGear_422C20"
+          ],
+          "relationship": "既有八入口声明之一，共用callback已有公开声明，不新增接口或暴露布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ],
+      "verification_level": "BAP01八完整442条1393B/24call与3地址绑定15父、独立6槽24B和七根九片段精确重放/正确工厂保持有限静态；所有绑定父与完整动作实参、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "三参合同保持：正创建/pub后取gear一次供判空及image写；负先取gear判空再index==0，原MarkDeath后清槽，不合并BC0；原非地址宽度与非拥有T*/原分配域、不同失败与MarkDeath顺序、其余源/头/汇编和BAS/BTS链保持。不新增Read/Ctor/Destroy/RNG或异常保护/回绕模拟；原格式明文与音频暂停保持。",
+      "battle_attachment_producer": {
+        "spec_id": "BAP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+          "doc/cg2d_battle_attachment_producer_evidence.json"
+        ],
+        "original_entry": "0x422c20",
+        "instruction_count": 35,
+        "code_bytes": 102,
+        "inbound_references": [
+          {
+            "site": "0x42a6f4",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x4387cf",
+            "type": 17,
+            "parent_entry": "0x438550"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x422c90",
+      "inventory_id": "F:00022C90",
+      "status": "BAP01七根九片段的本根原正文/接线或取样实修，原身份纳管；完整生产与owner寿命运行未验",
+      "original_end_exclusive": "0x422e33",
+      "instruction_count": 147,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetBattleAuxGear_422C90"
+          ],
+          "relationship": "BAP01本根独立原正文/槽位生产清理和取样修正，原字段/失败/返回/owner保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "SetBattleAuxGear_422C90"
+          ],
+          "relationship": "既有八入口声明之一，共用callback已有公开声明，不新增接口或暴露布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ],
+      "verification_level": "BAP01八完整442条1393B/24call与3地址绑定15父、独立6槽24B和七根九片段精确重放/正确工厂保持有限静态；所有绑定父与完整动作实参、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "非正image/type>0逐first/second槽取一次且第二在first消费后；index1/type3..5内既有type0一次取上下界，原无firstAux判空的MarkDeath保持。type1/2/3..5发布后同gear判空/image写，type3先判后pub、X用返回对象/Y原复读三F32；type6只缺槽创建，不新保护/类型清零或模拟其他index；原非地址宽度与非拥有T*/原分配域、不同失败与MarkDeath顺序、其余源/头/汇编和BAS/BTS链保持。不新增Read/Ctor/Destroy/RNG或异常保护/回绕模拟；原格式明文与音频暂停保持。",
+      "battle_attachment_producer": {
+        "spec_id": "BAP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+          "doc/cg2d_battle_attachment_producer_evidence.json"
+        ],
+        "original_entry": "0x422c90",
+        "instruction_count": 147,
+        "code_bytes": 419,
+        "inbound_references": [
+          {
+            "site": "0x42a712",
+            "type": 17,
+            "parent_entry": "0x427470"
+          },
+          {
+            "site": "0x4387e0",
+            "type": 17,
+            "parent_entry": "0x438550"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x421f90",
+      "inventory_id": "F:00021F90",
+      "status": "BAP01七根九片段的本根原正文/接线或取样实修，原身份纳管；完整生产与owner寿命运行未验",
+      "original_end_exclusive": "0x421fb0",
+      "instruction_count": 10,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAttachment_421F90"
+          ],
+          "relationship": "BAP01本根独立原正文/槽位生产清理和取样修正，原字段/失败/返回/owner保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleAttachment_421F90"
+          ],
+          "relationship": "既有八入口声明之一，共用callback已有公开声明，不新增接口或暴露布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ],
+      "verification_level": "BAP01八完整442条1393B/24call与3地址绑定15父、独立6槽24B和七根九片段精确重放/正确工厂保持有限静态；所有绑定父与完整动作实参、数据资源/owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "boundary": "既有公开声明的共用身份回调；原position→registered→parent→比较，失败仅MarkDeath，不新增播放/free或空guard；原非地址宽度与非拥有T*/原分配域、不同失败与MarkDeath顺序、其余源/头/汇编和BAS/BTS链保持。不新增Read/Ctor/Destroy/RNG或异常保护/回绕模拟；原格式明文与音频暂停保持。",
+      "battle_attachment_producer": {
+        "spec_id": "BAP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+          "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+          "doc/cg2d_battle_attachment_producer_evidence.json"
+        ],
+        "original_entry": "0x421f90",
+        "instruction_count": 10,
+        "code_bytes": 32,
+        "inbound_references": [
+          {
+            "site": "0x422221",
+            "type": 1,
+            "parent_entry": "0x4221f0"
+          },
+          {
+            "site": "0x422a61",
+            "type": 1,
+            "parent_entry": "0x422a30"
+          },
+          {
+            "site": "0x422b28",
+            "type": 1,
+            "parent_entry": "0x422b00"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
     }
   ]
 }

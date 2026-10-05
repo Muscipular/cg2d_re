@@ -10900,8 +10900,10 @@ YobiAction* NewBattleScreenEmitter_421700(const std::int32_t phase)
 
 void UpdateBattleAttachment_421F90(YobiAction* const action)
 {
-    if (world::detail::gBattleAllEntries59E980[action->value1D4]
-        != action->battleAttachmentParent10) {
+    const std::int32_t position = action->value1D4;
+    YobiAction* const registered = world::detail::gBattleAllEntries59E980[position];
+    YobiAction* const parent = action->battleAttachmentParent10;
+    if (registered != parent) {
         static_cast<void>(MarkDeath(action));
     }
 }
@@ -11187,8 +11189,9 @@ YobiAction* NewBattleRider_4221F0(YobiAction* const parent, const std::int32_t i
     }
     const std::uint32_t flags = action->flags;
     action->imageNo = imageNo;
+    const std::uint32_t configuredFlags = flags | 0x860040u;
     action->callback = UpdateBattleAttachment_421F90;
-    action->flags = flags | 0x860040u;
+    action->flags = configuredFlags;
     action->characterAction = 0;
     action->framePlayingRate = 100;
     action->value54 = 3.0F;
@@ -11259,10 +11262,11 @@ YobiAction* NewBattleAuxGear_422B00(
     const std::int32_t direction = parent->direction;
     action->displayPriority = 9;
     action->direction = direction;
+    const std::uint16_t field270 = static_cast<std::uint16_t>(sortIndex);
     action->phase = 0;
     action->battleAttachmentParent10 = parent;
     const std::int32_t position = static_cast<const BattleActorPayload*>(parent->payload)->battlePosition18;
-    action->field270 = static_cast<std::uint16_t>(sortIndex);
+    action->field270 = field270;
     action->value1D4 = position;
     static_cast<void>(PlayFrame_517DA0(action, 0));
     YobiAction* const source = action->battleAttachmentParent10;
@@ -11293,8 +11297,9 @@ std::int32_t SetBattleRider_4222B0(
         action->imageNo = ridingImageNo;
         return ridingImageNo;
     }
-    if (payload->rider13C8 != nullptr) {
-        payload->rider13C8->phase = 0;
+    YobiAction* const rider = payload->rider13C8;
+    if (rider != nullptr) {
+        rider->phase = 0;
         payload->rider13C8->field58 = 0;
         static_cast<void>(MarkDeath(payload->rider13C8));
         payload->rider13C8 = nullptr;
@@ -11305,7 +11310,22 @@ std::int32_t SetBattleRider_4222B0(
 
 void SetBattleGear_422BC0(YobiAction* const action, const std::int32_t imageNo)
 {
-    SetBattleGear_422C20(action, imageNo, 0);
+    auto* const payload = static_cast<BattleActorPayload*>(action->payload);
+    if (imageNo > 0) {
+        if (payload->gear13B4 == nullptr) {
+            payload->gear13B4 = NewBattleGear_422A30(action, imageNo);
+        }
+        YobiAction* const gear = payload->gear13B4;
+        if (gear != nullptr) {
+            gear->imageNo = imageNo;
+        }
+    } else {
+        YobiAction* const gear = payload->gear13B4;
+        if (gear != nullptr) {
+            static_cast<void>(MarkDeath(gear));
+            payload->gear13B4 = nullptr;
+        }
+    }
 }
 
 void SetBattleGear_422C20(
@@ -11316,12 +11336,16 @@ void SetBattleGear_422C20(
         if (payload->gear13B4 == nullptr) {
             payload->gear13B4 = NewBattleGear_422A30(action, imageNo);
         }
-        if (payload->gear13B4 != nullptr) {
-            payload->gear13B4->imageNo = imageNo;
+        YobiAction* const gear = payload->gear13B4;
+        if (gear != nullptr) {
+            gear->imageNo = imageNo;
         }
-    } else if (payload->gear13B4 != nullptr && index == 0) {
-        static_cast<void>(MarkDeath(payload->gear13B4));
-        payload->gear13B4 = nullptr;
+    } else {
+        YobiAction* const gear = payload->gear13B4;
+        if (gear != nullptr && index == 0) {
+            static_cast<void>(MarkDeath(gear));
+            payload->gear13B4 = nullptr;
+        }
     }
 }
 
@@ -11332,56 +11356,74 @@ void SetBattleAuxGear_422C90(
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     if (imageNo <= 0) {
         if (type > 0) {
-            if (payload->auxiliaryGear13B8[0] != nullptr) {
-                static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
+            YobiAction* const firstGear = payload->auxiliaryGear13B8[0];
+            if (firstGear != nullptr) {
+                static_cast<void>(MarkDeath(firstGear));
                 payload->auxiliaryGear13B8[0] = nullptr;
             }
-            if (payload->auxiliaryGear13B8[1] != nullptr) {
-                static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[1]));
+            YobiAction* const secondGear = payload->auxiliaryGear13B8[1];
+            if (secondGear != nullptr) {
+                static_cast<void>(MarkDeath(secondGear));
                 payload->auxiliaryGear13B8[1] = nullptr;
             }
         }
         return;
     }
-    if (index == 1 && type >= 3 && type <= 5
-        && payload->auxiliaryGearTypes13C0[0] >= 3 && payload->auxiliaryGearTypes13C0[0] <= 5) {
-        static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
-        payload->auxiliaryGear13B8[0] = nullptr;
+    if (index == 1 && type >= 3 && type <= 5) {
+        const std::int32_t firstType = payload->auxiliaryGearTypes13C0[0];
+        if (firstType >= 3 && firstType <= 5) {
+            static_cast<void>(MarkDeath(payload->auxiliaryGear13B8[0]));
+            payload->auxiliaryGear13B8[0] = nullptr;
+        }
     }
     // 原两caller只传0/1；不模拟其他index把图号当地址的异常路径。
     YobiAction** const slot = &payload->auxiliaryGear13B8[index];
     payload->auxiliaryGearTypes13C0[index] = type;
     switch (type) {
-    case 1:
+    case 1: {
         if (*slot == nullptr) {
             *slot = NewBattleAuxGear_422B00(action, imageNo, -1);
         }
-        if (*slot != nullptr) {
-            (*slot)->imageNo = imageNo;
+        YobiAction* const gear = *slot;
+        if (gear != nullptr) {
+            gear->imageNo = imageNo;
         }
         return;
-    case 2:
+    }
+    case 2: {
         if (*slot == nullptr) {
             *slot = NewBattleAuxGear_422B00(action, imageNo, 3);
         }
-        if (*slot != nullptr) {
-            (*slot)->imageNo = imageNo;
+        YobiAction* const gear = *slot;
+        if (gear != nullptr) {
+            gear->imageNo = imageNo;
         }
         return;
+    }
     case 3:
     case 4:
-    case 5:
+    case 5: {
         if (*slot == nullptr) {
             YobiAction* const gear = NewBattleAuxGear_422B00(action, imageNo, 0);
+            const bool isTypeThree = type == 3;
             *slot = gear;
-            const float scale = type == 3 ? 0.25F : (type == 4 ? 0.5F : 0.75F);
-            gear->scaleX = scale;
-            (*slot)->scaleY = scale;
+            if (isTypeThree) {
+                gear->scaleX = 0.25F;
+                (*slot)->scaleY = 0.25F;
+            } else if (type == 4) {
+                gear->scaleX = 0.5F;
+                (*slot)->scaleY = 0.5F;
+            } else if (type == 5) {
+                gear->scaleX = 0.75F;
+                (*slot)->scaleY = 0.75F;
+            }
         }
-        if (*slot != nullptr) {
-            (*slot)->imageNo = imageNo;
+        YobiAction* const gear = *slot;
+        if (gear != nullptr) {
+            gear->imageNo = imageNo;
         }
         return;
+    }
     case 6:
         if (*slot == nullptr) {
             *slot = NewBattleAuxGear_422B00(action, imageNo, 3);

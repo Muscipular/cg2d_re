@@ -440,3 +440,9 @@ E273→277只两域局部I/S共用同三实修片段/原证据，旧F增证/一�
 [可度量验收](cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance)核三完整421条1507B/4call同一父与四表44槽176B，以及全CPP从HEAD十三片段精确重放、五W8门禁和位置/方向/flags缓存/投影及辅助动作/坐标取样。原不同空门禁、主回调1/1/2与字段/播放/owner保持，不据原表字节正确验所有生产及父或运行。
 
 三新F同双域不多计；E285→289只四局部I/S共用本组实修和原证据。七任务及全部完整门禁/叶/R1/R7/R8/整体保持open，完整附件生产/各动作与父实参、资源和owner重进退出/浅别名/SDK/ABI/PC53/时钟RNG/画面运行仍需对应证据。
+
+## BAP01 附件生产/槽位发布与清理局部I/S（2026-10-06）
+
+[可度量验收](cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance)核八442条1393B/24call+3绑定15父、6槽24B及七根九片段精确重放：BC0独立原正文/直接factory、C20合同、各槽快照与跨调用复读/清槽、type3先判后pub与三F32、OR/W16与共用callback取样、原正确工厂/失败/返回和八既有声明保持。
+
+八新F同双域不多计，E289→293只四局部I/S共用本组实修与原证据。两index0/1调用点只计数/传参/循环尾与当前源对应，不等两完整父验收；七任务与全完整门禁/叶/R1/R7/R8/整体仍open。全部父/动作实参和数据资源、owner重进退出与浅别名/SDK/ABI/PC53/时钟RNG/画面运行仍待。

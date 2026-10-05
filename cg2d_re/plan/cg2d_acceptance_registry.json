@@ -1659,7 +1659,8 @@
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-baseline",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1674,7 +1675,15 @@
         "F:00004DB0",
         "F:00021FB0",
         "F:000225D0",
-        "F:00022780"
+        "F:00022780",
+        "F:000221F0",
+        "F:000222B0",
+        "F:00022A30",
+        "F:00022B00",
+        "F:00022BC0",
+        "F:00022C20",
+        "F:00022C90",
+        "F:00021F90"
       ],
       "closure_task_ids": [
         "U09",
@@ -1688,14 +1697,16 @@
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-decision",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "UPS01实际共用创建/图号回调/结果状态链纳管，两F同UI及一原未定义代码片段；源只结果标志先判后取图，原失败/五族映射/九动作回调及资源owner保持。完整原成员、全部场景/生产消费、ABI/SDK/PC53/RNG/画面运行未验",
         "BCS01实际克隆/残影/基础战斗节点五F纳管，三根五片段修九W32字组、残影先判后pub与创建flags/首索引取样；原入口载荷/浅复制和十CryptInt复制保留，不添Read/Ctor/RNG。完整原成员/全部父与callback和owner浅别名/资源寿命/ABI/SDK/PC53/实际RNG/画面运行未闭",
         "BTS01真实战斗主回调684条2444B/13绑定10父纳管，四片段修场景判定/计数/坐标与附件取样；257槽/200目标源静态对应，入口载荷与跨消费重读保留。全部创建者/动作/父callback和资源owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未闭",
-        "BAS01三个真实战斗附件同步原身份/421条1507B纳管，十三片段修五W8门禁与位置方向/flags缓存/投影/辅助动作取样，原不同失败、两轴scaleX和借用复读保持。完整创建者/动作/父callback、资源和owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍未闭"
+        "BAS01三个真实战斗附件同步原身份/421条1507B纳管，十三片段修五W8门禁与位置方向/flags缓存/投影/辅助动作取样，原不同失败、两轴scaleX和借用复读保持。完整创建者/动作/父callback、资源和owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍未闭",
+        "BAP01三工厂/四发布与已有共用回调八身份纳管，七根九片段恢复BC0独立原正文/直接factory接线和各发布/清理取样，原失败/借用复读及分配域保持。全部创建者/父callback与动作/数据资源/owner重进退出和浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1704,7 +1715,8 @@
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state"
       ]
     },
     {
@@ -1721,7 +1733,8 @@
         "doc/cg2d_battle_attack_targets_spec.md",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-baseline",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -1733,7 +1746,15 @@
         "F:00004DB0",
         "F:00021FB0",
         "F:000225D0",
-        "F:00022780"
+        "F:00022780",
+        "F:000221F0",
+        "F:000222B0",
+        "F:00022A30",
+        "F:00022B00",
+        "F:00022BC0",
+        "F:00022C20",
+        "F:00022C90",
+        "F:00021F90"
       ],
       "closure_task_ids": [
         "P01",
@@ -1751,21 +1772,24 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-decision",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
         "音频传递依赖仍暂停；完整战斗原新对照与V04/V05未验，运行受执行限制",
         "BCS01两旧Clone/Copy增量及三既有残影/基础角色入口纳管，九字组与三取样差异已修；同五F跨YOBI不双计，全部战斗状态/目标和数据资源生产、浅别名owner重进退出/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验",
         "BTS01真实主回调公共尾四片段已修，257case/200既有目标保持；同一F跨YOBI不双计。完整全部动作/绑定父与实参、战斗状态和数据资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行仍未验",
-        "BAS01三附件同步十三差异实修、四表44槽176B及真实主回调1/1/2消费可追，同三F跨YOBI不双计；完整附件生产/全部动作实参和战斗数据资源、owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未验"
+        "BAS01三附件同步十三差异实修、四表44槽176B及真实主回调1/1/2消费可追，同三F跨YOBI不双计；完整附件生产/全部动作实参和战斗数据资源、owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未验",
+        "BAP01八442条1393B/24call和3绑定15父可追，BC0/C20独立分工及发布清理、六槽表/type3缩放/原失败与回调取样落实；同八F跨YOBI不双计。全部绑定父/动作实参/战斗数据资源与owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state"
       ]
     },
     {
@@ -15880,6 +15904,150 @@
       "observation": "六页完整421条1507B/chunk/4call同父与四表44槽176B字段字节、全CPP从HEAD十三片段精确重放及五W8/各取样与原门禁、主回调/声明保持有限静态通过",
       "expected": "原五低U8读取不读高三字节；位置/父比较/方向及三flags缓存发布序，frame先于F32 scale、主装备两轴scaleX及Xpub后rider复读，辅助类型3/4/5一次动作和截断后delta复读；原其它字段/失败/播放/owner保持",
       "actual": "同三F/十三源片段双域局部I/S共用原证据，不多计或提升完整门禁；全部附件生产/完整父与子动作实参、战斗数据资源和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍未验"
+    },
+    {
+      "id": "E-BATTLE-ATTACHMENT-PRODUCER-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BAP01八完整442条1393B/24call+3地址发布15父和独立6槽24B，BC0独立原正文/接线与七根九取样差异；doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-attachment-producer-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleRider_4221F0",
+        "src/YobiRuntime.cpp#SetBattleRider_4222B0",
+        "src/YobiRuntime.cpp#NewBattleGear_422A30",
+        "src/YobiRuntime.cpp#NewBattleAuxGear_422B00",
+        "src/YobiRuntime.cpp#SetBattleGear_422BC0",
+        "src/YobiRuntime.cpp#SetBattleGear_422C20",
+        "src/YobiRuntime.cpp#SetBattleAuxGear_422C90",
+        "src/YobiRuntime.cpp#UpdateBattleAttachment_421F90",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "七根九片段恢复BC0独立原正文/直接factory和C20合同、骑乘/辅助发布清理快照及复读、type3先判后pub/三F32、OR/W16与已有共用callback取样；正确主装备工厂/其它正文及八声明保持",
+          "decision_ref": "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "独立BC0与七根九片段已落码，八原身份/三工厂四发布共用回调可追，原不同失败/返回/分配域和正确工厂保持；无新guard/owner/接口或RNG",
+      "expected": "BC0直接422A30且无index门槛、C20原index==0；发布后同gear判空及图号、骑乘负路径首快照/后复读、辅助逐槽清理及type0单次读/type3先判后pub和scaleY复读，OR与W16捕获、callback position→registered→parent",
+      "actual": "同八F/九源差异跨两域只共用局部I/S，不多计或提升完整门禁；全部绑定父/动作实参和战斗数据资源/owner重进退出及浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验"
+    },
+    {
+      "id": "E-BATTLE-ATTACHMENT-PRODUCER-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BAP01八完整442条1393B/24call+3地址发布15父和独立6槽24B，BC0独立原正文/接线与七根九取样差异；doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-attachment-producer-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleRider_4221F0",
+        "src/YobiRuntime.cpp#SetBattleRider_4222B0",
+        "src/YobiRuntime.cpp#NewBattleGear_422A30",
+        "src/YobiRuntime.cpp#NewBattleAuxGear_422B00",
+        "src/YobiRuntime.cpp#SetBattleGear_422BC0",
+        "src/YobiRuntime.cpp#SetBattleGear_422C20",
+        "src/YobiRuntime.cpp#SetBattleAuxGear_422C90",
+        "src/YobiRuntime.cpp#UpdateBattleAttachment_421F90",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "七根九片段恢复BC0独立原正文/直接factory和C20合同、骑乘/辅助发布清理快照及复读、type3先判后pub/三F32、OR/W16与已有共用callback取样；正确主装备工厂/其它正文及八声明保持",
+          "decision_ref": "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "八完整442条1393B/24call与3绑定15父、九页原指令和六槽24B表、全CPP九片段精确重放及原工厂/失败/返回/各发布和清理复读/八已有声明保持静态通过",
+      "expected": "BC0直接422A30且无index门槛、C20原index==0；发布后同gear判空及图号、骑乘负路径首快照/后复读、辅助逐槽清理及type0单次读/type3先判后pub和scaleY复读，OR与W16捕获、callback position→registered→parent",
+      "actual": "同八F/九源差异跨两域只共用局部I/S，不多计或提升完整门禁；全部绑定父/动作实参和战斗数据资源/owner重进退出及浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验"
+    },
+    {
+      "id": "E-BATTLE-ATTACHMENT-PRODUCER-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BAP01八完整442条1393B/24call+3地址发布15父和独立6槽24B，BC0独立原正文/接线与七根九取样差异；doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-attachment-producer-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleRider_4221F0",
+        "src/YobiRuntime.cpp#SetBattleRider_4222B0",
+        "src/YobiRuntime.cpp#NewBattleGear_422A30",
+        "src/YobiRuntime.cpp#NewBattleAuxGear_422B00",
+        "src/YobiRuntime.cpp#SetBattleGear_422BC0",
+        "src/YobiRuntime.cpp#SetBattleGear_422C20",
+        "src/YobiRuntime.cpp#SetBattleAuxGear_422C90",
+        "src/YobiRuntime.cpp#UpdateBattleAttachment_421F90",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "七根九片段恢复BC0独立原正文/直接factory和C20合同、骑乘/辅助发布清理快照及复读、type3先判后pub/三F32、OR/W16与已有共用callback取样；正确主装备工厂/其它正文及八声明保持",
+          "decision_ref": "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "独立BC0与七根九片段已落码，八原身份/三工厂四发布共用回调可追，原不同失败/返回/分配域和正确工厂保持；无新guard/owner/接口或RNG",
+      "expected": "BC0直接422A30且无index门槛、C20原index==0；发布后同gear判空及图号、骑乘负路径首快照/后复读、辅助逐槽清理及type0单次读/type3先判后pub和scaleY复读，OR与W16捕获、callback position→registered→parent",
+      "actual": "同八F/九源差异跨两域只共用局部I/S，不多计或提升完整门禁；全部绑定父/动作实参和战斗数据资源/owner重进退出及浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验"
+    },
+    {
+      "id": "E-BATTLE-ATTACHMENT-PRODUCER-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BAP01八完整442条1393B/24call+3地址发布15父和独立6槽24B，BC0独立原正文/接线与七根九取样差异；doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-attachment-producer-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleRider_4221F0",
+        "src/YobiRuntime.cpp#SetBattleRider_4222B0",
+        "src/YobiRuntime.cpp#NewBattleGear_422A30",
+        "src/YobiRuntime.cpp#NewBattleAuxGear_422B00",
+        "src/YobiRuntime.cpp#SetBattleGear_422BC0",
+        "src/YobiRuntime.cpp#SetBattleGear_422C20",
+        "src/YobiRuntime.cpp#SetBattleAuxGear_422C90",
+        "src/YobiRuntime.cpp#UpdateBattleAttachment_421F90",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "七根九片段恢复BC0独立原正文/直接factory和C20合同、骑乘/辅助发布清理快照及复读、type3先判后pub/三F32、OR/W16与已有共用callback取样；正确主装备工厂/其它正文及八声明保持",
+          "decision_ref": "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "八完整442条1393B/24call与3绑定15父、九页原指令和六槽24B表、全CPP九片段精确重放及原工厂/失败/返回/各发布和清理复读/八已有声明保持静态通过",
+      "expected": "BC0直接422A30且无index门槛、C20原index==0；发布后同gear判空及图号、骑乘负路径首快照/后复读、辅助逐槽清理及type0单次读/type3先判后pub和scaleY复读，OR与W16捕获、callback position→registered→parent",
+      "actual": "同八F/九源差异跨两域只共用局部I/S，不多计或提升完整门禁；全部绑定父/动作实参和战斗数据资源/owner重进退出及浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验"
     }
   ],
   "task_acceptance": [
@@ -16053,7 +16221,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state"
       ]
     },
     {
@@ -16303,7 +16472,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state"
       ]
     },
     {
@@ -16440,7 +16610,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state"
       ]
     },
     {
@@ -16483,7 +16654,8 @@
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state"
       ]
     },
     {
@@ -16497,7 +16669,8 @@
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state"
       ]
     },
     {
@@ -16666,7 +16839,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state"
       ]
     },
     {
@@ -16676,7 +16850,8 @@
       "evidence_refs": [
         "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state"
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state"
       ]
     }
   ],
@@ -20947,6 +21122,102 @@
         "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-acceptance",
         "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
         "doc/cg2d_battle_attachment_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000221F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000222B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00022A30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00022B00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00022BC0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00022C20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00022C90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00021F90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-acceptance",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_producer_evidence.json"
       ]
     }
   ],

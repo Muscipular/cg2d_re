@@ -8147,3 +8147,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [源状态](../cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state)在421FB0/4225D0/422780实修三根十三片段：五W8读取与注册位置/方向/父比较及载荷、三flags缓存发布、帧缩放次序和辅助动作/坐标复读。既有404DB0的1/1/2实际调用保持；骑乘/主装备只身份失败标死，辅助装备原三空返回与方向先于身份检查发布保持，不统一失败或立即free。
 
 [原421条1507B与四表44槽176B](../cg2d_battle_attachment_sampling_evidence.json)分列，4普通call同一原父；主装备两阶段rider/两轴scaleX与全部正常S32坐标/既有double乘积不改。全部附件生产、完整战斗动作/实参和数据资源、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行仍未闭，不据三同步根关闭U08/U09。
+
+## BAP01 附件创建、更新及移除的实际分工（2026-10-06）
+
+[源状态](../cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state)恢复422BC0原独立两参入口，正图号直接factory创建/发布/同指针更新，非正图号同指针MarkDeath后清槽；422C20独立保index==0才移除。其它九片段覆盖骑乘/辅助各槽取样和共用身份回调，原三工厂NewYobi(2,0)/字段/失败/播放后parent与坐标取样和正确主装备工厂保持。
+
+[原442条1393B/24call+3绑定15父](../cg2d_battle_attachment_producer_evidence.json)与6槽24B另列；辅助type1/2/3..5发布后同指针图号、type3先判后pub/三F32及原scaleY复读、type6只创建/不同原失败门禁保持。八入口已有声明可追，不增callback接口；全部父与动作/数据资源/owner重进退出与浅别名/SDK/ABI/PC53/时钟RNG/画面运行未闭，U08/U09继续open。

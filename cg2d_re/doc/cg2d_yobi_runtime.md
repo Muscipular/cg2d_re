@@ -3985,3 +3985,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [十三具名差异/裁决](cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision)修三真实同步根：五原W8门禁改首字节读取；位置先取、装备先比较再固定payload；方向单次快照、flags三阶段保存/逐次发布及每轴frame→F32 scale；辅助类型3/4/5一次动作、截断后delta重新取值。原不同失败门禁、phase/动作/播放、属性宽度与所有其它正文保持，不扩大修改公共低字节工具。
 
 [三完整421条1507B/4call同一父](cg2d_battle_attachment_sampling_evidence.json)及四表44槽176B另列；主装备X发布后rider重取和骑乘两轴parent.scaleX保持，不改自身scale或owner。三个原身份同YOBI/BATTLE纳管；完整附件生产/父动作实参与数据资源、owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待。
+
+## BAP01 战斗附件生产/槽位发布与身份清理（2026-10-06）
+
+[具名裁决/九差异](cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision)恢复422BC0独立原正文及直接422A30创建，422C20保三参index移除门槛；骑乘负路径首指针快照/后复读、辅助逐槽清理与type0单次判定、发布后同gear图号更新及type3先判后pub/scaleY复读、骑乘OR/W16与共用421F90取样已修。
+
+[八完整442条1393B](cg2d_battle_attachment_producer_evidence.json)和24普通call/3地址发布15父及独立6槽24B可追，三个工厂/四发布/共用回调纳管。正确主装备工厂全文保持，原分配/父空与调用者无额外保护的初始化各自保持，MarkDeath后清槽不立即free；两原caller index0/1仅有界计数/压栈/循环尾与当前消费对应，不验完整父。全部动作/父实参与数据资源、owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待。

@@ -2303,3 +2303,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [完整原指令/表](cg2d_battle_attachment_sampling_evidence.json)与[源状态](cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state)新增三个已有真实附件同步原身份；421条1507B/4普通call同一父和四表44槽176B分列。三根十三片段已修，五W8门禁及位置/方向/flags/投影和辅助动作/坐标取样可追，原失败/两阶段rider和全部字段/头保持。
 
 语义1309→1312/有效ID1304→1307、代码片段5保持，三adapted411→414；YOBI10→13/BATTLE7→10同三F不双计，E285→289仅双域局部I/S共用同十三片段/原证据。LOOP31/R7区间67/队列和全部完整门禁保持，所有生产者/父callback与动作和数据资源owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未验。
+
+## BAP01 八战斗附件生产/发布与回调身份（2026-10-06）
+
+[原八442条1393B](cg2d_battle_attachment_producer_evidence.json)及[源状态](cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state)新增已有三工厂/四发布/共用回调八身份，七根九片段已修且正确主装备工厂保持；24普通call与3地址发布15父、6槽24B另列，不当表数据新函数或增加callback声明。
+
+语义1312→1320/有效ID1307→1315、非函数片段5保持，八adapted414→422；YOBI13→21/BATTLE10→18同八F不双计，E289→293只双域局部I/S共用同源差异/原证据。LOOP31/R7区间67/队列与全部完整门禁保持。原index0/1调用点的有界证据不验完整父或所有实参/资源和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行。

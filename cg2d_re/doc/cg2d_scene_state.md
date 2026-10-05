@@ -7659,3 +7659,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [具名合同](cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state)恢复五条真实实体附件路径的四种槽取样顺序，初描述符与最终图形子对象分别借用；附加入口用同一骑乘快照取两帧偏移，首附件按原目标/主字段顺序同步并逐次重读动画/查询子槽。实体创建/阶段/玩家与World状态同源、旧失败/清理及其它场景正文保持。
 
 [原715条2252B](cg2d_actor_attachment_sampling_evidence.json)含4417E0完整466条、442F70两窗143条、43E490四窗106条；完整保存不代全部语义，局部窗不代完整根。真实441DB0 type1回调写者与4417E0 type17附加调用分列；完整实体/上游和callee/所有owner寿命/SDK/PC53/画面运行未闭。
+
+## ACP01 实体/挂件坐标生产（2026-10-05）
+
+[生产合同](cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state)在441DB0和444000恢复各四次临时载体三字段取齐后发布；分别count/encoded/mask与encoded/mask/count，不统一两入口取读顺序。玩家真实519CD0实体创建、4417E0回调及442F70挂件消费保持，同一原生字段/失败返回/投影和RNG顺序，不新增未知初始化或owner。
+
+[两完整212条829B/12call8父](cg2d_actor_coordinate_producer_evidence.json)只支持两局部生产取样；444000五原call对应四现表达式、首附件两图号分支共一调用保留，全部父实参/所有callee和owner寿命/SDK/PC53/场景运行未验。

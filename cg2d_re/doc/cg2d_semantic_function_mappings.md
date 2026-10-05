@@ -2243,3 +2243,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原715条2252B与引用类型](cg2d_actor_attachment_sampling_evidence.json)和[源状态](cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state)新增4417E0语义，唯一441DB0@441DEA type1回调地址写入；既有442F70语义仅追加本组两窗/源取样边界，保留原名称10点/一源码表达式及全部既有字段。其唯一4417E0@441D9B为type17直接call。43E490只四依赖窗，不借此登记完整身份或验收。
 
 语义1297→1298、有效ID1293→1294、处置390→392，MAP53→55/LOOP18→20成员，共用同两ID不重复计函数；四局部I/S共用同一实修证据。完整原语义/父与callee/所有上游和间接别名/owner寿命/真实SDK/PC53/运行未验，既有pending/队列/R7等不按本组代码量推完成率。
+
+## ACP01 实体与挂件生产身份（2026-10-05）
+
+[原212条829B](cg2d_actor_coordinate_producer_evidence.json)和[源状态](cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state)为441DB0/444000新增真实语义/本体和声明来源/adapted；两创建者各四组三值临时取样/发布已实修，通用工具不变。原12直接call/8父保持；444000首附件两原kind图号分支共一现表达式，5原点对应4现表达式，不少计原call。
+
+语义1298→1300、有效ID1294→1296、处置392→394，MAP55→57/LOOP20→22成员，双域同两ID不重复计函数。全部父实参/所有callee/上游和owner寿命/SDK/PC53/画面运行仍未闭，pending/队列/R7等不按本组源码量提升。

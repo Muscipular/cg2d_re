@@ -3937,3 +3937,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 442F70保原空action返回；frameX→payload→frameY→initialRide→index，两帧用同一骑乘指针。首附件复用末次非空判断的子指针写X，后Y/worldX/worldY各先目标槽后主字段，再当次子槽动画、高度/偏移和图形取样。创建/刷新/失败/MarkDeath清槽、条/聊天/索引别名/名称10点/状态/挂件和action30尾部不改；43E490其它阶段数值/恢复/音效保持。十具名片段，公开接口/布局/owner不改。
 
 [证据](cg2d_actor_attachment_sampling_evidence.json)715条2252B；4417E0全466仅本组局部取样验收，442F70仅143条不重验其余1077，43E490四窗106条不登记完整根。整体实体、全部父/callee/上游及owner寿命/ABI/SDK/PC53/画面运行未验。
+
+## ACP01 两创建者的临时三字段快照（2026-10-05）
+
+[具名裁决](cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision)实修两个具名片段：441DB0已有局部lambda先U8 readCount→U32 encoded→U32 mask取齐，再依同序写目标；444000四次通用赋值转本入口lambda，先encoded→mask→readCount取齐，再同序发布。两个入口各四次构造/析构，四目标顺序/441DB0中间field270低W16清保持，vft/reserved与通用CopyPayload/AssignFromInt不改。
+
+原New(2,sizeof实际实体载荷)/New(2,0)、失败即空、方向/图号/动作/priority/flags、真实4417E0绑定或无新增回调/槽、X先乘64/移动与phase清零/世界X后Y、真实投影/屏幕窄化和原生指针返回保持。AAS01及其它同形创建者/全部头和数值叶不改。[两原212条829B](cg2d_actor_coordinate_producer_evidence.json)及12type17调用8父纳管，五挂件原点对应四现表达式，完整父/callee/上游和owner寿命/真实SDK/PC53/RNG/场景画面运行仍未闭。

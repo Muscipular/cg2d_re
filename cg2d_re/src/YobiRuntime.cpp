@@ -2944,9 +2944,12 @@ YobiAction* Sub_441DB0(
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
-        target.readCount = temporary.readCount;
-        target.encoded = temporary.encoded;
-        target.mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        target.readCount = readCount;
+        target.encoded = encoded;
+        target.mask = mask;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     };
     assignCoordinate(action->mapX200, mapX);
@@ -5647,10 +5650,23 @@ YobiAction* Sub_444000(
     action->direction = direction;
     action->displayPriority = displayPriority;
     action->flags = 0x20u;
-    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, mapX);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, mapY);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapX1E0, mapX);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapY1F0, mapY);
+    // 原四次各先读取临时 encoded/mask/count，再按同序发布目标。
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        target.encoded = encoded;
+        target.mask = mask;
+        target.readCount = readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    };
+    assignCoordinate(action->mapX200, mapX);
+    assignCoordinate(action->mapY210, mapY);
+    assignCoordinate(action->mapX1E0, mapX);
+    assignCoordinate(action->mapY1F0, mapY);
     const double scaledX = static_cast<double>(mapX) * 64.0F;
     action->field27C = 0;
     action->field280 = 0;

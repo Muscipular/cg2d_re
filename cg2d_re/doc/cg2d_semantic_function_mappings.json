@@ -146651,6 +146651,138 @@
       ],
       "verification_level": "原466条1483B/唯一type1 callback绑定完整保存；仅附件五路径与共同读取点、两局部入口及源码十片段静态，完整其它语义/父/callee/owner寿命/运行未验",
       "boundary": "既有真实实体回调，在普通骑乘路径恢复Y相加后取X查询子槽、X相加前取图形子槽，初descriptor与最后graphicIndex分别借用，原Y→X查询/before0/batch0及窄化保持。共用选择不套用阶段1/2其它三种顺序；本轮不重验原466条的其它语义/父与callee/生产/ABI/SDK/PC53/RNG/场景画面及owner重进退出/borrow失效，异常不增加保护/模拟或称等价。"
+    },
+    {
+      "original_entry": "0x441db0",
+      "inventory_id": "F:00041DB0",
+      "status": "ACP01实体四坐标临时载体取样/发布实修及原身份纳管；完整父/callee/寿命运行未验",
+      "original_end_exclusive": "0x441f53",
+      "instruction_count": 109,
+      "original_direct_reference_count": 7,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_441DB0",
+            "Sub_4417E0"
+          ],
+          "relationship": "既有实体创建和真实4417E0绑定，四次局部count/encoded/mask快照与发布；其它创建字段/中间低W16清保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_441DB0"
+          ],
+          "relationship": "既有真实声明/原生指针返回，本轮未改公开接口或类型"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x43e3ce",
+          "parent_entry": "0x43dd00",
+          "type": 17
+        },
+        {
+          "address": "0x4453ce",
+          "parent_entry": "0x445350",
+          "type": 17
+        },
+        {
+          "address": "0x445d5d",
+          "parent_entry": "0x445d20",
+          "type": 17
+        },
+        {
+          "address": "0x445f7d",
+          "parent_entry": "0x445f40",
+          "type": 17
+        },
+        {
+          "address": "0x44667e",
+          "parent_entry": "0x446640",
+          "type": 17
+        },
+        {
+          "address": "0x44683e",
+          "parent_entry": "0x4467d0",
+          "type": 17
+        },
+        {
+          "address": "0x519cf9",
+          "parent_entry": "0x519cd0",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_actor_coordinate_producer_evidence.json"
+      ],
+      "verification_level": "两完整212条829B/12type17call8父及两个源片段，临时三取样先于三发布/原字段宽度和真实四组构析有限静态；完整父实参/所有callee/对象寿命/运行未验",
+      "boundary": "441DB0既有局部lambda先取U8count/encoded/mask三值再按同序发布，四目标间清field270低W16、原sizeof载荷/真实4417E0回调/失败空/字段和投影及指针返回保持。 不改通用工具/其它创建者/布局或RNG次数，不补未知字段或异常保护/回绕及故障模拟/称等价；完整父实参/所有callee/上游/间接别名与owner重进退出或borrow失效/真实ABI/SDK/PC53/时钟RNG/场景画面运行未验。"
+    },
+    {
+      "original_entry": "0x444000",
+      "inventory_id": "F:00044000",
+      "status": "ACP01无回调挂件四坐标临时载体取样/发布实修及原身份纳管；完整父/callee/寿命运行未验",
+      "original_end_exclusive": "0x44419a",
+      "instruction_count": 103,
+      "original_direct_reference_count": 5,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_444000",
+            "Sub_442F70"
+          ],
+          "relationship": "既有无回调挂件创建，四次局部构造/三字段快照与encoded/mask/count发布；5原父call合为4现表达式，首附件图号条件合并保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_444000"
+          ],
+          "relationship": "既有真实声明/原生指针返回，本轮未改公开接口或类型"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x4432b0",
+          "parent_entry": "0x442f70",
+          "type": 17
+        },
+        {
+          "address": "0x4432e5",
+          "parent_entry": "0x442f70",
+          "type": 17
+        },
+        {
+          "address": "0x443903",
+          "parent_entry": "0x442f70",
+          "type": 17
+        },
+        {
+          "address": "0x443a5c",
+          "parent_entry": "0x442f70",
+          "type": 17
+        },
+        {
+          "address": "0x443cf0",
+          "parent_entry": "0x442f70",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_actor_coordinate_producer_evidence.json"
+      ],
+      "verification_level": "两完整212条829B/12type17call8父及两个源片段，临时三取样先于三发布/原字段宽度和真实四组构析有限静态；完整父实参/所有callee/对象寿命/运行未验",
+      "boundary": "444000从通用赋值承接转入口私有lambda，先取encoded/mask/U8count三值再按同序发布，mapX200/mapY210/mapX1E0/mapY1F0四次原序构析；零载荷/失败空/无新回调或completionSlot、原投影和指针返回保持。 不改通用工具/其它创建者/布局或RNG次数，不补未知字段或异常保护/回绕及故障模拟/称等价；完整父实参/所有callee/上游/间接别名与owner重进退出或borrow失效/真实ABI/SDK/PC53/时钟RNG/场景画面运行未验。"
     }
   ]
 }

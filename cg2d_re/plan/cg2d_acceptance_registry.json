@@ -567,7 +567,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-baseline",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -589,7 +590,9 @@
         "F:00040070",
         "F:0003F520",
         "F:000417E0",
-        "F:00042F70"
+        "F:00042F70",
+        "F:00041DB0",
+        "F:00044000"
       ],
       "closure_task_ids": [
         "U11",
@@ -611,7 +614,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-decision",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -624,7 +628,8 @@
         "MCS01真实观察子生产/消费三身份纳管，一子更新及分类承接七片段恢复原取样，两创建者本体保持；原阶段1/2分支快照与后部phase复读、绘后frame保持。完整父/所有callee/上游及间接别名与owner寿命/SDK/场景运行未闭，双域共用同ID/三原证据",
         "MCE01真实子/父退场两身份纳管，十取样片段恢复原阶段/参数/共用排序和绘子项序；43F520本体及其余语义不改，依赖窗不加全根身份。完整父与callee/上游/所有间接目标和owner寿命/SDK/PC53/场景运行未闭，双域共用同ID/原证据",
         "MOB01观察主回调初阶段/方向/父绘图索引/末frame五片段实修及一原身份纳管，后部阶段复读、子生产消费与MCE01共用保持；完整体保存不代全部语义/父与callee/上游和owner寿命/真实SDK/PC53/场景运行，双域共用同ID/原证据",
-        "AAS01实体回调/附加绘制两依赖与MAP共用同ID/证据，五路径四读序及入口/首附件十片段已实修；真实441DB0 type1绑定/4417E0 type17call保持，不把43E490四窗当完整根。原其它语义/全部场景传递依赖/owner重进退出和借用失效/ABI/SDK/PC53/RNG/画面运行未闭"
+        "AAS01实体回调/附加绘制两依赖与MAP共用同ID/证据，五路径四读序及入口/首附件十片段已实修；真实441DB0 type1绑定/4417E0 type17call保持，不把43E490四窗当完整根。原其它语义/全部场景传递依赖/owner重进退出和借用失效/ABI/SDK/PC53/RNG/画面运行未闭",
+        "ACP01两实体附件生产依赖两片段实修/原身份纳管，四独立构析和字段W32/U8/低W16、原生对象/真实回调与投影及失败返回保持；5原挂件call对应4现表达式，同ID/证据关联MAP。全部场景传递父/callee/数据生产与owner重进退出/borrow失效/真实SDK/PC53/RNG/画面运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -638,7 +643,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
       ]
     },
     {
@@ -1108,7 +1114,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-baseline",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-baseline",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1165,7 +1172,9 @@
         "F:00040070",
         "F:0003F520",
         "F:000417E0",
-        "F:00042F70"
+        "F:00042F70",
+        "F:00041DB0",
+        "F:00044000"
       ],
       "closure_task_ids": [
         "U11",
@@ -1193,7 +1202,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-decision",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-decision",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1212,7 +1222,8 @@
         "MCS01子更新五取样块/共用分类两承接块已实修，图号与阶段快照按原读取点，单参数形式保其它调用者；两正确子创建者保持并纳管。原422条1479B/三call两父，全父/callee/上游及所有别名/owner寿命/真实ABI/SDK/场景画面运行未闭，同ID关联LOOP",
         "MCE01子退场七/父初阶段一/共用排序绘图两片段实修，恢复当次玩家号及原数值叶/五槽/正常恢复和计数保持；两完整638条2111B、依赖窗92条250B只共用局部，1call/1type1不混。完整父/callee/上游与间接别名及owner寿命/SDK/PC53/画面运行未闭，同ID关联LOOP",
         "MOB01真实43F520五片段/四类取样已实修，完整319条999B纳管、唯一type1绑定不是call；本轮新227条/复用92条，共用与子生产消费及正常飞行/就绪和死亡后继续保持。全其它语义/父与所有callee/上游/间接别名与owner寿命/真实SDK/PC53/画面运行未闭，同ID关联LOOP",
-        "AAS01共用五附件路径恢复四取样顺序、附加入口/首附件恢复同指针快照/逐次目标源读取，十片段实修；4417E0一完整466条与442F70两窗143条及43E490四窗106条共715条2252B。两ID纳管，其中一既有语义只追加、旧名称证据保持。同ID关联LOOP，全其它语义/父/callee/上游和间接别名及owner寿命/SDK/PC53/画面运行未闭，异常不保护或模拟"
+        "AAS01共用五附件路径恢复四取样顺序、附加入口/首附件恢复同指针快照/逐次目标源读取，十片段实修；4417E0一完整466条与442F70两窗143条及43E490四窗106条共715条2252B。两ID纳管，其中一既有语义只追加、旧名称证据保持。同ID关联LOOP，全其它语义/父/callee/上游和间接别名及owner寿命/SDK/PC53/画面运行未闭，异常不保护或模拟",
+        "ACP01实体/挂件两个真实创建者四组临时载体各先三字段取齐/再原序发布已实修；两完整212条829B/12call8父，通用赋值/其它入口和AAS01保持，两ID同LOOP纳管。完整父实参/所有callee/上游与间接别名和owner寿命/ABI/SDK/PC53/RNG/画面运行未闭，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1232,7 +1243,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
       ]
     },
     {
@@ -14503,6 +14515,138 @@
       "observation": "715条2252B/两身份元数据与1type1绑定/1type17call、十片段全文精确重放与五路径四枚举/真实指针宽度/原空值创建死亡和其它正文保持的限定静态",
       "expected": "五路径按原分别在Y/X加法前后读取子槽，不贯穿初指针；初descriptor/最后graphicIndex、Y→X偏移/原before/batch及窄化；附加入口一次骑乘槽供两帧快照，首附件目标与源字段读取和逐次动画/查询子槽按原",
       "actual": "四条局部I/S共用一份715条2252B/十片段实修，4417E0全体保存仅局部验收，442F70两窗不代其它1077条、43E490四窗不代完整根；完整父/callee/上游/owner寿命/SDK/PC53/画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-ACTOR-COORDINATE-PRODUCER-MAP-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整212条829B/12type17call8父，两个真实创建者各四组三字段临时快照/原序发布；doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-coordinate-producer-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_actor_coordinate_producer_evidence.json",
+        "src/YobiRuntime.cpp#Sub_441DB0",
+        "src/YobiRuntime.cpp#Sub_444000",
+        "src/YobiRuntime.cpp#Sub_4417E0",
+        "src/YobiRuntime.cpp#Sub_442F70",
+        "include/cg/YobiRuntime.hpp#Sub_441DB0",
+        "include/cg/YobiRuntime.hpp#Sub_444000"
+      ],
+      "differences": [
+        {
+          "description": "两个入口分别先临时count/encoded/mask或encoded/mask/count三值取齐，再按原序发布到四实际坐标目标；原四构析/RNG与字段/失败/投影/真实回调保持，通用工具不改",
+          "decision_ref": "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两个具名源片段已落实，两入口各四组三字段先取样再发布；四独立构析与中间低W16清/失败和真实对象/回调/投影保持",
+      "expected": "441DB0先U8count→U32encoded→U32mask，444000先U32encoded→U32mask→U8count，三值取齐后依同序写实际目标；各四次独立构析/原RNG，四坐标/实体中间低W16清和原字段/失败/回调/投影/指针返回保持",
+      "actual": "四局部I/S共用两源片段和212条829B、12call8父证据，两个语义/adapted与MAP/LOOP同ID；通用工具/其它入口保持，完整父实参/其它语义/callee/上游和owner寿命/真实ABI/SDK/PC53/画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-ACTOR-COORDINATE-PRODUCER-MAP-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整212条829B/12type17call8父，两个真实创建者各四组三字段临时快照/原序发布；doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-coordinate-producer-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_actor_coordinate_producer_evidence.json",
+        "src/YobiRuntime.cpp#Sub_441DB0",
+        "src/YobiRuntime.cpp#Sub_444000",
+        "src/YobiRuntime.cpp#Sub_4417E0",
+        "src/YobiRuntime.cpp#Sub_442F70",
+        "include/cg/YobiRuntime.hpp#Sub_441DB0",
+        "include/cg/YobiRuntime.hpp#Sub_444000"
+      ],
+      "differences": [
+        {
+          "description": "两个入口分别先临时count/encoded/mask或encoded/mask/count三值取齐，再按原序发布到四实际坐标目标；原四构析/RNG与字段/失败/投影/真实回调保持，通用工具不改",
+          "decision_ref": "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原两完整212条829B/库存/12type17call8父、两个源片段全文精确重放/临时三快照及目标发布序、W32/U8/原低W16与构析/RNG有限静态；五原父点与四现表达式分别记录",
+      "expected": "441DB0先U8count→U32encoded→U32mask，444000先U32encoded→U32mask→U8count，三值取齐后依同序写实际目标；各四次独立构析/原RNG，四坐标/实体中间低W16清和原字段/失败/回调/投影/指针返回保持",
+      "actual": "四局部I/S共用两源片段和212条829B、12call8父证据，两个语义/adapted与MAP/LOOP同ID；通用工具/其它入口保持，完整父实参/其它语义/callee/上游和owner寿命/真实ABI/SDK/PC53/画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-ACTOR-COORDINATE-PRODUCER-LOOP-I-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整212条829B/12type17call8父，两个真实创建者各四组三字段临时快照/原序发布；doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-coordinate-producer-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_actor_coordinate_producer_evidence.json",
+        "src/YobiRuntime.cpp#Sub_441DB0",
+        "src/YobiRuntime.cpp#Sub_444000",
+        "src/YobiRuntime.cpp#Sub_4417E0",
+        "src/YobiRuntime.cpp#Sub_442F70",
+        "include/cg/YobiRuntime.hpp#Sub_441DB0",
+        "include/cg/YobiRuntime.hpp#Sub_444000"
+      ],
+      "differences": [
+        {
+          "description": "两个入口分别先临时count/encoded/mask或encoded/mask/count三值取齐，再按原序发布到四实际坐标目标；原四构析/RNG与字段/失败/投影/真实回调保持，通用工具不改",
+          "decision_ref": "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两个具名源片段已落实，两入口各四组三字段先取样再发布；四独立构析与中间低W16清/失败和真实对象/回调/投影保持",
+      "expected": "441DB0先U8count→U32encoded→U32mask，444000先U32encoded→U32mask→U8count，三值取齐后依同序写实际目标；各四次独立构析/原RNG，四坐标/实体中间低W16清和原字段/失败/回调/投影/指针返回保持",
+      "actual": "四局部I/S共用两源片段和212条829B、12call8父证据，两个语义/adapted与MAP/LOOP同ID；通用工具/其它入口保持，完整父实参/其它语义/callee/上游和owner寿命/真实ABI/SDK/PC53/画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-ACTOR-COORDINATE-PRODUCER-LOOP-S-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整212条829B/12type17call8父，两个真实创建者各四组三字段临时快照/原序发布；doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-coordinate-producer-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_actor_coordinate_producer_evidence.json",
+        "src/YobiRuntime.cpp#Sub_441DB0",
+        "src/YobiRuntime.cpp#Sub_444000",
+        "src/YobiRuntime.cpp#Sub_4417E0",
+        "src/YobiRuntime.cpp#Sub_442F70",
+        "include/cg/YobiRuntime.hpp#Sub_441DB0",
+        "include/cg/YobiRuntime.hpp#Sub_444000"
+      ],
+      "differences": [
+        {
+          "description": "两个入口分别先临时count/encoded/mask或encoded/mask/count三值取齐，再按原序发布到四实际坐标目标；原四构析/RNG与字段/失败/投影/真实回调保持，通用工具不改",
+          "decision_ref": "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "原两完整212条829B/库存/12type17call8父、两个源片段全文精确重放/临时三快照及目标发布序、W32/U8/原低W16与构析/RNG有限静态；五原父点与四现表达式分别记录",
+      "expected": "441DB0先U8count→U32encoded→U32mask，444000先U32encoded→U32mask→U8count，三值取齐后依同序写实际目标；各四次独立构析/原RNG，四坐标/实体中间低W16清和原字段/失败/回调/投影/指针返回保持",
+      "actual": "四局部I/S共用两源片段和212条829B、12call8父证据，两个语义/adapted与MAP/LOOP同ID；通用工具/其它入口保持，完整父实参/其它语义/callee/上游和owner寿命/真实ABI/SDK/PC53/画面运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -14669,7 +14813,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
       ]
     },
     {
@@ -14908,7 +15053,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
       ]
     },
     {
@@ -14973,7 +15119,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
       ]
     },
     {
@@ -15029,7 +15176,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
       ]
     },
     {
@@ -15062,7 +15210,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
       ]
     },
     {
@@ -15230,7 +15379,8 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
         "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
         "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
-        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state"
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state"
       ]
     }
   ],
@@ -19232,6 +19382,30 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-acceptance",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
         "doc/cg2d_actor_attachment_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00041DB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_actor_coordinate_producer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00044000",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-acceptance",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_actor_coordinate_producer_evidence.json"
       ]
     }
   ],

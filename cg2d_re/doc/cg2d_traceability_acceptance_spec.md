@@ -590,3 +590,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [验收标准](cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-acceptance)：749条2827B十一页78call/三范围直接目标闭合、两个原循环及唯一共用尾、202B表三case定位/原48B偏移与八W32初值，整CPP四根二十二处及不同图号序/82交错坐标/主辅参数-S32索引/字段-player-kind、原各不同消费和其它源头核心保持有限静态。E389→393仅YOBI/BATTLE四局部I/S。
 
 旧812仅追加，不新分类/完整成员；七open/60项已闭10/R7及所有完整门禁保持。其它各技能/全路由/完整父-SEH、所有消费者与资源owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续，文本汇总不代运行或降低标准。
+
+## BMU01 技能93局部实现与静态证据（2026-10-06）
+
+[验收标准](cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-acceptance)：241条1085B四页39call/主体与真实尾直接目标闭合、202B入口case93，整CPP单根五处/比较pub与字段-Album后参数、工厂前后两target/固定created-payload及十整数-29字符串-四内存载体-W16零/坐标live/无RID尾和其它源头核心保持有限静态。E393→397仅YOBI/BATTLE四局部I/S。
+
+旧812仅追加，不新分类/完整成员；七open/60项已闭10/R7及全部完整门禁保持。98及其它各技能/全路由/完整父-SEH、所有消费者与资源owner/SDK/ABI/PC53/时钟RNG/画面及R1/R7/R8/整体继续，文本汇总不代工厂owner或其它运行验收，不降低标准。

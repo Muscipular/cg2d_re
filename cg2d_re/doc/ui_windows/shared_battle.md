@@ -8297,3 +8297,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [有界合同](../cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-source-state)纳管12/82/97三主体和四现代根二十二处。12三Take后live caster/自身效果和字段/Move增58无RID；82两侧中点/不同准备、97图号偏移-caster-加法及准备后均进既有共用目标根，两原循环都取证。空target Finish与255出口在42CB37汇合后Move/RID/++58，初始空caster直接Finish回存，原图值跨目标/数组/门禁和调用后live保持。
 
 [749条2827B十一页78call](../cg2d_battle_m_skill12_82_97_sampling_evidence.json)包含共用尾只计一次，202B低段表仅12/82/97定位/原48B偏移保持；其它各技能/资源owner与整体运行门禁继续，原格式明文/音频暂停保持。
+
+## BMU01 93角色重建与无RID结束尾（2026-10-06）
+
+[有界合同](../cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-source-state)纳管93主体五处。目标先255比较/pub同位置旧actor MarkDeath，工厂前后两次live target与固定created/payload保持；四内存载体/原W32高位与四W16正常槽序/坐标live、Album后效果与80/54保持，MarkDeath不改立即释放，不补工厂null/默认。
+
+[241条1085B四页39call](../cg2d_battle_m_skill93_sampling_evidence.json)含432E99真实效果终结-Move-增58尾，原无RID，初始空caster直接Finish回存。98现代0..18路由另分子SPEC取证/开发，所有owner和完整运行门禁继续，原格式明文/音频暂停保持。

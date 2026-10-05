@@ -2453,3 +2453,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 [正常主体合同](cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-source-state)749条2827B十一页78call，追加ProcessBattleMSkill12/82/97及ProcessBattleMSkill82And97Targets四根二十二处状态，两个原目标循环都核，共用尾在97物理范围只计一次。202B表仅三case定位/原48B偏移和八W32初值沿已证来源，不新F/X/adapted/分类/完整成员，旧历史/其它字段保持。
 
 语义1350/有效ID1345、片段5/分类456及关联1463保持；其它各技能/全路由/完整17298父-SEH及全部消费者/owner运行继续。
+
+## BMU01 旧812的技能93角色重建追加（2026-10-06）
+
+[正常主体及实际尾](cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-source-state)241条1085B四页39call，追加ProcessBattleMSkill93单根五处/角色重建原消费，202B表仅93定位，不新F/X/adapted/分类/完整成员，旧历史/其它字段保持；父437A29定位探针不当完整回存新证据。
+
+语义1350/有效ID1345、片段5/分类456及关联1463保持；98各现代模式继续分段核原端和开发，全部其它技能/全路由/完整父-SEH/消费者-owner运行仍待。

@@ -181,3 +181,9 @@
 [二十二组裁决](../cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-decision)恢复82 X两索引/base坐标后借同position actor，再other坐标/delta/该payload后中点pub，Y另读两索引/坐标后live caster；12与97图号次序分别恢复，不统一采样。两原目标循环的target条件pub、主辅参数/两S32索引/两字段和player-kind都核，原W32 flags入寄存器的AL/AH局部位保持，不误改成byte；不改owner或布局。
 
 [三完整正常有界主体](../cg2d_battle_m_skill12_82_97_sampling_evidence.json)749条2827B十一页78call，初始空/目标空不同Finish消费、12无RID/82-97共用尾RID、正常初值/图值复用与调用后live保持。其它各技能消费者与资源owner重进退出/借用失效、SDK/ABI/画面继续。
+
+## BMU01 角色重建中的固定对象与live槽（2026-10-06）
+
+[五组裁决](../cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-decision)恢复同解析caster-target借用/条件pub与字段、Album后caster-target-actor。旧actor MarkDeath后重新取target创建，工厂后再取target发布；created与其payload固定跨各Take/四临时数值载体，后续效果/列表另借当前槽，不混为同一缓存。W32 flags高位和W16 fields288槽3/2/1/0正常零、各坐标逐次live与原无RID尾保持，不新owner/空保护。
+
+[完整正常有界主体与尾](../cg2d_battle_m_skill93_sampling_evidence.json)241条1085B四页39call；所有actor owner重进退出/借用失效、98及其它技能消费者/SDK/ABI/画面继续。

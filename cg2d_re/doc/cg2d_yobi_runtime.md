@@ -4135,3 +4135,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [二十二处实修](cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-decision)恢复三技能入口/字段、12 caster先偏移与97偏移-caster-加法的不同图号序、82 X两索引-baseX-actor-otherX-delta-payload-中点/Y两索引与player、共用目标的条件pub/主辅参数/两S32索引/两字段/player-kind。12保amount调用后live caster及无RID，82/97保两原循环和正常Move-RID-增58、初始空与目标空不同出口、原八W32初值/图值跨目标与调用后live。
 
 [三主体749条2827B](cg2d_battle_m_skill12_82_97_sampling_evidence.json)十一页78call、全部直接目标闭合，共用尾已在97物理范围只计一次，202B入口仅三case定位/原48B偏移保持；其它技能/完整父-SEH/owner/SDK/ABI/画面继续。
+
+## BMU01 技能93角色重建五处取样（2026-10-06）
+
+[五处实修](cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-decision)恢复同解析caster/target与比较pub、payload先skill/level字段，以及Album调用后caster-target-actor效果参数。MarkDeath后live target进工厂、工厂后再live target pub返回created，固定created/payload跨十处整数和29容量字符串/四内存载体构造复制销毁、W32高位/W16槽序/逐次坐标与原终结-Move-增58无RID保持。
+
+[主体与尾241条1085B](cg2d_battle_m_skill93_sampling_evidence.json)四页39call/全部直接目标闭合，202B表仅93定位；98现代多模式继续分段取证开发，不以本步验98/全部actor owner/完整父-SEH/SDK/ABI/画面。

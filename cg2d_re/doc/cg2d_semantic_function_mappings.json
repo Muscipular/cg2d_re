@@ -146479,6 +146479,78 @@
       ],
       "verification_level": "三原422条1479B/三直接call两父保存，七具名片段/分类承接及两个既有正确创建者局部静态；不代其他语义/完整父与callee/owner寿命/运行",
       "boundary": "43FE00本体未改：玩家号→payload/槽值→玩家或查找，source或创建失败返回空，创建(3,0)，原图号/动作/方向/优先级/flags及X/Y与计数清零/槽/parent、阶段3同序发布。 422条其它语义/完整两父与所有callee/全上游/间接别名及owner重进退出和借用失效/实际ABI/SDK/时钟RNG/场景画面运行未验；原生载荷/非拥有parent与子、既有PlaySe两实参/未消费第三压栈值合同和音频暂停保持，异常不新增保护或回绕/故障模拟、称等价。"
+    },
+    {
+      "original_entry": "0x440440",
+      "inventory_id": "F:00040440",
+      "status": "MCE01子退场七取样块实修/身份纳管；完整父/callee与寿命运行未验",
+      "original_end_exclusive": "0x4408bc",
+      "instruction_count": 331,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_440440",
+            "Sub_440070",
+            "SetObservationChildAction",
+            "MapCharaPayload"
+          ],
+          "relationship": "既有真实私有子退场本体/父直接消费，MCE01七块恢复槽/阶段/转态参数和绘图取样，不改恢复/计数或音频callee"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x440322",
+          "parent_entry": "0x440070",
+          "type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_evidence.json"
+      ],
+      "verification_level": "两完整638条2111B与43F520依赖窗92条250B，1直接call/1type1地址写者两父，十源片段局部静态；不计两call或全43F520/完整父/callee/owner寿命/运行",
+      "boundary": "子入口槽先取后payload；首次偏移方向/槽/图号，父X后initialPhase选3/4，阶段3相对Y/图号/相对X快照分类；soundX在phase5/动作0前取；恢复后currentPhase供早退/shift，绘后phase仍复读；第二偏移方向/图号/槽及绘前图形索引明确。 原五槽/正常投影和数值叶、恢复前当次玩家号/实体恢复、死亡后继续处理/创建和失败、两计数/末frame、原生指针/布局与借用、单参数分类形式及音效两实参保持；全部其它原语义/完整父及全部callee/上游/间接别名和owner重进退出或借用失效/实际ABI/SDK/PC53/时钟RNG/场景画面运行未验，异常不新增保护或回绕/故障模拟、称等价。"
+    },
+    {
+      "original_entry": "0x440070",
+      "inventory_id": "F:00040070",
+      "status": "MCE01父退场阶段及共用排序/绘制取样实修/身份纳管；完整回调与寿命运行未验",
+      "original_end_exclusive": "0x440433",
+      "instruction_count": 307,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_440070",
+            "Sub_43FEB0",
+            "DrawObservationChildren",
+            "Sub_43FE00"
+          ],
+          "relationship": "既有私有父回调/真实callback写者，MCE01一初阶段及共用排序/绘子项两块取样；共用43F520仅依赖窗，不注册其全根身份"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x43fee4",
+          "parent_entry": "0x43feb0",
+          "type": 1
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_evidence.json"
+      ],
+      "verification_level": "两完整638条2111B与43F520依赖窗92条250B，1直接call/1type1地址写者两父，十源片段局部静态；不计两call或全43F520/完整父/callee/owner寿命/运行",
+      "boundary": "父initialPhase只初3/4/5，后当次4/5保持；共用排序nextIndex/currentIndex、nextChild/currentChild、nextDepth/currentDepth顺序，S32降序/S8交换保持；子图形负值门槛后描述符/Y/X/父primary取样。 原五槽/正常投影和数值叶、恢复前当次玩家号/实体恢复、死亡后继续处理/创建和失败、两计数/末frame、原生指针/布局与借用、单参数分类形式及音效两实参保持；全部其它原语义/完整父及全部callee/上游/间接别名和owner重进退出或借用失效/实际ABI/SDK/PC53/时钟RNG/场景画面运行未验，异常不新增保护或回绕/故障模拟、称等价。"
     }
   ]
 }

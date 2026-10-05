@@ -2495,8 +2495,9 @@ void Sub_43F910(YobiAction* const action)
 void Sub_440440(YobiAction* const action)
 {
     YobiAction* const parent = action->observationParent10;
+    const std::int32_t initialSlot = action->field1D0;
     auto* const payload = static_cast<MapCharaPayload*>(parent->payload);
-    const std::uint32_t objectIndex = payload->values[action->field1D0];
+    const std::uint32_t objectIndex = payload->values[initialSlot];
     YobiAction* const source = objectIndex == world::ReadPlayerObjectIndex_FDA880()
         ? world::detail::ReadPlayerAction()
         : world::detail::FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
@@ -2512,14 +2513,18 @@ void Sub_440440(YobiAction* const action)
     }
     std::int32_t slotX = 0;
     std::int32_t slotY = 0;
-    Sub_43FD90(parent->imageNo, action->field1D0, parent->direction, &slotX, &slotY);
+    const std::int32_t slotDirection = parent->direction;
+    const std::int32_t slot = action->field1D0;
+    const std::int32_t parentImageNo = parent->imageNo;
+    Sub_43FD90(parentImageNo, slot, slotDirection, &slotX, &slotY);
     std::int32_t parentX = parent->x;
+    const std::int32_t initialPhase = action->phase;
     std::int32_t parentY = parent->y;
     const std::int32_t frameX = parent->frameX;
     const std::int32_t frameY = parent->frameY;
     std::int32_t relativeX;
     std::int32_t relativeY;
-    if (action->phase == 4) {
+    if (initialPhase == 4) {
         const float worldY = parent->worldY;
         const float worldX = parent->worldX;
         float screenX;
@@ -2559,9 +2564,10 @@ void Sub_440440(YobiAction* const action)
         }
         action->characterAction = 11;
         if (frame > 15 && relativeY >= 0) {
+            const std::int32_t soundX = action->x;
             action->phase = 5;
             action->characterAction = 0;
-            static_cast<void>(audio::PlaySe_52C450(0x1C9, action->x));
+            static_cast<void>(audio::PlaySe_52C450(0x1C9, soundX));
             const std::uint32_t currentIndex = payload->values[action->field1D0];
             if (currentIndex == world::ReadPlayerObjectIndex_FDA880()) {
                 world::Sub_51BEF0();
@@ -2569,31 +2575,37 @@ void Sub_440440(YobiAction* const action)
                 world::detail::Sub_43DB30(source);
             }
         }
-    } else if (action->phase == 3) {
-        relativeX = frameX + slotX;
+    } else if (initialPhase == 3) {
         relativeY = frameY + slotY;
-        SetObservationChildAction(action);
+        const std::int32_t imageNo = action->imageNo;
+        relativeX = frameX + slotX;
+        SetObservationChildAction(action, imageNo);
     }
-    if (action->phase >= 5) {
+    const std::int32_t currentPhase = action->phase;
+    if (currentPhase >= 5) {
         return;
     }
     const std::int32_t index = action->field1D0;
     if (payload->values[index] != 0 && payload->partyActions[index] != nullptr) {
         std::int32_t shiftX = 0;
         std::int32_t shiftY = 0;
-        if (source != nullptr && action->phase == 4) {
+        if (source != nullptr && currentPhase == 4) {
             const std::int32_t travel = action->counter28;
             shiftX = (source->x - parentX) * travel / 15;
             shiftY = (source->y - parentY) * travel / 15;
         }
-        Sub_43FD90(parent->imageNo, action->field1D0, parent->direction, &slotX, &slotY);
+        const std::int32_t drawDirection = parent->direction;
+        const std::int32_t drawImageNo = parent->imageNo;
+        const std::int32_t drawSlot = action->field1D0;
+        Sub_43FD90(drawImageNo, drawSlot, drawDirection, &slotX, &slotY);
         const render::GraphicDescriptor16* const descriptor = &action->drawMode;
         const std::int32_t drawY = Sub_5182B0(action, 1) + shiftY + relativeY + parentY;
         const std::int32_t offsetX = Sub_5182B0(action, 0);
         const std::int32_t primaryIndex = parent->value1D4;
         const std::int32_t drawX = offsetX + shiftX + relativeX + parentX;
+        const std::int32_t graphicIndex = action->graphicIndex;
         world::detail::DrawGearNormal_46C060(
-            primaryIndex, 1, action->graphicIndex,
+            primaryIndex, 1, graphicIndex,
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawX)),
             std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(drawY)), descriptor, 0);
     }
@@ -2615,14 +2627,18 @@ void DrawObservationChildren(
             break;
         }
         for (std::size_t next = index + 1; next < order.size(); ++next) {
-            if (order[next] < 0) {
+            const std::int8_t nextIndex = order[next];
+            if (nextIndex < 0) {
                 break;
             }
-            if (payload->partyActions[order[index]]->deltaY
-                < payload->partyActions[order[next]]->deltaY) {
-                const std::int8_t previous = order[index];
-                order[index] = order[next];
-                order[next] = previous;
+            const std::int8_t currentIndex = order[index];
+            YobiAction* const nextChild = payload->partyActions[nextIndex];
+            YobiAction* const currentChild = payload->partyActions[currentIndex];
+            const std::int32_t nextDepth = nextChild->deltaY;
+            const std::int32_t currentDepth = currentChild->deltaY;
+            if (currentDepth < nextDepth) {
+                order[index] = nextIndex;
+                order[next] = currentIndex;
             }
         }
     }
@@ -2633,11 +2649,15 @@ void DrawObservationChildren(
         YobiAction* const child = payload->partyActions[index];
         const std::int32_t graphicIndex = child->graphicIndex;
         if (graphicIndex >= 0) {
+            const render::GraphicDescriptor16* const descriptor = &child->drawMode;
+            const std::int32_t childY = child->deltaY;
+            const std::int32_t childX = child->deltaX;
+            const std::int32_t primaryIndex = parent->value1D4;
             world::detail::DrawGearNormal_46C060(
-                parent->value1D4, 1, graphicIndex,
-                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(child->deltaX)),
-                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(child->deltaY)),
-                &child->drawMode, 0);
+                primaryIndex, 1, graphicIndex,
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(childX)),
+                std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(childY)),
+                descriptor, 0);
         }
     }
 }
@@ -2758,8 +2778,9 @@ void Sub_440070(YobiAction* const action)
         static_cast<std::int64_t>(static_cast<double>(screenX) + 0.5));
     std::int32_t y = static_cast<std::int32_t>(
         static_cast<std::int64_t>(static_cast<double>(screenY) + 0.5));
-    if (action->phase >= 3 && action->phase <= 5) {
-        if (action->phase == 3 && payload->frame > 50) {
+    const std::int32_t initialPhase = action->phase;
+    if (initialPhase >= 3 && initialPhase <= 5) {
+        if (initialPhase == 3 && payload->frame > 50) {
             action->phase = 4;
             for (std::size_t index = 0; index < payload->partyActions.size(); ++index) {
                 YobiAction* const child = payload->partyActions[index];

@@ -7641,3 +7641,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [阶段合同](cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state)沿MOC01核两个真实子创建者43F290/43FE00及43F910更新。两创建者已有完整同序源码，保持(3,0)、失败、原生parent/slot和阶段1/3；实修43F910五取样块及共用分类两承接块：槽先取后载荷，偏移参数方向/槽/父图号，父Y后阶段快照选初分支，转态前图号先取再phase/frame写后分类。
 
 [三原422条1479B/三call两父](cg2d_map_child_stage_sampling_evidence.json)与实际43F520/440070消费纳管；后部phase仍当次读取，正常插值/抛物线、槽门槛/偏移和frame递增、原音效两实参及暂停保持。其它原语义/完整父与所有callee/上游/间接别名及owner寿命/真实SDK/场景运行未闭。
+
+## MCE01 观察退场与共用子绘图（2026-10-05）
+
+[退场取样](cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state)实修子七/父一/共用两片段：子槽/两次偏移参数不同序、初阶段/currentPhase/绘后phase、转态前soundX和阶段3图号快照；父初阶段单次取样，后当前4/5保持。共用排序按两个原调用者先后一/当前子指针及深度，绘子描述符/Y/X/父primary取样，原五槽/数值叶/恢复和计数保持。
+
+[两完整638条2111B、依赖窗92条250B](cg2d_map_child_exit_sampling_evidence.json)只本次局部，1call/1type1两父不混计，43F520本体和其余语义不升级。MCS01误写440440两分类调用，已按实际一次更正。完整父/callee/上游/间接别名和owner寿命/SDK/PC53/场景画面运行未闭，音频继续暂停。

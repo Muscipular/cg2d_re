@@ -2225,3 +2225,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [三原422条1479B/三call两父](cg2d_map_child_stage_sampling_evidence.json)及[源状态](cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state)为43F290/43F910/43FE00补正式语义/真实私有本体和调用来源/adapted；一子更新五取样块/共用分类两承接块实修，两正确创建者保持，仅随消费链纳管。
 
 语义1291→1294、有效ID1287→1290、处置384→387，MAP47→50/LOOP12→15成员，同ID不重复计函数或把正确创建者记为源修复。原定位/pending/队列/非FID/R7和其它功能保持，完整父/callee/上游与间接别名及owner寿命/真实SDK/运行未验。
+
+## MCE01 退场子/父原身份（2026-10-05）
+
+[两完整638条2111B及依赖窗92条250B](cg2d_map_child_exit_sampling_evidence.json)与[源状态](cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state)为440440/440070补正式语义/真实本体、调用或callback写者/adapted；十片段实修，1call/1type1两父不混计。43F520仅共享依赖窗，不加全根身份或升级其余语义。
+
+语义1294→1296、有效ID1290→1292、处置387→389，MAP50→52/LOOP15→17成员，同ID不重复计函数；旧定位/pending/队列/非FID/R7及其它功能保持。完整父/callee/上游和间接别名及owner寿命/真实SDK/PC53/运行未验。

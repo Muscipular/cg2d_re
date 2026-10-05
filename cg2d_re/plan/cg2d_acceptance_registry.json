@@ -564,7 +564,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-baseline"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -581,7 +582,9 @@
         "F:00040C50",
         "F:0003F290",
         "F:0003F910",
-        "F:0003FE00"
+        "F:0003FE00",
+        "F:00040440",
+        "F:00040070"
       ],
       "closure_task_ids": [
         "U11",
@@ -600,7 +603,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-decision"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -610,7 +614,8 @@
         "MCP01观察节点生产三依赖原身份纳管，原复制/父载荷和子槽取样已实修；六片段限三入口/前置声明，不跨其他同形函数或通用载体工具。全父/传递callee/上游与owner重进退出及borrow失效/时钟RNG/实际SDK/场景运行未闭，双域共用同ID/原证据",
         "MOS01五槽观察源/创建薄父两依赖原身份纳管，440F50一行为块取样实修；440FE0原两调用弃返回/完整0x25保持，音频callee仍暂停不扩父排除。全父/传递callee/上游与owner重进退出和借用失效/实际SDK/场景运行未闭，双域共用同ID/原证据",
         "MOC01已接观察回调五片段读取序实修及原身份纳管，真实440B70 callback绑定保持；唯一地址写引用不是直接call。全父/传递callee/上游与所有间接目标和owner寿命/真实PC53/SDK/场景运行未闭，双域共用同ID/原证据",
-        "MCS01真实观察子生产/消费三身份纳管，一子更新及分类承接七片段恢复原取样，两创建者本体保持；原阶段1/2分支快照与后部phase复读、绘后frame保持。完整父/所有callee/上游及间接别名与owner寿命/SDK/场景运行未闭，双域共用同ID/三原证据"
+        "MCS01真实观察子生产/消费三身份纳管，一子更新及分类承接七片段恢复原取样，两创建者本体保持；原阶段1/2分支快照与后部phase复读、绘后frame保持。完整父/所有callee/上游及间接别名与owner寿命/SDK/场景运行未闭，双域共用同ID/三原证据",
+        "MCE01真实子/父退场两身份纳管，十取样片段恢复原阶段/参数/共用排序和绘子项序；43F520本体及其余语义不改，依赖窗不加全根身份。完整父与callee/上游/所有间接目标和owner寿命/SDK/PC53/场景运行未闭，双域共用同ID/原证据"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -621,7 +626,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
       ]
     },
     {
@@ -1088,7 +1094,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-baseline",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-baseline",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-baseline",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-baseline"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1140,7 +1147,9 @@
         "F:00040C50",
         "F:0003F290",
         "F:0003F910",
-        "F:0003FE00"
+        "F:0003FE00",
+        "F:00040440",
+        "F:00040070"
       ],
       "closure_task_ids": [
         "U11",
@@ -1165,7 +1174,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-decision",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-decision",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-decision",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-decision"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1181,7 +1191,8 @@
         "MCP01三生产者六片段恢复九组内存数值载体原复制序、父payload/三子槽取样，失实注释已改；五对/四对构析及失败/0x50/投影/回调/发布和随机消费保持。三身份同ID关联LOOP，全288其他语义/完整父/callee/五槽上游/所有alias及owner寿命/真实ABI/SDK/场景画面运行未闭，异常不保护或模拟",
         "MOS01五槽源图号→载荷→发布取样已实修，原未命中不写/独立field58/乘60及五轮正值和非空子保持；440FE0既有同序薄父未改并纳管。两ID共用LOOP，完整父/callee/全上游/所有别名及owner寿命/实际ABI/SDK/场景画面运行未闭，音频callee仍暂停",
         "MOC01真实440C50五片段入口/两轴、排序两子指针和子绘图读取序已实修，原数值叶/五槽/deltaY降序/S8交换与绘后frame递增保持；唯一type1写者不是call。同ID关联LOOP，全父/callee/上游与所有间接别名和owner寿命/实际PC53/SDK/画面运行未闭",
-        "MCS01子更新五取样块/共用分类两承接块已实修，图号与阶段快照按原读取点，单参数形式保其它调用者；两正确子创建者保持并纳管。原422条1479B/三call两父，全父/callee/上游及所有别名/owner寿命/真实ABI/SDK/场景画面运行未闭，同ID关联LOOP"
+        "MCS01子更新五取样块/共用分类两承接块已实修，图号与阶段快照按原读取点，单参数形式保其它调用者；两正确子创建者保持并纳管。原422条1479B/三call两父，全父/callee/上游及所有别名/owner寿命/真实ABI/SDK/场景画面运行未闭，同ID关联LOOP",
+        "MCE01子退场七/父初阶段一/共用排序绘图两片段实修，恢复当次玩家号及原数值叶/五槽/正常恢复和计数保持；两完整638条2111B、依赖窗92条250B只共用局部，1call/1type1不混。完整父/callee/上游与间接别名及owner寿命/SDK/PC53/画面运行未闭，同ID关联LOOP"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1198,7 +1209,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
       ]
     },
     {
@@ -14093,6 +14105,126 @@
       "observation": "三原422条1479B/库存/三直接call两父、七具名源片段及原槽/阶段/图号读取点、分类承接与既有两创建者限定静态",
       "expected": "入口槽先取后载荷，偏移参数方向/当次槽/父图号；父Y后阶段快照用于初分支，后部phase复读；转态前图号先取再phase/frame写后快照分类。九组动作/正常算术/槽门槛和末计数保持",
       "actual": "四条I/S共用一子更新及分类承接/三原体，不重复计函数或两正确创建者为实修；422条其它语义/完整父与所有callee/全上游和间接别名及owner寿命/真实ABI/SDK/场景画面运行未验，完整门禁不提升，音频callee保持暂停"
+    },
+    {
+      "id": "E-MAP-CHILD-EXIT-SAMPLING-MAP-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整638条2111B/1call与1type1两父、43F520依赖窗92条250B，退场阶段/槽/绘图取样；doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-child-exit-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_440440",
+        "src/YobiRuntime.cpp#Sub_440070",
+        "src/YobiRuntime.cpp#DrawObservationChildren"
+      ],
+      "differences": [
+        {
+          "description": "退场子七/父初阶段一/共用排序和绘子项两片段恢复原取样；原投影/数值叶、两偏移不同序、当次恢复/晚phase复读及计数保持",
+          "decision_ref": "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两真实退场回调及共用排序/绘子项十片段已落码，初阶段/后currentPhase和绘后phase各按原取样；共用依赖窗支撑两调用者，补两身份不纳管全43F520",
+      "expected": "子槽先取后载荷，两偏移各自方向/槽/图号序，初阶段与恢复后currentPhase和绘后phase按原取样；soundX在状态写前；共用nextChild/currentChild及nextDepth/currentDepth、描述符/Y/X/父primary序，原算法和计数保持",
+      "actual": "四条I/S共用十片段/两完整原与一依赖窗，不重复计函数或把依赖窗升全43F520，1call/1type1不混计；所有其它语义/完整父与callee/上游/间接别名及owner寿命/SDK/PC53/运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-CHILD-EXIT-SAMPLING-MAP-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整638条2111B/1call与1type1两父、43F520依赖窗92条250B，退场阶段/槽/绘图取样；doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-child-exit-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_440440",
+        "src/YobiRuntime.cpp#Sub_440070",
+        "src/YobiRuntime.cpp#DrawObservationChildren"
+      ],
+      "differences": [
+        {
+          "description": "退场子七/父初阶段一/共用排序和绘子项两片段恢复原取样；原投影/数值叶、两偏移不同序、当次恢复/晚phase复读及计数保持",
+          "decision_ref": "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两原638条2111B/库存、1call/1type1两父与依赖窗92条250B，十片段精确源差异及阶段/槽/转态参数、共用排序/绘制限定静态",
+      "expected": "子槽先取后载荷，两偏移各自方向/槽/图号序，初阶段与恢复后currentPhase和绘后phase按原取样；soundX在状态写前；共用nextChild/currentChild及nextDepth/currentDepth、描述符/Y/X/父primary序，原算法和计数保持",
+      "actual": "四条I/S共用十片段/两完整原与一依赖窗，不重复计函数或把依赖窗升全43F520，1call/1type1不混计；所有其它语义/完整父与callee/上游/间接别名及owner寿命/SDK/PC53/运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-CHILD-EXIT-SAMPLING-LOOP-I-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整638条2111B/1call与1type1两父、43F520依赖窗92条250B，退场阶段/槽/绘图取样；doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-child-exit-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_440440",
+        "src/YobiRuntime.cpp#Sub_440070",
+        "src/YobiRuntime.cpp#DrawObservationChildren"
+      ],
+      "differences": [
+        {
+          "description": "退场子七/父初阶段一/共用排序和绘子项两片段恢复原取样；原投影/数值叶、两偏移不同序、当次恢复/晚phase复读及计数保持",
+          "decision_ref": "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两真实退场回调及共用排序/绘子项十片段已落码，初阶段/后currentPhase和绘后phase各按原取样；共用依赖窗支撑两调用者，补两身份不纳管全43F520",
+      "expected": "子槽先取后载荷，两偏移各自方向/槽/图号序，初阶段与恢复后currentPhase和绘后phase按原取样；soundX在状态写前；共用nextChild/currentChild及nextDepth/currentDepth、描述符/Y/X/父primary序，原算法和计数保持",
+      "actual": "四条I/S共用十片段/两完整原与一依赖窗，不重复计函数或把依赖窗升全43F520，1call/1type1不混计；所有其它语义/完整父与callee/上游/间接别名及owner寿命/SDK/PC53/运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-MAP-CHILD-EXIT-SAMPLING-LOOP-S-20261005",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "两完整638条2111B/1call与1type1两父、43F520依赖窗92条250B，退场阶段/槽/绘图取样；doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-child-exit-sampling-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_440440",
+        "src/YobiRuntime.cpp#Sub_440070",
+        "src/YobiRuntime.cpp#DrawObservationChildren"
+      ],
+      "differences": [
+        {
+          "description": "退场子七/父初阶段一/共用排序和绘子项两片段恢复原取样；原投影/数值叶、两偏移不同序、当次恢复/晚phase复读及计数保持",
+          "decision_ref": "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "两原638条2111B/库存、1call/1type1两父与依赖窗92条250B，十片段精确源差异及阶段/槽/转态参数、共用排序/绘制限定静态",
+      "expected": "子槽先取后载荷，两偏移各自方向/槽/图号序，初阶段与恢复后currentPhase和绘后phase按原取样；soundX在状态写前；共用nextChild/currentChild及nextDepth/currentDepth、描述符/Y/X/父primary序，原算法和计数保持",
+      "actual": "四条I/S共用十片段/两完整原与一依赖窗，不重复计函数或把依赖窗升全43F520，1call/1type1不混计；所有其它语义/完整父与callee/上游/间接别名及owner寿命/SDK/PC53/运行未验，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -14256,7 +14388,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
       ]
     },
     {
@@ -14492,7 +14625,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
       ]
     },
     {
@@ -14554,7 +14688,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
       ]
     },
     {
@@ -14607,7 +14742,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
       ]
     },
     {
@@ -14637,7 +14773,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
       ]
     },
     {
@@ -14802,7 +14939,8 @@
         "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
         "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
         "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
-        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state"
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state"
       ]
     }
   ],
@@ -18744,6 +18882,30 @@
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-acceptance",
         "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
         "doc/cg2d_map_child_stage_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00040440",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00040070",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-baseline",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-decision",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-acceptance",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_evidence.json"
       ]
     }
   ],

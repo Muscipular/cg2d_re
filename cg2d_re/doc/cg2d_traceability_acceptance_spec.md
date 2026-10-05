@@ -296,3 +296,9 @@ E194→196只FUNC-INPUT本次I/S局部；T01/T02/R04/V04、完整两功能门禁
 [本组合同](cg2d_animation_pointer_spec.md#animation-pointer-source-state)实际落实五具名引用/三malloc结果承接与P4独立子项、两清理类型读取，布局和业务流程保持。两旧生产补依据、两清理新身份及四adapted，使语义1265/有效ID1261、处置358/3680，ANIMATION4→8明确成员；候选仍按同文档引用派生。
 
 E198→201只本次ANIMATION I/W/S局部，W不代所有owner寿命。G01/U09/R01/R04、完整功能/10关闭数和R1/R7/R8仍未闭；565条1786B/七call六父保存不重验全部生产语义/完整父/P4生产/alias/实际机器ABI/SDK/画面，异常不保护或模拟/称安全/故障等价。
+
+## MFA01 效果正常固定点实修与限定数值路径（2026-10-05）
+
+[本组合同](cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state)实际将固定点四加法/两相机缩放恢复正常S32，原低S32/位型/四固定点与两像素写、x87和RNG序保持。新增三语义/限定adapted使1268条/1264有效ID、361处置；MAP23→24/CRT147→149明确成员。
+
+E201→203只MAP本次I/S局部；六任务和完整功能门禁保持open，原495条/两块内核及引用类型保存不代完整场景/一般pow/其它调用与所有owner寿命/真实ABI/SDK/像素RNG运行。两原定位差集有源可追不计新增数学实现，R1/R7/R8仍未闭。

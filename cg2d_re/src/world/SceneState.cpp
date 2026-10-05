@@ -2265,20 +2265,20 @@ void Sub_46F1D0()
             platform::detail::Cg2dMapEffectStep(
                 std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x10)),
                 direction, delta);
-            std::uint32_t fixedX =
-                ReadMapEffectWord(*record, 0x08)
-                + static_cast<std::uint32_t>(delta[0]);
-            WriteMapEffectWord(*record, 0x08, fixedX);
-            std::uint32_t fixedY =
-                ReadMapEffectWord(*record, 0x0C)
-                + static_cast<std::uint32_t>(delta[1]);
-            WriteMapEffectWord(*record, 0x0C, fixedY);
-            fixedX += static_cast<std::uint32_t>(cameraX) << 16;
-            WriteMapEffectWord(*record, 0x08, fixedX);
-            fixedY += static_cast<std::uint32_t>(cameraY) << 16;
-            WriteMapEffectWord(*record, 0x0C, fixedY);
-            const std::int32_t x = std::bit_cast<std::int32_t>(fixedX) >> 16;
-            const std::int32_t y = std::bit_cast<std::int32_t>(fixedY) >> 16;
+            std::int32_t fixedX =
+                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x08))
+                + static_cast<std::int32_t>(delta[0]);
+            WriteMapEffectWord(*record, 0x08, std::bit_cast<std::uint32_t>(fixedX));
+            std::int32_t fixedY =
+                std::bit_cast<std::int32_t>(ReadMapEffectWord(*record, 0x0C))
+                + static_cast<std::int32_t>(delta[1]);
+            WriteMapEffectWord(*record, 0x0C, std::bit_cast<std::uint32_t>(fixedY));
+            fixedX += cameraX * 65536;
+            WriteMapEffectWord(*record, 0x08, std::bit_cast<std::uint32_t>(fixedX));
+            fixedY += cameraY * 65536;
+            WriteMapEffectWord(*record, 0x0C, std::bit_cast<std::uint32_t>(fixedY));
+            const std::int32_t x = fixedX >> 16;
+            const std::int32_t y = fixedY >> 16;
             WriteMapEffectWord(*record, 0x00, static_cast<std::uint32_t>(x));
             WriteMapEffectWord(*record, 0x04, static_cast<std::uint32_t>(y));
             if (x < -400 || x > 640 || y < -400 || y > 480) {

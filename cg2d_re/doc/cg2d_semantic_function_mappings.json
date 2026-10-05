@@ -145090,6 +145090,168 @@
       ],
       "verification_level": "本次两完整78/78共156条452B，仅清理正常取样/释放/清空序及x64类型承载静态，完整父/alias/P4生产/所有owner寿命/SDK/运行未验",
       "boundary": "P4按原低U16 count释放子项+18帧引用，free后重取同一cache/索引/子表清引用；再释放/清子表、清values[4]，条件释放/清buffer，index=−1返回1；使用独立CacheActionEntry，仅已证24B前缀/原生帧引用，不猜P4字段/帧格式。 只正常域，不评数学异常/越界安全或故障等价，完整加载/播放/场景/退出、所有alias/借用失效、实际机器/ABI/SDK/分配失败及画面未验。"
+    },
+    {
+      "original_entry": "0x46f1d0",
+      "inventory_id": "F:0006F1D0",
+      "status": "MFA01效果固定点正常S32实修与原身份纳管；全父/运行未验",
+      "original_end_exclusive": "0x46f678",
+      "instruction_count": 357,
+      "original_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F1D0"
+          ],
+          "relationship": "既有完整效果本体，本次只一段固定点正常S32/原位型写回"
+        },
+        {
+          "path": "src/platform/MapEffectMath.asm",
+          "symbols": [
+            "Cg2dMapEffectDirection",
+            "Cg2dMapEffectMotion",
+            "Cg2dMapEffectDivisor",
+            "Cg2dMapEffectStep"
+          ],
+          "relationship": "既有专用x87四叶，原PC53与控制字/不落F64幂消费保持，本次不改"
+        },
+        {
+          "path": "src/platform/MapEffectMath.hpp",
+          "symbols": [
+            "Cg2dMapEffectDirection",
+            "Cg2dMapEffectMotion",
+            "Cg2dMapEffectDivisor",
+            "Cg2dMapEffectStep"
+          ],
+          "relationship": "既有真实x64数值接口，限定业务边界，不扩通用库"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x44109e",
+          "parent_entry": "0x440ff0",
+          "reference_type": 17
+        },
+        {
+          "address": "0x46e4b9",
+          "parent_entry": "0x46e4a0",
+          "reference_type": 19
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ],
+      "verification_level": "三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
+      "boundary": "既有完整效果父，本次只固定点四加法/相机两正常S32×65536；原delta低S32、W32位型、四固定点/两像素写序与SAR16/原边界及全部其它正文保持。三体保存不重验完整357条/两个上游父/场景生成RNG结果/所有alias或owner寿命。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。"
+    },
+    {
+      "original_entry": "0x53d000",
+      "inventory_id": "F:0013D000",
+      "status": "MFA01仅现有两正底数调用的内联路径身份；一般pow职责未闭，不计新增幂实现",
+      "original_end_exclusive": "0x53d019",
+      "instruction_count": 8,
+      "original_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/MapEffectMath.asm",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "只实际正底数1.25/整数指数路径内联，既有原x87序列；完整一般pow未闭"
+        },
+        {
+          "path": "src/platform/MapEffectMath.hpp",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "现有S32指数/幅值借用接口，非原x86 _pow通用ABI"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F1D0"
+          ],
+          "relationship": "实际两原点由spawn两次调用Divisor复用，保level/速度/除数/RNG消费"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x46f38d",
+          "parent_entry": "0x46f1d0",
+          "reference_type": 17
+        },
+        {
+          "address": "0x46f43a",
+          "parent_entry": "0x46f1d0",
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ],
+      "verification_level": "三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
+      "boundary": "原x87 __CIpow只有两直接call均来自46F1D0，底数F64 1.25与signedLevel−1；新端这两点由真实spawn/Cg2dMapEffectDivisor内联承接正底数路径，不创建同名x86寄存器包装或迁std::pow。只本调用正常路径，完整通用职责/未知间接调用/错误和浮点状态/机器ABI未闭。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。"
+    },
+    {
+      "original_entry": "0x53d022",
+      "inventory_id": "F:0013D022",
+      "status": "MFA01仅现有两正底数调用的内联路径身份；一般pow职责未闭，不计新增幂实现",
+      "original_end_exclusive": "0x53d1f5",
+      "instruction_count": 130,
+      "original_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/platform/MapEffectMath.asm",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "只实际正底数1.25/整数指数路径内联，既有原x87序列；完整一般pow未闭"
+        },
+        {
+          "path": "src/platform/MapEffectMath.hpp",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "现有S32指数/幅值借用接口，非原x86 _pow通用ABI"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F1D0"
+          ],
+          "relationship": "实际两原点由spawn两次调用Divisor复用，保level/速度/除数/RNG消费"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x53d01d",
+          "parent_entry": "0x53d019",
+          "reference_type": 21
+        },
+        {
+          "address": "0x53d010",
+          "parent_entry": "0x53d000",
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ],
+      "verification_level": "三个原495条1697B与引用类型保存，仅固定点局部/两pow点及正底数路径和一段源差异静态；不重验全357条场景/一般pow/全部父/实际运行",
+      "boundary": "原130条含54348E..54349B共享尾块，当前仅46F1D0两正底数活动点的FYL2X→__twoToTOS正常路径由既有专用x87 Divisor内联承接；53D019的flow不记call，原完整一般pow/负底数检查/其它边界和父仍未迁/未验，不将局部定位当整个数学库实现。 数学异常不专项保护或模拟/称等价，完整场景/生成RNG结果/所有alias与owner寿命、实际CPU浮点环境/ABI/SDK/画面未验。"
     }
   ]
 }

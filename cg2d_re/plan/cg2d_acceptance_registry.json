@@ -298,7 +298,8 @@
         "doc/cg2d_multibyte_string_spec.md",
         "doc/cg2d_cryptint_arithmetic_spec.md",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
-        "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline"
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -447,7 +448,9 @@
         "F:0014B160",
         "F:0014B1AC",
         "F:0013B498",
-        "F:0013BDC0"
+        "F:0013BDC0",
+        "F:0013D000",
+        "F:0013D022"
       ],
       "closure_task_ids": [
         "C01",
@@ -483,7 +486,8 @@
         "doc/cg2d_multibyte_string_spec.md#multibyte-string-decision",
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision",
-        "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision"
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -509,7 +513,8 @@
         "HPI01已在同TU应用序前接heap(0)/失败28、lowio及普通stdio退出适配；仅局部接线，不启用旧entry/cinit/90表，不新增销毁。跨TU首次使用/SDK继承ABI、稳定模式/全部owner及unknown alias、console/filter与normal/quick/callable全序和运行仍待，C02/C04/C08/C10/C11/V02保持open",
         "HSI01已在既有lowio后/普通stdio登记与multibyte及同TU应用投影前接53E9A5，原512/20/错误26、20静态FILE/三句柄及消费者保持；跨TU首次使用/SDK继承ABI、全FILE配置/稳定模式/全部owner与unknown alias、normal/quick/callable全序和运行仍待，七任务保持open",
         "ACI01两已有数组清理循环已撤专项数量回绕，原W32步长/尺寸偏移、逆序与失败剩余前缀、SEH/筛选/三组实际父保持；任意callback异常、完整成员EH/硬件SEH、SDK传播与normal/quick/callable完整退出运行仍待，C04/C06/C07/V02保持open",
-        "CPH01两编译器私有帮助体host纳管，调色板两工具恢复正常S64/S32；局部原体/六转换/五加法不代全部业务父/浮点环境/owner/ABI/完整调色板/资源/画面/运行，数学异常不模拟或称等价"
+        "CPH01两编译器私有帮助体host纳管，调色板两工具恢复正常S64/S32；局部原体/六转换/五加法不代全部业务父/浮点环境/owner/ABI/完整调色板/资源/画面/运行，数学异常不模拟或称等价",
+        "MFA01效果固定点正常S32已修，原位型/窄化/四固定点及两像素写和x87/RNG序保持；三身份仅本次局部/两正底数路径，一般pow/其它入口和错误浮点状态/完整场景/所有父/alias/owner寿命/实际ABI/SDK/像素及RNG结果运行未闭，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -539,7 +544,8 @@
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
-        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state"
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
       ]
     },
     {
@@ -1026,7 +1032,8 @@
         "doc/cg2d_map_draw_cache.md",
         "doc/cg2d_world_objects.md",
         "doc/cg2d_world_state_lifecycle_spec.md",
-        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline"
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1051,7 +1058,8 @@
         "F:0006C060",
         "F:0006DFF0",
         "F:0006C300",
-        "F:0006C440"
+        "F:0006C440",
+        "F:0006F1D0"
       ],
       "closure_task_ids": [
         "U11",
@@ -1065,18 +1073,21 @@
       "acceptance_focus": "地图/对象生产、绘制、共享数据与切图清理",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision"
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "本组17世界状态Init已接统一活动构析和即时宿主登记；完整应用序/快速退出、其他owner及完整成员EH/数组SEH/SDK运行仍未闭，接整表须同小步移除八模块调用",
-        "MFI01六已有地图生产/比较身份及正常合同正式纳管，成员23仍不完整；原六体492条/1730B及33引用身份不代完整父实参、其余排序合并/alias/全部owner与PC53机器环境/SDK/链接/画面运行，数学异常不模拟"
+        "MFI01六已有地图生产/比较身份及正常合同正式纳管，成员23仍不完整；原六体492条/1730B及33引用身份不代完整父实参、其余排序合并/alias/全部owner与PC53机器环境/SDK/链接/画面运行，数学异常不模拟",
+        "MFA01效果固定点正常S32已修，原位型/窄化/四固定点及两像素写和x87/RNG序保持；三身份仅本次局部/两正底数路径，一般pow/其它入口和错误浮点状态/完整场景/所有父/alias/owner寿命/实际ABI/SDK/像素及RNG结果运行未闭，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_world_state_lifecycle_spec.md#world-lifecycle-baseline",
-        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
       ]
     },
     {
@@ -12873,6 +12884,66 @@
       "observation": "四原565条1786B/七call六父及十三片段/原新布局和台账限定静态",
       "expected": "已证载荷使用具名原生指针，未知P4前缀/帧/缓冲不借主动作格式；无新owner/保护/默认值，原流程保持",
       "actual": "仅本次类型实修/载荷清理局部静态，未重验全部生产语义/完整父/初始化加载播放退出/P4生产/间接alias/所有owner寿命/实际分配失败/机器ABI/SDK/像素运行；完整门禁不提升，异常不专项保护或模拟/称故障等价"
+    },
+    {
+      "id": "E-MAP-EFFECT-ARITHMETIC-I-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原495条1697B/两块内核与六引用类型，仅固定点局部及两正底数路径；doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-effect-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json",
+        "src/world/SceneState.cpp#Sub_46F1D0",
+        "src/platform/MapEffectMath.asm#Cg2dMapEffectDivisor",
+        "src/platform/MapEffectMath.hpp"
+      ],
+      "differences": [
+        {
+          "description": "固定点步进/相机四加法恢复正常S32，相机S32×65536；真实delta低S32/W32位型与四固定点/两像素写、专用x87/RNG序保持",
+          "decision_ref": "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "一段固定点/相机正常S32已落码，原窄化/位型和写序保持",
+      "expected": "效果正常S32有符号16.16、原真实低W32/位型写及x87/控制字/RNG消费保持，不专项回绕或异常模拟",
+      "actual": "仅本次固定点正常局部实修/静态，不重验完整357条场景/一般pow/53D019及负底数helper/所有父/间接alias/owner寿命/浮点环境/实际ABI/SDK/像素和RNG运行；完整门禁不提升，异常不称安全或故障等价"
+    },
+    {
+      "id": "E-MAP-EFFECT-ARITHMETIC-S-20261005",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "三原495条1697B/两块内核与六引用类型，仅固定点局部及两正底数路径；doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-effect-arithmetic-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json",
+        "src/world/SceneState.cpp#Sub_46F1D0",
+        "src/platform/MapEffectMath.asm#Cg2dMapEffectDivisor",
+        "src/platform/MapEffectMath.hpp"
+      ],
+      "differences": [
+        {
+          "description": "固定点步进/相机四加法恢复正常S32，相机S32×65536；真实delta低S32/W32位型与四固定点/两像素写、专用x87/RNG序保持",
+          "decision_ref": "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "三原495条1697B/两块内核与六引用类型、固定点局部/两pow路径及一段源精确差异/台账静态",
+      "expected": "效果正常S32有符号16.16、原真实低W32/位型写及x87/控制字/RNG消费保持，不专项回绕或异常模拟",
+      "actual": "仅本次固定点正常局部实修/静态，不重验完整357条场景/一般pow/53D019及负底数helper/所有父/间接alias/owner寿命/浮点环境/实际ABI/SDK/像素和RNG运行；完整门禁不提升，异常不称安全或故障等价"
     }
   ],
   "task_acceptance": [
@@ -13025,7 +13096,8 @@
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
-        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state"
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
       ]
     },
     {
@@ -13250,7 +13322,8 @@
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
-        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state"
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
       ]
     },
     {
@@ -13301,7 +13374,8 @@
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
-        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state"
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
       ]
     },
     {
@@ -13343,7 +13417,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
-        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state"
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
       ]
     },
     {
@@ -13362,7 +13437,8 @@
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
       ]
     },
     {
@@ -13516,7 +13592,8 @@
       "state": "open",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
       ]
     }
   ],
@@ -17110,6 +17187,42 @@
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-acceptance",
         "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
         "doc/cg2d_animation_pointer_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0006F1D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0013D000",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0013D022",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
       ]
     }
   ],

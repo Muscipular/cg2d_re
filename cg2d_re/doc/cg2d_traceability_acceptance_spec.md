@@ -476,3 +476,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 [可度量验收](cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance)核五原110条362B的实际字节/边界、439普通call188父和3出向及三根三片段精确重放；各flags OR/pub、动态mask/初始化后slot发布及不同null/计数/哨兵/返回分工可追。
 
 五新F/五adapted与双域同成员同步，E309→313四局部I/S共用同组三片段/原证据，不能据188父引用当父正文或完整流程；全部其它字段/完整门禁及七任务、R1/R7/R8/整体open，所有其它动作/数据资源和owner/SDK/ABI/PC53/时钟RNG/画面继续。
+
+## BQR01 初始化/追加与就绪有限I/S（2026-10-06）
+
+[可度量验收](cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance)核四完整211条751B/五页指令原字节、101普通call7父/8出向与两根五片段精确重放，四W8/普通有序坐标短路、原五/三计数读取及各初始化/恢复/返回可追。
+
+四新F/adapted与双域同成员同步，E313→317只共用五片段和原证据，不验全部父/流程。七任务及R1/R7/R8/整体和完整门禁open，所有其它动作/列表数据资源和owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面继续。

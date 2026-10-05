@@ -4021,3 +4021,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [三处差异裁决](cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision)修事件flags先OR再取payload、场景callback后先OR再image pub和439340的200完成判定先于FC4pub。另439380/439470正确正文保持，各null/计数/哨兵和真实返回分工不统一；两工厂原分配失败、22动态mask初始化后slot重取发布/wait-group序保持。
 
 [五完整110条362B](cg2d_battle_event_production_sampling_evidence.json)及439普通入向/188父、3出向可追，五已有公开来源和4383F0/43B360真实父接线纳管；只是引用元数据，不验188父完整正文/流程。五F同YOBI/BATTLE不双计，完整其它动作/数据资源和owner/SDK/ABI/PC53/时钟RNG/画面仍待。
+
+## BQR01 初始化/追加与就绪恢复（2026-10-06）
+
+[五差异裁决](cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision)修Init4390E0三W8/Check4394A0一W8及原C3对应普通有序位移(X后Y短路)。原null/phase13、初始化仅清position/原标量与重复哨兵、两正确追加叶五/三次计数读取/最后递增、busy计数pub后1200门禁和22槽逐次复读恢复/返回保持，不引非有限检测或FP故障模型。
+
+[四完整211条751B](cg2d_battle_queue_readiness_sampling_evidence.json)五页指令字节/101普通call7父和8出向可追，四既有声明与Reset helper/实际事件父保持。完整其它动作/列表数据及owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面未验，局部数量不推整体。

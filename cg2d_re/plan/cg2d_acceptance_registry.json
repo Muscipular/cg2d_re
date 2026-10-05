@@ -1665,7 +1665,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1697,7 +1698,11 @@
         "F:000383B0",
         "F:00039340",
         "F:00039380",
-        "F:00039470"
+        "F:00039470",
+        "F:000390E0",
+        "F:000393A0",
+        "F:0003B7F0",
+        "F:000394A0"
       ],
       "closure_task_ids": [
         "U09",
@@ -1717,7 +1722,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1730,7 +1736,8 @@
         "BRA01动作226完整原277条1145B、28call/唯一父与十二源片段取样/发布实修，原helper/正常S32及退出标死清槽/帧尾保持。224/227余1216条4804B、全部创建者/载荷和owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行仍未闭",
         "BRB01动作227完整389条1714B/28call/唯一父与十二源片段取样、22标量和四W32复制实修，原正常S32/计数后offset门禁、helper及标死清槽/帧尾保持。仅224余927条3519B，全部创建者/数据和owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未闭",
         "BRC01动作224完整1136条4251B/90call/唯一父与31片段实修，16载体序和同表/同对象借用、预推进每轮计数一次/两不同计数门禁及原标死清槽/早退保持。三父本体有限静态差集0；全部其它创建者/数据和owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面仍待",
-        "BEV01两工厂/三推进五原完整110条362B纳管，三flags/计数取样实修与两个正确叶保持。原439普通call/188父不是所有父正文验收；全部数据资源和owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行仍待"
+        "BEV01两工厂/三推进五原完整110条362B纳管，三flags/计数取样实修与两个正确叶保持。原439普通call/188父不是所有父正文验收；全部数据资源和owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行仍待",
+        "BQR01参与者初始化/两追加/就绪四原完整211条751B和五W8/有序坐标片段纳管，正确两个叶/helper及原哨兵/计数/复读/各null和返回保持。七父/全部其他列表数据生产消费与owner重进退出/浅别名/借用失效、SDK/ABI/PC53/浮点状态/时钟RNG/画面仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1745,7 +1752,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state"
       ]
     },
     {
@@ -1768,7 +1776,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -1797,7 +1806,11 @@
         "F:000383B0",
         "F:00039340",
         "F:00039380",
-        "F:00039470"
+        "F:00039470",
+        "F:000390E0",
+        "F:000393A0",
+        "F:0003B7F0",
+        "F:000394A0"
       ],
       "closure_task_ids": [
         "P01",
@@ -1821,7 +1834,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -1834,7 +1848,8 @@
         "BRA01真实case226→4154C0完整原体与入口/角色恢复/位置/计数/清槽取样已修；已有F:000154C0双域不双计，原28call保持。完整224/227/全部动作实参与数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
         "BRB01真实case227→415940完整根及入口/恢复角色/动画/位置/计数与旧首槽消费已修，已有F:00015940双域不双计；原28call保持。224余927条3519B与所有动作实参/数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
         "BRC01真实case224→414050完整根、来源目标/点表参数/循环/计数和角色恢复取样已修，已有F:00014050双域不双计，90call保持。224/226/227父本体有限原静态差集0；所有其它动作实参/数据资源生产消费与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
-        "BEV01真实4383F0→4383B0→43B360→43B610和三推进根可追，22动态mask/初始化后slot发布与各不同null/计数/哨兵保持。同五F双域不多计，完整188父/所有其它动作/实参/数据资源及owner/SDK/ABI/PC53/时钟RNG/画面运行未闭"
+        "BEV01真实4383F0→4383B0→43B360→43B610和三推进根可追，22动态mask/初始化后slot发布与各不同null/计数/哨兵保持。同五F双域不多计，完整188父/所有其它动作/实参/数据资源及owner/SDK/ABI/PC53/时钟RNG/画面运行未闭",
+        "BQR01事件参与者初始化、动作/目标追加与22槽就绪/超时恢复五源差异已修，101普通call7父和8出向可追；同四F双域不多计。完整七父/其它动作实参/数据资源及owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1847,7 +1862,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state"
       ]
     },
     {
@@ -16766,6 +16782,138 @@
       "observation": "五原完整110条362B及实际指令字节/439普通call188父、三出向全集一致；全CPP三根三片段与不同flags/计数/pub/返回/哨兵、两正确叶/两当前父和五声明保持静态通过",
       "expected": "原工厂flags OR/捕获payload/字段pub顺序、22动态mask/初始化后slot重取pub/wait-group序，三个推进叶各null/索引发布/哨兵/返回及原失败和真实父接线保持",
       "actual": "同五F双域仅共用局部I/S，439普通入向188父不是全部父正文已验；完整所有动作/实参/数据资源及owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未验，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-QUEUE-READINESS-SAMPLING-YOBI-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQR01四原完整211条751B/五页指令字节、101普通call7父和8出向；doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-queue-readiness-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleCastList_4390E0",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleQueuedTarget_43B7F0",
+        "src/YobiRuntime.cpp#CheckBattleTurnReady_4394A0",
+        "src/YobiRuntime.cpp#ResetBattleCastEffects",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两CPP根五片段：初始化/就绪四W8和C3对应普通有序位移/X后Y短路实修，原两追加计数/哨兵与helper、初始化和超时/归位/返回和所有父正文保持",
+          "decision_ref": "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "初始化/就绪五片段实修，原四W8、普通有序坐标短路和动态mask/计数pub后1200门禁/全部槽恢复保持；另两追加叶/helper及四声明保持",
+      "expected": "原四W8及C3对应普通有序位移/X后Y短路，初始化重复position/各标量/六-1/两追加五次和三次计数读及最后pub、busy计数pub后1200/逐槽复读恢复与原各null/失败/返回保持",
+      "actual": "同四F双域仅共用局部I/S，101普通入向7父不是全部父正文已验；完整所有其它列表/动作实参/数据资源和owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未验，不宣异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-QUEUE-READINESS-SAMPLING-YOBI-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQR01四原完整211条751B/五页指令字节、101普通call7父和8出向；doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-queue-readiness-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleCastList_4390E0",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleQueuedTarget_43B7F0",
+        "src/YobiRuntime.cpp#CheckBattleTurnReady_4394A0",
+        "src/YobiRuntime.cpp#ResetBattleCastEffects",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两CPP根五片段：初始化/就绪四W8和C3对应普通有序位移/X后Y短路实修，原两追加计数/哨兵与helper、初始化和超时/归位/返回和所有父正文保持",
+          "decision_ref": "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "四原完整211条751B/五页实际指令字节、101普通call7父/8出向全集一致；全CPP两根五片段、四W8/普通有序坐标/各计数读/哨兵和初始化/恢复/返回、两正确叶/helper及四声明保持静态通过",
+      "expected": "原四W8及C3对应普通有序位移/X后Y短路，初始化重复position/各标量/六-1/两追加五次和三次计数读及最后pub、busy计数pub后1200/逐槽复读恢复与原各null/失败/返回保持",
+      "actual": "同四F双域仅共用局部I/S，101普通入向7父不是全部父正文已验；完整所有其它列表/动作实参/数据资源和owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未验，不宣异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-QUEUE-READINESS-SAMPLING-BATTLE-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQR01四原完整211条751B/五页指令字节、101普通call7父和8出向；doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-queue-readiness-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleCastList_4390E0",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleQueuedTarget_43B7F0",
+        "src/YobiRuntime.cpp#CheckBattleTurnReady_4394A0",
+        "src/YobiRuntime.cpp#ResetBattleCastEffects",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两CPP根五片段：初始化/就绪四W8和C3对应普通有序位移/X后Y短路实修，原两追加计数/哨兵与helper、初始化和超时/归位/返回和所有父正文保持",
+          "decision_ref": "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "初始化/就绪五片段实修，原四W8、普通有序坐标短路和动态mask/计数pub后1200门禁/全部槽恢复保持；另两追加叶/helper及四声明保持",
+      "expected": "原四W8及C3对应普通有序位移/X后Y短路，初始化重复position/各标量/六-1/两追加五次和三次计数读及最后pub、busy计数pub后1200/逐槽复读恢复与原各null/失败/返回保持",
+      "actual": "同四F双域仅共用局部I/S，101普通入向7父不是全部父正文已验；完整所有其它列表/动作实参/数据资源和owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未验，不宣异常等价，完整门禁不提升"
+    },
+    {
+      "id": "E-BATTLE-QUEUE-READINESS-SAMPLING-BATTLE-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQR01四原完整211条751B/五页指令字节、101普通call7父和8出向；doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-queue-readiness-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleCastList_4390E0",
+        "src/YobiRuntime.cpp#AppendBattleEffectList_4393A0",
+        "src/YobiRuntime.cpp#AppendBattleQueuedTarget_43B7F0",
+        "src/YobiRuntime.cpp#CheckBattleTurnReady_4394A0",
+        "src/YobiRuntime.cpp#ResetBattleCastEffects",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "两CPP根五片段：初始化/就绪四W8和C3对应普通有序位移/X后Y短路实修，原两追加计数/哨兵与helper、初始化和超时/归位/返回和所有父正文保持",
+          "decision_ref": "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "四原完整211条751B/五页实际指令字节、101普通call7父/8出向全集一致；全CPP两根五片段、四W8/普通有序坐标/各计数读/哨兵和初始化/恢复/返回、两正确叶/helper及四声明保持静态通过",
+      "expected": "原四W8及C3对应普通有序位移/X后Y短路，初始化重复position/各标量/六-1/两追加五次和三次计数读及最后pub、busy计数pub后1200/逐槽复读恢复与原各null/失败/返回保持",
+      "actual": "同四F双域仅共用局部I/S，101普通入向7父不是全部父正文已验；完整所有其它列表/动作实参/数据资源和owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未验，不宣异常等价，完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -16945,7 +17093,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state"
       ]
     },
     {
@@ -17201,7 +17350,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state"
       ]
     },
     {
@@ -17344,7 +17494,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state"
       ]
     },
     {
@@ -17393,7 +17544,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state"
       ]
     },
     {
@@ -17413,7 +17565,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state"
       ]
     },
     {
@@ -17588,7 +17741,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state"
       ]
     },
     {
@@ -17604,7 +17758,8 @@
         "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
         "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
         "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
-        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state"
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state"
       ]
     }
   ],
@@ -22094,6 +22249,54 @@
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-acceptance",
         "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
         "doc/cg2d_battle_event_production_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000390E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000393A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0003B7F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000394A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
       ]
     }
   ],

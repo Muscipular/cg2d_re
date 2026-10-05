@@ -150102,6 +150102,206 @@
         "full_original_body_reviewed": true,
         "full_runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4390e0",
+      "inventory_id": "F:000390E0",
+      "status": "BQR01字节/有序坐标五片段实修及原完整根纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x4391de",
+      "instruction_count": 58,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "InitBattleCastList_4390E0"
+          ],
+          "relationship": "入口/尾部FDC和当时playerFlags四W8组中本根三处已修，原phase13/null/重取hidden对象、十标量零写/重复position哨兵和200项仅position、六-1及调用时点保持。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "InitBattleCastList_4390E0"
+          ],
+          "relationship": "四已有公开声明保持，私有载荷和原生借用不新增公共布局/API"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+      ],
+      "verification_level": "BQR01四完整211条751B/五页真实指令字节、101普通call7父/8出向与两根五源片段精确重放、W8和普通有序位移及各不同追加/恢复有限静态；不验全部七父/其它动作/列表与数据资源、owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行",
+      "boundary": "入口/尾部FDC和当时playerFlags四W8组中本根三处已修，原phase13/null/重取hidden对象、十标量零写/重复position哨兵和200项仅position、六-1及调用时点保持。 不新增分配/空值/索引/溢出保护、free/owner/RNG/补零/钳制/回绕或故障模拟，原格式明文和音频暂停保持。",
+      "battle_queue_readiness_sampling": {
+        "spec_id": "BQR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+          "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+        ],
+        "original_entry": "0x4390e0",
+        "original_instruction_count": 58,
+        "original_code_bytes": 254,
+        "incoming_reference_count": 3,
+        "incoming_parent_count": 2,
+        "source_body_changed": true,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4393a0",
+      "inventory_id": "F:000393A0",
+      "status": "BQR01既有正确追加叶正文保持、原完整根纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x4393ff",
+      "instruction_count": 24,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AppendBattleEffectList_4393A0"
+          ],
+          "relationship": "既有正确正文保持：原五次CA0分别读取供position/flags/position3/下一position哨兵/最后递增，不写position4、不固定计数或新增容量guard。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "AppendBattleEffectList_4393A0"
+          ],
+          "relationship": "四已有公开声明保持，私有载荷和原生借用不新增公共布局/API"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+      ],
+      "verification_level": "BQR01四完整211条751B/五页真实指令字节、101普通call7父/8出向与两根五源片段精确重放、W8和普通有序位移及各不同追加/恢复有限静态；不验全部七父/其它动作/列表与数据资源、owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行",
+      "boundary": "既有正确正文保持：原五次CA0分别读取供position/flags/position3/下一position哨兵/最后递增，不写position4、不固定计数或新增容量guard。 不新增分配/空值/索引/溢出保护、free/owner/RNG/补零/钳制/回绕或故障模拟，原格式明文和音频暂停保持。",
+      "battle_queue_readiness_sampling": {
+        "spec_id": "BQR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+          "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+        ],
+        "original_entry": "0x4393a0",
+        "original_instruction_count": 24,
+        "original_code_bytes": 95,
+        "incoming_reference_count": 77,
+        "incoming_parent_count": 4,
+        "source_body_changed": false,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x43b7f0",
+      "inventory_id": "F:0003B7F0",
+      "status": "BQR01既有正确追加叶正文保持、原完整根纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x43b82b",
+      "instruction_count": 13,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AppendBattleQueuedTarget_43B7F0"
+          ],
+          "relationship": "既有正确正文保持：原三次13A8分别读取供当前value/下一-1/最后递增，null直接返回，不固定计数或新增容量guard。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "AppendBattleQueuedTarget_43B7F0"
+          ],
+          "relationship": "四已有公开声明保持，私有载荷和原生借用不新增公共布局/API"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+      ],
+      "verification_level": "BQR01四完整211条751B/五页真实指令字节、101普通call7父/8出向与两根五源片段精确重放、W8和普通有序位移及各不同追加/恢复有限静态；不验全部七父/其它动作/列表与数据资源、owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行",
+      "boundary": "既有正确正文保持：原三次13A8分别读取供当前value/下一-1/最后递增，null直接返回，不固定计数或新增容量guard。 不新增分配/空值/索引/溢出保护、free/owner/RNG/补零/钳制/回绕或故障模拟，原格式明文和音频暂停保持。",
+      "battle_queue_readiness_sampling": {
+        "spec_id": "BQR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+          "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+        ],
+        "original_entry": "0x43b7f0",
+        "original_instruction_count": 13,
+        "original_code_bytes": 59,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": false,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x4394a0",
+      "inventory_id": "F:000394A0",
+      "status": "BQR01字节/有序坐标五片段实修及原完整根纳管；完整功能/owner运行未验",
+      "original_end_exclusive": "0x4395f7",
+      "instruction_count": 116,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "CheckBattleTurnReady_4394A0"
+          ],
+          "relationship": "FE0低W8及原C3对应普通有序位移/X后Y短路实修；原busy==1/计数pub后>1200、全部22槽逐次复读恢复和返回保持；不加非有限检查/FP故障模型，PC53/ABI/浮点状态运行仍待。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "CheckBattleTurnReady_4394A0"
+          ],
+          "relationship": "四已有公开声明保持，私有载荷和原生借用不新增公共布局/API"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+      ],
+      "verification_level": "BQR01四完整211条751B/五页真实指令字节、101普通call7父/8出向与两根五源片段精确重放、W8和普通有序位移及各不同追加/恢复有限静态；不验全部七父/其它动作/列表与数据资源、owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行",
+      "boundary": "FE0低W8及原C3对应普通有序位移/X后Y短路实修；原busy==1/计数pub后>1200、全部22槽逐次复读恢复和返回保持；不加非有限检查/FP故障模型，PC53/ABI/浮点状态运行仍待。 不新增分配/空值/索引/溢出保护、free/owner/RNG/补零/钳制/回绕或故障模拟，原格式明文和音频暂停保持。",
+      "battle_queue_readiness_sampling": {
+        "spec_id": "BQR01",
+        "evidence_refs": [
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-acceptance",
+          "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+          "doc/cg2d_battle_queue_readiness_sampling_evidence.json"
+        ],
+        "original_entry": "0x4394a0",
+        "original_instruction_count": 116,
+        "original_code_bytes": 343,
+        "incoming_reference_count": 20,
+        "incoming_parent_count": 2,
+        "source_body_changed": true,
+        "full_original_body_reviewed": true,
+        "full_runtime_verified": false
+      }
     }
   ]
 }

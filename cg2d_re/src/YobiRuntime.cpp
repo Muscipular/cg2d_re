@@ -27585,7 +27585,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
         return;
     }
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    if ((static_cast<std::uint8_t>(payload->flagsFDC) & 2u) != 0 || action->phase == 13) {
+    if ((*reinterpret_cast<const unsigned char*>(&payload->flagsFDC) & 2u) != 0 || action->phase == 13) {
         return;
     }
     action->value54 = 1.0F;
@@ -27595,7 +27595,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     payload->castListCA4[0] = 0;
     payload->value13A4 = 0;
     payload->queuedTargetCount13A8 = 0;
-    const std::uint8_t flags = static_cast<std::uint8_t>(payload->flagsFDC);
+    const std::uint8_t flags = *reinterpret_cast<const unsigned char*>(&payload->flagsFDC);
     payload->castListIndexFC8 = -1;
     payload->castListCA4[1] = -1;
     payload->queuedTargets1084[0] = -1;
@@ -27603,7 +27603,7 @@ void InitBattleCastList_4390E0(const std::int32_t index)
     payload->castSkill103C = -1;
     payload->castSkillLevel1044 = -1;
     if ((flags & 2u) == 0
-        && (static_cast<std::uint8_t>(world::detail::gBattlePlayerFlags5ABCAC) & 3u) != 0) {
+        && (*reinterpret_cast<const unsigned char*>(&world::detail::gBattlePlayerFlags5ABCAC) & 3u) != 0) {
         Sub_406260(gBattleAllEntries59E980[index]);
     }
 }
@@ -31517,7 +31517,7 @@ std::int32_t CheckBattleTurnReady_4394A0(
         const std::int32_t parentPhase = parent->phase;
         const auto* const actorPayload = static_cast<const BattleActorPayload*>(actor->payload);
         if (parentPhase != 24 && enable == 0
-            && (static_cast<std::uint8_t>(actorPayload->stateFE0) & 2u) != 0
+            && (*reinterpret_cast<const unsigned char*>(&actorPayload->stateFE0) & 2u) != 0
             && actorPayload->aliveFF8 == 0 && actor->phase != 27) {
             continue;
         }
@@ -31540,8 +31540,15 @@ std::int32_t CheckBattleTurnReady_4394A0(
         }
         if (parentPhase != 24) {
             const auto& point = gBattleGraphicPoints553758[gBattlePointIndices5536FC[index]];
-            if (static_cast<double>(point[2]) != static_cast<double>(actor->offset40)
-                || static_cast<double>(point[3]) != static_cast<double>(actor->offset44)) {
+            const double expectedX = static_cast<double>(point[2]);
+            const double actualX = static_cast<double>(actor->offset40);
+            bool displaced = expectedX < actualX || expectedX > actualX;
+            if (!displaced) {
+                const double expectedY = static_cast<double>(point[3]);
+                const double actualY = static_cast<double>(actor->offset44);
+                displaced = expectedY < actualY || expectedY > actualY;
+            }
+            if (displaced) {
                 AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[index], 11);
                 AppendBattleCast_4392A0(parent, gBattleAllEntries59E980[index], 40);
                 MoveBattleCastState_439380(gBattleAllEntries59E980[index]);

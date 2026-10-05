@@ -2339,3 +2339,9 @@ YOBI9→10/BATTLE6→7同F不双计，E281→285仅双域局部I/S共用同原/�
 [原完整根](cg2d_battle_event_production_sampling_evidence.json)和[当前来源](cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state)新增五F、每根≤80条，合110条362B/439普通入向188父及3出向；三根三源片段实修，两个正确推进叶与五声明/两当前父保持。
 
 语义1324→1329/有效ID1319→1324、adapted426→431，代码片段5保持；YOBI25→30/BATTLE22→27同五F不双计，E309→313仅共用局部I/S。LOOP31/R7区间67/队列及全部完整门禁保持，不以188父引用全集称所有父/其它动作/数据资源与owner/SDK/ABI/PC53/时钟RNG/画面已验。
+
+## BQR01 参与者初始化、两追加及就绪四身份（2026-10-06）
+
+[本次完整原根](cg2d_battle_queue_readiness_sampling_evidence.json)及[当前源状态](cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state)新增四F，211条751B/五页与101普通call7父/8出向；两个根五片段实修，另两叶/helper及四声明保持。
+
+语义1329→1333/有效ID1324→1328、adapted431→435，YOBI30→34/BATTLE27→31同四F不双计、代码片段5保持。E313→317仅共用有限I/S；LOOP31/R7区间67/队列及全部完整门禁保持，不据七父引用或普通坐标源形式验全部其它动作/数据/owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面。

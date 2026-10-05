@@ -8183,3 +8183,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [当前源状态](../cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state)沿4383F0发布4383B0实际节点、4383B0绑定43B360、43B360四参创建43B610事件并成功后推进槽，43B610绑定完整427470。三个取样片段已修；每位置动态读mask/初始化结束才读eventSlot发布、两个工厂失败及各推进null/计数/哨兵不改，不造新事件框架。
 
 [五原完整根](../cg2d_battle_event_production_sampling_evidence.json)110条362B、439普通call188父与3出向分列；事件及场景两个当前父正文保持，不以全部引用或既有场景源码推完整父/流程验收。U08/U09和完整门禁保持open，所有其它动作/实参、数据资源/owner及SDK/ABI/PC53/时钟RNG/画面继续。
+
+## BQR01 参与者初始化与超时/归位恢复（2026-10-06）
+
+[当前源状态](../cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state)沿事件初始化参与者/原动作及目标追加和22槽就绪检查，五片段恢复四W8与普通有序坐标短路。超时按当时mask/槽逐个Reset→重取Append11→再取Append40→再取Move→waitCount清0后返回0，归位分支两Append/Move后返回0，全部通过才1；两正确追加叶原计数读取/哨兵序保持。
+
+[原211条751B](../cg2d_battle_queue_readiness_sampling_evidence.json)、101call7父/8出向有限静态可追，不据引用全集验七父/全部流程。U08/U09及完整门禁open，所有其它动作/列表数据资源、owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面继续。

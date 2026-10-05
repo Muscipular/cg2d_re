@@ -571,7 +571,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -602,7 +603,9 @@
         "F:00004A40",
         "F:00004D30",
         "F:00004D60",
-        "F:00004AE0"
+        "F:00004AE0",
+        "F:00073F80",
+        "F:00104120"
       ],
       "closure_task_ids": [
         "U11",
@@ -628,7 +631,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -645,7 +649,8 @@
         "ACP01两实体附件生产依赖两片段实修/原身份纳管，四独立构析和字段W32/U8/低W16、原生对象/真实回调与投影及失败返回保持；5原挂件call对应4现表达式，同ID/证据关联MAP。全部场景传递父/callee/数据生产与owner重进退出/borrow失效/真实SDK/PC53/RNG/画面运行未闭",
         "YLC01原生通用链两链接写之间按原重读、阶段计数单读/局部判定与完整返回、payload单读/先载荷后节点释放已实修；玩家清理分工/真实尾链保持，三ID共用MAP。三原160条444B不代所有场景caller/callback/callee/资源生产与owner寿命/真实ABI/SDK/PC53/RNG/画面运行，异常不保护/模拟",
         "YSS01哨兵初终三旧依赖来源/真实应用初始化与终止调用者纳管，仅初始化四片段实修；清场先缓存节点、46DD40后标死/UpdateAll回收及首free后再读尾free保持。同三ID/证据关联MAP，完整所有应用/场景parent及callee/资源生产/owner重进退出和借用失效/SDK/ABI/PC53/RNG/画面运行未闭",
-        "YAS01真实共用节点生产依赖四片段实修/旧语义追加和同ID关联MAP，原U8/U32/原生分配域、默认字段与两失败/FIFO及无插链返回保持；完整118条保存只局部分配取样验收，全部场景/应用父与载荷/所有callee和链别名/owner寿命/SDK/ABI/PC53/RNG/画面运行未闭"
+        "YAS01真实共用节点生产依赖四片段实修/旧语义追加和同ID关联MAP，原U8/U32/原生分配域、默认字段与两失败/FIFO及无插链返回保持；完整118条保存只局部分配取样验收，全部场景/应用父与载荷/所有callee和链别名/owner寿命/SDK/ABI/PC53/RNG/画面运行未闭",
+        "WRS01真实场景→504120→473F80窗口update/元素/focus-drag/draw/carry链纳管，单根三判定取样修正，两F同公共UI不双计。两个完整场景/所有callback及资源生产/时钟RNG/owner寿命/ABI/SDK/PC53与画面运行仍未闭，不代旧99表外层实际路由"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -663,7 +668,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
       ]
     },
     {
@@ -1575,7 +1581,8 @@
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-baseline",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-baseline",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-baseline",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline"
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00077160",
@@ -1591,7 +1598,8 @@
         "F:000A0640",
         "F:000FACE0",
         "F:000EF5F0",
-        "F:000EDB20"
+        "F:000EDB20",
+        "F:00104120"
       ],
       "closure_task_ids": [
         "U04",
@@ -1613,7 +1621,8 @@
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-decision",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-decision",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-decision",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision"
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1621,7 +1630,8 @@
         "LSP01五旧共享正文生产/指针发布与旧55同源消费已证，503AB0取样已修；其余100完整父/全部owner/间接alias/旧99表外路由、生成ABI/画面/运行未闭，不以局部生产源码关闭公共窗口或U07",
         "LUA01共用工具正常S32已修，149调用表达式保持；完整页面/原成员、外层路由/数据/寿命/ABI/画面/运行仍未验，不将本机工具当原独立函数",
         "UPS01旧页共用预览三入口身份/一X587B用途纳管，结果判定先于图号读取已修；一代码片段不是库存函数，两F同YOBI。八父/所有页面和外层路由/数据资源、owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未闭，不计完整旧UI通过",
-        "GRS01真实旧39采集结果父四取样/descriptor宽度片段已修，一旧F纳管/同UI-L-039；437条1538B保存与空入向只相关局部，不代旧57C368路由/所有数据资源/完整页面和owner寿命/SDK/ABI/PC53/RNG/画面运行"
+        "GRS01真实旧39采集结果父四取样/descriptor宽度片段已修，一旧F纳管/同UI-L-039；437条1538B保存与空入向只相关局部，不代旧57C368路由/所有数据资源/完整页面和owner寿命/SDK/ABI/PC53/RNG/画面运行",
+        "WRS01现代窗口循环三先判后共享发布已修/旧WMB保持，504120实际转生入口和两场景16消费纳管；旧99表+04调用来源仍待证，不新建推测分派，全部callback/输入/数据资源、完整场景与owner寿命/ABI/SDK/PC53/RNG/画面运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1631,7 +1641,8 @@
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
       ]
     },
     {
@@ -15334,6 +15345,130 @@
       "observation": "原437条1538B/空入向和库存，四片段全文精确重放与descriptor七写宽度/先判后pub、图/详情行取样及旧分支有限静态",
       "expected": "descriptor七次原宽度重叠写序，mapped下界先判后发布/再上界；结果图与非空详情行Y算后才取X，原S32/低S16/调用参数和所有其它正文保持",
       "actual": "同一四片段源实修与437条基线，旧F/语义追加与公共UI/旧39成员分列；只局部I/S，完整旧表路由/数据资源生产消费与owner寿命/ABI/SDK/PC53/时钟RNG/采集往返和画面运行未验"
+    },
+    {
+      "id": "E-WINDOW-ROUTING-SAMPLING-UIRUNTIME-I-20261006",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "WRS01两完整126条453B/16普通call+1type19尾跳与3已知父；现代窗口三判定先于共享发布；doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-routing-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#UpdateWindows_473F80",
+        "src/ui/WindowRuntime.cpp#RenderWindows_504120",
+        "include/cg/ui/WindowRuntime.hpp",
+        "src/world/SceneState.cpp"
+      ],
+      "differences": [
+        {
+          "description": "count>0/焦点非零/phase4三原判定在对应共享发布之前固定，原分流/所有callback与WMB保持；旧转生入口/两场景16表达式未改，仅新增一原F与旧身份增量，不造99表分派",
+          "decision_ref": "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "单根三判定先于发布的源码修正已落位，转生到期/真实现代窗口和16场景消费纳管，一旧一新语义/同两F跨域不双计",
+      "expected": "保存三原判定后对应发布共享count/元素索引/focus，原分流/窗口两id读取/回调后共享复读与W8保持；已有转生入口及两场景调用不改，不新增推测旧表遍历或保护",
+      "actual": "单根三源实修、旧WMB/全部其它正文保持，一旧语义追加/一转生原F及两域同成员纳管；只局部I/S，不代旧99表真实来源/全callback/完整两场景和数据资源/owner寿命/生成EFLAGS/ABI/SDK/PC53/时钟RNG/画面运行"
+    },
+    {
+      "id": "E-WINDOW-ROUTING-SAMPLING-UIRUNTIME-S-20261006",
+      "feature_id": "FUNC-UIRUNTIME",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "WRS01两完整126条453B/16普通call+1type19尾跳与3已知父；现代窗口三判定先于共享发布；doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-routing-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#UpdateWindows_473F80",
+        "src/ui/WindowRuntime.cpp#RenderWindows_504120",
+        "include/cg/ui/WindowRuntime.hpp",
+        "src/world/SceneState.cpp"
+      ],
+      "differences": [
+        {
+          "description": "count>0/焦点非零/phase4三原判定在对应共享发布之前固定，原分流/所有callback与WMB保持；旧转生入口/两场景16表达式未改，仅新增一原F与旧身份增量，不造99表分派",
+          "decision_ref": "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "两完整126条453B/16call+1尾跳与3父，三源片段全文重放/先判再共享发布、原W8/窗口与索引复读和两场景实际16表达式/声明保持有限静态",
+      "expected": "保存三原判定后对应发布共享count/元素索引/focus，原分流/窗口两id读取/回调后共享复读与W8保持；已有转生入口及两场景调用不改，不新增推测旧表遍历或保护",
+      "actual": "单根三源实修、旧WMB/全部其它正文保持，一旧语义追加/一转生原F及两域同成员纳管；只局部I/S，不代旧99表真实来源/全callback/完整两场景和数据资源/owner寿命/生成EFLAGS/ABI/SDK/PC53/时钟RNG/画面运行"
+    },
+    {
+      "id": "E-WINDOW-ROUTING-SAMPLING-LOOP-I-20261006",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "WRS01两完整126条453B/16普通call+1type19尾跳与3已知父；现代窗口三判定先于共享发布；doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-routing-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#UpdateWindows_473F80",
+        "src/ui/WindowRuntime.cpp#RenderWindows_504120",
+        "include/cg/ui/WindowRuntime.hpp",
+        "src/world/SceneState.cpp"
+      ],
+      "differences": [
+        {
+          "description": "count>0/焦点非零/phase4三原判定在对应共享发布之前固定，原分流/所有callback与WMB保持；旧转生入口/两场景16表达式未改，仅新增一原F与旧身份增量，不造99表分派",
+          "decision_ref": "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "单根三判定先于发布的源码修正已落位，转生到期/真实现代窗口和16场景消费纳管，一旧一新语义/同两F跨域不双计",
+      "expected": "保存三原判定后对应发布共享count/元素索引/focus，原分流/窗口两id读取/回调后共享复读与W8保持；已有转生入口及两场景调用不改，不新增推测旧表遍历或保护",
+      "actual": "单根三源实修、旧WMB/全部其它正文保持，一旧语义追加/一转生原F及两域同成员纳管；只局部I/S，不代旧99表真实来源/全callback/完整两场景和数据资源/owner寿命/生成EFLAGS/ABI/SDK/PC53/时钟RNG/画面运行"
+    },
+    {
+      "id": "E-WINDOW-ROUTING-SAMPLING-LOOP-S-20261006",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "WRS01两完整126条453B/16普通call+1type19尾跳与3已知父；现代窗口三判定先于共享发布；doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-routing-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#UpdateWindows_473F80",
+        "src/ui/WindowRuntime.cpp#RenderWindows_504120",
+        "include/cg/ui/WindowRuntime.hpp",
+        "src/world/SceneState.cpp"
+      ],
+      "differences": [
+        {
+          "description": "count>0/焦点非零/phase4三原判定在对应共享发布之前固定，原分流/所有callback与WMB保持；旧转生入口/两场景16表达式未改，仅新增一原F与旧身份增量，不造99表分派",
+          "decision_ref": "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "两完整126条453B/16call+1尾跳与3父，三源片段全文重放/先判再共享发布、原W8/窗口与索引复读和两场景实际16表达式/声明保持有限静态",
+      "expected": "保存三原判定后对应发布共享count/元素索引/focus，原分流/窗口两id读取/回调后共享复读与W8保持；已有转生入口及两场景调用不改，不新增推测旧表遍历或保护",
+      "actual": "单根三源实修、旧WMB/全部其它正文保持，一旧语义追加/一转生原F及两域同成员纳管；只局部I/S，不代旧99表真实来源/全callback/完整两场景和数据资源/owner寿命/生成EFLAGS/ABI/SDK/PC53/时钟RNG/画面运行"
     }
   ],
   "task_acceptance": [
@@ -15750,7 +15885,8 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
       ]
     },
     {
@@ -15819,7 +15955,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
       ]
     },
     {
@@ -15882,7 +16019,8 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
       ]
     },
     {
@@ -15921,7 +16059,8 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
       ]
     },
     {
@@ -15961,7 +16100,8 @@
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
       ]
     },
     {
@@ -15970,7 +16110,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
-        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state"
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
       ]
     },
     {
@@ -17855,9 +17996,14 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
-        "doc/cg2d_window_mouse_byte_evidence.json"
+        "doc/cg2d_window_mouse_byte_evidence.json",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_evidence.json"
       ],
-      "reason": "既有窗口更新根按原W8读写纠正；地址/回调按已批x64原生指针承载，本记录只指源码处置，全部ABI/输入/运行及间接边未验"
+      "reason": "既有窗口更新根按原W8读写纠正；地址/回调按已批x64原生指针承载，本记录只指源码处置，全部ABI/输入/运行及间接边未验 WRS01仅三处原判定先于共享字段发布的源顺序修正；原WMB及全部旧边界保持，不代所有callback/完整场景/ABI与运行。"
     },
     {
       "inventory_id": "F:00072F00",
@@ -20242,6 +20388,18 @@
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
         "doc/cg2d_gather_result_sampling_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:00104120",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_evidence.json"
       ]
     }
   ],

@@ -1,0 +1,953 @@
+{
+  "schema_version": 1,
+  "scope": "WRS01现代窗口循环三判定先于共享发布的单根三片段、既有转生入口/两个场景调用纳管；不新增猜测旧表分派或验所有callback/场景与owner寿命运行",
+  "baseline_snapshot": "cg2d-re-gather-result-sampling-20261006",
+  "implementation_snapshot": "cg2d-re-window-routing-sampling-20261006",
+  "original_functions": [
+    {
+      "entry": "0x473f80",
+      "actual_start": "0x473f80",
+      "end_exclusive": "0x4740f0",
+      "chunks": [
+        {
+          "start": "0x473f80",
+          "end_exclusive": "0x4740f0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x473f80",
+          "size": 1,
+          "bytes": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x473f81",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x473f82",
+          "size": 2,
+          "bytes": "33db",
+          "text": "xor     ebx, ebx"
+        },
+        {
+          "ea": "0x473f84",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x473f85",
+          "size": 5,
+          "bytes": "be01000000",
+          "text": "mov     esi, 1"
+        },
+        {
+          "ea": "0x473f8a",
+          "size": 6,
+          "bytes": "891d7ca7c800",
+          "text": "mov     dword_C8A77C, ebx"
+        },
+        {
+          "ea": "0x473f90",
+          "size": 6,
+          "bytes": "891d80a7c800",
+          "text": "mov     dword_C8A780, ebx"
+        },
+        {
+          "ea": "0x473f96",
+          "size": 6,
+          "bytes": "891db40aca00",
+          "text": "mov     gWindowHasFocus, ebx"
+        },
+        {
+          "ea": "0x473f9c",
+          "size": 5,
+          "bytes": "e89ffeffff",
+          "text": "call    MouseEvent__Update"
+        },
+        {
+          "ea": "0x473fa1",
+          "size": 5,
+          "bytes": "e8faf0ffff",
+          "text": "call    Window__sortLayer"
+        },
+        {
+          "ea": "0x473fa6",
+          "size": 2,
+          "bytes": "3bc3",
+          "text": "cmp     eax, ebx"
+        },
+        {
+          "ea": "0x473fa8",
+          "size": 5,
+          "bytes": "a34448cc00",
+          "text": "mov     gMaxOpenWinId, eax"
+        },
+        {
+          "ea": "0x473fad",
+          "size": 4,
+          "bytes": "895c2408",
+          "text": "mov     [esp+0Ch+winId], ebx"
+        },
+        {
+          "ea": "0x473fb1",
+          "size": 6,
+          "bytes": "0f8e01010000",
+          "text": "jle     loc_4740B8"
+        },
+        {
+          "ea": "0x473fb7",
+          "size": 1,
+          "bytes": "55",
+          "text": "push    ebp"
+        },
+        {
+          "ea": "0x473fb8",
+          "size": 1,
+          "bytes": "57",
+          "text": "push    edi"
+        },
+        {
+          "ea": "0x473fb9",
+          "size": 5,
+          "bytes": "bd94b0c800",
+          "text": "mov     ebp, offset gWindow"
+        },
+        {
+          "ea": "0x473fbe",
+          "size": 3,
+          "bytes": "8b4d00",
+          "text": "mov     ecx, [ebp+0]"
+        },
+        {
+          "ea": "0x473fc1",
+          "size": 6,
+          "bytes": "890d9446cf00",
+          "text": "mov     gCurrentWindow, ecx"
+        },
+        {
+          "ea": "0x473fc7",
+          "size": 3,
+          "bytes": "8b5104",
+          "text": "mov     edx, [ecx+4]"
+        },
+        {
+          "ea": "0x473fca",
+          "size": 7,
+          "bytes": "8d04d500000000",
+          "text": "lea     eax, ds:0[edx*8]"
+        },
+        {
+          "ea": "0x473fd1",
+          "size": 2,
+          "bytes": "2bc2",
+          "text": "sub     eax, edx"
+        },
+        {
+          "ea": "0x473fd3",
+          "size": 3,
+          "bytes": "8d0440",
+          "text": "lea     eax, [eax+eax*2]"
+        },
+        {
+          "ea": "0x473fd6",
+          "size": 7,
+          "bytes": "8d1485b0a9c900",
+          "text": "lea     edx, gWindowState.flag[eax*4]"
+        },
+        {
+          "ea": "0x473fdd",
+          "size": 6,
+          "bytes": "89158446cf00",
+          "text": "mov     gCurrentWindowState, edx"
+        },
+        {
+          "ea": "0x473fe3",
+          "size": 3,
+          "bytes": "8b4104",
+          "text": "mov     eax, [ecx+4]"
+        },
+        {
+          "ea": "0x473fe6",
+          "size": 5,
+          "bytes": "a31c7ad600",
+          "text": "mov     gCurrentWinId, eax"
+        },
+        {
+          "ea": "0x473feb",
+          "size": 5,
+          "bytes": "e830edffff",
+          "text": "call    Window__ProsseFocus"
+        },
+        {
+          "ea": "0x473ff0",
+          "size": 6,
+          "bytes": "8b0d9446cf00",
+          "text": "mov     ecx, gCurrentWindow"
+        },
+        {
+          "ea": "0x473ff6",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x473ff7",
+          "size": 2,
+          "bytes": "8bf8",
+          "text": "mov     edi, eax"
+        },
+        {
+          "ea": "0x473ff9",
+          "size": 3,
+          "bytes": "ff5130",
+          "text": "call    dword ptr [ecx+30h]"
+        },
+        {
+          "ea": "0x473ffc",
+          "size": 6,
+          "bytes": "8b0d9446cf00",
+          "text": "mov     ecx, gCurrentWindow"
+        },
+        {
+          "ea": "0x474002",
+          "size": 2,
+          "bytes": "8bf0",
+          "text": "mov     esi, eax"
+        },
+        {
+          "ea": "0x474004",
+          "size": 2,
+          "bytes": "33c0",
+          "text": "xor     eax, eax"
+        },
+        {
+          "ea": "0x474006",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x474009",
+          "size": 5,
+          "bytes": "a32cc15700",
+          "text": "mov     gTmpIndex, eax"
+        },
+        {
+          "ea": "0x47400e",
+          "size": 3,
+          "bytes": "8b5128",
+          "text": "mov     edx, [ecx+28h]"
+        },
+        {
+          "ea": "0x474011",
+          "size": 2,
+          "bytes": "3bd3",
+          "text": "cmp     edx, ebx"
+        },
+        {
+          "ea": "0x474013",
+          "size": 2,
+          "bytes": "7e30",
+          "text": "jle     short loc_474045"
+        },
+        {
+          "ea": "0x474015",
+          "size": 3,
+          "bytes": "8b592c",
+          "text": "mov     ebx, [ecx+2Ch]"
+        },
+        {
+          "ea": "0x474018",
+          "size": 3,
+          "bytes": "8d14c0",
+          "text": "lea     edx, [eax+eax*8]"
+        },
+        {
+          "ea": "0x47401b",
+          "size": 5,
+          "bytes": "837c931801",
+          "text": "cmp     dword ptr [ebx+edx*4+18h], 1"
+        },
+        {
+          "ea": "0x474020",
+          "size": 2,
+          "bytes": "7514",
+          "text": "jnz     short loc_474036"
+        },
+        {
+          "ea": "0x474022",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax; a1"
+        },
+        {
+          "ea": "0x474023",
+          "size": 5,
+          "bytes": "e838f5ffff",
+          "text": "call    Window__ProcessChildElement"
+        },
+        {
+          "ea": "0x474028",
+          "size": 6,
+          "bytes": "8b0d9446cf00",
+          "text": "mov     ecx, gCurrentWindow"
+        },
+        {
+          "ea": "0x47402e",
+          "size": 5,
+          "bytes": "a12cc15700",
+          "text": "mov     eax, gTmpIndex"
+        },
+        {
+          "ea": "0x474033",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x474036",
+          "size": 1,
+          "bytes": "40",
+          "text": "inc     eax"
+        },
+        {
+          "ea": "0x474037",
+          "size": 5,
+          "bytes": "a32cc15700",
+          "text": "mov     gTmpIndex, eax"
+        },
+        {
+          "ea": "0x47403c",
+          "size": 3,
+          "bytes": "8b5128",
+          "text": "mov     edx, [ecx+28h]"
+        },
+        {
+          "ea": "0x47403f",
+          "size": 2,
+          "bytes": "3bc2",
+          "text": "cmp     eax, edx"
+        },
+        {
+          "ea": "0x474041",
+          "size": 2,
+          "bytes": "7cd2",
+          "text": "jl      short loc_474015"
+        },
+        {
+          "ea": "0x474043",
+          "size": 2,
+          "bytes": "33db",
+          "text": "xor     ebx, ebx"
+        },
+        {
+          "ea": "0x474045",
+          "size": 2,
+          "bytes": "3bfb",
+          "text": "cmp     edi, ebx"
+        },
+        {
+          "ea": "0x474047",
+          "size": 10,
+          "bytes": "c7052cc15700ffffffff",
+          "text": "mov     gTmpIndex, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x474051",
+          "size": 2,
+          "bytes": "7440",
+          "text": "jz      short loc_474093"
+        },
+        {
+          "ea": "0x474053",
+          "size": 5,
+          "bytes": "a128c15700",
+          "text": "mov     eax, Mouse__CurrentState"
+        },
+        {
+          "ea": "0x474058",
+          "size": 7,
+          "bytes": "c605b48dd600d4",
+          "text": "mov     gMouseEventState, 0D4h"
+        },
+        {
+          "ea": "0x47405f",
+          "size": 3,
+          "bytes": "83f804",
+          "text": "cmp     eax, 4"
+        },
+        {
+          "ea": "0x474062",
+          "size": 10,
+          "bytes": "c705b40aca0001000000",
+          "text": "mov     gWindowHasFocus, 1"
+        },
+        {
+          "ea": "0x47406c",
+          "size": 2,
+          "bytes": "7523",
+          "text": "jnz     short loc_474091"
+        },
+        {
+          "ea": "0x47406e",
+          "size": 5,
+          "bytes": "a118c15700",
+          "text": "mov     eax, Mouse__MoveState"
+        },
+        {
+          "ea": "0x474073",
+          "size": 2,
+          "bytes": "3bc3",
+          "text": "cmp     eax, ebx"
+        },
+        {
+          "ea": "0x474075",
+          "size": 2,
+          "bytes": "740f",
+          "text": "jz      short loc_474086"
+        },
+        {
+          "ea": "0x474077",
+          "size": 6,
+          "bytes": "8b0d14c15700",
+          "text": "mov     ecx, gDragItemSourceIndex"
+        },
+        {
+          "ea": "0x47407d",
+          "size": 1,
+          "bytes": "51",
+          "text": "push    ecx"
+        },
+        {
+          "ea": "0x47407e",
+          "size": 1,
+          "bytes": "53",
+          "text": "push    ebx"
+        },
+        {
+          "ea": "0x47407f",
+          "size": 2,
+          "bytes": "6a04",
+          "text": "push    4"
+        },
+        {
+          "ea": "0x474081",
+          "size": 2,
+          "bytes": "ffd0",
+          "text": "call    eax ; Mouse__MoveState"
+        },
+        {
+          "ea": "0x474083",
+          "size": 3,
+          "bytes": "83c40c",
+          "text": "add     esp, 0Ch"
+        },
+        {
+          "ea": "0x474086",
+          "size": 5,
+          "bytes": "e855230000",
+          "text": "call    MouseEvent__reset"
+        },
+        {
+          "ea": "0x47408b",
+          "size": 6,
+          "bytes": "8b0d9446cf00",
+          "text": "mov     ecx, gCurrentWindow"
+        },
+        {
+          "ea": "0x474091",
+          "size": 2,
+          "bytes": "33f6",
+          "text": "xor     esi, esi"
+        },
+        {
+          "ea": "0x474093",
+          "size": 1,
+          "bytes": "56",
+          "text": "push    esi"
+        },
+        {
+          "ea": "0x474094",
+          "size": 3,
+          "bytes": "ff5134",
+          "text": "call    dword ptr [ecx+34h]"
+        },
+        {
+          "ea": "0x474097",
+          "size": 6,
+          "bytes": "8b0d4448cc00",
+          "text": "mov     ecx, gMaxOpenWinId"
+        },
+        {
+          "ea": "0x47409d",
+          "size": 2,
+          "bytes": "8bf0",
+          "text": "mov     esi, eax"
+        },
+        {
+          "ea": "0x47409f",
+          "size": 4,
+          "bytes": "8b442414",
+          "text": "mov     eax, [esp+18h+winId]"
+        },
+        {
+          "ea": "0x4740a3",
+          "size": 3,
+          "bytes": "83c404",
+          "text": "add     esp, 4"
+        },
+        {
+          "ea": "0x4740a6",
+          "size": 1,
+          "bytes": "40",
+          "text": "inc     eax"
+        },
+        {
+          "ea": "0x4740a7",
+          "size": 3,
+          "bytes": "83c504",
+          "text": "add     ebp, 4"
+        },
+        {
+          "ea": "0x4740aa",
+          "size": 2,
+          "bytes": "3bc1",
+          "text": "cmp     eax, ecx"
+        },
+        {
+          "ea": "0x4740ac",
+          "size": 4,
+          "bytes": "89442410",
+          "text": "mov     [esp+14h+winId], eax"
+        },
+        {
+          "ea": "0x4740b0",
+          "size": 6,
+          "bytes": "0f8c08ffffff",
+          "text": "jl      loc_473FBE"
+        },
+        {
+          "ea": "0x4740b6",
+          "size": 1,
+          "bytes": "5f",
+          "text": "pop     edi"
+        },
+        {
+          "ea": "0x4740b7",
+          "size": 1,
+          "bytes": "5d",
+          "text": "pop     ebp"
+        },
+        {
+          "ea": "0x4740b8",
+          "size": 5,
+          "bytes": "e8233a0500",
+          "text": "call    sub_4C7AE0"
+        },
+        {
+          "ea": "0x4740bd",
+          "size": 5,
+          "bytes": "e87e72fdff",
+          "text": "call    sub_44B340"
+        },
+        {
+          "ea": "0x4740c2",
+          "size": 6,
+          "bytes": "8b0d28c15700",
+          "text": "mov     ecx, Mouse__CurrentState"
+        },
+        {
+          "ea": "0x4740c8",
+          "size": 5,
+          "bytes": "b801000000",
+          "text": "mov     eax, 1"
+        },
+        {
+          "ea": "0x4740cd",
+          "size": 6,
+          "bytes": "891d1c7ad600",
+          "text": "mov     gCurrentWinId, ebx"
+        },
+        {
+          "ea": "0x4740d3",
+          "size": 1,
+          "bytes": "5e",
+          "text": "pop     esi"
+        },
+        {
+          "ea": "0x4740d4",
+          "size": 2,
+          "bytes": "3bc8",
+          "text": "cmp     ecx, eax"
+        },
+        {
+          "ea": "0x4740d6",
+          "size": 1,
+          "bytes": "5b",
+          "text": "pop     ebx"
+        },
+        {
+          "ea": "0x4740d7",
+          "size": 2,
+          "bytes": "7515",
+          "text": "jnz     short loc_4740EE"
+        },
+        {
+          "ea": "0x4740d9",
+          "size": 7,
+          "bytes": "803db48dd600d4",
+          "text": "cmp     gMouseEventState, 0D4h"
+        },
+        {
+          "ea": "0x4740e0",
+          "size": 2,
+          "bytes": "730c",
+          "text": "jnb     short loc_4740EE"
+        },
+        {
+          "ea": "0x4740e2",
+          "size": 5,
+          "bytes": "a380a7c800",
+          "text": "mov     dword_C8A780, eax"
+        },
+        {
+          "ea": "0x4740e7",
+          "size": 7,
+          "bytes": "c605b48dd600d4",
+          "text": "mov     gMouseEventState, 0D4h"
+        },
+        {
+          "ea": "0x4740ee",
+          "size": 1,
+          "bytes": "59",
+          "text": "pop     ecx"
+        },
+        {
+          "ea": "0x4740ef",
+          "size": 1,
+          "bytes": "c3",
+          "text": "retn"
+        }
+      ],
+      "instruction_count": 103,
+      "references": [
+        {
+          "site": "0x504170",
+          "type": 19,
+          "parent_entry": "0x504120"
+        }
+      ]
+    },
+    {
+      "entry": "0x504120",
+      "actual_start": "0x504120",
+      "end_exclusive": "0x504175",
+      "chunks": [
+        {
+          "start": "0x504120",
+          "end_exclusive": "0x504175"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x504120",
+          "size": 5,
+          "bytes": "a054975f00",
+          "text": "mov     al, byte_5F9754"
+        },
+        {
+          "ea": "0x504125",
+          "size": 2,
+          "bytes": "84c0",
+          "text": "test    al, al"
+        },
+        {
+          "ea": "0x504127",
+          "size": 2,
+          "bytes": "7447",
+          "text": "jz      short loc_504170"
+        },
+        {
+          "ea": "0x504129",
+          "size": 5,
+          "bytes": "a10ca7fd00",
+          "text": "mov     eax, gPlayerDataVal.feverTime"
+        },
+        {
+          "ea": "0x50412e",
+          "size": 2,
+          "bytes": "85c0",
+          "text": "test    eax, eax"
+        },
+        {
+          "ea": "0x504130",
+          "size": 2,
+          "bytes": "7f3e",
+          "text": "jg      short loc_504170"
+        },
+        {
+          "ea": "0x504132",
+          "size": 2,
+          "bytes": "6a3e",
+          "text": "push    3Eh ; '>'"
+        },
+        {
+          "ea": "0x504134",
+          "size": 5,
+          "bytes": "b9c0e89e00",
+          "text": "mov     ecx, offset gPlayerY"
+        },
+        {
+          "ea": "0x504139",
+          "size": 5,
+          "bytes": "e862ddefff",
+          "text": "call    CryptInt__GetVal"
+        },
+        {
+          "ea": "0x50413e",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x50413f",
+          "size": 5,
+          "bytes": "b9a8e89e00",
+          "text": "mov     ecx, offset gPlayerX"
+        },
+        {
+          "ea": "0x504144",
+          "size": 5,
+          "bytes": "e857ddefff",
+          "text": "call    CryptInt__GetVal"
+        },
+        {
+          "ea": "0x504149",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x50414a",
+          "size": 5,
+          "bytes": "a1b8b2d900",
+          "text": "mov     eax, s"
+        },
+        {
+          "ea": "0x50414f",
+          "size": 1,
+          "bytes": "50",
+          "text": "push    eax"
+        },
+        {
+          "ea": "0x504150",
+          "size": 5,
+          "bytes": "e87bdc0000",
+          "text": "call    sub_511DD0"
+        },
+        {
+          "ea": "0x504155",
+          "size": 5,
+          "bytes": "a00f7bd600",
+          "text": "mov     al, gItemSlotHoverState.field_0+7"
+        },
+        {
+          "ea": "0x50415a",
+          "size": 3,
+          "bytes": "83c410",
+          "text": "add     esp, 10h"
+        },
+        {
+          "ea": "0x50415d",
+          "size": 2,
+          "bytes": "fec8",
+          "text": "dec     al"
+        },
+        {
+          "ea": "0x50415f",
+          "size": 7,
+          "bytes": "c60554975f0000",
+          "text": "mov     byte_5F9754, 0"
+        },
+        {
+          "ea": "0x504166",
+          "size": 5,
+          "bytes": "a20f7bd600",
+          "text": "mov     gItemSlotHoverState.field_0+7, al"
+        },
+        {
+          "ea": "0x50416b",
+          "size": 5,
+          "bytes": "e8d05ff7ff",
+          "text": "call    sub_47A140"
+        },
+        {
+          "ea": "0x504170",
+          "size": 5,
+          "bytes": "e90bfef6ff",
+          "text": "jmp     Windows__Update"
+        }
+      ],
+      "instruction_count": 23,
+      "references": [
+        {
+          "site": "0x43cd7a",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x43cddc",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x43cdfd",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x43ce4b",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x43cfe0",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x43d04b",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x43d10f",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x43d1de",
+          "type": 17,
+          "parent_entry": "0x43cbb0"
+        },
+        {
+          "site": "0x51c8d0",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51cac5",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51ccea",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51cdda",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51ce6a",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51cec4",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51d05b",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        },
+        {
+          "site": "0x51d28c",
+          "type": 17,
+          "parent_entry": "0x51c7d0"
+        }
+      ]
+    }
+  ],
+  "source_path": "src/ui/WindowRuntime.cpp",
+  "source_patches": [
+    {
+      "scope_start": "std::int32_t UpdateWindows_473F80()\n",
+      "scope_end": "std::int32_t RenderWindows_504120()\n",
+      "old": "    const std::int32_t count = Sub_4730A0();\n    gWindowUpdateCountCC4844 = count;\n    if (count > 0) {\n",
+      "new": "    const std::int32_t count = Sub_4730A0();\n    const bool hasWindows = count > 0;\n    gWindowUpdateCountCC4844 = count;\n    if (hasWindows) {\n"
+    },
+    {
+      "scope_start": "std::int32_t UpdateWindows_473F80()\n",
+      "scope_end": "std::int32_t RenderWindows_504120()\n",
+      "old": "            gCurrentElementIndex57C12C = -1;\n            if (focused != 0) {\n",
+      "new": "            const bool hasFocus = focused != 0;\n            gCurrentElementIndex57C12C = -1;\n            if (hasFocus) {\n"
+    },
+    {
+      "scope_start": "std::int32_t UpdateWindows_473F80()\n",
+      "scope_end": "std::int32_t RenderWindows_504120()\n",
+      "old": "                gWindowHasFocusCA0AB4 = 1;\n                if (phase == 4) {\n",
+      "new": "                const bool releaseDrag = phase == 4;\n                gWindowHasFocusCA0AB4 = 1;\n                if (releaseDrag) {\n"
+    }
+  ],
+  "counts": {
+    "instructions": 126,
+    "code_bytes": 453,
+    "direct_calls": 16,
+    "tail_jump_references": 1,
+    "known_parent_entries": 3,
+    "source_patterns": 3,
+    "modified_roots": 1,
+    "new_semantic_records": 1,
+    "updated_semantic_records": 1,
+    "registered_function_ids": 2,
+    "source_scene_calls": 16
+  },
+  "source_consumers": [
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "DrawBattleScene_43CBB0",
+      "original_entry": "0x43cbb0",
+      "original_calls": 8,
+      "source_calls": 8,
+      "changed": false
+    },
+    {
+      "path": "src/world/SceneState.cpp",
+      "symbol": "DrawNormalScene_51C7D0",
+      "original_entry": "0x51c7d0",
+      "original_calls": 8,
+      "source_calls": 8,
+      "changed": false
+    }
+  ],
+  "retained_contract": {
+    "predicate_values": [
+      "count>0",
+      "focused!=0",
+      "phase==4"
+    ],
+    "integer_width": "S32",
+    "mouse_publication": "low_W8",
+    "mouse_comparison": "low_U8",
+    "window_id_reads": 2,
+    "visible_gate": 1,
+    "callback_or_shared_slot_rereads_changed": false,
+    "render_timer_root_changed": false,
+    "scene_sources_or_header_changed": false,
+    "owner_or_layout_changed": false,
+    "new_guards": false,
+    "new_legacy_dispatch_loop": false,
+    "other_sources_headers_asm_changed": false
+  },
+  "verification": "两完整126条453B与16普通call/1type19尾跳/3父、单根三判定源码全文重放与原W8、两场景实际16表达式/转生入口和声明保持有限静态；旧实际路由/所有callback目标/完整两场景和数据资源/owner寿命/本机ABI/SDK/PC53/时钟RNG/完整画面运行未验"
+}

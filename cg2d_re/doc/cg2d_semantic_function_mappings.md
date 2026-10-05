@@ -2279,3 +2279,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [原437条1538B/空入向集合](cg2d_gather_result_sampling_evidence.json)与[源状态](cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state)仅向既有语义1035/F:000EDB20追加四取样片段和原字段宽度/源边界；所有历史来源/字段保留，未新增原函数或语义记录。源只一根，descriptor七写/先判mapped下界后图号发布及图/详情行Y计算后X取样可追。
 
 语义1304/有效ID1299及代码片段5保持，处置403→404，公共UI13→14/旧39的0→1成员同F不双计；R7区间67和队列保持。原完整业务路由/生产消费、owner寿命/ABI/SDK/PC53/时钟RNG/实际采集往返和画面运行未验，空引用不当可达性裁决。
+
+## WRS01 现代窗口循环旧身份与转生入口（2026-10-06）
+
+[两完整126条453B](cg2d_window_routing_sampling_evidence.json)和[源状态](cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state)只向旧1233/473F80追加三判定取样与原WMB保持证据，504120新增一独立语义；原16普通调用与504170一type19尾跳不混计，三个已知父和当前两个场景各8表达式可追，未据此验全父。
+
+语义1304→1305/有效ID1299→1300与代码片段5分列；处置404→405仅新F，旧adapted追加本组证据并保旧原因。公共UI14→15/LOOP29→31同两F不双计，R7区间67和队列保持。旧99表真实调用来源、所有callback/完整场景与owner寿命/ABI/SDK/PC53/时钟RNG/画面运行未验。

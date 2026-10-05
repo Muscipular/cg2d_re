@@ -416,3 +416,9 @@ E265→269为公共UI/Yobi两域局部I/S共用同源/原证据，不代完整�
 [限定验收](cg2d_gather_result_sampling_spec.md#gather-result-sampling-acceptance)核单根437条1538B/四源片段全文重放、descriptor七原宽度写序/重叠、mapped先判后pub与图片/非空详情行Y计算后取X，全部其它正文/原生owner保持。空入向集合仅原事实，不当不可达或整旧表接线证据。
 
 E269→273为公共UI/旧39局部I/S共用同一源/原基线，一旧F/一adapted不计新函数，语义/有效ID与R7/队列保持；五任务及完整门禁/叶/R1/R7/R8/整体不提升，完整真实路由/数据资源/owner寿命/ABI/SDK/PC53/时钟RNG/采集往返和画面运行仍待。
+
+## WRS01 现代窗口与场景调用局部I/S（2026-10-06）
+
+[限定验收](cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance)核两完整126条453B/16普通call+1尾跳与3父、单根三源片段全文精确重放，三判定先于共享发布、原WMB/窗口及共享索引复读，已有转生入口/两场景16表达式/声明保持。原现代路径不替代旧57C368尚待证明的+04来源。
+
+E273→277只两域局部I/S共用同三实修片段/原证据，旧F增证/一新F和跨域成员不多计函数。六任务与全部完整门禁/叶/R1/R7/R8/整体不提升；所有间接目标/场景分支与数据资源、owner寿命/SDK/ABI/本机EFLAGS/PC53/时钟RNG/画面运行仍待，原格式明文/音频暂停与不执行限制保持。

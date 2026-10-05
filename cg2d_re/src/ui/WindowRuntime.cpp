@@ -43932,8 +43932,9 @@ std::int32_t UpdateWindows_473F80()
     gWindowHasFocusCA0AB4 = 0;
     Sub_473E40();
     const std::int32_t count = Sub_4730A0();
+    const bool hasWindows = count > 0;
     gWindowUpdateCountCC4844 = count;
-    if (count > 0) {
+    if (hasWindows) {
         std::int32_t index = 0;
         for (;;) {
             WindowInstance* window = gWindows[index];
@@ -43954,13 +43955,15 @@ std::int32_t UpdateWindows_473F80()
                 ++elementIndex;
                 gCurrentElementIndex57C12C = elementIndex;
             }
+            const bool hasFocus = focused != 0;
             gCurrentElementIndex57C12C = -1;
-            if (focused != 0) {
+            if (hasFocus) {
                 const std::int32_t phase = gMousePhase57C128;
                 *reinterpret_cast<unsigned char*>(
                     &platform::gLegacyMouseState.valueD68DB4) = 212;
+                const bool releaseDrag = phase == 4;
                 gWindowHasFocusCA0AB4 = 1;
-                if (phase == 4) {
+                if (releaseDrag) {
                     const WindowDragCallback callback = gDragCallback57C118;
                     if (callback != nullptr) {
                         callback(4, 0, gDragSourceIndex57C114);

@@ -143975,7 +143975,7 @@
     {
       "original_entry": "0x473F80",
       "inventory_id": "F:00073F80",
-      "status": "WMB01既有窗口更新两W8写/一U8比较修正，完整原根与当前入口登记；全输入/回调/ABI/运行未验",
+      "status": "WMB01既有窗口更新两W8写/一U8比较修正，完整原根与当前入口登记；全输入/回调/ABI/运行未验；WRS01数量/焦点/拖放三个先判后共享发布取样已修，WMB01和全部其它正文保持，完整输入/ABI/运行未验",
       "original_end_exclusive": "0x4740F0",
       "instruction_count": 103,
       "original_direct_reference_count": 1,
@@ -143993,6 +143993,20 @@
             "LegacyMouseState"
           ],
           "relationship": "唯一W32承载D68DB4低字节由本根别名写/取样，高三字节及整体布局不改"
+        },
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "UpdateWindows_473F80"
+          ],
+          "relationship": "WRS01仅count>0/焦点非零/phase4三判定先于相应共享发布；原WMB低W8与真实callback/共享复读、所有其它正文保持"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "UpdateWindows_473F80"
+          ],
+          "relationship": "既有真实完整S32返回声明，公开API与owner未改"
         }
       ],
       "evidence_documents": [
@@ -144000,10 +144014,15 @@
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-decision",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-acceptance",
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
-        "doc/cg2d_window_mouse_byte_evidence.json"
+        "doc/cg2d_window_mouse_byte_evidence.json",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_evidence.json"
       ],
-      "boundary": "进入清C8A77C/C8A780/CA0AB4，鼠标后窗口排序/计数。按共享列表发布当前窗口/状态/ID，取焦点，再update(carry)。visible严格1处理元素并重读当前窗口/共享索引，元素循环后索引=-1。焦点非零先取phase、只写D68DB4低W8=212及focus=1；phase4可选拖动(4,0,sourceIndex)、重置并重读当前window，updateResult=0，draw返回续作carry，每轮重读共享窗口数量。窗口后快捷键/预设热键，先取phase再清当前ID；phase1且D68DB4低U8<212，写C8A780=1并只写低W8=212，正常返回1。三原字节操作与既有W32共享owner保留，高三字节不写；没有专项异常保护/拒绝/钳制/回绕。原103条/368B、唯一504170尾跳，三间接调用真实参数数/原序保留，但不据此验收全部目标、别名/寿命或本机ABI与运行；旧99表实际外路由仍未闭，音频暂停、原格式明文及不构建/测试/运行/摘要保持。",
-      "verification_level": "完整原根103条/368B与唯一入向、三原W8操作/既有源码三片段和本根调用/读取顺序限定静态；实际回调/输入/画面/ABI/运行未验",
+      "boundary": "进入清C8A77C/C8A780/CA0AB4，鼠标后窗口排序/计数。按共享列表发布当前窗口/状态/ID，取焦点，再update(carry)。visible严格1处理元素并重读当前窗口/共享索引，元素循环后索引=-1。焦点非零先取phase、只写D68DB4低W8=212及focus=1；phase4可选拖动(4,0,sourceIndex)、重置并重读当前window，updateResult=0，draw返回续作carry，每轮重读共享窗口数量。窗口后快捷键/预设热键，先取phase再清当前ID；phase1且D68DB4低U8<212，写C8A780=1并只写低W8=212，正常返回1。三原字节操作与既有W32共享owner保留，高三字节不写；没有专项异常保护/拒绝/钳制/回绕。原103条/368B、唯一504170尾跳，三间接调用真实参数数/原序保留，但不据此验收全部目标、别名/寿命或本机ABI与运行；旧99表实际外路由仍未闭，音频暂停、原格式明文及不构建/测试/运行/摘要保持。；WRS01保存hasWindows后才发布CC4844、保存hasFocus后才发布当前索引=-1、原phase读与鼠标低W8=212后保存releaseDrag再发布focus=1，三原判定门槛和原分流保持。window.id原两次读取不合并，callback后的窗口/共享索引与每轮count按原复读，所有其它正文/WMB宽度/owner保持。现代真实回调链不替代尚待证明的旧99表+04调用；全部间接目标/原场景分支和数据资源、owner重进退出/借用失效/SDK/ABI/PC53/时钟RNG/本机生成EFLAGS和画面运行未验；不新增保护/输入门槛/回绕与故障模拟。",
+      "verification_level": "完整原根103条/368B与唯一入向、三原W8操作/既有源码三片段和本根调用/读取顺序限定静态；实际回调/输入/画面/ABI/运行未验；WRS01两完整126条453B/16普通call+1尾跳与3父，单根三判定片段全文重放、同判定先于发布和原W8/两场景16表达式有限静态，不验全callback/场景或本机EFLAGS/ABI/SDK/运行",
       "original_internal_calls": [
         {
           "call_site": "0x473F9C",
@@ -144075,7 +144094,29 @@
           ],
           "relationship": "窗口draw；原caller清栈4，返回续作carry"
         }
-      ]
+      ],
+      "window_routing_sampling": {
+        "spec_id": "WRS01",
+        "evidence_refs": [
+          "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+          "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+          "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+          "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+          "doc/cg2d_window_routing_sampling_evidence.json"
+        ],
+        "original_entry": "0x473f80",
+        "instruction_count": 103,
+        "code_bytes": 368,
+        "inbound_references": [
+          {
+            "site": "0x504170",
+            "type": 19,
+            "parent_entry": "0x504120"
+          }
+        ],
+        "source_body_changed": true,
+        "full_runtime_verified": false
+      }
     },
     {
       "original_entry": "0x472F00",
@@ -148185,6 +148226,135 @@
           }
         ],
         "source_body_changed": true,
+        "full_runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x504120",
+      "inventory_id": "F:00104120",
+      "status": "WRS01既有真实转生到期/现代窗口入口与两场景16调用纳管；源正文未改、完整生产/owner寿命和ABI/运行未验",
+      "original_end_exclusive": "0x504175",
+      "instruction_count": 23,
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "RenderWindows_504120"
+          ],
+          "relationship": "既有完整转生到期门禁/Y后X和socket明文62、发送后低U8读取/先清标志再pub字节/47A140后现代窗口S32返回，本次正文保持"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "RenderWindows_504120"
+          ],
+          "relationship": "既有真实完整S32返回声明，公开API与owner未改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_evidence.json"
+      ],
+      "verification_level": "两完整126条453B/16普通call+1尾跳/3已知父及源单根三判定实修，当前两个场景各8表达式/既有转生入口和声明全文保持有限静态；不验两个完整场景或SDK/ABI/运行",
+      "boundary": "入口U8标志0不读timer，非零且同源S32 timer<=0才Y→X→socket发原明文62；忽略结果，发后读同一owner低U8 occupancy+7减1，先清标志再pub同字段并47A140；统一返回完整UpdateWindows_473F80的S32结果，不复用479660另一个计数门禁/添音效或失败回滚。本次只旧真实正文/声明/16场景消费纳管，不改内存数值载体或资源owner；旧99表真实调用来源、完整场景和数据资源生产/所有callback/ABI/SDK/PC53/时钟RNG及owner寿命/画面运行未验。",
+      "window_routing_sampling": {
+        "spec_id": "WRS01",
+        "evidence_refs": [
+          "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
+          "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
+          "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-acceptance",
+          "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+          "doc/cg2d_window_routing_sampling_evidence.json"
+        ],
+        "original_entry": "0x504120",
+        "instruction_count": 23,
+        "code_bytes": 85,
+        "inbound_references": [
+          {
+            "site": "0x43cd7a",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43cddc",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43cdfd",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43ce4b",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43cfe0",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d04b",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d10f",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x43d1de",
+            "type": 17,
+            "parent_entry": "0x43cbb0"
+          },
+          {
+            "site": "0x51c8d0",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51cac5",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51ccea",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51cdda",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51ce6a",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51cec4",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51d05b",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          },
+          {
+            "site": "0x51d28c",
+            "type": 17,
+            "parent_entry": "0x51c7d0"
+          }
+        ],
+        "source_body_changed": false,
         "full_runtime_verified": false
       }
     }

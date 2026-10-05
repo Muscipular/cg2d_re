@@ -230,3 +230,9 @@ NewYobi分配与517880后续链不因登记两个工厂自动验收。不得补�
 [采集结果四片段](../cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state)恢复原描述符七字段写序/宽度、mapped先判下界再对象发布，以及结果图/非空详情行Y计算早于X取样；不把这些次序泛化到其它旧页或改公共drawAt。八次256B详情提取、原bit0/bit40/FP门槛和两关闭通知条件/明文62、所有实际音效和生命周期正文保持。
 
 [原437条1538B](../cg2d_gather_result_sampling_evidence.json)与一既有F纳入公共UI和旧39的局部I/S，空IDA入向不证明原不可达或真实旧表已接通。全部旧路由/数据资源/owner寿命/ABI/SDK和画面运行仍未验。
+
+## WRS01 已证现代调用与旧表待证的边界（2026-10-06）
+
+[真实现代窗口路径](../cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state)继续504120→473F80的原类型/参数/返回；现有SceneState两真实场景各8调用表达式保持，本次只纳管入口身份及该消费事实。473F80三判定先于对应共享发布已修、原WMB/callback和共享复读不动；不将现代窗口回调解释成旧99表handler来源。
+
+[原16普通call/1尾跳与126条453B](../cg2d_window_routing_sampling_evidence.json)只本组局部静态。原57C368访问没有已证+04分派来源的有界结论保持，后续须具体取址/调用证据；原全部处理器本体/未决数据仍在范围，不能用新轮询、全局不可达或排除解决。完整旧路由/输入/场景和资源owner/SDK/ABI/运行仍未闭。

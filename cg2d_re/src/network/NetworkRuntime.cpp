@@ -1375,11 +1375,11 @@ std::int32_t AppendProtocolText_5170D0(
     const char* const source,
     const std::int32_t capacity)
 {
-    if (capacity <= 1) {
+    const std::int32_t limit = capacity - 1;
+    if (limit <= 0) {
         return capacity;
     }
 
-    const std::int32_t limit = capacity - 1;
     std::int32_t destinationIndex = 0;
     while (destinationIndex < limit
            && destination[destinationIndex] != '\0') {
@@ -1390,8 +1390,12 @@ std::int32_t AppendProtocolText_5170D0(
     }
 
     std::int32_t sourceIndex = 0;
-    while (destinationIndex < limit && source[sourceIndex] != '\0') {
+    while (destinationIndex < limit) {
+        // 原517103/517105/517108：先写目标，再重读源字节判断NUL。
         destination[destinationIndex] = source[sourceIndex];
+        if (source[sourceIndex] == '\0') {
+            break;
+        }
         ++destinationIndex;
         ++sourceIndex;
     }

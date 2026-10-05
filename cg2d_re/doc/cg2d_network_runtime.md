@@ -3701,3 +3701,14 @@ phase71发送后先重读阶段，再发布状态1；socket创建返回及fd集�
 三队列/重置/拷贝/observer/实际callback及两个明文帧源码不改。
 只审命令入口一新adapted；不据六上下文或83直接call宣称全部父/owner/alias、
 实际CRT ABI/失败、真实收发/运行闭合，完整网络与U10/V03/R01/R02保持open。
+
+## NAT01 文本追加与命令变换纳管（2026-10-05）
+
+[局部合同](cg2d_append_transform_spec.md#append-transform-source-closure)与
+[机器归档](cg2d_append_transform_evidence.json)保四完整根379条/1004B、
+两实际四项表32B及234原直接call。仅追加体恢复S32限长表达、
+目标写→源重读→NUL判断与最终NUL动作；目标扫描/已满返回保持。
+两命令变换的扫描/低W16/密钥S8/原掩码与偏移/四表项/方向和字母区间保持，
+517160按原转义结果快照返回，空格字节2000，三体源码不改。
+四入口原已存在，本步只补语义与adapted处置，不称新造四功能；
+201追加/31token完整调用父及全部alias/owner、实际ABI/失败、命令往返/真实明文互通与运行未闭。

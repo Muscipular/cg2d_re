@@ -140556,6 +140556,178 @@
         "full_owners_closed": false,
         "runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x004038A0",
+      "inventory_id": "F:000038A0",
+      "status": "NAT01四原已存在文本追加/变换/token入口静态纳管；仅追加体校准，完整父/owner/真实收发及运行未闭",
+      "original_chunks": [
+        [
+          "0x004038A0",
+          "0x00403A52"
+        ]
+      ],
+      "instruction_count": 159,
+      "original_byte_count": 434,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_4038A0"
+          ],
+          "relationship": "原已存在完整本体；NAT01仅追加体恢复写后读取/NUL与S32限长表达，其余不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_append_transform_spec.md",
+        "doc/cg2d_append_transform_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "NAT01四完整根379条/1004B、两实际四项表及234原直接call。追加先S32 capacity-1/limit<=0返回原capacity，目标找NUL或limit；已满返回capacity；逐字节写目标后重读源再判NUL/递增、最终写NUL返回位置，原别名/数量不造新保护。命令两变换保扫描/低W16/空键门禁、key5再key3、S8掩码0CAB/BBCC、84/56偏移、原四表项/默认/7改6/正反方向与U32字母区间；token转义返回指针快照经原2000空格追加后仍返回该快照。四体已存在，只一体源码改；原生借用指针/既有CRT适配，不闭全部234调用父/间接alias/owner、实际ABI/失败/命令往返或运行，不模拟/声称数学溢出/越界故障等价。原格式明文与两算法叶排除保持。",
+      "verification_level": "当前原会话四完整根379条/1004B、两四项表32B/两变换父调用后继及原空格字节，限定一CPP/四新记录及登记簿静态核对；未构建/测试/运行/摘要",
+      "append_transform_contract": {
+        "group": "NAT01",
+        "spec": "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_4038A0",
+        "implementation_kind": "existing_command_transform_unchanged",
+        "existing_body_before_this_step": true,
+        "new_body": false,
+        "changed_in_this_step": false,
+        "new_shared_owner": false,
+        "all_calling_parents_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x00403A70",
+      "inventory_id": "F:00003A70",
+      "status": "NAT01四原已存在文本追加/变换/token入口静态纳管；仅追加体校准，完整父/owner/真实收发及运行未闭",
+      "original_chunks": [
+        [
+          "0x00403A70",
+          "0x00403C38"
+        ]
+      ],
+      "instruction_count": 167,
+      "original_byte_count": 456,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_403A70"
+          ],
+          "relationship": "原已存在完整本体；NAT01仅追加体恢复写后读取/NUL与S32限长表达，其余不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_append_transform_spec.md",
+        "doc/cg2d_append_transform_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "NAT01四完整根379条/1004B、两实际四项表及234原直接call。追加先S32 capacity-1/limit<=0返回原capacity，目标找NUL或limit；已满返回capacity；逐字节写目标后重读源再判NUL/递增、最终写NUL返回位置，原别名/数量不造新保护。命令两变换保扫描/低W16/空键门禁、key5再key3、S8掩码0CAB/BBCC、84/56偏移、原四表项/默认/7改6/正反方向与U32字母区间；token转义返回指针快照经原2000空格追加后仍返回该快照。四体已存在，只一体源码改；原生借用指针/既有CRT适配，不闭全部234调用父/间接alias/owner、实际ABI/失败/命令往返或运行，不模拟/声称数学溢出/越界故障等价。原格式明文与两算法叶排除保持。",
+      "verification_level": "当前原会话四完整根379条/1004B、两四项表32B/两变换父调用后继及原空格字节，限定一CPP/四新记录及登记簿静态核对；未构建/测试/运行/摘要",
+      "append_transform_contract": {
+        "group": "NAT01",
+        "spec": "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "Sub_403A70",
+        "implementation_kind": "existing_inverse_command_transform_unchanged",
+        "existing_body_before_this_step": true,
+        "new_body": false,
+        "changed_in_this_step": false,
+        "new_shared_owner": false,
+        "all_calling_parents_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x005170D0",
+      "inventory_id": "F:001170D0",
+      "status": "NAT01四原已存在文本追加/变换/token入口静态纳管；仅追加体校准，完整父/owner/真实收发及运行未闭",
+      "original_chunks": [
+        [
+          "0x005170D0",
+          "0x0051711C"
+        ]
+      ],
+      "instruction_count": 39,
+      "original_byte_count": 76,
+      "original_direct_reference_count": 201,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "AppendProtocolText_5170D0"
+          ],
+          "relationship": "原已存在完整本体；NAT01仅追加体恢复写后读取/NUL与S32限长表达，其余不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_append_transform_spec.md",
+        "doc/cg2d_append_transform_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "NAT01四完整根379条/1004B、两实际四项表及234原直接call。追加先S32 capacity-1/limit<=0返回原capacity，目标找NUL或limit；已满返回capacity；逐字节写目标后重读源再判NUL/递增、最终写NUL返回位置，原别名/数量不造新保护。命令两变换保扫描/低W16/空键门禁、key5再key3、S8掩码0CAB/BBCC、84/56偏移、原四表项/默认/7改6/正反方向与U32字母区间；token转义返回指针快照经原2000空格追加后仍返回该快照。四体已存在，只一体源码改；原生借用指针/既有CRT适配，不闭全部234调用父/间接alias/owner、实际ABI/失败/命令往返或运行，不模拟/声称数学溢出/越界故障等价。原格式明文与两算法叶排除保持。",
+      "verification_level": "当前原会话四完整根379条/1004B、两四项表32B/两变换父调用后继及原空格字节，限定一CPP/四新记录及登记簿静态核对；未构建/测试/运行/摘要",
+      "append_transform_contract": {
+        "group": "NAT01",
+        "spec": "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "AppendProtocolText_5170D0",
+        "implementation_kind": "existing_append_write_then_read_fix",
+        "existing_body_before_this_step": true,
+        "new_body": false,
+        "changed_in_this_step": true,
+        "new_shared_owner": false,
+        "all_calling_parents_closed": false,
+        "runtime_verified": false
+      }
+    },
+    {
+      "original_entry": "0x00517160",
+      "inventory_id": "F:00117160",
+      "status": "NAT01四原已存在文本追加/变换/token入口静态纳管；仅追加体校准，完整父/owner/真实收发及运行未闭",
+      "original_chunks": [
+        [
+          "0x00517160",
+          "0x00517186"
+        ]
+      ],
+      "instruction_count": 14,
+      "original_byte_count": 38,
+      "original_direct_reference_count": 31,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "FormatProtocolTextToken_517160"
+          ],
+          "relationship": "原已存在完整本体；NAT01仅追加体恢复写后读取/NUL与S32限长表达，其余不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_append_transform_spec.md",
+        "doc/cg2d_append_transform_evidence.json",
+        "doc/cg2d_network_runtime.md"
+      ],
+      "boundary": "NAT01四完整根379条/1004B、两实际四项表及234原直接call。追加先S32 capacity-1/limit<=0返回原capacity，目标找NUL或limit；已满返回capacity；逐字节写目标后重读源再判NUL/递增、最终写NUL返回位置，原别名/数量不造新保护。命令两变换保扫描/低W16/空键门禁、key5再key3、S8掩码0CAB/BBCC、84/56偏移、原四表项/默认/7改6/正反方向与U32字母区间；token转义返回指针快照经原2000空格追加后仍返回该快照。四体已存在，只一体源码改；原生借用指针/既有CRT适配，不闭全部234调用父/间接alias/owner、实际ABI/失败/命令往返或运行，不模拟/声称数学溢出/越界故障等价。原格式明文与两算法叶排除保持。",
+      "verification_level": "当前原会话四完整根379条/1004B、两四项表32B/两变换父调用后继及原空格字节，限定一CPP/四新记录及登记簿静态核对；未构建/测试/运行/摘要",
+      "append_transform_contract": {
+        "group": "NAT01",
+        "spec": "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "FormatProtocolTextToken_517160",
+        "implementation_kind": "existing_escaped_pointer_snapshot_return_unchanged",
+        "existing_body_before_this_step": true,
+        "new_body": false,
+        "changed_in_this_step": false,
+        "new_shared_owner": false,
+        "all_calling_parents_closed": false,
+        "runtime_verified": false
+      }
     }
   ]
 }

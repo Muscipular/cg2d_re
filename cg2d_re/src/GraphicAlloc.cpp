@@ -31,11 +31,9 @@ std::int32_t GraphicAlloc_4574E0()
     gValueD2D5FC = 0x3C0;
     gValueCC3E68 = 0x40;
 
-    // 额外一条零记录只承接 getIndex 的满容量包含上界读取。
+    // 原45750F固定分配20500项；x64只按三处原生指针调整记录步长。
     animation::gAnimateRecords9A4A58 = static_cast<animation::AnimateRecord*>(
-        std::malloc(
-            (static_cast<std::size_t>(animation::gMaxAnimateCount9A4A4C) + 1)
-            * sizeof(animation::AnimateRecord)));
+        std::malloc(20500U * sizeof(animation::AnimateRecord)));
     render::gGraphicDxCache103CFA4 = static_cast<render::DxGraphicEntry*>(
         std::malloc(
             static_cast<std::size_t>(gMaxGraphicCount)
@@ -69,9 +67,6 @@ std::int32_t GraphicAlloc_4574E0()
         animate, 0,
         static_cast<std::size_t>(animation::gMaxAnimateCount9A4A4C)
             * sizeof(animation::AnimateRecord));
-    std::memset(
-        animate + animation::gMaxAnimateCount9A4A4C, 0,
-        sizeof(animation::AnimateRecord));
     std::memset(
         render::gGraphicDxCache103CFA4, 0,
         static_cast<std::size_t>(gMaxGraphicCount)

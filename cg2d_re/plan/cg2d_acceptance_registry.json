@@ -1098,7 +1098,8 @@
         "doc/cg2d_palette_cache_alignment_spec.md",
         "doc/cg2d_cache_lifecycle_alignment_spec.md",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
-        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline"
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -1125,7 +1126,8 @@
         "F:00122C50",
         "F:0004FF40",
         "F:00050190",
-        "F:00050400"
+        "F:00050400",
+        "F:000574E0"
       ],
       "closure_task_ids": [
         "G01",
@@ -1143,7 +1145,8 @@
         "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-decision",
         "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-decision",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
-        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision"
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1152,7 +1155,8 @@
         "GUP01节点上传227条仅局部静态，条件索引/首choice和count、尺寸/两表/上传阶段及同record双色表借用已修；完整DrawAllQueued/模式/上游、资源表初始化/失效/间接alias和借用清理寿命、SDK/机器ABI/像素画面运行未验，RPLAN.24异常不计安全/故障等价",
         "GQD01完整绘制根769条适用批准范围仅局部静态，普通/固定DX clip/head/dirty阶段已修，完整批次/原门禁/native映射保持；14完整父/callee/上游/间接alias及资源对象借用失效清理、SDK/机器ABI/模式像素画面运行未验，RPLAN.24异常不计安全/故障等价",
         "GPC01完整934条仅池/共享分流与32位色局部静态，池基址/回收和原色/表取样/双W32写已修；完整父/上游/间接alias/动态池分配释放老化与SDL像素未验，低色深不计实现，RPLAN.24异常不计安全/故障等价",
-        "GCL01三根146条仅局部静态，Age负/正池阶段、Reset入口count与Build低W16/S32完整数发布已修；四完整父/callee/上游/间接alias及pool/node/surface寿命/SDK/模式像素未验，RPLAN.24异常不计安全/故障等价"
+        "GCL01三根146条仅局部静态，Age负/正池阶段、Reset入口count与Build低W16/S32完整数发布已修；四完整父/callee/上游/间接alias及pool/node/surface寿命/SDK/模式像素未验，RPLAN.24异常不计安全/故障等价",
+        "ACB01撤早期P1额外零哨兵，恢复原固定20500项/容量重读清零，原包含上界/正常查询和四分配序保持；四身份局部纳管，完整加载/播放/场景/退出/alias/所有owner寿命/实际分配失败/机器/SDK/画面运行未验，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1164,7 +1168,8 @@
         "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-baseline",
         "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-baseline",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
-        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline"
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state"
       ]
     },
     {
@@ -1175,9 +1180,15 @@
       "domain": "ANIMATION",
       "scope": "included",
       "baseline_documents": [
-        "doc/cg2d_animation_runtime.md"
+        "doc/cg2d_animation_runtime.md",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline"
       ],
-      "original_inventory_ids": [],
+      "original_inventory_ids": [
+        "F:000574E0",
+        "F:0005B390",
+        "F:0005B400",
+        "F:0005B420"
+      ],
       "closure_task_ids": [
         "G01",
         "U09",
@@ -1188,14 +1199,18 @@
       ],
       "acceptance_focus": "索引/帧生产、初始化、更新消费及释放",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "ACB01撤早期P1额外零哨兵，恢复原固定20500项/容量重读清零，原包含上界/正常查询和四分配序保持；四身份局部纳管，完整加载/播放/场景/退出/alias/所有owner寿命/实际分配失败/机器/SDK/画面运行未验，异常不保护或模拟"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state"
+      ]
     },
     {
       "id": "FUNC-RENDER",
@@ -12687,6 +12702,70 @@
       "observation": "357条1182B及21call三父保存，正常算术局部/三body精确差异/台账静态",
       "expected": "IME显示原正常S32算术、字段窄化/SDK字段与候选布局和取样保持，不专项保护或模拟异常",
       "actual": "仅本次源码/正常算术局部静态，未重验全部语义/完整父/焦点/IME/alias/坐标writer/候选容量和完整寿命/机器/ABI/SDK/链接/像素运行；完整输入/文本门禁不提升，数学异常不称安全或故障等价"
+    },
+    {
+      "id": "E-ANIMATION-CAPACITY-I-20261005",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四原186条548B/五call一回调身份，P1固定20500项和正常查询；doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-animation-capacity-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json",
+        "src/GraphicAlloc.cpp#GraphicAlloc_4574E0",
+        "include/cg/AnimationRuntime.hpp",
+        "src/AnimationRuntime.cpp#BinarySearch_45B390",
+        "src/AnimationRuntime.cpp#GetIndex_45B400",
+        "src/AnimationRuntime.cpp#Compare_45B420"
+      ],
+      "differences": [
+        {
+          "description": "ACB01撤早期P1额外零哨兵，原固定20500项只按已证指针拓宽调整步长；容量重读/四块序和count包含上界查询保持，异常不保护或模拟",
+          "decision_ref": "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "P1固定20500项预算和额外清零撤销已落源，原其它阶段和查询保持",
+      "expected": "保原固定项数及正常查询/四分配阶段，不用额外记录补异常值；x64仅已证指针拓宽",
+      "actual": "仅本次源码与正常合同限定静态；现代分配字节/失败时机不称x86逐次等价，完整父/加载/播放/场景/退出/alias/所有owner/实际分配失败/ABI/SDK/画面运行未验，异常不记安全/故障等价；完整门禁不提升"
+    },
+    {
+      "id": "E-ANIMATION-CAPACITY-S-20261005",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "四原186条548B/五call一回调身份，P1固定20500项和正常查询；doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-animation-capacity-20261005",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json",
+        "src/GraphicAlloc.cpp#GraphicAlloc_4574E0",
+        "include/cg/AnimationRuntime.hpp",
+        "src/AnimationRuntime.cpp#BinarySearch_45B390",
+        "src/AnimationRuntime.cpp#GetIndex_45B400",
+        "src/AnimationRuntime.cpp#Compare_45B420"
+      ],
+      "differences": [
+        {
+          "description": "ACB01撤早期P1额外零哨兵，原固定20500项只按已证指针拓宽调整步长；容量重读/四块序和count包含上界查询保持，异常不保护或模拟",
+          "decision_ref": "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-05",
+      "observation": "四原186条548B/库存/五call一回调、三源片段和三个正常查询/台账限定静态",
+      "expected": "保原固定项数及正常查询/四分配阶段，不用额外记录补异常值；x64仅已证指针拓宽",
+      "actual": "仅本次源码与正常合同限定静态；现代分配字节/失败时机不称x86逐次等价，完整父/加载/播放/场景/退出/alias/所有owner/实际分配失败/ABI/SDK/画面运行未验，异常不记安全/故障等价；完整门禁不提升"
     }
   ],
   "task_acceptance": [
@@ -12837,7 +12916,8 @@
         "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-source-closure",
         "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
-        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state"
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state"
       ]
     },
     {
@@ -13060,7 +13140,8 @@
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
-        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state"
       ]
     },
     {
@@ -13110,7 +13191,8 @@
         "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
         "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
         "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
-        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state"
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state"
       ]
     },
     {
@@ -13150,7 +13232,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state"
       ]
     },
     {
@@ -16820,6 +16903,54 @@
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-acceptance",
         "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
         "doc/cg2d_map_record_identity_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:000574E0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0005B390",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0005B400",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json"
+      ]
+    },
+    {
+      "inventory_id": "F:0005B420",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json"
       ]
     }
   ],

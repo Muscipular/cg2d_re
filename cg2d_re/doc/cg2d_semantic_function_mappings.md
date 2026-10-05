@@ -2147,3 +2147,9 @@ U07当前缺口收窄、七任务和完整软件门禁保持；原格式明文/�
 [既有F:000590E0](cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state)原语义/equivalent追加本次依据；来源补AddW32/SubW32/MulW32，不给匿名工具新F。正常S32保持23加/4减/5乘表达式、字段窄化/SDK DWORD、原长度下限2和取样/调用写序。
 
 357条1182B/21call三父身份保存，仅正常算术局部和源三body限定静态；完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/像素运行未验，异常不专项保护或模拟/称等价。
+
+## ACB01 动画固定预算与三查询来源（2026-10-05）
+
+[四原身份](cg2d_animation_capacity_spec.md#animation-capacity-source-state)：既有F:000574E0追加原固定P1预算/当前源修正，三查询F:0005B390/F:0005B400/F:0005B420各补唯一正式语义与真实来源。分配adapted仅已证x64步长，三查询equivalent只正常合同；不因字节预算不同称实际malloc失败时机等价。
+
+原116/48/11/11共186条548B、五call一回调身份保存；原分配阶段/正常查询局部及三源片段静态，不代完整初始化/AnimeInit/FrameMove/PlayFrame/所有owner寿命/ABI/SDK/画面运行。语义1260→1263/有效ID1256→1259，处置350→354，不制造匿名F或将既有查询登记称新开发。

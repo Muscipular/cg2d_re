@@ -47,7 +47,7 @@ static_assert(offsetof(AnimeCacheRecord, actionList) == 0x18);
 static_assert(offsetof(AnimeCacheRecord, buffer) == 0x20);
 
 // 原 9A4A58/9A4A60/9A4A4C；GraphicAlloc 分配主表，AnimeInit 发布元素数。
-// 新端 backing 需保留 count 索引：原 getIndex 将元素数作为包含上界。
+// 原getIndex仍将元素数作为包含上界；不因此扩分配容量或补一过尾零记录。
 extern AnimateRecord* gAnimateRecords9A4A58;
 extern AnimeCacheRecord* gAnimateCache9A4A5C;
 extern std::int32_t gAnimateCount9A4A60;

@@ -86545,7 +86545,8 @@
           "path": "src/GraphicAlloc.cpp",
           "symbols": [
             "GraphicAlloc_4574E0"
-          ]
+          ],
+          "relationship": "ACB01既有分配父恢复固定20500项并撤额外零记录；原四块阶段保持"
         }
       ],
       "inbound_evidence": [
@@ -86580,10 +86581,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json"
       ],
-      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行",
-      "boundary": "既有资源分配父先按九Info路径rb逐项探测，成功立即关闭、失败继续；探测后容量发布、四次分配及原清理/清零正文不变。局部流统一LegacyFile，不以探测失败新增返回或扩大当前堆迁移；完整CRT/资源内容/运行未验。"
+      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行；ACB01原116条391B分配阶段/固定P1预算与源两片段限定静态，三正常查询身份另列",
+      "boundary": "既有资源分配父先按九Info路径rb逐项探测，成功立即关闭、失败继续；探测后容量发布、四次分配及原清理/清零正文不变。局部流统一LegacyFile，不以探测失败新增返回或扩大当前堆迁移；完整CRT/资源内容/运行未验。 ACB01固定20500项P1分配/撤额外一过尾清零，原容量重读与四块发布/失败/释放/清零序保持；只拓宽已证指针，现代分配字节/失败时机不称原x86逐次相同。 三查询/同一主表关系有据，原116条391B仅分配阶段正常合同/三源片段静态，完整加载/播放/场景/退出/间接alias与所有owner寿命、实际机器/SDK/运行未验；RPLAN.24异常不保护或模拟/称等价。"
     },
     {
       "original_entry": "0x459960",
@@ -144808,6 +144814,139 @@
       ],
       "boundary": "原52B数值与未写字段保持，两非拥有链接按既有合同拓宽为64B；仅本原体正常合同与当前来源限定静态，不代全部33父实参/间接alias、其余排序合并/所有owner寿命、PC53机器环境/SDK/链接/像素画面/运行。RPLAN.24异常不专项保护或模拟/称等价。",
       "verification_level": "本组六完整原体492条1730B及33引用身份/当前正常分支与布局限定静态；非所有调用父或整地图验收"
+    },
+    {
+      "original_entry": "0x45b390",
+      "inventory_id": "F:0005B390",
+      "status": "ACB01既有动画查询正常路径身份纳管；源码保持，完整功能/运行未验",
+      "original_end_exclusive": "0x45b3f7",
+      "instruction_count": 48,
+      "original_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/AnimationRuntime.cpp",
+          "symbols": [
+            "BinarySearch_45B390"
+          ],
+          "relationship": "既有真实查询本体，ACB01仅补身份/正常合同，不新建或修改"
+        },
+        {
+          "path": "include/cg/AnimationRuntime.hpp",
+          "symbols": [
+            "BinarySearch_45B390"
+          ],
+          "relationship": "既有唯一真实声明，签名/调用约定保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45b40d",
+          "parent_entry": "0x45b400",
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json"
+      ],
+      "verification_level": "本次完整48/11/11共70条正常查询/返回与unsigned键、包含上界和回调类型静态，不代完整父/生命周期/机器ABI/运行",
+      "boundary": "正常S32 min/max及跨度10阈值，中点向零除2；unsigned键二分，交错返回−1；不足10包含max顺扫，首相等返回index；不改count包含上界或补容量/空指针门禁。 完整加载/播放/场景/退出、间接alias/所有owner与实际机器/ABI/SDK/画面未验；越界/数学溢出不专项处理/模拟或称安全/故障等价。"
+    },
+    {
+      "original_entry": "0x45b400",
+      "inventory_id": "F:0005B400",
+      "status": "ACB01既有动画查询正常路径身份纳管；源码保持，完整功能/运行未验",
+      "original_end_exclusive": "0x45b41d",
+      "instruction_count": 11,
+      "original_reference_count": 3,
+      "original_direct_call_reference_count": 3,
+      "sources": [
+        {
+          "path": "src/AnimationRuntime.cpp",
+          "symbols": [
+            "GetIndex_45B400"
+          ],
+          "relationship": "既有真实查询本体，ACB01仅补身份/正常合同，不新建或修改"
+        },
+        {
+          "path": "include/cg/AnimationRuntime.hpp",
+          "symbols": [
+            "GetIndex_45B400"
+          ],
+          "relationship": "既有唯一真实声明，签名/调用约定保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45bfe8",
+          "parent_entry": "0x45bf60",
+          "reference_type": 17
+        },
+        {
+          "address": "0x517974",
+          "parent_entry": "0x517880",
+          "reference_type": 17
+        },
+        {
+          "address": "0x517f7e",
+          "parent_entry": "0x517da0",
+          "reference_type": 17
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json"
+      ],
+      "verification_level": "本次完整48/11/11共70条正常查询/返回与unsigned键、包含上界和回调类型静态，不代完整父/生命周期/机器ABI/运行",
+      "boundary": "单次读取元素数count并传(键,0,count)给真实BinarySearch，负结果转−1，其余原样返回；已存在三caller，不给count−1或新增owner/检查。 完整加载/播放/场景/退出、间接alias/所有owner与实际机器/ABI/SDK/画面未验；越界/数学溢出不专项处理/模拟或称安全/故障等价。"
+    },
+    {
+      "original_entry": "0x45b420",
+      "inventory_id": "F:0005B420",
+      "status": "ACB01既有动画查询正常路径身份纳管；源码保持，完整功能/运行未验",
+      "original_end_exclusive": "0x45b439",
+      "instruction_count": 11,
+      "original_reference_count": 1,
+      "original_direct_call_reference_count": 0,
+      "sources": [
+        {
+          "path": "src/AnimationRuntime.cpp",
+          "symbols": [
+            "Compare_45B420"
+          ],
+          "relationship": "既有真实查询本体，ACB01仅补身份/正常合同，不新建或修改"
+        },
+        {
+          "path": "include/cg/AnimationRuntime.hpp",
+          "symbols": [
+            "Compare_45B420"
+          ],
+          "relationship": "既有唯一真实声明，签名/调用约定保持"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "address": "0x45bebd",
+          "parent_entry": "0x45bb20",
+          "reference_type": 1
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-acceptance",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_capacity_evidence.json"
+      ],
+      "verification_level": "本次完整48/11/11共70条正常查询/返回与unsigned键、包含上界和回调类型静态，不代完整父/生命周期/机器ABI/运行",
+      "boundary": "两记录首U32升序比较，左小/等/大返回−1/0/1，45BEBD地址引用由真实SortLegacyRecords消费；不是直接call，不宣称全AnimeInit或全部排序ABI验收。 完整加载/播放/场景/退出、间接alias/所有owner与实际机器/ABI/SDK/画面未验；越界/数学溢出不专项处理/模拟或称安全/故障等价。"
     }
   ]
 }

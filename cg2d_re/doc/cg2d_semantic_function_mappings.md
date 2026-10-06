@@ -3022,3 +3022,9 @@ R7已审67→131/3061，余2930；语义1428/1423、分类553、文档1541/41.88
 [第三批合同](cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline)/[全部1272B与源](cg2d_unassigned_range_third_batch_evidence.json)。128X辅助mapped，125纯填充/三混合parts覆盖；新1428/1429/1430绑定三已有源与四原表/48索引，三父原682条只元数据/处置null，不称三个完整动作通过。40F0A0一字段消费恢复+04启用/+00类型，原生产/布局和其它源保持。
 
 R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、BATTLE108枚举open；函数分类553/队列172/待归属43保持，E732两局部I/S仅真实字段实修。R03/R04/U08仍open，完整业务/间接alias及运行门禁保持。
+
+## BPQ01 两既有动作完整正常源与W8读取（2026-10-07）
+
+[完整合同](cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline)/[193条649B/两前态](cg2d_battle_action_141_143_evidence.json)。1429/F:00010E90与1430/F:00010FC0旧BPP全文存previous_mapping_before_bpq01；从原数据角色推进到完整正常源，六出向/两普通点一父只邻窗，原三表/48索引与16B物理图号表保。两动作仅W8读取片段改，正常旧旗位值一致，数据/所有其它源保持。
+
+语义1431/有效ID1426、关联1544/41.96%、BATTLE108、R7 259/3061与队列172/待归属43保持；分类553→555两正常equivalent、E732→734两局部I/S；U08/R01/R04/V04仍open，全部完整门禁未提升。

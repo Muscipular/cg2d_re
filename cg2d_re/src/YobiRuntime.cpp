@@ -28483,7 +28483,9 @@ void UpdateBattleAction141_410E90(YobiAction* const action)
     if (create) {
         static_cast<void>(NewBattleDebuffEffect_41F660(action, imageNo));
     }
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    const std::uint8_t flags =
+        *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
+    if ((flags & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     AdvanceBattleCastState_439340(action);
@@ -28549,7 +28551,9 @@ void UpdateBattleAction143_410FC0(YobiAction* const action)
     if (create) {
         static_cast<void>(NewBattleStatusEffect_41FE00(action, imageNo, 1));
     }
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    const std::uint8_t flags =
+        *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
+    if ((flags & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     AdvanceBattleCastState_439340(action);

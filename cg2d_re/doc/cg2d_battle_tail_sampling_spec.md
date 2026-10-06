@@ -55,3 +55,9 @@
 [第三批合同](cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state)/[实际表及消费](cg2d_unassigned_range_third_batch_evidence.json)纳管40F0A0/410E90/410FC0三已存在源的四W32跳转表44槽和48索引表。三动作只是数据/源角色显式映射，原489/57/136仅元数据，完整动作未新验，函数处置null；BATTLE105→108枚举open。
 
 另修40F0A0一消费片段：原+04非零启用/+00类型，源恢复同一S32[2]的[1]/[0]选择，保生产两值0/1序、pairPosition/门禁/else、1..6及原图号/工厂/owner。两BATTLE局部I/S只这六条30B字段消费，不代128X或三个完整动作/684主回调/全战斗/生命周期与运行；BTS既有源及表其它内容保持。
+
+## BPQ01 两动作从数据角色到完整正常本体（2026-10-07）
+
+[动作141/143合同](cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state)/[完整193条649B](cg2d_battle_action_141_143_evidence.json)沿BPP三表/48索引补两动作完整分支和六原调用。既有1429/1430全文前态保；图号/效果参数/default和公共尾一致，源仅各一旗位读取从W32恢复原低W8、正常旧判断值相同。原四图号物理W32/16B及唯一父参数可追，没增加容量/回退或重做正确创建依赖。
+
+两equivalent只完整正常源静态，BATTLE108成员保持，E734两局部I/S；完整404DB0父/全部子依赖/状态生产/owner-alias寿命/SDK机器ABI/时钟RNG/画面与运行未验。BPP动作114字段修复及其489条未完整核仍单列，不外推完整战斗。

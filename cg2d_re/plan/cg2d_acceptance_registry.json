@@ -2262,7 +2262,8 @@
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
         "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2460,7 +2461,8 @@
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2537,7 +2539,8 @@
         "BOJ01时间1072补106差集/完整156及默认22条共178条610B，恢复Time/Number两原44B260测宽目标与Time两取样，旧Number I具名fail/六新局部I-S；BATTLE103枚举open，宽度/资源/字载荷-draw/全部父与回收重入owner-PC53-画面/R1/R7/R8待",
         "BOK01数字图号索引/XY两个正确getter完整28条105B独立纳管，BATTLE105枚举open；资源生产者Init为RESOURCE成员/共享基线candidate不替代成员，字载荷draw/所有父-真实owner与运行门禁待",
         "BPO01原257槽/200父内代码标签1028B跳转表的X用途mapped，BATTLE105及BTS已证源码/表不变；不增动作函数或软件门禁，完整战斗/全部父和子动作/间接alias-owner寿命/SDK机器ABI/运行与其余R7区间仍待",
-        "BPP01第三批128X全1272B用途及三动作的表数据/源码角色已纳管，BATTLE108枚举open；40F0A0一消费片段恢复+04启用/+00类型。三父489/57/136仅元数据，完整本体/状态/RNG/所有子父调用和owner-alias寿命/SDK机器ABI/运行未新验，三函数处置null；两局部I-S只真实字段修复，不代X/完整战斗验收"
+        "BPP01第三批128X全1272B用途及三动作的表数据/源码角色已纳管，BATTLE108枚举open；40F0A0一消费片段恢复+04启用/+00类型。三父489/57/136仅元数据，完整本体/状态/RNG/所有子父调用和owner-alias寿命/SDK机器ABI/运行未新验，三函数处置null；两局部I-S只真实字段修复，不代X/完整战斗验收",
+        "BPQ01动作141/143完整193条649B/六call与两唯一父邻窗正常源静态纳管，两真实W8读取恢复，108成员不增；完整父/其它状态生产/所有子调用与owner-alias寿命/SDK机器ABI/时钟RNG/画面运行未验，动作114仍只BPP局部，完整战斗和R8不关闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2614,7 +2617,8 @@
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state"
       ]
     },
     {
@@ -31616,6 +31620,68 @@
       "observation": "原6槽type1..6数据归属与现有图号/工厂消费；六条30B原+04启用/+00类型读序明确，源码一消费片段改[1]启用/[0]类型，保同一S32[2]布局/生产0-1序、门禁/else、type范围及RNG/所有其余分支。仅局部字段修复，完整489条动作114/状态与owner未验",
       "expected": "原6槽type1..6数据归属与现有图号/工厂消费；六条30B原+04启用/+00类型读序明确，源码一消费片段改[1]启用/[0]类型，保同一S32[2]布局/生产0-1序、门禁/else、type范围及RNG/所有其余分支。仅局部字段修复，完整489条动作114/状态与owner未验",
       "actual": "只第三批128 X的全1272B用途、四原W32表/44槽与48索引/两对齐字节和相邻实际函数块、直接表取用窗口及三个已有源分派职责定位。三父489/57/136条只是原元数据，不把这些682条称本次完整捕获/源码核对；新三语义以数据和源码角色关联为主；40F0A0另有六原指令30B的启用/类型实际字段消费修复，I/S两局部证据只该片段，三函数处置仍null。所有父和其它分支/状态/RNG、实际参数/间接alias与owner寿命、SDK机器ABI/运行和R8仍待；不从零xref推无未知间接目标。"
+    },
+    {
+      "id": "E-BATTLE-ACTION-141-143-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPQ01完整193条649B/三页及六出向两普通入向，BPP三表/48索引与原16B表分列；doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-action-141-143-full-source-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-acceptance",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state",
+        "doc/cg2d_battle_action_141_143_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction141_410E90",
+        "src/YobiRuntime.cpp#UpdateBattleAction143_410FC0",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "仅两末尾旗位读取恢复原低W8/60H，所有正常分支/图号、效果创建参数/不消费返回、PlayFrame及439340序和原字段-owner保持；旧正常判断值一致，不称数值或并发错误",
+          "decision_ref": "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPQ01动作141：保原use==3时仅type19/20图111192/111193，其它use按skill98读value1048+110075、skill2002固定110075、其余type1..6图type+110074，否则不创建。原41F660两参/返回不消费；创建后或未创建都一次读flagsFDC低W8，0x60清才PlayFrame(action,0)，最终AdvanceBattleCastState_439340一次。原字段/读取点与同一payload借用/全部其它源保持。 BPQ01动作143：use1的type1..6图103018..103023/type7图103033，use3保48原索引到25目标的所有共享case/default和case7实际value13E0读取原四W32物理表；其它不创建。41FE00固定第三参1/原图号/返回不消费；随后原低W8 flags0x60与PlayFrame(action,0)/最终439340序同原。无新表fallback/索引门槛/清零或owner。",
+      "expected": "BPQ01动作141：保原use==3时仅type19/20图111192/111193，其它use按skill98读value1048+110075、skill2002固定110075、其余type1..6图type+110074，否则不创建。原41F660两参/返回不消费；创建后或未创建都一次读flagsFDC低W8，0x60清才PlayFrame(action,0)，最终AdvanceBattleCastState_439340一次。原字段/读取点与同一payload借用/全部其它源保持。 BPQ01动作143：use1的type1..6图103018..103023/type7图103033，use3保48原索引到25目标的所有共享case/default和case7实际value13E0读取原四W32物理表；其它不创建。41FE00固定第三参1/原图号/返回不消费；随后原低W8 flags0x60与PlayFrame(action,0)/最终439340序同原。无新表fallback/索引门槛/清零或owner。",
+      "actual": "两根完整193条649B/三页、六实际出向/两普通入向一父邻窗和BPP已证三W32表/48索引及原16B图号物理表，只当前两个动作的完整正常分支/数值/字段/调用静态；不将正确效果创建/播放/推进依赖本体或完整404DB0父重验/称通过。当前只W8读取宽度修正，正常旧判断值一致；全状态生产、全部子父/间接alias和owner寿命/SDK机器ABI、时钟RNG/画面/运行未验，RPLAN.24不专项保护/模拟异常或称故障等价。"
+    },
+    {
+      "id": "E-BATTLE-ACTION-141-143-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPQ01完整193条649B/三页及六出向两普通入向，BPP三表/48索引与原16B表分列；doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-action-141-143-full-source-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-acceptance",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state",
+        "doc/cg2d_battle_action_141_143_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction141_410E90",
+        "src/YobiRuntime.cpp#UpdateBattleAction143_410FC0",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "仅两末尾旗位读取恢复原低W8/60H，所有正常分支/图号、效果创建参数/不消费返回、PlayFrame及439340序和原字段-owner保持；旧正常判断值一致，不称数值或并发错误",
+          "decision_ref": "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPQ01动作141：保原use==3时仅type19/20图111192/111193，其它use按skill98读value1048+110075、skill2002固定110075、其余type1..6图type+110074，否则不创建。原41F660两参/返回不消费；创建后或未创建都一次读flagsFDC低W8，0x60清才PlayFrame(action,0)，最终AdvanceBattleCastState_439340一次。原字段/读取点与同一payload借用/全部其它源保持。 BPQ01动作143：use1的type1..6图103018..103023/type7图103033，use3保48原索引到25目标的所有共享case/default和case7实际value13E0读取原四W32物理表；其它不创建。41FE00固定第三参1/原图号/返回不消费；随后原低W8 flags0x60与PlayFrame(action,0)/最终439340序同原。无新表fallback/索引门槛/清零或owner。",
+      "expected": "BPQ01动作141：保原use==3时仅type19/20图111192/111193，其它use按skill98读value1048+110075、skill2002固定110075、其余type1..6图type+110074，否则不创建。原41F660两参/返回不消费；创建后或未创建都一次读flagsFDC低W8，0x60清才PlayFrame(action,0)，最终AdvanceBattleCastState_439340一次。原字段/读取点与同一payload借用/全部其它源保持。 BPQ01动作143：use1的type1..6图103018..103023/type7图103033，use3保48原索引到25目标的所有共享case/default和case7实际value13E0读取原四W32物理表；其它不创建。41FE00固定第三参1/原图号/返回不消费；随后原低W8 flags0x60与PlayFrame(action,0)/最终439340序同原。无新表fallback/索引门槛/清零或owner。",
+      "actual": "两根完整193条649B/三页、六实际出向/两普通入向一父邻窗和BPP已证三W32表/48索引及原16B图号物理表，只当前两个动作的完整正常分支/数值/字段/调用静态；不将正确效果创建/播放/推进依赖本体或完整404DB0父重验/称通过。当前只W8读取宽度修正，正常旧判断值一致；全状态生产、全部子父/间接alias和owner寿命/SDK机器ABI、时钟RNG/画面/运行未验，RPLAN.24不专项保护/模拟异常或称故障等价。"
     }
   ],
   "task_acceptance": [
@@ -32238,7 +32304,8 @@
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
-        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state"
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state"
       ]
     },
     {
@@ -32476,7 +32543,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state"
       ]
     },
     {
@@ -32609,7 +32677,8 @@
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
         "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
-        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state"
       ]
     },
     {
@@ -33074,7 +33143,8 @@
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state"
       ]
     },
     {
@@ -38980,6 +39050,32 @@
         "doc/cg2d_float_decimal_estimate_evidence.json"
       ],
       "boundary": "BPN01仅本次正常15条52B估算算术及原232既有源码来源，完整数字生成/父/环境/运行未新验；BPN01只546F36正常有限值的十进制指数估算：原547041..547075的15条52B以4D10/4D/134312F4计算S32估算并SAR16。当前表达式恢复正常S32乘加减/算术右移，去U32估算与bit_cast<S32>包装；原15位指数与最高尾数字节自然域使本段中间值均在S32内，不新增输入门槛。原真实96位多字进位/所有W32-W16-W8存储、零及四特殊串/原写序、幂缩放/局部0.1/21位上限/舍入裁剪和S8-NUL、原80位按值与fltout单记录复用均保；正常无介入旧值一致，不声称数值错误或故障等价。 仅原正常估算15条52B/一页及唯一544F43→546F36普通call的544F17取参/发布邻窗，当前一算术片段静态对应；原完整232条既有元数据/字符串/复制/段边界保，不重验全数字生成、96位链或完整父。全e/f/g文本/字段消费、初始化/跨TU/所有owner及alias寿命、浮点环境/SDK机器ABI/链接/完整格式业务和运行仍未闭；RPLAN.24不专项模拟/保护数学异常，不把真实多字进位删除或本步称异常等价。"
+    },
+    {
+      "inventory_id": "F:00010E90",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-acceptance",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state",
+        "doc/cg2d_battle_action_141_143_evidence.json"
+      ],
+      "boundary": "BPQ01动作141：保原use==3时仅type19/20图111192/111193，其它use按skill98读value1048+110075、skill2002固定110075、其余type1..6图type+110074，否则不创建。原41F660两参/返回不消费；创建后或未创建都一次读flagsFDC低W8，0x60清才PlayFrame(action,0)，最终AdvanceBattleCastState_439340一次。原字段/读取点与同一payload借用/全部其它源保持。 两根完整193条649B/三页、六实际出向/两普通入向一父邻窗和BPP已证三W32表/48索引及原16B图号物理表，只当前两个动作的完整正常分支/数值/字段/调用静态；不将正确效果创建/播放/推进依赖本体或完整404DB0父重验/称通过。当前只W8读取宽度修正，正常旧判断值一致；全状态生产、全部子父/间接alias和owner寿命/SDK机器ABI、时钟RNG/画面/运行未验，RPLAN.24不专项保护/模拟异常或称故障等价。"
+    },
+    {
+      "inventory_id": "F:00010FC0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-acceptance",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state",
+        "doc/cg2d_battle_action_141_143_evidence.json"
+      ],
+      "boundary": "BPQ01动作143：use1的type1..6图103018..103023/type7图103033，use3保48原索引到25目标的所有共享case/default和case7实际value13E0读取原四W32物理表；其它不创建。41FE00固定第三参1/原图号/返回不消费；随后原低W8 flags0x60与PlayFrame(action,0)/最终439340序同原。无新表fallback/索引门槛/清零或owner。 两根完整193条649B/三页、六实际出向/两普通入向一父邻窗和BPP已证三W32表/48索引及原16B图号物理表，只当前两个动作的完整正常分支/数值/字段/调用静态；不将正确效果创建/播放/推进依赖本体或完整404DB0父重验/称通过。当前只W8读取宽度修正，正常旧判断值一致；全状态生产、全部子父/间接alias和owner寿命/SDK机器ABI、时钟RNG/画面/运行未验，RPLAN.24不专项保护/模拟异常或称故障等价。"
     }
   ],
   "auxiliary_dispositions": [

@@ -1046,3 +1046,9 @@ R7用途处置131/3061/余2930；函数3680/导入218、语义1428/1423、文档
 [限定验收](cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance)/[原全字节与六条消费](cg2d_unassigned_range_third_batch_evidence.json)。128X/1272B全部用途辅助mapped；三新增语义只原数据/已有源角色及40F0A0字段片段，未重验682条。两软件I/S各九实来源，仅[1]启用/[0]类型选择恢复，不将X数据分类当软件通过。
 
 R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open、E732；函数分类553、源差队列172/待归属43、暂停25/排除103/NOP1、10/60源码关闭/0完整验收/0叶/global_accepted=false保持。R03/R04/U08仅进展和引用/原条件不改，所有完整门禁与原运行标准保。
+
+## BPQ01 两动作完整正常本体局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_action_141_143_spec.md#battle-action-141-143-acceptance)/[完整193条649B](cg2d_battle_action_141_143_evidence.json)。57/136两根/三页、六call、两唯一父邻窗与BPP表分列；图号/参数/default和公共尾静态对应，只有W8读取源差，正常旧判断一致。两局部I/S各九实来源，未把父/所有子依赖、环境/SDK机器ABI、owner寿命或运行记已验。
+
+语义1431/1426、文档1544/41.96%、BATTLE108枚举open、R7 259/3061/余2802及队列172/待归属43保持；分类555、E734、四open任务仅引用/当前；60源码closed10/完整验收0/叶0/global_accepted=false及原运行标准继续。

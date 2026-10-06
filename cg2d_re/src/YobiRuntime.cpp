@@ -28054,8 +28054,8 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
         }
         const BattleEntryEffectRecord& paired = payload->effects1C[payload->effectRunningC9C];
         const std::int32_t pairPosition = paired.position;
-        if (gBattleEffectPairs5A8A40[pairPosition][0] != 0) {
-            const std::int32_t type = gBattleEffectPairs5A8A40[pairPosition][1];
+        if (gBattleEffectPairs5A8A40[pairPosition][1] != 0) {
+            const std::int32_t type = gBattleEffectPairs5A8A40[pairPosition][0];
             if (type >= 1 && type <= 6) {
                 static_cast<void>(NewBattleDebuffEffect_41F660(gBattleAllEntries59E980[pairPosition], type + 110074));
             }

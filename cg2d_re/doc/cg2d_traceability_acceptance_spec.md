@@ -1040,3 +1040,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [限定验收](cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance)/[64原身份前态及1477B](cg2d_unassigned_range_second_batch_evidence.json)。每段完整字节/逐字节owner和directxref、实际函数块/RET或直接JMP边界核定；完整257槽/200标签原父归属和BTS字节一致，只64辅助mapped及一父数据依据，软件I/W/S/R不提升。
 
 R7用途处置131/3061/余2930；函数3680/导入218、语义1428/1423、文档1541/41.88%、分类553、BATTLE105和E730、队列172/待归属43与暂停/排除保持；两任务R03/R04仍open、10/60源码关闭/0完整验收/0叶/global_accepted=false保持。不把填充或数据称范围排除、功能实现或未知间接目标不可达。
+
+## BPP01 128字节用途与局部字段修复分列（2026-10-07）
+
+[限定验收](cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance)/[原全字节与六条消费](cg2d_unassigned_range_third_batch_evidence.json)。128X/1272B全部用途辅助mapped；三新增语义只原数据/已有源角色及40F0A0字段片段，未重验682条。两软件I/S各九实来源，仅[1]启用/[0]类型选择恢复，不将X数据分类当软件通过。
+
+R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open、E732；函数分类553、源差队列172/待归属43、暂停25/排除103/NOP1、10/60源码关闭/0完整验收/0叶/global_accepted=false保持。R03/R04/U08仅进展和引用/原条件不改，所有完整门禁与原运行标准保。

@@ -3016,3 +3016,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [第二批合同](cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state)/[完整1477B证据](cg2d_unassigned_range_second_batch_evidence.json)。64个原未处置X分别为63填充449B及一原257槽表1028B，辅助mapped只记完整字节用途。既有1308/F:00004DB0仅补原表数据关联，BTS正确源/表、所有字段/原函数身份及处置保持；不新增函数或软件实现。
 
 R7已审67→131/3061，余2930；语义1428/1423、分类553、文档1541/41.88%、BATTLE105、软件E730和队列172/待归属43保持。R03/R04只当前/引用仍open，完整间接目标/别名、所有业务和R8未验。
+
+## BPP01 第三批128原X/三数据关联与一消费实修（2026-10-07）
+
+[第三批合同](cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline)/[全部1272B与源](cg2d_unassigned_range_third_batch_evidence.json)。128X辅助mapped，125纯填充/三混合parts覆盖；新1428/1429/1430绑定三已有源与四原表/48索引，三父原682条只元数据/处置null，不称三个完整动作通过。40F0A0一字段消费恢复+04启用/+00类型，原生产/布局和其它源保持。
+
+R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、BATTLE108枚举open；函数分类553/队列172/待归属43保持，E732两局部I/S仅真实字段实修。R03/R04/U08仍open，完整业务/间接alias及运行门禁保持。

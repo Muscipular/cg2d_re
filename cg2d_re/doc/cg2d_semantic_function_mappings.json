@@ -175999,6 +175999,138 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x40f0a0",
+      "inventory_id": "F:0000F0A0",
+      "original_role": "UpdateBattleAction114_40F0A0",
+      "original_end_exclusive": "0x40f771",
+      "instruction_count": 489,
+      "status": "BPP01原表数据与已有源角色映射；40F0A0另修真实启用/类型字段消费，完整动作本体未捕获/未新验，函数处置null",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction114_40F0A0"
+          ],
+          "relationship": "原6槽type1..6数据归属与现有图号/工厂消费；六条30B原+04启用/+00类型读序明确，源码一消费片段改[1]启用/[0]类型，保同一S32[2]布局/生产0-1序、门禁/else、type范围及RNG/所有其余分支。仅局部字段修复，完整489条动作114/状态与owner未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "boundary": "原6槽type1..6数据归属与现有图号/工厂消费；六条30B原+04启用/+00类型读序明确，源码一消费片段改[1]启用/[0]类型，保同一S32[2]布局/生产0-1序、门禁/else、type范围及RNG/所有其余分支。仅局部字段修复，完整489条动作114/状态与owner未验 只第三批128 X的全1272B用途、四原W32表/44槽与48索引/两对齐字节和相邻实际函数块、直接表取用窗口及三个已有源分派职责定位。三父489/57/136条只是原元数据，不把这些682条称本次完整捕获/源码核对；新三语义以数据和源码角色关联为主；40F0A0另有六原指令30B的启用/类型实际字段消费修复，I/S两局部证据只该片段，三函数处置仍null。所有父和其它分支/状态/RNG、实际参数/间接alias与owner寿命、SDK机器ABI/运行和R8仍待；不从零xref推无未知间接目标。",
+      "verification_level": "只第三批128 X的全1272B用途、四原W32表/44槽与48索引/两对齐字节和相邻实际函数块、直接表取用窗口及三个已有源分派职责定位。三父489/57/136条只是原元数据，不把这些682条称本次完整捕获/源码核对；新三语义以数据和源码角色关联为主；40F0A0另有六原指令30B的启用/类型实际字段消费修复，I/S两局部证据只该片段，三函数处置仍null。所有父和其它分支/状态/RNG、实际参数/间接alias与owner寿命、SDK机器ABI/运行和R8仍待；不从零xref推无未知间接目标。",
+      "range_third_batch": {
+        "spec_id": "BPP01",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+          "doc/cg2d_unassigned_range_third_batch_evidence.json"
+        ],
+        "table_data_source_binding_only": false,
+        "source_body_exists": true,
+        "source_body_changed": true,
+        "source_full_body_newly_verified": false,
+        "original_metadata_only_instruction_count": 489,
+        "full_original_body_newly_captured": false,
+        "runtime_verified": false,
+        "function_disposition_added": false
+      }
+    },
+    {
+      "original_entry": "0x410e90",
+      "inventory_id": "F:00010E90",
+      "original_role": "UpdateBattleAction141_410E90",
+      "original_end_exclusive": "0x410f49",
+      "instruction_count": 57,
+      "status": "BPP01原表数据与已有源角色映射；40F0A0另修真实启用/类型字段消费，完整动作本体未捕获/未新验，函数处置null",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction141_410E90"
+          ],
+          "relationship": "只原6槽type1..6的表数据归属与当前type范围/图号和NewBattleDebuffEffect_41F660消费；其它字段/完整动作141未新验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "boundary": "只原6槽type1..6的表数据归属与当前type范围/图号和NewBattleDebuffEffect_41F660消费；其它字段/完整动作141未新验 只第三批128 X的全1272B用途、四原W32表/44槽与48索引/两对齐字节和相邻实际函数块、直接表取用窗口及三个已有源分派职责定位。三父489/57/136条只是原元数据，不把这些682条称本次完整捕获/源码核对；新三语义以数据和源码角色关联为主；40F0A0另有六原指令30B的启用/类型实际字段消费修复，I/S两局部证据只该片段，三函数处置仍null。所有父和其它分支/状态/RNG、实际参数/间接alias与owner寿命、SDK机器ABI/运行和R8仍待；不从零xref推无未知间接目标。",
+      "verification_level": "只第三批128 X的全1272B用途、四原W32表/44槽与48索引/两对齐字节和相邻实际函数块、直接表取用窗口及三个已有源分派职责定位。三父489/57/136条只是原元数据，不把这些682条称本次完整捕获/源码核对；新三语义以数据和源码角色关联为主；40F0A0另有六原指令30B的启用/类型实际字段消费修复，I/S两局部证据只该片段，三函数处置仍null。所有父和其它分支/状态/RNG、实际参数/间接alias与owner寿命、SDK机器ABI/运行和R8仍待；不从零xref推无未知间接目标。",
+      "range_third_batch": {
+        "spec_id": "BPP01",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+          "doc/cg2d_unassigned_range_third_batch_evidence.json"
+        ],
+        "table_data_source_binding_only": true,
+        "source_body_exists": true,
+        "source_body_changed": false,
+        "source_full_body_newly_verified": false,
+        "original_metadata_only_instruction_count": 57,
+        "full_original_body_newly_captured": false,
+        "runtime_verified": false,
+        "function_disposition_added": false
+      }
+    },
+    {
+      "original_entry": "0x410fc0",
+      "inventory_id": "F:00010FC0",
+      "original_role": "UpdateBattleAction143_410FC0",
+      "original_end_exclusive": "0x411190",
+      "instruction_count": 136,
+      "status": "BPP01原表数据与已有源角色映射；40F0A0另修真实启用/类型字段消费，完整动作本体未捕获/未新验，函数处置null",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction143_410FC0"
+          ],
+          "relationship": "只原7槽type1..7及48索引→25槽两级表数据归属与当前type/use分派及NewBattleStatusEffect_41FE00图号消费；完整动作143/状态表与owner未新验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "boundary": "只原7槽type1..7及48索引→25槽两级表数据归属与当前type/use分派及NewBattleStatusEffect_41FE00图号消费；完整动作143/状态表与owner未新验 只第三批128 X的全1272B用途、四原W32表/44槽与48索引/两对齐字节和相邻实际函数块、直接表取用窗口及三个已有源分派职责定位。三父489/57/136条只是原元数据，不把这些682条称本次完整捕获/源码核对；新三语义以数据和源码角色关联为主；40F0A0另有六原指令30B的启用/类型实际字段消费修复，I/S两局部证据只该片段，三函数处置仍null。所有父和其它分支/状态/RNG、实际参数/间接alias与owner寿命、SDK机器ABI/运行和R8仍待；不从零xref推无未知间接目标。",
+      "verification_level": "只第三批128 X的全1272B用途、四原W32表/44槽与48索引/两对齐字节和相邻实际函数块、直接表取用窗口及三个已有源分派职责定位。三父489/57/136条只是原元数据，不把这些682条称本次完整捕获/源码核对；新三语义以数据和源码角色关联为主；40F0A0另有六原指令30B的启用/类型实际字段消费修复，I/S两局部证据只该片段，三函数处置仍null。所有父和其它分支/状态/RNG、实际参数/间接alias与owner寿命、SDK机器ABI/运行和R8仍待；不从零xref推无未知间接目标。",
+      "range_third_batch": {
+        "spec_id": "BPP01",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+          "doc/cg2d_unassigned_range_third_batch_evidence.json"
+        ],
+        "table_data_source_binding_only": true,
+        "source_body_exists": true,
+        "source_body_changed": false,
+        "source_full_body_newly_verified": false,
+        "original_metadata_only_instruction_count": 136,
+        "full_original_body_newly_captured": false,
+        "runtime_verified": false,
+        "function_disposition_added": false
+      }
     }
   ]
 }

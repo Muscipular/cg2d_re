@@ -49,3 +49,9 @@
 [第二批区间合同](cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline)/[原区间与表证据](cg2d_unassigned_range_second_batch_evidence.json)将X:0000573C-00005B40完整1028B登记为257×W32跳转表，404DD5以EAX×4读表、CMP100/unsigned JA到405642，200不同标签均属404DB0，完整表字节等于本SPEC已保存的BTS原表。200是原父内标签，未新增200函数。
 
 现有UpdateBattleActor_404DB0、BTS取样修正/257槽与源动作、完整684元数据/13发布/10父和公开声明保持。仅补R7该原X全部字节用途，BATTLE105不增/无新软件验收证据；完整战斗/所有子动作与父、间接alias/owner寿命/SDK/ABI和运行仍未闭。
+
+## BPP01 动作114/141/143原表与真实字段消费（2026-10-07）
+
+[第三批合同](cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state)/[实际表及消费](cg2d_unassigned_range_third_batch_evidence.json)纳管40F0A0/410E90/410FC0三已存在源的四W32跳转表44槽和48索引表。三动作只是数据/源角色显式映射，原489/57/136仅元数据，完整动作未新验，函数处置null；BATTLE105→108枚举open。
+
+另修40F0A0一消费片段：原+04非零启用/+00类型，源恢复同一S32[2]的[1]/[0]选择，保生产两值0/1序、pairPosition/门禁/else、1..6及原图号/工厂/owner。两BATTLE局部I/S只这六条30B字段消费，不代128X或三个完整动作/684主回调/全战斗/生命周期与运行；BTS既有源及表其它内容保持。

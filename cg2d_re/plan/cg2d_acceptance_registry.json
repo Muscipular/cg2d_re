@@ -2261,7 +2261,8 @@
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2368,7 +2369,10 @@
         "F:000206C0",
         "F:0004B260",
         "F:0005A710",
-        "F:0005A8B0"
+        "F:0005A8B0",
+        "F:0000F0A0",
+        "F:00010E90",
+        "F:00010FC0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2455,7 +2459,8 @@
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2531,7 +2536,8 @@
         "BOI01数字创建1071原记录补132差集及完整191条、更新44条新增1397；两根235条831B/九还原与175B表/常量保，BATTLE101仍未全枚举，23父/46调用点/第二时间数字构造者-测宽/资源/字符消费-draw/回收owner-ABI-PC53-画面与R1/R7/R8待",
         "BOJ01时间1072补106差集/完整156及默认22条共178条610B，恢复Time/Number两原44B260测宽目标与Time两取样，旧Number I具名fail/六新局部I-S；BATTLE103枚举open，宽度/资源/字载荷-draw/全部父与回收重入owner-PC53-画面/R1/R7/R8待",
         "BOK01数字图号索引/XY两个正确getter完整28条105B独立纳管，BATTLE105枚举open；资源生产者Init为RESOURCE成员/共享基线candidate不替代成员，字载荷draw/所有父-真实owner与运行门禁待",
-        "BPO01原257槽/200父内代码标签1028B跳转表的X用途mapped，BATTLE105及BTS已证源码/表不变；不增动作函数或软件门禁，完整战斗/全部父和子动作/间接alias-owner寿命/SDK机器ABI/运行与其余R7区间仍待"
+        "BPO01原257槽/200父内代码标签1028B跳转表的X用途mapped，BATTLE105及BTS已证源码/表不变；不增动作函数或软件门禁，完整战斗/全部父和子动作/间接alias-owner寿命/SDK机器ABI/运行与其余R7区间仍待",
+        "BPP01第三批128X全1272B用途及三动作的表数据/源码角色已纳管，BATTLE108枚举open；40F0A0一消费片段恢复+04启用/+00类型。三父489/57/136仅元数据，完整本体/状态/RNG/所有子父调用和owner-alias寿命/SDK机器ABI/运行未新验，三函数处置null；两局部I-S只真实字段修复，不代X/完整战斗验收"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2607,7 +2613,8 @@
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state"
       ]
     },
     {
@@ -31547,6 +31554,68 @@
       "observation": "BPN01只546F36正常有限值的十进制指数估算：原547041..547075的15条52B以4D10/4D/134312F4计算S32估算并SAR16。当前表达式恢复正常S32乘加减/算术右移，去U32估算与bit_cast<S32>包装；原15位指数与最高尾数字节自然域使本段中间值均在S32内，不新增输入门槛。原真实96位多字进位/所有W32-W16-W8存储、零及四特殊串/原写序、幂缩放/局部0.1/21位上限/舍入裁剪和S8-NUL、原80位按值与fltout单记录复用均保；正常无介入旧值一致，不声称数值错误或故障等价。",
       "expected": "BPN01只546F36正常有限值的十进制指数估算：原547041..547075的15条52B以4D10/4D/134312F4计算S32估算并SAR16。当前表达式恢复正常S32乘加减/算术右移，去U32估算与bit_cast<S32>包装；原15位指数与最高尾数字节自然域使本段中间值均在S32内，不新增输入门槛。原真实96位多字进位/所有W32-W16-W8存储、零及四特殊串/原写序、幂缩放/局部0.1/21位上限/舍入裁剪和S8-NUL、原80位按值与fltout单记录复用均保；正常无介入旧值一致，不声称数值错误或故障等价。",
       "actual": "仅原正常估算15条52B/一页及唯一544F43→546F36普通call的544F17取参/发布邻窗，当前一算术片段静态对应；原完整232条既有元数据/字符串/复制/段边界保，不重验全数字生成、96位链或完整父。全e/f/g文本/字段消费、初始化/跨TU/所有owner及alias寿命、浮点环境/SDK机器ABI/链接/完整格式业务和运行仍未闭；RPLAN.24不专项模拟/保护数学异常，不把真实多字进位删除或本步称异常等价。"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-PAIR-FIELDS-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPP01原40F2A9..40F2C7六条30B/+04启用和+00类型；doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-unassigned-range-third-batch-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction114_40F0A0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "同一S32[2]共享记录恢复[1]启用/[0]类型选择，原生产0/1序、8B布局/owner、非零及type1..6、图号/工厂和else保持；不重排数据/改协议，非128X软件验收",
+          "decision_ref": "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "原6槽type1..6数据归属与现有图号/工厂消费；六条30B原+04启用/+00类型读序明确，源码一消费片段改[1]启用/[0]类型，保同一S32[2]布局/生产0-1序、门禁/else、type范围及RNG/所有其余分支。仅局部字段修复，完整489条动作114/状态与owner未验",
+      "expected": "原6槽type1..6数据归属与现有图号/工厂消费；六条30B原+04启用/+00类型读序明确，源码一消费片段改[1]启用/[0]类型，保同一S32[2]布局/生产0-1序、门禁/else、type范围及RNG/所有其余分支。仅局部字段修复，完整489条动作114/状态与owner未验",
+      "actual": "只第三批128 X的全1272B用途、四原W32表/44槽与48索引/两对齐字节和相邻实际函数块、直接表取用窗口及三个已有源分派职责定位。三父489/57/136条只是原元数据，不把这些682条称本次完整捕获/源码核对；新三语义以数据和源码角色关联为主；40F0A0另有六原指令30B的启用/类型实际字段消费修复，I/S两局部证据只该片段，三函数处置仍null。所有父和其它分支/状态/RNG、实际参数/间接alias与owner寿命、SDK机器ABI/运行和R8仍待；不从零xref推无未知间接目标。"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-PAIR-FIELDS-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPP01原40F2A9..40F2C7六条30B/+04启用和+00类型；doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-unassigned-range-third-batch-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction114_40F0A0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "同一S32[2]共享记录恢复[1]启用/[0]类型选择，原生产0/1序、8B布局/owner、非零及type1..6、图号/工厂和else保持；不重排数据/改协议，非128X软件验收",
+          "decision_ref": "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "原6槽type1..6数据归属与现有图号/工厂消费；六条30B原+04启用/+00类型读序明确，源码一消费片段改[1]启用/[0]类型，保同一S32[2]布局/生产0-1序、门禁/else、type范围及RNG/所有其余分支。仅局部字段修复，完整489条动作114/状态与owner未验",
+      "expected": "原6槽type1..6数据归属与现有图号/工厂消费；六条30B原+04启用/+00类型读序明确，源码一消费片段改[1]启用/[0]类型，保同一S32[2]布局/生产0-1序、门禁/else、type范围及RNG/所有其余分支。仅局部字段修复，完整489条动作114/状态与owner未验",
+      "actual": "只第三批128 X的全1272B用途、四原W32表/44槽与48索引/两对齐字节和相邻实际函数块、直接表取用窗口及三个已有源分派职责定位。三父489/57/136条只是原元数据，不把这些682条称本次完整捕获/源码核对；新三语义以数据和源码角色关联为主；40F0A0另有六原指令30B的启用/类型实际字段消费修复，I/S两局部证据只该片段，三函数处置仍null。所有父和其它分支/状态/RNG、实际参数/间接alias与owner寿命、SDK机器ABI/运行和R8仍待；不从零xref推无未知间接目标。"
     }
   ],
   "task_acceptance": [
@@ -32251,7 +32320,8 @@
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state"
       ]
     },
     {
@@ -32405,7 +32475,8 @@
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
         "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state"
       ]
     },
     {
@@ -33002,7 +33073,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state"
       ]
     },
     {
@@ -42138,6 +42210,2858 @@
           "end_exclusive": "0x409610",
           "kind": "nop_padding",
           "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:0000967C-00009680",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40967c",
+          "end_exclusive": "0x409680",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000A9DB-0000A9E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40a9db",
+          "end_exclusive": "0x40a9e0",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:0000AA66-0000AA70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40aa66",
+          "end_exclusive": "0x40aa70",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000ACE6-0000ACF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40ace6",
+          "end_exclusive": "0x40acf0",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000AE4B-0000AE50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40ae4b",
+          "end_exclusive": "0x40ae50",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:0000AF25-0000AF30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40af25",
+          "end_exclusive": "0x40af30",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:0000B01C-0000B020",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b01c",
+          "end_exclusive": "0x40b020",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000B178-0000B180",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b178",
+          "end_exclusive": "0x40b180",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000B1FA-0000B200",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b1fa",
+          "end_exclusive": "0x40b200",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000B3B9-0000B3C0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b3b9",
+          "end_exclusive": "0x40b3c0",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:0000B3EA-0000B3F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b3ea",
+          "end_exclusive": "0x40b3f0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000B406-0000B410",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b406",
+          "end_exclusive": "0x40b410",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000B444-0000B450",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b444",
+          "end_exclusive": "0x40b450",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:0000B484-0000B490",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b484",
+          "end_exclusive": "0x40b490",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:0000B5A1-0000B5B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b5a1",
+          "end_exclusive": "0x40b5b0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:0000B5D2-0000B5E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b5d2",
+          "end_exclusive": "0x40b5e0",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:0000B921-0000B930",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40b921",
+          "end_exclusive": "0x40b930",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:0000BACF-0000BAD0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bacf",
+          "end_exclusive": "0x40bad0",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:0000BB18-0000BB20",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bb18",
+          "end_exclusive": "0x40bb20",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000BB68-0000BB70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bb68",
+          "end_exclusive": "0x40bb70",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000BBB8-0000BBC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bbb8",
+          "end_exclusive": "0x40bbc0",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000BD3A-0000BD40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bd3a",
+          "end_exclusive": "0x40bd40",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000BD56-0000BD60",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bd56",
+          "end_exclusive": "0x40bd60",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000BDA1-0000BDB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bda1",
+          "end_exclusive": "0x40bdb0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:0000BDE2-0000BDF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bde2",
+          "end_exclusive": "0x40bdf0",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:0000BE22-0000BE30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40be22",
+          "end_exclusive": "0x40be30",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:0000BE6B-0000BE70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40be6b",
+          "end_exclusive": "0x40be70",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:0000BE8D-0000BE90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40be8d",
+          "end_exclusive": "0x40be90",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:0000BF14-0000BF20",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bf14",
+          "end_exclusive": "0x40bf20",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:0000BFD3-0000BFE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40bfd3",
+          "end_exclusive": "0x40bfe0",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:0000C0B8-0000C0C0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c0b8",
+          "end_exclusive": "0x40c0c0",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000C0DE-0000C0E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c0de",
+          "end_exclusive": "0x40c0e0",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:0000C11E-0000C120",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c11e",
+          "end_exclusive": "0x40c120",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:0000C19E-0000C1A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c19e",
+          "end_exclusive": "0x40c1a0",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:0000C1D8-0000C1E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c1d8",
+          "end_exclusive": "0x40c1e0",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000C218-0000C220",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c218",
+          "end_exclusive": "0x40c220",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000C236-0000C240",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c236",
+          "end_exclusive": "0x40c240",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000C278-0000C280",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c278",
+          "end_exclusive": "0x40c280",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000C2AA-0000C2B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c2aa",
+          "end_exclusive": "0x40c2b0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000C2DA-0000C2E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c2da",
+          "end_exclusive": "0x40c2e0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000C379-0000C380",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c379",
+          "end_exclusive": "0x40c380",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:0000C475-0000C480",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c475",
+          "end_exclusive": "0x40c480",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:0000C4C3-0000C4D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c4c3",
+          "end_exclusive": "0x40c4d0",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:0000C515-0000C520",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c515",
+          "end_exclusive": "0x40c520",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:0000C779-0000C780",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c779",
+          "end_exclusive": "0x40c780",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:0000C8C6-0000C8D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c8c6",
+          "end_exclusive": "0x40c8d0",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000C906-0000C910",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40c906",
+          "end_exclusive": "0x40c910",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000CA98-0000CAA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40ca98",
+          "end_exclusive": "0x40caa0",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000CABA-0000CAC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40caba",
+          "end_exclusive": "0x40cac0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000CAED-0000CAF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40caed",
+          "end_exclusive": "0x40caf0",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:0000CB06-0000CB10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cb06",
+          "end_exclusive": "0x40cb10",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000CB29-0000CB30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cb29",
+          "end_exclusive": "0x40cb30",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:0000CB49-0000CB50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cb49",
+          "end_exclusive": "0x40cb50",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:0000CB7F-0000CB80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cb7f",
+          "end_exclusive": "0x40cb80",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:0000CBAF-0000CBB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cbaf",
+          "end_exclusive": "0x40cbb0",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:0000CBC6-0000CBD0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cbc6",
+          "end_exclusive": "0x40cbd0",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000CC76-0000CC80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cc76",
+          "end_exclusive": "0x40cc80",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000CCA7-0000CCB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cca7",
+          "end_exclusive": "0x40ccb0",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:0000CCD7-0000CCE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40ccd7",
+          "end_exclusive": "0x40cce0",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:0000CD07-0000CD10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cd07",
+          "end_exclusive": "0x40cd10",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:0000CD6C-0000CD70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cd6c",
+          "end_exclusive": "0x40cd70",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000CDDB-0000CDE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cddb",
+          "end_exclusive": "0x40cde0",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:0000CF4C-0000CF50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cf4c",
+          "end_exclusive": "0x40cf50",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000CF6C-0000CF70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cf6c",
+          "end_exclusive": "0x40cf70",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000CF9D-0000CFA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40cf9d",
+          "end_exclusive": "0x40cfa0",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:0000D00F-0000D010",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40d00f",
+          "end_exclusive": "0x40d010",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:0000D0AB-0000D0B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40d0ab",
+          "end_exclusive": "0x40d0b0",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:0000D162-0000D170",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40d162",
+          "end_exclusive": "0x40d170",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:0000D19D-0000D1A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40d19d",
+          "end_exclusive": "0x40d1a0",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:0000D1CD-0000D1D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40d1cd",
+          "end_exclusive": "0x40d1d0",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:0000D38E-0000D390",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40d38e",
+          "end_exclusive": "0x40d390",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:0000D3B8-0000D3C0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40d3b8",
+          "end_exclusive": "0x40d3c0",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000D577-0000D580",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40d577",
+          "end_exclusive": "0x40d580",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:0000D6B4-0000D6C0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40d6b4",
+          "end_exclusive": "0x40d6c0",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:0000DBD5-0000DBE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40dbd5",
+          "end_exclusive": "0x40dbe0",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:0000DC8A-0000DC90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40dc8a",
+          "end_exclusive": "0x40dc90",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000DE3C-0000DE40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40de3c",
+          "end_exclusive": "0x40de40",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000DF4D-0000DF50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40df4d",
+          "end_exclusive": "0x40df50",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:0000DF66-0000DF70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40df66",
+          "end_exclusive": "0x40df70",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000DF7C-0000DF80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40df7c",
+          "end_exclusive": "0x40df80",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000E4A2-0000E4B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40e4a2",
+          "end_exclusive": "0x40e4b0",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:0000E55F-0000E560",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40e55f",
+          "end_exclusive": "0x40e560",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:0000EAFB-0000EB00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40eafb",
+          "end_exclusive": "0x40eb00",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:0000EFD4-0000EFE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40efd4",
+          "end_exclusive": "0x40efe0",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:0000F093-0000F0A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40f093",
+          "end_exclusive": "0x40f0a0",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:0000F771-0000F790",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "mixed_table_data",
+      "parts": [
+        {
+          "start": "0x40f771",
+          "end_exclusive": "0x40f774",
+          "kind": "alignment_bytes",
+          "bytes": 3
+        },
+        {
+          "start": "0x40f774",
+          "end_exclusive": "0x40f78c",
+          "kind": "jump_table",
+          "bytes": 24
+        },
+        {
+          "start": "0x40f78c",
+          "end_exclusive": "0x40f790",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000F7FB-0000F800",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40f7fb",
+          "end_exclusive": "0x40f800",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:0000FB2E-0000FB30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40fb2e",
+          "end_exclusive": "0x40fb30",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:0000FB76-0000FB80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40fb76",
+          "end_exclusive": "0x40fb80",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000FC05-0000FC10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40fc05",
+          "end_exclusive": "0x40fc10",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:0000FE41-0000FE50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40fe41",
+          "end_exclusive": "0x40fe50",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:0000FEA3-0000FEB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40fea3",
+          "end_exclusive": "0x40feb0",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:0000FEE6-0000FEF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40fee6",
+          "end_exclusive": "0x40fef0",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000FF35-0000FF40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40ff35",
+          "end_exclusive": "0x40ff40",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:0000FF85-0000FF90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40ff85",
+          "end_exclusive": "0x40ff90",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:0000FFFD-00010000",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40fffd",
+          "end_exclusive": "0x410000",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:000106AC-000106B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4106ac",
+          "end_exclusive": "0x4106b0",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:00010AF5-00010B00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x410af5",
+          "end_exclusive": "0x410b00",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00010E27-00010E30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x410e27",
+          "end_exclusive": "0x410e30",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:00010E81-00010E90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x410e81",
+          "end_exclusive": "0x410e90",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:00010F49-00010F70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "mixed_table_data",
+      "parts": [
+        {
+          "start": "0x410f49",
+          "end_exclusive": "0x410f4c",
+          "kind": "alignment_bytes",
+          "bytes": 3
+        },
+        {
+          "start": "0x410f4c",
+          "end_exclusive": "0x410f64",
+          "kind": "jump_table",
+          "bytes": 24
+        },
+        {
+          "start": "0x410f64",
+          "end_exclusive": "0x410f70",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:00010FB5-00010FC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x410fb5",
+          "end_exclusive": "0x410fc0",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00011190-00011240",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "mixed_table_data",
+      "parts": [
+        {
+          "start": "0x411190",
+          "end_exclusive": "0x4111ac",
+          "kind": "jump_table",
+          "bytes": 28
+        },
+        {
+          "start": "0x4111ac",
+          "end_exclusive": "0x411210",
+          "kind": "jump_table",
+          "bytes": 100
+        },
+        {
+          "start": "0x411210",
+          "end_exclusive": "0x411240",
+          "kind": "byte_index_table",
+          "bytes": 48
+        }
+      ]
+    },
+    {
+      "id": "X:00011285-00011290",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411285",
+          "end_exclusive": "0x411290",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00011312-00011320",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411312",
+          "end_exclusive": "0x411320",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:00011391-000113A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411391",
+          "end_exclusive": "0x4113a0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:00011A46-00011A50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411a46",
+          "end_exclusive": "0x411a50",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:00011CA8-00011CB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411ca8",
+          "end_exclusive": "0x411cb0",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:00011D2B-00011D30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411d2b",
+          "end_exclusive": "0x411d30",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:00011F98-00011FA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411f98",
+          "end_exclusive": "0x411fa0",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:00011FB3-00011FC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411fb3",
+          "end_exclusive": "0x411fc0",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:00011FD3-00011FE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411fd3",
+          "end_exclusive": "0x411fe0",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:00011FF3-00012000",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x411ff3",
+          "end_exclusive": "0x412000",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:00012013-00012020",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x412013",
+          "end_exclusive": "0x412020",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:000120E4-000120F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4120e4",
+          "end_exclusive": "0x4120f0",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:000121C5-000121D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4121c5",
+          "end_exclusive": "0x4121d0",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00012201-00012210",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x412201",
+          "end_exclusive": "0x412210",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:0001225C-00012260",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x41225c",
+          "end_exclusive": "0x412260",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0001228A-00012290",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x41228a",
+          "end_exclusive": "0x412290",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000122BA-000122C0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4122ba",
+          "end_exclusive": "0x4122c0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000122D7-000122E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4122d7",
+          "end_exclusive": "0x4122e0",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:0001230A-00012310",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x41230a",
+          "end_exclusive": "0x412310",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000124D7-000124E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4124d7",
+          "end_exclusive": "0x4124e0",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:000127AC-000127B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4127ac",
+          "end_exclusive": "0x4127b0",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:000127E8-000127F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4127e8",
+          "end_exclusive": "0x4127f0",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:00012822-00012830",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x412822",
+          "end_exclusive": "0x412830",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:0001286E-00012870",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x41286e",
+          "end_exclusive": "0x412870",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:00012F6A-00012F70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_unassigned_range_third_batch_evidence.json"
+      ],
+      "reason": "BPP01第三批原X所有字节/实际RET与函数块、四原跳转表/48索引及对齐字节完整用途；mapped仅字节用途，不计新函数/范围排除/软件或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x412f6a",
+          "end_exclusive": "0x412f70",
+          "kind": "nop_padding",
+          "bytes": 6
         }
       ]
     }

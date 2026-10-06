@@ -828,3 +828,11 @@ E487→491仅YOBI/BATTLE四局部I/S；旧812追加、七open与唯一进度同�
 736/160/165三个已有ID续记，完整历史另存，旧stdio/格式事实保持；语义1399/有效ID1394及关联1512/3680=41.09%保持，分类507→510。RESOURCE26→29三成员，BATTLE103→105只登记两个真实数字查询依赖；共享基线candidate不替代成员，member_inventory_closed=false、完整gates仍空。RESOURCE三根与BATTLE两getter各I/S新增10条局部static证据，E599→609仍只有三个原函数；七open仅加进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0保持。 同一正常根在两个真实功能域分别登记I/S，不把10条证据当10个函数；Init仅RESOURCE正式成员，共享基线在BATTLE命中的candidate不计成员闭合。旧三个语义完整历史保，736先前受限stdio审查不追认容器/内容验收；本步当前局部范围以独立SPEC为准。
 
 沿已批准宿主vector/map/sort承接本处值/引用合同，不宣STL节点/排序过程/分配故障或ABI逐条等价；所有父/callee、主表分配与GraphicRead真实内容/解码-字载荷绘制消费/owner回收及画面运行、R1/R7/R8继续。仅定向文本静态/计量，无构建/调试/测试/运行/hash；网络原格式明文/内存CryptInt保/音频暂停。
+
+## BOL01 原正常别名范围与读盘消费证据（2026-10-06）
+
+[基线](cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline)、[决议](cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision)、[局部验收](cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-acceptance)。原读盘75条222B与核心182条461B共257条683B/4页，4call-32内部分支/5ret无switch；读盘4普通call/4父，核心2普通call/同一父45A900分列。读盘二处恢复32B快照后同一实际记录地址读S16 fileIndex、缓存已检查FILE seek→重取FILE→快照length读取，以及可选palette判定在共享解码区指针发布之前取样；严格read返回1、失败不清输出/不回滚、缺省局部palette与两原core目标保持。核心正确CPP整文保持：初始目标/头宽高缓存、raw不读header.length且前向逐字节、RLE固定边界/仅命令间检查/value先长度/20优先10、literal只10及原FFFFF比较、原pal和length→width→height发布序不改。
+
+167/168两个已有原ID完整历史深拷贝续记，旧167 FILE调用事实保；1399语义/1394有效ID/1512关联(41.09%)不变，分类510→512、RESOURCE29→31枚举open、四独立正常局部static I/S E609→613，完整gates空。七open只加当前进展/引用，队列175/R7区间67/3061、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它功能保持。 两根分别I/S，全为static；既有源码不代表全部内容消费及寿命，撤额外不重叠条件使正常合同按原写序完整表达，不为达标缩范围；历史限定验证与本步当前局部证据分列。
+
+撤旧接口及旧解码SPEC额外的两两不重叠前提，按原实际取样/字节处理/发布顺序保正常别名，不用附加前提缩原范围；旧限定范围下的历史验证保但不追认当前运行。正常W32/native地址注释按RPLAN.24，不增溢出/越界/补零/钳制/短读修复或异常等价。未构建/调试/测试/运行/hash；全部caller、当前所有正常别名/真实资源内容-调色板/draw/主表FILE owner及画面/R1/R7/R8继续，网络原格式明文/内存CryptInt保/音频暂停。

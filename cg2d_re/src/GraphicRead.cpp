@@ -527,22 +527,27 @@ int ReadGraphicDataByIndex(
     }
 
     GraphicInfo info;
-    std::memcpy(&info, &gGraphicInfo[index], sizeof(info));
-    const std::int16_t fileIndex = gGraphicInfo[index].fileIndex;
-    if (gGraphicFiles[fileIndex] == nullptr) {
+    const GraphicInfo* const record = &gGraphicInfo[index];
+    std::memcpy(&info, record, sizeof(info));
+    const std::int16_t fileIndex = record->fileIndex;
+    platform::LegacyFile* const file = gGraphicFiles[fileIndex];
+    if (file == nullptr) {
         return 0;
     }
 
     // 原45A94D保留S32偏移，忽略定位结果；读取重新取同一共享文件槽。
-    platform::SeekLegacyStream_53BC41(gGraphicFiles[fileIndex], info.offset, 0);
-    if (platform::ReadLegacyStream_53BCCD(gGraphicReadBuffer, info.length, 1, gGraphicFiles[fileIndex]) != 1) {
+    platform::SeekLegacyStream_53BC41(file, info.offset, 0);
+    platform::LegacyFile* const readFile = gGraphicFiles[fileIndex];
+    const std::uint32_t sourceLength = info.length;
+    if (platform::ReadLegacyStream_53BCCD(gGraphicReadBuffer, sourceLength, 1, readFile) != 1) {
         return 0;
     }
 
+    const bool hasPaletteLength = paletteLength != nullptr;
     *destination = gGraphicDecodeBuffer;
     std::uint32_t length;
     std::uint32_t ignoredPaletteLength;
-    if (paletteLength == nullptr) {
+    if (!hasPaletteLength) {
         paletteLength = &ignoredPaletteLength;
     }
 

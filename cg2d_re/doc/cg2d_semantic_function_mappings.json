@@ -12180,23 +12180,29 @@
     {
       "original_entry": "0x45A900",
       "inventory_id": "F:0005A900",
-      "status": "既有图形资源本体的真实FILE完整链已接；完整运行未验",
+      "status": "BOL01完整正常读盘/解码续记，原读盘取样恢复/正确core正文保；旧不重叠前提撤去，全部caller-owner/运行未验",
       "original_role": "按图号读资源并调用解码",
       "sources": [
         {
           "path": "src/GraphicRead.cpp",
           "symbols": [
             "ReadGraphicDataByIndex"
-          ]
+          ],
+          "relationship": "S32 index<0或>=gMax返0，不清任何输出；先取主表实际记录地址/复制32B快照，后从同一地址读S16 fileIndex；缓存该九槽FILE，null返0/不加槽范围保护。缓存FILE按快照S32 offset/BEGIN0 seek，弃返回；seek后重取同槽FILE再取快照U32 length，以共享读区/length/1 read，返回仅1继续，其它返0不清输出。可省略palette参数是否非空先取样，后发布*destination=独立共享解码区，无论core结果均保此发布；缺省palette由未清局部W32槽承接，length独立未清局部W32槽，两原call45A99B/45A9C8均同52D5C0，core返回非空→1/空→0，无新增尺寸/短读恢复/回滚/预清。主表/FILE/缓冲区与输出native非拥有、字段原S32/U32/S16，不扩大原数组声明/容量或全部caller-owner验收。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
         "doc/cg2d_graphic_decode.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "doc/cg2d_graphic_info.md"
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-acceptance",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_evidence.json"
       ],
-      "boundary": "使用同源元信息、九文件槽与共享读/解码区；图号/句柄/短读失败不提前清输出，fseek保留S32宽度并弃返回。成功读入后先发布目标解码区指针，核心失败仍保留该发布；paletteLength可由局部槽承接，最终返回0/1。 45A94D/45A966已整链接真实LegacyFile，BEGIN0与S32偏移/length U32/元素数1保持；seek后重取同一共享槽，读取返回仅1才继续，未新增输出清理或短读恢复。",
+      "boundary": "S32 index<0或>=gMax返0，不清任何输出；先取主表实际记录地址/复制32B快照，后从同一地址读S16 fileIndex；缓存该九槽FILE，null返0/不加槽范围保护。缓存FILE按快照S32 offset/BEGIN0 seek，弃返回；seek后重取同槽FILE再取快照U32 length，以共享读区/length/1 read，返回仅1继续，其它返0不清输出。可省略palette参数是否非空先取样，后发布*destination=独立共享解码区，无论core结果均保此发布；缺省palette由未清局部W32槽承接，length独立未清局部W32槽，两原call45A99B/45A9C8均同52D5C0，core返回非空→1/空→0，无新增尺寸/短读恢复/回滚/预清。主表/FILE/缓冲区与输出native非拥有、字段原S32/U32/S16，不扩大原数组声明/容量或全部caller-owner验收。；仅本根正常局部I/S，全部caller-owner-资源真实内容/画面和R1/R7/R8未验，不构建/测试/运行/hash；网络原格式明文/音频暂停",
       "original_end_exclusive": "0x45A9DE",
       "instruction_count": 75,
       "original_direct_reference_count": 4,
@@ -12236,26 +12242,188 @@
           "target_symbol": "ReadLegacyStream_53BCCD"
         }
       ],
-      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行"
+      "verification_level": "BOL01完整75条/222B/1页/4call-7内部分支/2ret，2源码补丁；普通入向4引用/4父分列；仅正常局部静态/已证地址及数值原宽，不代当前所有正常别名/owner运行",
+      "function_chunks": [
+        {
+          "start": "0x45A900",
+          "end_exclusive": "0x45A9DE"
+        }
+      ],
+      "native_provider": {
+        "source": "src/GraphicRead.cpp",
+        "symbol": "ReadGraphicDataByIndex",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_graphic_read_decode_review": {
+        "original_entry": "0x45A900",
+        "inventory_id": "F:0005A900",
+        "status": "既有图形资源本体的真实FILE完整链已接；完整运行未验",
+        "original_role": "按图号读资源并调用解码",
+        "sources": [
+          {
+            "path": "src/GraphicRead.cpp",
+            "symbols": [
+              "ReadGraphicDataByIndex"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_resource_implementation.md",
+          "doc/cg2d_graphic_decode.md",
+          "doc/cg2d_semantic_function_mappings.md",
+          "doc/cg2d_graphic_info.md"
+        ],
+        "boundary": "使用同源元信息、九文件槽与共享读/解码区；图号/句柄/短读失败不提前清输出，fseek保留S32宽度并弃返回。成功读入后先发布目标解码区指针，核心失败仍保留该发布；paletteLength可由局部槽承接，最终返回0/1。 45A94D/45A966已整链接真实LegacyFile，BEGIN0与S32偏移/length U32/元素数1保持；seek后重取同一共享槽，读取返回仅1才继续，未新增输出清理或短读恢复。",
+        "original_end_exclusive": "0x45A9DE",
+        "instruction_count": 75,
+        "original_direct_reference_count": 4,
+        "inbound_evidence": [
+          {
+            "address": "0x451DA6",
+            "parent_entry": "0x451D80"
+          },
+          {
+            "address": "0x520BDF",
+            "parent_entry": "0x520B10"
+          },
+          {
+            "address": "0x5225A9",
+            "parent_entry": "0x522570"
+          },
+          {
+            "address": "0x522D0D",
+            "parent_entry": "0x522CB0"
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x45A900",
+            "call_site": "0x45A94D",
+            "source": "src/GraphicRead.cpp",
+            "symbol": "ReadGraphicDataByIndex",
+            "target_entry": "0x53BC41",
+            "target_symbol": "SeekLegacyStream_53BC41"
+          },
+          {
+            "parent_entry": "0x45A900",
+            "call_site": "0x45A966",
+            "source": "src/GraphicRead.cpp",
+            "symbol": "ReadGraphicDataByIndex",
+            "target_entry": "0x53BCCD",
+            "target_symbol": "ReadLegacyStream_53BCCD"
+          }
+        ],
+        "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行"
+      },
+      "graphic_read_decode_sampling": {
+        "spec_id": "BOL01",
+        "evidence_refs": [
+          "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+          "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+          "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-acceptance",
+          "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+          "doc/cg2d_graphic_read_decode_sampling_evidence.json"
+        ],
+        "original_entry": "0x45A900",
+        "original_instruction_count": 75,
+        "original_code_bytes": 222,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "internal_branch_site_count": 7,
+        "return_site_count": 2,
+        "incoming_reference_count": 4,
+        "incoming_parent_count": 4,
+        "source_body_changed": true,
+        "source_patch_count": 2,
+        "interface_comment_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "S32 index<0或>=gMax返0，不清任何输出；先取主表实际记录地址/复制32B快照，后从同一地址读S16 fileIndex；缓存该九槽FILE，null返0/不加槽范围保护。缓存FILE按快照S32 offset/BEGIN0 seek，弃返回；seek后重取同槽FILE再取快照U32 length，以共享读区/length/1 read，返回仅1继续，其它返0不清输出。可省略palette参数是否非空先取样，后发布*destination=独立共享解码区，无论core结果均保此发布；缺省palette由未清局部W32槽承接，length独立未清局部W32槽，两原call45A99B/45A9C8均同52D5C0，core返回非空→1/空→0，无新增尺寸/短读恢复/回滚/预清。主表/FILE/缓冲区与输出native非拥有、字段原S32/U32/S16，不扩大原数组声明/容量或全部caller-owner验收。"
+      }
     },
     {
       "original_entry": "0x52D5C0",
       "inventory_id": "F:0012D5C0",
-      "status": "已有图形资源实现映射，完整运行未验",
+      "status": "BOL01完整正常读盘/解码续记，原读盘取样恢复/正确core正文保；旧不重叠前提撤去，全部caller-owner/运行未验",
       "original_role": "图形资源解码核心",
       "sources": [
         {
           "path": "src/GraphicDecode.cpp",
           "symbols": [
             "ReadGraphicData"
-          ]
+          ],
+          "relationship": "六参数native非拥有源/目标槽T**/四U32输出，初读*destination/缓存目标，null先返空且不读源；依序RD两签名不符返空不写输出。头先缓存U8 flags/U32 width/height，不读03。raw不读header.length：cursor+10，扩展头取palLength/游标+4→pub palOut→W32 width*height再fresh *palOut相加，无扩展先乘再pub pal0；前向每字节读/推进源/写目标/计数，最后length→width→height输出并返初始目标。RLE先固定source+header.length边界后cursor+10/可选pal+4/pub pal或0，仅命令间cursor<end比较；repeat先value(40置零且不消耗value，否则读value)，长度20优先10且都用低4位/后1或2字节不加1，固定value填充，不承诺原stosd/stosb机器写宽/故障原子性；literal只看10而忽略20/40，保原count>=FFFFF失败比较，前向逐字节source读→目标写→目标/源推进→count--。零长度仍消费命令与所需value/长度；不加命令内部边界、像素数限制或修复；成功length=W32 width*height非实际写量且不含pal，再pub width/height并返初始target。缓存目标/头/边界及原读写序保有效对象的正常别名，不以旧两两不重叠额外缩范围；不把原地址回绕、越界/溢出故障或ABI当保证。当前正确核心正文不改，接口仅撤额外限制/规范正常宽度注释，运行与所有父/owner仍未验。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_decode.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-acceptance",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_evidence.json"
       ],
-      "boundary": "沿六参数原生指针接口；目标为空或RD签名失败不写输出，成功返回初始目标地址。资源头宽高/长度/调色板长度保持W32，完整原始/RLE路径与写序沿既有合同，不新增格式猜测或短读恢复。"
+      "boundary": "六参数native非拥有源/目标槽T**/四U32输出，初读*destination/缓存目标，null先返空且不读源；依序RD两签名不符返空不写输出。头先缓存U8 flags/U32 width/height，不读03。raw不读header.length：cursor+10，扩展头取palLength/游标+4→pub palOut→W32 width*height再fresh *palOut相加，无扩展先乘再pub pal0；前向每字节读/推进源/写目标/计数，最后length→width→height输出并返初始目标。RLE先固定source+header.length边界后cursor+10/可选pal+4/pub pal或0，仅命令间cursor<end比较；repeat先value(40置零且不消耗value，否则读value)，长度20优先10且都用低4位/后1或2字节不加1，固定value填充，不承诺原stosd/stosb机器写宽/故障原子性；literal只看10而忽略20/40，保原count>=FFFFF失败比较，前向逐字节source读→目标写→目标/源推进→count--。零长度仍消费命令与所需value/长度；不加命令内部边界、像素数限制或修复；成功length=W32 width*height非实际写量且不含pal，再pub width/height并返初始target。缓存目标/头/边界及原读写序保有效对象的正常别名，不以旧两两不重叠额外缩范围；不把原地址回绕、越界/溢出故障或ABI当保证。当前正确核心正文不改，接口仅撤额外限制/规范正常宽度注释，运行与所有父/owner仍未验。；仅本根正常局部I/S，全部caller-owner-资源真实内容/画面和R1/R7/R8未验，不构建/测试/运行/hash；网络原格式明文/音频暂停",
+      "verification_level": "BOL01完整182条/461B/3页/0call-25内部分支/3ret，0源码补丁；普通入向2引用/1父分列；仅正常局部静态/已证地址及数值原宽，不代当前所有正常别名/owner运行",
+      "instruction_count": 182,
+      "function_chunks": [
+        {
+          "start": "0x52D5C0",
+          "end_exclusive": "0x52D78D"
+        }
+      ],
+      "native_provider": {
+        "source": "src/GraphicDecode.cpp",
+        "symbol": "ReadGraphicData",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_graphic_read_decode_review": {
+        "original_entry": "0x52D5C0",
+        "inventory_id": "F:0012D5C0",
+        "status": "已有图形资源实现映射，完整运行未验",
+        "original_role": "图形资源解码核心",
+        "sources": [
+          {
+            "path": "src/GraphicDecode.cpp",
+            "symbols": [
+              "ReadGraphicData"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_graphic_decode.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "沿六参数原生指针接口；目标为空或RD签名失败不写输出，成功返回初始目标地址。资源头宽高/长度/调色板长度保持W32，完整原始/RLE路径与写序沿既有合同，不新增格式猜测或短读恢复。"
+      },
+      "graphic_read_decode_sampling": {
+        "spec_id": "BOL01",
+        "evidence_refs": [
+          "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+          "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+          "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-acceptance",
+          "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+          "doc/cg2d_graphic_read_decode_sampling_evidence.json"
+        ],
+        "original_entry": "0x52D5C0",
+        "original_instruction_count": 182,
+        "original_code_bytes": 461,
+        "page_count": 3,
+        "outgoing_call_site_count": 0,
+        "internal_branch_site_count": 25,
+        "return_site_count": 3,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 1,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "interface_comment_patch_count": 2,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "六参数native非拥有源/目标槽T**/四U32输出，初读*destination/缓存目标，null先返空且不读源；依序RD两签名不符返空不写输出。头先缓存U8 flags/U32 width/height，不读03。raw不读header.length：cursor+10，扩展头取palLength/游标+4→pub palOut→W32 width*height再fresh *palOut相加，无扩展先乘再pub pal0；前向每字节读/推进源/写目标/计数，最后length→width→height输出并返初始目标。RLE先固定source+header.length边界后cursor+10/可选pal+4/pub pal或0，仅命令间cursor<end比较；repeat先value(40置零且不消耗value，否则读value)，长度20优先10且都用低4位/后1或2字节不加1，固定value填充，不承诺原stosd/stosb机器写宽/故障原子性；literal只看10而忽略20/40，保原count>=FFFFF失败比较，前向逐字节source读→目标写→目标/源推进→count--。零长度仍消费命令与所需value/长度；不加命令内部边界、像素数限制或修复；成功length=W32 width*height非实际写量且不含pal，再pub width/height并返初始target。缓存目标/头/边界及原读写序保有效对象的正常别名，不以旧两两不重叠额外缩范围；不把原地址回绕、越界/溢出故障或ABI当保证。当前正确核心正文不改，接口仅撤额外限制/规范正常宽度注释，运行与所有父/owner仍未验。"
+      }
     },
     {
       "original_entry": "0x450470",

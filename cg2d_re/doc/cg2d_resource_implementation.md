@@ -183,3 +183,11 @@ GraphicRead的九个共享图形文件槽及其生产/定位/读取/释放仍是
 [当前具名合同](cg2d_compiler_helper_spec.md#compiler-helper-source-state)撤TruncatedLowByte的非有限/越S64返回0模拟，保正常S64后低U8；Add32撤U32/bit_cast回绕，保S32计数和1/10实际increment。六颜色转换和五加法、蓝/绿/红及色调F32取样、原节流/发布和其余正文保持。
 
 53B498/53BDC0仅按D02登记本机编译器host职责：明确类型转换与自动局部帧/探页。没有同名假函数/手工栈操作或ABI通过声明；本步原两体32条86B、六转换去重28条150B与计数邻窗只作限定静态，完整357条父/所有浮点/资源/画面/运行仍待，异常域不保护或模拟/称等价。
+
+## BOL01 图形读盘与解码正常取样（2026-10-06）
+
+[具体SPEC](cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision)/[完整证据](cg2d_graphic_read_decode_sampling_evidence.json)。原读盘75条222B与核心182条461B共257条683B/4页，4call-32内部分支/5ret无switch；读盘4普通call/4父，核心2普通call/同一父45A900分列。读盘二处恢复32B快照后同一实际记录地址读S16 fileIndex、缓存已检查FILE seek→重取FILE→快照length读取，以及可选palette判定在共享解码区指针发布之前取样；严格read返回1、失败不清输出/不回滚、缺省局部palette与两原core目标保持。核心正确CPP整文保持：初始目标/头宽高缓存、raw不读header.length且前向逐字节、RLE固定边界/仅命令间检查/value先长度/20优先10、literal只10及原FFFFF比较、原pal和length→width→height发布序不改。
+
+167/168两个已有原ID完整历史深拷贝续记，旧167 FILE调用事实保；1399语义/1394有效ID/1512关联(41.09%)不变，分类510→512、RESOURCE29→31枚举open、四独立正常局部static I/S E609→613，完整gates空。七open只加当前进展/引用，队列175/R7区间67/3061、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它功能保持。
+
+撤旧接口及旧解码SPEC额外的两两不重叠前提，按原实际取样/字节处理/发布顺序保正常别名，不用附加前提缩原范围；旧限定范围下的历史验证保但不追认当前运行。正常W32/native地址注释按RPLAN.24，不增溢出/越界/补零/钳制/短读修复或异常等价。未构建/调试/测试/运行/hash；全部caller、当前所有正常别名/真实资源内容-调色板/draw/主表FILE owner及画面/R1/R7/R8继续，网络原格式明文/内存CryptInt保/音频暂停。

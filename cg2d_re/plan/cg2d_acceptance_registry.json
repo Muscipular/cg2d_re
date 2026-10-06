@@ -1317,7 +1317,8 @@
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -1348,7 +1349,9 @@
         "F:000574E0",
         "F:00059960",
         "F:0005A710",
-        "F:0005A8B0"
+        "F:0005A8B0",
+        "F:0005A900",
+        "F:0012D5C0"
       ],
       "closure_task_ids": [
         "G01",
@@ -1368,7 +1371,8 @@
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1379,7 +1383,8 @@
         "GPC01完整934条仅池/共享分流与32位色局部静态，池基址/回收和原色/表取样/双W32写已修；完整父/上游/间接alias/动态池分配释放老化与SDL像素未验，低色深不计实现，RPLAN.24异常不计安全/故障等价",
         "GCL01三根146条仅局部静态，Age负/正池阶段、Reset入口count与Build低W16/S32完整数发布已修；四完整父/callee/上游/间接alias及pool/node/surface寿命/SDK/模式像素未验，RPLAN.24异常不计安全/故障等价",
         "ACB01撤早期P1额外零哨兵，恢复原固定20500项/容量重读清零，原包含上界/正常查询和四分配序保持；四身份局部纳管，完整加载/播放/场景/退出/alias/所有owner寿命/实际分配失败/机器/SDK/画面运行未验，异常不保护或模拟",
-        "BOK01三已有根736/160/165完整662条2101B/55B数据，13处原字段/条件去重重读-首见引用恢复，RESOURCE29枚举open；全部主表分配-GraphicRead内容/解码消费/真实owner-ABI/画面运行与R1/R7/R8待"
+        "BOK01三已有根736/160/165完整662条2101B/55B数据，13处原字段/条件去重重读-首见引用恢复，RESOURCE29枚举open；全部主表分配-GraphicRead内容/解码消费/真实owner-ABI/画面运行与R1/R7/R8待",
+        "BOL01两个已有167/168完整257条683B/4页，读盘两取样恢复/正确raw-RLE保持，旧不重叠前提和回绕注释修正；RESOURCE31枚举open，当前全部正常别名/所有caller-真实内容/draw/调色板消费/主表与FILE owner-画面运行、R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1393,7 +1398,8 @@
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
         "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
       ]
     },
     {
@@ -27562,6 +27568,134 @@
       "observation": "本根完整7条25B/1页，0call/0内部分支/1ret，无switch；29普通call引用/21父，三字符串55B按根/作用分列",
       "expected": "原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。",
       "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-READ-DECODE-SAMPLING-0005A900-I-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOL01两个完整根257条683B/4页，当前根0x45A900；doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-read-decode-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-acceptance",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_evidence.json",
+        "src/GraphicRead.cpp#ReadGraphicDataByIndex",
+        "include/cg/GraphicDecode.hpp",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_decode.md"
+      ],
+      "differences": [
+        {
+          "description": "读盘二处恢复同记录地址/缓存FILE-seek后重取/可选palette判定先目标发布；正确core正文保。旧接口和SPEC额外不重叠前提撤去，现行RPLAN.24只正常W32/native地址；旧限定历史不追认当前全部别名/完整运行",
+          "decision_ref": "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "读盘整CPP仅二补丁/core CPP保持，头仅二注释修正/声明保、旧SPEC两限定文字更正；原byte/cached header/raw-RLE/输出发布顺序与本根：S32 index<0或>=gMax返0，不清任何输出；先取主表实际记录地址/复制32B快照，后从同一地址读S16 fileIndex；缓存该九槽FILE，null返0/不加槽范围保护。缓存FILE按快照S32 offset/BEGIN0 seek，弃返回；seek后重取同槽FILE再取快照U32 length，以共享读区/length/1 read，返回仅1继续，其它返0不清输出。可省略palette参数是否非空先取样，后发布*destination=独立共享解码区，无论core结果均保此发布；缺省palette由未清局部W32槽承接，length独立未清局部W32槽，两原call45A99B/45A9C8均同52D5C0，core返回非空→1/空→0，无新增尺寸/短读恢复/回滚/预清。主表/FILE/缓冲区与输出native非拥有、字段原S32/U32/S16，不扩大原数组声明/容量或全部caller-owner验收。",
+      "expected": "S32 index<0或>=gMax返0，不清任何输出；先取主表实际记录地址/复制32B快照，后从同一地址读S16 fileIndex；缓存该九槽FILE，null返0/不加槽范围保护。缓存FILE按快照S32 offset/BEGIN0 seek，弃返回；seek后重取同槽FILE再取快照U32 length，以共享读区/length/1 read，返回仅1继续，其它返0不清输出。可省略palette参数是否非空先取样，后发布*destination=独立共享解码区，无论core结果均保此发布；缺省palette由未清局部W32槽承接，length独立未清局部W32槽，两原call45A99B/45A9C8均同52D5C0，core返回非空→1/空→0，无新增尺寸/短读恢复/回滚/预清。主表/FILE/缓冲区与输出native非拥有、字段原S32/U32/S16，不扩大原数组声明/容量或全部caller-owner验收。",
+      "actual": "仅本根正常局部static I/S，full_runtime_verified=false；两已有ID续记/四新证据和RESOURCE31枚举open，不代全部caller-真实内容/当前所有正常别名-主表/FILE owner-渲染画面及R1/R7/R8；无构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-READ-DECODE-SAMPLING-0005A900-S-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOL01两个完整根257条683B/4页，当前根0x45A900；doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-read-decode-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-acceptance",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_evidence.json",
+        "src/GraphicRead.cpp#ReadGraphicDataByIndex",
+        "include/cg/GraphicDecode.hpp",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_decode.md"
+      ],
+      "differences": [
+        {
+          "description": "读盘二处恢复同记录地址/缓存FILE-seek后重取/可选palette判定先目标发布；正确core正文保。旧接口和SPEC额外不重叠前提撤去，现行RPLAN.24只正常W32/native地址；旧限定历史不追认当前全部别名/完整运行",
+          "decision_ref": "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整75条222B/1页、4call/7内部分支/2ret，无switch；4普通call引用/4父分列，读盘两FILE与两core原调用分列",
+      "expected": "S32 index<0或>=gMax返0，不清任何输出；先取主表实际记录地址/复制32B快照，后从同一地址读S16 fileIndex；缓存该九槽FILE，null返0/不加槽范围保护。缓存FILE按快照S32 offset/BEGIN0 seek，弃返回；seek后重取同槽FILE再取快照U32 length，以共享读区/length/1 read，返回仅1继续，其它返0不清输出。可省略palette参数是否非空先取样，后发布*destination=独立共享解码区，无论core结果均保此发布；缺省palette由未清局部W32槽承接，length独立未清局部W32槽，两原call45A99B/45A9C8均同52D5C0，core返回非空→1/空→0，无新增尺寸/短读恢复/回滚/预清。主表/FILE/缓冲区与输出native非拥有、字段原S32/U32/S16，不扩大原数组声明/容量或全部caller-owner验收。",
+      "actual": "仅本根正常局部static I/S，full_runtime_verified=false；两已有ID续记/四新证据和RESOURCE31枚举open，不代全部caller-真实内容/当前所有正常别名-主表/FILE owner-渲染画面及R1/R7/R8；无构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-READ-DECODE-SAMPLING-0012D5C0-I-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOL01两个完整根257条683B/4页，当前根0x52D5C0；doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-read-decode-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-acceptance",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_evidence.json",
+        "src/GraphicDecode.cpp#ReadGraphicData",
+        "include/cg/GraphicDecode.hpp",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_decode.md"
+      ],
+      "differences": [
+        {
+          "description": "读盘二处恢复同记录地址/缓存FILE-seek后重取/可选palette判定先目标发布；正确core正文保。旧接口和SPEC额外不重叠前提撤去，现行RPLAN.24只正常W32/native地址；旧限定历史不追认当前全部别名/完整运行",
+          "decision_ref": "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "读盘整CPP仅二补丁/core CPP保持，头仅二注释修正/声明保、旧SPEC两限定文字更正；原byte/cached header/raw-RLE/输出发布顺序与本根：六参数native非拥有源/目标槽T**/四U32输出，初读*destination/缓存目标，null先返空且不读源；依序RD两签名不符返空不写输出。头先缓存U8 flags/U32 width/height，不读03。raw不读header.length：cursor+10，扩展头取palLength/游标+4→pub palOut→W32 width*height再fresh *palOut相加，无扩展先乘再pub pal0；前向每字节读/推进源/写目标/计数，最后length→width→height输出并返初始目标。RLE先固定source+header.length边界后cursor+10/可选pal+4/pub pal或0，仅命令间cursor<end比较；repeat先value(40置零且不消耗value，否则读value)，长度20优先10且都用低4位/后1或2字节不加1，固定value填充，不承诺原stosd/stosb机器写宽/故障原子性；literal只看10而忽略20/40，保原count>=FFFFF失败比较，前向逐字节source读→目标写→目标/源推进→count--。零长度仍消费命令与所需value/长度；不加命令内部边界、像素数限制或修复；成功length=W32 width*height非实际写量且不含pal，再pub width/height并返初始target。缓存目标/头/边界及原读写序保有效对象的正常别名，不以旧两两不重叠额外缩范围；不把原地址回绕、越界/溢出故障或ABI当保证。当前正确核心正文不改，接口仅撤额外限制/规范正常宽度注释，运行与所有父/owner仍未验。",
+      "expected": "六参数native非拥有源/目标槽T**/四U32输出，初读*destination/缓存目标，null先返空且不读源；依序RD两签名不符返空不写输出。头先缓存U8 flags/U32 width/height，不读03。raw不读header.length：cursor+10，扩展头取palLength/游标+4→pub palOut→W32 width*height再fresh *palOut相加，无扩展先乘再pub pal0；前向每字节读/推进源/写目标/计数，最后length→width→height输出并返初始目标。RLE先固定source+header.length边界后cursor+10/可选pal+4/pub pal或0，仅命令间cursor<end比较；repeat先value(40置零且不消耗value，否则读value)，长度20优先10且都用低4位/后1或2字节不加1，固定value填充，不承诺原stosd/stosb机器写宽/故障原子性；literal只看10而忽略20/40，保原count>=FFFFF失败比较，前向逐字节source读→目标写→目标/源推进→count--。零长度仍消费命令与所需value/长度；不加命令内部边界、像素数限制或修复；成功length=W32 width*height非实际写量且不含pal，再pub width/height并返初始target。缓存目标/头/边界及原读写序保有效对象的正常别名，不以旧两两不重叠额外缩范围；不把原地址回绕、越界/溢出故障或ABI当保证。当前正确核心正文不改，接口仅撤额外限制/规范正常宽度注释，运行与所有父/owner仍未验。",
+      "actual": "仅本根正常局部static I/S，full_runtime_verified=false；两已有ID续记/四新证据和RESOURCE31枚举open，不代全部caller-真实内容/当前所有正常别名-主表/FILE owner-渲染画面及R1/R7/R8；无构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-READ-DECODE-SAMPLING-0012D5C0-S-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOL01两个完整根257条683B/4页，当前根0x52D5C0；doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-read-decode-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-acceptance",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_evidence.json",
+        "src/GraphicDecode.cpp#ReadGraphicData",
+        "include/cg/GraphicDecode.hpp",
+        "include/cg/GraphicRead.hpp",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_decode.md"
+      ],
+      "differences": [
+        {
+          "description": "读盘二处恢复同记录地址/缓存FILE-seek后重取/可选palette判定先目标发布；正确core正文保。旧接口和SPEC额外不重叠前提撤去，现行RPLAN.24只正常W32/native地址；旧限定历史不追认当前全部别名/完整运行",
+          "decision_ref": "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整182条461B/3页、0call/25内部分支/3ret，无switch；2普通call引用/1父分列，读盘两FILE与两core原调用分列",
+      "expected": "六参数native非拥有源/目标槽T**/四U32输出，初读*destination/缓存目标，null先返空且不读源；依序RD两签名不符返空不写输出。头先缓存U8 flags/U32 width/height，不读03。raw不读header.length：cursor+10，扩展头取palLength/游标+4→pub palOut→W32 width*height再fresh *palOut相加，无扩展先乘再pub pal0；前向每字节读/推进源/写目标/计数，最后length→width→height输出并返初始目标。RLE先固定source+header.length边界后cursor+10/可选pal+4/pub pal或0，仅命令间cursor<end比较；repeat先value(40置零且不消耗value，否则读value)，长度20优先10且都用低4位/后1或2字节不加1，固定value填充，不承诺原stosd/stosb机器写宽/故障原子性；literal只看10而忽略20/40，保原count>=FFFFF失败比较，前向逐字节source读→目标写→目标/源推进→count--。零长度仍消费命令与所需value/长度；不加命令内部边界、像素数限制或修复；成功length=W32 width*height非实际写量且不含pal，再pub width/height并返初始target。缓存目标/头/边界及原读写序保有效对象的正常别名，不以旧两两不重叠额外缩范围；不把原地址回绕、越界/溢出故障或ABI当保证。当前正确核心正文不改，接口仅撤额外限制/规范正常宽度注释，运行与所有父/owner仍未验。",
+      "actual": "仅本根正常局部static I/S，full_runtime_verified=false；两已有ID续记/四新证据和RESOURCE31枚举open，不代全部caller-真实内容/当前所有正常别名-主表/FILE owner-渲染画面及R1/R7/R8；无构建/测试/运行/hash，网络原格式明文/音频暂停"
     }
   ],
   "task_acceptance": [
@@ -27804,7 +27938,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
       ]
     },
     {
@@ -28122,7 +28257,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
       ]
     },
     {
@@ -28327,7 +28463,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
       ]
     },
     {
@@ -28438,7 +28575,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
       ]
     },
     {
@@ -28520,7 +28658,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
       ]
     },
     {
@@ -28757,7 +28896,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
       ]
     },
     {
@@ -28835,7 +28975,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
       ]
     }
   ],
@@ -34223,6 +34364,28 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ],
       "boundary": "BOK01已证native非拥有资源/输出指针，原非地址宽与40B/32B正常取样、既有宿主容器值/引用合同；完整原根局部I/S不代全部caller/callee-内容/owner-运行或STL/ABI/故障过程，音频暂停"
+    },
+    {
+      "inventory_id": "F:0005A900",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
+      ],
+      "boundary": "BOL01已证native非拥有资源/FILE/缓冲区/输出槽、原S32/U32/S16；32B同记录地址/seek后FILE重取和正常raw-RLE字节/输出顺序，撤旧额外不重叠前提；完整原根局部I/S不代当前所有正常别名/全部父-真实内容/owner-运行，不宣原机器写宽/ABI/故障过程"
+    },
+    {
+      "inventory_id": "F:0012D5C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state"
+      ],
+      "boundary": "BOL01已证native非拥有资源/FILE/缓冲区/输出槽、原S32/U32/S16；32B同记录地址/seek后FILE重取和正常raw-RLE字节/输出顺序，撤旧额外不重叠前提；完整原根局部I/S不代当前所有正常别名/全部父-真实内容/owner-运行，不宣原机器写宽/ABI/故障过程"
     }
   ],
   "auxiliary_dispositions": [

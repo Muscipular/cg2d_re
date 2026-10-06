@@ -233,3 +233,11 @@ P1/P4表56/48B、主动作/P4子项32B和帧/坐标12/8B保持，分配/清理�
 两既有源码根新增机器映射1407/1408；语义1407→1409/有效ID1402→1404、关联1520→1522（41.30%→41.36%）、分类526→528、RENDER38→40枚举open；四独立局部static I/S，E659→663。历史定位各1/旧行号保，RESOURCE41/队列175/R7区间67/3061及其余门禁保持；七open仅进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
 
 两CPP只五补丁（两个正文、退休一个私有投影及两未用include）；BOS/BOT四入队根、描述符消费helper/队列owner/排序/总绘制/provider及公开头保持。保正常S32/W32/W16/U8/native地址分工、地图batch5及不写字段；不加负拒绝、图号/结果门槛、保护或异常回绕模型。沿真实场景生产、地图/绘制consumer-owner与正常别名/像素继续推进；未构建/测试/运行/hash，网络原格式明文/音频暂停，整体SPEC范围不缩。
+
+## BOV01 描边批次无条件写入（2026-10-06）
+
+[BOV01 SPEC](cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision)/[原证据](cg2d_hover_batch_unconditional_publication_evidence.json)。描边522180全41条139B/一页、1call6内跳1ret；195普通调用点/115父仅纳盘。原call521B10后无条件U8 batch2写；真实helper额外索引范围拒绝与旧249文字合同不符，本步撤该拒绝/size_t，按native实际record写batch。已证-2前缀+5C写及正确描边包装/四低W16-两W32/step图号标记和六实参保持，不称颜色或坐标错误。
+
+旧249续记并保存完整旧record；源码冻结定位0/旧两文档事实保，不新增语义或helper原ID。语义1409/有效ID1404、关联1522（41.36%）保持；分类528→529、RENDER40→41枚举open；两独立局部static I/S E663→665。RESOURCE41/队列175/R7区间67/3061及其余门禁保，七open仅进展引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。
+
+只GraphicPendingQueue.cpp一个helper正文；正确DrawGraphicHover/BOS/BOT/BOU入队和描述符helper、排序比较/队列owner/总绘制/公开头保持。原容量门槛和失败后前缀写保，不加负拒绝/保护/钳制或异常回绕模型，不运行异常输入。既有void接口保，不称原EAX五倍索引残值/机器ABI、全部195点/115父、正常别名/描边case2填充-owner/像素运行已验。未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。

@@ -18014,7 +18014,7 @@
     {
       "original_entry": "0x522180",
       "inventory_id": "F:00122180",
-      "status": "已有命名或父链合并映射，运行未验",
+      "status": "BOV01完整41条原根与单helper无条件batch发布实修，195普通点纳盘；完整父/正常别名/owner-像素运行未验",
       "original_end_exclusive": "0x52220B",
       "instruction_count": 41,
       "sources": [
@@ -18022,14 +18022,85 @@
           "path": "src/DrawGraphicHover.cpp",
           "symbols": [
             "DrawGraphicHover"
-          ]
+          ],
+          "relationship": "描边包装原正确正文/四低W16/step图号及六实参保持，本步只改其真实批次helper"
+        },
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "SetPendingGraphicBatchTypeAtLegacyIndex"
+          ],
+          "relationship": "原四个低W16坐标打包两个W32；step S32依0/1/2分别OR图号W32 A0000000/90000000/C0000000，其余图号不变。六实参call521B10(x/y S32位型,layer U8,图号S32位型,value4=0,descriptor=null)，之后无条件写原返回索引对应batch U8=2，不加索引范围拒绝或跳过。helper按native实际record地址承载；原满队列返回-2对应prefix+5C写沿已证合同保，不套48B负索引偏移。原W32图号/低W16坐标/W8batch/S32索引与唯一owner保持，正常/原失败写序不改；异常域不专项模拟或计故障等价。描边包装正确正文/原六实参已在，只helper一正文实修；既有void适配保，不声明原EAX×5残值/机器ABI或195点115父完整运行已验。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_character_select_scene.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-acceptance",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_evidence.json"
       ],
-      "boundary": "四个低W16坐标分别打包为两个W32，step0/1/2分别OR A0000000/90000000/C0000000，其余不改图号；调用DrawGraphic后无条件将原返回索引项batchType写2。沿既有合同，不新增入队失败保护或跳过写入。"
+      "boundary": "原四个低W16坐标打包两个W32；step S32依0/1/2分别OR图号W32 A0000000/90000000/C0000000，其余图号不变。六实参call521B10(x/y S32位型,layer U8,图号S32位型,value4=0,descriptor=null)，之后无条件写原返回索引对应batch U8=2，不加索引范围拒绝或跳过。helper按native实际record地址承载；原满队列返回-2对应prefix+5C写沿已证合同保，不套48B负索引偏移。原W32图号/低W16坐标/W8batch/S32索引与唯一owner保持，正常/原失败写序不改；异常域不专项模拟或计故障等价。描边包装正确正文/原六实参已在，只helper一正文实修；既有void适配保，不声明原EAX×5残值/机器ABI或195点115父完整运行已验。",
+      "previous_mapping_before_bov01": {
+        "original_entry": "0x522180",
+        "inventory_id": "F:00122180",
+        "status": "已有命名或父链合并映射，运行未验",
+        "original_end_exclusive": "0x52220B",
+        "instruction_count": 41,
+        "sources": [
+          {
+            "path": "src/DrawGraphicHover.cpp",
+            "symbols": [
+              "DrawGraphicHover"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_character_select_scene.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "四个低W16坐标分别打包为两个W32，step0/1/2分别OR A0000000/90000000/C0000000，其余不改图号；调用DrawGraphic后无条件将原返回索引项batchType写2。沿既有合同，不新增入队失败保护或跳过写入。"
+      },
+      "original_direct_reference_count": 195,
+      "verification_level": "完整41条139B/1页1call6内跳1ret与195普通点/115父仅纳盘；整CPP仅helper一个正文，根及其它owner-provider保持；局部正常static不代运行/ABI或异常等价",
+      "native_provider": {
+        "source": "src/DrawGraphicHover.cpp",
+        "symbol": "DrawGraphicHover",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "dependent_helper_changed": true,
+        "runtime_verified": false
+      },
+      "hover_batch_publication": {
+        "spec_id": "BOV01",
+        "evidence_refs": [
+          "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
+          "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
+          "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-acceptance",
+          "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
+          "doc/cg2d_hover_batch_unconditional_publication_evidence.json"
+        ],
+        "original_entry": "0x522180",
+        "original_instruction_count": 41,
+        "original_code_bytes": 139,
+        "page_count": 1,
+        "outgoing_call_site_count": 1,
+        "internal_branch_site_count": 6,
+        "return_site_count": 1,
+        "incoming_reference_count": 195,
+        "incoming_parent_count": 115,
+        "source_body_changed": false,
+        "dependent_helper_changed": true,
+        "helper_body_patch_count": 1,
+        "extra_index_rejection_removed": true,
+        "original_failure_prefix_write_preserved": true,
+        "normal_packed_coordinate_or_color_value_wrong": false,
+        "full_runtime_verified": false,
+        "implementation_helper_has_separate_original_id": false,
+        "preserved_contract": "原四个低W16坐标打包两个W32；step S32依0/1/2分别OR图号W32 A0000000/90000000/C0000000，其余图号不变。六实参call521B10(x/y S32位型,layer U8,图号S32位型,value4=0,descriptor=null)，之后无条件写原返回索引对应batch U8=2，不加索引范围拒绝或跳过。helper按native实际record地址承载；原满队列返回-2对应prefix+5C写沿已证合同保，不套48B负索引偏移。原W32图号/低W16坐标/W8batch/S32索引与唯一owner保持，正常/原失败写序不改；异常域不专项模拟或计故障等价。描边包装正确正文/原六实参已在，只helper一正文实修；既有void适配保，不声明原EAX×5残值/机器ABI或195点115父完整运行已验。"
+      }
     },
     {
       "original_entry": "0x5234B0",

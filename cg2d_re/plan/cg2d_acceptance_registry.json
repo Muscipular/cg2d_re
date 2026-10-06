@@ -1513,7 +1513,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-baseline",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1555,7 +1556,8 @@
         "F:00121C80",
         "F:00121DD0",
         "F:00121AA0",
-        "F:0005F090"
+        "F:0005F090",
+        "F:00122180"
       ],
       "closure_task_ids": [
         "C09",
@@ -1587,7 +1589,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1608,7 +1611,8 @@
         "BOP01三既有源码根新机器映射，完整273条768B，Get累计/组包2与Nearest首色-候选1阶段恢复/正常值保持；Resource37→40、Render32→34枚举open，auto.dat父/真实共享解码区owner-实际图形/地图画面运行及R1/R7/R8待",
         "BOS01两原入队完整227条704B/四页、422普通引用分根父仅纳盘；额外负拒绝/S32回绕退休，描述符4W32/默认字段/坐标和clip队列发布恢复，RENDER36枚举open；所有caller-正常别名/排序绘制consumer-owner/像素运行与R1/R7/R8待",
         "BOT01两已有源码根新机器登记/完整206条650B四页、26调用点分根父1/18仅纳盘；记录目标/逐W32描述符与不同clip-batch/各图号門槛保，RENDER38枚举open；全部父/正常别名/排序绘制consumer-owner/画面及R1/R7/R8运行待",
-        "BOU01两已有源码根新机器登记/完整58条217B两页、55调用点分根已知父1/8及1无所属函数点仅纳盘；地图目标/坐标取样与着色栈原发布，RENDER40枚举open；正常既有最终颜色值正确，全部父/正常别名/地图与绘制consumer-owner/画面及R1/R7/R8运行待"
+        "BOU01两已有源码根新机器登记/完整58条217B两页、55调用点分根已知父1/8及1无所属函数点仅纳盘；地图目标/坐标取样与着色栈原发布，RENDER40枚举open；正常既有最终颜色值正确，全部父/正常别名/地图与绘制consumer-owner/画面及R1/R7/R8运行待",
+        "BOV01旧249完整续记/原41条139B及195普通点115父仅纳盘，单helper撤额外索引拒绝/size_t、-2原前缀写保持；RENDER41枚举open。完整父/正常别名/描边case2填充-owner-像素与SDK/机器ABI、R1/R7/R8运行待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1630,7 +1634,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state"
       ]
     },
     {
@@ -29324,6 +29329,70 @@
       "observation": "本根完整32条106B/1页，1call/0内跳/1ret、53普通点/8已知父/0无所属函数点仅纳盘，原地图/栈描述符字段发布static核",
       "expected": "私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。",
       "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、原最终颜色值一致、无所属点不猜父/新原函数；不代55普通点全部父/正常别名/地图绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-HOVER-BATCH-PUBLICATION-00122180-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOV01完整41条139B/一页1call6内跳1ret与195普通点115父仅纳盘；doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hover-batch-unconditional-publication-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-acceptance",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_evidence.json",
+        "src/DrawGraphicHover.cpp#DrawGraphicHover",
+        "src/render/GraphicPendingQueue.cpp#SetPendingGraphicBatchTypeAtLegacyIndex",
+        "src/LoginMessageDependencies.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单helper撤额外index范围拒绝/size_t，原-2前缀写及无条件U8 batch2发布保持；描边正确正文/其余生产消费及owner保",
+          "decision_ref": "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅一个helper正文，旧包装/DrawGraphic六实参/其它根、头/排序绘制owner保持；原四个低W16坐标打包两个W32；step S32依0/1/2分别OR图号W32 A0000000/90000000/C0000000，其余图号不变。六实参call521B10(x/y S32位型,layer U8,图号S32位型,value4=0,descriptor=null)，之后无条件写原返回索引对应batch U8=2，不加索引范围拒绝或跳过。helper按native实际record地址承载；原满队列返回-2对应prefix+5C写沿已证合同保，不套48B负索引偏移。原W32图号/低W16坐标/W8batch/S32索引与唯一owner保持，正常/原失败写序不改；异常域不专项模拟或计故障等价。描边包装正确正文/原六实参已在，只helper一正文实修；既有void适配保，不声明原EAX×5残值/机器ABI或195点115父完整运行已验。",
+      "expected": "原四个低W16坐标打包两个W32；step S32依0/1/2分别OR图号W32 A0000000/90000000/C0000000，其余图号不变。六实参call521B10(x/y S32位型,layer U8,图号S32位型,value4=0,descriptor=null)，之后无条件写原返回索引对应batch U8=2，不加索引范围拒绝或跳过。helper按native实际record地址承载；原满队列返回-2对应prefix+5C写沿已证合同保，不套48B负索引偏移。原W32图号/低W16坐标/W8batch/S32索引与唯一owner保持，正常/原失败写序不改；异常域不专项模拟或计故障等价。描边包装正确正文/原六实参已在，只helper一正文实修；既有void适配保，不声明原EAX×5残值/机器ABI或195点115父完整运行已验。",
+      "actual": "局部正常static I/S，runtime=false；旧249全文档案保、不增helper或原函数ID，原正确包装与既有void接口不变；不代全部父/正常别名/描边填充-owner-像素/机器ABI及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-HOVER-BATCH-PUBLICATION-00122180-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOV01完整41条139B/一页1call6内跳1ret与195普通点115父仅纳盘；doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hover-batch-unconditional-publication-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-acceptance",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_evidence.json",
+        "src/DrawGraphicHover.cpp#DrawGraphicHover",
+        "src/render/GraphicPendingQueue.cpp#SetPendingGraphicBatchTypeAtLegacyIndex",
+        "src/LoginMessageDependencies.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单helper撤额外index范围拒绝/size_t，原-2前缀写及无条件U8 batch2发布保持；描边正确正文/其余生产消费及owner保",
+          "decision_ref": "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整41条139B/一页1call6内跳1ret、195普通点115父只纳盘；原完整分支、末无条件U8 batch2与已证-2前缀写静态对照，不运行异常输入",
+      "expected": "原四个低W16坐标打包两个W32；step S32依0/1/2分别OR图号W32 A0000000/90000000/C0000000，其余图号不变。六实参call521B10(x/y S32位型,layer U8,图号S32位型,value4=0,descriptor=null)，之后无条件写原返回索引对应batch U8=2，不加索引范围拒绝或跳过。helper按native实际record地址承载；原满队列返回-2对应prefix+5C写沿已证合同保，不套48B负索引偏移。原W32图号/低W16坐标/W8batch/S32索引与唯一owner保持，正常/原失败写序不改；异常域不专项模拟或计故障等价。描边包装正确正文/原六实参已在，只helper一正文实修；既有void适配保，不声明原EAX×5残值/机器ABI或195点115父完整运行已验。",
+      "actual": "局部正常static I/S，runtime=false；旧249全文档案保、不增helper或原函数ID，原正确包装与既有void接口不变；不代全部父/正常别名/描边填充-owner-像素/机器ABI及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
     }
   ],
   "task_acceptance": [
@@ -29576,7 +29645,8 @@
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state"
       ]
     },
     {
@@ -29904,7 +29974,8 @@
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state"
       ]
     },
     {
@@ -30119,7 +30190,8 @@
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state"
       ]
     },
     {
@@ -30240,7 +30312,8 @@
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state"
       ]
     },
     {
@@ -30332,7 +30405,8 @@
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state"
       ]
     },
     {
@@ -30579,7 +30653,8 @@
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state"
       ]
     },
     {
@@ -30667,7 +30742,8 @@
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
-        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state"
       ]
     }
   ],
@@ -36256,6 +36332,17 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
       ],
       "boundary": "BOU01原地图批次/着色栈描述符重复及重叠发布、W32-W16-U8/native布局；局部static不代全部caller/owner-正常别名/地图及绘制像素运行：私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。"
+    },
+    {
+      "inventory_id": "F:00122180",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state"
+      ],
+      "boundary": "BOV01原描边六实参与无条件batch发布、已有x64 -2前缀写/void接口保；只单helper撤额外索引拒绝，不声明机器ABI/全部195点115父/正常别名-owner-像素或故障等价：原四个低W16坐标打包两个W32；step S32依0/1/2分别OR图号W32 A0000000/90000000/C0000000，其余图号不变。六实参call521B10(x/y S32位型,layer U8,图号S32位型,value4=0,descriptor=null)，之后无条件写原返回索引对应batch U8=2，不加索引范围拒绝或跳过。helper按native实际record地址承载；原满队列返回-2对应prefix+5C写沿已证合同保，不套48B负索引偏移。原W32图号/低W16坐标/W8batch/S32索引与唯一owner保持，正常/原失败写序不改；异常域不专项模拟或计故障等价。描边包装正确正文/原六实参已在，只helper一正文实修；既有void适配保，不声明原EAX×5残值/机器ABI或195点115父完整运行已验。"
     }
   ],
   "auxiliary_dispositions": [

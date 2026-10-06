@@ -411,11 +411,10 @@ void SetPendingGraphicBatchTypeAtLegacyIndex(
         render::gLegacyPendingStorage.prefix[0x5C] = std::bit_cast<char>(type);
         return;
     }
-    if (index < 0 || index >= MAX_QUEUE_SIZE) {
-        return;
-    }
 
-    render::gLegacyPendingStorage.records[static_cast<std::size_t>(index)].batchType = type;
+    render::GraphicCacheItem32* const record =
+        render::gLegacyPendingStorage.records.data() + index;
+    record->batchType = type;
 }
 
 } // namespace cg::login::detail

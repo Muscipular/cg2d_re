@@ -2503,3 +2503,12 @@ BOT01本步实测：源码/两完整原根及调用点/两权威JSON/对应合�
 - **后续开发**：两CPP只五补丁（两个正文、退休一个私有投影及两未用include）；BOS/BOT四入队根、描述符消费helper/队列owner/排序/总绘制/provider及公开头保持。保正常S32/W32/W16/U8/native地址分工、地图batch5及不写字段；不加负拒绝、图号/结果门槛、保护或异常回绕模型。沿真实场景生产、地图/绘制consumer-owner与正常别名/像素继续推进；未构建/测试/运行/hash，网络原格式明文/音频暂停，整体SPEC范围不缩。
 
 BOU01本步实测：源码/两完整原根及55普通点/两权威JSON/对应合同四项定向静态通过；measure/-Check均返回0。派生完整对象仅新1407/1408、RENDER40、语义1409/1404/关联1522(41.36%)/分类528和七open进展变化；E663，历史定位各1、RESOURCE41/队列175及其余门禁保持。55点分根已知父1/8与地图495E47 parent=null只纳盘，未猜补父或按调用点计完整运行验收；原着色正常最终值一致，不称颜色错误。14文件严格UTF8无BOM/LF及必要差异通过；未构建/测试/运行/hash，整体SPEC目标继续。
+
+## BOV01 描边批次无条件发布收尾（2026-10-06）
+
+- **开发/当步解决**：先落[具体SPEC](../doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision)，真实批次helper存在额外索引拒绝与旧249文字合同不一致；撤拒绝/size_t，native实际record无条件U8 batch写，已证-2前缀+5C原写保。正确描边包装/原四低W16两W32、step标记及六实参保持，不称颜色或坐标错误。
+- **原证据/历史**：[完整证据](../doc/cg2d_hover_batch_unconditional_publication_evidence.json)保41条139B一页1call6内跳1ret、195普通点115父仅纳盘、旧包装/helper及旧249全文档案；冻定位0/旧两文档事实保，不增helper/原函数ID。
+- **计量/门禁**：旧249续记并保存完整旧record；源码冻结定位0/旧两文档事实保，不新增语义或helper原ID。语义1409/有效ID1404、关联1522（41.36%）保持；分类528→529、RENDER40→41枚举open；两独立局部static I/S E663→665。RESOURCE41/队列175/R7区间67/3061及其余门禁保，七open仅进展引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。 命名快照 `cg2d-re-hover-batch-unconditional-publication-20261006`；13文件精确提交，用户既有六项排除。
+- **后续开发**：只GraphicPendingQueue.cpp一个helper正文；正确DrawGraphicHover/BOS/BOT/BOU入队和描述符helper、排序比较/队列owner/总绘制/公开头保持。原容量门槛和失败后前缀写保，不加负拒绝/保护/钳制或异常回绕模型，不运行异常输入。既有void接口保，不称原EAX五倍索引残值/机器ABI、全部195点/115父、正常别名/描边case2填充-owner/像素运行已验。未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
+
+BOV01本步实测：源码单helper补丁/完整原根及195普通点/旧249两权威JSON完整增量/对应合同四项定向静态通过；measure/-Check均返回0。派生完整对象仅旧249来源文档/处置、RENDER41、分类529和七open进展变化；语义1409/1404与关联1522(41.36%)保，E665，冻定位0/RESOURCE41/队列175及其余门禁保持。额外范围拒绝已撤、-2原前缀写与正确描边包装保持；195点115父仅纳盘，不当完整运行或ABI通过。13文件严格UTF8无BOM/LF及必要差异通过；未构建/测试/运行/hash，整体SPEC目标继续。

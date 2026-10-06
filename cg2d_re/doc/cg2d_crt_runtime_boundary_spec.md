@@ -128,3 +128,9 @@ C01/C08/C11不完整关闭。
 不再把这三个旧私有内核列成工程待实现；不称原体等价/排除，
 五外层adapted、模式1/2和原兼容元数据保持。
 完整owner/模式寿命/alias/R1/R7与实际SDK/运行继续待，C01/C08/C11仍open。
+
+## BPK01 两私有捕获职责具名移交（2026-10-07）
+
+[本次合同](cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision)/[完整原基线及SDK定位](cg2d_native_cpp_exception_evidence.json)将5402AB查找/5407BC捕获对象构造明确登记host：当前throw/throw;与六本机类型/显式copy供compiler/VCRuntime，两个旧x86内核不再是工程待补体。原315条875B、两唯一call/父邻窗及全部旧捕获记录保留；旧SDK/handler接线false不改，不用旧布局冒充本机元数据。
+
+NCE01已接业务copy/单owner、消息/析构及所有旧构析正文保持，私有头仅加职责说明。当前安装SDK的frame.cpp能定位真实查找/复制服务，但本项目生成帧/链接和实际捕获展开仍未验。C06/C07/完整CRT继续open，实际typed捕获/清理、全成员/硬件SEH、全部owner寿命及SDK/正常快速退出运行标准不变；不新造捕获业务、异常模型或私有ABI。

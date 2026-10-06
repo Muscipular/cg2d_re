@@ -1010,3 +1010,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [具名合同](cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance)/[完整原帮助体及前态](cg2d_map_effect_arithmetic_evidence.json)。11条21B/唯一call父邻窗和既有十条x87内联来源，只增一CRT局部S/一adapted身份；源码未变，I/完整功能门禁不提升，不重复登记整个一般_pow通过。
 
 语义1425/1420、关联1538/41.79%、分类547、CRT150枚举open、登记E720；队列174/待归属45仅移本原ID，暂停25/排除103/NOP1与R7已审67/3061保持。两任务R01/R04仅引用/进展仍open，10/60源码任务/0完整验收/0叶/global_accepted=false保持；SDK/ABI/环境、场景RNG/owner寿命及运行按原标准继续。
+
+## BPK01 私有捕获职责局部S（2026-10-07）
+
+[可验合同](cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-acceptance)/[两原体/旧前态与SDK定位](cg2d_native_cpp_exception_evidence.json)。仅一组局部S：315条875B/两唯一call父邻窗、当前六类/copy和真实SDK职责定位；两旧原ID按D02登记host。旧数据接线false和所有业务源码保持，私有头只注释，不把安装源码或host批准记为生成ABI/实际捕获通过。
+
+语义1425/1420与关联1538/41.79%保持，分类549、CRT152枚举open、登记E721；队列174/待归属45、R7已审67/3061及所有完整门禁保持。C06/C07/R01/R04只增进展引用并对齐C06职责条件，仍open；10/60源码任务/0完整验收/0叶/global_accepted=false不变，实际typed捕获/切片/清理、成员/硬件SEH/owner寿命和ABI/链接/展开运行按原标准继续。

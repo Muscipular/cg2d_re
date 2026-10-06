@@ -54905,11 +54905,11 @@
     {
       "original_entry": "0x5402AB",
       "inventory_id": "F:001402AB",
-      "status": "原异常查找完整本体/帧接线未实现；五捕获数组顺序/13共享对象类型引用真实数据已生产",
+      "status": "BPK01原私有入口host职责已具名承接，原数据保；实际捕获/清理/SEH与生成ABI/运行未验",
       "original_end_exclusive": "0x540452",
       "instruction_count": 146,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过；仅新五原数组字节/S32数量、13顺序引用与共享身份静态，旧体不回核，无编译或运行",
+      "verification_level": "两完整原核315条875B/五页、27call/51内跳/两外部终止tail/三ret及各唯一普通call/父邻窗，只原身份与获批host职责/源对照，不称旧内核逐指令等价。私有头仅一职责说明，源/其他头保持；实际typed捕获/切片/引用与清理、全部成员/硬件SEH/owner寿命、生成ABI/链接/展开和正常快速退出运行未验。RPLAN.24不专项模拟/保护异常、故障等价或降低运行标准",
       "inbound_evidence": [
         {
           "address": "0x54029C",
@@ -54926,14 +54926,44 @@
             "gLegacyLogicErrorCatchableArray551870",
             "gLegacyStringRangeCatchableArray551928"
           ],
-          "relationship": "五实际内联捕获数组/13原序共享引用，现有六捕获记录地址真实绑定，SDK/父暂未接"
+          "relationship": "原捕获数组/对象记录及真实回调数据保留，只原证据/兼容数据身份；当前compiler不将此旧布局作为SDK异常元数据"
+        },
+        {
+          "path": "src/platform/NativeCppException.hpp",
+          "symbols": [
+            "Exception",
+            "LogicError",
+            "LengthError",
+            "RangeError",
+            "RuntimeError",
+            "StreamFailure"
+          ],
+          "relationship": "NCE01真实本机六层级/显式copy声明供compiler生成类型和捕获合同，非旧SDK元数据布局"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::Exception",
+            "LogicError::LogicError",
+            "LengthError::LengthError",
+            "RangeError::RangeError",
+            "RuntimeError::RuntimeError",
+            "StreamFailure::StreamFailure",
+            "Exception::~Exception"
+          ],
+          "relationship": "NCE01现有六族copy/单owner析构提供者；本步不更改正确正文，旧字段/消息和回调保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_exception_catchable_array_evidence.json"
+        "doc/cg2d_exception_catchable_array_evidence.json",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-acceptance",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
+        "doc/cg2d_native_cpp_exception_evidence.json"
       ],
-      "boundary": "唯一540210调用；经可读检查、try范围、类型匹配和捕获入口，另可进入外来异常处理或终止。完整查找循环/重抛和清理逻辑待核。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04五个完整已加载捕获数组5515D8/551648/551800/551870/551928真实定义，S32数量3/2/3/2/3保持，13条非拥有对象类型引用顺序派生到基类不变，同一551578基类及5517C0/551598中间类记录共享，指针原生拓宽/内联+08。此数组数据不是SDK相对RVA/ThrowInfo，LegacyCppThrowInfo仍不透明，5402AB/handler帧实际父与54B123/SDK传播未闭；不克隆记录、扩大数量、填空/自动启用或改旧算法。",
+      "boundary": "当前throw/throw;与六类继承所需的捕获搜索/类型选择由compiler/VCRuntime提供；原x86状态/try/数组循环与帧协议不再是工程待补体；BPK01依已采用D02对5402AB/5407BC两CRT私有职责具名host承接；实际本机六类/层级、显式copy与现有throw/throw;、cleanup为源提供者，当前SDK源码证明FindHandler和BuildCatchObject职责存在，未据安装源码宣称当前生成帧/链接或展开已验。原五数组/六记录与描述符/回调数据保持，旧SDK/父接线false不改；业务copy/析构/what和单payload owner不重写 两完整原核315条875B/五页、27call/51内跳/两外部终止tail/三ret及各唯一普通call/父邻窗，只原身份与获批host职责/源对照，不称旧内核逐指令等价。私有头仅一职责说明，源/其他头保持；实际typed捕获/切片/引用与清理、全部成员/硬件SEH/owner寿命、生成ABI/链接/展开和正常快速退出运行未验。RPLAN.24不专项模拟/保护异常、故障等价或降低运行标准",
       "catchable_array_data_bindings": [
         {
           "original_address": "0x5515D8",
@@ -55031,7 +55061,163 @@
           "handler_parent_connected": false,
           "runtime_verified": false
         }
-      ]
+      ],
+      "previous_mapping_before_bpk01": {
+        "original_entry": "0x5402AB",
+        "inventory_id": "F:001402AB",
+        "status": "原异常查找完整本体/帧接线未实现；五捕获数组顺序/13共享对象类型引用真实数据已生产",
+        "original_end_exclusive": "0x540452",
+        "instruction_count": 146,
+        "original_direct_reference_count": 1,
+        "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过；仅新五原数组字节/S32数量、13顺序引用与共享身份静态，旧体不回核，无编译或运行",
+        "inbound_evidence": [
+          {
+            "address": "0x54029C",
+            "parent_entry": "0x540210"
+          }
+        ],
+        "sources": [
+          {
+            "path": "src/platform/LegacyException.cpp",
+            "symbols": [
+              "gLegacyStreamFailureCatchableArray5515D8",
+              "gLegacyRuntimeErrorCatchableArray551648",
+              "gLegacyStringLengthCatchableArray551800",
+              "gLegacyLogicErrorCatchableArray551870",
+              "gLegacyStringRangeCatchableArray551928"
+            ],
+            "relationship": "五实际内联捕获数组/13原序共享引用，现有六捕获记录地址真实绑定，SDK/父暂未接"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_startup_flow.md",
+          "doc/cg2d_exception_catchable_array_evidence.json"
+        ],
+        "boundary": "唯一540210调用；经可读检查、try范围、类型匹配和捕获入口，另可进入外来异常处理或终止。完整查找循环/重抛和清理逻辑待核。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04五个完整已加载捕获数组5515D8/551648/551800/551870/551928真实定义，S32数量3/2/3/2/3保持，13条非拥有对象类型引用顺序派生到基类不变，同一551578基类及5517C0/551598中间类记录共享，指针原生拓宽/内联+08。此数组数据不是SDK相对RVA/ThrowInfo，LegacyCppThrowInfo仍不透明，5402AB/handler帧实际父与54B123/SDK传播未闭；不克隆记录、扩大数量、填空/自动启用或改旧算法。",
+        "catchable_array_data_bindings": [
+          {
+            "original_address": "0x5515D8",
+            "symbol": "gLegacyStreamFailureCatchableArray5515D8",
+            "count": 3,
+            "entry_addresses": [
+              "0x5515B8",
+              "0x551598",
+              "0x551578"
+            ],
+            "entry_symbols": [
+              "gLegacyStreamFailureCatchable5515B8",
+              "gLegacyRuntimeErrorCatchable551598",
+              "gLegacyExceptionCatchable551578"
+            ],
+            "source": "src/platform/LegacyException.cpp",
+            "storage_implemented": true,
+            "sdk_throwinfo_connected": false,
+            "handler_parent_connected": false,
+            "runtime_verified": false
+          },
+          {
+            "original_address": "0x551648",
+            "symbol": "gLegacyRuntimeErrorCatchableArray551648",
+            "count": 2,
+            "entry_addresses": [
+              "0x551598",
+              "0x551578"
+            ],
+            "entry_symbols": [
+              "gLegacyRuntimeErrorCatchable551598",
+              "gLegacyExceptionCatchable551578"
+            ],
+            "source": "src/platform/LegacyException.cpp",
+            "storage_implemented": true,
+            "sdk_throwinfo_connected": false,
+            "handler_parent_connected": false,
+            "runtime_verified": false
+          },
+          {
+            "original_address": "0x551800",
+            "symbol": "gLegacyStringLengthCatchableArray551800",
+            "count": 3,
+            "entry_addresses": [
+              "0x5517E0",
+              "0x5517C0",
+              "0x551578"
+            ],
+            "entry_symbols": [
+              "gLegacyStringLengthCatchable5517E0",
+              "gLegacyLogicErrorCatchable5517C0",
+              "gLegacyExceptionCatchable551578"
+            ],
+            "source": "src/platform/LegacyException.cpp",
+            "storage_implemented": true,
+            "sdk_throwinfo_connected": false,
+            "handler_parent_connected": false,
+            "runtime_verified": false
+          },
+          {
+            "original_address": "0x551870",
+            "symbol": "gLegacyLogicErrorCatchableArray551870",
+            "count": 2,
+            "entry_addresses": [
+              "0x5517C0",
+              "0x551578"
+            ],
+            "entry_symbols": [
+              "gLegacyLogicErrorCatchable5517C0",
+              "gLegacyExceptionCatchable551578"
+            ],
+            "source": "src/platform/LegacyException.cpp",
+            "storage_implemented": true,
+            "sdk_throwinfo_connected": false,
+            "handler_parent_connected": false,
+            "runtime_verified": false
+          },
+          {
+            "original_address": "0x551928",
+            "symbol": "gLegacyStringRangeCatchableArray551928",
+            "count": 3,
+            "entry_addresses": [
+              "0x551908",
+              "0x5517C0",
+              "0x551578"
+            ],
+            "entry_symbols": [
+              "gLegacyStringRangeCatchable551908",
+              "gLegacyLogicErrorCatchable5517C0",
+              "gLegacyExceptionCatchable551578"
+            ],
+            "source": "src/platform/LegacyException.cpp",
+            "storage_implemented": true,
+            "sdk_throwinfo_connected": false,
+            "handler_parent_connected": false,
+            "runtime_verified": false
+          }
+        ]
+      },
+      "host_private_catch_provider": {
+        "spec_id": "BPK01",
+        "evidence_refs": [
+          "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline",
+          "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision",
+          "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-acceptance",
+          "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
+          "doc/cg2d_native_cpp_exception_evidence.json"
+        ],
+        "role": "当前throw/throw;与六类继承所需的捕获搜索/类型选择由compiler/VCRuntime提供；原x86状态/try/数组循环与帧协议不再是工程待补体",
+        "host_kind": "本机compiler/VCRuntime捕获职责",
+        "native_type_declarations_present": true,
+        "native_copy_definitions_present": true,
+        "current_host_responsibility_bound": true,
+        "original_kernel_source_implemented": false,
+        "legacy_data_used_as_sdk_metadata": false,
+        "source_body_changed": false,
+        "private_header_comment_changed": true,
+        "generated_abi_verified": false,
+        "current_link_verified": false,
+        "full_catch_flow_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x540452",
@@ -55624,11 +55810,11 @@
     {
       "original_entry": "0x5407BC",
       "inventory_id": "F:001407BC",
-      "status": "原捕获对象构造完整本体/帧接线仍未实现；六对象捕获类型/PMD/尺寸和真实复制目标数据已生产",
+      "status": "BPK01原私有入口host职责已具名承接，原数据保；实际捕获/清理/SEH与生成ABI/运行未验",
       "original_end_exclusive": "0x540980",
       "instruction_count": 169,
       "original_direct_reference_count": 1,
-      "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过；仅新六已加载数据/40B布局/六typed适配与原目标绑定静态，旧本体不回核，无编译或运行",
+      "verification_level": "两完整原核315条875B/五页、27call/51内跳/两外部终止tail/三ret及各唯一普通call/父邻窗，只原身份与获批host职责/源对照，不称旧内核逐指令等价。私有头仅一职责说明，源/其他头保持；实际typed捕获/切片/引用与清理、全部成员/硬件SEH/owner寿命、生成ABI/链接/展开和正常快速退出运行未验。RPLAN.24不专项模拟/保护异常、故障等价或降低运行标准",
       "inbound_evidence": [
         {
           "address": "0x540625",
@@ -55652,14 +55838,44 @@
             "gLegacyStringRangeCatchable551908",
             "CopyLegacyStringRangeErrorForCatch"
           ],
-          "relationship": "实际属性/PMD/描述符/原生对象字节数与真实copy目标适配；原父未接，无SDK私有布局声明"
+          "relationship": "原捕获数组/对象记录及真实回调数据保留，只原证据/兼容数据身份；当前compiler不将此旧布局作为SDK异常元数据"
+        },
+        {
+          "path": "src/platform/NativeCppException.hpp",
+          "symbols": [
+            "Exception",
+            "LogicError",
+            "LengthError",
+            "RangeError",
+            "RuntimeError",
+            "StreamFailure"
+          ],
+          "relationship": "NCE01真实本机六层级/显式copy声明供compiler生成类型和捕获合同，非旧SDK元数据布局"
+        },
+        {
+          "path": "src/platform/LegacyException.cpp",
+          "symbols": [
+            "Exception::Exception",
+            "LogicError::LogicError",
+            "LengthError::LengthError",
+            "RangeError::RangeError",
+            "RuntimeError::RuntimeError",
+            "StreamFailure::StreamFailure",
+            "Exception::~Exception"
+          ],
+          "relationship": "NCE01现有六族copy/单owner析构提供者；本步不更改正确正文，旧字段/消息和回调保持"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_startup_flow.md",
-        "doc/cg2d_exception_catchable_data_evidence.json"
+        "doc/cg2d_exception_catchable_data_evidence.json",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-acceptance",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
+        "doc/cg2d_native_cpp_exception_evidence.json"
       ],
-      "boundary": "唯一54060B调用；含读/写/执行验证、地址调整、memcpy、两种成员调用包装与终止分支。捕获对象布局和全部失败路径尚未全验。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。",
+      "boundary": "当前六类显式copy与本机捕获对象/引用调整由compiler/VCRuntime提供；原x86 PMD/成员转接/私有SEH布局不再是工程待补体；BPK01依已采用D02对5402AB/5407BC两CRT私有职责具名host承接；实际本机六类/层级、显式copy与现有throw/throw;、cleanup为源提供者，当前SDK源码证明FindHandler和BuildCatchObject职责存在，未据安装源码宣称当前生成帧/链接或展开已验。原五数组/六记录与描述符/回调数据保持，旧SDK/父接线false不改；业务copy/析构/what和单payload owner不重写 两完整原核315条875B/五页、27call/51内跳/两外部终止tail/三ret及各唯一普通call/父邻窗，只原身份与获批host职责/源对照，不称旧内核逐指令等价。私有头仅一职责说明，源/其他头保持；实际typed捕获/切片/引用与清理、全部成员/硬件SEH/owner寿命、生成ABI/链接/展开和正常快速退出运行未验。RPLAN.24不专项模拟/保护异常、故障等价或降低运行标准",
       "catchable_object_data_bindings": [
         {
           "addr": "0x551578",
@@ -55757,7 +55973,170 @@
           "sdk_metadata_compatible": false,
           "runtime_verified": false
         }
-      ]
+      ],
+      "previous_mapping_before_bpk01": {
+        "original_entry": "0x5407BC",
+        "inventory_id": "F:001407BC",
+        "status": "原捕获对象构造完整本体/帧接线仍未实现；六对象捕获类型/PMD/尺寸和真实复制目标数据已生产",
+        "original_end_exclusive": "0x540980",
+        "instruction_count": 169,
+        "original_direct_reference_count": 1,
+        "verification_level": "边界、代码指令数及调用位置；不计全本体语义通过；仅新六已加载数据/40B布局/六typed适配与原目标绑定静态，旧本体不回核，无编译或运行",
+        "inbound_evidence": [
+          {
+            "address": "0x540625",
+            "parent_entry": "0x54060B"
+          }
+        ],
+        "sources": [
+          {
+            "path": "src/platform/LegacyException.cpp",
+            "symbols": [
+              "gLegacyExceptionCatchable551578",
+              "CopyLegacyExceptionForCatch",
+              "gLegacyRuntimeErrorCatchable551598",
+              "CopyLegacyRuntimeErrorForCatch",
+              "gLegacyStreamFailureCatchable5515B8",
+              "CopyLegacyStreamFailureForCatch",
+              "gLegacyLogicErrorCatchable5517C0",
+              "CopyLegacyLogicErrorForCatch",
+              "gLegacyStringLengthCatchable5517E0",
+              "CopyLegacyStringLengthErrorForCatch",
+              "gLegacyStringRangeCatchable551908",
+              "CopyLegacyStringRangeErrorForCatch"
+            ],
+            "relationship": "实际属性/PMD/描述符/原生对象字节数与真实copy目标适配；原父未接，无SDK私有布局声明"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_startup_flow.md",
+          "doc/cg2d_exception_catchable_data_evidence.json"
+        ],
+        "boundary": "唯一54060B调用；含读/写/执行验证、地址调整、memcpy、两种成员调用包装与终止分支。捕获对象布局和全部失败路径尚未全验。 不新增RTTI、全局异常钩子或固定成功包装；CRT宿主提案仍待确认。；2026-10-04六已加载对象CatchableType实际数据属性0、PMD0/-1/0、各自描述符与复制目标均明确。新增40B原生记录及六显式dst/src签名适配，原12/28对象字节数按已证原生24/48B sizeof计算，字段仍U32、三位移仍S32，全部不含虚基复制额外实参，不强转函数地址/调用宿主Ctor/改旧成员本体。六既有描述符前缀地址真实绑定，类型匹配/PMD接口可消费，六真实CopyConstruct目标可由数据回调执行，但5407BC实际捕获/帧父未实现接线。此数据不是SDK相对RVA元数据，不定义ThrowInfo/执行旧栈转接或推广到未知属性，完整异常主链及SDK/运行仍待。",
+        "catchable_object_data_bindings": [
+          {
+            "addr": "0x551578",
+            "symbol": "gLegacyExceptionCatchable551578",
+            "type": "LegacyExceptionObject",
+            "descriptor": "gLegacyExceptionType592B28",
+            "callback": "CopyLegacyExceptionForCatch",
+            "target": "CopyConstructLegacyException_54B0B6",
+            "size": 24,
+            "source": "src/platform/LegacyException.cpp",
+            "original_size_bits": 12,
+            "record_storage_implemented": true,
+            "copy_callback_bound": true,
+            "catch_parent_source_connected": false,
+            "sdk_metadata_compatible": false,
+            "runtime_verified": false
+          },
+          {
+            "addr": "0x551598",
+            "symbol": "gLegacyRuntimeErrorCatchable551598",
+            "type": "LegacyRuntimeErrorObject",
+            "descriptor": "gLegacyRuntimeErrorType592B40",
+            "callback": "CopyLegacyRuntimeErrorForCatch",
+            "target": "CopyConstructLegacyRuntimeError_54A0E5",
+            "size": 48,
+            "source": "src/platform/LegacyException.cpp",
+            "original_size_bits": 28,
+            "record_storage_implemented": true,
+            "copy_callback_bound": true,
+            "catch_parent_source_connected": false,
+            "sdk_metadata_compatible": false,
+            "runtime_verified": false
+          },
+          {
+            "addr": "0x5515B8",
+            "symbol": "gLegacyStreamFailureCatchable5515B8",
+            "type": "LegacyStreamFailureObject",
+            "descriptor": "gLegacyStreamFailureType592B60",
+            "callback": "CopyLegacyStreamFailureForCatch",
+            "target": "CopyConstructLegacyStreamFailure_54A1B8",
+            "size": 48,
+            "source": "src/platform/LegacyException.cpp",
+            "original_size_bits": 28,
+            "record_storage_implemented": true,
+            "copy_callback_bound": true,
+            "catch_parent_source_connected": false,
+            "sdk_metadata_compatible": false,
+            "runtime_verified": false
+          },
+          {
+            "addr": "0x5517C0",
+            "symbol": "gLegacyLogicErrorCatchable5517C0",
+            "type": "LegacyLogicErrorObject",
+            "descriptor": "gLegacyLogicErrorType592BD0",
+            "callback": "CopyLegacyLogicErrorForCatch",
+            "target": "CopyConstructLegacyLogicError_54A7AE",
+            "size": 48,
+            "source": "src/platform/LegacyException.cpp",
+            "original_size_bits": 28,
+            "record_storage_implemented": true,
+            "copy_callback_bound": true,
+            "catch_parent_source_connected": false,
+            "sdk_metadata_compatible": false,
+            "runtime_verified": false
+          },
+          {
+            "addr": "0x5517E0",
+            "symbol": "gLegacyStringLengthCatchable5517E0",
+            "type": "LegacyStringLengthErrorObject",
+            "descriptor": "gLegacyStringLengthErrorType592BF0",
+            "callback": "CopyLegacyStringLengthErrorForCatch",
+            "target": "CopyConstructLegacyStringLengthError_54A881",
+            "size": 48,
+            "source": "src/platform/LegacyException.cpp",
+            "original_size_bits": 28,
+            "record_storage_implemented": true,
+            "copy_callback_bound": true,
+            "catch_parent_source_connected": false,
+            "sdk_metadata_compatible": false,
+            "runtime_verified": false
+          },
+          {
+            "addr": "0x551908",
+            "symbol": "gLegacyStringRangeCatchable551908",
+            "type": "LegacyStringRangeErrorObject",
+            "descriptor": "gLegacyStringRangeErrorType592C10",
+            "callback": "CopyLegacyStringRangeErrorForCatch",
+            "target": "CopyConstructLegacyStringRangeError_54A969",
+            "size": 48,
+            "source": "src/platform/LegacyException.cpp",
+            "original_size_bits": 28,
+            "record_storage_implemented": true,
+            "copy_callback_bound": true,
+            "catch_parent_source_connected": false,
+            "sdk_metadata_compatible": false,
+            "runtime_verified": false
+          }
+        ]
+      },
+      "host_private_catch_provider": {
+        "spec_id": "BPK01",
+        "evidence_refs": [
+          "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline",
+          "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision",
+          "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-acceptance",
+          "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
+          "doc/cg2d_native_cpp_exception_evidence.json"
+        ],
+        "role": "当前六类显式copy与本机捕获对象/引用调整由compiler/VCRuntime提供；原x86 PMD/成员转接/私有SEH布局不再是工程待补体",
+        "host_kind": "本机compiler/VCRuntime捕获职责",
+        "native_type_declarations_present": true,
+        "native_copy_definitions_present": true,
+        "current_host_responsibility_bound": true,
+        "original_kernel_source_implemented": false,
+        "legacy_data_used_as_sdk_metadata": false,
+        "source_body_changed": false,
+        "private_header_comment_changed": true,
+        "generated_abi_verified": false,
+        "current_link_verified": false,
+        "full_catch_flow_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x540980",

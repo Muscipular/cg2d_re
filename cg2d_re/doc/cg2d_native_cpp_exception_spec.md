@@ -66,3 +66,42 @@ C06/C07保持open：本机类型、九原点和当前正常C++清理源码已接
 [宿主筛选SPEC](cg2d_hosted_exception_filter_spec.md#hosted-filter-decision)补本机throw的下游：54503A原三参数条件改接当前MSVC x64四参数，保持原代码/19930520低W32识别、原terminate及旧filter转调。
 LegacyMouse按真实C5尾安装，普通宿主收尾按stdio→console→恢复filter接同一owner；未改六本机异常类型、八throw/一重抛、消息/复制/清理或原5405F5。
 当前记录合同来自已安装SDK源码，只完成本组源码接线；实际生成ABI、按值捕获/清理、非法重抛、硬件SEH/SDK/完整退出运行及C06/C07仍须原门禁证据，不记整体验收。
+
+<a id="cpp-catch-private-host-baseline"></a>
+## BPK01 私有查找与捕获复制职责承接（2026-10-07）
+
+旧509/F:001402AB与517/F:001407BC仍将原完整内核/帧列作“待实现”，且保留“CRT宿主提案仍待确认”；当前D02已采用，NCE01的八throw/一throw;、六本机类/层级及显式copy已有真实提供者。当前源码没有两个旧入口的可调用声明或调用，旧数据不是本机异常元数据。这个缺口是职责映射和当前状态，不是新增手工x64捕获循环的理由。
+
+[原证据的bpk01_private_catch_host](cg2d_native_cpp_exception_evidence.json)追加两个完整原体：5402AB..540452的146条423B/两页，5407BC..540980的169条452B/三页，合315条875B/五页/27实际call、51内部跳转/两外部终止tail、三ret。各一普通入向54029C/父540210与540625/父54060B，父只保存真实邻窗，不重验全帧链。
+
+| 原职责 | 当前承接 |
+|---|---|
+| FindHandler：状态范围、try/handler/catchable循环、类型匹配、当前重抛及外来异常入口/终止 | 本机compiler生成帧与VCRuntime查找服务；当前六类层级和throw/throw;提供类型与当前异常，业务不执行旧x86查找体 |
+| BuildCatchObject：引用/标量/对象路径、PMD地址调整、memcpy/成员copy及私有SEH/终止 | 本机compiler的捕获对象构造；当前六类copy按捕获层级委托原业务copy，单owner仍按原非删除析构清理 |
+
+当前已安装MSVC14.50.35717的crt/src/vcruntime/frame.cpp实际含FindHandler(522)、捕获时T::BuildCatchObject(1318)、BuildCatchObjectInternal(1964)及FrameHandler3/4入口(2035/2046)。这些源码仅证明职责提供者存在；当前项目选用哪种生成帧/链接库和实际展开未编译验证，不以安装源码代产物证据。
+
+<a id="cpp-catch-private-host-decision"></a>
+### 具名裁决
+
+依[D02§2](cg2d_crt_runtime_boundary_spec.md)与工程委托，本轮对两私有入口具名登记host，取代此前“未实现旧私有内核”的工程待办；NCE01§3.7此前不自动替换C06的边界在这里仅对两入口明确承接，不能外推全硬件SEH/成员或全部异常流程关闭。
+
+1. 旧x86 FS帧、验证API、try/PMD/SDK私有布局与库内错误机制归本机compiler/VCRuntime；不补同名假体、包装、私有RVA/ThrowInfo或手工查找器，也不让旧数据冒充本机元数据。
+2. 旧五捕获数组/六记录、描述符/PMD/原copy回调与原业务构析/what完整保留。它们的sdk_metadata_compatible/handler_parent_connected等原接线字段继续false，只表达旧数据未接本机引擎，不能反写true来称宿主ABI已验。
+3. 当前六类继承、copy/单payload owner、已有八throw/一重抛及cleanup源码保持；私有头只补职责注释，不增加typed捕获业务或更换消息/异常种类/释放、RTTI及依赖。没有证据表明这些已有源码需重写。
+4. 两旧语义全文分别存previous_mapping_before_bpk01，再更新当前状态/来源与host职责。旧原名字/计数/入向、数据绑定不变；安装SDK原始源码只保存定位/职责，不复制完整文件。
+5. 当前C06工程要求更新为“两个旧内核由本机职责承接；实际typed捕获/清理、成员与硬件SEH、生成ABI/运行待验”。不关闭C06/C07或降低运行标准；RPLAN.24不专项模拟异常/溢出、钳制、补零、故障等价。
+
+<a id="cpp-catch-private-host-acceptance"></a>
+### 限定静态及计量
+
+两原体315条875B及各唯一call/父邻窗、当前SDK职责定位；私有头仅一条说明变化，所有源/其他头保持。六类/显式copy与既有正常业务payload保持，只复核职责对应，不重新全面验NCE九根或所有旧构析/抛出/cleanup。
+
+语义1425条/1420原ID、关联1538/3680（41.79%）保持；分类547→549，两原ID新增host；CRT150→152枚举open。E720→721仅一组局部S，未登记新实现I或全捕获通过；缺口队列174/待归属45、R7已审67/3061、60任务源码closed10/完整验收0、叶验收0/global_accepted=false保持。C06/C07/R01/R04只进展/引用与C06上述职责条件对齐，全部仍open。
+
+<a id="cpp-catch-private-host-source-state"></a>
+### 当前交付
+
+交付两旧私有内核的具名宿主职责映射、完整原基线及当前待办纠正；没有新增捕获业务或手工异常引擎。固定命名快照：`cg2d-re-cpp-catch-private-host-20261007`。
+
+实际typed捕获/按值切片/引用及清理、全部成员/硬件SEH、全应用owner寿命、SDK生成ABI/链接/展开与正常/快速退出运行仍按原门禁推进。仅定向静态与measure/-Check，未编译、测试、运行或计算摘要；网络原格式明文、音频暂停及其他范围保持。

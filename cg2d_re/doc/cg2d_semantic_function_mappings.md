@@ -2986,3 +2986,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [BPJ01合同](cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline)/[原证据bpj01_twotos](cg2d_map_effect_arithmetic_evidence.json)。新增1424/F:001433F0：完整11条21B及唯一53D071普通call/53D022父邻窗，现有Cg2dMapEffectDivisor十条x87操作为实际内联来源，x86call/ret边界adapted。不是新增幂算法，完整一般_pow与浮点环境未闭。
 
 语义1425/原ID1420、文档关联1538/3680（41.79%）、分类547；CRT150枚举open；缺口队列174/位置缺失173/待归属45。E720仅增一CRT局部S，所有旧映射/处置、源头及完整门禁保持，R01/R04继续open。
+
+## BPK01 两既有捕获语义的host职责续记（2026-10-07）
+
+[合同](cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline)/[原证据及旧509/517全文](cg2d_native_cpp_exception_evidence.json)。F:001402AB/F:001407BC各旧记录存previous_mapping_before_bpk01，再具名移交本机compiler/VCRuntime查找/捕获复制职责；当前来源为NCE01六类型/显式copy和现有throw链，旧原数组/记录字段及SDK接线false保持。
+
+315条875B/五页27call/51内跳两外部终止tail/三ret、各唯一call/父邻窗只原基线及host角色静态；不是原体等价或新增捕获引擎。语义1425/1420、关联1538/41.79%保持，分类547→549、CRT150→152枚举open；E720→721仅一局部S，完整门禁/队列和其他域保持。

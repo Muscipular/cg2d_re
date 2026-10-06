@@ -1981,3 +1981,9 @@ native9槽是已证前缀，不是原完整容量证明；原入口>=8不增加�
 [局部SPEC](cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)基于已保存并核对应的完整90槽，已将六图形/资源provider迁入LegacyMouse.cpp三个原相对位置，移除原三模块；既有多字节C5调用移到应用适配之前。当前66应用+2 SDK流配置槽按同一TU有序声明与既有wrapper展开，原构析/字段/RNG/即时登记/失败消费保持，原WinMain/CRT根源码不改/不另启。
 
 1原null、2音频暂停、2键盘排除、17Legacy流/经典locale待接状态单列，当前68投影不代原90/全应用初始化完成。29已有UI/动画初始化仅补原表/源位置绑定；完整本体未审，不进入已审或验收分子。完整C5旧状态/活动流/快速退出、全部owner/图标光标、SDK与运行仍未闭。
+
+## BPK01 异常私有职责当前状态（2026-10-07）
+
+[具名host边界](cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state)取代旧509/517将5402AB/5407BC列为尚待实现、宿主提案尚待确认的当前说明。两原完整核315条875B与两唯一call父邻窗独立保留；当前实际compiler/VCRuntime由NCE01六本机类型/显式copy及既有throw/重抛服务，原旧数组/六记录不是本机元数据。
+
+这是两个私有职责已批准承接的归属，不是旧引擎逐指令等价或完整捕获通过。八throw/一重抛、业务字段/消息/copy/单owner析构与HFI01顶层filter保持，实际typed捕获/清理、全部成员/硬件SEH、SDK生成ABI/链接/展开和退出运行仍按C06/C07原门禁推进。

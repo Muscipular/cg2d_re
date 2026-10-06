@@ -2640,3 +2640,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 - **进度/后续**：R01/R04仍open；60任务源码closed10/完整验收0、叶验收0/global_accepted=false保持。11精确文件，具名快照 `cg2d-re-pow-twotos-baseline-20261007`，静态/measure后提交且保留用户六项。一般_pow/负底数/其余私有链、全父环境/SDK/机器ABI、场景RNG与owner寿命/画面仍按原合同推进，网络原格式明文/音频暂停及不编译/测试/运行/摘要保持。
 
 **BPJ01交付检查**：完整11条21B/一页/零call零jump一ret、唯一53D071普通call/53D022父连续邻窗、53D076 CMP与53D079条件跳转分列通过；十条既有x87原序内联、连续结果消费/控制字和全部源头保持。旧MFA证据字段全文保持/仅具名追加，新1424/一adapted、CRT150/一局部S/两open任务及整个台账/派生快照限定对照通过，差集仅移本原ID，其余指标/范围/完整门禁保持。11文件严格UTF8无BOM/LF/差异、八独立文件/锚点/ASM叶/CPP消费定位、measure生成与独立-Check均退出0；11文件精确提交/具名快照保留用户六项。没有新增幂实现，未编译、测试、运行或计算摘要，整体SPEC继续。
+
+## BPK01 异常查找/捕获私有职责当前状态收口（2026-10-07）
+
+- **当步纠正**：先落[具名合同](../doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision)，将已采用D02但仍写“未实现/宿主提案待确认”的两旧语义509/517归档后改为host职责承接；当前六本机类/显式copy与已有throw/重抛由compiler/VCRuntime服务，两个旧x86内核不再是工程待补体。私有头仅加一职责说明，正确业务/所有源和其他头保持。
+- **原基线/实际提供者**：[证据bpk01_private_catch_host](../doc/cg2d_native_cpp_exception_evidence.json)保存两完整原核315条875B/五页27call/51内跳两终止tail/三ret、两唯一call父邻窗及旧语义/快照；当前已安装MSVC14.50.35717的frame.cpp可定位FindHandler/BuildCatchObject/实际成员copy服务。它只证明源码职责，不代本项目生成ABI或链接/展开。旧五数组/六记录、业务copy/消息/单owner析构和旧SDK接线false保。
+- **计量/任务**：语义1425/1420、关联1538/3680（41.79%）保；分类547→549、CRT150→152枚举open、E720→721仅一局部S。C06/C07/R01/R04仍open，C06改为两旧内核由本机职责承接、实际typed捕获/清理/成员与硬件SEH及生成ABI/运行待验。队列174/待归属45、R7已审67/3061、60任务源码closed10/完整验收0、叶验收0/global_accepted=false和完整门禁保持。
+- **工具问题已处理**：初次rg把通配符放进Windows路径参数，已改为已知实际文件并加退出码检查；SDK捕获帮助职责首次选错ehhelpers.cpp，已沿frame.cpp的真实BuildCatchObjectInternal/成员copy定位修正，不据失败检索称缺体。
+- **后续/交付**：13精确文件，具名快照 `cg2d-re-cpp-catch-private-host-20261007`，静态/measure后提交且保留用户六项。实际typed捕获/按值切片/引用/cleanup、全成员/硬件SEH/owner寿命、SDK生成ABI/链接/展开和正常快速退出仍按原合同推进；无新捕获业务或异常模型，未编译/测试/运行/摘要，音频暂停及原格式明文保持。
+
+**BPK01交付检查**：两个完整原核315条875B/五页27call/51内跳两外部终止tail/三ret及两唯一普通call/连续父邻窗通过；当前六本机类型/显式copy/原业务清理与SDK实际查找/捕获复制定位有证，私有头一职责说明逆换全文一致/全部CPP及其他头和ASM保持。旧NCE证据字段完整保持，509/517全文归档、原数据绑定和旧SDK接线false、两host/CRT152/一局部S及四open任务/C06职责条件限定对照、整个台账和派生快照其余范围/指标/完整门禁保持。13文件严格UTF8无BOM/LF/差异、八独立来源定位及measure生成/独立-Check均退出0；13文件精确提交/具名快照保留用户六项。两个旧私有体不再作工程待补，实际typed捕获/清理/SEH及生成ABI/链接/运行仍按原标准未验；未编译、测试、运行或计算摘要，整体SPEC继续。

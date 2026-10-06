@@ -7,6 +7,7 @@ namespace cg::platform::native_cpp {
 // NCE01：接收已完成构造的POD payload，不再复制成员/增加共享引用。
 struct AdoptPayload final {};
 
+// BPK01：旧5402AB查找/5407BC捕获复制由本机compiler/VCRuntime承接；层级与copy提供其类型合同。
 // 对应原全局exception层级；SDK持有本机对象，业务字段仅在payload内。
 class Exception {
 public:

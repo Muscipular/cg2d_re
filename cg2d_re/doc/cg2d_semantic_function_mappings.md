@@ -3106,3 +3106,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-baseline)/[四根冻结前态](cg2d_battle_bounce_reflection_sampling_evidence.json)。新增1481..1484对应416860/416AB0/406630/416DD0，四原已有定义正常语义/equivalent，原冻结定位保。三源本体十一读取/载荷阶段，236正确体/父弃返和普通helper/S16width边界保。
 
 语义1485/有效1480、关联1598/3680（43.42%）、BATTLE162枚举open、分类610/E760，R7 260/3061/余2801、差队列172/待归属43与其它全部完整门禁不变。
+
+## BQE01 七共用施法/弧射完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-baseline)/[七根冻结前态](cg2d_battle_shared_cast_arc_sampling_evidence.json)。新增1485..1491对应416DB0/417410/417AC0/417B80/417CC0/418550/418580，七原已有定义正常语义/equivalent；238/239两表项共用一个原身份，不新增R7分类，七冻结定位保。只共体五/241一六阶段，三W8源表达式承接四原点，其余五正确体/普通helper和原业务/调用/返回保持。
+
+语义1492/有效1487、关联1605/3680（43.61%）、BATTLE169枚举open、分类617/E762，R7 260/3061/余2801、差队列172/待归属43与其它全部完整门禁不变。

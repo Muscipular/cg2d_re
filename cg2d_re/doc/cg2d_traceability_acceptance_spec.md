@@ -1130,3 +1130,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-acceptance)/[完整834条2947B](cg2d_battle_bounce_reflection_sampling_evidence.json)。十三页、62call/26入口/86jump/八ret、四父12邻窗/35B、十F32与十一源码阶段可追。四内存W8及W32寄存器消费分清，234下边界两角度读、237两归零独立原序和三数显索引分别落实；正常旧值一致，236只已证父弃返、S16width/共享helper/原业务/接收者/RNG/同步帧循环/返回保。两局部I/S各十四实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命及图形链。
 
 语义1485/1480、关联1598/43.42%、BATTLE162枚举open、分类610/E760；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保。
+
+## BQE01 七完整共用施法/弧射状态局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-acceptance)/[完整729条2516B](cg2d_battle_shared_cast_arc_sampling_evidence.json)。十四页、60call/26入口/77jump/十二ret、七父21邻窗/56B、两共用表项/三F32/四原W8和六源码阶段可追。共体归零序/三W8表达式/速度先零比较后phase239和241声事件先X分别落实，原五正确体及W32缓存/接收者/RNG/两播放/真实循环/哨兵后额外推进/返回保。两局部I/S各十五实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
+
+语义1492/1487、关联1605/43.61%、BATTLE169枚举open、分类617/E762；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保。

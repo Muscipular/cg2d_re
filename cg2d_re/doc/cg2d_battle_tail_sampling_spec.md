@@ -139,3 +139,9 @@
 [完整合同](cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state)/[四完整834条2947B](cg2d_battle_bounce_reflection_sampling_evidence.json)纳管233/234/236/237。只233三/234三/237五共十一阶段：初始FDC/FCC先取、四实际内存W8、下边界角度两读、三数显index先Y、反伤encoded/mask/count齐读后写source及普通扣减index/encoded先position/共享目标。后者原序与232不同，按各原体落实。
 
 236正确体/唯一父弃返边界保；S16width既有getter、普通CopyPayload/AssignFromInt helper不改。原W32寄存器旗位/正常业务阈值、HP图标/Attribute接收者/独立RNG/同步帧循环/调用与返回保。BATTLE162枚举open/E760两局部I/S，完整生产/owner寿命/图形链/生成机器/运行与R8未完成。
+
+## BQE01 共用施法与弧射取样（2026-10-07）
+
+[完整合同](cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state)/[七完整729条2516B](cg2d_battle_shared_cast_arc_sampling_evidence.json)纳管235、238/239共体、240..242、244/245，八逻辑状态只增七身份。原两表项同4055E1/417410，既有R7表分类保。
+
+只共体五/241一共六阶段：归零index/encoded先position/共享目标、三W8源表达式对应四原点、速度零比较先phase239后、声事件先X。其它五正确体/普通helper、原W32缓存及HP图标/Attribute接收者/RNG/两播放/原循环/哨兵后额外推进/返回保。BATTLE169枚举open/E762两局部I/S，完整生产/owner寿命/生成机器/运行与R8未完成。

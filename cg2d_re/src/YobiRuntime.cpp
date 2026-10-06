@@ -29968,7 +29968,9 @@ void UpdateBattleAction241_417B80(YobiAction* const action)
     }
     static_cast<void>(AdvanceBattleEffect_439470(action));
     payload->valueFF0 = 6;
-    static_cast<void>(audio::PlaySe_52C450(action->frameEvent - 10000, action->x));
+    const std::int32_t soundEvent = action->frameEvent;
+    const std::int32_t soundX = action->x;
+    static_cast<void>(audio::PlaySe_52C450(soundEvent - 10000, soundX));
 }
 
 void UpdateBattleAction242_417CC0(YobiAction* const action)
@@ -32357,12 +32359,19 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                 if (Less_401DB0(&compareTarget->readiness, 0)) {
                     platform::LegacyCryptInt temporary;
                     ConstructFromInt_401CC0(&temporary, 0);
-                    YobiAction* const copyTarget = gBattleAllEntries59E980[
-                        payload->effects1C[payload->effectRunningC9C].position];
-                    CopyPayload(&copyTarget->readiness, &temporary);
+                    // 原4176DA..41770C先取索引/encoded，再借共享目标；后两字段交替。
+                    const std::int32_t copyIndex = payload->effectRunningC9C;
+                    const std::uint32_t encoded = temporary.encoded;
+                    const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
+                    YobiAction* const copyTarget = gBattleAllEntries59E980[copyPosition];
+                    copyTarget->readiness.encoded = encoded;
+                    copyTarget->readiness.mask = temporary.mask;
+                    copyTarget->readiness.readCount = temporary.readCount;
                     Destroy_401CF0(&temporary);
                 }
-                if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                const std::uint8_t activationFlags = *reinterpret_cast<const std::uint8_t*>(
+                    &payload->effects1C[payload->effectRunningC9C].flags);
+                if ((activationFlags & 0x20u) != 0) {
                     targetPayload->flagsFDC |= 2u;
                     gYobiUpdateGateMode = 1;
                     targetPayload->aliveFF8 = 1;
@@ -32420,7 +32429,9 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
                 }
             }
             if (showAttributes) {
-                if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                const std::uint8_t attributeFlags = *reinterpret_cast<const std::uint8_t*>(
+                    &payload->effects1C[payload->effectRunningC9C].flags);
+                if ((attributeFlags & 2u) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                 }
                 static_cast<void>(NewBattleAttributeEffects_4209C0(
@@ -32428,7 +32439,9 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
             }
         }
         const std::int32_t tailIndex = payload->effectRunningC9C;
-        if ((payload->effects1C[tailIndex].flags & 8u) == 0
+        const std::uint8_t tailFlags =
+            *reinterpret_cast<const std::uint8_t*>(&payload->effects1C[tailIndex].flags);
+        if ((tailFlags & 8u) == 0
             && payload->effects1C[tailIndex].position3 != 0) {
             payload->valueFD0 = 14 * static_cast<std::int32_t>(((targetPayload->flagsFDC >> 1) & 1u) + 1u);
         }
@@ -32446,8 +32459,10 @@ void UpdateBattleActions238_239_417410(YobiAction* const action)
         const double speed = action->value54;
         action->value54 = static_cast<float>(phase == 238 ? speed - 0.5 : speed + 0.5);
         if (!(action->value54 > 1.0F)) {
+            const float boundarySpeed = action->value54;
+            const bool reverseSpeed = !(boundarySpeed >= 0.0F);
             action->phase = 239;
-            if (!(action->value54 >= 0.0F)) {
+            if (reverseSpeed) {
                 action->value54 = -action->value54;
             }
         }

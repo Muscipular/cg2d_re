@@ -2268,7 +2268,8 @@
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-baseline",
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
-        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline"
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2393,7 +2394,14 @@
         "F:00011FA0",
         "F:00011FC0",
         "F:00011FE0",
-        "F:00012000"
+        "F:00012000",
+        "F:00012020",
+        "F:000120F0",
+        "F:000121D0",
+        "F:00012210",
+        "F:00012260",
+        "F:00020F10",
+        "F:000124E0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2487,7 +2495,8 @@
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-decision",
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
-        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision"
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2570,7 +2579,8 @@
         "BPS01四动作完整339条1170B/六页、29call/34jump与四唯一父邻窗纳管，155/156同阶段借用取样恢复，112原成员仍枚举open；正确W32读取/运动与缩放/RNG/声音分支保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI与实际x87精度/时钟RNG/画面运行未验，完整战斗及R8未关闭",
         "BPT01三个动作完整540条1709B/九页、63call/36jump/15ret与三唯一父邻窗纳管，共享helper六完整取样对应十二原阶段，115原成员仍枚举open；原业务上下限/default与159/160不同尾保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
         "BPU01两完整动作570条2302B/八页、32call/63jump/七ret与两唯一父邻窗纳管；七原栈初始化52元素按五源常量组40值可追，类型W8/七回收源片段修复，117原成员仍枚举open。第三槽判断/正常状态和真实字段重读保；全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
-        "BPV01六完整动作243条815B/八页、19call/21jump/10ret与六唯一父邻窗纳管，165两W8消费恢复，其余五体/原未落位FP、W32缓存与fresh及166内联正常计时/四字节发布保，123原成员枚举open；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87/时钟RNG/画面运行未验，完整战斗及R8未关闭"
+        "BPV01六完整动作243条815B/八页、19call/21jump/10ret与六唯一父邻窗纳管，165两W8消费恢复，其余五体/原未落位FP、W32缓存与fresh及166内联正常计时/四字节发布保，123原成员枚举open；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+        "BPW01七完整根736条2670B/13页、43call/69jump/九ret及六唯一分派点与sync14入向/三父纳管，九槽每操作后fresh/重复alias及真实共享调用汇合保持；204只两临时复制全取样，130原成员仍枚举open。额外同步初判已撤回未改正确call；递归父/其它生产及全部子依赖/owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，完整战斗和R8未关闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2653,7 +2663,8 @@
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
-        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state"
       ]
     },
     {
@@ -32049,6 +32060,80 @@
       "observation": "165：FE4原W32/C04决定character8/9，rate50；初始flagsFDC W32缓存bit1，FCC按S32先增/发布。count<14*(bit+1)时角度+180保未落位中间比较360/F32发布与必要减360、speed5，fresh低W8 bit2设gate1/alive1→Move→PlayFrame1返回。count<14*bit+34时方向S32+1/达到8减8，fresh W32 flags重算门槛与fresh FCC比较，相等时speed5、fresh低W8 bit2及CountActive<=1才gate0，alive0/FF00；FF0==0建图110006，fresh旧FF0先增且旧值>=2清0；speed减原F32 0.3保未落位中间判定和原零业务限制→Move→PlayFrame1返回。count>=14*bit+54时FCC0，原初始缓存bit2清则6/100→439340→fresh phase11时4/100；否则fresh FE4/3010决定6/100或1/250→439340。其它公共尾PlayFrame1返回；缓存与fresh W32不得合并。 166：先共享当前玩家位置再借payload，位置相等时fresh queuedTargets[value13A4]供既有ConsumeBattlePlayerTimer，正常timerRemaining扣1000*seconds先W32发布、负才业务归零。这是原411CC5..411CFD内联数学承接，不是原call或新F。随后fresh index→Y→value→X、4206C0(x,y,-value)弃返→43B830弃返→439340；保S32算术/业务下限和原队列、计时共享owner，不加异常回绕/保护。 167：原W8字段308写8→439340，现有SetYobiActionField308同一原字节承载，正确本体保。 168：原W8字段308写0→439340，原字段别名和调用序保。 169：原W8字段309写255→439340，现有SetYobiActionField309同一原字节承载，正确本体保。 170：原W8字段309写0→439340，原字段别名和调用序保。",
       "expected": "165：FE4原W32/C04决定character8/9，rate50；初始flagsFDC W32缓存bit1，FCC按S32先增/发布。count<14*(bit+1)时角度+180保未落位中间比较360/F32发布与必要减360、speed5，fresh低W8 bit2设gate1/alive1→Move→PlayFrame1返回。count<14*bit+34时方向S32+1/达到8减8，fresh W32 flags重算门槛与fresh FCC比较，相等时speed5、fresh低W8 bit2及CountActive<=1才gate0，alive0/FF00；FF0==0建图110006，fresh旧FF0先增且旧值>=2清0；speed减原F32 0.3保未落位中间判定和原零业务限制→Move→PlayFrame1返回。count>=14*bit+54时FCC0，原初始缓存bit2清则6/100→439340→fresh phase11时4/100；否则fresh FE4/3010决定6/100或1/250→439340。其它公共尾PlayFrame1返回；缓存与fresh W32不得合并。 166：先共享当前玩家位置再借payload，位置相等时fresh queuedTargets[value13A4]供既有ConsumeBattlePlayerTimer，正常timerRemaining扣1000*seconds先W32发布、负才业务归零。这是原411CC5..411CFD内联数学承接，不是原call或新F。随后fresh index→Y→value→X、4206C0(x,y,-value)弃返→43B830弃返→439340；保S32算术/业务下限和原队列、计时共享owner，不加异常回绕/保护。 167：原W8字段308写8→439340，现有SetYobiActionField308同一原字节承载，正确本体保。 168：原W8字段308写0→439340，原字段别名和调用序保。 169：原W8字段309写255→439340，现有SetYobiActionField309同一原字节承载，正确本体保。 170：原W8字段309写0→439340，原字段别名和调用序保。",
       "actual": "六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-ATTACHMENT-ALPHA-BACKGROUND-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPW01七完整736条2670B/13页、43call/69jump/九ret及六分派点/sync14实际入向、九槽与204真实共享call/两原复制；doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-attachment-alpha-background-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction171_412020",
+        "src/YobiRuntime.cpp#UpdateBattleActions172_173_4120F0",
+        "src/YobiRuntime.cpp#UpdateBattleAction174_4121D0",
+        "src/YobiRuntime.cpp#UpdateBattleAction175_412210",
+        "src/YobiRuntime.cpp#UpdateBattleAction176_412260",
+        "src/YobiRuntime.cpp#SyncBattleAttachmentAlpha_420F10",
+        "src/YobiRuntime.cpp#UpdateBattleAction204_4124E0",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "只204两临时复制先取mask/encoded W32和readCount W8后按原顺序写，正常旧值相同；正确共享call汇合/全部mask、其余六体与九槽重读/重复alias及业务范围保，额外同步误判已撤回且未删正确调用",
+          "decision_ref": "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "171：主体W32 flags清bit2→Sync(action,-1,0,0,2)；fresh alpha W8+3<255时发布W8增量→Sync(-1,3,0,0)→device无3D时主体设8000并Sync(-1,0,8000,0)；达到255时发布255→Sync(255,0,0,0)→device无3D时主体清8000并Sync(-1,0,0,8000)，最后439340。未达到阈值不推进，参数/返回弃用和原真实字段重读取序保。 172/173共同原体：phase==173步2，其它当前172步3；alpha-step>0发布低W8/Sync(-1,-step,0,0)，device无3D时主体设8000/Sync增加8000；到0则主体alpha0/Sync(0,0,0,0)，无3D时主体清8000/Sync移除8000，之后主体flags|2但原最后Sync确实addMask8000、remove0，最终439340。保原这个实际mask而不主观改成2；两个case共一原入口/普通入向，S8 delta与字段字节保。 174：固定payload后current index→position3的steps→position的palette，450B70对应现有SelectPalette(palette,steps)弃返→439470弃返→439340。字节资源调色板/上层SDL替换沿既有边界，只当前消费者完整源纳管，依赖不重验。 175：1060空才读fresh current.position4并421570(image,2,0)，结果写同一非拥有槽；之后fresh取1060并phase=0→439340。原没有创建失败额外守卫，现有正常路径保，不新增保护。 176：一次借1060指针，非空时该effect.phase=2→1060清空；随后无论空否439340。保原条件清槽/借用寿命，不加MarkDeath或清除其它槽。 420F10同步依赖：按1054/1058/105C/1064/1068/106C/1074/1078/107C九非拥有槽顺序；空槽跳过，alpha S32非负才低W8绝对发布，随后每槽fresh指针读W8 alpha加delta低W8→fresh flags清remove→fresh flags加add→fresh308=0→fresh alpha!=255时308=8→fresh flags清bit2→fresh alpha0时flags加2。保存原槽地址T**，每次操作后重读槽，多个槽同一对象也按原重复处理；原参数delta只BL消费，源S8承载正确。14普通入向/三个实际父，原无出向call；现各父不消费其原未定义寄存器返回，源码void保。只本组完整父与全部实际参数/弃返邻窗，不外推其他所有父生产/owner。 204：先flagsFDC W32/60清则PlayFrame0，再主体flags清2→Sync(remove2)。fresh主体alpha+3未到255时发布/Sync增3→device查询/无3D主体8000和Sync(add8000)；到255先发布/Sync255，再查询无3D主体清8000和Sync(remove8000)。原41259A物理位置由两个批次共享，源五语句对应四原call点，不删除正确同步。之后fresh value1024==2才hidden/field2D8清0，fresh effect.flags10000000走目标22459，否则displayType>=0数显(value/X/Y-80,type,2,0)后fresh类型6/5/4/3更新readiness/barValue与原0/各最大值。type6/3临时构造0后先完整取mask W32/encoded W32/readCount W8再依序写，Destroy共享尾保持；上限CopyPayload保持。value1024 fresh自增后当==3同次FF0先加1/达60设4；当==4且主体alpha255时1024/FF0清0→439340。其余case/default、共享调用参数/真实条件与原S32业务限制保。",
+      "expected": "171：主体W32 flags清bit2→Sync(action,-1,0,0,2)；fresh alpha W8+3<255时发布W8增量→Sync(-1,3,0,0)→device无3D时主体设8000并Sync(-1,0,8000,0)；达到255时发布255→Sync(255,0,0,0)→device无3D时主体清8000并Sync(-1,0,0,8000)，最后439340。未达到阈值不推进，参数/返回弃用和原真实字段重读取序保。 172/173共同原体：phase==173步2，其它当前172步3；alpha-step>0发布低W8/Sync(-1,-step,0,0)，device无3D时主体设8000/Sync增加8000；到0则主体alpha0/Sync(0,0,0,0)，无3D时主体清8000/Sync移除8000，之后主体flags|2但原最后Sync确实addMask8000、remove0，最终439340。保原这个实际mask而不主观改成2；两个case共一原入口/普通入向，S8 delta与字段字节保。 174：固定payload后current index→position3的steps→position的palette，450B70对应现有SelectPalette(palette,steps)弃返→439470弃返→439340。字节资源调色板/上层SDL替换沿既有边界，只当前消费者完整源纳管，依赖不重验。 175：1060空才读fresh current.position4并421570(image,2,0)，结果写同一非拥有槽；之后fresh取1060并phase=0→439340。原没有创建失败额外守卫，现有正常路径保，不新增保护。 176：一次借1060指针，非空时该effect.phase=2→1060清空；随后无论空否439340。保原条件清槽/借用寿命，不加MarkDeath或清除其它槽。 420F10同步依赖：按1054/1058/105C/1064/1068/106C/1074/1078/107C九非拥有槽顺序；空槽跳过，alpha S32非负才低W8绝对发布，随后每槽fresh指针读W8 alpha加delta低W8→fresh flags清remove→fresh flags加add→fresh308=0→fresh alpha!=255时308=8→fresh flags清bit2→fresh alpha0时flags加2。保存原槽地址T**，每次操作后重读槽，多个槽同一对象也按原重复处理；原参数delta只BL消费，源S8承载正确。14普通入向/三个实际父，原无出向call；现各父不消费其原未定义寄存器返回，源码void保。只本组完整父与全部实际参数/弃返邻窗，不外推其他所有父生产/owner。 204：先flagsFDC W32/60清则PlayFrame0，再主体flags清2→Sync(remove2)。fresh主体alpha+3未到255时发布/Sync增3→device查询/无3D主体8000和Sync(add8000)；到255先发布/Sync255，再查询无3D主体清8000和Sync(remove8000)。原41259A物理位置由两个批次共享，源五语句对应四原call点，不删除正确同步。之后fresh value1024==2才hidden/field2D8清0，fresh effect.flags10000000走目标22459，否则displayType>=0数显(value/X/Y-80,type,2,0)后fresh类型6/5/4/3更新readiness/barValue与原0/各最大值。type6/3临时构造0后先完整取mask W32/encoded W32/readCount W8再依序写，Destroy共享尾保持；上限CopyPayload保持。value1024 fresh自增后当==3同次FF0先加1/达60设4；当==4且主体alpha255时1024/FF0清0→439340。其余case/default、共享调用参数/真实条件与原S32业务限制保。",
+      "actual": "七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-ATTACHMENT-ALPHA-BACKGROUND-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPW01七完整736条2670B/13页、43call/69jump/九ret及六分派点/sync14实际入向、九槽与204真实共享call/两原复制；doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-attachment-alpha-background-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction171_412020",
+        "src/YobiRuntime.cpp#UpdateBattleActions172_173_4120F0",
+        "src/YobiRuntime.cpp#UpdateBattleAction174_4121D0",
+        "src/YobiRuntime.cpp#UpdateBattleAction175_412210",
+        "src/YobiRuntime.cpp#UpdateBattleAction176_412260",
+        "src/YobiRuntime.cpp#SyncBattleAttachmentAlpha_420F10",
+        "src/YobiRuntime.cpp#UpdateBattleAction204_4124E0",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "只204两临时复制先取mask/encoded W32和readCount W8后按原顺序写，正常旧值相同；正确共享call汇合/全部mask、其余六体与九槽重读/重复alias及业务范围保，额外同步误判已撤回且未删正确调用",
+          "decision_ref": "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "171：主体W32 flags清bit2→Sync(action,-1,0,0,2)；fresh alpha W8+3<255时发布W8增量→Sync(-1,3,0,0)→device无3D时主体设8000并Sync(-1,0,8000,0)；达到255时发布255→Sync(255,0,0,0)→device无3D时主体清8000并Sync(-1,0,0,8000)，最后439340。未达到阈值不推进，参数/返回弃用和原真实字段重读取序保。 172/173共同原体：phase==173步2，其它当前172步3；alpha-step>0发布低W8/Sync(-1,-step,0,0)，device无3D时主体设8000/Sync增加8000；到0则主体alpha0/Sync(0,0,0,0)，无3D时主体清8000/Sync移除8000，之后主体flags|2但原最后Sync确实addMask8000、remove0，最终439340。保原这个实际mask而不主观改成2；两个case共一原入口/普通入向，S8 delta与字段字节保。 174：固定payload后current index→position3的steps→position的palette，450B70对应现有SelectPalette(palette,steps)弃返→439470弃返→439340。字节资源调色板/上层SDL替换沿既有边界，只当前消费者完整源纳管，依赖不重验。 175：1060空才读fresh current.position4并421570(image,2,0)，结果写同一非拥有槽；之后fresh取1060并phase=0→439340。原没有创建失败额外守卫，现有正常路径保，不新增保护。 176：一次借1060指针，非空时该effect.phase=2→1060清空；随后无论空否439340。保原条件清槽/借用寿命，不加MarkDeath或清除其它槽。 420F10同步依赖：按1054/1058/105C/1064/1068/106C/1074/1078/107C九非拥有槽顺序；空槽跳过，alpha S32非负才低W8绝对发布，随后每槽fresh指针读W8 alpha加delta低W8→fresh flags清remove→fresh flags加add→fresh308=0→fresh alpha!=255时308=8→fresh flags清bit2→fresh alpha0时flags加2。保存原槽地址T**，每次操作后重读槽，多个槽同一对象也按原重复处理；原参数delta只BL消费，源S8承载正确。14普通入向/三个实际父，原无出向call；现各父不消费其原未定义寄存器返回，源码void保。只本组完整父与全部实际参数/弃返邻窗，不外推其他所有父生产/owner。 204：先flagsFDC W32/60清则PlayFrame0，再主体flags清2→Sync(remove2)。fresh主体alpha+3未到255时发布/Sync增3→device查询/无3D主体8000和Sync(add8000)；到255先发布/Sync255，再查询无3D主体清8000和Sync(remove8000)。原41259A物理位置由两个批次共享，源五语句对应四原call点，不删除正确同步。之后fresh value1024==2才hidden/field2D8清0，fresh effect.flags10000000走目标22459，否则displayType>=0数显(value/X/Y-80,type,2,0)后fresh类型6/5/4/3更新readiness/barValue与原0/各最大值。type6/3临时构造0后先完整取mask W32/encoded W32/readCount W8再依序写，Destroy共享尾保持；上限CopyPayload保持。value1024 fresh自增后当==3同次FF0先加1/达60设4；当==4且主体alpha255时1024/FF0清0→439340。其余case/default、共享调用参数/真实条件与原S32业务限制保。",
+      "expected": "171：主体W32 flags清bit2→Sync(action,-1,0,0,2)；fresh alpha W8+3<255时发布W8增量→Sync(-1,3,0,0)→device无3D时主体设8000并Sync(-1,0,8000,0)；达到255时发布255→Sync(255,0,0,0)→device无3D时主体清8000并Sync(-1,0,0,8000)，最后439340。未达到阈值不推进，参数/返回弃用和原真实字段重读取序保。 172/173共同原体：phase==173步2，其它当前172步3；alpha-step>0发布低W8/Sync(-1,-step,0,0)，device无3D时主体设8000/Sync增加8000；到0则主体alpha0/Sync(0,0,0,0)，无3D时主体清8000/Sync移除8000，之后主体flags|2但原最后Sync确实addMask8000、remove0，最终439340。保原这个实际mask而不主观改成2；两个case共一原入口/普通入向，S8 delta与字段字节保。 174：固定payload后current index→position3的steps→position的palette，450B70对应现有SelectPalette(palette,steps)弃返→439470弃返→439340。字节资源调色板/上层SDL替换沿既有边界，只当前消费者完整源纳管，依赖不重验。 175：1060空才读fresh current.position4并421570(image,2,0)，结果写同一非拥有槽；之后fresh取1060并phase=0→439340。原没有创建失败额外守卫，现有正常路径保，不新增保护。 176：一次借1060指针，非空时该effect.phase=2→1060清空；随后无论空否439340。保原条件清槽/借用寿命，不加MarkDeath或清除其它槽。 420F10同步依赖：按1054/1058/105C/1064/1068/106C/1074/1078/107C九非拥有槽顺序；空槽跳过，alpha S32非负才低W8绝对发布，随后每槽fresh指针读W8 alpha加delta低W8→fresh flags清remove→fresh flags加add→fresh308=0→fresh alpha!=255时308=8→fresh flags清bit2→fresh alpha0时flags加2。保存原槽地址T**，每次操作后重读槽，多个槽同一对象也按原重复处理；原参数delta只BL消费，源S8承载正确。14普通入向/三个实际父，原无出向call；现各父不消费其原未定义寄存器返回，源码void保。只本组完整父与全部实际参数/弃返邻窗，不外推其他所有父生产/owner。 204：先flagsFDC W32/60清则PlayFrame0，再主体flags清2→Sync(remove2)。fresh主体alpha+3未到255时发布/Sync增3→device查询/无3D主体8000和Sync(add8000)；到255先发布/Sync255，再查询无3D主体清8000和Sync(remove8000)。原41259A物理位置由两个批次共享，源五语句对应四原call点，不删除正确同步。之后fresh value1024==2才hidden/field2D8清0，fresh effect.flags10000000走目标22459，否则displayType>=0数显(value/X/Y-80,type,2,0)后fresh类型6/5/4/3更新readiness/barValue与原0/各最大值。type6/3临时构造0后先完整取mask W32/encoded W32/readCount W8再依序写，Destroy共享尾保持；上限CopyPayload保持。value1024 fresh自增后当==3同次FF0先加1/达60设4；当==4且主体alpha255时1024/FF0清0→439340。其余case/default、共享调用参数/真实条件与原S32业务限制保。",
+      "actual": "七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。"
     }
   ],
   "task_acceptance": [
@@ -32677,7 +32762,8 @@
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
-        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state"
       ]
     },
     {
@@ -32921,7 +33007,8 @@
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
-        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state"
       ]
     },
     {
@@ -33060,7 +33147,8 @@
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
-        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state"
       ]
     },
     {
@@ -33531,7 +33619,8 @@
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
-        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state"
       ]
     },
     {
@@ -39671,6 +39760,97 @@
         "doc/cg2d_battle_count_timer_flags_evidence.json"
       ],
       "boundary": "170：原W8字段309写0→439340，原字段别名和调用序保。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00012020",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json"
+      ],
+      "boundary": "171：主体W32 flags清bit2→Sync(action,-1,0,0,2)；fresh alpha W8+3<255时发布W8增量→Sync(-1,3,0,0)→device无3D时主体设8000并Sync(-1,0,8000,0)；达到255时发布255→Sync(255,0,0,0)→device无3D时主体清8000并Sync(-1,0,0,8000)，最后439340。未达到阈值不推进，参数/返回弃用和原真实字段重读取序保。 七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:000120F0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json"
+      ],
+      "boundary": "172/173共同原体：phase==173步2，其它当前172步3；alpha-step>0发布低W8/Sync(-1,-step,0,0)，device无3D时主体设8000/Sync增加8000；到0则主体alpha0/Sync(0,0,0,0)，无3D时主体清8000/Sync移除8000，之后主体flags|2但原最后Sync确实addMask8000、remove0，最终439340。保原这个实际mask而不主观改成2；两个case共一原入口/普通入向，S8 delta与字段字节保。 七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:000121D0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json"
+      ],
+      "boundary": "174：固定payload后current index→position3的steps→position的palette，450B70对应现有SelectPalette(palette,steps)弃返→439470弃返→439340。字节资源调色板/上层SDL替换沿既有边界，只当前消费者完整源纳管，依赖不重验。 七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00012210",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json"
+      ],
+      "boundary": "175：1060空才读fresh current.position4并421570(image,2,0)，结果写同一非拥有槽；之后fresh取1060并phase=0→439340。原没有创建失败额外守卫，现有正常路径保，不新增保护。 七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00012260",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json"
+      ],
+      "boundary": "176：一次借1060指针，非空时该effect.phase=2→1060清空；随后无论空否439340。保原条件清槽/借用寿命，不加MarkDeath或清除其它槽。 七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00020F10",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json"
+      ],
+      "boundary": "420F10同步依赖：按1054/1058/105C/1064/1068/106C/1074/1078/107C九非拥有槽顺序；空槽跳过，alpha S32非负才低W8绝对发布，随后每槽fresh指针读W8 alpha加delta低W8→fresh flags清remove→fresh flags加add→fresh308=0→fresh alpha!=255时308=8→fresh flags清bit2→fresh alpha0时flags加2。保存原槽地址T**，每次操作后重读槽，多个槽同一对象也按原重复处理；原参数delta只BL消费，源S8承载正确。14普通入向/三个实际父，原无出向call；现各父不消费其原未定义寄存器返回，源码void保。只本组完整父与全部实际参数/弃返邻窗，不外推其他所有父生产/owner。 七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:000124E0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_evidence.json"
+      ],
+      "boundary": "204：先flagsFDC W32/60清则PlayFrame0，再主体flags清2→Sync(remove2)。fresh主体alpha+3未到255时发布/Sync增3→device查询/无3D主体8000和Sync(add8000)；到255先发布/Sync255，再查询无3D主体清8000和Sync(remove8000)。原41259A物理位置由两个批次共享，源五语句对应四原call点，不删除正确同步。之后fresh value1024==2才hidden/field2D8清0，fresh effect.flags10000000走目标22459，否则displayType>=0数显(value/X/Y-80,type,2,0)后fresh类型6/5/4/3更新readiness/barValue与原0/各最大值。type6/3临时构造0后先完整取mask W32/encoded W32/readCount W8再依序写，Destroy共享尾保持；上限CopyPayload保持。value1024 fresh自增后当==3同次FF0先加1/达60设4；当==4且主体alpha255时1024/FF0清0→439340。其余case/default、共享调用参数/真实条件与原S32业务限制保。 七完整原根736条2670B/13页、43实际call/69普通内部jump/九ret，六状态原根六唯一分派点/404DB0的15条连续邻窗加204三条邻窗，以及420F10的14普通入向/三个实际父13条参数-返回窗口、九槽完整读写序和204两临时复制，只当前完整正常源/真实依赖消费及接线静态。当前只204两载荷完整取样片段改，正常旧值一致、不称数值/并发或生成机器bug；额外同步的初判已由共享call汇合点撤回，正确原五源批次/四机器call点及全部mask不改。六其他本体、九槽每操作后fresh/重复对象处理/非拥有T**及原字段宽度/原业务限制保持；全父/其他状态生产/全部子依赖/alias-owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，原格式明文/音频暂停及RPLAN.24不专项异常/保护/模拟/故障等价保。"
     }
   ],
   "auxiliary_dispositions": [

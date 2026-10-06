@@ -29699,9 +29699,12 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
                 if (Less_401DB0(&action->readiness, 0)) {
                     platform::LegacyCryptInt temporary;
                     ConstructFromInt_401CC0(&temporary, 0);
-                    action->readiness.mask = temporary.mask;
-                    action->readiness.encoded = temporary.encoded;
-                    action->readiness.readCount = temporary.readCount;
+                    const std::uint32_t mask = temporary.mask;
+                    const std::uint32_t encoded = temporary.encoded;
+                    const std::uint8_t readCount = temporary.readCount;
+                    action->readiness.mask = mask;
+                    action->readiness.encoded = encoded;
+                    action->readiness.readCount = readCount;
                     Destroy_401CF0(&temporary);
                 }
                 break;
@@ -29722,9 +29725,12 @@ void UpdateBattleAction204_4124E0(YobiAction* const action)
                 if (IntGreaterCrypt_401F80(0, &action->barValue1B0)) {
                     platform::LegacyCryptInt temporary;
                     ConstructFromInt_401CC0(&temporary, 0);
-                    action->barValue1B0.mask = temporary.mask;
-                    action->barValue1B0.encoded = temporary.encoded;
-                    action->barValue1B0.readCount = temporary.readCount;
+                    const std::uint32_t mask = temporary.mask;
+                    const std::uint32_t encoded = temporary.encoded;
+                    const std::uint8_t readCount = temporary.readCount;
+                    action->barValue1B0.mask = mask;
+                    action->barValue1B0.encoded = encoded;
+                    action->barValue1B0.readCount = readCount;
                     Destroy_401CF0(&temporary);
                 }
                 break;

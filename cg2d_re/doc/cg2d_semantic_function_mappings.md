@@ -3058,3 +3058,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline)/[完整原根与前态](cg2d_battle_count_timer_flags_evidence.json)。新增1440/F:00011D30、1441/F:00011CB0、1442/F:00011FA0、1443/F:00011FC0、1444/F:00011FE0、1445/F:00012000，原已有定义明确语义/正常equivalent，冻结定位保。165只有两W8源片段改，原常数/浮点中间/缓存与fresh和五正确体保，166timer已有内联承接另具名源绑定。
 
 语义1446/有效1441、关联1559/3680（42.36%）、BATTLE123枚举open、分类571/E744；R7 259/3061/余2802、差队列172/待归属43及完整门禁保，未以本组消除其它原生产/生命周期缺口。
+
+## BPW01 七透明度/调色板/背景正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline)/[七原根与冻结前态](cg2d_battle_attachment_alpha_background_evidence.json)。新增1446/F:00012020、1447/F:000120F0、1448/F:000121D0、1449/F:00012210、1450/F:00012260、1451/F:00020F10、1452/F:000124E0；七原已有定义明确正常语义/equivalent，冻结定位保，172/173共一F。仅204两零载荷先齐读取样修复，正确共享同步调用/六其他体与九槽当前别名保持。
+
+语义1453/有效1448、关联1566/3680（42.55%）、BATTLE130枚举open、分类578/E746；R7 259/3061/余2802、差队列172/待归属43与完整门禁保，不以本组替代其它生产/递归生命周期。

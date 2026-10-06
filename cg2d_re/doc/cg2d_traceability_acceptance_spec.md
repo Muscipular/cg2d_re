@@ -1082,3 +1082,9 @@ R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open�
 [限定验收](cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance)/[六原根243条815B](cg2d_battle_count_timer_flags_evidence.json)。八页、19call/七入口、21普通内部jump/10ret与六唯一父18条邻窗、四F32原常数及两个实际W8点分列；计时内联正常数学/共享helper和308/309字节发布纳管。165两片段只读取宽度恢复，正常旧值相同，不外推实际x87/生成机器或故障；两局部I/S各十四独立实来源。
 
 语义1446/1441、关联1559/42.36%、BATTLE123枚举open、分类571/E744；R7 259/3061、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持，运行标准保。
+
+## BPW01 七正常状态/同步源局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance)/[完整736条2670B](cg2d_battle_attachment_alpha_background_evidence.json)。13页、43call/69内部jump/九ret、六真实分派点与同步14普通入向/三个实际父参数-弃返邻窗、九槽每操作后fresh/重复对象和两原临时完整取样可追。两源片段不改正确同步共享汇合、原字段与业务上下限，正常旧值一致；两局部I/S各十五独立来源，生成机器/环境及运行未验。
+
+语义1453/1448、关联1566/42.55%、BATTLE130枚举open、分类578/E746，R7 259/3061、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保，原标准继续。

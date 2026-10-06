@@ -91,3 +91,9 @@
 [完整合同](cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state)/[六原根243条815B](cg2d_battle_count_timer_flags_evidence.json)补165..170。165移动及达到门槛后的两旗位恢复真实低W8，初次W32缓存/中段fresh W32与未落位角度/速度比较保持；166原S32内联timer扣1000*seconds/负值业务归零由既有共享helper承接，不造新call/F/owner。167..170原308/309 W8发布和公共推进正确，另五本体保持。
 
 六完整正常语义纳管，BATTLE117→123枚举open、E744两局部I/S；全父/所有子依赖与其它生产/owner寿命、SDK/生成机器ABI和实际x87/时钟RNG/画面运行未验，完整战斗继续。
+
+## BPW01 附件透明度/背景状态与真实同步依赖（2026-10-07）
+
+[完整合同](cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state)/[七原根736条2670B](cg2d_battle_attachment_alpha_background_evidence.json)纳管171、172/173共体、174、175、176、420F10和204。九非拥有槽每次操作后fresh/重复对象处理及真实mask/alpha W8/状态推进保；204两原零临时载荷mask/encoded W32/readCount W8先齐读再发布，源码两片段恢复，正常旧值一致。
+
+204五源sync语句与四原call点是41259A共享汇合，额外调用初判已撤回，原主体/子槽同步均保持；14实际普通入向同属171/172共体/204三个真实父，172/173一原入口不重计。BATTLE123→130枚举open、E746两局部I/S，递归父/其它生产和依赖/owner寿命/SDK/运行及R8未完成。

@@ -4205,3 +4205,7 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 ## BNH01 技能117七处取样实修（2026-10-06）
 
 [具体SPEC](cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-decision)恢复单根七处同解析角色/比较先pub、角色字段及caster-target先flags pub/固定参数EffectList。[146条585B三页20call](cg2d_battle_m_skill117_sampling_evidence.json)含主体141条和真实429999 Move后缀五条；BMJ后缀五条20B非新增。保原0后W32 live flags/56或68后另live22331、73/74与取包/失败/Move增58无RID/额外55/终结效果，其它根头保持，不代完整父/所有消费者-owner运行。
+
+## BNI01 技能73非零模式六处实修（2026-10-06）
+
+[具体SPEC](cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-decision)恢复初level/同解析target、两类Effect具体参数取样、两S32索引和34后target先比较/分支同位置actor。[305条1051B四页31call](cg2d_battle_m_skill73_sampling_evidence.json)分列入口九、非零主体272、零模式接线上下文18及RID尾六条。原两字段先判空、flags pub后amount Take/live门禁、跨target数组和原动作/Move-RID-增58保持，不代73零模式完整消费者/全case或完整父与owner运行。

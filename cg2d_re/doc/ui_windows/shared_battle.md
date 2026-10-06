@@ -8367,3 +8367,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 ## BNH01 技能117结果与Move后缀（2026-10-06）
 
 [七处实修](../cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-decision)恢复角色字段和caster-target先flags pub固定参数，原0后live W32 flags/56或68后另live reactionImage22331、73/74保持。循环255/空Finish在主体先取caster参数，直入429999 Move后缀；无末终结EffectList。[146条主体/后缀](../cg2d_battle_m_skill117_sampling_evidence.json)不代完整共享战斗/所有owner或画面运行。
+
+## BNI01 技能73非零效果与位置取样（2026-10-06）
+
+[六处实修](../cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-decision)明确普通Effect为firstImage-flags-target-caster-actor，Aux为选中图-second-first-flags-target-caster-actor；原一次初始化/跨target图数组、两S32索引及34后比较位置有界纳管。1..4初动作、flags pub后第二Take/live门禁、cached W32位分支与Move-RID-增58保持；[305条原区段](../cg2d_battle_m_skill73_sampling_evidence.json)含零模式接线上下文，不代其完整消费者/完整共享战斗-owner或画面运行。

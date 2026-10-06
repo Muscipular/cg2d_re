@@ -660,3 +660,7 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 ## BNH01 技能117局部I/S（2026-10-06）
 
 [验收合同](cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-acceptance)限定单根七处落码和[146条原正文/真实Move后缀](cg2d_battle_m_skill117_sampling_evidence.json)。E445→449仅YOBI/BATTLE四局部I/S；六组过期selected_case字段删除不追加通过证据。七任务open、全部完整成员/门禁和其它指标分类保持。具体flags发布/两结果和真实后缀有界证明，不代完整父SEH/所有消费者-owner/SDK-ABI-PC53-时钟RNG画面运行或R1/R7/R8。
+
+## BNI01 技能73非零局部I/S（2026-10-06）
+
+[验收合同](cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-acceptance)限定非零单根六处落码和[305条原区段/分列上下文](cg2d_battle_m_skill73_sampling_evidence.json)。E449→453仅YOBI/BATTLE四局部I/S；七任务open、全部完整成员/门禁及其它指标分类保持。两Effect具体参数取样、两S32索引与原位置/flags门禁-动作及RID尾有界证明，不代73零模式完整消费者/全case/完整父SEH-所有owner/SDK-ABI-PC53-时钟RNG画面运行或R1/R7/R8。

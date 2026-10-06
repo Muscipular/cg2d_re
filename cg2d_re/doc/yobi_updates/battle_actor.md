@@ -251,3 +251,7 @@
 ## BNH01 技能117字段与flags原序（2026-10-06）
 
 [单根七处](../cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-decision)明确同解析caster/target与比较先pub、payload先skill/actor先level、Take固定W32-caster-target-flags pub-actor/固定参数及target两基础字段actor先值。原成功56/失败68后另live22331、73/74和Move后缀保持；[146条585B证据](../cg2d_battle_m_skill117_sampling_evidence.json)不代完整父/消费者-owner运行，其它正文/声明不改。
+
+## BNI01 技能73非零角色与效果原序（2026-10-06）
+
+[单根六处](../cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-decision)恢复初actor先level、同解析target比较先pub、两Effect原参数取样/两S32索引及target34后先位置比较，256/52沿同位置、51另live。初skill原先于caster/value位置pub、两字段先后续caster判空和原flags pub后amount Take/live门禁保持；[305条1051B证据](../cg2d_battle_m_skill73_sampling_evidence.json)不代73零模式完整消费者/全case/完整父和所有owner运行，其它根头/声明不改。

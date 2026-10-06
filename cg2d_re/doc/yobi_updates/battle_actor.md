@@ -239,3 +239,7 @@
 ## BNE01 技能109角色与三级flags选择（2026-10-06）
 
 [单根九处](../cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-decision)明确payload先skill/actor先level、同解析caster/target与比较先pub、Take flags后target先pub/actor先skill与独立level、比较后0/106或57沿同位置和最后EffectList另live flags-caster-target-actor。105后仅一次内存W32 flags沿EAX/AL作80000-200000-bit2选择、原22329/22331及各次live/55-Move无RID保持；[251条原证据](../cg2d_battle_m_skill109_sampling_evidence.json)不代完整父/消费者-owner运行，其它正文/声明保持。
+
+## BNF01 技能112字段与两位置原序（2026-10-06）
+
+[单根九处](../cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-decision)明确payload先skill/actor先level、同解析caster/target和比较先pub、target两字段actor先值；原flags先pub再读target不改。caster/target两个位置先current、256/52沿同位置而51另live，最后EffectList另读flags-caster-target-actor。0后一次W32/EAX-AH选择与25/55/161/75/109/110等原动作、初空/循环失败及Move尾保持；[226条872B证据](../cg2d_battle_m_skill112_sampling_evidence.json)不代完整父/消费者-owner运行，其它正文/声明保持。

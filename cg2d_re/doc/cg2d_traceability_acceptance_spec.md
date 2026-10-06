@@ -648,3 +648,7 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 ## BNE01 技能109局部I/S（2026-10-06）
 
 [验收合同](cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-acceptance)限定单根九处落码和[251条原正文/真实Move尾](cg2d_battle_m_skill109_sampling_evidence.json)。E433→437仅YOBI/BATTLE四局部I/S；七任务open、全部完整成员/门禁和其它指标分类保持。三级原固定W32flags与真实尾有界证明，不代完整父SEH/全部消费者-owner/SDK-ABI-PC53-时钟RNG画面运行或R1/R7/R8。
+
+## BNF01 技能112局部I/S（2026-10-06）
+
+[验收合同](cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-acceptance)限定单根九处落码和[226条原正文/真实Move尾](cg2d_battle_m_skill112_sampling_evidence.json)。E437→441仅YOBI/BATTLE四局部I/S；七任务open、全部完整成员/门禁及其它指标分类保持。原flags发布/一次W32-AH选择与两个位置切换有界证明，不代完整父SEH/全部消费者-owner/SDK-ABI-PC53-时钟RNG画面运行或R1/R7/R8。

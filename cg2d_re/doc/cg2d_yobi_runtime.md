@@ -4193,3 +4193,7 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 ## BNE01 技能109九处取样实修（2026-10-06）
 
 [具体SPEC](cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-decision)修复单根九处角色/字段、target先flags pub、比较后固定角色与EffectList live flags-caster-target-actor。[两范围251条977B五页31call](cg2d_battle_m_skill109_sampling_evidence.json)含真实Move后缀，BMM旧后缀五条20B非新增；原105后一次W32/EAX-AL三级flags选择、22329/22331和各次live、两种失败与主体55后Move增58无RID保持，全部其它根头不改，完整父/所有消费者-owner运行另验。
+
+## BNF01 技能112九处取样实修（2026-10-06）
+
+[具体SPEC](cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-decision)修复单根九处角色/字段、target比较先pub、两个位置先current并256/52沿固定位置-52后51另live及EffectList live flags-caster-target-actor。[226条872B四页29call](cg2d_battle_m_skill112_sampling_evidence.json)含真实42998C尾；BMJ旧尾八条33B非新增。原flags先pub/0后一次W32/EAX-AH位选择、全部动作-live字段与两种失败/末Move增58无RID-无额外55/74/末Effect保持，其它根头不改，完整父/所有消费者-owner运行另验。

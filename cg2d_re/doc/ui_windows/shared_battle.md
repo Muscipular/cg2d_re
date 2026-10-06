@@ -8355,3 +8355,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 ## BNE01 技能109状态与效果参数（2026-10-06）
 
 [九处实修](../cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-decision)恢复target先flags pub/actor先字段值、比较后固定0/106或57角色、最后EffectList另live参数；原一次W32 flags三级选择和三类状态动作保持。[251条主体/实际Move尾](../cg2d_battle_m_skill109_sampling_evidence.json)证明55在主体已调用后另live caster进Move，不重复55；旧812有界追加，不代完整共享战斗/所有owner或画面运行。
+
+## BNF01 技能112位置切换取样（2026-10-06）
+
+[九处实修](../cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-decision)恢复角色字段与target比较原序；两个89之后位置先current比较、256/52沿同位置，51在52后另live；EffectList最后另live参数。原flags先pub与一次W32/EAX-AH的80000/2000/4000/8000选择及各动作保持，[226条主体/真实尾](../cg2d_battle_m_skill112_sampling_evidence.json)不代完整共享战斗/所有owner或画面运行。

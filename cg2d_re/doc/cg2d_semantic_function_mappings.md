@@ -2513,3 +2513,7 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 ## BNE01 旧812技能109及Move后缀有界追加（2026-10-06）
 
 [验收合同](cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-acceptance)和[251条977B五页31call](cg2d_battle_m_skill109_sampling_evidence.json)含246条原主体/真实五条Move后缀及全部出口；BMM五条20B非新增，case109原202B仅定位上下文。单根九处实修，旧812只五引用/一symbol/本步对象，不新F/X/adapted/分类/完整成员；语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%与完整门禁保持。
+
+## BNF01 旧812技能112与Move尾有界追加（2026-10-06）
+
+[验收合同](cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-acceptance)和[226条872B四页29call](cg2d_battle_m_skill112_sampling_evidence.json)含218条主体与真实八条尾/全部出口，BMJ八条33B非新增、case112原202B仅定位上下文。单根九处实修，旧812只五引用/一symbol/本步对象；不新F/X/adapted/分类/完整成员，语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%与完整门禁保持。

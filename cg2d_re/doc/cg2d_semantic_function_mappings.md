@@ -2553,3 +2553,9 @@ E467→471只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 旧812/F:00027470按[源状态](cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-source-state)仅追加五引用、ProcessBattleMSkill402/405两symbol及本步对象。两根20处正常取样实修；[两范围342条1303B五页44call](cg2d_battle_m_skill402_405_sampling_evidence.json)实际字节/全部出口、20组原EA，180B/48B表具名复用，无尾复用或全路由结论。402第三Take后live caster-遍历比较先pub、405两图不同原序/五Effect和两S32索引恢复，原消费-转换/动作与初空-循环出口/真实尾/固定58值无RID保持。
 
 E471→475仅双域四局部I/S，语义1350/有效ID1345、片段5/分类456、关联1463/3680及完整成员门禁保持，不新F/X/adapted/分类。完整父17298/SEH、其它技能-全路由/全部consumer-owner/SDK-ABI-PC53-时钟RNG画面与运行另验。
+
+## BNO01 404/406共用主体有界映射（2026-10-06）
+
+旧812/F:00027470按[源状态](cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-source-state)只追加五引用、ProcessBattleMSkill404Family一symbol和本步对象。单根21组23定义23处（预读缓存三定义为一组），[主1286条4898B十七页147call](cg2d_battle_m_skill404_family_sampling_evidence.json)实际字节/全部出口，原404既有表及406三节点18B直跳/BMO业务零只上下文。预读/分支坐标-骑乘取样、普通Effect/Aux-四S32索引和比较/尾恢复-Y/X-两W8恢复，原全部消费/字段-动作与未指定局部、初空-循环真实Move-RID固定58=1保持。
+
+E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、关联1463/3680及所有完整成员/门禁保持，不新F/X/adapted/分类。完整父17298/SEH-全部consumer/owner与其它技能-全路由/SDK-ABI-PC53-时钟RNG画面及运行另验。

@@ -4233,3 +4233,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 依[具体SPEC](cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-decision)两根20处：402第三Take后才live caster，payload先skill/actor先level、低图位置先S32表、遍历EffectList固定position与共同递增比较先target pub；405同parsed caster/target、基础字段原序、初Effect固定位置/首图表先位置-次图位置先表、五目标Effect各次取样与两非地址索引S32。原所有取包/转换和字段-动作、402空槽直接递增/非空217后live target、405两数组逐项覆盖和默认索引0、初空/循环各出口-真实尾及402固定58=2/405固定58=1无RID保持，其它根头不改。
 
 [证据](cg2d_battle_m_skill402_405_sampling_evidence.json)两范围342条1303B五页44call连续实际字节/出口、20补丁及改前根；BNM既有180B路由/BMP48B偏移只具名上下文，不计新表或全路由通过。旧812五引用/两symbol/本步对象，E471→475仅双域四局部I/S；完整父17298/SEH-全部consumer/owner和其它技能-全路由/SDK-ABI-PC53-时钟RNG画面及运行另验。
+
+## BNO01 技能404/406共用主体（2026-10-06）
+
+依[具体SPEC](cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-decision)单根21组23定义23处恢复同parsed caster/target、预读caster比较缓存/首EffectList、两段各八分支坐标的一次S32索引-Y/X/不同caster时点及固定100C、初Effect位置先effectCount、rider字段和两轴取样、四S32索引/普通Effect-Aux和位置比较、最终恢复/尾坐标与两实际W8门禁。预读缓存三定义属一组；原首字段/两子角色-carrier生产/八CryptInt临时和四rider复制/所有取包-动作/初空与循环出口、未指定selfFlags/carrier flags08及真实Move-RID固定58=1保持，其它根头不改。
+
+[1286条4898B十七页147call](cg2d_battle_m_skill404_family_sampling_evidence.json)及全部直接出口、23补丁/改前根/旧812完整前态；404既有180B表、406三节点18B直跳和BMO八W32零写只上下文。旧812五引用/一symbol/本步对象，E475→479仅双域四局部I/S；完整父17298/SEH-全部consumer-owner/其它技能-全路由/SDK-ABI-PC53-时钟RNG画面与运行另验。

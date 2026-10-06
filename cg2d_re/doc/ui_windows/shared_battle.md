@@ -8395,3 +8395,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [裁决](../cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-decision)两根20处修复。402在第三Take后取live caster，沿side固定十槽端点；非空槽EffectList沿本次position、217后live target，空槽不调用/不重读，共同递增先比较后pub。405第一图表-caster-加110052，第二caster-表-加110044，高111001/111011保持；初Effect和五目标Effect分别固定/重读相应参数，两索引S32，不合并全循环位置或效果，不以初flags代五效果固定0。
 
 [342条1303B/44call证据](../cg2d_battle_m_skill402_405_sampling_evidence.json)保全部原取包/转换、各初空-循环出口与真实尾：402 Move固定58=2；405 caster Effect(-1)再Move固定58=1；均无RID，405255无额外Echo。原未初始化两项数组逐项覆盖/首正项默认0保持，不补值/保护；静态局部不代完整战斗接线/生命周期或运行。
+
+## BNO01 404/406预读、坐标与骑乘生产（2026-10-06）
+
+[裁决](../cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-decision)21组23处恢复预读每GetPos后caster缓存（255也读取）、退出沿该位置actor，两段八分支坐标按原一次索引/Y先X/caster不同读取时点-偏移/actor与固定100C写入。402/405的图号取样模板不外推；404/406各自点选择/偏移与尾406前五槽别名、404尾3/8/14/19保持。
+
+原两子角色/carrier和骑乘字段-八CryptInt临时四复制/名称/offset、普通second Effect/Aux与四S32索引-34后target先比较、最终caster/value恢复、self W8 bit40/完整W32 200000及second flagsFDC W8 bit2保持。原所有取包/动作、初空与循环255/空/真实Move-RID-固定58=1及未指定局部不补值。[完整正常主体1286条/147call证据](../cg2d_battle_m_skill404_family_sampling_evidence.json)只纳本根，404既有表/406直跳仅本组定位，不代完整战斗接线/所有owner生命周期或运行。

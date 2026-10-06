@@ -279,3 +279,9 @@
 [具体SPEC](../cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-decision)：402第三Take后live caster；405同GetPos返回caster/target，各payload先skill/actor先level，402低图位置先S32表，405首图表先位置/次图位置先表，再加110052/110044、actor/payload，高图原常量。402EffectList固定position及共同递增比较先pub，405初Effect caster/记录同位置，五目标Effect按原图值/位置/actor不同顺序与两S32索引落实。
 
 [证据](../cg2d_battle_m_skill402_405_sampling_evidence.json)342条1303B五页44call、20补丁/改前根/旧812完整前态；BNM原路由及BMP图偏移仅上下文。全部原字段/取包-转换/动作、402各槽路径和405首正项或默认0与各失败/终结尾-固定58值无RID保持，不补数组值、不新增owner/保护/异常模型。native非拥有指针及非地址宽度保留，所有owner重进退出失效/SDK-ABI-PC53/画面和完整父/运行另验。
+
+## BNO01 404族角色字段与取样（2026-10-06）
+
+[具体SPEC](../cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-decision)单根23处：初同GetPos actor、预读比较缓存、两坐标各分支caster/点-偏移取样、初Effect位置先effectCount、rider先指针再field1D0值/两轴caster位置先rider及source、普通Effect/Aux和四S32索引-位置比较/恢复尾。原两子角色先后创建/四W16业务零置一、优先级W8-坐标/album、native carrier已证字段、八CryptInt正常临时-四rider复制和未写flags08保持；没有新增owner/默认/保护/异常模型。
+
+[1286条4898B十七页147call](../cg2d_battle_m_skill404_family_sampling_evidence.json)保存实际字节/出口和23补丁/改前根，406三节点18B与404既有路由/BMO业务初始化仅上下文。原self/普通取包-字段/动作与各出口/真实Move-RID固定58=1、末selfFlags W8 bit40（200000仍W32）及second flagsFDC W8 bit2恢复，selfFlags未指定不补值。既有rider X算术/Y复制保持，全部owner重进退出失效/SDK-ABI-PC53画面与完整父/运行另验。

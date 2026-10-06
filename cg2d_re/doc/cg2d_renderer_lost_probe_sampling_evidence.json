@@ -1,0 +1,571 @@
+{
+  "schema_version": 1,
+  "spec_id": "BOX01",
+  "recorded_on": "2026-10-06",
+  "spec_reference": "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
+  "implementation_tag": "cg2d-re-renderer-lost-probe-sampling-20261006",
+  "method": "read_only_ida_and_targeted_text_static",
+  "source_functions": [
+    {
+      "entry": "0x4536D0",
+      "id": "F:000536D0",
+      "symbol": "IsLost_4536D0",
+      "path": "src/render/SdlPresenter.cpp",
+      "marker": "int IsLost_4536D0()",
+      "end": "0x45375C",
+      "semantic_index": 1410,
+      "feature_ids": [
+        "FUNC-RENDER"
+      ],
+      "source_body_changed": true,
+      "patches": 1,
+      "instructions": 57,
+      "bytes": 140,
+      "pages": 1,
+      "calls": 4,
+      "branches": 10,
+      "rets": 1,
+      "incoming": 1,
+      "parents": 1,
+      "contract": "原节点actualcount S32入口样本先于lost=0，非正仍走全部Temp/Back/front尾。正数以固定实际node起址遍历，单次surface样本/仅非空才探测，非零状态置lost=1仍继续其余节点；每项后fresh S32 count先取，后++index/++native node，同样本判尾。结束后Temp/Back/front各按原时点取对象/非空探测，末front非零返回1，否则返回累积lost；现行SDL/CPU已批准存活/呈现器映射及尾正文保，不恢复DX HRESULT/COM/vtable机制，不把CPU锁定当lost，不新增AutoMap探测或早停。只一正文循环阶段实修，S32计数/0或1累积及native非拥有地址、唯一节点/面owner保持；不写count、节点surface/image/next/reuse/尺寸/未知尾，不释放或重建。完整原57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘，操作数60不当绝对callee；所有父/callee/正常别名/SDL模式/重建-逐面owner/机器ABI-像素运行未验，异常不专项处理或称故障等价。"
+    }
+  ],
+  "original_regions": [
+    {
+      "start": "0x4536d0",
+      "end_exclusive": "0x45375c",
+      "parent_entry": "0x4536d0",
+      "instruction_count": 57,
+      "code_bytes": 140,
+      "page_count": 1,
+      "outgoing_calls": [
+        {
+          "ea": "0x4536ee",
+          "target": "0x60"
+        },
+        {
+          "ea": "0x453714",
+          "target": "0x60"
+        },
+        {
+          "ea": "0x45372f",
+          "target": "0x60"
+        },
+        {
+          "ea": "0x45374b",
+          "target": "0x60"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x4536dd",
+          "target": "0x453708"
+        },
+        {
+          "ea": "0x4536e9",
+          "target": "0x4536fa"
+        },
+        {
+          "ea": "0x4536f3",
+          "target": "0x4536fa"
+        },
+        {
+          "ea": "0x453705",
+          "target": "0x4536e5"
+        },
+        {
+          "ea": "0x45370f",
+          "target": "0x453720"
+        },
+        {
+          "ea": "0x453719",
+          "target": "0x453720"
+        },
+        {
+          "ea": "0x45372a",
+          "target": "0x45373b"
+        },
+        {
+          "ea": "0x453734",
+          "target": "0x45373b"
+        },
+        {
+          "ea": "0x453746",
+          "target": "0x453757"
+        },
+        {
+          "ea": "0x453755",
+          "target": "0x453759"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x4536d0",
+          "end_exclusive": "0x45375c",
+          "instructions": [
+            {
+              "ea": "0x4536d0",
+              "size": 5,
+              "bytes": "a124cf0301",
+              "text": "mov     eax, cacheGraphicDxCount"
+            },
+            {
+              "ea": "0x4536d5",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x4536d6",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x4536d7",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x4536d9",
+              "size": 2,
+              "bytes": "33f6",
+              "text": "xor     esi, esi"
+            },
+            {
+              "ea": "0x4536db",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x4536dd",
+              "size": 2,
+              "bytes": "7e29",
+              "text": "jle     short loc_453708"
+            },
+            {
+              "ea": "0x4536df",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x4536e0",
+              "size": 5,
+              "bytes": "bf080f0201",
+              "text": "mov     edi, offset gTextureCacheBuff"
+            },
+            {
+              "ea": "0x4536e5",
+              "size": 2,
+              "bytes": "8b07",
+              "text": "mov     eax, [edi]"
+            },
+            {
+              "ea": "0x4536e7",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x4536e9",
+              "size": 2,
+              "bytes": "740f",
+              "text": "jz      short loc_4536FA"
+            },
+            {
+              "ea": "0x4536eb",
+              "size": 2,
+              "bytes": "8b08",
+              "text": "mov     ecx, [eax]"
+            },
+            {
+              "ea": "0x4536ed",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x4536ee",
+              "size": 3,
+              "bytes": "ff5160",
+              "text": "call    dword ptr [ecx+60h]"
+            },
+            {
+              "ea": "0x4536f1",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x4536f3",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_4536FA"
+            },
+            {
+              "ea": "0x4536f5",
+              "size": 5,
+              "bytes": "bb01000000",
+              "text": "mov     ebx, 1"
+            },
+            {
+              "ea": "0x4536fa",
+              "size": 5,
+              "bytes": "a124cf0301",
+              "text": "mov     eax, cacheGraphicDxCount"
+            },
+            {
+              "ea": "0x4536ff",
+              "size": 1,
+              "bytes": "46",
+              "text": "inc     esi"
+            },
+            {
+              "ea": "0x453700",
+              "size": 3,
+              "bytes": "83c71c",
+              "text": "add     edi, 1Ch"
+            },
+            {
+              "ea": "0x453703",
+              "size": 2,
+              "bytes": "3bf0",
+              "text": "cmp     esi, eax"
+            },
+            {
+              "ea": "0x453705",
+              "size": 2,
+              "bytes": "7cde",
+              "text": "jl      short loc_4536E5"
+            },
+            {
+              "ea": "0x453707",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x453708",
+              "size": 5,
+              "bytes": "a114cf0301",
+              "text": "mov     eax, gTempSurface"
+            },
+            {
+              "ea": "0x45370d",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x45370f",
+              "size": 2,
+              "bytes": "740f",
+              "text": "jz      short loc_453720"
+            },
+            {
+              "ea": "0x453711",
+              "size": 2,
+              "bytes": "8b10",
+              "text": "mov     edx, [eax]"
+            },
+            {
+              "ea": "0x453713",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x453714",
+              "size": 3,
+              "bytes": "ff5260",
+              "text": "call    dword ptr [edx+60h]"
+            },
+            {
+              "ea": "0x453717",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x453719",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_453720"
+            },
+            {
+              "ea": "0x45371b",
+              "size": 5,
+              "bytes": "bb01000000",
+              "text": "mov     ebx, 1"
+            },
+            {
+              "ea": "0x453720",
+              "size": 5,
+              "bytes": "a160736200",
+              "text": "mov     eax, gCRenderer"
+            },
+            {
+              "ea": "0x453725",
+              "size": 3,
+              "bytes": "8b400c",
+              "text": "mov     eax, [eax+0Ch]"
+            },
+            {
+              "ea": "0x453728",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x45372a",
+              "size": 2,
+              "bytes": "740f",
+              "text": "jz      short loc_45373B"
+            },
+            {
+              "ea": "0x45372c",
+              "size": 2,
+              "bytes": "8b08",
+              "text": "mov     ecx, [eax]"
+            },
+            {
+              "ea": "0x45372e",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x45372f",
+              "size": 3,
+              "bytes": "ff5160",
+              "text": "call    dword ptr [ecx+60h]"
+            },
+            {
+              "ea": "0x453732",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x453734",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_45373B"
+            },
+            {
+              "ea": "0x453736",
+              "size": 5,
+              "bytes": "bb01000000",
+              "text": "mov     ebx, 1"
+            },
+            {
+              "ea": "0x45373b",
+              "size": 6,
+              "bytes": "8b1560736200",
+              "text": "mov     edx, gCRenderer"
+            },
+            {
+              "ea": "0x453741",
+              "size": 3,
+              "bytes": "8b4208",
+              "text": "mov     eax, [edx+8]"
+            },
+            {
+              "ea": "0x453744",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x453746",
+              "size": 2,
+              "bytes": "740f",
+              "text": "jz      short loc_453757"
+            },
+            {
+              "ea": "0x453748",
+              "size": 2,
+              "bytes": "8b08",
+              "text": "mov     ecx, [eax]"
+            },
+            {
+              "ea": "0x45374a",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x45374b",
+              "size": 3,
+              "bytes": "ff5160",
+              "text": "call    dword ptr [ecx+60h]"
+            },
+            {
+              "ea": "0x45374e",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x453750",
+              "size": 5,
+              "bytes": "b801000000",
+              "text": "mov     eax, 1"
+            },
+            {
+              "ea": "0x453755",
+              "size": 2,
+              "bytes": "7502",
+              "text": "jnz     short loc_453759"
+            },
+            {
+              "ea": "0x453757",
+              "size": 2,
+              "bytes": "8bc3",
+              "text": "mov     eax, ebx"
+            },
+            {
+              "ea": "0x453759",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x45375a",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x45375b",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "function_extents": [
+    {
+      "entry": "0x4536d0",
+      "end_exclusive": "0x45375c",
+      "chunks": [
+        {
+          "start": "0x4536d0",
+          "end_exclusive": "0x45375c"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "incoming": [
+      {
+        "entry": "0x4536d0",
+        "reference_count": 1,
+        "references": [
+          {
+            "ea": "0x466e2d",
+            "type": 17,
+            "parent": "0x466dc0"
+          }
+        ]
+      }
+    ]
+  },
+  "original_call_kind": "四vtable+0x60操作数，不是绝对callee",
+  "snapshot_functions_before": [
+    {
+      "id": "F:000536D0",
+      "original_entry": "0x4536D0",
+      "original_name": "Renderer::IsLost",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/render/SdlPresenter.cpp",
+          "symbol": "IsLost_4536D0",
+          "definition_line": 570,
+          "namespace": "cg::render"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "existing_semantic_records_before": [
+    {
+      "id": "F:000536D0",
+      "records": []
+    }
+  ],
+  "source_bodies_before": [
+    {
+      "path": "src/render/SdlPresenter.cpp",
+      "symbol": "IsLost_4536D0",
+      "body": "int IsLost_4536D0()\n{\n    int lost = 0;\n    for (std::int32_t index = 0; index < gTextureNodeCount; ++index) {\n        TextureSurface* const surface = gTextureNodes[static_cast<std::size_t>(index)].surface;\n        if (surface != nullptr) {\n            SDL_Surface* const native = GetTextureSdlSurface(surface);\n            if (native == nullptr || native->pixels == nullptr) {\n                lost = 1;\n            }\n        }\n    }\n    TextureSurface* const temp = BorrowCpuTempSurface();\n    if (temp != nullptr) {\n        SDL_Surface* const native = GetTextureSdlSurface(temp);\n        if (native == nullptr || native->pixels == nullptr) {\n            lost = 1;\n        }\n    }\n    SDL_Surface* const back = GetCpuBackSdlSurface();\n    if (back != nullptr && back->pixels == nullptr) {\n        lost = 1;\n    }\n    if (gRendererPresenter.IsLost()) {\n        return 1;\n    }\n    return lost;\n}"
+    }
+  ],
+  "preserved_tail": {
+    "path": "src/render/SdlPresenter.cpp",
+    "symbol": "IsLost_4536D0",
+    "body": "    TextureSurface* const temp = BorrowCpuTempSurface();\n    if (temp != nullptr) {\n        SDL_Surface* const native = GetTextureSdlSurface(temp);\n        if (native == nullptr || native->pixels == nullptr) {\n            lost = 1;\n        }\n    }\n    SDL_Surface* const back = GetCpuBackSdlSurface();\n    if (back != nullptr && back->pixels == nullptr) {\n        lost = 1;\n    }\n    if (gRendererPresenter.IsLost()) {\n        return 1;\n    }\n    return lost;\n}"
+  },
+  "source_patches": [
+    {
+      "scope": "body",
+      "path": "src/render/SdlPresenter.cpp",
+      "symbol": "IsLost_4536D0",
+      "before": "int IsLost_4536D0()\n{\n    int lost = 0;\n    for (std::int32_t index = 0; index < gTextureNodeCount; ++index) {\n        TextureSurface* const surface = gTextureNodes[static_cast<std::size_t>(index)].surface;\n        if (surface != nullptr) {\n            SDL_Surface* const native = GetTextureSdlSurface(surface);\n            if (native == nullptr || native->pixels == nullptr) {\n                lost = 1;\n            }\n        }\n    }\n    TextureSurface* const temp = BorrowCpuTempSurface();\n    if (temp != nullptr) {\n        SDL_Surface* const native = GetTextureSdlSurface(temp);\n        if (native == nullptr || native->pixels == nullptr) {\n            lost = 1;\n        }\n    }\n    SDL_Surface* const back = GetCpuBackSdlSurface();\n    if (back != nullptr && back->pixels == nullptr) {\n        lost = 1;\n    }\n    if (gRendererPresenter.IsLost()) {\n        return 1;\n    }\n    return lost;\n}",
+      "after": "int IsLost_4536D0()\n{\n    const std::int32_t initialCount = gTextureNodeCount;\n    int lost = 0;\n    if (initialCount > 0) {\n        std::int32_t index = 0;\n        TextureNode* node = gTextureNodes.data();\n        for (;;) {\n            TextureSurface* const surface = node->surface;\n            if (surface != nullptr) {\n                SDL_Surface* const native = GetTextureSdlSurface(surface);\n                if (native == nullptr || native->pixels == nullptr) {\n                    lost = 1;\n                }\n            }\n            const std::int32_t currentCount = gTextureNodeCount;\n            ++index;\n            ++node;\n            if (index >= currentCount) {\n                break;\n            }\n        }\n    }\n    TextureSurface* const temp = BorrowCpuTempSurface();\n    if (temp != nullptr) {\n        SDL_Surface* const native = GetTextureSdlSurface(temp);\n        if (native == nullptr || native->pixels == nullptr) {\n            lost = 1;\n        }\n    }\n    SDL_Surface* const back = GetCpuBackSdlSurface();\n    if (back != nullptr && back->pixels == nullptr) {\n        lost = 1;\n    }\n    if (gRendererPresenter.IsLost()) {\n        return 1;\n    }\n    return lost;\n}",
+      "purpose": "按原S32动态count先取样再推进index/native节点、同样本判尾；保逐surface样本与不因lost短路、CPU探测和完整Temp/Back/呈现器尾。"
+    }
+  ],
+  "full_runtime_verified": false,
+  "normal_previous_probe_result_wrong": false,
+  "implementation_static_scope": "正常节点循环原取样/推进、不短路及既有Temp-Back-呈现器尾保持；不代SDK/机器ABI、全部模式或失效重建生命周期运行",
+  "measurement_before": {
+    "semantic_records": 1410,
+    "semantic_inventory_ids": 1405,
+    "functions_with_document_links": 1523,
+    "document_link_percent": 41.39,
+    "reviewed_function_dispositions": 530,
+    "evidence_records": 667,
+    "render_members": 42,
+    "resource_members": 41,
+    "historical_direct_definitions": [
+      1
+    ],
+    "baseline_documents": [
+      0
+    ],
+    "tasks_closed": 10,
+    "accepted_leaf_features": 0,
+    "global_accepted": false
+  },
+  "measurement_after_expected": {
+    "semantic_records": 1411,
+    "semantic_inventory_ids": 1406,
+    "functions_with_document_links": 1524,
+    "document_link_percent": 41.41,
+    "reviewed_function_dispositions": 531,
+    "evidence_records": 669,
+    "render_members": 43,
+    "resource_members": 41,
+    "historical_direct_definitions": [
+      1
+    ],
+    "tasks_closed": 10,
+    "accepted_leaf_features": 0,
+    "global_accepted": false
+  }
+}

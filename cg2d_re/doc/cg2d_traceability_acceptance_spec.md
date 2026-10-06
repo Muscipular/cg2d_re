@@ -931,3 +931,12 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 两证据仅正常节点20条46B及包装调用序，不当两个功能、136条全根实现或完整生命周期通过。
 
 仅GraphicDxCache.cpp一个节点释放helper正文；根包装/主线程与32位SDL-DX7承接、Temp/AutoMap/设备/接口/调色板/Back/呈现器/renderer owner及其它源码保持。不清count、next/image/reuse/W16或未知尾、不扫原count<=0失败前缀，不新增拒绝/回滚/保护/异常策略。完整原取证不代整个Destroy实现验收；正常节点段/包装调用序局部static不代全部父-callee/正常别名/逐面owner-双树-C09/重建退出/SDK-机器ABI/像素运行。未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
+
+## BOX01 IsLost节点与CPU尾局部I/S（2026-10-06）
+
+[BOX01 SPEC](cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision)/[原证据](cg2d_renderer_lost_probe_sampling_evidence.json)。IsLost4536D0完整57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘；60是操作偏移不是callee地址。单IsLost正文恢复count入口先取、每项探测后count先取再推进index/native node并沿同样本判尾；lost置1后仍继续节点，Temp起完整CPU尾保持。不新增AutoMap探测，不把CPU锁定当lost；无介入正常结果一致，不称已有画面/失效结果错误。
+
+新机器1410对应已有真实失效根；语义1410→1411/有效ID1405→1406、关联1523→1524（41.39%→41.41%）、分类530→531、RENDER42→43枚举open；两条独立根内局部static I/S E667→669。冻结定位1/旧行号保，RESOURCE41/队列175/R7区间67/3061及其余门禁保持；八open含C09仅进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
+两条证据只一个原根的正常取样与CPU承接局部，不记两功能、全部模式或完整失效重建运行。
+
+只SdlPresenter.cpp一个IsLost正文的节点循环；既有Temp/Back/呈现器尾、Destroy、节点/面owner、头/实际父与工厂/LegacyTextureState采样分母S16保持（描述符W32不混同）。CPU存活映射沿批准合同，不恢复COM/HRESULT机制，不增负拒绝/容量保护、清槽、释放重建、早停或异常回绕模型。正常别名、唯一父-callee/失效重建-逐面owner/双树-C09/SDK-机器ABI/模式画面运行未验；未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。

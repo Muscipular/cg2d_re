@@ -568,13 +568,24 @@ void RendererDestroy_44C3C0() noexcept
 // 原4536D0：每项检查后继续，节点数量动态重读；CPU锁定不等于lost。
 int IsLost_4536D0()
 {
+    const std::int32_t initialCount = gTextureNodeCount;
     int lost = 0;
-    for (std::int32_t index = 0; index < gTextureNodeCount; ++index) {
-        TextureSurface* const surface = gTextureNodes[static_cast<std::size_t>(index)].surface;
-        if (surface != nullptr) {
-            SDL_Surface* const native = GetTextureSdlSurface(surface);
-            if (native == nullptr || native->pixels == nullptr) {
-                lost = 1;
+    if (initialCount > 0) {
+        std::int32_t index = 0;
+        TextureNode* node = gTextureNodes.data();
+        for (;;) {
+            TextureSurface* const surface = node->surface;
+            if (surface != nullptr) {
+                SDL_Surface* const native = GetTextureSdlSurface(surface);
+                if (native == nullptr || native->pixels == nullptr) {
+                    lost = 1;
+                }
+            }
+            const std::int32_t currentCount = gTextureNodeCount;
+            ++index;
+            ++node;
+            if (index >= currentCount) {
+                break;
             }
         }
     }

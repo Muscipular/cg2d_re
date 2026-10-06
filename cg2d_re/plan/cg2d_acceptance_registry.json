@@ -1515,7 +1515,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-baseline"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-baseline",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1559,7 +1560,8 @@
         "F:00121AA0",
         "F:0005F090",
         "F:00122180",
-        "F:0004C3C0"
+        "F:0004C3C0",
+        "F:000536D0"
       ],
       "closure_task_ids": [
         "C09",
@@ -1593,7 +1595,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1616,7 +1619,8 @@
         "BOT01两已有源码根新机器登记/完整206条650B四页、26调用点分根父1/18仅纳盘；记录目标/逐W32描述符与不同clip-batch/各图号門槛保，RENDER38枚举open；全部父/正常别名/排序绘制consumer-owner/画面及R1/R7/R8运行待",
         "BOU01两已有源码根新机器登记/完整58条217B两页、55调用点分根已知父1/8及1无所属函数点仅纳盘；地图目标/坐标取样与着色栈原发布，RENDER40枚举open；正常既有最终颜色值正确，全部父/正常别名/地图与绘制consumer-owner/画面及R1/R7/R8运行待",
         "BOV01旧249完整续记/原41条139B及195普通点115父仅纳盘，单helper撤额外索引拒绝/size_t、-2原前缀写保持；RENDER41枚举open。完整父/正常别名/描边case2填充-owner-像素与SDK/机器ABI、R1/R7/R8运行待",
-        "BOW01真正44C3C0新机器映射/完整136条412B及2点2父仅纳盘，44C408只是20条46B内部节点段；单释放叶恢复surface一次/count先取再推进。RENDER42枚举open，完整Destroy/父-callee/正常别名/逐面owner/双树-C09/重建退出-像素及SDK-机器ABI、R1/R7/R8运行待"
+        "BOW01真正44C3C0新机器映射/完整136条412B及2点2父仅纳盘，44C408只是20条46B内部节点段；单释放叶恢复surface一次/count先取再推进。RENDER42枚举open，完整Destroy/父-callee/正常别名/逐面owner/双树-C09/重建退出-像素及SDK-机器ABI、R1/R7/R8运行待",
+        "BOX01真实4536D0新机器映射/完整57条140B及唯一点父只纳盘；节点count先取再推进/native循环与不短路恢复、Temp-Back-呈现器尾保持。RENDER43枚举open，唯一父/正常别名/失效-重建-逐面owner/双树-C09-像素及SDK-机器ABI、R1/R7/R8运行待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1640,7 +1644,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ]
     },
     {
@@ -29460,6 +29465,70 @@
       "observation": "仅正常节点20条46B的surface/clear/count原阶段及包装调用序；完整根136条/2父只纳盘，18调用按4 IAT-4寄存器GlobalHandle-10 vtable+8类型保，不当绝对callee地址",
       "expected": "真正原根44C3C0，44C408只是内部20条46B节点释放段，不另造原函数。节点段入口S32 actualcount只<=0退出；正数固定起始node，每轮只读一次native surface，非空才同sourceOwner.Release(savedSurface)后清同槽，随后fresh S32 count先读、再++index及++native node，以同样本判是否继续。surface/节点仅已证地址拓宽，count/S32及其余字段保持；不清count、next/image/reuse/W16字段/未知尾、不释放被覆盖的旧面或失败前缀。已有32位SDL/CPU销毁包装正文及正常节点→Temp/AutoMap→设备/接口/调色板→Back/呈现器→renderer owner接线保，主线程边界与已获批DX7原生替换沿现行合同，不借局部恢复PALDATA16/COM等机制。只单节点helper实修、完整原136条412B/18call15内跳1ret及2普通调用点2父只纳盘；4 IAT/4 GlobalHandle寄存器/10 vtable+8调用按类型记，不将偏移当callee地址。所有父/callee/正常别名-owner/重建退出/SDK-机器ABI/像素及完整Destroy运行未验，原异常不专项模拟/保护/故障等价。",
       "actual": "仅节点局部static I/S，runtime=false；真根一机器身份/44C408不独立登记，保冻结定位与其余门禁；不代整个Destroy/父-callee/正常别名/逐面owner-双树-像素/SDK-机器ABI及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-LOST-PROBE-SAMPLING-000536D0-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOX01完整57条140B一页4 vtable+60调用10内跳1ret、唯一点父只纳盘；doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-renderer-lost-probe-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-acceptance",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_evidence.json",
+        "src/render/SdlPresenter.cpp#IsLost_4536D0",
+        "src/render/GraphicDxCacheState.hpp",
+        "src/render/GraphicDxCache.cpp#GetTextureSdlSurface",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单IsLost正文入口count先取、每轮探测后count先取再推进index/native node、同样本判尾；lost累积不短路/其余Temp-Back-呈现器尾与owner保",
+          "decision_ref": "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅一个IsLost正文/节点循环取样，不短路及全部既有CPU尾/头/owner保持；原节点actualcount S32入口样本先于lost=0，非正仍走全部Temp/Back/front尾。正数以固定实际node起址遍历，单次surface样本/仅非空才探测，非零状态置lost=1仍继续其余节点；每项后fresh S32 count先取，后++index/++native node，同样本判尾。结束后Temp/Back/front各按原时点取对象/非空探测，末front非零返回1，否则返回累积lost；现行SDL/CPU已批准存活/呈现器映射及尾正文保，不恢复DX HRESULT/COM/vtable机制，不把CPU锁定当lost，不新增AutoMap探测或早停。只一正文循环阶段实修，S32计数/0或1累积及native非拥有地址、唯一节点/面owner保持；不写count、节点surface/image/next/reuse/尺寸/未知尾，不释放或重建。完整原57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘，操作数60不当绝对callee；所有父/callee/正常别名/SDL模式/重建-逐面owner/机器ABI-像素运行未验，异常不专项处理或称故障等价。",
+      "expected": "原节点actualcount S32入口样本先于lost=0，非正仍走全部Temp/Back/front尾。正数以固定实际node起址遍历，单次surface样本/仅非空才探测，非零状态置lost=1仍继续其余节点；每项后fresh S32 count先取，后++index/++native node，同样本判尾。结束后Temp/Back/front各按原时点取对象/非空探测，末front非零返回1，否则返回累积lost；现行SDL/CPU已批准存活/呈现器映射及尾正文保，不恢复DX HRESULT/COM/vtable机制，不把CPU锁定当lost，不新增AutoMap探测或早停。只一正文循环阶段实修，S32计数/0或1累积及native非拥有地址、唯一节点/面owner保持；不写count、节点surface/image/next/reuse/尺寸/未知尾，不释放或重建。完整原57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘，操作数60不当绝对callee；所有父/callee/正常别名/SDL模式/重建-逐面owner/机器ABI-像素运行未验，异常不专项处理或称故障等价。",
+      "actual": "单失效原根局部static I/S、runtime=false；真根一机器身份/冻定位及当前CPU探测合同保，不增API/helper或原函数；不代唯一父/正常别名/失效重建-逐面owner-双树-像素/SDK-机器ABI及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-LOST-PROBE-SAMPLING-000536D0-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOX01完整57条140B一页4 vtable+60调用10内跳1ret、唯一点父只纳盘；doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-renderer-lost-probe-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-acceptance",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_evidence.json",
+        "src/render/SdlPresenter.cpp#IsLost_4536D0",
+        "src/render/GraphicDxCacheState.hpp",
+        "src/render/GraphicDxCache.cpp#GetTextureSdlSurface",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单IsLost正文入口count先取、每轮探测后count先取再推进index/native node、同样本判尾；lost累积不短路/其余Temp-Back-呈现器尾与owner保",
+          "decision_ref": "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整原57条140B/4 vtable+60调用10内跳1ret与唯一点父只纳盘，原入口/节点尾S32count先取再推进/累积lost继续遍历与CPU尾静态对照，不记逐HRESULT或绝对callee地址",
+      "expected": "原节点actualcount S32入口样本先于lost=0，非正仍走全部Temp/Back/front尾。正数以固定实际node起址遍历，单次surface样本/仅非空才探测，非零状态置lost=1仍继续其余节点；每项后fresh S32 count先取，后++index/++native node，同样本判尾。结束后Temp/Back/front各按原时点取对象/非空探测，末front非零返回1，否则返回累积lost；现行SDL/CPU已批准存活/呈现器映射及尾正文保，不恢复DX HRESULT/COM/vtable机制，不把CPU锁定当lost，不新增AutoMap探测或早停。只一正文循环阶段实修，S32计数/0或1累积及native非拥有地址、唯一节点/面owner保持；不写count、节点surface/image/next/reuse/尺寸/未知尾，不释放或重建。完整原57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘，操作数60不当绝对callee；所有父/callee/正常别名/SDL模式/重建-逐面owner/机器ABI-像素运行未验，异常不专项处理或称故障等价。",
+      "actual": "单失效原根局部static I/S、runtime=false；真根一机器身份/冻定位及当前CPU探测合同保，不增API/helper或原函数；不代唯一父/正常别名/失效重建-逐面owner-双树-像素/SDK-机器ABI及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
     }
   ],
   "task_acceptance": [
@@ -29555,7 +29624,8 @@
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ]
     },
     {
@@ -29715,7 +29785,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ]
     },
     {
@@ -30045,7 +30116,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ]
     },
     {
@@ -30262,7 +30334,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ]
     },
     {
@@ -30385,7 +30458,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ]
     },
     {
@@ -30479,7 +30553,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ]
     },
     {
@@ -30728,7 +30803,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ]
     },
     {
@@ -30818,7 +30894,8 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
-        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ]
     }
   ],
@@ -36429,6 +36506,17 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state"
       ],
       "boundary": "BOW01真正Destroy根按既有32位SDL/CPU具名承接，完整原只纳盘；仅内部20条节点取样/释放清槽与包装调用序局部static，整个根/全部父-callee-owner-像素及ABI运行未验：真正原根44C3C0，44C408只是内部20条46B节点释放段，不另造原函数。节点段入口S32 actualcount只<=0退出；正数固定起始node，每轮只读一次native surface，非空才同sourceOwner.Release(savedSurface)后清同槽，随后fresh S32 count先读、再++index及++native node，以同样本判是否继续。surface/节点仅已证地址拓宽，count/S32及其余字段保持；不清count、next/image/reuse/W16字段/未知尾、不释放被覆盖的旧面或失败前缀。已有32位SDL/CPU销毁包装正文及正常节点→Temp/AutoMap→设备/接口/调色板→Back/呈现器→renderer owner接线保，主线程边界与已获批DX7原生替换沿现行合同，不借局部恢复PALDATA16/COM等机制。只单节点helper实修、完整原136条412B/18call15内跳1ret及2普通调用点2父只纳盘；4 IAT/4 GlobalHandle寄存器/10 vtable+8调用按类型记，不将偏移当callee地址。所有父/callee/正常别名-owner/重建退出/SDK-机器ABI/像素及完整Destroy运行未验，原异常不专项模拟/保护/故障等价。"
+    },
+    {
+      "inventory_id": "F:000536D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
+      ],
+      "boundary": "BOX01真实IsLost按现行32位CPU存活/呈现器承接，原完整57条纳盘，节点count/不短路及native推进实修；正常别名/父-callee-owner/SDK与失效重建-像素及ABI运行未验：原节点actualcount S32入口样本先于lost=0，非正仍走全部Temp/Back/front尾。正数以固定实际node起址遍历，单次surface样本/仅非空才探测，非零状态置lost=1仍继续其余节点；每项后fresh S32 count先取，后++index/++native node，同样本判尾。结束后Temp/Back/front各按原时点取对象/非空探测，末front非零返回1，否则返回累积lost；现行SDL/CPU已批准存活/呈现器映射及尾正文保，不恢复DX HRESULT/COM/vtable机制，不把CPU锁定当lost，不新增AutoMap探测或早停。只一正文循环阶段实修，S32计数/0或1累积及native非拥有地址、唯一节点/面owner保持；不写count、节点surface/image/next/reuse/尺寸/未知尾，不释放或重建。完整原57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘，操作数60不当绝对callee；所有父/callee/正常别名/SDL模式/重建-逐面owner/机器ABI-像素运行未验，异常不专项处理或称故障等价。"
     }
   ],
   "auxiliary_dispositions": [

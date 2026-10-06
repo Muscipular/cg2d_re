@@ -1982,3 +1982,11 @@ Primary三格式点留替换证据，不称其原故障或像素实现重新验�
 原IsLost→CPU Back存活映射沿本页已批准合同保留，Back失效早返不执行所有尾操作；
 COM偏移只记间接操作。14逻辑点由13源码调用承接，两fade父loop共公共帧尾，
 FadeIn还有最终直接调用。上述是源码/指定接线静态，完整父/callee/模式/资源借用清理及画面运行未验。
+
+## BOX01 原节点失效探测与CPU尾承接（2026-10-06）
+
+[BOX01 SPEC](cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision)/[原证据](cg2d_renderer_lost_probe_sampling_evidence.json)。IsLost4536D0完整57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘；60是操作偏移不是callee地址。单IsLost正文恢复count入口先取、每项探测后count先取再推进index/native node并沿同样本判尾；lost置1后仍继续节点，Temp起完整CPU尾保持。不新增AutoMap探测，不把CPU锁定当lost；无介入正常结果一致，不称已有画面/失效结果错误。
+
+新机器1410对应已有真实失效根；语义1410→1411/有效ID1405→1406、关联1523→1524（41.39%→41.41%）、分类530→531、RENDER42→43枚举open；两条独立根内局部static I/S E667→669。冻结定位1/旧行号保，RESOURCE41/队列175/R7区间67/3061及其余门禁保持；八open含C09仅进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
+
+只SdlPresenter.cpp一个IsLost正文的节点循环；既有Temp/Back/呈现器尾、Destroy、节点/面owner、头/实际父与工厂/LegacyTextureState采样分母S16保持（描述符W32不混同）。CPU存活映射沿批准合同，不恢复COM/HRESULT机制，不增负拒绝/容量保护、清槽、释放重建、早停或异常回绕模型。正常别名、唯一父-callee/失效重建-逐面owner/双树-C09/SDK-机器ABI/模式画面运行未验；未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。

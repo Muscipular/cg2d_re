@@ -2521,3 +2521,13 @@ BOV01本步实测：源码单helper补丁/完整原根及195普通点/旧249两�
 - **后续开发**：仅GraphicDxCache.cpp一个节点释放helper正文；根包装/主线程与32位SDL-DX7承接、Temp/AutoMap/设备/接口/调色板/Back/呈现器/renderer owner及其它源码保持。不清count、next/image/reuse/W16或未知尾、不扫原count<=0失败前缀，不新增拒绝/回滚/保护/异常策略。完整原取证不代整个Destroy实现验收；正常节点段/包装调用序局部static不代全部父-callee/正常别名/逐面owner-双树-C09/重建退出/SDK-机器ABI/像素运行。未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
 
 BOW01本步实测：源码单节点helper补丁/完整真根及两原点两父/两权威JSON完整增量/对应合同四项定向静态通过；measure/-Check均返回0。派生完整对象仅真根新1409、RENDER42、语义1410/1405/关联1523(41.39%)/分类530与八open含C09进展变化；E667，冻定位1/RESOURCE41/队列175和其余门禁保持。完整136条412B/两页18call15内跳1ret只纳盘，实际实现静态限节点20条46B与包装调用序；44C408不是独立函数，4 IAT/4寄存器GlobalHandle/10 vtable+8操作数不当绝对callee地址。13文件严格UTF8无BOM/LF及必要差异通过；未构建/测试/运行/hash，整个Destroy/双树-C09/父-callee-owner与整体SPEC运行验收未闭，目标继续。
+
+## BOX01 IsLost节点原取样与实际失效探测收尾（2026-10-06）
+
+- **开发/当步解决**：先落[具体SPEC](../doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision)，单IsLost正文恢复入口/count先取再推进及native node；累积lost不短路，原Temp/Back/呈现器CPU尾逐字保，不新增AutoMap或释放/重建。无介入正常结果一致，不称已有失效结果/像素错误。
+- **原证据/身份**：[完整证据](../doc/cg2d_renderer_lost_probe_sampling_evidence.json)保57条140B一页4 vtable+60调用10内跳1ret/唯一466E2D及父466DC0只纳盘、旧正文与保持尾；操作数60不当callee地址。新机器1410对应真实原根，冻定位1不刷新。
+- **当步问题修正**：台账嵌套取样信息曾残留上一项计数，已从已知完整增量核对后改为本根57条140B/一正文、CPU尾保留；源码/原证据和登记簿保持，修正后完整台账与范围静态核对。
+- **计量/门禁**：新机器1410对应已有真实失效根；语义1410→1411/有效ID1405→1406、关联1523→1524（41.39%→41.41%）、分类530→531、RENDER42→43枚举open；两条独立根内局部static I/S E667→669。冻结定位1/旧行号保，RESOURCE41/队列175/R7区间67/3061及其余门禁保持；八open含C09仅进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。 命名快照 `cg2d-re-renderer-lost-probe-sampling-20261006`；14文件精确提交，用户既有六项排除。
+- **后续开发**：只SdlPresenter.cpp一个IsLost正文的节点循环；既有Temp/Back/呈现器尾、Destroy、节点/面owner、头/实际父与工厂/LegacyTextureState采样分母S16保持（描述符W32不混同）。CPU存活映射沿批准合同，不恢复COM/HRESULT机制，不增负拒绝/容量保护、清槽、释放重建、早停或异常回绕模型。正常别名、唯一父-callee/失效重建-逐面owner/双树-C09/SDK-机器ABI/模式画面运行未验；未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
+
+BOX01本步实测：源码单IsLost正文/完整57条原根及唯一点父/修正后两权威JSON完整增量/对应合同四项定向静态通过；measure/-Check均返回0。曾残留的嵌套上一项元数据已当步修正，核为57条140B/一页4虚调用10内跳/一正文、全部既有CPU尾保持；源与原证据未受影响。派生完整对象仅新1410、RENDER43、语义1411/1406/关联1524(41.41%)/分类531与八open含C09进展变化；E669，冻定位1/RESOURCE41/队列175及其余门禁保持。四vtable+60操作数不是绝对callee，原callers仅纳盘；完整失效重建/逐面owner-双树-C09/SDK-机器ABI与模式画面运行未验。14文件严格UTF8无BOM/LF及必要差异通过；未构建/测试/运行/hash，整体SPEC目标继续。

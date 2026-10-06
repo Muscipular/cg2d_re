@@ -1068,3 +1068,7 @@ Yobi 生命周期须共同确定 x64 owner 后，
 [本组子SPEC](cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state)明确七个既定暂停根及16依赖，共23个已知原ID。固定MThd/COM音乐链9项和WAV/PCM/通知链7项各自保留，二进制容量不由源字符串元数据推导；556BF8/556744仅各取原16B头作固定源依据，完整音乐资源/返回/COM接口尚未重验。
 
 本步只关联FUNC-AUDIO范围和任务，不实现/恢复音频、增加软件验收或最终R1处置。16项队列由未归属归入既定paused，原队列/身份继续保留，非音频父和未列UI/通用callee不随之暂停。SDL WAV/预填/通知现有能力不能代固定音乐链、完整运行或音频验收。
+
+## BOY01 音量控制入口的既定暂停归属（2026-10-06）
+
+[BOY01](cg2d_audio_control_paused_scope_spec.md#audio-control-paused-decision)补九个旧7/旧8专属控制入口至AUDIO32；两音乐回调原先写共享音量再调用52C3D0应用，音效两回调没有该应用调用，立体声写完整W32后PlaySe，具体参数与字段见[原证据](cg2d_audio_control_paused_scope_evidence.json)。只修暂停范围，不恢复播放/控制实现或软件验收；旧音乐与WAV链仍分别推进，已有SDL WAV不能代全音频。

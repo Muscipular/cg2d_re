@@ -940,3 +940,7 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 两条证据只一个原根的正常取样与CPU承接局部，不记两功能、全部模式或完整失效重建运行。
 
 只SdlPresenter.cpp一个IsLost正文的节点循环；既有Temp/Back/呈现器尾、Destroy、节点/面owner、头/实际父与工厂/LegacyTextureState采样分母S16保持（描述符W32不混同）。CPU存活映射沿批准合同，不恢复COM/HRESULT机制，不增负拒绝/容量保护、清槽、释放重建、早停或异常回绕模型。正常别名、唯一父-callee/失效重建-逐面owner/双树-C09/SDK-机器ABI/模式画面运行未验；未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
+
+## BOY01 音频控制原身份范围纠错（2026-10-06）
+
+[BOY01 SPEC](cg2d_audio_control_paused_scope_spec.md#audio-control-paused-acceptance)/[原证据](cg2d_audio_control_paused_scope_evidence.json)。九根完整305条1481B/11页，仅纠正旧7/旧8专属入口的既定暂停归属；7地址/2尾跳不是普通call入向，共享返回回调不纳入暂停。AUDIO23→32仍paused、成员枚举未闭；九队列项仅范围转paused，队列175/未定位174保持，需核55→46、暂停16→25。语义1411/有效ID1406、pending18、分类531、软件E669、文档关联1524（41.41%）、60源码closed10/完整验收0及全部完整门禁保持。 不新增pending消队列、不修改汇总器，不把具名成员数量当音频完成分母；11项相关任务只进展/引用，保持open，R1/R7/R8与整体SPEC仍未闭。

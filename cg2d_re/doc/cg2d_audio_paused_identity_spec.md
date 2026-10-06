@@ -21,7 +21,7 @@ FUNC-AUDIO已明确paused，却没有逐原ID成员；缺口队列把本组16个
 
 依工程委托，在既有FUNC-AUDIO将七根与十六依赖显式关联，共23个已知原成员，scope保持paused、成员枚举仍未闭。十六队列项派生为paused，仍保留身份/队列；不将它们登记为equivalent/adapted/host/excluded或已实现，不删除未知项、不新增暂停处置类型、不修改汇总器。
 
-本组非音频调用父、通用CRT/API、其他数据和旧选择表职责不跟随暂停。4FD9F0/4FDA00等音量UI包装/回调及其他未列依赖保留原状态，不能仅因callee音频或地址相邻扩张暂停/排除。现有C++、SDL后端、网络/退出接线、七pending状态和原业务参数保持。
+本组非音频调用父、通用CRT/API、其他数据和旧选择表职责不跟随暂停。APS01阶段未核4FD9F0/4FDA00等UI子入口，随后由[BOY01](cg2d_audio_control_paused_scope_spec.md#audio-control-paused-decision)逐根原指令/专属绑定/共享字段引用核定九项为旧7/旧8音频子入口并补既定暂停归属；其它未列依赖仍不能仅因callee音频或地址相邻扩张暂停/排除。现有C++、SDL后端、网络/退出接线、七pending状态和原业务参数保持。
 
 <a id="audio-paused-identity-acceptance"></a>
 ## 本步验收与恢复后的开发
@@ -38,3 +38,9 @@ FUNC-AUDIO已明确paused，却没有逐原ID成员；缺口队列把本组16个
 FUNC-AUDIO关联23个原ID，scope/完整门禁和member_inventory_closed=false保持；看板23/8左侧为明确归属成员、右侧为同合同文档引用候选，两者是独立关联计数，不是完成/总分母；原处置342/3680、语义1252/有效ID1248、软件E185及全部原分母不变。队列总179/定位178/身份未绑定0保留，16项从需范围/映射核定归入明确暂停，需核75→59、暂停0→16；这些数只指本队列，不是音频整体分母/完成率。
 
 P11–P17/V05补当前open依据，派生原状态本来open；R01/R04继续open。没有新代码/软件验收、范围排除或完成声明。固定命名快照：`cg2d-re-audio-paused-identity-20261005`。
+
+## BOY01 旧7/旧8控制子入口归属纠错（2026-10-06）
+
+[BOY01具体SPEC](cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state)/[完整原证据](cg2d_audio_control_paused_scope_evidence.json)追加九个具名原成员至FUNC-AUDIO共32。旧7初始化包装/绑定及音乐音量两回调、旧8初始化包装/绑定及音效音量/立体声三回调以实际原引用关联；共305条1481B/11页、7地址引用与2尾跳，没有普通call入向。共享4FE3E0及通用GUI/CRT保持。
+
+AUDIO23→32仍paused、成员枚举未闭；九队列项仅范围转paused，队列175/未定位174保持，需核55→46、暂停16→25。语义1411/有效ID1406、pending18、分类531、软件E669、文档关联1524（41.41%）、60源码closed10/完整验收0及全部完整门禁保持。 原APS01的23成员及队列179为当时记录，本次明确仅修归属，不恢复音频、不新增源码/semantic/pending、最终处置或软件验收，不排除音频。恢复后沿旧7/旧8和固定MThd/WAV实际链完成开发与原门禁。

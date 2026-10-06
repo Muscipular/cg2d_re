@@ -2500,7 +2500,8 @@
       "baseline_documents": [
         "doc/cg2d_audio_update.md",
         "doc/cg2d_display_settings.md",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-baseline"
       ],
       "original_inventory_ids": [
         "F:00054C30",
@@ -2525,7 +2526,16 @@
         "F:0012BBE0",
         "F:0012BD40",
         "F:0012BE60",
-        "F:0012C160"
+        "F:0012C160",
+        "F:000FD9F0",
+        "F:000FDA00",
+        "F:000FDD70",
+        "F:000FDDC0",
+        "F:000FDE10",
+        "F:000FDE20",
+        "F:000FE320",
+        "F:000FE370",
+        "F:000FE3B0"
       ],
       "closure_task_ids": [
         "P11",
@@ -2541,16 +2551,18 @@
       "acceptance_focus": "设备/资源、音量/循环/通知及退出；当前暂停",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-decision"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-decision",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-decision"
       ],
       "blockers": [
         "用户暂停音频；基线成员和门禁证据待归档",
-        "APS01七既定暂停根及16固定MThd/COM、WAV/PCM/线程依赖已作范围关联；23成员不代源码或最终逐ID处置，原音频暂停持续。完整固定音乐与WAV两链/返回/参数/owner/失败/通知/音量/退出、未知alias、真实SDK/资源/运行及其他成员未闭，不用现有SDL WAV代全音频"
+        "APS01七既定暂停根与16音乐/WAV依赖、BOY01九个旧7/旧8专属初始化/音量-立体声子入口共32原成员，仅范围关联不代源码或最终逐ID处置。音频仍paused且成员枚举未闭；固定MThd/WAV两链、完整旧7/旧8及资源/后端/音量/通知/退出与运行待，不用已有SDL WAV代全音频"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30117,7 +30129,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30335,7 +30348,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30631,7 +30645,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30640,7 +30655,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30649,7 +30665,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30658,7 +30675,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30667,7 +30685,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30676,7 +30695,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30685,7 +30705,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30694,7 +30715,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-baseline",
-        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state"
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     },
     {
@@ -30895,7 +30917,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
       ]
     }
   ],

@@ -2025,7 +2025,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-baseline",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-baseline",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2084,7 +2085,12 @@
         "F:000242B0",
         "F:0003BC10",
         "F:00019FC0",
-        "F:0001E680"
+        "F:0001E680",
+        "F:00019FA0",
+        "F:0001E640",
+        "F:0001E720",
+        "F:0001E7C0",
+        "F:0001A0D0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2155,7 +2161,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-decision",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2215,7 +2222,8 @@
         "BNS01 effectCount/图号、累计-普通和反馈Effect/Aux各固定-live时点、字段/copy和真实Move-RID固定1实修；576条/25定义27处不代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
         "BNT01独立426FC0完整369条/十参-四输出和3101真实consumer、四处取样实修/原两表-门禁及两返回有界纳管，战斗成员新增原ID不代表枚举闭合；完整父/其它consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面和R1-R7-R8仍待",
         "BNU01两独立三方转向/辅助效果229条693B与既有正确源合同、五转向/37辅助入向分列并补身份，战斗成员55不代表枚举闭合；完整父/全部consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面与R1/R7/R8仍待",
-        "BNV01两个特效创建函数125条412B/三处flags与坐标取样实修及独立身份纳管，战斗成员57仍未全枚举；全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验"
+        "BNV01两个特效创建函数125条412B/三处flags与坐标取样实修及独立身份纳管，战斗成员57仍未全枚举；全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
+        "BNW01两callback/三创建168条576B，位置callback Y取样先X发布已修/五身份纳管；战斗成员62仍未全枚举，全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2275,7 +2283,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
       ]
     },
     {
@@ -24304,6 +24313,296 @@
       "observation": "原完整根41条146B/全字节与出口/ret，入向13处/9父身份单列；不据入向数宣父完成",
       "expected": "设备返回后flags一次取样，两次W32发布沿原寄存器值；parent offsetX→offsetY写入后X取样→image/direction→X截断→Y取样→X发布→Y截断发布→W16零，原分配空返回保",
       "actual": "仅两个创建函数实修/完整原根局部I/S；成员57不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-00019FA0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整13条32B/1页2call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleOneShotEffect_419FA0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整源仅位置callback一补丁/整CPP精确重放；原合同：PlayFrame(action,1)严格等于1才MarkDeath；其它结果不标死、无新早退或额外动作，void callback接口保持",
+      "expected": "PlayFrame(action,1)严格等于1才MarkDeath；其它结果不标死、无新早退或额外动作，void callback接口保持",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-00019FA0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整13条32B/1页2call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleOneShotEffect_419FA0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根13条32B/全字节与出口/ret，入向3处/3父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "PlayFrame(action,1)严格等于1才MarkDeath；其它结果不标死、无新早退或额外动作，void callback接口保持",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-0001E640-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整19条54B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattlePositionEffect_41E640",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整源仅位置callback一补丁/整CPP精确重放；原合同：PlayFrame(action,1)严格为1才标死，两路径之后仍X截断→Y取样→X发布→Y截断发布，不把标死改立即free/早退",
+      "expected": "PlayFrame(action,1)严格为1才标死，两路径之后仍X截断→Y取样→X发布→Y截断发布，不把标死改立即free/早退",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-0001E640-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整19条54B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattlePositionEffect_41E640",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根19条54B/全字节与出口/ret，入向3处/3父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "PlayFrame(action,1)严格为1才标死，两路径之后仍X截断→Y取样→X发布→Y截断发布，不把标死改立即free/早退",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-0001E720-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整43条160B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleCoordinateEffect_41E720",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整源仅位置callback一补丁/整CPP精确重放；原合同：New(2,0)空返回；位置callback/CC/100，设备后一次flags两发布OR60000，两W8值4、offsetY→offsetX→image→direction0→传入X/Y截断发布→W16零，无父引用/提前Play",
+      "expected": "New(2,0)空返回；位置callback/CC/100，设备后一次flags两发布OR60000，两W8值4、offsetY→offsetX→image→direction0→传入X/Y截断发布→W16零，无父引用/提前Play",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-0001E720-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整43条160B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleCoordinateEffect_41E720",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根43条160B/全字节与出口/ret，入向2处/2父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "New(2,0)空返回；位置callback/CC/100，设备后一次flags两发布OR60000，两W8值4、offsetY→offsetX→image→direction0→传入X/Y截断发布→W16零，无父引用/提前Play",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-0001E7C0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整55条194B/1页5call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleTrailEffect_41E7C0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整源仅位置callback一补丁/整CPP精确重放；原合同：New(2,0)空返回；位置callback/低W8 priority/200，设备真仅100000，假RNG(0,1)后才取flags选10000/8000；mode仅等于1加20000，另live flags加40000/offsetX→Y→image/direction0→传入坐标截断/W16零",
+      "expected": "New(2,0)空返回；位置callback/低W8 priority/200，设备真仅100000，假RNG(0,1)后才取flags选10000/8000；mode仅等于1加20000，另live flags加40000/offsetX→Y→image/direction0→传入坐标截断/W16零",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-0001E7C0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整55条194B/1页5call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleTrailEffect_41E7C0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根55条194B/全字节与出口/ret，入向7处/3父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "New(2,0)空返回；位置callback/低W8 priority/200，设备真仅100000，假RNG(0,1)后才取flags选10000/8000；mode仅等于1加20000，另live flags加40000/offsetX→Y→image/direction0→传入坐标截断/W16零",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-0001A0D0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整38条136B/1页2call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleScreenEffect_41A0D0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整源仅位置callback一补丁/整CPP精确重放；原合同：New(2,0)空返回；one-shot callback/CC/100，设备后一次flags两发布OR40000，X→两W8值4→Y→direction→image→W16零；四S32参数无浮点/RNG或父引用",
+      "expected": "New(2,0)空返回；one-shot callback/CC/100，设备后一次flags两发布OR40000，X→两W8值4→Y→direction→image→W16零；四S32参数无浮点/RNG或父引用",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-EFFECT-CALLBACKS-0001A0D0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNW01完整38条136B/1页2call与严格标死门禁/完整取样及返回；doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-effect-callbacks-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleScreenEffect_41A0D0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "位置callback恢复Y取样先X发布，其它四正确根保持；五入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根38条136B/全字节与出口/ret，入向2处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "New(2,0)空返回；one-shot callback/CC/100，设备后一次flags两发布OR40000，X→两W8值4→Y→direction→image→W16零；四S32参数无浮点/RNG或父引用",
+      "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
     }
   ],
   "task_acceptance": [
@@ -24531,7 +24830,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
       ]
     },
     {
@@ -24834,7 +25134,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
       ]
     },
     {
@@ -25024,7 +25325,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
       ]
     },
     {
@@ -25120,7 +25422,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
       ]
     },
     {
@@ -25187,7 +25490,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
       ]
     },
     {
@@ -25409,7 +25713,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
       ]
     },
     {
@@ -25472,7 +25777,8 @@
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
-        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state"
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
       ]
     }
   ],
@@ -30318,6 +30624,61 @@
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state"
       ],
       "boundary": "已批准x64 native非拥有T*承载，非地址字段保原宽；完整正常创建本体/三处取样实修登记，仅局部I/S，全部consumer-owner/ABI-SDK/PC53-RNG画面运行未验"
+    },
+    {
+      "inventory_id": "F:00019FA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址及既有void callback承载；其它字段保宽，位置callback一处取样修正，四正确源保持；仅局部I/S，不代所有父/owner/ABI-SDK-PC53-RNG画面运行"
+    },
+    {
+      "inventory_id": "F:0001E640",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址及既有void callback承载；其它字段保宽，位置callback一处取样修正，四正确源保持；仅局部I/S，不代所有父/owner/ABI-SDK-PC53-RNG画面运行"
+    },
+    {
+      "inventory_id": "F:0001E720",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址及既有void callback承载；其它字段保宽，位置callback一处取样修正，四正确源保持；仅局部I/S，不代所有父/owner/ABI-SDK-PC53-RNG画面运行"
+    },
+    {
+      "inventory_id": "F:0001E7C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址及既有void callback承载；其它字段保宽，位置callback一处取样修正，四正确源保持；仅局部I/S，不代所有父/owner/ABI-SDK-PC53-RNG画面运行"
+    },
+    {
+      "inventory_id": "F:0001A0D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址及既有void callback承载；其它字段保宽，位置callback一处取样修正，四正确源保持；仅局部I/S，不代所有父/owner/ABI-SDK-PC53-RNG画面运行"
     }
   ],
   "auxiliary_dispositions": [

@@ -163580,6 +163580,345 @@
         "coordinate_samples_before_x_publication": true,
         "same_flags_snapshot_for_two_publications": true
       }
+    },
+    {
+      "original_entry": "0x419FA0",
+      "inventory_id": "F:00019FA0",
+      "status": "BNW01完整正常本体/五入口独立身份纳管；位置callback一处取样实修，其它正确根保持，全部owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleOneShotEffect_419FA0"
+          ],
+          "relationship": "PlayFrame(action,1)严格等于1才MarkDeath；其它结果不标死、无新早退或额外动作，void callback接口保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleOneShotEffect_419FA0"
+          ],
+          "relationship": "既有native非拥有T*与void callback/三创建接口保持，不新布局/API；其它参数保原S32/F32/低W8"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+      ],
+      "boundary": "PlayFrame(action,1)严格等于1才MarkDeath；其它结果不标死、无新早退或额外动作，void callback接口保持。只已证地址沿获准native非拥有T*，其它S32/F32/W32/W16/W8保。callback返回未消费分工保持，不宣原EAX所有路径/实际ABI等价；MarkDeath只标死不立即free/摘链，__ftol沿已有host正常转换。不增保护/默认/异常回绕或owner，不代完整父/全部资源-owner/SDK-ABI-PC53-RNG画面运行。",
+      "instruction_count": 13,
+      "function_chunks": [
+        {
+          "start": "0x419FA0",
+          "end_exclusive": "0x419FC0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleOneShotEffect_419FA0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNW01完整13条32B/1页2call/1分支-1ret；callback绑定3处/3父单列，五完整源仅位置callback一补丁/其它保持精确静态；全部父与运行未验",
+      "battle_effect_callbacks_sampling": {
+        "spec_id": "BNW01",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+          "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+        ],
+        "original_entry": "0x419FA0",
+        "original_instruction_count": 13,
+        "original_code_bytes": 32,
+        "page_count": 1,
+        "outgoing_call_site_count": 2,
+        "incoming_reference_count": 3,
+        "incoming_parent_count": 3,
+        "incoming_reference_kind": "callback_address_binding",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "strict_playframe_result_one": true,
+        "markdeath_only_not_free": true,
+        "no_rng": true
+      }
+    },
+    {
+      "original_entry": "0x41E640",
+      "inventory_id": "F:0001E640",
+      "status": "BNW01完整正常本体/五入口独立身份纳管；位置callback一处取样实修，其它正确根保持，全部owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattlePositionEffect_41E640"
+          ],
+          "relationship": "PlayFrame(action,1)严格为1才标死，两路径之后仍X截断→Y取样→X发布→Y截断发布，不把标死改立即free/早退"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattlePositionEffect_41E640"
+          ],
+          "relationship": "既有native非拥有T*与void callback/三创建接口保持，不新布局/API；其它参数保原S32/F32/低W8"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+      ],
+      "boundary": "PlayFrame(action,1)严格为1才标死，两路径之后仍X截断→Y取样→X发布→Y截断发布，不把标死改立即free/早退。只已证地址沿获准native非拥有T*，其它S32/F32/W32/W16/W8保。callback返回未消费分工保持，不宣原EAX所有路径/实际ABI等价；MarkDeath只标死不立即free/摘链，__ftol沿已有host正常转换。不增保护/默认/异常回绕或owner，不代完整父/全部资源-owner/SDK-ABI-PC53-RNG画面运行。",
+      "instruction_count": 19,
+      "function_chunks": [
+        {
+          "start": "0x41E640",
+          "end_exclusive": "0x41E676"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattlePositionEffect_41E640",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNW01完整19条54B/1页4call/1分支-1ret；callback绑定3处/3父单列，五完整源仅位置callback一补丁/其它保持精确静态；全部父与运行未验",
+      "battle_effect_callbacks_sampling": {
+        "spec_id": "BNW01",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+          "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+        ],
+        "original_entry": "0x41E640",
+        "original_instruction_count": 19,
+        "original_code_bytes": 54,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 3,
+        "incoming_parent_count": 3,
+        "incoming_reference_kind": "callback_address_binding",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "strict_playframe_result_one": true,
+        "still_projects_coordinates_after_markdeath": true,
+        "y_sample_before_x_publication": true
+      }
+    },
+    {
+      "original_entry": "0x41E720",
+      "inventory_id": "F:0001E720",
+      "status": "BNW01完整正常本体/五入口独立身份纳管；位置callback一处取样实修，其它正确根保持，全部owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleCoordinateEffect_41E720"
+          ],
+          "relationship": "New(2,0)空返回；位置callback/CC/100，设备后一次flags两发布OR60000，两W8值4、offsetY→offsetX→image→direction0→传入X/Y截断发布→W16零，无父引用/提前Play"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleCoordinateEffect_41E720"
+          ],
+          "relationship": "既有native非拥有T*与void callback/三创建接口保持，不新布局/API；其它参数保原S32/F32/低W8"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+      ],
+      "boundary": "New(2,0)空返回；位置callback/CC/100，设备后一次flags两发布OR60000，两W8值4、offsetY→offsetX→image→direction0→传入X/Y截断发布→W16零，无父引用/提前Play。只已证地址沿获准native非拥有T*，其它S32/F32/W32/W16/W8保。callback返回未消费分工保持，不宣原EAX所有路径/实际ABI等价；MarkDeath只标死不立即free/摘链，__ftol沿已有host正常转换。不增保护/默认/异常回绕或owner，不代完整父/全部资源-owner/SDK-ABI-PC53-RNG画面运行。",
+      "instruction_count": 43,
+      "function_chunks": [
+        {
+          "start": "0x41E720",
+          "end_exclusive": "0x41E7C0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleCoordinateEffect_41E720",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNW01完整43条160B/1页4call/3分支-2ret；普通入向2处/2父单列，五完整源仅位置callback一补丁/其它保持精确静态；全部父与运行未验",
+      "battle_effect_callbacks_sampling": {
+        "spec_id": "BNW01",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+          "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+        ],
+        "original_entry": "0x41E720",
+        "original_instruction_count": 43,
+        "original_code_bytes": 160,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 2,
+        "incoming_reference_kind": "ordinary_direct_call",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "uses_input_coordinates_not_live_offset_for_conversion": true,
+        "no_parent_or_extra_playframe": true
+      }
+    },
+    {
+      "original_entry": "0x41E7C0",
+      "inventory_id": "F:0001E7C0",
+      "status": "BNW01完整正常本体/五入口独立身份纳管；位置callback一处取样实修，其它正确根保持，全部owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleTrailEffect_41E7C0"
+          ],
+          "relationship": "New(2,0)空返回；位置callback/低W8 priority/200，设备真仅100000，假RNG(0,1)后才取flags选10000/8000；mode仅等于1加20000，另live flags加40000/offsetX→Y→image/direction0→传入坐标截断/W16零"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleTrailEffect_41E7C0"
+          ],
+          "relationship": "既有native非拥有T*与void callback/三创建接口保持，不新布局/API；其它参数保原S32/F32/低W8"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+      ],
+      "boundary": "New(2,0)空返回；位置callback/低W8 priority/200，设备真仅100000，假RNG(0,1)后才取flags选10000/8000；mode仅等于1加20000，另live flags加40000/offsetX→Y→image/direction0→传入坐标截断/W16零。只已证地址沿获准native非拥有T*，其它S32/F32/W32/W16/W8保。callback返回未消费分工保持，不宣原EAX所有路径/实际ABI等价；MarkDeath只标死不立即free/摘链，__ftol沿已有host正常转换。不增保护/默认/异常回绕或owner，不代完整父/全部资源-owner/SDK-ABI-PC53-RNG画面运行。",
+      "instruction_count": 55,
+      "function_chunks": [
+        {
+          "start": "0x41E7C0",
+          "end_exclusive": "0x41E882"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleTrailEffect_41E7C0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNW01完整55条194B/1页5call/6分支-2ret；普通入向7处/3父单列，五完整源仅位置callback一补丁/其它保持精确静态；全部父与运行未验",
+      "battle_effect_callbacks_sampling": {
+        "spec_id": "BNW01",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+          "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+        ],
+        "original_entry": "0x41E7C0",
+        "original_instruction_count": 55,
+        "original_code_bytes": 194,
+        "page_count": 1,
+        "outgoing_call_site_count": 5,
+        "incoming_reference_count": 7,
+        "incoming_parent_count": 3,
+        "incoming_reference_kind": "ordinary_direct_call",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "rng_only_without_device": true,
+        "mode_equals_one_only": true,
+        "priority_low_u8": true,
+        "keeps_live_flags_read_after_mode_update": true
+      }
+    },
+    {
+      "original_entry": "0x41A0D0",
+      "inventory_id": "F:0001A0D0",
+      "status": "BNW01完整正常本体/五入口独立身份纳管；位置callback一处取样实修，其它正确根保持，全部owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleScreenEffect_41A0D0"
+          ],
+          "relationship": "New(2,0)空返回；one-shot callback/CC/100，设备后一次flags两发布OR40000，X→两W8值4→Y→direction→image→W16零；四S32参数无浮点/RNG或父引用"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleScreenEffect_41A0D0"
+          ],
+          "relationship": "既有native非拥有T*与void callback/三创建接口保持，不新布局/API；其它参数保原S32/F32/低W8"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+      ],
+      "boundary": "New(2,0)空返回；one-shot callback/CC/100，设备后一次flags两发布OR40000，X→两W8值4→Y→direction→image→W16零；四S32参数无浮点/RNG或父引用。只已证地址沿获准native非拥有T*，其它S32/F32/W32/W16/W8保。callback返回未消费分工保持，不宣原EAX所有路径/实际ABI等价；MarkDeath只标死不立即free/摘链，__ftol沿已有host正常转换。不增保护/默认/异常回绕或owner，不代完整父/全部资源-owner/SDK-ABI-PC53-RNG画面运行。",
+      "instruction_count": 38,
+      "function_chunks": [
+        {
+          "start": "0x41A0D0",
+          "end_exclusive": "0x41A158"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleScreenEffect_41A0D0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNW01完整38条136B/1页2call/3分支-2ret；普通入向2处/1父单列，五完整源仅位置callback一补丁/其它保持精确静态；全部父与运行未验",
+      "battle_effect_callbacks_sampling": {
+        "spec_id": "BNW01",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-acceptance",
+          "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+          "doc/cg2d_battle_effect_callbacks_sampling_evidence.json"
+        ],
+        "original_entry": "0x41A0D0",
+        "original_instruction_count": 38,
+        "original_code_bytes": 136,
+        "page_count": 1,
+        "outgoing_call_site_count": 2,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "ordinary_direct_call",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "input_screen_coordinates_s32": true,
+        "no_rng_or_float_conversion": true
+      }
     }
   ]
 }

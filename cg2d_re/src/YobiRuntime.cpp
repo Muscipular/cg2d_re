@@ -9674,8 +9674,10 @@ void UpdateBattlePositionEffect_41E640(YobiAction* const action)
     if (PlayFrame_517DA0(action, 1) == 1) {
         static_cast<void>(MarkDeath(action));
     }
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const float y = action->offset44;
+    action->x = x;
+    action->y = static_cast<std::int32_t>(y);
 }
 
 YobiAction* NewBattlePositionEffect_41E680(YobiAction* const parent, const std::int32_t imageNo)

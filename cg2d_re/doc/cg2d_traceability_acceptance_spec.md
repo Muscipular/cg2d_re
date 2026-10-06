@@ -736,3 +736,9 @@ E487→491仅YOBI/BATTLE四局部I/S；旧812追加、七open与唯一进度同�
 [具体SPEC](cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision)和[证据](cg2d_battle_effect_creation_sampling_evidence.json)：两个完整创建函数125条412B三页九call/六分支/四ret。随机与位置flags各恢复一次取样两次发布，位置X取样先image/direction、截断后取Y再发布X，三个补丁/两个根解决；两次RNG/Load与live S16图宽、graphicOffsetY、原失败返回及S32/F32/W32/W16/W8字段保持。其它源/头和caller不改；原__ftol沿CPH01 host裁决。入向80/28父和13/9父仅列身份，不代全部父或owner运行。
 
 新增独立语义1353/F:00019FC0、1354/F:0001E680和adapted分类，FUNC-BATTLE55→57仍未全枚举；语义1355/有效ID1350、分类461、关联1468/3680=39.89%、E505仅各函数两局部I/S。两ID原有历史定义，队列175保持。全部旧语义/其它功能、七open任务与所有完整门禁保持；完整consumer-owner/资源重进退出、SDK/ABI/PC53/实际RNG画面及R1/R7/R8另验。
+
+## BNW01 回调取样的局部I/S（2026-10-06）
+
+[具体SPEC](cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision)与[证据](cg2d_battle_effect_callbacks_sampling_evidence.json)：两callback/三创建入口完整168条576B五页17call/14分支/八ret。位置callback恢复X截断→Y取样→X发布→Y截断发布，严格PlayFrame(1)==1才MarkDeath，标死和未完成都继续投影；MarkDeath仅标死不立即free/摘链。其它四正确根保持：坐标/轨迹两创建绑定position callback、屏幕创建绑定one-shot callback；轨迹RNG仅无设备路径/结果后取flags，mode只1加20000后另live flags，低W8优先级/固定输入坐标保。原__ftol沿CPH01 host，六callback绑定和11直接创建call分别列身份，非所有父已验。
+
+新增语义1355..1359五原ID/分类、BATTLE57→62但枚举open；语义1360/有效ID1355、分类466、关联1473/3680=40.03%、E515仅五函数各I/S。位置回调一块问题已解决，四既有正确源不计新增；原有历史定义/队列175及所有旧语义-其它域/七open-完整门禁保持。全部consumer-owner/资源重进退出、SDK/ABI/PC53-RNG画面及R1/R7/R8继续。

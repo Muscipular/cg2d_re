@@ -291,3 +291,9 @@
 [具体SPEC](../cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-decision)：两根24处恢复同parsed caster/target、payload先skill/actor先level、2028低高图的角色/payload-表各次取样、累计总量先target/固定flags与实际W8响应、反射字段/总量和最终AEL；2005族Effect/Aux-两S32索引/target先比较。原全部取包/字段-list-count、固定响应优先和149后双位置重读、动作/各失败-2028固定58=2与2005增一的真实Move/RID尾保持，其它根头不改。2028 target/反射两基础字段各actor先live值，caster反馈总量actor先global金额，末AEL amount-flags-caster target-reflected source-actor；相邻10000000仍W32，response bit20原W8。2005数组入口一次业务零/首正项默认0与原cached-live flags/反馈保持。
 
 [证据](../cg2d_battle_m_skill2028_2005_sampling_evidence.json)：四范围713条2702B十一页72call连续字节/全部出口、24补丁/改前两根与旧812完整前态；BMP79条348B/9call+BMT7条26B/2call共86条374B/11call复用非新增，新627条2328B/61call分列。2028五S32/20B图表、实际56B表和4003顺序入口/2005既有表仅本组定位，不代全路由。native非拥有地址与非地址宽度不扩，不新增owner/保护/异常模型；全部owner重进退出失效/SDK-ABI-PC53/画面及完整父/运行待验。
+
+## BNQ01 状态32族角色字段与分档图（2026-10-06）
+
+[具体SPEC](../cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-decision)：单根13定义14处恢复同parsed caster/target、payload先skill/actor先level、三初图各取样、附加效果target-level-skill/固定flags、基础字段与两成功skill actor先值、一S32分档行和八分档图按表先actor或payload先表。原状态类型/成功门禁-比较、固定payload跨替换动作、正确debuff默认0与未指定statusType、所有消费-字段/动作和各失败/End-Move-RID增58保持，其它根头/图表不改。三初图/八分档图依各次样本写1028/102C，target-level-skill附加效果后live flags、原固定flags供EffectList；基础和32..49/99..104成功字段各actor先值，后续重新读skill作原类型分派。status载荷在142/144前固定、调用后原字段顺序和141/143/37另live角色保持。
+
+[证据](../cg2d_battle_m_skill32_family_sampling_evidence.json)：1065条4656B十四页76call/全部直接和十二表间接出口，十二表117W32槽468B+93W8索引=561B、169S32/676B图矩阵与旧BMP48B偏移/具名入口上下文，13补丁/改前根和旧812完整前态保存。当前三个constexpr矩阵/重复列、S32默认0与未指定局部保持；不新owner/类型/保护/异常模型，全部owner重进退出失效/SDK-ABI-PC53与完整父/运行待验。

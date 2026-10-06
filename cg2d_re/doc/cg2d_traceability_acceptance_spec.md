@@ -700,3 +700,9 @@ E475→479仅双域四局部I/S；旧812五引用/一symbol/本步对象、双�
 按[具体验收](cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-acceptance)登记两根24定义24处。两根24处恢复同parsed caster/target、payload先skill/actor先level、2028低高图的角色/payload-表各次取样、累计总量先target/固定flags与实际W8响应、反射字段/总量和最终AEL；2005族Effect/Aux-两S32索引/target先比较。原全部取包/字段-list-count、固定响应优先和149后双位置重读、动作/各失败-2028固定58=2与2005增一的真实Move/RID尾保持，其它根头不改。[证据](cg2d_battle_m_skill2028_2005_sampling_evidence.json)：四范围713条2702B十一页72call连续字节/全部出口、24补丁/改前两根与旧812完整前态；BMP79条348B/9call+BMT7条26B/2call共86条374B/11call复用非新增，新627条2328B/61call分列。2028五S32/20B图表、实际56B表和4003顺序入口/2005既有表仅本组定位，不代全路由。I核整CPP限定重放/真实分派和关联声明；S核24组EA、各图/累计与固定响应-W8/反馈尾、Effect/Aux/两S32-比较、各失败与不同状态尾。
 
 E479→483仅双域四局部I/S；旧812五引用/两symbol/本步对象、双域基线/阻碍与七open同步。语义1350/有效ID1345、片段5/分类456、YOBI55/BATTLE52/RENDER26/LOOP32、关联1463/3680、60源码closed10/完整验收0/P01closed及所有完整门禁保持，不新F/X/adapted/分类/完整成员。完整父SEH/其它技能-全路由/全部consumer-owner/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8继续，不以本组/累计反弹或静态汇总代整体。不构建/测试/运行/摘要，网络原格式明文/音频暂停。
+
+## BNQ01 技能32族局部开发验收（2026-10-06）
+
+按[具体验收](cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-acceptance)登记单根13定义14处。单根13定义14处恢复同parsed caster/target、payload先skill/actor先level、三初图各取样、附加效果target-level-skill/固定flags、基础字段与两成功skill actor先值、一S32分档行和八分档图按表先actor或payload先表。原状态类型/成功门禁-比较、固定payload跨替换动作、正确debuff默认0与未指定statusType、所有消费-字段/动作和各失败/End-Move-RID增58保持，其它根头/图表不改。[证据](cg2d_battle_m_skill32_family_sampling_evidence.json)：1065条4656B十四页76call/全部直接和十二表间接出口，十二表117W32槽468B+93W8索引=561B、169S32/676B图矩阵与旧BMP48B偏移/具名入口上下文，13补丁/改前根和旧812完整前态保存。I核整CPP限定重放/真实分派和关联声明；S核十四页和全部出口、内部561B表/676B图数据、三初图/八分档图/附加效果与字段-一S32行、正确状态比较/载荷跨替换动作及真实尾保持。
+
+E483→487仅双域四局部I/S；旧812五引用/本步对象和既有唯一symbol、双域基线/阻碍及七open任务同步。语义1350/有效ID1345、片段5/分类456、YOBI55/BATTLE52/RENDER26/LOOP32、关联1463/3680、60源码closed10/完整验收0/P01closed及所有完整门禁保持，不新F/X/adapted/分类/完整成员。完整父SEH/其它技能-全路由/全部consumer-owner/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8继续，不以本根-状态生产或静态汇总代整体。不构建/测试/运行/摘要，网络原格式明文/音频暂停。

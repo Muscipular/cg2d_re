@@ -8407,3 +8407,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [裁决](../cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-decision)：两根24处恢复同parsed caster/target、payload先skill/actor先level、2028低高图的角色/payload-表各次取样、累计总量先target/固定flags与实际W8响应、反射字段/总量和最终AEL；2005族Effect/Aux-两S32索引/target先比较。原全部取包/字段-list-count、固定响应优先和149后双位置重读、动作/各失败-2028固定58=2与2005增一的真实Move/RID尾保持，其它根头不改。2028低图位置/正常S32除3-actor/payload先表，高actor先表/表先payload；累计反弹零/非零进入真实不同尾，4003原减3101/901/1后零值按指令顺序落入4357BA，原接线保留。
 
 [713条/72call证据](../cg2d_battle_m_skill2028_2005_sampling_evidence.json)及复用尾分列，不新增容量/溢出保护、默认值或私有owner；完整战斗接线/生命周期与运行另验。
+
+## BNQ01 通用状态根各图号与字段取样（2026-10-06）
+
+[裁决](../cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-decision)：单根13定义14处恢复同parsed caster/target、payload先skill/actor先level、三初图各取样、附加效果target-level-skill/固定flags、基础字段与两成功skill actor先值、一S32分档行和八分档图按表先actor或payload先表。原状态类型/成功门禁-比较、固定payload跨替换动作、正确debuff默认0与未指定statusType、所有消费-字段/动作和各失败/End-Move-RID增58保持，其它根头/图表不改。86初低图表-位置-加110052、64..66/68及其它位置-表-加110081/110056；分档2006/2011/2013/2027图表先actor，2010/2012/2015/2014 payload先图表，GetBand后均先取target。2011/2013不增额外状态生产，2015/2027不增替换动作/143。
+
+[1065条/76call证据](../cg2d_battle_m_skill32_family_sampling_evidence.json)与原内部表/图矩阵只纳本根，正常debuff default0有原xor，statusType未写不补值；完整战斗接线-全部owner寿命/SDK/画面和运行另验。

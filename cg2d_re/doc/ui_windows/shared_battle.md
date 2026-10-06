@@ -8527,3 +8527,11 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [具体SPEC](../cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision)/[证据](../cg2d_battle_time_default_measure_evidence.json)：原Time156条560B/旧50格式事实保持并补106条，Default22条50B正确体；两完整178条610B/三页11call-16内部分支/两ret无switch，四普通入向及三图号/格式-负号24B分列。发现两个数字父错接通用TextMeasure44B2A0，原41F242/420718均call44B260；四补丁恢复已有MeasureDefaultText44B260的非空入口缓存字体0双宽/单宽，并恢复Time encoded-mask-count三样本后W32/W32/W8 pub、S16 graphicX先S32→font2 live宽度→FILD/F64后宽度乘原index的次序。正确的Time X/Y/name pub/flags先B8、unsupported map0跳过仍计原index-间距/2index延迟/失败return0保原对象、借593850当前前缀及正常S32格式除余保；Default空串先返回0/高位字节前进2加固定双宽/其它进1加固定单宽、不严格解码保，通用44B2A0及正确已过更新体不改。
 
 1072续原时间ID/保独立格式历史，1398 Default新ID，1071仅本次原call接线事实；两新增adapted分类/BATTLE101→103枚举open、六新局部I/S E593→599。旧E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F1A0-I-20261006保原快照/expected材料但改fail并具名解释，旧S与格式事实不否定、不掩已证错误。语义1399/有效ID1394、分类507、关联1512/3680=41.09%；其它历史/功能/175队列-R7区间67/3061-60源码closed10/完整验收0/P01及七open/完整门禁保持。全部字体宽度/资源/字载荷-draw消费/原父与回收重入owner-ABI-PC53-画面及R1/R7/R8继续；网络原格式明文/内存CryptInt保/音频暂停，未构建/测试/运行/hash。
+
+## BOK01 图形记录生产与数字直接查询（2026-10-06）
+
+[具体SPEC](../cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision)/[证据](../cg2d_graphic_record_production_lookup_evidence.json)。完整Init634条1996B与XY21条80B、MapIndex7条25B，共662条2101B/10页/21call-97内部分支/10ret，无switch；入向1/20/29普通call、父1/18/21分列，三个含NUL字符串55B。仅Init13处恢复seqNo→当前主表→processed、11字段各自先主表后字段、有效索引发布分支才重读去重key/越界沿初样本、先end后start查找、追加后主表实际记录T*先于首见树key取样。40B栈记录未清/原EOF短读仍消费、32B字段原宽/reserved不写、索引后见覆盖与首见树借实际表位置、每有效文件S32排序→关Info不清槽→base=processed、原0/1/2/3/7/-1和各自清理保持；两个正确getter原上界/输出顺序/直接读索引保持，公开头不扩。
+
+736/160/165三个已有ID续记，完整历史另存，旧stdio/格式事实保持；语义1399/有效ID1394及关联1512/3680=41.09%保持，分类507→510。RESOURCE26→29三成员，BATTLE103→105只登记两个真实数字查询依赖；共享基线candidate不替代成员，member_inventory_closed=false、完整gates仍空。RESOURCE三根与BATTLE两getter各I/S新增10条局部static证据，E599→609仍只有三个原函数；七open仅加进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0保持。
+
+沿已批准宿主vector/map/sort承接本处值/引用合同，不宣STL节点/排序过程/分配故障或ABI逐条等价；所有父/callee、主表分配与GraphicRead真实内容/解码-字载荷绘制消费/owner回收及画面运行、R1/R7/R8继续。仅定向文本静态/计量，无构建/调试/测试/运行/hash；网络原格式明文/内存CryptInt保/音频暂停。

@@ -11921,21 +11921,84 @@
     {
       "original_entry": "0x45A710",
       "inventory_id": "F:0005A710",
-      "status": "已有图形资源实现映射，完整运行未验",
+      "status": "BOK01完整正常图形记录生产/直接查询续记，原取样已恢复；主表owner/全部父-内容消费/运行未验",
       "original_role": "图形x/y查询",
       "sources": [
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GetGraphicXY"
-          ]
+          ],
+          "relationship": "原U32 index与gMaxGraphicCount位模式比较：index<上界成功先读主表+index*32的S16 x/pub *x，之后fresh主表读S16 y/pub *y返回1，保输出与字段/互相别名。失败按参数x再y各W16清0返回0；原无输出/主表空门禁，不用当前loaded数代原gMax上界，不缓存两字段。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json"
       ],
-      "boundary": "按U32索引/上界比较；成功先写S16 x后重新读表写S16 y，失败按参数序清零并返回0。保留输出别名下的重读位置，不预取两字段。"
+      "boundary": "原U32 index与gMaxGraphicCount位模式比较：index<上界成功先读主表+index*32的S16 x/pub *x，之后fresh主表读S16 y/pub *y返回1，保输出与字段/互相别名。失败按参数x再y各W16清0返回0；原无输出/主表空门禁，不用当前loaded数代原gMax上界，不缓存两字段。；仅本根正常局部，原native地址及W32/W16/W8布局保；全部callee/caller-主表生产内容/owner-ABI/PC53/画面与完整门禁待，音频暂停",
+      "verification_level": "BOK01完整21条/80B/1页/0call-1内部分支/2ret，0补丁；原普通入向20引用/18父分列，宿主容器仅本处正常值/引用合同；局部静态、未运行",
+      "instruction_count": 21,
+      "function_chunks": [
+        {
+          "start": "0x45A710",
+          "end_exclusive": "0x45A760"
+        }
+      ],
+      "native_provider": {
+        "source": "src/GraphicInfo.cpp",
+        "symbol": "GetGraphicXY",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_graphic_record_review": {
+        "original_entry": "0x45A710",
+        "inventory_id": "F:0005A710",
+        "status": "已有图形资源实现映射，完整运行未验",
+        "original_role": "图形x/y查询",
+        "sources": [
+          {
+            "path": "src/GraphicInfo.cpp",
+            "symbols": [
+              "GetGraphicXY"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_graphic_info.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "按U32索引/上界比较；成功先写S16 x后重新读表写S16 y，失败按参数序清零并返回0。保留输出别名下的重读位置，不预取两字段。"
+      },
+      "graphic_record_production_lookup": {
+        "spec_id": "BOK01",
+        "evidence_refs": [
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+          "doc/cg2d_graphic_record_production_lookup_evidence.json"
+        ],
+        "original_entry": "0x45A710",
+        "original_instruction_count": 21,
+        "original_code_bytes": 80,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "internal_branch_site_count": 1,
+        "return_site_count": 2,
+        "incoming_reference_count": 20,
+        "incoming_parent_count": 18,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "原U32 index与gMaxGraphicCount位模式比较：index<上界成功先读主表+index*32的S16 x/pub *x，之后fresh主表读S16 y/pub *y返回1，保输出与字段/互相别名。失败按参数x再y各W16清0返回0；原无输出/主表空门禁，不用当前loaded数代原gMax上界，不缓存两字段。"
+      }
     },
     {
       "original_entry": "0x45A760",
@@ -12016,21 +12079,84 @@
     {
       "original_entry": "0x45A8B0",
       "inventory_id": "F:0005A8B0",
-      "status": "已有图形资源实现映射，完整运行未验",
+      "status": "BOK01完整正常图形记录生产/直接查询续记，原取样已恢复；主表owner/全部父-内容消费/运行未验",
       "original_role": "mapNo索引表直接读取",
       "sources": [
         {
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GetGraphicMapNoIndex"
-          ]
+          ],
+          "relationship": "原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json"
       ],
-      "boundary": "直接写唯一gGraphicMapNoIndex[index]并返回1；不借图形数量新增检查，不改变调用者的原有效存储前提。"
+      "boundary": "原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。；仅本根正常局部，原native地址及W32/W16/W8布局保；全部callee/caller-主表生产内容/owner-ABI/PC53/画面与完整门禁待，音频暂停",
+      "verification_level": "BOK01完整7条/25B/1页/0call-0内部分支/1ret，0补丁；原普通入向29引用/21父分列，宿主容器仅本处正常值/引用合同；局部静态、未运行",
+      "instruction_count": 7,
+      "function_chunks": [
+        {
+          "start": "0x45A8B0",
+          "end_exclusive": "0x45A8C9"
+        }
+      ],
+      "native_provider": {
+        "source": "src/GraphicInfo.cpp",
+        "symbol": "GetGraphicMapNoIndex",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_graphic_record_review": {
+        "original_entry": "0x45A8B0",
+        "inventory_id": "F:0005A8B0",
+        "status": "已有图形资源实现映射，完整运行未验",
+        "original_role": "mapNo索引表直接读取",
+        "sources": [
+          {
+            "path": "src/GraphicInfo.cpp",
+            "symbols": [
+              "GetGraphicMapNoIndex"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_graphic_info.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "直接写唯一gGraphicMapNoIndex[index]并返回1；不借图形数量新增检查，不改变调用者的原有效存储前提。"
+      },
+      "graphic_record_production_lookup": {
+        "spec_id": "BOK01",
+        "evidence_refs": [
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+          "doc/cg2d_graphic_record_production_lookup_evidence.json"
+        ],
+        "original_entry": "0x45A8B0",
+        "original_instruction_count": 7,
+        "original_code_bytes": 25,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "internal_branch_site_count": 0,
+        "return_site_count": 1,
+        "incoming_reference_count": 29,
+        "incoming_parent_count": 21,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。"
+      }
     },
     {
       "original_entry": "0x45A8D0",
@@ -86594,7 +86720,7 @@
     {
       "original_entry": "0x459960",
       "inventory_id": "F:00059960",
-      "status": "既有图形父的真实FILE/格式化完整链已接；完整CRT/资源内容/运行验收仍待",
+      "status": "BOK01完整正常图形记录生产/直接查询续记，原取样已恢复；主表owner/全部父-内容消费/运行未验",
       "original_end_exclusive": "0x45A12C",
       "instruction_count": 634,
       "original_direct_reference_count": 1,
@@ -86603,7 +86729,8 @@
           "path": "src/GraphicInfo.cpp",
           "symbols": [
             "GraphicInit_459960"
-          ]
+          ],
+          "relationship": "九数据FILE槽先清原native非拥有指针/按九255B缓存路径strcpy-rb打开；必需0/3/6/7/8失败共用关闭清非空数据槽并分别返1/2/7，其它可缺。九Info路径预扫rb/SEEK_END2/tell S32位模式累计U32/close但不清单Info槽；必需Info失败直接返1/2/7不关闭数据流。required=U32字节数/40+10落S32，>=gMax提示并关闭数据槽返3；malloc4*gMax+40先pub gMap，失败-1不关数据槽；仅清gMax W32索引项，固定原vector/map对象clear保。九Info消费每slot先pub startIndices=base、再open，必需Info失败直接返/可缺跳slot不改base。低U8 FILEflags&10作EOF门禁，未清40B栈记录/Read(28h,1)忽略返回，短读仍消费。先seqNo/current主表取样→processed+1→index=seq+base/W32 seq pub；随后offset/length/x/y/w/h/sx/sy/flag/mapNo/fileIndex每次fresh主表先于记录字段取样，按W32-W16-W8写原32B记录且reserved16不写。初mapNo零仅gMap[0]=0；非零U32<gMax才gMap[mapNo]=index，超范围不添拒绝/跳去重。有效索引发布分支才fresh key，越界沿初样本；先end后start固定区间做整型相等去重，未见才vector追加同key，之后fresh主表计算实际记录非拥有T*再fresh mapNo为首见有序树key，不复制记录。每个有效Info文件按S32升序sort去重键vector、close当前Info但不清槽，base=实际processed包含原EOF消费；重复mapNo索引后见覆盖、首见树保第一真实表位置指针，全部返回原0/1/2/3/7/-1及不同清理保。宿主std::vector/std::map/std::sort沿现有实现承接本处值与引用合同，不宣CRT节点/排序过程/分配失败时机或全消费者ABI逐条一致。"
         }
       ],
       "inbound_evidence": [
@@ -86710,10 +86837,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_graphic_info.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json"
       ],
-      "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行",
-      "boundary": "既有完整图形初始化父的九数据槽和唯一Info槽统一LegacyFile，rb生产/END2定位/tell S32位模式累计U32/28H读取/关闭与容量提示整链已接。数据必需槽失败关闭清槽；Info必需槽失败直接返回保留数据流，关闭Info不清指针。459CCE/459F1D直接读flags低U8/10H，短读仍消费同一未清40B记录；磁盘40B/运行32B、基址/索引/首见树/排序与分配适配正文保持，完整启动/内容/运行未验。",
+      "verification_level": "BOK01完整634条/1996B/8页/21call-96内部分支/7ret，13补丁；原普通入向1引用/1父分列，宿主容器仅本处正常值/引用合同；局部静态、未运行",
+      "boundary": "九数据FILE槽先清原native非拥有指针/按九255B缓存路径strcpy-rb打开；必需0/3/6/7/8失败共用关闭清非空数据槽并分别返1/2/7，其它可缺。九Info路径预扫rb/SEEK_END2/tell S32位模式累计U32/close但不清单Info槽；必需Info失败直接返1/2/7不关闭数据流。required=U32字节数/40+10落S32，>=gMax提示并关闭数据槽返3；malloc4*gMax+40先pub gMap，失败-1不关数据槽；仅清gMax W32索引项，固定原vector/map对象clear保。九Info消费每slot先pub startIndices=base、再open，必需Info失败直接返/可缺跳slot不改base。低U8 FILEflags&10作EOF门禁，未清40B栈记录/Read(28h,1)忽略返回，短读仍消费。先seqNo/current主表取样→processed+1→index=seq+base/W32 seq pub；随后offset/length/x/y/w/h/sx/sy/flag/mapNo/fileIndex每次fresh主表先于记录字段取样，按W32-W16-W8写原32B记录且reserved16不写。初mapNo零仅gMap[0]=0；非零U32<gMax才gMap[mapNo]=index，超范围不添拒绝/跳去重。有效索引发布分支才fresh key，越界沿初样本；先end后start固定区间做整型相等去重，未见才vector追加同key，之后fresh主表计算实际记录非拥有T*再fresh mapNo为首见有序树key，不复制记录。每个有效Info文件按S32升序sort去重键vector、close当前Info但不清槽，base=实际processed包含原EOF消费；重复mapNo索引后见覆盖、首见树保第一真实表位置指针，全部返回原0/1/2/3/7/-1及不同清理保。宿主std::vector/std::map/std::sort沿现有实现承接本处值与引用合同，不宣CRT节点/排序过程/分配失败时机或全消费者ABI逐条一致。；仅本根正常局部，原native地址及W32/W16/W8布局保；全部callee/caller-主表生产内容/owner-ABI/PC53/画面与完整门禁待，音频暂停",
       "business_flag_read_evidence": [
         {
           "address": "0x459CCE",
@@ -86809,7 +86941,263 @@
           "parent_entry": "0x45A900",
           "access_type": 3
         }
-      ]
+      ],
+      "function_chunks": [
+        {
+          "start": "0x459960",
+          "end_exclusive": "0x45A12C"
+        }
+      ],
+      "native_provider": {
+        "source": "src/GraphicInfo.cpp",
+        "symbol": "GraphicInit_459960",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_graphic_record_review": {
+        "original_entry": "0x459960",
+        "inventory_id": "F:00059960",
+        "status": "既有图形父的真实FILE/格式化完整链已接；完整CRT/资源内容/运行验收仍待",
+        "original_end_exclusive": "0x45A12C",
+        "instruction_count": 634,
+        "original_direct_reference_count": 1,
+        "sources": [
+          {
+            "path": "src/GraphicInfo.cpp",
+            "symbols": [
+              "GraphicInit_459960"
+            ]
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "address": "0x4577B9",
+            "parent_entry": "0x4576B0"
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x4599CF",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53B2F1",
+            "target_symbol": "OpenLegacyStream_53B2F1"
+          },
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x459A70",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53B2F1",
+            "target_symbol": "OpenLegacyStream_53B2F1"
+          },
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x459AC4",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53BC41",
+            "target_symbol": "SeekLegacyStream_53BC41"
+          },
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x459AD0",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53CB78",
+            "target_symbol": "TellLegacyStream_53CB78"
+          },
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x459AE6",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53B1D0",
+            "target_symbol": "CloseLegacyStream_53B1D0"
+          },
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x459B3A",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x459B67",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53B1D0",
+            "target_symbol": "CloseLegacyStream_53B1D0"
+          },
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x459C8C",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53B2F1",
+            "target_symbol": "OpenLegacyStream_53B2F1"
+          },
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x459CE2",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53BCCD",
+            "target_symbol": "ReadLegacyStream_53BCCD"
+          },
+          {
+            "parent_entry": "0x459960",
+            "call_site": "0x45A101",
+            "source": "src/GraphicInfo.cpp",
+            "symbol": "GraphicInit_459960",
+            "target_entry": "0x53B1D0",
+            "target_symbol": "CloseLegacyStream_53B1D0"
+          }
+        ],
+        "business_byte_evidence": [
+          {
+            "address": "0x554920",
+            "bytes": "726200"
+          },
+          {
+            "address": "0x5598CC",
+            "bytes": "4d41585f47524150484943533d25642c4e6565643d256400"
+          },
+          {
+            "address": "0x5598B0",
+            "bytes": "7370726d67723a204d41585f475241504849435320a4a3b0f7a14300"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_graphic_info.md",
+          "doc/cg2d_stdio_contract.md"
+        ],
+        "verification_level": "四父完整846条/七直接入向取证，15文件格式调用、十四共享数据引用、EOF低U8/失败/关闭/返回与原字节及限定源码差异静态核对；不重验容器/分配/解码，未执行",
+        "boundary": "既有完整图形初始化父的九数据槽和唯一Info槽统一LegacyFile，rb生产/END2定位/tell S32位模式累计U32/28H读取/关闭与容量提示整链已接。数据必需槽失败关闭清槽；Info必需槽失败直接返回保留数据流，关闭Info不清指针。459CCE/459F1D直接读flags低U8/10H，短读仍消费同一未清40B记录；磁盘40B/运行32B、基址/索引/首见树/排序与分配适配正文保持，完整启动/内容/运行未验。",
+        "business_flag_read_evidence": [
+          {
+            "address": "0x459CCE",
+            "relationship": "读取前直接检查FILE flags低U8/10H"
+          },
+          {
+            "address": "0x459F1D",
+            "relationship": "消费记录后重新取共享Info流并检查flags低U8/10H"
+          }
+        ],
+        "business_shared_file_evidence": [
+          {
+            "address": "0x927EF0",
+            "from": "0x459A78",
+            "parent_entry": "0x459960",
+            "access_type": 2
+          },
+          {
+            "address": "0x927EF0",
+            "from": "0x459AC9",
+            "parent_entry": "0x459960",
+            "access_type": 3
+          },
+          {
+            "address": "0x927EF0",
+            "from": "0x459ADF",
+            "parent_entry": "0x459960",
+            "access_type": 3
+          },
+          {
+            "address": "0x927EF0",
+            "from": "0x459C94",
+            "parent_entry": "0x459960",
+            "access_type": 2
+          },
+          {
+            "address": "0x927EF0",
+            "from": "0x459F18",
+            "parent_entry": "0x459960",
+            "access_type": 3
+          },
+          {
+            "address": "0x927EF0",
+            "from": "0x45A071",
+            "parent_entry": "0x459960",
+            "access_type": 3
+          },
+          {
+            "address": "0x927EF0",
+            "from": "0x45A0C7",
+            "parent_entry": "0x459960",
+            "access_type": 3
+          },
+          {
+            "address": "0x927EF0",
+            "from": "0x45A0FB",
+            "parent_entry": "0x459960",
+            "access_type": 3
+          },
+          {
+            "address": "0x927EF4",
+            "from": "0x459971",
+            "parent_entry": "0x459960",
+            "access_type": 1
+          },
+          {
+            "address": "0x927EF4",
+            "from": "0x459976",
+            "parent_entry": "0x459960",
+            "access_type": 1
+          },
+          {
+            "address": "0x927EF4",
+            "from": "0x459B5B",
+            "parent_entry": "0x459960",
+            "access_type": 1
+          },
+          {
+            "address": "0x927EF4",
+            "from": "0x45A6DD",
+            "parent_entry": "0x45A6C0",
+            "access_type": 1
+          },
+          {
+            "address": "0x927EF4",
+            "from": "0x45A93A",
+            "parent_entry": "0x45A900",
+            "access_type": 3
+          },
+          {
+            "address": "0x927EF4",
+            "from": "0x45A952",
+            "parent_entry": "0x45A900",
+            "access_type": 3
+          }
+        ]
+      },
+      "graphic_record_production_lookup": {
+        "spec_id": "BOK01",
+        "evidence_refs": [
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+          "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+          "doc/cg2d_graphic_record_production_lookup_evidence.json"
+        ],
+        "original_entry": "0x459960",
+        "original_instruction_count": 634,
+        "original_code_bytes": 1996,
+        "page_count": 8,
+        "outgoing_call_site_count": 21,
+        "internal_branch_site_count": 96,
+        "return_site_count": 7,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "source_patch_count": 13,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "九数据FILE槽先清原native非拥有指针/按九255B缓存路径strcpy-rb打开；必需0/3/6/7/8失败共用关闭清非空数据槽并分别返1/2/7，其它可缺。九Info路径预扫rb/SEEK_END2/tell S32位模式累计U32/close但不清单Info槽；必需Info失败直接返1/2/7不关闭数据流。required=U32字节数/40+10落S32，>=gMax提示并关闭数据槽返3；malloc4*gMax+40先pub gMap，失败-1不关数据槽；仅清gMax W32索引项，固定原vector/map对象clear保。九Info消费每slot先pub startIndices=base、再open，必需Info失败直接返/可缺跳slot不改base。低U8 FILEflags&10作EOF门禁，未清40B栈记录/Read(28h,1)忽略返回，短读仍消费。先seqNo/current主表取样→processed+1→index=seq+base/W32 seq pub；随后offset/length/x/y/w/h/sx/sy/flag/mapNo/fileIndex每次fresh主表先于记录字段取样，按W32-W16-W8写原32B记录且reserved16不写。初mapNo零仅gMap[0]=0；非零U32<gMax才gMap[mapNo]=index，超范围不添拒绝/跳去重。有效索引发布分支才fresh key，越界沿初样本；先end后start固定区间做整型相等去重，未见才vector追加同key，之后fresh主表计算实际记录非拥有T*再fresh mapNo为首见有序树key，不复制记录。每个有效Info文件按S32升序sort去重键vector、close当前Info但不清槽，base=实际processed包含原EOF消费；重复mapNo索引后见覆盖、首见树保第一真实表位置指针，全部返回原0/1/2/3/7/-1及不同清理保。宿主std::vector/std::map/std::sort沿现有实现承接本处值与引用合同，不宣CRT节点/排序过程/分配失败时机或全消费者ABI逐条一致。"
+      }
     },
     {
       "original_entry": "0x45BB20",

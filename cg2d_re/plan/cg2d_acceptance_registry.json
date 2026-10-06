@@ -1316,7 +1316,8 @@
         "doc/cg2d_cache_lifecycle_alignment_spec.md",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
-        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline"
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -1344,7 +1345,10 @@
         "F:0004FF40",
         "F:00050190",
         "F:00050400",
-        "F:000574E0"
+        "F:000574E0",
+        "F:00059960",
+        "F:0005A710",
+        "F:0005A8B0"
       ],
       "closure_task_ids": [
         "G01",
@@ -1363,7 +1367,8 @@
         "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-decision",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-decision",
-        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision"
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1373,7 +1378,8 @@
         "GQD01完整绘制根769条适用批准范围仅局部静态，普通/固定DX clip/head/dirty阶段已修，完整批次/原门禁/native映射保持；14完整父/callee/上游/间接alias及资源对象借用失效清理、SDK/机器ABI/模式像素画面运行未验，RPLAN.24异常不计安全/故障等价",
         "GPC01完整934条仅池/共享分流与32位色局部静态，池基址/回收和原色/表取样/双W32写已修；完整父/上游/间接alias/动态池分配释放老化与SDL像素未验，低色深不计实现，RPLAN.24异常不计安全/故障等价",
         "GCL01三根146条仅局部静态，Age负/正池阶段、Reset入口count与Build低W16/S32完整数发布已修；四完整父/callee/上游/间接alias及pool/node/surface寿命/SDK/模式像素未验，RPLAN.24异常不计安全/故障等价",
-        "ACB01撤早期P1额外零哨兵，恢复原固定20500项/容量重读清零，原包含上界/正常查询和四分配序保持；四身份局部纳管，完整加载/播放/场景/退出/alias/所有owner寿命/实际分配失败/机器/SDK/画面运行未验，异常不保护或模拟"
+        "ACB01撤早期P1额外零哨兵，恢复原固定20500项/容量重读清零，原包含上界/正常查询和四分配序保持；四身份局部纳管，完整加载/播放/场景/退出/alias/所有owner寿命/实际分配失败/机器/SDK/画面运行未验，异常不保护或模拟",
+        "BOK01三已有根736/160/165完整662条2101B/55B数据，13处原字段/条件去重重读-首见引用恢复，RESOURCE29枚举open；全部主表分配-GraphicRead内容/解码消费/真实owner-ABI/画面运行与R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1386,7 +1392,8 @@
         "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-baseline",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-baseline",
-        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state"
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ]
     },
     {
@@ -2039,7 +2046,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2144,7 +2152,9 @@
         "F:0001F1A0",
         "F:0001F110",
         "F:000206C0",
-        "F:0004B260"
+        "F:0004B260",
+        "F:0005A710",
+        "F:0005A8B0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2229,7 +2239,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2303,7 +2314,8 @@
         "BOG01九完整距离/转向/运动-原表角度依赖441条1422B/两处公式及取样已还原、原表3400B独立纳管；BATTLE94未全枚举，全部219入向父-callee/表生产消费-owner/生命周期/ABI-PC53-RNG画面与R1/R7/R8待",
         "BOH01五完整消费助手/图标创建更新286条952B/三个函数六还原，原三Advance四fresh游标输出/固定flags与fresh表对象保；BATTLE99未全枚举，176入向全部父-callee/共享表-owner/资源重进退出-ABI-PC53-画面与R1/R7/R8待",
         "BOI01数字创建1071原记录补132差集及完整191条、更新44条新增1397；两根235条831B/九还原与175B表/常量保，BATTLE101仍未全枚举，23父/46调用点/第二时间数字构造者-测宽/资源/字符消费-draw/回收owner-ABI-PC53-画面与R1/R7/R8待",
-        "BOJ01时间1072补106差集/完整156及默认22条共178条610B，恢复Time/Number两原44B260测宽目标与Time两取样，旧Number I具名fail/六新局部I-S；BATTLE103枚举open，宽度/资源/字载荷-draw/全部父与回收重入owner-PC53-画面/R1/R7/R8待"
+        "BOJ01时间1072补106差集/完整156及默认22条共178条610B，恢复Time/Number两原44B260测宽目标与Time两取样，旧Number I具名fail/六新局部I-S；BATTLE103枚举open，宽度/资源/字载荷-draw/全部父与回收重入owner-PC53-画面/R1/R7/R8待",
+        "BOK01数字图号索引/XY两个正确getter完整28条105B独立纳管，BATTLE105枚举open；资源生产者Init为RESOURCE成员/共享基线candidate不替代成员，字载荷draw/所有父-真实owner与运行门禁待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2377,7 +2389,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ]
     },
     {
@@ -27239,6 +27252,316 @@
       "observation": "Time/Default两原完整178条610B/三页11call-16内跳/两ret与24B数据，三默认caller/Time一caller分列；Number仅复用BOI01原call，未二次全根取证，不代所有父/运行",
       "expected": "仅原41F242→44B260恢复MeasureDefaultText44B260(buffer)/2；原根其它体/格式/失败return0/资源布局/原更新保，本步不二次全根复验",
       "actual": "仅本步正常局部I/S，旧Number I保原材料改fail且当前接线已修；1072续记/1398 Default新、1071局部事实和BATTLE103成员不代宽度/资源/字载荷/draw-回收owner/PC53/所有父-运行/R1/R7/R8，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-00059960-I-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x459960；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GraphicInit_459960",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整GraphicInfo.cpp仅Init13补丁/getter与头保持，40B未清记录消费到32B原W32/W16/W8逐字段主表重取、原失败/关闭/base顺序和条件去重/首见引用；本根：九数据FILE槽先清原native非拥有指针/按九255B缓存路径strcpy-rb打开；必需0/3/6/7/8失败共用关闭清非空数据槽并分别返1/2/7，其它可缺。九Info路径预扫rb/SEEK_END2/tell S32位模式累计U32/close但不清单Info槽；必需Info失败直接返1/2/7不关闭数据流。required=U32字节数/40+10落S32，>=gMax提示并关闭数据槽返3；malloc4*gMax+40先pub gMap，失败-1不关数据槽；仅清gMax W32索引项，固定原vector/map对象clear保。九Info消费每slot先pub startIndices=base、再open，必需Info失败直接返/可缺跳slot不改base。低U8 FILEflags&10作EOF门禁，未清40B栈记录/Read(28h,1)忽略返回，短读仍消费。先seqNo/current主表取样→processed+1→index=seq+base/W32 seq pub；随后offset/length/x/y/w/h/sx/sy/flag/mapNo/fileIndex每次fresh主表先于记录字段取样，按W32-W16-W8写原32B记录且reserved16不写。初mapNo零仅gMap[0]=0；非零U32<gMax才gMap[mapNo]=index，超范围不添拒绝/跳去重。有效索引发布分支才fresh key，越界沿初样本；先end后start固定区间做整型相等去重，未见才vector追加同key，之后fresh主表计算实际记录非拥有T*再fresh mapNo为首见有序树key，不复制记录。每个有效Info文件按S32升序sort去重键vector、close当前Info但不清槽，base=实际processed包含原EOF消费；重复mapNo索引后见覆盖、首见树保第一真实表位置指针，全部返回原0/1/2/3/7/-1及不同清理保。宿主std::vector/std::map/std::sort沿现有实现承接本处值与引用合同，不宣CRT节点/排序过程/分配失败时机或全消费者ABI逐条一致。",
+      "expected": "九数据FILE槽先清原native非拥有指针/按九255B缓存路径strcpy-rb打开；必需0/3/6/7/8失败共用关闭清非空数据槽并分别返1/2/7，其它可缺。九Info路径预扫rb/SEEK_END2/tell S32位模式累计U32/close但不清单Info槽；必需Info失败直接返1/2/7不关闭数据流。required=U32字节数/40+10落S32，>=gMax提示并关闭数据槽返3；malloc4*gMax+40先pub gMap，失败-1不关数据槽；仅清gMax W32索引项，固定原vector/map对象clear保。九Info消费每slot先pub startIndices=base、再open，必需Info失败直接返/可缺跳slot不改base。低U8 FILEflags&10作EOF门禁，未清40B栈记录/Read(28h,1)忽略返回，短读仍消费。先seqNo/current主表取样→processed+1→index=seq+base/W32 seq pub；随后offset/length/x/y/w/h/sx/sy/flag/mapNo/fileIndex每次fresh主表先于记录字段取样，按W32-W16-W8写原32B记录且reserved16不写。初mapNo零仅gMap[0]=0；非零U32<gMax才gMap[mapNo]=index，超范围不添拒绝/跳去重。有效索引发布分支才fresh key，越界沿初样本；先end后start固定区间做整型相等去重，未见才vector追加同key，之后fresh主表计算实际记录非拥有T*再fresh mapNo为首见有序树key，不复制记录。每个有效Info文件按S32升序sort去重键vector、close当前Info但不清槽，base=实际processed包含原EOF消费；重复mapNo索引后见覆盖、首见树保第一真实表位置指针，全部返回原0/1/2/3/7/-1及不同清理保。宿主std::vector/std::map/std::sort沿现有实现承接本处值与引用合同，不宣CRT节点/排序过程/分配失败时机或全消费者ABI逐条一致。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-00059960-S-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x459960；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GraphicInit_459960",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整634条1996B/8页，21call/96内部分支/7ret，无switch；1普通call引用/1父，三字符串55B按根/作用分列",
+      "expected": "九数据FILE槽先清原native非拥有指针/按九255B缓存路径strcpy-rb打开；必需0/3/6/7/8失败共用关闭清非空数据槽并分别返1/2/7，其它可缺。九Info路径预扫rb/SEEK_END2/tell S32位模式累计U32/close但不清单Info槽；必需Info失败直接返1/2/7不关闭数据流。required=U32字节数/40+10落S32，>=gMax提示并关闭数据槽返3；malloc4*gMax+40先pub gMap，失败-1不关数据槽；仅清gMax W32索引项，固定原vector/map对象clear保。九Info消费每slot先pub startIndices=base、再open，必需Info失败直接返/可缺跳slot不改base。低U8 FILEflags&10作EOF门禁，未清40B栈记录/Read(28h,1)忽略返回，短读仍消费。先seqNo/current主表取样→processed+1→index=seq+base/W32 seq pub；随后offset/length/x/y/w/h/sx/sy/flag/mapNo/fileIndex每次fresh主表先于记录字段取样，按W32-W16-W8写原32B记录且reserved16不写。初mapNo零仅gMap[0]=0；非零U32<gMax才gMap[mapNo]=index，超范围不添拒绝/跳去重。有效索引发布分支才fresh key，越界沿初样本；先end后start固定区间做整型相等去重，未见才vector追加同key，之后fresh主表计算实际记录非拥有T*再fresh mapNo为首见有序树key，不复制记录。每个有效Info文件按S32升序sort去重键vector、close当前Info但不清槽，base=实际processed包含原EOF消费；重复mapNo索引后见覆盖、首见树保第一真实表位置指针，全部返回原0/1/2/3/7/-1及不同清理保。宿主std::vector/std::map/std::sort沿现有实现承接本处值与引用合同，不宣CRT节点/排序过程/分配失败时机或全消费者ABI逐条一致。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-0005A710-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x45A710；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GetGraphicXY",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整GraphicInfo.cpp仅Init13补丁/getter与头保持，40B未清记录消费到32B原W32/W16/W8逐字段主表重取、原失败/关闭/base顺序和条件去重/首见引用；本根：原U32 index与gMaxGraphicCount位模式比较：index<上界成功先读主表+index*32的S16 x/pub *x，之后fresh主表读S16 y/pub *y返回1，保输出与字段/互相别名。失败按参数x再y各W16清0返回0；原无输出/主表空门禁，不用当前loaded数代原gMax上界，不缓存两字段。",
+      "expected": "原U32 index与gMaxGraphicCount位模式比较：index<上界成功先读主表+index*32的S16 x/pub *x，之后fresh主表读S16 y/pub *y返回1，保输出与字段/互相别名。失败按参数x再y各W16清0返回0；原无输出/主表空门禁，不用当前loaded数代原gMax上界，不缓存两字段。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-0005A710-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x45A710；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GetGraphicXY",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整21条80B/1页，0call/1内部分支/2ret，无switch；20普通call引用/18父，三字符串55B按根/作用分列",
+      "expected": "原U32 index与gMaxGraphicCount位模式比较：index<上界成功先读主表+index*32的S16 x/pub *x，之后fresh主表读S16 y/pub *y返回1，保输出与字段/互相别名。失败按参数x再y各W16清0返回0；原无输出/主表空门禁，不用当前loaded数代原gMax上界，不缓存两字段。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-0005A710-I-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x45A710；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GetGraphicXY",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整GraphicInfo.cpp仅Init13补丁/getter与头保持，40B未清记录消费到32B原W32/W16/W8逐字段主表重取、原失败/关闭/base顺序和条件去重/首见引用；本根：原U32 index与gMaxGraphicCount位模式比较：index<上界成功先读主表+index*32的S16 x/pub *x，之后fresh主表读S16 y/pub *y返回1，保输出与字段/互相别名。失败按参数x再y各W16清0返回0；原无输出/主表空门禁，不用当前loaded数代原gMax上界，不缓存两字段。",
+      "expected": "原U32 index与gMaxGraphicCount位模式比较：index<上界成功先读主表+index*32的S16 x/pub *x，之后fresh主表读S16 y/pub *y返回1，保输出与字段/互相别名。失败按参数x再y各W16清0返回0；原无输出/主表空门禁，不用当前loaded数代原gMax上界，不缓存两字段。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-0005A710-S-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x45A710；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GetGraphicXY",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整21条80B/1页，0call/1内部分支/2ret，无switch；20普通call引用/18父，三字符串55B按根/作用分列",
+      "expected": "原U32 index与gMaxGraphicCount位模式比较：index<上界成功先读主表+index*32的S16 x/pub *x，之后fresh主表读S16 y/pub *y返回1，保输出与字段/互相别名。失败按参数x再y各W16清0返回0；原无输出/主表空门禁，不用当前loaded数代原gMax上界，不缓存两字段。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-0005A8B0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x45A8B0；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GetGraphicMapNoIndex",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整GraphicInfo.cpp仅Init13补丁/getter与头保持，40B未清记录消费到32B原W32/W16/W8逐字段主表重取、原失败/关闭/base顺序和条件去重/首见引用；本根：原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。",
+      "expected": "原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-0005A8B0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x45A8B0；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GetGraphicMapNoIndex",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整7条25B/1页，0call/0内部分支/1ret，无switch；29普通call引用/21父，三字符串55B按根/作用分列",
+      "expected": "原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-0005A8B0-I-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x45A8B0；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GetGraphicMapNoIndex",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整GraphicInfo.cpp仅Init13补丁/getter与头保持，40B未清记录消费到32B原W32/W16/W8逐字段主表重取、原失败/关闭/base顺序和条件去重/首见引用；本根：原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。",
+      "expected": "原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-GRAPHIC-RECORD-PRODUCTION-LOOKUP-0005A8B0-S-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOK01三个完整根662条2101B/10页/55B字符串，当前根0x45A8B0；doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-record-production-lookup-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-acceptance",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_record_production_lookup_evidence.json",
+        "src/GraphicInfo.cpp#GetGraphicMapNoIndex",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_graphic_info.md",
+        "doc/cg2d_crt_host_migration_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "GraphicInit13处取样恢复，原索引发布分支才重读key/越界沿初样本，首见树借实际主表指针；两个正确getter保持；现有宿主容器不宣原STL节点/排序过程/分配故障时机或ABI等价",
+          "decision_ref": "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整7条25B/1页，0call/0内部分支/1ret，无switch；29普通call引用/21父，三字符串55B按根/作用分列",
+      "expected": "原S32 index直接gGraphicMapNoIndex[index]读W32/pub S32 *outSeqNo，返回1；原无数量/范围/空指针/值0判定门禁，不把不存在图号改失败或替代默认序号；地址native宽，非地址仍W32。",
+      "actual": "仅本根正常局部static I/S，runtime_verified=false；RESOURCE三根和BATTLE两个getter共10证据仍3函数，三个已有ID/旧stdio事实续记；全callee/caller-真实主表内容/GraphicRead消费-owner/ABI/画面及R1/R7/R8未验，不构建/测试/运行/hash，音频暂停"
     }
   ],
   "task_acceptance": [
@@ -27480,7 +27803,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ]
     },
     {
@@ -27797,7 +28121,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ]
     },
     {
@@ -28001,7 +28326,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ]
     },
     {
@@ -28111,7 +28437,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ]
     },
     {
@@ -28192,7 +28519,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ]
     },
     {
@@ -28428,7 +28756,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ]
     },
     {
@@ -28505,7 +28834,8 @@
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
-        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
       ]
     }
   ],
@@ -33860,6 +34190,39 @@
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ],
       "boundary": "x64 native非拥有输入字符串/对象、正常数值/字节原宽与原默认字体0缓存宽度/Time字体2布局职责保；本根局部I/S，不代完整资源/字符draw消费/owner-PC53或运行，音频暂停"
+    },
+    {
+      "inventory_id": "F:00059960",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+      ],
+      "boundary": "BOK01已证native非拥有资源/输出指针，原非地址宽与40B/32B正常取样、既有宿主容器值/引用合同；完整原根局部I/S不代全部caller/callee-内容/owner-运行或STL/ABI/故障过程，音频暂停"
+    },
+    {
+      "inventory_id": "F:0005A710",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+      ],
+      "boundary": "BOK01已证native非拥有资源/输出指针，原非地址宽与40B/32B正常取样、既有宿主容器值/引用合同；完整原根局部I/S不代全部caller/callee-内容/owner-运行或STL/ABI/故障过程，音频暂停"
+    },
+    {
+      "inventory_id": "F:0005A8B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+      ],
+      "boundary": "BOK01已证native非拥有资源/输出指针，原非地址宽与40B/32B正常取样、既有宿主容器值/引用合同；完整原根局部I/S不代全部caller/callee-内容/owner-运行或STL/ABI/故障过程，音频暂停"
     }
   ],
   "auxiliary_dispositions": [

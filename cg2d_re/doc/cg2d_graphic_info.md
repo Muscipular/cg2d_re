@@ -205,3 +205,11 @@ read(length U32,1)仅返回1才发布解码目标、沿既有解码并返0/1；
 模式3堆布局、资源内容及运行验收仍待，音频暂停与既有待批项保持。
 只做必要静态核对，不构建、链接、查产物、新增/执行测试、
 读写资源样例、运行客户端或计算/比对哈希。
+
+## BOK01 图形记录生产与数字直接查询（2026-10-06）
+
+[具体SPEC](cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision)/[证据](cg2d_graphic_record_production_lookup_evidence.json)。完整Init634条1996B与XY21条80B、MapIndex7条25B，共662条2101B/10页/21call-97内部分支/10ret，无switch；入向1/20/29普通call、父1/18/21分列，三个含NUL字符串55B。仅Init13处恢复seqNo→当前主表→processed、11字段各自先主表后字段、有效索引发布分支才重读去重key/越界沿初样本、先end后start查找、追加后主表实际记录T*先于首见树key取样。40B栈记录未清/原EOF短读仍消费、32B字段原宽/reserved不写、索引后见覆盖与首见树借实际表位置、每有效文件S32排序→关Info不清槽→base=processed、原0/1/2/3/7/-1和各自清理保持；两个正确getter原上界/输出顺序/直接读索引保持，公开头不扩。
+
+736/160/165三个已有ID续记，完整历史另存，旧stdio/格式事实保持；语义1399/有效ID1394及关联1512/3680=41.09%保持，分类507→510。RESOURCE26→29三成员，BATTLE103→105只登记两个真实数字查询依赖；共享基线candidate不替代成员，member_inventory_closed=false、完整gates仍空。RESOURCE三根与BATTLE两getter各I/S新增10条局部static证据，E599→609仍只有三个原函数；七open仅加进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0保持。
+
+沿已批准宿主vector/map/sort承接本处值/引用合同，不宣STL节点/排序过程/分配故障或ABI逐条等价；所有父/callee、主表分配与GraphicRead真实内容/解码-字载荷绘制消费/owner回收及画面运行、R1/R7/R8继续。仅定向文本静态/计量，无构建/调试/测试/运行/hash；网络原格式明文/内存CryptInt保/音频暂停。

@@ -183,32 +183,51 @@ std::int32_t GraphicInit_459960(
         // 原459CCE/459F1D只检查flags低U8的EOF位，短读仍消费同一记录。
         while ((static_cast<std::uint8_t>(gGraphicInfoFile->flags) & 0x10u) == 0) {
             platform::ReadLegacyStream_53BCCD(&record, 0x28, 1, gGraphicInfoFile);
+            const std::uint32_t sequenceNo = record.seqNo;
+            GraphicInfo* recordTable = gGraphicInfo;
             ++processed;
-            const std::uint32_t index = record.seqNo + static_cast<std::uint32_t>(base);
-            gGraphicInfo[index].seqNo = index;
-            gGraphicInfo[index].offset = static_cast<std::int32_t>(record.offset);
-            gGraphicInfo[index].length = record.length;
-            gGraphicInfo[index].x = static_cast<std::int16_t>(record.x);
-            gGraphicInfo[index].y = static_cast<std::int16_t>(record.y);
-            gGraphicInfo[index].w = static_cast<std::int16_t>(record.w);
-            gGraphicInfo[index].h = static_cast<std::int16_t>(record.h);
-            gGraphicInfo[index].sx = record.sx;
-            gGraphicInfo[index].sy = record.sy;
-            gGraphicInfo[index].flag = record.flag;
-            gGraphicInfo[index].mapNo = record.mapNo;
-            gGraphicInfo[index].fileIndex = static_cast<std::int16_t>(slot);
-            if (record.mapNo == 0) {
+            const std::uint32_t index = sequenceNo + static_cast<std::uint32_t>(base);
+            recordTable[index].seqNo = index;
+            recordTable = gGraphicInfo;
+            recordTable[index].offset = static_cast<std::int32_t>(record.offset);
+            recordTable = gGraphicInfo;
+            recordTable[index].length = record.length;
+            recordTable = gGraphicInfo;
+            recordTable[index].x = static_cast<std::int16_t>(record.x);
+            recordTable = gGraphicInfo;
+            recordTable[index].y = static_cast<std::int16_t>(record.y);
+            recordTable = gGraphicInfo;
+            recordTable[index].w = static_cast<std::int16_t>(record.w);
+            recordTable = gGraphicInfo;
+            recordTable[index].h = static_cast<std::int16_t>(record.h);
+            recordTable = gGraphicInfo;
+            recordTable[index].sx = record.sx;
+            recordTable = gGraphicInfo;
+            recordTable[index].sy = record.sy;
+            recordTable = gGraphicInfo;
+            recordTable[index].flag = record.flag;
+            recordTable = gGraphicInfo;
+            recordTable[index].mapNo = record.mapNo;
+            recordTable = gGraphicInfo;
+            recordTable[index].fileIndex = static_cast<std::int16_t>(slot);
+            std::int32_t lookupMapNo = record.mapNo;
+            if (lookupMapNo == 0) {
                 gGraphicMapNoIndex[0] = 0;
                 continue;
             }
-            if (static_cast<std::uint32_t>(record.mapNo)
+            if (static_cast<std::uint32_t>(lookupMapNo)
                 < static_cast<std::uint32_t>(gMaxGraphicCount)) {
-                gGraphicMapNoIndex[record.mapNo] = static_cast<std::int32_t>(index);
+                gGraphicMapNoIndex[lookupMapNo] = static_cast<std::int32_t>(index);
+                lookupMapNo = record.mapNo;
             }
-            if (std::find(BorrowGraphicMapNumbers().begin(), BorrowGraphicMapNumbers().end(), record.mapNo)
-                == BorrowGraphicMapNumbers().end()) {
-                BorrowGraphicMapNumbers().push_back(record.mapNo);
-                BorrowGraphicFirstRecords().emplace(record.mapNo, &gGraphicInfo[index]);
+            auto& mapNumbers = BorrowGraphicMapNumbers();
+            const auto end = mapNumbers.end();
+            const auto begin = mapNumbers.begin();
+            if (std::find(begin, end, lookupMapNo) == end) {
+                mapNumbers.push_back(lookupMapNo);
+                GraphicInfo* const firstRecord = &gGraphicInfo[index];
+                const std::int32_t firstMapNo = record.mapNo;
+                BorrowGraphicFirstRecords().emplace(firstMapNo, firstRecord);
             }
         }
         std::sort(BorrowGraphicMapNumbers().begin(), BorrowGraphicMapNumbers().end());

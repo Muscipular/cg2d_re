@@ -169,3 +169,9 @@
 [完整合同](cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state)/[完整266条901B](cg2d_battle_command_target_width_sampling_evidence.json)纳管43C560；四片段/六低W8表达式对应七原点，正常旧值一致。同阵营FDC低W8共用两个阵营原路径、400下玩家位低W8与两前排四个低W8条件恢复；原flags参数/目标全局W32、四源选中OR/两清除AND的W32写保持。
 
 六HP比较物理点/四源表达式、调用后共享目标重取、十槽同侧排除/对侧选择、20项原栈矩阵/400短路/最后匹配/每列fresh别名与0/1返回保持。六UI父八入向/八窗40条141B可追，不新R7；BATTLE187枚举open/E770两局部I/S，全部目标生产/owner寿命/递归父/生成机器/运行及R8未完成。
+
+## BQJ01 选择清理与命令入口借用（2026-10-07）
+
+[完整合同](cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state)/[三完整145条467B](cg2d_battle_selection_cleanup_entry_sampling_evidence.json)纳管43C060/496F10/4972B0；两文件四借用阶段：Flush首T*判空/AND共用、Close三个T*各当阶段一次取样供判空/标死。正常旧值一致；保Flush后两fresh槽、各非空回收/清槽、九S32/三个W32关闭请求及原空分支。
+
+callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返回保持。45代码入向45窗135条693B及1数据xref/实际32B prototype中56B72C callback字段/15B旧字节可追，32B原型与36B运行元素不混；现窗口26首元素/初始化发布/事件消费有据，不外推全部窗口/57C368 token/owner寿命。BATTLE190枚举open/E772两局部I/S，不新R7，完整运行及R8未完成。

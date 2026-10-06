@@ -180504,6 +180504,168 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x0043C060",
+      "inventory_id": "F:0003C060",
+      "original_role": "FlushBattleEntries_43C060",
+      "original_end_exclusive": "0x0043C098",
+      "instruction_count": 20,
+      "status": "BQJ01三完整选择清理/回收/攻击入口正常源纳管，两源文件四借用阶段实修，callback正确体/原型与当前接线保持；完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "FlushBattleEntries_43C060"
+          ],
+          "relationship": "Flush43C060：原59E980..59E9D0前20槽，源20槽span直接借22槽数组前20；每槽先一次共享T*读取、同对象判空，非空才同cached action.flags W32读→AND~8→W32写。之后独立重新从同共享槽取对象，flags再W32读→OR4→W32写；之后第三次重新同槽取对象cacheIndex S32=-2。原43C06B取ECX供43C06D判空及43C071/43C077首读写，43C07A/43C084才重新取槽；源新增action局部只恢复首借用，不将后两次都换成cached对象。无调用/新空值与边界门槛，不扩大到22槽，不把两W32写合成一次；唯一ret保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-decision",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-acceptance",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_evidence.json"
+      ],
+      "boundary": "Flush43C060：原59E980..59E9D0前20槽，源20槽span直接借22槽数组前20；每槽先一次共享T*读取、同对象判空，非空才同cached action.flags W32读→AND~8→W32写。之后独立重新从同共享槽取对象，flags再W32读→OR4→W32写；之后第三次重新同槽取对象cacheIndex S32=-2。原43C06B取ECX供43C06D判空及43C071/43C077首读写，43C07A/43C084才重新取槽；源新增action局部只恢复首借用，不将后两次都换成cached对象。无调用/新空值与边界门槛，不扩大到22槽，不把两W32写合成一次；唯一ret保。 三完整原根145条467B/三页、8call/5callee、14普通内部jump/四ret。Flush32/Close13共45代码入向45窗135邻指令/693B；callback另1数据xref、实际32B行字段56B72C及15B原hover字节有据，32B prototype与36B runtime元素不混。四源码片段/两源体：Flush首借用供判空/AND、Close三个分别借用供判空/MarkDeath；正常旧值一致，不称数值/并发或机器故障。后两次fresh槽、各回收之后下一槽取样、原W32写/九S32清零/10-27-28窗口序、原空分支、callback正确体/图优先级/选择链/原字节/返回保持。只当前正常源及该prototype/发布/消费接线，不代45完整UI父/全部子依赖、其它生产与owner寿命、SDK/生成机器ABI/画面运行；无新R7/数据表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与适用标准保持。",
+      "verification_level": "三完整原根145条467B/三页、8call/5callee、14普通内部jump/四ret。Flush32/Close13共45代码入向45窗135邻指令/693B；callback另1数据xref、实际32B行字段56B72C及15B原hover字节有据，32B prototype与36B runtime元素不混。四源码片段/两源体：Flush首借用供判空/AND、Close三个分别借用供判空/MarkDeath；正常旧值一致，不称数值/并发或机器故障。后两次fresh槽、各回收之后下一槽取样、原W32写/九S32清零/10-27-28窗口序、原空分支、callback正确体/图优先级/选择链/原字节/返回保持。只当前正常源及该prototype/发布/消费接线，不代45完整UI父/全部子依赖、其它生产与owner寿命、SDK/生成机器ABI/画面运行；无新R7/数据表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与适用标准保持。",
+      "battle_selection_cleanup_entry_sampling": {
+        "spec_id": "BQJ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-decision",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-acceptance",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 20,
+        "original_code_bytes": 56,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 32,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00496F10",
+      "inventory_id": "F:00096F10",
+      "original_role": "Sub_496F10",
+      "original_end_exclusive": "0x00496FA5",
+      "instruction_count": 46,
+      "status": "BQJ01三完整选择清理/回收/攻击入口正常源纳管，两源文件四借用阶段实修，callback正确体/原型与当前接线保持；完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_496F10"
+          ],
+          "relationship": "CloseAllSubWindow496F10：九个S32选择模式清零（原ECX9/EAX0/REP STOSD，从5ABC7C起36B），源std::array<int32,9>.fill(0)正确体保。按顺序借窗口10、27、28 T*，每个非空都window.state W32读写|8000；原OR CH,80是W32缓存寄存器修改，不能窄成内存W8写。三个技能CC1A10/道具D2F790/宠物D2D60C槽分别当阶段一次借T*，同一个对象判空并MarkDeath弃返，然后只在该非空分支清相应全局槽null。第二/第三槽在前一个MarkDeath/清槽之后才独立读取，不能齐取三个、再次全局取对象或无条件清原空槽。原三个MOV EAX→TEST EAX→PUSH EAX，源分别skillWindow/itemWindow/petWindow恢复，均非拥有借用。全部真实空/非空分支、窗口顺序/九字段范围、标死/清槽次序及唯一ret保；完整销毁owner链不因此闭合。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-decision",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-acceptance",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_evidence.json"
+      ],
+      "boundary": "CloseAllSubWindow496F10：九个S32选择模式清零（原ECX9/EAX0/REP STOSD，从5ABC7C起36B），源std::array<int32,9>.fill(0)正确体保。按顺序借窗口10、27、28 T*，每个非空都window.state W32读写|8000；原OR CH,80是W32缓存寄存器修改，不能窄成内存W8写。三个技能CC1A10/道具D2F790/宠物D2D60C槽分别当阶段一次借T*，同一个对象判空并MarkDeath弃返，然后只在该非空分支清相应全局槽null。第二/第三槽在前一个MarkDeath/清槽之后才独立读取，不能齐取三个、再次全局取对象或无条件清原空槽。原三个MOV EAX→TEST EAX→PUSH EAX，源分别skillWindow/itemWindow/petWindow恢复，均非拥有借用。全部真实空/非空分支、窗口顺序/九字段范围、标死/清槽次序及唯一ret保；完整销毁owner链不因此闭合。 三完整原根145条467B/三页、8call/5callee、14普通内部jump/四ret。Flush32/Close13共45代码入向45窗135邻指令/693B；callback另1数据xref、实际32B行字段56B72C及15B原hover字节有据，32B prototype与36B runtime元素不混。四源码片段/两源体：Flush首借用供判空/AND、Close三个分别借用供判空/MarkDeath；正常旧值一致，不称数值/并发或机器故障。后两次fresh槽、各回收之后下一槽取样、原W32写/九S32清零/10-27-28窗口序、原空分支、callback正确体/图优先级/选择链/原字节/返回保持。只当前正常源及该prototype/发布/消费接线，不代45完整UI父/全部子依赖、其它生产与owner寿命、SDK/生成机器ABI/画面运行；无新R7/数据表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与适用标准保持。",
+      "verification_level": "三完整原根145条467B/三页、8call/5callee、14普通内部jump/四ret。Flush32/Close13共45代码入向45窗135邻指令/693B；callback另1数据xref、实际32B行字段56B72C及15B原hover字节有据，32B prototype与36B runtime元素不混。四源码片段/两源体：Flush首借用供判空/AND、Close三个分别借用供判空/MarkDeath；正常旧值一致，不称数值/并发或机器故障。后两次fresh槽、各回收之后下一槽取样、原W32写/九S32清零/10-27-28窗口序、原空分支、callback正确体/图优先级/选择链/原字节/返回保持。只当前正常源及该prototype/发布/消费接线，不代45完整UI父/全部子依赖、其它生产与owner寿命、SDK/生成机器ABI/画面运行；无新R7/数据表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与适用标准保持。",
+      "battle_selection_cleanup_entry_sampling": {
+        "spec_id": "BQJ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-decision",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-acceptance",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 46,
+        "original_code_bytes": 149,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 13,
+        "source_body_changed": true,
+        "source_body_patch_count": 3,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x004972B0",
+      "inventory_id": "F:000972B0",
+      "original_role": "Sub_4972B0",
+      "original_end_exclusive": "0x004973B6",
+      "instruction_count": 79,
+      "status": "BQJ01三完整选择清理/回收/攻击入口正常源纳管，两源文件四借用阶段实修，callback正确体/原型与当前接线保持；完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4972B0"
+          ],
+          "relationship": "Sub4972B0窗口26普通攻击callback：index/state S32。原先gCurrentWindow.elements[index].data借固定type1的WindowGraphicData T*（原runtime元素36B/+1C，prototype为32B/+18源/+1C回调，两布局不混）。窗口26.userState.value W32非0时graphic.imageNo=3B9C4，独立selectionModes[0] W32非0覆盖3B9C5，返回0，禁用路径不走hover或click。否则consumed0，cached state bit1有则复制原554138旧字节字符串b4b6b371aaabb27aa7f0c0bba14300含NUL15B到gHoverTextD68AE8，现strcpy字面量正确，不改编码/容量。state bit2有按原Sub496F10→selectionModes[0]=1→selectionMode5ABC70=0→Flush43C060→fresh currentPosition/flags475 CheckCommand弃返→fresh commandAction MarkDeath→commandAction=null→声51/x320（原第三Y240未消费）→CB054C W8=0→consumed1。graphic是入口固定借用，调用后不重取；最后graphic默认3B9C4，cached state bit1设覆盖3B9C6，再fresh selectionModes[0]非0覆盖3B9C5，返回consumed。原79条/五call/两ret，禁用与启用路径/图优先级/Click先关闭清理再选择/两旗值/原字节hover和声返回边界正确体保持，不改此源体。\n原唯一数据xref从56B710元素结构头标记，实际32B行的callback字段是56B72C值4972B0，源字段56B728值56B5F8；不能把结构头W32类型1当函数指针。现gWindowElements56B710[14]首项graphic=&gWindowGraphic56B5F8、mouseCallback=&Sub4972B0，窗口26原型实际引用此数组。OpenWindow471440真实发布element.mouseCallback，Sub473560在visible==1时实际按(index,events)调用并消费非0；只是该已存在元素接线有据，不外推全部14元素、99窗口/57C368+04token、完整生命周期/鼠标运行或父流验收。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-decision",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-acceptance",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_evidence.json"
+      ],
+      "boundary": "Sub4972B0窗口26普通攻击callback：index/state S32。原先gCurrentWindow.elements[index].data借固定type1的WindowGraphicData T*（原runtime元素36B/+1C，prototype为32B/+18源/+1C回调，两布局不混）。窗口26.userState.value W32非0时graphic.imageNo=3B9C4，独立selectionModes[0] W32非0覆盖3B9C5，返回0，禁用路径不走hover或click。否则consumed0，cached state bit1有则复制原554138旧字节字符串b4b6b371aaabb27aa7f0c0bba14300含NUL15B到gHoverTextD68AE8，现strcpy字面量正确，不改编码/容量。state bit2有按原Sub496F10→selectionModes[0]=1→selectionMode5ABC70=0→Flush43C060→fresh currentPosition/flags475 CheckCommand弃返→fresh commandAction MarkDeath→commandAction=null→声51/x320（原第三Y240未消费）→CB054C W8=0→consumed1。graphic是入口固定借用，调用后不重取；最后graphic默认3B9C4，cached state bit1设覆盖3B9C6，再fresh selectionModes[0]非0覆盖3B9C5，返回consumed。原79条/五call/两ret，禁用与启用路径/图优先级/Click先关闭清理再选择/两旗值/原字节hover和声返回边界正确体保持，不改此源体。\n原唯一数据xref从56B710元素结构头标记，实际32B行的callback字段是56B72C值4972B0，源字段56B728值56B5F8；不能把结构头W32类型1当函数指针。现gWindowElements56B710[14]首项graphic=&gWindowGraphic56B5F8、mouseCallback=&Sub4972B0，窗口26原型实际引用此数组。OpenWindow471440真实发布element.mouseCallback，Sub473560在visible==1时实际按(index,events)调用并消费非0；只是该已存在元素接线有据，不外推全部14元素、99窗口/57C368+04token、完整生命周期/鼠标运行或父流验收。 三完整原根145条467B/三页、8call/5callee、14普通内部jump/四ret。Flush32/Close13共45代码入向45窗135邻指令/693B；callback另1数据xref、实际32B行字段56B72C及15B原hover字节有据，32B prototype与36B runtime元素不混。四源码片段/两源体：Flush首借用供判空/AND、Close三个分别借用供判空/MarkDeath；正常旧值一致，不称数值/并发或机器故障。后两次fresh槽、各回收之后下一槽取样、原W32写/九S32清零/10-27-28窗口序、原空分支、callback正确体/图优先级/选择链/原字节/返回保持。只当前正常源及该prototype/发布/消费接线，不代45完整UI父/全部子依赖、其它生产与owner寿命、SDK/生成机器ABI/画面运行；无新R7/数据表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与适用标准保持。",
+      "verification_level": "三完整原根145条467B/三页、8call/5callee、14普通内部jump/四ret。Flush32/Close13共45代码入向45窗135邻指令/693B；callback另1数据xref、实际32B行字段56B72C及15B原hover字节有据，32B prototype与36B runtime元素不混。四源码片段/两源体：Flush首借用供判空/AND、Close三个分别借用供判空/MarkDeath；正常旧值一致，不称数值/并发或机器故障。后两次fresh槽、各回收之后下一槽取样、原W32写/九S32清零/10-27-28窗口序、原空分支、callback正确体/图优先级/选择链/原字节/返回保持。只当前正常源及该prototype/发布/消费接线，不代45完整UI父/全部子依赖、其它生产与owner寿命、SDK/生成机器ABI/画面运行；无新R7/数据表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与适用标准保持。",
+      "battle_selection_cleanup_entry_sampling": {
+        "spec_id": "BQJ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-decision",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-acceptance",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+          "doc/cg2d_battle_selection_cleanup_entry_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 79,
+        "original_code_bytes": 262,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 5,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

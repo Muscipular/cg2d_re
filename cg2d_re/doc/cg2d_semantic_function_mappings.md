@@ -3136,3 +3136,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline)/[原根冻结前态](cg2d_battle_command_target_width_sampling_evidence.json)。新增1509对应43C560，单原已有完整定义正常语义/equivalent，冻结定位全文保。只四低W8读取片段/六表达式对七原点；参数/目标全局/选中与清除W32写、六HP比较物理点/四源表达式、二十矩阵项/400短路与每列fresh别名/返回保持，不新R7。
 
 语义1510/有效1505、关联1623/3680（44.10%）、BATTLE187枚举open、分类635/E770；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。
+
+## BQJ01 三完整清理/回收/攻击入口正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline)/[三根冻结前态](cg2d_battle_selection_cleanup_entry_sampling_evidence.json)。新增1510..1512对应43C060/496F10/4972B0，三原已有完整定义正常语义/equivalent，分别在YobiRuntime与WindowRuntime，三冻结定位全文保。只两文件四借用阶段，正常旧值一致；原W32/S32写、后两fresh槽/三阶段回收清槽/空分支、callback正确体/原型与当前发布消费保持，不新R7。
+
+语义1513/有效1508、关联1626/3680（44.18%）、BATTLE190枚举open、分类638/E772；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。

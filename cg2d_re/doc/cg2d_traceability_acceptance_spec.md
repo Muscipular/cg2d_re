@@ -1160,3 +1160,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-acceptance)/[完整266条901B](cg2d_battle_command_target_width_sampling_evidence.json)。四页、7call/2callee/63jump/三ret、六UI父八入向/八窗40条141B和20项原栈矩阵有据。四取样片段/六低W8表达式对应七原点，正常旧值一致，原W32参数/全局/OR-AND写、HP先比较再bit2/共享重取、十槽选择与排除、400短路/最后匹配与fresh前排别名、原0/1返回保持。两局部I/S各十七实来源，不代完整参数生产/owner寿命/递归父或生成机器/运行。
 
 语义1510/1505、关联1623/44.10%、BATTLE187枚举open、分类635/E770；R7 260/3061/余2801、差队列172/待归属43、四任务open和60源码closed10/完整验收0/叶0/global_accepted=false保持。
+
+## BQJ01 三完整选择清理/命令入口局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-acceptance)/[完整145条467B](cg2d_battle_selection_cleanup_entry_sampling_evidence.json)。三页、8call/5callee/14jump/四ret、45代码入向45窗135条693B及1数据xref/实际32B prototype/15B旧字节有据。两文件四借用阶段，正常旧值一致；首缓存/后两fresh槽、三阶段标死清槽与空分支、九S32/三个W32关闭、callback原正确图值/优先级/选择链与返回保持。当前窗口26首元素callback原型/发布/消费有据，实际字段56B72C，结构头type1，prototype/runtime两布局不混；两局部I/S各十七实来源，不代完整窗口/全部UI父/owner寿命/生成机器或运行。
+
+语义1513/1508、关联1626/44.18%、BATTLE190枚举open、分类638/E772；R7 260/3061/余2801、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持。

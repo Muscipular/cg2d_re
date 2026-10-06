@@ -33253,8 +33253,9 @@ void FlushBattleEntries_43C060()
 {
     auto& entries = world::detail::gBattleEntries59E980;
     for (std::size_t slot = 0; slot < entries.size(); ++slot) {
-        if (entries[slot] != nullptr) {
-            entries[slot]->flags &= ~8u;
+        YobiAction* const action = entries[slot];
+        if (action != nullptr) {
+            action->flags &= ~8u;
             entries[slot]->flags |= 4u;
             entries[slot]->cacheIndex = -2;
         }

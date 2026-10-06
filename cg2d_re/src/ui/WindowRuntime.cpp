@@ -35657,16 +35657,19 @@ void Sub_496F10()
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    if (gBattleSkillWindowActionCC1A10 != nullptr) {
-        login::detail::MarkDeath(gBattleSkillWindowActionCC1A10);
+    login::YobiAction* const skillWindow = gBattleSkillWindowActionCC1A10;
+    if (skillWindow != nullptr) {
+        login::detail::MarkDeath(skillWindow);
         gBattleSkillWindowActionCC1A10 = nullptr;
     }
-    if (gBattleItemWindowActionD2F790 != nullptr) {
-        login::detail::MarkDeath(gBattleItemWindowActionD2F790);
+    login::YobiAction* const itemWindow = gBattleItemWindowActionD2F790;
+    if (itemWindow != nullptr) {
+        login::detail::MarkDeath(itemWindow);
         gBattleItemWindowActionD2F790 = nullptr;
     }
-    if (gBattlePetWindowActionD2D60C != nullptr) {
-        login::detail::MarkDeath(gBattlePetWindowActionD2D60C);
+    login::YobiAction* const petWindow = gBattlePetWindowActionD2D60C;
+    if (petWindow != nullptr) {
+        login::detail::MarkDeath(petWindow);
         gBattlePetWindowActionD2D60C = nullptr;
     }
 }

@@ -8479,3 +8479,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [具体SPEC](../cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision)/[证据](../cg2d_battle_initializers_sampling_evidence.json)：五完整608条1940B十页30call/35普通内部分支/五ret，Target switch60B与100/200原常量8B、六入向来自41CD00。五记录显式固定C9C：Target/Lower先position4再flags，另三根先flags再position4；随后position3/position传值，Append后仍live flags/Aux。Center游标先新payload，Offset live游标→targetX→position值次序一并恢复。五根真实action/source空门禁、ScreenY可空side输出、所有条件RNG/固定与fresh目标、原W8值4/W16业务零及DX S16高/对象S32偏移保持。
 
 新增语义1373..1377/五ID分类、BATTLE75→80枚举仍open；语义1378/有效ID1373、分类484、关联1491/3680=40.52%、E551各局部I/S共十E。本步六补丁已解决取样问题；全部其它源/声明、旧记录-其它域/175队列/七open与完整门禁保持，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8继续。
+
+## BOC01 两命中回调的HP消费与取样（2026-10-06）
+
+[具体SPEC](../cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision)/[证据](../cg2d_battle_impact_callbacks_sampling_evidence.json)：两完整732条2647B十页57call/74普通内部分支/两ret，三callback地址引用来自41CD00。各五补丁恢复入口phase先payload、完成position/flags先查target、负HP临时encoded先查copyTarget，以及两数字分支flags→targetY→记录数值→targetX→S32 Y-80。保原负HP零临时/上限三字段复制、目标和载荷固定/live源游标重读、分类10000/40000/20000/default与scene计数、严格完成/标死继续、old58/FD0及偏移投影尾；通用CopyPayload/固定内存CryptInt/音频接口不改。
+
+新增语义1378..1379/两ID分类、BATTLE80→82枚举仍open；语义1380/有效ID1375、分类486、关联1493/3680=40.57%、E555仅各局部I/S共四E。十取样问题本步已解决，所有其它源码/声明、旧记录-其它域/175队列/七open与完整门禁保持；全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8继续，网络原格式明文/音频暂停。

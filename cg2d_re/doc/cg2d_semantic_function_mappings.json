@@ -165174,6 +165174,158 @@
         "original_nullable_side_guard_preserved": true,
         "skill20_24_28_skip_image_rng": true
       }
+    },
+    {
+      "original_entry": "0x41A9E0",
+      "inventory_id": "F:0001A9E0",
+      "status": "BOC01两完整正常命中回调/各五补丁解决本步取样问题，独立基线纳管；全父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleImpactEffect_41A9E0"
+          ],
+          "relationship": "入口phase先固定payload；phase0仅当前目标phase非零才早退，否则phase1/Play(1)严格1才完成；MarkDeath后固定C9C-position/flags/target与targetPayload，4/800/400图号优先/否则RNG0..2，406260后opponent/FE4与406390按live源位置/游标；resolved8写目标phase31并跳过分类，其它分支按原伤害/治疗/状态/图标-数字/场景计数推进；finish8清且position3非零才FD0=14或28，frameEvent清零；old58<=0且FD0>0才减FD0，各非早退路径继续S32屏幕偏移投影；无额外音效132"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleImpactEffect_41A9E0"
+          ],
+          "relationship": "既有native非拥有T*与void callback保持；原无新空门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-baseline",
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision",
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
+        "doc/cg2d_battle_impact_callbacks_sampling_evidence.json"
+      ],
+      "boundary": "入口phase先固定payload；phase0仅当前目标phase非零才早退，否则phase1/Play(1)严格1才完成；MarkDeath后固定C9C-position/flags/target与targetPayload，4/800/400图号优先/否则RNG0..2，406260后opponent/FE4与406390按live源位置/游标；resolved8写目标phase31并跳过分类，其它分支按原伤害/治疗/状态/图标-数字/场景计数推进；finish8清且position3非零才FD0=14或28，frameEvent清零；old58<=0且FD0>0才减FD0，各非早退路径继续S32屏幕偏移投影；无额外音效132。HP业务归零/上限、固定目标载荷与live游标/三分类场景计数保；地址native非拥有，其它数值原宽，内存CryptInt token/reserved不改；不代全父-callee-owner/SDK-ABI-PC53画面运行，音频暂停。",
+      "instruction_count": 362,
+      "function_chunks": [
+        {
+          "start": "0x41A9E0",
+          "end_exclusive": "0x41AEFF"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleImpactEffect_41A9E0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOC01完整362条1311B/5页28call/各五取样补丁与全部出口，2callback地址引用/单父41CD00分列，不代全父-callee-owner/ABI-PC53运行",
+      "battle_impact_callbacks_sampling": {
+        "spec_id": "BOC01",
+        "evidence_refs": [
+          "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-baseline",
+          "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision",
+          "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-acceptance",
+          "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
+          "doc/cg2d_battle_impact_callbacks_sampling_evidence.json"
+        ],
+        "original_entry": "0x41A9E0",
+        "original_instruction_count": 362,
+        "original_code_bytes": 1311,
+        "page_count": 5,
+        "outgoing_call_site_count": 28,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 5,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "entry_phase_before_payload": true,
+        "initial_position_and_flags_before_target_lookup": true,
+        "negative_hp_copy_encoded_sample_before_target_lookup": true,
+        "healing_display_y_value_x_then_y_minus80": true,
+        "default_display_y_value_x_then_y_minus80": true,
+        "strict_playframe_one": true,
+        "markdeath_does_not_skip_tail": true,
+        "original_hp_zero_and_maximum_business_rules_preserved": true,
+        "source_indices_reloaded_across_calls": true,
+        "audio132_only_default": false,
+        "source_callback_void_unchanged": true
+      }
+    },
+    {
+      "original_entry": "0x41AF00",
+      "inventory_id": "F:0001AF00",
+      "status": "BOC01两完整正常命中回调/各五补丁解决本步取样问题，独立基线纳管；全父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleImpactSoundEffect_41AF00"
+          ],
+          "relationship": "入口phase先固定payload；phase0仅当前目标phase非零才早退，否则phase1/Play(1)严格1才完成；MarkDeath后固定C9C-position/flags/target与targetPayload，4/800/400图号优先/否则RNG0..2，406260后opponent/FE4与406390按live源位置/游标；resolved8写目标phase31并跳过分类，其它分支按原伤害/治疗/状态/图标-数字/场景计数推进；finish8清且position3非零才FD0=14或28，frameEvent清零；old58<=0且FD0>0才减FD0，各非早退路径继续S32屏幕偏移投影；仅default分类末额外音效132，音频暂停"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleImpactSoundEffect_41AF00"
+          ],
+          "relationship": "既有native非拥有T*与void callback保持；原无新空门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-baseline",
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision",
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-acceptance",
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
+        "doc/cg2d_battle_impact_callbacks_sampling_evidence.json"
+      ],
+      "boundary": "入口phase先固定payload；phase0仅当前目标phase非零才早退，否则phase1/Play(1)严格1才完成；MarkDeath后固定C9C-position/flags/target与targetPayload，4/800/400图号优先/否则RNG0..2，406260后opponent/FE4与406390按live源位置/游标；resolved8写目标phase31并跳过分类，其它分支按原伤害/治疗/状态/图标-数字/场景计数推进；finish8清且position3非零才FD0=14或28，frameEvent清零；old58<=0且FD0>0才减FD0，各非早退路径继续S32屏幕偏移投影；仅default分类末额外音效132，音频暂停。HP业务归零/上限、固定目标载荷与live游标/三分类场景计数保；地址native非拥有，其它数值原宽，内存CryptInt token/reserved不改；不代全父-callee-owner/SDK-ABI-PC53画面运行，音频暂停。",
+      "instruction_count": 370,
+      "function_chunks": [
+        {
+          "start": "0x41AF00",
+          "end_exclusive": "0x41B438"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleImpactSoundEffect_41AF00",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOC01完整370条1336B/5页29call/各五取样补丁与全部出口，1callback地址引用/单父41CD00分列，不代全父-callee-owner/ABI-PC53运行",
+      "battle_impact_callbacks_sampling": {
+        "spec_id": "BOC01",
+        "evidence_refs": [
+          "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-baseline",
+          "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision",
+          "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-acceptance",
+          "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
+          "doc/cg2d_battle_impact_callbacks_sampling_evidence.json"
+        ],
+        "original_entry": "0x41AF00",
+        "original_instruction_count": 370,
+        "original_code_bytes": 1336,
+        "page_count": 5,
+        "outgoing_call_site_count": 29,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 5,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "entry_phase_before_payload": true,
+        "initial_position_and_flags_before_target_lookup": true,
+        "negative_hp_copy_encoded_sample_before_target_lookup": true,
+        "healing_display_y_value_x_then_y_minus80": true,
+        "default_display_y_value_x_then_y_minus80": true,
+        "strict_playframe_one": true,
+        "markdeath_does_not_skip_tail": true,
+        "original_hp_zero_and_maximum_business_rules_preserved": true,
+        "source_indices_reloaded_across_calls": true,
+        "audio132_only_default": true,
+        "source_callback_void_unchanged": true
+      }
     }
   ]
 }

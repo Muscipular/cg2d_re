@@ -164397,6 +164397,149 @@
         "original_initial_flags_before_callback": true,
         "original_business_flags_two": true
       }
+    },
+    {
+      "original_entry": "0x41A310",
+      "inventory_id": "F:0001A310",
+      "status": "BNY01随机emitter X取样实修/完整原根与独立身份纳管；全部父-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleRandomEmitter_41A310"
+          ],
+          "relationship": "固定outer parent deathFlag严格1仅标死早退；phase先+1按old<50生产/新phase40才outer flagsOR2，先位置RNG再分配/无设备另RNG；粒子借用当前emitter、0.2/phase与当前emitter W16零，field58>=50才fresh outer parent有1024非零改2/标死"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleRandomEmitter_41A310"
+          ],
+          "relationship": "既有native非拥有T*与void callback声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-baseline",
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision",
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
+        "doc/cg2d_battle_rising_emitters_sampling_evidence.json"
+      ],
+      "boundary": "固定outer parent deathFlag严格1仅标死早退；phase先+1按old<50生产/新phase40才outer flagsOR2，先位置RNG再分配/无设备另RNG；粒子借用当前emitter、0.2/phase与当前emitter W16零，field58>=50才fresh outer parent有1024非零改2/标死。两级particle→emitter→outer parent借用保持；原字段保宽，四原栈数组64S32值映三constexpr48项，不合并不同Y表。原host/只标死保，无新owner/保护/异常回绕，未验全41CD00/资源寿命/ABI-SDK-PC53-RNG画面。",
+      "instruction_count": 135,
+      "function_chunks": [
+        {
+          "start": "0x41A310",
+          "end_exclusive": "0x41A528"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleRandomEmitter_41A310",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNY01完整135条536B/2页5call/11内部出口与ret，原callback绑定一处/父41CD00只列身份；唯一随机补丁和两根精确静态/原表项，完整父/owner与运行未验",
+      "battle_rising_emitters_sampling": {
+        "spec_id": "BNY01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-baseline",
+          "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision",
+          "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-acceptance",
+          "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
+          "doc/cg2d_battle_rising_emitters_sampling_evidence.json"
+        ],
+        "original_entry": "0x41A310",
+        "original_instruction_count": 135,
+        "original_code_bytes": 536,
+        "page_count": 2,
+        "outgoing_call_site_count": 5,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_binding",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "strict_outer_parent_death_one": true,
+        "old_phase_less_50_after_increment": true,
+        "parent_flag_only_new_phase_40": true,
+        "rng_before_allocation": true,
+        "particle_parent_is_emitter": true,
+        "clears_emitter_not_particle_w16": true,
+        "completion_threshold": 50
+      }
+    },
+    {
+      "original_entry": "0x41A7D0",
+      "inventory_id": "F:0001A7D0",
+      "status": "BNY01索引emitter完整正常本体/既有正确源保持与独立身份纳管；全部父-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleIndexedEmitter_41A7D0"
+          ],
+          "relationship": "oldPhase先+1/old>0且nameX<32才phase0/分配；失败也nameX++，成功三次live nameX S32%16取X/Y/endY、两个live emitterY、仅40000/110011/0.1及粒子借用emitter/清emitter W16；field58>=32才fresh outer parent1024非零改2后标死"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleIndexedEmitter_41A7D0"
+          ],
+          "relationship": "既有native非拥有T*与void callback声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-baseline",
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision",
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
+        "doc/cg2d_battle_rising_emitters_sampling_evidence.json"
+      ],
+      "boundary": "oldPhase先+1/old>0且nameX<32才phase0/分配；失败也nameX++，成功三次live nameX S32%16取X/Y/endY、两个live emitterY、仅40000/110011/0.1及粒子借用emitter/清emitter W16；field58>=32才fresh outer parent1024非零改2后标死。两级particle→emitter→outer parent借用保持；原字段保宽，四原栈数组64S32值映三constexpr48项，不合并不同Y表。原host/只标死保，无新owner/保护/异常回绕，未验全41CD00/资源寿命/ABI-SDK-PC53-RNG画面。",
+      "instruction_count": 123,
+      "function_chunks": [
+        {
+          "start": "0x41A7D0",
+          "end_exclusive": "0x41A9D9"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleIndexedEmitter_41A7D0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNY01完整123条521B/2页2call/9内部出口与ret，原callback绑定一处/父41CD00只列身份；唯一随机补丁和两根精确静态/原表项，完整父/owner与运行未验",
+      "battle_rising_emitters_sampling": {
+        "spec_id": "BNY01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-baseline",
+          "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision",
+          "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-acceptance",
+          "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
+          "doc/cg2d_battle_rising_emitters_sampling_evidence.json"
+        ],
+        "original_entry": "0x41A7D0",
+        "original_instruction_count": 123,
+        "original_code_bytes": 521,
+        "page_count": 2,
+        "outgoing_call_site_count": 2,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_binding",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "increments_index_even_allocation_failure": true,
+        "three_separate_live_signed_mod16_samples": true,
+        "no_rng_or_device_call": true,
+        "particle_parent_is_emitter": true,
+        "clears_emitter_not_particle_w16": true,
+        "completion_threshold": 32
+      }
     }
   ]
 }

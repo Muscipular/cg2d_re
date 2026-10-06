@@ -2613,3 +2613,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [具体SPEC](cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision)和[证据](cg2d_battle_rising_emitter_fade_sampling_evidence.json)：七完整340条1215B八页19call/19普通内部出口-14ret、背景五槽switch20B/两16项S32局部表128B。上升callback一处恢复X截断后Y取样先X发布，原未舍入speed/Y中间值、F32存储/父deathFlag严格1早退与低于phase标死后仍Play(0)保。其它六正确源保持：创建先RNG再分配、无设备可二次RNG；屏幕发射先Y随机再X、创建后另live phase--；背景0贯穿1可两次发布/phase4而本次不标死，2归零贯穿3/4置flags2后标死。原业务0/4/8/255/失败和字段宽度、packed颜色高W8访问器保24位及所有caller/声明保持，全部父/ABI-PC53-RNG画面不外推。
 
 七独立原ID纳入语义1360..1366/分类、BATTLE62→69仍枚举open；语义1367/有效ID1362、分类473、关联1480/3680=40.22%、E529各函数I/S共14E。五callback绑定/七普通入向分列，历史定义已有/队列175保持；其它旧记录/功能域、七open/所有完整门禁与验收0保持。实际取样问题已解决，完整consumer-owner/资源重进退出、SDK-ABI-PC53-RNG画面及R1/R7/R8继续。
+
+## BNY01 两个发射回调独立身份（2026-10-06）
+
+[具体SPEC](cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision)与[证据](cg2d_battle_rising_emitters_sampling_evidence.json)：两完整258条1057B四页七call/20内部分支-两ret，四原局部数组64S32项256B对应三源表48项192B，两个Y表33/-33与44/-44差别保。随机emitter恢复先取X偏移/live X并求S32和、再取Y偏移/发布F32 X；其它所有源/caller/声明保持。随机oldPhase<50/新phase40才outer flags2、先RNG再分配/无设备另RNG，索引oldPhase>0且nameX<32/失败也nameX++、三次live signed%16、两个live Y保持。particle父是当前emitter，field270清当前emitter；50/32完成计数门禁后fresh outer parent/1024非零才写2再标死。两个41CD00 callback绑定只列身份，不代父全文/全部owner或运行。
+
+新增语义1367/F:0001A310、1368/F:0001A7D0/分类与BATTLE69→71仍未枚举闭合；语义1369/有效ID1364、分类475、关联1482/3680=40.27%、E533仅各函数I/S共四E。随机取样问题已解决，索引正确源不计开发新增；历史定义已有/队列175、所有旧语义-其它域/七open及完整门禁保持。完整上游/consumer-owner/资源重进退出、SDK-ABI-PC53-RNG画面及R1/R7/R8继续。

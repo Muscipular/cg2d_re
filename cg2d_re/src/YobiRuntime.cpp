@@ -6910,8 +6910,9 @@ void UpdateBattleRandomEmitter_41A310(YobiAction* const action)
             particle->rebirthValue1 = 4;
             particle->rebirthValue2 = 4;
             const std::int32_t xOffset = kBattleRadialXOffsets[index];
+            const std::int32_t particleX = action->x + xOffset;
             const std::int32_t yOffset = kBattleRisingYOffsets[index];
-            particle->offset40 = static_cast<float>(action->x + xOffset);
+            particle->offset40 = static_cast<float>(particleX);
             particle->offset44 = static_cast<float>(action->y + yOffset);
             const std::int32_t parentY = action->y;
             particle->effectAcceleration48 = std::bit_cast<float>(0x3E4CCCCDu);

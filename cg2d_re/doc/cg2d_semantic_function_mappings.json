@@ -163445,6 +163445,141 @@
         "source_keeps_no_new_null_guard": true,
         "record_bytes": 16
       }
+    },
+    {
+      "original_entry": "0x419FC0",
+      "inventory_id": "F:00019FC0",
+      "status": "BNV01完整正常创建本体取样修正、独立身份/基线与分类纳管；全部consumer-owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleRandomEffect_419FC0"
+          ],
+          "relationship": "设备返回后flags取样，先发布分支flags/由同值OR40000在image写前算得，image写后发布；Load与两次RNG、两次live图宽/graphicOffsetY、X发布后Y-RNG及direction→Y→W16零保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleRandomEffect_419FC0"
+          ],
+          "relationship": "既有接口声明保持；native非拥有T*和S32参数/返回非拥有T*，不新公共布局/API"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline",
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision",
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-acceptance",
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_creation_sampling_evidence.json"
+      ],
+      "boundary": "设备返回后flags取样，先发布分支flags/由同值OR40000在image写前算得，image写后发布；Load与两次RNG、两次live图宽/graphicOffsetY、X发布后Y-RNG及direction→Y→W16零保持。flags仍W32、坐标/速率/image/direction S32、offset F32、图宽S16；原分配空返回/业务W16零保。native非拥有地址承载沿获批x64规则；不增parent判空/owner/free/补零-钳制-回绕/故障模型。原__ftol沿已有host，不代全部父/资源-owner-SDK-ABI-PC53-实际RNG画面运行。",
+      "instruction_count": 84,
+      "function_chunks": [
+        {
+          "start": "0x419FC0",
+          "end_exclusive": "0x41A0CA"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleRandomEffect_419FC0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNV01完整84条266B/2页5call与全部正常出口、1补丁/整CPP精确增量静态；入向80/28父仅列身份，不验全部父/完整owner与运行",
+      "battle_effect_creation_sampling": {
+        "spec_id": "BNV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline",
+          "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision",
+          "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-acceptance",
+          "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+          "doc/cg2d_battle_effect_creation_sampling_evidence.json"
+        ],
+        "original_entry": "0x419FC0",
+        "original_instruction_count": 84,
+        "original_code_bytes": 266,
+        "page_count": 2,
+        "outgoing_call_site_count": 5,
+        "incoming_reference_count": 80,
+        "incoming_parent_count": 28,
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "rng_calls": 2,
+        "width_read_s16_calls": 2,
+        "flags_taken_after_device_call": true,
+        "second_flags_uses_same_snapshot_across_image_publication": true
+      }
+    },
+    {
+      "original_entry": "0x41E680",
+      "inventory_id": "F:0001E680",
+      "status": "BNV01完整正常创建本体取样修正、独立身份/基线与分类纳管；全部consumer-owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattlePositionEffect_41E680"
+          ],
+          "relationship": "设备返回后flags一次取样，两次W32发布沿原寄存器值；parent offsetX→offsetY写入后X取样→image/direction→X截断→Y取样→X发布→Y截断发布→W16零，原分配空返回保"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattlePositionEffect_41E680"
+          ],
+          "relationship": "既有接口声明保持；native非拥有T*和S32参数/返回非拥有T*，不新公共布局/API"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline",
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision",
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-acceptance",
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_creation_sampling_evidence.json"
+      ],
+      "boundary": "设备返回后flags一次取样，两次W32发布沿原寄存器值；parent offsetX→offsetY写入后X取样→image/direction→X截断→Y取样→X发布→Y截断发布→W16零，原分配空返回保。flags仍W32、坐标/速率/image/direction S32、offset F32、图宽S16；原分配空返回/业务W16零保。native非拥有地址承载沿获批x64规则；不增parent判空/owner/free/补零-钳制-回绕/故障模型。原__ftol沿已有host，不代全部父/资源-owner-SDK-ABI-PC53-实际RNG画面运行。",
+      "instruction_count": 41,
+      "function_chunks": [
+        {
+          "start": "0x41E680",
+          "end_exclusive": "0x41E712"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattlePositionEffect_41E680",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNV01完整41条146B/1页4call与全部正常出口、2补丁/整CPP精确增量静态；入向13/9父仅列身份，不验全部父/完整owner与运行",
+      "battle_effect_creation_sampling": {
+        "spec_id": "BNV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline",
+          "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision",
+          "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-acceptance",
+          "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+          "doc/cg2d_battle_effect_creation_sampling_evidence.json"
+        ],
+        "original_entry": "0x41E680",
+        "original_instruction_count": 41,
+        "original_code_bytes": 146,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 13,
+        "incoming_parent_count": 9,
+        "source_body_changed": true,
+        "source_patch_count": 2,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "rng_calls": 0,
+        "coordinate_samples_before_x_publication": true,
+        "same_flags_snapshot_for_two_publications": true
+      }
     }
   ]
 }

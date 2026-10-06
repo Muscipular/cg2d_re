@@ -9688,14 +9688,18 @@ YobiAction* NewBattlePositionEffect_41E680(YobiAction* const parent, const std::
     action->displayPriority = 0xCC;
     action->framePlayingRate = 100;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-    action->flags |= hasDevice ? 0x100000u : 0x8000u;
-    action->flags |= 0x60000u;
+    const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
+    action->flags = flags;
+    action->flags = flags | 0x60000u;
     action->offset40 = parent->offset40;
     action->offset44 = parent->offset44;
+    const float screenX = action->offset40;
     action->imageNo = imageNo;
     action->direction = 0;
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t x = static_cast<std::int32_t>(screenX);
+    const float screenY = action->offset44;
+    action->x = x;
+    action->y = static_cast<std::int32_t>(screenY);
     action->field270 = 0;
     return action;
 }
@@ -9774,9 +9778,11 @@ YobiAction* NewBattleRandomEffect_419FC0(
     action->displayPriority = 0xCC;
     action->framePlayingRate = 100;
     const bool hasDevice = render::HasLegacy3DDevice_44B610() != 0;
-    action->flags |= hasDevice ? 0x100000u : 0x10000u;
+    const std::uint32_t flags = action->flags | (hasDevice ? 0x100000u : 0x10000u);
+    action->flags = flags;
+    const std::uint32_t configuredFlags = flags | 0x40000u;
     action->imageNo = imageNo;
-    action->flags |= 0x40000u;
+    action->flags = configuredFlags;
     action->rebirthValue1 = 4;
     action->rebirthValue2 = 4;
     static_cast<void>(render::LoadGraphic_522570(parent->graphicIndex));

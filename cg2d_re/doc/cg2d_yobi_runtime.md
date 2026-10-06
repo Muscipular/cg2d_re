@@ -4275,3 +4275,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 [具体SPEC](cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision)：两既有正确根保持，新增三方转向与辅助效果的独立原ID/基线、语义映射、adapted分类和战斗成员。[证据](cg2d_battle_redirect_aux_baseline_evidence.json)：229条693B四页31call/两ret和一条件出口：转向180条28call/24Cast-四EffectList-三字段及S32返回，辅助49条三Effect/fixed flags800000-payload/CA0-1跨两Append-旧四字段读取；五转向/37辅助入向与返回消费窗口分列。source/redirect/target的完整序列/每次actor取样保持，不合并别名；三W32字段各写后另取actor，辅助第三记录沿旧槽position4-flags-position3-position，非输入flags替代。既有源码/头和caller不改，BQA/BQR已过未变生产叶不复验。
 
 新增语义1351/1352绑定原F:000242B0/F:0003BC10，战斗成员53→55但完整枚举仍open；语义1353/有效ID1348、分类459、关联1466/3680=39.84%、E497→501仅各函数I/S四条。两ID已有历史定义、不在原175队列，不虚减队列；所有旧语义/其它域成员、60源码closed10/七open和完整门禁保持。完整父/所有consumer-owner/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/运行另验。
+
+## BNV01 特效创建取样（2026-10-06）
+
+[具体SPEC](cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision)和[证据](cg2d_battle_effect_creation_sampling_evidence.json)：两个完整创建函数125条412B三页九call/六分支/四ret。随机与位置flags各恢复一次取样两次发布，位置X取样先image/direction、截断后取Y再发布X，三个补丁/两个根解决；两次RNG/Load与live S16图宽、graphicOffsetY、原失败返回及S32/F32/W32/W16/W8字段保持。其它源/头和caller不改；原__ftol沿CPH01 host裁决。入向80/28父和13/9父仅列身份，不代全部父或owner运行。
+
+新增独立语义1353/F:00019FC0、1354/F:0001E680和adapted分类，FUNC-BATTLE55→57仍未全枚举；语义1355/有效ID1350、分类461、关联1468/3680=39.89%、E505仅各函数两局部I/S。两ID原有历史定义，队列175保持。全部旧语义/其它功能、七open任务与所有完整门禁保持；完整consumer-owner/资源重进退出、SDK/ABI/PC53/实际RNG画面及R1/R7/R8另验。

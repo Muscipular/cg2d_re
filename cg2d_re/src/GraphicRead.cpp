@@ -32,7 +32,7 @@ std::int32_t gGraphicDataBuffer = 0;
 
 namespace {
 
-// 原 58B7E8..58D348；段值继承 cg3a HiddenPaletteQueue 的可信表，展开后仍可写。
+// 原 [58B7E8,58D348)：1752 项 W32；60 段初值逐项核原表一致，展开后仍可写。
 struct HiddenPaletteSegment {
     std::int32_t first;
     std::int32_t last;
@@ -482,22 +482,38 @@ std::int32_t InitializeIndependentPalettes_522B30()
         BorrowIndependentPaletteQueue().push_back(mapNo);
     }
     LoadIndependentPaletteIndex_522900();
-    gIndependentPaletteCount = static_cast<std::int32_t>(BorrowIndependentPaletteQueue().size());
+    const std::int32_t queueCount =
+        static_cast<std::int32_t>(BorrowIndependentPaletteQueue().size());
+    gIndependentPaletteCount = queueCount;
 
-    gIndependentPaletteIndex = static_cast<IndependentPaletteIndex*>(
+    auto* const allocatedIndex = static_cast<IndependentPaletteIndex*>(
         platform::AllocateLockedZeroedGlobalMemory(
-            sizeof(IndependentPaletteIndex) * gIndependentPaletteCount));
-    std::memset(
-        gIndependentPaletteIndex, 0, sizeof(IndependentPaletteIndex) * gIndependentPaletteCount);
-    gIndependentPaletteRecords = static_cast<IndependentPaletteRecord*>(
+            sizeof(IndependentPaletteIndex) * queueCount));
+    const std::int32_t clearCount = gIndependentPaletteCount;
+    gIndependentPaletteIndex = allocatedIndex;
+    std::memset(allocatedIndex, 0, sizeof(IndependentPaletteIndex) * clearCount);
+
+    const std::int32_t recordCount = gIndependentPaletteCount;
+    auto* const allocatedRecords = static_cast<IndependentPaletteRecord*>(
         platform::AllocateLockedZeroedGlobalMemory(
-            sizeof(IndependentPaletteRecord) * gIndependentPaletteCount));
+            sizeof(IndependentPaletteRecord) * recordCount));
+    const std::int32_t initialCount = gIndependentPaletteCount;
+    gIndependentPaletteRecords = allocatedRecords;
 
     std::int32_t index = 0;
-    while (index < gIndependentPaletteCount) {
-        gIndependentPaletteIndex[index].record = &gIndependentPaletteRecords[index];
-        gIndependentPaletteIndex[index].loaded = 0;
-        ++index;
+    if (initialCount > 0) {
+        for (;;) {
+            IndependentPaletteRecord* const records = gIndependentPaletteRecords;
+            IndependentPaletteIndex* const indexTable = gIndependentPaletteIndex;
+            IndependentPaletteRecord* const record = &records[index];
+            indexTable[index].record = record;
+            gIndependentPaletteIndex[index].loaded = 0;
+            const std::int32_t nextCount = gIndependentPaletteCount;
+            ++index;
+            if (index >= nextCount) {
+                break;
+            }
+        }
     }
     return index;
 }

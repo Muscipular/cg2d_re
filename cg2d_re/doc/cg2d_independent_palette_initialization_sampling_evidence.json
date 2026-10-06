@@ -1,0 +1,1229 @@
+{
+  "schema_version": 1,
+  "spec_id": "BOR01",
+  "recorded_on": "2026-10-06",
+  "spec_reference": "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
+  "implementation_tag": "cg2d-re-independent-palette-initialization-sampling-20261006",
+  "method": "归档PGM01完整原根与本轮权威IDA只读边界/入向、7008B原数据；源码及静态初值对照，无编译/测试/运行/hash。",
+  "source_functions": [
+    {
+      "entry": "0x522B30",
+      "id": "F:00122B30",
+      "symbol": "InitializeIndependentPalettes_522B30",
+      "path": "src/GraphicRead.cpp",
+      "marker": "std::int32_t InitializeIndependentPalettes_522B30(",
+      "end": "0x522C4E",
+      "instructions": 94,
+      "bytes": 286,
+      "pages": 2,
+      "calls": 6,
+      "branches": 7,
+      "rets": 1,
+      "semantic_index": 1237,
+      "patches": 1,
+      "comment_patches": 1,
+      "incoming": 2,
+      "parents": 2,
+      "feature_ids": [
+        "FUNC-RESOURCE"
+      ],
+      "contract": "沿既有批准宿主queue clear归起点，逐原hidden1752项S32样本插入，不排序/过滤/去重，再call522900。保存S32 queueCount并发布gIndependentPaletteCount，首GPTR+GlobalLock索引分配以该样本计量；lock后fresh clearCount先索引owner发布，以实际allocatedIndex清sizeof(nativeIndex)*clearCount。随后fresh recordCount计量0xB04原记录，GPTR+lock返回后fresh initialCount先records owner发布；index0，initialCount>0才进入逐项。每项先fresh记录基址T*再索引基址T*，用本项原record地址pub保存索引槽，随后fresh gIndependentPaletteIndex写loaded低W8=0；fresh nextCount先index+1，以该同样本S32比较决定继续，最终返原index。x64仅索引首T*拓宽8→16B，loaded仍U8/+8，records无指针0xB04与count S32保持；字节量按已批native分配边界，不新做溢出/失配保护。两owner不增null检查/释放旧池/回滚，GPTR/Lock适配与PGM01释放root不改。hidden表60段全1752W32原字节初值一致保持可写；本根不代私有容器内部/全部父、实际SDK/重建寿命/运行。"
+    }
+  ],
+  "original_regions": [
+    {
+      "start": "0x522b30",
+      "end_exclusive": "0x522c4e",
+      "parent_entry": "0x522b30",
+      "instruction_count": 94,
+      "code_bytes": 286,
+      "page_count": 2,
+      "outgoing_calls": [
+        {
+          "ea": "0x522b7e",
+          "target": "0x5236b0"
+        },
+        {
+          "ea": "0x522b8e",
+          "target": "0x522900"
+        },
+        {
+          "ea": "0x522bbe",
+          "target": "GlobalAlloc"
+        },
+        {
+          "ea": "0x522bc7",
+          "target": "GlobalLock"
+        },
+        {
+          "ea": "0x522c04",
+          "target": "GlobalAlloc"
+        },
+        {
+          "ea": "0x522c07",
+          "target": "GlobalLock"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x522b41",
+          "target": "0x522b56"
+        },
+        {
+          "ea": "0x522b4f",
+          "target": "0x522b43"
+        },
+        {
+          "ea": "0x522b8c",
+          "target": "0x522b65"
+        },
+        {
+          "ea": "0x522b9b",
+          "target": "0x522ba1"
+        },
+        {
+          "ea": "0x522b9f",
+          "target": "0x522bab"
+        },
+        {
+          "ea": "0x522c1a",
+          "target": "0x522c4b"
+        },
+        {
+          "ea": "0x522c49",
+          "target": "0x522c1e"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x522b30",
+          "end_exclusive": "0x522c4e",
+          "instructions": [
+            {
+              "ea": "0x522b30",
+              "size": 1,
+              "text": "push    ecx",
+              "bytes": "51"
+            },
+            {
+              "ea": "0x522b31",
+              "size": 5,
+              "text": "mov     eax, queue1.end",
+              "bytes": "a190cf0301"
+            },
+            {
+              "ea": "0x522b36",
+              "size": 6,
+              "text": "mov     ecx, queue1.start",
+              "bytes": "8b0d8ccf0301"
+            },
+            {
+              "ea": "0x522b3c",
+              "size": 2,
+              "text": "mov     edx, eax",
+              "bytes": "8bd0"
+            },
+            {
+              "ea": "0x522b3e",
+              "size": 1,
+              "text": "push    esi",
+              "bytes": "56"
+            },
+            {
+              "ea": "0x522b3f",
+              "size": 2,
+              "text": "cmp     eax, edx",
+              "bytes": "3bc2"
+            },
+            {
+              "ea": "0x522b41",
+              "size": 2,
+              "text": "jz      short loc_522B56",
+              "bytes": "7413"
+            },
+            {
+              "ea": "0x522b43",
+              "size": 2,
+              "text": "mov     esi, [eax]",
+              "bytes": "8b30"
+            },
+            {
+              "ea": "0x522b45",
+              "size": 3,
+              "text": "add     eax, 4",
+              "bytes": "83c004"
+            },
+            {
+              "ea": "0x522b48",
+              "size": 2,
+              "text": "mov     [ecx], esi",
+              "bytes": "8931"
+            },
+            {
+              "ea": "0x522b4a",
+              "size": 3,
+              "text": "add     ecx, 4",
+              "bytes": "83c104"
+            },
+            {
+              "ea": "0x522b4d",
+              "size": 2,
+              "text": "cmp     eax, edx",
+              "bytes": "3bc2"
+            },
+            {
+              "ea": "0x522b4f",
+              "size": 2,
+              "text": "jnz     short loc_522B43",
+              "bytes": "75f2"
+            },
+            {
+              "ea": "0x522b51",
+              "size": 5,
+              "text": "mov     eax, queue1.end",
+              "bytes": "a190cf0301"
+            },
+            {
+              "ea": "0x522b56",
+              "size": 4,
+              "text": "mov     [esp+8+a4], eax",
+              "bytes": "89442404"
+            },
+            {
+              "ea": "0x522b5a",
+              "size": 6,
+              "text": "mov     queue1.end, ecx",
+              "bytes": "890d90cf0301"
+            },
+            {
+              "ea": "0x522b60",
+              "size": 5,
+              "text": "mov     esi, offset dword_58B7E8",
+              "bytes": "bee8b75800"
+            },
+            {
+              "ea": "0x522b65",
+              "size": 6,
+              "text": "mov     edx, queue1.end",
+              "bytes": "8b1590cf0301"
+            },
+            {
+              "ea": "0x522b6b",
+              "size": 2,
+              "text": "mov     eax, [esi]",
+              "bytes": "8b06"
+            },
+            {
+              "ea": "0x522b6d",
+              "size": 4,
+              "text": "lea     ecx, [esp+8+a4]",
+              "bytes": "8d4c2404"
+            },
+            {
+              "ea": "0x522b71",
+              "size": 4,
+              "text": "mov     [esp+8+a4], eax",
+              "bytes": "89442404"
+            },
+            {
+              "ea": "0x522b75",
+              "size": 1,
+              "text": "push    ecx; a4",
+              "bytes": "51"
+            },
+            {
+              "ea": "0x522b76",
+              "size": 2,
+              "text": "push    1; a3",
+              "bytes": "6a01"
+            },
+            {
+              "ea": "0x522b78",
+              "size": 1,
+              "text": "push    edx; a2",
+              "bytes": "52"
+            },
+            {
+              "ea": "0x522b79",
+              "size": 5,
+              "text": "mov     ecx, offset queue1; this",
+              "bytes": "b988cf0301"
+            },
+            {
+              "ea": "0x522b7e",
+              "size": 5,
+              "text": "call    Vector__void__insert",
+              "bytes": "e82d0b0000"
+            },
+            {
+              "ea": "0x522b83",
+              "size": 3,
+              "text": "add     esi, 4",
+              "bytes": "83c604"
+            },
+            {
+              "ea": "0x522b86",
+              "size": 6,
+              "text": "cmp     esi, offset aD; \"%d\\n\"",
+              "bytes": "81fe48d35800"
+            },
+            {
+              "ea": "0x522b8c",
+              "size": 2,
+              "text": "jl      short loc_522B65",
+              "bytes": "7cd7"
+            },
+            {
+              "ea": "0x522b8e",
+              "size": 5,
+              "text": "call    sub_522900",
+              "bytes": "e86dfdffff"
+            },
+            {
+              "ea": "0x522b93",
+              "size": 6,
+              "text": "mov     ecx, queue1.start",
+              "bytes": "8b0d8ccf0301"
+            },
+            {
+              "ea": "0x522b99",
+              "size": 2,
+              "text": "test    ecx, ecx",
+              "bytes": "85c9"
+            },
+            {
+              "ea": "0x522b9b",
+              "size": 2,
+              "text": "jnz     short loc_522BA1",
+              "bytes": "7504"
+            },
+            {
+              "ea": "0x522b9d",
+              "size": 2,
+              "text": "xor     eax, eax",
+              "bytes": "33c0"
+            },
+            {
+              "ea": "0x522b9f",
+              "size": 2,
+              "text": "jmp     short loc_522BAB",
+              "bytes": "eb0a"
+            },
+            {
+              "ea": "0x522ba1",
+              "size": 5,
+              "text": "mov     eax, queue1.end",
+              "bytes": "a190cf0301"
+            },
+            {
+              "ea": "0x522ba6",
+              "size": 2,
+              "text": "sub     eax, ecx",
+              "bytes": "2bc1"
+            },
+            {
+              "ea": "0x522ba8",
+              "size": 3,
+              "text": "sar     eax, 2",
+              "bytes": "c1f802"
+            },
+            {
+              "ea": "0x522bab",
+              "size": 6,
+              "text": "mov     esi, ds:GlobalAlloc",
+              "bytes": "8b35ccd05400"
+            },
+            {
+              "ea": "0x522bb1",
+              "size": 5,
+              "text": "mov     queue1Count, eax",
+              "bytes": "a318cf0301"
+            },
+            {
+              "ea": "0x522bb6",
+              "size": 1,
+              "text": "push    ebp",
+              "bytes": "55"
+            },
+            {
+              "ea": "0x522bb7",
+              "size": 1,
+              "text": "push    edi",
+              "bytes": "57"
+            },
+            {
+              "ea": "0x522bb8",
+              "size": 3,
+              "text": "shl     eax, 3",
+              "bytes": "c1e003"
+            },
+            {
+              "ea": "0x522bbb",
+              "size": 1,
+              "text": "push    eax; dwBytes",
+              "bytes": "50"
+            },
+            {
+              "ea": "0x522bbc",
+              "size": 2,
+              "text": "push    40h ; '@'; uFlags",
+              "bytes": "6a40"
+            },
+            {
+              "ea": "0x522bbe",
+              "size": 2,
+              "text": "call    esi ; GlobalAlloc; ;0x40 -> GPTR",
+              "bytes": "ffd6"
+            },
+            {
+              "ea": "0x522bc0",
+              "size": 6,
+              "text": "mov     ebp, ds:GlobalLock",
+              "bytes": "8b2dc8d05400"
+            },
+            {
+              "ea": "0x522bc6",
+              "size": 1,
+              "text": "push    eax; hMem",
+              "bytes": "50"
+            },
+            {
+              "ea": "0x522bc7",
+              "size": 2,
+              "text": "call    ebp ; GlobalLock",
+              "bytes": "ffd5"
+            },
+            {
+              "ea": "0x522bc9",
+              "size": 6,
+              "text": "mov     ecx, queue1Count",
+              "bytes": "8b0d18cf0301"
+            },
+            {
+              "ea": "0x522bcf",
+              "size": 2,
+              "text": "mov     edi, eax",
+              "bytes": "8bf8"
+            },
+            {
+              "ea": "0x522bd1",
+              "size": 3,
+              "text": "shl     ecx, 3",
+              "bytes": "c1e103"
+            },
+            {
+              "ea": "0x522bd4",
+              "size": 2,
+              "text": "mov     edx, ecx",
+              "bytes": "8bd1"
+            },
+            {
+              "ea": "0x522bd6",
+              "size": 2,
+              "text": "xor     eax, eax",
+              "bytes": "33c0"
+            },
+            {
+              "ea": "0x522bd8",
+              "size": 3,
+              "text": "shr     ecx, 2",
+              "bytes": "c1e902"
+            },
+            {
+              "ea": "0x522bdb",
+              "size": 6,
+              "text": "mov     gPaletteDataCache, edi",
+              "bytes": "893d1ccf0301"
+            },
+            {
+              "ea": "0x522be1",
+              "size": 2,
+              "text": "rep stosd",
+              "bytes": "f3ab"
+            },
+            {
+              "ea": "0x522be3",
+              "size": 2,
+              "text": "mov     ecx, edx",
+              "bytes": "8bca"
+            },
+            {
+              "ea": "0x522be5",
+              "size": 3,
+              "text": "and     ecx, 3",
+              "bytes": "83e103"
+            },
+            {
+              "ea": "0x522be8",
+              "size": 2,
+              "text": "rep stosb",
+              "bytes": "f3aa"
+            },
+            {
+              "ea": "0x522bea",
+              "size": 6,
+              "text": "mov     ecx, queue1Count",
+              "bytes": "8b0d18cf0301"
+            },
+            {
+              "ea": "0x522bf0",
+              "size": 3,
+              "text": "lea     eax, [ecx+ecx*2]",
+              "bytes": "8d0449"
+            },
+            {
+              "ea": "0x522bf3",
+              "size": 3,
+              "text": "shl     eax, 4",
+              "bytes": "c1e004"
+            },
+            {
+              "ea": "0x522bf6",
+              "size": 2,
+              "text": "sub     eax, ecx",
+              "bytes": "2bc1"
+            },
+            {
+              "ea": "0x522bf8",
+              "size": 3,
+              "text": "lea     eax, [eax+eax*2]",
+              "bytes": "8d0440"
+            },
+            {
+              "ea": "0x522bfb",
+              "size": 3,
+              "text": "lea     eax, [eax+eax*4]",
+              "bytes": "8d0480"
+            },
+            {
+              "ea": "0x522bfe",
+              "size": 3,
+              "text": "shl     eax, 2",
+              "bytes": "c1e002"
+            },
+            {
+              "ea": "0x522c01",
+              "size": 1,
+              "text": "push    eax; dwBytes",
+              "bytes": "50"
+            },
+            {
+              "ea": "0x522c02",
+              "size": 2,
+              "text": "push    40h ; '@'; uFlags",
+              "bytes": "6a40"
+            },
+            {
+              "ea": "0x522c04",
+              "size": 2,
+              "text": "call    esi ; GlobalAlloc; ;0x40 -> GPTR",
+              "bytes": "ffd6"
+            },
+            {
+              "ea": "0x522c06",
+              "size": 1,
+              "text": "push    eax; hMem",
+              "bytes": "50"
+            },
+            {
+              "ea": "0x522c07",
+              "size": 2,
+              "text": "call    ebp ; GlobalLock",
+              "bytes": "ffd5"
+            },
+            {
+              "ea": "0x522c09",
+              "size": 6,
+              "text": "mov     ecx, queue1Count",
+              "bytes": "8b0d18cf0301"
+            },
+            {
+              "ea": "0x522c0f",
+              "size": 5,
+              "text": "mov     gGraphicCache6, eax",
+              "bytes": "a30ccf0301"
+            },
+            {
+              "ea": "0x522c14",
+              "size": 2,
+              "text": "xor     eax, eax",
+              "bytes": "33c0"
+            },
+            {
+              "ea": "0x522c16",
+              "size": 1,
+              "text": "pop     edi",
+              "bytes": "5f"
+            },
+            {
+              "ea": "0x522c17",
+              "size": 2,
+              "text": "test    ecx, ecx",
+              "bytes": "85c9"
+            },
+            {
+              "ea": "0x522c19",
+              "size": 1,
+              "text": "pop     ebp",
+              "bytes": "5d"
+            },
+            {
+              "ea": "0x522c1a",
+              "size": 2,
+              "text": "jle     short loc_522C4B",
+              "bytes": "7e2f"
+            },
+            {
+              "ea": "0x522c1c",
+              "size": 2,
+              "text": "xor     ecx, ecx",
+              "bytes": "33c9"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x522b30",
+          "end_exclusive": "0x522c4e",
+          "instructions": [
+            {
+              "ea": "0x522c1e",
+              "size": 6,
+              "text": "mov     edx, gGraphicCache6",
+              "bytes": "8b150ccf0301"
+            },
+            {
+              "ea": "0x522c24",
+              "size": 6,
+              "text": "mov     esi, gPaletteDataCache",
+              "bytes": "8b351ccf0301"
+            },
+            {
+              "ea": "0x522c2a",
+              "size": 2,
+              "text": "add     edx, ecx",
+              "bytes": "03d1"
+            },
+            {
+              "ea": "0x522c2c",
+              "size": 6,
+              "text": "add     ecx, 0B04h",
+              "bytes": "81c1040b0000"
+            },
+            {
+              "ea": "0x522c32",
+              "size": 3,
+              "text": "mov     [esi+eax*8], edx",
+              "bytes": "8914c6"
+            },
+            {
+              "ea": "0x522c35",
+              "size": 6,
+              "text": "mov     edx, gPaletteDataCache",
+              "bytes": "8b151ccf0301"
+            },
+            {
+              "ea": "0x522c3b",
+              "size": 5,
+              "text": "mov     byte ptr [edx+eax*8+4], 0",
+              "bytes": "c644c20400"
+            },
+            {
+              "ea": "0x522c40",
+              "size": 6,
+              "text": "mov     edx, queue1Count",
+              "bytes": "8b1518cf0301"
+            },
+            {
+              "ea": "0x522c46",
+              "size": 1,
+              "text": "inc     eax",
+              "bytes": "40"
+            },
+            {
+              "ea": "0x522c47",
+              "size": 2,
+              "text": "cmp     eax, edx",
+              "bytes": "3bc2"
+            },
+            {
+              "ea": "0x522c49",
+              "size": 2,
+              "text": "jl      short loc_522C1E",
+              "bytes": "7cd3"
+            },
+            {
+              "ea": "0x522c4b",
+              "size": 1,
+              "text": "pop     esi",
+              "bytes": "5e"
+            },
+            {
+              "ea": "0x522c4c",
+              "size": 1,
+              "text": "pop     ecx",
+              "bytes": "59"
+            },
+            {
+              "ea": "0x522c4d",
+              "size": 1,
+              "text": "retn",
+              "bytes": "c3"
+            }
+          ]
+        }
+      ],
+      "source_archive": "doc/cg2d_palette_global_memory_evidence.json#/original_bodies/0"
+    }
+  ],
+  "function_extents": [
+    {
+      "entry": "0x522b30",
+      "end_exclusive": "0x522c4e",
+      "chunks": [
+        {
+          "start": "0x522b30",
+          "end_exclusive": "0x522c4e"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "incoming": [
+      {
+        "entry": "0x522b30",
+        "references": [
+          {
+            "ea": "0x4577d8",
+            "type": 17,
+            "parent": "0x4576b0",
+            "instruction": "call    sub_522B30"
+          },
+          {
+            "ea": "0x466d15",
+            "type": 17,
+            "parent": "0x466b80",
+            "instruction": "call    sub_522B30"
+          }
+        ]
+      }
+    ]
+  },
+  "existing_semantic_records_before": [
+    {
+      "original_entry": "0x522B30",
+      "inventory_id": "F:00122B30",
+      "status": "PGM01既有独立调色板初始化根/分配域及原新映射登记；分配正文保持，完整队列/父/alias/SDK/运行未验",
+      "original_end_exclusive": "0x522C4E",
+      "instruction_count": 94,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "InitializeIndependentPalettes_522B30",
+            "IndependentPaletteIndex",
+            "IndependentPaletteRecord"
+          ],
+          "relationship": "既有初始化保持；索引8->16B仅首T*拓宽，loaded为U8，记录0xB04，两独立owner/数量不改"
+        },
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "AllocateLockedZeroedGlobalMemory"
+          ],
+          "relationship": "既有GPTR/GlobalLock边界，不增失败分支"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-acceptance",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_palette_global_memory_evidence.json"
+      ],
+      "boundary": "队列归起点后逐原hidden base插入，522900读取索引再发布S32数量；两次GPTR(0x40)->GlobalLock，首索引表按原域清零、记录表0xB04*count，逐条发布record借用及loaded低W8=0，返回S32最终索引。x64索引16B仅已证T*拓宽，loaded/后三字节和无指针记录0xB04保持。原94条/286B、两个直接入向；本步初始化/hidden表/DBF本体未改/未重核整表，SDK域和原失败无保护/回滚保持，不把普通乘法溢出或非法地址列故障等价。队列/private容器沿已批宿主承接，全部父/别名/实际SDK/ABI/运行未验，原格式明文/音频暂停/不构建测试运行摘要保持。",
+      "verification_level": "原完整94条/286B、直接入向/四API与现有布局/分配顺序限定静态，完整队列/表/SDK及运行未验",
+      "original_internal_calls": [
+        {
+          "call_site": "0x522B7E",
+          "target_entry": "0x5236B0",
+          "source_symbol": "BorrowIndependentPaletteQueue().push_back",
+          "relationship": "原Vector插入机制沿既有已批宿主角色，不称原5236B0本体或整个队列验收通过"
+        },
+        {
+          "call_site": "0x522B8E",
+          "target_entry": "0x522900",
+          "source_symbol": "LoadIndependentPaletteIndex_522900",
+          "relationship": "hidden序列插入后，数量发布/两表分配之前"
+        }
+      ],
+      "original_sdk_calls": [
+        {
+          "call_site": "0x522BBE",
+          "api": "GlobalAlloc",
+          "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+          "relationship": "索引表GPTR分配"
+        },
+        {
+          "call_site": "0x522BC7",
+          "api": "GlobalLock",
+          "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+          "relationship": "索引分配后锁定，再发布/清表"
+        },
+        {
+          "call_site": "0x522C04",
+          "api": "GlobalAlloc",
+          "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+          "relationship": "记录表GPTR分配"
+        },
+        {
+          "call_site": "0x522C07",
+          "api": "GlobalLock",
+          "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+          "relationship": "记录表分配后锁定，发布记录owner"
+        }
+      ]
+    }
+  ],
+  "existing_dispositions_before": [
+    {
+      "inventory_id": "F:00122B30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+        "doc/cg2d_palette_global_memory_evidence.json"
+      ],
+      "reason": "原完整根与当前独立调色板SDK域/存储及释放取样序可追；索引T*/私有容器沿已批x64/宿主承接，全部alias/SDK/ABI和运行未验"
+    }
+  ],
+  "snapshot_functions_before": [
+    {
+      "id": "F:00122B30",
+      "original_entry": "0x522B30",
+      "original_name": "sub_522B30",
+      "semantic_indices": [
+        1237
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbol": "InitializeIndependentPalettes_522B30",
+          "definition_line": 380,
+          "namespace": "cg::resource"
+        }
+      ],
+      "baseline_documents": [
+        "doc/cg2d_palette_global_memory_evidence.json",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-acceptance",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+        "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state"
+      ],
+      "classification_refs": [],
+      "disposition": {
+        "inventory_id": "F:00122B30",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+          "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+          "doc/cg2d_palette_global_memory_evidence.json"
+        ],
+        "reason": "原完整根与当前独立调色板SDK域/存储及释放取样序可追；索引T*/私有容器沿已批x64/宿主承接，全部alias/SDK/ABI和运行未验"
+      },
+      "feature_memberships": [
+        "FUNC-RESOURCE"
+      ],
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "InitializeIndependentPalettes_522B30",
+            "IndependentPaletteIndex",
+            "IndependentPaletteRecord"
+          ],
+          "relationship": "既有初始化保持；索引8->16B仅首T*拓宽，loaded为U8，记录0xB04，两独立owner/数量不改"
+        },
+        {
+          "path": "src/platform/StartupCommon.cpp",
+          "symbols": [
+            "AllocateLockedZeroedGlobalMemory"
+          ],
+          "relationship": "既有GPTR/GlobalLock边界，不增失败分支"
+        }
+      ]
+    }
+  ],
+  "source_bodies_before": [
+    {
+      "path": "src/GraphicRead.cpp",
+      "symbol": "InitializeIndependentPalettes_522B30",
+      "body": "std::int32_t InitializeIndependentPalettes_522B30()\n{\n    BorrowIndependentPaletteQueue().clear();\n    for (const std::int32_t mapNo : gHiddenPaletteBaseQueue) {\n        BorrowIndependentPaletteQueue().push_back(mapNo);\n    }\n    LoadIndependentPaletteIndex_522900();\n    gIndependentPaletteCount = static_cast<std::int32_t>(BorrowIndependentPaletteQueue().size());\n\n    gIndependentPaletteIndex = static_cast<IndependentPaletteIndex*>(\n        platform::AllocateLockedZeroedGlobalMemory(\n            sizeof(IndependentPaletteIndex) * gIndependentPaletteCount));\n    std::memset(\n        gIndependentPaletteIndex, 0, sizeof(IndependentPaletteIndex) * gIndependentPaletteCount);\n    gIndependentPaletteRecords = static_cast<IndependentPaletteRecord*>(\n        platform::AllocateLockedZeroedGlobalMemory(\n            sizeof(IndependentPaletteRecord) * gIndependentPaletteCount));\n\n    std::int32_t index = 0;\n    while (index < gIndependentPaletteCount) {\n        gIndependentPaletteIndex[index].record = &gIndependentPaletteRecords[index];\n        gIndependentPaletteIndex[index].loaded = 0;\n        ++index;\n    }\n    return index;\n}"
+    }
+  ],
+  "source_patches": [
+    {
+      "symbol": "gHiddenPaletteBaseQueue",
+      "path": "src/GraphicRead.cpp",
+      "before": "// 原 58B7E8..58D348；段值继承 cg3a HiddenPaletteQueue 的可信表，展开后仍可写。",
+      "after": "// 原 [58B7E8,58D348)：1752 项 W32；60 段初值逐项核原表一致，展开后仍可写。",
+      "scope": "comment",
+      "purpose": "7008B初值逐项核原，保60段/1752项可写表，注释转为本轮原证据依据。"
+    },
+    {
+      "symbol": "InitializeIndependentPalettes_522B30",
+      "path": "src/GraphicRead.cpp",
+      "before": "std::int32_t InitializeIndependentPalettes_522B30()\n{\n    BorrowIndependentPaletteQueue().clear();\n    for (const std::int32_t mapNo : gHiddenPaletteBaseQueue) {\n        BorrowIndependentPaletteQueue().push_back(mapNo);\n    }\n    LoadIndependentPaletteIndex_522900();\n    gIndependentPaletteCount = static_cast<std::int32_t>(BorrowIndependentPaletteQueue().size());\n\n    gIndependentPaletteIndex = static_cast<IndependentPaletteIndex*>(\n        platform::AllocateLockedZeroedGlobalMemory(\n            sizeof(IndependentPaletteIndex) * gIndependentPaletteCount));\n    std::memset(\n        gIndependentPaletteIndex, 0, sizeof(IndependentPaletteIndex) * gIndependentPaletteCount);\n    gIndependentPaletteRecords = static_cast<IndependentPaletteRecord*>(\n        platform::AllocateLockedZeroedGlobalMemory(\n            sizeof(IndependentPaletteRecord) * gIndependentPaletteCount));\n\n    std::int32_t index = 0;\n    while (index < gIndependentPaletteCount) {\n        gIndependentPaletteIndex[index].record = &gIndependentPaletteRecords[index];\n        gIndependentPaletteIndex[index].loaded = 0;\n        ++index;\n    }\n    return index;\n}",
+      "after": "std::int32_t InitializeIndependentPalettes_522B30()\n{\n    BorrowIndependentPaletteQueue().clear();\n    for (const std::int32_t mapNo : gHiddenPaletteBaseQueue) {\n        BorrowIndependentPaletteQueue().push_back(mapNo);\n    }\n    LoadIndependentPaletteIndex_522900();\n    const std::int32_t queueCount =\n        static_cast<std::int32_t>(BorrowIndependentPaletteQueue().size());\n    gIndependentPaletteCount = queueCount;\n\n    auto* const allocatedIndex = static_cast<IndependentPaletteIndex*>(\n        platform::AllocateLockedZeroedGlobalMemory(\n            sizeof(IndependentPaletteIndex) * queueCount));\n    const std::int32_t clearCount = gIndependentPaletteCount;\n    gIndependentPaletteIndex = allocatedIndex;\n    std::memset(allocatedIndex, 0, sizeof(IndependentPaletteIndex) * clearCount);\n\n    const std::int32_t recordCount = gIndependentPaletteCount;\n    auto* const allocatedRecords = static_cast<IndependentPaletteRecord*>(\n        platform::AllocateLockedZeroedGlobalMemory(\n            sizeof(IndependentPaletteRecord) * recordCount));\n    const std::int32_t initialCount = gIndependentPaletteCount;\n    gIndependentPaletteRecords = allocatedRecords;\n\n    std::int32_t index = 0;\n    if (initialCount > 0) {\n        for (;;) {\n            IndependentPaletteRecord* const records = gIndependentPaletteRecords;\n            IndependentPaletteIndex* const indexTable = gIndependentPaletteIndex;\n            IndependentPaletteRecord* const record = &records[index];\n            indexTable[index].record = record;\n            gIndependentPaletteIndex[index].loaded = 0;\n            const std::int32_t nextCount = gIndependentPaletteCount;\n            ++index;\n            if (index >= nextCount) {\n                break;\n            }\n        }\n    }\n    return index;\n}",
+      "scope": "body",
+      "purpose": "保存queueCount作为首次分配计量；clearCount先索引owner发布/清取得表，recordsCount分配后initialCount先records owner发布；每项先records再index基址、recordpub后fresh index loaded清0，尾count先index++比较。"
+    }
+  ],
+  "hidden_table": {
+    "address": "0x58b7e8",
+    "end_exclusive": "0x58d348",
+    "element_width": 4,
+    "count": 1752,
+    "bytes": "00000000dcae0100ddae0100deae0100dfae0100e0ae0100e1ae0100e2ae0100e3ae0100e4ae0100e5ae0100e6ae0100e7ae0100e8ae0100e9ae0100eaae0100ebae0100ecae0100edae0100eeae0100efae0100f0ae0100f1ae0100f2ae0100f3ae0100f4ae0100f5ae0100f6ae0100f7ae0100f8ae0100f9ae0100faae0100fbae0100fcae0100fdae0100feae0100ffae010000af010001af010002af010003af010004af010005af010006af010007af010008af010009af01000aaf01000baf01000caf01000daf01000eaf01000faf010010af010011af010012af010013af010014af010015af010016af010017af010018af010019af01001aaf01001baf01001caf01001daf01001eaf01001faf010020af010021af010022af010023af010024af010025af01002caf01002daf01002eaf01002faf010030af010031af010032af010033af010034af010035af010036af010037af010038af010039af01003aaf01003baf010040af010041af010042af010043af010044af010045af010046af010047af010048af010049af01004aaf01004baf01004caf01004daf01004eaf010054af010055af010056af010057af010058af010059af01005aaf01005baf01005caf01005daf01005eaf01005faf010060af010061af010062af010063af010064af010065af010066af010067af010068af010069af01006aaf01006baf01006caf01006daf01006eaf01006faf010070af010071af010072af010073af010074af010075af010076af010077af010078af010079af01007aaf01007baf01007caf01007daf01007eaf01007faf010080af010081af010082af010083af010084af0100a4af0100a5af010008b0010009b001000ab001000bb001000cb001000db001000eb001000fb0010010b0010011b0010012b0010013b0010014b0010015b0010016b0010017b0010018b0010019b001001ab001001bb001001cb001001db001001eb001001fb0010020b0010021b0010022b0010023b0010024b0010025b0010026b0010027b0010028b0010029b001002ab001002bb001003ab001003bb001003cb001003db001003eb001003fb0010040b0010041b0010042b0010043b0010044b0010045b0010046b0010047b0010048b0010049b001004ab001004bb001004cb001004db001004eb001004fb0010050b0010051b0010052b0010053b0010054b0010055b0010056b0010057b0010058b0010059b001005ab001005bb001005cb001005db001006cb001006db001006eb001006fb0010070b0010071b0010072b0010073b0010074b0010075b0010076b0010077b0010078b0010079b001007ab001007bb001009eb001009fb00100a0b00100a1b00100a2b00100a3b00100a4b00100a5b00100a6b00100a7b00100a8b00100a9b00100aab00100abb00100acb00100adb00100aeb0010068b9010069b901006ab901006bb901006cb901006db901006eb901006fb9010070b9010071b9010072b9010073b9010074b9010075b9010076b9010077b9010078b9010079b901007ab901007bb901007cb901007db901007eb901007fb9010080b9010081b9010082b9010083b9010084b9010085b9010086b9010087b9010088b9010089b901008ab901008bb901008cb901008db901008eb901008fb9010090b9010091b9010092b9010093b9010094b9010095b9010096b9010097b9010098b9010099b901009ab901009bb901009cb901009db901009eb901009fb90100a0b90100a1b90100a2b90100a3b90100a4b90100a5b90100a6b90100a7b90100a8b90100a9b90100aab90100abb90100acb90100adb90100aeb90100afb90100b0b90100b1b90100b2b90100b3b90100b4b90100b5b90100b6b90100b7b90100b8b90100b9b90100bab90100bbb90100bcb90100bdb90100beb90100bfb90100c0b90100c1b90100c2b90100c3b90100c4b90100c5b90100c6b90100c7b90100c8b90100c9b90100cab90100cbb90100ccb90100cdb90100ceb90100cfb90100d0b90100d1b90100d2b90100d3b90100d4b90100d5b90100d6b90100d7b90100d8b90100d9b90100dab90100dbb90100dcb90100ddb90100deb90100dfb90100e0b90100e1b90100e2b90100e3b90100e4b90100e5b90100e6b90100e7b90100e8b90100e9b90100eab90100ebb90100ecb90100edb90100eeb90100efb90100f0b90100f1b90100f2b90100f3b90100f4b90100f5b90100f6b90100f7b90100f8b90100f9b90100fab90100fbb90100fcb90100fdb90100feb90100ffb9010000ba010001ba010002ba010003ba010004ba010005ba010006ba010007ba010008ba010009ba01000aba01000bba01000cba01000dba01000eba01000fba010010ba010011ba010012ba010013ba010014ba010015ba010016ba010017ba010018ba010019ba01001aba01001bba01001cba01001dba01001eba01001fba010020ba010021ba010022ba010023ba010024ba010025ba010026ba010027ba010028ba010029ba01002aba01002bba01002cba01002dba01002eba01002fba010030ba010031ba010032ba010033ba010034ba010035ba010036ba010037ba010038ba010039ba01003aba01003bba01003cba01003dba01003eba01003fba010040ba010041ba010042ba010043ba010044ba010045ba010046ba010047ba010048ba010049ba01004aba01004bba01004cba01004dba01004eba01004fba010050ba010051ba010052ba010053ba010054ba010055ba010056ba010057ba010058ba010059ba01005aba01005bba01005cba01005dba01005eba01005fba010060ba010061ba010062ba010063ba010064ba010065ba010066ba010067ba010068ba010069ba01006aba01006bba01006cba01006dba01006eba01006fba010070ba010071ba010072ba010073ba010074ba010075ba010076ba010077ba010078ba010079ba01007aba01007bba01007cba01007dba01007eba01007fba010080ba010081ba010082ba010083ba010084ba010085ba010086ba010087ba010088ba010089ba01008aba01008bba01008cba01008dba01008eba01008fba010090ba010091ba010092ba010093ba010094ba010095ba010096ba010097ba010098ba010099ba01009aba01009bba01009cba01009dba01009eba01009fba0100a0ba0100a1ba0100a2ba0100a3ba0100a4ba0100a5ba0100a6ba0100a7ba0100a8ba0100a9ba0100aaba0100abba0100acba0100adba0100aeba0100afba0100b0ba0100b1ba0100b2ba0100b3ba0100b4ba0100b5ba0100b6ba0100b7ba0100b8ba0100b9ba0100baba0100bbba0100bcba0100bdba0100beba0100bfba0100c0ba0100c1ba0100c2ba0100c3ba0100c4ba0100c5ba0100c6ba0100c7ba0100c8ba0100c9ba0100caba0100cbba0100ccba0100cdba0100ceba0100cfba0100d0ba0100d1ba0100d2ba0100d3ba0100d4ba0100d5ba0100d6ba0100d7ba0100d8ba0100d9ba0100daba0100dbba0100dcba0100ddba0100deba0100dfba0100e0ba0100e1ba0100e2ba0100e3ba0100e4ba0100e5ba0100e6ba0100e7ba0100e8ba0100e9ba0100eaba0100ebba0100ecba0100edba0100eeba0100efba0100f0ba0100f1ba0100f2ba0100f3ba0100f4ba0100f5ba0100f6ba0100f7ba0100f8ba0100f9ba0100faba0100fbba0100fcba0100fdba0100feba0100ffba010000bb010001bb010002bb010003bb010004bb010005bb010006bb010007bb010008bb010009bb01000abb01000bbb01000cbb01000dbb01000ebb01000fbb010010bb010011bb010012bb010013bb010014bb010015bb010016bb010017bb010018bb010019bb01001abb01001bbb01001cbb01001dbb01001ebb01001fbb010020bb010021bb010022bb010023bb010024bb010025bb010026bb010027bb010028bb010029bb01002abb01002bbb01002cbb01002dbb01002ebb01002fbb010030bb010031bb010032bb010033bb010034bb010035bb010036bb010037bb010038bb010039bb01003abb01003bbb01003cbb01003dbb01003ebb01003fbb010040bb010041bb010042bb010043bb010044bb010045bb010046bb010047bb010048bb010049bb01004abb01004bbb01004cbb01004dbb01004ebb01004fbb010050bb010051bb010052bb010053bb010054bb010055bb010056bb010057bb010058bb010059bb01005abb01005bbb01005cbb01005dbb01005ebb01005fbb010060bb010061bb010062bb010063bb010064bb010065bb010066bb010067bb010068bb010069bb01006abb01006bbb01006cbb01006dbb01006ebb01006fbb010070bb010071bb010072bb010073bb010074bb010075bb010076bb010077bb010078bb010079bb01007abb01007bbb01007cbb01007dbb01007ebb01007fbb010080bb010081bb010082bb010083bb010084bb010085bb010086bb010087bb010088bb010089bb01008abb01008bbb01008cbb01008dbb01008ebb01008fbb010090bb010091bb010092bb010093bb010094bb010095bb010096bb010097bb010098bb010099bb01009abb01009bbb01009cbb01009dbb01009ebb01009fbb0100a0bb0100a1bb0100a2bb0100a3bb0100a4bb0100a5bb0100a6bb0100a7bb0100a8bb0100a9bb0100aabb0100abbb0100acbb0100adbb0100aebb0100afbb0100b0bb0100b1bb0100b2bb0100b3bb0100b4bb0100b5bb0100b6bb0100b7bb0100b8bb0100b9bb0100babb0100bbbb0100bcbb0100bdbb0100bebb0100bfbb0100c0bb0100c1bb0100c2bb0100c3bb0100c4bb0100c5bb0100c6bb0100c7bb0100c8bb0100c9bb0100cabb0100cbbb0100ccbb0100cdbb0100cebb0100cfbb0100d0bb0100d1bb0100d2bb0100d3bb0100d4bb0100d5bb0100d6bb0100d7bb0100d8bb0100d9bb0100dabb0100dbbb0100dcbb0100ddbb0100debb0100dfbb0100e0bb0100e1bb0100e2bb0100e3bb0100e4bb0100e5bb0100e6bb0100e7bb0100e8bb0100e9bb0100eabb0100ebbb0100ecbb0100edbb0100eebb0100efbb0100f0bb0100f1bb0100f2bb0100f3bb0100f4bb0100f5bb0100f6bb0100f7bb0100f8bb0100f9bb0100fabb0100fbbb0100fcbb0100fdbb0100febb0100ffbb010000bc010001bc010002bc010003bc010004bc010005bc010006bc010007bc010008bc010009bc01000abc01000bbc01000cbc01000dbc01000ebc01000fbc010010bc010011bc010012bc010013bc010014bc010015bc010016bc010017bc010018bc010019bc01001abc01001bbc01001cbc01001dbc01001ebc01001fbc010020bc010021bc010022bc010023bc010024bc010025bc010026bc010027bc010028bc010029bc01002abc01002bbc01002cbc01002dbc01002ebc01002fbc010030bc010031bc010032bc010033bc010034bc010035bc010036bc010037bc010038bc010039bc01003abc01003bbc01003cbc01003dbc01003ebc01003fbc010040bc010041bc010042bc010043bc010044bc010045bc010046bc010047bc010048bc010049bc01004abc01004bbc01004cbc01004dbc01004ebc01004fbc010050bc010051bc010052bc010053bc010054bc010055bc010056bc010057bc010058bc010059bc01005abc01005bbc01005cbc01005dbc01005ebc01005fbc010060bc010061bc010062bc010063bc010064bc010065bc010066bc010067bc010068bc010069bc01006abc01006bbc01006cbc01006dbc01006ebc01006fbc010070bc010071bc010072bc010073bc010074bc010075bc010076bc010077bc010078bc010079bc01007abc01007bbc01007cbc01007dbc01007ebc01007fbc010080bc010081bc010082bc010083bc010084bc010085bc010086bc010087bc010088bc010089bc01008abc01008bbc01008cbc01008dbc01008ebc01008fbc010090bc010091bc010092bc010093bc010094bc010095bc010096bc010097bc010098bc010099bc01009abc01009bbc01009cbc01009dbc01009ebc01009fbc0100a0bc0100a1bc0100a2bc0100a3bc0100a4bc0100a5bc0100a6bc0100a7bc0100a8bc0100a9bc0100aabc0100abbc0100acbc0100adbc0100aebc0100afbc0100b0bc0100b1bc0100b2bc0100b3bc0100b4bc0100b5bc0100b6bc0100b7bc0100b8bc0100b9bc0100babc0100bbbc0100bcbc0100bdbc0100bebc0100bfbc0100c0bc0100c1bc0100c2bc0100c3bc0100c4bc0100c5bc0100c6bc0100c7bc0100c8bc0100c9bc0100cabc0100cbbc0100ccbc0100cdbc0100cebc0100cfbc0100d0bc0100d1bc0100d2bc0100d3bc0100d4bc0100d5bc0100d6bc0100d7bc0100d8bc0100d9bc0100dabc0100dbbc0100dcbc0100ddbc0100debc0100dfbc0100e0bc0100e1bc0100e2bc0100e3bc0100e4bc0100e5bc0100e6bc0100e7bc0100e8bc0100e9bc0100eabc0100ebbc0100ecbc0100edbc0100eebc0100efbc0100f0bc0100f1bc0100f2bc0100f3bc0100f4bc0100f5bc0100f6bc0100f7bc0100f8bc0100f9bc0100fabc0100fbbc0100fcbc0100fdbc0100febc0100ffbc010000bd010001bd010002bd010003bd010004bd010005bd010006bd010007bd010008bd010009bd01000abd01000bbd01000cbd01000dbd01000ebd01000fbd010010bd010011bd010012bd010013bd010014bd010015bd010016bd010017bd010018bd010019bd01001abd01001bbd01001cbd01001dbd01001ebd01001fbd010020bd010021bd010022bd010023bd010024bd010025bd010026bd010027bd010028bd010029bd01002abd01002bbd01002cbd01002dbd01002ebd01002fbd010030bd010031bd010032bd010033bd010034bd010035bd010036bd010037bd010038bd010039bd01003abd01003bbd01003cbd01003dbd01003ebd01003fbd010040bd010041bd010042bd010043bd010044bd010045bd010046bd010047bd010048bd010049bd01004abd01004bbd01004cbd01004dbd01004ebd01004fbd010041af010042af010043af010044af010045af010046af010047af010048af010049af01004aaf01004baf01004caf01004eaf0100a8af010028af010029af01002aaf01002baf010085af010086af010087af010088af010089af01008aaf01008baf01008caf01008daf0100b8af0100b9af0100baaf0100bbaf0100bcaf0100bdaf0100beaf0100bfaf0100c0af0100c1af0100c2af0100c3af0100c4af0100c5af0100c6af0100c7af0100c8af0100c9af0100caaf0100cbaf0100ccaf0100cdaf0100ceaf0100cfaf0100d0af0100d1af0100d2af0100d3af0100d4af0100d5af0100d6af0100d7af0100d8af0100d9af0100daaf0100dbaf0100dcaf0100ddaf0100deaf0100dfaf0100e0af0100e1af0100e2af0100e3af0100e4af0100e5af0100e6af0100e7af0100e8af0100e9af0100eaaf0100ebaf0100ecaf0100edaf0100eeaf0100efaf0100f0af0100f1af0100f2af0100f3af0100f4af0100f5af0100f6af0100f7af0100f8af0100f9af0100f5bd0100f6bd0100f7bd0100f8bd0100f9bd0100fabd0100fbbd0100fcbd0100fdbd0100febd0100ffbd010000be010001be010002be010003be010004be010005be010006be010007be010008be010009be01000abe01000bbe01000cbe01000dbe01000ebe01000fbe010010be010011be010012be010013be010014be010015be010016be010017be0100afb00100b0b00100b1b00100a9af0100aaaf0100abaf0100acaf01003caf01003daf01003eaf01003faf0100adaf0100aeaf0100afaf0100b0af0100b1af0100b2af0100faaf0100fbaf0100fcaf0100fdaf0100feaf0100ffaf010000b0010001b0010002b0010003b0010004b0010005b0010006b0010007b00100b2b00100b3b00100b4b00100b5b00100b6b00100b7b00100b8b00100b9b00100bab00100bbb00100bcb00100bdb00100beb00100bfb00100c0b00100c1b00100c2b00100c3b00100c4b00100c5b00100c6b00100c7b00100c8b00100c9b00100cab00100cbb00100ccb00100cdb00100ceb00100cfb0010018be010019be01001abe01001bbe01001cbe01001dbe01001ebe01001fbe010020be010021be010022be010023be010024be010025be010026be010027be010028be010029be01002abe01002bbe01002cbe01002dbe01002ebe01002fbe010030be010007b0010040af01008c9701008d9701008e97010098970100999701009a9701009b9701009c9701009d9701009e9701009f970100a09701009397010094970100959701009697010097970100a1970100a2970100a3970100a4970100a5970100a6970100a7970100a8970100a9970100aa970100ab970100ac970100ad970100ae970100af970100b0970100b1970100b2970100b3970100b4970100b5970100b6970100b7970100b8970100b9970100ba970100bb970100bc970100bd970100be970100bf970100c0970100c1970100c2970100c3970100c4970100c5970100c6970100c7970100c8970100d0970100d6970100dc970100e2970100e8970100ee970100f4970100fa97010000980100069801000c98010012980100189801001e980100249801002a98010030980100369801003c98010042980100c9970100ca970100cb970100cc970100cd970100ce970100cf970100d0970100d1970100d297010048980100499801004a9801004b9801004c9801004d9801004e9801004f980100509801005198010052980100539801005498010055980100569801005798010058980100599801005a9801005b9801005c9801005d9801005e9801005f980100609801006198010062980100639801006498010065980100669801006798010068980100699801006a9801006b9801006c9801006d9801006e9801006f980100709801008f970100909701007198010072980100739801007498010075980100769801007798010078980100799801007a9801007b9801007c9801007d9801007e9801007f980100809801008198010082980100839801008498010085980100869801008798010088980100899801008a9801008b9801008c9801008d9801008e9801008f980100909801009198010092980100939801009498010095980100969801009798010098980100999801009a9801009b9801009c9801009d9801009e9801009f980100a0980100a1980100a2980100a3980100a4980100a5980100a6980100a7980100a8980100a9980100aa980100ab980100ac980100ad980100ae980100af980100b0980100b1980100b2980100dd980100de980100df980100e0980100e1980100e2980100e3980100e4980100e5980100e6980100e7980100e8980100e9980100ea980100eb980100ec9801009197010092970100b3980100b4980100b5980100b6980100b7980100b8980100b9980100ba980100bb980100bc980100bd980100be980100bf980100c0980100c1980100c2980100c3980100c4980100c5980100c6980100c7980100c8980100c9980100ca980100cb980100cc980100cd980100ce980100cf980100d0980100d1980100d2980100d3980100d4980100d5980100d6980100d7980100d8980100d9980100da980100db980100dc980100ed980100ee980100ef980100f0980100f1980100f2980100f3980100f4980100f5980100f6980100f7980100f8980100f9980100fa980100fc980100fd980100fe980100ff980100",
+    "source_segments": [
+      {
+        "first": 0,
+        "last": 0,
+        "mapNo": 0
+      },
+      {
+        "first": 1,
+        "last": 74,
+        "mapNo": 110300
+      },
+      {
+        "first": 75,
+        "last": 90,
+        "mapNo": 110380
+      },
+      {
+        "first": 91,
+        "last": 105,
+        "mapNo": 110400
+      },
+      {
+        "first": 106,
+        "last": 154,
+        "mapNo": 110420
+      },
+      {
+        "first": 155,
+        "last": 156,
+        "mapNo": 110500
+      },
+      {
+        "first": 157,
+        "last": 192,
+        "mapNo": 110600
+      },
+      {
+        "first": 193,
+        "last": 228,
+        "mapNo": 110650
+      },
+      {
+        "first": 229,
+        "last": 244,
+        "mapNo": 110700
+      },
+      {
+        "first": 245,
+        "last": 261,
+        "mapNo": 110750
+      },
+      {
+        "first": 262,
+        "last": 1261,
+        "mapNo": 113000
+      },
+      {
+        "first": 1262,
+        "last": 1273,
+        "mapNo": 110401
+      },
+      {
+        "first": 1274,
+        "last": 1274,
+        "mapNo": 110414
+      },
+      {
+        "first": 1275,
+        "last": 1275,
+        "mapNo": 110504
+      },
+      {
+        "first": 1276,
+        "last": 1279,
+        "mapNo": 110376
+      },
+      {
+        "first": 1280,
+        "last": 1288,
+        "mapNo": 110469
+      },
+      {
+        "first": 1289,
+        "last": 1354,
+        "mapNo": 110520
+      },
+      {
+        "first": 1355,
+        "last": 1389,
+        "mapNo": 114165
+      },
+      {
+        "first": 1390,
+        "last": 1392,
+        "mapNo": 110767
+      },
+      {
+        "first": 1393,
+        "last": 1396,
+        "mapNo": 110505
+      },
+      {
+        "first": 1397,
+        "last": 1400,
+        "mapNo": 110396
+      },
+      {
+        "first": 1401,
+        "last": 1406,
+        "mapNo": 110509
+      },
+      {
+        "first": 1407,
+        "last": 1420,
+        "mapNo": 110586
+      },
+      {
+        "first": 1421,
+        "last": 1450,
+        "mapNo": 110770
+      },
+      {
+        "first": 1451,
+        "last": 1475,
+        "mapNo": 114200
+      },
+      {
+        "first": 1476,
+        "last": 1476,
+        "mapNo": 110599
+      },
+      {
+        "first": 1477,
+        "last": 1477,
+        "mapNo": 110400
+      },
+      {
+        "first": 1478,
+        "last": 1480,
+        "mapNo": 104332
+      },
+      {
+        "first": 1481,
+        "last": 1489,
+        "mapNo": 104344
+      },
+      {
+        "first": 1490,
+        "last": 1494,
+        "mapNo": 104339
+      },
+      {
+        "first": 1495,
+        "last": 1534,
+        "mapNo": 104353
+      },
+      {
+        "first": 1535,
+        "last": 1535,
+        "mapNo": 104400
+      },
+      {
+        "first": 1536,
+        "last": 1536,
+        "mapNo": 104406
+      },
+      {
+        "first": 1537,
+        "last": 1537,
+        "mapNo": 104412
+      },
+      {
+        "first": 1538,
+        "last": 1538,
+        "mapNo": 104418
+      },
+      {
+        "first": 1539,
+        "last": 1539,
+        "mapNo": 104424
+      },
+      {
+        "first": 1540,
+        "last": 1540,
+        "mapNo": 104430
+      },
+      {
+        "first": 1541,
+        "last": 1541,
+        "mapNo": 104436
+      },
+      {
+        "first": 1542,
+        "last": 1542,
+        "mapNo": 104442
+      },
+      {
+        "first": 1543,
+        "last": 1543,
+        "mapNo": 104448
+      },
+      {
+        "first": 1544,
+        "last": 1544,
+        "mapNo": 104454
+      },
+      {
+        "first": 1545,
+        "last": 1545,
+        "mapNo": 104460
+      },
+      {
+        "first": 1546,
+        "last": 1546,
+        "mapNo": 104466
+      },
+      {
+        "first": 1547,
+        "last": 1547,
+        "mapNo": 104472
+      },
+      {
+        "first": 1548,
+        "last": 1548,
+        "mapNo": 104478
+      },
+      {
+        "first": 1549,
+        "last": 1549,
+        "mapNo": 104484
+      },
+      {
+        "first": 1550,
+        "last": 1550,
+        "mapNo": 104490
+      },
+      {
+        "first": 1551,
+        "last": 1551,
+        "mapNo": 104496
+      },
+      {
+        "first": 1552,
+        "last": 1552,
+        "mapNo": 104502
+      },
+      {
+        "first": 1553,
+        "last": 1553,
+        "mapNo": 104508
+      },
+      {
+        "first": 1554,
+        "last": 1554,
+        "mapNo": 104514
+      },
+      {
+        "first": 1555,
+        "last": 1564,
+        "mapNo": 104393
+      },
+      {
+        "first": 1565,
+        "last": 1605,
+        "mapNo": 104520
+      },
+      {
+        "first": 1606,
+        "last": 1607,
+        "mapNo": 104335
+      },
+      {
+        "first": 1608,
+        "last": 1673,
+        "mapNo": 104561
+      },
+      {
+        "first": 1674,
+        "last": 1689,
+        "mapNo": 104669
+      },
+      {
+        "first": 1690,
+        "last": 1691,
+        "mapNo": 104337
+      },
+      {
+        "first": 1692,
+        "last": 1733,
+        "mapNo": 104627
+      },
+      {
+        "first": 1734,
+        "last": 1747,
+        "mapNo": 104685
+      },
+      {
+        "first": 1748,
+        "last": 1751,
+        "mapNo": 104700
+      }
+    ],
+    "source_initializer_before": "constexpr HiddenPaletteSegment kHiddenPaletteSegments[] {\n    {0, 0, 0},\n    {1, 74, 110300},\n    {75, 90, 110380},\n    {91, 105, 110400},\n    {106, 154, 110420},\n    {155, 156, 110500},\n    {157, 192, 110600},\n    {193, 228, 110650},\n    {229, 244, 110700},\n    {245, 261, 110750},\n    {262, 1261, 113000},\n    {1262, 1273, 110401},\n    {1274, 1274, 110414},\n    {1275, 1275, 110504},\n    {1276, 1279, 110376},\n    {1280, 1288, 110469},\n    {1289, 1354, 110520},\n    {1355, 1389, 114165},\n    {1390, 1392, 110767},\n    {1393, 1396, 110505},\n    {1397, 1400, 110396},\n    {1401, 1406, 110509},\n    {1407, 1420, 110586},\n    {1421, 1450, 110770},\n    {1451, 1475, 114200},\n    {1476, 1476, 110599},\n    {1477, 1477, 110400},\n    {1478, 1480, 104332},\n    {1481, 1489, 104344},\n    {1490, 1494, 104339},\n    {1495, 1534, 104353},\n    {1535, 1535, 104400},\n    {1536, 1536, 104406},\n    {1537, 1537, 104412},\n    {1538, 1538, 104418},\n    {1539, 1539, 104424},\n    {1540, 1540, 104430},\n    {1541, 1541, 104436},\n    {1542, 1542, 104442},\n    {1543, 1543, 104448},\n    {1544, 1544, 104454},\n    {1545, 1545, 104460},\n    {1546, 1546, 104466},\n    {1547, 1547, 104472},\n    {1548, 1548, 104478},\n    {1549, 1549, 104484},\n    {1550, 1550, 104490},\n    {1551, 1551, 104496},\n    {1552, 1552, 104502},\n    {1553, 1553, 104508},\n    {1554, 1554, 104514},\n    {1555, 1564, 104393},\n    {1565, 1605, 104520},\n    {1606, 1607, 104335},\n    {1608, 1673, 104561},\n    {1674, 1689, 104669},\n    {1690, 1691, 104337},\n    {1692, 1733, 104627},\n    {1734, 1747, 104685},\n    {1748, 1751, 104700},\n};",
+    "static_element_mismatches": [],
+    "method": "只对W32原字节与源常量段初值作逐项静态核，不执行CPP初始化或算法样例。",
+    "values_changed": false
+  },
+  "full_runtime_verified": false,
+  "measurement_before": {
+    "semantic_records": 1404,
+    "semantic_inventory_ids": 1399,
+    "functions_with_document_links": 1517,
+    "document_link_percent": 41.22,
+    "reviewed_function_dispositions": 522,
+    "evidence_records": 649,
+    "resource_members": 41,
+    "historical_direct_definitions": 1,
+    "baseline_documents": 5,
+    "tasks_closed": 10,
+    "accepted_leaf_features": 0,
+    "global_accepted": false
+  },
+  "measurement_after_expected": {
+    "semantic_records": 1404,
+    "semantic_inventory_ids": 1399,
+    "functions_with_document_links": 1517,
+    "document_link_percent": 41.22,
+    "reviewed_function_dispositions": 522,
+    "evidence_records": 651,
+    "resource_members": 41,
+    "historical_direct_definitions": 1,
+    "tasks_closed": 10,
+    "accepted_leaf_features": 0,
+    "global_accepted": false
+  }
+}

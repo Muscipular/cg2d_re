@@ -2470,3 +2470,11 @@ BOP01本步实测：源码/三完整原根/两权威JSON/对应文档四项定�
 - **后续开发**：仅全根正常局部static；W32比较字非地址不扩宽，不据无直接写引用宣只读或所有alias闭合。私有vector/map沿已有批准宿主承接，不以本根代原容器机制/53AF90或SDK-owner运行。未构建/测试/运行/hash；网络原格式明文、音频暂停，不新加异常/越界/故障或关闭策略。 沿真实DBF、hidden队列和索引owner-独立色表消费继续开发，整体SPEC目标保持。
 
 BOQ01本步实测：源码/完整原证据/两权威JSON/对应文档四项定向静态通过；检查文本的反斜杠转义不匹配已按捕获旧源码字面值当步修正并复检，不改原代码或标准。measure/-Check均返回0，派生全对象仅724续记/RESOURCE41/分类522/七open，历史定义1/语义1404-1399/关联1517(41.22%)及其它成员/集合/队列和完整门禁保持。E649；13文件严格UTF8无BOM/LF和必要差异通过。未构建/测试/运行/hash，整体SPEC目标继续。
+
+## BOR01 独立调色板初始化/索引发布推进（2026-10-06）
+
+- **开发/当步解决**：先记[具体SPEC](../doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision)，落实初始化数量/取得表/record-loaded及循环尾取样；正文1/来源注释1补丁，[原证据](../doc/cg2d_independent_palette_initialization_sampling_evidence.json)保完整94条286B/两页6call-7内跳/1ret与两普通入向、7008B hidden1752项/60源段逐项一致。保原初值及SDK/释放根，不全面重复旧PGM01。
+- **计量/历史**：1237完整旧PGM01记录/分类保留续记，既有source2/历史定义1不变，语义1404/有效ID1399及1517关联41.22%、分类522/RESOURCE41保持；两局部static I/S E649→651。没有新增原函数或成员，七open仅进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及全门禁保持。 队列175/R7区间67/3061及其它功能保持。命名快照 `cg2d-re-independent-palette-initialization-sampling-20261006`；13文件精确提交，用户既有六项排除。
+- **后续开发**：仅正常局部static，native index16B仅首T*拓宽、loaded仍U8、记录0xB04无指针/count S32保，字节量在已批native API边界。保两GPTR/GlobalLock后才判初始数量，不新做空指针/失配/溢出保护、旧池回收/回滚。全部父/真实SDK/queue-DBF两表owner-正常别名/画面运行继续推进；未构建/测试/运行/hash，网络原格式明文、音频暂停。 沿真实初始化/重建与队列-DBF/两表owner、绘制借用继续开发，整体SPEC目标保持。
+
+BOR01本步实测：源码/原全根与hidden全表初值/两权威JSON/对应原合同四项定向静态通过；检查脚本单项顶层JSON数组被流水线拆包的问题已显式捕获数组并复检，未改证据要求。measure/-Check返回0，派生全对象仅1237/既有分类-成员续记与RESOURCE合同/七open引用进展；语义1404/1399、关联1517(41.22%)、分类522/RESOURCE41、E651、历史定义1/两源和其它队列/集合/门禁保持。13文件严格UTF8无BOM/LF与必要差异通过，未构建/测试/运行/hash，整体SPEC目标继续。

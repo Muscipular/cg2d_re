@@ -880,3 +880,11 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 724已有ID完整历史深拷贝续记，语义1404/1399有效ID及1517关联41.22%不变；分类521→522、RESOURCE40→41枚举open，独立局部I/S E647→649。历史直接定义1/旧FILE属性保持；七open仅引用/进展、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它门禁保持。 一根两局部证据，不把16原call计作16实现；旧五FILE/格式点及限定历史核对保，本次完整根正常索引生产独立登记。
 
 仅全根正常局部static；W32比较字非地址不扩宽，不据无直接写引用宣只读或所有alias闭合。私有vector/map沿已有批准宿主承接，不以本根代原容器机制/53AF90或SDK-owner运行。未构建/测试/运行/hash；网络原格式明文、音频暂停，不新加异常/越界/故障或关闭策略。
+
+## BOR01 初始化与hidden表局部I/S（2026-10-06）
+
+[BOR01 SPEC](cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision)/[本步证据](cg2d_independent_palette_initialization_sampling_evidence.json)。1237/522B30完整94条286B/两页6call-7内跳/1ret，两个普通入向；原指令继承PGM01完整归档，本轮核边界/入向及缺口取样。hidden58B7E8..58D348全7008B/1752W32与60源段初值逐项一致，保持可写表。初始化落实queueCount/首分配、clearCount先索引pub/实际取得表清零、recordCount与lock后initialCount先记录pub、逐项records→index→recordpub→fresh index loaded0、尾fresh count先index++比较。正文1/来源注释1，正常值和旧SDK适配/释放根保。
+
+1237完整旧PGM01记录/分类保留续记，既有source2/历史定义1不变，语义1404/有效ID1399及1517关联41.22%、分类522/RESOURCE41保持；两局部static I/S E649→651。没有新增原函数或成员，七open仅进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及全门禁保持。 7008B是原可写数据初值覆盖，不能将1752项计作1752功能/运行样例；两证据仅同一原根正常局部。
+
+仅正常局部static，native index16B仅首T*拓宽、loaded仍U8、记录0xB04无指针/count S32保，字节量在已批native API边界。保两GPTR/GlobalLock后才判初始数量，不新做空指针/失配/溢出保护、旧池回收/回滚。全部父/真实SDK/queue-DBF两表owner-正常别名/画面运行继续推进；未构建/测试/运行/hash，网络原格式明文、音频暂停。

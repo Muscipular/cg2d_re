@@ -46,3 +46,13 @@ PGM01只改变释放中的取样/接线；两根登记原新基线，源级x64�
 
 组合释放接口已拆成两个SDK阶段，两个共享owner按原取样点重新读取，第二owner在第一指针清空前保存。
 分配、存储/字段、原SDK域和失败清空顺序保持；本根源码及基线可追，完整图形寿命/SDK/运行未验收。
+
+## BOR01 初始化数量与取得表发布补充（2026-10-06）
+
+[BOR01 SPEC](cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision)/[本步证据](cg2d_independent_palette_initialization_sampling_evidence.json)。1237/522B30完整94条286B/两页6call-7内跳/1ret，两个普通入向；原指令继承PGM01完整归档，本轮核边界/入向及缺口取样。hidden58B7E8..58D348全7008B/1752W32与60源段初值逐项一致，保持可写表。初始化落实queueCount/首分配、clearCount先索引pub/实际取得表清零、recordCount与lock后initialCount先记录pub、逐项records→index→recordpub→fresh index loaded0、尾fresh count先index++比较。正文1/来源注释1，正常值和旧SDK适配/释放根保。
+
+本步更新原PGM01“初始化正文保持”的历史状态：当前只按BOR01恢复初始化取样，GPTR/GlobalLock接口及PGM01释放根完全保持，不把局部发布取样外推为所有SDK/owner寿命已验。
+
+1237完整旧PGM01记录/分类保留续记，既有source2/历史定义1不变，语义1404/有效ID1399及1517关联41.22%、分类522/RESOURCE41保持；两局部static I/S E649→651。没有新增原函数或成员，七open仅进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及全门禁保持。
+
+仅正常局部static，native index16B仅首T*拓宽、loaded仍U8、记录0xB04无指针/count S32保，字节量在已批native API边界。保两GPTR/GlobalLock后才判初始数量，不新做空指针/失配/溢出保护、旧池回收/回滚。全部父/真实SDK/queue-DBF两表owner-正常别名/画面运行继续推进；未构建/测试/运行/hash，网络原格式明文、音频暂停。

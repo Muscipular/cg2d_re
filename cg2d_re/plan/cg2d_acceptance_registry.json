@@ -1323,7 +1323,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-baseline"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-baseline",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -1392,7 +1393,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1409,7 +1411,8 @@
         "BON01两个已有723/172完整380条1579B/144B数据，12处过渡/查色取样恢复，旧FILE/CPH/Tone helper/正确表保持；共享32局部枚举open，低色深40B仅纳盘，全部父/PC53/数组-通道owner/像素画面运行与R1/R7/R8待",
         "BOO01两旧169/170完整464条1778B/128B固定初值-100B常量，Init查色1恢复/Read正确体及真实CPU绑定保；原85条289B低色深仅纳盘。局部枚举open，全部父/构造重建销毁owner/正常别名/像素画面与R1/R7/R8运行待",
         "BOP01三既有源码根新机器映射，完整273条768B，Get累计/组包2与Nearest首色-候选1阶段恢复/正常值保持；Resource37→40、Render32→34枚举open，auto.dat父/真实共享解码区owner-实际图形/地图画面运行及R1/R7/R8待",
-        "BOQ01 DBF724完整170条553B/31B数据、原W32共享比较字和stride-payload-S32偏移阶段恢复；RESOURCE41枚举open，全部父/hidden队列/正常alias/解码块-键表owner/真实DBF及R1/R7/R8运行待"
+        "BOQ01 DBF724完整170条553B/31B数据、原W32共享比较字和stride-payload-S32偏移阶段恢复；RESOURCE41枚举open，全部父/hidden队列/正常alias/解码块-键表owner/真实DBF及R1/R7/R8运行待",
+        "BOR01已有1237/分类/RESOURCE成员续记，完整94条286B及7008B hidden初值1752项一致；数量-取得表/record-loaded阶段恢复，原SDK/释放根保持，全部父-队列两池owner/正常alias/实际SDK及R1/R7/R8运行待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1429,7 +1432,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
       ]
     },
     {
@@ -28902,6 +28906,70 @@
       "observation": "完整170条553B/三页16call11内跳1ret、唯一普通入向/五段31B原数据；比较字.data唯一直接W32读取/旧724历史分列",
       "expected": "两个256B局部清0/GetCurrentDirectoryA(256)/固定directory[255]比较反斜杠、必要strcat反斜杠，%s%s\\%s拼目录/gDataPath/CGLoadSpr.dbf，rb失败退出。对同共享32B头fread(size1,count32)忽略返回/保短读后缀，先读当前header.magic W32再读原58D360可写W32比较字，初值00464244、不升constexpr；不符原直接退出且不关闭FILE。按fresh compressedLength/decodedLength各裸字节分配，第二次fread及解码各重新读compressedLength，53AF90输出直接更新同decodedLength，返回不处理；delete压缩块后载荷集合持有实际decoded，payload=decoded+8。S32 index与每次decoded[0] count比较，逐项先从同decoded+4读S32 stride，再fresh共享payload native Byte*，先S32 stride*index再地址相加得到同record；原键record0沿已批准有序唯一键宿主表、重复键覆盖为当前实际record，旧块/旧键保持不清。结束fresh count发布后fresh stride发布、FILE关闭，再共享current=records.begin，每项保存current并前进shared iterator，旧current==end或实际record空则结束，否则读同record+4 S32值入同独立palette队列；队列/vector/map机制沿已有批准，不新查数或去重。全部原170条553B、16call/11内跳/1ret，唯一522B30 caller弃返回沿现有void角色；本根不代private容器内部/所有正常别名/解码算法/分配SDK或真实DBF运行。",
       "actual": "本根正常局部static I/S、runtime=false；724续记不增语义函数，两证据不代private容器/解码/分配SDK-正常alias/所有父和资源运行，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-INDEPENDENT-PALETTE-INITIALIZATION-SAMPLING-00122B30-I-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOR01原完整94条286B/两页6call7内跳1ret、两入向及hidden7008B/1752W32；doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-independent-palette-initialization-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-acceptance",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_evidence.json",
+        "src/GraphicRead.cpp#InitializeIndependentPalettes_522B30",
+        "src/GraphicRead.cpp#gHiddenPaletteBaseQueue",
+        "src/platform/StartupCommon.cpp#AllocateLockedZeroedGlobalMemory",
+        "include/cg/platform/Startup.hpp",
+        "doc/cg2d_palette_global_memory_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "queueCount/clearCount与取得表、recordCount/initialCount、每项records-index-loaded及循环尾数量取样恢复；hidden表原1752项值保，旧SDK/释放根保持",
+          "decision_ref": "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅初始化正文1/来源注释1，原表/所有其它根/头和SDK adapter不改；沿既有批准宿主queue clear归起点，逐原hidden1752项S32样本插入，不排序/过滤/去重，再call522900。保存S32 queueCount并发布gIndependentPaletteCount，首GPTR+GlobalLock索引分配以该样本计量；lock后fresh clearCount先索引owner发布，以实际allocatedIndex清sizeof(nativeIndex)*clearCount。随后fresh recordCount计量0xB04原记录，GPTR+lock返回后fresh initialCount先records owner发布；index0，initialCount>0才进入逐项。每项先fresh记录基址T*再索引基址T*，用本项原record地址pub保存索引槽，随后fresh gIndependentPaletteIndex写loaded低W8=0；fresh nextCount先index+1，以该同样本S32比较决定继续，最终返原index。x64仅索引首T*拓宽8→16B，loaded仍U8/+8，records无指针0xB04与count S32保持；字节量按已批native分配边界，不新做溢出/失配保护。两owner不增null检查/释放旧池/回滚，GPTR/Lock适配与PGM01释放root不改。hidden表60段全1752W32原字节初值一致保持可写；本根不代私有容器内部/全部父、实际SDK/重建寿命/运行。",
+      "expected": "沿既有批准宿主queue clear归起点，逐原hidden1752项S32样本插入，不排序/过滤/去重，再call522900。保存S32 queueCount并发布gIndependentPaletteCount，首GPTR+GlobalLock索引分配以该样本计量；lock后fresh clearCount先索引owner发布，以实际allocatedIndex清sizeof(nativeIndex)*clearCount。随后fresh recordCount计量0xB04原记录，GPTR+lock返回后fresh initialCount先records owner发布；index0，initialCount>0才进入逐项。每项先fresh记录基址T*再索引基址T*，用本项原record地址pub保存索引槽，随后fresh gIndependentPaletteIndex写loaded低W8=0；fresh nextCount先index+1，以该同样本S32比较决定继续，最终返原index。x64仅索引首T*拓宽8→16B，loaded仍U8/+8，records无指针0xB04与count S32保持；字节量按已批native分配边界，不新做溢出/失配保护。两owner不增null检查/释放旧池/回滚，GPTR/Lock适配与PGM01释放root不改。hidden表60段全1752W32原字节初值一致保持可写；本根不代私有容器内部/全部父、实际SDK/重建寿命/运行。",
+      "actual": "仅本根正常局部static I/S、runtime=false；已有1237/分类与成员不增函数，旧PGM01完整历史保；不代私有容器/原SDK/所有owner别名-寿命/父/画面运行与R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-INDEPENDENT-PALETTE-INITIALIZATION-SAMPLING-00122B30-S-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOR01原完整94条286B/两页6call7内跳1ret、两入向及hidden7008B/1752W32；doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-independent-palette-initialization-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-acceptance",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_evidence.json",
+        "src/GraphicRead.cpp#InitializeIndependentPalettes_522B30",
+        "src/GraphicRead.cpp#gHiddenPaletteBaseQueue",
+        "src/platform/StartupCommon.cpp#AllocateLockedZeroedGlobalMemory",
+        "include/cg/platform/Startup.hpp",
+        "doc/cg2d_palette_global_memory_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "queueCount/clearCount与取得表、recordCount/initialCount、每项records-index-loaded及循环尾数量取样恢复；hidden表原1752项值保，旧SDK/释放根保持",
+          "decision_ref": "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原归档全94条286B/两页与本轮边界/两父，7008B表1752W32-60常量段逐项静态一致，无运行样例",
+      "expected": "沿既有批准宿主queue clear归起点，逐原hidden1752项S32样本插入，不排序/过滤/去重，再call522900。保存S32 queueCount并发布gIndependentPaletteCount，首GPTR+GlobalLock索引分配以该样本计量；lock后fresh clearCount先索引owner发布，以实际allocatedIndex清sizeof(nativeIndex)*clearCount。随后fresh recordCount计量0xB04原记录，GPTR+lock返回后fresh initialCount先records owner发布；index0，initialCount>0才进入逐项。每项先fresh记录基址T*再索引基址T*，用本项原record地址pub保存索引槽，随后fresh gIndependentPaletteIndex写loaded低W8=0；fresh nextCount先index+1，以该同样本S32比较决定继续，最终返原index。x64仅索引首T*拓宽8→16B，loaded仍U8/+8，records无指针0xB04与count S32保持；字节量按已批native分配边界，不新做溢出/失配保护。两owner不增null检查/释放旧池/回滚，GPTR/Lock适配与PGM01释放root不改。hidden表60段全1752W32原字节初值一致保持可写；本根不代私有容器内部/全部父、实际SDK/重建寿命/运行。",
+      "actual": "仅本根正常局部static I/S、runtime=false；已有1237/分类与成员不增函数，旧PGM01完整历史保；不代私有容器/原SDK/所有owner别名-寿命/父/画面运行与R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
     }
   ],
   "task_acceptance": [
@@ -29150,7 +29218,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
       ]
     },
     {
@@ -29474,7 +29543,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
       ]
     },
     {
@@ -29685,7 +29755,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
       ]
     },
     {
@@ -29802,7 +29873,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
       ]
     },
     {
@@ -29890,7 +29962,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
       ]
     },
     {
@@ -30133,7 +30206,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
       ]
     },
     {
@@ -30217,7 +30291,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
-        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state"
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
       ]
     }
   ],
@@ -32025,9 +32100,12 @@
       "evidence_refs": [
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
-        "doc/cg2d_palette_global_memory_evidence.json"
+        "doc/cg2d_palette_global_memory_evidence.json",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
       ],
-      "reason": "原完整根与当前独立调色板SDK域/存储及释放取样序可追；索引T*/私有容器沿已批x64/宿主承接，全部alias/SDK/ABI和运行未验"
+      "reason": "BOR01原初始化数量/实际取得表与记录-loaded取样恢复，hidden1752项逐原字节一致，PGM01两表native布局/SDK及释放根保；私有容器/所有owner别名/SDK-父与运行未验"
     },
     {
       "inventory_id": "F:00122C50",

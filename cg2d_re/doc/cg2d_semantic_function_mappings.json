@@ -157754,7 +157754,7 @@
     {
       "original_entry": "0x522B30",
       "inventory_id": "F:00122B30",
-      "status": "PGM01既有独立调色板初始化根/分配域及原新映射登记；分配正文保持，完整队列/父/alias/SDK/运行未验",
+      "status": "BOR01初始化数量/实际取得表与record-loaded发布取样恢复，hidden1752项原初值一致保持；旧PGM01 SDK与释放根保，完整owner/父运行未验",
       "original_end_exclusive": "0x522C4E",
       "instruction_count": 94,
       "original_direct_reference_count": 2,
@@ -157766,7 +157766,7 @@
             "IndependentPaletteIndex",
             "IndependentPaletteRecord"
           ],
-          "relationship": "既有初始化保持；索引8->16B仅首T*拓宽，loaded为U8，记录0xB04，两独立owner/数量不改"
+          "relationship": "沿既有批准宿主queue clear归起点，逐原hidden1752项S32样本插入，不排序/过滤/去重，再call522900。保存S32 queueCount并发布gIndependentPaletteCount，首GPTR+GlobalLock索引分配以该样本计量；lock后fresh clearCount先索引owner发布，以实际allocatedIndex清sizeof(nativeIndex)*clearCount。随后fresh recordCount计量0xB04原记录，GPTR+lock返回后fresh initialCount先records owner发布；index0，initialCount>0才进入逐项。每项先fresh记录基址T*再索引基址T*，用本项原record地址pub保存索引槽，随后fresh gIndependentPaletteIndex写loaded低W8=0；fresh nextCount先index+1，以该同样本S32比较决定继续，最终返原index。x64仅索引首T*拓宽8→16B，loaded仍U8/+8，records无指针0xB04与count S32保持；字节量按已批native分配边界，不新做溢出/失配保护。两owner不增null检查/释放旧池/回滚，GPTR/Lock适配与PGM01释放root不改。hidden表60段全1752W32原字节初值一致保持可写；本根不代私有容器内部/全部父、实际SDK/重建寿命/运行。"
         },
         {
           "path": "src/platform/StartupCommon.cpp",
@@ -157781,10 +157781,15 @@
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-acceptance",
         "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
-        "doc/cg2d_palette_global_memory_evidence.json"
+        "doc/cg2d_palette_global_memory_evidence.json",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-acceptance",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_evidence.json"
       ],
-      "boundary": "队列归起点后逐原hidden base插入，522900读取索引再发布S32数量；两次GPTR(0x40)->GlobalLock，首索引表按原域清零、记录表0xB04*count，逐条发布record借用及loaded低W8=0，返回S32最终索引。x64索引16B仅已证T*拓宽，loaded/后三字节和无指针记录0xB04保持。原94条/286B、两个直接入向；本步初始化/hidden表/DBF本体未改/未重核整表，SDK域和原失败无保护/回滚保持，不把普通乘法溢出或非法地址列故障等价。队列/private容器沿已批宿主承接，全部父/别名/实际SDK/ABI/运行未验，原格式明文/音频暂停/不构建测试运行摘要保持。",
-      "verification_level": "原完整94条/286B、直接入向/四API与现有布局/分配顺序限定静态，完整队列/表/SDK及运行未验",
+      "boundary": "沿既有批准宿主queue clear归起点，逐原hidden1752项S32样本插入，不排序/过滤/去重，再call522900。保存S32 queueCount并发布gIndependentPaletteCount，首GPTR+GlobalLock索引分配以该样本计量；lock后fresh clearCount先索引owner发布，以实际allocatedIndex清sizeof(nativeIndex)*clearCount。随后fresh recordCount计量0xB04原记录，GPTR+lock返回后fresh initialCount先records owner发布；index0，initialCount>0才进入逐项。每项先fresh记录基址T*再索引基址T*，用本项原record地址pub保存索引槽，随后fresh gIndependentPaletteIndex写loaded低W8=0；fresh nextCount先index+1，以该同样本S32比较决定继续，最终返原index。x64仅索引首T*拓宽8→16B，loaded仍U8/+8，records无指针0xB04与count S32保持；字节量按已批native分配边界，不新做溢出/失配保护。两owner不增null检查/释放旧池/回滚，GPTR/Lock适配与PGM01释放root不改。hidden表60段全1752W32原字节初值一致保持可写；本根不代私有容器内部/全部父、实际SDK/重建寿命/运行。",
+      "verification_level": "归档完整94条286B/两页6call7内跳1ret与当前两入向/边界，原7008B隐藏表1752W32及60源段初值静态一致；正文1/注释1，正常局部I/S，不代SDK/运行",
       "original_internal_calls": [
         {
           "call_site": "0x522B7E",
@@ -157824,7 +157829,124 @@
           "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
           "relationship": "记录表分配后锁定，发布记录owner"
         }
-      ]
+      ],
+      "function_chunks": [
+        {
+          "start": "0x522B30",
+          "end_exclusive": "0x522C4E"
+        }
+      ],
+      "native_provider": {
+        "source": "src/GraphicRead.cpp",
+        "symbol": "InitializeIndependentPalettes_522B30",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_independent_palette_initialization_review": {
+        "original_entry": "0x522B30",
+        "inventory_id": "F:00122B30",
+        "status": "PGM01既有独立调色板初始化根/分配域及原新映射登记；分配正文保持，完整队列/父/alias/SDK/运行未验",
+        "original_end_exclusive": "0x522C4E",
+        "instruction_count": 94,
+        "original_direct_reference_count": 2,
+        "sources": [
+          {
+            "path": "src/GraphicRead.cpp",
+            "symbols": [
+              "InitializeIndependentPalettes_522B30",
+              "IndependentPaletteIndex",
+              "IndependentPaletteRecord"
+            ],
+            "relationship": "既有初始化保持；索引8->16B仅首T*拓宽，loaded为U8，记录0xB04，两独立owner/数量不改"
+          },
+          {
+            "path": "src/platform/StartupCommon.cpp",
+            "symbols": [
+              "AllocateLockedZeroedGlobalMemory"
+            ],
+            "relationship": "既有GPTR/GlobalLock边界，不增失败分支"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-baseline",
+          "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-decision",
+          "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-acceptance",
+          "doc/cg2d_palette_global_memory_spec.md#palette-global-memory-source-state",
+          "doc/cg2d_palette_global_memory_evidence.json"
+        ],
+        "boundary": "队列归起点后逐原hidden base插入，522900读取索引再发布S32数量；两次GPTR(0x40)->GlobalLock，首索引表按原域清零、记录表0xB04*count，逐条发布record借用及loaded低W8=0，返回S32最终索引。x64索引16B仅已证T*拓宽，loaded/后三字节和无指针记录0xB04保持。原94条/286B、两个直接入向；本步初始化/hidden表/DBF本体未改/未重核整表，SDK域和原失败无保护/回滚保持，不把普通乘法溢出或非法地址列故障等价。队列/private容器沿已批宿主承接，全部父/别名/实际SDK/ABI/运行未验，原格式明文/音频暂停/不构建测试运行摘要保持。",
+        "verification_level": "原完整94条/286B、直接入向/四API与现有布局/分配顺序限定静态，完整队列/表/SDK及运行未验",
+        "original_internal_calls": [
+          {
+            "call_site": "0x522B7E",
+            "target_entry": "0x5236B0",
+            "source_symbol": "BorrowIndependentPaletteQueue().push_back",
+            "relationship": "原Vector插入机制沿既有已批宿主角色，不称原5236B0本体或整个队列验收通过"
+          },
+          {
+            "call_site": "0x522B8E",
+            "target_entry": "0x522900",
+            "source_symbol": "LoadIndependentPaletteIndex_522900",
+            "relationship": "hidden序列插入后，数量发布/两表分配之前"
+          }
+        ],
+        "original_sdk_calls": [
+          {
+            "call_site": "0x522BBE",
+            "api": "GlobalAlloc",
+            "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+            "relationship": "索引表GPTR分配"
+          },
+          {
+            "call_site": "0x522BC7",
+            "api": "GlobalLock",
+            "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+            "relationship": "索引分配后锁定，再发布/清表"
+          },
+          {
+            "call_site": "0x522C04",
+            "api": "GlobalAlloc",
+            "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+            "relationship": "记录表GPTR分配"
+          },
+          {
+            "call_site": "0x522C07",
+            "api": "GlobalLock",
+            "source_symbol": "platform::AllocateLockedZeroedGlobalMemory",
+            "relationship": "记录表分配后锁定，发布记录owner"
+          }
+        ]
+      },
+      "independent_palette_initialization_sampling": {
+        "spec_id": "BOR01",
+        "evidence_refs": [
+          "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
+          "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision",
+          "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-acceptance",
+          "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
+          "doc/cg2d_independent_palette_initialization_sampling_evidence.json"
+        ],
+        "original_entry": "0x522B30",
+        "original_instruction_count": 94,
+        "original_code_bytes": 286,
+        "page_count": 2,
+        "outgoing_call_site_count": 6,
+        "internal_branch_site_count": 7,
+        "return_site_count": 1,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 2,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "source_comment_patch_count": 1,
+        "hidden_table_address": "0x58B7E8",
+        "hidden_table_bytes": 7008,
+        "hidden_table_elements": 1752,
+        "hidden_source_segments": 60,
+        "hidden_initial_values_match": true,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "沿既有批准宿主queue clear归起点，逐原hidden1752项S32样本插入，不排序/过滤/去重，再call522900。保存S32 queueCount并发布gIndependentPaletteCount，首GPTR+GlobalLock索引分配以该样本计量；lock后fresh clearCount先索引owner发布，以实际allocatedIndex清sizeof(nativeIndex)*clearCount。随后fresh recordCount计量0xB04原记录，GPTR+lock返回后fresh initialCount先records owner发布；index0，initialCount>0才进入逐项。每项先fresh记录基址T*再索引基址T*，用本项原record地址pub保存索引槽，随后fresh gIndependentPaletteIndex写loaded低W8=0；fresh nextCount先index+1，以该同样本S32比较决定继续，最终返原index。x64仅索引首T*拓宽8→16B，loaded仍U8/+8，records无指针0xB04与count S32保持；字节量按已批native分配边界，不新做溢出/失配保护。两owner不增null检查/释放旧池/回滚，GPTR/Lock适配与PGM01释放root不改。hidden表60段全1752W32原字节初值一致保持可写；本根不代私有容器内部/全部父、实际SDK/重建寿命/运行。"
+      }
     },
     {
       "original_entry": "0x522C50",

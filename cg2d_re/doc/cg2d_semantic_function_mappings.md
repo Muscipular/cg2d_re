@@ -2918,3 +2918,17 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [BPA01 SPEC](cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline)/[原证据](cg2d_matching_hover_record_sampling_evidence.json)。机器1413关联F:00107090@507090、GraphicPendingQueue.cpp::DrawMatchingGraphicHover_507090及既有队列声明；真正原身份/冻定位1不增分母。真实507090完整59条175B/一页1call5内跳1ret，唯一普通点5076BD/父507140及8条25B窗口仅纳盘。单正文恢复匹配参数/实际DX条目在y/x前取得、四边bottom/top/right/left正常S32生产、count先取再index/主record/平行层native推进；七实参U16边界、CE/DA和step0、绘框追加项参与后续遍历保持。无介入旧正常坐标/颜色/匹配结果一致，不称像素错误。
 
 新增机器1413对应已有原根，语义1413→1414/有效ID1408→1409、关联1526→1527（41.47%→41.49%）、分类533→534、RENDER45→46枚举open，两独立根内局部static I/S E673→675。冻定位1/旧行号、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；七open仅进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。 两I/S只同根正常局部，parent窗口8条另列，不代整个父/队列或运行。
+
+## BPB01 波纹主根/依赖机器身份收尾（2026-10-06）
+
+[BPB01 SPEC](cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline)/[完整证据](cg2d_ripple_full_strip_production_evidence.json)。五个真实波纹根完整160条537B/六页，9个调用操作含7绝对call/2vtable+1C、9内跳6ret；五普通点分根父1/1/1/1/1共4不同父，只纳盘。521870单正文恢复实际16B矩形初始化/整数相位重复发布、正常S32乘除/推进与完整60次8行条带提交，返回忽略；四正确依赖/64项表和五浮点常量保持。
+
+| 机器索引 / 原ID | 源码与实际边界 |
+|---|---|
+| 1414 / F:00121870 @521870 | GraphicPendingQueue.cpp::Sub_521870，完整条带/正常S32与实际矩形阶段实修 |
+| 1415 / F:001208F0 @5208F0 | BackupValues_5208F0，X/Y两W32备份及X完整返回正确体保持 |
+| 1416 / F:00120910 @520910 | Sub_520910，F32加0.25并落F32正确体保持 |
+| 1417 / F:00120930 @520930 | Sub_520930，同一F32逐次加减64/原落点正确体保持 |
+| 旧6 / F:001219C0 @5219C0 | 私有CalculateRippleScreenDelta，两个实际投影/X宽差-Y先落F32再0.125正确体保持，旧source与doc事实归档 |
+
+旧机器6全文档案保留续记，四新1414–1417对应已存在原身份；语义1414→1418/有效ID1409→1413、关联1527→1531（41.49%→41.60%）、分类534→539、RENDER46→51枚举open，十独立正常局部static I/S E675→685。前四冻定位各1/私有差分helper0不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061与其它门禁保持，八open含G04只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。 原五身份不增加分母，私有helper不新造ID；两虚调用1C不是绝对函数地址，十软件证据各根I/S仅正常局部，不称五份新实现或完整ABI/像素运行。

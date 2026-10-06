@@ -1990,3 +1990,13 @@ FadeIn还有最终直接调用。上述是源码/指定接线静态，完整父/
 新机器1410对应已有真实失效根；语义1410→1411/有效ID1405→1406、关联1523→1524（41.39%→41.41%）、分类530→531、RENDER42→43枚举open；两条独立根内局部static I/S E667→669。冻结定位1/旧行号保，RESOURCE41/队列175/R7区间67/3061及其余门禁保持；八open含C09仅进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
 
 只SdlPresenter.cpp一个IsLost正文的节点循环；既有Temp/Back/呈现器尾、Destroy、节点/面owner、头/实际父与工厂/LegacyTextureState采样分母S16保持（描述符W32不混同）。CPU存活映射沿批准合同，不恢复COM/HRESULT机制，不增负拒绝/容量保护、清槽、释放重建、早停或异常回绕模型。正常别名、唯一父-callee/失效重建-逐面owner/双树-C09/SDK-机器ABI/模式画面运行未验；未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
+
+## BPB01 波纹caller恢复完整8行矩形（2026-10-06）
+
+[BPB01 SPEC](cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision)/[原证据](cg2d_ripple_full_strip_production_evidence.json)。五个真实波纹根完整160条537B/六页，9个调用操作含7绝对call/2vtable+1C、9内跳6ret；五普通点分根父1/1/1/1/1共4不同父，只纳盘。521870单正文恢复实际16B矩形初始化/整数相位重复发布、正常S32乘除/推进与完整60次8行条带提交，返回忽略；四正确依赖/64项表和五浮点常量保持。
+
+本次完整原根证明没有caller预裁剪或部分条带，因此此具名裁决取代前述“波纹保留原有检查”的caller几何承接。现改用既有BlitSurfaceRectangleToBack及BorrowCpuTempSurface，提交完整源矩形/完整S32目的坐标并丢弃返回，后续条带继续；不把资源层失败改成部分复制或固定成功。BlitTempToBack本体及既有接受限制、CPU资源层原矩形失败边界全部保持，不扩大旧helper、修改SDL低层或宣称逐驱动HRESULT相同；Back/Temp仍同一owner。
+
+旧机器6全文档案保留续记，四新1414–1417对应已存在原身份；语义1414→1418/有效ID1409→1413、关联1527→1531（41.49%→41.60%）、分类534→539、RENDER46→51枚举open，十独立正常局部static I/S E675→685。前四冻定位各1/私有差分helper0不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061与其它门禁保持，八open含G04只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
+
+源码仅一个521870完整正文、algorithm include退休与头单注释，四正确helper/表/其他正文和SurfaceState所有provider、真实父/公开接口/布局/owner保持。无预裁剪/部分条带、continue或新拒绝/补零/保护/钳制，旧BlitTempToBack接受限制不扩大；不做异常回绕/故障等价或浮点环境专项模拟。完整父/所有callee-正常alias/Back-Temp及其它资源-owner/场景-失效-退出、SDK-机器浮点ABI与全模式像素未验，未构建/测试/运行/hash。网络原格式只明文、内存CryptInt保持、音频暂停，整体SPEC继续。

@@ -1,0 +1,1804 @@
+{
+  "spec_id": "BPB01",
+  "original_authority": "当前已打开cg2d.exe IDA会话只读Python，未重载/改动/保存数据库",
+  "source_functions": [
+    {
+      "entry": "0x521870",
+      "id": "F:00121870",
+      "end": "0x5219B5",
+      "symbol": "Sub_521870",
+      "path": "src/render/GraphicPendingQueue.cpp",
+      "marker": "std::int32_t Sub_521870(",
+      "semantic_index": 1414,
+      "existing": false,
+      "instructions": 98,
+      "bytes": 325,
+      "pages": 2,
+      "calls": 7,
+      "branches": 5,
+      "rets": 2,
+      "incoming": 1,
+      "parents": 1,
+      "source_changed": true,
+      "patches": 1,
+      "contract": "原四W32栈矩形字段left0/top0/right640/bottom480先发布；GetVal门禁非零清strength0返原S32，地图不允清0返0；floor先取/缓存后取，变化才依序写cache/清strength。Back→Temp返回忽略，前帧/当前投影差→F32相位减yDelta→逐次64归一→正常向零S32整数相位，先strip0/重复right640→pubW32phase→重复left0→destinationY0。每条phaseS32+strip &63→tableS32→strengthS32→正常乘法/有符号÷100；同一实际矩形先top=offset+destY+12再bottom=top+8，借唯一Temp，完整8行调用既有不裁剪原矩形native复制一次并忽略返回；destY+=8再strip++，依destY<480，共60次，不预裁/缩条带/continue。末freshS32strength<100才+2/pubW32/返新S32，否则返样本；所有helper/owner/原正常门槛保，不新增异常回绕、保护、回滚或HRESULT模拟。",
+      "header_symbols": [
+        "Sub_521870",
+        "gRippleSineTable",
+        "gRippleStrengthBits",
+        "gFloat1020EF0"
+      ],
+      "feature_ids": [
+        "FUNC-RENDER"
+      ]
+    },
+    {
+      "entry": "0x5208F0",
+      "id": "F:001208F0",
+      "end": "0x520907",
+      "symbol": "BackupValues_5208F0",
+      "path": "src/render/GraphicPendingQueue.cpp",
+      "marker": "std::uint32_t BackupValues_5208F0(",
+      "semantic_index": 1415,
+      "existing": false,
+      "instructions": 5,
+      "bytes": 23,
+      "pages": 1,
+      "calls": 0,
+      "branches": 0,
+      "rets": 1,
+      "incoming": 1,
+      "parents": 1,
+      "source_changed": false,
+      "patches": 0,
+      "contract": "先R current X W32、R current Y W32，再W previous X/previous Y W32；返回原X完整位型，不转F32或交换顺序。正确已有正文保持，真实MainLoop消费仅定向接线，不代完整父/别名和运行。",
+      "header_symbols": [
+        "BackupValues_5208F0",
+        "gRipplePreviousWorldXBits",
+        "gRipplePreviousWorldYBits"
+      ],
+      "feature_ids": [
+        "FUNC-RENDER"
+      ]
+    },
+    {
+      "entry": "0x520910",
+      "id": "F:00120910",
+      "end": "0x520923",
+      "symbol": "Sub_520910",
+      "path": "src/render/GraphicPendingQueue.cpp",
+      "marker": "void Sub_520910(",
+      "semantic_index": 1416,
+      "existing": false,
+      "instructions": 4,
+      "bytes": 19,
+      "pages": 1,
+      "calls": 0,
+      "branches": 0,
+      "rets": 1,
+      "incoming": 1,
+      "parents": 1,
+      "source_changed": false,
+      "patches": 0,
+      "contract": "实际F32相位采样，加原54F684 F32=0.25，再F32写回；正确已有正文保持，不加normalize或门禁，不称x87环境/机器残值ABI已验。",
+      "header_symbols": [
+        "Sub_520910",
+        "gFloat1020EF0"
+      ],
+      "feature_ids": [
+        "FUNC-RENDER"
+      ]
+    },
+    {
+      "entry": "0x520930",
+      "id": "F:00120930",
+      "end": "0x52096B",
+      "symbol": "Sub_520930",
+      "path": "src/render/GraphicPendingQueue.cpp",
+      "marker": "void Sub_520930(",
+      "semantic_index": 1417,
+      "existing": false,
+      "instructions": 20,
+      "bytes": 59,
+      "pages": 1,
+      "calls": 0,
+      "branches": 4,
+      "rets": 1,
+      "incoming": 1,
+      "parents": 1,
+      "source_changed": false,
+      "patches": 0,
+      "contract": "同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。",
+      "header_symbols": [
+        "Sub_520930",
+        "gFloat1020EF0"
+      ],
+      "feature_ids": [
+        "FUNC-RENDER"
+      ]
+    },
+    {
+      "entry": "0x5219C0",
+      "id": "F:001219C0",
+      "end": "0x521A2F",
+      "symbol": "CalculateRippleScreenDelta",
+      "path": "src/render/GraphicPendingQueue.cpp",
+      "marker": "void CalculateRippleScreenDelta(",
+      "semantic_index": 6,
+      "existing": true,
+      "instructions": 33,
+      "bytes": 111,
+      "pages": 1,
+      "calls": 2,
+      "branches": 0,
+      "rets": 1,
+      "incoming": 1,
+      "parents": 1,
+      "source_changed": false,
+      "patches": 0,
+      "contract": "previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。",
+      "header_symbols": [
+        "gRipplePreviousWorldXBits",
+        "gRipplePreviousWorldYBits"
+      ],
+      "feature_ids": [
+        "FUNC-RENDER"
+      ]
+    }
+  ],
+  "original_regions": [
+    {
+      "start": "0x521870",
+      "end_exclusive": "0x5219b5",
+      "parent_entry": "0x521870",
+      "instruction_count": 98,
+      "code_bytes": 325,
+      "page_count": 2,
+      "outgoing_calls": [
+        {
+          "ea": "0x521895",
+          "target": "0x401ea0"
+        },
+        {
+          "ea": "0x5218a2",
+          "target": "0x448240"
+        },
+        {
+          "ea": "0x5218e1",
+          "target": "0x1c"
+        },
+        {
+          "ea": "0x5218ee",
+          "target": "0x5219c0"
+        },
+        {
+          "ea": "0x521908",
+          "target": "0x520930"
+        },
+        {
+          "ea": "0x521916",
+          "target": "0x53b498"
+        },
+        {
+          "ea": "0x521981",
+          "target": "0x1c"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x52189c",
+          "target": "0x5219a9"
+        },
+        {
+          "ea": "0x5218a9",
+          "target": "0x5219a9"
+        },
+        {
+          "ea": "0x5218bc",
+          "target": "0x5218c9"
+        },
+        {
+          "ea": "0x52198e",
+          "target": "0x52192c"
+        },
+        {
+          "ea": "0x521999",
+          "target": "0x5219af"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x521870",
+          "end_exclusive": "0x5219b5",
+          "instructions": [
+            {
+              "ea": "0x521870",
+              "size": 3,
+              "bytes": "83ec18",
+              "text": "sub     esp, 18h"
+            },
+            {
+              "ea": "0x521873",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x521874",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x521875",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x521877",
+              "size": 5,
+              "bytes": "be80020000",
+              "text": "mov     esi, 280h"
+            },
+            {
+              "ea": "0x52187c",
+              "size": 5,
+              "bytes": "b9a87f9a00",
+              "text": "mov     ecx, offset stru_9A7FA8"
+            },
+            {
+              "ea": "0x521881",
+              "size": 4,
+              "bytes": "895c2410",
+              "text": "mov     [esp+20h+var_10], ebx"
+            },
+            {
+              "ea": "0x521885",
+              "size": 4,
+              "bytes": "895c2414",
+              "text": "mov     [esp+20h+var_C], ebx"
+            },
+            {
+              "ea": "0x521889",
+              "size": 4,
+              "bytes": "89742418",
+              "text": "mov     [esp+20h+var_8], esi"
+            },
+            {
+              "ea": "0x52188d",
+              "size": 8,
+              "bytes": "c744241ce0010000",
+              "text": "mov     [esp+20h+var_4], 1E0h"
+            },
+            {
+              "ea": "0x521895",
+              "size": 5,
+              "bytes": "e80606eeff",
+              "text": "call    CryptInt__GetVal"
+            },
+            {
+              "ea": "0x52189a",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x52189c",
+              "size": 6,
+              "bytes": "0f8507010000",
+              "text": "jnz     loc_5219A9"
+            },
+            {
+              "ea": "0x5218a2",
+              "size": 5,
+              "bytes": "e89969f2ff",
+              "text": "call    sub_448240"
+            },
+            {
+              "ea": "0x5218a7",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x5218a9",
+              "size": 6,
+              "bytes": "0f84fa000000",
+              "text": "jz      loc_5219A9"
+            },
+            {
+              "ea": "0x5218af",
+              "size": 5,
+              "bytes": "a1f0e89e00",
+              "text": "mov     eax, gMapFloor"
+            },
+            {
+              "ea": "0x5218b4",
+              "size": 6,
+              "bytes": "8b0d000f0201",
+              "text": "mov     ecx, dword_1020F00"
+            },
+            {
+              "ea": "0x5218ba",
+              "size": 2,
+              "bytes": "3bc8",
+              "text": "cmp     ecx, eax"
+            },
+            {
+              "ea": "0x5218bc",
+              "size": 2,
+              "bytes": "740b",
+              "text": "jz      short loc_5218C9"
+            },
+            {
+              "ea": "0x5218be",
+              "size": 5,
+              "bytes": "a3000f0201",
+              "text": "mov     dword_1020F00, eax"
+            },
+            {
+              "ea": "0x5218c3",
+              "size": 6,
+              "bytes": "891dfc0e0201",
+              "text": "mov     dword_1020EFC, ebx"
+            },
+            {
+              "ea": "0x5218c9",
+              "size": 6,
+              "bytes": "8b1560736200",
+              "text": "mov     edx, gCRenderer"
+            },
+            {
+              "ea": "0x5218cf",
+              "size": 5,
+              "bytes": "a114cf0301",
+              "text": "mov     eax, gTempSurface"
+            },
+            {
+              "ea": "0x5218d4",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x5218d5",
+              "size": 2,
+              "bytes": "6a10",
+              "text": "push    10h"
+            },
+            {
+              "ea": "0x5218d7",
+              "size": 3,
+              "bytes": "8b520c",
+              "text": "mov     edx, [edx+0Ch]"
+            },
+            {
+              "ea": "0x5218da",
+              "size": 2,
+              "bytes": "8b08",
+              "text": "mov     ecx, [eax]"
+            },
+            {
+              "ea": "0x5218dc",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x5218dd",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x5218de",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x5218df",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x5218e0",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x5218e1",
+              "size": 3,
+              "bytes": "ff511c",
+              "text": "call    dword ptr [ecx+1Ch]"
+            },
+            {
+              "ea": "0x5218e4",
+              "size": 4,
+              "bytes": "8d44240c",
+              "text": "lea     eax, [esp+24h+var_18]"
+            },
+            {
+              "ea": "0x5218e8",
+              "size": 4,
+              "bytes": "8d4c2410",
+              "text": "lea     ecx, [esp+24h+var_14]"
+            },
+            {
+              "ea": "0x5218ec",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x5218ed",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x5218ee",
+              "size": 5,
+              "bytes": "e8cd000000",
+              "text": "call    sub_5219C0"
+            },
+            {
+              "ea": "0x5218f3",
+              "size": 6,
+              "bytes": "d905f00e0201",
+              "text": "fld     flt_1020EF0"
+            },
+            {
+              "ea": "0x5218f9",
+              "size": 4,
+              "bytes": "d8642414",
+              "text": "fsub    [esp+2Ch+var_18]"
+            },
+            {
+              "ea": "0x5218fd",
+              "size": 5,
+              "bytes": "68f00e0201",
+              "text": "push    offset flt_1020EF0"
+            },
+            {
+              "ea": "0x521902",
+              "size": 6,
+              "bytes": "d91df00e0201",
+              "text": "fstp    flt_1020EF0"
+            },
+            {
+              "ea": "0x521908",
+              "size": 5,
+              "bytes": "e823f0ffff",
+              "text": "call    sub_520930"
+            },
+            {
+              "ea": "0x52190d",
+              "size": 6,
+              "bytes": "d905f00e0201",
+              "text": "fld     flt_1020EF0"
+            },
+            {
+              "ea": "0x521913",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x521916",
+              "size": 5,
+              "bytes": "e87d9b0100",
+              "text": "call    __ftol"
+            },
+            {
+              "ea": "0x52191b",
+              "size": 2,
+              "bytes": "33ff",
+              "text": "xor     edi, edi"
+            },
+            {
+              "ea": "0x52191d",
+              "size": 4,
+              "bytes": "8974241c",
+              "text": "mov     [esp+24h+var_8], esi"
+            },
+            {
+              "ea": "0x521921",
+              "size": 5,
+              "bytes": "a3ec0e0201",
+              "text": "mov     dword_1020EEC, eax"
+            },
+            {
+              "ea": "0x521926",
+              "size": 4,
+              "bytes": "895c2414",
+              "text": "mov     [esp+24h+var_10], ebx"
+            },
+            {
+              "ea": "0x52192a",
+              "size": 2,
+              "bytes": "33f6",
+              "text": "xor     esi, esi"
+            },
+            {
+              "ea": "0x52192c",
+              "size": 6,
+              "bytes": "8b15ec0e0201",
+              "text": "mov     edx, dword_1020EEC"
+            },
+            {
+              "ea": "0x521932",
+              "size": 5,
+              "bytes": "b81f85eb51",
+              "text": "mov     eax, 51EB851Fh"
+            },
+            {
+              "ea": "0x521937",
+              "size": 2,
+              "bytes": "03d7",
+              "text": "add     edx, edi"
+            },
+            {
+              "ea": "0x521939",
+              "size": 2,
+              "bytes": "6a10",
+              "text": "push    10h"
+            },
+            {
+              "ea": "0x52193b",
+              "size": 3,
+              "bytes": "83e23f",
+              "text": "and     edx, 3Fh"
+            },
+            {
+              "ea": "0x52193e",
+              "size": 7,
+              "bytes": "8b0c95e0b65800",
+              "text": "mov     ecx, dword_58B6E0[edx*4]"
+            },
+            {
+              "ea": "0x521945",
+              "size": 7,
+              "bytes": "0faf0dfc0e0201",
+              "text": "imul    ecx, dword_1020EFC"
+            },
+            {
+              "ea": "0x52194c",
+              "size": 2,
+              "bytes": "f7e9",
+              "text": "imul    ecx"
+            },
+            {
+              "ea": "0x52194e",
+              "size": 3,
+              "bytes": "c1fa05",
+              "text": "sar     edx, 5"
+            },
+            {
+              "ea": "0x521951",
+              "size": 2,
+              "bytes": "8bc2",
+              "text": "mov     eax, edx"
+            },
+            {
+              "ea": "0x521953",
+              "size": 6,
+              "bytes": "8b0d60736200",
+              "text": "mov     ecx, gCRenderer"
+            },
+            {
+              "ea": "0x521959",
+              "size": 3,
+              "bytes": "c1e81f",
+              "text": "shr     eax, 1Fh"
+            },
+            {
+              "ea": "0x52195c",
+              "size": 2,
+              "bytes": "03d0",
+              "text": "add     edx, eax"
+            },
+            {
+              "ea": "0x52195e",
+              "size": 4,
+              "bytes": "8d44320c",
+              "text": "lea     eax, [edx+esi+0Ch]"
+            },
+            {
+              "ea": "0x521962",
+              "size": 4,
+              "bytes": "8944241c",
+              "text": "mov     [esp+28h+var_C], eax"
+            },
+            {
+              "ea": "0x521966",
+              "size": 3,
+              "bytes": "83c008",
+              "text": "add     eax, 8"
+            },
+            {
+              "ea": "0x521969",
+              "size": 4,
+              "bytes": "89442424",
+              "text": "mov     [esp+28h+var_4], eax"
+            },
+            {
+              "ea": "0x52196d",
+              "size": 3,
+              "bytes": "8b410c",
+              "text": "mov     eax, [ecx+0Ch]"
+            },
+            {
+              "ea": "0x521970",
+              "size": 4,
+              "bytes": "8d4c2418",
+              "text": "lea     ecx, [esp+28h+var_10]"
+            },
+            {
+              "ea": "0x521974",
+              "size": 2,
+              "bytes": "8b10",
+              "text": "mov     edx, [eax]"
+            },
+            {
+              "ea": "0x521976",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x521977",
+              "size": 6,
+              "bytes": "8b0d14cf0301",
+              "text": "mov     ecx, gTempSurface"
+            },
+            {
+              "ea": "0x52197d",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x52197e",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x52197f",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x521980",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x521981",
+              "size": 3,
+              "bytes": "ff521c",
+              "text": "call    dword ptr [edx+1Ch]"
+            },
+            {
+              "ea": "0x521984",
+              "size": 3,
+              "bytes": "83c608",
+              "text": "add     esi, 8"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x521870",
+          "end_exclusive": "0x5219b5",
+          "instructions": [
+            {
+              "ea": "0x521987",
+              "size": 1,
+              "bytes": "47",
+              "text": "inc     edi"
+            },
+            {
+              "ea": "0x521988",
+              "size": 6,
+              "bytes": "81fee0010000",
+              "text": "cmp     esi, 1E0h"
+            },
+            {
+              "ea": "0x52198e",
+              "size": 2,
+              "bytes": "7c9c",
+              "text": "jl      short loc_52192C"
+            },
+            {
+              "ea": "0x521990",
+              "size": 5,
+              "bytes": "a1fc0e0201",
+              "text": "mov     eax, dword_1020EFC"
+            },
+            {
+              "ea": "0x521995",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x521996",
+              "size": 3,
+              "bytes": "83f864",
+              "text": "cmp     eax, 64h ; 'd'"
+            },
+            {
+              "ea": "0x521999",
+              "size": 2,
+              "bytes": "7d14",
+              "text": "jge     short loc_5219AF"
+            },
+            {
+              "ea": "0x52199b",
+              "size": 3,
+              "bytes": "83c002",
+              "text": "add     eax, 2"
+            },
+            {
+              "ea": "0x52199e",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x52199f",
+              "size": 5,
+              "bytes": "a3fc0e0201",
+              "text": "mov     dword_1020EFC, eax"
+            },
+            {
+              "ea": "0x5219a4",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x5219a5",
+              "size": 3,
+              "bytes": "83c418",
+              "text": "add     esp, 18h"
+            },
+            {
+              "ea": "0x5219a8",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x5219a9",
+              "size": 6,
+              "bytes": "891dfc0e0201",
+              "text": "mov     dword_1020EFC, ebx"
+            },
+            {
+              "ea": "0x5219af",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x5219b0",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x5219b1",
+              "size": 3,
+              "bytes": "83c418",
+              "text": "add     esp, 18h"
+            },
+            {
+              "ea": "0x5219b4",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x5208f0",
+      "end_exclusive": "0x520907",
+      "parent_entry": "0x5208f0",
+      "instruction_count": 5,
+      "code_bytes": 23,
+      "page_count": 1,
+      "outgoing_calls": [],
+      "branches": [],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x5208f0",
+          "end_exclusive": "0x520907",
+          "instructions": [
+            {
+              "ea": "0x5208f0",
+              "size": 5,
+              "bytes": "a14cad9d00",
+              "text": "mov     eax, flt_9DAD4C"
+            },
+            {
+              "ea": "0x5208f5",
+              "size": 6,
+              "bytes": "8b0d50ad9d00",
+              "text": "mov     ecx, flt_9DAD50"
+            },
+            {
+              "ea": "0x5208fb",
+              "size": 5,
+              "bytes": "a3f40e0201",
+              "text": "mov     dword_1020EF4, eax"
+            },
+            {
+              "ea": "0x520900",
+              "size": 6,
+              "bytes": "890df80e0201",
+              "text": "mov     dword_1020EF8, ecx"
+            },
+            {
+              "ea": "0x520906",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x520910",
+      "end_exclusive": "0x520923",
+      "parent_entry": "0x520910",
+      "instruction_count": 4,
+      "code_bytes": 19,
+      "page_count": 1,
+      "outgoing_calls": [],
+      "branches": [],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x520910",
+          "end_exclusive": "0x520923",
+          "instructions": [
+            {
+              "ea": "0x520910",
+              "size": 6,
+              "bytes": "d905f00e0201",
+              "text": "fld     flt_1020EF0"
+            },
+            {
+              "ea": "0x520916",
+              "size": 6,
+              "bytes": "d80584f65400",
+              "text": "fadd    ds:flt_54F684"
+            },
+            {
+              "ea": "0x52091c",
+              "size": 6,
+              "bytes": "d91df00e0201",
+              "text": "fstp    flt_1020EF0"
+            },
+            {
+              "ea": "0x520922",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x520930",
+      "end_exclusive": "0x52096b",
+      "parent_entry": "0x520930",
+      "instruction_count": 20,
+      "code_bytes": 59,
+      "page_count": 1,
+      "outgoing_calls": [],
+      "branches": [
+        {
+          "ea": "0x520941",
+          "target": "0x52094f"
+        },
+        {
+          "ea": "0x52094d",
+          "target": "0x520934"
+        },
+        {
+          "ea": "0x52095c",
+          "target": "0x52096a"
+        },
+        {
+          "ea": "0x520968",
+          "target": "0x520934"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x520930",
+          "end_exclusive": "0x52096b",
+          "instructions": [
+            {
+              "ea": "0x520930",
+              "size": 4,
+              "bytes": "8b4c2404",
+              "text": "mov     ecx, [esp+arg_0]"
+            },
+            {
+              "ea": "0x520934",
+              "size": 2,
+              "bytes": "d901",
+              "text": "fld     dword ptr [ecx]"
+            },
+            {
+              "ea": "0x520936",
+              "size": 6,
+              "bytes": "dc1d88f65400",
+              "text": "fcomp   ds:dbl_54F688"
+            },
+            {
+              "ea": "0x52093c",
+              "size": 2,
+              "bytes": "dfe0",
+              "text": "fnstsw  ax"
+            },
+            {
+              "ea": "0x52093e",
+              "size": 3,
+              "bytes": "f6c401",
+              "text": "test    ah, 1"
+            },
+            {
+              "ea": "0x520941",
+              "size": 2,
+              "bytes": "750c",
+              "text": "jnz     short loc_52094F"
+            },
+            {
+              "ea": "0x520943",
+              "size": 2,
+              "bytes": "d901",
+              "text": "fld     dword ptr [ecx]"
+            },
+            {
+              "ea": "0x520945",
+              "size": 6,
+              "bytes": "d82530dd5400",
+              "text": "fsub    ds:flt_54DD30"
+            },
+            {
+              "ea": "0x52094b",
+              "size": 2,
+              "bytes": "d919",
+              "text": "fstp    dword ptr [ecx]"
+            },
+            {
+              "ea": "0x52094d",
+              "size": 2,
+              "bytes": "ebe5",
+              "text": "jmp     short loc_520934"
+            },
+            {
+              "ea": "0x52094f",
+              "size": 2,
+              "bytes": "d901",
+              "text": "fld     dword ptr [ecx]"
+            },
+            {
+              "ea": "0x520951",
+              "size": 6,
+              "bytes": "dc1dd0d55400",
+              "text": "fcomp   ds:dbl_54D5D0"
+            },
+            {
+              "ea": "0x520957",
+              "size": 2,
+              "bytes": "dfe0",
+              "text": "fnstsw  ax"
+            },
+            {
+              "ea": "0x520959",
+              "size": 3,
+              "bytes": "f6c401",
+              "text": "test    ah, 1"
+            },
+            {
+              "ea": "0x52095c",
+              "size": 2,
+              "bytes": "740c",
+              "text": "jz      short locret_52096A"
+            },
+            {
+              "ea": "0x52095e",
+              "size": 2,
+              "bytes": "d901",
+              "text": "fld     dword ptr [ecx]"
+            },
+            {
+              "ea": "0x520960",
+              "size": 6,
+              "bytes": "d80530dd5400",
+              "text": "fadd    ds:flt_54DD30"
+            },
+            {
+              "ea": "0x520966",
+              "size": 2,
+              "bytes": "d919",
+              "text": "fstp    dword ptr [ecx]"
+            },
+            {
+              "ea": "0x520968",
+              "size": 2,
+              "bytes": "ebca",
+              "text": "jmp     short loc_520934"
+            },
+            {
+              "ea": "0x52096a",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x5219c0",
+      "end_exclusive": "0x521a2f",
+      "parent_entry": "0x5219c0",
+      "instruction_count": 33,
+      "code_bytes": 111,
+      "page_count": 1,
+      "outgoing_calls": [
+        {
+          "ea": "0x5219da",
+          "target": "0x46ce30"
+        },
+        {
+          "ea": "0x5219f6",
+          "target": "0x46ce30"
+        }
+      ],
+      "branches": [],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x5219c0",
+          "end_exclusive": "0x521a2f",
+          "instructions": [
+            {
+              "ea": "0x5219c0",
+              "size": 3,
+              "bytes": "83ec10",
+              "text": "sub     esp, 10h"
+            },
+            {
+              "ea": "0x5219c3",
+              "size": 6,
+              "bytes": "8b15f80e0201",
+              "text": "mov     edx, dword_1020EF8"
+            },
+            {
+              "ea": "0x5219c9",
+              "size": 4,
+              "bytes": "8d442400",
+              "text": "lea     eax, [esp+10h+a4]"
+            },
+            {
+              "ea": "0x5219cd",
+              "size": 4,
+              "bytes": "8d4c2404",
+              "text": "lea     ecx, [esp+10h+a3]"
+            },
+            {
+              "ea": "0x5219d1",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a4"
+            },
+            {
+              "ea": "0x5219d2",
+              "size": 5,
+              "bytes": "a1f40e0201",
+              "text": "mov     eax, dword_1020EF4"
+            },
+            {
+              "ea": "0x5219d7",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a3"
+            },
+            {
+              "ea": "0x5219d8",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x5219d9",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a1"
+            },
+            {
+              "ea": "0x5219da",
+              "size": 5,
+              "bytes": "e851b4f4ff",
+              "text": "call    sub_46CE30"
+            },
+            {
+              "ea": "0x5219df",
+              "size": 5,
+              "bytes": "a150ad9d00",
+              "text": "mov     eax, flt_9DAD50"
+            },
+            {
+              "ea": "0x5219e4",
+              "size": 4,
+              "bytes": "8d4c241c",
+              "text": "lea     ecx, [esp+20h+var_4]"
+            },
+            {
+              "ea": "0x5219e8",
+              "size": 4,
+              "bytes": "8d542418",
+              "text": "lea     edx, [esp+20h+var_8]"
+            },
+            {
+              "ea": "0x5219ec",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a4"
+            },
+            {
+              "ea": "0x5219ed",
+              "size": 6,
+              "bytes": "8b0d4cad9d00",
+              "text": "mov     ecx, flt_9DAD4C"
+            },
+            {
+              "ea": "0x5219f3",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a3"
+            },
+            {
+              "ea": "0x5219f4",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x5219f5",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a1"
+            },
+            {
+              "ea": "0x5219f6",
+              "size": 5,
+              "bytes": "e835b4f4ff",
+              "text": "call    sub_46CE30"
+            },
+            {
+              "ea": "0x5219fb",
+              "size": 4,
+              "bytes": "d9442424",
+              "text": "fld     [esp+30h+a3]"
+            },
+            {
+              "ea": "0x5219ff",
+              "size": 4,
+              "bytes": "d8642428",
+              "text": "fsub    [esp+30h+var_8]"
+            },
+            {
+              "ea": "0x521a03",
+              "size": 4,
+              "bytes": "d9442420",
+              "text": "fld     [esp+30h+a4]"
+            },
+            {
+              "ea": "0x521a07",
+              "size": 4,
+              "bytes": "d864242c",
+              "text": "fsub    [esp+30h+var_4]"
+            },
+            {
+              "ea": "0x521a0b",
+              "size": 4,
+              "bytes": "8b542434",
+              "text": "mov     edx, [esp+30h+arg_0]"
+            },
+            {
+              "ea": "0x521a0f",
+              "size": 4,
+              "bytes": "8b442438",
+              "text": "mov     eax, [esp+30h+arg_4]"
+            },
+            {
+              "ea": "0x521a13",
+              "size": 4,
+              "bytes": "d95c2420",
+              "text": "fstp    [esp+30h+a4]"
+            },
+            {
+              "ea": "0x521a17",
+              "size": 6,
+              "bytes": "d80d90f65400",
+              "text": "fmul    ds:flt_54F690"
+            },
+            {
+              "ea": "0x521a1d",
+              "size": 2,
+              "bytes": "d91a",
+              "text": "fstp    dword ptr [edx]"
+            },
+            {
+              "ea": "0x521a1f",
+              "size": 4,
+              "bytes": "d9442420",
+              "text": "fld     [esp+30h+a4]"
+            },
+            {
+              "ea": "0x521a23",
+              "size": 6,
+              "bytes": "d80d90f65400",
+              "text": "fmul    ds:flt_54F690"
+            },
+            {
+              "ea": "0x521a29",
+              "size": 2,
+              "bytes": "d918",
+              "text": "fstp    dword ptr [eax]"
+            },
+            {
+              "ea": "0x521a2b",
+              "size": 3,
+              "bytes": "83c430",
+              "text": "add     esp, 30h"
+            },
+            {
+              "ea": "0x521a2e",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "support": {
+    "functions": [
+      {
+        "entry": "0x521870",
+        "end_exclusive": "0x5219b5",
+        "chunks": [
+          {
+            "start": "0x521870",
+            "end_exclusive": "0x5219b5"
+          }
+        ],
+        "incoming": [
+          {
+            "ea": "0x52181e",
+            "type": 17,
+            "parent": "0x520dd0"
+          }
+        ]
+      },
+      {
+        "entry": "0x5208f0",
+        "end_exclusive": "0x520907",
+        "chunks": [
+          {
+            "start": "0x5208f0",
+            "end_exclusive": "0x520907"
+          }
+        ],
+        "incoming": [
+          {
+            "ea": "0x457351",
+            "type": 17,
+            "parent": "0x457020"
+          }
+        ]
+      },
+      {
+        "entry": "0x520910",
+        "end_exclusive": "0x520923",
+        "chunks": [
+          {
+            "start": "0x520910",
+            "end_exclusive": "0x520923"
+          }
+        ],
+        "incoming": [
+          {
+            "ea": "0x449176",
+            "type": 17,
+            "parent": "0x449160"
+          }
+        ]
+      },
+      {
+        "entry": "0x520930",
+        "end_exclusive": "0x52096b",
+        "chunks": [
+          {
+            "start": "0x520930",
+            "end_exclusive": "0x52096b"
+          }
+        ],
+        "incoming": [
+          {
+            "ea": "0x521908",
+            "type": 17,
+            "parent": "0x521870"
+          }
+        ]
+      },
+      {
+        "entry": "0x5219c0",
+        "end_exclusive": "0x521a2f",
+        "chunks": [
+          {
+            "start": "0x5219c0",
+            "end_exclusive": "0x521a2f"
+          }
+        ],
+        "incoming": [
+          {
+            "ea": "0x5218ee",
+            "type": 17,
+            "parent": "0x521870"
+          }
+        ]
+      }
+    ],
+    "constants": [
+      {
+        "ea": "0x58b6e0",
+        "size": 256,
+        "loaded": true,
+        "bytes": "000000000100000002000000030000000400000005000000060000000700000008000000090000000a0000000a0000000b0000000b0000000b0000000c0000000c0000000c0000000b0000000b0000000b0000000a0000000900000009000000080000000700000006000000050000000400000003000000020000000100000000000000fffffffffefffffffdfffffffcfffffffbfffffffafffffff9fffffff8fffffff7fffffff6fffffff6fffffff5fffffff5fffffff5fffffff4fffffff4fffffff4fffffff5fffffff5fffffff5fffffff6fffffff7fffffff7fffffff8fffffff9fffffffafffffffbfffffffcfffffffdfffffffeffffffffffffff",
+        "segment": ".data"
+      },
+      {
+        "ea": "0x54f684",
+        "size": 4,
+        "loaded": true,
+        "bytes": "0000803e",
+        "segment": ".rdata"
+      },
+      {
+        "ea": "0x54f688",
+        "size": 8,
+        "loaded": true,
+        "bytes": "0000000000005040",
+        "segment": ".rdata"
+      },
+      {
+        "ea": "0x54dd30",
+        "size": 4,
+        "loaded": true,
+        "bytes": "00008042",
+        "segment": ".rdata"
+      },
+      {
+        "ea": "0x54d5d0",
+        "size": 8,
+        "loaded": true,
+        "bytes": "0000000000000000",
+        "segment": ".rdata"
+      },
+      {
+        "ea": "0x54f690",
+        "size": 4,
+        "loaded": true,
+        "bytes": "0000003e"
+      }
+    ]
+  },
+  "source_bodies_before": [
+    "std::int32_t Sub_521870()\n{\n    const std::int32_t gate = world::ReadRippleGateOnce();\n    if (gate != 0) {\n        gRippleStrengthBits = 0;\n        return gate;\n    }\n\n    if (world::IsMapFloorAllowed_448240() == 0) {\n        gRippleStrengthBits = 0;\n        return 0;\n    }\n\n    const std::int32_t mapFloor = world::gMapFloor;\n    const std::int32_t cachedMapFloor = gRippleMapFloorCache;\n    if (mapFloor != cachedMapFloor) {\n        gRippleMapFloorCache = mapFloor;\n        gRippleStrengthBits = 0;\n    }\n\n    static_cast<void>(CopyBackToTemp());\n\n    float xDelta;\n    float yDelta;\n    CalculateRippleScreenDelta(&xDelta, &yDelta);\n    static_cast<void>(xDelta);\n\n    const float phase = gFloat1020EF0;\n    gFloat1020EF0 = static_cast<float>(\n        static_cast<double>(phase) - static_cast<double>(yDelta));\n    Sub_520930(&gFloat1020EF0);\n    const std::int32_t integerPhase =\n        static_cast<std::int32_t>(gFloat1020EF0);\n    gRippleIntegerPhaseBits = std::bit_cast<std::uint32_t>(integerPhase);\n\n    for (std::int32_t strip = 0; strip < 60; ++strip) {\n        const std::uint32_t phaseBits = gRippleIntegerPhaseBits;\n        const std::uint32_t tableIndex =\n            (phaseBits + static_cast<std::uint32_t>(strip)) & 63U;\n        const std::int32_t tableValue =\n            gRippleSineTable[static_cast<std::size_t>(tableIndex)];\n        const std::uint32_t strengthBits = gRippleStrengthBits;\n        const std::uint32_t productBits =\n            strengthBits * std::bit_cast<std::uint32_t>(tableValue);\n        const std::int32_t offset =\n            std::bit_cast<std::int32_t>(productBits) / 100;\n\n        const std::int32_t destinationY = 8 * strip;\n        const std::int32_t sourceTop = destinationY + 12 + offset;\n        const std::int32_t begin =\n            std::max({0, -sourceTop, -destinationY});\n        const std::int32_t end = std::min({\n            8,\n            kCpuSurfaceHeight - sourceTop,\n            kCpuSurfaceHeight - destinationY,\n        });\n        if (begin >= end) {\n            continue;\n        }\n\n        static_cast<void>(BlitTempToBack(\n            0,\n            destinationY + begin,\n            0,\n            sourceTop + begin,\n            kCpuSurfaceWidth,\n            sourceTop + end));\n    }\n\n    const std::uint32_t strengthBits = gRippleStrengthBits;\n    const std::int32_t strength = std::bit_cast<std::int32_t>(strengthBits);\n    if (strength < 100) {\n        const std::uint32_t updatedStrengthBits = strengthBits + 2U;\n        gRippleStrengthBits = updatedStrengthBits;\n        return std::bit_cast<std::int32_t>(updatedStrengthBits);\n    }\n    return strength;\n}",
+    "std::uint32_t BackupValues_5208F0()\n{\n    const std::uint32_t currentXBits = world::gWorldCurrentXBits;\n    const std::uint32_t currentYBits = world::gWorldCurrentYBits;\n    gRipplePreviousWorldXBits = currentXBits;\n    gRipplePreviousWorldYBits = currentYBits;\n    return currentXBits;\n}",
+    "void Sub_520910()\n{\n    gFloat1020EF0 += 0.25f;\n}",
+    "void Sub_520930(float* value)\n{\n    for (;;) {\n        if (*value >= 64.0f) {\n            *value = *value - 64.0f;\n            continue;\n        }\n        if (*value >= 0.0f) {\n            return;\n        }\n        *value = *value + 64.0f;\n    }\n}",
+    "void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept\n{\n    const std::uint32_t previousYBits = gRipplePreviousWorldYBits;\n    const std::uint32_t previousXBits = gRipplePreviousWorldXBits;\n    float previousScreenX;\n    float previousScreenY;\n    world::ProjectWorldToScreen_46CE30(\n        std::bit_cast<float>(previousXBits),\n        std::bit_cast<float>(previousYBits),\n        &previousScreenX,\n        &previousScreenY);\n\n    const std::uint32_t currentYBits = world::gWorldCurrentYBits;\n    const std::uint32_t currentXBits = world::gWorldCurrentXBits;\n    float currentScreenX;\n    float currentScreenY;\n    world::ProjectWorldToScreen_46CE30(\n        std::bit_cast<float>(currentXBits),\n        std::bit_cast<float>(currentYBits),\n        &currentScreenX,\n        &currentScreenY);\n\n    const double xDifference =\n        static_cast<double>(previousScreenX)\n        - static_cast<double>(currentScreenX);\n    const float yDifference = static_cast<float>(\n        static_cast<double>(previousScreenY)\n        - static_cast<double>(currentScreenY));\n\n    *outX = static_cast<float>(\n        xDifference * static_cast<double>(0.125f));\n    *outY = static_cast<float>(\n        static_cast<double>(yDifference) * static_cast<double>(0.125f));\n}"
+  ],
+  "source_bodies_after": [
+    "std::int32_t Sub_521870()\n{\n    // 原四个W32栈矩形字段先发布；只原有字段写入，不整块清零。\n    std::array<std::int32_t, 4> sourceRectangle;\n    sourceRectangle[0] = 0;\n    sourceRectangle[1] = 0;\n    sourceRectangle[2] = kCpuSurfaceWidth;\n    sourceRectangle[3] = kCpuSurfaceHeight;\n\n    const std::int32_t gate = world::ReadRippleGateOnce();\n    if (gate != 0) {\n        gRippleStrengthBits = 0;\n        return gate;\n    }\n\n    if (world::IsMapFloorAllowed_448240() == 0) {\n        gRippleStrengthBits = 0;\n        return 0;\n    }\n\n    const std::int32_t mapFloor = world::gMapFloor;\n    const std::int32_t cachedMapFloor = gRippleMapFloorCache;\n    if (mapFloor != cachedMapFloor) {\n        gRippleMapFloorCache = mapFloor;\n        gRippleStrengthBits = 0;\n    }\n\n    static_cast<void>(CopyBackToTemp());\n\n    float xDelta;\n    float yDelta;\n    CalculateRippleScreenDelta(&xDelta, &yDelta);\n    static_cast<void>(xDelta);\n\n    const float phase = gFloat1020EF0;\n    gFloat1020EF0 = static_cast<float>(\n        static_cast<double>(phase) - static_cast<double>(yDelta));\n    Sub_520930(&gFloat1020EF0);\n    const std::int32_t integerPhase =\n        static_cast<std::int32_t>(gFloat1020EF0);\n    std::int32_t strip = 0;\n    sourceRectangle[2] = kCpuSurfaceWidth;\n    gRippleIntegerPhaseBits = std::bit_cast<std::uint32_t>(integerPhase);\n    sourceRectangle[0] = 0;\n    std::int32_t destinationY = 0;\n\n    do {\n        const std::uint32_t phaseBits = gRippleIntegerPhaseBits;\n        const std::int32_t phaseValue = std::bit_cast<std::int32_t>(phaseBits);\n        const std::int32_t tableIndex = (phaseValue + strip) & 63;\n        const std::int32_t tableValue =\n            gRippleSineTable[static_cast<std::size_t>(tableIndex)];\n        const std::uint32_t strengthBits = gRippleStrengthBits;\n        const std::int32_t strength = std::bit_cast<std::int32_t>(strengthBits);\n        const std::int32_t product = tableValue * strength;\n        const std::int32_t offset = product / 100;\n\n        // 原每次提交完整8行；不把矩形预裁成部分条带或跳过失败提交。\n        const std::int32_t sourceTop = offset + destinationY + 12;\n        sourceRectangle[1] = sourceTop;\n        const std::int32_t sourceBottom = sourceTop + 8;\n        sourceRectangle[3] = sourceBottom;\n        TextureSurface* const temp = BorrowCpuTempSurface();\n        static_cast<void>(BlitSurfaceRectangleToBack(\n            0, destinationY, sourceRectangle, temp));\n        destinationY += 8;\n        ++strip;\n    } while (destinationY < kCpuSurfaceHeight);\n\n    const std::uint32_t strengthBits = gRippleStrengthBits;\n    const std::int32_t strength = std::bit_cast<std::int32_t>(strengthBits);\n    if (strength < 100) {\n        const std::int32_t updatedStrength = strength + 2;\n        gRippleStrengthBits = std::bit_cast<std::uint32_t>(updatedStrength);\n        return updatedStrength;\n    }\n    return strength;\n}",
+    "std::uint32_t BackupValues_5208F0()\n{\n    const std::uint32_t currentXBits = world::gWorldCurrentXBits;\n    const std::uint32_t currentYBits = world::gWorldCurrentYBits;\n    gRipplePreviousWorldXBits = currentXBits;\n    gRipplePreviousWorldYBits = currentYBits;\n    return currentXBits;\n}",
+    "void Sub_520910()\n{\n    gFloat1020EF0 += 0.25f;\n}",
+    "void Sub_520930(float* value)\n{\n    for (;;) {\n        if (*value >= 64.0f) {\n            *value = *value - 64.0f;\n            continue;\n        }\n        if (*value >= 0.0f) {\n            return;\n        }\n        *value = *value + 64.0f;\n    }\n}",
+    "void CalculateRippleScreenDelta(float* const outX, float* const outY) noexcept\n{\n    const std::uint32_t previousYBits = gRipplePreviousWorldYBits;\n    const std::uint32_t previousXBits = gRipplePreviousWorldXBits;\n    float previousScreenX;\n    float previousScreenY;\n    world::ProjectWorldToScreen_46CE30(\n        std::bit_cast<float>(previousXBits),\n        std::bit_cast<float>(previousYBits),\n        &previousScreenX,\n        &previousScreenY);\n\n    const std::uint32_t currentYBits = world::gWorldCurrentYBits;\n    const std::uint32_t currentXBits = world::gWorldCurrentXBits;\n    float currentScreenX;\n    float currentScreenY;\n    world::ProjectWorldToScreen_46CE30(\n        std::bit_cast<float>(currentXBits),\n        std::bit_cast<float>(currentYBits),\n        &currentScreenX,\n        &currentScreenY);\n\n    const double xDifference =\n        static_cast<double>(previousScreenX)\n        - static_cast<double>(currentScreenX);\n    const float yDifference = static_cast<float>(\n        static_cast<double>(previousScreenY)\n        - static_cast<double>(currentScreenY));\n\n    *outX = static_cast<float>(\n        xDifference * static_cast<double>(0.125f));\n    *outY = static_cast<float>(\n        static_cast<double>(yDifference) * static_cast<double>(0.125f));\n}"
+  ],
+  "header_comment_change": {
+    "old": "// 原波纹后缓冲状态；W32/S32 字段以无符号位模式承载回绕语义。",
+    "new": "// 原波纹后缓冲状态；共享槽保留W32位型，正常S32运算在消费者中完成。"
+  },
+  "retired_include": "#include <algorithm>\n",
+  "snapshot_functions_before": [
+    {
+      "id": "F:001208F0",
+      "original_entry": "0x5208F0",
+      "original_name": "sub_5208F0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbol": "BackupValues_5208F0",
+          "definition_line": 176,
+          "namespace": "cg::render"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00120910",
+      "original_entry": "0x520910",
+      "original_name": "sub_520910",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbol": "Sub_520910",
+          "definition_line": 185,
+          "namespace": "cg::render"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00120930",
+      "original_entry": "0x520930",
+      "original_name": "sub_520930",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbol": "Sub_520930",
+          "definition_line": 190,
+          "namespace": "cg::render"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00121870",
+      "original_entry": "0x521870",
+      "original_name": "sub_521870",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbol": "Sub_521870",
+          "definition_line": 277,
+          "namespace": "cg::render"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:001219C0",
+      "original_entry": "0x5219C0",
+      "original_name": "sub_5219C0",
+      "semantic_indices": [
+        6
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [],
+      "baseline_documents": [
+        "doc/cg2d_main_loop.md"
+      ],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "CalculateRippleScreenDelta"
+          ]
+        }
+      ]
+    }
+  ],
+  "existing_semantic_records_before": [
+    {
+      "original_entry": "0x5219C0",
+      "inventory_id": "F:001219C0",
+      "status": "已有实现映射，运行未验",
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "CalculateRippleScreenDelta"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_loop.md"
+      ],
+      "boundary": "前帧与当前坐标先后投影，保留F32落点后乘0.125；唯一直接caller521870弃原outY指针返回，现有内部void适配保持调用语义。"
+    }
+  ],
+  "render_feature_before": {
+    "id": "FUNC-RENDER",
+    "kind": "flow",
+    "parent_id": null,
+    "title": "32位渲染与缓存",
+    "domain": "RENDER",
+    "scope": "included",
+    "baseline_documents": [
+      "doc/cg2d_graphic_dx_cache_x64_spec.md",
+      "doc/cg2d_texture_rendering.md",
+      "doc/cg2d_sdl_presenter.md",
+      "doc/cg2d_sub_507140.md",
+      "doc/cg2d_graphic_transform_lifecycle_spec.md",
+      "doc/cg2d_text_queue_alignment_spec.md",
+      "doc/cg2d_font_lifecycle_alignment_spec.md",
+      "doc/cg2d_graphic_sort_alignment_spec.md",
+      "doc/cg2d_graphic_load_alignment_spec.md",
+      "doc/cg2d_graphic_upload_alignment_spec.md",
+      "doc/cg2d_queued_draw_alignment_spec.md",
+      "doc/cg2d_palette_cache_alignment_spec.md",
+      "doc/cg2d_cache_lifecycle_alignment_spec.md",
+      "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
+      "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-baseline",
+      "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
+      "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+      "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
+      "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-baseline",
+      "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+      "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+      "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
+      "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-baseline",
+      "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
+      "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+      "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline"
+    ],
+    "original_inventory_ids": [
+      "F:0004CC20",
+      "F:0004CC30",
+      "F:0004CC60",
+      "F:0004CD30",
+      "F:0004CD40",
+      "F:0004CD70",
+      "F:00053FB0",
+      "F:00054780",
+      "F:00056560",
+      "F:00056670",
+      "F:00056780",
+      "F:00121A30",
+      "F:00056190",
+      "F:00056530",
+      "F:00056D70",
+      "F:00120790",
+      "F:001222A0",
+      "F:00122570",
+      "F:001222D0",
+      "F:00120B10",
+      "F:00120DD0",
+      "F:0004E150",
+      "F:0004E290",
+      "F:0004E230",
+      "F:00123310",
+      "F:001231A0",
+      "F:00122CB0",
+      "F:00123140",
+      "F:00050BB0",
+      "F:00051220",
+      "F:00050470",
+      "F:00050A80",
+      "F:00051D80",
+      "F:00051E90",
+      "F:00121B10",
+      "F:00120970",
+      "F:00121C80",
+      "F:00121DD0",
+      "F:00121AA0",
+      "F:0005F090",
+      "F:00122180",
+      "F:0004C3C0",
+      "F:000536D0",
+      "F:00122210",
+      "F:00120AD0",
+      "F:00107090"
+    ],
+    "closure_task_ids": [
+      "C09",
+      "G01",
+      "G02",
+      "G03",
+      "G04",
+      "V04"
+    ],
+    "dependencies": [
+      "FUNC-RESOURCE"
+    ],
+    "acceptance_focus": "上层调用/像素/命中、共享面、模式切换、缓存与清理",
+    "decision_refs": [
+      "doc/cg2d_closure_decisions_spec.md",
+      "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-decision",
+      "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-decision",
+      "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-decision",
+      "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-decision",
+      "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-decision",
+      "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-decision",
+      "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-decision",
+      "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-decision",
+      "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
+      "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-decision",
+      "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
+      "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+      "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
+      "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision",
+      "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+      "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+      "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
+      "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision",
+      "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision",
+      "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+      "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision"
+    ],
+    "blockers": [
+      "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
+      "本功能成员枚举及整体B/I/W/S未闭；构建/运行禁止，R未验",
+      "TQP01四生产根262条/854原引用只局部静态，真实core复用/复制阶段/层先读及原计数写序对齐；完整上游/原新参数/间接alias、排序/文本消费/输入渲染寿命及SDK/画面运行未验，RPLAN.24异常不计安全/故障等价",
+      "FLC01三字体/消费根558条只局部静态，本地三族/保存族号/width-face-height和unsigned派生钳制已修；完整初始化退出/队列父、间接alias、共享Back/DC/句柄寿命、COM/native适配与SDK/字形/画面运行未验，RPLAN.24异常不计安全/故障等价",
+      "GQS01两排序根103条/13局部原调用窗口只局部静态，原钳制后AX/每项两次共享取样/最终S16数量已修；完整父参数/上游/命中消费、间接alias及队列资源寿命、机器ABI/画面运行未验，RPLAN.24异常不计安全/故障等价",
+      "GDL01两装载/建链根248条仅局部静态，低W16/两基址、对齐/链首/帧和图号/两扫描尾原取样已修；25父/文件/分配/面/上传、共享失效/间接alias及节点场景/退出寿命、SDK/机器ABI/画面运行未验，RPLAN.24异常不计安全/故障等价",
+      "GUP01节点上传227条仅局部静态，条件索引/首choice和count、尺寸/两表/上传阶段及同record双色表借用已修；完整DrawAllQueued/模式/上游、资源表初始化/失效/间接alias和借用清理寿命、SDK/机器ABI/像素画面运行未验，RPLAN.24异常不计安全/故障等价",
+      "GQD01完整绘制根769条适用批准范围仅局部静态，普通/固定DX clip/head/dirty阶段已修，完整批次/原门禁/native映射保持；14完整父/callee/上游/间接alias及资源对象借用失效清理、SDK/机器ABI/模式像素画面运行未验，RPLAN.24异常不计安全/故障等价",
+      "GPC01完整934条仅池/共享分流与32位色局部静态，池基址/回收和原色/表取样/双W32写已修；完整父/上游/间接alias/动态池分配释放老化与SDL像素未验，低色深不计实现，RPLAN.24异常不计安全/故障等价",
+      "GCL01三根146条仅局部静态，Age负/正池阶段、Reset入口count与Build低W16/S32完整数发布已修；四完整父/callee/上游/间接alias及pool/node/surface寿命/SDK/模式像素未验，RPLAN.24异常不计安全/故障等价",
+      "CPH01两编译器私有帮助体host纳管，调色板两工具恢复正常S64/S32；局部原体/六转换/五加法不代全部业务父/浮点环境/owner/ABI/完整调色板/资源/画面/运行，数学异常不模拟或称等价",
+      "BMH01聊天图形加载后的native DX缓存基址→借用W32 graphicIndex→低S16高度取样恢复；现代字段读取在render内承载，旧读取接口/所有其它消费者保持，完整DX/像素/资源owner与画面运行仍待",
+      "BOM01两原343条1250B/五页，七生产取样/两W32纯黑发布和B-G-R native承载恢复，刷新helper/包装正确体保；两新原ID/两域枚举open，低色深541B仅纳盘，全部通道初始化/Tone父-分配/回收owner/真实像素上传/画面运行与R1/R7/R8待",
+      "BON01两个已有723/172完整380条1579B/144B数据，12处过渡/查色取样恢复，旧FILE/CPH/Tone helper/正确表保持；共享32局部枚举open，低色深40B仅纳盘，全部父/PC53/数组-通道owner/像素画面运行与R1/R7/R8待",
+      "BOO01两旧169/170完整464条1778B/128B固定初值-100B常量，Init查色1恢复/Read正确体及真实CPU绑定保；原85条289B低色深仅纳盘。局部枚举open，全部父/构造重建销毁owner/正常别名/像素画面与R1/R7/R8运行待",
+      "BOP01三既有源码根新机器映射，完整273条768B，Get累计/组包2与Nearest首色-候选1阶段恢复/正常值保持；Resource37→40、Render32→34枚举open，auto.dat父/真实共享解码区owner-实际图形/地图画面运行及R1/R7/R8待",
+      "BOS01两原入队完整227条704B/四页、422普通引用分根父仅纳盘；额外负拒绝/S32回绕退休，描述符4W32/默认字段/坐标和clip队列发布恢复，RENDER36枚举open；所有caller-正常别名/排序绘制consumer-owner/像素运行与R1/R7/R8待",
+      "BOT01两已有源码根新机器登记/完整206条650B四页、26调用点分根父1/18仅纳盘；记录目标/逐W32描述符与不同clip-batch/各图号門槛保，RENDER38枚举open；全部父/正常别名/排序绘制consumer-owner/画面及R1/R7/R8运行待",
+      "BOU01两已有源码根新机器登记/完整58条217B两页、55调用点分根已知父1/8及1无所属函数点仅纳盘；地图目标/坐标取样与着色栈原发布，RENDER40枚举open；正常既有最终颜色值正确，全部父/正常别名/地图与绘制consumer-owner/画面及R1/R7/R8运行待",
+      "BOV01旧249完整续记/原41条139B及195普通点115父仅纳盘，单helper撤额外索引拒绝/size_t、-2原前缀写保持；RENDER41枚举open。完整父/正常别名/描边case2填充-owner-像素与SDK/机器ABI、R1/R7/R8运行待",
+      "BOW01真正44C3C0新机器映射/完整136条412B及2点2父仅纳盘，44C408只是20条46B内部节点段；单释放叶恢复surface一次/count先取再推进。RENDER42枚举open，完整Destroy/父-callee/正常别名/逐面owner/双树-C09/重建退出-像素及SDK-机器ABI、R1/R7/R8运行待",
+      "BOX01真实4536D0新机器映射/完整57条140B及唯一点父只纳盘；节点count先取再推进/native循环与不短路恢复、Temp-Back-呈现器尾保持。RENDER43枚举open，唯一父/正常别名/失效-重建-逐面owner/双树-C09-像素及SDK-机器ABI、R1/R7/R8运行待",
+      "BOZ01两真实描边/脏区消费者完整72条188B/两普通点同一父纳盘、两正文实修独立机器身份1411/1412；RENDER45枚举open，完整生产/父-callee/正常别名/Back-纹理-owner/dirty重建与SDK-机器ABI/模式像素及R1/R7/R8待",
+      "BPA01匹配值绘框真实507090新机器1413/完整59条175B与唯一点父8条窗口纳盘；actual DX entry/四边正常生产/双游标阶段恢复，动态count与追加保。RENDER46枚举open，完整命中父-callee/正常alias/队列-表/纹理-Back-owner/场景失效退出/SDK-机器ABI与像素及R1/R7/R8运行待"
+    ],
+    "gates": {},
+    "member_inventory_closed": false,
+    "member_inventory_evidence_refs": [
+      "doc/cg2d_graphic_transform_lifecycle_spec.md#transform-cache-lifecycle-baseline",
+      "doc/cg2d_text_queue_alignment_spec.md#text-queue-producer-baseline",
+      "doc/cg2d_font_lifecycle_alignment_spec.md#font-lifecycle-baseline",
+      "doc/cg2d_graphic_sort_alignment_spec.md#graphic-sort-baseline",
+      "doc/cg2d_graphic_load_alignment_spec.md#graphic-load-baseline",
+      "doc/cg2d_graphic_upload_alignment_spec.md#graphic-upload-baseline",
+      "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-baseline",
+      "doc/cg2d_palette_cache_alignment_spec.md#palette-cache-baseline",
+      "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-baseline",
+      "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+      "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
+      "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+      "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+      "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
+      "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+      "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+      "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+      "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
+      "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+      "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+      "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+      "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+    ]
+  },
+  "metrics_before": {
+    "semantic_records": 1414,
+    "semantic_inventory_ids": 1409,
+    "pending_records": 18,
+    "reviewed_function_dispositions": 534,
+    "functions_with_document_links": 1527,
+    "document_link_percent": 41.49,
+    "development_gap_counts": {
+      "mapping_location_unrecorded": 174,
+      "semantic_identity_unrecorded": 0,
+      "total": 175,
+      "needs_scope_or_mapping_review": 46,
+      "paused_receipt_items": 25,
+      "excluded_receipt_items": 103,
+      "metadata_only_receipt_items": 1
+    },
+    "tasks_closed": 10,
+    "accepted_leaf_features": 0,
+    "global_accepted": false
+  },
+  "previous_mapping_before_bpb01": {
+    "original_entry": "0x5219C0",
+    "inventory_id": "F:001219C0",
+    "status": "已有实现映射，运行未验",
+    "sources": [
+      {
+        "path": "src/render/GraphicPendingQueue.cpp",
+        "symbols": [
+          "CalculateRippleScreenDelta"
+        ]
+      }
+    ],
+    "evidence_documents": [
+      "doc/cg2d_main_loop.md"
+    ],
+    "boundary": "前帧与当前坐标先后投影，保留F32落点后乘0.125；唯一直接caller521870弃原outY指针返回，现有内部void适配保持调用语义。"
+  },
+  "source_patch_count": 1,
+  "additional_source_changes": [
+    "退休algorithm include",
+    "头只修W32位型/回绕注释"
+  ],
+  "source_changed": true,
+  "runtime_verified": false,
+  "original_counts": {
+    "functions": 5,
+    "instructions": 160,
+    "code_bytes": 537,
+    "pages": 6,
+    "outgoing_call_operations": 9,
+    "direct_call_sites": 7,
+    "unresolved_vtable_1c_sites": 2,
+    "internal_jumps": 9,
+    "returns": 6,
+    "ordinary_incoming_points": 5,
+    "distinct_incoming_parents": 4
+  },
+  "implementation_static_scope": "五根正常局部I/S；521870实际完整8行条带/矩形与正常S32阶段实修，四正确helper保持；旧6档案续记，全部父-callee/正常动态别名-owner/SDK-机器浮点ABI与像素运行未验",
+  "decision_override": "只取代旧波纹caller预裁剪/部分条带说明，不改变BlitTempToBack旧约定或SurfaceState已有原矩形native边界"
+}

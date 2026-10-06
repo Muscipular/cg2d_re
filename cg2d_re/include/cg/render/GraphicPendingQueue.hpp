@@ -106,7 +106,7 @@ extern std::int32_t gGraphicPaletteUploadCount;
 // 原 58B7E0，映像初值 -1；仅当整次绘制没有刷新上传时承接 628FDC。
 extern std::int32_t gLastUnrefreshedPaletteFrameVersion;
 
-// 原波纹后缓冲状态；W32/S32 字段以无符号位模式承载回绕语义。
+// 原波纹后缓冲状态；共享槽保留W32位型，正常S32运算在消费者中完成。
 extern volatile std::uint32_t gRippleIntegerPhaseBits; // 原 0x1020EEC。
 
 // 原 flt_1020EF0@0x1020EF0；浮点相位的唯一零初始化存储。

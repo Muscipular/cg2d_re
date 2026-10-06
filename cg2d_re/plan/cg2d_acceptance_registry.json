@@ -1518,7 +1518,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-baseline",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1566,7 +1567,12 @@
         "F:000536D0",
         "F:00122210",
         "F:00120AD0",
-        "F:00107090"
+        "F:00107090",
+        "F:00121870",
+        "F:001208F0",
+        "F:00120910",
+        "F:00120930",
+        "F:001219C0"
       ],
       "closure_task_ids": [
         "C09",
@@ -1603,7 +1609,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1629,7 +1636,8 @@
         "BOW01真正44C3C0新机器映射/完整136条412B及2点2父仅纳盘，44C408只是20条46B内部节点段；单释放叶恢复surface一次/count先取再推进。RENDER42枚举open，完整Destroy/父-callee/正常别名/逐面owner/双树-C09/重建退出-像素及SDK-机器ABI、R1/R7/R8运行待",
         "BOX01真实4536D0新机器映射/完整57条140B及唯一点父只纳盘；节点count先取再推进/native循环与不短路恢复、Temp-Back-呈现器尾保持。RENDER43枚举open，唯一父/正常别名/失效-重建-逐面owner/双树-C09-像素及SDK-机器ABI、R1/R7/R8运行待",
         "BOZ01两真实描边/脏区消费者完整72条188B/两普通点同一父纳盘、两正文实修独立机器身份1411/1412；RENDER45枚举open，完整生产/父-callee/正常别名/Back-纹理-owner/dirty重建与SDK-机器ABI/模式像素及R1/R7/R8待",
-        "BPA01匹配值绘框真实507090新机器1413/完整59条175B与唯一点父8条窗口纳盘；actual DX entry/四边正常生产/双游标阶段恢复，动态count与追加保。RENDER46枚举open，完整命中父-callee/正常alias/队列-表/纹理-Back-owner/场景失效退出/SDK-机器ABI与像素及R1/R7/R8运行待"
+        "BPA01匹配值绘框真实507090新机器1413/完整59条175B与唯一点父8条窗口纳盘；actual DX entry/四边正常生产/双游标阶段恢复，动态count与追加保。RENDER46枚举open，完整命中父-callee/正常alias/队列-表/纹理-Back-owner/场景失效退出/SDK-机器ABI与像素及R1/R7/R8运行待",
+        "BPB01五真实波纹根160条537B六页/旧6续记与四新1414-1417；原完整8行提交/矩形-相位发布与正常S32实修，四正确依赖/既有CPU复制provider保持，五成员RENDER51枚举open。完整父-callee/正常alias/Back-Temp及其它资源-owner/场景失效退出/SDK-机器浮点ABI与像素、R1/R7/R8仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1656,7 +1664,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ]
     },
     {
@@ -29730,6 +29739,286 @@
       "observation": "原完整59条175B单页/call跳转返回与唯一引用只纳盘；各取样/四边正常S32-U16边界/动态追加遍历和原native双游标静态对应，父8条仅限定接线证据；入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。",
       "expected": "入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。",
       "actual": "单原根正常局部static I/S、runtime=false，旧正常坐标/颜色与匹配结果不记错误，冻结定位1/既有调用保持；不代完整命中/全部callee-正常alias/队列-表与纹理-Back-owner/场景-失效-退出/SDK-机器ABI或全模式像素，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-00121870-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#Sub_521870 include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "单根恢复四W32矩形/相位发布与正常S32算式、撤caller预裁剪/部分条带，完整60次8行原矩形提交且忽略返回；既有native复制provider保持",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前根已有正文/真实存储与公开或私有接口有对应，仅521870正文实修，其余四正确体与全部provider保持；原四W32栈矩形字段left0/top0/right640/bottom480先发布；GetVal门禁非零清strength0返原S32，地图不允清0返0；floor先取/缓存后取，变化才依序写cache/清strength。Back→Temp返回忽略，前帧/当前投影差→F32相位减yDelta→逐次64归一→正常向零S32整数相位，先strip0/重复right640→pubW32phase→重复left0→destinationY0。每条phaseS32+strip &63→tableS32→strengthS32→正常乘法/有符号÷100；同一实际矩形先top=offset+destY+12再bottom=top+8，借唯一Temp，完整8行调用既有不裁剪原矩形native复制一次并忽略返回；destY+=8再strip++，依destY<480，共60次，不预裁/缩条带/continue。末freshS32strength<100才+2/pubW32/返新S32，否则返样本；所有helper/owner/原正常门槛保，不新增异常回绕、保护、回滚或HRESULT模拟。",
+      "expected": "原四W32栈矩形字段left0/top0/right640/bottom480先发布；GetVal门禁非零清strength0返原S32，地图不允清0返0；floor先取/缓存后取，变化才依序写cache/清strength。Back→Temp返回忽略，前帧/当前投影差→F32相位减yDelta→逐次64归一→正常向零S32整数相位，先strip0/重复right640→pubW32phase→重复left0→destinationY0。每条phaseS32+strip &63→tableS32→strengthS32→正常乘法/有符号÷100；同一实际矩形先top=offset+destY+12再bottom=top+8，借唯一Temp，完整8行调用既有不裁剪原矩形native复制一次并忽略返回；destY+=8再strip++，依destY<480，共60次，不预裁/缩条带/continue。末freshS32strength<100才+2/pubW32/返新S32，否则返样本；所有helper/owner/原正常门槛保，不新增异常回绕、保护、回滚或HRESULT模拟。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-00121870-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#Sub_521870 include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "单根恢复四W32矩形/相位发布与正常S32算式、撤caller预裁剪/部分条带，完整60次8行原矩形提交且忽略返回；既有native复制provider保持",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前原根完整指令/字节-调用-返回及普通引用与源正常取样/位宽/参数/返回静态对应，表与五浮点常量只静态数据对照，不执行样例；原四W32栈矩形字段left0/top0/right640/bottom480先发布；GetVal门禁非零清strength0返原S32，地图不允清0返0；floor先取/缓存后取，变化才依序写cache/清strength。Back→Temp返回忽略，前帧/当前投影差→F32相位减yDelta→逐次64归一→正常向零S32整数相位，先strip0/重复right640→pubW32phase→重复left0→destinationY0。每条phaseS32+strip &63→tableS32→strengthS32→正常乘法/有符号÷100；同一实际矩形先top=offset+destY+12再bottom=top+8，借唯一Temp，完整8行调用既有不裁剪原矩形native复制一次并忽略返回；destY+=8再strip++，依destY<480，共60次，不预裁/缩条带/continue。末freshS32strength<100才+2/pubW32/返新S32，否则返样本；所有helper/owner/原正常门槛保，不新增异常回绕、保护、回滚或HRESULT模拟。",
+      "expected": "原四W32栈矩形字段left0/top0/right640/bottom480先发布；GetVal门禁非零清strength0返原S32，地图不允清0返0；floor先取/缓存后取，变化才依序写cache/清strength。Back→Temp返回忽略，前帧/当前投影差→F32相位减yDelta→逐次64归一→正常向零S32整数相位，先strip0/重复right640→pubW32phase→重复left0→destinationY0。每条phaseS32+strip &63→tableS32→strengthS32→正常乘法/有符号÷100；同一实际矩形先top=offset+destY+12再bottom=top+8，借唯一Temp，完整8行调用既有不裁剪原矩形native复制一次并忽略返回；destY+=8再strip++，依destY<480，共60次，不预裁/缩条带/continue。末freshS32strength<100才+2/pubW32/返新S32，否则返样本；所有helper/owner/原正常门槛保，不新增异常回绕、保护、回滚或HRESULT模拟。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-001208F0-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#BackupValues_5208F0 include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "此根正确正文保持，补独立原完整事实/机器身份或旧6续记、常量/接线局部对照，不冒充新实现",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前根已有正文/真实存储与公开或私有接口有对应，仅521870正文实修，其余四正确体与全部provider保持；先R current X W32、R current Y W32，再W previous X/previous Y W32；返回原X完整位型，不转F32或交换顺序。正确已有正文保持，真实MainLoop消费仅定向接线，不代完整父/别名和运行。",
+      "expected": "先R current X W32、R current Y W32，再W previous X/previous Y W32；返回原X完整位型，不转F32或交换顺序。正确已有正文保持，真实MainLoop消费仅定向接线，不代完整父/别名和运行。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-001208F0-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#BackupValues_5208F0 include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "此根正确正文保持，补独立原完整事实/机器身份或旧6续记、常量/接线局部对照，不冒充新实现",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前原根完整指令/字节-调用-返回及普通引用与源正常取样/位宽/参数/返回静态对应，表与五浮点常量只静态数据对照，不执行样例；先R current X W32、R current Y W32，再W previous X/previous Y W32；返回原X完整位型，不转F32或交换顺序。正确已有正文保持，真实MainLoop消费仅定向接线，不代完整父/别名和运行。",
+      "expected": "先R current X W32、R current Y W32，再W previous X/previous Y W32；返回原X完整位型，不转F32或交换顺序。正确已有正文保持，真实MainLoop消费仅定向接线，不代完整父/别名和运行。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-00120910-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#Sub_520910 include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "此根正确正文保持，补独立原完整事实/机器身份或旧6续记、常量/接线局部对照，不冒充新实现",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前根已有正文/真实存储与公开或私有接口有对应，仅521870正文实修，其余四正确体与全部provider保持；实际F32相位采样，加原54F684 F32=0.25，再F32写回；正确已有正文保持，不加normalize或门禁，不称x87环境/机器残值ABI已验。",
+      "expected": "实际F32相位采样，加原54F684 F32=0.25，再F32写回；正确已有正文保持，不加normalize或门禁，不称x87环境/机器残值ABI已验。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-00120910-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#Sub_520910 include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "此根正确正文保持，补独立原完整事实/机器身份或旧6续记、常量/接线局部对照，不冒充新实现",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前原根完整指令/字节-调用-返回及普通引用与源正常取样/位宽/参数/返回静态对应，表与五浮点常量只静态数据对照，不执行样例；实际F32相位采样，加原54F684 F32=0.25，再F32写回；正确已有正文保持，不加normalize或门禁，不称x87环境/机器残值ABI已验。",
+      "expected": "实际F32相位采样，加原54F684 F32=0.25，再F32写回；正确已有正文保持，不加normalize或门禁，不称x87环境/机器残值ABI已验。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-00120930-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#Sub_520930 include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "此根正确正文保持，补独立原完整事实/机器身份或旧6续记、常量/接线局部对照，不冒充新实现",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前根已有正文/真实存储与公开或私有接口有对应，仅521870正文实修，其余四正确体与全部provider保持；同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。",
+      "expected": "同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-00120930-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#Sub_520930 include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "此根正确正文保持，补独立原完整事实/机器身份或旧6续记、常量/接线局部对照，不冒充新实现",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前原根完整指令/字节-调用-返回及普通引用与源正常取样/位宽/参数/返回静态对应，表与五浮点常量只静态数据对照，不执行样例；同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。",
+      "expected": "同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-001219C0-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#CalculateRippleScreenDelta include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "此根正确正文保持，补独立原完整事实/机器身份或旧6续记、常量/接线局部对照，不冒充新实现",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前根已有正文/真实存储与公开或私有接口有对应，仅521870正文实修，其余四正确体与全部provider保持；previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。",
+      "expected": "previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RIPPLE-FULL-STRIP-001219C0-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPB01五真实完整根160条537B/六页，各根原指令与普通引用独立分列；doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-ripple-full-strip-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#CalculateRippleScreenDelta include/cg/render/GraphicPendingQueue.hpp src/render/SurfaceState.cpp include/cg/render/SurfaceState.hpp src/render/DrawAllQueued.cpp doc/cg2d_sdl_presenter.md"
+      ],
+      "differences": [
+        {
+          "description": "此根正确正文保持，补独立原完整事实/机器身份或旧6续记、常量/接线局部对照，不冒充新实现",
+          "decision_ref": "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前原根完整指令/字节-调用-返回及普通引用与源正常取样/位宽/参数/返回静态对应，表与五浮点常量只静态数据对照，不执行样例；previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。",
+      "expected": "previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。",
+      "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
     }
   ],
   "task_acceptance": [
@@ -29989,7 +30278,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ]
     },
     {
@@ -30323,7 +30613,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ]
     },
     {
@@ -30544,7 +30835,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ]
     },
     {
@@ -30670,7 +30962,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ]
     },
     {
@@ -30767,7 +31060,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ]
     },
     {
@@ -30776,7 +31070,8 @@
       "epoch": "2026-10-04.1",
       "evidence_refs": [
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
-        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state"
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ]
     },
     {
@@ -31027,7 +31322,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ]
     },
     {
@@ -31121,7 +31417,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
-        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ]
     }
   ],
@@ -36776,6 +37073,61 @@
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
       ],
       "boundary": "BPA01原非地址宽度/取样和动态遍历保，按已批x64承载两native队列游标及真实DXentry，不代完整父-callee/所有正常别名/owner-像素或机器ABI运行：入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。"
+    },
+    {
+      "inventory_id": "F:00121870",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+      ],
+      "boundary": "BPB01原正常宽度/取样/返回与x64/获批32位CPU-native边界，局部static不代完整原HRESULT/浮点环境/机器ABI、所有正常别名-owner或像素运行：原四W32栈矩形字段left0/top0/right640/bottom480先发布；GetVal门禁非零清strength0返原S32，地图不允清0返0；floor先取/缓存后取，变化才依序写cache/清strength。Back→Temp返回忽略，前帧/当前投影差→F32相位减yDelta→逐次64归一→正常向零S32整数相位，先strip0/重复right640→pubW32phase→重复left0→destinationY0。每条phaseS32+strip &63→tableS32→strengthS32→正常乘法/有符号÷100；同一实际矩形先top=offset+destY+12再bottom=top+8，借唯一Temp，完整8行调用既有不裁剪原矩形native复制一次并忽略返回；destY+=8再strip++，依destY<480，共60次，不预裁/缩条带/continue。末freshS32strength<100才+2/pubW32/返新S32，否则返样本；所有helper/owner/原正常门槛保，不新增异常回绕、保护、回滚或HRESULT模拟。"
+    },
+    {
+      "inventory_id": "F:001208F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+      ],
+      "boundary": "BPB01原正常宽度/取样/返回与x64/获批32位CPU-native边界，局部static不代完整原HRESULT/浮点环境/机器ABI、所有正常别名-owner或像素运行：先R current X W32、R current Y W32，再W previous X/previous Y W32；返回原X完整位型，不转F32或交换顺序。正确已有正文保持，真实MainLoop消费仅定向接线，不代完整父/别名和运行。"
+    },
+    {
+      "inventory_id": "F:00120910",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+      ],
+      "boundary": "BPB01原正常宽度/取样/返回与x64/获批32位CPU-native边界，局部static不代完整原HRESULT/浮点环境/机器ABI、所有正常别名-owner或像素运行：实际F32相位采样，加原54F684 F32=0.25，再F32写回；正确已有正文保持，不加normalize或门禁，不称x87环境/机器残值ABI已验。"
+    },
+    {
+      "inventory_id": "F:00120930",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+      ],
+      "boundary": "BPB01原正常宽度/取样/返回与x64/获批32位CPU-native边界，局部static不代完整原HRESULT/浮点环境/机器ABI、所有正常别名-owner或像素运行：同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。"
+    },
+    {
+      "inventory_id": "F:001219C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+      ],
+      "boundary": "BPB01原正常宽度/取样/返回与x64/获批32位CPU-native边界，局部static不代完整原HRESULT/浮点环境/机器ABI、所有正常别名-owner或像素运行：previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。"
     }
   ],
   "auxiliary_dispositions": [

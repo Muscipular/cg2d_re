@@ -2558,3 +2558,12 @@ BOZ01本步实测：整CPP仅两完整正文补丁、描边除RECT声明逐字�
 - **后续开发**：只GraphicPendingQueue.cpp一个完整正文补丁；所有其它正文/头/布局/实际父、绘框/排序/provider与owner保持，不新增helper/私有状态/原入口。原S32参数任意、不借父>=3门槛；正count后初始化平行游标，不经cacheIndex重定位、首匹配退出或固定入口长度。完整命中/全部callee与正常alias、队列-表/纹理-Back-owner/场景-失效-退出、SDK-机器ABI/全模式像素运行未验；不加拒绝/补零/保护/钳制或异常回绕模型。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。
 
 BPA01本步实测：整CPP仅单匹配绘框正文补丁，实际DX条目/原四边正常生产/两native游标及动态count阶段、完整59条175B/唯一点父与8条25B真实窗口、两权威JSON完整增量、合同/七open任务四项定向静态通过；实现禁项核查区分注释与代码，不以“不得经cacheIndex”注释误判实现。measure/-Check均返回0；派生完整对象仅新1413、RENDER46、语义1414/1409/关联1527(41.49%)/分类534与七open进展变化，E675。冻定位1、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25及全部完整门禁保持。13文件严格UTF8无BOM/LF和差异通过；当前源码阶段差异已落实，正常旧坐标/颜色与匹配结果不记错误，不代完整父/所有callee-正常别名/队列-表与纹理-Back-owner/场景-失效-退出/SDK-机器ABI或像素运行，未构建/测试/运行/hash，整体SPEC继续。
+
+## BPB01 波纹完整条带与正常有符号生产收尾（2026-10-06）
+
+- **开发/当步解决**：先落[具体SPEC](../doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision)，完整原根无预裁剪而旧caller会部分复制/跳空段；撤此实际几何差异，复用已批准原矩形接口、每次8行60次提交/返回忽略。栈矩形/整数相位重复发布、正常S32乘除/推进及尾强度恢复；不保留新增回绕模型。
+- **原证据/历史**：[五完整原根](../doc/cg2d_ripple_full_strip_production_evidence.json)160条537B六页/7绝对call与2虚+1C、五普通点分根父只纳盘。四正确helper/64S32表和五浮点项保持；旧6完整档案续记，前四冻定位各1/私有helper0保。早期wavecaller检查承接仅本轮具名更正，旧helper边界和全部provider不改。
+- **计量/交付**：旧机器6全文档案保留续记，四新1414–1417对应已存在原身份；语义1414→1418/有效ID1409→1413、关联1527→1531（41.49%→41.60%）、分类534→539、RENDER46→51枚举open，十独立正常局部static I/S E675→685。前四冻定位各1/私有差分helper0不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061与其它门禁保持，八open含G04只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。 命名快照 `cg2d-re-ripple-full-strip-production-20261006`；14文件精确提交，用户既有六项排除。
+- **后续开发**：源码仅一个521870完整正文、algorithm include退休与头单注释，四正确helper/表/其他正文和SurfaceState所有provider、真实父/公开接口/布局/owner保持。无预裁剪/部分条带、continue或新拒绝/补零/保护/钳制，旧BlitTempToBack接受限制不扩大；不做异常回绕/故障等价或浮点环境专项模拟。完整父/所有callee-正常alias/Back-Temp及其它资源-owner/场景-失效-退出、SDK-机器浮点ABI与全模式像素未验，未构建/测试/运行/hash。网络原格式只明文、内存CryptInt保持、音频暂停，整体SPEC继续。
+
+BPB01本步实测：整CPP仅521870完整正文/algorithm include退休与整头单注释，四正确依赖全文/原表及所有provider-真实父保持；实际完整8行矩形提交、四W32初始化/整数相位重复发布、正常S32乘除/推进/尾返回定向静态通过。五完整原根160条537B六页、7绝对call/2虚+1C及五普通点分根父、64S32表/256B与五浮点项28B逐项静态匹配；旧6全文档案与四新机器、两权威JSON/合同及八open任务完整增量通过。measure/-Check均返回0；派生完整对象仅旧6续记/四新1414-1417、RENDER51、语义1418/1413/关联1531(41.60%)/分类539与八open含G04进展变化，E685。前四冻定位各1/私有helper0、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25与全部完整门禁保持。14文件严格UTF8无BOM/LF及差异通过；旧caller部分条带裁剪已具名更正并撤销，既有BlitTempToBack接受限制和原矩形复制资源边界原样保，不称逐驱动HRESULT/机器浮点ABI或全模式像素运行通过，未构建/测试/运行/hash，整体SPEC继续。

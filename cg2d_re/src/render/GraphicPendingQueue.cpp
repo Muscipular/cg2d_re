@@ -12,7 +12,6 @@
 #include "../LoginMessageDependencies.hpp"
 #include "../LegacySort.hpp"
 
-#include <algorithm>
 #include <bit>
 #include <cstdlib>
 #include <cstring>
@@ -306,6 +305,13 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
 
 std::int32_t Sub_521870()
 {
+    // 原四个W32栈矩形字段先发布；只原有字段写入，不整块清零。
+    std::array<std::int32_t, 4> sourceRectangle;
+    sourceRectangle[0] = 0;
+    sourceRectangle[1] = 0;
+    sourceRectangle[2] = kCpuSurfaceWidth;
+    sourceRectangle[3] = kCpuSurfaceHeight;
+
     const std::int32_t gate = world::ReadRippleGateOnce();
     if (gate != 0) {
         gRippleStrengthBits = 0;
@@ -337,48 +343,41 @@ std::int32_t Sub_521870()
     Sub_520930(&gFloat1020EF0);
     const std::int32_t integerPhase =
         static_cast<std::int32_t>(gFloat1020EF0);
+    std::int32_t strip = 0;
+    sourceRectangle[2] = kCpuSurfaceWidth;
     gRippleIntegerPhaseBits = std::bit_cast<std::uint32_t>(integerPhase);
+    sourceRectangle[0] = 0;
+    std::int32_t destinationY = 0;
 
-    for (std::int32_t strip = 0; strip < 60; ++strip) {
+    do {
         const std::uint32_t phaseBits = gRippleIntegerPhaseBits;
-        const std::uint32_t tableIndex =
-            (phaseBits + static_cast<std::uint32_t>(strip)) & 63U;
+        const std::int32_t phaseValue = std::bit_cast<std::int32_t>(phaseBits);
+        const std::int32_t tableIndex = (phaseValue + strip) & 63;
         const std::int32_t tableValue =
             gRippleSineTable[static_cast<std::size_t>(tableIndex)];
         const std::uint32_t strengthBits = gRippleStrengthBits;
-        const std::uint32_t productBits =
-            strengthBits * std::bit_cast<std::uint32_t>(tableValue);
-        const std::int32_t offset =
-            std::bit_cast<std::int32_t>(productBits) / 100;
+        const std::int32_t strength = std::bit_cast<std::int32_t>(strengthBits);
+        const std::int32_t product = tableValue * strength;
+        const std::int32_t offset = product / 100;
 
-        const std::int32_t destinationY = 8 * strip;
-        const std::int32_t sourceTop = destinationY + 12 + offset;
-        const std::int32_t begin =
-            std::max({0, -sourceTop, -destinationY});
-        const std::int32_t end = std::min({
-            8,
-            kCpuSurfaceHeight - sourceTop,
-            kCpuSurfaceHeight - destinationY,
-        });
-        if (begin >= end) {
-            continue;
-        }
-
-        static_cast<void>(BlitTempToBack(
-            0,
-            destinationY + begin,
-            0,
-            sourceTop + begin,
-            kCpuSurfaceWidth,
-            sourceTop + end));
-    }
+        // 原每次提交完整8行；不把矩形预裁成部分条带或跳过失败提交。
+        const std::int32_t sourceTop = offset + destinationY + 12;
+        sourceRectangle[1] = sourceTop;
+        const std::int32_t sourceBottom = sourceTop + 8;
+        sourceRectangle[3] = sourceBottom;
+        TextureSurface* const temp = BorrowCpuTempSurface();
+        static_cast<void>(BlitSurfaceRectangleToBack(
+            0, destinationY, sourceRectangle, temp));
+        destinationY += 8;
+        ++strip;
+    } while (destinationY < kCpuSurfaceHeight);
 
     const std::uint32_t strengthBits = gRippleStrengthBits;
     const std::int32_t strength = std::bit_cast<std::int32_t>(strengthBits);
     if (strength < 100) {
-        const std::uint32_t updatedStrengthBits = strengthBits + 2U;
-        gRippleStrengthBits = updatedStrengthBits;
-        return std::bit_cast<std::int32_t>(updatedStrengthBits);
+        const std::int32_t updatedStrength = strength + 2;
+        gRippleStrengthBits = std::bit_cast<std::uint32_t>(updatedStrength);
+        return updatedStrength;
     }
     return strength;
 }

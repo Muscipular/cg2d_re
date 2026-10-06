@@ -1023,19 +1023,102 @@
     {
       "original_entry": "0x5219C0",
       "inventory_id": "F:001219C0",
-      "status": "已有实现映射，运行未验",
+      "status": "BPB01完整33条111B差分原根续记/正确体保持，独立局部static，完整投影与浮点ABI/owner运行未验",
       "sources": [
         {
           "path": "src/render/GraphicPendingQueue.cpp",
           "symbols": [
             "CalculateRippleScreenDelta"
           ]
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "gRipplePreviousWorldXBits",
+            "gRipplePreviousWorldYBits"
+          ],
+          "relationship": "真实声明/唯一期相位与记录位型承载保，头仅修正常S32/回绕注释，不改布局或helper公开边界"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_main_loop.md"
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json"
       ],
-      "boundary": "前帧与当前坐标先后投影，保留F32落点后乘0.125；唯一直接caller521870弃原outY指针返回，现有内部void适配保持调用语义。"
+      "boundary": "previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。",
+      "previous_mapping_before_bpb01": {
+        "original_entry": "0x5219C0",
+        "inventory_id": "F:001219C0",
+        "status": "已有实现映射，运行未验",
+        "sources": [
+          {
+            "path": "src/render/GraphicPendingQueue.cpp",
+            "symbols": [
+              "CalculateRippleScreenDelta"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_main_loop.md"
+        ],
+        "boundary": "前帧与当前坐标先后投影，保留F32落点后乘0.125；唯一直接caller521870弃原outY指针返回，现有内部void适配保持调用语义。"
+      },
+      "original_end_exclusive": "0x521A2F",
+      "instruction_count": 33,
+      "original_direct_reference_count": 1,
+      "verification_level": "BPB01五根160条537B/六页完整纳盘，7绝对call与2vtable+1C操作/五入向点分根父分列；521870完整条带与正常S32-矩形阶段实修，其余四正确正文保持，正常局部static不代全部callee-owner/SDK-机器浮点ABI或像素运行",
+      "function_chunks": [
+        {
+          "start": "0x5219C0",
+          "end_exclusive": "0x521A2F"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x5218ee",
+          "type": 17,
+          "parent": "0x521870"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "CalculateRippleScreenDelta",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "ripple_full_strip_production": {
+        "spec_id": "BPB01",
+        "evidence_refs": [
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+          "doc/cg2d_ripple_full_strip_production_evidence.json"
+        ],
+        "original_instruction_count": 33,
+        "original_code_bytes": 111,
+        "page_count": 1,
+        "outgoing_call_operation_count": 2,
+        "internal_jump_site_count": 0,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 0,
+        "source_body_changed": false,
+        "original_mapping_index": 6,
+        "previous_mapping_preserved": true,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "strip_caller_preclip_removed": false,
+        "normal_s32_arithmetic_restored": false,
+        "native_copy_provider_unchanged": true,
+        "preserved_contract": "previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。",
+        "implementation_static_scope": "五根正常局部I/S；521870实际完整8行条带/矩形与正常S32阶段实修，四正确helper保持；旧6档案续记，全部父-callee/正常动态别名-owner/SDK-机器浮点ABI与像素运行未验"
+      }
     },
     {
       "original_entry": "0x521B10",
@@ -171903,6 +171986,345 @@
         "runtime_verified": false,
         "preserved_contract": "入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。",
         "implementation_static_scope": "完整59条原根正常取样/DX实际地址/四边生产/两游标推进局部I/S，唯一点/父窗口只纳盘；正常旧坐标颜色/匹配结果一致，不代完整父-owner/像素运行"
+      }
+    },
+    {
+      "original_entry": "0x521870",
+      "inventory_id": "F:00121870",
+      "original_role": "Sub_521870",
+      "status": "BPB01四真实波纹依赖的新机器映射/完整原体局部static，源正常合同已落实，完整父-callee/资源-owner/像素运行未验",
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "Sub_521870"
+          ],
+          "relationship": "原四W32栈矩形字段left0/top0/right640/bottom480先发布；GetVal门禁非零清strength0返原S32，地图不允清0返0；floor先取/缓存后取，变化才依序写cache/清strength。Back→Temp返回忽略，前帧/当前投影差→F32相位减yDelta→逐次64归一→正常向零S32整数相位，先strip0/重复right640→pubW32phase→重复left0→destinationY0。每条phaseS32+strip &63→tableS32→strengthS32→正常乘法/有符号÷100；同一实际矩形先top=offset+destY+12再bottom=top+8，借唯一Temp，完整8行调用既有不裁剪原矩形native复制一次并忽略返回；destY+=8再strip++，依destY<480，共60次，不预裁/缩条带/continue。末freshS32strength<100才+2/pubW32/返新S32，否则返样本；所有helper/owner/原正常门槛保，不新增异常回绕、保护、回滚或HRESULT模拟。"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "Sub_521870",
+            "gRippleSineTable",
+            "gRippleStrengthBits",
+            "gFloat1020EF0"
+          ],
+          "relationship": "真实声明/唯一期相位与记录位型承载保，头仅修正常S32/回绕注释，不改布局或helper公开边界"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json"
+      ],
+      "boundary": "原四W32栈矩形字段left0/top0/right640/bottom480先发布；GetVal门禁非零清strength0返原S32，地图不允清0返0；floor先取/缓存后取，变化才依序写cache/清strength。Back→Temp返回忽略，前帧/当前投影差→F32相位减yDelta→逐次64归一→正常向零S32整数相位，先strip0/重复right640→pubW32phase→重复left0→destinationY0。每条phaseS32+strip &63→tableS32→strengthS32→正常乘法/有符号÷100；同一实际矩形先top=offset+destY+12再bottom=top+8，借唯一Temp，完整8行调用既有不裁剪原矩形native复制一次并忽略返回；destY+=8再strip++，依destY<480，共60次，不预裁/缩条带/continue。末freshS32strength<100才+2/pubW32/返新S32，否则返样本；所有helper/owner/原正常门槛保，不新增异常回绕、保护、回滚或HRESULT模拟。",
+      "original_end_exclusive": "0x5219B5",
+      "instruction_count": 98,
+      "original_direct_reference_count": 1,
+      "verification_level": "BPB01五根160条537B/六页完整纳盘，7绝对call与2vtable+1C操作/五入向点分根父分列；521870完整条带与正常S32-矩形阶段实修，其余四正确正文保持，正常局部static不代全部callee-owner/SDK-机器浮点ABI或像素运行",
+      "function_chunks": [
+        {
+          "start": "0x521870",
+          "end_exclusive": "0x5219B5"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x52181e",
+          "type": 17,
+          "parent": "0x520dd0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "Sub_521870",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "ripple_full_strip_production": {
+        "spec_id": "BPB01",
+        "evidence_refs": [
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+          "doc/cg2d_ripple_full_strip_production_evidence.json"
+        ],
+        "original_instruction_count": 98,
+        "original_code_bytes": 325,
+        "page_count": 2,
+        "outgoing_call_operation_count": 7,
+        "internal_jump_site_count": 5,
+        "return_site_count": 2,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "original_mapping_index": 1414,
+        "previous_mapping_preserved": false,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "strip_caller_preclip_removed": true,
+        "normal_s32_arithmetic_restored": true,
+        "native_copy_provider_unchanged": true,
+        "preserved_contract": "原四W32栈矩形字段left0/top0/right640/bottom480先发布；GetVal门禁非零清strength0返原S32，地图不允清0返0；floor先取/缓存后取，变化才依序写cache/清strength。Back→Temp返回忽略，前帧/当前投影差→F32相位减yDelta→逐次64归一→正常向零S32整数相位，先strip0/重复right640→pubW32phase→重复left0→destinationY0。每条phaseS32+strip &63→tableS32→strengthS32→正常乘法/有符号÷100；同一实际矩形先top=offset+destY+12再bottom=top+8，借唯一Temp，完整8行调用既有不裁剪原矩形native复制一次并忽略返回；destY+=8再strip++，依destY<480，共60次，不预裁/缩条带/continue。末freshS32strength<100才+2/pubW32/返新S32，否则返样本；所有helper/owner/原正常门槛保，不新增异常回绕、保护、回滚或HRESULT模拟。",
+        "implementation_static_scope": "五根正常局部I/S；521870实际完整8行条带/矩形与正常S32阶段实修，四正确helper保持；旧6档案续记，全部父-callee/正常动态别名-owner/SDK-机器浮点ABI与像素运行未验"
+      }
+    },
+    {
+      "original_entry": "0x5208F0",
+      "inventory_id": "F:001208F0",
+      "original_role": "BackupValues_5208F0",
+      "status": "BPB01四真实波纹依赖的新机器映射/完整原体局部static，源正常合同已落实，完整父-callee/资源-owner/像素运行未验",
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "BackupValues_5208F0"
+          ],
+          "relationship": "先R current X W32、R current Y W32，再W previous X/previous Y W32；返回原X完整位型，不转F32或交换顺序。正确已有正文保持，真实MainLoop消费仅定向接线，不代完整父/别名和运行。"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "BackupValues_5208F0",
+            "gRipplePreviousWorldXBits",
+            "gRipplePreviousWorldYBits"
+          ],
+          "relationship": "真实声明/唯一期相位与记录位型承载保，头仅修正常S32/回绕注释，不改布局或helper公开边界"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json"
+      ],
+      "boundary": "先R current X W32、R current Y W32，再W previous X/previous Y W32；返回原X完整位型，不转F32或交换顺序。正确已有正文保持，真实MainLoop消费仅定向接线，不代完整父/别名和运行。",
+      "original_end_exclusive": "0x520907",
+      "instruction_count": 5,
+      "original_direct_reference_count": 1,
+      "verification_level": "BPB01五根160条537B/六页完整纳盘，7绝对call与2vtable+1C操作/五入向点分根父分列；521870完整条带与正常S32-矩形阶段实修，其余四正确正文保持，正常局部static不代全部callee-owner/SDK-机器浮点ABI或像素运行",
+      "function_chunks": [
+        {
+          "start": "0x5208F0",
+          "end_exclusive": "0x520907"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x457351",
+          "type": 17,
+          "parent": "0x457020"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "BackupValues_5208F0",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "ripple_full_strip_production": {
+        "spec_id": "BPB01",
+        "evidence_refs": [
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+          "doc/cg2d_ripple_full_strip_production_evidence.json"
+        ],
+        "original_instruction_count": 5,
+        "original_code_bytes": 23,
+        "page_count": 1,
+        "outgoing_call_operation_count": 0,
+        "internal_jump_site_count": 0,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 0,
+        "source_body_changed": false,
+        "original_mapping_index": 1415,
+        "previous_mapping_preserved": false,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "strip_caller_preclip_removed": false,
+        "normal_s32_arithmetic_restored": false,
+        "native_copy_provider_unchanged": true,
+        "preserved_contract": "先R current X W32、R current Y W32，再W previous X/previous Y W32；返回原X完整位型，不转F32或交换顺序。正确已有正文保持，真实MainLoop消费仅定向接线，不代完整父/别名和运行。",
+        "implementation_static_scope": "五根正常局部I/S；521870实际完整8行条带/矩形与正常S32阶段实修，四正确helper保持；旧6档案续记，全部父-callee/正常动态别名-owner/SDK-机器浮点ABI与像素运行未验"
+      }
+    },
+    {
+      "original_entry": "0x520910",
+      "inventory_id": "F:00120910",
+      "original_role": "Sub_520910",
+      "status": "BPB01四真实波纹依赖的新机器映射/完整原体局部static，源正常合同已落实，完整父-callee/资源-owner/像素运行未验",
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "Sub_520910"
+          ],
+          "relationship": "实际F32相位采样，加原54F684 F32=0.25，再F32写回；正确已有正文保持，不加normalize或门禁，不称x87环境/机器残值ABI已验。"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "Sub_520910",
+            "gFloat1020EF0"
+          ],
+          "relationship": "真实声明/唯一期相位与记录位型承载保，头仅修正常S32/回绕注释，不改布局或helper公开边界"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json"
+      ],
+      "boundary": "实际F32相位采样，加原54F684 F32=0.25，再F32写回；正确已有正文保持，不加normalize或门禁，不称x87环境/机器残值ABI已验。",
+      "original_end_exclusive": "0x520923",
+      "instruction_count": 4,
+      "original_direct_reference_count": 1,
+      "verification_level": "BPB01五根160条537B/六页完整纳盘，7绝对call与2vtable+1C操作/五入向点分根父分列；521870完整条带与正常S32-矩形阶段实修，其余四正确正文保持，正常局部static不代全部callee-owner/SDK-机器浮点ABI或像素运行",
+      "function_chunks": [
+        {
+          "start": "0x520910",
+          "end_exclusive": "0x520923"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x449176",
+          "type": 17,
+          "parent": "0x449160"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "Sub_520910",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "ripple_full_strip_production": {
+        "spec_id": "BPB01",
+        "evidence_refs": [
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+          "doc/cg2d_ripple_full_strip_production_evidence.json"
+        ],
+        "original_instruction_count": 4,
+        "original_code_bytes": 19,
+        "page_count": 1,
+        "outgoing_call_operation_count": 0,
+        "internal_jump_site_count": 0,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 0,
+        "source_body_changed": false,
+        "original_mapping_index": 1416,
+        "previous_mapping_preserved": false,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "strip_caller_preclip_removed": false,
+        "normal_s32_arithmetic_restored": false,
+        "native_copy_provider_unchanged": true,
+        "preserved_contract": "实际F32相位采样，加原54F684 F32=0.25，再F32写回；正确已有正文保持，不加normalize或门禁，不称x87环境/机器残值ABI已验。",
+        "implementation_static_scope": "五根正常局部I/S；521870实际完整8行条带/矩形与正常S32阶段实修，四正确helper保持；旧6档案续记，全部父-callee/正常动态别名-owner/SDK-机器浮点ABI与像素运行未验"
+      }
+    },
+    {
+      "original_entry": "0x520930",
+      "inventory_id": "F:00120930",
+      "original_role": "Sub_520930",
+      "status": "BPB01四真实波纹依赖的新机器映射/完整原体局部static，源正常合同已落实，完整父-callee/资源-owner/像素运行未验",
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "Sub_520930"
+          ],
+          "relationship": "同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "Sub_520930",
+            "gFloat1020EF0"
+          ],
+          "relationship": "真实声明/唯一期相位与记录位型承载保，头仅修正常S32/回绕注释，不改布局或helper公开边界"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_ripple_full_strip_production_evidence.json"
+      ],
+      "boundary": "同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。",
+      "original_end_exclusive": "0x52096B",
+      "instruction_count": 20,
+      "original_direct_reference_count": 1,
+      "verification_level": "BPB01五根160条537B/六页完整纳盘，7绝对call与2vtable+1C操作/五入向点分根父分列；521870完整条带与正常S32-矩形阶段实修，其余四正确正文保持，正常局部static不代全部callee-owner/SDK-机器浮点ABI或像素运行",
+      "function_chunks": [
+        {
+          "start": "0x520930",
+          "end_exclusive": "0x52096B"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x521908",
+          "type": 17,
+          "parent": "0x521870"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "Sub_520930",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "ripple_full_strip_production": {
+        "spec_id": "BPB01",
+        "evidence_refs": [
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-acceptance",
+          "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+          "doc/cg2d_ripple_full_strip_production_evidence.json"
+        ],
+        "original_instruction_count": 20,
+        "original_code_bytes": 59,
+        "page_count": 1,
+        "outgoing_call_operation_count": 0,
+        "internal_jump_site_count": 4,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 0,
+        "source_body_changed": false,
+        "original_mapping_index": 1417,
+        "previous_mapping_preserved": false,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "strip_caller_preclip_removed": false,
+        "normal_s32_arithmetic_restored": false,
+        "native_copy_provider_unchanged": true,
+        "preserved_contract": "同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。",
+        "implementation_static_scope": "五根正常局部I/S；521870实际完整8行条带/矩形与正常S32阶段实修，四正确helper保持；旧6档案续记，全部父-callee/正常动态别名-owner/SDK-机器浮点ABI与像素运行未验"
       }
     }
   ]

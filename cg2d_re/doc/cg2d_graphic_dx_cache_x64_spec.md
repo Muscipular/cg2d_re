@@ -273,3 +273,13 @@ x/y原W32位置保+0/+4，脏区四W16从真实字段地址读取，descriptor�
 新增机器1413对应已有原根，语义1413→1414/有效ID1408→1409、关联1526→1527（41.47%→41.49%）、分类533→534、RENDER45→46枚举open，两独立根内局部static I/S E673→675。冻定位1/旧行号、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；七open仅进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
 
 只GraphicPendingQueue.cpp一个完整正文补丁；所有其它正文/头/布局/实际父、绘框/排序/provider与owner保持，不新增helper/私有状态/原入口。原S32参数任意、不借父>=3门槛；正count后初始化平行游标，不经cacheIndex重定位、首匹配退出或固定入口长度。完整命中/全部callee与正常alias、队列-表/纹理-Back-owner/场景-失效-退出、SDK-机器ABI/全模式像素运行未验；不加拒绝/补零/保护/钳制或异常回绕模型。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。
+
+## BPB01 波纹栈矩形与正常S32阶段（2026-10-06）
+
+[BPB01 SPEC](cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision)/[原证据](cg2d_ripple_full_strip_production_evidence.json)。五个真实波纹根完整160条537B/六页，9个调用操作含7绝对call/2vtable+1C、9内跳6ret；五普通点分根父1/1/1/1/1共4不同父，只纳盘。521870单正文恢复实际16B矩形初始化/整数相位重复发布、正常S32乘除/推进与完整60次8行条带提交，返回忽略；四正确依赖/64项表和五浮点常量保持。
+
+源矩形16B无指针，原四W32初始化/重复left-right和每条top-bottom实际发布保；S32乘法/除100、strip/destinationY与尾强度正常算式恢复，W32共享槽仅在样本/发布边界转位型。只Temp native T*借用既有原矩形复制接口，不改公开W32/F32状态、面/表布局或owner；头注释不再承诺专项回绕。
+
+旧机器6全文档案保留续记，四新1414–1417对应已存在原身份；语义1414→1418/有效ID1409→1413、关联1527→1531（41.49%→41.60%）、分类534→539、RENDER46→51枚举open，十独立正常局部static I/S E675→685。前四冻定位各1/私有差分helper0不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061与其它门禁保持，八open含G04只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
+
+源码仅一个521870完整正文、algorithm include退休与头单注释，四正确helper/表/其他正文和SurfaceState所有provider、真实父/公开接口/布局/owner保持。无预裁剪/部分条带、continue或新拒绝/补零/保护/钳制，旧BlitTempToBack接受限制不扩大；不做异常回绕/故障等价或浮点环境专项模拟。完整父/所有callee-正常alias/Back-Temp及其它资源-owner/场景-失效-退出、SDK-机器浮点ABI与全模式像素未验，未构建/测试/运行/hash。网络原格式只明文、内存CryptInt保持、音频暂停，整体SPEC继续。

@@ -299,7 +299,8 @@
         "doc/cg2d_cryptint_arithmetic_spec.md",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -450,7 +451,8 @@
         "F:0013B498",
         "F:0013BDC0",
         "F:0013D000",
-        "F:0013D022"
+        "F:0013D022",
+        "F:001433F0"
       ],
       "closure_task_ids": [
         "C01",
@@ -487,7 +489,8 @@
         "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-decision",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-decision",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -514,7 +517,8 @@
         "HSI01已在既有lowio后/普通stdio登记与multibyte及同TU应用投影前接53E9A5，原512/20/错误26、20静态FILE/三句柄及消费者保持；跨TU首次使用/SDK继承ABI、全FILE配置/稳定模式/全部owner与unknown alias、normal/quick/callable全序和运行仍待，七任务保持open",
         "ACI01两已有数组清理循环已撤专项数量回绕，原W32步长/尺寸偏移、逆序与失败剩余前缀、SEH/筛选/三组实际父保持；任意callback异常、完整成员EH/硬件SEH、SDK传播与normal/quick/callable完整退出运行仍待，C04/C06/C07/V02保持open",
         "CPH01两编译器私有帮助体host纳管，调色板两工具恢复正常S64/S32；局部原体/六转换/五加法不代全部业务父/浮点环境/owner/ABI/完整调色板/资源/画面/运行，数学异常不模拟或称等价",
-        "MFA01效果固定点正常S32已修，原位型/窄化/四固定点及两像素写和x87/RNG序保持；三身份仅本次局部/两正底数路径，一般pow/其它入口和错误浮点状态/完整场景/所有父/alias/owner寿命/实际ABI/SDK/像素及RNG结果运行未闭，异常不保护或模拟"
+        "MFA01效果固定点正常S32已修，原位型/窄化/四固定点及两像素写和x87/RNG序保持；三身份仅本次局部/两正底数路径，一般pow/其它入口和错误浮点状态/完整场景/所有父/alias/owner寿命/实际ABI/SDK/像素及RNG结果运行未闭，异常不保护或模拟",
+        "BPJ01现有__twoToTOS十条x87内联/完整11条21B和唯一原call身份纳管，CRT150枚举open；一般_pow/负底数/其余私有链、全调用环境/ABI/owner寿命与场景RNG及运行仍待，非新增实现或数学库闭合"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -545,7 +549,8 @@
         "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
         "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-baseline",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state"
       ]
     },
     {
@@ -31160,6 +31165,36 @@
       "observation": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
       "expected": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
       "actual": "当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要"
+    },
+    {
+      "id": "E-CRT-POW-TWOTOS-001433F0-S-20261007",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPJ01完整__twoToTOS11条21B与53D071唯一call/父邻窗；doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-pow-twotos-baseline-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json",
+        "src/platform/MapEffectMath.asm#Cg2dMapEffectDivisor",
+        "src/platform/MapEffectMath.hpp",
+        "src/world/SceneState.cpp#Sub_46F1D0"
+      ],
+      "differences": [
+        {
+          "description": "原十条x87操作内联，x86call/ret由既有Win64专用入口承接；只既有1.25底数/S32指数正常域，不据独立身份纳管称新增幂算法或通用ABI",
+          "decision_ref": "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码",
+      "expected": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码",
+      "actual": "完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价"
     }
   ],
   "task_acceptance": [
@@ -31773,7 +31808,8 @@
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state"
       ]
     },
     {
@@ -32002,7 +32038,8 @@
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state"
       ]
     },
     {
@@ -38404,6 +38441,19 @@
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
       ],
       "boundary": "BPH01完整W32非地址参数/原旗位和预设数据消费；原生现有存储/互斥原点合用现有循环，正常局部static不代异常索引、完整父/owner、机器ABI或音频/输入运行：仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。"
+    },
+    {
+      "inventory_id": "F:001433F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ],
+      "boundary": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码 完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价"
     }
   ],
   "auxiliary_dispositions": [

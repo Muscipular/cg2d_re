@@ -1004,3 +1004,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [具名验收合同](cg2d_input_text_alignment_spec.md#input-text-source-phase-acceptance)/[原窗口/旧807前态](cg2d_input_text_alignment_evidence.json)。两源片段实修、两窗口29条109B与全文逆换静态；FUNC-INPUT/FUNC-TEXT各I/S，共四条，只计分类判定/预算和多行X/Y发布阶段。旧equivalent/身份及所有完整门禁保持，不据局部判定生成机器代码、并发或画面等价。
 
 语义1424/1419、关联1537/41.77%、分类546保持；登记E715→719，INPUT17/TEXT23枚举仍open。T01/T02/R04/V04只增进展引用；10/60源码任务、0完整验收/叶验收及global_accepted=false保持。未构建/测试/运行/摘要，正常owner/寿命及完整运行按原标准推进。
+
+## BPJ01 专用幂帮助入口局部S（2026-10-07）
+
+[具名合同](cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance)/[完整原帮助体及前态](cg2d_map_effect_arithmetic_evidence.json)。11条21B/唯一call父邻窗和既有十条x87内联来源，只增一CRT局部S/一adapted身份；源码未变，I/完整功能门禁不提升，不重复登记整个一般_pow通过。
+
+语义1425/1420、关联1538/41.79%、分类547、CRT150枚举open、登记E720；队列174/待归属45仅移本原ID，暂停25/排除103/NOP1与R7已审67/3061保持。两任务R01/R04仅引用/进展仍open，10/60源码任务/0完整验收/0叶/global_accepted=false保持；SDK/ABI/环境、场景RNG/owner寿命及运行按原标准继续。

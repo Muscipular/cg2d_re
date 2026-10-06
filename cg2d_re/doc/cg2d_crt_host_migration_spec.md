@@ -48,3 +48,9 @@
 [两原活动点](cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision)确认46F1D0的底数恒F64 1.25、指数signedLevel−1；现有Cg2dMapEffectDivisor按场景§20.19以x87承接53D000→53D022正常正底数路径，本步保持其不落F64和PC53/控制字，不能因D02擅换std::pow或造同名包装。
 
 两原ID只登记实际正底数内联路径的adapted，不记整个pow宿主迁移或原一般数学内核等价；53D019/负底数53D1F5及未知间接调用、错误/浮点环境/实际ABI与业务RNG结果仍未闭。原内核含54348E共享尾块、53D019→53D022是flow，不猜成直接call或新的业务边。
+
+## BPJ01 实际专用幂帮助体的独立基线（2026-10-07）
+
+[BPJ01](cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state)将原__twoToTOS/5433F0完整11条21B与唯一53D071调用独立纳管，映射到既有Cg2dMapEffectDivisor十条x87内联。归属adapted/CRT，非host或范围排除；只现有1.25底数/S32指数的专用正常域，源码与PC53/连续结果消费保持。
+
+CRT149→150枚举仍未闭，单一局部S不代新增实现、一般_pow/负底数及其余浮点私有链、全环境/机器ABI和场景RNG运行。D02/MFA01其余边界继续有效。

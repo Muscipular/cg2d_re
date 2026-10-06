@@ -2980,3 +2980,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [BPI01合同](cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline)/[证据bpi01_source_phase](cg2d_input_text_alignment_evidence.json)将807/F:000568A0全文前态存previous_mapping_before_bpi01，续记分类判定/行预算和多行X/Y发布的两个源修正。原身份、冻定位、equivalent、现有父接线及正常值保持，不新增函数。
 
 两原窗口29条109B定向复核；语义1424条/1419原ID、关联1537/3680（41.77%）、分类546和INPUT17/TEXT23枚举未闭保持；E715→719仅四正常局部I/S，不代完整输入/文本或运行。
+
+## BPJ01 现有专用幂帮助体独立身份（2026-10-07）
+
+[BPJ01合同](cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline)/[原证据bpj01_twotos](cg2d_map_effect_arithmetic_evidence.json)。新增1424/F:001433F0：完整11条21B及唯一53D071普通call/53D022父邻窗，现有Cg2dMapEffectDivisor十条x87操作为实际内联来源，x86call/ret边界adapted。不是新增幂算法，完整一般_pow与浮点环境未闭。
+
+语义1425/原ID1420、文档关联1538/3680（41.79%）、分类547；CRT150枚举open；缺口队列174/位置缺失173/待归属45。E720仅增一CRT局部S，所有旧映射/处置、源头及完整门禁保持，R01/R04继续open。

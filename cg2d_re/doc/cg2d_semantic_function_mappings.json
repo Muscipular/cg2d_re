@@ -174174,6 +174174,70 @@
         "preserved_contract": "原完整W32索引不收窄U8，公开声明/实际定义恢复同既有4597A0/C0一致的S32参数，沿唯一gKeyStates读一次U8并返0/0x10，不清状态或归一bool、不加拒绝/默认值/钳制；256B既有owner和全部状态生产/清零不改，原14普通点5父仅纳盘，异常索引不专项模拟或声明等价。",
         "implementation_static_scope": "仅三个原正常局部键索引/flag返回与预设数据消费、接口宽度和实际接线静态对应；不代26点全部11父/输入与键表焦点、旧99路由、正常alias-owner/寿命、SDK机器ABI/链接、实际输入/音频播放或运行。异常索引不专项模拟、不加保护或宣称等价。"
       }
+    },
+    {
+      "original_entry": "0x5433F0",
+      "inventory_id": "F:001433F0",
+      "original_end_exclusive": "0x543405",
+      "instruction_count": 11,
+      "original_code_bytes": 21,
+      "original_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "original_inbound_parent_count": 1,
+      "status": "BPJ01现有专用幂的实际x87内联帮助体独立身份已纳管；非新增幂实现，完整一般数学库/运行未验",
+      "sources": [
+        {
+          "path": "src/platform/MapEffectMath.asm",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码"
+        },
+        {
+          "path": "src/platform/MapEffectMath.hpp",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "既有Win64私有S32指数/幅值借用入口；非原__twoToTOS的通用x86/x87调用ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ],
+      "boundary": "BPJ01原__twoToTOS完整11条21B由现有Cg2dMapEffectDivisor中的十条x87操作按原栈序内联承担；x86call/ret不保留，结果不落F64，PC53/控制字沿MFA01。只既有两个1.25底数/S32指数活动点的正常专用域，不扩成一般_pow/负底数、错误链或全环境等价；不新增幂实现或改变正确源码 完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+      "verification_level": "完整11条21B、一页/零call零jump一ret及53D071唯一普通call/53D022父邻窗，仅当前内联对应和独立身份静态；所有源码/头/ASM保持。完整一般数学库、全部父/环境/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG/像素运行仍未验；异常依RPLAN.24不保护/模拟或称等价",
+      "inbound_evidence": [
+        {
+          "call_site": "0x53d071",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x53d022",
+          "parent_end_exclusive": "0x53d1f5",
+          "relationship": "只原普通call/父身份与邻窗，不重验整个53D022或一般_pow"
+        }
+      ],
+      "pow_twotos_baseline": {
+        "spec_id": "BPJ01",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "full_original_helper_captured": true,
+        "native_operation_count": 10,
+        "original_call_ret_inlined": true,
+        "source_body_already_implemented": true,
+        "source_body_changed": false,
+        "full_general_pow_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

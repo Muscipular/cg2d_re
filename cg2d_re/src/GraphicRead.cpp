@@ -605,8 +605,10 @@ std::int32_t GetGraphicAutoMapColor_451D80(
             if (colorIndex != 0) {
                 red += palette[colorIndex].red;
                 green += palette[colorIndex].green;
-                blue += palette[colorIndex].blue;
+                const std::uint32_t blueContribution = palette[colorIndex].blue;
+                const std::uint32_t accumulatedBlue = blue + blueContribution;
                 ++count;
+                blue = accumulatedBlue;
             }
             width = std::bit_cast<std::int32_t>(gCurrentGraphicWidth);
             ++column;
@@ -617,10 +619,12 @@ std::int32_t GetGraphicAutoMapColor_451D80(
         return 0;
     }
     const std::uint32_t averageBlue = static_cast<std::uint8_t>(blue / count);
+    std::uint32_t blueGreen = averageBlue << 8;
     const std::uint32_t averageGreen = static_cast<std::uint8_t>(green / count);
+    blueGreen |= averageGreen;
     const std::uint32_t averageRed = static_cast<std::uint8_t>(red / count);
-    return render::FindNearestPaletteColor_451E90(
-        averageRed | (averageGreen << 8) | (averageBlue << 16), palette, 256);
+    const std::uint32_t color = (blueGreen << 8) | averageRed;
+    return render::FindNearestPaletteColor_451E90(color, palette, 256);
 }
 
 void CloseGraphicFiles()

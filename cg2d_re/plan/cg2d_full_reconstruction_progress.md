@@ -2452,3 +2452,13 @@ BOA01验证结论：三完整回调/整CPP从HEAD仅三坐标补丁精确重放�
 - **后续开发**：本步静态与汇总仅验上述范围；未构建/测试/运行/hash。原DX机制沿已有批准承接，不猜HRESULT或补COM模拟，不扩溢出/越界策略。网络原格式明文，音频暂停；继续沿实际初始化/资源消费/owner推进整体SPEC。 全部父、实际构造重建销毁及画面消费继续按七项open任务推进，不以局部静态宣布整体完成。
 
 BOO01本步实测：四项定向静态（源码/完整原证据/两权威JSON/文档任务）及派生全对象差异通过；measure与-Check均返回0。检查发现三个JSON物理换行CRLF，当步统一LF并核对象不变，13文件严格UTF8无BOM/LF及必要差异复检通过。分类518、RESOURCE37/RENDER32、E637；历史直接定义0/0、语义1401/1396及1514关联、队列/七open/完整门禁保持。未编译/测试/运行/hash，整体SPEC目标继续。
+
+## BOP01 自动地图取色生产链推进（2026-10-06）
+
+- **开发/本步完成**：先落[具体SPEC](../doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision)，再实施Get累计/组包2与Nearest首色/候选1补丁，正常数值保持、不误报值错误。Sub45A190正确体不改。[原证据](../doc/cg2d_automap_palette_color_production_evidence.json)保三完整273条768B/五页/5call-27内跳/5ret及四入向、三个改前正文。
+- **可度量增量**：三既有源码根新增机器语义1401/1402/1403，语义1401→1404/有效ID1396→1399，关联1514→1517（41.14%→41.22%），分类518→521；RESOURCE37→40/RENDER32→34仍枚举open，各成员独立I/S共10条static E637→647。历史直接定位各1/旧行号保；三个原函数不当十函数，七open仅进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0保持。 队列175、R7区间67/3061及其它功能保持。命名快照 `cg2d-re-automap-palette-color-production-20261006`；15文件精确提交，用户既有六项排除。
+- **后续开发**：只全根正常局部文字static；共享解码区单次借用/height入口样本与每像素fresh width、U32除法/低U8、严格<先见/候选16..<count-16保持。auto.dat父/实际图形与地图画面/共享owner运行继续推进，未构建/测试/运行/hash；网络原格式明文、内存CryptInt保、音频暂停，不新增溢出/越界策略。 整体SPEC目标保持，沿实际上层初始化、图形/地图消费与owner继续开发，不代运行门禁。
+
+- **当步解决汇总问题**：派生对照发现functionRows单项/空项集合落为字符串/null；在baseline_documents/feature_memberships两赋值点显式捕获成数组，保持成员内容、计数与验收状态，重生成后按完整对象核机械形态增量，不复验未变业务。
+
+BOP01本步实测：源码/三完整原根/两权威JSON/对应文档四项定向静态通过。派生对照发现functionRows单项/空项集合变字符串/null，已按SPEC在两赋值点修复为数组；汇总器整文件唯一差异及文档复核通过。修复后measure/-Check返回0，派生完整对象仅三新映射/两域/五指标-无文档差集/七open和全原函数两集合机械形态规范化；成员、计数及完整门禁保持。语义1404/1399、关联1517(41.22%)、分类521、RESOURCE40/RENDER34、E647；15文件严格UTF8无BOM/LF和必要差异通过。未构建/测试/运行/hash，整体SPEC目标继续。

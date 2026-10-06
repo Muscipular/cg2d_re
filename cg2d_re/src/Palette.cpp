@@ -17,20 +17,35 @@ namespace cg::render {
 std::int32_t FindNearestPaletteColor_451E90(
     const std::uint32_t color, const PaletteEntry* const palette, const std::int32_t count)
 {
+    const std::int32_t initialBlue = palette[0].blue;
+    const std::int32_t initialGreen = palette[0].green;
     const std::int32_t red = static_cast<std::uint8_t>(color);
     const std::int32_t green = static_cast<std::uint8_t>(color >> 8);
+    const std::int32_t initialRed = palette[0].red;
     const std::int32_t blue = static_cast<std::uint8_t>(color >> 16);
-    const auto distance = [red, green, blue](const PaletteEntry& entry) {
-        const std::int32_t deltaBlue = entry.blue - blue;
-        const std::int32_t deltaGreen = entry.green - green;
-        const std::int32_t deltaRed = entry.red - red;
-        return static_cast<double>(
-            deltaRed * deltaRed + deltaGreen * deltaGreen + deltaBlue * deltaBlue);
-    };
-    double closest = distance(palette[0]);
+    const std::int32_t initialDeltaRed = initialRed - red;
+    const std::int32_t initialDeltaBlue = initialBlue - blue;
+    const std::int32_t initialRedSquared = initialDeltaRed * initialDeltaRed;
+    const std::int32_t initialBlueSquared = initialDeltaBlue * initialDeltaBlue;
+    const std::int32_t initialDeltaGreen = initialGreen - green;
+    const std::int32_t initialRedBlue = initialRedSquared + initialBlueSquared;
+    const std::int32_t initialDistance =
+        initialRedBlue + initialDeltaGreen * initialDeltaGreen;
+    const std::int32_t limit = count - 16;
+    double closest = static_cast<double>(initialDistance);
     std::int32_t selected = 0;
-    for (std::int32_t index = 16; index < count - 16; ++index) {
-        const double current = distance(palette[index]);
+    for (std::int32_t index = 16; index < limit; ++index) {
+        const std::int32_t currentBlue = palette[index].blue;
+        const std::int32_t currentGreen = palette[index].green;
+        const std::int32_t currentRed = palette[index].red;
+        const std::int32_t deltaGreen = currentGreen - green;
+        const std::int32_t deltaBlue = currentBlue - blue;
+        const std::int32_t deltaRed = currentRed - red;
+        const std::int32_t redSquared = deltaRed * deltaRed;
+        const std::int32_t greenSquared = deltaGreen * deltaGreen;
+        const std::int32_t redGreen = redSquared + greenSquared;
+        const std::int32_t distance = redGreen + deltaBlue * deltaBlue;
+        const double current = static_cast<double>(distance);
         if (current < closest) {
             closest = current;
             selected = index;

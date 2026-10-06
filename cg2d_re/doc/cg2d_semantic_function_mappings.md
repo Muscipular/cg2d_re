@@ -2792,3 +2792,17 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 169/170两已有ID完整历史深拷贝续记，语义1401/有效ID1396及1514关联41.14%不变；分类516→518、RESOURCE35→37/RENDER30→32仍枚举open，八两域局部static I/S E629→637。历史定义0/0保持，两个原函数不计八函数；七open及完整门禁保持，不代全部父/owner/正常别名/像素运行。
 
 本步静态与汇总仅验上述范围；未构建/测试/运行/hash。原DX机制沿已有批准承接，不猜HRESULT或补COM模拟，不扩溢出/越界策略。网络原格式明文，音频暂停；继续沿实际初始化/资源消费/owner推进整体SPEC。
+
+## BOP01 自动地图取色链三机器映射（2026-10-06）
+
+| 语义 / 原ID / 入口 | 当前源码符号 | 本步 |
+| --- | --- | --- |
+| 1401 / F:0005A190 / 45A190 | ResourcePaths.cpp::Sub_45A190 | 76条，正确生产正文保 |
+| 1402 / F:00051D80 / 451D80 | GraphicRead.cpp::GetGraphicAutoMapColor_451D80 | 101条，累计/组包2阶段补丁 |
+| 1403 / F:00051E90 / 451E90 | Palette.cpp::FindNearestPaletteColor_451E90 | 96条，首色/候选1正文补丁 |
+
+[BOP01 SPEC](cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision)/[证据](cg2d_automap_palette_color_production_evidence.json)。45A190→ReadPalette/451D80→ReadGraphicDataByIndex/451E90三原根完整273条768B/五页，5call-27内跳/5ret、四普通入向。Get恢复蓝累计在count之后发布、蓝/绿中间组包先红平均两处阶段；Nearest去通用闭包，首色R²+B²+G²与候选R²+G²+B²及取样各按原顺序表达。现有正常数值保持，不误报取色值错误；Sub45A190正确体保，原1024B局部palette/500000B色表清零及两map区、调用后fresh GraphicInfo不改。
+
+三既有源码根新增机器语义1401/1402/1403，语义1401→1404/有效ID1396→1399，关联1514→1517（41.14%→41.22%），分类518→521；RESOURCE37→40/RENDER32→34仍枚举open，各成员独立I/S共10条static E637→647。历史直接定位各1/旧行号保；三个原函数不当十函数，七open仅进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0保持。
+
+只全根正常局部文字static；共享解码区单次借用/height入口样本与每像素fresh width、U32除法/低U8、严格<先见/候选16..<count-16保持。auto.dat父/实际图形与地图画面/共享owner运行继续推进，未构建/测试/运行/hash；网络原格式明文、内存CryptInt保、音频暂停，不新增溢出/越界策略。

@@ -334,7 +334,7 @@ if ($registry.closures.function_classification.state -eq 'closed') {
 }
 
 $functionRows=@($functions.Keys | Sort-Object | ForEach-Object {
-    $f=$functions[$_]; $f.baseline_documents=Unique $f.baseline_documents; $f.feature_memberships=Unique $f.feature_memberships
+    $f=$functions[$_]; $f.baseline_documents=@(Unique $f.baseline_documents); $f.feature_memberships=@(Unique $f.feature_memberships)
     $f
 })
 $imports=@(foreach ($module in $inventory.imports) { foreach ($e in $module.entries) {

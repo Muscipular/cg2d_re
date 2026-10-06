@@ -167992,6 +167992,234 @@
         "native_carrier_alignment": "同一原ID由S16借用helper/render包装分工，非两个原函数",
         "preserved_contract": "原graphic+22的S16索引<=0或>=S32 count仅W16清0并返U8=2；有效时借本次record，null进生产叶不新建或保护；非空先S16 paletteChoice扩S32比较完整活动号，相等才读S16 version比较完整帧，全同返回U8=0，不刷新。其它经522CB0再返U8=1，不宣刷新成功或吞原空record行为。现有资源侧S16引用helper与render包装共同承接同一原ID；包装从descriptor+0E(原graphic+22) memcpy读S16，仅result==2才W16写回，其它保持字段、返同U8。原父DrawAllQueued两call520E6C/521484弃返回继续原图加载，全部父闭包/owner运行另验。正确两正文保持，无新空表/空record/版本回绕/故障策略。"
       }
+    },
+    {
+      "original_entry": "0x45A190",
+      "inventory_id": "F:0005A190",
+      "original_role": "自动地图颜色表的原调色板取色生产",
+      "status": "BOP01完整正常取色生产链已映射，三处计算阶段恢复/正常值保持，全部父/共享解码-owner/地图画面运行未验",
+      "original_end_exclusive": "0x45A284",
+      "instruction_count": 76,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/ResourcePaths.cpp",
+          "symbols": [
+            "Sub_45A190"
+          ],
+          "relationship": "入口先保存S32 gMaxGraphicCount，1024Byte局部Palette256清零；ReadPalette(0,palette)失败原返void并保持已有自动地图色。成功全500000Byte gAutoMapColors清0，入口count<=0结束；否则保存当前GraphicInfo native基址，固定count循环/每项32B步长。先S16 fileIndex再S32 mapNo，非0/1/6/8写该mapNo U8零；合格mapNo0写槽0；1000..19999调用当前record.seqNo的S32位值及同局部palette，低U8发布旧区mapNo；220000..265535同调用发布mapNo-200000。其它mapNo不发布。两有效调用之后才fresh gGraphicInfo，下一记录使用重取基址/原游标；不提前重取、整表快照、补guard或更改原业务范围。现有正确body保持；未重做LoadAutoMap父/auto.dat/完整map消费运行。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-acceptance",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
+        "doc/cg2d_automap_palette_color_production_evidence.json"
+      ],
+      "boundary": "入口先保存S32 gMaxGraphicCount，1024Byte局部Palette256清零；ReadPalette(0,palette)失败原返void并保持已有自动地图色。成功全500000Byte gAutoMapColors清0，入口count<=0结束；否则保存当前GraphicInfo native基址，固定count循环/每项32B步长。先S16 fileIndex再S32 mapNo，非0/1/6/8写该mapNo U8零；合格mapNo0写槽0；1000..19999调用当前record.seqNo的S32位值及同局部palette，低U8发布旧区mapNo；220000..265535同调用发布mapNo-200000。其它mapNo不发布。两有效调用之后才fresh gGraphicInfo，下一记录使用重取基址/原游标；不提前重取、整表快照、补guard或更改原业务范围。现有正确body保持；未重做LoadAutoMap父/auto.dat/完整map消费运行。",
+      "verification_level": "完整76条244B/1页，3call-15内跳/1ret、1普通引用/1父；0阶段补丁；仅正常局部文本static I/S，不代运行/故障",
+      "function_chunks": [
+        {
+          "start": "0x45A190",
+          "end_exclusive": "0x45A284"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x45a169",
+          "type": 17,
+          "parent": "0x45a130",
+          "instruction": "call    sub_45A190"
+        }
+      ],
+      "native_provider": {
+        "source": "src/ResourcePaths.cpp",
+        "symbol": "Sub_45A190",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "automap_palette_color_production": {
+        "spec_id": "BOP01",
+        "evidence_refs": [
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-acceptance",
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
+          "doc/cg2d_automap_palette_color_production_evidence.json"
+        ],
+        "original_entry": "0x45A190",
+        "original_instruction_count": 76,
+        "original_code_bytes": 244,
+        "page_count": 1,
+        "outgoing_call_site_count": 3,
+        "internal_branch_site_count": 15,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "implemented_scope": "原自动地图取色与共享调色板/图形资源正常生产消费",
+        "normal_numeric_result_preserved": true,
+        "preserved_contract": "入口先保存S32 gMaxGraphicCount，1024Byte局部Palette256清零；ReadPalette(0,palette)失败原返void并保持已有自动地图色。成功全500000Byte gAutoMapColors清0，入口count<=0结束；否则保存当前GraphicInfo native基址，固定count循环/每项32B步长。先S16 fileIndex再S32 mapNo，非0/1/6/8写该mapNo U8零；合格mapNo0写槽0；1000..19999调用当前record.seqNo的S32位值及同局部palette，低U8发布旧区mapNo；220000..265535同调用发布mapNo-200000。其它mapNo不发布。两有效调用之后才fresh gGraphicInfo，下一记录使用重取基址/原游标；不提前重取、整表快照、补guard或更改原业务范围。现有正确body保持；未重做LoadAutoMap父/auto.dat/完整map消费运行。"
+      }
+    },
+    {
+      "original_entry": "0x451D80",
+      "inventory_id": "F:00051D80",
+      "original_role": "图形解码区非透明像素平均取色",
+      "status": "BOP01完整正常取色生产链已映射，三处计算阶段恢复/正常值保持，全部父/共享解码-owner/地图画面运行未验",
+      "original_end_exclusive": "0x451E85",
+      "instruction_count": 101,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/GraphicRead.cpp",
+          "symbols": [
+            "GetGraphicAutoMapColor_451D80"
+          ],
+          "relationship": "ReadGraphicDataByIndex(index,&gGraphicDataPtr,&width,&height,null)原接线保；失败W32 gGraphicDataBuffer=-1并返读入结果0，成功先采样height S32再发布index，height<=0返0。正height只保存一次decoded row地址与height，读取width S32；逐row/column消费U8索引，零索引跳RGB累计但仍fresh全局width再column+1比较。非零读取palette R/G/B，各W32累计，蓝Byte/旧blue和先算sum，count W32+1后blue局部发布；本步显式恢复该阶段，不宣既有值错误。行末沿最后width样本推进同row地址，不重取全局dataPtr/height。无非零像素返0；按U32 DIV先blue/count低U8→高Byte暂存、green/count低U8→中间Byte暂存、red/count低U8→移位/OR形成00BBGGRR，再call451E90(packed,palette,256)。W32累计/计数、原S32维度和native指针保，无新增overflow/尺寸/调色板guard；共享解码区实际owner及内容运行另验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-acceptance",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
+        "doc/cg2d_automap_palette_color_production_evidence.json"
+      ],
+      "boundary": "ReadGraphicDataByIndex(index,&gGraphicDataPtr,&width,&height,null)原接线保；失败W32 gGraphicDataBuffer=-1并返读入结果0，成功先采样height S32再发布index，height<=0返0。正height只保存一次decoded row地址与height，读取width S32；逐row/column消费U8索引，零索引跳RGB累计但仍fresh全局width再column+1比较。非零读取palette R/G/B，各W32累计，蓝Byte/旧blue和先算sum，count W32+1后blue局部发布；本步显式恢复该阶段，不宣既有值错误。行末沿最后width样本推进同row地址，不重取全局dataPtr/height。无非零像素返0；按U32 DIV先blue/count低U8→高Byte暂存、green/count低U8→中间Byte暂存、red/count低U8→移位/OR形成00BBGGRR，再call451E90(packed,palette,256)。W32累计/计数、原S32维度和native指针保，无新增overflow/尺寸/调色板guard；共享解码区实际owner及内容运行另验。",
+      "verification_level": "完整101条261B/2页，2call-7内跳/3ret、2普通引用/1父；2阶段补丁；仅正常局部文本static I/S，不代运行/故障",
+      "function_chunks": [
+        {
+          "start": "0x451D80",
+          "end_exclusive": "0x451E85"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x45a232",
+          "type": 17,
+          "parent": "0x45a190",
+          "instruction": "call    sub_451D80"
+        },
+        {
+          "ea": "0x45a25b",
+          "type": 17,
+          "parent": "0x45a190",
+          "instruction": "call    sub_451D80"
+        }
+      ],
+      "native_provider": {
+        "source": "src/GraphicRead.cpp",
+        "symbol": "GetGraphicAutoMapColor_451D80",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "automap_palette_color_production": {
+        "spec_id": "BOP01",
+        "evidence_refs": [
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-acceptance",
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
+          "doc/cg2d_automap_palette_color_production_evidence.json"
+        ],
+        "original_entry": "0x451D80",
+        "original_instruction_count": 101,
+        "original_code_bytes": 261,
+        "page_count": 2,
+        "outgoing_call_site_count": 2,
+        "internal_branch_site_count": 7,
+        "return_site_count": 3,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "source_patch_count": 2,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "implemented_scope": "原自动地图取色与共享调色板/图形资源正常生产消费",
+        "normal_numeric_result_preserved": true,
+        "preserved_contract": "ReadGraphicDataByIndex(index,&gGraphicDataPtr,&width,&height,null)原接线保；失败W32 gGraphicDataBuffer=-1并返读入结果0，成功先采样height S32再发布index，height<=0返0。正height只保存一次decoded row地址与height，读取width S32；逐row/column消费U8索引，零索引跳RGB累计但仍fresh全局width再column+1比较。非零读取palette R/G/B，各W32累计，蓝Byte/旧blue和先算sum，count W32+1后blue局部发布；本步显式恢复该阶段，不宣既有值错误。行末沿最后width样本推进同row地址，不重取全局dataPtr/height。无非零像素返0；按U32 DIV先blue/count低U8→高Byte暂存、green/count低U8→中间Byte暂存、red/count低U8→移位/OR形成00BBGGRR，再call451E90(packed,palette,256)。W32累计/计数、原S32维度和native指针保，无新增overflow/尺寸/调色板guard；共享解码区实际owner及内容运行另验。"
+      }
+    },
+    {
+      "original_entry": "0x451E90",
+      "inventory_id": "F:00051E90",
+      "original_role": "原中间调色板范围最近颜色选择",
+      "status": "BOP01完整正常取色生产链已映射，三处计算阶段恢复/正常值保持，全部父/共享解码-owner/地图画面运行未验",
+      "original_end_exclusive": "0x451F97",
+      "instruction_count": 96,
+      "original_direct_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "FindNearestPaletteColor_451E90"
+          ],
+          "relationship": "U32输入按低R/中G/高B拆U8，palette4B R0/G1/B2/flags3、flags不读。先取palette0 B/G，再输入R/G，再palette0 R及输入B；初始R/B/G差与平方的S32正常计算，R²+B²+G²转F64最近距离，selected0。候选仅S32 i16..<count-16，bound保存一次；每项先样本B/G/R，差先G/B/R，正常平方和按R²+G²+B²转F64，与closest严格<才更新距离及index，平局保先见。count<=32仍初读palette0后返0，不新增null/count拒绝或扩大候选范围。此前通用闭包正常数值相同，本步用首色/候选各自原顺序显式表达并去掉闭包，不误报值差异或宣x87/PC53/异常等价。原地址native、S32/W32/U8宽度保，不代所有palette别名与consumer运行。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-acceptance",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
+        "doc/cg2d_automap_palette_color_production_evidence.json"
+      ],
+      "boundary": "U32输入按低R/中G/高B拆U8，palette4B R0/G1/B2/flags3、flags不读。先取palette0 B/G，再输入R/G，再palette0 R及输入B；初始R/B/G差与平方的S32正常计算，R²+B²+G²转F64最近距离，selected0。候选仅S32 i16..<count-16，bound保存一次；每项先样本B/G/R，差先G/B/R，正常平方和按R²+G²+B²转F64，与closest严格<才更新距离及index，平局保先见。count<=32仍初读palette0后返0，不新增null/count拒绝或扩大候选范围。此前通用闭包正常数值相同，本步用首色/候选各自原顺序显式表达并去掉闭包，不误报值差异或宣x87/PC53/异常等价。原地址native、S32/W32/U8宽度保，不代所有palette别名与consumer运行。",
+      "verification_level": "完整96条263B/2页，0call-5内跳/1ret、1普通引用/1父；1阶段补丁；仅正常局部文本static I/S，不代运行/故障",
+      "function_chunks": [
+        {
+          "start": "0x451E90",
+          "end_exclusive": "0x451F97"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x451e75",
+          "type": 17,
+          "parent": "0x451d80",
+          "instruction": "call    sub_451E90"
+        }
+      ],
+      "native_provider": {
+        "source": "src/Palette.cpp",
+        "symbol": "FindNearestPaletteColor_451E90",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "automap_palette_color_production": {
+        "spec_id": "BOP01",
+        "evidence_refs": [
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-acceptance",
+          "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
+          "doc/cg2d_automap_palette_color_production_evidence.json"
+        ],
+        "original_entry": "0x451E90",
+        "original_instruction_count": 96,
+        "original_code_bytes": 263,
+        "page_count": 2,
+        "outgoing_call_site_count": 0,
+        "internal_branch_site_count": 5,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "implemented_scope": "原自动地图取色与共享调色板/图形资源正常生产消费",
+        "normal_numeric_result_preserved": true,
+        "preserved_contract": "U32输入按低R/中G/高B拆U8，palette4B R0/G1/B2/flags3、flags不读。先取palette0 B/G，再输入R/G，再palette0 R及输入B；初始R/B/G差与平方的S32正常计算，R²+B²+G²转F64最近距离，selected0。候选仅S32 i16..<count-16，bound保存一次；每项先样本B/G/R，差先G/B/R，正常平方和按R²+G²+B²转F64，与closest严格<才更新距离及index，平局保先见。count<=32仍初读palette0后返0，不新增null/count拒绝或扩大候选范围。此前通用闭包正常数值相同，本步用首色/候选各自原顺序显式表达并去掉闭包，不误报值差异或宣x87/PC53/异常等价。原地址native、S32/W32/U8宽度保，不代所有palette别名与consumer运行。"
+      }
     }
   ]
 }

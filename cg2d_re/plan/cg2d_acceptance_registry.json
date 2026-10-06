@@ -2280,7 +2280,8 @@
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-baseline",
         "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-baseline",
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
-        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline"
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2468,7 +2469,8 @@
         "F:0003C910",
         "F:0003C9A0",
         "F:0003CA50",
-        "F:0003CA80"
+        "F:0003CA80",
+        "F:0003C560"
       ],
       "closure_task_ids": [
         "P01",
@@ -2574,7 +2576,8 @@
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-decision",
         "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-decision",
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
-        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision"
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2669,7 +2672,8 @@
         "BQE01七完整729条2516B/十四页、60call/26入口/77jump/十二ret、七父21邻窗/56B、两共用表项/三F32纳管；共体五/241一共六源阶段恢复，三W8源表达式承接四实际原点、index/encoded先position/共享目标、速度先零比较后phase239/声事件先X。八逻辑状态七物理身份不重复分类，五正确体/普通helper/W32缓存、HP图标接收者/RNG/两播放/循环与额外推进/返回保。169原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
         "BQF01四完整633条2207B/十页、45call/22入口/97jump/四ret、四父12邻窗/32B和246原F32系数纳管，243三W8源表达式对四原点，原技能CMP/图值/模式/级别/六RAND物理点各路径消费、W32缓存/无扣HP/其它图标后仍Attribute区别、原上限copy/两条件播放/退场及三个正确移动体保。原无switch表，不新R7或__ftol身份；173原成员枚举open。正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
         "BQG01七完整704条2305B/十三页、47call/22入口/120jump/七ret、七父四窗20条/69B和三既有表项纳管。249一次event及255归零encoded先目标/三低W8对四原点，共五片段/两体；正常旧值一致。工厂30创建/31父case与118默认无创建、251两临时齐读/253原W32后取phase与+10保存/254先指针回收/256两全局写正确体保持。255真实healTarget.counter1DC、fixed effect与普通免疫fresh C9C差别/W32缓存/HP原上限copy/RNG/播放尾保；工厂无物理switch表，不新R7/父表分类。180原成员枚举open；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open",
-        "BQH01六完整171条467B/六页、13call/8callee/19jump/六ret，八入向八窗24条107B及局部父返回比较/EBP=1纳管。43C910/43CA50低W8 FDC、43C9A0两独立低W8玩家旗位及两阵营共享投影四S32读序/F32 Y后X发布，共五片段/三体，四W8原点/四源表达式，正常旧值一致。前20槽共享span/10..19后重读位再0..9、调用后fresh共享目标/返回消费、名字测量前Y后X/颜色继承/原S16公开边界及两推进正确体保持；父switch仅邻近记录，不新增R7或父完整验收。186原成员枚举open；其它全部生产/owner寿命/递归父、SDK/生成机器ABI/实际x87/画面运行未验，完整战斗和R8继续open"
+        "BQH01六完整171条467B/六页、13call/8callee/19jump/六ret，八入向八窗24条107B及局部父返回比较/EBP=1纳管。43C910/43CA50低W8 FDC、43C9A0两独立低W8玩家旗位及两阵营共享投影四S32读序/F32 Y后X发布，共五片段/三体，四W8原点/四源表达式，正常旧值一致。前20槽共享span/10..19后重读位再0..9、调用后fresh共享目标/返回消费、名字测量前Y后X/颜色继承/原S16公开边界及两推进正确体保持；父switch仅邻近记录，不新增R7或父完整验收。186原成员枚举open；其它全部生产/owner寿命/递归父、SDK/生成机器ABI/实际x87/画面运行未验，完整战斗和R8继续open",
+        "BQI01单完整266条901B/四页、7call/2callee/63jump/三ret，六UI父八入向八窗40条141B及20项原栈矩阵纳管；四读取片段/六低W8源表达式对应七原点，正常旧值一致。参数flags/目标全局W32、四源选中OR/两清除AND原W32写，六HP比较物理点/四源表达式、调用后共享目标重取、两侧十槽与排除、400短路和矩阵最后匹配/原不匹配初值、每列fresh前排别名/0-1返回保持。原矩阵是20栈写，无物理switch表，不新R7。187原成员枚举open；其它全部目标生产/owner寿命/递归UI父、SDK/生成机器ABI/画面运行未验，完整战斗和R8继续open"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2764,7 +2768,8 @@
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
         "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
-        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state"
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state"
       ]
     },
     {
@@ -33016,6 +33021,84 @@
       "observation": "40CAC0：借用固定source.payload，当前C9C→同record.position→共享22槽目标T*，439340(target)之后439340(source)。原唯一父404DB0 case73直接调用并弃返，没有新增空目标/边界门槛；两原调用及位置/别名顺序和源正确体保持。局部承接父实际未消费的返回，不承诺生成机器ABI。 40CAF0：439470(source)弃返，随后439340(source)，顺序和源正确体保持。原唯一父404DB0 case74弃返，没有按第一个返回新增条件，也没有提前缓存施法状态；局部正常源不承诺生成机器ABI。 43C910：遍历原59E980..59E9D0前20槽（新端span直接借用22槽数组前20，不另建影子表），每槽T*一次取样，空跳过，非空借payload；FDC实际低W8 bit1清才写固定actor.phase2并记pending。即使已找到对象仍遍历剩余槽，pending返回0、全部无pending返回1；不改为只检查第一个、全22槽或W32载入。原43C921 TEST BYTE由显式std::uint8_t内存读承接。父43CBB0的43CFEF调用后43CFF4 CMP EAX,EBP/43CFF6 JNZ，父43CBEA MOV EBP,1有据，与当前源==1消费相符；不计父整体闭合。 43C9A0：原43C9A0先独立读取玩家旗位低W8，bit1设才按10..19槽顺序处理；全部调用完到43C9F5再重新读同全局低W8，bit2设才按0..9槽处理。不能齐取两位或复用第一次值；全局存储仍W32供其它消费者。每槽先T*非空再固定payload，原两物理路径均y0C S32先读→y04 S32后读/FILD-FISUB→F32发布Y，再x08 S32先读→x00 S32后读→F32发布X，然后Sub46F970(X,Y)。源共享lambda以double准确承接正常S32差，显式四操作数次序，保Y/X两个独立F32发布；不新异常/S32回绕或实际x87等价门禁。角度返回F64降F32之后重新从共享槽取对象写angle50，之后再次共享槽取对象Sub405CB0；调用后又重新取共享槽PlayFrame(object,1)弃返。两阵营各三原call共六物理点共享三源表达式，保每实际路径消费、调用后独立指针/返回及前后旗位取样，不保存旧actor到后续调用；源五阶段中的三修复在本根（投影、firstFlags、secondFlags）。 43CA50：同原前20槽，每槽共享T*一次取样，空跳过，非空固定payload的FDC实际低W8 bit4设才count++；遍历全部20后返回count。43CA60 TEST BYTE用std::uint8_t内存读承接，不宽读FDC或扩到22槽。原唯一父43D188返回CMP EAX,2/43D190 JL跳过，当前源>=2消费相符；不因此声明父其它门禁已验。 43CA80：原颜色寄存器初值0，W16 gValue5F974C为0返回；非零遍历前20槽，仅非空槽继续。每个非空槽fresh W32当前position<20才按index==position短路或GetPet(position)更新color为4/0；position>=20保留前一非空槽color，不能每轮无条件重置或钳制position。GetPet调用后重新共享槽取actor，name C4地址先、actor.y-24后，TextMeasure(name,1)后再次共享槽取actor.x，宽度按原正常S32向零除2，X=x-width/2。DrawText2(x,y,0,1,color,name,0)原七参/源公开S16 X/Y、S8颜色边界保持，不去掉现有原W16存储边界也不补溢出模拟。原DrawText前Y/name从同缓存actor，测量后X从新共享槽，原正确体保持。43CBB0三个实际call43CFD1/43D03C/43D100分别对应源三个Sub43CA80调用；只新邻窗接线，不声称父完整运行/寿命闭合。",
       "expected": "40CAC0：借用固定source.payload，当前C9C→同record.position→共享22槽目标T*，439340(target)之后439340(source)。原唯一父404DB0 case73直接调用并弃返，没有新增空目标/边界门槛；两原调用及位置/别名顺序和源正确体保持。局部承接父实际未消费的返回，不承诺生成机器ABI。 40CAF0：439470(source)弃返，随后439340(source)，顺序和源正确体保持。原唯一父404DB0 case74弃返，没有按第一个返回新增条件，也没有提前缓存施法状态；局部正常源不承诺生成机器ABI。 43C910：遍历原59E980..59E9D0前20槽（新端span直接借用22槽数组前20，不另建影子表），每槽T*一次取样，空跳过，非空借payload；FDC实际低W8 bit1清才写固定actor.phase2并记pending。即使已找到对象仍遍历剩余槽，pending返回0、全部无pending返回1；不改为只检查第一个、全22槽或W32载入。原43C921 TEST BYTE由显式std::uint8_t内存读承接。父43CBB0的43CFEF调用后43CFF4 CMP EAX,EBP/43CFF6 JNZ，父43CBEA MOV EBP,1有据，与当前源==1消费相符；不计父整体闭合。 43C9A0：原43C9A0先独立读取玩家旗位低W8，bit1设才按10..19槽顺序处理；全部调用完到43C9F5再重新读同全局低W8，bit2设才按0..9槽处理。不能齐取两位或复用第一次值；全局存储仍W32供其它消费者。每槽先T*非空再固定payload，原两物理路径均y0C S32先读→y04 S32后读/FILD-FISUB→F32发布Y，再x08 S32先读→x00 S32后读→F32发布X，然后Sub46F970(X,Y)。源共享lambda以double准确承接正常S32差，显式四操作数次序，保Y/X两个独立F32发布；不新异常/S32回绕或实际x87等价门禁。角度返回F64降F32之后重新从共享槽取对象写angle50，之后再次共享槽取对象Sub405CB0；调用后又重新取共享槽PlayFrame(object,1)弃返。两阵营各三原call共六物理点共享三源表达式，保每实际路径消费、调用后独立指针/返回及前后旗位取样，不保存旧actor到后续调用；源五阶段中的三修复在本根（投影、firstFlags、secondFlags）。 43CA50：同原前20槽，每槽共享T*一次取样，空跳过，非空固定payload的FDC实际低W8 bit4设才count++；遍历全部20后返回count。43CA60 TEST BYTE用std::uint8_t内存读承接，不宽读FDC或扩到22槽。原唯一父43D188返回CMP EAX,2/43D190 JL跳过，当前源>=2消费相符；不因此声明父其它门禁已验。 43CA80：原颜色寄存器初值0，W16 gValue5F974C为0返回；非零遍历前20槽，仅非空槽继续。每个非空槽fresh W32当前position<20才按index==position短路或GetPet(position)更新color为4/0；position>=20保留前一非空槽color，不能每轮无条件重置或钳制position。GetPet调用后重新共享槽取actor，name C4地址先、actor.y-24后，TextMeasure(name,1)后再次共享槽取actor.x，宽度按原正常S32向零除2，X=x-width/2。DrawText2(x,y,0,1,color,name,0)原七参/源公开S16 X/Y、S8颜色边界保持，不去掉现有原W16存储边界也不补溢出模拟。原DrawText前Y/name从同缓存actor，测量后X从新共享槽，原正确体保持。43CBB0三个实际call43CFD1/43D03C/43D100分别对应源三个Sub43CA80调用；只新邻窗接线，不声称父完整运行/寿命闭合。",
       "actual": "六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "id": "E-BATTLE-COMMAND-TARGET-WIDTH-SAMPLING-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQI01单完整266条901B/四页、7call/63jump/三ret、八父40条141B、20项栈矩阵及四取样片段；doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-command-target-width-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-decision",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-acceptance",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_evidence.json",
+        "src/YobiRuntime.cpp#CheckBattleCommand_43C560",
+        "src/ui/WindowRuntime.cpp#Sub_4972B0",
+        "src/ui/WindowRuntime.cpp#Sub_4974C0",
+        "src/ui/WindowRuntime.cpp#Sub_497E30",
+        "src/ui/WindowRuntime.cpp#Sub_497FF0",
+        "src/ui/WindowRuntime.cpp#Sub_498520",
+        "src/ui/WindowRuntime.cpp#Sub_499C30",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyCryptInt.cpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "同阵营FDC一共享低W8对两原点，400下玩家位与两前排四标记读取低W8，共四片段/六表达式对七原点；正常旧值一致。原参数/目标全局/选中OR及清除AND保持W32，六HP比较消费/共享重取、十槽排除与对侧选择、20项矩阵/400短路、每列fresh别名和原返回保持",
+          "decision_ref": "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "CheckBattleCommand_43C560：position S32/flags W32，先发布gBattleTargetFlags5ABC44，再GetPet(position)，其返回缓存pet；flags bit1清才返回0，不能先拒绝而跳过发布/GetPet。bit4宠物槽、bit8本人槽分别共享T*非空才LessEqual(HP,0)，先实际比较/RNG消费，再取cached flags bit2决定HP<=0是否也选；通过后重新从共享槽取目标，W32 flags|8，原pet两物理OR路径由源一表达式承接。flags810设才同阵营十槽，position<10起0否则10，每槽先排除position/pet，再共享T*非空；cached flags10直接准入，否则flags800设才固定payload FDC低W8 bit4。两阵营原43C640/43C69B一共享低W8表达式承接，不宽化内存加载；准入后LessEqual HP0、cached flags2分支及共享目标重取W32 OR。flags20另遍历相反十槽，无本人/宠物排除和额外FDC门禁，LessEqual先于flags2，共享槽重取后W32 OR。六原LessEqual物理点分别pet/本人/同阵营0侧/10侧/对侧10/0，源四表达式每实际槽原消费保，无新HP读取/省略比较。\n原临时rows矩阵20项S32：14,12,10,11,13；19,17,15,16,18；9,7,5,6,8；4,2,0,1,3。原20个栈写中值8来自EBP（43C5BF/43C5D4），值0来自43C73F EDX清零，余18个W32立即数；源现只读常量rows不向外传地址，正常语义/字段宽度正确体保，不承诺生成机器栈布局，不虚造数据switch/R7项。flags400清直接返回1而不读取玩家位；400设才gBattlePlayerFlags5ABCAC实际低W8 bit80测试，清且position==当前位置也返回1，否则扫描矩阵4×5，row/column初始都为position，匹配覆盖且继续全部20项，保持原不匹配初值、不新增拒绝/保护。\nrow0取rows1[column]前排索引，五列每轮重新从共享表取ownFront，非空时actual低W8 flags bit8；通过才取rows2[c]敌前排同低W8，非空/bit8通过才rows3[c]敌后排非空后W32 flags&~8。row3对称自身rows2[column]、敌前rows1[c]、敌后rows0[c]。四源前排读取对应43C849/43C85D/43C8A8/43C8BC，清除43C870/43C8CF是AND [EAX+24],EDI W32，不能一起窄化写。每列独立重取自身前排保别名影响，不把ownFront提前到循环外；row1/2不清后排，其余所有路径返回1。原有三ret，其中bit1拒绝0和row0/其它正常1出口，源两个return1表达式保实际结果；当前八UI消费/弃返接线只局部对应，不证明完整生产/生命周期/画面运行。",
+      "expected": "CheckBattleCommand_43C560：position S32/flags W32，先发布gBattleTargetFlags5ABC44，再GetPet(position)，其返回缓存pet；flags bit1清才返回0，不能先拒绝而跳过发布/GetPet。bit4宠物槽、bit8本人槽分别共享T*非空才LessEqual(HP,0)，先实际比较/RNG消费，再取cached flags bit2决定HP<=0是否也选；通过后重新从共享槽取目标，W32 flags|8，原pet两物理OR路径由源一表达式承接。flags810设才同阵营十槽，position<10起0否则10，每槽先排除position/pet，再共享T*非空；cached flags10直接准入，否则flags800设才固定payload FDC低W8 bit4。两阵营原43C640/43C69B一共享低W8表达式承接，不宽化内存加载；准入后LessEqual HP0、cached flags2分支及共享目标重取W32 OR。flags20另遍历相反十槽，无本人/宠物排除和额外FDC门禁，LessEqual先于flags2，共享槽重取后W32 OR。六原LessEqual物理点分别pet/本人/同阵营0侧/10侧/对侧10/0，源四表达式每实际槽原消费保，无新HP读取/省略比较。\n原临时rows矩阵20项S32：14,12,10,11,13；19,17,15,16,18；9,7,5,6,8；4,2,0,1,3。原20个栈写中值8来自EBP（43C5BF/43C5D4），值0来自43C73F EDX清零，余18个W32立即数；源现只读常量rows不向外传地址，正常语义/字段宽度正确体保，不承诺生成机器栈布局，不虚造数据switch/R7项。flags400清直接返回1而不读取玩家位；400设才gBattlePlayerFlags5ABCAC实际低W8 bit80测试，清且position==当前位置也返回1，否则扫描矩阵4×5，row/column初始都为position，匹配覆盖且继续全部20项，保持原不匹配初值、不新增拒绝/保护。\nrow0取rows1[column]前排索引，五列每轮重新从共享表取ownFront，非空时actual低W8 flags bit8；通过才取rows2[c]敌前排同低W8，非空/bit8通过才rows3[c]敌后排非空后W32 flags&~8。row3对称自身rows2[column]、敌前rows1[c]、敌后rows0[c]。四源前排读取对应43C849/43C85D/43C8A8/43C8BC，清除43C870/43C8CF是AND [EAX+24],EDI W32，不能一起窄化写。每列独立重取自身前排保别名影响，不把ownFront提前到循环外；row1/2不清后排，其余所有路径返回1。原有三ret，其中bit1拒绝0和row0/其它正常1出口，源两个return1表达式保实际结果；当前八UI消费/弃返接线只局部对应，不证明完整生产/生命周期/画面运行。",
+      "actual": "单完整命令选择原根266条901B/四页、7call/2callee、63普通内部jump/三ret，六UI父八入向、八实际五指令邻窗40条141B；局部父接线不代全部目标参数生产/完整父验收。四源片段恢复六低W8读取表达式对七原点（同阵营FDC一表达式承接两个物理路径）；正常旧值一致。flags参数/目标全局W32、四个源选中OR与两个清除AND的W32写、原HP先比较再bit2/调用后共享目标重取、两阵营各十槽与排除本人/宠物、20项S32矩阵、400玩家位短路/最后匹配覆盖、两前排每列fresh目标及原0/1返回保持。原矩阵由20个栈写初始化，不是物理跳转表，不新R7。完整目标其它生产/owner寿命/递归UI父、SDK/生成机器ABI/画面运行未验；音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "id": "E-BATTLE-COMMAND-TARGET-WIDTH-SAMPLING-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQI01单完整266条901B/四页、7call/63jump/三ret、八父40条141B、20项栈矩阵及四取样片段；doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-command-target-width-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-decision",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-acceptance",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_evidence.json",
+        "src/YobiRuntime.cpp#CheckBattleCommand_43C560",
+        "src/ui/WindowRuntime.cpp#Sub_4972B0",
+        "src/ui/WindowRuntime.cpp#Sub_4974C0",
+        "src/ui/WindowRuntime.cpp#Sub_497E30",
+        "src/ui/WindowRuntime.cpp#Sub_497FF0",
+        "src/ui/WindowRuntime.cpp#Sub_498520",
+        "src/ui/WindowRuntime.cpp#Sub_499C30",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyCryptInt.cpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "同阵营FDC一共享低W8对两原点，400下玩家位与两前排四标记读取低W8，共四片段/六表达式对七原点；正常旧值一致。原参数/目标全局/选中OR及清除AND保持W32，六HP比较消费/共享重取、十槽排除与对侧选择、20项矩阵/400短路、每列fresh别名和原返回保持",
+          "decision_ref": "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "CheckBattleCommand_43C560：position S32/flags W32，先发布gBattleTargetFlags5ABC44，再GetPet(position)，其返回缓存pet；flags bit1清才返回0，不能先拒绝而跳过发布/GetPet。bit4宠物槽、bit8本人槽分别共享T*非空才LessEqual(HP,0)，先实际比较/RNG消费，再取cached flags bit2决定HP<=0是否也选；通过后重新从共享槽取目标，W32 flags|8，原pet两物理OR路径由源一表达式承接。flags810设才同阵营十槽，position<10起0否则10，每槽先排除position/pet，再共享T*非空；cached flags10直接准入，否则flags800设才固定payload FDC低W8 bit4。两阵营原43C640/43C69B一共享低W8表达式承接，不宽化内存加载；准入后LessEqual HP0、cached flags2分支及共享目标重取W32 OR。flags20另遍历相反十槽，无本人/宠物排除和额外FDC门禁，LessEqual先于flags2，共享槽重取后W32 OR。六原LessEqual物理点分别pet/本人/同阵营0侧/10侧/对侧10/0，源四表达式每实际槽原消费保，无新HP读取/省略比较。\n原临时rows矩阵20项S32：14,12,10,11,13；19,17,15,16,18；9,7,5,6,8；4,2,0,1,3。原20个栈写中值8来自EBP（43C5BF/43C5D4），值0来自43C73F EDX清零，余18个W32立即数；源现只读常量rows不向外传地址，正常语义/字段宽度正确体保，不承诺生成机器栈布局，不虚造数据switch/R7项。flags400清直接返回1而不读取玩家位；400设才gBattlePlayerFlags5ABCAC实际低W8 bit80测试，清且position==当前位置也返回1，否则扫描矩阵4×5，row/column初始都为position，匹配覆盖且继续全部20项，保持原不匹配初值、不新增拒绝/保护。\nrow0取rows1[column]前排索引，五列每轮重新从共享表取ownFront，非空时actual低W8 flags bit8；通过才取rows2[c]敌前排同低W8，非空/bit8通过才rows3[c]敌后排非空后W32 flags&~8。row3对称自身rows2[column]、敌前rows1[c]、敌后rows0[c]。四源前排读取对应43C849/43C85D/43C8A8/43C8BC，清除43C870/43C8CF是AND [EAX+24],EDI W32，不能一起窄化写。每列独立重取自身前排保别名影响，不把ownFront提前到循环外；row1/2不清后排，其余所有路径返回1。原有三ret，其中bit1拒绝0和row0/其它正常1出口，源两个return1表达式保实际结果；当前八UI消费/弃返接线只局部对应，不证明完整生产/生命周期/画面运行。",
+      "expected": "CheckBattleCommand_43C560：position S32/flags W32，先发布gBattleTargetFlags5ABC44，再GetPet(position)，其返回缓存pet；flags bit1清才返回0，不能先拒绝而跳过发布/GetPet。bit4宠物槽、bit8本人槽分别共享T*非空才LessEqual(HP,0)，先实际比较/RNG消费，再取cached flags bit2决定HP<=0是否也选；通过后重新从共享槽取目标，W32 flags|8，原pet两物理OR路径由源一表达式承接。flags810设才同阵营十槽，position<10起0否则10，每槽先排除position/pet，再共享T*非空；cached flags10直接准入，否则flags800设才固定payload FDC低W8 bit4。两阵营原43C640/43C69B一共享低W8表达式承接，不宽化内存加载；准入后LessEqual HP0、cached flags2分支及共享目标重取W32 OR。flags20另遍历相反十槽，无本人/宠物排除和额外FDC门禁，LessEqual先于flags2，共享槽重取后W32 OR。六原LessEqual物理点分别pet/本人/同阵营0侧/10侧/对侧10/0，源四表达式每实际槽原消费保，无新HP读取/省略比较。\n原临时rows矩阵20项S32：14,12,10,11,13；19,17,15,16,18；9,7,5,6,8；4,2,0,1,3。原20个栈写中值8来自EBP（43C5BF/43C5D4），值0来自43C73F EDX清零，余18个W32立即数；源现只读常量rows不向外传地址，正常语义/字段宽度正确体保，不承诺生成机器栈布局，不虚造数据switch/R7项。flags400清直接返回1而不读取玩家位；400设才gBattlePlayerFlags5ABCAC实际低W8 bit80测试，清且position==当前位置也返回1，否则扫描矩阵4×5，row/column初始都为position，匹配覆盖且继续全部20项，保持原不匹配初值、不新增拒绝/保护。\nrow0取rows1[column]前排索引，五列每轮重新从共享表取ownFront，非空时actual低W8 flags bit8；通过才取rows2[c]敌前排同低W8，非空/bit8通过才rows3[c]敌后排非空后W32 flags&~8。row3对称自身rows2[column]、敌前rows1[c]、敌后rows0[c]。四源前排读取对应43C849/43C85D/43C8A8/43C8BC，清除43C870/43C8CF是AND [EAX+24],EDI W32，不能一起窄化写。每列独立重取自身前排保别名影响，不把ownFront提前到循环外；row1/2不清后排，其余所有路径返回1。原有三ret，其中bit1拒绝0和row0/其它正常1出口，源两个return1表达式保实际结果；当前八UI消费/弃返接线只局部对应，不证明完整生产/生命周期/画面运行。",
+      "actual": "单完整命令选择原根266条901B/四页、7call/2callee、63普通内部jump/三ret，六UI父八入向、八实际五指令邻窗40条141B；局部父接线不代全部目标参数生产/完整父验收。四源片段恢复六低W8读取表达式对七原点（同阵营FDC一表达式承接两个物理路径）；正常旧值一致。flags参数/目标全局W32、四个源选中OR与两个清除AND的W32写、原HP先比较再bit2/调用后共享目标重取、两阵营各十槽与排除本人/宠物、20项S32矩阵、400玩家位短路/最后匹配覆盖、两前排每列fresh目标及原0/1返回保持。原矩阵由20个栈写初始化，不是物理跳转表，不新R7。完整目标其它生产/owner寿命/递归UI父、SDK/生成机器ABI/画面运行未验；音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
     }
   ],
   "task_acceptance": [
@@ -33656,7 +33739,8 @@
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
         "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
-        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state"
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state"
       ]
     },
     {
@@ -33913,7 +33997,8 @@
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
         "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
-        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state"
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state"
       ]
     },
     {
@@ -34064,7 +34149,8 @@
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
         "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
-        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state"
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state"
       ]
     },
     {
@@ -34547,7 +34633,8 @@
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
         "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
         "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
-        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state"
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state"
       ]
     },
     {
@@ -41506,6 +41593,19 @@
         "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
       ],
       "boundary": "43CA80：原颜色寄存器初值0，W16 gValue5F974C为0返回；非零遍历前20槽，仅非空槽继续。每个非空槽fresh W32当前position<20才按index==position短路或GetPet(position)更新color为4/0；position>=20保留前一非空槽color，不能每轮无条件重置或钳制position。GetPet调用后重新共享槽取actor，name C4地址先、actor.y-24后，TextMeasure(name,1)后再次共享槽取actor.x，宽度按原正常S32向零除2，X=x-width/2。DrawText2(x,y,0,1,color,name,0)原七参/源公开S16 X/Y、S8颜色边界保持，不去掉现有原W16存储边界也不补溢出模拟。原DrawText前Y/name从同缓存actor，测量后X从新共享槽，原正确体保持。43CBB0三个实际call43CFD1/43D03C/43D100分别对应源三个Sub43CA80调用；只新邻窗接线，不声称父完整运行/寿命闭合。 六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "inventory_id": "F:0003C560",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-decision",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-acceptance",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_evidence.json"
+      ],
+      "boundary": "CheckBattleCommand_43C560：position S32/flags W32，先发布gBattleTargetFlags5ABC44，再GetPet(position)，其返回缓存pet；flags bit1清才返回0，不能先拒绝而跳过发布/GetPet。bit4宠物槽、bit8本人槽分别共享T*非空才LessEqual(HP,0)，先实际比较/RNG消费，再取cached flags bit2决定HP<=0是否也选；通过后重新从共享槽取目标，W32 flags|8，原pet两物理OR路径由源一表达式承接。flags810设才同阵营十槽，position<10起0否则10，每槽先排除position/pet，再共享T*非空；cached flags10直接准入，否则flags800设才固定payload FDC低W8 bit4。两阵营原43C640/43C69B一共享低W8表达式承接，不宽化内存加载；准入后LessEqual HP0、cached flags2分支及共享目标重取W32 OR。flags20另遍历相反十槽，无本人/宠物排除和额外FDC门禁，LessEqual先于flags2，共享槽重取后W32 OR。六原LessEqual物理点分别pet/本人/同阵营0侧/10侧/对侧10/0，源四表达式每实际槽原消费保，无新HP读取/省略比较。\n原临时rows矩阵20项S32：14,12,10,11,13；19,17,15,16,18；9,7,5,6,8；4,2,0,1,3。原20个栈写中值8来自EBP（43C5BF/43C5D4），值0来自43C73F EDX清零，余18个W32立即数；源现只读常量rows不向外传地址，正常语义/字段宽度正确体保，不承诺生成机器栈布局，不虚造数据switch/R7项。flags400清直接返回1而不读取玩家位；400设才gBattlePlayerFlags5ABCAC实际低W8 bit80测试，清且position==当前位置也返回1，否则扫描矩阵4×5，row/column初始都为position，匹配覆盖且继续全部20项，保持原不匹配初值、不新增拒绝/保护。\nrow0取rows1[column]前排索引，五列每轮重新从共享表取ownFront，非空时actual低W8 flags bit8；通过才取rows2[c]敌前排同低W8，非空/bit8通过才rows3[c]敌后排非空后W32 flags&~8。row3对称自身rows2[column]、敌前rows1[c]、敌后rows0[c]。四源前排读取对应43C849/43C85D/43C8A8/43C8BC，清除43C870/43C8CF是AND [EAX+24],EDI W32，不能一起窄化写。每列独立重取自身前排保别名影响，不把ownFront提前到循环外；row1/2不清后排，其余所有路径返回1。原有三ret，其中bit1拒绝0和row0/其它正常1出口，源两个return1表达式保实际结果；当前八UI消费/弃返接线只局部对应，不证明完整生产/生命周期/画面运行。 单完整命令选择原根266条901B/四页、7call/2callee、63普通内部jump/三ret，六UI父八入向、八实际五指令邻窗40条141B；局部父接线不代全部目标参数生产/完整父验收。四源片段恢复六低W8读取表达式对七原点（同阵营FDC一表达式承接两个物理路径）；正常旧值一致。flags参数/目标全局W32、四个源选中OR与两个清除AND的W32写、原HP先比较再bit2/调用后共享目标重取、两阵营各十槽与排除本人/宠物、20项S32矩阵、400玩家位短路/最后匹配覆盖、两前排每列fresh目标及原0/1返回保持。原矩阵由20个栈写初始化，不是物理跳转表，不新R7。完整目标其它生产/owner寿命/递归UI父、SDK/生成机器ABI/画面运行未验；音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
     }
   ],
   "auxiliary_dispositions": [

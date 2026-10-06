@@ -3130,3 +3130,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline)/[六根冻结前态](cg2d_battle_participant_turn_name_sampling_evidence.json)。新增1503..1508对应40CAC0/40CAF0/43C910/43C9A0/43CA50/43CA80，六原已有完整定义正常语义/equivalent，六冻结定位保。只三个源体五片段：四实际低W8表达式/四原点和两阵营共享投影四S32先后/F32发布。原前20槽、前后玩家位/目标取样、返回消费、名字Y前X后/颜色继承与两推进正确体及公开边界保，不新R7。
 
 语义1509/有效1504、关联1622/3680（44.08%）、BATTLE186枚举open、分类634/E768；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。
+
+## BQI01 单完整战斗命令目标正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline)/[原根冻结前态](cg2d_battle_command_target_width_sampling_evidence.json)。新增1509对应43C560，单原已有完整定义正常语义/equivalent，冻结定位全文保。只四低W8读取片段/六表达式对七原点；参数/目标全局/选中与清除W32写、六HP比较物理点/四源表达式、二十矩阵项/400短路与每列fresh别名/返回保持，不新R7。
+
+语义1510/有效1505、关联1623/3680（44.10%）、BATTLE187枚举open、分类635/E770；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。

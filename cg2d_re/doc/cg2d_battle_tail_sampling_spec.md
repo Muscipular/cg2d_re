@@ -163,3 +163,9 @@
 [完整合同](cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state)/[六完整171条467B](cg2d_battle_participant_turn_name_sampling_evidence.json)纳管40CAC0/40CAF0/43C910/43C9A0/43CA50/43CA80；三个源体五片段：两FDC低W8、两独立玩家旗位低W8、两阵营共享投影四S32读序/F32 Y后X发布。正常旧值一致。
 
 20槽span直接借22槽数组前20，先10..19后重读旗位再0..9，角度发布/运动/播放均按原重新取共享对象。名字测量前Y/后X、position>=20颜色继承、正常向零半宽与既有公开S16/S8边界、两推进正确体保持。八父八窗24条107B及局部返回比较可追，父switch仅邻近记录、不新R7/父完整验收；BATTLE186枚举open/E768两局部I/S，完整生产/owner寿命/生成机器/实际x87/运行及R8未完成。
+
+## BQI01 命令目标读取宽度（2026-10-07）
+
+[完整合同](cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state)/[完整266条901B](cg2d_battle_command_target_width_sampling_evidence.json)纳管43C560；四片段/六低W8表达式对应七原点，正常旧值一致。同阵营FDC低W8共用两个阵营原路径、400下玩家位低W8与两前排四个低W8条件恢复；原flags参数/目标全局W32、四源选中OR/两清除AND的W32写保持。
+
+六HP比较物理点/四源表达式、调用后共享目标重取、十槽同侧排除/对侧选择、20项原栈矩阵/400短路/最后匹配/每列fresh别名与0/1返回保持。六UI父八入向/八窗40条141B可追，不新R7；BATTLE187枚举open/E770两局部I/S，全部目标生产/owner寿命/递归父/生成机器/运行及R8未完成。

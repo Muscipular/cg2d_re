@@ -1,0 +1,3389 @@
+{
+  "spec_id": "BQI01",
+  "recorded_on": "2026-10-07",
+  "source_functions": [
+    {
+      "index": 1509,
+      "id": "F:0003C560",
+      "entry": "0x0043C560",
+      "end_exclusive": "0x0043C8E5",
+      "symbol": "CheckBattleCommand_43C560",
+      "contract": "CheckBattleCommand_43C560：position S32/flags W32，先发布gBattleTargetFlags5ABC44，再GetPet(position)，其返回缓存pet；flags bit1清才返回0，不能先拒绝而跳过发布/GetPet。bit4宠物槽、bit8本人槽分别共享T*非空才LessEqual(HP,0)，先实际比较/RNG消费，再取cached flags bit2决定HP<=0是否也选；通过后重新从共享槽取目标，W32 flags|8，原pet两物理OR路径由源一表达式承接。flags810设才同阵营十槽，position<10起0否则10，每槽先排除position/pet，再共享T*非空；cached flags10直接准入，否则flags800设才固定payload FDC低W8 bit4。两阵营原43C640/43C69B一共享低W8表达式承接，不宽化内存加载；准入后LessEqual HP0、cached flags2分支及共享目标重取W32 OR。flags20另遍历相反十槽，无本人/宠物排除和额外FDC门禁，LessEqual先于flags2，共享槽重取后W32 OR。六原LessEqual物理点分别pet/本人/同阵营0侧/10侧/对侧10/0，源四表达式每实际槽原消费保，无新HP读取/省略比较。\n原临时rows矩阵20项S32：14,12,10,11,13；19,17,15,16,18；9,7,5,6,8；4,2,0,1,3。原20个栈写中值8来自EBP（43C5BF/43C5D4），值0来自43C73F EDX清零，余18个W32立即数；源现只读常量rows不向外传地址，正常语义/字段宽度正确体保，不承诺生成机器栈布局，不虚造数据switch/R7项。flags400清直接返回1而不读取玩家位；400设才gBattlePlayerFlags5ABCAC实际低W8 bit80测试，清且position==当前位置也返回1，否则扫描矩阵4×5，row/column初始都为position，匹配覆盖且继续全部20项，保持原不匹配初值、不新增拒绝/保护。\nrow0取rows1[column]前排索引，五列每轮重新从共享表取ownFront，非空时actual低W8 flags bit8；通过才取rows2[c]敌前排同低W8，非空/bit8通过才rows3[c]敌后排非空后W32 flags&~8。row3对称自身rows2[column]、敌前rows1[c]、敌后rows0[c]。四源前排读取对应43C849/43C85D/43C8A8/43C8BC，清除43C870/43C8CF是AND [EAX+24],EDI W32，不能一起窄化写。每列独立重取自身前排保别名影响，不把ownFront提前到循环外；row1/2不清后排，其余所有路径返回1。原有三ret，其中bit1拒绝0和row0/其它正常1出口，源两个return1表达式保实际结果；当前八UI消费/弃返接线只局部对应，不证明完整生产/生命周期/画面运行。",
+      "body_changed": true,
+      "source_patch_count": 4,
+      "inbound_count": 8
+    }
+  ],
+  "original_functions": [
+    {
+      "start": "0x43c560",
+      "end_exclusive": "0x43c8e5",
+      "parent_entry": "0x43c560",
+      "instruction_count": 266,
+      "code_bytes": 901,
+      "page_count": 4,
+      "outgoing_calls": [
+        {
+          "ea": "0x43c575",
+          "target": "0x405b40"
+        },
+        {
+          "ea": "0x43c5aa",
+          "target": "0x401da0"
+        },
+        {
+          "ea": "0x43c5f1",
+          "target": "0x401da0"
+        },
+        {
+          "ea": "0x43c651",
+          "target": "0x401da0"
+        },
+        {
+          "ea": "0x43c6ac",
+          "target": "0x401da0"
+        },
+        {
+          "ea": "0x43c6ec",
+          "target": "0x401da0"
+        },
+        {
+          "ea": "0x43c71f",
+          "target": "0x401da0"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x43c586",
+          "target": "0x43c591"
+        },
+        {
+          "ea": "0x43c595",
+          "target": "0x43c5d4"
+        },
+        {
+          "ea": "0x43c5a0",
+          "target": "0x43c5d4"
+        },
+        {
+          "ea": "0x43c5b1",
+          "target": "0x43c5c9"
+        },
+        {
+          "ea": "0x43c5b6",
+          "target": "0x43c5d4"
+        },
+        {
+          "ea": "0x43c5c7",
+          "target": "0x43c5d9"
+        },
+        {
+          "ea": "0x43c5dc",
+          "target": "0x43c609"
+        },
+        {
+          "ea": "0x43c5e7",
+          "target": "0x43c609"
+        },
+        {
+          "ea": "0x43c5f8",
+          "target": "0x43c5ff"
+        },
+        {
+          "ea": "0x43c5fd",
+          "target": "0x43c609"
+        },
+        {
+          "ea": "0x43c60f",
+          "target": "0x43c6cf"
+        },
+        {
+          "ea": "0x43c618",
+          "target": "0x43c672"
+        },
+        {
+          "ea": "0x43c625",
+          "target": "0x43c664"
+        },
+        {
+          "ea": "0x43c62b",
+          "target": "0x43c664"
+        },
+        {
+          "ea": "0x43c631",
+          "target": "0x43c664"
+        },
+        {
+          "ea": "0x43c636",
+          "target": "0x43c649"
+        },
+        {
+          "ea": "0x43c63b",
+          "target": "0x43c664"
+        },
+        {
+          "ea": "0x43c647",
+          "target": "0x43c664"
+        },
+        {
+          "ea": "0x43c658",
+          "target": "0x43c65f"
+        },
+        {
+          "ea": "0x43c65d",
+          "target": "0x43c664"
+        },
+        {
+          "ea": "0x43c66e",
+          "target": "0x43c621"
+        },
+        {
+          "ea": "0x43c670",
+          "target": "0x43c6cb"
+        },
+        {
+          "ea": "0x43c680",
+          "target": "0x43c6bf"
+        },
+        {
+          "ea": "0x43c686",
+          "target": "0x43c6bf"
+        },
+        {
+          "ea": "0x43c68c",
+          "target": "0x43c6bf"
+        },
+        {
+          "ea": "0x43c691",
+          "target": "0x43c6a4"
+        },
+        {
+          "ea": "0x43c696",
+          "target": "0x43c6bf"
+        },
+        {
+          "ea": "0x43c6a2",
+          "target": "0x43c6bf"
+        },
+        {
+          "ea": "0x43c6b3",
+          "target": "0x43c6ba"
+        },
+        {
+          "ea": "0x43c6b8",
+          "target": "0x43c6bf"
+        },
+        {
+          "ea": "0x43c6c9",
+          "target": "0x43c67c"
+        },
+        {
+          "ea": "0x43c6d2",
+          "target": "0x43c73d"
+        },
+        {
+          "ea": "0x43c6d7",
+          "target": "0x43c70c"
+        },
+        {
+          "ea": "0x43c6e2",
+          "target": "0x43c6ff"
+        },
+        {
+          "ea": "0x43c6f3",
+          "target": "0x43c6fa"
+        },
+        {
+          "ea": "0x43c6f8",
+          "target": "0x43c6ff"
+        },
+        {
+          "ea": "0x43c708",
+          "target": "0x43c6de"
+        },
+        {
+          "ea": "0x43c70a",
+          "target": "0x43c73d"
+        },
+        {
+          "ea": "0x43c715",
+          "target": "0x43c732"
+        },
+        {
+          "ea": "0x43c726",
+          "target": "0x43c72d"
+        },
+        {
+          "ea": "0x43c72b",
+          "target": "0x43c732"
+        },
+        {
+          "ea": "0x43c73b",
+          "target": "0x43c711"
+        },
+        {
+          "ea": "0x43c7de",
+          "target": "0x43c7e9"
+        },
+        {
+          "ea": "0x43c7e7",
+          "target": "0x43c7fd"
+        },
+        {
+          "ea": "0x43c7eb",
+          "target": "0x43c8d8"
+        },
+        {
+          "ea": "0x43c7f7",
+          "target": "0x43c8d8"
+        },
+        {
+          "ea": "0x43c813",
+          "target": "0x43c819"
+        },
+        {
+          "ea": "0x43c820",
+          "target": "0x43c80b"
+        },
+        {
+          "ea": "0x43c826",
+          "target": "0x43c809"
+        },
+        {
+          "ea": "0x43c82a",
+          "target": "0x43c886"
+        },
+        {
+          "ea": "0x43c847",
+          "target": "0x43c873"
+        },
+        {
+          "ea": "0x43c84d",
+          "target": "0x43c873"
+        },
+        {
+          "ea": "0x43c85b",
+          "target": "0x43c873"
+        },
+        {
+          "ea": "0x43c861",
+          "target": "0x43c873"
+        },
+        {
+          "ea": "0x43c86e",
+          "target": "0x43c873"
+        },
+        {
+          "ea": "0x43c877",
+          "target": "0x43c83e"
+        },
+        {
+          "ea": "0x43c889",
+          "target": "0x43c8d8"
+        },
+        {
+          "ea": "0x43c8a6",
+          "target": "0x43c8d2"
+        },
+        {
+          "ea": "0x43c8ac",
+          "target": "0x43c8d2"
+        },
+        {
+          "ea": "0x43c8ba",
+          "target": "0x43c8d2"
+        },
+        {
+          "ea": "0x43c8c0",
+          "target": "0x43c8d2"
+        },
+        {
+          "ea": "0x43c8cd",
+          "target": "0x43c8d2"
+        },
+        {
+          "ea": "0x43c8d6",
+          "target": "0x43c89d"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x43c560",
+          "end_exclusive": "0x43c8e5",
+          "instructions": [
+            {
+              "ea": "0x43c560",
+              "size": 3,
+              "bytes": "83ec50",
+              "text": "sub     esp, 50h"
+            },
+            {
+              "ea": "0x43c563",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x43c564",
+              "size": 4,
+              "bytes": "8b5c245c",
+              "text": "mov     ebx, [esp+54h+flag]"
+            },
+            {
+              "ea": "0x43c568",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x43c569",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x43c56a",
+              "size": 4,
+              "bytes": "8b7c2460",
+              "text": "mov     edi, [esp+5Ch+pos]"
+            },
+            {
+              "ea": "0x43c56e",
+              "size": 6,
+              "bytes": "891d44bc5a00",
+              "text": "mov     dword_5ABC44, ebx"
+            },
+            {
+              "ea": "0x43c574",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x43c575",
+              "size": 5,
+              "bytes": "e8c695fcff",
+              "text": "call    GetPetPosition"
+            },
+            {
+              "ea": "0x43c57a",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x43c57d",
+              "size": 2,
+              "bytes": "8bf0",
+              "text": "mov     esi, eax"
+            },
+            {
+              "ea": "0x43c57f",
+              "size": 3,
+              "bytes": "f6c301",
+              "text": "test    bl, 1"
+            },
+            {
+              "ea": "0x43c582",
+              "size": 4,
+              "bytes": "89742464",
+              "text": "mov     [esp+5Ch+flag], esi"
+            },
+            {
+              "ea": "0x43c586",
+              "size": 2,
+              "bytes": "7509",
+              "text": "jnz     short loc_43C591"
+            },
+            {
+              "ea": "0x43c588",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x43c589",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x43c58a",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x43c58c",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x43c58d",
+              "size": 3,
+              "bytes": "83c450",
+              "text": "add     esp, 50h"
+            },
+            {
+              "ea": "0x43c590",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x43c591",
+              "size": 3,
+              "bytes": "f6c304",
+              "text": "test    bl, 4"
+            },
+            {
+              "ea": "0x43c594",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x43c595",
+              "size": 2,
+              "bytes": "743d",
+              "text": "jz      short loc_43C5D4"
+            },
+            {
+              "ea": "0x43c597",
+              "size": 7,
+              "bytes": "8b04b580e95900",
+              "text": "mov     eax, gBattleEntry[esi*4]"
+            },
+            {
+              "ea": "0x43c59e",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c5a0",
+              "size": 2,
+              "bytes": "7432",
+              "text": "jz      short loc_43C5D4"
+            },
+            {
+              "ea": "0x43c5a2",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x43c5a4",
+              "size": 6,
+              "bytes": "8d8870010000",
+              "text": "lea     ecx, [eax+170h]"
+            },
+            {
+              "ea": "0x43c5aa",
+              "size": 5,
+              "bytes": "e8f157fcff",
+              "text": "call    CryptInt__Lte"
+            },
+            {
+              "ea": "0x43c5af",
+              "size": 2,
+              "bytes": "84c0",
+              "text": "test    al, al"
+            },
+            {
+              "ea": "0x43c5b1",
+              "size": 2,
+              "bytes": "7416",
+              "text": "jz      short loc_43C5C9"
+            },
+            {
+              "ea": "0x43c5b3",
+              "size": 3,
+              "bytes": "f6c302",
+              "text": "test    bl, 2"
+            },
+            {
+              "ea": "0x43c5b6",
+              "size": 2,
+              "bytes": "741c",
+              "text": "jz      short loc_43C5D4"
+            },
+            {
+              "ea": "0x43c5b8",
+              "size": 7,
+              "bytes": "8b04b580e95900",
+              "text": "mov     eax, gBattleEntry[esi*4]"
+            },
+            {
+              "ea": "0x43c5bf",
+              "size": 5,
+              "bytes": "bd08000000",
+              "text": "mov     ebp, 8"
+            },
+            {
+              "ea": "0x43c5c4",
+              "size": 3,
+              "bytes": "096824",
+              "text": "or      [eax+24h], ebp"
+            },
+            {
+              "ea": "0x43c5c7",
+              "size": 2,
+              "bytes": "eb10",
+              "text": "jmp     short loc_43C5D9"
+            },
+            {
+              "ea": "0x43c5c9",
+              "size": 7,
+              "bytes": "8b04b580e95900",
+              "text": "mov     eax, gBattleEntry[esi*4]"
+            },
+            {
+              "ea": "0x43c5d0",
+              "size": 4,
+              "bytes": "83482408",
+              "text": "or      dword ptr [eax+24h], 8"
+            },
+            {
+              "ea": "0x43c5d4",
+              "size": 5,
+              "bytes": "bd08000000",
+              "text": "mov     ebp, 8"
+            },
+            {
+              "ea": "0x43c5d9",
+              "size": 3,
+              "bytes": "f6c308",
+              "text": "test    bl, 8"
+            },
+            {
+              "ea": "0x43c5dc",
+              "size": 2,
+              "bytes": "742b",
+              "text": "jz      short loc_43C609"
+            },
+            {
+              "ea": "0x43c5de",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x43c5e5",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c5e7",
+              "size": 2,
+              "bytes": "7420",
+              "text": "jz      short loc_43C609"
+            },
+            {
+              "ea": "0x43c5e9",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x43c5eb",
+              "size": 6,
+              "bytes": "8d8870010000",
+              "text": "lea     ecx, [eax+170h]"
+            },
+            {
+              "ea": "0x43c5f1",
+              "size": 5,
+              "bytes": "e8aa57fcff",
+              "text": "call    CryptInt__Lte"
+            },
+            {
+              "ea": "0x43c5f6",
+              "size": 2,
+              "bytes": "84c0",
+              "text": "test    al, al"
+            },
+            {
+              "ea": "0x43c5f8",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_43C5FF"
+            },
+            {
+              "ea": "0x43c5fa",
+              "size": 3,
+              "bytes": "f6c302",
+              "text": "test    bl, 2"
+            },
+            {
+              "ea": "0x43c5fd",
+              "size": 2,
+              "bytes": "740a",
+              "text": "jz      short loc_43C609"
+            },
+            {
+              "ea": "0x43c5ff",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x43c606",
+              "size": 3,
+              "bytes": "096824",
+              "text": "or      [eax+24h], ebp"
+            },
+            {
+              "ea": "0x43c609",
+              "size": 6,
+              "bytes": "f7c310080000",
+              "text": "test    ebx, 810h"
+            },
+            {
+              "ea": "0x43c60f",
+              "size": 6,
+              "bytes": "0f84ba000000",
+              "text": "jz      loc_43C6CF"
+            },
+            {
+              "ea": "0x43c615",
+              "size": 3,
+              "bytes": "83ff0a",
+              "text": "cmp     edi, 0Ah"
+            },
+            {
+              "ea": "0x43c618",
+              "size": 2,
+              "bytes": "7d58",
+              "text": "jge     short loc_43C672"
+            },
+            {
+              "ea": "0x43c61a",
+              "size": 2,
+              "bytes": "33ff",
+              "text": "xor     edi, edi"
+            },
+            {
+              "ea": "0x43c61c",
+              "size": 5,
+              "bytes": "be80e95900",
+              "text": "mov     esi, offset gBattleEntry"
+            },
+            {
+              "ea": "0x43c621",
+              "size": 4,
+              "bytes": "3b7c2464",
+              "text": "cmp     edi, [esp+60h+pos]"
+            },
+            {
+              "ea": "0x43c625",
+              "size": 2,
+              "bytes": "743d",
+              "text": "jz      short loc_43C664"
+            },
+            {
+              "ea": "0x43c627",
+              "size": 4,
+              "bytes": "3b7c2468",
+              "text": "cmp     edi, [esp+60h+flag]"
+            },
+            {
+              "ea": "0x43c62b",
+              "size": 2,
+              "bytes": "7437",
+              "text": "jz      short loc_43C664"
+            },
+            {
+              "ea": "0x43c62d",
+              "size": 2,
+              "bytes": "8b06",
+              "text": "mov     eax, [esi]"
+            },
+            {
+              "ea": "0x43c62f",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c631",
+              "size": 2,
+              "bytes": "7431",
+              "text": "jz      short loc_43C664"
+            },
+            {
+              "ea": "0x43c633",
+              "size": 3,
+              "bytes": "f6c310",
+              "text": "test    bl, 10h"
+            },
+            {
+              "ea": "0x43c636",
+              "size": 2,
+              "bytes": "7511",
+              "text": "jnz     short loc_43C649"
+            },
+            {
+              "ea": "0x43c638",
+              "size": 3,
+              "bytes": "f6c708",
+              "text": "test    bh, 8"
+            },
+            {
+              "ea": "0x43c63b",
+              "size": 2,
+              "bytes": "7427",
+              "text": "jz      short loc_43C664"
+            },
+            {
+              "ea": "0x43c63d",
+              "size": 3,
+              "bytes": "8b480c",
+              "text": "mov     ecx, [eax+0Ch]"
+            },
+            {
+              "ea": "0x43c640",
+              "size": 7,
+              "bytes": "f681dc0f000004",
+              "text": "test    byte ptr [ecx+0FDCh], 4"
+            },
+            {
+              "ea": "0x43c647",
+              "size": 2,
+              "bytes": "741b",
+              "text": "jz      short loc_43C664"
+            },
+            {
+              "ea": "0x43c649",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x43c64b",
+              "size": 6,
+              "bytes": "8d8870010000",
+              "text": "lea     ecx, [eax+170h]"
+            },
+            {
+              "ea": "0x43c651",
+              "size": 5,
+              "bytes": "e84a57fcff",
+              "text": "call    CryptInt__Lte"
+            },
+            {
+              "ea": "0x43c656",
+              "size": 2,
+              "bytes": "84c0",
+              "text": "test    al, al"
+            },
+            {
+              "ea": "0x43c658",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_43C65F"
+            },
+            {
+              "ea": "0x43c65a",
+              "size": 3,
+              "bytes": "f6c302",
+              "text": "test    bl, 2"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x43c560",
+          "end_exclusive": "0x43c8e5",
+          "instructions": [
+            {
+              "ea": "0x43c65d",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_43C664"
+            },
+            {
+              "ea": "0x43c65f",
+              "size": 2,
+              "bytes": "8b06",
+              "text": "mov     eax, [esi]"
+            },
+            {
+              "ea": "0x43c661",
+              "size": 3,
+              "bytes": "096824",
+              "text": "or      [eax+24h], ebp"
+            },
+            {
+              "ea": "0x43c664",
+              "size": 3,
+              "bytes": "83c604",
+              "text": "add     esi, 4"
+            },
+            {
+              "ea": "0x43c667",
+              "size": 1,
+              "bytes": "47",
+              "text": "inc     edi"
+            },
+            {
+              "ea": "0x43c668",
+              "size": 6,
+              "bytes": "81fea8e95900",
+              "text": "cmp     esi, (offset gBattleEntry+28h)"
+            },
+            {
+              "ea": "0x43c66e",
+              "size": 2,
+              "bytes": "7cb1",
+              "text": "jl      short loc_43C621"
+            },
+            {
+              "ea": "0x43c670",
+              "size": 2,
+              "bytes": "eb59",
+              "text": "jmp     short loc_43C6CB"
+            },
+            {
+              "ea": "0x43c672",
+              "size": 5,
+              "bytes": "bf0a000000",
+              "text": "mov     edi, 0Ah"
+            },
+            {
+              "ea": "0x43c677",
+              "size": 5,
+              "bytes": "bea8e95900",
+              "text": "mov     esi, (offset gBattleEntry+28h)"
+            },
+            {
+              "ea": "0x43c67c",
+              "size": 4,
+              "bytes": "3b7c2464",
+              "text": "cmp     edi, [esp+60h+pos]"
+            },
+            {
+              "ea": "0x43c680",
+              "size": 2,
+              "bytes": "743d",
+              "text": "jz      short loc_43C6BF"
+            },
+            {
+              "ea": "0x43c682",
+              "size": 4,
+              "bytes": "3b7c2468",
+              "text": "cmp     edi, [esp+60h+flag]"
+            },
+            {
+              "ea": "0x43c686",
+              "size": 2,
+              "bytes": "7437",
+              "text": "jz      short loc_43C6BF"
+            },
+            {
+              "ea": "0x43c688",
+              "size": 2,
+              "bytes": "8b06",
+              "text": "mov     eax, [esi]"
+            },
+            {
+              "ea": "0x43c68a",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c68c",
+              "size": 2,
+              "bytes": "7431",
+              "text": "jz      short loc_43C6BF"
+            },
+            {
+              "ea": "0x43c68e",
+              "size": 3,
+              "bytes": "f6c310",
+              "text": "test    bl, 10h"
+            },
+            {
+              "ea": "0x43c691",
+              "size": 2,
+              "bytes": "7511",
+              "text": "jnz     short loc_43C6A4"
+            },
+            {
+              "ea": "0x43c693",
+              "size": 3,
+              "bytes": "f6c708",
+              "text": "test    bh, 8"
+            },
+            {
+              "ea": "0x43c696",
+              "size": 2,
+              "bytes": "7427",
+              "text": "jz      short loc_43C6BF"
+            },
+            {
+              "ea": "0x43c698",
+              "size": 3,
+              "bytes": "8b500c",
+              "text": "mov     edx, [eax+0Ch]"
+            },
+            {
+              "ea": "0x43c69b",
+              "size": 7,
+              "bytes": "f682dc0f000004",
+              "text": "test    byte ptr [edx+0FDCh], 4"
+            },
+            {
+              "ea": "0x43c6a2",
+              "size": 2,
+              "bytes": "741b",
+              "text": "jz      short loc_43C6BF"
+            },
+            {
+              "ea": "0x43c6a4",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x43c6a6",
+              "size": 6,
+              "bytes": "8d8870010000",
+              "text": "lea     ecx, [eax+170h]"
+            },
+            {
+              "ea": "0x43c6ac",
+              "size": 5,
+              "bytes": "e8ef56fcff",
+              "text": "call    CryptInt__Lte"
+            },
+            {
+              "ea": "0x43c6b1",
+              "size": 2,
+              "bytes": "84c0",
+              "text": "test    al, al"
+            },
+            {
+              "ea": "0x43c6b3",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_43C6BA"
+            },
+            {
+              "ea": "0x43c6b5",
+              "size": 3,
+              "bytes": "f6c302",
+              "text": "test    bl, 2"
+            },
+            {
+              "ea": "0x43c6b8",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_43C6BF"
+            },
+            {
+              "ea": "0x43c6ba",
+              "size": 2,
+              "bytes": "8b06",
+              "text": "mov     eax, [esi]"
+            },
+            {
+              "ea": "0x43c6bc",
+              "size": 3,
+              "bytes": "096824",
+              "text": "or      [eax+24h], ebp"
+            },
+            {
+              "ea": "0x43c6bf",
+              "size": 3,
+              "bytes": "83c604",
+              "text": "add     esi, 4"
+            },
+            {
+              "ea": "0x43c6c2",
+              "size": 1,
+              "bytes": "47",
+              "text": "inc     edi"
+            },
+            {
+              "ea": "0x43c6c3",
+              "size": 6,
+              "bytes": "81fed0e95900",
+              "text": "cmp     esi, offset dword_59E9D0"
+            },
+            {
+              "ea": "0x43c6c9",
+              "size": 2,
+              "bytes": "7cb1",
+              "text": "jl      short loc_43C67C"
+            },
+            {
+              "ea": "0x43c6cb",
+              "size": 4,
+              "bytes": "8b7c2464",
+              "text": "mov     edi, [esp+60h+pos]"
+            },
+            {
+              "ea": "0x43c6cf",
+              "size": 3,
+              "bytes": "f6c320",
+              "text": "test    bl, 20h"
+            },
+            {
+              "ea": "0x43c6d2",
+              "size": 2,
+              "bytes": "7469",
+              "text": "jz      short loc_43C73D"
+            },
+            {
+              "ea": "0x43c6d4",
+              "size": 3,
+              "bytes": "83ff0a",
+              "text": "cmp     edi, 0Ah"
+            },
+            {
+              "ea": "0x43c6d7",
+              "size": 2,
+              "bytes": "7d33",
+              "text": "jge     short loc_43C70C"
+            },
+            {
+              "ea": "0x43c6d9",
+              "size": 5,
+              "bytes": "bea8e95900",
+              "text": "mov     esi, (offset gBattleEntry+28h)"
+            },
+            {
+              "ea": "0x43c6de",
+              "size": 2,
+              "bytes": "8b06",
+              "text": "mov     eax, [esi]"
+            },
+            {
+              "ea": "0x43c6e0",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c6e2",
+              "size": 2,
+              "bytes": "741b",
+              "text": "jz      short loc_43C6FF"
+            },
+            {
+              "ea": "0x43c6e4",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x43c6e6",
+              "size": 6,
+              "bytes": "8d8870010000",
+              "text": "lea     ecx, [eax+170h]"
+            },
+            {
+              "ea": "0x43c6ec",
+              "size": 5,
+              "bytes": "e8af56fcff",
+              "text": "call    CryptInt__Lte"
+            },
+            {
+              "ea": "0x43c6f1",
+              "size": 2,
+              "bytes": "84c0",
+              "text": "test    al, al"
+            },
+            {
+              "ea": "0x43c6f3",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_43C6FA"
+            },
+            {
+              "ea": "0x43c6f5",
+              "size": 3,
+              "bytes": "f6c302",
+              "text": "test    bl, 2"
+            },
+            {
+              "ea": "0x43c6f8",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_43C6FF"
+            },
+            {
+              "ea": "0x43c6fa",
+              "size": 2,
+              "bytes": "8b06",
+              "text": "mov     eax, [esi]"
+            },
+            {
+              "ea": "0x43c6fc",
+              "size": 3,
+              "bytes": "096824",
+              "text": "or      [eax+24h], ebp"
+            },
+            {
+              "ea": "0x43c6ff",
+              "size": 3,
+              "bytes": "83c604",
+              "text": "add     esi, 4"
+            },
+            {
+              "ea": "0x43c702",
+              "size": 6,
+              "bytes": "81fed0e95900",
+              "text": "cmp     esi, offset dword_59E9D0"
+            },
+            {
+              "ea": "0x43c708",
+              "size": 2,
+              "bytes": "7cd4",
+              "text": "jl      short loc_43C6DE"
+            },
+            {
+              "ea": "0x43c70a",
+              "size": 2,
+              "bytes": "eb31",
+              "text": "jmp     short loc_43C73D"
+            },
+            {
+              "ea": "0x43c70c",
+              "size": 5,
+              "bytes": "be80e95900",
+              "text": "mov     esi, offset gBattleEntry"
+            },
+            {
+              "ea": "0x43c711",
+              "size": 2,
+              "bytes": "8b06",
+              "text": "mov     eax, [esi]"
+            },
+            {
+              "ea": "0x43c713",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c715",
+              "size": 2,
+              "bytes": "741b",
+              "text": "jz      short loc_43C732"
+            },
+            {
+              "ea": "0x43c717",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x43c719",
+              "size": 6,
+              "bytes": "8d8870010000",
+              "text": "lea     ecx, [eax+170h]"
+            },
+            {
+              "ea": "0x43c71f",
+              "size": 5,
+              "bytes": "e87c56fcff",
+              "text": "call    CryptInt__Lte"
+            },
+            {
+              "ea": "0x43c724",
+              "size": 2,
+              "bytes": "84c0",
+              "text": "test    al, al"
+            },
+            {
+              "ea": "0x43c726",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_43C72D"
+            },
+            {
+              "ea": "0x43c728",
+              "size": 3,
+              "bytes": "f6c302",
+              "text": "test    bl, 2"
+            },
+            {
+              "ea": "0x43c72b",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_43C732"
+            },
+            {
+              "ea": "0x43c72d",
+              "size": 2,
+              "bytes": "8b06",
+              "text": "mov     eax, [esi]"
+            },
+            {
+              "ea": "0x43c72f",
+              "size": 3,
+              "bytes": "096824",
+              "text": "or      [eax+24h], ebp"
+            },
+            {
+              "ea": "0x43c732",
+              "size": 3,
+              "bytes": "83c604",
+              "text": "add     esi, 4"
+            },
+            {
+              "ea": "0x43c735",
+              "size": 6,
+              "bytes": "81fea8e95900",
+              "text": "cmp     esi, (offset gBattleEntry+28h)"
+            },
+            {
+              "ea": "0x43c73b",
+              "size": 2,
+              "bytes": "7cd4",
+              "text": "jl      short loc_43C711"
+            },
+            {
+              "ea": "0x43c73d",
+              "size": 2,
+              "bytes": "8bc3",
+              "text": "mov     eax, ebx"
+            },
+            {
+              "ea": "0x43c73f",
+              "size": 2,
+              "bytes": "33d2",
+              "text": "xor     edx, edx"
+            },
+            {
+              "ea": "0x43c741",
+              "size": 5,
+              "bytes": "2500040000",
+              "text": "and     eax, 400h"
+            },
+            {
+              "ea": "0x43c746",
+              "size": 8,
+              "bytes": "c74424100e000000",
+              "text": "mov     [esp+60h+var_50], 0Eh"
+            },
+            {
+              "ea": "0x43c74e",
+              "size": 8,
+              "bytes": "c74424140c000000",
+              "text": "mov     [esp+60h+var_4C], 0Ch"
+            }
+          ]
+        },
+        {
+          "page_index": 2,
+          "start": "0x43c560",
+          "end_exclusive": "0x43c8e5",
+          "instructions": [
+            {
+              "ea": "0x43c756",
+              "size": 8,
+              "bytes": "c74424180a000000",
+              "text": "mov     [esp+60h+var_48], 0Ah"
+            },
+            {
+              "ea": "0x43c75e",
+              "size": 8,
+              "bytes": "c744241c0b000000",
+              "text": "mov     [esp+60h+var_44], 0Bh"
+            },
+            {
+              "ea": "0x43c766",
+              "size": 8,
+              "bytes": "c74424200d000000",
+              "text": "mov     [esp+60h+var_40], 0Dh"
+            },
+            {
+              "ea": "0x43c76e",
+              "size": 8,
+              "bytes": "c744242413000000",
+              "text": "mov     [esp+60h+var_3C], 13h"
+            },
+            {
+              "ea": "0x43c776",
+              "size": 8,
+              "bytes": "c744242811000000",
+              "text": "mov     [esp+60h+var_38], 11h"
+            },
+            {
+              "ea": "0x43c77e",
+              "size": 8,
+              "bytes": "c744242c0f000000",
+              "text": "mov     [esp+60h+var_34], 0Fh"
+            },
+            {
+              "ea": "0x43c786",
+              "size": 8,
+              "bytes": "c744243010000000",
+              "text": "mov     [esp+60h+var_30], 10h"
+            },
+            {
+              "ea": "0x43c78e",
+              "size": 8,
+              "bytes": "c744243412000000",
+              "text": "mov     [esp+60h+var_2C], 12h"
+            },
+            {
+              "ea": "0x43c796",
+              "size": 8,
+              "bytes": "c744243809000000",
+              "text": "mov     [esp+60h+var_28], 9"
+            },
+            {
+              "ea": "0x43c79e",
+              "size": 8,
+              "bytes": "c744243c07000000",
+              "text": "mov     [esp+60h+var_24], 7"
+            },
+            {
+              "ea": "0x43c7a6",
+              "size": 8,
+              "bytes": "c744244005000000",
+              "text": "mov     [esp+60h+var_20], 5"
+            },
+            {
+              "ea": "0x43c7ae",
+              "size": 8,
+              "bytes": "c744244406000000",
+              "text": "mov     [esp+60h+var_1C], 6"
+            },
+            {
+              "ea": "0x43c7b6",
+              "size": 4,
+              "bytes": "896c2448",
+              "text": "mov     [esp+60h+var_18], ebp"
+            },
+            {
+              "ea": "0x43c7ba",
+              "size": 8,
+              "bytes": "c744244c04000000",
+              "text": "mov     [esp+60h+var_14], 4"
+            },
+            {
+              "ea": "0x43c7c2",
+              "size": 8,
+              "bytes": "c744245002000000",
+              "text": "mov     [esp+60h+var_10], 2"
+            },
+            {
+              "ea": "0x43c7ca",
+              "size": 4,
+              "bytes": "89542454",
+              "text": "mov     [esp+60h+var_C], edx"
+            },
+            {
+              "ea": "0x43c7ce",
+              "size": 8,
+              "bytes": "c744245801000000",
+              "text": "mov     [esp+60h+var_8], 1"
+            },
+            {
+              "ea": "0x43c7d6",
+              "size": 8,
+              "bytes": "c744245c03000000",
+              "text": "mov     [esp+60h+var_4], 3"
+            },
+            {
+              "ea": "0x43c7de",
+              "size": 2,
+              "bytes": "7409",
+              "text": "jz      short loc_43C7E9"
+            },
+            {
+              "ea": "0x43c7e0",
+              "size": 7,
+              "bytes": "f605acbc5a0080",
+              "text": "test    byte ptr gBattlePlayerFlag, 80h"
+            },
+            {
+              "ea": "0x43c7e7",
+              "size": 2,
+              "bytes": "7514",
+              "text": "jnz     short loc_43C7FD"
+            },
+            {
+              "ea": "0x43c7e9",
+              "size": 2,
+              "bytes": "3bc2",
+              "text": "cmp     eax, edx"
+            },
+            {
+              "ea": "0x43c7eb",
+              "size": 6,
+              "bytes": "0f84e7000000",
+              "text": "jz      loc_43C8D8"
+            },
+            {
+              "ea": "0x43c7f1",
+              "size": 6,
+              "bytes": "3b3da4bc5a00",
+              "text": "cmp     edi, gMyPostion"
+            },
+            {
+              "ea": "0x43c7f7",
+              "size": 6,
+              "bytes": "0f84db000000",
+              "text": "jz      loc_43C8D8"
+            },
+            {
+              "ea": "0x43c7fd",
+              "size": 4,
+              "bytes": "8b742464",
+              "text": "mov     esi, [esp+60h+pos]"
+            },
+            {
+              "ea": "0x43c801",
+              "size": 4,
+              "bytes": "8b7c2464",
+              "text": "mov     edi, [esp+60h+pos]"
+            },
+            {
+              "ea": "0x43c805",
+              "size": 4,
+              "bytes": "8d4c2410",
+              "text": "lea     ecx, [esp+60h+var_50]"
+            },
+            {
+              "ea": "0x43c809",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x43c80b",
+              "size": 4,
+              "bytes": "8b5c2464",
+              "text": "mov     ebx, [esp+60h+pos]"
+            },
+            {
+              "ea": "0x43c80f",
+              "size": 2,
+              "bytes": "8b29",
+              "text": "mov     ebp, [ecx]"
+            },
+            {
+              "ea": "0x43c811",
+              "size": 2,
+              "bytes": "3beb",
+              "text": "cmp     ebp, ebx"
+            },
+            {
+              "ea": "0x43c813",
+              "size": 2,
+              "bytes": "7504",
+              "text": "jnz     short loc_43C819"
+            },
+            {
+              "ea": "0x43c815",
+              "size": 2,
+              "bytes": "8bf0",
+              "text": "mov     esi, eax"
+            },
+            {
+              "ea": "0x43c817",
+              "size": 2,
+              "bytes": "8bfa",
+              "text": "mov     edi, edx"
+            },
+            {
+              "ea": "0x43c819",
+              "size": 1,
+              "bytes": "40",
+              "text": "inc     eax"
+            },
+            {
+              "ea": "0x43c81a",
+              "size": 3,
+              "bytes": "83c104",
+              "text": "add     ecx, 4"
+            },
+            {
+              "ea": "0x43c81d",
+              "size": 3,
+              "bytes": "83f805",
+              "text": "cmp     eax, 5"
+            },
+            {
+              "ea": "0x43c820",
+              "size": 2,
+              "bytes": "7ce9",
+              "text": "jl      short loc_43C80B"
+            },
+            {
+              "ea": "0x43c822",
+              "size": 1,
+              "bytes": "42",
+              "text": "inc     edx"
+            },
+            {
+              "ea": "0x43c823",
+              "size": 3,
+              "bytes": "83fa04",
+              "text": "cmp     edx, 4"
+            },
+            {
+              "ea": "0x43c826",
+              "size": 2,
+              "bytes": "7ce1",
+              "text": "jl      short loc_43C809"
+            },
+            {
+              "ea": "0x43c828",
+              "size": 2,
+              "bytes": "85ff",
+              "text": "test    edi, edi"
+            },
+            {
+              "ea": "0x43c82a",
+              "size": 2,
+              "bytes": "755a",
+              "text": "jnz     short loc_43C886"
+            },
+            {
+              "ea": "0x43c82c",
+              "size": 4,
+              "bytes": "8b74b424",
+              "text": "mov     esi, [esp+esi*4+60h+var_3C]"
+            },
+            {
+              "ea": "0x43c830",
+              "size": 4,
+              "bytes": "8d4c244c",
+              "text": "lea     ecx, [esp+60h+var_14]"
+            },
+            {
+              "ea": "0x43c834",
+              "size": 5,
+              "bytes": "ba05000000",
+              "text": "mov     edx, 5"
+            },
+            {
+              "ea": "0x43c839",
+              "size": 5,
+              "bytes": "bff7ffffff",
+              "text": "mov     edi, 0FFFFFFF7h"
+            },
+            {
+              "ea": "0x43c83e",
+              "size": 7,
+              "bytes": "8b04b580e95900",
+              "text": "mov     eax, gBattleEntry[esi*4]"
+            },
+            {
+              "ea": "0x43c845",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c847",
+              "size": 2,
+              "bytes": "742a",
+              "text": "jz      short loc_43C873"
+            },
+            {
+              "ea": "0x43c849",
+              "size": 4,
+              "bytes": "f6402408",
+              "text": "test    byte ptr [eax+24h], 8"
+            },
+            {
+              "ea": "0x43c84d",
+              "size": 2,
+              "bytes": "7424",
+              "text": "jz      short loc_43C873"
+            },
+            {
+              "ea": "0x43c84f",
+              "size": 3,
+              "bytes": "8b41ec",
+              "text": "mov     eax, [ecx-14h]"
+            },
+            {
+              "ea": "0x43c852",
+              "size": 7,
+              "bytes": "8b048580e95900",
+              "text": "mov     eax, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x43c859",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c85b",
+              "size": 2,
+              "bytes": "7416",
+              "text": "jz      short loc_43C873"
+            },
+            {
+              "ea": "0x43c85d",
+              "size": 4,
+              "bytes": "f6402408",
+              "text": "test    byte ptr [eax+24h], 8"
+            },
+            {
+              "ea": "0x43c861",
+              "size": 2,
+              "bytes": "7410",
+              "text": "jz      short loc_43C873"
+            },
+            {
+              "ea": "0x43c863",
+              "size": 2,
+              "bytes": "8b01",
+              "text": "mov     eax, [ecx]"
+            },
+            {
+              "ea": "0x43c865",
+              "size": 7,
+              "bytes": "8b048580e95900",
+              "text": "mov     eax, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x43c86c",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c86e",
+              "size": 2,
+              "bytes": "7403",
+              "text": "jz      short loc_43C873"
+            },
+            {
+              "ea": "0x43c870",
+              "size": 3,
+              "bytes": "217824",
+              "text": "and     [eax+24h], edi"
+            },
+            {
+              "ea": "0x43c873",
+              "size": 3,
+              "bytes": "83c104",
+              "text": "add     ecx, 4"
+            },
+            {
+              "ea": "0x43c876",
+              "size": 1,
+              "bytes": "4a",
+              "text": "dec     edx"
+            },
+            {
+              "ea": "0x43c877",
+              "size": 2,
+              "bytes": "75c5",
+              "text": "jnz     short loc_43C83E"
+            },
+            {
+              "ea": "0x43c879",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x43c87a",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x43c87b",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x43c87c",
+              "size": 5,
+              "bytes": "b801000000",
+              "text": "mov     eax, 1"
+            },
+            {
+              "ea": "0x43c881",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x43c882",
+              "size": 3,
+              "bytes": "83c450",
+              "text": "add     esp, 50h"
+            },
+            {
+              "ea": "0x43c885",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x43c886",
+              "size": 3,
+              "bytes": "83ff03",
+              "text": "cmp     edi, 3"
+            },
+            {
+              "ea": "0x43c889",
+              "size": 2,
+              "bytes": "754d",
+              "text": "jnz     short loc_43C8D8"
+            },
+            {
+              "ea": "0x43c88b",
+              "size": 4,
+              "bytes": "8b74b438",
+              "text": "mov     esi, [esp+esi*4+60h+var_28]"
+            },
+            {
+              "ea": "0x43c88f",
+              "size": 4,
+              "bytes": "8d4c2410",
+              "text": "lea     ecx, [esp+60h+var_50]"
+            },
+            {
+              "ea": "0x43c893",
+              "size": 5,
+              "bytes": "ba05000000",
+              "text": "mov     edx, 5"
+            },
+            {
+              "ea": "0x43c898",
+              "size": 5,
+              "bytes": "bff7ffffff",
+              "text": "mov     edi, 0FFFFFFF7h"
+            }
+          ]
+        },
+        {
+          "page_index": 3,
+          "start": "0x43c560",
+          "end_exclusive": "0x43c8e5",
+          "instructions": [
+            {
+              "ea": "0x43c89d",
+              "size": 7,
+              "bytes": "8b04b580e95900",
+              "text": "mov     eax, gBattleEntry[esi*4]"
+            },
+            {
+              "ea": "0x43c8a4",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c8a6",
+              "size": 2,
+              "bytes": "742a",
+              "text": "jz      short loc_43C8D2"
+            },
+            {
+              "ea": "0x43c8a8",
+              "size": 4,
+              "bytes": "f6402408",
+              "text": "test    byte ptr [eax+24h], 8"
+            },
+            {
+              "ea": "0x43c8ac",
+              "size": 2,
+              "bytes": "7424",
+              "text": "jz      short loc_43C8D2"
+            },
+            {
+              "ea": "0x43c8ae",
+              "size": 3,
+              "bytes": "8b4114",
+              "text": "mov     eax, [ecx+14h]"
+            },
+            {
+              "ea": "0x43c8b1",
+              "size": 7,
+              "bytes": "8b048580e95900",
+              "text": "mov     eax, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x43c8b8",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c8ba",
+              "size": 2,
+              "bytes": "7416",
+              "text": "jz      short loc_43C8D2"
+            },
+            {
+              "ea": "0x43c8bc",
+              "size": 4,
+              "bytes": "f6402408",
+              "text": "test    byte ptr [eax+24h], 8"
+            },
+            {
+              "ea": "0x43c8c0",
+              "size": 2,
+              "bytes": "7410",
+              "text": "jz      short loc_43C8D2"
+            },
+            {
+              "ea": "0x43c8c2",
+              "size": 2,
+              "bytes": "8b01",
+              "text": "mov     eax, [ecx]"
+            },
+            {
+              "ea": "0x43c8c4",
+              "size": 7,
+              "bytes": "8b048580e95900",
+              "text": "mov     eax, gBattleEntry[eax*4]"
+            },
+            {
+              "ea": "0x43c8cb",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x43c8cd",
+              "size": 2,
+              "bytes": "7403",
+              "text": "jz      short loc_43C8D2"
+            },
+            {
+              "ea": "0x43c8cf",
+              "size": 3,
+              "bytes": "217824",
+              "text": "and     [eax+24h], edi"
+            },
+            {
+              "ea": "0x43c8d2",
+              "size": 3,
+              "bytes": "83c104",
+              "text": "add     ecx, 4"
+            },
+            {
+              "ea": "0x43c8d5",
+              "size": 1,
+              "bytes": "4a",
+              "text": "dec     edx"
+            },
+            {
+              "ea": "0x43c8d6",
+              "size": 2,
+              "bytes": "75c5",
+              "text": "jnz     short loc_43C89D"
+            },
+            {
+              "ea": "0x43c8d8",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x43c8d9",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x43c8da",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x43c8db",
+              "size": 5,
+              "bytes": "b801000000",
+              "text": "mov     eax, 1"
+            },
+            {
+              "ea": "0x43c8e0",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x43c8e1",
+              "size": 3,
+              "bytes": "83c450",
+              "text": "add     esp, 50h"
+            },
+            {
+              "ea": "0x43c8e4",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inbound": [
+    {
+      "from": "0x497354",
+      "type": 17,
+      "parent": "0x4972b0",
+      "root": "0x43c560"
+    },
+    {
+      "from": "0x4974f3",
+      "type": 17,
+      "parent": "0x4974c0",
+      "root": "0x43c560"
+    },
+    {
+      "from": "0x497f00",
+      "type": 17,
+      "parent": "0x497e30",
+      "root": "0x43c560"
+    },
+    {
+      "from": "0x4980bf",
+      "type": 17,
+      "parent": "0x497ff0",
+      "root": "0x43c560"
+    },
+    {
+      "from": "0x4986e0",
+      "type": 17,
+      "parent": "0x498520",
+      "root": "0x43c560"
+    },
+    {
+      "from": "0x49889a",
+      "type": 17,
+      "parent": "0x498520",
+      "root": "0x43c560"
+    },
+    {
+      "from": "0x498c66",
+      "type": 17,
+      "parent": "0x498520",
+      "root": "0x43c560"
+    },
+    {
+      "from": "0x49a621",
+      "type": 17,
+      "parent": "0x499c30",
+      "root": "0x43c560"
+    }
+  ],
+  "supplement": {
+    "caller_windows": [
+      {
+        "start": "0x497348",
+        "end_exclusive": "0x49735f",
+        "parent": "0x4972b0",
+        "call_ea": "0x497354",
+        "instructions": [
+          {
+            "ea": "0x497348",
+            "size": 6,
+            "bytes": "8b0da4bc5a00",
+            "text": "mov     ecx, gMyPostion"
+          },
+          {
+            "ea": "0x49734e",
+            "size": 5,
+            "bytes": "6875040000",
+            "text": "push    475h"
+          },
+          {
+            "ea": "0x497353",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x497354",
+            "size": 5,
+            "bytes": "e80752faff",
+            "text": "call    BattleScene__CheckCommand"
+          },
+          {
+            "ea": "0x497359",
+            "size": 6,
+            "bytes": "8b1500bc5a00",
+            "text": "mov     edx, dword_5ABC00"
+          }
+        ]
+      },
+      {
+        "start": "0x4974ec",
+        "end_exclusive": "0x4974fb",
+        "parent": "0x4974c0",
+        "call_ea": "0x4974f3",
+        "instructions": [
+          {
+            "ea": "0x4974ec",
+            "size": 5,
+            "bytes": "a1a4bc5a00",
+            "text": "mov     eax, gMyPostion"
+          },
+          {
+            "ea": "0x4974f1",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx"
+          },
+          {
+            "ea": "0x4974f2",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax"
+          },
+          {
+            "ea": "0x4974f3",
+            "size": 5,
+            "bytes": "e86850faff",
+            "text": "call    BattleScene__CheckCommand"
+          },
+          {
+            "ea": "0x4974f8",
+            "size": 3,
+            "bytes": "83c408",
+            "text": "add     esp, 8"
+          }
+        ]
+      },
+      {
+        "start": "0x497ef7",
+        "end_exclusive": "0x497f08",
+        "parent": "0x497e30",
+        "call_ea": "0x497f00",
+        "instructions": [
+          {
+            "ea": "0x497ef7",
+            "size": 5,
+            "bytes": "e844dcf6ff",
+            "text": "call    GetPetPosition"
+          },
+          {
+            "ea": "0x497efc",
+            "size": 3,
+            "bytes": "83c404",
+            "text": "add     esp, 4"
+          },
+          {
+            "ea": "0x497eff",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax"
+          },
+          {
+            "ea": "0x497f00",
+            "size": 5,
+            "bytes": "e85b46faff",
+            "text": "call    BattleScene__CheckCommand"
+          },
+          {
+            "ea": "0x497f05",
+            "size": 3,
+            "bytes": "83c408",
+            "text": "add     esp, 8"
+          }
+        ]
+      },
+      {
+        "start": "0x4980b7",
+        "end_exclusive": "0x4980c7",
+        "parent": "0x497ff0",
+        "call_ea": "0x4980bf",
+        "instructions": [
+          {
+            "ea": "0x4980b7",
+            "size": 6,
+            "bytes": "8b15a4bc5a00",
+            "text": "mov     edx, gMyPostion"
+          },
+          {
+            "ea": "0x4980bd",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x4980be",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx"
+          },
+          {
+            "ea": "0x4980bf",
+            "size": 5,
+            "bytes": "e89c44faff",
+            "text": "call    BattleScene__CheckCommand"
+          },
+          {
+            "ea": "0x4980c4",
+            "size": 3,
+            "bytes": "83c408",
+            "text": "add     esp, 8"
+          }
+        ]
+      },
+      {
+        "start": "0x4986d8",
+        "end_exclusive": "0x4986e8",
+        "parent": "0x498520",
+        "call_ea": "0x4986e0",
+        "instructions": [
+          {
+            "ea": "0x4986d8",
+            "size": 6,
+            "bytes": "8b15a4bc5a00",
+            "text": "mov     edx, gMyPostion"
+          },
+          {
+            "ea": "0x4986de",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x4986df",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx"
+          },
+          {
+            "ea": "0x4986e0",
+            "size": 5,
+            "bytes": "e87b3efaff",
+            "text": "call    BattleScene__CheckCommand"
+          },
+          {
+            "ea": "0x4986e5",
+            "size": 3,
+            "bytes": "83c408",
+            "text": "add     esp, 8"
+          }
+        ]
+      },
+      {
+        "start": "0x49888e",
+        "end_exclusive": "0x4988a2",
+        "parent": "0x498520",
+        "call_ea": "0x49889a",
+        "instructions": [
+          {
+            "ea": "0x49888e",
+            "size": 6,
+            "bytes": "8b0da4bc5a00",
+            "text": "mov     ecx, gMyPostion; jumptable 00498887 case 0"
+          },
+          {
+            "ea": "0x498894",
+            "size": 5,
+            "bytes": "6875040000",
+            "text": "push    475h"
+          },
+          {
+            "ea": "0x498899",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x49889a",
+            "size": 5,
+            "bytes": "e8c13cfaff",
+            "text": "call    BattleScene__CheckCommand"
+          },
+          {
+            "ea": "0x49889f",
+            "size": 3,
+            "bytes": "83c408",
+            "text": "add     esp, 8"
+          }
+        ]
+      },
+      {
+        "start": "0x498c5d",
+        "end_exclusive": "0x498c6e",
+        "parent": "0x498520",
+        "call_ea": "0x498c66",
+        "instructions": [
+          {
+            "ea": "0x498c5d",
+            "size": 5,
+            "bytes": "e8decef6ff",
+            "text": "call    GetPetPosition"
+          },
+          {
+            "ea": "0x498c62",
+            "size": 3,
+            "bytes": "83c404",
+            "text": "add     esp, 4"
+          },
+          {
+            "ea": "0x498c65",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax"
+          },
+          {
+            "ea": "0x498c66",
+            "size": 5,
+            "bytes": "e8f538faff",
+            "text": "call    BattleScene__CheckCommand"
+          },
+          {
+            "ea": "0x498c6b",
+            "size": 3,
+            "bytes": "83c408",
+            "text": "add     esp, 8"
+          }
+        ]
+      },
+      {
+        "start": "0x49a618",
+        "end_exclusive": "0x49a629",
+        "parent": "0x499c30",
+        "call_ea": "0x49a621",
+        "instructions": [
+          {
+            "ea": "0x49a618",
+            "size": 7,
+            "bytes": "0fbf96d417fe00",
+            "text": "movsx   edx, (gPlayerDataVal.Items.target+62E0h)[esi]"
+          },
+          {
+            "ea": "0x49a61f",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx"
+          },
+          {
+            "ea": "0x49a620",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax"
+          },
+          {
+            "ea": "0x49a621",
+            "size": 5,
+            "bytes": "e83a1ffaff",
+            "text": "call    BattleScene__CheckCommand"
+          },
+          {
+            "ea": "0x49a626",
+            "size": 3,
+            "bytes": "83c408",
+            "text": "add     esp, 8"
+          }
+        ]
+      }
+    ],
+    "stack_row_initializers": [
+      {
+        "index": 0,
+        "value": 14,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c746",
+          "size": 8,
+          "bytes": "c74424100e000000",
+          "text": "mov     [esp+60h+var_50], 0Eh"
+        }
+      },
+      {
+        "index": 1,
+        "value": 12,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c74e",
+          "size": 8,
+          "bytes": "c74424140c000000",
+          "text": "mov     [esp+60h+var_4C], 0Ch"
+        }
+      },
+      {
+        "index": 2,
+        "value": 10,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c756",
+          "size": 8,
+          "bytes": "c74424180a000000",
+          "text": "mov     [esp+60h+var_48], 0Ah"
+        }
+      },
+      {
+        "index": 3,
+        "value": 11,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c75e",
+          "size": 8,
+          "bytes": "c744241c0b000000",
+          "text": "mov     [esp+60h+var_44], 0Bh"
+        }
+      },
+      {
+        "index": 4,
+        "value": 13,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c766",
+          "size": 8,
+          "bytes": "c74424200d000000",
+          "text": "mov     [esp+60h+var_40], 0Dh"
+        }
+      },
+      {
+        "index": 5,
+        "value": 19,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c76e",
+          "size": 8,
+          "bytes": "c744242413000000",
+          "text": "mov     [esp+60h+var_3C], 13h"
+        }
+      },
+      {
+        "index": 6,
+        "value": 17,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c776",
+          "size": 8,
+          "bytes": "c744242811000000",
+          "text": "mov     [esp+60h+var_38], 11h"
+        }
+      },
+      {
+        "index": 7,
+        "value": 15,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c77e",
+          "size": 8,
+          "bytes": "c744242c0f000000",
+          "text": "mov     [esp+60h+var_34], 0Fh"
+        }
+      },
+      {
+        "index": 8,
+        "value": 16,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c786",
+          "size": 8,
+          "bytes": "c744243010000000",
+          "text": "mov     [esp+60h+var_30], 10h"
+        }
+      },
+      {
+        "index": 9,
+        "value": 18,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c78e",
+          "size": 8,
+          "bytes": "c744243412000000",
+          "text": "mov     [esp+60h+var_2C], 12h"
+        }
+      },
+      {
+        "index": 10,
+        "value": 9,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c796",
+          "size": 8,
+          "bytes": "c744243809000000",
+          "text": "mov     [esp+60h+var_28], 9"
+        }
+      },
+      {
+        "index": 11,
+        "value": 7,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c79e",
+          "size": 8,
+          "bytes": "c744243c07000000",
+          "text": "mov     [esp+60h+var_24], 7"
+        }
+      },
+      {
+        "index": 12,
+        "value": 5,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c7a6",
+          "size": 8,
+          "bytes": "c744244005000000",
+          "text": "mov     [esp+60h+var_20], 5"
+        }
+      },
+      {
+        "index": 13,
+        "value": 6,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c7ae",
+          "size": 8,
+          "bytes": "c744244406000000",
+          "text": "mov     [esp+60h+var_1C], 6"
+        }
+      },
+      {
+        "index": 14,
+        "value": 8,
+        "value_source": "EBP=8",
+        "instruction": {
+          "ea": "0x43c7b6",
+          "size": 4,
+          "bytes": "896c2448",
+          "text": "mov     [esp+60h+var_18], ebp"
+        }
+      },
+      {
+        "index": 15,
+        "value": 4,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c7ba",
+          "size": 8,
+          "bytes": "c744244c04000000",
+          "text": "mov     [esp+60h+var_14], 4"
+        }
+      },
+      {
+        "index": 16,
+        "value": 2,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c7c2",
+          "size": 8,
+          "bytes": "c744245002000000",
+          "text": "mov     [esp+60h+var_10], 2"
+        }
+      },
+      {
+        "index": 17,
+        "value": 0,
+        "value_source": "EDX=0",
+        "instruction": {
+          "ea": "0x43c7ca",
+          "size": 4,
+          "bytes": "89542454",
+          "text": "mov     [esp+60h+var_C], edx"
+        }
+      },
+      {
+        "index": 18,
+        "value": 1,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c7ce",
+          "size": 8,
+          "bytes": "c744245801000000",
+          "text": "mov     [esp+60h+var_8], 1"
+        }
+      },
+      {
+        "index": 19,
+        "value": 3,
+        "value_source": "W32 immediate",
+        "instruction": {
+          "ea": "0x43c7d6",
+          "size": 8,
+          "bytes": "c744245c03000000",
+          "text": "mov     [esp+60h+var_4], 3"
+        }
+      }
+    ],
+    "register_row_value_instructions": [
+      {
+        "ea": "0x43c5bf",
+        "size": 5,
+        "bytes": "bd08000000",
+        "text": "mov     ebp, 8"
+      },
+      {
+        "ea": "0x43c5d4",
+        "size": 5,
+        "bytes": "bd08000000",
+        "text": "mov     ebp, 8"
+      },
+      {
+        "ea": "0x43c73f",
+        "size": 2,
+        "bytes": "33d2",
+        "text": "xor     edx, edx"
+      }
+    ],
+    "new_r7_classification": false
+  },
+  "source_bodies_before": [
+    {
+      "symbol": "CheckBattleCommand_43C560",
+      "body": "std::int32_t CheckBattleCommand_43C560(\n    const std::int32_t position, const std::uint32_t flags)\n{\n    using namespace world::detail;\n    gBattleTargetFlags5ABC44 = flags;\n    const std::int32_t pet = GetBattlePetPosition_405B40(position);\n    if ((flags & 1u) == 0) {\n        return 0;\n    }\n    if ((flags & 4u) != 0) {\n        YobiAction* const action = gBattleEntries59E980[pet];\n        if (action != nullptr\n            && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)\n                || (flags & 2u) != 0)) {\n            gBattleEntries59E980[pet]->flags |= 8u;\n        }\n    }\n    if ((flags & 8u) != 0) {\n        YobiAction* const action = gBattleEntries59E980[position];\n        if (action != nullptr\n            && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)\n                || (flags & 2u) != 0)) {\n            gBattleEntries59E980[position]->flags |= 8u;\n        }\n    }\n    if ((flags & 0x810u) != 0) {\n        const std::int32_t first = position < 10 ? 0 : 10;\n        for (std::int32_t slot = first; slot < first + 10; ++slot) {\n            if (slot == position || slot == pet) {\n                continue;\n            }\n            YobiAction* const action = gBattleEntries59E980[slot];\n            if (action != nullptr\n                && ((flags & 0x10u) != 0\n                    || ((flags & 0x800u) != 0\n                        && (static_cast<const BattleActorPayload*>(action->payload)->flagsFDC & 4u) != 0))\n                && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)\n                    || (flags & 2u) != 0)) {\n                gBattleEntries59E980[slot]->flags |= 8u;\n            }\n        }\n    }\n    if ((flags & 0x20u) != 0) {\n        const std::int32_t first = position < 10 ? 10 : 0;\n        for (std::int32_t slot = first; slot < first + 10; ++slot) {\n            YobiAction* const action = gBattleEntries59E980[slot];\n            if (action != nullptr\n                && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)\n                    || (flags & 2u) != 0)) {\n                gBattleEntries59E980[slot]->flags |= 8u;\n            }\n        }\n    }\n    static constexpr std::int32_t rows[4][5] {\n        {14, 12, 10, 11, 13},\n        {19, 17, 15, 16, 18},\n        {9, 7, 5, 6, 8},\n        {4, 2, 0, 1, 3},\n    };\n    if ((flags & 0x400u) == 0\n        || ((gBattlePlayerFlags5ABCAC & 0x80u) == 0\n            && position == gBattleCurrentPosition5ABCA4)) {\n        return 1;\n    }\n    std::int32_t column = position;\n    std::int32_t row = position;\n    for (std::int32_t r = 0; r < 4; ++r) {\n        for (std::int32_t c = 0; c < 5; ++c) {\n            if (rows[r][c] == position) {\n                column = c;\n                row = r;\n            }\n        }\n    }\n    if (row == 0) {\n        const std::int32_t front = rows[1][column];\n        for (std::int32_t c = 0; c < 5; ++c) {\n            const YobiAction* const ownFront = gBattleEntries59E980[front];\n            if (ownFront != nullptr && (ownFront->flags & 8u) != 0) {\n                const YobiAction* const enemyFront = gBattleEntries59E980[rows[2][c]];\n                if (enemyFront != nullptr && (enemyFront->flags & 8u) != 0) {\n                    YobiAction* const enemyBack = gBattleEntries59E980[rows[3][c]];\n                    if (enemyBack != nullptr) {\n                        enemyBack->flags &= ~8u;\n                    }\n                }\n            }\n        }\n    } else if (row == 3) {\n        const std::int32_t front = rows[2][column];\n        for (std::int32_t c = 0; c < 5; ++c) {\n            const YobiAction* const ownFront = gBattleEntries59E980[front];\n            if (ownFront != nullptr && (ownFront->flags & 8u) != 0) {\n                const YobiAction* const enemyFront = gBattleEntries59E980[rows[1][c]];\n                if (enemyFront != nullptr && (enemyFront->flags & 8u) != 0) {\n                    YobiAction* const enemyBack = gBattleEntries59E980[rows[0][c]];\n                    if (enemyBack != nullptr) {\n                        enemyBack->flags &= ~8u;\n                    }\n                }\n            }\n        }\n    }\n    return 1;\n}\n"
+    }
+  ],
+  "source_bodies_after": [
+    {
+      "symbol": "CheckBattleCommand_43C560",
+      "body": "std::int32_t CheckBattleCommand_43C560(\n    const std::int32_t position, const std::uint32_t flags)\n{\n    using namespace world::detail;\n    gBattleTargetFlags5ABC44 = flags;\n    const std::int32_t pet = GetBattlePetPosition_405B40(position);\n    if ((flags & 1u) == 0) {\n        return 0;\n    }\n    if ((flags & 4u) != 0) {\n        YobiAction* const action = gBattleEntries59E980[pet];\n        if (action != nullptr\n            && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)\n                || (flags & 2u) != 0)) {\n            gBattleEntries59E980[pet]->flags |= 8u;\n        }\n    }\n    if ((flags & 8u) != 0) {\n        YobiAction* const action = gBattleEntries59E980[position];\n        if (action != nullptr\n            && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)\n                || (flags & 2u) != 0)) {\n            gBattleEntries59E980[position]->flags |= 8u;\n        }\n    }\n    if ((flags & 0x810u) != 0) {\n        const std::int32_t first = position < 10 ? 0 : 10;\n        for (std::int32_t slot = first; slot < first + 10; ++slot) {\n            if (slot == position || slot == pet) {\n                continue;\n            }\n            YobiAction* const action = gBattleEntries59E980[slot];\n            if (action != nullptr\n                && ((flags & 0x10u) != 0\n                    || ((flags & 0x800u) != 0\n                        && (*reinterpret_cast<const std::uint8_t*>(\n                            &static_cast<const BattleActorPayload*>(action->payload)->flagsFDC) & 4u) != 0))\n                && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)\n                    || (flags & 2u) != 0)) {\n                gBattleEntries59E980[slot]->flags |= 8u;\n            }\n        }\n    }\n    if ((flags & 0x20u) != 0) {\n        const std::int32_t first = position < 10 ? 10 : 0;\n        for (std::int32_t slot = first; slot < first + 10; ++slot) {\n            YobiAction* const action = gBattleEntries59E980[slot];\n            if (action != nullptr\n                && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)\n                    || (flags & 2u) != 0)) {\n                gBattleEntries59E980[slot]->flags |= 8u;\n            }\n        }\n    }\n    static constexpr std::int32_t rows[4][5] {\n        {14, 12, 10, 11, 13},\n        {19, 17, 15, 16, 18},\n        {9, 7, 5, 6, 8},\n        {4, 2, 0, 1, 3},\n    };\n    if ((flags & 0x400u) == 0\n        || ((*reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC) & 0x80u) == 0\n            && position == gBattleCurrentPosition5ABCA4)) {\n        return 1;\n    }\n    std::int32_t column = position;\n    std::int32_t row = position;\n    for (std::int32_t r = 0; r < 4; ++r) {\n        for (std::int32_t c = 0; c < 5; ++c) {\n            if (rows[r][c] == position) {\n                column = c;\n                row = r;\n            }\n        }\n    }\n    if (row == 0) {\n        const std::int32_t front = rows[1][column];\n        for (std::int32_t c = 0; c < 5; ++c) {\n            const YobiAction* const ownFront = gBattleEntries59E980[front];\n            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {\n                const YobiAction* const enemyFront = gBattleEntries59E980[rows[2][c]];\n                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {\n                    YobiAction* const enemyBack = gBattleEntries59E980[rows[3][c]];\n                    if (enemyBack != nullptr) {\n                        enemyBack->flags &= ~8u;\n                    }\n                }\n            }\n        }\n    } else if (row == 3) {\n        const std::int32_t front = rows[2][column];\n        for (std::int32_t c = 0; c < 5; ++c) {\n            const YobiAction* const ownFront = gBattleEntries59E980[front];\n            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {\n                const YobiAction* const enemyFront = gBattleEntries59E980[rows[1][c]];\n                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {\n                    YobiAction* const enemyBack = gBattleEntries59E980[rows[0][c]];\n                    if (enemyBack != nullptr) {\n                        enemyBack->flags &= ~8u;\n                    }\n                }\n            }\n        }\n    }\n    return 1;\n}\n",
+      "body_changed": true
+    }
+  ],
+  "source_patches": [
+    {
+      "stage": "同阵营800条件共享FDC低W8，两个原物理路径",
+      "symbol": "CheckBattleCommand_43C560",
+      "original_eas": [
+        "0x43c640",
+        "0x43c69b"
+      ],
+      "before": "\n                        && (static_cast<const BattleActorPayload*>(action->payload)->flagsFDC & 4u) != 0))",
+      "after": "\n                        && (*reinterpret_cast<const std::uint8_t*>(\n                            &static_cast<const BattleActorPayload*>(action->payload)->flagsFDC) & 4u) != 0))",
+      "original_instructions": [
+        {
+          "ea": "0x43c640",
+          "size": 7,
+          "bytes": "f681dc0f000004",
+          "text": "test    byte ptr [ecx+0FDCh], 4"
+        },
+        {
+          "ea": "0x43c69b",
+          "size": 7,
+          "bytes": "f682dc0f000004",
+          "text": "test    byte ptr [edx+0FDCh], 4"
+        }
+      ]
+    },
+    {
+      "stage": "400条件下玩家位80原低W8短路消费",
+      "symbol": "CheckBattleCommand_43C560",
+      "original_eas": [
+        "0x43c7e0"
+      ],
+      "before": "\n        || ((gBattlePlayerFlags5ABCAC & 0x80u) == 0",
+      "after": "\n        || ((*reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC) & 0x80u) == 0",
+      "original_instructions": [
+        {
+          "ea": "0x43c7e0",
+          "size": 7,
+          "bytes": "f605acbc5a0080",
+          "text": "test    byte ptr gBattlePlayerFlag, 80h"
+        }
+      ]
+    },
+    {
+      "stage": "row0前排两个低W8选中条件，W32清标记保",
+      "symbol": "CheckBattleCommand_43C560",
+      "original_eas": [
+        "0x43c849",
+        "0x43c85d",
+        "0x43c870"
+      ],
+      "before": "    if (row == 0) {\n        const std::int32_t front = rows[1][column];\n        for (std::int32_t c = 0; c < 5; ++c) {\n            const YobiAction* const ownFront = gBattleEntries59E980[front];\n            if (ownFront != nullptr && (ownFront->flags & 8u) != 0) {\n                const YobiAction* const enemyFront = gBattleEntries59E980[rows[2][c]];\n                if (enemyFront != nullptr && (enemyFront->flags & 8u) != 0) {\n                    YobiAction* const enemyBack = gBattleEntries59E980[rows[3][c]];\n                    if (enemyBack != nullptr) {\n                        enemyBack->flags &= ~8u;\n                    }\n                }\n            }\n        }\n",
+      "after": "    if (row == 0) {\n        const std::int32_t front = rows[1][column];\n        for (std::int32_t c = 0; c < 5; ++c) {\n            const YobiAction* const ownFront = gBattleEntries59E980[front];\n            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {\n                const YobiAction* const enemyFront = gBattleEntries59E980[rows[2][c]];\n                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {\n                    YobiAction* const enemyBack = gBattleEntries59E980[rows[3][c]];\n                    if (enemyBack != nullptr) {\n                        enemyBack->flags &= ~8u;\n                    }\n                }\n            }\n        }\n",
+      "original_instructions": [
+        {
+          "ea": "0x43c849",
+          "size": 4,
+          "bytes": "f6402408",
+          "text": "test    byte ptr [eax+24h], 8"
+        },
+        {
+          "ea": "0x43c85d",
+          "size": 4,
+          "bytes": "f6402408",
+          "text": "test    byte ptr [eax+24h], 8"
+        },
+        {
+          "ea": "0x43c870",
+          "size": 3,
+          "bytes": "217824",
+          "text": "and     [eax+24h], edi"
+        }
+      ]
+    },
+    {
+      "stage": "row3前排两个低W8选中条件，W32清标记保",
+      "symbol": "CheckBattleCommand_43C560",
+      "original_eas": [
+        "0x43c8a8",
+        "0x43c8bc",
+        "0x43c8cf"
+      ],
+      "before": "    } else if (row == 3) {\n        const std::int32_t front = rows[2][column];\n        for (std::int32_t c = 0; c < 5; ++c) {\n            const YobiAction* const ownFront = gBattleEntries59E980[front];\n            if (ownFront != nullptr && (ownFront->flags & 8u) != 0) {\n                const YobiAction* const enemyFront = gBattleEntries59E980[rows[1][c]];\n                if (enemyFront != nullptr && (enemyFront->flags & 8u) != 0) {\n                    YobiAction* const enemyBack = gBattleEntries59E980[rows[0][c]];\n                    if (enemyBack != nullptr) {\n                        enemyBack->flags &= ~8u;\n                    }\n                }\n            }\n        }\n    }\n",
+      "after": "    } else if (row == 3) {\n        const std::int32_t front = rows[2][column];\n        for (std::int32_t c = 0; c < 5; ++c) {\n            const YobiAction* const ownFront = gBattleEntries59E980[front];\n            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {\n                const YobiAction* const enemyFront = gBattleEntries59E980[rows[1][c]];\n                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {\n                    YobiAction* const enemyBack = gBattleEntries59E980[rows[0][c]];\n                    if (enemyBack != nullptr) {\n                        enemyBack->flags &= ~8u;\n                    }\n                }\n            }\n        }\n    }\n",
+      "original_instructions": [
+        {
+          "ea": "0x43c8a8",
+          "size": 4,
+          "bytes": "f6402408",
+          "text": "test    byte ptr [eax+24h], 8"
+        },
+        {
+          "ea": "0x43c8bc",
+          "size": 4,
+          "bytes": "f6402408",
+          "text": "test    byte ptr [eax+24h], 8"
+        },
+        {
+          "ea": "0x43c8cf",
+          "size": 3,
+          "bytes": "217824",
+          "text": "and     [eax+24h], edi"
+        }
+      ]
+    }
+  ],
+  "source_body_patch_count": 4,
+  "changed_source_body_count": 1,
+  "actual_w8_consumer_count": 7,
+  "new_w8_source_expression_count": 6,
+  "normal_previous_values_wrong": false,
+  "new_r7_classification": false,
+  "original_ret_count": 3,
+  "original_less_equal_call_count": 6,
+  "source_less_equal_expression_count": 4,
+  "direct_call_mapping": [
+    {
+      "target": "0x405b40",
+      "source_symbol": "GetBattlePetPosition_405B40",
+      "note": "发布目标flags之后、bit1拒绝之前，一次position→pet",
+      "call_sites": [
+        {
+          "root": "0x43c560",
+          "ea": "0x43c575"
+        }
+      ]
+    },
+    {
+      "target": "0x401da0",
+      "source_symbol": "LessEqual_401DA0",
+      "note": "六物理HP0比较点/四源表达式，每路径先比较后cached flags2，原RNG消费保",
+      "call_sites": [
+        {
+          "root": "0x43c560",
+          "ea": "0x43c5aa"
+        },
+        {
+          "root": "0x43c560",
+          "ea": "0x43c5f1"
+        },
+        {
+          "root": "0x43c560",
+          "ea": "0x43c651"
+        },
+        {
+          "root": "0x43c560",
+          "ea": "0x43c6ac"
+        },
+        {
+          "root": "0x43c560",
+          "ea": "0x43c6ec"
+        },
+        {
+          "root": "0x43c560",
+          "ea": "0x43c71f"
+        }
+      ]
+    }
+  ],
+  "parent_source_bindings": [
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4972B0",
+      "source_symbols": [
+        "CheckBattleCommand_43C560"
+      ],
+      "source_call_counts": [
+        1
+      ]
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_4974C0",
+      "source_symbols": [
+        "CheckBattleCommand_43C560"
+      ],
+      "source_call_counts": [
+        1
+      ]
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_497E30",
+      "source_symbols": [
+        "CheckBattleCommand_43C560"
+      ],
+      "source_call_counts": [
+        1
+      ]
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_497FF0",
+      "source_symbols": [
+        "CheckBattleCommand_43C560"
+      ],
+      "source_call_counts": [
+        1
+      ]
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_498520",
+      "source_symbols": [
+        "CheckBattleCommand_43C560"
+      ],
+      "source_call_counts": [
+        3
+      ]
+    },
+    {
+      "path": "src/ui/WindowRuntime.cpp",
+      "symbol": "Sub_499C30",
+      "source_symbols": [
+        "CheckBattleCommand_43C560"
+      ],
+      "source_call_counts": [
+        1
+      ]
+    }
+  ],
+  "full_source_functions_normal_static_mapped": true,
+  "implementation_static_scope": "单完整命令选择原根266条901B/四页、7call/2callee、63普通内部jump/三ret，六UI父八入向、八实际五指令邻窗40条141B；局部父接线不代全部目标参数生产/完整父验收。四源片段恢复六低W8读取表达式对七原点（同阵营FDC一表达式承接两个物理路径）；正常旧值一致。flags参数/目标全局W32、四个源选中OR与两个清除AND的W32写、原HP先比较再bit2/调用后共享目标重取、两阵营各十槽与排除本人/宠物、20项S32矩阵、400玩家位短路/最后匹配覆盖、两前排每列fresh目标及原0/1返回保持。原矩阵由20个栈写初始化，不是物理跳转表，不新R7。完整目标其它生产/owner寿命/递归UI父、SDK/生成机器ABI/画面运行未验；音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+  "full_parent_newly_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "fault_equivalence_claimed": false,
+  "feature_before": {
+    "id": "FUNC-BATTLE",
+    "kind": "flow",
+    "parent_id": null,
+    "title": "战斗状态与执行",
+    "domain": "BATTLE",
+    "scope": "included",
+    "baseline_documents": [
+      "doc/ui_windows/shared_battle.md",
+      "doc/yobi_updates/battle_scene.md",
+      "doc/yobi_updates/battle_actor.md",
+      "doc/cg2d_battle_attack_targets_spec.md",
+      "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+      "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-baseline",
+      "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+      "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+      "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+      "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline",
+      "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline",
+      "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+      "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+      "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+      "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+      "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+      "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+      "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+      "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
+      "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+      "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
+      "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+      "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-baseline",
+      "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-baseline",
+      "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+      "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-baseline",
+      "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-baseline",
+      "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-baseline",
+      "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-baseline",
+      "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-baseline",
+      "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-baseline",
+      "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+      "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-baseline",
+      "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-baseline",
+      "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-baseline",
+      "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-baseline",
+      "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-baseline",
+      "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-baseline",
+      "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-baseline",
+      "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-baseline",
+      "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-baseline",
+      "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-baseline",
+      "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-baseline",
+      "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-baseline",
+      "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-baseline",
+      "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-baseline",
+      "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-baseline",
+      "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
+      "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline",
+      "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-baseline",
+      "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-baseline",
+      "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+      "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-baseline",
+      "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-baseline",
+      "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-baseline",
+      "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+      "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+      "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+      "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+      "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+      "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+      "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline",
+      "doc/cg2d_battle_action_114_spec.md#battle-action-114-baseline",
+      "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+      "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-baseline",
+      "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
+      "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+      "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+      "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+      "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+      "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
+      "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline",
+      "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+      "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-baseline",
+      "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-baseline",
+      "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-baseline",
+      "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+      "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline"
+    ],
+    "original_inventory_ids": [
+      "F:00024620",
+      "F:0001EAB0",
+      "F:0001EB10",
+      "F:0001E5C0",
+      "F:0001E5F0",
+      "F:00038290",
+      "F:00004DB0",
+      "F:00021FB0",
+      "F:000225D0",
+      "F:00022780",
+      "F:000221F0",
+      "F:000222B0",
+      "F:00022A30",
+      "F:00022B00",
+      "F:00022BC0",
+      "F:00022C20",
+      "F:00022C90",
+      "F:00021F90",
+      "F:00022370",
+      "F:00014050",
+      "F:000154C0",
+      "F:00015940",
+      "F:0003B610",
+      "F:000383B0",
+      "F:00039340",
+      "F:00039380",
+      "F:00039470",
+      "F:000390E0",
+      "F:000393A0",
+      "F:0003B7F0",
+      "F:000394A0",
+      "F:000391E0",
+      "F:000392A0",
+      "F:00039400",
+      "F:000392F0",
+      "F:0003B940",
+      "F:0003B8C0",
+      "F:0003B860",
+      "F:0003B9B0",
+      "F:00039770",
+      "F:00039600",
+      "F:00039670",
+      "F:00038F70",
+      "F:00038FE0",
+      "F:00039B30",
+      "F:00039920",
+      "F:0003BF30",
+      "F:0003B290",
+      "F:0003B360",
+      "F:000383F0",
+      "F:0003B6C0",
+      "F:0003CBB0",
+      "F:00026FC0",
+      "F:000242B0",
+      "F:0003BC10",
+      "F:00019FC0",
+      "F:0001E680",
+      "F:00019FA0",
+      "F:0001E640",
+      "F:0001E720",
+      "F:0001E7C0",
+      "F:0001A0D0",
+      "F:00020D50",
+      "F:0001A200",
+      "F:00021480",
+      "F:00021570",
+      "F:00021610",
+      "F:000216B0",
+      "F:00021700",
+      "F:0001A310",
+      "F:0001A7D0",
+      "F:0001CD00",
+      "F:0001A160",
+      "F:0001A1C0",
+      "F:0001A270",
+      "F:00022E50",
+      "F:00023040",
+      "F:000231D0",
+      "F:00023350",
+      "F:000234B0",
+      "F:0001A9E0",
+      "F:0001AF00",
+      "F:0001B440",
+      "F:0001BB00",
+      "F:0001C3B0",
+      "F:00005EA0",
+      "F:000060D0",
+      "F:00006190",
+      "F:00006300",
+      "F:0006F930",
+      "F:0006F950",
+      "F:0006F970",
+      "F:0006F8F0",
+      "F:00005CB0",
+      "F:00006260",
+      "F:00006390",
+      "F:0003BC90",
+      "F:0001F4C0",
+      "F:0001F450",
+      "F:0001F1A0",
+      "F:0001F110",
+      "F:000206C0",
+      "F:0004B260",
+      "F:0005A710",
+      "F:0005A8B0",
+      "F:0000F0A0",
+      "F:00010E90",
+      "F:00010FC0",
+      "F:0000EFE0",
+      "F:0000F790",
+      "F:0000F800",
+      "F:0000FB30",
+      "F:000107C0",
+      "F:00010B00",
+      "F:00010E30",
+      "F:000113A0",
+      "F:00011A50",
+      "F:00011D30",
+      "F:00011CB0",
+      "F:00011FA0",
+      "F:00011FC0",
+      "F:00011FE0",
+      "F:00012000",
+      "F:00012020",
+      "F:000120F0",
+      "F:000121D0",
+      "F:00012210",
+      "F:00012260",
+      "F:00020F10",
+      "F:000124E0",
+      "F:00012290",
+      "F:000122C0",
+      "F:000122E0",
+      "F:00012310",
+      "F:000127B0",
+      "F:000127F0",
+      "F:00012830",
+      "F:00012870",
+      "F:00012900",
+      "F:00012F70",
+      "F:00013070",
+      "F:00013110",
+      "F:000131B0",
+      "F:000132B0",
+      "F:000133D0",
+      "F:00013400",
+      "F:00013550",
+      "F:00013750",
+      "F:00013980",
+      "F:00013B40",
+      "F:00013E90",
+      "F:00013FE0",
+      "F:000150F0",
+      "F:00016000",
+      "F:00016020",
+      "F:000160A0",
+      "F:00016150",
+      "F:00016220",
+      "F:00016860",
+      "F:00016AB0",
+      "F:00006630",
+      "F:00016DD0",
+      "F:00016DB0",
+      "F:00017410",
+      "F:00017AC0",
+      "F:00017B80",
+      "F:00017CC0",
+      "F:00018550",
+      "F:00018580",
+      "F:00017D80",
+      "F:000185C0",
+      "F:000185F0",
+      "F:00018620",
+      "F:000071C0",
+      "F:0000FC10",
+      "F:0000B180",
+      "F:0000FE50",
+      "F:0000FEB0",
+      "F:000186B0",
+      "F:00018B50",
+      "F:0000CAC0",
+      "F:0000CAF0",
+      "F:0003C910",
+      "F:0003C9A0",
+      "F:0003CA50",
+      "F:0003CA80"
+    ],
+    "closure_task_ids": [
+      "P01",
+      "U08",
+      "U09",
+      "V04"
+    ],
+    "dependencies": [
+      "FUNC-YOBI",
+      "FUNC-RENDER",
+      "FUNC-NETWORK"
+    ],
+    "acceptance_focus": "攻击生产、动作/事件、回合、载荷归属与清理",
+    "decision_refs": [
+      "doc/cg2d_closure_decisions_spec.md",
+      "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+      "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-decision",
+      "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+      "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+      "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+      "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision",
+      "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision",
+      "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
+      "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+      "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+      "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+      "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+      "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+      "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+      "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
+      "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+      "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
+      "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
+      "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision",
+      "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision",
+      "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
+      "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision",
+      "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-decision",
+      "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-decision",
+      "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-decision",
+      "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-decision",
+      "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-decision",
+      "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-decision",
+      "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision",
+      "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-decision",
+      "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-decision",
+      "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-decision",
+      "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-decision",
+      "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-decision",
+      "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-decision",
+      "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-decision",
+      "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-decision",
+      "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-decision",
+      "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision",
+      "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-decision",
+      "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-decision",
+      "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-decision",
+      "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-decision",
+      "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-decision",
+      "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-decision",
+      "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-decision",
+      "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision",
+      "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-decision",
+      "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
+      "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision",
+      "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+      "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+      "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision",
+      "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision",
+      "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+      "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+      "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision",
+      "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-decision",
+      "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-decision",
+      "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
+      "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+      "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+      "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+      "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+      "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+      "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision",
+      "doc/cg2d_battle_action_114_spec.md#battle-action-114-decision",
+      "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+      "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-decision",
+      "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
+      "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+      "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+      "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+      "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+      "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
+      "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
+      "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision",
+      "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-decision",
+      "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-decision",
+      "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-decision",
+      "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+      "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision"
+    ],
+    "blockers": [
+      "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
+      "音频传递依赖仍暂停；完整战斗原新对照与V04/V05未验，运行受执行限制",
+      "BCS01两旧Clone/Copy增量及三既有残影/基础角色入口纳管，九字组与三取样差异已修；同五F跨YOBI不双计，全部战斗状态/目标和数据资源生产、浅别名owner重进退出/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BTS01真实主回调公共尾四片段已修，257case/200既有目标保持；同一F跨YOBI不双计。完整全部动作/绑定父与实参、战斗状态和数据资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行仍未验",
+      "BAS01三附件同步十三差异实修、四表44槽176B及真实主回调1/1/2消费可追，同三F跨YOBI不双计；完整附件生产/全部动作实参和战斗数据资源、owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BAP01八442条1393B/24call和3绑定15父可追，BC0/C20独立分工及发布清理、六槽表/type3缩放/原失败与回调取样落实；同八F跨YOBI不双计。全部绑定父/动作实参/战斗数据资源与owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BAR01退场七槽五段/装备三段和完整状态根可追，八窗401条1549B与完整177条608B/前置16条66B分列；同四F跨YOBI不双计。完整三父/动作实参/战斗数据资源与owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BRA01真实case226→4154C0完整原体与入口/角色恢复/位置/计数/清槽取样已修；已有F:000154C0双域不双计，原28call保持。完整224/227/全部动作实参与数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+      "BRB01真实case227→415940完整根及入口/恢复角色/动画/位置/计数与旧首槽消费已修，已有F:00015940双域不双计；原28call保持。224余927条3519B与所有动作实参/数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+      "BRC01真实case224→414050完整根、来源目标/点表参数/循环/计数和角色恢复取样已修，已有F:00014050双域不双计，90call保持。224/226/227父本体有限原静态差集0；所有其它动作实参/数据资源生产消费与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+      "BEV01真实4383F0→4383B0→43B360→43B610和三推进根可追，22动态mask/初始化后slot发布与各不同null/计数/哨兵保持。同五F双域不多计，完整188父/所有其它动作/实参/数据资源及owner/SDK/ABI/PC53/时钟RNG/画面运行未闭",
+      "BQR01事件参与者初始化、动作/目标追加与22槽就绪/超时恢复五源差异已修，101普通call7父和8出向可追；同四F双域不多计。完整七父/其它动作实参/数据资源及owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未闭",
+      "BQA01就绪恢复实调用重置/Append及显式索引追加/完整效果追加四身份纳管，原顺序/索引复读和各null/哨兵/返回保持、源码未新增。同四F双域不多计，完整26父/其它动作实参/列表数据资源和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BMR01整数与字符串当前游标、预读/目标扫描本地游标四身份纳管；旧格式/双字节/NUL及原调用合同保持，同四F双域不多计。全部M数据资源/动作生产消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BMS01原RID头表/明确游标读→两参与者W8自增/游标成功pub或失败恢复合同纳管；同五F双域不双计、旧439770不重复身份。全部8父/其它M动作与资源生产消费和owner/SDK/ABI/PC53/时钟RNG/画面仍未闭",
+      "BMD01原25消息/技能382表槽和19表外分类、22B计数/W8次数/S32输出与特效对/20*36B名称表生产、正确攻击/辅助图形合同纳管；同三F双域不双计，全部6父与资源消费/owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BME01实际43B360→43B290→439B30/工厂/等待和32/22非拥有表初始化合同纳管，保两merge取样/失败及cached/live分工，同三F双域不双计；全部3父/事件资源消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BMF01消息完成→Init/活动mask注销和十状态C/M队列/绘制/退出明文真实消费纳管，95call5父139出向/三表可追；两根共用不重复计，完整事件分派/资源/owner/时钟RNG/画面仍待",
+      "BMG01失活CHT/BST/负延迟执行入口和四内联计时正常条件恢复；仅旧812追加和双域四局部I/S，不新成员/分类/身份，全部消息目标、owner/时钟RNG/画面未闭",
+      "BMH01ACTION/FP/CHT/变身/追加技能/结束六真实消费及63call/既有CopyPayload合同纳管，正常条件先pub和加载后取样恢复；仅局部I/S/旧812追加，不新完整分类/成员，全部父/owner/时钟RNG/画面未闭",
+      "BMI01Escape/Clear/Support/三宠物的原列表/seed/两Rand/不同ready和Finish→58/父回存合同纳管，60call与原分支可追；局部I/S且旧812追加不新分类/成员，全部资源owner/时钟RNG/画面未闭",
+      "BMJ01Equipment/StatusValue/Debuff/Power/Rebirth/QueuedValue正常消费、89call与有界原分支纳管，三存在条件/技能等级/两W8/flags→target恢复；只旧812追加及四局部I/S，不新完整分类/成员，全部资源owner/时钟RNG/画面未闭",
+      "BMK01POS/MON正常/失败返回及61call与原跳转纳管，坐标/玩家/target/效果/失败W8/工厂固定槽取样恢复；仅旧812追加和四局部I/S，不新完整分类/成员，资源owner/时钟RNG/画面未闭",
+      "BML01RID/GMN取包、工厂发布/载体与成员列表和170call原跳转纳管，flags/效果/坐标/三W8/linked与caster门禁恢复；仅旧812追加及四局部I/S，不新完整分类/成员，全部资源owner/时钟RNG/画面未闭",
+      "BMM01道具/连击119call与原直接/间接表分支纳管，target/消息与累计pub、两W8和参数/索引/player/末目标寿命取样恢复；仅旧812追加及四局部I/S，不新完整分类/成员，全部消费者/资源owner/时钟RNG/画面未闭",
+      "BMN01技能头0有界入口/等待态35call与五压缩表实际长度/宽度/默认映射纳管，一次58/四W8/两条件pub时序恢复；仅旧812追加及四局部I/S，不新完整分类/成员，正常主体全部消费者/资源owner/时钟RNG/画面仍待",
+      "BMO01技能4caster/target同解析位置、字段与效果参数取样、两S32索引/player/165-27恢复，入口21W32-118W8表仅case4定位；仅旧812追加和双域四局部I/S，不新分类/完整成员，其它技能全部消费者/资源owner/时钟RNG/画面继续",
+      "BMP01原累计-反向效果参数与字段/83索引-player/条件pub及一W8取样恢复，低段四case仅定位，偏移表原新对应保持；仅旧812追加与双域四局部I/S，不新分类/完整成员，其它技能全部消费者/资源owner/时钟RNG/画面继续",
+      "BMQ01五技能同caster自身效果与字段/图号原序、空actor条件先位置pub恢复，仅旧812追加和双域四局部I/S；五case路由仅上下文，不新分类/完整成员，其它技能所有消费者/资源owner/时钟RNG/画面继续",
+      "BMT01四根二十二处、202B三case入口/原48B偏移与正常八W32初值纳管，两个原循环都核；仅旧812追加和双域四局部I/S，不新分类/完整成员，全部其它技能/消费者/资源owner/时钟RNG/画面继续",
+      "BMU01同解析caster-target与条件pub、字段/Album之后效果参数恢复；仅旧812追加与双域四局部I/S，不新分类/完整成员或工厂null/立即释放模型，98及其它各技能/全路由-完整父-SEH/所有消费者-资源owner-时钟RNG-画面继续",
+      "BMV01同位置caster与payload-skill、actor先level/mode和caster先低段图偏移恢复；三Take/空Finish和六动作后true保持，无目标/RID/58新消费，仅旧812与四局部I/S，不新完整成员，各模式及完整父-SEH/消费者-owner运行继续",
+      "BMW01目标比较先pub/同位置空门禁-解析target效果及两字段actor先值恢复，255/空Finish均仍终结-Move-RID-增58，五动作live保持；仅旧812及四局部I/S，不新完整成员，其它模式/完整父-SEH/消费者-owner运行继续",
+      "BMX01换位固定oldSlot/moving与八坐标/三附件各次取样、mode8 flagsFDC W8及Reset固定target恢复；原非对称门禁/槽发布与255或空Finish后的终结Move-RID-增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+      "BMY01两类中点/效果参数-S32选择/字段-player和0-149条件取样、14双位置金额类型恢复；12/13初始失败直接回存-循环selected终结74、14无空门禁且双哨兵caster终结和Move-RID-增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+      "BMZ01两路径核后保持6/3共用，目标比较pub-effect/aux参数-S32选择/player同位置恢复；无actor空门禁及flags条件重读/47-46和不同哨兵参数尾-Move-RID增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+      "BNA01 flags caster先pub/固定值与live-S32选择/状态字段恢复，原19模式入口和动态mode/默认正确消费纳管；仅旧812/四局部I-S及原98区段覆盖，不新完整成员/分类，所有消费者-owner/SDK/ABI/时钟RNG/画面运行继续",
+      "BNB01三种状态路径的固定payload跨144/余数重读和原消费保持，14定义15处实修；400条主体/既有尾及实际99..104-2019-3001入口不能代完整战斗接线/生命周期-运行/SDK/画面及其它技能-全路由/R1-R7-R8",
+      "BNC01技能107原四动作/取包、初空返回和循环Finish后终结Move增58无RID保持，五处实修；该93条有界主体不能代完整战斗接线/生命周期-运行/SDK画面及其它技能-全路由/R1-R7-R8",
+      "BND01 108固定amount/各次live、两正常149/184-159门禁与失败68/22331/59及末55共用尾保持，十处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNE01 109三级flags选择/22329-22331和各次live/主体55后Move原尾保持，九处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNF01 112原flags先pub/0后一次W32-EAX/AH选择/两个位置切换与原取包-动作/Move尾保持，九处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNG01 114原图号表-caster-加法/target先flags pub、157后门禁和原成功/失败与终结Move尾保持，八处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNH01 117同解析角色/基础字段与caster-target先flags pub、0后W32 live门禁/56或68后另live22331-73/74与真实Move后缀保持，七处实修；该主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNI01 73非零具体效果取样/同解析target与34后比较位置、双S32索引原序恢复，原两字段先判空/live flags门禁-原动作与Move-RID-增58保持；不能代73零模式完整消费者/全case/全部战斗接线-owner/SDK画面或R1-R7-R8",
+      "BNJ01 106族角色字段/同解析target、两Effect具体参数-S32索引与34后比较位置原序恢复，原2002额外取包/29容量-live门禁、cached W32选择和原初/末动作-Move/RID/增58保持；不能代其它技能/完整战斗接线-owner/SDK画面或R1-R7-R8",
+      "BNK01 73零/3100 index-level-skill、普通mode后cached skill再index-level及四输出/value角色尾恢复，三原call对照三现有调用点；P01 core源码closed保持，不代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNL01普通非零坐标/图-角色与Effect、mode3自身转向字段/固定金额/末W8、四S32索引和两比较原序恢复，原图数组分工/取包-动作/两类终结与Move/RID/增58保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNM01 263同参Effect、400固定Take flags/条件重读两Cast0、401两字段后live flags与三低图角色先表恢复，原消费-动作/各失败与固定58值无RID保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNN01 402第三Take后live caster/图号-目标遍历与比较先pub、405两图次序/五Effect各次取样和两S32索引恢复，原消费-转换-动作与各失败/固定58尾无RID保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNO01预读caster缓存/两段分支坐标-固定100C与carrier/rider取样、普通Effect/Aux/四S32索引和位置比较-最终恢复/两W8门禁恢复；原子角色/消费-字段/动作及Move-RID固定58尾保持，不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNP01累计总量先target/固定flags与响应W8、各低高图-反射字段/最终AEL、2005族Effect/Aux-两S32索引和位置比较恢复；原消费/同侧149后重读-响应优先/动作及两真实Move-RID/固定2或增一尾保持，不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNQ01三初图与八分档图各时点、target-level-skill附加效果/角色字段和两成功skill-S32行恢复，原状态类型/比较-固定payload跨替换动作/成功门禁、全部取包-字段/动作与End-Move-RID增58尾保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNR01初图/累计与普通效果、半额反馈-反弹字段/copy和末效果取样恢复，四S32索引/五W8门禁；原entry0/1比较/图号/金额门禁-全部动作及真实Move-RID固定2保持，不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNS01 effectCount/图号、累计-普通和反馈Effect/Aux各固定-live时点、字段/copy和真实Move-RID固定1实修；576条/25定义27处不代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNT01独立426FC0完整369条/十参-四输出和3101真实consumer、四处取样实修/原两表-门禁及两返回有界纳管，战斗成员新增原ID不代表枚举闭合；完整父/其它consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面和R1-R7-R8仍待",
+      "BNU01两独立三方转向/辅助效果229条693B与既有正确源合同、五转向/37辅助入向分列并补身份，战斗成员55不代表枚举闭合；完整父/全部consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面与R1/R7/R8仍待",
+      "BNV01两个特效创建函数125条412B/三处flags与坐标取样实修及独立身份纳管，战斗成员57仍未全枚举；全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
+      "BNW01两callback/三创建168条576B，位置callback Y取样先X发布已修/五身份纳管；战斗成员62仍未全枚举，全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
+      "BNX01七入口340条1215B/两局部数组与五态表纳管，上升callback坐标取样已修；BATTLE69仍未全枚举，全部consumer-owner/资源重进退出/ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+      "BNY01两个上游emitter258条1057B/原四局部表256B纳管，随机X取样已修/两级父与50-32完成门禁保；BATTLE71枚举未闭，完整41CD00/consumer-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+      "BNZ01共同创建完整1583条5825B/315B原数据、17定义18段修正纳管；BATTLE72未全枚举，所有25入向-20父/callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+      "BOA01三完成/父关联/缩放回调97条306B三处坐标取样已修/独立身份纳管；BATTLE75未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOB01五完整初始化助手608条1940B/六取样补丁已修、五独立身份纳管；BATTLE80未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOC01两完整命中回调732条2647B/十取样补丁已修、两独立身份纳管；BATTLE82未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOD01完整帧事件回调471条1723B/四取样补丁已修、独立身份纳管；BATTLE83未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOE01完整移动命中回调636条2217B/五取样补丁已修、独立身份纳管；BATTLE84未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOF01完整追踪命中回调676条2381B/四取样补丁已修、独立身份纳管；BATTLE85未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOG01九完整距离/转向/运动-原表角度依赖441条1422B/两处公式及取样已还原、原表3400B独立纳管；BATTLE94未全枚举，全部219入向父-callee/表生产消费-owner/生命周期/ABI-PC53-RNG画面与R1/R7/R8待",
+      "BOH01五完整消费助手/图标创建更新286条952B/三个函数六还原，原三Advance四fresh游标输出/固定flags与fresh表对象保；BATTLE99未全枚举，176入向全部父-callee/共享表-owner/资源重进退出-ABI-PC53-画面与R1/R7/R8待",
+      "BOI01数字创建1071原记录补132差集及完整191条、更新44条新增1397；两根235条831B/九还原与175B表/常量保，BATTLE101仍未全枚举，23父/46调用点/第二时间数字构造者-测宽/资源/字符消费-draw/回收owner-ABI-PC53-画面与R1/R7/R8待",
+      "BOJ01时间1072补106差集/完整156及默认22条共178条610B，恢复Time/Number两原44B260测宽目标与Time两取样，旧Number I具名fail/六新局部I-S；BATTLE103枚举open，宽度/资源/字载荷-draw/全部父与回收重入owner-PC53-画面/R1/R7/R8待",
+      "BOK01数字图号索引/XY两个正确getter完整28条105B独立纳管，BATTLE105枚举open；资源生产者Init为RESOURCE成员/共享基线candidate不替代成员，字载荷draw/所有父-真实owner与运行门禁待",
+      "BPO01原257槽/200父内代码标签1028B跳转表的X用途mapped，BATTLE105及BTS已证源码/表不变；不增动作函数或软件门禁，完整战斗/全部父和子动作/间接alias-owner寿命/SDK机器ABI/运行与其余R7区间仍待",
+      "BPP01第三批128X全1272B用途及三动作的表数据/源码角色已纳管，BATTLE108枚举open；40F0A0一消费片段恢复+04启用/+00类型。三父489/57/136仅元数据，完整本体/状态/RNG/所有子父调用和owner-alias寿命/SDK机器ABI/运行未新验，三函数处置null；两局部I-S只真实字段修复，不代X/完整战斗验收",
+      "BPQ01动作141/143完整193条649B/六call与两唯一父邻窗正常源静态纳管，两真实W8读取恢复，108成员不增；完整父/其它状态生产/所有子调用与owner-alias寿命/SDK机器ABI/时钟RNG/画面运行未验，动作114仍只BPP局部，完整战斗和R8不关闭",
+      "BPR01动作114从BPP数据角色/字段修复推进完整489条1745B/34call及唯一父邻窗正常源静态，三源W8片段对应四原点，108成员不增；BPP此前完整本体未验边界由本组限定静态推进，完整父/其它生产/全部子依赖及owner-alias寿命/SDK机器ABI与x87实际精度/时钟RNG/画面运行未验，完整战斗及R8不关闭",
+      "BPS01四动作完整339条1170B/六页、29call/34jump与四唯一父邻窗纳管，155/156同阶段借用取样恢复，112原成员仍枚举open；正确W32读取/运动与缩放/RNG/声音分支保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI与实际x87精度/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPT01三个动作完整540条1709B/九页、63call/36jump/15ret与三唯一父邻窗纳管，共享helper六完整取样对应十二原阶段，115原成员仍枚举open；原业务上下限/default与159/160不同尾保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPU01两完整动作570条2302B/八页、32call/63jump/七ret与两唯一父邻窗纳管；七原栈初始化52元素按五源常量组40值可追，类型W8/七回收源片段修复，117原成员仍枚举open。第三槽判断/正常状态和真实字段重读保；全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPV01六完整动作243条815B/八页、19call/21jump/10ret与六唯一父邻窗纳管，165两W8消费恢复，其余五体/原未落位FP、W32缓存与fresh及166内联正常计时/四字节发布保，123原成员枚举open；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPW01七完整根736条2670B/13页、43call/69jump/九ret及六唯一分派点与sync14入向/三父纳管，九槽每操作后fresh/重复alias及真实共享调用汇合保持；204只两临时复制全取样，130原成员仍枚举open。额外同步初判已撤回未改正确call；递归父/其它生产及全部子依赖/owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，完整战斗和R8未关闭",
+      "BPX01九完整757条2516B/16页、48call/108jump/14ret与九入向/27邻窗/32原父case、共体23type与六常数纳管；209六W8/两读取序/encoded先目标及原交替载荷九阶段恢复，正常旧值一致；139原成员枚举仍open。八其它正确体和188无效果仍204、别名/业务/返回/RNG及音频暂停保；递归父/其它生产/全部外依赖和owner寿命、生成机器ABI/真实x87/时钟RNG/画面运行未验，完整战斗和R8继续open",
+      "BPY01七完整439条1445B/九页、40call/16入口/37jump/一四项switch/17ret与七入向21邻窗纳管，四体七W8-W16/读取序阶段恢复、三正确体保，146成员枚举open；210同依赖19B三LEA对齐及四W32表用途mapped只R7。其它递归父/全部子依赖/生产与alias-owner寿命、SDK/生成机器ABI/画面运行未验，完整战斗和R8继续open，音频暂停",
+      "BPZ01三完整397条1508B/六页、31call/42jump/八ret与三入向九邻窗纳管；218先1060指针后新图号/219低W8/Restore先1060指针后基础图号三源阶段恢复，两帮助体使用者219/220原内联全部对应，不增helper F/原call，149原成员枚举open。正常旧值相同，原同步终帧循环/借用alias及业务/状态保；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open",
+      "BQA02两完整346条1169B/六页、34call/21入口/28jump/三ret与两父六邻窗/四F32常数纳管，221四实际低W8恢复，222正确源和原源HP归零/图标接收者/齐读、普通上限CopyPayload、W32缓存/未落位FP保，151原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQB01两完整289条1074B/五页、25call/14入口/十jump/四ret与两父六邻窗纳管，225九指针/字段/实参/抛物线取样阶段恢复，223正确体与四普通CopyPayload、真实重复清字段/坐标还原保。224既有BRC01完整adapted记录不重复计数，153原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQC01五完整583条2104B/十页、58call/26入口/49jump/六ret、五父15邻窗/52B和228真实内部call229/两F32常数纳管，232三数显索引先Y、反伤归零齐读/普通扣减encoded先共享目标五阶段恢复；228..231正确体、cached W32寄存器旗位、独立RNG/原HP图标接收者/共享尾和返回保。158原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQD01四完整834条2947B/十三页、62call/26入口/86jump/八ret、四父12邻窗/35B和十F32纳管，233三/234三/237五共十一源阶段恢复：初始FDC/FCC先取、四内存W8/下边界角度两读、三数显索引先Y/两归零原序；236正确体/已证父弃返、S16width既有getter/普通helper/原W32旗位、HP图标接收者/RNG/同步帧循环/返回保。162原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、完整图形链/SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQE01七完整729条2516B/十四页、60call/26入口/77jump/十二ret、七父21邻窗/56B、两共用表项/三F32纳管；共体五/241一共六源阶段恢复，三W8源表达式承接四实际原点、index/encoded先position/共享目标、速度先零比较后phase239/声事件先X。八逻辑状态七物理身份不重复分类，五正确体/普通helper/W32缓存、HP图标接收者/RNG/两播放/循环与额外推进/返回保。169原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQF01四完整633条2207B/十页、45call/22入口/97jump/四ret、四父12邻窗/32B和246原F32系数纳管，243三W8源表达式对四原点，原技能CMP/图值/模式/级别/六RAND物理点各路径消费、W32缓存/无扣HP/其它图标后仍Attribute区别、原上限copy/两条件播放/退场及三个正确移动体保。原无switch表，不新R7或__ftol身份；173原成员枚举open。正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQG01七完整704条2305B/十三页、47call/22入口/120jump/七ret、七父四窗20条/69B和三既有表项纳管。249一次event及255归零encoded先目标/三低W8对四原点，共五片段/两体；正常旧值一致。工厂30创建/31父case与118默认无创建、251两临时齐读/253原W32后取phase与+10保存/254先指针回收/256两全局写正确体保持。255真实healTarget.counter1DC、fixed effect与普通免疫fresh C9C差别/W32缓存/HP原上限copy/RNG/播放尾保；工厂无物理switch表，不新R7/父表分类。180原成员枚举open；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open",
+      "BQH01六完整171条467B/六页、13call/8callee/19jump/六ret，八入向八窗24条107B及局部父返回比较/EBP=1纳管。43C910/43CA50低W8 FDC、43C9A0两独立低W8玩家旗位及两阵营共享投影四S32读序/F32 Y后X发布，共五片段/三体，四W8原点/四源表达式，正常旧值一致。前20槽共享span/10..19后重读位再0..9、调用后fresh共享目标/返回消费、名字测量前Y后X/颜色继承/原S16公开边界及两推进正确体保持；父switch仅邻近记录，不新增R7或父完整验收。186原成员枚举open；其它全部生产/owner寿命/递归父、SDK/生成机器ABI/实际x87/画面运行未验，完整战斗和R8继续open"
+    ],
+    "gates": {},
+    "member_inventory_closed": false,
+    "member_inventory_evidence_refs": [
+      "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+      "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
+      "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+      "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+      "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+      "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
+      "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+      "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+      "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+      "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+      "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+      "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+      "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+      "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+      "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+      "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+      "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+      "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+      "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
+      "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+      "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+      "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state",
+      "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state",
+      "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-source-state",
+      "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-source-state",
+      "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-source-state",
+      "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-source-state",
+      "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state",
+      "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-source-state",
+      "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-source-state",
+      "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-source-state",
+      "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-source-state",
+      "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-source-state",
+      "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-source-state",
+      "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-source-state",
+      "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-source-state",
+      "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-source-state",
+      "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-source-state",
+      "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-source-state",
+      "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-source-state",
+      "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-source-state",
+      "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
+      "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
+      "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+      "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+      "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+      "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+      "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
+      "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+      "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+      "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+      "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
+      "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
+      "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+      "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
+      "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+      "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+      "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+      "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+      "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+      "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state",
+      "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
+      "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+      "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
+      "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+      "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+      "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+      "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+      "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+      "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+      "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+      "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+      "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
+      "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
+      "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+      "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+      "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state"
+    ]
+  },
+  "snapshot_functions_before": [
+    {
+      "id": "F:0003C560",
+      "original_entry": "0x43C560",
+      "original_name": "BattleScene::CheckCommand",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "CheckBattleCommand_43C560",
+          "definition_line": 30099,
+          "namespace": "cg::login::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ]
+}

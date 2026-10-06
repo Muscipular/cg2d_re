@@ -33177,7 +33177,8 @@ std::int32_t CheckBattleCommand_43C560(
             if (action != nullptr
                 && ((flags & 0x10u) != 0
                     || ((flags & 0x800u) != 0
-                        && (static_cast<const BattleActorPayload*>(action->payload)->flagsFDC & 4u) != 0))
+                        && (*reinterpret_cast<const std::uint8_t*>(
+                            &static_cast<const BattleActorPayload*>(action->payload)->flagsFDC) & 4u) != 0))
                 && (!platform::legacy_crypt_int::LessEqual_401DA0(&action->readiness, 0)
                     || (flags & 2u) != 0)) {
                 gBattleEntries59E980[slot]->flags |= 8u;
@@ -33202,7 +33203,7 @@ std::int32_t CheckBattleCommand_43C560(
         {4, 2, 0, 1, 3},
     };
     if ((flags & 0x400u) == 0
-        || ((gBattlePlayerFlags5ABCAC & 0x80u) == 0
+        || ((*reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC) & 0x80u) == 0
             && position == gBattleCurrentPosition5ABCA4)) {
         return 1;
     }
@@ -33220,9 +33221,9 @@ std::int32_t CheckBattleCommand_43C560(
         const std::int32_t front = rows[1][column];
         for (std::int32_t c = 0; c < 5; ++c) {
             const YobiAction* const ownFront = gBattleEntries59E980[front];
-            if (ownFront != nullptr && (ownFront->flags & 8u) != 0) {
+            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {
                 const YobiAction* const enemyFront = gBattleEntries59E980[rows[2][c]];
-                if (enemyFront != nullptr && (enemyFront->flags & 8u) != 0) {
+                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {
                     YobiAction* const enemyBack = gBattleEntries59E980[rows[3][c]];
                     if (enemyBack != nullptr) {
                         enemyBack->flags &= ~8u;
@@ -33234,9 +33235,9 @@ std::int32_t CheckBattleCommand_43C560(
         const std::int32_t front = rows[2][column];
         for (std::int32_t c = 0; c < 5; ++c) {
             const YobiAction* const ownFront = gBattleEntries59E980[front];
-            if (ownFront != nullptr && (ownFront->flags & 8u) != 0) {
+            if (ownFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&ownFront->flags) & 8u) != 0) {
                 const YobiAction* const enemyFront = gBattleEntries59E980[rows[1][c]];
-                if (enemyFront != nullptr && (enemyFront->flags & 8u) != 0) {
+                if (enemyFront != nullptr && (*reinterpret_cast<const std::uint8_t*>(&enemyFront->flags) & 8u) != 0) {
                     YobiAction* const enemyBack = gBattleEntries59E980[rows[0][c]];
                     if (enemyBack != nullptr) {
                         enemyBack->flags &= ~8u;

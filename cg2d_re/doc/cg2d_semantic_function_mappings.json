@@ -1040,19 +1040,1728 @@
     {
       "original_entry": "0x521B10",
       "inventory_id": "F:00121B10",
-      "status": "已有实现映射，运行未验",
+      "status": "BOS01两公共入队完整原根/额外拒绝-S32回绕退休、逐W32描述符与字段发布恢复；真实队列已接，全部caller-consumer/运行未验",
       "sources": [
         {
           "path": "src/DrawGraphic.cpp",
           "symbols": [
-            "DrawGraphic"
-          ]
+            "DrawGraphic",
+            "CopyGraphicDescriptorWords"
+          ],
+          "relationship": "入口S16 pendingCount只保原>=4096返S32-2上限，不新增负数拒绝或异常域演练。正常容量内保存当前真实record目标在map/XY调用前；imageNo[-1,999]返-2，<-1直传/offset0，>999 call45A8B0至同localfinalImageNo再call45A710低W16 XY，不新查callee结果。初始count定位cache3，layerU8先live count S16 cacheIndex；x正常S32+S16 pub，y正常S32+S16先value4样本/y pub，再descriptor存在样本/最终图号pub→value4pub→原action native pointer清0。非空descriptor依原0/4/8/12四W32每次先读再写，不整块预存，保正常源目标别名；空参4W16零/颜色W32FFFFFFFF/clip0U8/mix0U8/paletteIndex0W16顺序。clip先batchType0/clip1覆1；final图号C18..C21或原imageNo1DF0..1DFF时原Byte special1。尾fresh counter U16，返回旧S16符号扩展S32，然后原低W16+1pub。x/y撤S32回绕helper只正常加，W16计数窄化不改，source参数/records非拥有地址native，其它非地址宽度保。"
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_graphic_dx_cache_x64_spec.md"
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-baseline",
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision",
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-acceptance",
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_enqueue_descriptor_production_evidence.json"
       ],
-      "boundary": "公共图形入队已由DrawGraphic承接；本项只建立地址映射，不重新宣布所有caller或队列运行验收通过。"
+      "boundary": "入口S16 pendingCount只保原>=4096返S32-2上限，不新增负数拒绝或异常域演练。正常容量内保存当前真实record目标在map/XY调用前；imageNo[-1,999]返-2，<-1直传/offset0，>999 call45A8B0至同localfinalImageNo再call45A710低W16 XY，不新查callee结果。初始count定位cache3，layerU8先live count S16 cacheIndex；x正常S32+S16 pub，y正常S32+S16先value4样本/y pub，再descriptor存在样本/最终图号pub→value4pub→原action native pointer清0。非空descriptor依原0/4/8/12四W32每次先读再写，不整块预存，保正常源目标别名；空参4W16零/颜色W32FFFFFFFF/clip0U8/mix0U8/paletteIndex0W16顺序。clip先batchType0/clip1覆1；final图号C18..C21或原imageNo1DF0..1DFF时原Byte special1。尾fresh counter U16，返回旧S16符号扩展S32，然后原低W16+1pub。x/y撤S32回绕helper只正常加，W16计数窄化不改，source参数/records非拥有地址native，其它非地址宽度保。",
+      "prior_graphic_enqueue_descriptor_review": {
+        "original_entry": "0x521B10",
+        "inventory_id": "F:00121B10",
+        "status": "已有实现映射，运行未验",
+        "sources": [
+          {
+            "path": "src/DrawGraphic.cpp",
+            "symbols": [
+              "DrawGraphic"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_graphic_dx_cache_x64_spec.md"
+        ],
+        "boundary": "公共图形入队已由DrawGraphic承接；本项只建立地址映射，不重新宣布所有caller或队列运行验收通过。"
+      },
+      "original_role": "原图形队列生产与描述符、批次字段发布",
+      "original_end_exclusive": "0x521C72",
+      "instruction_count": 113,
+      "original_direct_reference_count": 328,
+      "inbound_evidence": [
+        {
+          "ea": "0x41e8f2",
+          "type": 17,
+          "parent": "0x41e890"
+        },
+        {
+          "ea": "0x41e981",
+          "type": 17,
+          "parent": "0x41e920"
+        },
+        {
+          "ea": "0x43c438",
+          "type": 17,
+          "parent": "0x43c3e0"
+        },
+        {
+          "ea": "0x43cb47",
+          "type": 17,
+          "parent": "0x43cb10"
+        },
+        {
+          "ea": "0x43dce2",
+          "type": 17,
+          "parent": "0x43db60"
+        },
+        {
+          "ea": "0x443537",
+          "type": 17,
+          "parent": "0x442f70"
+        },
+        {
+          "ea": "0x455fa0",
+          "type": 17,
+          "parent": "0x455c90"
+        },
+        {
+          "ea": "0x45788e",
+          "type": 17,
+          "parent": "0x4576b0"
+        },
+        {
+          "ea": "0x458195",
+          "type": 17,
+          "parent": "0x457b10"
+        },
+        {
+          "ea": "0x458448",
+          "type": 17,
+          "parent": "0x458390"
+        },
+        {
+          "ea": "0x458474",
+          "type": 17,
+          "parent": "0x458390"
+        },
+        {
+          "ea": "0x4585ba",
+          "type": 17,
+          "parent": "0x458390"
+        },
+        {
+          "ea": "0x45864b",
+          "type": 17,
+          "parent": "0x4585f0"
+        },
+        {
+          "ea": "0x458680",
+          "type": 17,
+          "parent": "0x4585f0"
+        },
+        {
+          "ea": "0x45c323",
+          "type": 17,
+          "parent": "0x45c2d0"
+        },
+        {
+          "ea": "0x45c35c",
+          "type": 17,
+          "parent": "0x45c2d0"
+        },
+        {
+          "ea": "0x45c39e",
+          "type": 17,
+          "parent": "0x45c2d0"
+        },
+        {
+          "ea": "0x45c4c5",
+          "type": 17,
+          "parent": "0x45c2d0"
+        },
+        {
+          "ea": "0x45cdc1",
+          "type": 17,
+          "parent": "0x45ca20"
+        },
+        {
+          "ea": "0x45d6fd",
+          "type": 17,
+          "parent": "0x45ce10"
+        },
+        {
+          "ea": "0x45d96d",
+          "type": 17,
+          "parent": "0x45d7e0"
+        },
+        {
+          "ea": "0x45e01e",
+          "type": 17,
+          "parent": "0x45dee0"
+        },
+        {
+          "ea": "0x45e049",
+          "type": 17,
+          "parent": "0x45dee0"
+        },
+        {
+          "ea": "0x45e5d9",
+          "type": 17,
+          "parent": "0x45e3d0"
+        },
+        {
+          "ea": "0x462ce4",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462d1a",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462d3d",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462d5d",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462d89",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462da7",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462dcc",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462e04",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462e42",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462e8c",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462ecf",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462ef6",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462f16",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x462f36",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x4630cc",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x4630e4",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x463d9f",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463dc1",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463de3",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463e08",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463e35",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463e57",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463e7f",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463e9d",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463ed7",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463efe",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463f2f",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463f51",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463f7a",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463fae",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x463fe6",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x46401e",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x464170",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x46425c",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x464279",
+          "type": 17,
+          "parent": "0x4631d0"
+        },
+        {
+          "ea": "0x4647c3",
+          "type": 17,
+          "parent": "0x464450"
+        },
+        {
+          "ea": "0x46481a",
+          "type": 17,
+          "parent": "0x464450"
+        },
+        {
+          "ea": "0x466c78",
+          "type": 17,
+          "parent": "0x466b80"
+        },
+        {
+          "ea": "0x46917c",
+          "type": 17,
+          "parent": "0x469030"
+        },
+        {
+          "ea": "0x46d6bb",
+          "type": 17,
+          "parent": "0x46cf60"
+        },
+        {
+          "ea": "0x46d6ce",
+          "type": 17,
+          "parent": "0x46cf60"
+        },
+        {
+          "ea": "0x46f5ca",
+          "type": 17,
+          "parent": "0x46f1d0"
+        },
+        {
+          "ea": "0x46f7ed",
+          "type": 17,
+          "parent": "0x46f680"
+        },
+        {
+          "ea": "0x470d7a",
+          "type": 17,
+          "parent": "0x470ac0"
+        },
+        {
+          "ea": "0x470db6",
+          "type": 17,
+          "parent": "0x470ac0"
+        },
+        {
+          "ea": "0x470df2",
+          "type": 17,
+          "parent": "0x470ac0"
+        },
+        {
+          "ea": "0x470e3c",
+          "type": 17,
+          "parent": "0x470ac0"
+        },
+        {
+          "ea": "0x470e78",
+          "type": 17,
+          "parent": "0x470ac0"
+        },
+        {
+          "ea": "0x470eb4",
+          "type": 17,
+          "parent": "0x470ac0"
+        },
+        {
+          "ea": "0x470ef3",
+          "type": 17,
+          "parent": "0x470ac0"
+        },
+        {
+          "ea": "0x471b59",
+          "type": 17,
+          "parent": "0x4718f0"
+        },
+        {
+          "ea": "0x471b8f",
+          "type": 17,
+          "parent": "0x4718f0"
+        },
+        {
+          "ea": "0x471bc5",
+          "type": 17,
+          "parent": "0x4718f0"
+        },
+        {
+          "ea": "0x471c09",
+          "type": 17,
+          "parent": "0x4718f0"
+        },
+        {
+          "ea": "0x471c3f",
+          "type": 17,
+          "parent": "0x4718f0"
+        },
+        {
+          "ea": "0x471c75",
+          "type": 17,
+          "parent": "0x4718f0"
+        },
+        {
+          "ea": "0x471cb4",
+          "type": 17,
+          "parent": "0x4718f0"
+        },
+        {
+          "ea": "0x4746b0",
+          "type": 17,
+          "parent": "0x474550"
+        },
+        {
+          "ea": "0x4747b5",
+          "type": 17,
+          "parent": "0x474550"
+        },
+        {
+          "ea": "0x47492c",
+          "type": 17,
+          "parent": "0x474550"
+        },
+        {
+          "ea": "0x474a79",
+          "type": 17,
+          "parent": "0x474550"
+        },
+        {
+          "ea": "0x4772ff",
+          "type": 17,
+          "parent": "0x4771b0"
+        },
+        {
+          "ea": "0x477429",
+          "type": 17,
+          "parent": "0x4771b0"
+        },
+        {
+          "ea": "0x47b805",
+          "type": 17,
+          "parent": "0x47b6c0"
+        },
+        {
+          "ea": "0x47bbe6",
+          "type": 17,
+          "parent": "0x47b9b0"
+        },
+        {
+          "ea": "0x47c391",
+          "type": 17,
+          "parent": "0x47c240"
+        },
+        {
+          "ea": "0x47cc66",
+          "type": 17,
+          "parent": "0x47cb00"
+        },
+        {
+          "ea": "0x47cfc9",
+          "type": 17,
+          "parent": "0x47ce70"
+        },
+        {
+          "ea": "0x47ded7",
+          "type": 17,
+          "parent": "0x47de00"
+        },
+        {
+          "ea": "0x483dae",
+          "type": 17,
+          "parent": "0x483150"
+        },
+        {
+          "ea": "0x483dc9",
+          "type": 17,
+          "parent": "0x483150"
+        },
+        {
+          "ea": "0x4847ac",
+          "type": 17,
+          "parent": "0x483eb0"
+        },
+        {
+          "ea": "0x484d42",
+          "type": 17,
+          "parent": "0x4847c0"
+        },
+        {
+          "ea": "0x484e79",
+          "type": 17,
+          "parent": "0x484d60"
+        },
+        {
+          "ea": "0x484f9b",
+          "type": 17,
+          "parent": "0x484e90"
+        },
+        {
+          "ea": "0x48501e",
+          "type": 17,
+          "parent": "0x484fb0"
+        },
+        {
+          "ea": "0x4852b9",
+          "type": 17,
+          "parent": "0x485200"
+        },
+        {
+          "ea": "0x48540b",
+          "type": 17,
+          "parent": "0x485350"
+        },
+        {
+          "ea": "0x486f8b",
+          "type": 17,
+          "parent": "0x486f20"
+        },
+        {
+          "ea": "0x486fc9",
+          "type": 17,
+          "parent": "0x486f20"
+        },
+        {
+          "ea": "0x4896d7",
+          "type": 17,
+          "parent": "0x488fb0"
+        },
+        {
+          "ea": "0x4896f6",
+          "type": 17,
+          "parent": "0x488fb0"
+        },
+        {
+          "ea": "0x489e46",
+          "type": 17,
+          "parent": "0x489760"
+        },
+        {
+          "ea": "0x489e8e",
+          "type": 17,
+          "parent": "0x489760"
+        },
+        {
+          "ea": "0x489ead",
+          "type": 17,
+          "parent": "0x489760"
+        },
+        {
+          "ea": "0x48a346",
+          "type": 17,
+          "parent": "0x489f00"
+        },
+        {
+          "ea": "0x48a476",
+          "type": 17,
+          "parent": "0x489f00"
+        },
+        {
+          "ea": "0x48a4bf",
+          "type": 17,
+          "parent": "0x489f00"
+        },
+        {
+          "ea": "0x48a4db",
+          "type": 17,
+          "parent": "0x489f00"
+        },
+        {
+          "ea": "0x48a5f1",
+          "type": 17,
+          "parent": "0x489f00"
+        },
+        {
+          "ea": "0x48a63a",
+          "type": 17,
+          "parent": "0x489f00"
+        },
+        {
+          "ea": "0x48a656",
+          "type": 17,
+          "parent": "0x489f00"
+        },
+        {
+          "ea": "0x48a79b",
+          "type": 17,
+          "parent": "0x48a6c0"
+        },
+        {
+          "ea": "0x48a7e3",
+          "type": 17,
+          "parent": "0x48a6c0"
+        },
+        {
+          "ea": "0x48a802",
+          "type": 17,
+          "parent": "0x48a6c0"
+        },
+        {
+          "ea": "0x48befe",
+          "type": 17,
+          "parent": "0x48bc90"
+        },
+        {
+          "ea": "0x48c0dd",
+          "type": 17,
+          "parent": "0x48bf30"
+        },
+        {
+          "ea": "0x48d980",
+          "type": 17,
+          "parent": "0x48d540"
+        },
+        {
+          "ea": "0x492234",
+          "type": 17,
+          "parent": "0x4920f0"
+        },
+        {
+          "ea": "0x492d75",
+          "type": 17,
+          "parent": "0x492c80"
+        },
+        {
+          "ea": "0x492dd6",
+          "type": 17,
+          "parent": "0x492c80"
+        },
+        {
+          "ea": "0x492e20",
+          "type": 17,
+          "parent": "0x492c80"
+        },
+        {
+          "ea": "0x4948c5",
+          "type": 17,
+          "parent": "0x4947f0"
+        },
+        {
+          "ea": "0x4984b6",
+          "type": 17,
+          "parent": "0x4982c0"
+        },
+        {
+          "ea": "0x498fd8",
+          "type": 17,
+          "parent": "0x498520"
+        },
+        {
+          "ea": "0x49971d",
+          "type": 17,
+          "parent": "0x4996c0"
+        },
+        {
+          "ea": "0x499f18",
+          "type": 17,
+          "parent": "0x499c30"
+        },
+        {
+          "ea": "0x499f5d",
+          "type": 17,
+          "parent": "0x499c30"
+        },
+        {
+          "ea": "0x499f7f",
+          "type": 17,
+          "parent": "0x499c30"
+        },
+        {
+          "ea": "0x49aaef",
+          "type": 17,
+          "parent": "0x499c30"
+        },
+        {
+          "ea": "0x49ab29",
+          "type": 17,
+          "parent": "0x499c30"
+        },
+        {
+          "ea": "0x49ab78",
+          "type": 17,
+          "parent": "0x499c30"
+        },
+        {
+          "ea": "0x49abbd",
+          "type": 17,
+          "parent": "0x499c30"
+        },
+        {
+          "ea": "0x49abd9",
+          "type": 17,
+          "parent": "0x499c30"
+        },
+        {
+          "ea": "0x49adea",
+          "type": 17,
+          "parent": "0x49ac40"
+        },
+        {
+          "ea": "0x49ae32",
+          "type": 17,
+          "parent": "0x49ac40"
+        },
+        {
+          "ea": "0x49ae57",
+          "type": 17,
+          "parent": "0x49ac40"
+        },
+        {
+          "ea": "0x49b51b",
+          "type": 17,
+          "parent": "0x49ac40"
+        },
+        {
+          "ea": "0x49b543",
+          "type": 17,
+          "parent": "0x49ac40"
+        },
+        {
+          "ea": "0x49b56d",
+          "type": 17,
+          "parent": "0x49ac40"
+        },
+        {
+          "ea": "0x49b5b5",
+          "type": 17,
+          "parent": "0x49ac40"
+        },
+        {
+          "ea": "0x49b5d4",
+          "type": 17,
+          "parent": "0x49ac40"
+        },
+        {
+          "ea": "0x49e2b4",
+          "type": 17,
+          "parent": "0x49e1d0"
+        },
+        {
+          "ea": "0x4a0d70",
+          "type": 17,
+          "parent": "0x4a09e0"
+        },
+        {
+          "ea": "0x4a3b13",
+          "type": 17,
+          "parent": "0x4a39c0"
+        },
+        {
+          "ea": "0x4a3b5d",
+          "type": 17,
+          "parent": "0x4a39c0"
+        },
+        {
+          "ea": "0x4a508d",
+          "type": 17,
+          "parent": "0x4a4fc0"
+        },
+        {
+          "ea": "0x4a50c6",
+          "type": 17,
+          "parent": "0x4a4fc0"
+        },
+        {
+          "ea": "0x4a510e",
+          "type": 17,
+          "parent": "0x4a4fc0"
+        },
+        {
+          "ea": "0x4a513f",
+          "type": 17,
+          "parent": "0x4a4fc0"
+        },
+        {
+          "ea": "0x4a520d",
+          "type": 17,
+          "parent": "0x4a4fc0"
+        },
+        {
+          "ea": "0x4a5252",
+          "type": 17,
+          "parent": "0x4a4fc0"
+        },
+        {
+          "ea": "0x4a52f2",
+          "type": 17,
+          "parent": "0x4a4fc0"
+        },
+        {
+          "ea": "0x4a5341",
+          "type": 17,
+          "parent": "0x4a4fc0"
+        },
+        {
+          "ea": "0x4a5371",
+          "type": 17,
+          "parent": "0x4a4fc0"
+        },
+        {
+          "ea": "0x4a6c76",
+          "type": 17,
+          "parent": "0x4a6ac0"
+        },
+        {
+          "ea": "0x4aa2fb",
+          "type": 17,
+          "parent": "0x4a9d10"
+        },
+        {
+          "ea": "0x4aa343",
+          "type": 17,
+          "parent": "0x4a9d10"
+        },
+        {
+          "ea": "0x4aa35e",
+          "type": 17,
+          "parent": "0x4a9d10"
+        },
+        {
+          "ea": "0x4aa960",
+          "type": 17,
+          "parent": "0x4aa3d0"
+        },
+        {
+          "ea": "0x4ac7a6",
+          "type": 17,
+          "parent": "0x4ac290"
+        },
+        {
+          "ea": "0x4ac7eb",
+          "type": 17,
+          "parent": "0x4ac290"
+        },
+        {
+          "ea": "0x4ac807",
+          "type": 17,
+          "parent": "0x4ac290"
+        },
+        {
+          "ea": "0x4ac821",
+          "type": 17,
+          "parent": "0x4ac290"
+        },
+        {
+          "ea": "0x4acd85",
+          "type": 17,
+          "parent": "0x4ac890"
+        },
+        {
+          "ea": "0x4adb5b",
+          "type": 17,
+          "parent": "0x4adaa0"
+        },
+        {
+          "ea": "0x4ae56f",
+          "type": 17,
+          "parent": "0x4ae350"
+        },
+        {
+          "ea": "0x4b1fbf",
+          "type": 17,
+          "parent": "0x4b1940"
+        },
+        {
+          "ea": "0x4b1ffd",
+          "type": 17,
+          "parent": "0x4b1940"
+        },
+        {
+          "ea": "0x4b245c",
+          "type": 17,
+          "parent": "0x4b2060"
+        },
+        {
+          "ea": "0x4b2701",
+          "type": 17,
+          "parent": "0x4b25d0"
+        },
+        {
+          "ea": "0x4b2d83",
+          "type": 17,
+          "parent": "0x4b2730"
+        },
+        {
+          "ea": "0x4b2da3",
+          "type": 17,
+          "parent": "0x4b2730"
+        },
+        {
+          "ea": "0x4b2f42",
+          "type": 17,
+          "parent": "0x4b2e00"
+        },
+        {
+          "ea": "0x4b33ec",
+          "type": 17,
+          "parent": "0x4b2f70"
+        },
+        {
+          "ea": "0x4b38ed",
+          "type": 17,
+          "parent": "0x4b3610"
+        },
+        {
+          "ea": "0x4b390a",
+          "type": 17,
+          "parent": "0x4b3610"
+        },
+        {
+          "ea": "0x4b3bd8",
+          "type": 17,
+          "parent": "0x4b3b00"
+        },
+        {
+          "ea": "0x4b412a",
+          "type": 17,
+          "parent": "0x4b4070"
+        },
+        {
+          "ea": "0x4b4669",
+          "type": 17,
+          "parent": "0x4b45a0"
+        },
+        {
+          "ea": "0x4b6d8a",
+          "type": 17,
+          "parent": "0x4b6c50"
+        },
+        {
+          "ea": "0x4bc048",
+          "type": 17,
+          "parent": "0x4bbed0"
+        },
+        {
+          "ea": "0x4bc13a",
+          "type": 17,
+          "parent": "0x4bc060"
+        },
+        {
+          "ea": "0x4bc644",
+          "type": 17,
+          "parent": "0x4bc230"
+        },
+        {
+          "ea": "0x4bccf5",
+          "type": 17,
+          "parent": "0x4bc660"
+        },
+        {
+          "ea": "0x4bce34",
+          "type": 17,
+          "parent": "0x4bc660"
+        },
+        {
+          "ea": "0x4bce52",
+          "type": 17,
+          "parent": "0x4bc660"
+        },
+        {
+          "ea": "0x4bd31f",
+          "type": 17,
+          "parent": "0x4bd100"
+        },
+        {
+          "ea": "0x4bd3b4",
+          "type": 17,
+          "parent": "0x4bd100"
+        },
+        {
+          "ea": "0x4c2ac3",
+          "type": 17,
+          "parent": "0x4c29e0"
+        },
+        {
+          "ea": "0x4c2b03",
+          "type": 17,
+          "parent": "0x4c29e0"
+        },
+        {
+          "ea": "0x4c2f2f",
+          "type": 17,
+          "parent": "0x4c2b20"
+        },
+        {
+          "ea": "0x4c31c6",
+          "type": 17,
+          "parent": "0x4c2fa0"
+        },
+        {
+          "ea": "0x4c3263",
+          "type": 17,
+          "parent": "0x4c2fa0"
+        },
+        {
+          "ea": "0x4c4c53",
+          "type": 17,
+          "parent": "0x4c4b70"
+        },
+        {
+          "ea": "0x4c4c93",
+          "type": 17,
+          "parent": "0x4c4b70"
+        },
+        {
+          "ea": "0x4c5056",
+          "type": 17,
+          "parent": "0x4c4cb0"
+        },
+        {
+          "ea": "0x4c52e6",
+          "type": 17,
+          "parent": "0x4c50c0"
+        },
+        {
+          "ea": "0x4c5383",
+          "type": 17,
+          "parent": "0x4c50c0"
+        },
+        {
+          "ea": "0x4c691a",
+          "type": 17,
+          "parent": "0x4c6790"
+        },
+        {
+          "ea": "0x4c6957",
+          "type": 17,
+          "parent": "0x4c6790"
+        },
+        {
+          "ea": "0x4c6c62",
+          "type": 17,
+          "parent": "0x4c6b10"
+        },
+        {
+          "ea": "0x4c6cd9",
+          "type": 17,
+          "parent": "0x4c6b10"
+        },
+        {
+          "ea": "0x4c6d02",
+          "type": 17,
+          "parent": "0x4c6b10"
+        },
+        {
+          "ea": "0x4c6d25",
+          "type": 17,
+          "parent": "0x4c6b10"
+        },
+        {
+          "ea": "0x4c7542",
+          "type": 17,
+          "parent": "0x4c7380"
+        },
+        {
+          "ea": "0x4c7617",
+          "type": 17,
+          "parent": "0x4c75a0"
+        },
+        {
+          "ea": "0x4ccfb2",
+          "type": 17,
+          "parent": "0x4cced0"
+        },
+        {
+          "ea": "0x4cd00c",
+          "type": 17,
+          "parent": "0x4cced0"
+        },
+        {
+          "ea": "0x4cd056",
+          "type": 17,
+          "parent": "0x4cced0"
+        },
+        {
+          "ea": "0x4d033d",
+          "type": 17,
+          "parent": "0x4d0230"
+        },
+        {
+          "ea": "0x4d0397",
+          "type": 17,
+          "parent": "0x4d0230"
+        },
+        {
+          "ea": "0x4d0974",
+          "type": 17,
+          "parent": "0x4d04a0"
+        },
+        {
+          "ea": "0x4d0a68",
+          "type": 17,
+          "parent": "0x4d0990"
+        },
+        {
+          "ea": "0x4d2019",
+          "type": 17,
+          "parent": "0x4d1d50"
+        },
+        {
+          "ea": "0x4d203c",
+          "type": 17,
+          "parent": "0x4d1d50"
+        },
+        {
+          "ea": "0x4d252b",
+          "type": 17,
+          "parent": "0x4d2260"
+        },
+        {
+          "ea": "0x4d25e5",
+          "type": 17,
+          "parent": "0x4d2260"
+        },
+        {
+          "ea": "0x4d263d",
+          "type": 17,
+          "parent": "0x4d2260"
+        },
+        {
+          "ea": "0x4d2674",
+          "type": 17,
+          "parent": "0x4d2260"
+        },
+        {
+          "ea": "0x4d273f",
+          "type": 17,
+          "parent": "0x4d2260"
+        },
+        {
+          "ea": "0x4d2b75",
+          "type": 17,
+          "parent": "0x4d2840"
+        },
+        {
+          "ea": "0x4d43c0",
+          "type": 17,
+          "parent": "0x4d36f0"
+        },
+        {
+          "ea": "0x4d4a42",
+          "type": 17,
+          "parent": "0x4d4960"
+        },
+        {
+          "ea": "0x4d5c1b",
+          "type": 17,
+          "parent": "0x4d55c0"
+        },
+        {
+          "ea": "0x4d628f",
+          "type": 17,
+          "parent": "0x4d61e0"
+        },
+        {
+          "ea": "0x4d72e0",
+          "type": 17,
+          "parent": "0x4d6ea0"
+        },
+        {
+          "ea": "0x4d86a4",
+          "type": 17,
+          "parent": "0x4d8230"
+        },
+        {
+          "ea": "0x4d9f04",
+          "type": 17,
+          "parent": "0x4d9220"
+        },
+        {
+          "ea": "0x4da56e",
+          "type": 17,
+          "parent": "0x4da400"
+        },
+        {
+          "ea": "0x4db6fe",
+          "type": 17,
+          "parent": "0x4daa40"
+        },
+        {
+          "ea": "0x4dc5c4",
+          "type": 17,
+          "parent": "0x4dc290"
+        },
+        {
+          "ea": "0x4dd439",
+          "type": 17,
+          "parent": "0x4dc7e0"
+        },
+        {
+          "ea": "0x4ddb08",
+          "type": 17,
+          "parent": "0x4dda30"
+        },
+        {
+          "ea": "0x4dec19",
+          "type": 17,
+          "parent": "0x4ddfc0"
+        },
+        {
+          "ea": "0x4df2e8",
+          "type": 17,
+          "parent": "0x4df210"
+        },
+        {
+          "ea": "0x4dfd70",
+          "type": 17,
+          "parent": "0x4df730"
+        },
+        {
+          "ea": "0x4e0e99",
+          "type": 17,
+          "parent": "0x4e0d10"
+        },
+        {
+          "ea": "0x4e0ee2",
+          "type": 17,
+          "parent": "0x4e0d10"
+        },
+        {
+          "ea": "0x4e0f9a",
+          "type": 17,
+          "parent": "0x4e0d10"
+        },
+        {
+          "ea": "0x4e10db",
+          "type": 17,
+          "parent": "0x4e0ff0"
+        },
+        {
+          "ea": "0x4e1824",
+          "type": 17,
+          "parent": "0x4e10f0"
+        },
+        {
+          "ea": "0x4e1aee",
+          "type": 17,
+          "parent": "0x4e19e0"
+        },
+        {
+          "ea": "0x4e1ec8",
+          "type": 17,
+          "parent": "0x4e1b10"
+        },
+        {
+          "ea": "0x4e1f81",
+          "type": 17,
+          "parent": "0x4e1ee0"
+        },
+        {
+          "ea": "0x4e2018",
+          "type": 17,
+          "parent": "0x4e1ee0"
+        },
+        {
+          "ea": "0x4e24bb",
+          "type": 17,
+          "parent": "0x4e2030"
+        },
+        {
+          "ea": "0x4e2676",
+          "type": 17,
+          "parent": "0x4e2030"
+        },
+        {
+          "ea": "0x4e2c9b",
+          "type": 17,
+          "parent": "0x4e28f0"
+        },
+        {
+          "ea": "0x4e3503",
+          "type": 17,
+          "parent": "0x4e2d90"
+        },
+        {
+          "ea": "0x4e3e29",
+          "type": 17,
+          "parent": "0x4e3750"
+        },
+        {
+          "ea": "0x4e47a0",
+          "type": 17,
+          "parent": "0x4e4460"
+        },
+        {
+          "ea": "0x4e6fa2",
+          "type": 17,
+          "parent": "0x4e6e10"
+        },
+        {
+          "ea": "0x4e6feb",
+          "type": 17,
+          "parent": "0x4e6e10"
+        },
+        {
+          "ea": "0x4e736b",
+          "type": 17,
+          "parent": "0x4e7290"
+        },
+        {
+          "ea": "0x4e772b",
+          "type": 17,
+          "parent": "0x4e7380"
+        },
+        {
+          "ea": "0x4e77cd",
+          "type": 17,
+          "parent": "0x4e7740"
+        },
+        {
+          "ea": "0x4e7860",
+          "type": 17,
+          "parent": "0x4e7740"
+        },
+        {
+          "ea": "0x4e7fa4",
+          "type": 17,
+          "parent": "0x4e7870"
+        },
+        {
+          "ea": "0x4e8199",
+          "type": 17,
+          "parent": "0x4e7fc0"
+        },
+        {
+          "ea": "0x4e82d2",
+          "type": 17,
+          "parent": "0x4e81b0"
+        },
+        {
+          "ea": "0x4e83b7",
+          "type": 17,
+          "parent": "0x4e82f0"
+        },
+        {
+          "ea": "0x4e875f",
+          "type": 17,
+          "parent": "0x4e83d0"
+        },
+        {
+          "ea": "0x4e8901",
+          "type": 17,
+          "parent": "0x4e83d0"
+        },
+        {
+          "ea": "0x4e8abe",
+          "type": 17,
+          "parent": "0x4e8920"
+        },
+        {
+          "ea": "0x4e9261",
+          "type": 17,
+          "parent": "0x4e8ad0"
+        },
+        {
+          "ea": "0x4e9488",
+          "type": 17,
+          "parent": "0x4e92a0"
+        },
+        {
+          "ea": "0x4e99ba",
+          "type": 17,
+          "parent": "0x4e97e0"
+        },
+        {
+          "ea": "0x4e9e74",
+          "type": 17,
+          "parent": "0x4e9c80"
+        },
+        {
+          "ea": "0x4ea426",
+          "type": 17,
+          "parent": "0x4ea1b0"
+        },
+        {
+          "ea": "0x4ea4d7",
+          "type": 17,
+          "parent": "0x4ea1b0"
+        },
+        {
+          "ea": "0x4ead5a",
+          "type": 17,
+          "parent": "0x4eaaa0"
+        },
+        {
+          "ea": "0x4eca4d",
+          "type": 17,
+          "parent": "0x4ec240"
+        },
+        {
+          "ea": "0x4ecaba",
+          "type": 17,
+          "parent": "0x4ec240"
+        },
+        {
+          "ea": "0x4ed243",
+          "type": 17,
+          "parent": "0x4ed020"
+        },
+        {
+          "ea": "0x4ed2a5",
+          "type": 17,
+          "parent": "0x4ed020"
+        },
+        {
+          "ea": "0x4ed566",
+          "type": 17,
+          "parent": "0x4ed020"
+        },
+        {
+          "ea": "0x4ed5f7",
+          "type": 17,
+          "parent": "0x4ed020"
+        },
+        {
+          "ea": "0x4edfed",
+          "type": 17,
+          "parent": "0x4edb20"
+        },
+        {
+          "ea": "0x4eff9b",
+          "type": 17,
+          "parent": "0x4efb70"
+        },
+        {
+          "ea": "0x4f201e",
+          "type": 17,
+          "parent": "0x4f1c40"
+        },
+        {
+          "ea": "0x4f3163",
+          "type": 17,
+          "parent": "0x4f2a30"
+        },
+        {
+          "ea": "0x4f42cb",
+          "type": 17,
+          "parent": "0x4f3ed0"
+        },
+        {
+          "ea": "0x4f4b1f",
+          "type": 17,
+          "parent": "0x4f4790"
+        },
+        {
+          "ea": "0x4f4b71",
+          "type": 17,
+          "parent": "0x4f4790"
+        },
+        {
+          "ea": "0x4f58d7",
+          "type": 17,
+          "parent": "0x4f51d0"
+        },
+        {
+          "ea": "0x4f6660",
+          "type": 17,
+          "parent": "0x4f6220"
+        },
+        {
+          "ea": "0x4f66ad",
+          "type": 17,
+          "parent": "0x4f6220"
+        },
+        {
+          "ea": "0x4f6c48",
+          "type": 17,
+          "parent": "0x4f6bf0"
+        },
+        {
+          "ea": "0x4f6fa1",
+          "type": 17,
+          "parent": "0x4f6ca0"
+        },
+        {
+          "ea": "0x4f7662",
+          "type": 17,
+          "parent": "0x4f7150"
+        },
+        {
+          "ea": "0x4f76a0",
+          "type": 17,
+          "parent": "0x4f7150"
+        },
+        {
+          "ea": "0x4f80e4",
+          "type": 17,
+          "parent": "0x4f7870"
+        },
+        {
+          "ea": "0x4f8d49",
+          "type": 17,
+          "parent": "0x4f8550"
+        },
+        {
+          "ea": "0x4f98fe",
+          "type": 17,
+          "parent": "0x4f8e40"
+        },
+        {
+          "ea": "0x4f9e18",
+          "type": 17,
+          "parent": "0x4f9b10"
+        },
+        {
+          "ea": "0x4fb4cc",
+          "type": 17,
+          "parent": "0x4faef0"
+        },
+        {
+          "ea": "0x4fb52c",
+          "type": 17,
+          "parent": "0x4faef0"
+        },
+        {
+          "ea": "0x4fb55e",
+          "type": 17,
+          "parent": "0x4faef0"
+        },
+        {
+          "ea": "0x4fba1b",
+          "type": 17,
+          "parent": "0x4fb940"
+        },
+        {
+          "ea": "0x4ffe9b",
+          "type": 17,
+          "parent": "0x4ff650"
+        },
+        {
+          "ea": "0x5005ba",
+          "type": 17,
+          "parent": "0x500370"
+        },
+        {
+          "ea": "0x50128e",
+          "type": 17,
+          "parent": "0x5008c0"
+        },
+        {
+          "ea": "0x50130e",
+          "type": 17,
+          "parent": "0x5008c0"
+        },
+        {
+          "ea": "0x501395",
+          "type": 17,
+          "parent": "0x5008c0"
+        },
+        {
+          "ea": "0x501e29",
+          "type": 17,
+          "parent": "0x5014a0"
+        },
+        {
+          "ea": "0x503504",
+          "type": 17,
+          "parent": "0x503440"
+        },
+        {
+          "ea": "0x503575",
+          "type": 17,
+          "parent": "0x503440"
+        },
+        {
+          "ea": "0x503672",
+          "type": 17,
+          "parent": "0x5035e0"
+        },
+        {
+          "ea": "0x503832",
+          "type": 17,
+          "parent": "0x503780"
+        },
+        {
+          "ea": "0x503918",
+          "type": 17,
+          "parent": "0x5038b0"
+        },
+        {
+          "ea": "0x5047e8",
+          "type": 17,
+          "parent": "0x5046d0"
+        },
+        {
+          "ea": "0x505603",
+          "type": 17,
+          "parent": "0x505170"
+        },
+        {
+          "ea": "0x50566d",
+          "type": 17,
+          "parent": "0x505170"
+        },
+        {
+          "ea": "0x505714",
+          "type": 17,
+          "parent": "0x505170"
+        },
+        {
+          "ea": "0x506136",
+          "type": 17,
+          "parent": "0x505c20"
+        },
+        {
+          "ea": "0x50705e",
+          "type": 17,
+          "parent": "0x506e00"
+        },
+        {
+          "ea": "0x5221f7",
+          "type": 17,
+          "parent": "0x522180"
+        },
+        {
+          "ea": "0x52d9a4",
+          "type": 17,
+          "parent": "0x52d7b0"
+        },
+        {
+          "ea": "0x52df4b",
+          "type": 17,
+          "parent": "0x52dce0"
+        },
+        {
+          "ea": "0x52dff0",
+          "type": 17,
+          "parent": "0x52dce0"
+        },
+        {
+          "ea": "0x52e932",
+          "type": 17,
+          "parent": "0x52e650"
+        },
+        {
+          "ea": "0x53077c",
+          "type": 17,
+          "parent": "0x52fd60"
+        },
+        {
+          "ea": "0x5307c0",
+          "type": 17,
+          "parent": "0x52fd60"
+        }
+      ],
+      "function_chunks": [
+        {
+          "start": "0x521B10",
+          "end_exclusive": "0x521C72"
+        }
+      ],
+      "verification_level": "完整113条/354B/2页/2call-12内跳/3ret，328普通引用-181父仅纳盘；两根原阶段及四文件补丁文字static，不代所有caller-别名/运行",
+      "native_provider": {
+        "source": "src/DrawGraphic.cpp",
+        "symbol": "DrawGraphic",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "graphic_enqueue_descriptor_production": {
+        "spec_id": "BOS01",
+        "evidence_refs": [
+          "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-baseline",
+          "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision",
+          "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-acceptance",
+          "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+          "doc/cg2d_graphic_enqueue_descriptor_production_evidence.json"
+        ],
+        "original_entry": "0x521B10",
+        "original_instruction_count": 113,
+        "original_code_bytes": 354,
+        "page_count": 2,
+        "outgoing_call_site_count": 2,
+        "internal_branch_site_count": 12,
+        "return_site_count": 3,
+        "incoming_reference_count": 328,
+        "incoming_parent_count": 181,
+        "source_body_changed": true,
+        "extra_negative_count_guard_removed": true,
+        "descriptor_w32_read_write_pairs": 4,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "shared_helper_has_separate_original_id": false,
+        "preserved_contract": "入口S16 pendingCount只保原>=4096返S32-2上限，不新增负数拒绝或异常域演练。正常容量内保存当前真实record目标在map/XY调用前；imageNo[-1,999]返-2，<-1直传/offset0，>999 call45A8B0至同localfinalImageNo再call45A710低W16 XY，不新查callee结果。初始count定位cache3，layerU8先live count S16 cacheIndex；x正常S32+S16 pub，y正常S32+S16先value4样本/y pub，再descriptor存在样本/最终图号pub→value4pub→原action native pointer清0。非空descriptor依原0/4/8/12四W32每次先读再写，不整块预存，保正常源目标别名；空参4W16零/颜色W32FFFFFFFF/clip0U8/mix0U8/paletteIndex0W16顺序。clip先batchType0/clip1覆1；final图号C18..C21或原imageNo1DF0..1DFF时原Byte special1。尾fresh counter U16，返回旧S16符号扩展S32，然后原低W16+1pub。x/y撤S32回绕helper只正常加，W16计数窄化不改，source参数/records非拥有地址native，其它非地址宽度保。"
+      }
     },
     {
       "original_entry": "0x467B90",
@@ -168487,6 +170196,544 @@
         "implemented_scope": "原自动地图取色与共享调色板/图形资源正常生产消费",
         "normal_numeric_result_preserved": true,
         "preserved_contract": "U32输入按低R/中G/高B拆U8，palette4B R0/G1/B2/flags3、flags不读。先取palette0 B/G，再输入R/G，再palette0 R及输入B；初始R/B/G差与平方的S32正常计算，R²+B²+G²转F64最近距离，selected0。候选仅S32 i16..<count-16，bound保存一次；每项先样本B/G/R，差先G/B/R，正常平方和按R²+G²+B²转F64，与closest严格<才更新距离及index，平局保先见。count<=32仍初读palette0后返0，不新增null/count拒绝或扩大候选范围。此前通用闭包正常数值相同，本步用首色/候选各自原顺序显式表达并去掉闭包，不误报值差异或宣x87/PC53/异常等价。原地址native、S32/W32/U8宽度保，不代所有palette别名与consumer运行。"
+      }
+    },
+    {
+      "original_entry": "0x520970",
+      "inventory_id": "F:00120970",
+      "sources": [
+        {
+          "path": "src/DrawGraphic.cpp",
+          "symbols": [
+            "DrawGraphic3_520970",
+            "CopyGraphicDescriptorWords"
+          ],
+          "relationship": "入口容量仅原S16>=4096返-2，不增负计数拒绝。正常容量内先保存record目标；图号[-1,999]返-2，<-1直接图号/XY0；>999只按isGraphicNo低U8是否非零决定map调用，同参数槽graphicIndex初值isGraphicNo保持，零低Byte直接图号，再XY低W16，不新查callee返回。cache3 layer pub→live count样本→y参数样本→cacheIndexpub，recordx原S32直接pub→value4样本→ypub→mappedIndexpub→descriptor存在样本→value4pub→action native pointer0。描述符四W32每对读写或空参4W16/颜色W32/两U8/末W16原默认；随后读当前descriptor.sourceX W16减offsetX/低W16pub，再重读当前sourceY W16减offsetY/pub，不在私有mode整体快照内先减。现有W16减法helper仅原字段自然窄化保，不新增故障策略。clip样本先batchType参数U8pub，clip1覆1；只有mappedIndex C18..C21 specialByte1；尾fresh U16count返回旧S16→S32并低W16+1pub。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-baseline",
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision",
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-acceptance",
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_enqueue_descriptor_production_evidence.json"
+      ],
+      "original_role": "原图形队列生产与描述符、批次字段发布",
+      "status": "BOS01两公共入队完整原根/额外拒绝-S32回绕退休、逐W32描述符与字段发布恢复；真实队列已接，全部caller-consumer/运行未验",
+      "boundary": "入口容量仅原S16>=4096返-2，不增负计数拒绝。正常容量内先保存record目标；图号[-1,999]返-2，<-1直接图号/XY0；>999只按isGraphicNo低U8是否非零决定map调用，同参数槽graphicIndex初值isGraphicNo保持，零低Byte直接图号，再XY低W16，不新查callee返回。cache3 layer pub→live count样本→y参数样本→cacheIndexpub，recordx原S32直接pub→value4样本→ypub→mappedIndexpub→descriptor存在样本→value4pub→action native pointer0。描述符四W32每对读写或空参4W16/颜色W32/两U8/末W16原默认；随后读当前descriptor.sourceX W16减offsetX/低W16pub，再重读当前sourceY W16减offsetY/pub，不在私有mode整体快照内先减。现有W16减法helper仅原字段自然窄化保，不新增故障策略。clip样本先batchType参数U8pub，clip1覆1；只有mappedIndex C18..C21 specialByte1；尾fresh U16count返回旧S16→S32并低W16+1pub。",
+      "original_end_exclusive": "0x520ACE",
+      "instruction_count": 114,
+      "original_direct_reference_count": 94,
+      "inbound_evidence": [
+        {
+          "ea": "0x43dc43",
+          "type": 17,
+          "parent": "0x43db60"
+        },
+        {
+          "ea": "0x43dcb2",
+          "type": 17,
+          "parent": "0x43db60"
+        },
+        {
+          "ea": "0x4410bb",
+          "type": 17,
+          "parent": "0x440ff0"
+        },
+        {
+          "ea": "0x4486e1",
+          "type": 17,
+          "parent": "0x4483a0"
+        },
+        {
+          "ea": "0x45f0f1",
+          "type": 17,
+          "parent": "0x45f090"
+        },
+        {
+          "ea": "0x46c202",
+          "type": 17,
+          "parent": "0x46c1c0"
+        },
+        {
+          "ea": "0x46c253",
+          "type": 17,
+          "parent": "0x46c1c0"
+        },
+        {
+          "ea": "0x46c29d",
+          "type": 17,
+          "parent": "0x46c1c0"
+        },
+        {
+          "ea": "0x46d1ff",
+          "type": 17,
+          "parent": "0x46cf60"
+        },
+        {
+          "ea": "0x46f606",
+          "type": 17,
+          "parent": "0x46f1d0"
+        },
+        {
+          "ea": "0x472a99",
+          "type": 17,
+          "parent": "0x4729b0"
+        },
+        {
+          "ea": "0x472b30",
+          "type": 17,
+          "parent": "0x4729b0"
+        },
+        {
+          "ea": "0x48b91c",
+          "type": 17,
+          "parent": "0x48b810"
+        },
+        {
+          "ea": "0x48ba4f",
+          "type": 17,
+          "parent": "0x48b930"
+        },
+        {
+          "ea": "0x48d7bd",
+          "type": 17,
+          "parent": "0x48d540"
+        },
+        {
+          "ea": "0x48d7f5",
+          "type": 17,
+          "parent": "0x48d540"
+        },
+        {
+          "ea": "0x48d821",
+          "type": 17,
+          "parent": "0x48d540"
+        },
+        {
+          "ea": "0x48d86a",
+          "type": 17,
+          "parent": "0x48d540"
+        },
+        {
+          "ea": "0x48d8c8",
+          "type": 17,
+          "parent": "0x48d540"
+        },
+        {
+          "ea": "0x48d8f5",
+          "type": 17,
+          "parent": "0x48d540"
+        },
+        {
+          "ea": "0x48d930",
+          "type": 17,
+          "parent": "0x48d540"
+        },
+        {
+          "ea": "0x49b8c0",
+          "type": 17,
+          "parent": "0x49b670"
+        },
+        {
+          "ea": "0x49b8ee",
+          "type": 17,
+          "parent": "0x49b670"
+        },
+        {
+          "ea": "0x49b940",
+          "type": 17,
+          "parent": "0x49b670"
+        },
+        {
+          "ea": "0x49b9bb",
+          "type": 17,
+          "parent": "0x49b670"
+        },
+        {
+          "ea": "0x49b9d8",
+          "type": 17,
+          "parent": "0x49b670"
+        },
+        {
+          "ea": "0x49b9ef",
+          "type": 17,
+          "parent": "0x49b670"
+        },
+        {
+          "ea": "0x49bf37",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49bfa1",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c009",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c048",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c0f4",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c11a",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c179",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c198",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c227",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c246",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c29d",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c2bc",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c35f",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c3b2",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c45f",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49c4b7",
+          "type": 17,
+          "parent": "0x49be00"
+        },
+        {
+          "ea": "0x49cd68",
+          "type": 17,
+          "parent": "0x49cad0"
+        },
+        {
+          "ea": "0x4b1248",
+          "type": 17,
+          "parent": "0x4b0f20"
+        },
+        {
+          "ea": "0x4b1644",
+          "type": 17,
+          "parent": "0x4b1260"
+        },
+        {
+          "ea": "0x4b1693",
+          "type": 17,
+          "parent": "0x4b1260"
+        },
+        {
+          "ea": "0x4b16e2",
+          "type": 17,
+          "parent": "0x4b1260"
+        },
+        {
+          "ea": "0x4b1731",
+          "type": 17,
+          "parent": "0x4b1260"
+        },
+        {
+          "ea": "0x4b177b",
+          "type": 17,
+          "parent": "0x4b1260"
+        },
+        {
+          "ea": "0x4b17c5",
+          "type": 17,
+          "parent": "0x4b1260"
+        },
+        {
+          "ea": "0x4b18e9",
+          "type": 17,
+          "parent": "0x4b1260"
+        },
+        {
+          "ea": "0x4b3409",
+          "type": 17,
+          "parent": "0x4b2f70"
+        },
+        {
+          "ea": "0x4b3efa",
+          "type": 17,
+          "parent": "0x4b3bf0"
+        },
+        {
+          "ea": "0x4b3f2b",
+          "type": 17,
+          "parent": "0x4b3bf0"
+        },
+        {
+          "ea": "0x4b3f7b",
+          "type": 17,
+          "parent": "0x4b3bf0"
+        },
+        {
+          "ea": "0x4b4051",
+          "type": 17,
+          "parent": "0x4b3bf0"
+        },
+        {
+          "ea": "0x4b4434",
+          "type": 17,
+          "parent": "0x4b4140"
+        },
+        {
+          "ea": "0x4b4465",
+          "type": 17,
+          "parent": "0x4b4140"
+        },
+        {
+          "ea": "0x4b44b5",
+          "type": 17,
+          "parent": "0x4b4140"
+        },
+        {
+          "ea": "0x4b458b",
+          "type": 17,
+          "parent": "0x4b4140"
+        },
+        {
+          "ea": "0x4b4941",
+          "type": 17,
+          "parent": "0x4b4680"
+        },
+        {
+          "ea": "0x4b4972",
+          "type": 17,
+          "parent": "0x4b4680"
+        },
+        {
+          "ea": "0x4b49c2",
+          "type": 17,
+          "parent": "0x4b4680"
+        },
+        {
+          "ea": "0x4b4ae8",
+          "type": 17,
+          "parent": "0x4b4680"
+        },
+        {
+          "ea": "0x4bd2b2",
+          "type": 17,
+          "parent": "0x4bd100"
+        },
+        {
+          "ea": "0x4bd2d2",
+          "type": 17,
+          "parent": "0x4bd100"
+        },
+        {
+          "ea": "0x4c111a",
+          "type": 17,
+          "parent": "0x4c0f20"
+        },
+        {
+          "ea": "0x4c113a",
+          "type": 17,
+          "parent": "0x4c0f20"
+        },
+        {
+          "ea": "0x4c3152",
+          "type": 17,
+          "parent": "0x4c2fa0"
+        },
+        {
+          "ea": "0x4c3172",
+          "type": 17,
+          "parent": "0x4c2fa0"
+        },
+        {
+          "ea": "0x4c5272",
+          "type": 17,
+          "parent": "0x4c50c0"
+        },
+        {
+          "ea": "0x4c5292",
+          "type": 17,
+          "parent": "0x4c50c0"
+        },
+        {
+          "ea": "0x4d06e5",
+          "type": 17,
+          "parent": "0x4d04a0"
+        },
+        {
+          "ea": "0x4d071d",
+          "type": 17,
+          "parent": "0x4d04a0"
+        },
+        {
+          "ea": "0x4d0d4d",
+          "type": 17,
+          "parent": "0x4d0a80"
+        },
+        {
+          "ea": "0x4d0d74",
+          "type": 17,
+          "parent": "0x4d0a80"
+        },
+        {
+          "ea": "0x4d0d98",
+          "type": 17,
+          "parent": "0x4d0a80"
+        },
+        {
+          "ea": "0x4d0dc4",
+          "type": 17,
+          "parent": "0x4d0a80"
+        },
+        {
+          "ea": "0x4d0e9a",
+          "type": 17,
+          "parent": "0x4d0a80"
+        },
+        {
+          "ea": "0x4d13c3",
+          "type": 17,
+          "parent": "0x4d0eb0"
+        },
+        {
+          "ea": "0x4d1404",
+          "type": 17,
+          "parent": "0x4d0eb0"
+        },
+        {
+          "ea": "0x4d1c99",
+          "type": 17,
+          "parent": "0x4d1c00"
+        },
+        {
+          "ea": "0x4d1cd3",
+          "type": 17,
+          "parent": "0x4d1c00"
+        },
+        {
+          "ea": "0x4d1d04",
+          "type": 17,
+          "parent": "0x4d1c00"
+        },
+        {
+          "ea": "0x4d1d3f",
+          "type": 17,
+          "parent": "0x4d1c00"
+        },
+        {
+          "ea": "0x4d246b",
+          "type": 17,
+          "parent": "0x4d2260"
+        },
+        {
+          "ea": "0x4d2797",
+          "type": 17,
+          "parent": "0x4d2260"
+        },
+        {
+          "ea": "0x4d2962",
+          "type": 17,
+          "parent": "0x4d2840"
+        },
+        {
+          "ea": "0x4d29f0",
+          "type": 17,
+          "parent": "0x4d2840"
+        },
+        {
+          "ea": "0x4d2aee",
+          "type": 17,
+          "parent": "0x4d2840"
+        },
+        {
+          "ea": "0x4d2c0a",
+          "type": 17,
+          "parent": "0x4d2840"
+        },
+        {
+          "ea": "0x4d2c97",
+          "type": 17,
+          "parent": "0x4d2840"
+        },
+        {
+          "ea": "0x4d2ff7",
+          "type": 17,
+          "parent": "0x4d2840"
+        }
+      ],
+      "function_chunks": [
+        {
+          "start": "0x520970",
+          "end_exclusive": "0x520ACE"
+        }
+      ],
+      "verification_level": "完整114条/350B/2页/2call-12内跳/3ret，94普通引用-30父仅纳盘；两根原阶段及四文件补丁文字static，不代所有caller-别名/运行",
+      "native_provider": {
+        "source": "src/DrawGraphic.cpp",
+        "symbol": "DrawGraphic3_520970",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "graphic_enqueue_descriptor_production": {
+        "spec_id": "BOS01",
+        "evidence_refs": [
+          "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-baseline",
+          "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision",
+          "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-acceptance",
+          "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+          "doc/cg2d_graphic_enqueue_descriptor_production_evidence.json"
+        ],
+        "original_entry": "0x520970",
+        "original_instruction_count": 114,
+        "original_code_bytes": 350,
+        "page_count": 2,
+        "outgoing_call_site_count": 2,
+        "internal_branch_site_count": 12,
+        "return_site_count": 3,
+        "incoming_reference_count": 94,
+        "incoming_parent_count": 30,
+        "source_body_changed": true,
+        "extra_negative_count_guard_removed": true,
+        "descriptor_w32_read_write_pairs": 4,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "shared_helper_has_separate_original_id": false,
+        "preserved_contract": "入口容量仅原S16>=4096返-2，不增负计数拒绝。正常容量内先保存record目标；图号[-1,999]返-2，<-1直接图号/XY0；>999只按isGraphicNo低U8是否非零决定map调用，同参数槽graphicIndex初值isGraphicNo保持，零低Byte直接图号，再XY低W16，不新查callee返回。cache3 layer pub→live count样本→y参数样本→cacheIndexpub，recordx原S32直接pub→value4样本→ypub→mappedIndexpub→descriptor存在样本→value4pub→action native pointer0。描述符四W32每对读写或空参4W16/颜色W32/两U8/末W16原默认；随后读当前descriptor.sourceX W16减offsetX/低W16pub，再重读当前sourceY W16减offsetY/pub，不在私有mode整体快照内先减。现有W16减法helper仅原字段自然窄化保，不新增故障策略。clip样本先batchType参数U8pub，clip1覆1；只有mappedIndex C18..C21 specialByte1；尾fresh U16count返回旧S16→S32并低W16+1pub。"
       }
     }
   ]

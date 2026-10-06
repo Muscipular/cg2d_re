@@ -2478,3 +2478,11 @@ BOQ01本步实测：源码/完整原证据/两权威JSON/对应文档四项定�
 - **后续开发**：仅正常局部static，native index16B仅首T*拓宽、loaded仍U8、记录0xB04无指针/count S32保，字节量在已批native API边界。保两GPTR/GlobalLock后才判初始数量，不新做空指针/失配/溢出保护、旧池回收/回滚。全部父/真实SDK/queue-DBF两表owner-正常别名/画面运行继续推进；未构建/测试/运行/hash，网络原格式明文、音频暂停。 沿真实初始化/重建与队列-DBF/两表owner、绘制借用继续开发，整体SPEC目标保持。
 
 BOR01本步实测：源码/原全根与hidden全表初值/两权威JSON/对应原合同四项定向静态通过；检查脚本单项顶层JSON数组被流水线拆包的问题已显式捕获数组并复检，未改证据要求。measure/-Check返回0，派生全对象仅1237/既有分类-成员续记与RESOURCE合同/七open引用进展；语义1404/1399、关联1517(41.22%)、分类522/RESOURCE41、E651、历史定义1/两源和其它队列/集合/门禁保持。13文件严格UTF8无BOM/LF与必要差异通过，未构建/测试/运行/hash，整体SPEC目标继续。
+
+## BOS01 两公共入队根/描述符生产收尾（2026-10-06）
+
+- **开发/当步解决**：先记[具体SPEC](../doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision)，撤两额外负拒绝与S32回绕helper，落实原逐W32描述符/空参字段、sourceXY W16修正和clip-batch/counter发布；四文件补丁。[原证据](../doc/cg2d_graphic_enqueue_descriptor_production_evidence.json)保两完整227条704B/四页4call-24内跳/6ret、422引用分根/父181-30及旧正文/7完整记录。
+- **计量/历史**：旧7完整历史续记、1404新机器映射，语义1404→1405/有效ID1399→1400、关联1517→1518（41.22%→41.25%）、分类522→524，RENDER34→36枚举open；独立局部I/S共4条E651→655。RESOURCE41保持，历史定义0/1不刷新；七open仅进展/引用、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及全门禁保持。 队列175/R7区间67/3061及其它功能保持。命名快照 `cg2d-re-graphic-enqueue-descriptor-production-20261006`；13文件精确提交，用户既有六项排除。
+- **后续开发**：四文件补丁仅两根正文、同文件描述符helper插入、原S32回绕helper退休；其它根/既有W16减法/公开头/map-XY provider和队列布局保持。完整caller/正常源目标别名及排序/绘制consumer-owner/真实画面运行继续推进；不执行异常样例或扩大拒绝/保护策略，未构建/测试/运行/hash，网络原格式明文、音频暂停。 沿真实队列-排序/绘制和owner继续开发，整体SPEC目标保持。
+
+BOS01本步实测：源码/两完整原根及调用点/两权威JSON/对应合同四项定向静态通过；measure/-Check均返回0。核对措辞时已将422明确为调用点，其父181/30按两根分列，不误计为422父；台账和文档改后复核通过。派生完整对象仅旧7/新1404、RENDER36、语义1405/1400/关联1518(41.25%)/分类524与七open；E655，历史定义0/1、RESOURCE41/队列175及其它门禁保持。13文件严格UTF8无BOM/LF与必要差异通过；未构建/测试/运行/hash，整体SPEC目标继续。

@@ -207,3 +207,13 @@ count包含上界不改，满容量一过尾按RPLAN.24不专项保护/补零或
 [具名类型实施](cg2d_animation_pointer_spec.md#animation-pointer-decision)在既有两头/装载/清理源完成五已证指针与三分配结果类型承接，P4 actionList只承接CacheActionEntry，前24B原字节+未知帧引用，不借主表动作字段。未知帧/P4.buffer/9A4A54继续void*；不新增对象owner或表容量。
 
 P1/P4表56/48B、主动作/P4子项32B和帧/坐标12/8B保持，分配/清理原控制与取样序不改；ACB01固定20500项预算保持。静态断言是源码要求，不称执行过编译或实际ABI/完整生命周期/画面验收，异常不专项保护或模拟。
+
+## BOS01 两公共入队根与描述符发布补充（2026-10-06）
+
+[BOS01 SPEC](cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision)/[原证据](cg2d_graphic_enqueue_descriptor_production_evidence.json)。公共521B10与520970两入队根完整227条704B/四页、4call-24内跳/6ret，422普通引用仅纳盘、父按根181/30分列。两根撤额外负计数拒绝、保S16上限4096/原-2；普通坐标撤S32回绕helper按正常S32+S16。真实record目标在map/XY前保存，描述符每对W32读取/发布四次，空参4W16→颜色W32FFFFFFFF→两U8→末W16；Draw3先实际descriptor pub再X/Y逐W16修正。clip先batch pub、cacheIndex/live计数和队列尾原宽/时点恢复；同文件helper不增原函数ID。
+
+保持既有native队列记录/排序槽布局，action已证地址拓宽；入队body仅按原字段与已证顺序操作，非地址字段W16/W32/U8不扩，不能拿原x86物理跨度直接访问新T*记录。
+
+旧7完整历史续记、1404新机器映射，语义1404→1405/有效ID1399→1400、关联1517→1518（41.22%→41.25%）、分类522→524，RENDER34→36枚举open；独立局部I/S共4条E651→655。RESOURCE41保持，历史定义0/1不刷新；七open仅进展/引用、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及全门禁保持。
+
+四文件补丁仅两根正文、同文件描述符helper插入、原S32回绕helper退休；其它根/既有W16减法/公开头/map-XY provider和队列布局保持。完整caller/正常源目标别名及排序/绘制consumer-owner/真实画面运行继续推进；不执行异常样例或扩大拒绝/保护策略，未构建/测试/运行/hash，网络原格式明文、音频暂停。

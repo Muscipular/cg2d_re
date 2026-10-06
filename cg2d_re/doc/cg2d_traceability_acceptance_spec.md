@@ -888,3 +888,11 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 1237完整旧PGM01记录/分类保留续记，既有source2/历史定义1不变，语义1404/有效ID1399及1517关联41.22%、分类522/RESOURCE41保持；两局部static I/S E649→651。没有新增原函数或成员，七open仅进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及全门禁保持。 7008B是原可写数据初值覆盖，不能将1752项计作1752功能/运行样例；两证据仅同一原根正常局部。
 
 仅正常局部static，native index16B仅首T*拓宽、loaded仍U8、记录0xB04无指针/count S32保，字节量在已批native API边界。保两GPTR/GlobalLock后才判初始数量，不新做空指针/失配/溢出保护、旧池回收/回滚。全部父/真实SDK/queue-DBF两表owner-正常别名/画面运行继续推进；未构建/测试/运行/hash，网络原格式明文、音频暂停。
+
+## BOS01 入队/描述符生产局部I/S（2026-10-06）
+
+[BOS01 SPEC](cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision)/[原证据](cg2d_graphic_enqueue_descriptor_production_evidence.json)。公共521B10与520970两入队根完整227条704B/四页、4call-24内跳/6ret，422普通引用仅纳盘、父按根181/30分列。两根撤额外负计数拒绝、保S16上限4096/原-2；普通坐标撤S32回绕helper按正常S32+S16。真实record目标在map/XY前保存，描述符每对W32读取/发布四次，空参4W16→颜色W32FFFFFFFF→两U8→末W16；Draw3先实际descriptor pub再X/Y逐W16修正。clip先batch pub、cacheIndex/live计数和队列尾原宽/时点恢复；同文件helper不增原函数ID。
+
+旧7完整历史续记、1404新机器映射，语义1404→1405/有效ID1399→1400、关联1517→1518（41.22%→41.25%）、分类522→524，RENDER34→36枚举open；独立局部I/S共4条E651→655。RESOURCE41保持，历史定义0/1不刷新；七open仅进展/引用、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及全门禁保持。 四证据仅两原根正常局部；422调用点只引用库存，不代其父正文/编译或运行，私有helper不作为新原入口增加分母。
+
+四文件补丁仅两根正文、同文件描述符helper插入、原S32回绕helper退休；其它根/既有W16减法/公开头/map-XY provider和队列布局保持。完整caller/正常源目标别名及排序/绘制consumer-owner/真实画面运行继续推进；不执行异常样例或扩大拒绝/保护策略，未构建/测试/运行/hash，网络原格式明文、音频暂停。

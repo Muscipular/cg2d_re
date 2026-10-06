@@ -1182,3 +1182,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQM01 技能窗口与列表局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance)/[完整573条1739B](cg2d_battle_skill_window_click_sampling_evidence.json)。十二页22call/13callee/50普通jump/一七项switch/13ret、六外父邻窗36条115B与54B首NUL旧文本有据；47C570两W8索引/四W16坐标取样顺序实修，W16索引/W32坐标与flags、其余七体和原失败/null/RNG/回调/完成槽保持。37B X七W32目标加九NOP用途mapped不等新函数/排除；107包装入向仅登记。两局部I/S各十七真实来源，不代完整生产/父/owner寿命、窗口10-26/运行验收。R7 261/3061余2800、五任务open/60源码closed10/完整验收0/叶0/global=false；关联1641/44.59%、BATTLE205枚举open/E778保持限定口径。
+
+## BQN01 技术选择与命令消费局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-acceptance)/[三完整313条1108B](cg2d_battle_technique_selection_sampling_evidence.json)。两体四源片段/第三正确体保，三FP比较、CC4230三写一读/双S32压栈CALL EAX、原提示83B与S格式11B、一个外父六条13B有据；不把寄存器操作数0当函数地址、不重验已过两发布者或合并发送后写序。989历史字段保/正常旧值一致；两局部I/S各十六真实来源，不代完整内容生产/所有模式/父/owner及运行。两新ID加989三处置/BATTLE208枚举open/E780，关联1643/44.65%；四任务open/60源码closed10/完整验收0/叶0/global=false与R7/差队列保持。

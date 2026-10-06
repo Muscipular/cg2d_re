@@ -191,3 +191,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQM01 技能窗口与列表取样（2026-10-07）
 
 [完整合同](cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state)/[八原根](cg2d_battle_skill_window_click_sampling_evidence.json)纳管技能列表创建/技术创建/返回、列表重建、窗口动画包装/创建/更新与点击八完整573条1739B。仅47C570两真实W8索引及四低W16坐标读顺序三片段/一体实修，共享索引W16/坐标和flags W32保，正常旧值一致。其它七正确体、真实失败/null/六RNG/末尾gate/回调和MarkDeath后取非拥有T**槽保持。37B七项返回表/九NOP用途mapped，R7 261/3061余2800。BATTLE205仍open，完整生产/父/owner寿命/窗口10-26及运行未验。
+
+## BQN01 技术选择与命令消费（2026-10-07）
+
+[完整合同](cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state)/[三根313条1108B](cg2d_battle_technique_selection_sampling_evidence.json)纳管47A000/47C700和989既有4974C0完整追加。两体四片段恢复selectedSkill条件W32重读/cost两W32取序/hover形参实际W8和四坐标W16序，正常旧值一致。NUL/W16配对/共享W32、三FP比较/双S32借用回调/null仍关闭消费和989原格式明文/真实发送后写序保；原三提示83B与S格式11B保。208成员枚举open/两局部I-S，不新R7；完整内容生产/其它模式/全部父/owner寿命与运行未验。

@@ -3158,3 +3158,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQM01 八完整技能窗口与列表正常源（2026-10-07）
 
 [完整合同](cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline)/[八冻结前态](cg2d_battle_skill_window_click_sampling_evidence.json)。1520..1527八原已有完整定义正常语义/equivalent，冻结定位全文保；47C570三片段实修、其它七正确体保。不虚计两callback数据入向或107包装入向的完整父验收；首NUL两旧文本29/25共54B保。语义1528/有效1523、关联1641/3680（44.59%）、BATTLE205枚举open、分类653/E778；37B真实X用途mapped使R7 261/3061/余2800，差队列172/待归属43及其它完整门禁保持。
+
+## BQN01 两新正常身份及989完整追加（2026-10-07）
+
+[完整合同](cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-baseline)/[三冻结前态](cg2d_battle_technique_selection_sampling_evidence.json)：1528/1529对应47A000/47C700；989原局部格式字段全文保持，仅加完整4974C0合同与证据，不重复ID。三完整313条1108B/六页、15直接call/十callee及一CC4230 CALL EAX消费；两个新身份加989三equivalent，三冻结定位保。两体四源片段/正常旧值一致，回调三写一读仅两已过发布者复用BQM01，其它父不推。语义1530/有效1525、关联1643/3680（44.65%）、分类656/BATTLE208枚举open/E780；R7 261/3061/余2800、差队列172/待归属43及其它完整门禁保。

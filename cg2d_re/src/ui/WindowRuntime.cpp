@@ -35246,11 +35246,13 @@ void Sub_47A000(
     window->elements[4].visible = 1;
     window->elements[5].visible = 1;
     window->elements[9].visible = 1;
-    if (world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].canRebirth != 0) {
+    std::int32_t selectedSkill = gSkillWindowIndexD2EA60;
+    if (world::detail::gSkillsF1BAFC[selectedSkill].canRebirth != 0) {
         window->elements[6].visible = 1;
+        selectedSkill = gSkillWindowIndexD2EA60;
     }
     const auto* const techniques =
-        world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].techniques3C.data();
+        world::detail::gSkillsF1BAFC[selectedSkill].techniques3C.data();
     std::int32_t count = 0;
     while (count < 15 && techniques[count].name[0] != '\0') {
         ++count;
@@ -35338,7 +35340,9 @@ std::int32_t Sub_47C700(const std::int32_t index, const std::int32_t state)
     if (record->techniques3C[technique].name[0] == '\0') {
         return 0;
     }
-    const std::int32_t cost = record->techniques3C[technique].value7C * record->fpReduce / 100;
+    const std::int32_t techniqueCost = record->techniques3C[technique].value7C;
+    const std::int32_t fpReduce = record->fpReduce;
+    const std::int32_t cost = techniqueCost * fpReduce / 100;
     std::int32_t consumed = 0;
     std::int8_t visualState = 0;
     bool allowed = record->techniques3C[technique].value8C != 0;
@@ -35360,7 +35364,7 @@ std::int32_t Sub_47C700(const std::int32_t index, const std::int32_t state)
             static_cast<void>(audio::PlaySe_52C450(55, 320));
         }
     }
-    if ((state & 1) != 0) {
+    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 1u) != 0) {
         record = &world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60];
         visualState = 2;
         gSkillWindowHoverD2F744 = technique;
@@ -35380,8 +35384,19 @@ std::int32_t Sub_47C700(const std::int32_t index, const std::int32_t state)
     }
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = &window->elements[index];
-    const auto y = static_cast<std::int16_t>(element->y + window->y);
-    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    // 原47C91F..47C92B依次读取元素Y/X、窗口Y/X低W16；共享坐标仍为W32。
+    std::uint16_t elementY;
+    std::memcpy(&elementY, &element->y, sizeof(elementY));
+    std::uint16_t elementX;
+    std::memcpy(&elementX, &element->x, sizeof(elementX));
+    std::uint16_t windowY;
+    std::memcpy(&windowY, &window->y, sizeof(windowY));
+    const auto y = static_cast<std::int16_t>(
+        std::bit_cast<std::int16_t>(elementY) + std::bit_cast<std::int16_t>(windowY));
+    std::uint16_t windowX;
+    std::memcpy(&windowX, &window->x, sizeof(windowX));
+    const auto x = static_cast<std::int16_t>(
+        std::bit_cast<std::int16_t>(elementX) + std::bit_cast<std::int16_t>(windowX));
     Sub_47B9B0(x, y, visualState, technique + 100, 3, 223, 0xFFFFFFFFu);
     return consumed;
 }

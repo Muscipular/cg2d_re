@@ -243,3 +243,7 @@
 ## BNF01 技能112字段与两位置原序（2026-10-06）
 
 [单根九处](../cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-decision)明确payload先skill/actor先level、同解析caster/target和比较先pub、target两字段actor先值；原flags先pub再读target不改。caster/target两个位置先current、256/52沿同位置而51另live，最后EffectList另读flags-caster-target-actor。0后一次W32/EAX-AH选择与25/55/161/75/109/110等原动作、初空/循环失败及Move尾保持；[226条872B证据](../cg2d_battle_m_skill112_sampling_evidence.json)不代完整父/消费者-owner运行，其它正文/声明保持。
+
+## BNG01 技能114具体图号和flags原序（2026-10-06）
+
+[单根八处](../cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-decision)明确payload先skill/actor先level、同解析caster/target和比较先pub、低图号表-caster位置-加法后actor、Take固定flags-target-flags pub-caster-actor/固定参数及target两字段actor先值。原成功字段固定payload两写、143之后其它字段/动作另live和原失败/终结尾保持；[166条701B证据](../cg2d_battle_m_skill114_sampling_evidence.json)不代完整父/消费者-owner运行，其它正文/声明不改。

@@ -61,3 +61,9 @@
 [动作141/143合同](cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state)/[完整193条649B](cg2d_battle_action_141_143_evidence.json)沿BPP三表/48索引补两动作完整分支和六原调用。既有1429/1430全文前态保；图号/效果参数/default和公共尾一致，源仅各一旗位读取从W32恢复原低W8、正常旧判断值相同。原四图号物理W32/16B及唯一父参数可追，没增加容量/回退或重做正确创建依赖。
 
 两equivalent只完整正常源静态，BATTLE108成员保持，E734两局部I/S；完整404DB0父/全部子依赖/状态生产/owner-alias寿命/SDK机器ABI/时钟RNG/画面与运行未验。BPP动作114字段修复及其489条未完整核仍单列，不外推完整战斗。
+
+## BPR01 动作114完整正常本体（2026-10-07）
+
+[动作114阶段合同](cg2d_battle_action_114_spec.md#battle-action-114-source-state)/[完整489条1745B](cg2d_battle_action_114_evidence.json)补BPP当时仅字段/数据角色的余下本体。34实际call/57内部jump/六槽switch、一唯一父参数弃返邻窗、54D4B4实际四字节可追；命中/名称与两轴fresh除10、业务0/maxHp及创建/图标/公共尾正常源对应，三个源片段恢复四原TEST W8点，正常旧判断值相同。
+
+既有1428全文前态保，BPP启用[1]/类型[0]修复保持；一equivalent只完整正常源静态，BATTLE108枚举open、E736两局部I/S。完整父与全部子依赖/其它生产/owner寿命/SDK及生成机器ABI和x87实际精度/RNG/画面运行未验，完整战斗不关闭。

@@ -28094,7 +28094,9 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                     CopyPayload(&copyTarget->readiness, &temporary);
                     Destroy_401CF0(&temporary);
                 }
-                if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                const std::uint8_t effectFlags = *reinterpret_cast<const std::uint8_t*>(
+                    &payload->effects1C[payload->effectRunningC9C].flags);
+                if ((effectFlags & 0x20u) != 0) {
                     targetPayload->flagsFDC |= 2u;
                     gYobiUpdateGateMode = 1;
                     targetPayload->aliveFF8 = 1;
@@ -28152,7 +28154,9 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
                 }
             }
             if (showAttributes) {
-                if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                const std::uint8_t attributeFlags = *reinterpret_cast<const std::uint8_t*>(
+                    &payload->effects1C[payload->effectRunningC9C].flags);
+                if ((attributeFlags & 2u) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                 }
                 static_cast<void>(NewBattleAttributeEffects_4209C0(
@@ -28160,7 +28164,9 @@ void UpdateBattleAction114_40F0A0(YobiAction* const action)
             }
         }
         const std::int32_t tailIndex = payload->effectRunningC9C;
-        if ((payload->effects1C[tailIndex].flags & 8u) == 0
+        const std::uint8_t tailFlags =
+            *reinterpret_cast<const std::uint8_t*>(&payload->effects1C[tailIndex].flags);
+        if ((tailFlags & 8u) == 0
             && payload->effects1C[tailIndex].position3 != 0) {
             payload->valueFD0 = 14 * static_cast<std::int32_t>(((targetPayload->flagsFDC >> 1) & 1u) + 1u);
         }

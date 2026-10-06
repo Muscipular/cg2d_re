@@ -51,3 +51,13 @@
 [403A54/403C38两表](cg2d_unassigned_range_classification_spec.md#range-classification-switch)各四原W32目标，共32B、八目标，实际父分别4038A0/403A70；原cmp EDX,3、unsigned ja与EDX×4窗口有证据。两父已有NetworkRuntime源码/签名/接线不改，只追加原数据/边界区间依据，不迁原x86表/地址或恢复加解密。
 
 本步64个X区间属于R7原字节用途分类，无网络业务开发或运行证据；原格式明文/两帧叶排除及47个网络成员保持。两原表局部依据不代完整父/所有alias/owner、SDK/ABI或完整互通验收。
+
+## BPD01 原数值字段与明文边界（2026-10-06）
+
+[BPD01具体SPEC](cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision)/[原证据](cg2d_delimited_numeric_normal_sampling_evidence.json)。三个真实数值解析根完整104条286B/三页4绝对call14内跳6ret，26普通点16不同父分根1/13/12点和1/6/9父，只纳盘。单52D050正文恢复正常S32 value/sign与一次字节样本、下一字节先取再游标推进；52CFF0状态/52D0D0栈field两正确体保持。字符表、先乘62、任意位置负号、非法0/空0与field空-1/status空2不写输出均原样保。
+
+这三根是原数字字段解析，base62字符表/原minus位置职责保持；正常算式和字节取样恢复不产生新传送格式、帧或字段定义，不恢复两加解密叶。128B栈字段/cap127、低字节分隔符/ordinal、状态和output写入规则均原样保；不引入UTF8/Big5猜测或严格数字校验。
+
+三新1419–1421对应已有原根；语义1419→1422/有效ID1414→1417、关联1532→1535（41.63%→41.71%）、分类540→543、NETWORK47→50枚举open，六独立正常局部static I/S E689→695。三冻定位各1不刷新；RENDER52/YOBI56/RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保；U10/R01/R04/V03四open只进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。
+
+只NetworkRuntime.cpp单Base62正文，两个正确包装/四DFI工具、其它实现/头/API/共享缓冲及帧-108handler/provider/owner保持，不新增helper或输出默认值，不复用5176B0前缀负号。撤专项U32回绕，正常S32算式/原业务字符-容量/返回保持，无额外拒绝/保护/钳制或异常模型。完整26点之父/字段-108回复-请求与状态/正常alias-缓冲及输出owner/关闭退出/SDK-机器ABI和实际互通未验；未构建/测试/运行/hash，原格式只明文、两加解密叶排除/内存CryptInt保、音频暂停，整体SPEC继续。

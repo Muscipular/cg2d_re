@@ -172495,6 +172495,370 @@
         "preserved_contract": "入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
         "implementation_static_scope": "真实角色原根的正常字段/槽位/位宽/生产-发布局部I/S；单正文实修，其它实现/头/布局/存储/原18点之父和全部provider保持，不代完整Yobi/渲染、FP ABI/资源-owner或像素运行"
       }
+    },
+    {
+      "original_entry": "0x52CFF0",
+      "inventory_id": "F:0012CFF0",
+      "original_role": "ParseDelimitedIntegerStatus_52CFF0",
+      "status": "BPD01三真实原数值解析根独立机器缺口纳管，52D050正常S32-字节取样实修/两正确体保持；完整26点之父及互通运行未验",
+      "original_end_exclusive": "0x52D04F",
+      "instruction_count": 31,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "ParseDelimitedIntegerStatus_52CFF0"
+          ],
+          "relationship": "未整体清零的128B实际栈field，以源字节/原delimiter/ordinal/S32cap127调用既有52CED0并保存完整S32 status；首字节NUL返2、不写output，非空调用实际Atoi53C649、写output完整W32后返此前status。不加严格数字/编码门槛、默认输出或固定成功，正确源码保持；output为原生非拥有S32*，上游寿命未验。"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "ParseDelimitedIntegerStatus_52CFF0"
+          ],
+          "relationship": "既有协议字节/S32与已证native地址签名保持，不改原格式或传送/加解密边界"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_evidence.json"
+      ],
+      "boundary": "未整体清零的128B实际栈field，以源字节/原delimiter/ordinal/S32cap127调用既有52CED0并保存完整S32 status；首字节NUL返2、不写output，非空调用实际Atoi53C649、写output完整W32后返此前status。不加严格数字/编码门槛、默认输出或固定成功，正确源码保持；output为原生非拥有S32*，上游寿命未验。",
+      "verification_level": "三完整原根104条286B三页4绝对call14内跳6ret与26普通点/分根父1-6-9仅纳盘；52D050仅一正文正常S32/原下一字节先取再推进实修，其余两体/格式-空字段-原接线保持，正常局部static不代完整父/正常alias-owner/ABI或互通运行",
+      "function_chunks": [
+        {
+          "start": "0x52CFF0",
+          "end_exclusive": "0x52D04F"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x518aca",
+          "type": 17,
+          "parent": "0x518a40"
+        }
+      ],
+      "native_provider": {
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "ParseDelimitedIntegerStatus_52CFF0",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "delimited_numeric_normal_sampling": {
+        "spec_id": "BPD01",
+        "evidence_refs": [
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+          "doc/cg2d_delimited_numeric_normal_sampling_evidence.json"
+        ],
+        "original_instruction_count": 31,
+        "original_code_bytes": 95,
+        "page_count": 1,
+        "outgoing_call_site_count": 2,
+        "internal_jump_site_count": 1,
+        "return_site_count": 2,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 0,
+        "source_body_changed": false,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "normal_previous_value_wrong": false,
+        "normal_s32_arithmetic_restored": false,
+        "next_byte_before_cursor_advance": false,
+        "original_protocol_format_unchanged": true,
+        "new_cipher_enabled": false,
+        "preserved_contract": "未整体清零的128B实际栈field，以源字节/原delimiter/ordinal/S32cap127调用既有52CED0并保存完整S32 status；首字节NUL返2、不写output，非空调用实际Atoi53C649、写output完整W32后返此前status。不加严格数字/编码门槛、默认输出或固定成功，正确源码保持；output为原生非拥有S32*，上游寿命未验。",
+        "implementation_static_scope": "三真实解析根正常局部I/S，52D050正常S32/原逐字节样本实修、两正确体保持；原格式和明文、108回复/所有26点之父/正常别名-缓冲及输出owner/SDK-ABI与互通运行未验"
+      }
+    },
+    {
+      "original_entry": "0x52D050",
+      "inventory_id": "F:0012D050",
+      "original_role": "Base62Decode_52D050",
+      "status": "BPD01三真实原数值解析根独立机器缺口纳管，52D050正常S32-字节取样实修/两正确体保持；完整26点之父及互通运行未验",
+      "original_end_exclusive": "0x52D0C2",
+      "instruction_count": 49,
+      "original_direct_reference_count": 13,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Base62Decode_52D050"
+          ],
+          "relationship": "真实字节游标，value S32=0后首字节U8一次采样、sign S32=1；非NUL每轮先正常S32*62，再按0-9/a-z/A-Z加原0..9/10..35/36..61，'-'任意位置只令sign=-1且仍消耗该轮乘法，非法字节立即返0。尾下一字节先取、游标后进，同一样本判回边；结束返正常S32 sign*value，空串返0。不复用5176B0前缀负号算法、不改字符表/格式，不保新增U32回绕或按溢出增拒绝/保护/钳制。旧正常可计算值一致、异常不专项模拟/宣称等价。"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "Base62Decode_52D050"
+          ],
+          "relationship": "既有协议字节/S32与已证native地址签名保持，不改原格式或传送/加解密边界"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_evidence.json"
+      ],
+      "boundary": "真实字节游标，value S32=0后首字节U8一次采样、sign S32=1；非NUL每轮先正常S32*62，再按0-9/a-z/A-Z加原0..9/10..35/36..61，'-'任意位置只令sign=-1且仍消耗该轮乘法，非法字节立即返0。尾下一字节先取、游标后进，同一样本判回边；结束返正常S32 sign*value，空串返0。不复用5176B0前缀负号算法、不改字符表/格式，不保新增U32回绕或按溢出增拒绝/保护/钳制。旧正常可计算值一致、异常不专项模拟/宣称等价。",
+      "verification_level": "三完整原根104条286B三页4绝对call14内跳6ret与26普通点/分根父1-6-9仅纳盘；52D050仅一正文正常S32/原下一字节先取再推进实修，其余两体/格式-空字段-原接线保持，正常局部static不代完整父/正常alias-owner/ABI或互通运行",
+      "function_chunks": [
+        {
+          "start": "0x52D050",
+          "end_exclusive": "0x52D0C2"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x509189",
+          "type": 17,
+          "parent": "0x509100"
+        },
+        {
+          "ea": "0x5091b0",
+          "type": 17,
+          "parent": "0x509100"
+        },
+        {
+          "ea": "0x5091da",
+          "type": 17,
+          "parent": "0x509100"
+        },
+        {
+          "ea": "0x50921c",
+          "type": 17,
+          "parent": "0x509100"
+        },
+        {
+          "ea": "0x509245",
+          "type": 17,
+          "parent": "0x509100"
+        },
+        {
+          "ea": "0x509271",
+          "type": 17,
+          "parent": "0x509100"
+        },
+        {
+          "ea": "0x50af38",
+          "type": 17,
+          "parent": "0x50aef0"
+        },
+        {
+          "ea": "0x50b45e",
+          "type": 17,
+          "parent": "0x50b380"
+        },
+        {
+          "ea": "0x50ba2f",
+          "type": 17,
+          "parent": "0x50b380"
+        },
+        {
+          "ea": "0x50bb7e",
+          "type": 17,
+          "parent": "0x50b380"
+        },
+        {
+          "ea": "0x50bd6d",
+          "type": 17,
+          "parent": "0x50bcd0"
+        },
+        {
+          "ea": "0x50deb2",
+          "type": 17,
+          "parent": "0x50dd80"
+        },
+        {
+          "ea": "0x52d10e",
+          "type": 17,
+          "parent": "0x52d0d0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "Base62Decode_52D050",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "delimited_numeric_normal_sampling": {
+        "spec_id": "BPD01",
+        "evidence_refs": [
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+          "doc/cg2d_delimited_numeric_normal_sampling_evidence.json"
+        ],
+        "original_instruction_count": 49,
+        "original_code_bytes": 114,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "internal_jump_site_count": 12,
+        "return_site_count": 2,
+        "incoming_reference_count": 13,
+        "incoming_parent_count": 6,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "normal_previous_value_wrong": false,
+        "normal_s32_arithmetic_restored": true,
+        "next_byte_before_cursor_advance": true,
+        "original_protocol_format_unchanged": true,
+        "new_cipher_enabled": false,
+        "preserved_contract": "真实字节游标，value S32=0后首字节U8一次采样、sign S32=1；非NUL每轮先正常S32*62，再按0-9/a-z/A-Z加原0..9/10..35/36..61，'-'任意位置只令sign=-1且仍消耗该轮乘法，非法字节立即返0。尾下一字节先取、游标后进，同一样本判回边；结束返正常S32 sign*value，空串返0。不复用5176B0前缀负号算法、不改字符表/格式，不保新增U32回绕或按溢出增拒绝/保护/钳制。旧正常可计算值一致、异常不专项模拟/宣称等价。",
+        "implementation_static_scope": "三真实解析根正常局部I/S，52D050正常S32/原逐字节样本实修、两正确体保持；原格式和明文、108回复/所有26点之父/正常别名-缓冲及输出owner/SDK-ABI与互通运行未验"
+      }
+    },
+    {
+      "original_entry": "0x52D0D0",
+      "inventory_id": "F:0012D0D0",
+      "original_role": "ParseDelimitedBase62_52D0D0",
+      "status": "BPD01三真实原数值解析根独立机器缺口纳管，52D050正常S32-字节取样实修/两正确体保持；完整26点之父及互通运行未验",
+      "original_end_exclusive": "0x52D11D",
+      "instruction_count": 24,
+      "original_direct_reference_count": 12,
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "ParseDelimitedBase62_52D0D0"
+          ],
+          "relationship": "实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。"
+        },
+        {
+          "path": "include/cg/network/NetworkRuntime.hpp",
+          "symbols": [
+            "ParseDelimitedBase62_52D0D0"
+          ],
+          "relationship": "既有协议字节/S32与已证native地址签名保持，不改原格式或传送/加解密边界"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_evidence.json"
+      ],
+      "boundary": "实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。",
+      "verification_level": "三完整原根104条286B三页4绝对call14内跳6ret与26普通点/分根父1-6-9仅纳盘；52D050仅一正文正常S32/原下一字节先取再推进实修，其余两体/格式-空字段-原接线保持，正常局部static不代完整父/正常alias-owner/ABI或互通运行",
+      "function_chunks": [
+        {
+          "start": "0x52D0D0",
+          "end_exclusive": "0x52D11D"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x509671",
+          "type": 17,
+          "parent": "0x509650"
+        },
+        {
+          "ea": "0x509bb9",
+          "type": 17,
+          "parent": "0x509ba0"
+        },
+        {
+          "ea": "0x50a405",
+          "type": 17,
+          "parent": "0x50a3e0"
+        },
+        {
+          "ea": "0x50a6eb",
+          "type": 17,
+          "parent": "0x50a6b0"
+        },
+        {
+          "ea": "0x50ac4f",
+          "type": 17,
+          "parent": "0x50ac20"
+        },
+        {
+          "ea": "0x50bf39",
+          "type": 17,
+          "parent": "0x50bf20"
+        },
+        {
+          "ea": "0x50bf85",
+          "type": 17,
+          "parent": "0x50bf20"
+        },
+        {
+          "ea": "0x50d573",
+          "type": 17,
+          "parent": "0x50d500"
+        },
+        {
+          "ea": "0x50d6d5",
+          "type": 17,
+          "parent": "0x50d500"
+        },
+        {
+          "ea": "0x50d71c",
+          "type": 17,
+          "parent": "0x50d700"
+        },
+        {
+          "ea": "0x50d72b",
+          "type": 17,
+          "parent": "0x50d700"
+        },
+        {
+          "ea": "0x50e871",
+          "type": 17,
+          "parent": "0x50e850"
+        }
+      ],
+      "native_provider": {
+        "source": "src/network/NetworkRuntime.cpp",
+        "symbol": "ParseDelimitedBase62_52D0D0",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "delimited_numeric_normal_sampling": {
+        "spec_id": "BPD01",
+        "evidence_refs": [
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+          "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+          "doc/cg2d_delimited_numeric_normal_sampling_evidence.json"
+        ],
+        "original_instruction_count": 24,
+        "original_code_bytes": 77,
+        "page_count": 1,
+        "outgoing_call_site_count": 2,
+        "internal_jump_site_count": 1,
+        "return_site_count": 2,
+        "incoming_reference_count": 12,
+        "incoming_parent_count": 9,
+        "source_body_patch_count": 0,
+        "source_body_changed": false,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "normal_previous_value_wrong": false,
+        "normal_s32_arithmetic_restored": false,
+        "next_byte_before_cursor_advance": false,
+        "original_protocol_format_unchanged": true,
+        "new_cipher_enabled": false,
+        "preserved_contract": "实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。",
+        "implementation_static_scope": "三真实解析根正常局部I/S，52D050正常S32/原逐字节样本实修、两正确体保持；原格式和明文、108回复/所有26点之父/正常别名-缓冲及输出owner/SDK-ABI与互通运行未验"
+      }
     }
   ]
 }

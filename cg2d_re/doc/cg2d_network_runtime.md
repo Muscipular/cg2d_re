@@ -3765,3 +3765,11 @@ Copy原delimiter S8扩展与源U8比较只在源0..127分支，现U8表达在该
 [五处正常算术](cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state)已落既有NetworkRuntime.cpp：发送checkedLength/nextLength、接收入队next及两消耗remaining恢复S32，撤专项U32/bit_cast回绕。原入队>0x4000、消耗>=0x4000的signed门禁差异、字段/唯一owner/复制数量/发布序及W16帧、正文/状态/RNG/报告不动，不新增负值/超当前长度拒绝或异常模拟。
 
 仅新增差异及发送两窗/三个完整叶80条257B静态对照。三个队列身份当前adapted可追，发送原处置保持；两帧父源码/绑定此前已经完成，本合同首段当前状态同步，历史日期结论不改。完整收发/命令/生产/共享寿命/未知alias/ABI、半包/部分发送与真实原格式明文互通仍未验，不以S32修正提高整网门禁。
+
+## BPD01 分段数值正常S32与字节取样（2026-10-06）
+
+[BPD01 SPEC](cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision)/[完整原证据](cg2d_delimited_numeric_normal_sampling_evidence.json)。三个真实数值解析根完整104条286B/三页4绝对call14内跳6ret，26普通点16不同父分根1/13/12点和1/6/9父，只纳盘。单52D050正文恢复正常S32 value/sign与一次字节样本、下一字节先取再游标推进；52CFF0状态/52D0D0栈field两正确体保持。字符表、先乘62、任意位置负号、非法0/空0与field空-1/status空2不写输出均原样保。 本节只更新上述52CFF0/52D050/52D0D0的正常实施/独立身份，不把52D050当5176B0或其它字符串算法，也不扩大原数值overflow处理范围。
+
+三新1419–1421对应已有原根；语义1419→1422/有效ID1414→1417、关联1532→1535（41.63%→41.71%）、分类540→543、NETWORK47→50枚举open，六独立正常局部static I/S E689→695。三冻定位各1不刷新；RENDER52/YOBI56/RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保；U10/R01/R04/V03四open只进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。
+
+只NetworkRuntime.cpp单Base62正文，两个正确包装/四DFI工具、其它实现/头/API/共享缓冲及帧-108handler/provider/owner保持，不新增helper或输出默认值，不复用5176B0前缀负号。撤专项U32回绕，正常S32算式/原业务字符-容量/返回保持，无额外拒绝/保护/钳制或异常模型。完整26点之父/字段-108回复-请求与状态/正常alias-缓冲及输出owner/关闭退出/SDK-机器ABI和实际互通未验；未构建/测试/运行/hash，原格式只明文、两加解密叶排除/内存CryptInt保、音频暂停，整体SPEC继续。

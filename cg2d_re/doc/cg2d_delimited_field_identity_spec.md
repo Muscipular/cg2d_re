@@ -34,3 +34,9 @@
 四身份原新关系绑定[已有实现](../src/network/NetworkRuntime.cpp)及[原声明](../include/cg/network/NetworkRuntime.hpp)，同一[技能生产源](../src/ui/WindowRuntime.cpp)不变。原库存/范围及协议格式保持，四adapted是处置登记，不是四项新增功能实现或完整软件验收。
 
 固定命名快照：`cg2d-re-delimited-field-identity-20261005`。
+
+## BPD01 邻接三数值消费者独立纳管（2026-10-06）
+
+[BPD01 SPEC](cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline)/[原证据](cg2d_delimited_numeric_normal_sampling_evidence.json)。本组52CFF0/52D050/52D0D0另有104条286B，不计入DFI01四根132条311B原分母；两个实际栈field包装仍消费同一52CED0/cap127，不改四提取工具或其分类/源码。三个真实数值解析根完整104条286B/三页4绝对call14内跳6ret，26普通点16不同父分根1/13/12点和1/6/9父，只纳盘。单52D050正文恢复正常S32 value/sign与一次字节样本、下一字节先取再游标推进；52CFF0状态/52D0D0栈field两正确体保持。字符表、先乘62、任意位置负号、非法0/空0与field空-1/status空2不写输出均原样保。
+
+三新1419–1421对应已有原根；语义1419→1422/有效ID1414→1417、关联1532→1535（41.63%→41.71%）、分类540→543、NETWORK47→50枚举open，六独立正常局部static I/S E689→695。三冻定位各1不刷新；RENDER52/YOBI56/RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保；U10/R01/R04/V03四open只进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。 正确两个包装补身份不冒充新实现，全部字段业务来源/borrow与原26点之父仍独立推进；DFI旧记录和工具接口保持。

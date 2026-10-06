@@ -2938,3 +2938,15 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [BPC01 SPEC](cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline)/[原证据](cg2d_character_enqueue_record_production_evidence.json)。机器1418关联F:00121F20@521F20及YobiRuntime.cpp::RenderChara_521F20；冻结定位1不刷新，原身份不增加分母。角色521F20完整160条595B/两页3绝对call28内跳1ret，18普通调用点3个父仅纳盘。单正文恢复入口/名称后实际order-record游标、独立fresh容量计数和名称-坐标目标阶段；四W32逐对描述符复制、各U8颜色/低flags、mix沿saved clear值两pub、clip先取/image一次取样与原链公共尾恢复。无介入旧正常最终坐标/颜色等正确，不称像素错误。
 
 新机器1418对应已有角色原根；语义1418→1419/有效ID1413→1414、关联1531→1532（41.60%→41.63%）、分类539→540、RENDER51→52/YOBI55→56均枚举open，两域独立正常局部I/S共4条E685→689。冻定位1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；八open含G04只进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。 同一原根分两功能域，各域I/S均局部，不把18调用点当18父或完整图验收；原3calls为名称/两ftol，不伪装成普通入队调用。
+
+## BPD01 三数值解析入口机器缺口收尾（2026-10-06）
+
+[BPD01 SPEC](cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline)/[原证据](cg2d_delimited_numeric_normal_sampling_evidence.json)。三个真实数值解析根完整104条286B/三页4绝对call14内跳6ret，26普通点16不同父分根1/13/12点和1/6/9父，只纳盘。单52D050正文恢复正常S32 value/sign与一次字节样本、下一字节先取再游标推进；52CFF0状态/52D0D0栈field两正确体保持。字符表、先乘62、任意位置负号、非法0/空0与field空-1/status空2不写输出均原样保。
+
+| 新机器 / 原ID | 真实源与边界 |
+|---|---|
+| 1419 / F:0012CFF0 @52CFF0 | NetworkRuntime.cpp::ParseDelimitedIntegerStatus，空2不写输出/非空原Atoi后返status，正确体保持 |
+| 1420 / F:0012D050 @52D050 | Base62Decode，正常S32/下一字节样本恢复，原字符-符号格式保 |
+| 1421 / F:0012D0D0 @52D0D0 | ParseDelimitedBase62，同一128B-cap127栈field/空-1/解码返回透传，正确体保持 |
+
+三新1419–1421对应已有原根；语义1419→1422/有效ID1414→1417、关联1532→1535（41.63%→41.71%）、分类540→543、NETWORK47→50枚举open，六独立正常局部static I/S E689→695。三冻定位各1不刷新；RENDER52/YOBI56/RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保；U10/R01/R04/V03四open只进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。 三真身份不增分母，26点不是26父，六软件证据各根I/S仅正常局部，不代完整互通或运行。

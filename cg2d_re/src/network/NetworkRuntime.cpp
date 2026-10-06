@@ -1567,34 +1567,34 @@ std::int32_t ParseDelimitedIntegerStatus_52CFF0(
 std::int32_t Base62Decode_52D050(const char* const text)
 {
     const auto* cursor = reinterpret_cast<const unsigned char*>(text);
-    std::uint32_t value = 0;
-    bool negative = false;
-    while (*cursor != 0U) {
-        value *= 62U;
-        const unsigned char current = *cursor;
+    std::int32_t value = 0;
+    unsigned char current = *cursor;
+    std::int32_t sign = 1;
+    while (current != 0U) {
+        value *= 62;
         if (current >= static_cast<unsigned char>('0')
             && current <= static_cast<unsigned char>('9')) {
             value += current - static_cast<unsigned char>('0');
         }
         else if (current >= static_cast<unsigned char>('a')
                  && current <= static_cast<unsigned char>('z')) {
-            value += current - static_cast<unsigned char>('a') + 10U;
+            value += current - static_cast<unsigned char>('a') + 10;
         }
         else if (current >= static_cast<unsigned char>('A')
                  && current <= static_cast<unsigned char>('Z')) {
-            value += current - static_cast<unsigned char>('A') + 36U;
+            value += current - static_cast<unsigned char>('A') + 36;
         }
         else if (current == static_cast<unsigned char>('-')) {
-            negative = true;
+            sign = -1;
         }
         else {
             return 0;
         }
+        // 原先读取下一字节，再推进实际游标；每个字节只取样一次。
+        current = cursor[1];
         ++cursor;
     }
-    const std::uint32_t resultBits = negative
-        ? std::uint32_t {0} - value : value;
-    return std::bit_cast<std::int32_t>(resultBits);
+    return sign * value;
 }
 
 // 原 [0x52D0D0,0x52D11D)：空字段返回 -1，非空透传独立 base62 解码器。

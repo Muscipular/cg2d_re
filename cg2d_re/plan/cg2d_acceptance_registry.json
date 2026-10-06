@@ -772,7 +772,8 @@
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-baseline",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -821,7 +822,10 @@
         "F:0012CFA0",
         "F:001081E0",
         "F:00108230",
-        "F:00108280"
+        "F:00108280",
+        "F:0012CFF0",
+        "F:0012D050",
+        "F:0012D0D0"
       ],
       "closure_task_ids": [
         "P09",
@@ -845,7 +849,8 @@
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-decision",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -861,7 +866,8 @@
         "NAS01仅适配器根取样/清零与API跳板/导入已校正纳管，完整508360父/登录请求、SDK返回/加载/ABI/链接、全部owner/alias及原格式明文互通/运行未闭，不以局部源码关闭FUNC-NETWORK",
         "DFI01四字段基础依赖与既有技能生产三解析边已登记；本步未改源码或增加软件验收，所有306/550业务父/字段布局/owner/未知alias/Atoi内部、实际ABI/链接/原格式明文互通与运行仍待",
         "NQA01五处正常S32长度算术已修，三个队列叶原身份/门禁/发布序可追；完整父/命令/owner/间接alias/寿命、半包/部分发送/ABI/SDK和原格式明文互通仍未验",
-        "RPA01仅两原跳转表/边界字节与既有父来源关联，无源码/网络格式或加解密接线改动；八原目标/局部窗口不代整父/未知alias/全部owner/SDK/ABI或明文互通运行"
+        "RPA01仅两原跳转表/边界字节与既有父来源关联，无源码/网络格式或加解密接线改动；八原目标/局部窗口不代整父/未知alias/全部owner/SDK/ABI或明文互通运行",
+        "BPD01三分段数值解析新1419-1421、完整104条286B/26点分根父1-6-9纳盘；base62正常S32/原下一字节取样实修、两正确体保持，NETWORK50枚举open。原格式明文不变，完整108回复/所有调用父与字段/正常alias-缓冲和输出owner/SDK-ABI与互通、R1/R7/R8仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -877,7 +883,8 @@
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
       ]
     },
     {
@@ -30157,6 +30164,174 @@
       "observation": "完整原160条595B/3调用28内跳1ret与18点3父只纳盘；正常字段/位宽-取样/逐对发布/实际槽和原有接线静态对应，两域局部不当两个原根或全函数图验收；入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
       "expected": "入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
       "actual": "同一真实角色原根的正常局部I/S，两域功能接口分列，runtime=false；旧正确最终坐标/颜色保持，未构建/测试/运行/hash，不代所有上游-父/callee与正常alias/action-队列-纹理-owner/SDK-机器FP ABI或像素运行"
+    },
+    {
+      "id": "E-NETWORK-DELIMITED-NUMERIC-0012CFF0-I-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPD01三完整104条286B/三页，各根原call/返回和普通点父独立分列；doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-delimited-numeric-normal-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
+        "src/network/NetworkRuntime.cpp#ParseDelimitedIntegerStatus_52CFF0 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "正确状态/field包装正文保持，独立原身份/完整正常字节-容量-返回与已有提供者静态纳管，不冒充新实现",
+          "decision_ref": "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前已有真实正文/接口，只52D050单根取样与正常算式实修；两正确体/DFI提取和原所有帧/provider/头保持；未整体清零的128B实际栈field，以源字节/原delimiter/ordinal/S32cap127调用既有52CED0并保存完整S32 status；首字节NUL返2、不写output，非空调用实际Atoi53C649、写output完整W32后返此前status。不加严格数字/编码门槛、默认输出或固定成功，正确源码保持；output为原生非拥有S32*，上游寿命未验。",
+      "expected": "未整体清零的128B实际栈field，以源字节/原delimiter/ordinal/S32cap127调用既有52CED0并保存完整S32 status；首字节NUL返2、不写output，非空调用实际Atoi53C649、写output完整W32后返此前status。不加严格数字/编码门槛、默认输出或固定成功，正确源码保持；output为原生非拥有S32*，上游寿命未验。",
+      "actual": "各原根正常局部static I/S，runtime=false；仅数值字段原格式解析，网络原格式只明文/两加解密叶排除保，不增新编码协议或异常回绕/拒绝；未构建/测试/运行/hash，不代完整回复/全部26点之父/正常alias-owner/SDK-ABI或实际互通"
+    },
+    {
+      "id": "E-NETWORK-DELIMITED-NUMERIC-0012CFF0-S-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPD01三完整104条286B/三页，各根原call/返回和普通点父独立分列；doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-delimited-numeric-normal-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
+        "src/network/NetworkRuntime.cpp#ParseDelimitedIntegerStatus_52CFF0 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "正确状态/field包装正文保持，独立原身份/完整正常字节-容量-返回与已有提供者静态纳管，不冒充新实现",
+          "decision_ref": "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前完整原根字节/指令-调用-返回和普通入向只纳盘，正常字节取样/原字符-符号、cap127/空字段与不写输出和实际提供者静态对应；未整体清零的128B实际栈field，以源字节/原delimiter/ordinal/S32cap127调用既有52CED0并保存完整S32 status；首字节NUL返2、不写output，非空调用实际Atoi53C649、写output完整W32后返此前status。不加严格数字/编码门槛、默认输出或固定成功，正确源码保持；output为原生非拥有S32*，上游寿命未验。",
+      "expected": "未整体清零的128B实际栈field，以源字节/原delimiter/ordinal/S32cap127调用既有52CED0并保存完整S32 status；首字节NUL返2、不写output，非空调用实际Atoi53C649、写output完整W32后返此前status。不加严格数字/编码门槛、默认输出或固定成功，正确源码保持；output为原生非拥有S32*，上游寿命未验。",
+      "actual": "各原根正常局部static I/S，runtime=false；仅数值字段原格式解析，网络原格式只明文/两加解密叶排除保，不增新编码协议或异常回绕/拒绝；未构建/测试/运行/hash，不代完整回复/全部26点之父/正常alias-owner/SDK-ABI或实际互通"
+    },
+    {
+      "id": "E-NETWORK-DELIMITED-NUMERIC-0012D050-I-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPD01三完整104条286B/三页，各根原call/返回和普通点父独立分列；doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-delimited-numeric-normal-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
+        "src/network/NetworkRuntime.cpp#Base62Decode_52D050 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "原S32 value/sign/先乘62与下一字节先取再游标推进恢复，撤U32回绕/bit_cast取负；字符表/符号位置与返回不变",
+          "decision_ref": "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前已有真实正文/接口，只52D050单根取样与正常算式实修；两正确体/DFI提取和原所有帧/provider/头保持；真实字节游标，value S32=0后首字节U8一次采样、sign S32=1；非NUL每轮先正常S32*62，再按0-9/a-z/A-Z加原0..9/10..35/36..61，'-'任意位置只令sign=-1且仍消耗该轮乘法，非法字节立即返0。尾下一字节先取、游标后进，同一样本判回边；结束返正常S32 sign*value，空串返0。不复用5176B0前缀负号算法、不改字符表/格式，不保新增U32回绕或按溢出增拒绝/保护/钳制。旧正常可计算值一致、异常不专项模拟/宣称等价。",
+      "expected": "真实字节游标，value S32=0后首字节U8一次采样、sign S32=1；非NUL每轮先正常S32*62，再按0-9/a-z/A-Z加原0..9/10..35/36..61，'-'任意位置只令sign=-1且仍消耗该轮乘法，非法字节立即返0。尾下一字节先取、游标后进，同一样本判回边；结束返正常S32 sign*value，空串返0。不复用5176B0前缀负号算法、不改字符表/格式，不保新增U32回绕或按溢出增拒绝/保护/钳制。旧正常可计算值一致、异常不专项模拟/宣称等价。",
+      "actual": "各原根正常局部static I/S，runtime=false；仅数值字段原格式解析，网络原格式只明文/两加解密叶排除保，不增新编码协议或异常回绕/拒绝；未构建/测试/运行/hash，不代完整回复/全部26点之父/正常alias-owner/SDK-ABI或实际互通"
+    },
+    {
+      "id": "E-NETWORK-DELIMITED-NUMERIC-0012D050-S-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPD01三完整104条286B/三页，各根原call/返回和普通点父独立分列；doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-delimited-numeric-normal-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
+        "src/network/NetworkRuntime.cpp#Base62Decode_52D050 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "原S32 value/sign/先乘62与下一字节先取再游标推进恢复，撤U32回绕/bit_cast取负；字符表/符号位置与返回不变",
+          "decision_ref": "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前完整原根字节/指令-调用-返回和普通入向只纳盘，正常字节取样/原字符-符号、cap127/空字段与不写输出和实际提供者静态对应；真实字节游标，value S32=0后首字节U8一次采样、sign S32=1；非NUL每轮先正常S32*62，再按0-9/a-z/A-Z加原0..9/10..35/36..61，'-'任意位置只令sign=-1且仍消耗该轮乘法，非法字节立即返0。尾下一字节先取、游标后进，同一样本判回边；结束返正常S32 sign*value，空串返0。不复用5176B0前缀负号算法、不改字符表/格式，不保新增U32回绕或按溢出增拒绝/保护/钳制。旧正常可计算值一致、异常不专项模拟/宣称等价。",
+      "expected": "真实字节游标，value S32=0后首字节U8一次采样、sign S32=1；非NUL每轮先正常S32*62，再按0-9/a-z/A-Z加原0..9/10..35/36..61，'-'任意位置只令sign=-1且仍消耗该轮乘法，非法字节立即返0。尾下一字节先取、游标后进，同一样本判回边；结束返正常S32 sign*value，空串返0。不复用5176B0前缀负号算法、不改字符表/格式，不保新增U32回绕或按溢出增拒绝/保护/钳制。旧正常可计算值一致、异常不专项模拟/宣称等价。",
+      "actual": "各原根正常局部static I/S，runtime=false；仅数值字段原格式解析，网络原格式只明文/两加解密叶排除保，不增新编码协议或异常回绕/拒绝；未构建/测试/运行/hash，不代完整回复/全部26点之父/正常alias-owner/SDK-ABI或实际互通"
+    },
+    {
+      "id": "E-NETWORK-DELIMITED-NUMERIC-0012D0D0-I-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPD01三完整104条286B/三页，各根原call/返回和普通点父独立分列；doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-delimited-numeric-normal-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
+        "src/network/NetworkRuntime.cpp#ParseDelimitedBase62_52D0D0 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "正确状态/field包装正文保持，独立原身份/完整正常字节-容量-返回与已有提供者静态纳管，不冒充新实现",
+          "decision_ref": "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前已有真实正文/接口，只52D050单根取样与正常算式实修；两正确体/DFI提取和原所有帧/provider/头保持；实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。",
+      "expected": "实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。",
+      "actual": "各原根正常局部static I/S，runtime=false；仅数值字段原格式解析，网络原格式只明文/两加解密叶排除保，不增新编码协议或异常回绕/拒绝；未构建/测试/运行/hash，不代完整回复/全部26点之父/正常alias-owner/SDK-ABI或实际互通"
+    },
+    {
+      "id": "E-NETWORK-DELIMITED-NUMERIC-0012D0D0-S-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPD01三完整104条286B/三页，各根原call/返回和普通点父独立分列；doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-delimited-numeric-normal-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
+        "src/network/NetworkRuntime.cpp#ParseDelimitedBase62_52D0D0 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "正确状态/field包装正文保持，独立原身份/完整正常字节-容量-返回与已有提供者静态纳管，不冒充新实现",
+          "decision_ref": "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前完整原根字节/指令-调用-返回和普通入向只纳盘，正常字节取样/原字符-符号、cap127/空字段与不写输出和实际提供者静态对应；实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。",
+      "expected": "实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。",
+      "actual": "各原根正常局部static I/S，runtime=false；仅数值字段原格式解析，网络原格式只明文/两加解密叶排除保，不增新编码协议或异常回绕/拒绝；未构建/测试/运行/hash，不代完整回复/全部26点之父/正常alias-owner/SDK-ABI或实际互通"
     }
   ],
   "task_acceptance": [
@@ -30588,7 +30763,8 @@
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
-        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state"
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
       ]
     },
     {
@@ -30608,7 +30784,8 @@
         "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
-        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state"
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
       ]
     },
     {
@@ -30754,7 +30931,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
       ]
     },
     {
@@ -30977,7 +31155,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
       ]
     },
     {
@@ -37285,6 +37464,39 @@
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ],
       "boundary": "BPC01原角色/队列非地址位宽与正常采样/逐W32-U8发布、已批x64游标/action引用和PC53正常S64低S32承接；正常局部static，不代全部动态别名/owner/FP ABI或像素：入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。"
+    },
+    {
+      "inventory_id": "F:0012CFF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
+      ],
+      "boundary": "BPD01原字节/正常S32和分段返回保持，x64仅原生非拥有字节/output地址；正常局部static不代overflow/原机器ABI、全26点之父/正常别名-缓冲与输出owner或互通运行：未整体清零的128B实际栈field，以源字节/原delimiter/ordinal/S32cap127调用既有52CED0并保存完整S32 status；首字节NUL返2、不写output，非空调用实际Atoi53C649、写output完整W32后返此前status。不加严格数字/编码门槛、默认输出或固定成功，正确源码保持；output为原生非拥有S32*，上游寿命未验。"
+    },
+    {
+      "inventory_id": "F:0012D050",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
+      ],
+      "boundary": "BPD01原字节/正常S32和分段返回保持，x64仅原生非拥有字节/output地址；正常局部static不代overflow/原机器ABI、全26点之父/正常别名-缓冲与输出owner或互通运行：真实字节游标，value S32=0后首字节U8一次采样、sign S32=1；非NUL每轮先正常S32*62，再按0-9/a-z/A-Z加原0..9/10..35/36..61，'-'任意位置只令sign=-1且仍消耗该轮乘法，非法字节立即返0。尾下一字节先取、游标后进，同一样本判回边；结束返正常S32 sign*value，空串返0。不复用5176B0前缀负号算法、不改字符表/格式，不保新增U32回绕或按溢出增拒绝/保护/钳制。旧正常可计算值一致、异常不专项模拟/宣称等价。"
+    },
+    {
+      "inventory_id": "F:0012D0D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
+      ],
+      "boundary": "BPD01原字节/正常S32和分段返回保持，x64仅原生非拥有字节/output地址；正常局部static不代overflow/原机器ABI、全26点之父/正常别名-缓冲与输出owner或互通运行：实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。"
     }
   ],
   "auxiliary_dispositions": [

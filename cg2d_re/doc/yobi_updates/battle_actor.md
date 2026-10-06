@@ -263,3 +263,7 @@
 ## BNK01 公共攻击父参数与结束角色（2026-10-06）
 
 [两根四处](../cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision)将73零/3100三值原序与普通入口currentSkill快照显式传包装。公共core后沿另live value5ABA7C位置取actor/Move，再RID和原固定1/增58；不改为caster位置、不新255/空对象门禁或终结效果。[80条304B证据](../cg2d_battle_m_attack_targets_call_sampling_evidence.json)含BNI24条复用，不代原完整父/所有owner和运行；core/其它正文与声明保持。
+
+## BNL01 普通非零角色与mode3原取样（2026-10-06）
+
+[单根23定义24处](../cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-decision)恢复同解析caster/target、payload/actor先字段和2007表、258坐标S32、普通/自身转向两类Effect-Aux与100C字段原序，固定tailAmount沿原两分支EDI取样，四索引S32/两比较位置及末W8保持。原未指定局部不补值，原图分工/所有字段与动作-早返/终结Move-RID增58及其它根头声明保持；[985条3600B证据](../cg2d_battle_m_attack_nonzero_sampling_evidence.json)不代完整父/所有owner运行。

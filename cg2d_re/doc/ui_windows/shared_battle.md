@@ -8379,3 +8379,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 ## BNK01 三父公共攻击九参桥（2026-10-06）
 
 [三组取样实修](../cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision)明确73零/3100 index-level-skill，而普通入口传mode后已读currentSkill，包装不再live重读skill。四独立位置输出及live value角色Move/RID、3100固定1和其它增58保持；[80条三父/前缀](../cg2d_battle_m_attack_targets_call_sampling_evidence.json)及三现有C++调用点只证明静态I/W/S。P01完整core源码保持，不重验3089条、不代完整共享战斗-owner/ABI或画面运行。
+
+## BNL01 普通非零与自身转向后继（2026-10-06）
+
+[23组实修](../cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-decision)明确2007 actor/payload先图表、258坐标分别原序、普通Effect/Aux具体取样和mode3 actor先pub/两路固定tailAmount-转向字段与后继效果。仍读普通附图数组（436719），末20沿真实W8，前面AL/AH沿W32样本；[985条主体/真实RID尾](../cg2d_battle_m_attack_nonzero_sampling_evidence.json)不代完整共享战斗-owner/ABI或画面运行。

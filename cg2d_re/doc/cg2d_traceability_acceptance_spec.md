@@ -672,3 +672,7 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 ## BNK01 公共攻击三父局部I/W/S（2026-10-06）
 
 [验收合同](cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-acceptance)限定两根四处/三参数差异落码和[80条三父/前缀](cg2d_battle_m_attack_targets_call_sampling_evidence.json)、真实core/四输出与value角色Move-RID/两种58后继静态接线。E457→463仅YOBI/BATTLE六局部I/W/S；七open和P01源码closed状态不变、全部完整成员/门禁及其它指标保持。P01已有3089本体基线保持，不代编译链接、全部consumer-owner/SDK-ABI-PC53-时钟RNG画面、完整父或R1/R7/R8。
+
+## BNL01 普通非零局部I/S（2026-10-06）
+
+[验收合同](cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-acceptance)限定单根23定义24处落码和[985条完整正常区段/真实RID尾](cg2d_battle_m_attack_nonzero_sampling_evidence.json)。E463→467仅YOBI/BATTLE四局部I/S，七open、P01源码closed及全部完整成员/门禁和其它指标保持。坐标/Effect取样-原固定amount与末W8、四S32索引及原图分工和未指定局部边界有界证明，不代完整父SEH-所有consumer-owner/SDK-ABI-PC53-时钟RNG画面或R1/R7/R8。

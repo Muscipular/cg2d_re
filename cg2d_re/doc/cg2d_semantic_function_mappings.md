@@ -2537,3 +2537,7 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 ## BNK01 旧812公共攻击三父桥追加（2026-10-06）
 
 [验收合同](cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-acceptance)与[80条304B四页九call](cg2d_battle_m_attack_targets_call_sampling_evidence.json)纳管三原九参call/三个现有调用点及value角色尾，BNI24条89B非新增。两根四补丁、三组差异落码；旧812五引用/一symbol/本步对象，F:00024620现有P01完整记录/3089本体不改，经P01与共享战斗文档本步追加追踪桥修正。不新F/X/adapted/分类/完整成员，语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%保持。
+
+## BNL01 旧812普通攻击非零有界追加（2026-10-06）
+
+[验收合同](cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-acceptance)与[985条3600B十四页95call](cg2d_battle_m_attack_nonzero_sampling_evidence.json)保存979条主体及RID尾六条21B/1call（BNK非新增），原2007六S32表与普通/自身业务初始化仅上下文。23定义24处/两比较同一文本两处实修；旧812五引用/一symbol/本步对象，不新F/X/adapted/分类/完整成员，语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%及完整门禁保持。

@@ -4217,3 +4217,7 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 ## BNK01 公共攻击三父参数取样实修（2026-10-06）
 
 [具体SPEC](cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision)两根四处恢复73零/3100 levelIndex-level-skill原序显式取样、普通mode后currentSkill快照再index/level，既有包装只传固定值到真实九参424620。[80条304B四页九call](cg2d_battle_m_attack_targets_call_sampling_evidence.json)含三原call/普通prefix与value角色Move-RID/两种58后继；BNI24条89B复用非新增。P01现有3089本体/公开声明及其它根保持，不代全部父/SDK-ABI-owner或运行。
+
+## BNL01 普通攻击非零23组取样实修（2026-10-06）
+
+[具体SPEC](cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-decision)单根23定义24处恢复角色字段/2007图表及258两坐标、同解析target、普通及mode3自身转向的Effect/字段-固定amount取样，四S32索引/两比较和末真实W8门禁。[985条3600B十四页95call](cg2d_battle_m_attack_nonzero_sampling_evidence.json)含979条主体及六条RID尾，BNK尾21B非新增。原图数组分工/未指定局部、取包-模式与cached/live flags/动作-早返及终结Move-RID增58保持，不代完整父/所有consumer-owner运行。

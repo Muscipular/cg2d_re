@@ -1519,7 +1519,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1572,7 +1573,8 @@
         "F:001208F0",
         "F:00120910",
         "F:00120930",
-        "F:001219C0"
+        "F:001219C0",
+        "F:00121F20"
       ],
       "closure_task_ids": [
         "C09",
@@ -1610,7 +1612,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1637,7 +1640,8 @@
         "BOX01真实4536D0新机器映射/完整57条140B及唯一点父只纳盘；节点count先取再推进/native循环与不短路恢复、Temp-Back-呈现器尾保持。RENDER43枚举open，唯一父/正常别名/失效-重建-逐面owner/双树-C09-像素及SDK-机器ABI、R1/R7/R8运行待",
         "BOZ01两真实描边/脏区消费者完整72条188B/两普通点同一父纳盘、两正文实修独立机器身份1411/1412；RENDER45枚举open，完整生产/父-callee/正常别名/Back-纹理-owner/dirty重建与SDK-机器ABI/模式像素及R1/R7/R8待",
         "BPA01匹配值绘框真实507090新机器1413/完整59条175B与唯一点父8条窗口纳盘；actual DX entry/四边正常生产/双游标阶段恢复，动态count与追加保。RENDER46枚举open，完整命中父-callee/正常alias/队列-表/纹理-Back-owner/场景失效退出/SDK-机器ABI与像素及R1/R7/R8运行待",
-        "BPB01五真实波纹根160条537B六页/旧6续记与四新1414-1417；原完整8行提交/矩形-相位发布与正常S32实修，四正确依赖/既有CPU复制provider保持，五成员RENDER51枚举open。完整父-callee/正常alias/Back-Temp及其它资源-owner/场景失效退出/SDK-机器浮点ABI与像素、R1/R7/R8仍待"
+        "BPB01五真实波纹根160条537B六页/旧6续记与四新1414-1417；原完整8行提交/矩形-相位发布与正常S32实修，四正确依赖/既有CPU复制provider保持，五成员RENDER51枚举open。完整父-callee/正常alias/Back-Temp及其它资源-owner/场景失效退出/SDK-机器浮点ABI与像素、R1/R7/R8仍待",
+        "BPC01真正角色521F20新机器1418/完整160条595B两页18点3父只纳盘；实际两游标/两计数/四W32及各U8颜色flags、mix-clip-image正常阶段实修。RENDER52/YOBI56枚举open，完整上游/原全部父-callee-正常alias/action-队列-图形-纹理-owner/场景失效退出/SDK-机器FP ABI与像素及R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1665,7 +1669,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     },
     {
@@ -1842,7 +1847,8 @@
         "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-baseline",
         "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-baseline",
         "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-baseline",
-        "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-baseline"
+        "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-baseline",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline"
       ],
       "original_inventory_ids": [
         "F:000D6640",
@@ -1899,7 +1905,8 @@
         "F:0003B360",
         "F:000383F0",
         "F:0003B6C0",
-        "F:0003CBB0"
+        "F:0003CBB0",
+        "F:00121F20"
       ],
       "closure_task_ids": [
         "U09",
@@ -1963,7 +1970,8 @@
         "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-decision",
         "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-decision",
         "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-decision",
-        "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision"
+        "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2020,7 +2028,8 @@
         "BNP01 2028/2005-4003两根24处实修，713条2702B/72call及各图-累计反弹/两真实尾和Effect/Aux-两S32索引有界纳管，复用86条分列；完整父SEH/其它技能-全路由/全部owner重进退出失效-SDK-ABI-PC53-时钟RNG画面及R1-R7-R8仍待，不以局部I/S代验",
         "BNQ01 32族单根13组14处实修，1065条4656B/76call-十二表561B和676B图数据/状态生产有界纳管；完整父SEH/其它技能-全路由/全部owner重进退出失效-SDK-ABI-PC53-时钟RNG画面及R1-R7-R8仍待，不以局部I/S代验",
         "BNR01技能19族单根26定义27处实修，914条3505B/67call-三表121B及反弹/半额反馈有界纳管；完整父SEH/其它技能-全路由/全部owner重进退出失效-SDK-ABI-PC53-时钟RNG画面及R1-R7-R8仍待，不以局部I/S代验",
-        "BNS01技能267 单根25定义27处恢复角色字段、effectCount/初图、累计发布-普通与循环/末Effect-Aux参数、图copy/反馈-state取样；四S32业务索引和两W8门禁，原全部图号-字段/金额门禁/动作与真实Move-RID固定58=1保持，其它根头不改；576条2144B/45call有界纳管，完整父SEH/其它技能-全路由/全部owner重进退出失效-SDK-ABI-PC53-时钟RNG画面及R1-R7-R8仍待，不以局部I/S代验"
+        "BNS01技能267 单根25定义27处恢复角色字段、effectCount/初图、累计发布-普通与循环/末Effect-Aux参数、图copy/反馈-state取样；四S32业务索引和两W8门禁，原全部图号-字段/金额门禁/动作与真实Move-RID固定58=1保持，其它根头不改；576条2144B/45call有界纳管，完整父SEH/其它技能-全路由/全部owner重进退出失效-SDK-ABI-PC53-时钟RNG画面及R1-R7-R8仍待，不以局部I/S代验",
+        "BPC01真正角色521F20新机器1418/完整160条595B两页18点3父只纳盘；实际两游标/两计数/四W32及各U8颜色flags、mix-clip-image正常阶段实修。RENDER52/YOBI56枚举open，完整上游/原全部父-callee-正常alias/action-队列-图形-纹理-owner/场景失效退出/SDK-机器FP ABI与像素及R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2079,7 +2088,8 @@
         "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-source-state",
         "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-source-state",
         "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-source-state",
-        "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state"
+        "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     },
     {
@@ -30019,6 +30029,134 @@
       "observation": "当前原根完整指令/字节-调用-返回及普通引用与源正常取样/位宽/参数/返回静态对应，表与五浮点常量只静态数据对照，不执行样例；previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。",
       "expected": "previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。",
       "actual": "每原根独立正常局部I/S，四正确体保持/旧6全文续记；不当全波纹/完整父或全部正常别名/Back-Temp与其它资源-owner/场景-失效-退出/SDK-机器浮点ABI或像素运行通过，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-CHARA-ENQUEUE-00121F20-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPC01真实完整160条595B两页3绝对call28内跳1ret与18点3父只纳盘；doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-enqueue-record-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-acceptance",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_character_enqueue_record_production_evidence.json",
+        "src/YobiRuntime.cpp#RenderChara_521F20",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "differences": [
+        {
+          "description": "角色单正文恢复实际两游标/名称-计数/坐标目标与四W32复制、逐U8颜色flags、mix沿saved值两pub及clip-image样本和链尾；旧正常最终值不记错误，两域同一原根",
+          "decision_ref": "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整YobiRuntime.cpp仅角色单正文，实际action/队列生产与非拥有引用及原帧/失败门槛保持，头/布局/所有其它实现与provider保；入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+      "expected": "入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+      "actual": "同一真实角色原根的正常局部I/S，两域功能接口分列，runtime=false；旧正确最终坐标/颜色保持，未构建/测试/运行/hash，不代所有上游-父/callee与正常alias/action-队列-纹理-owner/SDK-机器FP ABI或像素运行"
+    },
+    {
+      "id": "E-RENDER-CHARA-ENQUEUE-00121F20-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPC01真实完整160条595B两页3绝对call28内跳1ret与18点3父只纳盘；doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-enqueue-record-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-acceptance",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_character_enqueue_record_production_evidence.json",
+        "src/YobiRuntime.cpp#RenderChara_521F20",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "differences": [
+        {
+          "description": "角色单正文恢复实际两游标/名称-计数/坐标目标与四W32复制、逐U8颜色flags、mix沿saved值两pub及clip-image样本和链尾；旧正常最终值不记错误，两域同一原根",
+          "decision_ref": "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整原160条595B/3调用28内跳1ret与18点3父只纳盘；正常字段/位宽-取样/逐对发布/实际槽和原有接线静态对应，两域局部不当两个原根或全函数图验收；入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+      "expected": "入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+      "actual": "同一真实角色原根的正常局部I/S，两域功能接口分列，runtime=false；旧正确最终坐标/颜色保持，未构建/测试/运行/hash，不代所有上游-父/callee与正常alias/action-队列-纹理-owner/SDK-机器FP ABI或像素运行"
+    },
+    {
+      "id": "E-YOBI-CHARA-ENQUEUE-00121F20-I-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPC01真实完整160条595B两页3绝对call28内跳1ret与18点3父只纳盘；doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-enqueue-record-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-acceptance",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_character_enqueue_record_production_evidence.json",
+        "src/YobiRuntime.cpp#RenderChara_521F20",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "differences": [
+        {
+          "description": "角色单正文恢复实际两游标/名称-计数/坐标目标与四W32复制、逐U8颜色flags、mix沿saved值两pub及clip-image样本和链尾；旧正常最终值不记错误，两域同一原根",
+          "decision_ref": "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整YobiRuntime.cpp仅角色单正文，实际action/队列生产与非拥有引用及原帧/失败门槛保持，头/布局/所有其它实现与provider保；入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+      "expected": "入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+      "actual": "同一真实角色原根的正常局部I/S，两域功能接口分列，runtime=false；旧正确最终坐标/颜色保持，未构建/测试/运行/hash，不代所有上游-父/callee与正常alias/action-队列-纹理-owner/SDK-机器FP ABI或像素运行"
+    },
+    {
+      "id": "E-YOBI-CHARA-ENQUEUE-00121F20-S-20261006",
+      "feature_id": "FUNC-YOBI",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPC01真实完整160条595B两页3绝对call28内跳1ret与18点3父只纳盘；doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-enqueue-record-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-acceptance",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_character_enqueue_record_production_evidence.json",
+        "src/YobiRuntime.cpp#RenderChara_521F20",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "doc/cg2d_yobi_runtime.md"
+      ],
+      "differences": [
+        {
+          "description": "角色单正文恢复实际两游标/名称-计数/坐标目标与四W32复制、逐U8颜色flags、mix沿saved值两pub及clip-image样本和链尾；旧正常最终值不记错误，两域同一原根",
+          "decision_ref": "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整原160条595B/3调用28内跳1ret与18点3父只纳盘；正常字段/位宽-取样/逐对发布/实际槽和原有接线静态对应，两域局部不当两个原根或全函数图验收；入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+      "expected": "入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+      "actual": "同一真实角色原根的正常局部I/S，两域功能接口分列，runtime=false；旧正确最终坐标/颜色保持，未构建/测试/运行/hash，不代所有上游-父/callee与正常alias/action-队列-纹理-owner/SDK-机器FP ABI或像素运行"
     }
   ],
   "task_acceptance": [
@@ -30279,7 +30417,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     },
     {
@@ -30614,7 +30753,8 @@
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     },
     {
@@ -30836,7 +30976,8 @@
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     },
     {
@@ -30963,7 +31104,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     },
     {
@@ -31061,7 +31203,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     },
     {
@@ -31071,7 +31214,8 @@
       "evidence_refs": [
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     },
     {
@@ -31323,7 +31467,8 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     },
     {
@@ -31418,7 +31563,8 @@
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
-        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
       ]
     }
   ],
@@ -37128,6 +37274,17 @@
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state"
       ],
       "boundary": "BPB01原正常宽度/取样/返回与x64/获批32位CPU-native边界，局部static不代完整原HRESULT/浮点环境/机器ABI、所有正常别名-owner或像素运行：previous Y bits先取/X后取→投影两个实际F32输出，再current Y bits/X→第二次投影；先X差保持宽中间、Y差先落F32，X乘原F32 0.125后puboutX F32，再取已落Y差乘同常量puboutY F32。正确已有正文保持，原outY地址返回被唯一521870忽略/既有私有void不变；旧机器6全文保留续记，不新增helper原ID，不代投影父/全浮点ABI或运行。"
+    },
+    {
+      "inventory_id": "F:00121F20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+      ],
+      "boundary": "BPC01原角色/队列非地址位宽与正常采样/逐W32-U8发布、已批x64游标/action引用和PC53正常S64低S32承接；正常局部static，不代全部动态别名/owner/FP ABI或像素：入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。"
     }
   ],
   "auxiliary_dispositions": [

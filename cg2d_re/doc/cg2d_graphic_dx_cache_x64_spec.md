@@ -283,3 +283,13 @@ x/y原W32位置保+0/+4，脏区四W16从真实字段地址读取，descriptor�
 旧机器6全文档案保留续记，四新1414–1417对应已存在原身份；语义1414→1418/有效ID1409→1413、关联1527→1531（41.49%→41.60%）、分类534→539、RENDER46→51枚举open，十独立正常局部static I/S E675→685。前四冻定位各1/私有差分helper0不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061与其它门禁保持，八open含G04只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
 
 源码仅一个521870完整正文、algorithm include退休与头单注释，四正确helper/表/其他正文和SurfaceState所有provider、真实父/公开接口/布局/owner保持。无预裁剪/部分条带、continue或新拒绝/补零/保护/钳制，旧BlitTempToBack接受限制不扩大；不做异常回绕/故障等价或浮点环境专项模拟。完整父/所有callee-正常alias/Back-Temp及其它资源-owner/场景-失效-退出、SDK-机器浮点ABI与全模式像素未验，未构建/测试/运行/hash。网络原格式只明文、内存CryptInt保持、音频暂停，整体SPEC继续。
+
+## BPC01 角色实际游标与描述符逐对发布（2026-10-06）
+
+[BPC01 SPEC](cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision)/[原证据](cg2d_character_enqueue_record_production_evidence.json)。角色521F20完整160条595B/两页3绝对call28内跳1ret，18普通调用点3个父仅纳盘。单正文恢复入口/名称后实际order-record游标、独立fresh容量计数和名称-坐标目标阶段；四W32逐对描述符复制、各U8颜色/低flags、mix沿saved clear值两pub、clip先取/image一次取样与原链公共尾恢复。无介入旧正常最终坐标/颜色等正确，不称像素错误。
+
+order/record/action/queuedAction使用已批native非拥有T*，其它W32/S16/U8/F32不拓宽；描述符16B无指针四对W32直接源读/目标pub，颜色和两个flags只各低U8读取，不将旧32B队列镜像当native48B或增句柄表。actionCache仍S32接freshS16符号扩展，clip先取再batch原发布，原S32偏移-F32scale/F64-S64-低S32边界保。
+
+新机器1418对应已有角色原根；语义1418→1419/有效ID1413→1414、关联1531→1532（41.60%→41.63%）、分类539→540、RENDER51→52/YOBI55→56均枚举open，两域独立正常局部I/S共4条E685→689。冻定位1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；八open含G04只进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
+
+只YobiRuntime.cpp一个完整RenderChara正文，所有其它实现/存储/头/公开或私有声明、action-队列布局、实际父/名称及排序-命中-绘制provider与owner保持，不新增helper/影子状态/原入口。原有效内嵌空名也调用、parity只cache=-2、图号-1/death严格1/低flags2和S16容量原门槛保；正常PC53/S64低S32边界保，不做FP环境/异常回绕模拟或新增拒绝/保护/补零/钳制。全部上游-18点之父/callee/正常alias与action-队列-图形-纹理-owner及场景-失效-退出、SDK-机器FP ABI和像素运行未验。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。

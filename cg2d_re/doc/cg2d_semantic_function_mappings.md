@@ -2932,3 +2932,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 | 旧6 / F:001219C0 @5219C0 | 私有CalculateRippleScreenDelta，两个实际投影/X宽差-Y先落F32再0.125正确体保持，旧source与doc事实归档 |
 
 旧机器6全文档案保留续记，四新1414–1417对应已存在原身份；语义1414→1418/有效ID1409→1413、关联1527→1531（41.49%→41.60%）、分类534→539、RENDER46→51枚举open，十独立正常局部static I/S E675→685。前四冻定位各1/私有差分helper0不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061与其它门禁保持，八open含G04只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。 原五身份不增加分母，私有helper不新造ID；两虚调用1C不是绝对函数地址，十软件证据各根I/S仅正常局部，不称五份新实现或完整ABI/像素运行。
+
+## BPC01 角色绘制原根机器缺口收尾（2026-10-06）
+
+[BPC01 SPEC](cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline)/[原证据](cg2d_character_enqueue_record_production_evidence.json)。机器1418关联F:00121F20@521F20及YobiRuntime.cpp::RenderChara_521F20；冻结定位1不刷新，原身份不增加分母。角色521F20完整160条595B/两页3绝对call28内跳1ret，18普通调用点3个父仅纳盘。单正文恢复入口/名称后实际order-record游标、独立fresh容量计数和名称-坐标目标阶段；四W32逐对描述符复制、各U8颜色/低flags、mix沿saved clear值两pub、clip先取/image一次取样与原链公共尾恢复。无介入旧正常最终坐标/颜色等正确，不称像素错误。
+
+新机器1418对应已有角色原根；语义1418→1419/有效ID1413→1414、关联1531→1532（41.60%→41.63%）、分类539→540、RENDER51→52/YOBI55→56均枚举open，两域独立正常局部I/S共4条E685→689。冻定位1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；八open含G04只进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。 同一原根分两功能域，各域I/S均局部，不把18调用点当18父或完整图验收；原3calls为名称/两ftol，不伪装成普通入队调用。

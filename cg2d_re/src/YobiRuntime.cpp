@@ -36784,9 +36784,16 @@ void RenderChara_521F20()
     using login::detail::gYobiActionStart;
     using login::detail::gYobiActionEnd;
 
-    for (login::YobiAction* action = gYobiActionStart->next;
-         action != gYobiActionEnd;
-         action = action->next) {
+    const std::int16_t initialCount =
+        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    login::YobiAction* const start = gYobiActionStart;
+    render::GraphicCache3* order =
+        render::gLegacyPendingStorage.cache3.data() + initialCount;
+    login::YobiAction* action = start->next;
+    render::GraphicCacheItem32* record =
+        render::gLegacyPendingStorage.records.data() + initialCount;
+    login::YobiAction* end = gYobiActionEnd;
+    for (; action != end; action = action->next, end = gYobiActionEnd) {
         const std::uint32_t flags = action->flags;
         if (((flags & 0x8000u) != 0 && render::gFrameParity628FC8 == 0)
             || ((flags & 0x10000u) != 0 && render::gFrameParity628FC8 == 1)) {
@@ -36794,89 +36801,156 @@ void RenderChara_521F20()
             continue;
         }
 
-        // 原 521F90 测内嵌地址，不是首字符；空名也交给既有文本入口。
+        // 原测内嵌地址；有效action的空名也入队，参数按原读取序取样。
+        const char* const name = action->displayName.data();
+        const std::int32_t nameValue = action->nameValueC0;
+        const std::int8_t nameFontType = action->nameFontType;
+        const std::int8_t nameLayer = action->nameLayer;
+        const std::int8_t nameColor = action->nameColor;
+        const std::int32_t nameY = action->nameY;
+        const std::int32_t nameX = action->nameX;
         static_cast<void>(render::DrawText2_456670(
-            static_cast<std::int16_t>(action->nameX),
-            static_cast<std::int16_t>(action->nameY),
-            action->nameLayer,
-            action->nameFontType,
-            action->nameColor,
-            action->displayName.data(),
-            static_cast<std::int8_t>(action->nameValueC0)));
-        const std::int16_t count =
+            static_cast<std::int16_t>(nameX),
+            static_cast<std::int16_t>(nameY),
+            nameLayer,
+            nameFontType,
+            nameColor,
+            name,
+            static_cast<std::int8_t>(nameValue)));
+
+        // 原名称调用后重定位实际槽，再独立重读容量判断用的S16计数。
+        const std::int16_t relocatedCount =
             std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
-        if (count >= MAX_QUEUE_SIZE) {
+        order = render::gLegacyPendingStorage.cache3.data() + relocatedCount;
+        record = render::gLegacyPendingStorage.records.data() + relocatedCount;
+        const std::int16_t capacityCount =
+            std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+        if (capacityCount >= MAX_QUEUE_SIZE) {
             return;
         }
-        if (action->graphicIndex == -1
-            || action->deathFlag == 1
-            || (action->flags & 2u) != 0) {
+        if (action->graphicIndex == -1 || action->deathFlag == 1) {
+            continue;
+        }
+        std::uint8_t hiddenFlags;
+        std::memcpy(&hiddenFlags, &action->flags, sizeof(hiddenFlags));
+        if ((hiddenFlags & 2u) != 0) {
             continue;
         }
 
-        const auto queueIndex = static_cast<std::size_t>(count);
-        render::GraphicCache3& order = render::gLegacyPendingStorage.cache3[queueIndex];
-        render::GraphicCacheItem32& record =
-            render::gLegacyPendingStorage.records[queueIndex];
-        order.layer = action->displayPriority;
-        order.cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+        const std::uint8_t layer = action->displayPriority;
+        order->layer = layer;
+        order->cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
 
-        // 原 CRT 设置 x87 为 53 位；__ftol 先转 S64，caller 只取 EAX。见 DX x64 SPEC §16。
+        // 原S32偏移/F32缩放、F64乘积、S64向零转换及低S32承接保持。
+        const std::int32_t offsetX = action->graphicOffsetX;
+        const float scaleX = action->scaleX;
         const double scaledX =
-            static_cast<double>(action->graphicOffsetX) * static_cast<double>(action->scaleX);
-        record.x = static_cast<std::int32_t>(static_cast<std::int64_t>(scaledX)) + action->x;
+            static_cast<double>(offsetX) * static_cast<double>(scaleX);
+        const std::int32_t scaledOffsetX =
+            static_cast<std::int32_t>(static_cast<std::int64_t>(scaledX));
+        const std::int32_t x = action->x;
+        record->x = scaledOffsetX + x;
+        const std::int32_t offsetY = action->graphicOffsetY;
+        const float scaleY = action->scaleY;
         const double scaledY =
-            static_cast<double>(action->graphicOffsetY) * static_cast<double>(action->scaleY);
-        record.y = static_cast<std::int32_t>(static_cast<std::int64_t>(scaledY)) + action->y;
-        record.imageNo = action->graphicIndex;
-        record.descriptor = action->drawMode.bytes;
-        if (action->batchType != 0) {
-            if ((action->batchType & 1u) != 0) {
-                record.descriptor[10] = static_cast<std::uint8_t>(
-                    std::bit_cast<std::uint32_t>(action->color2) >> 16);
+            static_cast<double>(offsetY) * static_cast<double>(scaleY);
+        const std::int32_t scaledOffsetY =
+            static_cast<std::int32_t>(static_cast<std::int64_t>(scaledY));
+        const std::int32_t y = action->y;
+        std::uint8_t* const descriptor = record->descriptor.data();
+        record->y = scaledOffsetY + y;
+        const std::int32_t imageNo = action->graphicIndex;
+        const std::uint8_t* const sourceDescriptor = action->drawMode.bytes.data();
+        record->imageNo = imageNo;
+
+        // 原四个W32逐对读取/发布；不以整个数组复制代替。
+        std::uint32_t descriptorWord;
+        std::memcpy(&descriptorWord, sourceDescriptor, sizeof(descriptorWord));
+        std::memcpy(descriptor, &descriptorWord, sizeof(descriptorWord));
+        std::memcpy(&descriptorWord, sourceDescriptor + 4, sizeof(descriptorWord));
+        std::memcpy(descriptor + 4, &descriptorWord, sizeof(descriptorWord));
+        std::memcpy(&descriptorWord, sourceDescriptor + 8, sizeof(descriptorWord));
+        std::memcpy(descriptor + 8, &descriptorWord, sizeof(descriptorWord));
+        std::memcpy(&descriptorWord, sourceDescriptor + 12, sizeof(descriptorWord));
+        std::memcpy(descriptor + 12, &descriptorWord, sizeof(descriptorWord));
+
+        const std::uint8_t initialColorMask = action->batchType;
+        if (initialColorMask != 0) {
+            if ((initialColorMask & 1u) != 0) {
+                std::uint8_t red;
+                std::memcpy(
+                    &red, reinterpret_cast<const std::uint8_t*>(&action->color2) + 2,
+                    sizeof(red));
+                descriptor[10] = red;
             }
-            if ((action->batchType & 2u) != 0) {
-                record.descriptor[9] = static_cast<std::uint8_t>(
-                    std::bit_cast<std::uint32_t>(action->color2) >> 8);
+            const std::uint8_t greenMask = action->batchType;
+            if ((greenMask & 2u) != 0) {
+                std::uint8_t green;
+                std::memcpy(
+                    &green, reinterpret_cast<const std::uint8_t*>(&action->color2) + 1,
+                    sizeof(green));
+                descriptor[9] = green;
             }
-            if ((action->batchType & 4u) != 0) {
-                record.descriptor[8] = static_cast<std::uint8_t>(action->color2);
+            const std::uint8_t blueMask = action->batchType;
+            if ((blueMask & 4u) != 0) {
+                std::uint8_t blue;
+                std::memcpy(&blue, &action->color2, sizeof(blue));
+                descriptor[8] = blue;
             }
-            if ((action->batchType & 8u) != 0) {
-                record.descriptor[11] = static_cast<std::uint8_t>(
-                    std::bit_cast<std::uint32_t>(action->color2) >> 24);
+            const std::uint8_t alphaMask = action->batchType;
+            if ((alphaMask & 8u) != 0) {
+                std::uint8_t alpha;
+                std::memcpy(
+                    &alpha, reinterpret_cast<const std::uint8_t*>(&action->color2) + 3,
+                    sizeof(alpha));
+                descriptor[11] = alpha;
             }
         }
-        if (action->rebirthValue1 != 0) {
-            record.descriptor[13] &= static_cast<std::uint8_t>(~action->rebirthValue1);
-            record.descriptor[13] |= action->rebirthValue1 & action->rebirthValue2;
+
+        const std::uint8_t firstMixMask = action->rebirthValue1;
+        if (firstMixMask != 0) {
+            const std::uint8_t previousMix = descriptor[13];
+            const std::uint8_t clearedMix =
+                previousMix & static_cast<std::uint8_t>(~firstMixMask);
+            descriptor[13] = clearedMix;
+            const std::uint8_t freshMixMask = action->rebirthValue1;
+            const std::uint8_t replacementMix = action->rebirthValue2;
+            descriptor[13] = clearedMix | (replacementMix & freshMixMask);
         }
         if ((action->flags & 0x100000u) != 0) {
-            record.descriptor[11] = 0x80;
+            descriptor[11] = 0x80;
         }
 
-        record.reference.action = action;
+        record->reference.action = action;
         const std::uint32_t publishedFlags = action->flags;
         if ((publishedFlags & 8u) != 0) {
-            record.value4 = 2;
+            record->value4 = 2;
         } else if ((publishedFlags & 4u) != 0) {
-            record.value4 = 1;
+            record->value4 = 1;
         } else {
-            record.value4 = 0;
+            record->value4 = 0;
         }
-        action->cacheIndex =
+        const std::int16_t actionCacheIndex =
             std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
-        record.batchType = 0;
-        if (record.descriptor[12] == 1) {
-            record.batchType = 1;
+        action->cacheIndex = static_cast<std::int32_t>(actionCacheIndex);
+        const std::uint8_t clipMode = descriptor[12];
+        record->batchType = 0;
+        if (clipMode == 1) {
+            record->batchType = 1;
         }
-        if ((record.reference.action->flags & 0x20u) != 0) {
-            record.batchType = 0xFF;
+        login::YobiAction* const queuedAction = record->reference.action;
+        std::uint8_t queuedFlags;
+        std::memcpy(&queuedFlags, &queuedAction->flags, sizeof(queuedFlags));
+        if ((queuedFlags & 0x20u) != 0) {
+            record->batchType = 0xFF;
         }
-        if (record.imageNo >= 3096 && record.imageNo <= 3105) {
+        const std::int32_t queuedImageNo = record->imageNo;
+        if (queuedImageNo >= 3096 && queuedImageNo <= 3105) {
             render::gSpecialGraphicPending = 1;
         }
         ++platform::gPendingGraphicCount;
+        ++order;
+        ++record;
     }
 }
 

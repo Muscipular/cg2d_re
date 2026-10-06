@@ -172326,6 +172326,175 @@
         "preserved_contract": "同一实际F32指针，原先比较F64常量64，>=64才重新读取F32并减F32常量64、落F32后回到首比较；否则重新比较F64零，负值才重读F32加F32常量64、落F32回首比较，非负返回。正确正常有限域已有正文保持，不换fmod/固定迭代或新拒绝，异常/浮点环境不专项模拟，原AX状态被唯一父忽略、既有void保持。",
         "implementation_static_scope": "五根正常局部I/S；521870实际完整8行条带/矩形与正常S32阶段实修，四正确helper保持；旧6档案续记，全部父-callee/正常动态别名-owner/SDK-机器浮点ABI与像素运行未验"
       }
+    },
+    {
+      "original_entry": "0x521F20",
+      "inventory_id": "F:00121F20",
+      "original_role": "同一Yobi链的名称/角色队列生产及动作引用发布",
+      "status": "BPC01真实角色完整160条595B与独立机器缺口/单正文生产阶段实修；两域正常局部static，全部上游-父/正常alias-owner/FP ABI与像素运行未验",
+      "original_end_exclusive": "0x522173",
+      "instruction_count": 160,
+      "original_direct_reference_count": 18,
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "RenderChara_521F20"
+          ],
+          "relationship": "入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-acceptance",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_character_enqueue_record_production_evidence.json"
+      ],
+      "boundary": "入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+      "verification_level": "完整160条595B/两页3绝对call28内跳1ret与18普通点3父只纳盘；单角色正文恢复实际两游标/名称-两计数/坐标-四W32/U8颜色flags及mix-clip-image与链尾阶段，正常旧最终值不记错误；两域局部static不代全调用图/FP ABI或像素运行",
+      "function_chunks": [
+        {
+          "start": "0x521F20",
+          "end_exclusive": "0x522173"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x43ce3c",
+          "type": 17,
+          "parent": "0x43cbb0"
+        },
+        {
+          "ea": "0x43cfcc",
+          "type": 17,
+          "parent": "0x43cbb0"
+        },
+        {
+          "ea": "0x43d05f",
+          "type": 17,
+          "parent": "0x43cbb0"
+        },
+        {
+          "ea": "0x43d0fb",
+          "type": 17,
+          "parent": "0x43cbb0"
+        },
+        {
+          "ea": "0x43d1cf",
+          "type": 17,
+          "parent": "0x43cbb0"
+        },
+        {
+          "ea": "0x51c4b2",
+          "type": 17,
+          "parent": "0x51c430"
+        },
+        {
+          "ea": "0x51c4d6",
+          "type": 17,
+          "parent": "0x51c430"
+        },
+        {
+          "ea": "0x51c4f0",
+          "type": 17,
+          "parent": "0x51c430"
+        },
+        {
+          "ea": "0x51c50f",
+          "type": 17,
+          "parent": "0x51c430"
+        },
+        {
+          "ea": "0x51c548",
+          "type": 17,
+          "parent": "0x51c430"
+        },
+        {
+          "ea": "0x51c623",
+          "type": 17,
+          "parent": "0x51c430"
+        },
+        {
+          "ea": "0x51c8c1",
+          "type": 17,
+          "parent": "0x51c7d0"
+        },
+        {
+          "ea": "0x51cb37",
+          "type": 17,
+          "parent": "0x51c7d0"
+        },
+        {
+          "ea": "0x51cdc6",
+          "type": 17,
+          "parent": "0x51c7d0"
+        },
+        {
+          "ea": "0x51ce56",
+          "type": 17,
+          "parent": "0x51c7d0"
+        },
+        {
+          "ea": "0x51ceb5",
+          "type": 17,
+          "parent": "0x51c7d0"
+        },
+        {
+          "ea": "0x51cfd1",
+          "type": 17,
+          "parent": "0x51c7d0"
+        },
+        {
+          "ea": "0x51d26e",
+          "type": 17,
+          "parent": "0x51c7d0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "RenderChara_521F20",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "character_enqueue_record_production": {
+        "spec_id": "BPC01",
+        "evidence_refs": [
+          "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+          "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
+          "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-acceptance",
+          "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+          "doc/cg2d_character_enqueue_record_production_evidence.json"
+        ],
+        "feature_ids": [
+          "FUNC-RENDER",
+          "FUNC-YOBI"
+        ],
+        "original_instruction_count": 160,
+        "original_code_bytes": 595,
+        "page_count": 2,
+        "outgoing_call_site_count": 3,
+        "internal_jump_site_count": 28,
+        "return_site_count": 1,
+        "incoming_reference_count": 18,
+        "incoming_parent_count": 3,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "normal_previous_coordinates_or_color_wrong": false,
+        "record_and_order_actual_cursors_restored": true,
+        "relocation_and_capacity_count_samples_independent": true,
+        "four_descriptor_w32_pairs_restored": true,
+        "color_and_two_flags_read_as_u8": true,
+        "mix_uses_saved_cleared_value": true,
+        "clip_sample_before_batch_publication": true,
+        "image_sample_shared_for_special_range": true,
+        "action_next_before_fresh_end": true,
+        "preserved_contract": "入口S16count先取→实际start→nativeorder→start.next→nativerecord→end，成功入队后只++order/record，公共尾先action.next再freshend；不复制/改/释放哨兵链。flags两parity门禁仅cacheIndex=-2跳当前；有效内嵌名含空名，名称按W32value/S8font/W8layer/S8color/S32Y-X采样，callee既有低S16/S8边界；名称后S16 count重定位两实际槽，再独立fresh S16容量原>=4096整根返回。图号-1/death严格1/flags低U8bit2跳当前、不改cacheIndex。layer W8先pub/live W16 index，offsetS32→scaleF32→F64乘→S64向零/低S32→frameX及X pub，再Y/实际descriptor目标→Y pub/image样本→源descriptor地址/image pub；四W32逐对读写。mask首次W8样本用于nonzero/bit1，其余bits2/4/8分别freshmask，四颜色只读取各实际U8+2/+1/+0/+3，pubdescriptor10/9/8/11。mix初maskW8/旧descriptor13→clear一次pub，freshmask→replacementW8→沿saved cleared值合并pub，不重取clear后的目标；flags100000末覆alpha80。action native pub→freshflags决定value4 8优先2/4为1/否则0；freshS16→actionCache S32，clip先取→batch0/严格1改1，saved queuedAction→低W8 flags20覆FF；image一次S32样本3096..3105置特殊1，W16count++→两个native游标推进。原正确正常最终像素/字段值不记错误，不增拒绝/补零/保护/回绕或业务门槛；所有owner/下游/API布局保持，正常PC53/S64低S32转换保，不称全FP ABI或运行。",
+        "implementation_static_scope": "真实角色原根的正常字段/槽位/位宽/生产-发布局部I/S；单正文实修，其它实现/头/布局/存储/原18点之父和全部provider保持，不代完整Yobi/渲染、FP ABI/资源-owner或像素运行"
+      }
     }
   ]
 }

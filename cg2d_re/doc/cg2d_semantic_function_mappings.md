@@ -2704,3 +2704,15 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 | 1397 | F:0001F110/0x41F110 | src/YobiRuntime.cpp / UpdateBattleNumber_41F110 | 新增完整更新，5取样/表达还原 |
 
 原语义1071指定续记/完整当前基线和独立历史格式副本，新增1397更新ID；两adapted分类/BATTLE99→101仍未全枚举、E589→593局部I/S四条。语义1398/有效ID1393、分类505、关联1511/3680=41.06%；全部旧格式事实/其它域/175队列-R7区间67/3061-60源码closed10/全验收0/P01及七open/完整门禁保持。第二4206C0数字构造者、23父/46调用点/测宽/图号-XY资源/字载荷-draw consumer与回收重入owner/ABI-PC53-画面及R1/R7/R8继续，网络原格式明文/内存CryptInt保/音频暂停，未构建/测试/运行/摘要。
+
+## BOJ01 时间1072续记/1398默认测宽与1071局部接线（2026-10-06）
+
+[具体SPEC](cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline)/[证据](cg2d_battle_time_default_measure_evidence.json)。原Time156条560B/旧50格式事实保持并补106条，Default22条50B正确体；两完整178条610B/三页11call-16内部分支/两ret无switch，四普通入向及三图号/格式-负号24B分列。发现两个数字父错接通用TextMeasure44B2A0，原41F242/420718均call44B260；四补丁恢复已有MeasureDefaultText44B260的非空入口缓存字体0双宽/单宽，并恢复Time encoded-mask-count三样本后W32/W32/W8 pub、S16 graphicX先S32→font2 live宽度→FILD/F64后宽度乘原index的次序。正确的Time X/Y/name pub/flags先B8、unsupported map0跳过仍计原index-间距/2index延迟/失败return0保原对象、借593850当前前缀及正常S32格式除余保；Default空串先返回0/高位字节前进2加固定双宽/其它进1加固定单宽、不严格解码保，通用44B2A0及正确已过更新体不改。
+
+| 语义 | 原ID/入口 | 实际源码 | 本步范围 |
+| --- | --- | --- | --- |
+| 1072 | F:000206C0/4206C0 | src/YobiRuntime.cpp / NewBattleTimeNumber_4206C0 | 完整156条、三补丁，原格式事实保 |
+| 1398 | F:0004B260/44B260 | src/render/Font.cpp / MeasureDefaultText_44B260 | 完整22条正确体/原3caller默认缓存宽度 |
+| 1071 | F:0001F1A0/41F1A0 | src/YobiRuntime.cpp / NewBattleNumber_41F1A0 | 仅41F242原call恢复44B260，一补丁不二次全根取证 |
+
+1072续原时间ID/保独立格式历史，1398 Default新ID，1071仅本次原call接线事实；两新增adapted分类/BATTLE101→103枚举open、六新局部I/S E593→599。旧E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F1A0-I-20261006保原快照/expected材料但改fail并具名解释，旧S与格式事实不否定、不掩已证错误。语义1399/有效ID1394、分类507、关联1512/3680=41.09%；其它历史/功能/175队列-R7区间67/3061-60源码closed10/完整验收0/P01及七open/完整门禁保持。全部字体宽度/资源/字载荷-draw消费/原父与回收重入owner-ABI-PC53-画面及R1/R7/R8继续；网络原格式明文/内存CryptInt保/音频暂停，未构建/测试/运行/hash。

@@ -64,3 +64,9 @@
 本SPEC先落盘，再实现两函数九还原、原证据/语义1071续记及新增1397、两分类/成员-四局部I/S、任务/唯一进度和看板同步，精确提交到命名快照 `cg2d-re-battle-number-production-update-20261006`。
 
 本步两完整正常根纳管，旧格式事实保留且当前验证范围明确扩大；时间数字构造者、TextMeasure-资源读取-实际draw consumer、所有caller/回收-重入owner/ABI-PC53-画面与R1/R7/R8沿真实依赖继续。
+
+## BOJ01 对本SPEC测宽接线与旧I结论的更正（2026-10-06）
+
+[后续具体SPEC](cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline)/[证据](cg2d_battle_time_default_measure_evidence.json)核实原41F242目标44B260。BOI01实施快照的TextMeasure(buffer,0)实际对应44B2A0通用逐字读取宽度，不能代原默认非空入口缓存字体0双宽/单宽合同；本线程本步已改MeasureDefaultText_44B260(buffer)/2。故旧E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F1A0-I-20261006改fail，原snapshot/artifacts/expected保持且附冲突原因，新BOJ01局部接线I/S独立通过；旧原指令S/格式事实与其它九还原保持。
+
+Time420718同样恢复44B260，Default正确体独立纳管。当前来源与状态以BOJ01接线更正为准；本历史SPEC的其它完整原根事实和更新回调50帧整数Y合同不变，不凭新局部I/S宣布全资源/consumer-owner/运行验收。

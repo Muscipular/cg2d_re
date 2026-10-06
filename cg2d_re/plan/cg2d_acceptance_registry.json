@@ -2038,7 +2038,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2141,7 +2142,9 @@
         "F:0001F4C0",
         "F:0001F450",
         "F:0001F1A0",
-        "F:0001F110"
+        "F:0001F110",
+        "F:000206C0",
+        "F:0004B260"
       ],
       "closure_task_ids": [
         "P01",
@@ -2225,7 +2228,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2298,7 +2302,8 @@
         "BOF01完整追踪命中回调676条2381B/四取样补丁已修、独立身份纳管；BATTLE85未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
         "BOG01九完整距离/转向/运动-原表角度依赖441条1422B/两处公式及取样已还原、原表3400B独立纳管；BATTLE94未全枚举，全部219入向父-callee/表生产消费-owner/生命周期/ABI-PC53-RNG画面与R1/R7/R8待",
         "BOH01五完整消费助手/图标创建更新286条952B/三个函数六还原，原三Advance四fresh游标输出/固定flags与fresh表对象保；BATTLE99未全枚举，176入向全部父-callee/共享表-owner/资源重进退出-ABI-PC53-画面与R1/R7/R8待",
-        "BOI01数字创建1071原记录补132差集及完整191条、更新44条新增1397；两根235条831B/九还原与175B表/常量保，BATTLE101仍未全枚举，23父/46调用点/第二时间数字构造者-测宽/资源/字符消费-draw/回收owner-ABI-PC53-画面与R1/R7/R8待"
+        "BOI01数字创建1071原记录补132差集及完整191条、更新44条新增1397；两根235条831B/九还原与175B表/常量保，BATTLE101仍未全枚举，23父/46调用点/第二时间数字构造者-测宽/资源/字符消费-draw/回收owner-ABI-PC53-画面与R1/R7/R8待",
+        "BOJ01时间1072补106差集/完整156及默认22条共178条610B，恢复Time/Number两原44B260测宽目标与Time两取样，旧Number I具名fail/六新局部I-S；BATTLE103枚举open，宽度/资源/字载荷-draw/全部父与回收重入owner-PC53-画面/R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2371,7 +2376,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ]
     },
     {
@@ -26932,19 +26938,28 @@
         "src/YobiRuntime.cpp#NewBattleNumber_41F1A0",
         "include/cg/YobiRuntime.hpp",
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_compiler_helper_spec.md"
+        "doc/cg2d_compiler_helper_spec.md",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json"
       ],
       "differences": [
         {
           "description": "两根九取样/表达还原：临时三值先取、S16graphicX先字体宽度、X/Y-flags-name发布顺序与两个name投影、更新入口phase/oldDelay及速度先比较后存；原格式/正确合同保，1071续记不造重复ID",
           "decision_ref": "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision"
+        },
+        {
+          "description": "BOJ01证实旧快照NewBattleNumber41F1A0的41F242测宽目标错接TextMeasure44B2A0；原目标44B260。旧I撤为fail，保原快照/expected与材料，本步已恢复既有MeasureDefaultText44B260并新增局部接线I/S；不影响旧原字节S/格式事实或已过更新。",
+          "decision_ref": "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision"
         }
       ],
-      "result": "pass",
+      "result": "fail",
       "recorded_on": "2026-10-06",
       "observation": "整CPP仅九补丁重放、创建S8/CryptInt-表图号/资源/S16-F64-F32布局/延迟隐藏、更新未舍入速度截断加S32 y/50标死仍name投影保；原59格式接线正文保持。本根合同：未清256B buffer先Format53B304 %d/S32 value，随后mode5ABFCC==0时flags40000000追加+、80000000再追加-独立；font0 TextMeasure/2正常S32向零截断后固定strlen，不随字刷新长度。逐字NewYobiAction(2,0)，失败break保已建对象/所有路径原S32返回0；成功callback41F110/W8 CF，buffer字节S8构造临时CryptInt，readCount/encoded/mask三个先取样再按W8/W32/W32 pub，token/reserved保/析构。image0/speedF32 18、x<320角270否则90、flagsW32=2；字符+/-/:取十行四列的1/2/3，其它行0+S8字符-0，无新过滤。MapNoIndex→GetGraphicXY(两个S16输出)都不增成功门禁；S16 graphicX先F64→live指定fontType.sWidth S32*index→依序+x-halfWidth+advance落F32X，后S16graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→flags样本→Ypub→nameX样本→flagsOR40000→B8=-8/flagspub/58=2index/两W8=4→nameX截断→nameY样本→nameXpub→nameY截断pub→W16field270零；不PlayFrame、不整体回滚或增输入限制。",
       "expected": "未清256B buffer先Format53B304 %d/S32 value，随后mode5ABFCC==0时flags40000000追加+、80000000再追加-独立；font0 TextMeasure/2正常S32向零截断后固定strlen，不随字刷新长度。逐字NewYobiAction(2,0)，失败break保已建对象/所有路径原S32返回0；成功callback41F110/W8 CF，buffer字节S8构造临时CryptInt，readCount/encoded/mask三个先取样再按W8/W32/W32 pub，token/reserved保/析构。image0/speedF32 18、x<320角270否则90、flagsW32=2；字符+/-/:取十行四列的1/2/3，其它行0+S8字符-0，无新过滤。MapNoIndex→GetGraphicXY(两个S16输出)都不增成功门禁；S16 graphicX先F64→live指定fontType.sWidth S32*index→依序+x-halfWidth+advance落F32X，后S16graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→flags样本→Ypub→nameX样本→flagsOR40000→B8=-8/flagspub/58=2index/两W8=4→nameX截断→nameY样本→nameXpub→nameY截断pub→W16field270零；不PlayFrame、不整体回滚或增输入限制。",
-      "actual": "仅本步两正常根局部I/S，1071旧格式证据/事实保、新更新1397纳管；BATTLE101与全部父-第二4206C0构造者/测宽-资源-字载荷/draw-回收owner/ABI-PC53-运行及R1/R7/R8未全验，不构建/测试/运行/摘要，音频暂停"
+      "actual": "BOJ01证实旧快照NewBattleNumber41F1A0的41F242测宽目标错接TextMeasure44B2A0；原目标44B260。旧I撤为fail，保原快照/expected与材料，本步已恢复既有MeasureDefaultText44B260并新增局部接线I/S；不影响旧原字节S/格式事实或已过更新。 原actual：仅本步两正常根局部I/S，1071旧格式证据/事实保、新更新1397纳管；BATTLE101与全部父-第二4206C0构造者/测宽-资源-字载荷/draw-回收owner/ABI-PC53-运行及R1/R7/R8未全验，不构建/测试/运行/摘要，音频暂停"
     },
     {
       "id": "E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F1A0-S-20261006",
@@ -27038,6 +27053,192 @@
       "observation": "完整两根连续原235条831B/15call-21内跳两ret，无switch，40图号/两F32-三字符串175B，46普通call与两不同父callback地址分列；不代全部父/运行",
       "expected": "单次入口phase0→单次oldDelay，正值仅减一且本次不运动；零/负值speedB8 F32+0.8F形成未舍入和，读flags清2→与7.2F比较→速度F32pub→flagspub→达到峰值phase1→同未舍入speed正常S32截断并加到S32 y，不把Y写offset44或取刚存F32。入口phase1旧deltaX+1pub，>=50 MarkDeath仍尾；其它phase只尾。所有路径nameOffsetAC正常S32截断→F32 nameOffsetB0样本→nameXpub→nameY截断pub，无对象XY投影、PlayFrame、parent/deathFlag或新空门禁。",
       "actual": "仅本步两正常根局部I/S，1071旧格式证据/事实保、新更新1397纳管；BATTLE101与全部父-第二4206C0构造者/测宽-资源-字载荷/draw-回收owner/ABI-PC53-运行及R1/R7/R8未全验，不构建/测试/运行/摘要，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-TIME-DEFAULT-MEASURE-000206C0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOJ01Time/Default完整178条610B/24B数据，Number仅BOI01已证41F242→44B260；doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-time-default-measure-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleTimeNumber_4206C0",
+        "src/LoginStateDependencies.hpp",
+        "src/render/Font.cpp",
+        "doc/cg2d_battle_number_production_update_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "两个数字父恢复原默认测宽44B260，Time三字段及graphicX-font2-FILD取样恢复；正确Default与已过其它体保，旧Number I一条具名fail/保材料",
+          "decision_ref": "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅四补丁/两原默认目标，Time不同Crypt三值/字体顺序/原index跳过与失败return0及正确pub保持，Default字体0非空缓存宽度正文保持；本项合同：未清256B buffer格式%s%d:%02d、S32 seconds正常负数取反magnitude、负前缀-否则借当前LegacyText593850 T*，正常有符号/60与%60保持旧50格式事实；原44B260默认字体0缓存宽度返回S32除2后固定strlen。每个原S8字节index独立map0起、0..9取行0数字基+字节-0，-取行0列2，:取行0列3，map0仅continue但原index递增/间距与延迟不压缩；支持字符才NewYobiAction(2,0)，失败原return0保已建对象。callback41F110/W8 CF，S8第二次字节构造临时CryptInt，encoded-mask-readCount三样本后W32/W32/W8写目标、不写token/reserved/析构。image0/speed18/x<320角270否则90/flags2，MapNoIndex→GetGraphicXY两个S16返回不增门禁；graphicX先S32、字体2 live sWidth、graphicX转F64后sWidth*原index，再依序+x-halfWidth+advance落F32X，后graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→nameX样本→Ypub→flagsOR40000 pub→B8=-8→58=2原index/两W8=4→nameX截断/nameY样本先nameXpub/nameY截断pub→W16field2700；原无PlayFrame/整体回滚，最终S32return0。",
+      "expected": "未清256B buffer格式%s%d:%02d、S32 seconds正常负数取反magnitude、负前缀-否则借当前LegacyText593850 T*，正常有符号/60与%60保持旧50格式事实；原44B260默认字体0缓存宽度返回S32除2后固定strlen。每个原S8字节index独立map0起、0..9取行0数字基+字节-0，-取行0列2，:取行0列3，map0仅continue但原index递增/间距与延迟不压缩；支持字符才NewYobiAction(2,0)，失败原return0保已建对象。callback41F110/W8 CF，S8第二次字节构造临时CryptInt，encoded-mask-readCount三样本后W32/W32/W8写目标、不写token/reserved/析构。image0/speed18/x<320角270否则90/flags2，MapNoIndex→GetGraphicXY两个S16返回不增门禁；graphicX先S32、字体2 live sWidth、graphicX转F64后sWidth*原index，再依序+x-halfWidth+advance落F32X，后graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→nameX样本→Ypub→flagsOR40000 pub→B8=-8→58=2原index/两W8=4→nameX截断/nameY样本先nameXpub/nameY截断pub→W16field2700；原无PlayFrame/整体回滚，最终S32return0。",
+      "actual": "仅本步正常局部I/S，旧Number I保原材料改fail且当前接线已修；1072续记/1398 Default新、1071局部事实和BATTLE103成员不代宽度/资源/字载荷/draw-回收owner/PC53/所有父-运行/R1/R7/R8，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-TIME-DEFAULT-MEASURE-000206C0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOJ01Time/Default完整178条610B/24B数据，Number仅BOI01已证41F242→44B260；doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-time-default-measure-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleTimeNumber_4206C0",
+        "src/LoginStateDependencies.hpp",
+        "src/render/Font.cpp",
+        "doc/cg2d_battle_number_production_update_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "两个数字父恢复原默认测宽44B260，Time三字段及graphicX-font2-FILD取样恢复；正确Default与已过其它体保，旧Number I一条具名fail/保材料",
+          "decision_ref": "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "Time/Default两原完整178条610B/三页11call-16内跳/两ret与24B数据，三默认caller/Time一caller分列；Number仅复用BOI01原call，未二次全根取证，不代所有父/运行",
+      "expected": "未清256B buffer格式%s%d:%02d、S32 seconds正常负数取反magnitude、负前缀-否则借当前LegacyText593850 T*，正常有符号/60与%60保持旧50格式事实；原44B260默认字体0缓存宽度返回S32除2后固定strlen。每个原S8字节index独立map0起、0..9取行0数字基+字节-0，-取行0列2，:取行0列3，map0仅continue但原index递增/间距与延迟不压缩；支持字符才NewYobiAction(2,0)，失败原return0保已建对象。callback41F110/W8 CF，S8第二次字节构造临时CryptInt，encoded-mask-readCount三样本后W32/W32/W8写目标、不写token/reserved/析构。image0/speed18/x<320角270否则90/flags2，MapNoIndex→GetGraphicXY两个S16返回不增门禁；graphicX先S32、字体2 live sWidth、graphicX转F64后sWidth*原index，再依序+x-halfWidth+advance落F32X，后graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→nameX样本→Ypub→flagsOR40000 pub→B8=-8→58=2原index/两W8=4→nameX截断/nameY样本先nameXpub/nameY截断pub→W16field2700；原无PlayFrame/整体回滚，最终S32return0。",
+      "actual": "仅本步正常局部I/S，旧Number I保原材料改fail且当前接线已修；1072续记/1398 Default新、1071局部事实和BATTLE103成员不代宽度/资源/字载荷/draw-回收owner/PC53/所有父-运行/R1/R7/R8，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-TIME-DEFAULT-MEASURE-0004B260-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOJ01Time/Default完整178条610B/24B数据，Number仅BOI01已证41F242→44B260；doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-time-default-measure-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json",
+        "src/render/Font.cpp#MeasureDefaultText_44B260",
+        "src/LoginStateDependencies.hpp",
+        "src/render/Font.cpp",
+        "doc/cg2d_battle_number_production_update_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "两个数字父恢复原默认测宽44B260，Time三字段及graphicX-font2-FILD取样恢复；正确Default与已过其它体保，旧Number I一条具名fail/保材料",
+          "decision_ref": "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅四补丁/两原默认目标，Time不同Crypt三值/字体顺序/原index跳过与失败return0及正确pub保持，Default字体0非空缓存宽度正文保持；本项合同：native非拥有const char*原无空指针门禁；先读U8首字节，为NUL原返回0且不读字体宽度。非空才先固定字体0 doubleWidth558F74/S32、后singleWidth558F6C/S32；每圈当前U8高位80置则cursor+=2/加固定双宽，否则cursor++/加固定单宽，累计后读下一首字节直到NUL，原S32宽度返回。不做Unicode/GBK严格解码、第二字节/容量/边界检查或宽度每字刷新，不变通用44B2A0职责。",
+      "expected": "native非拥有const char*原无空指针门禁；先读U8首字节，为NUL原返回0且不读字体宽度。非空才先固定字体0 doubleWidth558F74/S32、后singleWidth558F6C/S32；每圈当前U8高位80置则cursor+=2/加固定双宽，否则cursor++/加固定单宽，累计后读下一首字节直到NUL，原S32宽度返回。不做Unicode/GBK严格解码、第二字节/容量/边界检查或宽度每字刷新，不变通用44B2A0职责。",
+      "actual": "仅本步正常局部I/S，旧Number I保原材料改fail且当前接线已修；1072续记/1398 Default新、1071局部事实和BATTLE103成员不代宽度/资源/字载荷/draw-回收owner/PC53/所有父-运行/R1/R7/R8，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-TIME-DEFAULT-MEASURE-0004B260-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOJ01Time/Default完整178条610B/24B数据，Number仅BOI01已证41F242→44B260；doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-time-default-measure-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json",
+        "src/render/Font.cpp#MeasureDefaultText_44B260",
+        "src/LoginStateDependencies.hpp",
+        "src/render/Font.cpp",
+        "doc/cg2d_battle_number_production_update_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "两个数字父恢复原默认测宽44B260，Time三字段及graphicX-font2-FILD取样恢复；正确Default与已过其它体保，旧Number I一条具名fail/保材料",
+          "decision_ref": "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "Time/Default两原完整178条610B/三页11call-16内跳/两ret与24B数据，三默认caller/Time一caller分列；Number仅复用BOI01原call，未二次全根取证，不代所有父/运行",
+      "expected": "native非拥有const char*原无空指针门禁；先读U8首字节，为NUL原返回0且不读字体宽度。非空才先固定字体0 doubleWidth558F74/S32、后singleWidth558F6C/S32；每圈当前U8高位80置则cursor+=2/加固定双宽，否则cursor++/加固定单宽，累计后读下一首字节直到NUL，原S32宽度返回。不做Unicode/GBK严格解码、第二字节/容量/边界检查或宽度每字刷新，不变通用44B2A0职责。",
+      "actual": "仅本步正常局部I/S，旧Number I保原材料改fail且当前接线已修；1072续记/1398 Default新、1071局部事实和BATTLE103成员不代宽度/资源/字载荷/draw-回收owner/PC53/所有父-运行/R1/R7/R8，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-TIME-DEFAULT-MEASURE-0001F1A0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOJ01Time/Default完整178条610B/24B数据，Number仅BOI01已证41F242→44B260；doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-time-default-measure-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleNumber_41F1A0",
+        "src/LoginStateDependencies.hpp",
+        "src/render/Font.cpp",
+        "doc/cg2d_battle_number_production_update_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "两个数字父恢复原默认测宽44B260，Time三字段及graphicX-font2-FILD取样恢复；正确Default与已过其它体保，旧Number I一条具名fail/保材料",
+          "decision_ref": "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅四补丁/两原默认目标，Time不同Crypt三值/字体顺序/原index跳过与失败return0及正确pub保持，Default字体0非空缓存宽度正文保持；本项合同：仅原41F242→44B260恢复MeasureDefaultText44B260(buffer)/2；原根其它体/格式/失败return0/资源布局/原更新保，本步不二次全根复验",
+      "expected": "仅原41F242→44B260恢复MeasureDefaultText44B260(buffer)/2；原根其它体/格式/失败return0/资源布局/原更新保，本步不二次全根复验",
+      "actual": "仅本步正常局部I/S，旧Number I保原材料改fail且当前接线已修；1072续记/1398 Default新、1071局部事实和BATTLE103成员不代宽度/资源/字载荷/draw-回收owner/PC53/所有父-运行/R1/R7/R8，不构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-TIME-DEFAULT-MEASURE-0001F1A0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOJ01Time/Default完整178条610B/24B数据，Number仅BOI01已证41F242→44B260；doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-time-default-measure-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleNumber_41F1A0",
+        "src/LoginStateDependencies.hpp",
+        "src/render/Font.cpp",
+        "doc/cg2d_battle_number_production_update_evidence.json"
+      ],
+      "differences": [
+        {
+          "description": "两个数字父恢复原默认测宽44B260，Time三字段及graphicX-font2-FILD取样恢复；正确Default与已过其它体保，旧Number I一条具名fail/保材料",
+          "decision_ref": "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "Time/Default两原完整178条610B/三页11call-16内跳/两ret与24B数据，三默认caller/Time一caller分列；Number仅复用BOI01原call，未二次全根取证，不代所有父/运行",
+      "expected": "仅原41F242→44B260恢复MeasureDefaultText44B260(buffer)/2；原根其它体/格式/失败return0/资源布局/原更新保，本步不二次全根复验",
+      "actual": "仅本步正常局部I/S，旧Number I保原材料改fail且当前接线已修；1072续记/1398 Default新、1071局部事实和BATTLE103成员不代宽度/资源/字载荷/draw-回收owner/PC53/所有父-运行/R1/R7/R8，不构建/测试/运行/hash，音频暂停"
     }
   ],
   "task_acceptance": [
@@ -27278,7 +27479,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ]
     },
     {
@@ -27594,7 +27796,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ]
     },
     {
@@ -27797,7 +28000,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ]
     },
     {
@@ -27906,7 +28110,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ]
     },
     {
@@ -27986,7 +28191,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ]
     },
     {
@@ -28221,7 +28427,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ]
     },
     {
@@ -28297,7 +28504,8 @@
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ]
     }
   ],
@@ -33613,7 +33821,10 @@
       "evidence_refs": [
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
-        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
       ],
       "boundary": "x64 native非拥有对象、字载荷内存CryptInt、S8/S32/F32-F64/W32/W8/W16及正常宿主转换保持；本步局部I/S，不代全部父-callee/字载荷消费-资源-owner/ABI-PC53/运行，音频暂停"
     },
@@ -33627,6 +33838,28 @@
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
       ],
       "boundary": "x64 native非拥有对象、字载荷内存CryptInt、S8/S32/F32-F64/W32/W8/W16及正常宿主转换保持；本步局部I/S，不代全部父-callee/字载荷消费-资源-owner/ABI-PC53/运行，音频暂停"
+    },
+    {
+      "inventory_id": "F:000206C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+      ],
+      "boundary": "x64 native非拥有输入字符串/对象、正常数值/字节原宽与原默认字体0缓存宽度/Time字体2布局职责保；本根局部I/S，不代完整资源/字符draw消费/owner-PC53或运行，音频暂停"
+    },
+    {
+      "inventory_id": "F:0004B260",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state"
+      ],
+      "boundary": "x64 native非拥有输入字符串/对象、正常数值/字节原宽与原默认字体0缓存宽度/Time字体2布局职责保；本根局部I/S，不代完整资源/字符draw消费/owner-PC53或运行，音频暂停"
     }
   ],
   "auxiliary_dispositions": [

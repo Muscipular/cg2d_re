@@ -9976,7 +9976,7 @@ std::int32_t NewBattleNumber_41F1A0(
             std::strcat(buffer, "-");
         }
     }
-    const std::int32_t halfWidth = TextMeasure(buffer, 0) / 2;
+    const std::int32_t halfWidth = MeasureDefaultText_44B260(buffer) / 2;
     const std::int32_t length = static_cast<std::int32_t>(std::strlen(buffer));
     for (std::int32_t index = 0; index < length; ++index) {
         YobiAction* const action = NewYobiAction_404AE0(2, 0);
@@ -10045,7 +10045,7 @@ std::int32_t NewBattleTimeNumber_4206C0(
     const char* const prefix = seconds < 0 ? "-" : input::LegacyText593850();
     char buffer[256];
     platform::FormatLegacyString_53B304(buffer, "%s%d:%02d", prefix, magnitude / 60, magnitude % 60);
-    const std::int32_t halfWidth = TextMeasure(buffer, 0) / 2;
+    const std::int32_t halfWidth = MeasureDefaultText_44B260(buffer) / 2;
     const std::int32_t length = static_cast<std::int32_t>(std::strlen(buffer));
     for (std::int32_t index = 0; index < length; ++index) {
         const std::int8_t character = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index]));
@@ -10071,9 +10071,12 @@ std::int32_t NewBattleTimeNumber_4206C0(
         platform::LegacyCryptInt temporary;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(
             &temporary, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
-        action->mapX1E0.encoded = temporary.encoded;
-        action->mapX1E0.mask = temporary.mask;
-        action->mapX1E0.readCount = temporary.readCount;
+        const std::uint32_t characterEncoded = temporary.encoded;
+        const std::uint32_t characterMask = temporary.mask;
+        const std::uint8_t characterReadCount = temporary.readCount;
+        action->mapX1E0.encoded = characterEncoded;
+        action->mapX1E0.mask = characterMask;
+        action->mapX1E0.readCount = characterReadCount;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
         action->imageNo = 0;
         action->value54 = 18.0F;
@@ -10084,8 +10087,11 @@ std::int32_t NewBattleTimeNumber_4206C0(
         std::int16_t graphicY;
         static_cast<void>(resource::GetGraphicXY(
             static_cast<std::uint32_t>(action->graphicIndex), &graphicX, &graphicY));
-        const std::int32_t advance = index * render::gFontMetrics[2].sWidth;
-        action->offset40 = static_cast<float>(static_cast<double>(graphicX) + x - halfWidth + advance);
+        const std::int32_t graphicXValue = graphicX;
+        const std::int32_t fontWidth = render::gFontMetrics[2].sWidth;
+        const double graphicOffsetX = graphicXValue;
+        const std::int32_t advance = fontWidth * index;
+        action->offset40 = static_cast<float>(graphicOffsetX + x - halfWidth + advance);
         action->offset44 = static_cast<float>(static_cast<double>(graphicY) + y);
         const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
         const float screenY = action->offset44;

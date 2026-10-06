@@ -139700,7 +139700,7 @@
       "original_entry": "0x41F1A0",
       "inventory_id": "F:0001F1A0",
       "original_role": "战斗数值逐字对象创建",
-      "status": "BOI01完整正常数字创建/更新与九还原局部I/S，全部父-callee/字载荷消费-owner/ABI-PC53/运行未验",
+      "status": "BOI01完整正常数字创建/更新与九还原局部I/S，全部父-callee/字载荷消费-owner/ABI-PC53/运行未验；BOJ01恢复原44B260测宽接线，旧I具名失效/其余体保持",
       "original_end_exclusive": "0x41F44F",
       "instruction_count": 191,
       "original_direct_reference_count": 46,
@@ -139711,7 +139711,7 @@
           "symbols": [
             "NewBattleNumber_41F1A0"
           ],
-          "relationship": "此前stdio接线：原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持；BOI01本步完整合同：未清256B buffer先Format53B304 %d/S32 value，随后mode5ABFCC==0时flags40000000追加+、80000000再追加-独立；font0 TextMeasure/2正常S32向零截断后固定strlen，不随字刷新长度。逐字NewYobiAction(2,0)，失败break保已建对象/所有路径原S32返回0；成功callback41F110/W8 CF，buffer字节S8构造临时CryptInt，readCount/encoded/mask三个先取样再按W8/W32/W32 pub，token/reserved保/析构。image0/speedF32 18、x<320角270否则90、flagsW32=2；字符+/-/:取十行四列的1/2/3，其它行0+S8字符-0，无新过滤。MapNoIndex→GetGraphicXY(两个S16输出)都不增成功门禁；S16 graphicX先F64→live指定fontType.sWidth S32*index→依序+x-halfWidth+advance落F32X，后S16graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→flags样本→Ypub→nameX样本→flagsOR40000→B8=-8/flagspub/58=2index/两W8=4→nameX截断→nameY样本→nameXpub→nameY截断pub→W16field270零；不PlayFrame、不整体回滚或增输入限制。"
+          "relationship": "此前stdio接线：原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持；BOI01本步完整合同：未清256B buffer先Format53B304 %d/S32 value，随后mode5ABFCC==0时flags40000000追加+、80000000再追加-独立；font0 TextMeasure/2正常S32向零截断后固定strlen，不随字刷新长度。逐字NewYobiAction(2,0)，失败break保已建对象/所有路径原S32返回0；成功callback41F110/W8 CF，buffer字节S8构造临时CryptInt，readCount/encoded/mask三个先取样再按W8/W32/W32 pub，token/reserved保/析构。image0/speedF32 18、x<320角270否则90、flagsW32=2；字符+/-/:取十行四列的1/2/3，其它行0+S8字符-0，无新过滤。MapNoIndex→GetGraphicXY(两个S16输出)都不增成功门禁；S16 graphicX先F64→live指定fontType.sWidth S32*index→依序+x-halfWidth+advance落F32X，后S16graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→flags样本→Ypub→nameX样本→flagsOR40000→B8=-8/flagspub/58=2index/两W8=4→nameX截断→nameY样本→nameXpub→nameY截断pub→W16field270零；不PlayFrame、不整体回滚或增输入限制。；BOJ01仅接线更正：原41F242→44B260，当前MeasureDefaultText_44B260(buffer)/2，旧BOI01的TextMeasure(buffer,0)不是原目标；其余体/历史保持"
         },
         {
           "path": "include/cg/YobiRuntime.hpp",
@@ -140039,7 +140039,12 @@
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-acceptance",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
-        "doc/cg2d_battle_number_production_update_evidence.json"
+        "doc/cg2d_battle_number_production_update_evidence.json",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json"
       ],
       "verification_level": "BOI01完整191条687B/3页/11call-14内部跳转/一ret-4补丁；不代全部callee-父/consumer-owner/运行",
       "boundary": "地址native非拥有，字节S8与S32/F32-F64-W32/W8/W16保；仅正常两根局部I/S，全部父/第二数字构造者/测宽-资源-字载荷绘制consumer与回收/ABI-PC53-运行未验。",
@@ -140091,13 +140096,36 @@
             "relationship": "原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持"
           }
         ]
+      },
+      "battle_time_default_measure_wiring": {
+        "spec_id": "BOJ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+          "doc/cg2d_battle_time_default_measure_evidence.json"
+        ],
+        "original_entry": "0x41F1A0",
+        "original_call_site": "0x41F242",
+        "original_callee": "0x44B260",
+        "source_path": "src/YobiRuntime.cpp",
+        "source_symbol": "NewBattleNumber_41F1A0",
+        "before_expression": "TextMeasure(buffer, 0) / 2",
+        "after_expression": "MeasureDefaultText_44B260(buffer) / 2",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "original_call_evidence_reused": "doc/cg2d_battle_number_production_update_evidence.json",
+        "full_original_function_re_reviewed": false,
+        "full_runtime_verified": false,
+        "invalidated_evidence_id": "E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F1A0-I-20261006"
       }
     },
     {
       "original_entry": "0x4206C0",
       "inventory_id": "F:000206C0",
       "original_role": "战斗计时逐字对象创建",
-      "status": "已有数字创建父正文及一真实格式接线；完整战斗与CRT运行未验",
+      "status": "BOJ01完整正常时间数字续记/原默认目标与两取样还原，全部父/字载荷-资源/owner-PC53运行未验",
       "original_end_exclusive": "0x4208F0",
       "instruction_count": 156,
       "original_direct_reference_count": 1,
@@ -140108,7 +140136,14 @@
           "symbols": [
             "NewBattleTimeNumber_4206C0"
           ],
-          "relationship": "原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持"
+          "relationship": "此前stdio接线：原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持；BOJ01当前完整合同：未清256B buffer格式%s%d:%02d、S32 seconds正常负数取反magnitude、负前缀-否则借当前LegacyText593850 T*，正常有符号/60与%60保持旧50格式事实；原44B260默认字体0缓存宽度返回S32除2后固定strlen。每个原S8字节index独立map0起、0..9取行0数字基+字节-0，-取行0列2，:取行0列3，map0仅continue但原index递增/间距与延迟不压缩；支持字符才NewYobiAction(2,0)，失败原return0保已建对象。callback41F110/W8 CF，S8第二次字节构造临时CryptInt，encoded-mask-readCount三样本后W32/W32/W8写目标、不写token/reserved/析构。image0/speed18/x<320角270否则90/flags2，MapNoIndex→GetGraphicXY两个S16返回不增门禁；graphicX先S32、字体2 live sWidth、graphicX转F64后sWidth*原index，再依序+x-halfWidth+advance落F32X，后graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→nameX样本→Ypub→flagsOR40000 pub→B8=-8→58=2原index/两W8=4→nameX截断/nameY样本先nameXpub/nameY截断pub→W16field2700；原无PlayFrame/整体回滚，最终S32return0。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleTimeNumber_4206C0"
+          ],
+          "relationship": "既有native非拥有输入T*和原S32返回、字节/S32-W32/W8/W16-F32/F64保；接口不扩"
         }
       ],
       "business_call_connections": [
@@ -140166,10 +140201,63 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_battle.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json"
       ],
-      "verification_level": "156条统计仅读50格式/参数/符号前缀相邻指令与原点/字节/源码仅一callee静态对齐；余106条、对象/资源/更新/全部caller不重验，未执行。",
-      "boundary": "入口第三S32秒先按负数取反得S32 magnitude；负前缀553C44原2D00，非负借input::LegacyText593850()当前T*，不替换为空常量。按有符号除60/余60先计算余数再商，原%s%d:%02d写未清256B buffer；字体0测宽/固定strlen/逐S8受支持字符/原索引偏移、资源/对象/不同CryptInt写序和失败返回0保留已有对象保持。极值溢出不新增钳制或保护，不宣异常等价完成。本次仅格式callee，已有内部头及原共享owner/生命周期不动，不补424620待批值、不恢复音频；原父/战斗生产消费/CRT与总PLAN未闭合。"
+      "verification_level": "BOJ01完整156条560B/2页/11call-12内部跳转/一ret/3补丁；仅正常局部静态、全部生产消费/owner未运行",
+      "boundary": "地址native非拥有、原字节/数值宽度保；仅本步完整Time/Default与Number局部原call，不代全部callee/caller-宽度/资源/字载荷消费/回收owner-PC53及运行。",
+      "function_chunks": [
+        {
+          "start": "0x4206C0",
+          "end_exclusive": "0x4208F0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleTimeNumber_4206C0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "battle_time_default_measure": {
+        "spec_id": "BOJ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+          "doc/cg2d_battle_time_default_measure_evidence.json"
+        ],
+        "original_entry": "0x4206C0",
+        "original_instruction_count": 156,
+        "original_code_bytes": 560,
+        "page_count": 2,
+        "outgoing_call_site_count": 11,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "source_patch_count": 3,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "未清256B buffer格式%s%d:%02d、S32 seconds正常负数取反magnitude、负前缀-否则借当前LegacyText593850 T*，正常有符号/60与%60保持旧50格式事实；原44B260默认字体0缓存宽度返回S32除2后固定strlen。每个原S8字节index独立map0起、0..9取行0数字基+字节-0，-取行0列2，:取行0列3，map0仅continue但原index递增/间距与延迟不压缩；支持字符才NewYobiAction(2,0)，失败原return0保已建对象。callback41F110/W8 CF，S8第二次字节构造临时CryptInt，encoded-mask-readCount三样本后W32/W32/W8写目标、不写token/reserved/析构。image0/speed18/x<320角270否则90/flags2，MapNoIndex→GetGraphicXY两个S16返回不增门禁；graphicX先S32、字体2 live sWidth、graphicX转F64后sWidth*原index，再依序+x-halfWidth+advance落F32X，后graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→nameX样本→Ypub→flagsOR40000 pub→B8=-8→58=2原index/两W8=4→nameX截断/nameY样本先nameXpub/nameY截断pub→W16field2700；原无PlayFrame/整体回滚，最终S32return0。"
+      },
+      "prior_format_review": {
+        "status": "已有数字创建父正文及一真实格式接线；完整战斗与CRT运行未验",
+        "verification_level": "156条统计仅读50格式/参数/符号前缀相邻指令与原点/字节/源码仅一callee静态对齐；余106条、对象/资源/更新/全部caller不重验，未执行。",
+        "boundary": "入口第三S32秒先按负数取反得S32 magnitude；负前缀553C44原2D00，非负借input::LegacyText593850()当前T*，不替换为空常量。按有符号除60/余60先计算余数再商，原%s%d:%02d写未清256B buffer；字体0测宽/固定strlen/逐S8受支持字符/原索引偏移、资源/对象/不同CryptInt写序和失败返回0保留已有对象保持。极值溢出不新增钳制或保护，不宣异常等价完成。本次仅格式callee，已有内部头及原共享owner/生命周期不动，不补424620待批值、不恢复音频；原父/战斗生产消费/CRT与总PLAN未闭合。",
+        "sources": [
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbols": [
+              "NewBattleTimeNumber_4206C0"
+            ],
+            "relationship": "原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持"
+          }
+        ]
+      }
     },
     {
       "original_entry": "0x442F70",
@@ -166605,6 +166693,71 @@
         "full_original_function_normal_body_reviewed": true,
         "full_runtime_verified": false,
         "preserved_contract": "单次入口phase0→单次oldDelay，正值仅减一且本次不运动；零/负值speedB8 F32+0.8F形成未舍入和，读flags清2→与7.2F比较→速度F32pub→flagspub→达到峰值phase1→同未舍入speed正常S32截断并加到S32 y，不把Y写offset44或取刚存F32。入口phase1旧deltaX+1pub，>=50 MarkDeath仍尾；其它phase只尾。所有路径nameOffsetAC正常S32截断→F32 nameOffsetB0样本→nameXpub→nameY截断pub，无对象XY投影、PlayFrame、parent/deathFlag或新空门禁。"
+      }
+    },
+    {
+      "original_entry": "0x44B260",
+      "inventory_id": "F:0004B260",
+      "status": "BOJ01完整正常默认测宽正确实现独立纳管，全部父/字载荷-资源/owner-PC53运行未验",
+      "sources": [
+        {
+          "path": "src/render/Font.cpp",
+          "symbols": [
+            "MeasureDefaultText_44B260"
+          ],
+          "relationship": "native非拥有const char*原无空指针门禁；先读U8首字节，为NUL原返回0且不读字体宽度。非空才先固定字体0 doubleWidth558F74/S32、后singleWidth558F6C/S32；每圈当前U8高位80置则cursor+=2/加固定双宽，否则cursor++/加固定单宽，累计后读下一首字节直到NUL，原S32宽度返回。不做Unicode/GBK严格解码、第二字节/容量/边界检查或宽度每字刷新，不变通用44B2A0职责。"
+        },
+        {
+          "path": "src/LoginStateDependencies.hpp",
+          "symbols": [
+            "MeasureDefaultText_44B260"
+          ],
+          "relationship": "既有native非拥有输入T*和原S32返回、字节/S32-W32/W8/W16-F32/F64保；接口不扩"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_battle_time_default_measure_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原字节/数值宽度保；仅本步完整Time/Default与Number局部原call，不代全部callee/caller-宽度/资源/字载荷消费/回收owner-PC53及运行。",
+      "instruction_count": 22,
+      "function_chunks": [
+        {
+          "start": "0x44B260",
+          "end_exclusive": "0x44B292"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/Font.cpp",
+        "symbol": "MeasureDefaultText_44B260",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOJ01完整22条50B/1页/0call-4内部跳转/一ret/0补丁；仅正常局部静态、全部生产消费/owner未运行",
+      "battle_time_default_measure": {
+        "spec_id": "BOJ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-acceptance",
+          "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+          "doc/cg2d_battle_time_default_measure_evidence.json"
+        ],
+        "original_entry": "0x44B260",
+        "original_instruction_count": 22,
+        "original_code_bytes": 50,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "incoming_reference_count": 3,
+        "incoming_parent_count": 3,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "native非拥有const char*原无空指针门禁；先读U8首字节，为NUL原返回0且不读字体宽度。非空才先固定字体0 doubleWidth558F74/S32、后singleWidth558F6C/S32；每圈当前U8高位80置则cursor+=2/加固定双宽，否则cursor++/加固定单宽，累计后读下一首字节直到NUL，原S32宽度返回。不做Unicode/GBK严格解码、第二字节/容量/边界检查或宽度每字刷新，不变通用44B2A0职责。"
       }
     }
   ]

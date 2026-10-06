@@ -772,18 +772,26 @@ void LoadTextureFromBuffer32_450400(
 
 void ReleaseTextureNodeSurfaces_44C408() noexcept
 {
-    if (gTextureNodeCount <= 0) {
+    const std::int32_t initialCount = gTextureNodeCount;
+    if (initialCount <= 0) {
         return;
     }
+
     std::int32_t index = 0;
-    do {
-        TextureNode& node = gTextureNodes[static_cast<std::size_t>(index)];
-        if (node.surface != nullptr) {
-            gTextureSurfaceOwner.Release(node.surface);
-            node.surface = nullptr;
+    TextureNode* node = gTextureNodes.data();
+    for (;;) {
+        TextureSurface* const surface = node->surface;
+        if (surface != nullptr) {
+            gTextureSurfaceOwner.Release(surface);
+            node->surface = nullptr;
         }
+        const std::int32_t currentCount = gTextureNodeCount;
         ++index;
-    } while (index < gTextureNodeCount);
+        ++node;
+        if (index >= currentCount) {
+            break;
+        }
+    }
 }
 
 TextureSurface* TransformTextureSurface_44CD80(

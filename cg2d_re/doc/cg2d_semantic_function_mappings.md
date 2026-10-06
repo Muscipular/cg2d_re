@@ -2877,3 +2877,15 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 旧249续记并保存完整旧record；源码冻结定位0/旧两文档事实保，不新增语义或helper原ID。语义1409/有效ID1404、关联1522（41.36%）保持；分类528→529、RENDER40→41枚举open；两独立局部static I/S E663→665。RESOURCE41/队列175/R7区间67/3061及其余门禁保，七open仅进展引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。
 
 只GraphicPendingQueue.cpp一个helper正文；正确DrawGraphicHover/BOS/BOT/BOU入队和描述符helper、排序比较/队列owner/总绘制/公开头保持。原容量门槛和失败后前缀写保，不加负拒绝/保护/钳制或异常回绕模型，不运行异常输入。既有void接口保，不称原EAX五倍索引残值/机器ABI、全部195点/115父、正常别名/描边case2填充-owner/像素运行已验。未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
+
+## BOW01 真正Destroy根机器身份（2026-10-06）
+
+| 语义 / 原ID / 原入口 | 源码及局部范围 | 本步 |
+| --- | --- | --- |
+| 1409 / F:0004C3C0 / 44C3C0 | SdlPresenter.cpp / RendererDestroy_44C3C0正文保；GraphicDxCache.cpp / ReleaseTextureNodeSurfaces_44C408 | 内部20条节点段对应单helper实修；136条整根/18调用/2父仅纳盘，44C408不独立登记 |
+
+[BOW01 SPEC](cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision)/[原证据](cg2d_renderer_node_release_sampling_evidence.json)。真正Destroy根44C3C0完整136条412B/两页18call15内跳1ret、2普通点2父只纳盘；44C408只是20条46B内部节点段，不登记独立原函数。18调用按4 IAT/4 GlobalHandle寄存器/10 vtable+8类型保，不把操作数当绝对callee地址。单节点helper保存一次surface、非空同owner释放/清同槽，fresh count先取再推进index/native node，沿同样本判尾；正确销毁包装及其它阶段保。
+
+新增机器映射1409对应已有真正原根；语义1409→1410/有效ID1404→1405、关联1522→1523（41.36%→41.39%）、分类529→530、RENDER41→42枚举open；两独立节点局部static I/S E665→667。冻结定位1/旧行号保，RESOURCE41/队列175/R7区间67/3061及其它门禁保持；八open包含C09仅进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
+
+仅GraphicDxCache.cpp一个节点释放helper正文；根包装/主线程与32位SDL-DX7承接、Temp/AutoMap/设备/接口/调色板/Back/呈现器/renderer owner及其它源码保持。不清count、next/image/reuse/W16或未知尾、不扫原count<=0失败前缀，不新增拒绝/回滚/保护/异常策略。完整原取证不代整个Destroy实现验收；正常节点段/包装调用序局部static不代全部父-callee/正常别名/逐面owner-双树-C09/重建退出/SDK-机器ABI/像素运行。未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。

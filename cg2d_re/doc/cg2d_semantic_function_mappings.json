@@ -171485,6 +171485,99 @@
         "shared_helper_has_separate_original_id": false,
         "preserved_contract": "私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。"
       }
+    },
+    {
+      "original_entry": "0x44C3C0",
+      "inventory_id": "F:0004C3C0",
+      "original_role": "Renderer::Destroy及其内部节点释放段的native承接",
+      "status": "BOW01真正Destroy根新机器登记/完整原136条仅纳盘，节点20条局部取样及实际释放叶实修；整个Destroy/父-callee-owner运行未验",
+      "original_end_exclusive": "0x44C55C",
+      "instruction_count": 136,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/render/SdlPresenter.cpp",
+          "symbols": [
+            "RendererDestroy_44C3C0"
+          ],
+          "relationship": "已有32位SDL/CPU销毁包装及正常阶段/主线程边界保持；本步仅核真实节点叶调用及后续包装顺序，不当整个Destroy验收"
+        },
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "ReleaseTextureNodeSurfaces_44C408"
+          ],
+          "relationship": "真正原根44C3C0，44C408只是内部20条46B节点释放段，不另造原函数。节点段入口S32 actualcount只<=0退出；正数固定起始node，每轮只读一次native surface，非空才同sourceOwner.Release(savedSurface)后清同槽，随后fresh S32 count先读、再++index及++native node，以同样本判是否继续。surface/节点仅已证地址拓宽，count/S32及其余字段保持；不清count、next/image/reuse/W16字段/未知尾、不释放被覆盖的旧面或失败前缀。已有32位SDL/CPU销毁包装正文及正常节点→Temp/AutoMap→设备/接口/调色板→Back/呈现器→renderer owner接线保，主线程边界与已获批DX7原生替换沿现行合同，不借局部恢复PALDATA16/COM等机制。只单节点helper实修、完整原136条412B/18call15内跳1ret及2普通调用点2父只纳盘；4 IAT/4 GlobalHandle寄存器/10 vtable+8调用按类型记，不将偏移当callee地址。所有父/callee/正常别名-owner/重建退出/SDK-机器ABI/像素及完整Destroy运行未验，原异常不专项模拟/保护/故障等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-baseline",
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision",
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-acceptance",
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_node_release_sampling_evidence.json"
+      ],
+      "boundary": "真正原根44C3C0，44C408只是内部20条46B节点释放段，不另造原函数。节点段入口S32 actualcount只<=0退出；正数固定起始node，每轮只读一次native surface，非空才同sourceOwner.Release(savedSurface)后清同槽，随后fresh S32 count先读、再++index及++native node，以同样本判是否继续。surface/节点仅已证地址拓宽，count/S32及其余字段保持；不清count、next/image/reuse/W16字段/未知尾、不释放被覆盖的旧面或失败前缀。已有32位SDL/CPU销毁包装正文及正常节点→Temp/AutoMap→设备/接口/调色板→Back/呈现器→renderer owner接线保，主线程边界与已获批DX7原生替换沿现行合同，不借局部恢复PALDATA16/COM等机制。只单节点helper实修、完整原136条412B/18call15内跳1ret及2普通调用点2父只纳盘；4 IAT/4 GlobalHandle寄存器/10 vtable+8调用按类型记，不将偏移当callee地址。所有父/callee/正常别名-owner/重建退出/SDK-机器ABI/像素及完整Destroy运行未验，原异常不专项模拟/保护/故障等价。",
+      "verification_level": "完整136条412B/两页18call15内跳1ret与2普通点2父仅纳盘；原4 IAT/4寄存器GlobalHandle/10 vtable+8操作类型保；只20条46B节点段与包装调用序局部static、单helper正文，未运行/ABI/完整Destroy验收",
+      "function_chunks": [
+        {
+          "start": "0x44C3C0",
+          "end_exclusive": "0x44C55C"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x457a4f",
+          "type": 17,
+          "parent": "0x457a40"
+        },
+        {
+          "ea": "0x466b8c",
+          "type": 17,
+          "parent": "0x466b80"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/SdlPresenter.cpp",
+        "symbol": "RendererDestroy_44C3C0",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "dependent_helper_changed": true,
+        "runtime_verified": false
+      },
+      "renderer_node_release_sampling": {
+        "spec_id": "BOW01",
+        "evidence_refs": [
+          "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-baseline",
+          "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision",
+          "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-acceptance",
+          "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+          "doc/cg2d_renderer_node_release_sampling_evidence.json"
+        ],
+        "original_instruction_count": 136,
+        "original_code_bytes": 412,
+        "page_count": 2,
+        "outgoing_call_site_count": 18,
+        "internal_branch_site_count": 15,
+        "return_site_count": 1,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 2,
+        "source_body_changed": false,
+        "dependent_helper_changed": true,
+        "helper_body_patch_count": 1,
+        "node_region_start": "0x44C408",
+        "node_region_end_exclusive": "0x44C436",
+        "node_region_instruction_count": 20,
+        "node_region_code_bytes": 46,
+        "node_region_is_independent_original_function": false,
+        "surface_sample_once": true,
+        "count_sample_before_index_and_node_advance": true,
+        "full_original_root_captured": true,
+        "full_original_root_implementation_verified": false,
+        "full_runtime_verified": false,
+        "implementation_static_scope": "仅正常节点20条46B释放段和既有包装调用序，不代整个Destroy/caller-callee/owner运行或ABI",
+        "preserved_contract": "真正原根44C3C0，44C408只是内部20条46B节点释放段，不另造原函数。节点段入口S32 actualcount只<=0退出；正数固定起始node，每轮只读一次native surface，非空才同sourceOwner.Release(savedSurface)后清同槽，随后fresh S32 count先读、再++index及++native node，以同样本判是否继续。surface/节点仅已证地址拓宽，count/S32及其余字段保持；不清count、next/image/reuse/W16字段/未知尾、不释放被覆盖的旧面或失败前缀。已有32位SDL/CPU销毁包装正文及正常节点→Temp/AutoMap→设备/接口/调色板→Back/呈现器→renderer owner接线保，主线程边界与已获批DX7原生替换沿现行合同，不借局部恢复PALDATA16/COM等机制。只单节点helper实修、完整原136条412B/18call15内跳1ret及2普通调用点2父只纳盘；4 IAT/4 GlobalHandle寄存器/10 vtable+8调用按类型记，不将偏移当callee地址。所有父/callee/正常别名-owner/重建退出/SDK-机器ABI/像素及完整Destroy运行未验，原异常不专项模拟/保护/故障等价。"
+      }
     }
   ]
 }

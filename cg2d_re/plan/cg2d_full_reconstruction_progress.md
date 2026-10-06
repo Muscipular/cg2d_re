@@ -2512,3 +2512,12 @@ BOU01本步实测：源码/两完整原根及55普通点/两权威JSON/对应合
 - **后续开发**：只GraphicPendingQueue.cpp一个helper正文；正确DrawGraphicHover/BOS/BOT/BOU入队和描述符helper、排序比较/队列owner/总绘制/公开头保持。原容量门槛和失败后前缀写保，不加负拒绝/保护/钳制或异常回绕模型，不运行异常输入。既有void接口保，不称原EAX五倍索引残值/机器ABI、全部195点/115父、正常别名/描边case2填充-owner/像素运行已验。未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
 
 BOV01本步实测：源码单helper补丁/完整原根及195普通点/旧249两权威JSON完整增量/对应合同四项定向静态通过；measure/-Check均返回0。派生完整对象仅旧249来源文档/处置、RENDER41、分类529和七open进展变化；语义1409/1404与关联1522(41.36%)保，E665，冻定位0/RESOURCE41/队列175及其余门禁保持。额外范围拒绝已撤、-2原前缀写与正确描边包装保持；195点115父仅纳盘，不当完整运行或ABI通过。13文件严格UTF8无BOM/LF及必要差异通过；未构建/测试/运行/hash，整体SPEC目标继续。
+
+## BOW01 节点释放取样/真正Destroy映射收尾（2026-10-06）
+
+- **开发/当步解决**：先落[具体SPEC](../doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision)，节点叶保存一次真实surface、非空才同owner释放/清槽；先取动态count再推进下标/native节点、同样本判尾。只一个helper正文，正确包装与其它正常阶段保，不声称已有像素或资源数量错误。
+- **原证据/身份**：[完整证据](../doc/cg2d_renderer_node_release_sampling_evidence.json)保真正44C3C0根136条412B两页18call15内跳1ret、2普通点2父，仅内部20条46B节点段局部实现静态；44C408不是原函数，操作数5/8/IAT槽不当绝对callee地址，旧包装/叶正文档案保。
+- **计量/门禁**：新增机器映射1409对应已有真正原根；语义1409→1410/有效ID1404→1405、关联1522→1523（41.36%→41.39%）、分类529→530、RENDER41→42枚举open；两独立节点局部static I/S E665→667。冻结定位1/旧行号保，RESOURCE41/队列175/R7区间67/3061及其它门禁保持；八open包含C09仅进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。命名快照 `cg2d-re-renderer-node-release-sampling-20261006`；13文件精确提交，用户既有六项排除。
+- **后续开发**：仅GraphicDxCache.cpp一个节点释放helper正文；根包装/主线程与32位SDL-DX7承接、Temp/AutoMap/设备/接口/调色板/Back/呈现器/renderer owner及其它源码保持。不清count、next/image/reuse/W16或未知尾、不扫原count<=0失败前缀，不新增拒绝/回滚/保护/异常策略。完整原取证不代整个Destroy实现验收；正常节点段/包装调用序局部static不代全部父-callee/正常别名/逐面owner-双树-C09/重建退出/SDK-机器ABI/像素运行。未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
+
+BOW01本步实测：源码单节点helper补丁/完整真根及两原点两父/两权威JSON完整增量/对应合同四项定向静态通过；measure/-Check均返回0。派生完整对象仅真根新1409、RENDER42、语义1410/1405/关联1523(41.39%)/分类530与八open含C09进展变化；E667，冻定位1/RESOURCE41/队列175和其余门禁保持。完整136条412B/两页18call15内跳1ret只纳盘，实际实现静态限节点20条46B与包装调用序；44C408不是独立函数，4 IAT/4寄存器GlobalHandle/10 vtable+8操作数不当绝对callee地址。13文件严格UTF8无BOM/LF及必要差异通过；未构建/测试/运行/hash，整个Destroy/双树-C09/父-callee-owner与整体SPEC运行验收未闭，目标继续。

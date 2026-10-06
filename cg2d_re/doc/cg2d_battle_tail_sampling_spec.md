@@ -175,3 +175,9 @@
 [完整合同](cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state)/[三完整145条467B](cg2d_battle_selection_cleanup_entry_sampling_evidence.json)纳管43C060/496F10/4972B0；两文件四借用阶段：Flush首T*判空/AND共用、Close三个T*各当阶段一次取样供判空/标死。正常旧值一致；保Flush后两fresh槽、各非空回收/清槽、九S32/三个W32关闭请求及原空分支。
 
 callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返回保持。45代码入向45窗135条693B及1数据xref/实际32B prototype中56B72C callback字段/15B旧字节可追，32B原型与36B运行元素不混；现窗口26首元素/初始化发布/事件消费有据，不外推全部窗口/57C368 token/owner寿命。BATTLE190枚举open/E772两局部I/S，不新R7，完整运行及R8未完成。
+
+## BQK01 快捷入口与防御状态取样（2026-10-07）
+
+[完整合同](cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state)/[四完整197条767B](cg2d_battle_shortcut_defense_state_sampling_evidence.json)纳管497000/497100/497210/4973C0；只三个快捷状态读各低W8→S8，保字段W32存储/同值两次比较。正常旧值一致，原门槛/技能已用/模式2-3-4与各专属清零差别/真实创建结果、关闭清理回收声和返回保。
+
+防御正确体/默认悬停选中图优先级、15B旧hover、原G含NUL2B及原格式明文发送顺序/弃返保持，不加加解密或发送失败早退。快捷九入向九窗27条119B、防御数据xref数组头及第二行56B730..56B750 callback字段56B74C有据，不混prototype/runtime，不新R7；BATTLE194枚举open/E774两局部I/S，完整UI/owner寿命/组包连接/运行及R8未完成。

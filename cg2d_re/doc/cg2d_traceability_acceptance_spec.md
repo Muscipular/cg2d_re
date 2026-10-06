@@ -1166,3 +1166,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-acceptance)/[完整145条467B](cg2d_battle_selection_cleanup_entry_sampling_evidence.json)。三页、8call/5callee/14jump/四ret、45代码入向45窗135条693B及1数据xref/实际32B prototype/15B旧字节有据。两文件四借用阶段，正常旧值一致；首缓存/后两fresh槽、三阶段标死清槽与空分支、九S32/三个W32关闭、callback原正确图值/优先级/选择链与返回保持。当前窗口26首元素callback原型/发布/消费有据，实际字段56B72C，结构头type1，prototype/runtime两布局不混；两局部I/S各十七实来源，不代完整窗口/全部UI父/owner寿命/生成机器或运行。
 
 语义1513/1508、关联1626/44.18%、BATTLE190枚举open、分类638/E772；R7 260/3061/余2801、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持。
+
+## BQK01 四完整快捷/防御局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance)/[完整197条767B](cg2d_battle_shortcut_defense_state_sampling_evidence.json)。四页、20call/7callee/27jump/五ret，快捷九代码入向九窗27条119B及防御1数据xref/第二32B行/15B旧hover/2B原G有据。三个输入状态低W8→S8读、共享W32/原门槛/各专属尾/真实创建结果和回收声返回、防御正确图优先级/原字节/原格式明文G保持；正常旧值一致。两局部I/S各十七实来源，不代完整UI父/窗口26、生产与owner寿命/组包连接发送/生成机器或运行。
+
+语义1517/1512、关联1630/44.29%、BATTLE194枚举open、分类642/E774；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保持。

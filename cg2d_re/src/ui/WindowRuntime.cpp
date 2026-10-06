@@ -36029,7 +36029,7 @@ void Sub_497100()
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[26].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::detail::gBattleSkillUsed5ABC68 != 0
         || world::detail::gBattleSelectionModes5ABC7C[3] != 0) {
@@ -36071,7 +36071,7 @@ void Sub_497210()
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[26].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::detail::gBattleSkillUsed5ABC68 != 0
         || world::detail::gBattleSelectionModes5ABC7C[4] != 0) {
@@ -36095,7 +36095,7 @@ void Sub_497000()
         return;
     }
     const auto actionState = std::bit_cast<std::int8_t>(
-        static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C));
+        *reinterpret_cast<const std::uint8_t*>(&gWindowStates[26].actionFlags1C));
     if (actionState < 0 || actionState > 2
         || world::detail::gBattleSkillUsed5ABC68 != 0
         || world::detail::gBattleSelectionModes5ABC7C[2] != 0) {

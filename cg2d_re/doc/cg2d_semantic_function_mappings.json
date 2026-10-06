@@ -180666,6 +180666,222 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x00497000",
+      "inventory_id": "F:00097000",
+      "original_role": "Sub_497000",
+      "original_end_exclusive": "0x004970AE",
+      "instruction_count": 38,
+      "status": "BQK01四完整技能物品宠物快捷/防御正常源纳管，三个状态低W8→S8读取实修；各专属尾与防御原G明文接线正确体保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_497000"
+          ],
+          "relationship": "497000技能快捷：三个快捷入口均先窗口26.window非空，再userState.value W32恰好0，再currentPosition S32<20，按原短路次序；不加负位置拒绝。其后一次实际W8取actionFlags低字节并按S8解释，同一值先<0、再>2拒绝。现字段存储为uint32，旧static_cast<uint8>会先宽读；改为unsigned byte内存读取→bit_cast<int8>，保同一值两个比较以及共享W32字段供其它消费者。不读取signed char别名，不加入新状态/异常门槛。再依次gBattleSkillUsed W32为0、当前专属selectionModes[index] W32为0才处理，物品/宠物也保原技能已用门槛。CloseAllSubWindow→独立写对应mode槽1及主mode编号→Flush20槽→fresh commandAction MarkDeath→清全局槽，原失败返回/弃返/所有权与调用先后保持。声51/x320，原第三Y240未消费，音频暂停。所有路径唯一ret，当前两UI父六源表达式分别承接原九物理入向，每实际路径调用次数保持，未因此验收完整父流。 专属selectionModes[2]/主mode2；MarkDeath后清commandAction→5ABCC0=0→声51→CB054C W8=0→Sub47A4C0(&Sub4974C0)返回保存技能面板CC1A10，包括真实空结果，不硬造成功或new窗口。原字段/正常流程正确体保，只497027低字节读实修。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_evidence.json"
+      ],
+      "boundary": "497000技能快捷：三个快捷入口均先窗口26.window非空，再userState.value W32恰好0，再currentPosition S32<20，按原短路次序；不加负位置拒绝。其后一次实际W8取actionFlags低字节并按S8解释，同一值先<0、再>2拒绝。现字段存储为uint32，旧static_cast<uint8>会先宽读；改为unsigned byte内存读取→bit_cast<int8>，保同一值两个比较以及共享W32字段供其它消费者。不读取signed char别名，不加入新状态/异常门槛。再依次gBattleSkillUsed W32为0、当前专属selectionModes[index] W32为0才处理，物品/宠物也保原技能已用门槛。CloseAllSubWindow→独立写对应mode槽1及主mode编号→Flush20槽→fresh commandAction MarkDeath→清全局槽，原失败返回/弃返/所有权与调用先后保持。声51/x320，原第三Y240未消费，音频暂停。所有路径唯一ret，当前两UI父六源表达式分别承接原九物理入向，每实际路径调用次数保持，未因此验收完整父流。 专属selectionModes[2]/主mode2；MarkDeath后清commandAction→5ABCC0=0→声51→CB054C W8=0→Sub47A4C0(&Sub4974C0)返回保存技能面板CC1A10，包括真实空结果，不硬造成功或new窗口。原字段/正常流程正确体保，只497027低字节读实修。 四完整原根197条767B/四页、20call/7callee、27普通内部jump/五ret；三个快捷入口九代码入向来自473840/4C7AE0，九实际邻窗27条119B，防御另1数据xref及第二个32B原型行/15B原hover/2B命令G有据。只三个快捷源体各一输入状态低W8→S8片段，三个表达式对三个原点，正常旧值一致，不称数值/并发或机器故障。三入口原门槛/侧别模式2-3-4、各自清零差别/真实创建结果、关闭清理/回收/声/返回及防御正确体/图优先级/原字节/网络原格式明文G保持。共享actionFlags存储W32及其它已证接线保持，不新R7/原型表分类。只当前完整正常源与局部父/既有callback，完整UI父/全部生产与owner寿命、SDK/生成机器ABI/组包/连接发送/画面运行未验；音频暂停、RPLAN.24不专项异常/保护/回绕/故障等价与原适用标准保持。",
+      "verification_level": "四完整原根197条767B/四页、20call/7callee、27普通内部jump/五ret；三个快捷入口九代码入向来自473840/4C7AE0，九实际邻窗27条119B，防御另1数据xref及第二个32B原型行/15B原hover/2B命令G有据。只三个快捷源体各一输入状态低W8→S8片段，三个表达式对三个原点，正常旧值一致，不称数值/并发或机器故障。三入口原门槛/侧别模式2-3-4、各自清零差别/真实创建结果、关闭清理/回收/声/返回及防御正确体/图优先级/原字节/网络原格式明文G保持。共享actionFlags存储W32及其它已证接线保持，不新R7/原型表分类。只当前完整正常源与局部父/既有callback，完整UI父/全部生产与owner寿命、SDK/生成机器ABI/组包/连接发送/画面运行未验；音频暂停、RPLAN.24不专项异常/保护/回绕/故障等价与原适用标准保持。",
+      "battle_shortcut_defense_state_sampling": {
+        "spec_id": "BQK01",
+        "evidence_refs": [
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 38,
+        "original_code_bytes": 174,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 5,
+        "original_inbound_count": 3,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00497100",
+      "inventory_id": "F:00097100",
+      "original_role": "Sub_497100",
+      "original_end_exclusive": "0x004971B5",
+      "instruction_count": 41,
+      "status": "BQK01四完整技能物品宠物快捷/防御正常源纳管，三个状态低W8→S8读取实修；各专属尾与防御原G明文接线正确体保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_497100"
+          ],
+          "relationship": "497100物品快捷：三个快捷入口均先窗口26.window非空，再userState.value W32恰好0，再currentPosition S32<20，按原短路次序；不加负位置拒绝。其后一次实际W8取actionFlags低字节并按S8解释，同一值先<0、再>2拒绝。现字段存储为uint32，旧static_cast<uint8>会先宽读；改为unsigned byte内存读取→bit_cast<int8>，保同一值两个比较以及共享W32字段供其它消费者。不读取signed char别名，不加入新状态/异常门槛。再依次gBattleSkillUsed W32为0、当前专属selectionModes[index] W32为0才处理，物品/宠物也保原技能已用门槛。CloseAllSubWindow→独立写对应mode槽1及主mode编号→Flush20槽→fresh commandAction MarkDeath→清全局槽，原失败返回/弃返/所有权与调用先后保持。声51/x320，原第三Y240未消费，音频暂停。所有路径唯一ret，当前两UI父六源表达式分别承接原九物理入向，每实际路径调用次数保持，未因此验收完整父流。 专属selectionModes[3]/主mode3；MarkDeath后清commandAction→itemTargetPending5ABCC4=0→声51→CB054C W8=0→CreateWindowAnimation(27,1,0,null)返回保存D2F790，包括空结果；原4971A0 W8清零发生创建调用之前，保正确顺序。只497127低字节读实修，不把物品目标清零移到其它入口。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_evidence.json"
+      ],
+      "boundary": "497100物品快捷：三个快捷入口均先窗口26.window非空，再userState.value W32恰好0，再currentPosition S32<20，按原短路次序；不加负位置拒绝。其后一次实际W8取actionFlags低字节并按S8解释，同一值先<0、再>2拒绝。现字段存储为uint32，旧static_cast<uint8>会先宽读；改为unsigned byte内存读取→bit_cast<int8>，保同一值两个比较以及共享W32字段供其它消费者。不读取signed char别名，不加入新状态/异常门槛。再依次gBattleSkillUsed W32为0、当前专属selectionModes[index] W32为0才处理，物品/宠物也保原技能已用门槛。CloseAllSubWindow→独立写对应mode槽1及主mode编号→Flush20槽→fresh commandAction MarkDeath→清全局槽，原失败返回/弃返/所有权与调用先后保持。声51/x320，原第三Y240未消费，音频暂停。所有路径唯一ret，当前两UI父六源表达式分别承接原九物理入向，每实际路径调用次数保持，未因此验收完整父流。 专属selectionModes[3]/主mode3；MarkDeath后清commandAction→itemTargetPending5ABCC4=0→声51→CB054C W8=0→CreateWindowAnimation(27,1,0,null)返回保存D2F790，包括空结果；原4971A0 W8清零发生创建调用之前，保正确顺序。只497127低字节读实修，不把物品目标清零移到其它入口。 四完整原根197条767B/四页、20call/7callee、27普通内部jump/五ret；三个快捷入口九代码入向来自473840/4C7AE0，九实际邻窗27条119B，防御另1数据xref及第二个32B原型行/15B原hover/2B命令G有据。只三个快捷源体各一输入状态低W8→S8片段，三个表达式对三个原点，正常旧值一致，不称数值/并发或机器故障。三入口原门槛/侧别模式2-3-4、各自清零差别/真实创建结果、关闭清理/回收/声/返回及防御正确体/图优先级/原字节/网络原格式明文G保持。共享actionFlags存储W32及其它已证接线保持，不新R7/原型表分类。只当前完整正常源与局部父/既有callback，完整UI父/全部生产与owner寿命、SDK/生成机器ABI/组包/连接发送/画面运行未验；音频暂停、RPLAN.24不专项异常/保护/回绕/故障等价与原适用标准保持。",
+      "verification_level": "四完整原根197条767B/四页、20call/7callee、27普通内部jump/五ret；三个快捷入口九代码入向来自473840/4C7AE0，九实际邻窗27条119B，防御另1数据xref及第二个32B原型行/15B原hover/2B命令G有据。只三个快捷源体各一输入状态低W8→S8片段，三个表达式对三个原点，正常旧值一致，不称数值/并发或机器故障。三入口原门槛/侧别模式2-3-4、各自清零差别/真实创建结果、关闭清理/回收/声/返回及防御正确体/图优先级/原字节/网络原格式明文G保持。共享actionFlags存储W32及其它已证接线保持，不新R7/原型表分类。只当前完整正常源与局部父/既有callback，完整UI父/全部生产与owner寿命、SDK/生成机器ABI/组包/连接发送/画面运行未验；音频暂停、RPLAN.24不专项异常/保护/回绕/故障等价与原适用标准保持。",
+      "battle_shortcut_defense_state_sampling": {
+        "spec_id": "BQK01",
+        "evidence_refs": [
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 41,
+        "original_code_bytes": 181,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 5,
+        "original_inbound_count": 3,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00497210",
+      "inventory_id": "F:00097210",
+      "original_role": "Sub_497210",
+      "original_end_exclusive": "0x004972AC",
+      "instruction_count": 39,
+      "status": "BQK01四完整技能物品宠物快捷/防御正常源纳管，三个状态低W8→S8读取实修；各专属尾与防御原G明文接线正确体保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_497210"
+          ],
+          "relationship": "497210宠物快捷：三个快捷入口均先窗口26.window非空，再userState.value W32恰好0，再currentPosition S32<20，按原短路次序；不加负位置拒绝。其后一次实际W8取actionFlags低字节并按S8解释，同一值先<0、再>2拒绝。现字段存储为uint32，旧static_cast<uint8>会先宽读；改为unsigned byte内存读取→bit_cast<int8>，保同一值两个比较以及共享W32字段供其它消费者。不读取signed char别名，不加入新状态/异常门槛。再依次gBattleSkillUsed W32为0、当前专属selectionModes[index] W32为0才处理，物品/宠物也保原技能已用门槛。CloseAllSubWindow→独立写对应mode槽1及主mode编号→Flush20槽→fresh commandAction MarkDeath→清全局槽，原失败返回/弃返/所有权与调用先后保持。声51/x320，原第三Y240未消费，音频暂停。所有路径唯一ret，当前两UI父六源表达式分别承接原九物理入向，每实际路径调用次数保持，未因此验收完整父流。 专属selectionModes[4]/主mode4；MarkDeath后清commandAction→声51→CreateWindowAnimation(28,1,0,null)返回保存D2D60C，包括空结果。原没有5ABCC0/5ABCC4或CB054C清零，不能照搬技能/物品尾；只497233低字节读实修。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_evidence.json"
+      ],
+      "boundary": "497210宠物快捷：三个快捷入口均先窗口26.window非空，再userState.value W32恰好0，再currentPosition S32<20，按原短路次序；不加负位置拒绝。其后一次实际W8取actionFlags低字节并按S8解释，同一值先<0、再>2拒绝。现字段存储为uint32，旧static_cast<uint8>会先宽读；改为unsigned byte内存读取→bit_cast<int8>，保同一值两个比较以及共享W32字段供其它消费者。不读取signed char别名，不加入新状态/异常门槛。再依次gBattleSkillUsed W32为0、当前专属selectionModes[index] W32为0才处理，物品/宠物也保原技能已用门槛。CloseAllSubWindow→独立写对应mode槽1及主mode编号→Flush20槽→fresh commandAction MarkDeath→清全局槽，原失败返回/弃返/所有权与调用先后保持。声51/x320，原第三Y240未消费，音频暂停。所有路径唯一ret，当前两UI父六源表达式分别承接原九物理入向，每实际路径调用次数保持，未因此验收完整父流。 专属selectionModes[4]/主mode4；MarkDeath后清commandAction→声51→CreateWindowAnimation(28,1,0,null)返回保存D2D60C，包括空结果。原没有5ABCC0/5ABCC4或CB054C清零，不能照搬技能/物品尾；只497233低字节读实修。 四完整原根197条767B/四页、20call/7callee、27普通内部jump/五ret；三个快捷入口九代码入向来自473840/4C7AE0，九实际邻窗27条119B，防御另1数据xref及第二个32B原型行/15B原hover/2B命令G有据。只三个快捷源体各一输入状态低W8→S8片段，三个表达式对三个原点，正常旧值一致，不称数值/并发或机器故障。三入口原门槛/侧别模式2-3-4、各自清零差别/真实创建结果、关闭清理/回收/声/返回及防御正确体/图优先级/原字节/网络原格式明文G保持。共享actionFlags存储W32及其它已证接线保持，不新R7/原型表分类。只当前完整正常源与局部父/既有callback，完整UI父/全部生产与owner寿命、SDK/生成机器ABI/组包/连接发送/画面运行未验；音频暂停、RPLAN.24不专项异常/保护/回绕/故障等价与原适用标准保持。",
+      "verification_level": "四完整原根197条767B/四页、20call/7callee、27普通内部jump/五ret；三个快捷入口九代码入向来自473840/4C7AE0，九实际邻窗27条119B，防御另1数据xref及第二个32B原型行/15B原hover/2B命令G有据。只三个快捷源体各一输入状态低W8→S8片段，三个表达式对三个原点，正常旧值一致，不称数值/并发或机器故障。三入口原门槛/侧别模式2-3-4、各自清零差别/真实创建结果、关闭清理/回收/声/返回及防御正确体/图优先级/原字节/网络原格式明文G保持。共享actionFlags存储W32及其它已证接线保持，不新R7/原型表分类。只当前完整正常源与局部父/既有callback，完整UI父/全部生产与owner寿命、SDK/生成机器ABI/组包/连接发送/画面运行未验；音频暂停、RPLAN.24不专项异常/保护/回绕/故障等价与原适用标准保持。",
+      "battle_shortcut_defense_state_sampling": {
+        "spec_id": "BQK01",
+        "evidence_refs": [
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 39,
+        "original_code_bytes": 156,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 5,
+        "original_inbound_count": 3,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x004973C0",
+      "inventory_id": "F:000973C0",
+      "original_role": "Sub_4973C0",
+      "original_end_exclusive": "0x004974C0",
+      "instruction_count": 79,
+      "status": "BQK01四完整技能物品宠物快捷/防御正常源纳管，三个状态低W8→S8读取实修；各专属尾与防御原G明文接线正确体保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4973C0"
+          ],
+          "relationship": "4973C0防御callback：index/state S32，入口固定graphic T*来自currentWindow.elements[index].data。窗口26.userState.value非0，graphic默认3B9D0，fresh selectionModes[1]非0覆3B9D1，返回0；不处理hover/click。启用consumed0，cached state bit1复制原554128含NUL15B b4b6b371aaabb27aa8bebf6da14300（现strcpy转义字面正确）；bit2先Close→selectionModes[1]=1→主mode0→Flush→fresh connectionSocket及原554124字符串4700即G调用SendBattlePacket弃返→fresh commandAction MarkDeath→全局null→playerActionState5ABC74 W32=1→声57/x320→consumed1。原发送失败也不添加早退，按已批准原格式明文网络边界承接G，不自创命令/改格式或加解密；该UI源接线不外推完整组包/连接/发送父验收。入口固定graphic始终保留，最后默认3B9D0、cached state bit1覆3B9D2、fresh selectionModes[1]非0覆3B9D1，再返回consumed。原五call/两ret、禁用与悬停/点击/图优先级/尾正确体保持，无CB054C清零，不能照搬攻击入口。唯一数据xref在56B710数组头，实际第二个32B原型行56B730..56B750，data56B748→56B610、callback56B74C→4973C0；源窗口26的gWindowElements56B710[14]第二项graphic=&gWindowGraphic56B610、callback=&Sub4973C0有据。原型32B与runtime36B/+20 callback不混，既有OpenWindow471440发布/473560消费保持，不重验前步已过的通用链，也不推全部14元素/99窗口/57C368 token/owner寿命或鼠标运行。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_evidence.json"
+      ],
+      "boundary": "4973C0防御callback：index/state S32，入口固定graphic T*来自currentWindow.elements[index].data。窗口26.userState.value非0，graphic默认3B9D0，fresh selectionModes[1]非0覆3B9D1，返回0；不处理hover/click。启用consumed0，cached state bit1复制原554128含NUL15B b4b6b371aaabb27aa8bebf6da14300（现strcpy转义字面正确）；bit2先Close→selectionModes[1]=1→主mode0→Flush→fresh connectionSocket及原554124字符串4700即G调用SendBattlePacket弃返→fresh commandAction MarkDeath→全局null→playerActionState5ABC74 W32=1→声57/x320→consumed1。原发送失败也不添加早退，按已批准原格式明文网络边界承接G，不自创命令/改格式或加解密；该UI源接线不外推完整组包/连接/发送父验收。入口固定graphic始终保留，最后默认3B9D0、cached state bit1覆3B9D2、fresh selectionModes[1]非0覆3B9D1，再返回consumed。原五call/两ret、禁用与悬停/点击/图优先级/尾正确体保持，无CB054C清零，不能照搬攻击入口。唯一数据xref在56B710数组头，实际第二个32B原型行56B730..56B750，data56B748→56B610、callback56B74C→4973C0；源窗口26的gWindowElements56B710[14]第二项graphic=&gWindowGraphic56B610、callback=&Sub4973C0有据。原型32B与runtime36B/+20 callback不混，既有OpenWindow471440发布/473560消费保持，不重验前步已过的通用链，也不推全部14元素/99窗口/57C368 token/owner寿命或鼠标运行。 四完整原根197条767B/四页、20call/7callee、27普通内部jump/五ret；三个快捷入口九代码入向来自473840/4C7AE0，九实际邻窗27条119B，防御另1数据xref及第二个32B原型行/15B原hover/2B命令G有据。只三个快捷源体各一输入状态低W8→S8片段，三个表达式对三个原点，正常旧值一致，不称数值/并发或机器故障。三入口原门槛/侧别模式2-3-4、各自清零差别/真实创建结果、关闭清理/回收/声/返回及防御正确体/图优先级/原字节/网络原格式明文G保持。共享actionFlags存储W32及其它已证接线保持，不新R7/原型表分类。只当前完整正常源与局部父/既有callback，完整UI父/全部生产与owner寿命、SDK/生成机器ABI/组包/连接发送/画面运行未验；音频暂停、RPLAN.24不专项异常/保护/回绕/故障等价与原适用标准保持。",
+      "verification_level": "四完整原根197条767B/四页、20call/7callee、27普通内部jump/五ret；三个快捷入口九代码入向来自473840/4C7AE0，九实际邻窗27条119B，防御另1数据xref及第二个32B原型行/15B原hover/2B命令G有据。只三个快捷源体各一输入状态低W8→S8片段，三个表达式对三个原点，正常旧值一致，不称数值/并发或机器故障。三入口原门槛/侧别模式2-3-4、各自清零差别/真实创建结果、关闭清理/回收/声/返回及防御正确体/图优先级/原字节/网络原格式明文G保持。共享actionFlags存储W32及其它已证接线保持，不新R7/原型表分类。只当前完整正常源与局部父/既有callback，完整UI父/全部生产与owner寿命、SDK/生成机器ABI/组包/连接发送/画面运行未验；音频暂停、RPLAN.24不专项异常/保护/回绕/故障等价与原适用标准保持。",
+      "battle_shortcut_defense_state_sampling": {
+        "spec_id": "BQK01",
+        "evidence_refs": [
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+          "doc/cg2d_battle_shortcut_defense_state_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 79,
+        "original_code_bytes": 256,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 5,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

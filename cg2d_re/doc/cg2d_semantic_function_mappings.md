@@ -3142,3 +3142,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline)/[三根冻结前态](cg2d_battle_selection_cleanup_entry_sampling_evidence.json)。新增1510..1512对应43C060/496F10/4972B0，三原已有完整定义正常语义/equivalent，分别在YobiRuntime与WindowRuntime，三冻结定位全文保。只两文件四借用阶段，正常旧值一致；原W32/S32写、后两fresh槽/三阶段回收清槽/空分支、callback正确体/原型与当前发布消费保持，不新R7。
 
 语义1513/有效1508、关联1626/3680（44.18%）、BATTLE190枚举open、分类638/E772；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。
+
+## BQK01 四完整快捷/防御正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline)/[四根冻结前态](cg2d_battle_shortcut_defense_state_sampling_evidence.json)。新增1513..1516对应497000/497100/497210/4973C0，四原已有完整定义正常语义/equivalent、四冻结定位保。三个输入状态一次低W8→S8实修；原共享W32/门槛/专属尾/真实创建/返回与正确防御原格式G/旧字节和两父六源表达式承接九原路径保，不新R7。当前4C7AE0源名ProcessWindowShortcuts按冻结定位解析，不猜Sub名。
+
+语义1517/有效1512、关联1630/3680（44.29%）、BATTLE194枚举open、分类642/E774；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。

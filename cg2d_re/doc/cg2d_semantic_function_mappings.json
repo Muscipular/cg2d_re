@@ -164540,6 +164540,84 @@
         "clears_emitter_not_particle_w16": true,
         "completion_threshold": 32
       }
+    },
+    {
+      "original_entry": "0x41CD00",
+      "inventory_id": "F:0001CD00",
+      "status": "BNZ01完整共同创建原根与独立身份纳管，17定义18段取样/scope实修；全部父/callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleEffect_41CD00"
+          ],
+          "relationship": "六参含third S32 offsetY或native非拥有existingAction；原48类型压缩13组/35技能分派、四原switch与表、flags取样/两次效果四字段固定值、递归childAura及blend-link-tail真实两个载荷门禁/位置返回保持；17补丁18段含6scope、11取样定义12段实修"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleEffect_41CD00",
+            "BattleEffectThirdArgument"
+          ],
+          "relationship": "既有六参/third S32或native非拥有T* union及实际返回T*接口保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-baseline",
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision",
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-acceptance",
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_effect_factory_sampling_evidence.json"
+      ],
+      "boundary": "六参含third S32 offsetY或native非拥有existingAction；原48类型压缩13组/35技能分派、四原switch与表、flags取样/两次效果四字段固定值、递归childAura及blend-link-tail真实两个载荷门禁/位置返回保持；17补丁18段含6scope、11取样定义12段实修。原48类型/13压缩组及35技能/全部数据-浮点/RNG/递归和两个tail载荷判空、34/43先写death原序/音频二参既有契约保持；仅地址native，其它字段保宽，不新owner/保护/异常回绕，不代全部callee/25父引用或ABI-PC53-RNG画面运行。",
+      "instruction_count": 1583,
+      "function_chunks": [
+        {
+          "start": "0x41CD00",
+          "end_exclusive": "0x41E3C1"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleEffect_41CD00",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNZ01完整1583条5825B20页66call/267普通转移21ret和四switch实际315B数据；一个根17定义18段/完整CPP静态，25入向20父仅列表，全部callee-owner/ABI-PC53与运行未验",
+      "battle_effect_factory_sampling": {
+        "spec_id": "BNZ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-baseline",
+          "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision",
+          "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-acceptance",
+          "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+          "doc/cg2d_battle_effect_factory_sampling_evidence.json"
+        ],
+        "original_entry": "0x41CD00",
+        "original_instruction_count": 1583,
+        "original_code_bytes": 5825,
+        "page_count": 20,
+        "outgoing_call_site_count": 66,
+        "incoming_reference_count": 25,
+        "incoming_parent_count": 20,
+        "source_body_changed": true,
+        "source_patch_count": 17,
+        "source_replaced_spans": 18,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "logical_effect_types": 48,
+        "existing_action_only_type_above_47": true,
+        "switch_table_bytes": 263,
+        "tier_table_s32_items": 12,
+        "tier_table_bytes": 48,
+        "scale_constant_bytes": 4,
+        "two_effect_record_samples_before_append": true,
+        "original_tail_payload_null_checks_preserved": true,
+        "type34_43_write_before_null_branch_preserved": true,
+        "scope_only_patches": 6,
+        "sampling_patch_definitions": 11,
+        "sampling_replaced_spans": 12
+      }
     }
   ]
 }

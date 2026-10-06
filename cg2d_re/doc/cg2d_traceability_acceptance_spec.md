@@ -754,3 +754,9 @@ E487→491仅YOBI/BATTLE四局部I/S；旧812追加、七open与唯一进度同�
 [具体SPEC](cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision)与[证据](cg2d_battle_rising_emitters_sampling_evidence.json)：两完整258条1057B四页七call/20内部分支-两ret，四原局部数组64S32项256B对应三源表48项192B，两个Y表33/-33与44/-44差别保。随机emitter恢复先取X偏移/live X并求S32和、再取Y偏移/发布F32 X；其它所有源/caller/声明保持。随机oldPhase<50/新phase40才outer flags2、先RNG再分配/无设备另RNG，索引oldPhase>0且nameX<32/失败也nameX++、三次live signed%16、两个live Y保持。particle父是当前emitter，field270清当前emitter；50/32完成计数门禁后fresh outer parent/1024非零才写2再标死。两个41CD00 callback绑定只列身份，不代父全文/全部owner或运行。
 
 新增语义1367/F:0001A310、1368/F:0001A7D0/分类与BATTLE69→71仍未枚举闭合；语义1369/有效ID1364、分类475、关联1482/3680=40.27%、E533仅各函数I/S共四E。随机取样问题已解决，索引正确源不计开发新增；历史定义已有/队列175、所有旧语义-其它域/七open及完整门禁保持。完整上游/consumer-owner/资源重进退出、SDK-ABI-PC53-RNG画面及R1/R7/R8继续。
+
+## BNZ01 完整创建基线的局部I/S（2026-10-06）
+
+[具体SPEC](cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision)及[证据](cg2d_battle_effect_factory_sampling_evidence.json)：共同创建完整1583条5825B20页66call/267普通转移21ret、四switch/分派263B+层级48B+scale4B共315B。17补丁18段含六scope和11取样定义12段：原flags先callback/priority、type13/35同次flags两发布、skill400 flags先新payload，以及35两个effect固定index→flags/position4/position3/position四独立值传16B记录/Append后另live flags。原所有type图号/递归19/RNG/Init与第三输入type>47既有action、共同blend-link-X/Y与两个真实payload判空保持。34/43前置death写和音频二参既有unused第三栈字合同保，不恢复暂停音频或新保护。
+
+新增语义1369/F:0001CD00、分类与BATTLE71→72仍未全枚举；语义1370/有效ID1365、分类476、关联1483/3680=40.30%、E535仅本根两I/S。25入向/20父只分列身份，原历史定义已有/队列175不减；所有旧记录/其它域-七open/完整门禁保持。已发现源码取样差异已解决，全部上游/callee-owner/资源重进退出、SDK-ABI-PC53-RNG画面与R1/R7/R8继续。

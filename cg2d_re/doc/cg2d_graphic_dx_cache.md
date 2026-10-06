@@ -2327,3 +2327,13 @@ Build两节点工厂前均height→width低W16取样，只在整轮成功后发�
 AutoMap原叶45014F和父450468各Unlock一次，显式叶32位段只由父450435解锁；原COM阶段沿既有替换授权记录，不将两路原生序误写成相同。
 现有八参数CPU接口显式借用共享源/宽度；原非空第六参还参与源地址加法，1020EC4的完整生产/alias没有闭合。
 本组只补两mixed/一adapted及现有源段定位，不改算法/原色深范围，不造可选源或宣称完整上传/生命周期/像素/运行验收。
+
+## BOM01 独立调色板生产与版本刷新（2026-10-06）
+
+[具体SPEC](cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-decision)/[完整证据](cg2d_independent_palette_production_refresh_evidence.json)。原生产313条1163B及刷新30条87B，共343条1250B/五页/3call-34内部分支/4ret，无switch；入向生产1/1父、刷新2/1父分列。完整原体含已排除16/24位四区间541B，只共享及32色实施。七生产补丁撤跨调用entry长借，失败/成功表与像素源先当前图号pub，复制后补清新表，固定实际目标/逐项新源record、R-B-G原色取样与R表→record-R/G表-G/B字节→B表取样，完整W32颜色先写、纯黑再W32=1，两W16版本各自新表先值再record写。原loaded不置位/计数/768B和L/3清段保，刷新两正确正文/原+22 S16与U8=0/1/2、仅2清零写回保持。
+
+原5562E8/EC/F0三槽B-G-R/初值628FFC-6290FC-629200的12B与完整数据引用已归档；ColorChannelMaps及唯一位置初始化恢复B-G-R native顺序/布局断言，具名三通道仍各指同一数组，PaletteTone成员指针消费者/GPC01源码保，不重新全面复验其它父。
+
+新1399/1400两原ID独立纳管：语义1399→1401/有效ID1394→1396、分类512→514、合同关联1512→1514/3680=41.14%；刷新两实现体同一原ID，历史直接定义1/2保。RESOURCE31→33及RENDER26→28枚举open，两根各域I/S共八新局部static证据E613→621，仍两原函数/三实现体；member_inventory_closed=false/gates空，七open仅进展/引用，175队列/R7区间67-3061、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它历史功能保持。
+
+仅已批准共享及32位正常局部静态，不代全部Tone/数组初始化父、读取/分配-回收/重入owner、上传像素/画面和R1/R7/R8。未编译/调试/测试/运行/hash；RPLAN.24正常原宽/已证地址，不新增异常保护/回绕或故障等价，网络原格式明文/内存CryptInt保/音频暂停。 §5.16的成功先发布图号再复制仍保；本步补齐发布前width/data/height/长度/表取样以及阶段借用范围，不将旧受限局部文字当当前全owner或画面验收。

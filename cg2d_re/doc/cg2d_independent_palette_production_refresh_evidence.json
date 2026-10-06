@@ -1,0 +1,2940 @@
+{
+  "spec_id": "BOM01",
+  "recorded_on": "2026-10-06",
+  "method": "static",
+  "implementation_reference": "Git固定命名快照 cg2d-re-independent-palette-production-refresh-20261006",
+  "full_runtime_verified": false,
+  "source_functions": [
+    {
+      "entry": "0x522CB0",
+      "id": "F:00122CB0",
+      "symbol": "LoadIndependentPalette32_522CB0",
+      "path": "src/GraphicRead.cpp",
+      "marker": "void LoadIndependentPalette32_522CB0(",
+      "end": "0x52313B",
+      "instructions": 313,
+      "bytes": 1163,
+      "pages": 4,
+      "calls": 2,
+      "branches": 29,
+      "rets": 1,
+      "semantic_index": 1399,
+      "patches": 7,
+      "incoming": 1,
+      "parents": 1,
+      "feature_ids": [
+        "FUNC-RENDER",
+        "FUNC-RESOURCE"
+      ],
+      "contract": "原S32 index<0或>=count仅return；入口从本次索引表读loaded，非零跳读图/原色生成但仍色调/版本，不写loaded。零则队列S32图号→GetMapIndex/忽略返回→ReadDataByIndex用当前data/width/height与局部paletteLength，失败先索引表样本→gGraphicDataBuffer=-1→该表再取记录清768B BGR；成功width→data→height/W32像素积、局部长度/源地址/索引表先于gGraphicDataBuffer=imageNo，之后该表取记录复制L BGR。L<768则复制后新表/记录从3*(L/3)起清768-L，不改原起点/长度、不钳制/补全末余字节。原色目标表一次借实际record的+04，0索引W32=0；1..255每项新索引表/记录，R(+2)-B(+0)-G(+1)取样、pack00RRGGBB、先W32颜色再纯黑W32=1；仅loaded0分支W32计数加一。色调目标表再一次借+404/0W32=0；每1..255先索引表→redMap→该表record→R字节查red，greenMap→G字节查green，B字节先于blueMap→查blue；先W32颜色再纯黑1，不把源三字节/三表永久缓存或合写。尾两W16分别新索引表先于活动号/帧版本样本，随后该表取record/pub。原0xB04无指针记录/768B BGR/两256W32色表保，原8B index仅record地址拓宽为16B且loaded/unknown三字节保。原完整313条含已排除16/24色路径，仅共享及32色实施；全caller/分配-owner/上传像素/运行未验。"
+    },
+    {
+      "entry": "0x523140",
+      "id": "F:00123140",
+      "symbol": "RefreshIndependentPalette32_523140",
+      "path": "src/GraphicRead.cpp",
+      "marker": "std::uint8_t RefreshIndependentPalette32_523140(",
+      "end": "0x523197",
+      "instructions": 30,
+      "bytes": 87,
+      "pages": 1,
+      "calls": 1,
+      "branches": 5,
+      "rets": 3,
+      "semantic_index": 1400,
+      "patches": 0,
+      "incoming": 2,
+      "parents": 1,
+      "feature_ids": [
+        "FUNC-RENDER",
+        "FUNC-RESOURCE"
+      ],
+      "contract": "原graphic+22的S16索引<=0或>=S32 count仅W16清0并返U8=2；有效时借本次record，null进生产叶不新建或保护；非空先S16 paletteChoice扩S32比较完整活动号，相等才读S16 version比较完整帧，全同返回U8=0，不刷新。其它经522CB0再返U8=1，不宣刷新成功或吞原空record行为。现有资源侧S16引用helper与render包装共同承接同一原ID；包装从descriptor+0E(原graphic+22) memcpy读S16，仅result==2才W16写回，其它保持字段、返同U8。原父DrawAllQueued两call520E6C/521484弃返回继续原图加载，全部父闭包/owner运行另验。正确两正文保持，无新空表/空record/版本回绕/故障策略。"
+    }
+  ],
+  "original_function_metadata": [
+    {
+      "entry": "0x522cb0",
+      "end_exclusive": "0x52313b",
+      "chunks": [
+        {
+          "start": "0x522cb0",
+          "end_exclusive": "0x52313b"
+        }
+      ]
+    },
+    {
+      "entry": "0x523140",
+      "end_exclusive": "0x523197",
+      "chunks": [
+        {
+          "start": "0x523140",
+          "end_exclusive": "0x523197"
+        }
+      ]
+    }
+  ],
+  "original_regions": [
+    {
+      "start": "0x522cb0",
+      "end_exclusive": "0x52313b",
+      "parent_entry": "0x522cb0",
+      "instruction_count": 313,
+      "code_bytes": 1163,
+      "page_count": 4,
+      "outgoing_calls": [
+        {
+          "ea": "0x522cef",
+          "target": "0x45a8b0"
+        },
+        {
+          "ea": "0x522d0d",
+          "target": "0x45a900"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x522cbd",
+          "target": "0x523135"
+        },
+        {
+          "ea": "0x522cc9",
+          "target": "0x523135"
+        },
+        {
+          "ea": "0x522cda",
+          "target": "0x522f32"
+        },
+        {
+          "ea": "0x522d17",
+          "target": "0x522d3e"
+        },
+        {
+          "ea": "0x522d39",
+          "target": "0x522dc1"
+        },
+        {
+          "ea": "0x522d87",
+          "target": "0x522dc1"
+        },
+        {
+          "ea": "0x522dd4",
+          "target": "0x522eb1"
+        },
+        {
+          "ea": "0x522ddd",
+          "target": "0x522e47"
+        },
+        {
+          "ea": "0x522de2",
+          "target": "0x522f2a"
+        },
+        {
+          "ea": "0x522e1b",
+          "target": "0x522e23"
+        },
+        {
+          "ea": "0x522e2e",
+          "target": "0x522df2"
+        },
+        {
+          "ea": "0x522e42",
+          "target": "0x522f37"
+        },
+        {
+          "ea": "0x522ea3",
+          "target": "0x522ea9"
+        },
+        {
+          "ea": "0x522ead",
+          "target": "0x522e63"
+        },
+        {
+          "ea": "0x522eaf",
+          "target": "0x522f23"
+        },
+        {
+          "ea": "0x522f0e",
+          "target": "0x522f15"
+        },
+        {
+          "ea": "0x522f21",
+          "target": "0x522ebc"
+        },
+        {
+          "ea": "0x522f30",
+          "target": "0x522f37"
+        },
+        {
+          "ea": "0x522f49",
+          "target": "0x523066"
+        },
+        {
+          "ea": "0x522f52",
+          "target": "0x522fcb"
+        },
+        {
+          "ea": "0x522f57",
+          "target": "0x52310c"
+        },
+        {
+          "ea": "0x522fb1",
+          "target": "0x522fb9"
+        },
+        {
+          "ea": "0x522fc4",
+          "target": "0x522f67"
+        },
+        {
+          "ea": "0x522fc6",
+          "target": "0x52310c"
+        },
+        {
+          "ea": "0x52304d",
+          "target": "0x523053"
+        },
+        {
+          "ea": "0x52305f",
+          "target": "0x522fea"
+        },
+        {
+          "ea": "0x523061",
+          "target": "0x52310c"
+        },
+        {
+          "ea": "0x5230ef",
+          "target": "0x5230f6"
+        },
+        {
+          "ea": "0x523106",
+          "target": "0x523075"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x522cb0",
+          "end_exclusive": "0x52313b",
+          "instructions": [
+            {
+              "ea": "0x522cb0",
+              "size": 3,
+              "bytes": "83ec08",
+              "text": "sub     esp, 8"
+            },
+            {
+              "ea": "0x522cb3",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x522cb4",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x522cb5",
+              "size": 4,
+              "bytes": "8b6c2414",
+              "text": "mov     ebp, [esp+10h+arg_0]"
+            },
+            {
+              "ea": "0x522cb9",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x522cbb",
+              "size": 2,
+              "bytes": "3beb",
+              "text": "cmp     ebp, ebx"
+            },
+            {
+              "ea": "0x522cbd",
+              "size": 6,
+              "bytes": "0f8c72040000",
+              "text": "jl      loc_523135"
+            },
+            {
+              "ea": "0x522cc3",
+              "size": 6,
+              "bytes": "3b2d18cf0301",
+              "text": "cmp     ebp, queue1Count"
+            },
+            {
+              "ea": "0x522cc9",
+              "size": 6,
+              "bytes": "0f8d66040000",
+              "text": "jge     loc_523135"
+            },
+            {
+              "ea": "0x522ccf",
+              "size": 5,
+              "bytes": "a11ccf0301",
+              "text": "mov     eax, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522cd4",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x522cd5",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x522cd6",
+              "size": 4,
+              "bytes": "385ce804",
+              "text": "cmp     [eax+ebp*8+4], bl"
+            },
+            {
+              "ea": "0x522cda",
+              "size": 6,
+              "bytes": "0f8552020000",
+              "text": "jnz     loc_522F32"
+            },
+            {
+              "ea": "0x522ce0",
+              "size": 6,
+              "bytes": "8b158ccf0301",
+              "text": "mov     edx, queue1.start"
+            },
+            {
+              "ea": "0x522ce6",
+              "size": 4,
+              "bytes": "8d4c241c",
+              "text": "lea     ecx, [esp+18h+arg_0]"
+            },
+            {
+              "ea": "0x522cea",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x522ceb",
+              "size": 3,
+              "bytes": "8b04aa",
+              "text": "mov     eax, [edx+ebp*4]"
+            },
+            {
+              "ea": "0x522cee",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x522cef",
+              "size": 5,
+              "bytes": "e8bc7bf3ff",
+              "text": "call    Graphic__getMapNoIndex"
+            },
+            {
+              "ea": "0x522cf4",
+              "size": 4,
+              "bytes": "8b542424",
+              "text": "mov     edx, [esp+20h+arg_0]"
+            },
+            {
+              "ea": "0x522cf8",
+              "size": 4,
+              "bytes": "8d4c2418",
+              "text": "lea     ecx, [esp+20h+var_8]"
+            },
+            {
+              "ea": "0x522cfc",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x522cfd",
+              "size": 5,
+              "bytes": "68d00e0201",
+              "text": "push    offset gCurrentGraphicHight"
+            },
+            {
+              "ea": "0x522d02",
+              "size": 5,
+              "bytes": "68d40e0201",
+              "text": "push    offset gCurrentGraphicWidth"
+            },
+            {
+              "ea": "0x522d07",
+              "size": 5,
+              "bytes": "68c00e0201",
+              "text": "push    offset gGraphicDataPtr"
+            },
+            {
+              "ea": "0x522d0c",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x522d0d",
+              "size": 5,
+              "bytes": "e8ee7bf3ff",
+              "text": "call    Graphic__readGraphicDataByIndex"
+            },
+            {
+              "ea": "0x522d12",
+              "size": 3,
+              "bytes": "83c41c",
+              "text": "add     esp, 1Ch"
+            },
+            {
+              "ea": "0x522d15",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x522d17",
+              "size": 2,
+              "bytes": "7525",
+              "text": "jnz     short loc_522D3E"
+            },
+            {
+              "ea": "0x522d19",
+              "size": 6,
+              "bytes": "8b151ccf0301",
+              "text": "mov     edx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522d1f",
+              "size": 10,
+              "bytes": "c705e00e0201ffffffff",
+              "text": "mov     gGraphicDataBuffer, 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x522d29",
+              "size": 5,
+              "bytes": "b9c0000000",
+              "text": "mov     ecx, 0C0h"
+            },
+            {
+              "ea": "0x522d2e",
+              "size": 3,
+              "bytes": "8b3cea",
+              "text": "mov     edi, [edx+ebp*8]"
+            },
+            {
+              "ea": "0x522d31",
+              "size": 6,
+              "bytes": "81c704080000",
+              "text": "add     edi, 804h"
+            },
+            {
+              "ea": "0x522d37",
+              "size": 2,
+              "bytes": "f3ab",
+              "text": "rep stosd"
+            },
+            {
+              "ea": "0x522d39",
+              "size": 5,
+              "bytes": "e983000000",
+              "text": "jmp     loc_522DC1"
+            },
+            {
+              "ea": "0x522d3e",
+              "size": 6,
+              "bytes": "8b35d40e0201",
+              "text": "mov     esi, gCurrentGraphicWidth"
+            },
+            {
+              "ea": "0x522d44",
+              "size": 6,
+              "bytes": "8b15c00e0201",
+              "text": "mov     edx, gGraphicDataPtr.buffer"
+            },
+            {
+              "ea": "0x522d4a",
+              "size": 7,
+              "bytes": "0faf35d00e0201",
+              "text": "imul    esi, gCurrentGraphicHight"
+            },
+            {
+              "ea": "0x522d51",
+              "size": 4,
+              "bytes": "8b44241c",
+              "text": "mov     eax, [esp+18h+arg_0]"
+            },
+            {
+              "ea": "0x522d55",
+              "size": 4,
+              "bytes": "8b4c2410",
+              "text": "mov     ecx, [esp+18h+var_8]"
+            },
+            {
+              "ea": "0x522d59",
+              "size": 2,
+              "bytes": "03f2",
+              "text": "add     esi, edx"
+            },
+            {
+              "ea": "0x522d5b",
+              "size": 6,
+              "bytes": "8b151ccf0301",
+              "text": "mov     edx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522d61",
+              "size": 5,
+              "bytes": "a3e00e0201",
+              "text": "mov     gGraphicDataBuffer, eax"
+            },
+            {
+              "ea": "0x522d66",
+              "size": 2,
+              "bytes": "8bc1",
+              "text": "mov     eax, ecx"
+            },
+            {
+              "ea": "0x522d68",
+              "size": 3,
+              "bytes": "8b3cea",
+              "text": "mov     edi, [edx+ebp*8]"
+            },
+            {
+              "ea": "0x522d6b",
+              "size": 6,
+              "bytes": "81c704080000",
+              "text": "add     edi, 804h"
+            },
+            {
+              "ea": "0x522d71",
+              "size": 3,
+              "bytes": "c1e902",
+              "text": "shr     ecx, 2"
+            },
+            {
+              "ea": "0x522d74",
+              "size": 2,
+              "bytes": "f3a5",
+              "text": "rep movsd"
+            },
+            {
+              "ea": "0x522d76",
+              "size": 2,
+              "bytes": "8bc8",
+              "text": "mov     ecx, eax"
+            },
+            {
+              "ea": "0x522d78",
+              "size": 3,
+              "bytes": "83e103",
+              "text": "and     ecx, 3"
+            },
+            {
+              "ea": "0x522d7b",
+              "size": 2,
+              "bytes": "f3a4",
+              "text": "rep movsb"
+            },
+            {
+              "ea": "0x522d7d",
+              "size": 4,
+              "bytes": "8b542410",
+              "text": "mov     edx, [esp+18h+var_8]"
+            },
+            {
+              "ea": "0x522d81",
+              "size": 6,
+              "bytes": "81fa00030000",
+              "text": "cmp     edx, 300h"
+            },
+            {
+              "ea": "0x522d87",
+              "size": 2,
+              "bytes": "7338",
+              "text": "jnb     short loc_522DC1"
+            },
+            {
+              "ea": "0x522d89",
+              "size": 5,
+              "bytes": "b900030000",
+              "text": "mov     ecx, 300h"
+            },
+            {
+              "ea": "0x522d8e",
+              "size": 5,
+              "bytes": "b856555555",
+              "text": "mov     eax, 55555556h"
+            },
+            {
+              "ea": "0x522d93",
+              "size": 2,
+              "bytes": "2bca",
+              "text": "sub     ecx, edx"
+            },
+            {
+              "ea": "0x522d95",
+              "size": 2,
+              "bytes": "f7ea",
+              "text": "imul    edx"
+            },
+            {
+              "ea": "0x522d97",
+              "size": 2,
+              "bytes": "8bc2",
+              "text": "mov     eax, edx"
+            },
+            {
+              "ea": "0x522d99",
+              "size": 3,
+              "bytes": "c1e81f",
+              "text": "shr     eax, 1Fh"
+            },
+            {
+              "ea": "0x522d9c",
+              "size": 7,
+              "bytes": "8d8402ac020000",
+              "text": "lea     eax, [edx+eax+2ACh]"
+            },
+            {
+              "ea": "0x522da3",
+              "size": 6,
+              "bytes": "8b151ccf0301",
+              "text": "mov     edx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522da9",
+              "size": 3,
+              "bytes": "8d3c40",
+              "text": "lea     edi, [eax+eax*2]"
+            },
+            {
+              "ea": "0x522dac",
+              "size": 3,
+              "bytes": "8b04ea",
+              "text": "mov     eax, [edx+ebp*8]"
+            },
+            {
+              "ea": "0x522daf",
+              "size": 2,
+              "bytes": "8bd1",
+              "text": "mov     edx, ecx"
+            },
+            {
+              "ea": "0x522db1",
+              "size": 2,
+              "bytes": "03f8",
+              "text": "add     edi, eax"
+            },
+            {
+              "ea": "0x522db3",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x522db5",
+              "size": 3,
+              "bytes": "c1e902",
+              "text": "shr     ecx, 2"
+            },
+            {
+              "ea": "0x522db8",
+              "size": 2,
+              "bytes": "f3ab",
+              "text": "rep stosd"
+            },
+            {
+              "ea": "0x522dba",
+              "size": 2,
+              "bytes": "8bca",
+              "text": "mov     ecx, edx"
+            },
+            {
+              "ea": "0x522dbc",
+              "size": 3,
+              "bytes": "83e103",
+              "text": "and     ecx, 3"
+            },
+            {
+              "ea": "0x522dbf",
+              "size": 2,
+              "bytes": "f3aa",
+              "text": "rep stosb"
+            },
+            {
+              "ea": "0x522dc1",
+              "size": 5,
+              "bytes": "a11ccf0301",
+              "text": "mov     eax, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522dc6",
+              "size": 3,
+              "bytes": "8b0ce8",
+              "text": "mov     ecx, [eax+ebp*8]"
+            },
+            {
+              "ea": "0x522dc9",
+              "size": 5,
+              "bytes": "a1704b5500",
+              "text": "mov     eax, BITSPIXEL"
+            },
+            {
+              "ea": "0x522dce",
+              "size": 3,
+              "bytes": "83c104",
+              "text": "add     ecx, 4"
+            },
+            {
+              "ea": "0x522dd1",
+              "size": 3,
+              "bytes": "83f810",
+              "text": "cmp     eax, 10h"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x522cb0",
+          "end_exclusive": "0x52313b",
+          "instructions": [
+            {
+              "ea": "0x522dd4",
+              "size": 6,
+              "bytes": "0f84d7000000",
+              "text": "jz      loc_522EB1"
+            },
+            {
+              "ea": "0x522dda",
+              "size": 3,
+              "bytes": "83f818",
+              "text": "cmp     eax, 18h"
+            },
+            {
+              "ea": "0x522ddd",
+              "size": 2,
+              "bytes": "7468",
+              "text": "jz      short loc_522E47"
+            },
+            {
+              "ea": "0x522ddf",
+              "size": 3,
+              "bytes": "83f820",
+              "text": "cmp     eax, 20h ; ' '"
+            },
+            {
+              "ea": "0x522de2",
+              "size": 6,
+              "bytes": "0f8542010000",
+              "text": "jnz     loc_522F2A"
+            },
+            {
+              "ea": "0x522de8",
+              "size": 2,
+              "bytes": "8919",
+              "text": "mov     [ecx], ebx"
+            },
+            {
+              "ea": "0x522dea",
+              "size": 5,
+              "bytes": "b803000000",
+              "text": "mov     eax, 3"
+            },
+            {
+              "ea": "0x522def",
+              "size": 3,
+              "bytes": "8d7904",
+              "text": "lea     edi, [ecx+4]"
+            },
+            {
+              "ea": "0x522df2",
+              "size": 6,
+              "bytes": "8b0d1ccf0301",
+              "text": "mov     ecx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522df8",
+              "size": 2,
+              "bytes": "33d2",
+              "text": "xor     edx, edx"
+            },
+            {
+              "ea": "0x522dfa",
+              "size": 3,
+              "bytes": "8b34e9",
+              "text": "mov     esi, [ecx+ebp*8]"
+            },
+            {
+              "ea": "0x522dfd",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x522dff",
+              "size": 7,
+              "bytes": "8ab43006080000",
+              "text": "mov     dh, [eax+esi+806h]"
+            },
+            {
+              "ea": "0x522e06",
+              "size": 7,
+              "bytes": "8a8c3004080000",
+              "text": "mov     cl, [eax+esi+804h]"
+            },
+            {
+              "ea": "0x522e0d",
+              "size": 7,
+              "bytes": "8a943005080000",
+              "text": "mov     dl, [eax+esi+805h]"
+            },
+            {
+              "ea": "0x522e14",
+              "size": 3,
+              "bytes": "c1e208",
+              "text": "shl     edx, 8"
+            },
+            {
+              "ea": "0x522e17",
+              "size": 2,
+              "bytes": "0bd1",
+              "text": "or      edx, ecx"
+            },
+            {
+              "ea": "0x522e19",
+              "size": 2,
+              "bytes": "8917",
+              "text": "mov     [edi], edx"
+            },
+            {
+              "ea": "0x522e1b",
+              "size": 2,
+              "bytes": "7506",
+              "text": "jnz     short loc_522E23"
+            },
+            {
+              "ea": "0x522e1d",
+              "size": 6,
+              "bytes": "c70701000000",
+              "text": "mov     dword ptr [edi], 1"
+            },
+            {
+              "ea": "0x522e23",
+              "size": 3,
+              "bytes": "83c003",
+              "text": "add     eax, 3"
+            },
+            {
+              "ea": "0x522e26",
+              "size": 3,
+              "bytes": "83c704",
+              "text": "add     edi, 4"
+            },
+            {
+              "ea": "0x522e29",
+              "size": 5,
+              "bytes": "3d00030000",
+              "text": "cmp     eax, 300h"
+            },
+            {
+              "ea": "0x522e2e",
+              "size": 2,
+              "bytes": "7cc2",
+              "text": "jl      short loc_522DF2"
+            },
+            {
+              "ea": "0x522e30",
+              "size": 6,
+              "bytes": "8b0d08cf0301",
+              "text": "mov     ecx, dword_103CF08"
+            },
+            {
+              "ea": "0x522e36",
+              "size": 5,
+              "bytes": "a1704b5500",
+              "text": "mov     eax, BITSPIXEL"
+            },
+            {
+              "ea": "0x522e3b",
+              "size": 1,
+              "bytes": "41",
+              "text": "inc     ecx"
+            },
+            {
+              "ea": "0x522e3c",
+              "size": 6,
+              "bytes": "890d08cf0301",
+              "text": "mov     dword_103CF08, ecx"
+            },
+            {
+              "ea": "0x522e42",
+              "size": 5,
+              "bytes": "e9f0000000",
+              "text": "jmp     loc_522F37"
+            },
+            {
+              "ea": "0x522e47",
+              "size": 5,
+              "bytes": "be03080000",
+              "text": "mov     esi, 803h"
+            },
+            {
+              "ea": "0x522e4c",
+              "size": 3,
+              "bytes": "83cfff",
+              "text": "or      edi, 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x522e4f",
+              "size": 2,
+              "bytes": "2bf1",
+              "text": "sub     esi, ecx"
+            },
+            {
+              "ea": "0x522e51",
+              "size": 2,
+              "bytes": "8819",
+              "text": "mov     [ecx], bl"
+            },
+            {
+              "ea": "0x522e53",
+              "size": 3,
+              "bytes": "885901",
+              "text": "mov     [ecx+1], bl"
+            },
+            {
+              "ea": "0x522e56",
+              "size": 3,
+              "bytes": "885902",
+              "text": "mov     [ecx+2], bl"
+            },
+            {
+              "ea": "0x522e59",
+              "size": 3,
+              "bytes": "8d4104",
+              "text": "lea     eax, [ecx+4]"
+            },
+            {
+              "ea": "0x522e5c",
+              "size": 2,
+              "bytes": "2bf9",
+              "text": "sub     edi, ecx"
+            },
+            {
+              "ea": "0x522e5e",
+              "size": 5,
+              "bytes": "baff000000",
+              "text": "mov     edx, 0FFh"
+            },
+            {
+              "ea": "0x522e63",
+              "size": 6,
+              "bytes": "8b1d1ccf0301",
+              "text": "mov     ebx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522e69",
+              "size": 3,
+              "bytes": "8d0c07",
+              "text": "lea     ecx, [edi+eax]"
+            },
+            {
+              "ea": "0x522e6c",
+              "size": 3,
+              "bytes": "8b1ceb",
+              "text": "mov     ebx, [ebx+ebp*8]"
+            },
+            {
+              "ea": "0x522e6f",
+              "size": 7,
+              "bytes": "8a9c0b06080000",
+              "text": "mov     bl, [ebx+ecx+806h]"
+            },
+            {
+              "ea": "0x522e76",
+              "size": 3,
+              "bytes": "885801",
+              "text": "mov     [eax+1], bl"
+            },
+            {
+              "ea": "0x522e79",
+              "size": 6,
+              "bytes": "8b1d1ccf0301",
+              "text": "mov     ebx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522e7f",
+              "size": 3,
+              "bytes": "8b1ceb",
+              "text": "mov     ebx, [ebx+ebp*8]"
+            },
+            {
+              "ea": "0x522e82",
+              "size": 7,
+              "bytes": "8a8c0b05080000",
+              "text": "mov     cl, [ebx+ecx+805h]"
+            },
+            {
+              "ea": "0x522e89",
+              "size": 2,
+              "bytes": "8808",
+              "text": "mov     [eax], cl"
+            },
+            {
+              "ea": "0x522e8b",
+              "size": 6,
+              "bytes": "8b0d1ccf0301",
+              "text": "mov     ecx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522e91",
+              "size": 3,
+              "bytes": "8b0ce9",
+              "text": "mov     ecx, [ecx+ebp*8]"
+            },
+            {
+              "ea": "0x522e94",
+              "size": 2,
+              "bytes": "03ce",
+              "text": "add     ecx, esi"
+            },
+            {
+              "ea": "0x522e96",
+              "size": 3,
+              "bytes": "8a0c01",
+              "text": "mov     cl, [ecx+eax]"
+            },
+            {
+              "ea": "0x522e99",
+              "size": 3,
+              "bytes": "8848ff",
+              "text": "mov     [eax-1], cl"
+            },
+            {
+              "ea": "0x522e9c",
+              "size": 3,
+              "bytes": "8a5801",
+              "text": "mov     bl, [eax+1]"
+            },
+            {
+              "ea": "0x522e9f",
+              "size": 2,
+              "bytes": "0a18",
+              "text": "or      bl, [eax]"
+            },
+            {
+              "ea": "0x522ea1",
+              "size": 2,
+              "bytes": "0ad9",
+              "text": "or      bl, cl"
+            },
+            {
+              "ea": "0x522ea3",
+              "size": 2,
+              "bytes": "7504",
+              "text": "jnz     short loc_522EA9"
+            },
+            {
+              "ea": "0x522ea5",
+              "size": 4,
+              "bytes": "c640ff01",
+              "text": "mov     byte ptr [eax-1], 1"
+            },
+            {
+              "ea": "0x522ea9",
+              "size": 3,
+              "bytes": "83c003",
+              "text": "add     eax, 3"
+            },
+            {
+              "ea": "0x522eac",
+              "size": 1,
+              "bytes": "4a",
+              "text": "dec     edx"
+            },
+            {
+              "ea": "0x522ead",
+              "size": 2,
+              "bytes": "75b4",
+              "text": "jnz     short loc_522E63"
+            },
+            {
+              "ea": "0x522eaf",
+              "size": 2,
+              "bytes": "eb72",
+              "text": "jmp     short loc_522F23"
+            },
+            {
+              "ea": "0x522eb1",
+              "size": 3,
+              "bytes": "668919",
+              "text": "mov     [ecx], bx"
+            },
+            {
+              "ea": "0x522eb4",
+              "size": 5,
+              "bytes": "ba03000000",
+              "text": "mov     edx, 3"
+            },
+            {
+              "ea": "0x522eb9",
+              "size": 3,
+              "bytes": "83c102",
+              "text": "add     ecx, 2"
+            },
+            {
+              "ea": "0x522ebc",
+              "size": 5,
+              "bytes": "a11ccf0301",
+              "text": "mov     eax, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522ec1",
+              "size": 3,
+              "bytes": "8b34e8",
+              "text": "mov     esi, [eax+ebp*8]"
+            },
+            {
+              "ea": "0x522ec4",
+              "size": 5,
+              "bytes": "a160736200",
+              "text": "mov     eax, gCRenderer"
+            },
+            {
+              "ea": "0x522ec9",
+              "size": 6,
+              "bytes": "8bb8c0000000",
+              "text": "mov     edi, [eax+0C0h]"
+            },
+            {
+              "ea": "0x522ecf",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x522ed1",
+              "size": 7,
+              "bytes": "8a841604080000",
+              "text": "mov     al, [esi+edx+804h]"
+            },
+            {
+              "ea": "0x522ed8",
+              "size": 3,
+              "bytes": "8d1c40",
+              "text": "lea     ebx, [eax+eax*2]"
+            },
+            {
+              "ea": "0x522edb",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x522edd",
+              "size": 7,
+              "bytes": "8a841606080000",
+              "text": "mov     al, [esi+edx+806h]"
+            },
+            {
+              "ea": "0x522ee4",
+              "size": 3,
+              "bytes": "8d0440",
+              "text": "lea     eax, [eax+eax*2]"
+            },
+            {
+              "ea": "0x522ee7",
+              "size": 4,
+              "bytes": "89442414",
+              "text": "mov     [esp+18h+var_4], eax"
+            },
+            {
+              "ea": "0x522eeb",
+              "size": 4,
+              "bytes": "668b045f",
+              "text": "mov     ax, [edi+ebx*2]"
+            },
+            {
+              "ea": "0x522eef",
+              "size": 4,
+              "bytes": "8b5c2414",
+              "text": "mov     ebx, [esp+18h+var_4]"
+            },
+            {
+              "ea": "0x522ef3",
+              "size": 5,
+              "bytes": "660b445f04",
+              "text": "or      ax, [edi+ebx*2+4]"
+            },
+            {
+              "ea": "0x522ef8",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x522efa",
+              "size": 7,
+              "bytes": "8a9c1605080000",
+              "text": "mov     bl, [esi+edx+805h]"
+            }
+          ]
+        },
+        {
+          "page_index": 2,
+          "start": "0x522cb0",
+          "end_exclusive": "0x52313b",
+          "instructions": [
+            {
+              "ea": "0x522f01",
+              "size": 2,
+              "bytes": "8bf3",
+              "text": "mov     esi, ebx"
+            },
+            {
+              "ea": "0x522f03",
+              "size": 3,
+              "bytes": "8d3476",
+              "text": "lea     esi, [esi+esi*2]"
+            },
+            {
+              "ea": "0x522f06",
+              "size": 5,
+              "bytes": "660b447702",
+              "text": "or      ax, [edi+esi*2+2]"
+            },
+            {
+              "ea": "0x522f0b",
+              "size": 3,
+              "bytes": "668901",
+              "text": "mov     [ecx], ax"
+            },
+            {
+              "ea": "0x522f0e",
+              "size": 2,
+              "bytes": "7505",
+              "text": "jnz     short loc_522F15"
+            },
+            {
+              "ea": "0x522f10",
+              "size": 5,
+              "bytes": "66c7010100",
+              "text": "mov     word ptr [ecx], 1"
+            },
+            {
+              "ea": "0x522f15",
+              "size": 3,
+              "bytes": "83c203",
+              "text": "add     edx, 3"
+            },
+            {
+              "ea": "0x522f18",
+              "size": 3,
+              "bytes": "83c102",
+              "text": "add     ecx, 2"
+            },
+            {
+              "ea": "0x522f1b",
+              "size": 6,
+              "bytes": "81fa00030000",
+              "text": "cmp     edx, 300h"
+            },
+            {
+              "ea": "0x522f21",
+              "size": 2,
+              "bytes": "7c99",
+              "text": "jl      short loc_522EBC"
+            },
+            {
+              "ea": "0x522f23",
+              "size": 5,
+              "bytes": "a1704b5500",
+              "text": "mov     eax, BITSPIXEL"
+            },
+            {
+              "ea": "0x522f28",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x522f2a",
+              "size": 6,
+              "bytes": "ff0508cf0301",
+              "text": "inc     dword_103CF08"
+            },
+            {
+              "ea": "0x522f30",
+              "size": 2,
+              "bytes": "eb05",
+              "text": "jmp     short loc_522F37"
+            },
+            {
+              "ea": "0x522f32",
+              "size": 5,
+              "bytes": "a1704b5500",
+              "text": "mov     eax, BITSPIXEL"
+            },
+            {
+              "ea": "0x522f37",
+              "size": 6,
+              "bytes": "8b0d1ccf0301",
+              "text": "mov     ecx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522f3d",
+              "size": 3,
+              "bytes": "8b0ce9",
+              "text": "mov     ecx, [ecx+ebp*8]"
+            },
+            {
+              "ea": "0x522f40",
+              "size": 6,
+              "bytes": "81c104040000",
+              "text": "add     ecx, 404h"
+            },
+            {
+              "ea": "0x522f46",
+              "size": 3,
+              "bytes": "83f810",
+              "text": "cmp     eax, 10h"
+            },
+            {
+              "ea": "0x522f49",
+              "size": 6,
+              "bytes": "0f8417010000",
+              "text": "jz      loc_523066"
+            },
+            {
+              "ea": "0x522f4f",
+              "size": 3,
+              "bytes": "83f818",
+              "text": "cmp     eax, 18h"
+            },
+            {
+              "ea": "0x522f52",
+              "size": 2,
+              "bytes": "7477",
+              "text": "jz      short loc_522FCB"
+            },
+            {
+              "ea": "0x522f54",
+              "size": 3,
+              "bytes": "83f820",
+              "text": "cmp     eax, 20h ; ' '"
+            },
+            {
+              "ea": "0x522f57",
+              "size": 6,
+              "bytes": "0f85af010000",
+              "text": "jnz     loc_52310C"
+            },
+            {
+              "ea": "0x522f5d",
+              "size": 2,
+              "bytes": "8919",
+              "text": "mov     [ecx], ebx"
+            },
+            {
+              "ea": "0x522f5f",
+              "size": 5,
+              "bytes": "b803000000",
+              "text": "mov     eax, 3"
+            },
+            {
+              "ea": "0x522f64",
+              "size": 3,
+              "bytes": "8d7904",
+              "text": "lea     edi, [ecx+4]"
+            },
+            {
+              "ea": "0x522f67",
+              "size": 6,
+              "bytes": "8b151ccf0301",
+              "text": "mov     edx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522f6d",
+              "size": 6,
+              "bytes": "8b1df0625500",
+              "text": "mov     ebx, gBGR_Data.r"
+            },
+            {
+              "ea": "0x522f73",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x522f75",
+              "size": 3,
+              "bytes": "8b34ea",
+              "text": "mov     esi, [edx+ebp*8]"
+            },
+            {
+              "ea": "0x522f78",
+              "size": 2,
+              "bytes": "33d2",
+              "text": "xor     edx, edx"
+            },
+            {
+              "ea": "0x522f7a",
+              "size": 7,
+              "bytes": "8a8c0606080000",
+              "text": "mov     cl, [esi+eax+806h]"
+            },
+            {
+              "ea": "0x522f81",
+              "size": 3,
+              "bytes": "8a3419",
+              "text": "mov     dh, [ecx+ebx]"
+            },
+            {
+              "ea": "0x522f84",
+              "size": 6,
+              "bytes": "8b1dec625500",
+              "text": "mov     ebx, gBGR_Data.g"
+            },
+            {
+              "ea": "0x522f8a",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x522f8c",
+              "size": 7,
+              "bytes": "8a8c0605080000",
+              "text": "mov     cl, [esi+eax+805h]"
+            },
+            {
+              "ea": "0x522f93",
+              "size": 3,
+              "bytes": "8a1419",
+              "text": "mov     dl, [ecx+ebx]"
+            },
+            {
+              "ea": "0x522f96",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x522f98",
+              "size": 7,
+              "bytes": "8a8c0604080000",
+              "text": "mov     cl, [esi+eax+804h]"
+            },
+            {
+              "ea": "0x522f9f",
+              "size": 6,
+              "bytes": "8b35e8625500",
+              "text": "mov     esi, gBGR_Data.b"
+            },
+            {
+              "ea": "0x522fa5",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x522fa7",
+              "size": 3,
+              "bytes": "8a1c31",
+              "text": "mov     bl, [ecx+esi]"
+            },
+            {
+              "ea": "0x522faa",
+              "size": 3,
+              "bytes": "c1e208",
+              "text": "shl     edx, 8"
+            },
+            {
+              "ea": "0x522fad",
+              "size": 2,
+              "bytes": "0bd3",
+              "text": "or      edx, ebx"
+            },
+            {
+              "ea": "0x522faf",
+              "size": 2,
+              "bytes": "8917",
+              "text": "mov     [edi], edx"
+            },
+            {
+              "ea": "0x522fb1",
+              "size": 2,
+              "bytes": "7506",
+              "text": "jnz     short loc_522FB9"
+            },
+            {
+              "ea": "0x522fb3",
+              "size": 6,
+              "bytes": "c70701000000",
+              "text": "mov     dword ptr [edi], 1"
+            },
+            {
+              "ea": "0x522fb9",
+              "size": 3,
+              "bytes": "83c003",
+              "text": "add     eax, 3"
+            },
+            {
+              "ea": "0x522fbc",
+              "size": 3,
+              "bytes": "83c704",
+              "text": "add     edi, 4"
+            },
+            {
+              "ea": "0x522fbf",
+              "size": 5,
+              "bytes": "3d00030000",
+              "text": "cmp     eax, 300h"
+            },
+            {
+              "ea": "0x522fc4",
+              "size": 2,
+              "bytes": "7ca1",
+              "text": "jl      short loc_522F67"
+            },
+            {
+              "ea": "0x522fc6",
+              "size": 5,
+              "bytes": "e941010000",
+              "text": "jmp     loc_52310C"
+            },
+            {
+              "ea": "0x522fcb",
+              "size": 5,
+              "bytes": "be03080000",
+              "text": "mov     esi, 803h"
+            },
+            {
+              "ea": "0x522fd0",
+              "size": 3,
+              "bytes": "83cfff",
+              "text": "or      edi, 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x522fd3",
+              "size": 2,
+              "bytes": "2bf1",
+              "text": "sub     esi, ecx"
+            },
+            {
+              "ea": "0x522fd5",
+              "size": 2,
+              "bytes": "8819",
+              "text": "mov     [ecx], bl"
+            },
+            {
+              "ea": "0x522fd7",
+              "size": 3,
+              "bytes": "885901",
+              "text": "mov     [ecx+1], bl"
+            },
+            {
+              "ea": "0x522fda",
+              "size": 3,
+              "bytes": "885902",
+              "text": "mov     [ecx+2], bl"
+            },
+            {
+              "ea": "0x522fdd",
+              "size": 3,
+              "bytes": "8d4104",
+              "text": "lea     eax, [ecx+4]"
+            },
+            {
+              "ea": "0x522fe0",
+              "size": 2,
+              "bytes": "2bf9",
+              "text": "sub     edi, ecx"
+            },
+            {
+              "ea": "0x522fe2",
+              "size": 8,
+              "bytes": "c744241cff000000",
+              "text": "mov     [esp+18h+arg_0], 0FFh"
+            },
+            {
+              "ea": "0x522fea",
+              "size": 6,
+              "bytes": "8b151ccf0301",
+              "text": "mov     edx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x522ff0",
+              "size": 3,
+              "bytes": "8d0c38",
+              "text": "lea     ecx, [eax+edi]"
+            },
+            {
+              "ea": "0x522ff3",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x522ff5",
+              "size": 3,
+              "bytes": "8b14ea",
+              "text": "mov     edx, [edx+ebp*8]"
+            },
+            {
+              "ea": "0x522ff8",
+              "size": 7,
+              "bytes": "8a9c0a06080000",
+              "text": "mov     bl, [edx+ecx+806h]"
+            },
+            {
+              "ea": "0x522fff",
+              "size": 6,
+              "bytes": "8b15f0625500",
+              "text": "mov     edx, gBGR_Data.r"
+            },
+            {
+              "ea": "0x523005",
+              "size": 3,
+              "bytes": "8a1413",
+              "text": "mov     dl, [ebx+edx]"
+            },
+            {
+              "ea": "0x523008",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x52300a",
+              "size": 3,
+              "bytes": "885001",
+              "text": "mov     [eax+1], dl"
+            },
+            {
+              "ea": "0x52300d",
+              "size": 6,
+              "bytes": "8b151ccf0301",
+              "text": "mov     edx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x523013",
+              "size": 3,
+              "bytes": "8b14ea",
+              "text": "mov     edx, [edx+ebp*8]"
+            },
+            {
+              "ea": "0x523016",
+              "size": 7,
+              "bytes": "8a9c0a05080000",
+              "text": "mov     bl, [edx+ecx+805h]"
+            },
+            {
+              "ea": "0x52301d",
+              "size": 6,
+              "bytes": "8b0dec625500",
+              "text": "mov     ecx, gBGR_Data.g"
+            },
+            {
+              "ea": "0x523023",
+              "size": 3,
+              "bytes": "8a140b",
+              "text": "mov     dl, [ebx+ecx]"
+            },
+            {
+              "ea": "0x523026",
+              "size": 2,
+              "bytes": "8810",
+              "text": "mov     [eax], dl"
+            },
+            {
+              "ea": "0x523028",
+              "size": 6,
+              "bytes": "8b0d1ccf0301",
+              "text": "mov     ecx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x52302e",
+              "size": 3,
+              "bytes": "8b14e9",
+              "text": "mov     edx, [ecx+ebp*8]"
+            },
+            {
+              "ea": "0x523031",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            }
+          ]
+        },
+        {
+          "page_index": 3,
+          "start": "0x522cb0",
+          "end_exclusive": "0x52313b",
+          "instructions": [
+            {
+              "ea": "0x523033",
+              "size": 2,
+              "bytes": "03d0",
+              "text": "add     edx, eax"
+            },
+            {
+              "ea": "0x523035",
+              "size": 3,
+              "bytes": "8a0c32",
+              "text": "mov     cl, [edx+esi]"
+            },
+            {
+              "ea": "0x523038",
+              "size": 6,
+              "bytes": "8b15e8625500",
+              "text": "mov     edx, gBGR_Data.b"
+            },
+            {
+              "ea": "0x52303e",
+              "size": 3,
+              "bytes": "8a0c11",
+              "text": "mov     cl, [ecx+edx]"
+            },
+            {
+              "ea": "0x523041",
+              "size": 3,
+              "bytes": "8848ff",
+              "text": "mov     [eax-1], cl"
+            },
+            {
+              "ea": "0x523044",
+              "size": 3,
+              "bytes": "8a5001",
+              "text": "mov     dl, [eax+1]"
+            },
+            {
+              "ea": "0x523047",
+              "size": 2,
+              "bytes": "0ad1",
+              "text": "or      dl, cl"
+            },
+            {
+              "ea": "0x523049",
+              "size": 2,
+              "bytes": "8a08",
+              "text": "mov     cl, [eax]"
+            },
+            {
+              "ea": "0x52304b",
+              "size": 2,
+              "bytes": "0ad1",
+              "text": "or      dl, cl"
+            },
+            {
+              "ea": "0x52304d",
+              "size": 2,
+              "bytes": "7504",
+              "text": "jnz     short loc_523053"
+            },
+            {
+              "ea": "0x52304f",
+              "size": 4,
+              "bytes": "c640ff01",
+              "text": "mov     byte ptr [eax-1], 1"
+            },
+            {
+              "ea": "0x523053",
+              "size": 4,
+              "bytes": "8b4c241c",
+              "text": "mov     ecx, [esp+18h+arg_0]"
+            },
+            {
+              "ea": "0x523057",
+              "size": 3,
+              "bytes": "83c003",
+              "text": "add     eax, 3"
+            },
+            {
+              "ea": "0x52305a",
+              "size": 1,
+              "bytes": "49",
+              "text": "dec     ecx"
+            },
+            {
+              "ea": "0x52305b",
+              "size": 4,
+              "bytes": "894c241c",
+              "text": "mov     [esp+18h+arg_0], ecx"
+            },
+            {
+              "ea": "0x52305f",
+              "size": 2,
+              "bytes": "7589",
+              "text": "jnz     short loc_522FEA"
+            },
+            {
+              "ea": "0x523061",
+              "size": 5,
+              "bytes": "e9a6000000",
+              "text": "jmp     loc_52310C"
+            },
+            {
+              "ea": "0x523066",
+              "size": 3,
+              "bytes": "668919",
+              "text": "mov     [ecx], bx"
+            },
+            {
+              "ea": "0x523069",
+              "size": 3,
+              "bytes": "83c102",
+              "text": "add     ecx, 2"
+            },
+            {
+              "ea": "0x52306c",
+              "size": 5,
+              "bytes": "ba03000000",
+              "text": "mov     edx, 3"
+            },
+            {
+              "ea": "0x523071",
+              "size": 4,
+              "bytes": "894c241c",
+              "text": "mov     [esp+18h+arg_0], ecx"
+            },
+            {
+              "ea": "0x523075",
+              "size": 5,
+              "bytes": "a11ccf0301",
+              "text": "mov     eax, gPaletteDataCache"
+            },
+            {
+              "ea": "0x52307a",
+              "size": 6,
+              "bytes": "8b0d60736200",
+              "text": "mov     ecx, gCRenderer"
+            },
+            {
+              "ea": "0x523080",
+              "size": 6,
+              "bytes": "8b3de8625500",
+              "text": "mov     edi, gBGR_Data.b"
+            },
+            {
+              "ea": "0x523086",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x523088",
+              "size": 3,
+              "bytes": "8b34e8",
+              "text": "mov     esi, [eax+ebp*8]"
+            },
+            {
+              "ea": "0x52308b",
+              "size": 6,
+              "bytes": "8b81c0000000",
+              "text": "mov     eax, [ecx+0C0h]"
+            },
+            {
+              "ea": "0x523091",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x523093",
+              "size": 4,
+              "bytes": "89442414",
+              "text": "mov     [esp+18h+var_4], eax"
+            },
+            {
+              "ea": "0x523097",
+              "size": 7,
+              "bytes": "8a8c1604080000",
+              "text": "mov     cl, [esi+edx+804h]"
+            },
+            {
+              "ea": "0x52309e",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x5230a0",
+              "size": 3,
+              "bytes": "8a0439",
+              "text": "mov     al, [ecx+edi]"
+            },
+            {
+              "ea": "0x5230a3",
+              "size": 6,
+              "bytes": "8b3dec625500",
+              "text": "mov     edi, gBGR_Data.g"
+            },
+            {
+              "ea": "0x5230a9",
+              "size": 3,
+              "bytes": "8d0c40",
+              "text": "lea     ecx, [eax+eax*2]"
+            },
+            {
+              "ea": "0x5230ac",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x5230ae",
+              "size": 7,
+              "bytes": "8a841605080000",
+              "text": "mov     al, [esi+edx+805h]"
+            },
+            {
+              "ea": "0x5230b5",
+              "size": 3,
+              "bytes": "8a1c38",
+              "text": "mov     bl, [eax+edi]"
+            },
+            {
+              "ea": "0x5230b8",
+              "size": 4,
+              "bytes": "8b7c2414",
+              "text": "mov     edi, [esp+18h+var_4]"
+            },
+            {
+              "ea": "0x5230bc",
+              "size": 2,
+              "bytes": "8bc3",
+              "text": "mov     eax, ebx"
+            },
+            {
+              "ea": "0x5230be",
+              "size": 3,
+              "bytes": "8d1c40",
+              "text": "lea     ebx, [eax+eax*2]"
+            },
+            {
+              "ea": "0x5230c1",
+              "size": 4,
+              "bytes": "668b044f",
+              "text": "mov     ax, [edi+ecx*2]"
+            },
+            {
+              "ea": "0x5230c5",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x5230c7",
+              "size": 7,
+              "bytes": "8a8c1606080000",
+              "text": "mov     cl, [esi+edx+806h]"
+            },
+            {
+              "ea": "0x5230ce",
+              "size": 5,
+              "bytes": "660b445f02",
+              "text": "or      ax, [edi+ebx*2+2]"
+            },
+            {
+              "ea": "0x5230d3",
+              "size": 6,
+              "bytes": "8b35f0625500",
+              "text": "mov     esi, gBGR_Data.r"
+            },
+            {
+              "ea": "0x5230d9",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x5230db",
+              "size": 3,
+              "bytes": "8a1c31",
+              "text": "mov     bl, [ecx+esi]"
+            },
+            {
+              "ea": "0x5230de",
+              "size": 2,
+              "bytes": "8bcb",
+              "text": "mov     ecx, ebx"
+            },
+            {
+              "ea": "0x5230e0",
+              "size": 3,
+              "bytes": "8d0c49",
+              "text": "lea     ecx, [ecx+ecx*2]"
+            },
+            {
+              "ea": "0x5230e3",
+              "size": 5,
+              "bytes": "660b444f04",
+              "text": "or      ax, [edi+ecx*2+4]"
+            },
+            {
+              "ea": "0x5230e8",
+              "size": 4,
+              "bytes": "8b4c241c",
+              "text": "mov     ecx, [esp+18h+arg_0]"
+            },
+            {
+              "ea": "0x5230ec",
+              "size": 3,
+              "bytes": "668901",
+              "text": "mov     [ecx], ax"
+            },
+            {
+              "ea": "0x5230ef",
+              "size": 2,
+              "bytes": "7505",
+              "text": "jnz     short loc_5230F6"
+            },
+            {
+              "ea": "0x5230f1",
+              "size": 5,
+              "bytes": "66c7010100",
+              "text": "mov     word ptr [ecx], 1"
+            },
+            {
+              "ea": "0x5230f6",
+              "size": 3,
+              "bytes": "83c203",
+              "text": "add     edx, 3"
+            },
+            {
+              "ea": "0x5230f9",
+              "size": 3,
+              "bytes": "83c102",
+              "text": "add     ecx, 2"
+            },
+            {
+              "ea": "0x5230fc",
+              "size": 6,
+              "bytes": "81fa00030000",
+              "text": "cmp     edx, 300h"
+            },
+            {
+              "ea": "0x523102",
+              "size": 4,
+              "bytes": "894c241c",
+              "text": "mov     [esp+18h+arg_0], ecx"
+            },
+            {
+              "ea": "0x523106",
+              "size": 6,
+              "bytes": "0f8c69ffffff",
+              "text": "jl      loc_523075"
+            },
+            {
+              "ea": "0x52310c",
+              "size": 6,
+              "bytes": "8b151ccf0301",
+              "text": "mov     edx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x523112",
+              "size": 7,
+              "bytes": "668b0dd08f6200",
+              "text": "mov     cx, word ptr gPaletteActived"
+            },
+            {
+              "ea": "0x523119",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x52311a",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x52311b",
+              "size": 3,
+              "bytes": "8b04ea",
+              "text": "mov     eax, [edx+ebp*8]"
+            },
+            {
+              "ea": "0x52311e",
+              "size": 3,
+              "bytes": "668908",
+              "text": "mov     [eax], cx"
+            },
+            {
+              "ea": "0x523121",
+              "size": 6,
+              "bytes": "8b151ccf0301",
+              "text": "mov     edx, gPaletteDataCache"
+            },
+            {
+              "ea": "0x523127",
+              "size": 7,
+              "bytes": "668b0ddc8f6200",
+              "text": "mov     cx, word ptr gFrameIndex_mb"
+            },
+            {
+              "ea": "0x52312e",
+              "size": 3,
+              "bytes": "8b04ea",
+              "text": "mov     eax, [edx+ebp*8]"
+            },
+            {
+              "ea": "0x523131",
+              "size": 4,
+              "bytes": "66894802",
+              "text": "mov     [eax+2], cx"
+            },
+            {
+              "ea": "0x523135",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x523136",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x523137",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x52313a",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x523140",
+      "end_exclusive": "0x523197",
+      "parent_entry": "0x523140",
+      "instruction_count": 30,
+      "code_bytes": 87,
+      "page_count": 1,
+      "outgoing_calls": [
+        {
+          "ea": "0x523165",
+          "target": "0x522cb0"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x52314b",
+          "target": "0x52318e"
+        },
+        {
+          "ea": "0x523156",
+          "target": "0x52318e"
+        },
+        {
+          "ea": "0x523162",
+          "target": "0x523170"
+        },
+        {
+          "ea": "0x52317d",
+          "target": "0x523164"
+        },
+        {
+          "ea": "0x523189",
+          "target": "0x523164"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x523140",
+          "end_exclusive": "0x523197",
+          "instructions": [
+            {
+              "ea": "0x523140",
+              "size": 4,
+              "bytes": "8b542404",
+              "text": "mov     edx, [esp+graphic]"
+            },
+            {
+              "ea": "0x523144",
+              "size": 4,
+              "bytes": "668b4222",
+              "text": "mov     ax, [edx+22h]"
+            },
+            {
+              "ea": "0x523148",
+              "size": 3,
+              "bytes": "6685c0",
+              "text": "test    ax, ax"
+            },
+            {
+              "ea": "0x52314b",
+              "size": 2,
+              "bytes": "7e41",
+              "text": "jle     short loc_52318E"
+            },
+            {
+              "ea": "0x52314d",
+              "size": 3,
+              "bytes": "0fbfc8",
+              "text": "movsx   ecx, ax"
+            },
+            {
+              "ea": "0x523150",
+              "size": 6,
+              "bytes": "3b0d18cf0301",
+              "text": "cmp     ecx, queue1Count"
+            },
+            {
+              "ea": "0x523156",
+              "size": 2,
+              "bytes": "7d36",
+              "text": "jge     short loc_52318E"
+            },
+            {
+              "ea": "0x523158",
+              "size": 5,
+              "bytes": "a11ccf0301",
+              "text": "mov     eax, gPaletteDataCache"
+            },
+            {
+              "ea": "0x52315d",
+              "size": 3,
+              "bytes": "8b04c8",
+              "text": "mov     eax, [eax+ecx*8]"
+            },
+            {
+              "ea": "0x523160",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x523162",
+              "size": 2,
+              "bytes": "750c",
+              "text": "jnz     short loc_523170"
+            },
+            {
+              "ea": "0x523164",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x523165",
+              "size": 5,
+              "bytes": "e846fbffff",
+              "text": "call    sub_522CB0"
+            },
+            {
+              "ea": "0x52316a",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x52316d",
+              "size": 2,
+              "bytes": "b001",
+              "text": "mov     al, 1"
+            },
+            {
+              "ea": "0x52316f",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x523170",
+              "size": 3,
+              "bytes": "0fbf10",
+              "text": "movsx   edx, word ptr [eax]"
+            },
+            {
+              "ea": "0x523173",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x523174",
+              "size": 6,
+              "bytes": "8b35d08f6200",
+              "text": "mov     esi, gPaletteActived"
+            },
+            {
+              "ea": "0x52317a",
+              "size": 2,
+              "bytes": "3bd6",
+              "text": "cmp     edx, esi"
+            },
+            {
+              "ea": "0x52317c",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x52317d",
+              "size": 2,
+              "bytes": "75e5",
+              "text": "jnz     short loc_523164"
+            },
+            {
+              "ea": "0x52317f",
+              "size": 4,
+              "bytes": "0fbf4002",
+              "text": "movsx   eax, word ptr [eax+2]"
+            },
+            {
+              "ea": "0x523183",
+              "size": 6,
+              "bytes": "3b05dc8f6200",
+              "text": "cmp     eax, gFrameIndex_mb"
+            },
+            {
+              "ea": "0x523189",
+              "size": 2,
+              "bytes": "75d9",
+              "text": "jnz     short loc_523164"
+            },
+            {
+              "ea": "0x52318b",
+              "size": 2,
+              "bytes": "32c0",
+              "text": "xor     al, al"
+            },
+            {
+              "ea": "0x52318d",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x52318e",
+              "size": 6,
+              "bytes": "66c742220000",
+              "text": "mov     word ptr [edx+22h], 0"
+            },
+            {
+              "ea": "0x523194",
+              "size": 2,
+              "bytes": "b002",
+              "text": "mov     al, 2"
+            },
+            {
+              "ea": "0x523196",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "incoming_references": [
+    {
+      "entry": "0x522cb0",
+      "references": [
+        {
+          "ea": "0x523165",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x523140",
+          "text": "call    sub_522CB0"
+        }
+      ]
+    },
+    {
+      "entry": "0x523140",
+      "references": [
+        {
+          "ea": "0x520e6c",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x520dd0",
+          "text": "call    Graphic__LoadPatelet"
+        },
+        {
+          "ea": "0x521484",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x520dd0",
+          "text": "call    Graphic__LoadPatelet"
+        }
+      ]
+    }
+  ],
+  "excluded_original_regions": [
+    {
+      "start": "0x522e47",
+      "end_exclusive": "0x522eb1",
+      "mode": 24
+    },
+    {
+      "start": "0x522eb1",
+      "end_exclusive": "0x522f23",
+      "mode": 16
+    },
+    {
+      "start": "0x522fcb",
+      "end_exclusive": "0x523066",
+      "mode": 24
+    },
+    {
+      "start": "0x523066",
+      "end_exclusive": "0x52310c",
+      "mode": 16
+    }
+  ],
+  "color_channel_pointer_slots": [
+    {
+      "address": "0x5562e8",
+      "bytes": "fc8f6200",
+      "value": "0x628ffc",
+      "target_name": "byte_628FFC",
+      "xrefs": [
+        {
+          "ea": "0x44e540",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebp, gBGR_Data.b"
+        },
+        {
+          "ea": "0x44e5b0",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.b"
+        },
+        {
+          "ea": "0x44e5f6",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     edi, gBGR_Data.b"
+        },
+        {
+          "ea": "0x44e699",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebp, gBGR_Data.b"
+        },
+        {
+          "ea": "0x44e703",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.b"
+        },
+        {
+          "ea": "0x44e748",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     esi, gBGR_Data.b"
+        },
+        {
+          "ea": "0x44e7ef",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebp, gBGR_Data.b"
+        },
+        {
+          "ea": "0x44e85e",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.b"
+        },
+        {
+          "ea": "0x44e8ac",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     edi, gBGR_Data.b"
+        },
+        {
+          "ea": "0x450a3b",
+          "type": 3,
+          "parent": "0x450470",
+          "text": "mov     edx, gBGR_Data.b"
+        },
+        {
+          "ea": "0x451133",
+          "type": 3,
+          "parent": "0x450bb0",
+          "text": "mov     ecx, gBGR_Data.b"
+        },
+        {
+          "ea": "0x45116d",
+          "type": 3,
+          "parent": "0x450bb0",
+          "text": "mov     edx, gBGR_Data.b"
+        },
+        {
+          "ea": "0x522f9f",
+          "type": 3,
+          "parent": "0x522cb0",
+          "text": "mov     esi, gBGR_Data.b"
+        },
+        {
+          "ea": "0x523038",
+          "type": 3,
+          "parent": "0x522cb0",
+          "text": "mov     edx, gBGR_Data.b"
+        },
+        {
+          "ea": "0x523080",
+          "type": 3,
+          "parent": "0x522cb0",
+          "text": "mov     edi, gBGR_Data.b"
+        }
+      ]
+    },
+    {
+      "address": "0x5562ec",
+      "bytes": "fc906200",
+      "value": "0x6290fc",
+      "target_name": "byte_6290FC",
+      "xrefs": [
+        {
+          "ea": "0x44e549",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x44e5a0",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x44e60e",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     edi, gBGR_Data.g"
+        },
+        {
+          "ea": "0x44e6a2",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x44e6f4",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x44e750",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebp, gBGR_Data.g"
+        },
+        {
+          "ea": "0x44e7f8",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x44e84e",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x44e8e9",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     edi, gBGR_Data.g"
+        },
+        {
+          "ea": "0x450a44",
+          "type": 3,
+          "parent": "0x450470",
+          "text": "mov     edx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x4510e3",
+          "type": 3,
+          "parent": "0x450bb0",
+          "text": "mov     ecx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x451115",
+          "type": 3,
+          "parent": "0x450bb0",
+          "text": "mov     esi, gBGR_Data.g"
+        },
+        {
+          "ea": "0x522f84",
+          "type": 3,
+          "parent": "0x522cb0",
+          "text": "mov     ebx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x52301d",
+          "type": 3,
+          "parent": "0x522cb0",
+          "text": "mov     ecx, gBGR_Data.g"
+        },
+        {
+          "ea": "0x5230a3",
+          "type": 3,
+          "parent": "0x522cb0",
+          "text": "mov     edi, gBGR_Data.g"
+        }
+      ]
+    },
+    {
+      "address": "0x5562f0",
+      "bytes": "00926200",
+      "value": "0x629200",
+      "target_name": "byte_629200",
+      "xrefs": [
+        {
+          "ea": "0x44e533",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x44e58e",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x44e635",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     edi, gBGR_Data.r"
+        },
+        {
+          "ea": "0x44e68c",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x44e6e3",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x44e77f",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebp, gBGR_Data.r"
+        },
+        {
+          "ea": "0x44e7e2",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x44e83d",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     ebx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x44e8c4",
+          "type": 3,
+          "parent": "0x44e290",
+          "text": "mov     edi, gBGR_Data.r"
+        },
+        {
+          "ea": "0x450a4d",
+          "type": 3,
+          "parent": "0x450470",
+          "text": "mov     edx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x451092",
+          "type": 3,
+          "parent": "0x450bb0",
+          "text": "mov     ecx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x4510c4",
+          "type": 3,
+          "parent": "0x450bb0",
+          "text": "mov     esi, gBGR_Data.r"
+        },
+        {
+          "ea": "0x522f6d",
+          "type": 3,
+          "parent": "0x522cb0",
+          "text": "mov     ebx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x522fff",
+          "type": 3,
+          "parent": "0x522cb0",
+          "text": "mov     edx, gBGR_Data.r"
+        },
+        {
+          "ea": "0x5230d3",
+          "type": 3,
+          "parent": "0x522cb0",
+          "text": "mov     esi, gBGR_Data.r"
+        }
+      ]
+    }
+  ],
+  "source_body_before": [
+    {
+      "path": "cg2d_re/src/GraphicRead.cpp",
+      "marker": "void LoadIndependentPalette32_522CB0(",
+      "text": "void LoadIndependentPalette32_522CB0(const std::int32_t index)\n{\n    if (index < 0 || index >= gIndependentPaletteCount) {\n        return;\n    }\n    IndependentPaletteIndex& entry = gIndependentPaletteIndex[index];\n    if (entry.loaded == 0) {\n        std::int32_t imageNo;\n        GetGraphicMapNoIndex(BorrowIndependentPaletteQueue()[index], &imageNo);\n        std::uint32_t paletteLength;\n        if (ReadGraphicDataByIndex(\n                imageNo, &gGraphicDataPtr, &gCurrentGraphicWidth,\n                &gCurrentGraphicHeight, &paletteLength) == 0) {\n            gGraphicDataBuffer = -1;\n            std::memset(entry.record->sourceBgr, 0, sizeof(entry.record->sourceBgr));\n        } else {\n            gGraphicDataBuffer = imageNo;\n            std::memcpy(\n                entry.record->sourceBgr,\n                gGraphicDataPtr + gCurrentGraphicWidth * gCurrentGraphicHeight,\n                paletteLength);\n            if (paletteLength < 0x300) {\n                // 原 522D89..522DBF：起点向下取整到 BGR 边界，长度仍是 768-L。\n                std::memset(\n                    entry.record->sourceBgr + (paletteLength / 3) * 3,\n                    0, 0x300 - paletteLength);\n            }\n        }\n\n        entry.record->originalColors[0] = 0;\n        for (std::size_t colorIndex = 1; colorIndex < 256; ++colorIndex) {\n            const std::uint8_t* const bgr = entry.record->sourceBgr + colorIndex * 3;\n            const std::uint32_t color = (static_cast<std::uint32_t>(bgr[2]) << 16)\n                | (static_cast<std::uint32_t>(bgr[1]) << 8) | bgr[0];\n            entry.record->originalColors[colorIndex] = color == 0 ? 1u : color;\n        }\n        ++gIndependentPaletteLoadCount;\n    }\n\n    entry.record->tonedColors[0] = 0;\n    for (std::size_t colorIndex = 1; colorIndex < 256; ++colorIndex) {\n        const std::uint8_t* const bgr = entry.record->sourceBgr + colorIndex * 3;\n        const std::uint32_t red = render::gColorChannelMaps.red[bgr[2]];\n        const std::uint32_t green = render::gColorChannelMaps.green[bgr[1]];\n        const std::uint32_t blue = render::gColorChannelMaps.blue[bgr[0]];\n        const std::uint32_t color = (red << 16) | (green << 8) | blue;\n        entry.record->tonedColors[colorIndex] = color == 0 ? 1u : color;\n    }\n    entry.record->paletteChoice = static_cast<std::int16_t>(render::gActivePalette);\n    entry.record->paletteVersion = static_cast<std::int16_t>(render::gPaletteFrameVersion);\n}"
+    },
+    {
+      "path": "cg2d_re/src/GraphicRead.cpp",
+      "marker": "std::uint8_t RefreshIndependentPalette32_523140(",
+      "text": "std::uint8_t RefreshIndependentPalette32_523140(std::int16_t& index)\n{\n    if (index <= 0 || index >= gIndependentPaletteCount) {\n        index = 0;\n        return 2;\n    }\n    const IndependentPaletteRecord* const record = gIndependentPaletteIndex[index].record;\n    if (record != nullptr\n        && record->paletteChoice == render::gActivePalette\n        && record->paletteVersion == render::gPaletteFrameVersion) {\n        return 0;\n    }\n    LoadIndependentPalette32_522CB0(index);\n    return 1;\n}"
+    },
+    {
+      "path": "cg2d_re/src/render/GraphicPendingQueue.cpp",
+      "marker": "std::uint8_t LoadGraphicIndependentPalette_523140(",
+      "text": "std::uint8_t LoadGraphicIndependentPalette_523140(GraphicCacheItem32* const graphic)\n{\n    std::int16_t index;\n    std::memcpy(&index, graphic->descriptor.data() + 0x0E, sizeof(index));\n    const std::uint8_t result = resource::RefreshIndependentPalette32_523140(index);\n    if (result == 2) {\n        std::memcpy(graphic->descriptor.data() + 0x0E, &index, sizeof(index));\n    }\n    return result;\n}"
+    }
+  ],
+  "header_path": "cg2d_re/include/cg/Palette.hpp",
+  "header_before": "#pragma once\n\n#include <cstddef>\n#include <cstdint>\n\nnamespace cg::render {\n\n// 原 PALETTEENTRY 的四字节存储，flags 是调色板标志，不是透明度。\nstruct PaletteEntry {\n    std::uint8_t red;\n    std::uint8_t green;\n    std::uint8_t blue;\n    std::uint8_t flags;\n};\n\n// 原 0x554B78：45 个物理记录；选择函数仅允许正常非负索引 0..38。\nstruct PaletteFile {\n    std::int16_t threshold;\n    char path[128];\n};\n\nstatic_assert(sizeof(PaletteEntry) == 4);\nstatic_assert(offsetof(PaletteEntry, blue) == 2);\nstatic_assert(offsetof(PaletteEntry, flags) == 3);\nstatic_assert(sizeof(PaletteFile) == 130);\nstatic_assert(offsetof(PaletteFile, path) == 2);\n\nextern PaletteFile gPaletteFiles[45];\nextern PaletteEntry gPalette[256];       // 原 0x629B20，当前调色板。\nextern PaletteEntry gPaletteBackup[256]; // 原 0x629F2C，首次文件读取后的副本。\nextern std::uint32_t gPaletteAutoMap[256]; // 原 0x628BC0，0x00RRGGBB 查色表。\n\n// 原 0x5562E8 的三个通道指针依次为红、绿、蓝；x64 仅扩大实际指针。\nstruct ColorChannelMaps {\n    std::uint8_t* red;\n    std::uint8_t* green;\n    std::uint8_t* blue;\n};\nextern ColorChannelMaps gColorChannelMaps;\n\n// 原 0x5562E0 的 RGB 色调，第四字节静态为零；tColor@0x5562E4 可指向别处。\nstruct PaletteTone {\n    std::uint8_t red;\n    std::uint8_t green;\n    std::uint8_t blue;\n    std::uint8_t reserved;\n};\nstatic_assert(sizeof(PaletteTone) == 4);\nextern PaletteTone gPaletteTone;\nextern PaletteTone* gPaletteTonePointer;\nextern std::uint8_t gPaletteToneTargets[45][3]; // 原 0x556254：每项 R/G/B，步长 3。\n\nextern std::int32_t gPaletteInitialized;     // 原 0x628FD8。\nextern std::int32_t gActivePalette;          // 原 0x628FD0。\nextern std::int32_t gPaletteTransitionSteps; // 原 0x628FD4。\nextern std::int32_t gPaletteCapability;      // 原 0x9A7F64；业务含义仍待上游取证。\nextern std::int32_t gPaletteChanging;        // 原 0x628FEC。\nextern std::int32_t gLoadedPalette;          // 原 0x5562F4，初值 -1。\nextern std::int32_t gPaletteTransitionActive; // 原 0x62B0A0，初值 0。\nextern std::int32_t gPaletteTransitionFrame; // 原 0x62B09C，初值 0。\nextern PaletteEntry gPaletteTarget[256];     // 原 0x626C60，目标色的 flags 不由更新函数写入。\nextern float gPaletteBlueCurrent[256];       // 原 0x62A664。\nextern float gPaletteGreenCurrent[256];      // 原 0x629720。\nextern float gPaletteRedCurrent[256];        // 原 0x629318。\nextern float gPaletteBlueStep[256];          // 原 0x6287B4。\nextern float gPaletteGreenStep[256];         // 原 0x6283A8。\nextern float gPaletteRedStep[256];           // 原 0x62AA64。\nextern float gPaletteToneBlueCurrent;        // 原 0x629F28。\nextern float gPaletteToneGreenCurrent;       // 原 0x629F24。\nextern float gPaletteToneRedCurrent;         // 原 0x629F20。\nextern float gPaletteToneBlueStep;           // 原 0x628FF8。\nextern float gPaletteToneGreenStep;          // 原 0x628FF4。\nextern float gPaletteToneRedStep;            // 原 0x628FF0。\nextern std::int32_t gPaletteToneTargetIndex; // 原 0x628BBC。\nextern std::int32_t gPaletteFrameVersion;    // 原 0x628FDC。\nextern std::int32_t gPaletteVersionThrottle; // 原 0x629310。\n\n// 原 453DE0：统计完整 W32 掩码中的置位数；Renderer::Init 用于颜色通道参数。\nint CountMaskBits_453DE0(std::uint32_t mask) noexcept;\n\n// 原 InitPalette@0x450470 的共享逻辑及 32 位分支；调用前须发布 renderer owner。\n// 保留固定颜色、672 字节文件消费、首次备份、168 号置黑、调色板绑定与错误返回。\nint InitPalette32();\n\n// 原 0x450A80；先读取中间 224 色，再复制当前调色板头尾各 16 色。\n// index 须在物理记录内，output 须提供 256 项；短读的 EOF 仍按原端写成 0xFF。\nint ReadPalette(std::int32_t index, PaletteEntry* output);\n\n// 原 451E90：以第 0 色为初始值，仅扫描 [16,count-16)，严格更近才更新。\nstd::int32_t FindNearestPaletteColor_451E90(\n    std::uint32_t color, const PaletteEntry* palette, std::int32_t count);\n\n// 原 0x450B70；不增加负数索引处理，调用者须保证 index 非负。\n// 返回原 EAX：拒绝时为 index，接受时为 steps，而非成功布尔值。\nstd::int32_t SelectPalette(std::int32_t index, std::int32_t steps) noexcept;\n\n// 原 0x450BB0：按活动索引加载目标并逐帧过渡；保持原 EAX 各路径值。\nint UpdatePalette_450BB0();\n\n// 原 0x451220；非零索引的纯黑映射为 1，索引 0 最后单独清零；返回 0x400。\nint RebuildPalette32() noexcept;\n\n} // namespace cg::render\n",
+  "source_patches": [
+    {
+      "id": "BOM01-no-persistent-index-entry",
+      "before": "    IndependentPaletteIndex& entry = gIndependentPaletteIndex[index];\n    if (entry.loaded == 0) {",
+      "after": "    if (gIndependentPaletteIndex[index].loaded == 0) {",
+      "original_eas": [
+        "0x522ccf",
+        "0x522cd6",
+        "0x522cda"
+      ],
+      "reason": "入口仅loaded检查用当次表，不长借entry贯穿MapIndex/Read调用及后续各阶段",
+      "source_path": "cg2d_re/src/GraphicRead.cpp",
+      "root_marker": "void LoadIndependentPalette32_522CB0(",
+      "expected_occurrences": 1
+    },
+    {
+      "id": "BOM01-failure-index-before-cache-publication",
+      "before": "            gGraphicDataBuffer = -1;\n            std::memset(entry.record->sourceBgr, 0, sizeof(entry.record->sourceBgr));",
+      "after": "            IndependentPaletteIndex* const recordIndex = gIndependentPaletteIndex;\n            gGraphicDataBuffer = -1;\n            std::memset(recordIndex[index].record->sourceBgr, 0, 0x300);",
+      "original_eas": [
+        "0x522d19",
+        "0x522d1f",
+        "0x522d2e",
+        "0x522d37"
+      ],
+      "reason": "失败先表样本→图号-1→该表取记录/清原768B BGR；不沿调用前旧entry",
+      "source_path": "cg2d_re/src/GraphicRead.cpp",
+      "root_marker": "void LoadIndependentPalette32_522CB0(",
+      "expected_occurrences": 1
+    },
+    {
+      "id": "BOM01-success-pixel-source-before-cache-publication",
+      "before": "            gGraphicDataBuffer = imageNo;\n            std::memcpy(\n                entry.record->sourceBgr,\n                gGraphicDataPtr + gCurrentGraphicWidth * gCurrentGraphicHeight,\n                paletteLength);",
+      "after": "            const std::uint32_t width = gCurrentGraphicWidth;\n            std::uint8_t* const data = gGraphicDataPtr;\n            const std::uint32_t pixelCount = width * gCurrentGraphicHeight;\n            const std::uint32_t sourceLength = paletteLength;\n            const std::uint8_t* const sourceBgr = data + pixelCount;\n            IndependentPaletteIndex* const recordIndex = gIndependentPaletteIndex;\n            gGraphicDataBuffer = imageNo;\n            std::memcpy(recordIndex[index].record->sourceBgr, sourceBgr, sourceLength);",
+      "original_eas": [
+        "0x522d3e",
+        "0x522d44",
+        "0x522d4a",
+        "0x522d55",
+        "0x522d59",
+        "0x522d5b",
+        "0x522d61",
+        "0x522d68",
+        "0x522d74",
+        "0x522d7b"
+      ],
+      "reason": "成功width→data→height乘积/局部长度→源地址→表样本先于当前图号pub，再取实际记录复制",
+      "source_path": "cg2d_re/src/GraphicRead.cpp",
+      "root_marker": "void LoadIndependentPalette32_522CB0(",
+      "expected_occurrences": 1
+    },
+    {
+      "id": "BOM01-short-bgr-new-record-sampling",
+      "before": "                    entry.record->sourceBgr + (paletteLength / 3) * 3,",
+      "after": "                    gIndependentPaletteIndex[index].record->sourceBgr + (paletteLength / 3) * 3,",
+      "original_eas": [
+        "0x522d7d",
+        "0x522d81",
+        "0x522da3",
+        "0x522dac",
+        "0x522db8",
+        "0x522dbf"
+      ],
+      "reason": "原复制后补清重取表/记录；长度和三字节向下起点原业务保，不改成L起点或新增容量保护",
+      "source_path": "cg2d_re/src/GraphicRead.cpp",
+      "root_marker": "void LoadIndependentPalette32_522CB0(",
+      "expected_occurrences": 1
+    },
+    {
+      "id": "BOM01-original-destination-and-live-source",
+      "before": "        entry.record->originalColors[0] = 0;\n        for (std::size_t colorIndex = 1; colorIndex < 256; ++colorIndex) {\n            const std::uint8_t* const bgr = entry.record->sourceBgr + colorIndex * 3;\n            const std::uint32_t color = (static_cast<std::uint32_t>(bgr[2]) << 16)\n                | (static_cast<std::uint32_t>(bgr[1]) << 8) | bgr[0];\n            entry.record->originalColors[colorIndex] = color == 0 ? 1u : color;\n        }",
+      "after": "        std::uint32_t* const originalColors = gIndependentPaletteIndex[index].record->originalColors;\n        originalColors[0] = 0;\n        for (std::int32_t colorIndex = 1; colorIndex < 256; ++colorIndex) {\n            const IndependentPaletteRecord* const sourceRecord = gIndependentPaletteIndex[index].record;\n            const std::uint32_t red = sourceRecord->sourceBgr[colorIndex * 3 + 2];\n            const std::uint32_t blue = sourceRecord->sourceBgr[colorIndex * 3];\n            const std::uint32_t green = sourceRecord->sourceBgr[colorIndex * 3 + 1];\n            const std::uint32_t color = (red << 16) | (green << 8) | blue;\n            originalColors[colorIndex] = color;\n            if (color == 0) {\n                originalColors[colorIndex] = 1;\n            }\n        }",
+      "original_eas": [
+        "0x522dc1",
+        "0x522dc6",
+        "0x522de8",
+        "0x522def",
+        "0x522df2",
+        "0x522dfa",
+        "0x522dff",
+        "0x522e06",
+        "0x522e0d",
+        "0x522e19",
+        "0x522e1b",
+        "0x522e1d"
+      ],
+      "reason": "原色目标一次借实际表，逐项源重新取记录并R-B-G取样；原完整W32先pub再纯黑W32=1，不合并",
+      "source_path": "cg2d_re/src/GraphicRead.cpp",
+      "root_marker": "void LoadIndependentPalette32_522CB0(",
+      "expected_occurrences": 1
+    },
+    {
+      "id": "BOM01-toned-destination-and-channel-phases",
+      "before": "    entry.record->tonedColors[0] = 0;\n    for (std::size_t colorIndex = 1; colorIndex < 256; ++colorIndex) {\n        const std::uint8_t* const bgr = entry.record->sourceBgr + colorIndex * 3;\n        const std::uint32_t red = render::gColorChannelMaps.red[bgr[2]];\n        const std::uint32_t green = render::gColorChannelMaps.green[bgr[1]];\n        const std::uint32_t blue = render::gColorChannelMaps.blue[bgr[0]];\n        const std::uint32_t color = (red << 16) | (green << 8) | blue;\n        entry.record->tonedColors[colorIndex] = color == 0 ? 1u : color;\n    }",
+      "after": "    std::uint32_t* const tonedColors = gIndependentPaletteIndex[index].record->tonedColors;\n    tonedColors[0] = 0;\n    for (std::int32_t colorIndex = 1; colorIndex < 256; ++colorIndex) {\n        IndependentPaletteIndex* const sourceIndex = gIndependentPaletteIndex;\n        std::uint8_t* const redMap = render::gColorChannelMaps.red;\n        const IndependentPaletteRecord* const sourceRecord = sourceIndex[index].record;\n        const std::uint32_t red = redMap[sourceRecord->sourceBgr[colorIndex * 3 + 2]];\n        std::uint8_t* const greenMap = render::gColorChannelMaps.green;\n        const std::uint32_t green = greenMap[sourceRecord->sourceBgr[colorIndex * 3 + 1]];\n        const std::uint8_t blueIndex = sourceRecord->sourceBgr[colorIndex * 3];\n        std::uint8_t* const blueMap = render::gColorChannelMaps.blue;\n        const std::uint32_t blue = blueMap[blueIndex];\n        const std::uint32_t color = (red << 16) | (green << 8) | blue;\n        tonedColors[colorIndex] = color;\n        if (color == 0) {\n            tonedColors[colorIndex] = 1;\n        }\n    }",
+      "original_eas": [
+        "0x522f37",
+        "0x522f3d",
+        "0x522f5d",
+        "0x522f64",
+        "0x522f67",
+        "0x522f6d",
+        "0x522f75",
+        "0x522f7a",
+        "0x522f81",
+        "0x522f84",
+        "0x522f8c",
+        "0x522f93",
+        "0x522f98",
+        "0x522f9f",
+        "0x522fa7",
+        "0x522faf",
+        "0x522fb1",
+        "0x522fb3"
+      ],
+      "reason": "色调目标固定实际表；每项table先redMap再record/R取查、greenMap-G、先B字节后blueMap查；完整W32先pub再纯黑1",
+      "source_path": "cg2d_re/src/GraphicRead.cpp",
+      "root_marker": "void LoadIndependentPalette32_522CB0(",
+      "expected_occurrences": 1
+    },
+    {
+      "id": "BOM01-separate-version-index-and-value-sampling",
+      "before": "    entry.record->paletteChoice = static_cast<std::int16_t>(render::gActivePalette);\n    entry.record->paletteVersion = static_cast<std::int16_t>(render::gPaletteFrameVersion);",
+      "after": "    IndependentPaletteIndex* versionIndex = gIndependentPaletteIndex;\n    const std::int16_t paletteChoice = static_cast<std::int16_t>(render::gActivePalette);\n    versionIndex[index].record->paletteChoice = paletteChoice;\n    versionIndex = gIndependentPaletteIndex;\n    const std::int16_t paletteVersion = static_cast<std::int16_t>(render::gPaletteFrameVersion);\n    versionIndex[index].record->paletteVersion = paletteVersion;",
+      "original_eas": [
+        "0x52310c",
+        "0x523112",
+        "0x52311b",
+        "0x52311e",
+        "0x523121",
+        "0x523127",
+        "0x52312e",
+        "0x523131"
+      ],
+      "reason": "两个尾W16每次表先于版本值样本，随后取该记录pub；不持旧entry/record跨两个版本写",
+      "source_path": "cg2d_re/src/GraphicRead.cpp",
+      "root_marker": "void LoadIndependentPalette32_522CB0(",
+      "expected_occurrences": 1
+    }
+  ],
+  "carrier_patch": {
+    "id": "BOM01-bgr-native-pointer-carrier",
+    "source_path": "cg2d_re/include/cg/Palette.hpp",
+    "expected_occurrences": 1,
+    "before": "// 原 0x5562E8 的三个通道指针依次为红、绿、蓝；x64 仅扩大实际指针。\nstruct ColorChannelMaps {\n    std::uint8_t* red;\n    std::uint8_t* green;\n    std::uint8_t* blue;\n};",
+    "after": "// 原 5562E8/5562EC/5562F0 依次为蓝、绿、红通道指针；x64 仅扩大实际指针。\nstruct ColorChannelMaps {\n    std::uint8_t* blue;\n    std::uint8_t* green;\n    std::uint8_t* red;\n};\nstatic_assert(sizeof(ColorChannelMaps) == 3 * sizeof(std::uint8_t*));\nstatic_assert(offsetof(ColorChannelMaps, blue) == 0);\nstatic_assert(offsetof(ColorChannelMaps, green) == sizeof(std::uint8_t*));\nstatic_assert(offsetof(ColorChannelMaps, red) == 2 * sizeof(std::uint8_t*));",
+    "original_addresses": [
+      "0x5562e8",
+      "0x5562ec",
+      "0x5562f0"
+    ],
+    "reason": "原三槽字节与两族消费者证明B-G-R物理顺序，x64只扩实际地址；静态布局断言固定native步长，具名访问语义不变"
+  },
+  "initializer_patch": {
+    "id": "BOM01-preserve-named-maps-after-bgr-layout",
+    "source_path": "cg2d_re/src/Palette.cpp",
+    "expected_occurrences": 1,
+    "before": "ColorChannelMaps gColorChannelMaps {redMap, greenMap, blueMap};",
+    "after": "ColorChannelMaps gColorChannelMaps {blueMap, greenMap, redMap};",
+    "reason": "字段回原B-G-R顺序同时改唯一位置初始化，具名red/green/blue仍指向原同一数组；成员指针消费者源码不改"
+  },
+  "original_observation_totals": {
+    "functions": 2,
+    "implementation_bodies": 3,
+    "instructions": 343,
+    "code_bytes": 1250,
+    "page_count": 5,
+    "outgoing_call_sites": 3,
+    "internal_branches": 34,
+    "return_sites": 4,
+    "switches": 0,
+    "incoming_ordinary_call_sites": 3,
+    "incoming_parent_counts_per_root": [
+      1,
+      1
+    ],
+    "excluded_low_depth_code_bytes": 541,
+    "color_channel_pointer_slot_bytes": 12
+  },
+  "evidence_refs": [
+    "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-baseline",
+    "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-decision",
+    "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-acceptance",
+    "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
+    "doc/cg2d_independent_palette_production_refresh_evidence.json"
+  ],
+  "measurement_before": {
+    "semantic_records": 1399,
+    "semantic_inventory_ids": 1394,
+    "reviewed_function_dispositions": 512,
+    "functions_with_document_links": 1512,
+    "document_link_percent": 41.09,
+    "registry_evidence": 613,
+    "resource_members": 31,
+    "render_members": 26,
+    "battle_members": 105,
+    "tasks_closed": 10,
+    "accepted_leaf_features": 0,
+    "global_accepted": false
+  },
+  "expected_changes": {
+    "semantic_records": 2,
+    "semantic_inventory_ids": 2,
+    "functions_with_document_links": 2,
+    "reviewed_function_dispositions": 2,
+    "registry_evidence": 8,
+    "resource_members": 2,
+    "render_members": 2,
+    "full_runtime_verified": false
+  },
+  "historical_direct_definition_counts": [
+    1,
+    2
+  ],
+  "semantic_indices": [
+    1399,
+    1400
+  ],
+  "scope": "完整原343条含生产16/24位已排除分支，仅共享和32色实施/局部静态；原3指针B-G-R/native承载与具名值，刷新helper和包装同一ID/正确体保，全部父-初始化-分配/FILE/堆owner-上传像素/画面运行不闭合",
+  "restrictions": "单线程/定向静态/measure及-Check，不构建/调试/测试/运行/hash；RPLAN.24正常原宽/native地址，不新增异常策略或故障等价；网络原格式明文/内存CryptInt保/音频暂停"
+}

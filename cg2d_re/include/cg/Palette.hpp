@@ -30,12 +30,16 @@ extern PaletteEntry gPalette[256];       // 原 0x629B20，当前调色板。
 extern PaletteEntry gPaletteBackup[256]; // 原 0x629F2C，首次文件读取后的副本。
 extern std::uint32_t gPaletteAutoMap[256]; // 原 0x628BC0，0x00RRGGBB 查色表。
 
-// 原 0x5562E8 的三个通道指针依次为红、绿、蓝；x64 仅扩大实际指针。
+// 原 5562E8/5562EC/5562F0 依次为蓝、绿、红通道指针；x64 仅扩大实际指针。
 struct ColorChannelMaps {
-    std::uint8_t* red;
-    std::uint8_t* green;
     std::uint8_t* blue;
+    std::uint8_t* green;
+    std::uint8_t* red;
 };
+static_assert(sizeof(ColorChannelMaps) == 3 * sizeof(std::uint8_t*));
+static_assert(offsetof(ColorChannelMaps, blue) == 0);
+static_assert(offsetof(ColorChannelMaps, green) == sizeof(std::uint8_t*));
+static_assert(offsetof(ColorChannelMaps, red) == 2 * sizeof(std::uint8_t*));
 extern ColorChannelMaps gColorChannelMaps;
 
 // 原 0x5562E0 的 RGB 色调，第四字节静态为零；tColor@0x5562E4 可指向别处。

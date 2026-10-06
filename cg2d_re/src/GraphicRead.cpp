@@ -287,51 +287,73 @@ void LoadIndependentPalette32_522CB0(const std::int32_t index)
     if (index < 0 || index >= gIndependentPaletteCount) {
         return;
     }
-    IndependentPaletteIndex& entry = gIndependentPaletteIndex[index];
-    if (entry.loaded == 0) {
+    if (gIndependentPaletteIndex[index].loaded == 0) {
         std::int32_t imageNo;
         GetGraphicMapNoIndex(BorrowIndependentPaletteQueue()[index], &imageNo);
         std::uint32_t paletteLength;
         if (ReadGraphicDataByIndex(
                 imageNo, &gGraphicDataPtr, &gCurrentGraphicWidth,
                 &gCurrentGraphicHeight, &paletteLength) == 0) {
+            IndependentPaletteIndex* const recordIndex = gIndependentPaletteIndex;
             gGraphicDataBuffer = -1;
-            std::memset(entry.record->sourceBgr, 0, sizeof(entry.record->sourceBgr));
+            std::memset(recordIndex[index].record->sourceBgr, 0, 0x300);
         } else {
+            const std::uint32_t width = gCurrentGraphicWidth;
+            std::uint8_t* const data = gGraphicDataPtr;
+            const std::uint32_t pixelCount = width * gCurrentGraphicHeight;
+            const std::uint32_t sourceLength = paletteLength;
+            const std::uint8_t* const sourceBgr = data + pixelCount;
+            IndependentPaletteIndex* const recordIndex = gIndependentPaletteIndex;
             gGraphicDataBuffer = imageNo;
-            std::memcpy(
-                entry.record->sourceBgr,
-                gGraphicDataPtr + gCurrentGraphicWidth * gCurrentGraphicHeight,
-                paletteLength);
+            std::memcpy(recordIndex[index].record->sourceBgr, sourceBgr, sourceLength);
             if (paletteLength < 0x300) {
                 // 原 522D89..522DBF：起点向下取整到 BGR 边界，长度仍是 768-L。
                 std::memset(
-                    entry.record->sourceBgr + (paletteLength / 3) * 3,
+                    gIndependentPaletteIndex[index].record->sourceBgr + (paletteLength / 3) * 3,
                     0, 0x300 - paletteLength);
             }
         }
 
-        entry.record->originalColors[0] = 0;
-        for (std::size_t colorIndex = 1; colorIndex < 256; ++colorIndex) {
-            const std::uint8_t* const bgr = entry.record->sourceBgr + colorIndex * 3;
-            const std::uint32_t color = (static_cast<std::uint32_t>(bgr[2]) << 16)
-                | (static_cast<std::uint32_t>(bgr[1]) << 8) | bgr[0];
-            entry.record->originalColors[colorIndex] = color == 0 ? 1u : color;
+        std::uint32_t* const originalColors = gIndependentPaletteIndex[index].record->originalColors;
+        originalColors[0] = 0;
+        for (std::int32_t colorIndex = 1; colorIndex < 256; ++colorIndex) {
+            const IndependentPaletteRecord* const sourceRecord = gIndependentPaletteIndex[index].record;
+            const std::uint32_t red = sourceRecord->sourceBgr[colorIndex * 3 + 2];
+            const std::uint32_t blue = sourceRecord->sourceBgr[colorIndex * 3];
+            const std::uint32_t green = sourceRecord->sourceBgr[colorIndex * 3 + 1];
+            const std::uint32_t color = (red << 16) | (green << 8) | blue;
+            originalColors[colorIndex] = color;
+            if (color == 0) {
+                originalColors[colorIndex] = 1;
+            }
         }
         ++gIndependentPaletteLoadCount;
     }
 
-    entry.record->tonedColors[0] = 0;
-    for (std::size_t colorIndex = 1; colorIndex < 256; ++colorIndex) {
-        const std::uint8_t* const bgr = entry.record->sourceBgr + colorIndex * 3;
-        const std::uint32_t red = render::gColorChannelMaps.red[bgr[2]];
-        const std::uint32_t green = render::gColorChannelMaps.green[bgr[1]];
-        const std::uint32_t blue = render::gColorChannelMaps.blue[bgr[0]];
+    std::uint32_t* const tonedColors = gIndependentPaletteIndex[index].record->tonedColors;
+    tonedColors[0] = 0;
+    for (std::int32_t colorIndex = 1; colorIndex < 256; ++colorIndex) {
+        IndependentPaletteIndex* const sourceIndex = gIndependentPaletteIndex;
+        std::uint8_t* const redMap = render::gColorChannelMaps.red;
+        const IndependentPaletteRecord* const sourceRecord = sourceIndex[index].record;
+        const std::uint32_t red = redMap[sourceRecord->sourceBgr[colorIndex * 3 + 2]];
+        std::uint8_t* const greenMap = render::gColorChannelMaps.green;
+        const std::uint32_t green = greenMap[sourceRecord->sourceBgr[colorIndex * 3 + 1]];
+        const std::uint8_t blueIndex = sourceRecord->sourceBgr[colorIndex * 3];
+        std::uint8_t* const blueMap = render::gColorChannelMaps.blue;
+        const std::uint32_t blue = blueMap[blueIndex];
         const std::uint32_t color = (red << 16) | (green << 8) | blue;
-        entry.record->tonedColors[colorIndex] = color == 0 ? 1u : color;
+        tonedColors[colorIndex] = color;
+        if (color == 0) {
+            tonedColors[colorIndex] = 1;
+        }
     }
-    entry.record->paletteChoice = static_cast<std::int16_t>(render::gActivePalette);
-    entry.record->paletteVersion = static_cast<std::int16_t>(render::gPaletteFrameVersion);
+    IndependentPaletteIndex* versionIndex = gIndependentPaletteIndex;
+    const std::int16_t paletteChoice = static_cast<std::int16_t>(render::gActivePalette);
+    versionIndex[index].record->paletteChoice = paletteChoice;
+    versionIndex = gIndependentPaletteIndex;
+    const std::int16_t paletteVersion = static_cast<std::int16_t>(render::gPaletteFrameVersion);
+    versionIndex[index].record->paletteVersion = paletteVersion;
 }
 
 } // namespace

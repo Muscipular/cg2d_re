@@ -836,3 +836,13 @@ E487→491仅YOBI/BATTLE四局部I/S；旧812追加、七open与唯一进度同�
 167/168两个已有原ID完整历史深拷贝续记，旧167 FILE调用事实保；1399语义/1394有效ID/1512关联(41.09%)不变，分类510→512、RESOURCE29→31枚举open、四独立正常局部static I/S E609→613，完整gates空。七open只加当前进展/引用，队列175/R7区间67/3061、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它功能保持。 两根分别I/S，全为static；既有源码不代表全部内容消费及寿命，撤额外不重叠条件使正常合同按原写序完整表达，不为达标缩范围；历史限定验证与本步当前局部证据分列。
 
 撤旧接口及旧解码SPEC额外的两两不重叠前提，按原实际取样/字节处理/发布顺序保正常别名，不用附加前提缩原范围；旧限定范围下的历史验证保但不追认当前运行。正常W32/native地址注释按RPLAN.24，不增溢出/越界/补零/钳制/短读修复或异常等价。未构建/调试/测试/运行/hash；全部caller、当前所有正常别名/真实资源内容-调色板/draw/主表FILE owner及画面/R1/R7/R8继续，网络原格式明文/内存CryptInt保/音频暂停。
+
+## BOM01 独立调色板共享/32色与native承载的局部证据（2026-10-06）
+
+[原基线](cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-baseline)、[决议](cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-decision)、[局部验收](cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-acceptance)。原生产313条1163B及刷新30条87B，共343条1250B/五页/3call-34内部分支/4ret，无switch；入向生产1/1父、刷新2/1父分列。完整原体含已排除16/24位四区间541B，只共享及32色实施。七生产补丁撤跨调用entry长借，失败/成功表与像素源先当前图号pub，复制后补清新表，固定实际目标/逐项新源record、R-B-G原色取样与R表→record-R/G表-G/B字节→B表取样，完整W32颜色先写、纯黑再W32=1，两W16版本各自新表先值再record写。原loaded不置位/计数/768B和L/3清段保，刷新两正确正文/原+22 S16与U8=0/1/2、仅2清零写回保持。
+
+原5562E8/EC/F0三槽B-G-R/初值628FFC-6290FC-629200的12B与完整数据引用已归档；ColorChannelMaps及唯一位置初始化恢复B-G-R native顺序/布局断言，具名三通道仍各指同一数组，PaletteTone成员指针消费者/GPC01源码保，不重新全面复验其它父。
+
+新1399/1400两原ID独立纳管：语义1399→1401/有效ID1394→1396、分类512→514、合同关联1512→1514/3680=41.14%；刷新两实现体同一原ID，历史直接定义1/2保。RESOURCE31→33及RENDER26→28枚举open，两根各域I/S共八新局部static证据E613→621，仍两原函数/三实现体；member_inventory_closed=false/gates空，七open仅进展/引用，175队列/R7区间67-3061、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它历史功能保持。 低色深仅完整原库存纳盘，不以整函数排除丢共享/32色范围，也不以全部原条数代实施覆盖；两域八证据不当八函数。只有指针字段拓宽/布局顺序与具名绑定分列，所有者和运行仍独立未闭合。
+
+仅已批准共享及32位正常局部静态，不代全部Tone/数组初始化父、读取/分配-回收/重入owner、上传像素/画面和R1/R7/R8。未编译/调试/测试/运行/hash；RPLAN.24正常原宽/已证地址，不新增异常保护/回绕或故障等价，网络原格式明文/内存CryptInt保/音频暂停。

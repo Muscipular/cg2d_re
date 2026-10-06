@@ -10094,24 +10094,28 @@ std::int32_t NewBattleTimeNumber_4206C0(
 
 void UpdateBattleFloatingIcon_41F450(YobiAction* const action)
 {
-    if (action->phase == 0) {
+    const std::int32_t initialPhase = action->phase;
+    if (initialPhase == 0) {
         const double speed = static_cast<double>(std::bit_cast<float>(action->value4CBits))
             + std::bit_cast<float>(0x3F4CCCCDu);
+        const bool reachedPeak = speed >= std::bit_cast<float>(0x40E66666u);
         action->value4CBits = std::bit_cast<std::uint32_t>(static_cast<float>(speed));
-        if (speed >= std::bit_cast<float>(0x40E66666u)) {
+        if (reachedPeak) {
             action->phase = 1;
         }
         // 原FST不弹出速度，Y使用未舍入和，而非刚存回的F32。
         action->offset44 = static_cast<float>(speed + action->offset44);
-    } else if (action->phase == 1) {
+    } else if (initialPhase == 1) {
         const std::int32_t count = action->deltaX + 1;
         action->deltaX = count;
         if (count >= 60) {
             static_cast<void>(MarkDeath(action));
         }
     }
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t projectedX = static_cast<std::int32_t>(action->offset40);
+    const float projectedY = action->offset44;
+    action->x = projectedX;
+    action->y = static_cast<std::int32_t>(projectedY);
 }
 
 YobiAction* NewBattleFloatingIcon_41F4C0(
@@ -10137,8 +10141,10 @@ YobiAction* NewBattleFloatingIcon_41F4C0(
     action->rebirthValue2 = 4;
     action->field270 = 0;
     static_cast<void>(PlayFrame_517DA0(action, 1));
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t projectedX = static_cast<std::int32_t>(action->offset40);
+    const float projectedY = action->offset44;
+    action->x = projectedX;
+    action->y = static_cast<std::int32_t>(projectedY);
     return action;
 }
 
@@ -31158,9 +31164,13 @@ void ApplyBattleEffectFlags_406390(const std::int32_t sourcePosition, YobiAction
         static_cast<void>(NewBattleFloatingIcon_41F4C0(
             gBattleAllEntries59E980[auxiliaryRecipient], 22328, 0, 0));
         static_cast<void>(audio::PlaySe_52C450(214, gBattleAllEntries59E980[auxiliaryRecipient]->x));
-        static_cast<void>(SetBattleRider_4222B0(
-            gBattleAllEntries59E980[auxiliaryRecipient], imageNo, ridingImageNo));
-        SetBattleGear_422BC0(gBattleAllEntries59E980[auxiliaryRecipient], gearImageNo);
+        const std::int32_t riderSecondImage = ridingImageNo;
+        const std::int32_t riderFirstImage = imageNo;
+        YobiAction* const riderTarget = gBattleAllEntries59E980[auxiliaryRecipient];
+        static_cast<void>(SetBattleRider_4222B0(riderTarget, riderFirstImage, riderSecondImage));
+        const std::int32_t gearImage = gearImageNo;
+        YobiAction* const gearTarget = gBattleAllEntries59E980[auxiliaryRecipient];
+        SetBattleGear_422BC0(gearTarget, gearImage);
     }
     // 附加读取已经推进游标，末两块仍消费入口快照，不刷新flags或position。
     if ((flags & 0x1000000u) != 0) {

@@ -2679,3 +2679,17 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 | 1391 | F:00005CB0 / 0x405CB0 | src/YobiRuntime.cpp / Sub_405CB0 | 正确实现独立纳管 |
 
 九独立语义1383..1391/adapted分类，BATTLE85→94枚举仍open；语义1392/有效ID1387、分类498、关联1505/3680=40.90%、E579局部I/S18条。175待处置队列、其它域/历史、60源码closed10/完整验收0/P01及七open/完整门禁保持。表修改者/全部219入向父-callee-owner/生命周期/ABI-PC53-实际画面与R1/R7/R8继续；网络原格式明文/音频暂停，不构建/测试/运行/摘要。
+
+## BOH01 五个独立消费助手与图标创建更新原ID（2026-10-06）
+
+[具体SPEC](cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline)/[证据](cg2d_battle_flags_aux_icon_consumer_evidence.json)。完整五根286条952B/六页26call-22内部分支/六ret，无switch；175普通入向call与单41F4D8 callback地址绑定分列，F32 0.8/7.2常量8B。三个函数六还原：浮动入口phase一次样本、未舍入速度先比较后存F32、创建/更新X截断后Y先Xpub、audio后骑乘图号先fresh对象/Rider后gear先fresh对象。原Reset的S32载荷差-F32方向链、Aux固定payload后三Advance/四fresh游标输出与别名、Apply入口flags-position/五独立位顺序200000-400000-800000-1000000-2000000及2000对象分流保；Aux后末两块不刷新初记录。浮动parent仅本次坐标借用，创建失败空/Play后取坐标、未舍入速度推进Y、入口phase1达60标死仍投影保，既有二参数音效214/暂停保。
+
+| 语义序号 | 原ID / 入口 | 实际源码 | 本步状态 |
+| --- | --- | --- | --- |
+| 1392 | F:00006260 / 0x406260 | src/YobiRuntime.cpp / Sub_406260 | 正确正文独立纳管 |
+| 1393 | F:00006390 / 0x406390 | src/YobiRuntime.cpp / ApplyBattleEffectFlags_406390 | 1处原取样/表达还原 |
+| 1394 | F:0003BC90 / 0x43BC90 | src/YobiRuntime.cpp / TakeBattleAuxEffects_43BC90 | 正确正文独立纳管 |
+| 1395 | F:0001F4C0 / 0x41F4C0 | src/YobiRuntime.cpp / NewBattleFloatingIcon_41F4C0 | 1处原取样/表达还原 |
+| 1396 | F:0001F450 / 0x41F450 | src/YobiRuntime.cpp / UpdateBattleFloatingIcon_41F450 | 4处原取样/表达还原 |
+
+新增语义1392..1396/五adapted分类、BATTLE94→99枚举仍open；语义1397/有效ID1392、分类503、关联1510/3680=41.03%、E589局部I/S10条。其它历史/功能与175队列、R7区间67/3061、60源码closed10/完整验收0/P01、七open和完整门禁保持。全部176入向父-callee/共享表生产消费-owner/资源重进退出-ABI-PC53-实际画面与R1/R7/R8继续；网络原格式明文/音频暂停，不构建/测试/运行/摘要。

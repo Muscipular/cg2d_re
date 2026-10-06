@@ -166149,6 +166149,336 @@
         "full_runtime_verified": false,
         "preserved_contract": "native非拥有action，无新空门禁；角>=360减360否则<0加360，仅调整一次F32；八区间逐条live比较/W32方向：15..60→4、60..120→5、120..165→6、165..195→7、195..240→0、240..300→1、300..345→2、345..360或0..15→3，下含上不含；不循环归一。"
       }
+    },
+    {
+      "original_entry": "0x406260",
+      "inventory_id": "F:00006260",
+      "status": "BOH01完整正常消费助手/正确实现独立纳管；全部父-callee/共享表-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_406260"
+          ],
+          "relationship": "action原空返回，非空固定payload且无payload空门禁；先S32 y04-y0C以F64运算/F32参数，后x00-x08同样落F32，46F970结果F32写angle50后405CB0一次归一/更新方向；不回绕S32差或以屏幕坐标替代。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_406260"
+          ],
+          "relationship": "既有native非拥有T*/S32*与F32数值、原S32/void/nativeT*返回保持，不扩音频或公开布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+      ],
+      "boundary": "native非拥有地址，非地址S32/U32-F32/F64-W32/W16/W8保；仅正常局部I/S，176入向全部父/共享表/owner-ABI-PC53及运行未验。",
+      "instruction_count": 20,
+      "function_chunks": [
+        {
+          "start": "0x406260",
+          "end_exclusive": "0x406292"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "Sub_406260",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOH01完整20条50B/1页/2call-1分支-1ret/0补丁，四输出别名/五位消费或图标生命周期局部静态，不代全部父/运行",
+      "battle_flags_aux_icon_consumer": {
+        "spec_id": "BOH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+          "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+        ],
+        "original_entry": "0x406260",
+        "original_instruction_count": 20,
+        "original_code_bytes": 50,
+        "page_count": 1,
+        "outgoing_call_site_count": 2,
+        "incoming_reference_count": 40,
+        "incoming_parent_count": 14,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "action原空返回，非空固定payload且无payload空门禁；先S32 y04-y0C以F64运算/F32参数，后x00-x08同样落F32，46F970结果F32写angle50后405CB0一次归一/更新方向；不回绕S32差或以屏幕坐标替代。"
+      }
+    },
+    {
+      "original_entry": "0x406390",
+      "inventory_id": "F:00006390",
+      "status": "BOH01完整正常消费助手/原表达或取样已还原；全部父-callee/共享表-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ApplyBattleEffectFlags_406390"
+          ],
+          "relationship": "原无action/payload空门禁，固定payload/C9C后flags先position入口快照；五bit独立依序200000→图22329、400000→22330、800000→三次Advance的Aux四输出后22328/音效214/骑乘/装备、1000000→22330、2000000→22328/音效214。初flags2000选sourcePosition，否则普通块固定position、Aux块输出effectPosition；Aux推进游标后末两块仍用入口flags/position。所有icon/audio/rider/gear间fresh查全对象表；audio后riding再image先查骑乘对象，骑乘返回gear先查装备对象；不复用旧指针，不把位条件改互斥。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ApplyBattleEffectFlags_406390"
+          ],
+          "relationship": "既有native非拥有T*/S32*与F32数值、原S32/void/nativeT*返回保持，不扩音频或公开布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+      ],
+      "boundary": "native非拥有地址，非地址S32/U32-F32/F64-W32/W16/W8保；仅正常局部I/S，176入向全部父/共享表/owner-ABI-PC53及运行未验。",
+      "instruction_count": 153,
+      "function_chunks": [
+        {
+          "start": "0x406390",
+          "end_exclusive": "0x40659E"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "ApplyBattleEffectFlags_406390",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOH01完整153条526B/2页/14call-15分支-1ret/1补丁，四输出别名/五位消费或图标生命周期局部静态，不代全部父/运行",
+      "battle_flags_aux_icon_consumer": {
+        "spec_id": "BOH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+          "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+        ],
+        "original_entry": "0x406390",
+        "original_instruction_count": 153,
+        "original_code_bytes": 526,
+        "page_count": 2,
+        "outgoing_call_site_count": 14,
+        "incoming_reference_count": 24,
+        "incoming_parent_count": 23,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "原无action/payload空门禁，固定payload/C9C后flags先position入口快照；五bit独立依序200000→图22329、400000→22330、800000→三次Advance的Aux四输出后22328/音效214/骑乘/装备、1000000→22330、2000000→22328/音效214。初flags2000选sourcePosition，否则普通块固定position、Aux块输出effectPosition；Aux推进游标后末两块仍用入口flags/position。所有icon/audio/rider/gear间fresh查全对象表；audio后riding再image先查骑乘对象，骑乘返回gear先查装备对象；不复用旧指针，不把位条件改互斥。"
+      }
+    },
+    {
+      "original_entry": "0x43BC90",
+      "inventory_id": "F:0003BC90",
+      "status": "BOH01完整正常消费助手/正确实现独立纳管；全部父-callee/共享表-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "TakeBattleAuxEffects_43BC90"
+          ],
+          "relationship": "原无action/payload/输出指针空门禁，固定payload先Advance439470；每次输出单独freshC9C：position→position3(value3)→position4(value4)，输出可能别名游标，不能固定同一record。第二Advance后freshC9C-position3(value5)，第三Advance原S32结果返回；不在sentinel位置==-1时自加早退。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "TakeBattleAuxEffects_43BC90"
+          ],
+          "relationship": "既有native非拥有T*/S32*与F32数值、原S32/void/nativeT*返回保持，不扩音频或公开布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+      ],
+      "boundary": "native非拥有地址，非地址S32/U32-F32/F64-W32/W16/W8保；仅正常局部I/S，176入向全部父/共享表/owner-ABI-PC53及运行未验。",
+      "instruction_count": 34,
+      "function_chunks": [
+        {
+          "start": "0x43BC90",
+          "end_exclusive": "0x43BCFD"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "TakeBattleAuxEffects_43BC90",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOH01完整34条109B/1页/3call-0分支-1ret/0补丁，四输出别名/五位消费或图标生命周期局部静态，不代全部父/运行",
+      "battle_flags_aux_icon_consumer": {
+        "spec_id": "BOH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+          "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+        ],
+        "original_entry": "0x43BC90",
+        "original_instruction_count": 34,
+        "original_code_bytes": 109,
+        "page_count": 1,
+        "outgoing_call_site_count": 3,
+        "incoming_reference_count": 13,
+        "incoming_parent_count": 12,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "原无action/payload/输出指针空门禁，固定payload先Advance439470；每次输出单独freshC9C：position→position3(value3)→position4(value4)，输出可能别名游标，不能固定同一record。第二Advance后freshC9C-position3(value5)，第三Advance原S32结果返回；不在sentinel位置==-1时自加早退。"
+      }
+    },
+    {
+      "original_entry": "0x41F4C0",
+      "inventory_id": "F:0001F4C0",
+      "status": "BOH01完整正常消费助手/原表达或取样已还原；全部父-callee/共享表-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleFloatingIcon_41F4C0"
+          ],
+          "relationship": "NewYobiAction(2,0)失败原nullptr返回，成功固定原flags→callback41F450/优先级W8 CC/flagsOR40000/播放率W32 100；S32 offsetX+parent F32X落F32后S32 offsetY+parent F32Y暂存F64，速度W32位型C1000000(-8F)/imageW32/方向0/两重生W8=4/原YF32与W16field270=0按序；PlayFrame(1)后X正常S32截断→fresh F32Y→Xpub→Y截断pub，返回native action。parent仅本次取坐标，无父指针保存/持有，不补空门禁、屏幕偏移或析构。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleFloatingIcon_41F4C0"
+          ],
+          "relationship": "既有native非拥有T*/S32*与F32数值、原S32/void/nativeT*返回保持，不扩音频或公开布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+      ],
+      "boundary": "native非拥有地址，非地址S32/U32-F32/F64-W32/W16/W8保；仅正常局部I/S，176入向全部父/共享表/owner-ABI-PC53及运行未验。",
+      "instruction_count": 44,
+      "function_chunks": [
+        {
+          "start": "0x41F4C0",
+          "end_exclusive": "0x41F564"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleFloatingIcon_41F4C0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOH01完整44条164B/1页/4call-1分支-2ret/1补丁，四输出别名/五位消费或图标生命周期局部静态，不代全部父/运行",
+      "battle_flags_aux_icon_consumer": {
+        "spec_id": "BOH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+          "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+        ],
+        "original_entry": "0x41F4C0",
+        "original_instruction_count": 44,
+        "original_code_bytes": 164,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 98,
+        "incoming_parent_count": 27,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "NewYobiAction(2,0)失败原nullptr返回，成功固定原flags→callback41F450/优先级W8 CC/flagsOR40000/播放率W32 100；S32 offsetX+parent F32X落F32后S32 offsetY+parent F32Y暂存F64，速度W32位型C1000000(-8F)/imageW32/方向0/两重生W8=4/原YF32与W16field270=0按序；PlayFrame(1)后X正常S32截断→fresh F32Y→Xpub→Y截断pub，返回native action。parent仅本次取坐标，无父指针保存/持有，不补空门禁、屏幕偏移或析构。"
+      }
+    },
+    {
+      "original_entry": "0x41F450",
+      "inventory_id": "F:0001F450",
+      "status": "BOH01完整正常图标回调/原表达或取样已还原；全部父-callee/共享表-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleFloatingIcon_41F450"
+          ],
+          "relationship": "固定入口phase：0读F32速度+原0.8F为未舍入和，先与7.2F比较再FST存F32；达阈值phase1，Y仍用未舍入速度和相加落F32，不在本次继续phase1计数。入口1将旧deltaX+1正常S32发布，>=60才MarkDeath，仍投影；其它phase不速度/计数。所有路径X正常S32截断→F32Y样本→Xpub→Y截断pub；原不PlayFrame/不parent/deathFlag门禁、MarkDeath不即刻free。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleFloatingIcon_41F450"
+          ],
+          "relationship": "既有native非拥有T*/S32*与F32数值、原S32/void/nativeT*返回保持，不扩音频或公开布局"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+      ],
+      "boundary": "native非拥有地址，非地址S32/U32-F32/F64-W32/W16/W8保；仅正常局部I/S，176入向全部父/共享表/owner-ABI-PC53及运行未验。",
+      "instruction_count": 35,
+      "function_chunks": [
+        {
+          "start": "0x41F450",
+          "end_exclusive": "0x41F4B7"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleFloatingIcon_41F450",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOH01完整35条103B/1页/3call-5分支-1ret/4补丁，四输出别名/五位消费或图标生命周期局部静态，不代全部父/运行",
+      "battle_flags_aux_icon_consumer": {
+        "spec_id": "BOH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-acceptance",
+          "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+          "doc/cg2d_battle_flags_aux_icon_consumer_evidence.json"
+        ],
+        "original_entry": "0x41F450",
+        "original_instruction_count": 35,
+        "original_code_bytes": 103,
+        "page_count": 1,
+        "outgoing_call_site_count": 3,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 4,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "固定入口phase：0读F32速度+原0.8F为未舍入和，先与7.2F比较再FST存F32；达阈值phase1，Y仍用未舍入速度和相加落F32，不在本次继续phase1计数。入口1将旧deltaX+1正常S32发布，>=60才MarkDeath，仍投影；其它phase不速度/计数。所有路径X正常S32截断→F32Y样本→Xpub→Y截断pub；原不PlayFrame/不parent/deathFlag门禁、MarkDeath不即刻free。"
+      }
     }
   ]
 }

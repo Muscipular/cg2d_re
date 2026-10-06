@@ -54,7 +54,7 @@ int ResetKeyState_459780() noexcept
     return static_cast<int>(LegacyKeyStateCount);
 }
 
-int ReadKeyPressFlag_4597B0(const std::uint8_t key) noexcept
+int ReadKeyPressFlag_4597B0(const std::int32_t key) noexcept
 {
     return static_cast<int>(gKeyStates[key] & 0x10u);
 }

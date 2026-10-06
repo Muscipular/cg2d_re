@@ -952,7 +952,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -968,7 +969,10 @@
         "F:0004B1D0",
         "F:0004ADB0",
         "F:0004B190",
-        "F:000568A0"
+        "F:000568A0",
+        "F:000597A0",
+        "F:000597B0",
+        "F:0004B340"
       ],
       "closure_task_ids": [
         "T01",
@@ -989,7 +993,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1004,7 +1009,8 @@
         "ICM01光标两坐标工具及相位恢复正常S32，原窄化/取样/真实调用/本次值比较和发布序保持；83条原体保存仅坐标相位局部静态，三完整父/16实参/焦点/IME/alias/全部owner寿命/机器PC53/SDK/链接/画面运行仍待，异常不模拟",
         "ITA01输入绘制两匿名工具正常S32已修，21源表达式/数量/窄化/取样/真实调用/队列令牌发布保持；原332条/32引用25父保存仅算术局部，不重验完整父/字体队列消费/焦点/IME/alias/所有owner寿命/机器PC53/SDK/链接/像素画面运行，异常不模拟",
         "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟",
-        "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待"
+        "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待",
+        "BPH01两键查询新1422/1423、预设旧373/三分类与原26普通点11父纳盘，4597B0完整W32接口/预设去收窄，原旗位/文本装载/音效调用保持，枚举open。全部父/键表和焦点/旧99路由、正常alias-owner/寿命、SDK-ABI/链接与实际输入/播放/画面、R1/R7/R8仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1020,7 +1026,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
       ]
     },
     {
@@ -1048,7 +1055,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -1072,7 +1080,8 @@
         "F:00056530",
         "F:00056D70",
         "F:0004B2A0",
-        "F:0004B2E0"
+        "F:0004B2E0",
+        "F:0004B340"
       ],
       "closure_task_ids": [
         "T01",
@@ -1099,7 +1108,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1116,7 +1126,8 @@
         "ICM01光标两坐标工具及相位恢复正常S32，原窄化/取样/真实调用/本次值比较和发布序保持；83条原体保存仅坐标相位局部静态，三完整父/16实参/焦点/IME/alias/全部owner寿命/机器PC53/SDK/链接/画面运行仍待，异常不模拟",
         "ITA01输入绘制两匿名工具正常S32已修，21源表达式/数量/窄化/取样/真实调用/队列令牌发布保持；原332条/32引用25父保存仅算术局部，不重验完整父/字体队列消费/焦点/IME/alias/所有owner寿命/机器PC53/SDK/链接/像素画面运行，异常不模拟",
         "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟",
-        "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待"
+        "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待",
+        "BPH01两键查询新1422/1423、预设旧373/三分类与原26普通点11父纳盘，4597B0完整W32接口/预设去收窄，原旗位/文本装载/音效调用保持，枚举open。全部父/键表和焦点/旧99路由、正常alias-owner/寿命、SDK-ABI/链接与实际输入/播放/画面、R1/R7/R8仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1134,7 +1145,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
       ]
     },
     {
@@ -30760,6 +30772,262 @@
       "observation": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
       "expected": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
       "actual": "仅各域正常局部I/S，无新功能/分母、输入规则、编码或保护。完整父/焦点与正常alias-owner/寿命、SDK-ABI/链接和输入画面运行未验；不声明数学异常/并发等价，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-INPUT-KEY-INDEX-PRESET-000597A0-I-20261006",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPH01三真实根87条282B/26普通点分根5-5-1父，音效支持体独立分母；doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-key-index-width-and-preset-source-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json",
+        "src/platform/WindowProcedure.cpp#ReadKeyFlag4_4597A0",
+        "include/cg/platform/KeyState.hpp",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "doc/cg2d_key_state.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "正确4位查询正文保持，只补独立原身份和正常局部基线，不冒充新实现",
+          "decision_ref": "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整S32键索引沿唯一gKeyStates读取一次U8状态，返回原4位的0/4，不清状态、不增范围/负索引/空指针门禁；正确正文与现有调用保持，原11普通点5父仅纳盘。",
+      "expected": "完整S32键索引沿唯一gKeyStates读取一次U8状态，返回原4位的0/4，不清状态、不增范围/负索引/空指针门禁；正确正文与现有调用保持，原11普通点5父仅纳盘。",
+      "actual": "仅各域正常局部I/S，原完整索引/旗位/选择语义与真实已有提供者。音效支持证据只额外参数未消费，AUDIO暂停不变；无新保护/编码/owner或协议。全部父/焦点/正常alias-owner/寿命、SDK-ABI/链接和实际输入/播放/画面运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-INPUT-KEY-INDEX-PRESET-000597A0-S-20261006",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPH01三真实根87条282B/26普通点分根5-5-1父，音效支持体独立分母；doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-key-index-width-and-preset-source-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json",
+        "src/platform/WindowProcedure.cpp#ReadKeyFlag4_4597A0",
+        "include/cg/platform/KeyState.hpp",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "doc/cg2d_key_state.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "正确4位查询正文保持，只补独立原身份和正常局部基线，不冒充新实现",
+          "decision_ref": "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整S32键索引沿唯一gKeyStates读取一次U8状态，返回原4位的0/4，不清状态、不增范围/负索引/空指针门禁；正确正文与现有调用保持，原11普通点5父仅纳盘。",
+      "expected": "完整S32键索引沿唯一gKeyStates读取一次U8状态，返回原4位的0/4，不清状态、不增范围/负索引/空指针门禁；正确正文与现有调用保持，原11普通点5父仅纳盘。",
+      "actual": "仅各域正常局部I/S，原完整索引/旗位/选择语义与真实已有提供者。音效支持证据只额外参数未消费，AUDIO暂停不变；无新保护/编码/owner或协议。全部父/焦点/正常alias-owner/寿命、SDK-ABI/链接和实际输入/播放/画面运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-INPUT-KEY-INDEX-PRESET-000597B0-I-20261006",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPH01三真实根87条282B/26普通点分根5-5-1父，音效支持体独立分母；doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-key-index-width-and-preset-source-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json",
+        "src/platform/WindowProcedure.cpp#ReadKeyPressFlag_4597B0",
+        "include/cg/platform/KeyState.hpp",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "doc/cg2d_key_state.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "查询参数/声明恢复完整W32(S32)，撤旧U8域收窄，原一次字节取样/0或10H返回和状态不写保持",
+          "decision_ref": "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整W32索引不收窄U8，公开声明/实际定义恢复同既有4597A0/C0一致的S32参数，沿唯一gKeyStates读一次U8并返0/0x10，不清状态或归一bool、不加拒绝/默认值/钳制；256B既有owner和全部状态生产/清零不改，原14普通点5父仅纳盘，异常索引不专项模拟或声明等价。",
+      "expected": "原完整W32索引不收窄U8，公开声明/实际定义恢复同既有4597A0/C0一致的S32参数，沿唯一gKeyStates读一次U8并返0/0x10，不清状态或归一bool、不加拒绝/默认值/钳制；256B既有owner和全部状态生产/清零不改，原14普通点5父仅纳盘，异常索引不专项模拟或声明等价。",
+      "actual": "仅各域正常局部I/S，原完整索引/旗位/选择语义与真实已有提供者。音效支持证据只额外参数未消费，AUDIO暂停不变；无新保护/编码/owner或协议。全部父/焦点/正常alias-owner/寿命、SDK-ABI/链接和实际输入/播放/画面运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-INPUT-KEY-INDEX-PRESET-000597B0-S-20261006",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPH01三真实根87条282B/26普通点分根5-5-1父，音效支持体独立分母；doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-key-index-width-and-preset-source-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json",
+        "src/platform/WindowProcedure.cpp#ReadKeyPressFlag_4597B0",
+        "include/cg/platform/KeyState.hpp",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "doc/cg2d_key_state.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "查询参数/声明恢复完整W32(S32)，撤旧U8域收窄，原一次字节取样/0或10H返回和状态不写保持",
+          "decision_ref": "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整W32索引不收窄U8，公开声明/实际定义恢复同既有4597A0/C0一致的S32参数，沿唯一gKeyStates读一次U8并返0/0x10，不清状态或归一bool、不加拒绝/默认值/钳制；256B既有owner和全部状态生产/清零不改，原14普通点5父仅纳盘，异常索引不专项模拟或声明等价。",
+      "expected": "原完整W32索引不收窄U8，公开声明/实际定义恢复同既有4597A0/C0一致的S32参数，沿唯一gKeyStates读一次U8并返0/0x10，不清状态或归一bool、不加拒绝/默认值/钳制；256B既有owner和全部状态生产/清零不改，原14普通点5父仅纳盘，异常索引不专项模拟或声明等价。",
+      "actual": "仅各域正常局部I/S，原完整索引/旗位/选择语义与真实已有提供者。音效支持证据只额外参数未消费，AUDIO暂停不变；无新保护/编码/owner或协议。全部父/焦点/正常alias-owner/寿命、SDK-ABI/链接和实际输入/播放/画面运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-INPUT-KEY-INDEX-PRESET-0004B340-I-20261006",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPH01三真实根87条282B/26普通点分根5-5-1父，音效支持体独立分母；doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-key-index-width-and-preset-source-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "include/cg/platform/KeyState.hpp",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "doc/cg2d_key_state.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "唯一预设查询去U8收窄，原Shift优先/全扫最后选中/真实文本装载与音效两参数和返回保持，旧373全文归档",
+          "decision_ref": "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
+      "expected": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
+      "actual": "仅各域正常局部I/S，原完整索引/旗位/选择语义与真实已有提供者。音效支持证据只额外参数未消费，AUDIO暂停不变；无新保护/编码/owner或协议。全部父/焦点/正常alias-owner/寿命、SDK-ABI/链接和实际输入/播放/画面运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-INPUT-KEY-INDEX-PRESET-0004B340-S-20261006",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPH01三真实根87条282B/26普通点分根5-5-1父，音效支持体独立分母；doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-key-index-width-and-preset-source-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "include/cg/platform/KeyState.hpp",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "doc/cg2d_key_state.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "唯一预设查询去U8收窄，原Shift优先/全扫最后选中/真实文本装载与音效两参数和返回保持，旧373全文归档",
+          "decision_ref": "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
+      "expected": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
+      "actual": "仅各域正常局部I/S，原完整索引/旗位/选择语义与真实已有提供者。音效支持证据只额外参数未消费，AUDIO暂停不变；无新保护/编码/owner或协议。全部父/焦点/正常alias-owner/寿命、SDK-ABI/链接和实际输入/播放/画面运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-TEXT-KEY-INDEX-PRESET-0004B340-I-20261006",
+      "feature_id": "FUNC-TEXT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPH01三真实根87条282B/26普通点分根5-5-1父，音效支持体独立分母；doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-key-index-width-and-preset-source-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "include/cg/platform/KeyState.hpp",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "doc/cg2d_key_state.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "唯一预设查询去U8收窄，原Shift优先/全扫最后选中/真实文本装载与音效两参数和返回保持，旧373全文归档",
+          "decision_ref": "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
+      "expected": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
+      "actual": "仅各域正常局部I/S，原完整索引/旗位/选择语义与真实已有提供者。音效支持证据只额外参数未消费，AUDIO暂停不变；无新保护/编码/owner或协议。全部父/焦点/正常alias-owner/寿命、SDK-ABI/链接和实际输入/播放/画面运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-TEXT-KEY-INDEX-PRESET-0004B340-S-20261006",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPH01三真实根87条282B/26普通点分根5-5-1父，音效支持体独立分母；doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-key-index-width-and-preset-source-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "include/cg/platform/KeyState.hpp",
+        "src/Input.cpp#ProcessPresetHotkeys_44B340",
+        "doc/cg2d_key_state.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "唯一预设查询去U8收窄，原Shift优先/全扫最后选中/真实文本装载与音效两参数和返回保持，旧373全文归档",
+          "decision_ref": "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
+      "expected": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
+      "actual": "仅各域正常局部I/S，原完整索引/旗位/选择语义与真实已有提供者。音效支持证据只额外参数未消费，AUDIO暂停不变；无新保护/编码/owner或协议。全部父/焦点/正常alias-owner/寿命、SDK-ABI/链接和实际输入/播放/画面运行未验；未构建/测试/运行/hash"
     }
   ],
   "task_acceptance": [
@@ -31129,7 +31397,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
       ]
     },
     {
@@ -31153,7 +31422,8 @@
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
       ]
     },
     {
@@ -31368,7 +31638,8 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
       ]
     },
     {
@@ -31595,7 +31866,8 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
       ]
     },
     {
@@ -31725,7 +31997,8 @@
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
       ]
     },
     {
@@ -31858,7 +32131,8 @@
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
-        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
       ]
     },
     {
@@ -37957,6 +38231,39 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
       ],
       "boundary": "BPD01原字节/正常S32和分段返回保持，x64仅原生非拥有字节/output地址；正常局部static不代overflow/原机器ABI、全26点之父/正常别名-缓冲与输出owner或互通运行：实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。"
+    },
+    {
+      "inventory_id": "F:000597A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+      ],
+      "boundary": "BPH01完整W32非地址参数/原旗位和预设数据消费；原生现有存储/互斥原点合用现有循环，正常局部static不代异常索引、完整父/owner、机器ABI或音频/输入运行：完整S32键索引沿唯一gKeyStates读取一次U8状态，返回原4位的0/4，不清状态、不增范围/负索引/空指针门禁；正确正文与现有调用保持，原11普通点5父仅纳盘。"
+    },
+    {
+      "inventory_id": "F:000597B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+      ],
+      "boundary": "BPH01完整W32非地址参数/原旗位和预设数据消费；原生现有存储/互斥原点合用现有循环，正常局部static不代异常索引、完整父/owner、机器ABI或音频/输入运行：原完整W32索引不收窄U8，公开声明/实际定义恢复同既有4597A0/C0一致的S32参数，沿唯一gKeyStates读一次U8并返0/0x10，不清状态或归一bool、不加拒绝/默认值/钳制；256B既有owner和全部状态生产/清零不改，原14普通点5父仅纳盘，异常索引不专项模拟或声明等价。"
+    },
+    {
+      "inventory_id": "F:0004B340",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+      ],
+      "boundary": "BPH01完整W32非地址参数/原旗位和预设数据消费；原生现有存储/互斥原点合用现有循环，正常局部static不代异常索引、完整父/owner、机器ABI或音频/输入运行：仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。"
     }
   ],
   "auxiliary_dispositions": [

@@ -2968,3 +2968,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [BPG01 SPEC](cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline)/[原证据及全文前态](cg2d_input_scan_budget_sampling_evidence.json)。368/F:0004ADB0单正文两个片段恢复普通字节预算先取/后计数推进、分类后新对象上的判定先取/后预算读取；旧映射存previous_mapping_before_bpg01，原equivalent分类、原身份/冻定位及INPUT/TEXT成员保持。
 
 182条660B/三页6绝对call21内跳1ret，四普通点/四父只纳盘；所有原字符/容量/截断/回滚和真实父接线保持，正常结果不变，不补猜旧99路由或输入焦点。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、INPUT14/TEXT22枚举未闭保持；E703→707仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及全部完整门禁保持。
+
+## BPH01 两查询新身份与旧预设373续记（2026-10-06）
+
+[BPH01 SPEC](cg2d_key_index_preset_source_spec.md#key-index-preset-baseline)/[完整原证据及前态](cg2d_key_index_preset_source_evidence.json)。新1422/F:000597A0、1423/F:000597B0关联已有4条14B各一真根，前者正确体保持，后者完整W32接口恢复；旧373/F:0004B340唯一查询参数去U8收窄，全文原映射存previous_mapping_before_bph01。源3文件/原数据owner和其余语义保持，三新adapted不冒充新造三个函数。
+
+三根87条282B、26普通点11不同父分列，预设三个互斥查询点通过原已有一个循环承接。音效164条支持独立，只额外参数未读，不纳音频成员或软件验收。语义1422→1424条/有效ID1417→1419、关联1535→1537/3680（41.71%→41.77%）、分类543→546，INPUT14→17/TEXT22→23枚举未闭；E707→715仅8条正常局部I/S。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及全部完整门禁保持。

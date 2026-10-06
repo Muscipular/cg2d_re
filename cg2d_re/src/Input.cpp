@@ -1032,8 +1032,7 @@ std::int32_t ProcessPresetHotkeys_44B340()
     std::int32_t selected = -1;
     std::int32_t result = 0;
     for (std::int32_t index = 0; index < 8; ++index) {
-        result = platform::ReadKeyPressFlag_4597B0(
-            static_cast<std::uint8_t>(0x70 + index));
+        result = platform::ReadKeyPressFlag_4597B0(0x70 + index);
         if (result != 0) {
             selected = base + index;
         }

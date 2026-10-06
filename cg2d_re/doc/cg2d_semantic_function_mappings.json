@@ -35183,7 +35183,7 @@
     {
       "original_entry": "0x44B340",
       "inventory_id": "F:0004B340",
-      "status": "现有预设选择及唯一UI调用已关联；音频暂停及运行未验",
+      "status": "BPH01现有预设真实生产/查询原身份纳管，唯一调用去U8收窄，其它选择/返回和callee保持；音频暂停/完整输入运行未验",
       "original_end_exclusive": "0x44B43E",
       "instruction_count": 79,
       "sources": [
@@ -35192,7 +35192,7 @@
           "symbols": [
             "ProcessPresetHotkeys_44B340"
           ],
-          "relationship": "真实现有本体；本步只修改44A160与44B1D0数量类型，其他本体保持"
+          "relationship": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。"
         },
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -35205,9 +35205,72 @@
       "evidence_documents": [
         "doc/cg2d_input_context.md",
         "doc/cg2d_input_append.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json"
       ],
-      "boundary": "Shift优先、否则Ctrl，F1..F8依次调用4597B0，最后非零命中决定0/8/16组索引；未命中保留最后一次按键查询返回。命中先装载再调用52C450。原压栈51/320/240，现有音频窄接口接前两项；音频模块保持暂停，不以本项宣称播放已验收。"
+      "boundary": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。 仅三个原正常局部键索引/flag返回与预设数据消费、接口宽度和实际接线静态对应；不代26点全部11父/输入与键表焦点、旧99路由、正常alias-owner/寿命、SDK机器ABI/链接、实际输入/音频播放或运行。异常索引不专项模拟、不加保护或宣称等价。",
+      "previous_mapping_before_bph01": {
+        "original_entry": "0x44B340",
+        "inventory_id": "F:0004B340",
+        "status": "现有预设选择及唯一UI调用已关联；音频暂停及运行未验",
+        "original_end_exclusive": "0x44B43E",
+        "instruction_count": 79,
+        "sources": [
+          {
+            "path": "src/Input.cpp",
+            "symbols": [
+              "ProcessPresetHotkeys_44B340"
+            ],
+            "relationship": "真实现有本体；本步只修改44A160与44B1D0数量类型，其他本体保持"
+          },
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbols": [
+              "ProcessPresetHotkeys_44B340"
+            ],
+            "relationship": "473F80对应本体内的唯一真实调用"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_input_context.md",
+          "doc/cg2d_input_append.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "Shift优先、否则Ctrl，F1..F8依次调用4597B0，最后非零命中决定0/8/16组索引；未命中保留最后一次按键查询返回。命中先装载再调用52C450。原压栈51/320/240，现有音频窄接口接前两项；音频模块保持暂停，不以本项宣称播放已验收。"
+      },
+      "verification_level": "原79条254B/三互斥查询点与唯一现代caller，当前一个循环/原24项上下文文本和音效两消费参数具名；仅S32参数表达式去收窄，正常局部static不代全部父/焦点/owner/SDK-ABI或音频运行",
+      "key_index_preset_source": {
+        "spec_id": "BPH01",
+        "evidence_refs": [
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+          "doc/cg2d_key_index_preset_source_evidence.json"
+        ],
+        "original_instruction_count": 79,
+        "original_code_bytes": 254,
+        "page_count": 1,
+        "outgoing_call_site_count": 5,
+        "internal_jump_site_count": 11,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "full_original_root_captured": true,
+        "full_parents_captured": false,
+        "runtime_verified": false,
+        "normal_previous_key_values_wrong": false,
+        "original_index_width_restored": false,
+        "original_flag_or_preset_rules_retained": true,
+        "preserved_contract": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
+        "implementation_static_scope": "仅三个原正常局部键索引/flag返回与预设数据消费、接口宽度和实际接线静态对应；不代26点全部11父/输入与键表焦点、旧99路由、正常alias-owner/寿命、SDK机器ABI/链接、实际输入/音频播放或运行。异常索引不专项模拟、不加保护或宣称等价。"
+      }
     },
     {
       "original_entry": "0x508230",
@@ -173254,6 +173317,335 @@
         "new_cipher_enabled": false,
         "preserved_contract": "实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。",
         "implementation_static_scope": "三真实解析根正常局部I/S，52D050正常S32/原逐字节样本实修、两正确体保持；原格式和明文、108回复/所有26点之父/正常别名-缓冲及输出owner/SDK-ABI与互通运行未验"
+      }
+    },
+    {
+      "original_entry": "0x4597A0",
+      "inventory_id": "F:000597A0",
+      "original_role": "ReadKeyFlag4_4597A0",
+      "status": "BPH01既有两查询入口独立基线纳管，4597B0完整W32接口修正/4597A0正确体保持；完整父和输入运行未验",
+      "original_end_exclusive": "0x4597AE",
+      "instruction_count": 4,
+      "original_direct_reference_count": 11,
+      "sources": [
+        {
+          "path": "src/platform/WindowProcedure.cpp",
+          "symbols": [
+            "ReadKeyFlag4_4597A0"
+          ],
+          "relationship": "完整S32键索引沿唯一gKeyStates读取一次U8状态，返回原4位的0/4，不清状态、不增范围/负索引/空指针门禁；正确正文与现有调用保持，原11普通点5父仅纳盘。"
+        },
+        {
+          "path": "include/cg/platform/KeyState.hpp",
+          "symbols": [
+            "ReadKeyFlag4_4597A0"
+          ],
+          "relationship": "既有键查询声明/原单一状态owner，4597B0参数恢复完整W32(S32)，其它接口/状态不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json"
+      ],
+      "boundary": "完整S32键索引沿唯一gKeyStates读取一次U8状态，返回原4位的0/4，不清状态、不增范围/负索引/空指针门禁；正确正文与现有调用保持，原11普通点5父仅纳盘。 仅三个原正常局部键索引/flag返回与预设数据消费、接口宽度和实际接线静态对应；不代26点全部11父/输入与键表焦点、旧99路由、正常alias-owner/寿命、SDK机器ABI/链接、实际输入/音频播放或运行。异常索引不专项模拟、不加保护或宣称等价。",
+      "verification_level": "三真实原根87条282B/三页与26普通点/分根5-5-1父只纳盘；仅完整W32接口/实际预设caller去收窄，正确查询体和全部其它原键/文本语义保持，正常局部static不代完整父/owner/ABI或运行",
+      "function_chunks": [
+        {
+          "start": "0x4597A0",
+          "end_exclusive": "0x4597AE"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "from": "0x474ab0",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x474550",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x474abd",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x474550",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x474ad8",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x474550",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x4828c3",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x482270",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x4adfaf",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x4adf40",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x4d22cd",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x4d2260",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x4d22da",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x4d2260",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x4d2313",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x4d2260",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x502bb1",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x502b80",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x502bf9",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x502b80",
+          "instruction": "call    sub_4597A0"
+        },
+        {
+          "from": "0x502c06",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x502b80",
+          "instruction": "call    sub_4597A0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/WindowProcedure.cpp",
+        "symbol": "ReadKeyFlag4_4597A0",
+        "source_body_implemented": true,
+        "source_body_changed": false,
+        "runtime_verified": false
+      },
+      "key_index_preset_source": {
+        "spec_id": "BPH01",
+        "evidence_refs": [
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+          "doc/cg2d_key_index_preset_source_evidence.json"
+        ],
+        "original_instruction_count": 4,
+        "original_code_bytes": 14,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "internal_jump_site_count": 0,
+        "return_site_count": 1,
+        "incoming_reference_count": 11,
+        "incoming_parent_count": 5,
+        "source_body_patch_count": 0,
+        "source_body_changed": false,
+        "full_original_root_captured": true,
+        "full_parents_captured": false,
+        "runtime_verified": false,
+        "normal_previous_key_values_wrong": false,
+        "original_index_width_restored": false,
+        "original_flag_or_preset_rules_retained": true,
+        "preserved_contract": "完整S32键索引沿唯一gKeyStates读取一次U8状态，返回原4位的0/4，不清状态、不增范围/负索引/空指针门禁；正确正文与现有调用保持，原11普通点5父仅纳盘。",
+        "implementation_static_scope": "仅三个原正常局部键索引/flag返回与预设数据消费、接口宽度和实际接线静态对应；不代26点全部11父/输入与键表焦点、旧99路由、正常alias-owner/寿命、SDK机器ABI/链接、实际输入/音频播放或运行。异常索引不专项模拟、不加保护或宣称等价。"
+      }
+    },
+    {
+      "original_entry": "0x4597B0",
+      "inventory_id": "F:000597B0",
+      "original_role": "ReadKeyPressFlag_4597B0",
+      "status": "BPH01既有两查询入口独立基线纳管，4597B0完整W32接口修正/4597A0正确体保持；完整父和输入运行未验",
+      "original_end_exclusive": "0x4597BE",
+      "instruction_count": 4,
+      "original_direct_reference_count": 14,
+      "sources": [
+        {
+          "path": "src/platform/WindowProcedure.cpp",
+          "symbols": [
+            "ReadKeyPressFlag_4597B0"
+          ],
+          "relationship": "原完整W32索引不收窄U8，公开声明/实际定义恢复同既有4597A0/C0一致的S32参数，沿唯一gKeyStates读一次U8并返0/0x10，不清状态或归一bool、不加拒绝/默认值/钳制；256B既有owner和全部状态生产/清零不改，原14普通点5父仅纳盘，异常索引不专项模拟或声明等价。"
+        },
+        {
+          "path": "include/cg/platform/KeyState.hpp",
+          "symbols": [
+            "ReadKeyPressFlag_4597B0"
+          ],
+          "relationship": "既有键查询声明/原单一状态owner，4597B0参数恢复完整W32(S32)，其它接口/状态不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_key_index_preset_source_evidence.json"
+      ],
+      "boundary": "原完整W32索引不收窄U8，公开声明/实际定义恢复同既有4597A0/C0一致的S32参数，沿唯一gKeyStates读一次U8并返0/0x10，不清状态或归一bool、不加拒绝/默认值/钳制；256B既有owner和全部状态生产/清零不改，原14普通点5父仅纳盘，异常索引不专项模拟或声明等价。 仅三个原正常局部键索引/flag返回与预设数据消费、接口宽度和实际接线静态对应；不代26点全部11父/输入与键表焦点、旧99路由、正常alias-owner/寿命、SDK机器ABI/链接、实际输入/音频播放或运行。异常索引不专项模拟、不加保护或宣称等价。",
+      "verification_level": "三真实原根87条282B/三页与26普通点/分根5-5-1父只纳盘；仅完整W32接口/实际预设caller去收窄，正确查询体和全部其它原键/文本语义保持，正常局部static不代完整父/owner/ABI或运行",
+      "function_chunks": [
+        {
+          "start": "0x4597B0",
+          "end_exclusive": "0x4597BE"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "from": "0x44b39e",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x44b340",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x44b3c9",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x44b340",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x44b3ec",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x44b340",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x45cbb3",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x45ca20",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x45cbc1",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x45ca20",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x45cbdc",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x45ca20",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x45fbf7",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x45fa70",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x45fc05",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x45fa70",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x45fc25",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x45fa70",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x464fa4",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x464e30",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x464fb2",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x464e30",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x464fd1",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x464e30",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x4fd7a8",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x4fd6a0",
+          "instruction": "call    sub_4597B0"
+        },
+        {
+          "from": "0x4fd7b6",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x4fd6a0",
+          "instruction": "call    sub_4597B0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/platform/WindowProcedure.cpp",
+        "symbol": "ReadKeyPressFlag_4597B0",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "key_index_preset_source": {
+        "spec_id": "BPH01",
+        "evidence_refs": [
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance",
+          "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+          "doc/cg2d_key_index_preset_source_evidence.json"
+        ],
+        "original_instruction_count": 4,
+        "original_code_bytes": 14,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "internal_jump_site_count": 0,
+        "return_site_count": 1,
+        "incoming_reference_count": 14,
+        "incoming_parent_count": 5,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "full_original_root_captured": true,
+        "full_parents_captured": false,
+        "runtime_verified": false,
+        "normal_previous_key_values_wrong": false,
+        "original_index_width_restored": true,
+        "original_flag_or_preset_rules_retained": true,
+        "preserved_contract": "原完整W32索引不收窄U8，公开声明/实际定义恢复同既有4597A0/C0一致的S32参数，沿唯一gKeyStates读一次U8并返0/0x10，不清状态或归一bool、不加拒绝/默认值/钳制；256B既有owner和全部状态生产/清零不改，原14普通点5父仅纳盘，异常索引不专项模拟或声明等价。",
+        "implementation_static_scope": "仅三个原正常局部键索引/flag返回与预设数据消费、接口宽度和实际接线静态对应；不代26点全部11父/输入与键表焦点、旧99路由、正常alias-owner/寿命、SDK机器ABI/链接、实际输入/音频播放或运行。异常索引不专项模拟、不加保护或宣称等价。"
       }
     }
   ]

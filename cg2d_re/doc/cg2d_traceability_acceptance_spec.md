@@ -1064,3 +1064,9 @@ R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open�
 [限定验收](cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance)/[四完整原根](cg2d_battle_motion_scale_lifecycle_evidence.json)。339条1170B/六页、29call/10被调入口、34内部jump/四ret和四唯一父邻窗、三个原常数分列；155/156回收同阶段一次非拥有指针已恢复，清槽/推进与正确113/154源保。两局部I/S各十一独立实际来源，只正常源阶段，不代生成机器/x87精度/owner寿命或运行。
 
 语义1431→1435/有效1426→1430、关联1544→1548（42.07%）、BATTLE108→112枚举open、分类556→560、E736→738；R7 259/3061/余2802、差队列172/待归属43及四任务open保。60源码closed10/完整验收0/叶0/global_accepted=false，原标准继续。
+
+## BPT01 资源复制三完整正常源局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_resource_copy_spec.md#battle-resource-copy-acceptance)/[完整540条1709B](cg2d_battle_resource_copy_evidence.json)。九页、63call/11入口、36普通内部jump/15ret与三唯一父九条邻窗，十二原临时复制阶段对应共享helper六取样片段；各字段读齐后按真实次序写，业务上下限、构造/析构及公共尾和162正确体保。两局部I/S各十二独立实际来源，仅正常源阶段，不代全父子/owner寿命或运行。
+
+语义1438/有效1433、关联1551/42.15%、BATTLE115枚举open、分类563/E740；R7 259/3061、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保，原标准继续。

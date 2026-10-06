@@ -28779,7 +28779,12 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         if (Less_401DB0(&action->readiness, 0)) {
             platform::LegacyCryptInt temporary;
             ConstructFromInt_401CC0(&temporary, 0);
-            CopyPayload(&action->readiness, &temporary);
+            const std::uint32_t encoded = temporary.encoded;
+            const std::uint32_t mask = temporary.mask;
+            const std::uint8_t readCount = temporary.readCount;
+            action->readiness.encoded = encoded;
+            action->readiness.mask = mask;
+            action->readiness.readCount = readCount;
             Destroy_401CF0(&temporary);
         }
         break;
@@ -28800,7 +28805,12 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
         if (IntGreaterCrypt_401F80(0, &action->barValue1B0)) {
             platform::LegacyCryptInt temporary;
             ConstructFromInt_401CC0(&temporary, 0);
-            CopyPayload(&action->barValue1B0, &temporary);
+            const std::uint32_t encoded = temporary.encoded;
+            const std::uint32_t mask = temporary.mask;
+            const std::uint8_t readCount = temporary.readCount;
+            action->barValue1B0.encoded = encoded;
+            action->barValue1B0.mask = mask;
+            action->barValue1B0.readCount = readCount;
             Destroy_401CF0(&temporary);
         }
         break;
@@ -28810,15 +28820,21 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
     case 9: {
         platform::LegacyCryptInt temporary;
         ConstructFromInt_401CC0(&temporary, payload->value1030);
-        action->readiness.readCount = temporary.readCount;
-        action->readiness.encoded = temporary.encoded;
-        action->readiness.mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        action->readiness.readCount = readCount;
+        action->readiness.encoded = encoded;
+        action->readiness.mask = mask;
         Destroy_401CF0(&temporary);
         if (IntGreaterCrypt_401F80(0, &action->readiness)) {
             ConstructFromInt_401CC0(&temporary, 0);
-            action->readiness.readCount = temporary.readCount;
-            action->readiness.encoded = temporary.encoded;
-            action->readiness.mask = temporary.mask;
+            const std::uint8_t zeroReadCount = temporary.readCount;
+            const std::uint32_t zeroEncoded = temporary.encoded;
+            const std::uint32_t zeroMask = temporary.mask;
+            action->readiness.readCount = zeroReadCount;
+            action->readiness.encoded = zeroEncoded;
+            action->readiness.mask = zeroMask;
             Destroy_401CF0(&temporary);
         }
         if (LessCrypt_401DC0(&action->maxHp, &action->readiness)) {
@@ -28829,15 +28845,21 @@ void ApplyBattleResourceChange_4107C0_410B00(YobiAction* const action)
     case 8: {
         platform::LegacyCryptInt temporary;
         ConstructFromInt_401CC0(&temporary, payload->value1030);
-        action->barValue1B0.mask = temporary.mask;
-        action->barValue1B0.encoded = temporary.encoded;
-        action->barValue1B0.readCount = temporary.readCount;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint8_t readCount = temporary.readCount;
+        action->barValue1B0.mask = mask;
+        action->barValue1B0.encoded = encoded;
+        action->barValue1B0.readCount = readCount;
         Destroy_401CF0(&temporary);
         if (IntGreaterCrypt_401F80(0, &action->barValue1B0)) {
             ConstructFromInt_401CC0(&temporary, 0);
-            action->barValue1B0.mask = temporary.mask;
-            action->barValue1B0.encoded = temporary.encoded;
-            action->barValue1B0.readCount = temporary.readCount;
+            const std::uint32_t zeroMask = temporary.mask;
+            const std::uint32_t zeroEncoded = temporary.encoded;
+            const std::uint8_t zeroReadCount = temporary.readCount;
+            action->barValue1B0.mask = zeroMask;
+            action->barValue1B0.encoded = zeroEncoded;
+            action->barValue1B0.readCount = zeroReadCount;
             Destroy_401CF0(&temporary);
         }
         if (LessCrypt_401DC0(&action->barMaximum1C0, &action->barValue1B0)) {

@@ -73,3 +73,9 @@
 [正常阶段合同](cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state)/[完整339条1170B](cg2d_battle_motion_scale_lifecycle_evidence.json)补113/154/155/156完整本体。原155/156判断与MarkDeath分别复用一次指针，源两片段改同阶段非拥有借用，保真实清槽/推进；113/154正确本体不改。原播放旗位是W32先读后测寄存器，原缩放中间/F32落位/两seed与RNG/五原声点及三个常数保，音频暂停。
 
 四已有定义首次明确语义与正常equivalent，BATTLE108→112仍枚举open，E738两局部I/S；完整父/全部子依赖与其它生产/owner寿命、SDK和生成机器ABI/x87实际精度/RNG/画面运行未验，完整战斗不关闭。
+
+## BPT01 资源变化两本体与复位体完整合同（2026-10-07）
+
+[资源复制合同](cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state)/[三完整原根](cg2d_battle_resource_copy_evidence.json)补159/160/162完整540条1709B/九页。两资源体各六临时复制先读齐载荷再写，源码既有共享helper六片段恢复取样，两个W32/一个W8及各读/写序保；原目标token/reserved、内存CryptInt构造/析构与0/最大值业务上下限保持。159仍推进、160仍置phase37，default确实走公共尾，162正确复位入口全文保持。
+
+三原已有定义首次明确正常语义/处置，BATTLE112→115枚举open、E740两局部I/S；完整父/全部子依赖与其它生产/owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，完整战斗不关闭。

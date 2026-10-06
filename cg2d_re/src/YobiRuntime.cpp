@@ -9932,29 +9932,34 @@ YobiAction* NewBattleScreenEffect_41A0D0(
 
 void UpdateBattleNumber_41F110(YobiAction* const action)
 {
-    if (action->phase == 0) {
-        if (action->field58 > 0) {
-            --action->field58;
+    const std::int32_t initialPhase = action->phase;
+    if (initialPhase == 0) {
+        const std::int32_t oldDelay = action->field58;
+        if (oldDelay > 0) {
+            action->field58 = oldDelay - 1;
         } else {
             const double speed = static_cast<double>(action->numberVelocityB8)
                 + std::bit_cast<float>(0x3F4CCCCDu);
             const std::uint32_t flags = action->flags & ~2u;
+            const bool reachedPeak = speed >= std::bit_cast<float>(0x40E66666u);
             action->numberVelocityB8 = static_cast<float>(speed);
             action->flags = flags;
-            if (speed >= std::bit_cast<float>(0x40E66666u)) {
+            if (reachedPeak) {
                 action->phase = 1;
             }
             action->y += static_cast<std::int32_t>(speed);
         }
-    } else if (action->phase == 1) {
+    } else if (initialPhase == 1) {
         const std::int32_t count = action->deltaX + 1;
         action->deltaX = count;
         if (count >= 50) {
             static_cast<void>(MarkDeath(action));
         }
     }
-    action->nameX = static_cast<std::int32_t>(action->nameOffsetAC);
-    action->nameY = static_cast<std::int32_t>(action->nameOffsetB0);
+    const std::int32_t projectedNameX = static_cast<std::int32_t>(action->nameOffsetAC);
+    const float projectedNameY = action->nameOffsetB0;
+    action->nameX = projectedNameX;
+    action->nameY = static_cast<std::int32_t>(projectedNameY);
 }
 
 std::int32_t NewBattleNumber_41F1A0(
@@ -9983,9 +9988,12 @@ std::int32_t NewBattleNumber_41F1A0(
         platform::LegacyCryptInt temporary;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(
             &temporary, std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(buffer[index])));
-        action->mapX1E0.readCount = temporary.readCount;
-        action->mapX1E0.encoded = temporary.encoded;
-        action->mapX1E0.mask = temporary.mask;
+        const std::uint8_t characterReadCount = temporary.readCount;
+        const std::uint32_t characterEncoded = temporary.encoded;
+        const std::uint32_t characterMask = temporary.mask;
+        action->mapX1E0.readCount = characterReadCount;
+        action->mapX1E0.encoded = characterEncoded;
+        action->mapX1E0.mask = characterMask;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
         action->imageNo = 0;
         action->value54 = 18.0F;
@@ -10004,20 +10012,27 @@ std::int32_t NewBattleNumber_41F1A0(
         std::int16_t graphicY;
         static_cast<void>(resource::GetGraphicXY(
             static_cast<std::uint32_t>(action->graphicIndex), &graphicX, &graphicY));
-        const std::int32_t advance = index * render::gFontMetrics[fontType].sWidth;
-        action->offset40 = static_cast<float>(static_cast<double>(graphicX) + x - halfWidth + advance);
+        const double graphicOffsetX = graphicX;
+        const std::int32_t advance = render::gFontMetrics[fontType].sWidth * index;
+        action->offset40 = static_cast<float>(graphicOffsetX + x - halfWidth + advance);
         action->offset44 = static_cast<float>(static_cast<double>(graphicY) + y);
-        action->x = static_cast<std::int32_t>(action->offset40);
-        action->y = static_cast<std::int32_t>(action->offset44);
-        const std::uint32_t drawFlags = action->flags | 0x40000u;
+        const std::int32_t projectedX = static_cast<std::int32_t>(action->offset40);
+        const float projectedY = action->offset44;
+        action->x = projectedX;
+        const std::int32_t projectedYValue = static_cast<std::int32_t>(projectedY);
+        const std::uint32_t initialFlags = action->flags;
+        action->y = projectedYValue;
         const float nameX = action->nameOffsetAC;
+        const std::uint32_t drawFlags = initialFlags | 0x40000u;
         action->numberVelocityB8 = -8.0F;
         action->flags = drawFlags;
         action->field58 = 2 * index;
         action->rebirthValue1 = 4;
         action->rebirthValue2 = 4;
-        action->nameX = static_cast<std::int32_t>(nameX);
-        action->nameY = static_cast<std::int32_t>(action->nameOffsetB0);
+        const std::int32_t projectedNameX = static_cast<std::int32_t>(nameX);
+        const float projectedNameY = action->nameOffsetB0;
+        action->nameX = projectedNameX;
+        action->nameY = static_cast<std::int32_t>(projectedNameY);
         action->field270 = 0;
     }
     return 0;

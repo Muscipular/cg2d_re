@@ -8515,3 +8515,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [具体SPEC](../cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision)/[证据](../cg2d_battle_flags_aux_icon_consumer_evidence.json)：完整五根286条952B/六页26call-22内部分支/六ret，无switch；175普通入向call与单41F4D8 callback地址绑定分列，F32 0.8/7.2常量8B。三个函数六还原：浮动入口phase一次样本、未舍入速度先比较后存F32、创建/更新X截断后Y先Xpub、audio后骑乘图号先fresh对象/Rider后gear先fresh对象。原Reset的S32载荷差-F32方向链、Aux固定payload后三Advance/四fresh游标输出与别名、Apply入口flags-position/五独立位顺序200000-400000-800000-1000000-2000000及2000对象分流保；Aux后末两块不刷新初记录。浮动parent仅本次坐标借用，创建失败空/Play后取坐标、未舍入速度推进Y、入口phase1达60标死仍投影保，既有二参数音效214/暂停保。
 
 新增语义1392..1396/五adapted分类、BATTLE94→99枚举仍open；语义1397/有效ID1392、分类503、关联1510/3680=41.03%、E589局部I/S10条。其它历史/功能与175队列、R7区间67/3061、60源码closed10/完整验收0/P01、七open和完整门禁保持。全部176入向父-callee/共享表生产消费-owner/资源重进退出-ABI-PC53-实际画面与R1/R7/R8继续；网络原格式明文/音频暂停，不构建/测试/运行/摘要。
+
+## BOI01 数字字符生产与更新（2026-10-06）
+
+[具体SPEC](../cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision)/[证据](../cg2d_battle_number_production_update_evidence.json)：完整创建191条687B/其中原59格式接线历史保-补132条对象/资源布局差集，完整更新44条144B；共235条831B/四页15call-21普通内分支/两ret无switch，46call+两不同父callback地址分列，十行四列40图号与常量/字符串175B。两函数九还原：临时W8/W32/W32三值先取样再pub、S16graphicX先字体宽度、X/Y-flags-name样本发布序与两个name投影、更新入口phase/oldDelay单样本和未舍入speed先比较后F32pub。原未清buffer/%d-+/-顺序/font0测宽-固定strlen/逐字失败保已建对象-return0、S8两次读与map/XY资源调用不加门禁、图号表/正常F64-F32布局/flags2-OR40000/两重生W8-58=2index保。更新正旧延迟仅减一，零/负才清2-未舍入speed截断加S32 y/峰值后下次计数，50标死仍name投影，原无对象XY投影/PlayFrame或父跟随；不与浮动60帧/F32Y合并。
+
+原语义1071指定续记/完整当前基线和独立历史格式副本，新增1397更新ID；两adapted分类/BATTLE99→101仍未全枚举、E589→593局部I/S四条。语义1398/有效ID1393、分类505、关联1511/3680=41.06%；全部旧格式事实/其它域/175队列-R7区间67/3061-60源码closed10/全验收0/P01及七open/完整门禁保持。第二4206C0数字构造者、23父/46调用点/测宽/图号-XY资源/字载荷-draw consumer与回收重入owner/ABI-PC53-画面及R1/R7/R8继续，网络原格式明文/内存CryptInt保/音频暂停，未构建/测试/运行/摘要。

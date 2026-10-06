@@ -2037,7 +2037,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-baseline",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2138,7 +2139,9 @@
         "F:00006390",
         "F:0003BC90",
         "F:0001F4C0",
-        "F:0001F450"
+        "F:0001F450",
+        "F:0001F1A0",
+        "F:0001F110"
       ],
       "closure_task_ids": [
         "P01",
@@ -2221,7 +2224,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-decision",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2293,7 +2297,8 @@
         "BOE01完整移动命中回调636条2217B/五取样补丁已修、独立身份纳管；BATTLE84未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
         "BOF01完整追踪命中回调676条2381B/四取样补丁已修、独立身份纳管；BATTLE85未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
         "BOG01九完整距离/转向/运动-原表角度依赖441条1422B/两处公式及取样已还原、原表3400B独立纳管；BATTLE94未全枚举，全部219入向父-callee/表生产消费-owner/生命周期/ABI-PC53-RNG画面与R1/R7/R8待",
-        "BOH01五完整消费助手/图标创建更新286条952B/三个函数六还原，原三Advance四fresh游标输出/固定flags与fresh表对象保；BATTLE99未全枚举，176入向全部父-callee/共享表-owner/资源重进退出-ABI-PC53-画面与R1/R7/R8待"
+        "BOH01五完整消费助手/图标创建更新286条952B/三个函数六还原，原三Advance四fresh游标输出/固定flags与fresh表对象保；BATTLE99未全枚举，176入向全部父-callee/共享表-owner/资源重进退出-ABI-PC53-画面与R1/R7/R8待",
+        "BOI01数字创建1071原记录补132差集及完整191条、更新44条新增1397；两根235条831B/九还原与175B表/常量保，BATTLE101仍未全枚举，23父/46调用点/第二时间数字构造者-测宽/资源/字符消费-draw/回收owner-ABI-PC53-画面与R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2365,7 +2370,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
       ]
     },
     {
@@ -26908,6 +26914,130 @@
       "observation": "本助手完整原根/连续全字节/26call-22分支六ret合计，175普通call与单callback地址分列、两F32常量8B及已过依赖正文保持；不代全部父/运行",
       "expected": "固定入口phase：0读F32速度+原0.8F为未舍入和，先与7.2F比较再FST存F32；达阈值phase1，Y仍用未舍入速度和相加落F32，不在本次继续phase1计数。入口1将旧deltaX+1正常S32发布，>=60才MarkDeath，仍投影；其它phase不速度/计数。所有路径X正常S32截断→F32Y样本→Xpub→Y截断pub；原不PlayFrame/不parent/deathFlag门禁、MarkDeath不即刻free。",
       "actual": "仅本步五助手正常局部I/S，不凭静态推断旧画面差异/PC53-ABI一致；BATTLE99与176引用全部父/共享表生产消费-owner/资源重进退出-R1/R7/R8未全验，原音频二参数暂停边界保持，不构建/测试/运行/摘要"
+    },
+    {
+      "id": "E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F1A0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOI01两完整235条831B/四页15call-21分支两ret与175B原数据，既有59格式保持补132差集；doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-number-production-update-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-acceptance",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_number_production_update_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleNumber_41F1A0",
+        "include/cg/YobiRuntime.hpp",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_compiler_helper_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两根九取样/表达还原：临时三值先取、S16graphicX先字体宽度、X/Y-flags-name发布顺序与两个name投影、更新入口phase/oldDelay及速度先比较后存；原格式/正确合同保，1071续记不造重复ID",
+          "decision_ref": "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅九补丁重放、创建S8/CryptInt-表图号/资源/S16-F64-F32布局/延迟隐藏、更新未舍入速度截断加S32 y/50标死仍name投影保；原59格式接线正文保持。本根合同：未清256B buffer先Format53B304 %d/S32 value，随后mode5ABFCC==0时flags40000000追加+、80000000再追加-独立；font0 TextMeasure/2正常S32向零截断后固定strlen，不随字刷新长度。逐字NewYobiAction(2,0)，失败break保已建对象/所有路径原S32返回0；成功callback41F110/W8 CF，buffer字节S8构造临时CryptInt，readCount/encoded/mask三个先取样再按W8/W32/W32 pub，token/reserved保/析构。image0/speedF32 18、x<320角270否则90、flagsW32=2；字符+/-/:取十行四列的1/2/3，其它行0+S8字符-0，无新过滤。MapNoIndex→GetGraphicXY(两个S16输出)都不增成功门禁；S16 graphicX先F64→live指定fontType.sWidth S32*index→依序+x-halfWidth+advance落F32X，后S16graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→flags样本→Ypub→nameX样本→flagsOR40000→B8=-8/flagspub/58=2index/两W8=4→nameX截断→nameY样本→nameXpub→nameY截断pub→W16field270零；不PlayFrame、不整体回滚或增输入限制。",
+      "expected": "未清256B buffer先Format53B304 %d/S32 value，随后mode5ABFCC==0时flags40000000追加+、80000000再追加-独立；font0 TextMeasure/2正常S32向零截断后固定strlen，不随字刷新长度。逐字NewYobiAction(2,0)，失败break保已建对象/所有路径原S32返回0；成功callback41F110/W8 CF，buffer字节S8构造临时CryptInt，readCount/encoded/mask三个先取样再按W8/W32/W32 pub，token/reserved保/析构。image0/speedF32 18、x<320角270否则90、flagsW32=2；字符+/-/:取十行四列的1/2/3，其它行0+S8字符-0，无新过滤。MapNoIndex→GetGraphicXY(两个S16输出)都不增成功门禁；S16 graphicX先F64→live指定fontType.sWidth S32*index→依序+x-halfWidth+advance落F32X，后S16graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→flags样本→Ypub→nameX样本→flagsOR40000→B8=-8/flagspub/58=2index/两W8=4→nameX截断→nameY样本→nameXpub→nameY截断pub→W16field270零；不PlayFrame、不整体回滚或增输入限制。",
+      "actual": "仅本步两正常根局部I/S，1071旧格式证据/事实保、新更新1397纳管；BATTLE101与全部父-第二4206C0构造者/测宽-资源-字载荷/draw-回收owner/ABI-PC53-运行及R1/R7/R8未全验，不构建/测试/运行/摘要，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F1A0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOI01两完整235条831B/四页15call-21分支两ret与175B原数据，既有59格式保持补132差集；doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-number-production-update-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-acceptance",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_number_production_update_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleNumber_41F1A0",
+        "include/cg/YobiRuntime.hpp",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_compiler_helper_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两根九取样/表达还原：临时三值先取、S16graphicX先字体宽度、X/Y-flags-name发布顺序与两个name投影、更新入口phase/oldDelay及速度先比较后存；原格式/正确合同保，1071续记不造重复ID",
+          "decision_ref": "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整两根连续原235条831B/15call-21内跳两ret，无switch，40图号/两F32-三字符串175B，46普通call与两不同父callback地址分列；不代全部父/运行",
+      "expected": "未清256B buffer先Format53B304 %d/S32 value，随后mode5ABFCC==0时flags40000000追加+、80000000再追加-独立；font0 TextMeasure/2正常S32向零截断后固定strlen，不随字刷新长度。逐字NewYobiAction(2,0)，失败break保已建对象/所有路径原S32返回0；成功callback41F110/W8 CF，buffer字节S8构造临时CryptInt，readCount/encoded/mask三个先取样再按W8/W32/W32 pub，token/reserved保/析构。image0/speedF32 18、x<320角270否则90、flagsW32=2；字符+/-/:取十行四列的1/2/3，其它行0+S8字符-0，无新过滤。MapNoIndex→GetGraphicXY(两个S16输出)都不增成功门禁；S16 graphicX先F64→live指定fontType.sWidth S32*index→依序+x-halfWidth+advance落F32X，后S16graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→flags样本→Ypub→nameX样本→flagsOR40000→B8=-8/flagspub/58=2index/两W8=4→nameX截断→nameY样本→nameXpub→nameY截断pub→W16field270零；不PlayFrame、不整体回滚或增输入限制。",
+      "actual": "仅本步两正常根局部I/S，1071旧格式证据/事实保、新更新1397纳管；BATTLE101与全部父-第二4206C0构造者/测宽-资源-字载荷/draw-回收owner/ABI-PC53-运行及R1/R7/R8未全验，不构建/测试/运行/摘要，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F110-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOI01两完整235条831B/四页15call-21分支两ret与175B原数据，既有59格式保持补132差集；doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-number-production-update-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-acceptance",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_number_production_update_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleNumber_41F110",
+        "include/cg/YobiRuntime.hpp",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_compiler_helper_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两根九取样/表达还原：临时三值先取、S16graphicX先字体宽度、X/Y-flags-name发布顺序与两个name投影、更新入口phase/oldDelay及速度先比较后存；原格式/正确合同保，1071续记不造重复ID",
+          "decision_ref": "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅九补丁重放、创建S8/CryptInt-表图号/资源/S16-F64-F32布局/延迟隐藏、更新未舍入速度截断加S32 y/50标死仍name投影保；原59格式接线正文保持。本根合同：单次入口phase0→单次oldDelay，正值仅减一且本次不运动；零/负值speedB8 F32+0.8F形成未舍入和，读flags清2→与7.2F比较→速度F32pub→flagspub→达到峰值phase1→同未舍入speed正常S32截断并加到S32 y，不把Y写offset44或取刚存F32。入口phase1旧deltaX+1pub，>=50 MarkDeath仍尾；其它phase只尾。所有路径nameOffsetAC正常S32截断→F32 nameOffsetB0样本→nameXpub→nameY截断pub，无对象XY投影、PlayFrame、parent/deathFlag或新空门禁。",
+      "expected": "单次入口phase0→单次oldDelay，正值仅减一且本次不运动；零/负值speedB8 F32+0.8F形成未舍入和，读flags清2→与7.2F比较→速度F32pub→flagspub→达到峰值phase1→同未舍入speed正常S32截断并加到S32 y，不把Y写offset44或取刚存F32。入口phase1旧deltaX+1pub，>=50 MarkDeath仍尾；其它phase只尾。所有路径nameOffsetAC正常S32截断→F32 nameOffsetB0样本→nameXpub→nameY截断pub，无对象XY投影、PlayFrame、parent/deathFlag或新空门禁。",
+      "actual": "仅本步两正常根局部I/S，1071旧格式证据/事实保、新更新1397纳管；BATTLE101与全部父-第二4206C0构造者/测宽-资源-字载荷/draw-回收owner/ABI-PC53-运行及R1/R7/R8未全验，不构建/测试/运行/摘要，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-NUMBER-PRODUCTION-UPDATE-0001F110-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOI01两完整235条831B/四页15call-21分支两ret与175B原数据，既有59格式保持补132差集；doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-number-production-update-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-acceptance",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_number_production_update_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleNumber_41F110",
+        "include/cg/YobiRuntime.hpp",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_compiler_helper_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两根九取样/表达还原：临时三值先取、S16graphicX先字体宽度、X/Y-flags-name发布顺序与两个name投影、更新入口phase/oldDelay及速度先比较后存；原格式/正确合同保，1071续记不造重复ID",
+          "decision_ref": "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "完整两根连续原235条831B/15call-21内跳两ret，无switch，40图号/两F32-三字符串175B，46普通call与两不同父callback地址分列；不代全部父/运行",
+      "expected": "单次入口phase0→单次oldDelay，正值仅减一且本次不运动；零/负值speedB8 F32+0.8F形成未舍入和，读flags清2→与7.2F比较→速度F32pub→flagspub→达到峰值phase1→同未舍入speed正常S32截断并加到S32 y，不把Y写offset44或取刚存F32。入口phase1旧deltaX+1pub，>=50 MarkDeath仍尾；其它phase只尾。所有路径nameOffsetAC正常S32截断→F32 nameOffsetB0样本→nameXpub→nameY截断pub，无对象XY投影、PlayFrame、parent/deathFlag或新空门禁。",
+      "actual": "仅本步两正常根局部I/S，1071旧格式证据/事实保、新更新1397纳管；BATTLE101与全部父-第二4206C0构造者/测宽-资源-字载荷/draw-回收owner/ABI-PC53-运行及R1/R7/R8未全验，不构建/测试/运行/摘要，音频暂停"
     }
   ],
   "task_acceptance": [
@@ -27147,7 +27277,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
       ]
     },
     {
@@ -27462,7 +27593,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
       ]
     },
     {
@@ -27664,7 +27796,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
       ]
     },
     {
@@ -27772,7 +27905,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
       ]
     },
     {
@@ -27851,7 +27985,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
       ]
     },
     {
@@ -28085,7 +28220,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
       ]
     },
     {
@@ -28160,7 +28296,8 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
         "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
         "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
-        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state"
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
       ]
     }
   ],
@@ -33468,6 +33605,28 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state"
       ],
       "boundary": "x64 native非拥有对象/载荷/S32输出指针与callback，正常数值原宽及既有CRT转换保；仅本根局部I/S，不代全部父-callee/共享表-owner/ABI-PC53/运行，音频暂停"
+    },
+    {
+      "inventory_id": "F:0001F1A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+      ],
+      "boundary": "x64 native非拥有对象、字载荷内存CryptInt、S8/S32/F32-F64/W32/W8/W16及正常宿主转换保持；本步局部I/S，不代全部父-callee/字载荷消费-资源-owner/ABI-PC53/运行，音频暂停"
+    },
+    {
+      "inventory_id": "F:0001F110",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state"
+      ],
+      "boundary": "x64 native非拥有对象、字载荷内存CryptInt、S8/S32/F32-F64/W32/W8/W16及正常宿主转换保持；本步局部I/S，不代全部父-callee/字载荷消费-资源-owner/ABI-PC53/运行，音频暂停"
     }
   ],
   "auxiliary_dispositions": [

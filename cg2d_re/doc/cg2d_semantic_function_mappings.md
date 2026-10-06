@@ -2693,3 +2693,14 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 | 1396 | F:0001F450 / 0x41F450 | src/YobiRuntime.cpp / UpdateBattleFloatingIcon_41F450 | 4处原取样/表达还原 |
 
 新增语义1392..1396/五adapted分类、BATTLE94→99枚举仍open；语义1397/有效ID1392、分类503、关联1510/3680=41.03%、E589局部I/S10条。其它历史/功能与175队列、R7区间67/3061、60源码closed10/完整验收0/P01、七open和完整门禁保持。全部176入向父-callee/共享表生产消费-owner/资源重进退出-ABI-PC53-实际画面与R1/R7/R8继续；网络原格式明文/音频暂停，不构建/测试/运行/摘要。
+
+## BOI01 原1071数字创建续记与1397更新独立基线（2026-10-06）
+
+[具体SPEC](cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline)/[证据](cg2d_battle_number_production_update_evidence.json)。完整创建191条687B/其中原59格式接线历史保-补132条对象/资源布局差集，完整更新44条144B；共235条831B/四页15call-21普通内分支/两ret无switch，46call+两不同父callback地址分列，十行四列40图号与常量/字符串175B。两函数九还原：临时W8/W32/W32三值先取样再pub、S16graphicX先字体宽度、X/Y-flags-name样本发布序与两个name投影、更新入口phase/oldDelay单样本和未舍入speed先比较后F32pub。原未清buffer/%d-+/-顺序/font0测宽-固定strlen/逐字失败保已建对象-return0、S8两次读与map/XY资源调用不加门禁、图号表/正常F64-F32布局/flags2-OR40000/两重生W8-58=2index保。更新正旧延迟仅减一，零/负才清2-未舍入speed截断加S32 y/峰值后下次计数，50标死仍name投影，原无对象XY投影/PlayFrame或父跟随；不与浮动60帧/F32Y合并。
+
+| 语义序号 | 原ID/入口 | 源码 | 本步 |
+| --- | --- | --- | --- |
+| 1071 | F:0001F1A0/0x41F1A0 | src/YobiRuntime.cpp / NewBattleNumber_41F1A0 | 续记132差集、历史格式保，4取样/表达还原 |
+| 1397 | F:0001F110/0x41F110 | src/YobiRuntime.cpp / UpdateBattleNumber_41F110 | 新增完整更新，5取样/表达还原 |
+
+原语义1071指定续记/完整当前基线和独立历史格式副本，新增1397更新ID；两adapted分类/BATTLE99→101仍未全枚举、E589→593局部I/S四条。语义1398/有效ID1393、分类505、关联1511/3680=41.06%；全部旧格式事实/其它域/175队列-R7区间67/3061-60源码closed10/全验收0/P01及七open/完整门禁保持。第二4206C0数字构造者、23父/46调用点/测宽/图号-XY资源/字载荷-draw consumer与回收重入owner/ABI-PC53-画面及R1/R7/R8继续，网络原格式明文/内存CryptInt保/音频暂停，未构建/测试/运行/摘要。

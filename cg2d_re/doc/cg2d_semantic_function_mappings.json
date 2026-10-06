@@ -139700,7 +139700,7 @@
       "original_entry": "0x41F1A0",
       "inventory_id": "F:0001F1A0",
       "original_role": "战斗数值逐字对象创建",
-      "status": "已有数字创建父正文及一真实格式接线；完整战斗与CRT运行未验",
+      "status": "BOI01完整正常数字创建/更新与九还原局部I/S，全部父-callee/字载荷消费-owner/ABI-PC53/运行未验",
       "original_end_exclusive": "0x41F44F",
       "instruction_count": 191,
       "original_direct_reference_count": 46,
@@ -139711,7 +139711,14 @@
           "symbols": [
             "NewBattleNumber_41F1A0"
           ],
-          "relationship": "原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持"
+          "relationship": "此前stdio接线：原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持；BOI01本步完整合同：未清256B buffer先Format53B304 %d/S32 value，随后mode5ABFCC==0时flags40000000追加+、80000000再追加-独立；font0 TextMeasure/2正常S32向零截断后固定strlen，不随字刷新长度。逐字NewYobiAction(2,0)，失败break保已建对象/所有路径原S32返回0；成功callback41F110/W8 CF，buffer字节S8构造临时CryptInt，readCount/encoded/mask三个先取样再按W8/W32/W32 pub，token/reserved保/析构。image0/speedF32 18、x<320角270否则90、flagsW32=2；字符+/-/:取十行四列的1/2/3，其它行0+S8字符-0，无新过滤。MapNoIndex→GetGraphicXY(两个S16输出)都不增成功门禁；S16 graphicX先F64→live指定fontType.sWidth S32*index→依序+x-halfWidth+advance落F32X，后S16graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→flags样本→Ypub→nameX样本→flagsOR40000→B8=-8/flagspub/58=2index/两W8=4→nameX截断→nameY样本→nameXpub→nameY截断pub→W16field270零；不PlayFrame、不整体回滚或增输入限制。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleNumber_41F1A0"
+          ],
+          "relationship": "既有native非拥有T*与原S32创建返回0/void callback、S32/W32-F32-W8/W16保；不扩布局或异常模型"
         }
       ],
       "business_call_connections": [
@@ -140027,10 +140034,64 @@
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_battle.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-acceptance",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_number_production_update_evidence.json"
       ],
-      "verification_level": "191条统计仅读59格式/参数/符号前缀相邻指令与原点/字节/源码仅一callee静态对齐；余132条、对象/资源/更新/全部caller不重验，未执行。",
-      "boundary": "入口第三S32 value写未清256B buffer后才读5ABFCC；mode为0按flags40000000/80000000顺序追加加号/减号。之后原字体0测宽/固定strlen/逐字对象创建、CryptInt写序、资源读取/布局及失败保留已建对象/返回0全不改。46原直接call只作入向统计，不记46格式或caller完成。本次仅格式callee，已有内部头及原共享owner/生命周期不动，不补424620待批值、不恢复音频；原父/战斗生产消费/CRT与总PLAN未闭合。"
+      "verification_level": "BOI01完整191条687B/3页/11call-14内部跳转/一ret-4补丁；不代全部callee-父/consumer-owner/运行",
+      "boundary": "地址native非拥有，字节S8与S32/F32-F64-W32/W8/W16保；仅正常两根局部I/S，全部父/第二数字构造者/测宽-资源-字载荷绘制consumer与回收/ABI-PC53-运行未验。",
+      "function_chunks": [
+        {
+          "start": "0x41F1A0",
+          "end_exclusive": "0x41F44F"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleNumber_41F1A0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "battle_number_production_update": {
+        "spec_id": "BOI01",
+        "evidence_refs": [
+          "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+          "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+          "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-acceptance",
+          "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+          "doc/cg2d_battle_number_production_update_evidence.json"
+        ],
+        "original_entry": "0x41F1A0",
+        "original_instruction_count": 191,
+        "original_code_bytes": 687,
+        "page_count": 3,
+        "outgoing_call_site_count": 11,
+        "incoming_reference_count": 46,
+        "incoming_parent_count": 23,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": true,
+        "source_patch_count": 4,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "未清256B buffer先Format53B304 %d/S32 value，随后mode5ABFCC==0时flags40000000追加+、80000000再追加-独立；font0 TextMeasure/2正常S32向零截断后固定strlen，不随字刷新长度。逐字NewYobiAction(2,0)，失败break保已建对象/所有路径原S32返回0；成功callback41F110/W8 CF，buffer字节S8构造临时CryptInt，readCount/encoded/mask三个先取样再按W8/W32/W32 pub，token/reserved保/析构。image0/speedF32 18、x<320角270否则90、flagsW32=2；字符+/-/:取十行四列的1/2/3，其它行0+S8字符-0，无新过滤。MapNoIndex→GetGraphicXY(两个S16输出)都不增成功门禁；S16 graphicX先F64→live指定fontType.sWidth S32*index→依序+x-halfWidth+advance落F32X，后S16graphicY+y落F32Y。X截断→Y样本→Xpub→Y截断→flags样本→Ypub→nameX样本→flagsOR40000→B8=-8/flagspub/58=2index/两W8=4→nameX截断→nameY样本→nameXpub→nameY截断pub→W16field270零；不PlayFrame、不整体回滚或增输入限制。"
+      },
+      "prior_format_review": {
+        "status": "已有数字创建父正文及一真实格式接线；完整战斗与CRT运行未验",
+        "verification_level": "191条统计仅读59格式/参数/符号前缀相邻指令与原点/字节/源码仅一callee静态对齐；余132条、对象/资源/更新/全部caller不重验，未执行。",
+        "boundary": "入口第三S32 value写未清256B buffer后才读5ABFCC；mode为0按flags40000000/80000000顺序追加加号/减号。之后原字体0测宽/固定strlen/逐字对象创建、CryptInt写序、资源读取/布局及失败保留已建对象/返回0全不改。46原直接call只作入向统计，不记46格式或caller完成。本次仅格式callee，已有内部头及原共享owner/生命周期不动，不补424620待批值、不恢复音频；原父/战斗生产消费/CRT与总PLAN未闭合。",
+        "sources": [
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbols": [
+              "NewBattleNumber_41F1A0"
+            ],
+            "relationship": "原入口既有唯一标准格式callee交53B304；数字创建正文逐字保持"
+          }
+        ]
+      }
     },
     {
       "original_entry": "0x4206C0",
@@ -166478,6 +166539,72 @@
         "full_original_function_normal_body_reviewed": true,
         "full_runtime_verified": false,
         "preserved_contract": "固定入口phase：0读F32速度+原0.8F为未舍入和，先与7.2F比较再FST存F32；达阈值phase1，Y仍用未舍入速度和相加落F32，不在本次继续phase1计数。入口1将旧deltaX+1正常S32发布，>=60才MarkDeath，仍投影；其它phase不速度/计数。所有路径X正常S32截断→F32Y样本→Xpub→Y截断pub；原不PlayFrame/不parent/deathFlag门禁、MarkDeath不即刻free。"
+      }
+    },
+    {
+      "original_entry": "0x41F110",
+      "inventory_id": "F:0001F110",
+      "status": "BOI01完整正常数字创建/更新与九还原局部I/S，全部父-callee/字载荷消费-owner/ABI-PC53/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleNumber_41F110"
+          ],
+          "relationship": "单次入口phase0→单次oldDelay，正值仅减一且本次不运动；零/负值speedB8 F32+0.8F形成未舍入和，读flags清2→与7.2F比较→速度F32pub→flagspub→达到峰值phase1→同未舍入speed正常S32截断并加到S32 y，不把Y写offset44或取刚存F32。入口phase1旧deltaX+1pub，>=50 MarkDeath仍尾；其它phase只尾。所有路径nameOffsetAC正常S32截断→F32 nameOffsetB0样本→nameXpub→nameY截断pub，无对象XY投影、PlayFrame、parent/deathFlag或新空门禁。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleNumber_41F110"
+          ],
+          "relationship": "既有native非拥有T*与原S32创建返回0/void callback、S32/W32-F32-W8/W16保；不扩布局或异常模型"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-acceptance",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_number_production_update_evidence.json"
+      ],
+      "boundary": "地址native非拥有，字节S8与S32/F32-F64-W32/W8/W16保；仅正常两根局部I/S，全部父/第二数字构造者/测宽-资源-字载荷绘制consumer与回收/ABI-PC53-运行未验。",
+      "instruction_count": 44,
+      "function_chunks": [
+        {
+          "start": "0x41F110",
+          "end_exclusive": "0x41F1A0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleNumber_41F110",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOI01完整44条144B/1页/4call-7内部跳转/一ret-5补丁；不代全部callee-父/consumer-owner/运行",
+      "battle_number_production_update": {
+        "spec_id": "BOI01",
+        "evidence_refs": [
+          "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+          "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+          "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-acceptance",
+          "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+          "doc/cg2d_battle_number_production_update_evidence.json"
+        ],
+        "original_entry": "0x41F110",
+        "original_instruction_count": 44,
+        "original_code_bytes": 144,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 2,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 5,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "单次入口phase0→单次oldDelay，正值仅减一且本次不运动；零/负值speedB8 F32+0.8F形成未舍入和，读flags清2→与7.2F比较→速度F32pub→flagspub→达到峰值phase1→同未舍入speed正常S32截断并加到S32 y，不把Y写offset44或取刚存F32。入口phase1旧deltaX+1pub，>=50 MarkDeath仍尾；其它phase只尾。所有路径nameOffsetAC正常S32截断→F32 nameOffsetB0样本→nameXpub→nameY截断pub，无对象XY投影、PlayFrame、parent/deathFlag或新空门禁。"
       }
     }
   ]

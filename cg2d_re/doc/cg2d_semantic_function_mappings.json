@@ -171653,6 +171653,172 @@
         "implementation_static_scope": "正常节点循环原取样/推进、不短路及既有Temp-Back-呈现器尾保持；不代SDK/机器ABI、全部模式或失效重建生命周期运行",
         "preserved_contract": "原节点actualcount S32入口样本先于lost=0，非正仍走全部Temp/Back/front尾。正数以固定实际node起址遍历，单次surface样本/仅非空才探测，非零状态置lost=1仍继续其余节点；每项后fresh S32 count先取，后++index/++native node，同样本判尾。结束后Temp/Back/front各按原时点取对象/非空探测，末front非零返回1，否则返回累积lost；现行SDL/CPU已批准存活/呈现器映射及尾正文保，不恢复DX HRESULT/COM/vtable机制，不把CPU锁定当lost，不新增AutoMap探测或早停。只一正文循环阶段实修，S32计数/0或1累积及native非拥有地址、唯一节点/面owner保持；不写count、节点surface/image/next/reuse/尺寸/未知尾，不释放或重建。完整原57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘，操作数60不当绝对callee；所有父/callee/正常别名/SDL模式/重建-逐面owner/机器ABI-像素运行未验，异常不专项处理或称故障等价。"
       }
+    },
+    {
+      "original_entry": "0x522210",
+      "inventory_id": "F:00122210",
+      "original_role": "队列描边case2坐标矩形与高位模式消费",
+      "status": "BOZ01两完整原根/独立机器缺口与两个取样-栈发布差异已落实；正常局部static，不代完整父-callee-owner/机器ABI或像素运行",
+      "original_end_exclusive": "0x522293",
+      "instruction_count": 53,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "Sub_522210"
+          ],
+          "relationship": "同一实际队列record先W32读取x再y；实际16B RECT不整块清零，right/bottom取各低S16符号扩展、left/top取各高S16按原S32意义发布；四字段right-bottom-left-top原序保。imageNoBits按0x20000000→0x10000000→0x40000000优先分别选择Sub451350模式0/1/2，任一选中只一次调用，无标记不调用；低W16颜色沿原callee/native既有声明，不改公开void接口或要求调用返回。正确坐标/模式算法和共享Back/调色板/CPU provider保持，父case2只借record，不修改record/count/owner，不称原EAX或所有像素/生命周期已验。"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "Sub_522210",
+            "GraphicCacheItem32"
+          ],
+          "relationship": "既有native唯一队列与实际字段/签名保持，历史定位不刷新"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json"
+      ],
+      "boundary": "同一实际队列record先W32读取x再y；实际16B RECT不整块清零，right/bottom取各低S16符号扩展、left/top取各高S16按原S32意义发布；四字段right-bottom-left-top原序保。imageNoBits按0x20000000→0x10000000→0x40000000优先分别选择Sub451350模式0/1/2，任一选中只一次调用，无标记不调用；低W16颜色沿原callee/native既有声明，不改公开void接口或要求调用返回。正确坐标/模式算法和共享Back/调色板/CPU provider保持，父case2只借record，不修改record/count/owner，不称原EAX或所有像素/生命周期已验。",
+      "verification_level": "两完整根72条188B/两页4call4内跳4ret，两个普通点同一父/8条case2-3窗口纳盘；单CPP两完整正文补丁，脏区四W16实际读取/描边额外零写撤销，旧正常值一致；局部static不代SDK/机器ABI或所有像素/寿命运行",
+      "function_chunks": [
+        {
+          "start": "0x522210",
+          "end_exclusive": "0x522293"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x5216ee",
+          "type": 17,
+          "parent": "0x520dd0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "Sub_522210",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "queued_rectangle_consumption": {
+        "spec_id": "BOZ01",
+        "evidence_refs": [
+          "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+          "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+          "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance",
+          "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+          "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json"
+        ],
+        "original_instruction_count": 53,
+        "original_code_bytes": 131,
+        "page_count": 1,
+        "outgoing_call_site_count": 3,
+        "internal_jump_site_count": 3,
+        "return_site_count": 3,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "normal_previous_coordinates_or_color_wrong": false,
+        "void_interface_preserved": true,
+        "rect_extra_zero_initialization_removed": true,
+        "four_independent_w16_coordinate_reads_restored": false,
+        "preserved_contract": "同一实际队列record先W32读取x再y；实际16B RECT不整块清零，right/bottom取各低S16符号扩展、left/top取各高S16按原S32意义发布；四字段right-bottom-left-top原序保。imageNoBits按0x20000000→0x10000000→0x40000000优先分别选择Sub451350模式0/1/2，任一选中只一次调用，无标记不调用；低W16颜色沿原callee/native既有声明，不改公开void接口或要求调用返回。正确坐标/模式算法和共享Back/调色板/CPU provider保持，父case2只借record，不修改record/count/owner，不称原EAX或所有像素/生命周期已验。",
+        "implementation_static_scope": "两根正常调用/字段与取样静态；描边除RECT零写取消其它全保，脏区四W16读取恢复且完整返回/dirty尾保；不代parent/全provider-owner或运行"
+      }
+    },
+    {
+      "original_entry": "0x520AD0",
+      "inventory_id": "F:00120AD0",
+      "original_role": "队列脏区case3四W16坐标/颜色/混合与完整返回发布dirty",
+      "status": "BOZ01两完整原根/独立机器缺口与两个取样-栈发布差异已落实；正常局部static，不代完整父-callee-owner/机器ABI或像素运行",
+      "original_end_exclusive": "0x520B09",
+      "instruction_count": 19,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "FillDirtyArea_520AD0"
+          ],
+          "relationship": "先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "FillDirtyArea_520AD0",
+            "GraphicCacheItem32"
+          ],
+          "relationship": "既有native唯一队列与实际字段/签名保持，历史定位不刷新"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json"
+      ],
+      "boundary": "先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。",
+      "verification_level": "两完整根72条188B/两页4call4内跳4ret，两个普通点同一父/8条case2-3窗口纳盘；单CPP两完整正文补丁，脏区四W16实际读取/描边额外零写撤销，旧正常值一致；局部static不代SDK/机器ABI或所有像素/寿命运行",
+      "function_chunks": [
+        {
+          "start": "0x520AD0",
+          "end_exclusive": "0x520B09"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x5216fc",
+          "type": 17,
+          "parent": "0x520dd0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "FillDirtyArea_520AD0",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "queued_rectangle_consumption": {
+        "spec_id": "BOZ01",
+        "evidence_refs": [
+          "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+          "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+          "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance",
+          "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+          "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json"
+        ],
+        "original_instruction_count": 19,
+        "original_code_bytes": 57,
+        "page_count": 1,
+        "outgoing_call_site_count": 1,
+        "internal_jump_site_count": 1,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "normal_previous_coordinates_or_color_wrong": false,
+        "void_interface_preserved": true,
+        "rect_extra_zero_initialization_removed": false,
+        "four_independent_w16_coordinate_reads_restored": true,
+        "preserved_contract": "先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。",
+        "implementation_static_scope": "两根正常调用/字段与取样静态；描边除RECT零写取消其它全保，脏区四W16读取恢复且完整返回/dirty尾保；不代parent/全provider-owner或运行"
+      }
     }
   ]
 }

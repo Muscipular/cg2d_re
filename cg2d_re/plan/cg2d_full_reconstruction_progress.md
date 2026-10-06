@@ -2540,3 +2540,12 @@ BOX01本步实测：源码单IsLost正文/完整57条原根及唯一点父/修�
 - **后续开发**：音频遵原暂停，恢复后完成两页/两播放链及owner/后端/资源/运行；继续选非暂停生产消费缺口开发。未构建/测试/运行/hash，网络原格式仅明文、内存CryptInt保持，整体SPEC继续。
 
 BOY01本步实测：九完整原根/稳定身份及7地址-2尾跳、范围登记/语义与源码保持、合同/十一open任务精确增量静态通过；页范围标签按所属根核，实际逐指令连续覆盖305条1481B/11页，两跨根尾跳另核。measure/-Check均返回0；派生完整对象仅九归属、AUDIO32范围/引用、十一open进展与需核46/暂停25变化，队列175/未定位174、语义1411/1406、pending18、分类531、E669、关联1524(41.41%)、60源码closed10/完整验收0/global_accepted=false保持。十一文件严格UTF8无BOM/LF及差异通过，无新音频源码/软件验收或恢复授权，整体SPEC继续。
+
+## BOZ01 描边/脏区消费者取样与机器缺口收尾（2026-10-06）
+
+- **开发/当步解决**：先落[具体SPEC](../doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision)，脏区四原W16读取不再合为两W32快照；描边取消额外RECT整块零写，四字段/原两W32及模式优先全保。两个完整正文补丁，不称旧正常坐标/颜色结果错误。
+- **原证据/身份**：[完整证据](../doc/cg2d_queued_rectangle_consumption_sampling_evidence.json)两根72条188B/两页4call4内跳4ret；两个普通点/同一父与8条24B case2/3窗口只纳盘。首次窗口起点在指令内部，已弃用并按真实5216E9起取，不保伪指令或计入根分母；旧正文/冻结定位各1保。
+- **计量/交付**：新增机器1411/1412对应已有两个原根；语义1411→1413/有效ID1406→1408、关联1524→1526（41.41%→41.47%）、分类531→533、RENDER43→45枚举open，四独立局部static I/S E669→673。冻结定位各1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/R7区间67/3061及其它门禁保，七open只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。 命名快照 `cg2d-re-queued-rectangle-consumption-sampling-20261006`；13文件精确提交、用户既有六项排除。
+- **后续开发**：只GraphicPendingQueue.cpp两个完整正文补丁；头/布局/实际父、排序/入队/描边包装、共享Back/调色板/纹理provider与owner保持，不新增helper或状态。原父忽略两EAX/既有void和native低S16-W16-U8接口保，不记机器ABI/EAX等价。完整生产-父-callee/正常别名/逐面owner/dirty重建-场景退出及SDK-机器ABI、全模式像素运行未验；不增加保护/拒绝/钳制、计数写/释放或异常回绕模型。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。
+
+BOZ01本步实测：整CPP仅两完整正文补丁、描边除RECT声明逐字保/脏区四W16实际读取及完整返回-dirty尾保，两完整原根/同一父两个普通点和实际case2/3窗口、两权威JSON完整增量、对应合同/七open任务四项定向静态通过。原父窗口从实际5216E9起8条24B，最初中部窗口已弃用、不纳盘或计覆盖。measure/-Check均返回0；派生完整对象仅两新1411/1412、RENDER45、语义1413/1408/关联1526(41.47%)/分类533及七open进展变化，E673。冻定位各1、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25及所有完整门禁保持。13文件严格UTF8无BOM/LF和必要差异通过；两当步差异已落实，不声称原EAX/机器ABI、全部Back/纹理-owner/dirty重建或全模式像素已验，未构建/测试/运行/hash，整体SPEC继续。

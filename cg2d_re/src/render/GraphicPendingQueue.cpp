@@ -245,7 +245,7 @@ void Sub_522210(
 {
     const std::uint32_t xBits = std::bit_cast<std::uint32_t>(graphic->x);
     const std::uint32_t yBits = std::bit_cast<std::uint32_t>(graphic->y);
-    RECT rect {};
+    RECT rect;
     rect.right = std::bit_cast<std::int16_t>(
         static_cast<std::uint16_t>(xBits));
     rect.bottom = std::bit_cast<std::int16_t>(
@@ -270,16 +270,22 @@ void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)
     const std::uint8_t mixMode = graphic->descriptor[0x0D];
     std::uint32_t color;
     std::memcpy(&color, graphic->descriptor.data() + 0x08, sizeof(color));
-    const std::uint32_t yBits = std::bit_cast<std::uint32_t>(graphic->y);
-    const std::uint32_t xBits = std::bit_cast<std::uint32_t>(graphic->x);
-    const auto bottom = std::bit_cast<std::int16_t>(
-        static_cast<std::uint16_t>(yBits >> 16));
-    const auto top = std::bit_cast<std::int16_t>(
-        static_cast<std::uint16_t>(yBits));
-    const auto right = std::bit_cast<std::int16_t>(
-        static_cast<std::uint16_t>(xBits >> 16));
-    const auto left = std::bit_cast<std::int16_t>(
-        static_cast<std::uint16_t>(xBits));
+
+    // 原520ADB/520AE0/520AE5/520AEA：同一记录的四次W16读取，不能合并成W32。
+    std::int16_t bottom;
+    std::memcpy(
+        &bottom,
+        reinterpret_cast<const std::uint8_t*>(&graphic->y) + sizeof(bottom),
+        sizeof(bottom));
+    std::int16_t top;
+    std::memcpy(&top, &graphic->y, sizeof(top));
+    std::int16_t right;
+    std::memcpy(
+        &right,
+        reinterpret_cast<const std::uint8_t*>(&graphic->x) + sizeof(right),
+        sizeof(right));
+    std::int16_t left;
+    std::memcpy(&left, &graphic->x, sizeof(left));
 
     if (FillRect_44C9A0(left, right, top, bottom, color, mixMode)
         == 0x887601AEu) {

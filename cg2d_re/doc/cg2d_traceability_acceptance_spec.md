@@ -944,3 +944,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 ## BOY01 音频控制原身份范围纠错（2026-10-06）
 
 [BOY01 SPEC](cg2d_audio_control_paused_scope_spec.md#audio-control-paused-acceptance)/[原证据](cg2d_audio_control_paused_scope_evidence.json)。九根完整305条1481B/11页，仅纠正旧7/旧8专属入口的既定暂停归属；7地址/2尾跳不是普通call入向，共享返回回调不纳入暂停。AUDIO23→32仍paused、成员枚举未闭；九队列项仅范围转paused，队列175/未定位174保持，需核55→46、暂停16→25。语义1411/有效ID1406、pending18、分类531、软件E669、文档关联1524（41.41%）、60源码closed10/完整验收0及全部完整门禁保持。 不新增pending消队列、不修改汇总器，不把具名成员数量当音频完成分母；11项相关任务只进展/引用，保持open，R1/R7/R8与整体SPEC仍未闭。
+
+## BOZ01 两矩形消费者局部I/S（2026-10-06）
+
+[BOZ01 SPEC](cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance)/[原证据](cg2d_queued_rectangle_consumption_sampling_evidence.json)。两原根完整72条188B/两页4call4内跳4ret、两普通点同一父520DD0及选定8条24B case2/3窗口纳盘。单CPP两个正文：522210取消额外RECT整块零写，原两W32样本/四边发布/模式优先与低W16颜色保持；520AD0依mix→color→y高/y低/x高/x低四次实际W16取样，S16实参与完整返回887601AE→共享dirty=1尾保持。无介入旧正常坐标/颜色结果一致，不称像素错误。
+
+新增机器1411/1412对应已有两个原根；语义1411→1413/有效ID1406→1408、关联1524→1526（41.41%→41.47%）、分类531→533、RENDER43→45枚举open，四独立局部static I/S E669→673。冻结定位各1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/R7区间67/3061及其它门禁保，七open只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。 四软件证据为两独立根各I/S局部，不当四功能/完整父或全模式通过；原parent片段从实际指令5216E9起，8条另列，不能把最初中部窗口纳入原覆盖。只GraphicPendingQueue.cpp两个完整正文补丁；头/布局/实际父、排序/入队/描边包装、共享Back/调色板/纹理provider与owner保持，不新增helper或状态。原父忽略两EAX/既有void和native低S16-W16-U8接口保，不记机器ABI/EAX等价。完整生产-父-callee/正常别名/逐面owner/dirty重建-场景退出及SDK-机器ABI、全模式像素运行未验；不增加保护/拒绝/钳制、计数写/释放或异常回绕模型。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。

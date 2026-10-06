@@ -1516,7 +1516,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-baseline",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1561,7 +1562,9 @@
         "F:0005F090",
         "F:00122180",
         "F:0004C3C0",
-        "F:000536D0"
+        "F:000536D0",
+        "F:00122210",
+        "F:00120AD0"
       ],
       "closure_task_ids": [
         "C09",
@@ -1596,7 +1599,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1620,7 +1624,8 @@
         "BOU01两已有源码根新机器登记/完整58条217B两页、55调用点分根已知父1/8及1无所属函数点仅纳盘；地图目标/坐标取样与着色栈原发布，RENDER40枚举open；正常既有最终颜色值正确，全部父/正常别名/地图与绘制consumer-owner/画面及R1/R7/R8运行待",
         "BOV01旧249完整续记/原41条139B及195普通点115父仅纳盘，单helper撤额外索引拒绝/size_t、-2原前缀写保持；RENDER41枚举open。完整父/正常别名/描边case2填充-owner-像素与SDK/机器ABI、R1/R7/R8运行待",
         "BOW01真正44C3C0新机器映射/完整136条412B及2点2父仅纳盘，44C408只是20条46B内部节点段；单释放叶恢复surface一次/count先取再推进。RENDER42枚举open，完整Destroy/父-callee/正常别名/逐面owner/双树-C09/重建退出-像素及SDK-机器ABI、R1/R7/R8运行待",
-        "BOX01真实4536D0新机器映射/完整57条140B及唯一点父只纳盘；节点count先取再推进/native循环与不短路恢复、Temp-Back-呈现器尾保持。RENDER43枚举open，唯一父/正常别名/失效-重建-逐面owner/双树-C09-像素及SDK-机器ABI、R1/R7/R8运行待"
+        "BOX01真实4536D0新机器映射/完整57条140B及唯一点父只纳盘；节点count先取再推进/native循环与不短路恢复、Temp-Back-呈现器尾保持。RENDER43枚举open，唯一父/正常别名/失效-重建-逐面owner/双树-C09-像素及SDK-机器ABI、R1/R7/R8运行待",
+        "BOZ01两真实描边/脏区消费者完整72条188B/两普通点同一父纳盘、两正文实修独立机器身份1411/1412；RENDER45枚举open，完整生产/父-callee/正常别名/Back-纹理-owner/dirty重建与SDK-机器ABI/模式像素及R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1645,7 +1650,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
       ]
     },
     {
@@ -29541,6 +29547,118 @@
       "observation": "完整原57条140B/4 vtable+60调用10内跳1ret与唯一点父只纳盘，原入口/节点尾S32count先取再推进/累积lost继续遍历与CPU尾静态对照，不记逐HRESULT或绝对callee地址",
       "expected": "原节点actualcount S32入口样本先于lost=0，非正仍走全部Temp/Back/front尾。正数以固定实际node起址遍历，单次surface样本/仅非空才探测，非零状态置lost=1仍继续其余节点；每项后fresh S32 count先取，后++index/++native node，同样本判尾。结束后Temp/Back/front各按原时点取对象/非空探测，末front非零返回1，否则返回累积lost；现行SDL/CPU已批准存活/呈现器映射及尾正文保，不恢复DX HRESULT/COM/vtable机制，不把CPU锁定当lost，不新增AutoMap探测或早停。只一正文循环阶段实修，S32计数/0或1累积及native非拥有地址、唯一节点/面owner保持；不写count、节点surface/image/next/reuse/尺寸/未知尾，不释放或重建。完整原57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘，操作数60不当绝对callee；所有父/callee/正常别名/SDL模式/重建-逐面owner/机器ABI-像素运行未验，异常不专项处理或称故障等价。",
       "actual": "单失效原根局部static I/S、runtime=false；真根一机器身份/冻定位及当前CPU探测合同保，不增API/helper或原函数；不代唯一父/正常别名/失效重建-逐面owner-双树-像素/SDK-机器ABI及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-RECT-CONSUMPTION-00122210-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOZ01两真实完整根72条188B/两页，分别53/19条，两普通点同一父与8条24B选定case2/3窗口；doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-queued-rectangle-consumption-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#Sub_522210 include/cg/render/GraphicPendingQueue.hpp src/render/DrawAllQueued.cpp src/render/LegacyTextureDrawing.hpp src/render/SurfaceState.cpp"
+      ],
+      "differences": [
+        {
+          "description": "取消RECT额外整块零初始化，四字段原完整发布/两W32样本和模式优先全保",
+          "decision_ref": "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "单CPP限定两正文，当前根的实际字段读取/发布差异修正，头/父/所有provider及CPP其它全文保持；同一实际队列record先W32读取x再y；实际16B RECT不整块清零，right/bottom取各低S16符号扩展、left/top取各高S16按原S32意义发布；四字段right-bottom-left-top原序保。imageNoBits按0x20000000→0x10000000→0x40000000优先分别选择Sub451350模式0/1/2，任一选中只一次调用，无标记不调用；低W16颜色沿原callee/native既有声明，不改公开void接口或要求调用返回。正确坐标/模式算法和共享Back/调色板/CPU provider保持，父case2只借record，不修改record/count/owner，不称原EAX或所有像素/生命周期已验。",
+      "expected": "同一实际队列record先W32读取x再y；实际16B RECT不整块清零，right/bottom取各低S16符号扩展、left/top取各高S16按原S32意义发布；四字段right-bottom-left-top原序保。imageNoBits按0x20000000→0x10000000→0x40000000优先分别选择Sub451350模式0/1/2，任一选中只一次调用，无标记不调用；低W16颜色沿原callee/native既有声明，不改公开void接口或要求调用返回。正确坐标/模式算法和共享Back/调色板/CPU provider保持，父case2只借record，不修改record/count/owner，不称原EAX或所有像素/生命周期已验。",
+      "actual": "正常局部static I/S，不称旧坐标/颜色错误；历史定位1保、无新helper/原入口，实际record借用/native接口保持；完整父-callee/正常别名/Back-纹理-owner/dirty重建/场景退出及SDK-机器ABI/像素运行未验，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RECT-CONSUMPTION-00122210-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOZ01两真实完整根72条188B/两页，分别53/19条，两普通点同一父与8条24B选定case2/3窗口；doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-queued-rectangle-consumption-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#Sub_522210 include/cg/render/GraphicPendingQueue.hpp src/render/DrawAllQueued.cpp src/render/LegacyTextureDrawing.hpp src/render/SurfaceState.cpp"
+      ],
+      "differences": [
+        {
+          "description": "取消RECT额外整块零初始化，四字段原完整发布/两W32样本和模式优先全保",
+          "decision_ref": "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前完整原根字节连续覆盖/原call分支与唯一普通引用只纳盘，原字段宽度/样本及实际下游接口有定向静态对应；同一实际队列record先W32读取x再y；实际16B RECT不整块清零，right/bottom取各低S16符号扩展、left/top取各高S16按原S32意义发布；四字段right-bottom-left-top原序保。imageNoBits按0x20000000→0x10000000→0x40000000优先分别选择Sub451350模式0/1/2，任一选中只一次调用，无标记不调用；低W16颜色沿原callee/native既有声明，不改公开void接口或要求调用返回。正确坐标/模式算法和共享Back/调色板/CPU provider保持，父case2只借record，不修改record/count/owner，不称原EAX或所有像素/生命周期已验。",
+      "expected": "同一实际队列record先W32读取x再y；实际16B RECT不整块清零，right/bottom取各低S16符号扩展、left/top取各高S16按原S32意义发布；四字段right-bottom-left-top原序保。imageNoBits按0x20000000→0x10000000→0x40000000优先分别选择Sub451350模式0/1/2，任一选中只一次调用，无标记不调用；低W16颜色沿原callee/native既有声明，不改公开void接口或要求调用返回。正确坐标/模式算法和共享Back/调色板/CPU provider保持，父case2只借record，不修改record/count/owner，不称原EAX或所有像素/生命周期已验。",
+      "actual": "正常局部static I/S，不称旧坐标/颜色错误；历史定位1保、无新helper/原入口，实际record借用/native接口保持；完整父-callee/正常别名/Back-纹理-owner/dirty重建/场景退出及SDK-机器ABI/像素运行未验，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RECT-CONSUMPTION-00120AD0-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOZ01两真实完整根72条188B/两页，分别53/19条，两普通点同一父与8条24B选定case2/3窗口；doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-queued-rectangle-consumption-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#FillDirtyArea_520AD0 include/cg/render/GraphicPendingQueue.hpp src/render/DrawAllQueued.cpp src/render/LegacyTextureDrawing.hpp src/render/SurfaceState.cpp"
+      ],
+      "differences": [
+        {
+          "description": "取消坐标两W32投影，实际记录y高/y低/x高/x低依原各读取一次W16，完整返回/dirty尾全保",
+          "decision_ref": "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "单CPP限定两正文，当前根的实际字段读取/发布差异修正，头/父/所有provider及CPP其它全文保持；先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。",
+      "expected": "先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。",
+      "actual": "正常局部static I/S，不称旧坐标/颜色错误；历史定位1保、无新helper/原入口，实际record借用/native接口保持；完整父-callee/正常别名/Back-纹理-owner/dirty重建/场景退出及SDK-机器ABI/像素运行未验，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-RECT-CONSUMPTION-00120AD0-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOZ01两真实完整根72条188B/两页，分别53/19条，两普通点同一父与8条24B选定case2/3窗口；doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-queued-rectangle-consumption-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#FillDirtyArea_520AD0 include/cg/render/GraphicPendingQueue.hpp src/render/DrawAllQueued.cpp src/render/LegacyTextureDrawing.hpp src/render/SurfaceState.cpp"
+      ],
+      "differences": [
+        {
+          "description": "取消坐标两W32投影，实际记录y高/y低/x高/x低依原各读取一次W16，完整返回/dirty尾全保",
+          "decision_ref": "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "当前完整原根字节连续覆盖/原call分支与唯一普通引用只纳盘，原字段宽度/样本及实际下游接口有定向静态对应；先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。",
+      "expected": "先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。",
+      "actual": "正常局部static I/S，不称旧坐标/颜色错误；历史定位1保、无新helper/原入口，实际record借用/native接口保持；完整父-callee/正常别名/Back-纹理-owner/dirty重建/场景退出及SDK-机器ABI/像素运行未验，未构建/测试/运行/hash"
     }
   ],
   "task_acceptance": [
@@ -29798,7 +29916,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
       ]
     },
     {
@@ -30130,7 +30249,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
       ]
     },
     {
@@ -30349,7 +30469,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
       ]
     },
     {
@@ -30473,7 +30594,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
       ]
     },
     {
@@ -30568,7 +30690,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
       ]
     },
     {
@@ -30826,7 +30949,8 @@
         "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
-        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
       ]
     },
     {
@@ -30918,7 +31042,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
-        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state"
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
       ]
     }
   ],
@@ -36540,6 +36665,28 @@
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state"
       ],
       "boundary": "BOX01真实IsLost按现行32位CPU存活/呈现器承接，原完整57条纳盘，节点count/不短路及native推进实修；正常别名/父-callee-owner/SDK与失效重建-像素及ABI运行未验：原节点actualcount S32入口样本先于lost=0，非正仍走全部Temp/Back/front尾。正数以固定实际node起址遍历，单次surface样本/仅非空才探测，非零状态置lost=1仍继续其余节点；每项后fresh S32 count先取，后++index/++native node，同样本判尾。结束后Temp/Back/front各按原时点取对象/非空探测，末front非零返回1，否则返回累积lost；现行SDL/CPU已批准存活/呈现器映射及尾正文保，不恢复DX HRESULT/COM/vtable机制，不把CPU锁定当lost，不新增AutoMap探测或早停。只一正文循环阶段实修，S32计数/0或1累积及native非拥有地址、唯一节点/面owner保持；不写count、节点surface/image/next/reuse/尺寸/未知尾，不释放或重建。完整原57条140B/一页4 vtable+60调用10内跳1ret，唯一466E2D/父466DC0只纳盘，操作数60不当绝对callee；所有父/callee/正常别名/SDL模式/重建-逐面owner/机器ABI-像素运行未验，异常不专项处理或称故障等价。"
+    },
+    {
+      "inventory_id": "F:00122210",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+      ],
+      "boundary": "BOZ01真实case2/3矩形消费者沿既有native接口/CPU下游；仅两正文取样和栈发布静态，父原EAX未消费/既有void保持，不宣称机器ABI或全部像素/owner运行：同一实际队列record先W32读取x再y；实际16B RECT不整块清零，right/bottom取各低S16符号扩展、left/top取各高S16按原S32意义发布；四字段right-bottom-left-top原序保。imageNoBits按0x20000000→0x10000000→0x40000000优先分别选择Sub451350模式0/1/2，任一选中只一次调用，无标记不调用；低W16颜色沿原callee/native既有声明，不改公开void接口或要求调用返回。正确坐标/模式算法和共享Back/调色板/CPU provider保持，父case2只借record，不修改record/count/owner，不称原EAX或所有像素/生命周期已验。"
+    },
+    {
+      "inventory_id": "F:00120AD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+      ],
+      "boundary": "BOZ01真实case2/3矩形消费者沿既有native接口/CPU下游；仅两正文取样和栈发布静态，父原EAX未消费/既有void保持，不宣称机器ABI或全部像素/owner运行：先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。"
     }
   ],
   "auxiliary_dispositions": [

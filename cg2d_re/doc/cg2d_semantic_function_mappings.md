@@ -2901,3 +2901,14 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 新机器1410对应已有真实失效根；语义1410→1411/有效ID1405→1406、关联1523→1524（41.39%→41.41%）、分类530→531、RENDER42→43枚举open；两条独立根内局部static I/S E667→669。冻结定位1/旧行号保，RESOURCE41/队列175/R7区间67/3061及其余门禁保持；八open含C09仅进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
 
 只SdlPresenter.cpp一个IsLost正文的节点循环；既有Temp/Back/呈现器尾、Destroy、节点/面owner、头/实际父与工厂/LegacyTextureState采样分母S16保持（描述符W32不混同）。CPU存活映射沿批准合同，不恢复COM/HRESULT机制，不增负拒绝/容量保护、清槽、释放重建、早停或异常回绕模型。正常别名、唯一父-callee/失效重建-逐面owner/双树-C09/SDK-机器ABI/模式画面运行未验；未构建/测试/运行/hash，网络原格式明文/内存CryptInt保/音频暂停，整体SPEC继续。
+
+## BOZ01 两矩形消费入口机器缺口收尾（2026-10-06）
+
+[BOZ01 SPEC](cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline)/[原证据](cg2d_queued_rectangle_consumption_sampling_evidence.json)。两原根完整72条188B/两页4call4内跳4ret、两普通点同一父520DD0及选定8条24B case2/3窗口纳盘。单CPP两个正文：522210取消额外RECT整块零写，原两W32样本/四边发布/模式优先与低W16颜色保持；520AD0依mix→color→y高/y低/x高/x低四次实际W16取样，S16实参与完整返回887601AE→共享dirty=1尾保持。无介入旧正常坐标/颜色结果一致，不称像素错误。
+
+| 机器索引 / 原ID | 当前源码与边界 |
+|---|---|
+| 1411 / F:00122210 @522210 | GraphicPendingQueue.cpp::Sub_522210，取消RECT额外零写；两W32、四边与三模式选择保持，case2只借记录 |
+| 1412 / F:00120AD0 @520AD0 | 同文件FillDirtyArea_520AD0，mix/颜色后实际四W16顺序恢复；完整返回严格判busy才写共享dirty |
+
+新增机器1411/1412对应已有两个原根；语义1411→1413/有效ID1406→1408、关联1524→1526（41.41%→41.47%）、分类531→533、RENDER43→45枚举open，四独立局部static I/S E669→673。冻结定位各1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/R7区间67/3061及其它门禁保，七open只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。 两真实原根不新增分母，冻定位各1不刷新；正文之外源码保持。软件I/S仅正常两根局部，不代原EAX/机器ABI、父/下游全部像素与寿命或运行。

@@ -309,3 +309,9 @@
 按[具体SPEC](../cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision)，单根25定义27处恢复角色字段、effectCount/初图、累计发布-普通与循环/末Effect-Aux参数、图copy/反馈-state取样；四S32业务索引和两W8门禁，原全部图号-字段/金额门禁/动作与真实Move-RID固定58=1保持，其它根头不改。[证据](../cg2d_battle_m_skill267_sampling_evidence.json)：434EDF..43573F576条2144B八页45call及全部直接出口，无内部表/复用尾；267/3029原180B/36B入口表和十二S32/48B偏移仅上下文，25补丁/改前根与旧812完整前态保存。循环累计source先清flags pub，末Effect沿固定flags/Aux另live flags；入口两个W32业务零和未指定lastAmount、所有原调用/门禁-状态动作保持。
 
 旧812只五引用/一既有源码symbol登记/本步对象，E491→495仅双域四局部I/S，七open及全部其它指标/完整成员-门禁保持。完整父17298/SEH、其它技能/全路由、全部consumer-owner/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/运行另验。
+
+## BNT01 技能目标图号与fixed结果消费（2026-10-06）
+
+依[具体SPEC](../cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-decision)，单根四处恢复target255比较先发布、普通Effect/Aux的target输出先source输出，以及redirect输出发布后的参数原序；十参/四native非拥有S32输出、原每轮八业务零/最后零values扫描、两图表-固定flags/value及所有门禁/两返回保持。[证据](../cg2d_battle_skill_targets_core_evidence.json)：独立426FC0完整369条1185B五页32call/全部直接出口和两ret，十三条31B选择叶/两40B表及唯一4369CC caller26条94B上下文分别计数；四补丁和改前根/独立ID前态保存。初initial/source同GetPos返回依序写；正常255只sourceEnd/74、初/target空只Finish。caller原十实参和返回后重读initial-Move/RID固定1保持，其它根/header不改。
+
+原ID已在库存，新增独立语义记录1350/adapted分类与FUNC-BATTLE显式成员52→53，旧812整记录保持。语义1351/有效ID1346、分类457、文件关联1464/3680=39.78%，E495→497仅BATTLE两局部I/S；175定位队列不变（此前已有历史定义）、七open/60源码closed10及全部完整门禁保持。完整战斗/父SEH、全部consumer-owner/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/运行仍待。

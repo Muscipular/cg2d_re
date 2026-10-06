@@ -12709,8 +12709,9 @@ void TakeBattleMSkillTargets_426FC0(
     AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*sourcePosition], 36);
     for (;;) {
         const std::int32_t target = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
+        const bool targetFinished = target == 255;
         *targetPosition = target;
-        if (target == 255) {
+        if (targetFinished) {
             AppendBattleEffectList_4393A0(gBattleAllEntries59E980[*sourcePosition], -1, 0, 0);
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*sourcePosition], 74);
             return;
@@ -12730,8 +12731,10 @@ void TakeBattleMSkillTargets_426FC0(
             TakeBattleMAuxGraphics_43BF30(
                 scene, 0, &firstImage, &secondImage, firstImages.data(), secondImages.data(), values.data());
         }
-        AppendBattleEffect_439400(
-            gBattleAllEntries59E980[*sourcePosition], {*targetPosition, flags, value, firstImage});
+        const std::int32_t effectTarget = *targetPosition;
+        const std::int32_t effectSource = *sourcePosition;
+        YobiAction* const effectActor = gBattleAllEntries59E980[effectSource];
+        AppendBattleEffect_439400(effectActor, {effectTarget, flags, value, firstImage});
         // 原4271B7逐槽扫描：取最后一个零；两项均非零时仍用槽0。
         std::int32_t selected = 0;
         for (std::int32_t index = 0; index < 2; ++index) {
@@ -12739,9 +12742,14 @@ void TakeBattleMSkillTargets_426FC0(
                 selected = index;
             }
         }
-        AppendBattleAuxEffects_43BC10(
-            gBattleAllEntries59E980[*sourcePosition], *targetPosition, flags,
-            firstImage, secondImage, firstImages[selected]);
+        const std::int32_t selectedImage = firstImages[selected];
+        const std::int32_t auxiliarySecondImage = secondImage;
+        const std::int32_t auxiliaryFirstImage = firstImage;
+        const std::int32_t auxiliaryTarget = *targetPosition;
+        const std::int32_t auxiliarySource = *sourcePosition;
+        YobiAction* const auxiliaryActor = gBattleAllEntries59E980[auxiliarySource];
+        AppendBattleAuxEffects_43BC10(auxiliaryActor, auxiliaryTarget, flags,
+            auxiliaryFirstImage, auxiliarySecondImage, selectedImage);
         const std::int32_t* const images = *targetPosition < 10
             ? kBattleSkillImages54D724.data() : kBattleSkillImages54D710.data();
         const std::int32_t image = SelectIntValue_404D90(images, 5, technique);
@@ -12750,8 +12758,10 @@ void TakeBattleMSkillTargets_426FC0(
         if ((flags & 0x200u) != 0) {
             const std::int32_t redirect = GetBattlePosition_4237E0(TakeBattleMInteger_438F70(scene));
             *redirectedPosition = redirect;
+            const std::int32_t redirectTarget = *targetPosition;
+            const std::int32_t redirectSource = *sourcePosition;
             static_cast<void>(AppendBattleRedirect_4242B0(
-                scene, *sourcePosition, *targetPosition, flags, value, redirect));
+                scene, redirectSource, redirectTarget, flags, value, redirect));
             AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[*targetPosition], 11);
             *targetPosition = *redirectedPosition;
         }

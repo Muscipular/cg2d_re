@@ -163231,6 +163231,82 @@
         "direct_switch_slot_count": 22,
         "direct_switch_bytes": 88
       }
+    },
+    {
+      "original_entry": "0x426FC0",
+      "inventory_id": "F:00026FC0",
+      "status": "BNT01完整369条十参技能目标生产及唯一3101真实调用已接，四处取样实修；独立身份/战斗成员补登记，全部owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "TakeBattleMSkillTargets_426FC0"
+          ],
+          "relationship": "完整十参正常本体/四独立S32输出、两原表/每轮八业务零和最后零扫描、效果-图号-redirect/全部flags分支及两返回；source数据与3101消费initial接线"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-baseline",
+        "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-decision",
+        "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-acceptance",
+        "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
+        "doc/cg2d_battle_skill_targets_core_evidence.json"
+      ],
+      "boundary": "scene及四输出地址native非拥有T*，skill/level/technique/fpUsed/mode/位置-表项仍S32、flags仍W32。初initial/source沿同GetPos返回先后写，target比较先pub；Effect/Aux target先source与redirect pub后两输出各样本恢复。原每轮八W32业务零/最后零values扫描、404D90原业务门禁、两表/固定flags-value/全部反馈-空与255两返回及3101原initial Move/RID固定1保持；不加owner/复制四输出/默认/保护/异常模型，不代父427470/所有consumer/SDK-ABI-PC53-时钟RNG画面运行。",
+      "instruction_count": 369,
+      "function_chunks": [
+        {
+          "start": "0x426FC0",
+          "end_exclusive": "0x427461"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "TakeBattleMSkillTargets_426FC0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNT01完整369条1185B五页32call/全部直接出口和两ret、两图表40B/选择叶十三条31B、唯一4369CC caller26条94B十实参/四输出/initial消费，四补丁/整CPP精确静态；未构建/测试/运行/计算摘要",
+      "battle_skill_targets_core": {
+        "spec_id": "BNT01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-baseline",
+          "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-decision",
+          "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-acceptance",
+          "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
+          "doc/cg2d_battle_skill_targets_core_evidence.json"
+        ],
+        "inventory_id": "F:00026FC0",
+        "original_entry": "0x426FC0",
+        "full_original_function_normal_body_reviewed": true,
+        "full_original_parent427470_body_reviewed": false,
+        "instruction_count": 369,
+        "code_bytes": 1185,
+        "page_count": 5,
+        "outgoing_call_site_count": 32,
+        "source_body_changed": true,
+        "source_patch_count": 4,
+        "source_replaced_span_count": 4,
+        "source_roots": 1,
+        "source_symbol": "TakeBattleMSkillTargets_426FC0",
+        "ten_parameters": true,
+        "four_native_nonowning_s32_output_addresses": true,
+        "two_image_tables_s32_count": 10,
+        "two_image_tables_bytes": 40,
+        "selector_helper_instruction_count": 13,
+        "selector_helper_bytes": 31,
+        "source_preserves_original_selector_gate": true,
+        "last_zero_values_selection_preserved": true,
+        "each_target_eight_w32_business_zeros_preserved": true,
+        "only_fixed_flags_in_core": true,
+        "caller_entry": "0x427470",
+        "caller_call_site": "0x4369CC",
+        "caller_root": "ProcessBattleMSkill3101",
+        "caller_context_instructions": 26,
+        "caller_context_bytes": 94,
+        "caller_consumes_initial_output_before_move_rid": true,
+        "full_runtime_verified": false
+      }
     }
   ]
 }

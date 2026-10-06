@@ -31525,23 +31525,35 @@ void ApplyBattleSceneEffects_413070(YobiAction* const action)
     using world::detail::gBattleSceneEffectC8A76C;
     const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
     const std::int32_t firstIndex = payload->effectRunningC9C;
-    if ((payload->effects1C[firstIndex].flags & 1u) != 0) {
-        const std::uint16_t value = static_cast<std::uint16_t>(payload->effects1C[firstIndex].position3);
+    const std::uint8_t firstFlags =
+        *reinterpret_cast<const std::uint8_t*>(&payload->effects1C[firstIndex].flags);
+    if ((firstFlags & 1u) != 0) {
+        std::uint16_t value;
+        std::memcpy(&value, &payload->effects1C[firstIndex].position3, sizeof(value));
         std::memcpy(&gBattleSceneEffectC8A768, &value, sizeof(value));
     }
     const std::int32_t secondIndex = payload->effectRunningC9C;
-    if ((payload->effects1C[secondIndex].flags & 2u) != 0) {
-        const std::uint16_t value = static_cast<std::uint16_t>(payload->effects1C[secondIndex].position3);
+    const std::uint8_t secondFlags =
+        *reinterpret_cast<const std::uint8_t*>(&payload->effects1C[secondIndex].flags);
+    if ((secondFlags & 2u) != 0) {
+        std::uint16_t value;
+        std::memcpy(&value, &payload->effects1C[secondIndex].position3, sizeof(value));
         std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A768) + 2, &value, sizeof(value));
     }
     const std::int32_t thirdIndex = payload->effectRunningC9C;
-    if ((payload->effects1C[thirdIndex].flags & 4u) != 0) {
-        const std::uint16_t value = static_cast<std::uint16_t>(payload->effects1C[thirdIndex].position3);
+    const std::uint8_t thirdFlags =
+        *reinterpret_cast<const std::uint8_t*>(&payload->effects1C[thirdIndex].flags);
+    if ((thirdFlags & 4u) != 0) {
+        std::uint16_t value;
+        std::memcpy(&value, &payload->effects1C[thirdIndex].position3, sizeof(value));
         std::memcpy(&gBattleSceneEffectC8A76C, &value, sizeof(value));
     }
     const std::int32_t fourthIndex = payload->effectRunningC9C;
-    if ((payload->effects1C[fourthIndex].flags & 8u) != 0) {
-        const std::uint16_t value = static_cast<std::uint16_t>(payload->effects1C[fourthIndex].position3);
+    const std::uint8_t fourthFlags =
+        *reinterpret_cast<const std::uint8_t*>(&payload->effects1C[fourthIndex].flags);
+    if ((fourthFlags & 8u) != 0) {
+        std::uint16_t value;
+        std::memcpy(&value, &payload->effects1C[fourthIndex].position3, sizeof(value));
         std::memcpy(reinterpret_cast<std::byte*>(&gBattleSceneEffectC8A76C) + 2, &value, sizeof(value));
     }
     static_cast<void>(AdvanceBattleEffect_439470(action));
@@ -31557,7 +31569,9 @@ void UpdateBattleAction212_413110(YobiAction* const action)
     effect->x += xOffset;
     const std::int32_t yOffset = payload->effects1C[payload->effectRunningC9C].position4;
     effect->y += yOffset;
-    if ((payload->flagsFDC & 0x60u) == 0) {
+    const std::uint8_t playFlags =
+        *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
+    if ((playFlags & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
     const std::int32_t count = payload->valueFF0 + 1;
@@ -31623,9 +31637,11 @@ void UpdateBattleAction214_4132B0(YobiAction* const action)
         const std::int32_t count = payload->valueFF0 + 1;
         payload->valueFF0 = count;
         if (action->field58 >= 8) {
+            const std::uint32_t flags = action->flags;
+            const std::int32_t x = action->x;
             action->field58 = 0;
-            action->flags |= 0x8000u;
-            static_cast<void>(audio::PlaySe_52C450(218, action->x));
+            action->flags = flags | 0x8000u;
+            static_cast<void>(audio::PlaySe_52C450(218, x));
             static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 36, 0, 1));
             action->phase = 215;
         } else if (count > 4) {
@@ -31687,8 +31703,10 @@ void UpdateBattleAction216_413400(YobiAction* const action)
                 if (payload->castSkill103C == 400) {
                     static_cast<void>(NewBattleEffect_41CD00(action, 0, {.offsetY = 0}, 35, 0, 0));
                 }
-                const std::int32_t currentPosition = payload->effects1C[payload->effectRunningC9C].position;
-                if (payload->battlePosition18 != currentPosition) {
+                const std::int32_t currentIndex = payload->effectRunningC9C;
+                const std::int32_t ownPosition = payload->battlePosition18;
+                const std::int32_t currentPosition = payload->effects1C[currentIndex].position;
+                if (ownPosition != currentPosition) {
                     AdvanceBattleCastState_439340(gBattleAllEntries59E980[currentPosition]);
                 }
                 static_cast<void>(AdvanceBattleEffect_439470(action));

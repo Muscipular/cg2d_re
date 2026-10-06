@@ -3070,3 +3070,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline)/[九根冻结前态](cg2d_battle_transition_effect_sampling_evidence.json)。新增1453..1461分别F:00012290/000122C0/000122E0/00012310/000127B0/000127F0/00012830/00012870/00012900，全部原已有定义正常语义/equivalent，原冻结定位保持。九根覆盖32原状态接线；180..203共一原身份，188不创建效果仍phase204，不造type物理表/R7。
 
 209九取样阶段实修，八正确体及原条件/业务/别名/返回/RNG保持；语义1462/有效1457、关联1575/3680（42.80%）、BATTLE139枚举open、分类587/E748。R7 259/3061/余2802、差队列172/待归属43与全部完整门禁保。
+
+## BPY01 七场景/效果/死亡状态完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline)/[七根冻结前态](cg2d_battle_scene_words_death_sampling_evidence.json)。新增1462..1468对应F:00012F70/00013070/00013110/000131B0/000132B0/000133D0/00013400，七原已有定义正常语义/equivalent，冻结定位保持。四体七读取阶段恢复、三正确体保，不改场景owner、W32字段、其它发布/业务/回收/RNG。
+
+语义1469/有效1464、关联1582/3680（42.99%）、BATTLE146枚举open、分类594/E750；R7 260/3061/余2801仅新增同210原19B用途，差队列172/待归属43与全部完整门禁保。

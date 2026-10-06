@@ -103,3 +103,9 @@
 [完整合同](cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state)/[九完整原根757条2516B](cg2d_battle_transition_effect_sampling_evidence.json)纳管177/178/179/180..203共体、205/206/207/208及209。只有209六处低W8、两处FDC先FCC后读取与零临时encoded先目标查找/原交替发布九阶段恢复，正常旧值一致；八其它体及188无创建仍转204保，24phase共一根不重计。
 
 九真实入向27邻窗/32父项、共体23立即type/六常数、source/target/attacker别名、所有业务/返回/RNG和未落位浮点中间保。BATTLE139枚举open/E748仅两局部I/S，完整递归生产/生命周期/生成机器/运行及R8未关闭。
+
+## BPY01 场景分字/死亡状态与原读取宽度（2026-10-07）
+
+[完整合同](cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state)/[七原根439条1445B](cg2d_battle_scene_words_death_sampling_evidence.json)纳管210..216。211四W8条件/四W16值、212一W8门控、214先flags/X后发布、216每轮索引/自身/目标位置顺序七源码阶段恢复；正常旧值一致，三其它体和现有同场景owner/原分字发布、回收及RNG/seed保持。
+
+210真实四项switch与同依赖X:0001305D-00013070共19B用途可追：三LEA对齐/四W32项16B，不称纯NOP、不新增F或范围排除。BATTLE146枚举open/E750仅两局部I/S，递归生产/生命周期/生成机器/运行及R8继续。

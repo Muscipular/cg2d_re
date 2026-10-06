@@ -2270,7 +2270,8 @@
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
         "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
-        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline"
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2411,7 +2412,14 @@
         "F:000127F0",
         "F:00012830",
         "F:00012870",
-        "F:00012900"
+        "F:00012900",
+        "F:00012F70",
+        "F:00013070",
+        "F:00013110",
+        "F:000131B0",
+        "F:000132B0",
+        "F:000133D0",
+        "F:00013400"
       ],
       "closure_task_ids": [
         "P01",
@@ -2507,7 +2515,8 @@
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
         "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
-        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision"
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2592,7 +2601,8 @@
         "BPU01两完整动作570条2302B/八页、32call/63jump/七ret与两唯一父邻窗纳管；七原栈初始化52元素按五源常量组40值可追，类型W8/七回收源片段修复，117原成员仍枚举open。第三槽判断/正常状态和真实字段重读保；全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
         "BPV01六完整动作243条815B/八页、19call/21jump/10ret与六唯一父邻窗纳管，165两W8消费恢复，其余五体/原未落位FP、W32缓存与fresh及166内联正常计时/四字节发布保，123原成员枚举open；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87/时钟RNG/画面运行未验，完整战斗及R8未关闭",
         "BPW01七完整根736条2670B/13页、43call/69jump/九ret及六唯一分派点与sync14入向/三父纳管，九槽每操作后fresh/重复alias及真实共享调用汇合保持；204只两临时复制全取样，130原成员仍枚举open。额外同步初判已撤回未改正确call；递归父/其它生产及全部子依赖/owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，完整战斗和R8未关闭",
-        "BPX01九完整757条2516B/16页、48call/108jump/14ret与九入向/27邻窗/32原父case、共体23type与六常数纳管；209六W8/两读取序/encoded先目标及原交替载荷九阶段恢复，正常旧值一致；139原成员枚举仍open。八其它正确体和188无效果仍204、别名/业务/返回/RNG及音频暂停保；递归父/其它生产/全部外依赖和owner寿命、生成机器ABI/真实x87/时钟RNG/画面运行未验，完整战斗和R8继续open"
+        "BPX01九完整757条2516B/16页、48call/108jump/14ret与九入向/27邻窗/32原父case、共体23type与六常数纳管；209六W8/两读取序/encoded先目标及原交替载荷九阶段恢复，正常旧值一致；139原成员枚举仍open。八其它正确体和188无效果仍204、别名/业务/返回/RNG及音频暂停保；递归父/其它生产/全部外依赖和owner寿命、生成机器ABI/真实x87/时钟RNG/画面运行未验，完整战斗和R8继续open",
+        "BPY01七完整439条1445B/九页、40call/16入口/37jump/一四项switch/17ret与七入向21邻窗纳管，四体七W8-W16/读取序阶段恢复、三正确体保，146成员枚举open；210同依赖19B三LEA对齐及四W32表用途mapped只R7。其它递归父/全部子依赖/生产与alias-owner寿命、SDK/生成机器ABI/画面运行未验，完整战斗和R8继续open，音频暂停"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2677,7 +2687,8 @@
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
         "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
-        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state"
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state"
       ]
     },
     {
@@ -32225,6 +32236,82 @@
       "observation": "177：同一payload currentIndex W32→effects1C[index].position4 W32，421570(image,2,1)返回弃用且不写1060槽→439340弃返。原无新借用资源槽或回收，保持。 178：439340弃返后fresh action.phase W32写0；不是先设0再推进，原顺序保。 179：characterAction W32先6→517DA0(action,1)，返回恰等1才439340；其它返值不推进，原参数/返回消费保。 180..203共一原根/入向：先FDC W32读后测AL60，清则PlayFrame0弃返；fresh value1024非0直接phase W32=204。值0才一次W32捕phase，原23个CMP/固定立即type依序到41CD00(action,0,0,type,0,1)，返值弃用；188及原其它未匹配分支不创建效果，仍进入共同phase204发布。保23对实参、24父case和原空default，不造24个F或表物理身份。 205：characterAction先16→PlayFrame(action,1)，只有返回1才frameIndex2C0/frameRemain2C4 W32清0后439340弃返，保等待分支及清字段顺序。 206：固定payload currentIndex→position W32→共享59E980非拥有目标T*，406190(action,target,1,0.0F)弃返后439340；真实target读取/原0浮点参数保，不加范围或空保护。 207：固定一次currentIndex W32；effects1C[index].position W32写FE8后同index.flags W32按S32位样写FEC，原(index+2)*16是effects flags20别名，非另条记录；439470弃返后phase6。源已有W32 bit_cast对应，不改正确缓存/别名。 208：currentIndex→position→共享59E980目标T*；target.offset40 F32×原F64 -0.75+480中间保，以fresh offset44 F32与未落位边界比较；再fresh取offset40作原__ftol正常整数承接。低于边界branch坐标x+44/y+40，否则x-44/y-30；原X先FE8发布后fresh Y/__ftol到FEC，phase6。四原ftol点同当前CRT正常转换边界、两个真实F64常数对应；不把算式换F32，也不造机器精度/异常通过。 209：8/FE4 W32 C04条件9与rate50；FCC先增、FDC W32初始缓存bit1与14*(bit+1)门槛。首段角度+180保未落位中间比较360、speed5/fresh低W8 FDC2设gate1/alive1→Move→PlayFrame1返。中段fresh低W8 FE4 bit2决定方向+1/达8减8，fresh W32 FDC先于FCC读取决定14*(bit+1)相等时speed5/fresh低W8 FDC2和CountActive<=1才gate0/alive0，FF0清0；FF0为0建110006、fresh旧FF0先增旧值>=2归0，speed减真实F32 0.3中间负值业务归0→Move。之后fresh W32 FDC先于FCC读取命中14*bit+24才走命中链：sourceEntry从自身position、attacker=sourceEntry原+10先保存，target再读current.position，缓存targetPayload先发布target+10/source、freshcurrent.flags→FE4、FCC/1024清0、ApplyFlags。后W32 flags缓存决定8设phase31或100仅flash0时sound210(x)/flash1/phase31（原声第三Y未消费，不扩音频）；其它保C000/position3/2000/100000条件，MarkDeath后fresh target FDC W32再清1054/清20；fresh低W8 flags2决定110008、fresh W32 imageFlags决定4图110000、400技术8/阈12图110098或111048、其它attacker skill260等级12/9图111054/110473和direction1，否则一次RNG0..2图110001起；NewRebirth后fresh低W8 flags20设targetFDC2/gate1/alive1。fresh W32 damageFlags按E000/10000000图22459、amount0图22331、skill84/85/87跳伤害；否则扣fresh共享目标readiness→另fresh比较目标<0则Construct0，先捕currentIndex再读临时encoded W32，再读position/共享目标写encoded，随后mask W32读写、readCount W8读写→Destroy。保原交替发布，目标token/reserved不改。数显fresh flags W32→targetY→amount→targetX，type6/style2/flags，之后fresh低W8 flags2图22454，再Attribute。共同target439340、Turn(target,action,1,0)、action439470；整体尾PlayFrame1。FCC达14*初始bit+54时清0，原初始FDC缓存bit2决定6/100推进后phase11改4/100，或freshFE4/3010决定6/100或1/250推进。source/target/attacker共享别名捕获、所有真实调用/RNG/条件/无额外保护保持。",
       "expected": "177：同一payload currentIndex W32→effects1C[index].position4 W32，421570(image,2,1)返回弃用且不写1060槽→439340弃返。原无新借用资源槽或回收，保持。 178：439340弃返后fresh action.phase W32写0；不是先设0再推进，原顺序保。 179：characterAction W32先6→517DA0(action,1)，返回恰等1才439340；其它返值不推进，原参数/返回消费保。 180..203共一原根/入向：先FDC W32读后测AL60，清则PlayFrame0弃返；fresh value1024非0直接phase W32=204。值0才一次W32捕phase，原23个CMP/固定立即type依序到41CD00(action,0,0,type,0,1)，返值弃用；188及原其它未匹配分支不创建效果，仍进入共同phase204发布。保23对实参、24父case和原空default，不造24个F或表物理身份。 205：characterAction先16→PlayFrame(action,1)，只有返回1才frameIndex2C0/frameRemain2C4 W32清0后439340弃返，保等待分支及清字段顺序。 206：固定payload currentIndex→position W32→共享59E980非拥有目标T*，406190(action,target,1,0.0F)弃返后439340；真实target读取/原0浮点参数保，不加范围或空保护。 207：固定一次currentIndex W32；effects1C[index].position W32写FE8后同index.flags W32按S32位样写FEC，原(index+2)*16是effects flags20别名，非另条记录；439470弃返后phase6。源已有W32 bit_cast对应，不改正确缓存/别名。 208：currentIndex→position→共享59E980目标T*；target.offset40 F32×原F64 -0.75+480中间保，以fresh offset44 F32与未落位边界比较；再fresh取offset40作原__ftol正常整数承接。低于边界branch坐标x+44/y+40，否则x-44/y-30；原X先FE8发布后fresh Y/__ftol到FEC，phase6。四原ftol点同当前CRT正常转换边界、两个真实F64常数对应；不把算式换F32，也不造机器精度/异常通过。 209：8/FE4 W32 C04条件9与rate50；FCC先增、FDC W32初始缓存bit1与14*(bit+1)门槛。首段角度+180保未落位中间比较360、speed5/fresh低W8 FDC2设gate1/alive1→Move→PlayFrame1返。中段fresh低W8 FE4 bit2决定方向+1/达8减8，fresh W32 FDC先于FCC读取决定14*(bit+1)相等时speed5/fresh低W8 FDC2和CountActive<=1才gate0/alive0，FF0清0；FF0为0建110006、fresh旧FF0先增旧值>=2归0，speed减真实F32 0.3中间负值业务归0→Move。之后fresh W32 FDC先于FCC读取命中14*bit+24才走命中链：sourceEntry从自身position、attacker=sourceEntry原+10先保存，target再读current.position，缓存targetPayload先发布target+10/source、freshcurrent.flags→FE4、FCC/1024清0、ApplyFlags。后W32 flags缓存决定8设phase31或100仅flash0时sound210(x)/flash1/phase31（原声第三Y未消费，不扩音频）；其它保C000/position3/2000/100000条件，MarkDeath后fresh target FDC W32再清1054/清20；fresh低W8 flags2决定110008、fresh W32 imageFlags决定4图110000、400技术8/阈12图110098或111048、其它attacker skill260等级12/9图111054/110473和direction1，否则一次RNG0..2图110001起；NewRebirth后fresh低W8 flags20设targetFDC2/gate1/alive1。fresh W32 damageFlags按E000/10000000图22459、amount0图22331、skill84/85/87跳伤害；否则扣fresh共享目标readiness→另fresh比较目标<0则Construct0，先捕currentIndex再读临时encoded W32，再读position/共享目标写encoded，随后mask W32读写、readCount W8读写→Destroy。保原交替发布，目标token/reserved不改。数显fresh flags W32→targetY→amount→targetX，type6/style2/flags，之后fresh低W8 flags2图22454，再Attribute。共同target439340、Turn(target,action,1,0)、action439470；整体尾PlayFrame1。FCC达14*初始bit+54时清0，原初始FDC缓存bit2决定6/100推进后phase11改4/100，或freshFE4/3010决定6/100或1/250推进。source/target/attacker共享别名捕获、所有真实调用/RNG/条件/无额外保护保持。",
       "actual": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-SCENE-WORDS-DEATH-SAMPLING-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPY01七完整439条1445B/九页与40call/37jump/17ret、七父21邻窗/一原四项switch，四体七阶段及19B用途；doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-scene-words-death-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction210_412F70",
+        "src/YobiRuntime.cpp#ApplyBattleSceneEffects_413070",
+        "src/YobiRuntime.cpp#UpdateBattleAction212_413110",
+        "src/YobiRuntime.cpp#UpdateBattleAction213_4131B0",
+        "src/YobiRuntime.cpp#UpdateBattleAction214_4132B0",
+        "src/YobiRuntime.cpp#UpdateBattleAction215_4133D0",
+        "src/YobiRuntime.cpp#UpdateBattleAction216_413400",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_ida_inventory.json"
+      ],
+      "differences": [
+        {
+          "description": "211四低W8条件和四低W16值保持同场景owner原分字发布，212低W8门控，214先flags/X后发布，216每轮index/自身位置/目标位置序，正常旧值一致；三正确体及其它原条件/业务/回收/返回/RNG保持，R7只19B字节用途非软件验收",
+          "decision_ref": "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "210：characterAction3/speed16/rate50；currentIndex→共享目标先Turn(action,target,1,0)，再fresh currentIndex/共享目标供Distance；有符号距离<70才439340后speed8/rate100，否则Move。共同PlayFrame0弃返，然后一次rand53B4C9 &3，经四实际表项生成110004..110007的PositionEffect，返回借用T*供父弃用。保调用/RNG消费序，不把两个共享目标读取合并缓存。 211：payload固定；四阶段各fresh currentIndex W32，分别current.flags实际低W8的1/2/4/8决定是否同一阶段cached index.position3低W16读并发布到C8A768低/高及C8A76C低/高。W32字段/其它16位和共享场景owner不变；每次值读用memcpy对象表示，避免把S32转成新W16类型字段或错用uint16_t类型别名。最后439470弃返→439340弃返，四条件各独立不串else。 212：current.position供RandomEffect(action,image,0)，原返effect借用，无额外创建失败守卫；fresh index.position3 W32后effectX读加写，再fresh index.position4 W32后effectY读加写；之后FDC低W8/60清才PlayFrame0弃返。fresh FF0先加1发布、fresh current.flags W32按S32阈值比较，count>=threshold才FF0清0→439470→439340；保坐标/索引重取及正常业务阈值。 213：FDC W32/10000000置位时捕原phase写FF0、phase164并返回旧phase；其它characterAction10/rate100→PlayFrame1，返回不等1直接返回。等1才fresh FDC W32/1000决定scaleX/Y F32各1.0，之后fresh FDC清1000；依序一次借105C/1054/1068/1058，非空MarkDeath后清对应槽，空槽不额外清写。最后fresh13B0非0phase220，否则214，返回13B0；保真实回收次序/条件清槽和返回消费。 214：先Has3D。无3D时FF0先增发布，field58>=8才先读W32 action.flags和X、field58清0、flags|8000发布、声218(x)和type36效果(action,0,0,36,0,1)弃返、phase215；小于8且count>4时FF0清0，fresh flags及field58捕获后flags^2/step+1依序发布；其它等待。存在3D时fresh FF0非255先255发布/声218(x)一次，低W8 alpha先取后308写8；先前alpha0则field58/FF0清0后439340，否则RisingEffect后fresh alpha W8小于4置0、其它减4。保这个原业务下限、W8存储/首读后fresh读；原声第三Y不消费，音频暂停。 215：fresh payload1024恰2才写0→439340；其它等待，原无新effect槽操作。 216：characterAction6；payload1024恰0才type34效果(action,0,0,34,0,1)返回写借用+10槽/FF0清0。fresh frameEvent处于[10000,20000)时，一次借+10指针，非空MarkDeath后清+10、循环freshcurrent.position直到255；每非255项Seed(position+ownPosition)，fresh skill400才type35效果(action,0,0,35,0,0)，随后每轮先fresh currentIndex、再自身position18、后该index.position，若不同供共享59E980目标439340；本动作439470推进后循环，255出口再439470。无论+10是否空均frameEvent清0，随后PlayFrame1；恰1时一次借+10非空回收/清槽，payload1024清0→439340。共同尾fresh +10非空才fresh skill400 draw3或401 draw1；保两回收点缓存、借用寿命/原循环推进与seed消费，不加固定次数或未知容量保护。",
+      "expected": "210：characterAction3/speed16/rate50；currentIndex→共享目标先Turn(action,target,1,0)，再fresh currentIndex/共享目标供Distance；有符号距离<70才439340后speed8/rate100，否则Move。共同PlayFrame0弃返，然后一次rand53B4C9 &3，经四实际表项生成110004..110007的PositionEffect，返回借用T*供父弃用。保调用/RNG消费序，不把两个共享目标读取合并缓存。 211：payload固定；四阶段各fresh currentIndex W32，分别current.flags实际低W8的1/2/4/8决定是否同一阶段cached index.position3低W16读并发布到C8A768低/高及C8A76C低/高。W32字段/其它16位和共享场景owner不变；每次值读用memcpy对象表示，避免把S32转成新W16类型字段或错用uint16_t类型别名。最后439470弃返→439340弃返，四条件各独立不串else。 212：current.position供RandomEffect(action,image,0)，原返effect借用，无额外创建失败守卫；fresh index.position3 W32后effectX读加写，再fresh index.position4 W32后effectY读加写；之后FDC低W8/60清才PlayFrame0弃返。fresh FF0先加1发布、fresh current.flags W32按S32阈值比较，count>=threshold才FF0清0→439470→439340；保坐标/索引重取及正常业务阈值。 213：FDC W32/10000000置位时捕原phase写FF0、phase164并返回旧phase；其它characterAction10/rate100→PlayFrame1，返回不等1直接返回。等1才fresh FDC W32/1000决定scaleX/Y F32各1.0，之后fresh FDC清1000；依序一次借105C/1054/1068/1058，非空MarkDeath后清对应槽，空槽不额外清写。最后fresh13B0非0phase220，否则214，返回13B0；保真实回收次序/条件清槽和返回消费。 214：先Has3D。无3D时FF0先增发布，field58>=8才先读W32 action.flags和X、field58清0、flags|8000发布、声218(x)和type36效果(action,0,0,36,0,1)弃返、phase215；小于8且count>4时FF0清0，fresh flags及field58捕获后flags^2/step+1依序发布；其它等待。存在3D时fresh FF0非255先255发布/声218(x)一次，低W8 alpha先取后308写8；先前alpha0则field58/FF0清0后439340，否则RisingEffect后fresh alpha W8小于4置0、其它减4。保这个原业务下限、W8存储/首读后fresh读；原声第三Y不消费，音频暂停。 215：fresh payload1024恰2才写0→439340；其它等待，原无新effect槽操作。 216：characterAction6；payload1024恰0才type34效果(action,0,0,34,0,1)返回写借用+10槽/FF0清0。fresh frameEvent处于[10000,20000)时，一次借+10指针，非空MarkDeath后清+10、循环freshcurrent.position直到255；每非255项Seed(position+ownPosition)，fresh skill400才type35效果(action,0,0,35,0,0)，随后每轮先fresh currentIndex、再自身position18、后该index.position，若不同供共享59E980目标439340；本动作439470推进后循环，255出口再439470。无论+10是否空均frameEvent清0，随后PlayFrame1；恰1时一次借+10非空回收/清槽，payload1024清0→439340。共同尾fresh +10非空才fresh skill400 draw3或401 draw1；保两回收点缓存、借用寿命/原循环推进与seed消费，不加固定次数或未知容量保护。",
+      "actual": "七完整439条1445B/九页、40call/16入口、37普通内部jump/一四项switch/17ret、七唯一父21条邻窗及210原19B未分配区间。四源体七阶段：211四W8条件/四W16值、212一W8门控、214先flags/X后发布及216每轮索引/自身位置/目标位置读取序；正常旧值一致，不称数值/并发或生成机器故障。三其它正确体和其它字段W32/F32/T*、原业务/返回/RNG/seed与现有场景共享owner保持，R7只本区间实际LEA三字节/四项表16B用途mapped，不代软件或排除。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产和owner寿命、SDK/生成机器ABI/画面运行；音频暂停与RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-SCENE-WORDS-DEATH-SAMPLING-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPY01七完整439条1445B/九页与40call/37jump/17ret、七父21邻窗/一原四项switch，四体七阶段及19B用途；doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-scene-words-death-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction210_412F70",
+        "src/YobiRuntime.cpp#ApplyBattleSceneEffects_413070",
+        "src/YobiRuntime.cpp#UpdateBattleAction212_413110",
+        "src/YobiRuntime.cpp#UpdateBattleAction213_4131B0",
+        "src/YobiRuntime.cpp#UpdateBattleAction214_4132B0",
+        "src/YobiRuntime.cpp#UpdateBattleAction215_4133D0",
+        "src/YobiRuntime.cpp#UpdateBattleAction216_413400",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_ida_inventory.json"
+      ],
+      "differences": [
+        {
+          "description": "211四低W8条件和四低W16值保持同场景owner原分字发布，212低W8门控，214先flags/X后发布，216每轮index/自身位置/目标位置序，正常旧值一致；三正确体及其它原条件/业务/回收/返回/RNG保持，R7只19B字节用途非软件验收",
+          "decision_ref": "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "210：characterAction3/speed16/rate50；currentIndex→共享目标先Turn(action,target,1,0)，再fresh currentIndex/共享目标供Distance；有符号距离<70才439340后speed8/rate100，否则Move。共同PlayFrame0弃返，然后一次rand53B4C9 &3，经四实际表项生成110004..110007的PositionEffect，返回借用T*供父弃用。保调用/RNG消费序，不把两个共享目标读取合并缓存。 211：payload固定；四阶段各fresh currentIndex W32，分别current.flags实际低W8的1/2/4/8决定是否同一阶段cached index.position3低W16读并发布到C8A768低/高及C8A76C低/高。W32字段/其它16位和共享场景owner不变；每次值读用memcpy对象表示，避免把S32转成新W16类型字段或错用uint16_t类型别名。最后439470弃返→439340弃返，四条件各独立不串else。 212：current.position供RandomEffect(action,image,0)，原返effect借用，无额外创建失败守卫；fresh index.position3 W32后effectX读加写，再fresh index.position4 W32后effectY读加写；之后FDC低W8/60清才PlayFrame0弃返。fresh FF0先加1发布、fresh current.flags W32按S32阈值比较，count>=threshold才FF0清0→439470→439340；保坐标/索引重取及正常业务阈值。 213：FDC W32/10000000置位时捕原phase写FF0、phase164并返回旧phase；其它characterAction10/rate100→PlayFrame1，返回不等1直接返回。等1才fresh FDC W32/1000决定scaleX/Y F32各1.0，之后fresh FDC清1000；依序一次借105C/1054/1068/1058，非空MarkDeath后清对应槽，空槽不额外清写。最后fresh13B0非0phase220，否则214，返回13B0；保真实回收次序/条件清槽和返回消费。 214：先Has3D。无3D时FF0先增发布，field58>=8才先读W32 action.flags和X、field58清0、flags|8000发布、声218(x)和type36效果(action,0,0,36,0,1)弃返、phase215；小于8且count>4时FF0清0，fresh flags及field58捕获后flags^2/step+1依序发布；其它等待。存在3D时fresh FF0非255先255发布/声218(x)一次，低W8 alpha先取后308写8；先前alpha0则field58/FF0清0后439340，否则RisingEffect后fresh alpha W8小于4置0、其它减4。保这个原业务下限、W8存储/首读后fresh读；原声第三Y不消费，音频暂停。 215：fresh payload1024恰2才写0→439340；其它等待，原无新effect槽操作。 216：characterAction6；payload1024恰0才type34效果(action,0,0,34,0,1)返回写借用+10槽/FF0清0。fresh frameEvent处于[10000,20000)时，一次借+10指针，非空MarkDeath后清+10、循环freshcurrent.position直到255；每非255项Seed(position+ownPosition)，fresh skill400才type35效果(action,0,0,35,0,0)，随后每轮先fresh currentIndex、再自身position18、后该index.position，若不同供共享59E980目标439340；本动作439470推进后循环，255出口再439470。无论+10是否空均frameEvent清0，随后PlayFrame1；恰1时一次借+10非空回收/清槽，payload1024清0→439340。共同尾fresh +10非空才fresh skill400 draw3或401 draw1；保两回收点缓存、借用寿命/原循环推进与seed消费，不加固定次数或未知容量保护。",
+      "expected": "210：characterAction3/speed16/rate50；currentIndex→共享目标先Turn(action,target,1,0)，再fresh currentIndex/共享目标供Distance；有符号距离<70才439340后speed8/rate100，否则Move。共同PlayFrame0弃返，然后一次rand53B4C9 &3，经四实际表项生成110004..110007的PositionEffect，返回借用T*供父弃用。保调用/RNG消费序，不把两个共享目标读取合并缓存。 211：payload固定；四阶段各fresh currentIndex W32，分别current.flags实际低W8的1/2/4/8决定是否同一阶段cached index.position3低W16读并发布到C8A768低/高及C8A76C低/高。W32字段/其它16位和共享场景owner不变；每次值读用memcpy对象表示，避免把S32转成新W16类型字段或错用uint16_t类型别名。最后439470弃返→439340弃返，四条件各独立不串else。 212：current.position供RandomEffect(action,image,0)，原返effect借用，无额外创建失败守卫；fresh index.position3 W32后effectX读加写，再fresh index.position4 W32后effectY读加写；之后FDC低W8/60清才PlayFrame0弃返。fresh FF0先加1发布、fresh current.flags W32按S32阈值比较，count>=threshold才FF0清0→439470→439340；保坐标/索引重取及正常业务阈值。 213：FDC W32/10000000置位时捕原phase写FF0、phase164并返回旧phase；其它characterAction10/rate100→PlayFrame1，返回不等1直接返回。等1才fresh FDC W32/1000决定scaleX/Y F32各1.0，之后fresh FDC清1000；依序一次借105C/1054/1068/1058，非空MarkDeath后清对应槽，空槽不额外清写。最后fresh13B0非0phase220，否则214，返回13B0；保真实回收次序/条件清槽和返回消费。 214：先Has3D。无3D时FF0先增发布，field58>=8才先读W32 action.flags和X、field58清0、flags|8000发布、声218(x)和type36效果(action,0,0,36,0,1)弃返、phase215；小于8且count>4时FF0清0，fresh flags及field58捕获后flags^2/step+1依序发布；其它等待。存在3D时fresh FF0非255先255发布/声218(x)一次，低W8 alpha先取后308写8；先前alpha0则field58/FF0清0后439340，否则RisingEffect后fresh alpha W8小于4置0、其它减4。保这个原业务下限、W8存储/首读后fresh读；原声第三Y不消费，音频暂停。 215：fresh payload1024恰2才写0→439340；其它等待，原无新effect槽操作。 216：characterAction6；payload1024恰0才type34效果(action,0,0,34,0,1)返回写借用+10槽/FF0清0。fresh frameEvent处于[10000,20000)时，一次借+10指针，非空MarkDeath后清+10、循环freshcurrent.position直到255；每非255项Seed(position+ownPosition)，fresh skill400才type35效果(action,0,0,35,0,0)，随后每轮先fresh currentIndex、再自身position18、后该index.position，若不同供共享59E980目标439340；本动作439470推进后循环，255出口再439470。无论+10是否空均frameEvent清0，随后PlayFrame1；恰1时一次借+10非空回收/清槽，payload1024清0→439340。共同尾fresh +10非空才fresh skill400 draw3或401 draw1；保两回收点缓存、借用寿命/原循环推进与seed消费，不加固定次数或未知容量保护。",
+      "actual": "七完整439条1445B/九页、40call/16入口、37普通内部jump/一四项switch/17ret、七唯一父21条邻窗及210原19B未分配区间。四源体七阶段：211四W8条件/四W16值、212一W8门控、214先flags/X后发布及216每轮索引/自身位置/目标位置读取序；正常旧值一致，不称数值/并发或生成机器故障。三其它正确体和其它字段W32/F32/T*、原业务/返回/RNG/seed与现有场景共享owner保持，R7只本区间实际LEA三字节/四项表16B用途mapped，不代软件或排除。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产和owner寿命、SDK/生成机器ABI/画面运行；音频暂停与RPLAN.24不专项异常/保护/回绕/故障等价保。"
     }
   ],
   "task_acceptance": [
@@ -32855,7 +32942,8 @@
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
         "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
-        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state"
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state"
       ]
     },
     {
@@ -32938,7 +33026,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
-        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state"
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state"
       ]
     },
     {
@@ -33101,7 +33190,8 @@
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
         "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
-        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state"
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state"
       ]
     },
     {
@@ -33242,7 +33332,8 @@
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
         "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
-        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state"
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state"
       ]
     },
     {
@@ -33715,7 +33806,8 @@
         "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
         "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
         "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
-        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state"
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state"
       ]
     },
     {
@@ -40063,6 +40155,97 @@
         "doc/cg2d_battle_transition_effect_sampling_evidence.json"
       ],
       "boundary": "209：8/FE4 W32 C04条件9与rate50；FCC先增、FDC W32初始缓存bit1与14*(bit+1)门槛。首段角度+180保未落位中间比较360、speed5/fresh低W8 FDC2设gate1/alive1→Move→PlayFrame1返。中段fresh低W8 FE4 bit2决定方向+1/达8减8，fresh W32 FDC先于FCC读取决定14*(bit+1)相等时speed5/fresh低W8 FDC2和CountActive<=1才gate0/alive0，FF0清0；FF0为0建110006、fresh旧FF0先增旧值>=2归0，speed减真实F32 0.3中间负值业务归0→Move。之后fresh W32 FDC先于FCC读取命中14*bit+24才走命中链：sourceEntry从自身position、attacker=sourceEntry原+10先保存，target再读current.position，缓存targetPayload先发布target+10/source、freshcurrent.flags→FE4、FCC/1024清0、ApplyFlags。后W32 flags缓存决定8设phase31或100仅flash0时sound210(x)/flash1/phase31（原声第三Y未消费，不扩音频）；其它保C000/position3/2000/100000条件，MarkDeath后fresh target FDC W32再清1054/清20；fresh低W8 flags2决定110008、fresh W32 imageFlags决定4图110000、400技术8/阈12图110098或111048、其它attacker skill260等级12/9图111054/110473和direction1，否则一次RNG0..2图110001起；NewRebirth后fresh低W8 flags20设targetFDC2/gate1/alive1。fresh W32 damageFlags按E000/10000000图22459、amount0图22331、skill84/85/87跳伤害；否则扣fresh共享目标readiness→另fresh比较目标<0则Construct0，先捕currentIndex再读临时encoded W32，再读position/共享目标写encoded，随后mask W32读写、readCount W8读写→Destroy。保原交替发布，目标token/reserved不改。数显fresh flags W32→targetY→amount→targetX，type6/style2/flags，之后fresh低W8 flags2图22454，再Attribute。共同target439340、Turn(target,action,1,0)、action439470；整体尾PlayFrame1。FCC达14*初始bit+54时清0，原初始FDC缓存bit2决定6/100推进后phase11改4/100，或freshFE4/3010决定6/100或1/250推进。source/target/attacker共享别名捕获、所有真实调用/RNG/条件/无额外保护保持。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00012F70",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json"
+      ],
+      "boundary": "210：characterAction3/speed16/rate50；currentIndex→共享目标先Turn(action,target,1,0)，再fresh currentIndex/共享目标供Distance；有符号距离<70才439340后speed8/rate100，否则Move。共同PlayFrame0弃返，然后一次rand53B4C9 &3，经四实际表项生成110004..110007的PositionEffect，返回借用T*供父弃用。保调用/RNG消费序，不把两个共享目标读取合并缓存。 七完整439条1445B/九页、40call/16入口、37普通内部jump/一四项switch/17ret、七唯一父21条邻窗及210原19B未分配区间。四源体七阶段：211四W8条件/四W16值、212一W8门控、214先flags/X后发布及216每轮索引/自身位置/目标位置读取序；正常旧值一致，不称数值/并发或生成机器故障。三其它正确体和其它字段W32/F32/T*、原业务/返回/RNG/seed与现有场景共享owner保持，R7只本区间实际LEA三字节/四项表16B用途mapped，不代软件或排除。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产和owner寿命、SDK/生成机器ABI/画面运行；音频暂停与RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00013070",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json"
+      ],
+      "boundary": "211：payload固定；四阶段各fresh currentIndex W32，分别current.flags实际低W8的1/2/4/8决定是否同一阶段cached index.position3低W16读并发布到C8A768低/高及C8A76C低/高。W32字段/其它16位和共享场景owner不变；每次值读用memcpy对象表示，避免把S32转成新W16类型字段或错用uint16_t类型别名。最后439470弃返→439340弃返，四条件各独立不串else。 七完整439条1445B/九页、40call/16入口、37普通内部jump/一四项switch/17ret、七唯一父21条邻窗及210原19B未分配区间。四源体七阶段：211四W8条件/四W16值、212一W8门控、214先flags/X后发布及216每轮索引/自身位置/目标位置读取序；正常旧值一致，不称数值/并发或生成机器故障。三其它正确体和其它字段W32/F32/T*、原业务/返回/RNG/seed与现有场景共享owner保持，R7只本区间实际LEA三字节/四项表16B用途mapped，不代软件或排除。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产和owner寿命、SDK/生成机器ABI/画面运行；音频暂停与RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00013110",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json"
+      ],
+      "boundary": "212：current.position供RandomEffect(action,image,0)，原返effect借用，无额外创建失败守卫；fresh index.position3 W32后effectX读加写，再fresh index.position4 W32后effectY读加写；之后FDC低W8/60清才PlayFrame0弃返。fresh FF0先加1发布、fresh current.flags W32按S32阈值比较，count>=threshold才FF0清0→439470→439340；保坐标/索引重取及正常业务阈值。 七完整439条1445B/九页、40call/16入口、37普通内部jump/一四项switch/17ret、七唯一父21条邻窗及210原19B未分配区间。四源体七阶段：211四W8条件/四W16值、212一W8门控、214先flags/X后发布及216每轮索引/自身位置/目标位置读取序；正常旧值一致，不称数值/并发或生成机器故障。三其它正确体和其它字段W32/F32/T*、原业务/返回/RNG/seed与现有场景共享owner保持，R7只本区间实际LEA三字节/四项表16B用途mapped，不代软件或排除。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产和owner寿命、SDK/生成机器ABI/画面运行；音频暂停与RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:000131B0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json"
+      ],
+      "boundary": "213：FDC W32/10000000置位时捕原phase写FF0、phase164并返回旧phase；其它characterAction10/rate100→PlayFrame1，返回不等1直接返回。等1才fresh FDC W32/1000决定scaleX/Y F32各1.0，之后fresh FDC清1000；依序一次借105C/1054/1068/1058，非空MarkDeath后清对应槽，空槽不额外清写。最后fresh13B0非0phase220，否则214，返回13B0；保真实回收次序/条件清槽和返回消费。 七完整439条1445B/九页、40call/16入口、37普通内部jump/一四项switch/17ret、七唯一父21条邻窗及210原19B未分配区间。四源体七阶段：211四W8条件/四W16值、212一W8门控、214先flags/X后发布及216每轮索引/自身位置/目标位置读取序；正常旧值一致，不称数值/并发或生成机器故障。三其它正确体和其它字段W32/F32/T*、原业务/返回/RNG/seed与现有场景共享owner保持，R7只本区间实际LEA三字节/四项表16B用途mapped，不代软件或排除。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产和owner寿命、SDK/生成机器ABI/画面运行；音频暂停与RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:000132B0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json"
+      ],
+      "boundary": "214：先Has3D。无3D时FF0先增发布，field58>=8才先读W32 action.flags和X、field58清0、flags|8000发布、声218(x)和type36效果(action,0,0,36,0,1)弃返、phase215；小于8且count>4时FF0清0，fresh flags及field58捕获后flags^2/step+1依序发布；其它等待。存在3D时fresh FF0非255先255发布/声218(x)一次，低W8 alpha先取后308写8；先前alpha0则field58/FF0清0后439340，否则RisingEffect后fresh alpha W8小于4置0、其它减4。保这个原业务下限、W8存储/首读后fresh读；原声第三Y不消费，音频暂停。 七完整439条1445B/九页、40call/16入口、37普通内部jump/一四项switch/17ret、七唯一父21条邻窗及210原19B未分配区间。四源体七阶段：211四W8条件/四W16值、212一W8门控、214先flags/X后发布及216每轮索引/自身位置/目标位置读取序；正常旧值一致，不称数值/并发或生成机器故障。三其它正确体和其它字段W32/F32/T*、原业务/返回/RNG/seed与现有场景共享owner保持，R7只本区间实际LEA三字节/四项表16B用途mapped，不代软件或排除。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产和owner寿命、SDK/生成机器ABI/画面运行；音频暂停与RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:000133D0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json"
+      ],
+      "boundary": "215：fresh payload1024恰2才写0→439340；其它等待，原无新effect槽操作。 七完整439条1445B/九页、40call/16入口、37普通内部jump/一四项switch/17ret、七唯一父21条邻窗及210原19B未分配区间。四源体七阶段：211四W8条件/四W16值、212一W8门控、214先flags/X后发布及216每轮索引/自身位置/目标位置读取序；正常旧值一致，不称数值/并发或生成机器故障。三其它正确体和其它字段W32/F32/T*、原业务/返回/RNG/seed与现有场景共享owner保持，R7只本区间实际LEA三字节/四项表16B用途mapped，不代软件或排除。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产和owner寿命、SDK/生成机器ABI/画面运行；音频暂停与RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00013400",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json"
+      ],
+      "boundary": "216：characterAction6；payload1024恰0才type34效果(action,0,0,34,0,1)返回写借用+10槽/FF0清0。fresh frameEvent处于[10000,20000)时，一次借+10指针，非空MarkDeath后清+10、循环freshcurrent.position直到255；每非255项Seed(position+ownPosition)，fresh skill400才type35效果(action,0,0,35,0,0)，随后每轮先fresh currentIndex、再自身position18、后该index.position，若不同供共享59E980目标439340；本动作439470推进后循环，255出口再439470。无论+10是否空均frameEvent清0，随后PlayFrame1；恰1时一次借+10非空回收/清槽，payload1024清0→439340。共同尾fresh +10非空才fresh skill400 draw3或401 draw1；保两回收点缓存、借用寿命/原循环推进与seed消费，不加固定次数或未知容量保护。 七完整439条1445B/九页、40call/16入口、37普通内部jump/一四项switch/17ret、七唯一父21条邻窗及210原19B未分配区间。四源体七阶段：211四W8条件/四W16值、212一W8门控、214先flags/X后发布及216每轮索引/自身位置/目标位置读取序；正常旧值一致，不称数值/并发或生成机器故障。三其它正确体和其它字段W32/F32/T*、原业务/返回/RNG/seed与现有场景共享owner保持，R7只本区间实际LEA三字节/四项表16B用途mapped，不代软件或排除。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产和owner寿命、SDK/生成机器ABI/画面运行；音频暂停与RPLAN.24不专项异常/保护/回绕/故障等价保。"
     }
   ],
   "auxiliary_dispositions": [
@@ -46145,6 +46328,34 @@
           "end_exclusive": "0x412f70",
           "kind": "nop_padding",
           "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0001305D-00013070",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_evidence.json"
+      ],
+      "reason": "BPY01同210依赖19B逐字节owner/xref及RET/真实函数块边界；三LEA对齐字节与四实际W32跳转表16B，mapped仅字节用途，不计新函数/范围排除/软件运行验收",
+      "classification": "mixed_table_data",
+      "parts": [
+        {
+          "start": "0x41305d",
+          "end_exclusive": "0x413060",
+          "kind": "alignment_bytes",
+          "bytes": 3
+        },
+        {
+          "start": "0x413060",
+          "end_exclusive": "0x413070",
+          "kind": "jump_table",
+          "bytes": 16
         }
       ]
     }

@@ -1094,3 +1094,9 @@ R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open�
 [限定验收](cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance)/[完整757条2516B](cg2d_battle_transition_effect_sampling_evidence.json)。16页、48call/24入口/108内部jump/14ret、九入向/27邻窗/32父项、23type参数链/六常数及209六实际W8/两个FDC-FCC读取序/encoded先目标与原交替发布可追。九源码阶段只修读取边界/顺序，正常旧值一致；两局部I/S各十七实来源，完整递归依赖/生产/owner与生成机器/运行未验。
 
 语义1462/1457、关联1575/42.80%、BATTLE139枚举open、分类587/E748。R7 259/3061/余2802、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false不变，原验收标准继续。
+
+## BPY01 七完整场景/死亡状态局部I/S与同依赖R7（2026-10-07）
+
+[限定验收](cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance)/[完整439条1445B](cg2d_battle_scene_words_death_sampling_evidence.json)。九页、40call/16入口/37普通jump/一四项switch/17ret、七入向21邻窗及四体七读取阶段可追；正常旧值一致，八/十六位原消费、读取发布序和同场景owner不扩大为运行值错误。两局部I/S各十六独立实来源，完整递归/生产/owner与生成机器/运行未验。
+
+X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W32表/唯一引用证明19B用途mapped，只R7 259→260/余2801。语义1469/1464、关联1582/42.99%、BATTLE146枚举open、分类594/E750，差队列172/待归属43、五任务open及60源码closed10/完整验收0/叶0/global_accepted=false保。

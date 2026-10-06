@@ -255,3 +255,7 @@
 ## BNI01 技能73非零角色与效果原序（2026-10-06）
 
 [单根六处](../cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-decision)恢复初actor先level、同解析target比较先pub、两Effect原参数取样/两S32索引及target34后先位置比较，256/52沿同位置、51另live。初skill原先于caster/value位置pub、两字段先后续caster判空和原flags pub后amount Take/live门禁保持；[305条1051B证据](../cg2d_battle_m_skill73_sampling_evidence.json)不代73零模式完整消费者/全case/完整父和所有owner运行，其它根头/声明不改。
+
+## BNJ01 技能106族角色与参数原序（2026-10-06）
+
+[单根八处](../cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-decision)恢复同解析caster/target、payload先skill/actor先level，普通Effect firstImage-flags-target-caster-actor、Aux选中图-second-first-flags-target-caster-actor、两S32索引及34后target先比较/256-52沿同位置/51另live。原2002消费/live门禁与初末动作及真实Move-RID增58保持；[409条1436B证据](../cg2d_battle_m_skill106_family_sampling_evidence.json)不代完整父/所有owner运行，其它根头/声明不改。

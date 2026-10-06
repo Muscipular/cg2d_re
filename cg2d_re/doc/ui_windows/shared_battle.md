@@ -8371,3 +8371,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 ## BNI01 技能73非零效果与位置取样（2026-10-06）
 
 [六处实修](../cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-decision)明确普通Effect为firstImage-flags-target-caster-actor，Aux为选中图-second-first-flags-target-caster-actor；原一次初始化/跨target图数组、两S32索引及34后比较位置有界纳管。1..4初动作、flags pub后第二Take/live门禁、cached W32位分支与Move-RID-增58保持；[305条原区段](../cg2d_battle_m_skill73_sampling_evidence.json)含零模式接线上下文，不代其完整消费者/完整共享战斗-owner或画面运行。
+
+## BNJ01 技能106/111/2002效果与取包（2026-10-06）
+
+[八处实修](../cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-decision)恢复两Effect原参数取样/双S32索引、同解析target与34后比较位置。2002原额外两整数/29容量名称/一整数消费后live flags门禁、0后level<90的112/74/64和末64，111初/末动作及106初动作保持；[409条原主体/真实尾](../cg2d_battle_m_skill106_family_sampling_evidence.json)不代完整共享战斗-owner或画面运行。

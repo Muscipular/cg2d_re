@@ -2529,3 +2529,7 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 ## BNI01 旧812技能73非零有界追加（2026-10-06）
 
 [验收合同](cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-acceptance)及[305条1051B四页31call](cg2d_battle_m_skill73_sampling_evidence.json)完整保存case73区段，入口九/非零主体272/零模式接线上下文18/RID尾六分列；case73原202B和八W32初始化仅上下文。单根六处实修，旧812只五引用/一symbol/本步对象，不新F/X/adapted/分类/完整成员；语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%与完整门禁保持，不代73零模式完整消费者。
+
+## BNJ01 旧812技能106族有界追加（2026-10-06）
+
+[验收合同](cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-acceptance)及[409条1436B六页48call](cg2d_battle_m_skill106_family_sampling_evidence.json)完整保存主体399条和真实尾十条39B/2call，BMT既有尾非新增，低202B/高45B定位与八W32初始化仅上下文。单根八处实修，旧812只五引用/一symbol/本步对象，不新F/X/adapted/分类/完整成员；语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%与完整门禁保持。

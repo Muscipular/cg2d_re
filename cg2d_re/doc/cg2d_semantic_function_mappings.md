@@ -2974,3 +2974,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [BPH01 SPEC](cg2d_key_index_preset_source_spec.md#key-index-preset-baseline)/[完整原证据及前态](cg2d_key_index_preset_source_evidence.json)。新1422/F:000597A0、1423/F:000597B0关联已有4条14B各一真根，前者正确体保持，后者完整W32接口恢复；旧373/F:0004B340唯一查询参数去U8收窄，全文原映射存previous_mapping_before_bph01。源3文件/原数据owner和其余语义保持，三新adapted不冒充新造三个函数。
 
 三根87条282B、26普通点11不同父分列，预设三个互斥查询点通过原已有一个循环承接。音效164条支持独立，只额外参数未读，不纳音频成员或软件验收。语义1422→1424条/有效ID1417→1419、关联1535→1537/3680（41.71%→41.77%）、分类543→546，INPUT14→17/TEXT22→23枚举未闭；E707→715仅8条正常局部I/S。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及全部完整门禁保持。
+
+## BPI01 807绘制根源阶段续记（2026-10-07）
+
+[BPI01合同](cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline)/[证据bpi01_source_phase](cg2d_input_text_alignment_evidence.json)将807/F:000568A0全文前态存previous_mapping_before_bpi01，续记分类判定/行预算和多行X/Y发布的两个源修正。原身份、冻定位、equivalent、现有父接线及正常值保持，不新增函数。
+
+两原窗口29条109B定向复核；语义1424条/1419原ID、关联1537/3680（41.77%）、分类546和INPUT17/TEXT23枚举未闭保持；E715→719仅四正常局部I/S，不代完整输入/文本或运行。

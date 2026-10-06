@@ -75,3 +75,9 @@ destination预清、局部门禁及maxCharBits/textLength快照保持，
 [当前具名SPEC](cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision)将DrawInputText_4568A0使用的两个匿名工具改正常S32加减；覆盖多行推进/行数/显示偏移、星号数量/索引、裁宽减量、锚点预算和X/Y的21个既有源表达式。真实原窄化、低W32数量、复制/测宽与队列令牌发布保持，无新原身份/owner或额外拒绝。
 
 源仅两body变化，其余ITD01取样/阶段与所有callee/声明保持；332条1159B完整体及32引用/25父身份保存不代全部语义/父/owner/alias/焦点/IME/像素画面运行。RPLAN.24数学异常不保护或模拟/称等价。
+
+## BPI01 两个源阶段收尾（2026-10-07）
+
+[当前合同](cg2d_input_text_alignment_spec.md#input-text-source-phase-decision)/[追加原窗口](cg2d_input_text_alignment_evidence.json)：分类返回先保存boundary==3再读取新预算；多行光标先采Y、写X，再相加行偏移并写Y。仅两源片段，原正常值及其它绘制、单行、字段/调用、token与owner保持；不称数值/画面错误或并发/机器ABI等价。
+
+29条109B定向原证据及两片段静态，旧807续记、两域各I/S四条；INPUT17/TEXT23成员及完整门禁保持。完整字体队列消费、焦点/IME/间接alias-owner寿命与实际链接/画面运行按既有门禁继续。

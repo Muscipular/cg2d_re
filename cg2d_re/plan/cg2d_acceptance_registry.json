@@ -953,7 +953,8 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -994,7 +995,8 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1010,7 +1012,8 @@
         "ITA01输入绘制两匿名工具正常S32已修，21源表达式/数量/窄化/取样/真实调用/队列令牌发布保持；原332条/32引用25父保存仅算术局部，不重验完整父/字体队列消费/焦点/IME/alias/所有owner寿命/机器PC53/SDK/链接/像素画面运行，异常不模拟",
         "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟",
         "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待",
-        "BPH01两键查询新1422/1423、预设旧373/三分类与原26普通点11父纳盘，4597B0完整W32接口/预设去收窄，原旗位/文本装载/音效调用保持，枚举open。全部父/键表和焦点/旧99路由、正常alias-owner/寿命、SDK-ABI/链接与实际输入/播放/画面、R1/R7/R8仍待"
+        "BPH01两键查询新1422/1423、预设旧373/三分类与原26普通点11父纳盘，4597B0完整W32接口/预设去收窄，原旗位/文本装载/音效调用保持，枚举open。全部父/键表和焦点/旧99路由、正常alias-owner/寿命、SDK-ABI/链接与实际输入/播放/画面、R1/R7/R8仍待",
+        "BPI01旧807两源阶段恢复，29条109B定向原窗口和两片段精确静态；原完整基线/正常值、现有父接线与成员保。完整字体队列消费/焦点/IME/间接alias-owner和寿命、SDK/链接/机器及画面运行仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1027,7 +1030,8 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
       ]
     },
     {
@@ -1056,7 +1060,8 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -1109,7 +1114,8 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1127,7 +1133,8 @@
         "ITA01输入绘制两匿名工具正常S32已修，21源表达式/数量/窄化/取样/真实调用/队列令牌发布保持；原332条/32引用25父保存仅算术局部，不重验完整父/字体队列消费/焦点/IME/alias/所有owner寿命/机器PC53/SDK/链接/像素画面运行，异常不模拟",
         "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟",
         "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待",
-        "BPH01两键查询新1422/1423、预设旧373/三分类与原26普通点11父纳盘，4597B0完整W32接口/预设去收窄，原旗位/文本装载/音效调用保持，枚举open。全部父/键表和焦点/旧99路由、正常alias-owner/寿命、SDK-ABI/链接与实际输入/播放/画面、R1/R7/R8仍待"
+        "BPH01两键查询新1422/1423、预设旧373/三分类与原26普通点11父纳盘，4597B0完整W32接口/预设去收窄，原旗位/文本装载/音效调用保持，枚举open。全部父/键表和焦点/旧99路由、正常alias-owner/寿命、SDK-ABI/链接与实际输入/播放/画面、R1/R7/R8仍待",
+        "BPI01旧807两源阶段恢复，29条109B定向原窗口和两片段精确静态；原完整基线/正常值、现有父接线与成员保。完整字体队列消费/焦点/IME/间接alias-owner和寿命、SDK/链接/机器及画面运行仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1146,7 +1153,8 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
       ]
     },
     {
@@ -31028,6 +31036,130 @@
       "observation": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
       "expected": "仅去掉向4597B0传0x70+index的U8收窄，维持完整S32表达式；Shift bit1优先命中16组且不查Ctrl，否则Ctrl bit1选8组，F1..F8按0..7全扫/最后非零覆盖selected，未选返回最后查询原结果；选中借唯一24项15CH输入上下文文本先44A160装载再52C450并透传S32。三个互斥原查询点由已有单循环承接，无新增轮询/状态/owner；原额外压栈240由实际52C450不消费，现有51/320两参及音频暂停保持；正确其它正文/唯一现代473F80调用保，不当旧99表分派或完整播放/输入流程验收。",
       "actual": "仅各域正常局部I/S，原完整索引/旗位/选择语义与真实已有提供者。音效支持证据只额外参数未消费，AUDIO暂停不变；无新保护/编码/owner或协议。全部父/焦点/正常alias-owner/寿命、SDK-ABI/链接和实际输入/播放/画面运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-INPUT-INPUT-TEXT-PHASE-000568A0-I-20261007",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPI01两定向窗口29条109B，原分类判定和多行光标阶段；doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-text-source-phase-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-acceptance",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "include/cg/Input.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_input_text_draw.md"
+      ],
+      "differences": [
+        {
+          "description": "分类结果先保存/预算后读；多行Y先采样、X先写、Y后相加写回；两片段之外源/原调用与正常结果保持",
+          "decision_ref": "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
+      "expected": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
+      "actual": "当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要"
+    },
+    {
+      "id": "E-INPUT-INPUT-TEXT-PHASE-000568A0-S-20261007",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPI01两定向窗口29条109B，原分类判定和多行光标阶段；doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-text-source-phase-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-acceptance",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "include/cg/Input.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_input_text_draw.md"
+      ],
+      "differences": [
+        {
+          "description": "分类结果先保存/预算后读；多行Y先采样、X先写、Y后相加写回；两片段之外源/原调用与正常结果保持",
+          "decision_ref": "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
+      "expected": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
+      "actual": "当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要"
+    },
+    {
+      "id": "E-TEXT-INPUT-TEXT-PHASE-000568A0-I-20261007",
+      "feature_id": "FUNC-TEXT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPI01两定向窗口29条109B，原分类判定和多行光标阶段；doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-text-source-phase-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-acceptance",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "include/cg/Input.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_input_text_draw.md"
+      ],
+      "differences": [
+        {
+          "description": "分类结果先保存/预算后读；多行Y先采样、X先写、Y后相加写回；两片段之外源/原调用与正常结果保持",
+          "decision_ref": "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
+      "expected": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
+      "actual": "当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要"
+    },
+    {
+      "id": "E-TEXT-INPUT-TEXT-PHASE-000568A0-S-20261007",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPI01两定向窗口29条109B，原分类判定和多行光标阶段；doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-text-source-phase-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-acceptance",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "src/render/InputText.cpp#DrawInputText_4568A0",
+        "include/cg/Input.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_input_text_draw.md"
+      ],
+      "differences": [
+        {
+          "description": "分类结果先保存/预算后读；多行Y先采样、X先写、Y后相加写回；两片段之外源/原调用与正常结果保持",
+          "decision_ref": "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
+      "expected": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
+      "actual": "当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要"
     }
   ],
   "task_acceptance": [
@@ -31398,7 +31530,8 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
       ]
     },
     {
@@ -31423,7 +31556,8 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
       ]
     },
     {
@@ -31867,7 +32001,8 @@
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
       ]
     },
     {
@@ -31998,7 +32133,8 @@
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
       ]
     },
     {
@@ -33365,8 +33501,12 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-acceptance",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
-        "doc/cg2d_input_text_arithmetic_evidence.json"
-      ]
+        "doc/cg2d_input_text_arithmetic_evidence.json",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
+      ],
+      "boundary": "BPI01两源阶段，仅正常局部：BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持 当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要"
     },
     {
       "inventory_id": "F:00056560",

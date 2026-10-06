@@ -119,8 +119,9 @@ void DrawInputText_4568A0(input::InputContext* const context)
                 destination.data()[terminateAt] = '\0';
                 const std::int32_t boundary =
                     input::ClassifyLastAnsiUnit_44B190(destination.data());
+                const bool splitDoubleByte = boundary == 3;
                 const std::int32_t advance = context->maxCharPerLine;
-                if (boundary == 3) {
+                if (splitDoubleByte) {
                     destination.data()[SubW32(advance, 1)] = '\0';
                     nextStart = AddW32(lineStart, SubW32(advance, 1));
                 } else {
@@ -304,10 +305,9 @@ void DrawInputText_4568A0(input::InputContext* const context)
         const std::int32_t width = Font::measure(
             context->text + caretLineStart, fontType, measureBytes);
         const std::int32_t x = AddW32(context->field130, width);
-        const std::int32_t y =
-            AddW32(context->field134, caretLineYOffset);
+        const std::int32_t y = context->field134;
         context->x = x;
-        context->y = y;
+        context->y = AddW32(y, caretLineYOffset);
         return;
     }
 

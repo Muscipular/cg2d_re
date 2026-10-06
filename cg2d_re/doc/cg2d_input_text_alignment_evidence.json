@@ -2584,5 +2584,873 @@
       "replacement": "void DrawInputText_4568A0(input::InputContext* const context)\n{\n    const std::uint32_t initialCountBits =\n        platform::gPendingGraphicCount2;\n    const std::int32_t initialCount =\n        std::bit_cast<std::int32_t>(initialCountBits);\n    if (initialCount >= MAX_QUEUE_SIZE) {\n        return;\n    }\n\n    std::int32_t caretLineStart = 0;\n    std::int32_t caretLineYOffset = 0;\n\n    if (context->maxLine >= 2) {\n        std::array<char, 256> destination;\n        std::int32_t lineStart = 0;\n        std::int32_t nextStart = 0;\n        std::int32_t yOffset = 0;\n        std::int32_t lineCount = 0;\n        bool caretLineKnown = false;\n\n        for (;;) {\n            const char* const lineSource = context->text + lineStart;\n            std::uint32_t scan = 0;\n            bool foundCarriageReturn = false;\n            for (;;) {\n                const char current = lineSource[scan];\n                if (current == '\\0') {\n                    break;\n                }\n                if (current == '\\r') {\n                    platform::StrNCpy_53BEC0(\n                        destination.data(), lineSource, scan);\n                    destination[scan] = '\\0';\n                    nextStart = AddW32(\n                        AddW32(lineStart, std::bit_cast<std::int32_t>(scan)),\n                        1);\n                    lineCount = AddW32(lineCount, 1);\n                    foundCarriageReturn = true;\n                    break;\n                }\n\n                const std::uint32_t scanBudget =\n                    std::bit_cast<std::uint32_t>(context->maxCharPerLine);\n                ++scan;\n                if (scan == scanBudget) {\n                    break;\n                }\n            }\n\n            if (!foundCarriageReturn) {\n                // 原45693B先取复制预算；复制后及分类后各自再取+148。\n                const std::int32_t copyBudget = context->maxCharPerLine;\n                const std::uint32_t remainingLength =\n                    static_cast<std::uint32_t>(std::strlen(lineSource));\n                if (remainingLength\n                    < std::bit_cast<std::uint32_t>(copyBudget)) {\n                    break;\n                }\n\n                platform::StrNCpy_53BEC0(\n                    destination.data(),\n                    lineSource,\n                    std::bit_cast<std::uint32_t>(copyBudget));\n                const std::int32_t terminateAt = context->maxCharPerLine;\n                destination.data()[terminateAt] = '\\0';\n                const std::int32_t boundary =\n                    input::ClassifyLastAnsiUnit_44B190(destination.data());\n                const std::int32_t advance = context->maxCharPerLine;\n                if (boundary == 3) {\n                    destination.data()[SubW32(advance, 1)] = '\\0';\n                    nextStart = AddW32(lineStart, SubW32(advance, 1));\n                } else {\n                    nextStart = AddW32(lineStart, advance);\n                }\n                lineCount = AddW32(lineCount, 1);\n            }\n\n            if (!caretLineKnown) {\n                const bool ownsCaret = context->maxLine > lineCount\n                    ? context->caretByteOffset < nextStart\n                    : context->caretByteOffset <= nextStart;\n                if (ownsCaret) {\n                    caretLineStart = lineStart;\n                    caretLineYOffset = yOffset;\n                    caretLineKnown = true;\n                }\n            }\n\n            // 原4569E9..456A19当前颜色/字体/模式/Y/X取样后才绘制。\n            const std::int32_t color = context->field140;\n            const std::int32_t fontType = context->field13C;\n            const std::int8_t renderMode =\n                std::bit_cast<std::int8_t>(context->field138[0]);\n            const std::int32_t y = context->field134;\n            const std::int32_t x = context->field130;\n            static_cast<void>(DrawText2_456670(\n                LowS16(x),\n                LowS16(AddW32(y, yOffset)),\n                renderMode,\n                LowS8(fontType),\n                LowS8(color),\n                destination.data(),\n                0));\n\n            const std::int32_t lineHeight = context->field14C;\n            lineStart = nextStart;\n            yOffset = AddW32(yOffset, lineHeight);\n        }\n\n        if (!caretLineKnown) {\n            caretLineStart = nextStart;\n            caretLineYOffset = yOffset;\n        }\n        const std::int32_t color = context->field140;\n        const std::int32_t fontType = context->field13C;\n        const std::int8_t renderMode =\n            std::bit_cast<std::int8_t>(context->field138[0]);\n        const std::int32_t y = context->field134;\n        const std::int32_t x = context->field130;\n        static_cast<void>(DrawText2_456670(\n            LowS16(x),\n            LowS16(AddW32(y, yOffset)),\n            renderMode,\n            LowS8(fontType),\n            LowS8(color),\n            context->text + nextStart,\n            0));\n    } else {\n        const std::size_t entryIndex = static_cast<std::size_t>(initialCount);\n        TextPendingRecord& entry = gTextPendingRecords[entryIndex];\n        entry.x = LowS16(context->field130);\n        entry.y = LowS16(context->field134);\n        entry.renderMode = context->field138[0];\n        entry.color = std::bit_cast<std::uint8_t>(\n            LowS8(context->field140));\n        entry.fontType = std::bit_cast<std::uint8_t>(\n            LowS8(context->field13C));\n        entry.value7 = 0;\n\n        if (context->encrypt >= 1) {\n            std::int32_t totalBytes = context->totalByteLength;\n            std::int32_t visibleStart = context->field158;\n            std::int32_t index = 0;\n            if (SubW32(totalBytes, visibleStart) > 0) {\n                do {\n                    entry.text[index] = '*';\n                    totalBytes = context->totalByteLength;\n                    visibleStart = context->field158;\n                    index = AddW32(index, 1);\n                } while (index < SubW32(totalBytes, visibleStart));\n            }\n            entry.text[index] = '\\0';\n        } else {\n            const char* source = context->text + context->field158;\n            const std::uint32_t copyCount =\n                static_cast<std::uint32_t>(std::strlen(source)) + 1U;\n            char* destination = entry.text;\n            // 原456B46..456B50按W32前移，再复制含NUL的余W8。\n            for (std::uint32_t index = 0; index < (copyCount >> 2U); ++index) {\n                std::uint32_t word;\n                std::memcpy(&word, source, sizeof(word));\n                std::memcpy(destination, &word, sizeof(word));\n                source += sizeof(word);\n                destination += sizeof(word);\n            }\n            for (std::uint32_t index = 0; index < (copyCount & 3U); ++index) {\n                *destination = *source;\n                ++source;\n                ++destination;\n            }\n        }\n\n        std::uint32_t queueCountBits = initialCountBits;\n        if (context->field154 != 0) {\n            std::int32_t clippedLength = std::bit_cast<std::int32_t>(\n                static_cast<std::uint32_t>(std::strlen(entry.text)));\n            if (clippedLength > 0) {\n                for (;;) {\n                    const std::int32_t fontType = context->field13C;\n                    const std::size_t measureIndex = static_cast<std::size_t>(\n                        std::bit_cast<std::int32_t>(queueCountBits));\n                    const std::int32_t measuredWidth = Font::measure(\n                        gTextPendingRecords[measureIndex].text,\n                        fontType,\n                        clippedLength);\n                    const std::int32_t widthLimit = context->field154;\n                    if (measuredWidth <= widthLimit) {\n                        queueCountBits = platform::gPendingGraphicCount2;\n                        const std::size_t clippedEntryIndex =\n                            static_cast<std::size_t>(\n                                std::bit_cast<std::int32_t>(queueCountBits));\n                        gTextPendingRecords[clippedEntryIndex].text[\n                            clippedLength] = '\\0';\n                        break;\n                    }\n\n                    const std::int32_t sourceOffset = context->field158;\n                    clippedLength = SubW32(clippedLength, 1);\n                    if (input::ClassifyLastAnsiUnit_44B190(\n                            context->text + sourceOffset) == 3) {\n                        clippedLength = SubW32(clippedLength, 1);\n                    }\n                    queueCountBits = platform::gPendingGraphicCount2;\n                    if (clippedLength <= 0) {\n                        break;\n                    }\n                }\n            }\n        }\n\n        const std::size_t queueEntryIndex = static_cast<std::size_t>(\n            std::bit_cast<std::int32_t>(queueCountBits));\n        TextPendingRecord& queueEntry = gTextPendingRecords[queueEntryIndex];\n        queueEntry.nextToken = 0;\n\n        const std::size_t modeIndex =\n            static_cast<std::size_t>(ReadRenderMode(*context));\n        const std::uint32_t tailToken = gGraphicCache4Queue[modeIndex];\n        const std::uint32_t currentToken = queueCountBits + 1U;\n        if (tailToken == 0) {\n            gGraphicCache4Queue[modeIndex] = currentToken;\n            const std::size_t layerModeIndex =\n                static_cast<std::size_t>(ReadRenderMode(*context));\n            static_cast<void>(QueueText_521A30(\n                currentToken,\n                gTextFontLayerRecords[layerModeIndex].layer));\n        } else {\n            gTextPendingRecords[\n                static_cast<std::size_t>(tailToken - 1U)].nextToken =\n                currentToken;\n\n            const std::uint32_t tailCountBits =\n                platform::gPendingGraphicCount2;\n            const std::size_t tailModeIndex =\n                static_cast<std::size_t>(ReadRenderMode(*context));\n            gGraphicCache4Queue[tailModeIndex] = tailCountBits + 1U;\n        }\n        platform::gPendingGraphicCount2 =\n            platform::gPendingGraphicCount2 + 1U;\n    }\n\n    if (input::gCurrentInputData != context) {\n        return;\n    }\n\n    if (context->maxCharPerLine > 0 && context->maxLine >= 2) {\n        const std::int32_t measureBytes = SubW32(\n            context->caretByteOffset, caretLineStart);\n        const std::int32_t fontType = context->field13C;\n        const std::int32_t width = Font::measure(\n            context->text + caretLineStart, fontType, measureBytes);\n        const std::int32_t x = AddW32(context->field130, width);\n        const std::int32_t y =\n            AddW32(context->field134, caretLineYOffset);\n        context->x = x;\n        context->y = y;\n        return;\n    }\n\n    const std::int32_t caret = context->caretByteOffset;\n    const std::int32_t visibleStart = context->field158;\n    std::int32_t count = SubW32(caret, visibleStart);\n    if (count < 0) {\n        context->field158 = caret;\n        count = 0;\n    }\n    const std::int32_t fontType = context->field13C;\n    const char* const source = context->text + context->field158;\n    const std::int32_t width = Font::measure(source, fontType, count);\n    const std::int32_t x = AddW32(context->field130, width);\n    const std::int32_t y = context->field134;\n    context->x = x;\n    context->y = y;\n}\n\n",
       "label": "绘制原阶段与写序"
     }
-  ]
+  ],
+  "bpi01_source_phase": {
+    "spec_id": "BPI01",
+    "recorded_on": "2026-10-07",
+    "source_function": {
+      "id": "F:000568A0",
+      "semantic_index": 807,
+      "entry": "0x4568A0",
+      "end_exclusive": "0x456D27",
+      "source": "src/render/InputText.cpp",
+      "symbol": "DrawInputText_4568A0",
+      "feature_ids": [
+        "FUNC-INPUT",
+        "FUNC-TEXT"
+      ],
+      "contract": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持"
+    },
+    "evidence_refs": [
+      "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+      "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+      "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-acceptance",
+      "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+      "doc/cg2d_input_text_alignment_evidence.json"
+    ],
+    "instruction_regions": [
+      {
+        "entry": "0x4568a0",
+        "end": "0x456d27",
+        "region_start": "0x45695a",
+        "region_end_exclusive": "0x4569a3",
+        "rows": [
+          {
+            "ea": "0x45695a",
+            "size": 6,
+            "bytes": "8b9548010000",
+            "text": "mov     edx, [ebp+148h]"
+          },
+          {
+            "ea": "0x456960",
+            "size": 4,
+            "bytes": "8d442438",
+            "text": "lea     eax, [esp+138h+Destination]"
+          },
+          {
+            "ea": "0x456964",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax"
+          },
+          {
+            "ea": "0x456965",
+            "size": 5,
+            "bytes": "c644143c00",
+            "text": "mov     [esp+edx+13Ch+Destination], 0"
+          },
+          {
+            "ea": "0x45696a",
+            "size": 5,
+            "bytes": "e82148ffff",
+            "text": "call    sub_44B190"
+          },
+          {
+            "ea": "0x45696f",
+            "size": 4,
+            "bytes": "8b4c2420",
+            "text": "mov     ecx, [esp+13Ch+var_11C]"
+          },
+          {
+            "ea": "0x456973",
+            "size": 3,
+            "bytes": "83c410",
+            "text": "add     esp, 10h"
+          },
+          {
+            "ea": "0x456976",
+            "size": 3,
+            "bytes": "83f803",
+            "text": "cmp     eax, 3"
+          },
+          {
+            "ea": "0x456979",
+            "size": 6,
+            "bytes": "8b8548010000",
+            "text": "mov     eax, [ebp+148h]"
+          },
+          {
+            "ea": "0x45697f",
+            "size": 2,
+            "bytes": "750f",
+            "text": "jnz     short loc_456990"
+          },
+          {
+            "ea": "0x456981",
+            "size": 4,
+            "bytes": "8d5401ff",
+            "text": "lea     edx, [ecx+eax-1]"
+          },
+          {
+            "ea": "0x456985",
+            "size": 5,
+            "bytes": "c644042b00",
+            "text": "mov     byte ptr [esp+eax+12Ch+var_104+3], 0"
+          },
+          {
+            "ea": "0x45698a",
+            "size": 4,
+            "bytes": "89542410",
+            "text": "mov     [esp+12Ch+var_11C], edx"
+          },
+          {
+            "ea": "0x45698e",
+            "size": 2,
+            "bytes": "eb06",
+            "text": "jmp     short loc_456996"
+          },
+          {
+            "ea": "0x456990",
+            "size": 2,
+            "bytes": "03c8",
+            "text": "add     ecx, eax"
+          },
+          {
+            "ea": "0x456992",
+            "size": 4,
+            "bytes": "894c2410",
+            "text": "mov     [esp+12Ch+var_11C], ecx"
+          },
+          {
+            "ea": "0x456996",
+            "size": 4,
+            "bytes": "8b44241c",
+            "text": "mov     eax, [esp+12Ch+var_110]"
+          },
+          {
+            "ea": "0x45699a",
+            "size": 4,
+            "bytes": "8b742410",
+            "text": "mov     esi, [esp+12Ch+var_11C]"
+          },
+          {
+            "ea": "0x45699e",
+            "size": 1,
+            "bytes": "40",
+            "text": "inc     eax"
+          },
+          {
+            "ea": "0x45699f",
+            "size": 4,
+            "bytes": "8944241c",
+            "text": "mov     [esp+12Ch+var_110], eax"
+          }
+        ]
+      },
+      {
+        "entry": "0x4568a0",
+        "end": "0x456d27",
+        "region_start": "0x456c8f",
+        "region_end_exclusive": "0x456cb3",
+        "rows": [
+          {
+            "ea": "0x456c8f",
+            "size": 6,
+            "bytes": "8b8d30010000",
+            "text": "mov     ecx, [ebp+130h]"
+          },
+          {
+            "ea": "0x456c95",
+            "size": 3,
+            "bytes": "83c40c",
+            "text": "add     esp, 0Ch"
+          },
+          {
+            "ea": "0x456c98",
+            "size": 2,
+            "bytes": "03c1",
+            "text": "add     eax, ecx"
+          },
+          {
+            "ea": "0x456c9a",
+            "size": 6,
+            "bytes": "8b8d34010000",
+            "text": "mov     ecx, [ebp+134h]"
+          },
+          {
+            "ea": "0x456ca0",
+            "size": 6,
+            "bytes": "898520010000",
+            "text": "mov     [ebp+120h], eax"
+          },
+          {
+            "ea": "0x456ca6",
+            "size": 4,
+            "bytes": "8b442420",
+            "text": "mov     eax, [esp+128h+var_108]"
+          },
+          {
+            "ea": "0x456caa",
+            "size": 2,
+            "bytes": "03c8",
+            "text": "add     ecx, eax"
+          },
+          {
+            "ea": "0x456cac",
+            "size": 1,
+            "bytes": "5f",
+            "text": "pop     edi"
+          },
+          {
+            "ea": "0x456cad",
+            "size": 6,
+            "bytes": "898d24010000",
+            "text": "mov     [ebp+124h], ecx"
+          }
+        ]
+      }
+    ],
+    "region_instruction_count": 29,
+    "region_code_bytes": 109,
+    "full_root_reverified": false,
+    "source_patches": [
+      {
+        "before": "                const std::int32_t advance = context->maxCharPerLine;\n                if (boundary == 3) {",
+        "after": "                const bool splitDoubleByte = boundary == 3;\n                const std::int32_t advance = context->maxCharPerLine;\n                if (splitDoubleByte) {"
+      },
+      {
+        "before": "        const std::int32_t y =\n            AddW32(context->field134, caretLineYOffset);\n        context->x = x;\n        context->y = y;",
+        "after": "        const std::int32_t y = context->field134;\n        context->x = x;\n        context->y = AddW32(y, caretLineYOffset);"
+      }
+    ],
+    "implementation_static_scope": "当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要",
+    "normal_previous_value_wrong": false,
+    "fault_equivalence_claimed": false,
+    "concurrency_equivalence_claimed": false,
+    "runtime_verified": false,
+    "full_lifecycle_closed": false,
+    "unchanged_normal_arithmetic_expressions": {
+      "AddW32": 13,
+      "SubW32": 8
+    },
+    "existing_semantic_record_before": {
+      "original_entry": "0x4568A0",
+      "inventory_id": "F:000568A0",
+      "status": "ITD01完整332条绘制根局部静态已对照；额外门禁/预清/固定快照撤销，完整输入渲染/运行未验",
+      "original_end_exclusive": "0x456D27",
+      "instruction_count": 332,
+      "original_direct_reference_count": 32,
+      "original_direct_call_reference_count": 32,
+      "original_inbound_parent_count": 25,
+      "sources": [
+        {
+          "path": "src/render/InputText.cpp",
+          "symbols": [
+            "DrawInputText_4568A0",
+            "AddW32",
+            "SubW32"
+          ],
+          "relationship": "ITD01同文件恢复绘制原阶段/写序，撤销额外保护与固定快照；真实复制/分类/绘制/测宽/QueueText及唯一数据保持；ITA01两个匿名工具恢复正常S32，保13加/8减表达式、数量/窄化/取样与排队发布"
+        }
+      ],
+      "copy_call_connections": [
+        {
+          "parent_entry": "0x4568A0",
+          "call_site": "0x456914",
+          "source": "src/render/InputText.cpp",
+          "symbol": "DrawInputText_4568A0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原扫描ESI低W32/U32，现有scan直接传入",
+          "count_width": "U32",
+          "relationship": "回车段复制至256B destination，scan原U32、caller末NUL和推进保持；ITD01撤销额外预清/门禁，实际复制填充保持"
+        },
+        {
+          "parent_entry": "0x4568A0",
+          "call_site": "0x456955",
+          "source": "src/render/InputText.cpp",
+          "symbol": "DrawInputText_4568A0",
+          "target_entry": "0x53BEC0",
+          "target_symbol": "StrNCpy_53BEC0",
+          "count_kind": "原45693B先保存+148H S32预算，再扫描余长；copyBudget按低U32传入",
+          "count_width": "U32",
+          "relationship": "定长段真实复制后45695A重取预算写NUL，分类后456979再取预算删孤立高位尾/推进；ITD01撤销额外预清/门禁及固定快照，保真实复制填充/原字段取样"
+        }
+      ],
+      "inbound_reference_groups": [
+        {
+          "parent_entry": "0x4014B0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x401718"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4021A0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x40265F"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x43CBB0",
+          "reference_count": 2,
+          "call_sites": [
+            "0x43CE16",
+            "0x43D3EA"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x45CA20",
+          "reference_count": 2,
+          "call_sites": [
+            "0x45CB9C",
+            "0x45CBA6"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x45FA70",
+          "reference_count": 3,
+          "call_sites": [
+            "0x45FBD6",
+            "0x45FBE0",
+            "0x45FBEA"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4631D0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x46417D"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x464E30",
+          "reference_count": 2,
+          "call_sites": [
+            "0x464F93",
+            "0x464F9D"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x49CAD0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x49CCAD"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4A58E0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4A5963"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4A7590",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4A75D8"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4A7640",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4A767F"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4CB920",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4CB9A3"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4CCED0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4CD143"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4D3210",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4D33E4"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4DF730",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4DFF78"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4EA1B0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4EA5E4"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4EB1C0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4EB742"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4F2130",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4F2454"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4FA050",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4FA2F6"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x4FD6A0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x4FD8FC"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x501FD0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x502708"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x51C7D0",
+          "reference_count": 3,
+          "call_sites": [
+            "0x51D193",
+            "0x51D202",
+            "0x51D42E"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x52DCE0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x52E0FC"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x52ED50",
+          "reference_count": 1,
+          "call_sites": [
+            "0x52F2E6"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        },
+        {
+          "parent_entry": "0x530BA0",
+          "reference_count": 1,
+          "call_sites": [
+            "0x532263"
+          ],
+          "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_input_text_draw.md",
+        "doc/cg2d_input_text_alignment_spec.md",
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-acceptance",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
+        "doc/cg2d_input_text_arithmetic_evidence.json"
+      ],
+      "verification_level": "原完整绘制332条/支持测宽33条合365、十实际调用/七data operand、32原点与25当前父/31词法调用；同文件三限定块外全文保持、两既有语义及登记限定增量外保持，未构建/测试/运行/摘要；不据支持叶计新处置或称全功能/故障等价",
+      "boundary": "原signed计数>=4096早退/当前context相等才锚点等门禁保持；撤销新增负计数/空context、NUL/容量/索引/零推进/模式/尾token/字体及源探测拒绝，不新增保护。256B destination不预清，逐普通字节重取行预算；复制前先保存预算再取strlen低U32/unsigned比较，复制后/分类后分别重取预算写NUL/删孤立高位字节/推进。逐段低W8模式/颜色/字体/Y/X按原点取样。单行先写记录字段，星号写后每轮重取total/visible；原后缀先扫描含NUL低U32并逐W32再W8复制，保读取写入顺序。field154非零才再扫已写记录，测宽返回后取当前限制，超宽重取原后缀/分类及计数，原完全不截断分支保持。next清0后完整模式取尾，空尾更新后再读模式取层；非空先连旧尾再读计数/模式更新尾，最终当前计数加一。两锚点真实测宽，负差回写后重取font/visible源；x/y原先取后写，W32/低W16/W8及marker/field108非写保持。现有token/owner不变，32原点/25父含两滚动父委托一helper；完整父、DrawText2/QueueText/消费、间接alias/焦点/寿命、SDK/运行未验，异常域依RPLAN.24不计安全/故障等价。 ITA01两匿名工具恢复正常S32加减，13加/8减源表达式与原阶段/操作数保持；数量低W32、窄化/复制/测宽/队列令牌与发布不改。332条1159B及32引用/25父身份保存仅正常算术局部与两body精确静态，不重验全部语义/完整父/字体队列消费/焦点/IME/alias/全部owner寿命/PC53机器环境/ABI/SDK/像素画面运行；数学异常不保护或模拟/称等价。",
+      "input_text_draw_alignment": {
+        "spec": "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+        "evidence": "doc/cg2d_input_text_alignment_evidence.json",
+        "changed_source": "src/render/InputText.cpp",
+        "root_entry": "0x4568A0",
+        "root_bounded_static_verified": true,
+        "extra_guards_and_destination_preclear_removed": true,
+        "original_guards_and_copy_padding_retained": true,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false,
+        "full_lifecycle_closed": false
+      },
+      "native_parent_bindings": [
+        {
+          "parent_entry": "0x4014b0",
+          "call_sites": [
+            "0x401718"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4014B0"
+        },
+        {
+          "parent_entry": "0x4021a0",
+          "call_sites": [
+            "0x40265f"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4021A0"
+        },
+        {
+          "parent_entry": "0x43cbb0",
+          "call_sites": [
+            "0x43ce16",
+            "0x43d3ea"
+          ],
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawBattleScene_43CBB0"
+        },
+        {
+          "parent_entry": "0x45ca20",
+          "call_sites": [
+            "0x45cb9c",
+            "0x45cba6"
+          ],
+          "source": "src/LoginInputController.cpp",
+          "symbol": "ProcessLoginInput_45CA20"
+        },
+        {
+          "parent_entry": "0x45fa70",
+          "call_sites": [
+            "0x45fbd6",
+            "0x45fbe0",
+            "0x45fbea"
+          ],
+          "source": "src/LoginCapability3InputController.cpp",
+          "symbol": "ProcessCapability3Input_45FA70"
+        },
+        {
+          "parent_entry": "0x4631d0",
+          "call_sites": [
+            "0x46417d"
+          ],
+          "source": "src/CharacterSelectScene.cpp",
+          "symbol": "Sub_4631D0"
+        },
+        {
+          "parent_entry": "0x464e30",
+          "call_sites": [
+            "0x464f93",
+            "0x464f9d"
+          ],
+          "source": "src/LoginInputController.cpp",
+          "symbol": "ProcessCapability4Input_464E30"
+        },
+        {
+          "parent_entry": "0x49cad0",
+          "call_sites": [
+            "0x49ccad"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_49CAD0"
+        },
+        {
+          "parent_entry": "0x4a58e0",
+          "call_sites": [
+            "0x4a5963"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A58E0"
+        },
+        {
+          "parent_entry": "0x4a7590",
+          "call_sites": [
+            "0x4a75d8"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A7590",
+          "delegated_helper": "ScrollInputAndDraw",
+          "helper_leaf_lexical_call_count": 1
+        },
+        {
+          "parent_entry": "0x4a7640",
+          "call_sites": [
+            "0x4a767f"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4A7640",
+          "delegated_helper": "ScrollInputAndDraw",
+          "helper_leaf_lexical_call_count": 1
+        },
+        {
+          "parent_entry": "0x4cb920",
+          "call_sites": [
+            "0x4cb9a3"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CB920"
+        },
+        {
+          "parent_entry": "0x4cced0",
+          "call_sites": [
+            "0x4cd143"
+          ],
+          "source": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4CCED0"
+        },
+        {
+          "parent_entry": "0x4d3210",
+          "call_sites": [
+            "0x4d33e4"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4D3210"
+        },
+        {
+          "parent_entry": "0x4df730",
+          "call_sites": [
+            "0x4dff78"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4DF730"
+        },
+        {
+          "parent_entry": "0x4ea1b0",
+          "call_sites": [
+            "0x4ea5e4"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4EA1B0"
+        },
+        {
+          "parent_entry": "0x4eb1c0",
+          "call_sites": [
+            "0x4eb742"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4EB1C0"
+        },
+        {
+          "parent_entry": "0x4f2130",
+          "call_sites": [
+            "0x4f2454"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4F2130"
+        },
+        {
+          "parent_entry": "0x4fa050",
+          "call_sites": [
+            "0x4fa2f6"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4FA050"
+        },
+        {
+          "parent_entry": "0x4fd6a0",
+          "call_sites": [
+            "0x4fd8fc"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_4FD6A0"
+        },
+        {
+          "parent_entry": "0x501fd0",
+          "call_sites": [
+            "0x502708"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_501FD0"
+        },
+        {
+          "parent_entry": "0x51c7d0",
+          "call_sites": [
+            "0x51d193",
+            "0x51d202",
+            "0x51d42e"
+          ],
+          "source": "src/world/SceneState.cpp",
+          "symbol": "DrawNormalScene_51C7D0"
+        },
+        {
+          "parent_entry": "0x52dce0",
+          "call_sites": [
+            "0x52e0fc"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_52DCE0"
+        },
+        {
+          "parent_entry": "0x52ed50",
+          "call_sites": [
+            "0x52f2e6"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_52ED50"
+        },
+        {
+          "parent_entry": "0x530ba0",
+          "call_sites": [
+            "0x532263"
+          ],
+          "source": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_530BA0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/InputText.cpp",
+        "symbol": "DrawInputText_4568A0",
+        "source_body_implemented": true,
+        "bounded_static_verified": true,
+        "runtime_verified": false
+      }
+    },
+    "disposition_before": {
+      "inventory_id": "F:000568A0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-acceptance",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
+        "doc/cg2d_input_text_arithmetic_evidence.json"
+      ]
+    },
+    "snapshot_function_before": {
+      "id": "F:000568A0",
+      "original_entry": "0x4568A0",
+      "original_name": "Renderer::DrawInputText",
+      "semantic_indices": [
+        807
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/render/InputText.cpp",
+          "symbol": "DrawInputText_4568A0",
+          "definition_line": 109,
+          "namespace": "cg::render"
+        }
+      ],
+      "baseline_documents": [
+        "doc/cg2d_input_text_alignment_evidence.json",
+        "doc/cg2d_input_text_alignment_spec.md",
+        "doc/cg2d_input_text_arithmetic_evidence.json",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-acceptance",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
+        "doc/cg2d_input_text_draw.md",
+        "doc/cg2d_legacy_string_compare.md"
+      ],
+      "classification_refs": [],
+      "disposition": {
+        "inventory_id": "F:000568A0",
+        "disposition": "equivalent",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+          "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
+          "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
+          "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-acceptance",
+          "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
+          "doc/cg2d_input_text_arithmetic_evidence.json"
+        ]
+      },
+      "feature_memberships": [
+        "FUNC-INPUT",
+        "FUNC-TEXT"
+      ],
+      "sources": [
+        {
+          "path": "src/render/InputText.cpp",
+          "symbols": [
+            "DrawInputText_4568A0",
+            "AddW32",
+            "SubW32"
+          ],
+          "relationship": "ITD01同文件恢复绘制原阶段/写序，撤销额外保护与固定快照；真实复制/分类/绘制/测宽/QueueText及唯一数据保持；ITA01两个匿名工具恢复正常S32，保13加/8减表达式、数量/窄化/取样与排队发布"
+        }
+      ]
+    },
+    "feature_scopes_before": [
+      {
+        "id": "FUNC-INPUT",
+        "title": "平台输入与IME",
+        "scope": "included",
+        "original_inventory_ids": [
+          "F:00106340",
+          "F:00059580",
+          "F:0004A410",
+          "F:000590E0",
+          "F:0004A5D0",
+          "F:0004A7D0",
+          "F:0004A540",
+          "F:0004A580",
+          "F:0004A990",
+          "F:0004AA90",
+          "F:0004B1D0",
+          "F:0004ADB0",
+          "F:0004B190",
+          "F:000568A0",
+          "F:000597A0",
+          "F:000597B0",
+          "F:0004B340"
+        ],
+        "member_inventory_closed": false,
+        "gates": {}
+      },
+      {
+        "id": "FUNC-TEXT",
+        "title": "文本与字体显示",
+        "scope": "included",
+        "original_inventory_ids": [
+          "F:00059580",
+          "F:0004A410",
+          "F:000590E0",
+          "F:0004A5D0",
+          "F:0004A7D0",
+          "F:0004A540",
+          "F:0004A580",
+          "F:0004A990",
+          "F:0004AA90",
+          "F:0004B1D0",
+          "F:0004ADB0",
+          "F:0004B190",
+          "F:000568A0",
+          "F:00056560",
+          "F:00056670",
+          "F:00056780",
+          "F:00121A30",
+          "F:00056190",
+          "F:00056530",
+          "F:00056D70",
+          "F:0004B2A0",
+          "F:0004B2E0",
+          "F:0004B340"
+        ],
+        "member_inventory_closed": false,
+        "gates": {}
+      }
+    ]
+  }
 }

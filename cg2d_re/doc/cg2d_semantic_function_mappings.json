@@ -99401,7 +99401,7 @@
     {
       "original_entry": "0x4568A0",
       "inventory_id": "F:000568A0",
-      "status": "ITD01完整332条绘制根局部静态已对照；额外门禁/预清/固定快照撤销，完整输入渲染/运行未验",
+      "status": "BPI01绘制根分类判定和多行光标两源阶段修正；完整输入渲染/运行未验",
       "original_end_exclusive": "0x456D27",
       "instruction_count": 332,
       "original_direct_reference_count": 32,
@@ -99415,7 +99415,7 @@
             "AddW32",
             "SubW32"
           ],
-          "relationship": "ITD01同文件恢复绘制原阶段/写序，撤销额外保护与固定快照；真实复制/分类/绘制/测宽/QueueText及唯一数据保持；ITA01两个匿名工具恢复正常S32，保13加/8减表达式、数量/窄化/取样与排队发布"
+          "relationship": "ITD01同文件恢复绘制原阶段/写序，撤销额外保护与固定快照；真实复制/分类/绘制/测宽/QueueText及唯一数据保持；ITA01两个匿名工具恢复正常S32，保13加/8减表达式、数量/窄化/取样与排队发布；BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持"
         }
       ],
       "copy_call_connections": [
@@ -99660,10 +99660,14 @@
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-acceptance",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
-        "doc/cg2d_input_text_arithmetic_evidence.json"
+        "doc/cg2d_input_text_arithmetic_evidence.json",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-acceptance",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
       ],
-      "verification_level": "原完整绘制332条/支持测宽33条合365、十实际调用/七data operand、32原点与25当前父/31词法调用；同文件三限定块外全文保持、两既有语义及登记限定增量外保持，未构建/测试/运行/摘要；不据支持叶计新处置或称全功能/故障等价",
-      "boundary": "原signed计数>=4096早退/当前context相等才锚点等门禁保持；撤销新增负计数/空context、NUL/容量/索引/零推进/模式/尾token/字体及源探测拒绝，不新增保护。256B destination不预清，逐普通字节重取行预算；复制前先保存预算再取strlen低U32/unsigned比较，复制后/分类后分别重取预算写NUL/删孤立高位字节/推进。逐段低W8模式/颜色/字体/Y/X按原点取样。单行先写记录字段，星号写后每轮重取total/visible；原后缀先扫描含NUL低U32并逐W32再W8复制，保读取写入顺序。field154非零才再扫已写记录，测宽返回后取当前限制，超宽重取原后缀/分类及计数，原完全不截断分支保持。next清0后完整模式取尾，空尾更新后再读模式取层；非空先连旧尾再读计数/模式更新尾，最终当前计数加一。两锚点真实测宽，负差回写后重取font/visible源；x/y原先取后写，W32/低W16/W8及marker/field108非写保持。现有token/owner不变，32原点/25父含两滚动父委托一helper；完整父、DrawText2/QueueText/消费、间接alias/焦点/寿命、SDK/运行未验，异常域依RPLAN.24不计安全/故障等价。 ITA01两匿名工具恢复正常S32加减，13加/8减源表达式与原阶段/操作数保持；数量低W32、窄化/复制/测宽/队列令牌与发布不改。332条1159B及32引用/25父身份保存仅正常算术局部与两body精确静态，不重验全部语义/完整父/字体队列消费/焦点/IME/alias/全部owner寿命/PC53机器环境/ABI/SDK/像素画面运行；数学异常不保护或模拟/称等价。",
+      "verification_level": "原完整绘制332条/支持测宽33条合365、十实际调用/七data operand、32原点与25当前父/31词法调用；同文件三限定块外全文保持、两既有语义及登记限定增量外保持，未构建/测试/运行/摘要；不据支持叶计新处置或称全功能/故障等价；当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要",
+      "boundary": "原signed计数>=4096早退/当前context相等才锚点等门禁保持；撤销新增负计数/空context、NUL/容量/索引/零推进/模式/尾token/字体及源探测拒绝，不新增保护。256B destination不预清，逐普通字节重取行预算；复制前先保存预算再取strlen低U32/unsigned比较，复制后/分类后分别重取预算写NUL/删孤立高位字节/推进。逐段低W8模式/颜色/字体/Y/X按原点取样。单行先写记录字段，星号写后每轮重取total/visible；原后缀先扫描含NUL低U32并逐W32再W8复制，保读取写入顺序。field154非零才再扫已写记录，测宽返回后取当前限制，超宽重取原后缀/分类及计数，原完全不截断分支保持。next清0后完整模式取尾，空尾更新后再读模式取层；非空先连旧尾再读计数/模式更新尾，最终当前计数加一。两锚点真实测宽，负差回写后重取font/visible源；x/y原先取后写，W32/低W16/W8及marker/field108非写保持。现有token/owner不变，32原点/25父含两滚动父委托一helper；完整父、DrawText2/QueueText/消费、间接alias/焦点/寿命、SDK/运行未验，异常域依RPLAN.24不计安全/故障等价。 ITA01两匿名工具恢复正常S32加减，13加/8减源表达式与原阶段/操作数保持；数量低W32、窄化/复制/测宽/队列令牌与发布不改。332条1159B及32引用/25父身份保存仅正常算术局部与两body精确静态，不重验全部语义/完整父/字体队列消费/焦点/IME/alias/全部owner寿命/PC53机器环境/ABI/SDK/像素画面运行；数学异常不保护或模拟/称等价。 BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持 当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要",
       "input_text_draw_alignment": {
         "spec": "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
         "evidence": "doc/cg2d_input_text_alignment_evidence.json",
@@ -99895,6 +99899,529 @@
         "source_body_implemented": true,
         "bounded_static_verified": true,
         "runtime_verified": false
+      },
+      "previous_mapping_before_bpi01": {
+        "original_entry": "0x4568A0",
+        "inventory_id": "F:000568A0",
+        "status": "ITD01完整332条绘制根局部静态已对照；额外门禁/预清/固定快照撤销，完整输入渲染/运行未验",
+        "original_end_exclusive": "0x456D27",
+        "instruction_count": 332,
+        "original_direct_reference_count": 32,
+        "original_direct_call_reference_count": 32,
+        "original_inbound_parent_count": 25,
+        "sources": [
+          {
+            "path": "src/render/InputText.cpp",
+            "symbols": [
+              "DrawInputText_4568A0",
+              "AddW32",
+              "SubW32"
+            ],
+            "relationship": "ITD01同文件恢复绘制原阶段/写序，撤销额外保护与固定快照；真实复制/分类/绘制/测宽/QueueText及唯一数据保持；ITA01两个匿名工具恢复正常S32，保13加/8减表达式、数量/窄化/取样与排队发布"
+          }
+        ],
+        "copy_call_connections": [
+          {
+            "parent_entry": "0x4568A0",
+            "call_site": "0x456914",
+            "source": "src/render/InputText.cpp",
+            "symbol": "DrawInputText_4568A0",
+            "target_entry": "0x53BEC0",
+            "target_symbol": "StrNCpy_53BEC0",
+            "count_kind": "原扫描ESI低W32/U32，现有scan直接传入",
+            "count_width": "U32",
+            "relationship": "回车段复制至256B destination，scan原U32、caller末NUL和推进保持；ITD01撤销额外预清/门禁，实际复制填充保持"
+          },
+          {
+            "parent_entry": "0x4568A0",
+            "call_site": "0x456955",
+            "source": "src/render/InputText.cpp",
+            "symbol": "DrawInputText_4568A0",
+            "target_entry": "0x53BEC0",
+            "target_symbol": "StrNCpy_53BEC0",
+            "count_kind": "原45693B先保存+148H S32预算，再扫描余长；copyBudget按低U32传入",
+            "count_width": "U32",
+            "relationship": "定长段真实复制后45695A重取预算写NUL，分类后456979再取预算删孤立高位尾/推进；ITD01撤销额外预清/门禁及固定快照，保真实复制填充/原字段取样"
+          }
+        ],
+        "inbound_reference_groups": [
+          {
+            "parent_entry": "0x4014B0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x401718"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4021A0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x40265F"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x43CBB0",
+            "reference_count": 2,
+            "call_sites": [
+              "0x43CE16",
+              "0x43D3EA"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x45CA20",
+            "reference_count": 2,
+            "call_sites": [
+              "0x45CB9C",
+              "0x45CBA6"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x45FA70",
+            "reference_count": 3,
+            "call_sites": [
+              "0x45FBD6",
+              "0x45FBE0",
+              "0x45FBEA"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4631D0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x46417D"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x464E30",
+            "reference_count": 2,
+            "call_sites": [
+              "0x464F93",
+              "0x464F9D"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x49CAD0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x49CCAD"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4A58E0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4A5963"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4A7590",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4A75D8"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4A7640",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4A767F"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4CB920",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4CB9A3"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4CCED0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4CD143"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4D3210",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4D33E4"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4DF730",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4DFF78"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4EA1B0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4EA5E4"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4EB1C0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4EB742"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4F2130",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4F2454"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4FA050",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4FA2F6"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x4FD6A0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x4FD8FC"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x501FD0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x502708"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x51C7D0",
+            "reference_count": 3,
+            "call_sites": [
+              "0x51D193",
+              "0x51D202",
+              "0x51D42E"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x52DCE0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x52E0FC"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x52ED50",
+            "reference_count": 1,
+            "call_sites": [
+              "0x52F2E6"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          },
+          {
+            "parent_entry": "0x530BA0",
+            "reference_count": 1,
+            "call_sites": [
+              "0x532263"
+            ],
+            "relationship": "仅原代码call引用枚举，不重新验收该父全文或解除其待决条件"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_legacy_string_compare.md",
+          "doc/cg2d_input_text_draw.md",
+          "doc/cg2d_input_text_alignment_spec.md",
+          "doc/cg2d_input_text_alignment_evidence.json",
+          "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
+          "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
+          "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-acceptance",
+          "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
+          "doc/cg2d_input_text_arithmetic_evidence.json"
+        ],
+        "verification_level": "原完整绘制332条/支持测宽33条合365、十实际调用/七data operand、32原点与25当前父/31词法调用；同文件三限定块外全文保持、两既有语义及登记限定增量外保持，未构建/测试/运行/摘要；不据支持叶计新处置或称全功能/故障等价",
+        "boundary": "原signed计数>=4096早退/当前context相等才锚点等门禁保持；撤销新增负计数/空context、NUL/容量/索引/零推进/模式/尾token/字体及源探测拒绝，不新增保护。256B destination不预清，逐普通字节重取行预算；复制前先保存预算再取strlen低U32/unsigned比较，复制后/分类后分别重取预算写NUL/删孤立高位字节/推进。逐段低W8模式/颜色/字体/Y/X按原点取样。单行先写记录字段，星号写后每轮重取total/visible；原后缀先扫描含NUL低U32并逐W32再W8复制，保读取写入顺序。field154非零才再扫已写记录，测宽返回后取当前限制，超宽重取原后缀/分类及计数，原完全不截断分支保持。next清0后完整模式取尾，空尾更新后再读模式取层；非空先连旧尾再读计数/模式更新尾，最终当前计数加一。两锚点真实测宽，负差回写后重取font/visible源；x/y原先取后写，W32/低W16/W8及marker/field108非写保持。现有token/owner不变，32原点/25父含两滚动父委托一helper；完整父、DrawText2/QueueText/消费、间接alias/焦点/寿命、SDK/运行未验，异常域依RPLAN.24不计安全/故障等价。 ITA01两匿名工具恢复正常S32加减，13加/8减源表达式与原阶段/操作数保持；数量低W32、窄化/复制/测宽/队列令牌与发布不改。332条1159B及32引用/25父身份保存仅正常算术局部与两body精确静态，不重验全部语义/完整父/字体队列消费/焦点/IME/alias/全部owner寿命/PC53机器环境/ABI/SDK/像素画面运行；数学异常不保护或模拟/称等价。",
+        "input_text_draw_alignment": {
+          "spec": "doc/cg2d_input_text_alignment_spec.md#input-text-draw-source-closure",
+          "evidence": "doc/cg2d_input_text_alignment_evidence.json",
+          "changed_source": "src/render/InputText.cpp",
+          "root_entry": "0x4568A0",
+          "root_bounded_static_verified": true,
+          "extra_guards_and_destination_preclear_removed": true,
+          "original_guards_and_copy_padding_retained": true,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false,
+          "full_lifecycle_closed": false
+        },
+        "native_parent_bindings": [
+          {
+            "parent_entry": "0x4014b0",
+            "call_sites": [
+              "0x401718"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4014B0"
+          },
+          {
+            "parent_entry": "0x4021a0",
+            "call_sites": [
+              "0x40265f"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4021A0"
+          },
+          {
+            "parent_entry": "0x43cbb0",
+            "call_sites": [
+              "0x43ce16",
+              "0x43d3ea"
+            ],
+            "source": "src/world/SceneState.cpp",
+            "symbol": "DrawBattleScene_43CBB0"
+          },
+          {
+            "parent_entry": "0x45ca20",
+            "call_sites": [
+              "0x45cb9c",
+              "0x45cba6"
+            ],
+            "source": "src/LoginInputController.cpp",
+            "symbol": "ProcessLoginInput_45CA20"
+          },
+          {
+            "parent_entry": "0x45fa70",
+            "call_sites": [
+              "0x45fbd6",
+              "0x45fbe0",
+              "0x45fbea"
+            ],
+            "source": "src/LoginCapability3InputController.cpp",
+            "symbol": "ProcessCapability3Input_45FA70"
+          },
+          {
+            "parent_entry": "0x4631d0",
+            "call_sites": [
+              "0x46417d"
+            ],
+            "source": "src/CharacterSelectScene.cpp",
+            "symbol": "Sub_4631D0"
+          },
+          {
+            "parent_entry": "0x464e30",
+            "call_sites": [
+              "0x464f93",
+              "0x464f9d"
+            ],
+            "source": "src/LoginInputController.cpp",
+            "symbol": "ProcessCapability4Input_464E30"
+          },
+          {
+            "parent_entry": "0x49cad0",
+            "call_sites": [
+              "0x49ccad"
+            ],
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_49CAD0"
+          },
+          {
+            "parent_entry": "0x4a58e0",
+            "call_sites": [
+              "0x4a5963"
+            ],
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A58E0"
+          },
+          {
+            "parent_entry": "0x4a7590",
+            "call_sites": [
+              "0x4a75d8"
+            ],
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A7590",
+            "delegated_helper": "ScrollInputAndDraw",
+            "helper_leaf_lexical_call_count": 1
+          },
+          {
+            "parent_entry": "0x4a7640",
+            "call_sites": [
+              "0x4a767f"
+            ],
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4A7640",
+            "delegated_helper": "ScrollInputAndDraw",
+            "helper_leaf_lexical_call_count": 1
+          },
+          {
+            "parent_entry": "0x4cb920",
+            "call_sites": [
+              "0x4cb9a3"
+            ],
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4CB920"
+          },
+          {
+            "parent_entry": "0x4cced0",
+            "call_sites": [
+              "0x4cd143"
+            ],
+            "source": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4CCED0"
+          },
+          {
+            "parent_entry": "0x4d3210",
+            "call_sites": [
+              "0x4d33e4"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4D3210"
+          },
+          {
+            "parent_entry": "0x4df730",
+            "call_sites": [
+              "0x4dff78"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4DF730"
+          },
+          {
+            "parent_entry": "0x4ea1b0",
+            "call_sites": [
+              "0x4ea5e4"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EA1B0"
+          },
+          {
+            "parent_entry": "0x4eb1c0",
+            "call_sites": [
+              "0x4eb742"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4EB1C0"
+          },
+          {
+            "parent_entry": "0x4f2130",
+            "call_sites": [
+              "0x4f2454"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4F2130"
+          },
+          {
+            "parent_entry": "0x4fa050",
+            "call_sites": [
+              "0x4fa2f6"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FA050"
+          },
+          {
+            "parent_entry": "0x4fd6a0",
+            "call_sites": [
+              "0x4fd8fc"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_4FD6A0"
+          },
+          {
+            "parent_entry": "0x501fd0",
+            "call_sites": [
+              "0x502708"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_501FD0"
+          },
+          {
+            "parent_entry": "0x51c7d0",
+            "call_sites": [
+              "0x51d193",
+              "0x51d202",
+              "0x51d42e"
+            ],
+            "source": "src/world/SceneState.cpp",
+            "symbol": "DrawNormalScene_51C7D0"
+          },
+          {
+            "parent_entry": "0x52dce0",
+            "call_sites": [
+              "0x52e0fc"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52DCE0"
+          },
+          {
+            "parent_entry": "0x52ed50",
+            "call_sites": [
+              "0x52f2e6"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_52ED50"
+          },
+          {
+            "parent_entry": "0x530ba0",
+            "call_sites": [
+              "0x532263"
+            ],
+            "source": "src/LegacyUiRecord.cpp",
+            "symbol": "Sub_530BA0"
+          }
+        ],
+        "native_provider": {
+          "source": "src/render/InputText.cpp",
+          "symbol": "DrawInputText_4568A0",
+          "source_body_implemented": true,
+          "bounded_static_verified": true,
+          "runtime_verified": false
+        }
+      },
+      "input_text_source_phase": {
+        "spec_id": "BPI01",
+        "evidence_refs": [
+          "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+          "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+          "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-acceptance",
+          "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+          "doc/cg2d_input_text_alignment_evidence.json"
+        ],
+        "original_region_instruction_count": 29,
+        "original_region_code_bytes": 109,
+        "source_body_patch_count": 2,
+        "source_body_changed": true,
+        "full_original_root_reverified": false,
+        "full_parents_captured": false,
+        "runtime_verified": false,
+        "normal_previous_value_wrong": false,
+        "classifier_decision_before_new_budget": true,
+        "y_sample_before_x_store": true,
+        "y_addition_after_x_store": true,
+        "normal_arithmetic_expression_counts_retained": true,
+        "preserved_contract": "BPI01仅恢复两个源阶段：分类返回后先保存boundary==3，再重读S32 advance并沿该判定分支；多行测宽后先采X/Y，先写X，再将已采Y与行偏移作正常S32加法并写Y。原正常值无介入时一致，不称数值、画面或并发错误。原逐字节/三预算取样、CR/末单元、真实复制/绘制/测宽/排队与单行全部正文、13加/8减表达式/位宽、队列token和唯一owner保持",
+        "implementation_static_scope": "当前只读两窗口20条73B与9条36B合29条109B；既有完整根332条1159B及32引用25父保，仅定向源阶段静态，不重验所有原语义/完整父。字体队列消费、焦点/IME/间接alias与全部owner寿命、SDK/链接/机器及画面运行未验；异常依RPLAN.24不保护/模拟或称等价，未构建/测试/运行/摘要"
       }
     },
     {

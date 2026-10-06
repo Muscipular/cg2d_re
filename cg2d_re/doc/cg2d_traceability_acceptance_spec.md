@@ -998,3 +998,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [BPH01验收合同](cg2d_key_index_preset_source_spec.md#key-index-preset-acceptance)/[原证据及前态](cg2d_key_index_preset_source_evidence.json)。三个实际原根87条282B、两查询新映射/旧373续记与三原分类，完整W32参数和真实caller去收窄；INPUT三个根各I/S、TEXT预设根各I/S共8条，只限定正常键查询/文本消费，不算8个新增功能或完整父/播放/输入/焦点通过。
 
 语义1422→1424条/有效ID1417→1419、关联1535→1537/3680（41.71%→41.77%）、分类543→546，INPUT14→17/TEXT22→23枚举未闭；E707→715仅8条正常局部I/S。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及全部完整门禁保持。 三冻定位各1保持，不代当前编译或链接；音频支持体未计门禁，AUDIO32暂停、pending18/R7及未知差集保。T01/T02/U04/R01/R04/V04只增进展/引用且仍open；未构建/测试/运行/摘要。
+
+## BPI01 输入绘制两源阶段局部I/S（2026-10-07）
+
+[具名验收合同](cg2d_input_text_alignment_spec.md#input-text-source-phase-acceptance)/[原窗口/旧807前态](cg2d_input_text_alignment_evidence.json)。两源片段实修、两窗口29条109B与全文逆换静态；FUNC-INPUT/FUNC-TEXT各I/S，共四条，只计分类判定/预算和多行X/Y发布阶段。旧equivalent/身份及所有完整门禁保持，不据局部判定生成机器代码、并发或画面等价。
+
+语义1424/1419、关联1537/41.77%、分类546保持；登记E715→719，INPUT17/TEXT23枚举仍open。T01/T02/R04/V04只增进展引用；10/60源码任务、0完整验收/叶验收及global_accepted=false保持。未构建/测试/运行/摘要，正常owner/寿命及完整运行按原标准推进。

@@ -980,3 +980,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [BPE01验收合同](cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance)/[完整原证据及前态](cg2d_protocol_integer_normal_arithmetic_evidence.json)。只5176B0正常S32算式实修，正确517190包装保持；两根57条132B和158普通点两父、两个既有映射续记，非新功能。四新增I/S只指各根正常局部，完整父/字段/正常alias-owner/寿命、机器ABI/链接与真实明文互通未验。
 
 六BPD具名证据artifacts末项拆回五独立引用，原前五/其它字段与证据数保持；不能把串联项当可定位的多个文件，也不因修引用提升原门禁。语义1422条/1417原ID、合同关联1535/3680（41.71%）、分类543、NETWORK50枚举未闭均保持；E695→699只增加两个既有根各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及完整门禁保持。 U10/R01/R04/V03仍open；仅必要静态与measure/-Check，未构建/测试/运行/摘要。
+
+## BPF01 调色板老化正常局部I/S（2026-10-06）
+
+[BPF01验收合同](cg2d_palette_age_normal_counter_spec.md#palette-age-normal-acceptance)/[原证据及前态](cg2d_palette_age_normal_counter_evidence.json)。原根21条86B及唯一公共尾11条40B，实际计数表达式正常S32恢复/无用bit头退休；两域各I/S四条只验正常局部算术/原回收与取样，不增四个功能，不代完整520DD0/全部上游和正常alias-owner/寿命或全模式像素运行。
+
+既有1204与equivalent分类续记，原字段/接口及成员保持。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、RENDER52/RESOURCE41枚举未闭保持；E699→703仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及所有完整门禁保持。 G01/G02/G04/R01/R04/V04增加进展引用且仍open；仅必要静态与measure/-Check，未构建/测试/运行/摘要。

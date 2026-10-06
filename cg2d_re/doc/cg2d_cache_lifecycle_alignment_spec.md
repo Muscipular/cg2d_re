@@ -119,3 +119,9 @@ SDK/机器ABI及模式/SDL像素运行仍未验；运行限制持续有效。
 编码/链接/引用与measure生成、独立-Check同步唯一进度。
 
 **交付检查**：12项严格UTF-8无BOM/LF、720个本地链接、36项限定登记引用及差异检查通过；measure生成与独立-Check各退出0。合同关联1327/3680仅为文件关联，完整门禁未提升。
+
+## BPF01 对老化计数表达式的具名更新（2026-10-06）
+
+[BPF01裁决](cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision)/[原证据及旧1204映射](cg2d_palette_age_normal_counter_evidence.json)更新GCL01中Age44E230的当前计数承接：原完整S32字段读后直接正常count+1并沿同次池发布；撤额外U32回绕/双bit_cast，退休仅此用途bit头。这里取代该根此前“W32增一旧承接”的当前表达，正常可计算值与原104项/回收/基址取样保持，数学溢出不专项模拟或声明等价。
+
+GCL01的Reset523310/Build5231A0及其低W16取样、成功计数/失败前缀/实际owner和API保持，不借此重验或改正确体。只有GraphicPaletteCache.cpp一个表达式及无用include变化；实际DrawAllQueued公共尾仍调用同根，未释放池或增加其它字段写入。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、RENDER52/RESOURCE41枚举未闭保持；E699→703仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及所有完整门禁保持。

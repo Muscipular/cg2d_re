@@ -1335,7 +1335,8 @@
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-baseline",
-        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline"
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-baseline",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -1405,7 +1406,8 @@
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision",
-        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision"
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1423,7 +1425,8 @@
         "BOO01两旧169/170完整464条1778B/128B固定初值-100B常量，Init查色1恢复/Read正确体及真实CPU绑定保；原85条289B低色深仅纳盘。局部枚举open，全部父/构造重建销毁owner/正常别名/像素画面与R1/R7/R8运行待",
         "BOP01三既有源码根新机器映射，完整273条768B，Get累计/组包2与Nearest首色-候选1阶段恢复/正常值保持；Resource37→40、Render32→34枚举open，auto.dat父/真实共享解码区owner-实际图形/地图画面运行及R1/R7/R8待",
         "BOQ01 DBF724完整170条553B/31B数据、原W32共享比较字和stride-payload-S32偏移阶段恢复；RESOURCE41枚举open，全部父/hidden队列/正常alias/解码块-键表owner/真实DBF及R1/R7/R8运行待",
-        "BOR01已有1237/分类/RESOURCE成员续记，完整94条286B及7008B hidden初值1752项一致；数量-取得表/record-loaded阶段恢复，原SDK/释放根保持，全部父-队列两池owner/正常alias/实际SDK及R1/R7/R8运行待"
+        "BOR01已有1237/分类/RESOURCE成员续记，完整94条286B及7008B hidden初值1752项一致；数量-取得表/record-loaded阶段恢复，原SDK/释放根保持，全部父-队列两池owner/正常alias/实际SDK及R1/R7/R8运行待",
+        "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1444,7 +1447,8 @@
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
-        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state"
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
       ]
     },
     {
@@ -1531,7 +1535,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1624,7 +1629,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1652,7 +1658,8 @@
         "BOZ01两真实描边/脏区消费者完整72条188B/两普通点同一父纳盘、两正文实修独立机器身份1411/1412；RENDER45枚举open，完整生产/父-callee/正常别名/Back-纹理-owner/dirty重建与SDK-机器ABI/模式像素及R1/R7/R8待",
         "BPA01匹配值绘框真实507090新机器1413/完整59条175B与唯一点父8条窗口纳盘；actual DX entry/四边正常生产/双游标阶段恢复，动态count与追加保。RENDER46枚举open，完整命中父-callee/正常alias/队列-表/纹理-Back-owner/场景失效退出/SDK-机器ABI与像素及R1/R7/R8运行待",
         "BPB01五真实波纹根160条537B六页/旧6续记与四新1414-1417；原完整8行提交/矩形-相位发布与正常S32实修，四正确依赖/既有CPU复制provider保持，五成员RENDER51枚举open。完整父-callee/正常alias/Back-Temp及其它资源-owner/场景失效退出/SDK-机器浮点ABI与像素、R1/R7/R8仍待",
-        "BPC01真正角色521F20新机器1418/完整160条595B两页18点3父只纳盘；实际两游标/两计数/四W32及各U8颜色flags、mix-clip-image正常阶段实修。RENDER52/YOBI56枚举open，完整上游/原全部父-callee-正常alias/action-队列-图形-纹理-owner/场景失效退出/SDK-机器FP ABI与像素及R1/R7/R8待"
+        "BPC01真正角色521F20新机器1418/完整160条595B两页18点3父只纳盘；实际两游标/两计数/四W32及各U8颜色flags、mix-clip-image正常阶段实修。RENDER52/YOBI56枚举open，完整上游/原全部父-callee-正常alias/action-队列-图形-纹理-owner/场景失效退出/SDK-机器FP ABI与像素及R1/R7/R8待",
+        "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1681,7 +1688,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
       ]
     },
     {
@@ -30488,6 +30496,134 @@
       "observation": "实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。",
       "expected": "实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。",
       "actual": "只有正常局部I/S静态，无新函数/分母或协议格式。仅明文/两加解密叶排除；异常不专项模拟或保护，完整分派/全部回复、正常alias-owner/寿命及实际ABI/链接/互通运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-PALETTE-AGE-0004E230-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPF01老化根21条86B/一页与唯一父局部11条40B，原104项/3内跳1ret；doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-age-normal-counter-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-acceptance",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_palette_age_normal_counter_evidence.json",
+        "src/render/GraphicPaletteCache.cpp#AgeGraphicPaletteCache_44E230",
+        "include/cg/render/GraphicPaletteCache.hpp",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_cache_lifecycle_alignment_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "一计数表达式恢复正常S32 count+1，撤U32模回绕/双bit_cast并退休仅此用途bit头；原104项扫描/回收与共享池取样和正常值保持",
+          "decision_ref": "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
+      "expected": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
+      "actual": "仅各域正常局部I/S；原回收/取样/公共尾和非地址位宽不变，无新功能/分母、接口或资源。异常不专项模拟或保护，完整父/上游、正常alias-owner/寿命与实际ABI/链接/像素运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-PALETTE-AGE-0004E230-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPF01老化根21条86B/一页与唯一父局部11条40B，原104项/3内跳1ret；doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-age-normal-counter-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-acceptance",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_palette_age_normal_counter_evidence.json",
+        "src/render/GraphicPaletteCache.cpp#AgeGraphicPaletteCache_44E230",
+        "include/cg/render/GraphicPaletteCache.hpp",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_cache_lifecycle_alignment_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "一计数表达式恢复正常S32 count+1，撤U32模回绕/双bit_cast并退休仅此用途bit头；原104项扫描/回收与共享池取样和正常值保持",
+          "decision_ref": "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
+      "expected": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
+      "actual": "仅各域正常局部I/S；原回收/取样/公共尾和非地址位宽不变，无新功能/分母、接口或资源。异常不专项模拟或保护，完整父/上游、正常alias-owner/寿命与实际ABI/链接/像素运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RESOURCE-PALETTE-AGE-0004E230-I-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPF01老化根21条86B/一页与唯一父局部11条40B，原104项/3内跳1ret；doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-age-normal-counter-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-acceptance",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_palette_age_normal_counter_evidence.json",
+        "src/render/GraphicPaletteCache.cpp#AgeGraphicPaletteCache_44E230",
+        "include/cg/render/GraphicPaletteCache.hpp",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_cache_lifecycle_alignment_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "一计数表达式恢复正常S32 count+1，撤U32模回绕/双bit_cast并退休仅此用途bit头；原104项扫描/回收与共享池取样和正常值保持",
+          "decision_ref": "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
+      "expected": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
+      "actual": "仅各域正常局部I/S；原回收/取样/公共尾和非地址位宽不变，无新功能/分母、接口或资源。异常不专项模拟或保护，完整父/上游、正常alias-owner/寿命与实际ABI/链接/像素运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RESOURCE-PALETTE-AGE-0004E230-S-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPF01老化根21条86B/一页与唯一父局部11条40B，原104项/3内跳1ret；doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-age-normal-counter-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-acceptance",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_palette_age_normal_counter_evidence.json",
+        "src/render/GraphicPaletteCache.cpp#AgeGraphicPaletteCache_44E230",
+        "include/cg/render/GraphicPaletteCache.hpp",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_cache_lifecycle_alignment_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "一计数表达式恢复正常S32 count+1，撤U32模回绕/双bit_cast并退休仅此用途bit头；原104项扫描/回收与共享池取样和正常值保持",
+          "decision_ref": "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
+      "expected": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
+      "actual": "仅各域正常局部I/S；原回收/取样/公共尾和非地址位宽不变，无新功能/分母、接口或资源。异常不专项模拟或保护，完整父/上游、正常alias-owner/寿命与实际ABI/链接/像素运行未验；未构建/测试/运行/hash"
     }
   ],
   "task_acceptance": [
@@ -30749,7 +30885,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
       ]
     },
     {
@@ -31091,7 +31228,8 @@
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
-        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
       ]
     },
     {
@@ -31316,7 +31454,8 @@
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
-        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
       ]
     },
     {
@@ -31444,7 +31583,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
       ]
     },
     {
@@ -31554,7 +31694,8 @@
         "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
       ]
     },
     {
@@ -31807,7 +31948,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
       ]
     },
     {
@@ -32931,8 +33073,12 @@
       "disposition": "equivalent",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure"
-      ]
+        "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
+      ],
+      "boundary": "BPF01正常S32老化，原104项与回收/基址阶段；不代数学异常/原机器ABI、完整父/owner/像素运行：入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。"
     },
     {
       "inventory_id": "F:00123310",

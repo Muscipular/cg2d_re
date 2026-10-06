@@ -156987,7 +156987,7 @@
     {
       "original_entry": "0x44E230",
       "inventory_id": "F:0004E230",
-      "status": "GCL01完整原体/缓存基址与计数及低W16阶段实修局部静态；全寿命/像素运行未验",
+      "status": "BPF01既有老化根正常S32计数恢复，原回收/基址与104项和唯一公共尾保持；完整父/owner与像素运行未验",
       "original_end_exclusive": "0x44E286",
       "instruction_count": 21,
       "original_chunks": [
@@ -157003,7 +157003,7 @@
           "symbols": [
             "AgeGraphicPaletteCache_44E230"
           ],
-          "relationship": "实际既有本体按原阶段修正；3限定根外全文保持"
+          "relationship": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。"
         },
         {
           "path": "include/cg/render/GraphicPaletteCache.hpp",
@@ -157016,10 +157016,15 @@
       "evidence_documents": [
         "doc/cg2d_graphic_dx_cache.md",
         "doc/cg2d_cache_lifecycle_alignment_spec.md",
-        "doc/cg2d_cache_lifecycle_alignment_evidence.json"
+        "doc/cg2d_cache_lifecycle_alignment_evidence.json",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-acceptance",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_palette_age_normal_counter_evidence.json"
       ],
-      "boundary": "入口保存池，负图号跳过脏计数及所有池重取；非负沿保存池判计数，>=1先清DX palette、新池写图号-1再新池供计数；读/增/写沿同次池，非负尾新池。104/S32图号与比较/W32增一旧承接保持，不释放项或改其它字段。绘制公共尾真实调用，完整父/上游/间接alias与pool寿命未验。 RPLAN.24异常不专项处理、不计安全/故障等价；不宣称机器ABI或原编译器发射一致。",
-      "verification_level": "三根146条/497B、四边52条局部窗口、26数据operand及四dtype_word；3本体补丁外两CPP/11保持本体/其它源头与旧台账不变。未构建/查产物/测试/运行/摘要。",
+      "boundary": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。 仅真实老化根正常S32计数/原读写和104项分支、实际唯一公共尾窗口与既有CPU/原生指针承载静态对照；不代完整520DD0/全部上游、动态池/节点与表正常alias-owner/寿命、像素/SDK机器ABI/链接和运行；异常不专项模拟或声明等价。",
+      "verification_level": "完整真实老化根21条86B/一页3内跳1ret与唯一普通父521428/11条40B公共尾窗口纳盘；仅一计数表达式正常S32实修/无用bit头退休，所有其它源头/原生命周期保持；正常局部static不代完整父/owner/ABI/像素运行",
       "native_provider": {
         "source": "src/render/GraphicPaletteCache.cpp",
         "symbol": "AgeGraphicPaletteCache_44E230",
@@ -157036,6 +157041,90 @@
         "runtime_verified": false,
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
+      },
+      "previous_mapping_before_bpf01": {
+        "original_entry": "0x44E230",
+        "inventory_id": "F:0004E230",
+        "status": "GCL01完整原体/缓存基址与计数及低W16阶段实修局部静态；全寿命/像素运行未验",
+        "original_end_exclusive": "0x44E286",
+        "instruction_count": 21,
+        "original_chunks": [
+          [
+            "0x44E230",
+            "0x44E286"
+          ]
+        ],
+        "original_direct_reference_count": 1,
+        "sources": [
+          {
+            "path": "src/render/GraphicPaletteCache.cpp",
+            "symbols": [
+              "AgeGraphicPaletteCache_44E230"
+            ],
+            "relationship": "实际既有本体按原阶段修正；3限定根外全文保持"
+          },
+          {
+            "path": "include/cg/render/GraphicPaletteCache.hpp",
+            "symbols": [
+              "AgeGraphicPaletteCache_44E230"
+            ],
+            "relationship": "既有真实声明、共享owner/原字段宽度保持"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_graphic_dx_cache.md",
+          "doc/cg2d_cache_lifecycle_alignment_spec.md",
+          "doc/cg2d_cache_lifecycle_alignment_evidence.json"
+        ],
+        "boundary": "入口保存池，负图号跳过脏计数及所有池重取；非负沿保存池判计数，>=1先清DX palette、新池写图号-1再新池供计数；读/增/写沿同次池，非负尾新池。104/S32图号与比较/W32增一旧承接保持，不释放项或改其它字段。绘制公共尾真实调用，完整父/上游/间接alias与pool寿命未验。 RPLAN.24异常不专项处理、不计安全/故障等价；不宣称机器ABI或原编译器发射一致。",
+        "verification_level": "三根146条/497B、四边52条局部窗口、26数据operand及四dtype_word；3本体补丁外两CPP/11保持本体/其它源头与旧台账不变。未构建/查产物/测试/运行/摘要。",
+        "native_provider": {
+          "source": "src/render/GraphicPaletteCache.cpp",
+          "symbol": "AgeGraphicPaletteCache_44E230",
+          "source_body_implemented": true,
+          "source_changed": true,
+          "bounded_static_verified": true,
+          "runtime_verified": false
+        },
+        "cache_lifecycle_alignment": {
+          "spec": "doc/cg2d_cache_lifecycle_alignment_spec.md#cache-lifecycle-source-closure",
+          "evidence": "doc/cg2d_cache_lifecycle_alignment_evidence.json",
+          "source_changed": true,
+          "original_guards_and_tails_retained": true,
+          "runtime_verified": false,
+          "full_lifecycle_closed": false,
+          "fault_equivalence_claimed": false
+        }
+      },
+      "palette_age_normal_counter": {
+        "spec_id": "BPF01",
+        "evidence_refs": [
+          "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+          "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
+          "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-acceptance",
+          "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+          "doc/cg2d_palette_age_normal_counter_evidence.json"
+        ],
+        "original_instruction_count": 21,
+        "original_code_bytes": 86,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "internal_jump_site_count": 3,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "include_retired": "#include <bit>",
+        "full_original_root_captured": true,
+        "full_parent_captured": false,
+        "runtime_verified": false,
+        "dynamic_item_count": 104,
+        "normal_previous_value_wrong": false,
+        "normal_s32_arithmetic_restored": true,
+        "original_guards_and_base_sampling_retained": true,
+        "preserved_contract": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
+        "implementation_static_scope": "仅真实老化根正常S32计数/原读写和104项分支、实际唯一公共尾窗口与既有CPU/原生指针承载静态对照；不代完整520DD0/全部上游、动态池/节点与表正常alias-owner/寿命、像素/SDK机器ABI/链接和运行；异常不专项模拟或声明等价。"
       }
     },
     {

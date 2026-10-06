@@ -2956,3 +2956,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [BPE01 SPEC](cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline)/[原证据](cg2d_protocol_integer_normal_arithmetic_evidence.json)。1217/F:00117190的正确空指针包装保持；1219/F:001176B0单正文恢复正常S32累计/首位sign/尾乘，原字符/下一字节取样和正常可计算值保持；不混用52D050。两全文旧映射存previous_mapping_before_bpe01，NWT01历史字段和所有其他机器记录保留。
 
 57条132B/两页1call13内跳4ret与158普通点/两不同父只纳盘。六BPD具名E仅artifacts末项由一个串联项拆为五独立引用，各6→10项且其余字段保持。语义1422条/1417原ID、合同关联1535/3680（41.71%）、分类543、NETWORK50枚举未闭均保持；E695→699只增加两个既有根各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及完整门禁保持。
+
+## BPF01 既有老化映射1204正常算术续记（2026-10-06）
+
+[BPF01 SPEC](cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline)/[原证据及全文前态](cg2d_palette_age_normal_counter_evidence.json)。1204/F:0004E230仅恢复正常S32计数加一，旧映射存previous_mapping_before_bpf01；原equivalent处置、身份/冻定位和RENDER/RESOURCE成员不增加。完整原21条86B/一页3内跳1ret、唯一521428点及11条40B父窗口只納盘，不代完整父或资源寿命。
+
+单计数表达式/无用bit头实修，原104项/回收门禁/共享基址读取与公共尾保持，无额外拒绝/饱和/清表或异常回绕模型。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、RENDER52/RESOURCE41枚举未闭保持；E699→703仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及所有完整门禁保持。

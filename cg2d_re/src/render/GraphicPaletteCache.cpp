@@ -3,7 +3,6 @@
 #include "GraphicDxCacheState.hpp"
 #include "cg/Palette.hpp"
 
-#include <bit>
 #include <cstring>
 #include <memory>
 #include <utility>
@@ -216,8 +215,7 @@ void AgeGraphicPaletteCache_44E230() noexcept
             pool = gGraphicDataCacheList;
         }
         const std::int32_t count = pool[index].dirtyCount;
-        pool[index].dirtyCount = std::bit_cast<std::int32_t>(
-            std::bit_cast<std::uint32_t>(count) + 1u);
+        pool[index].dirtyCount = count + 1;
         pool = gGraphicDataCacheList;
     }
 }

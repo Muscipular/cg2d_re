@@ -2429,3 +2429,9 @@ AutoMap原叶45014F和父450468各Unlock一次，显式叶32位段只由父45043
 新机器1418对应已有角色原根；语义1418→1419/有效ID1413→1414、关联1531→1532（41.60%→41.63%）、分类539→540、RENDER51→52/YOBI55→56均枚举open，两域独立正常局部I/S共4条E685→689。冻定位1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；八open含G04只进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
 
 只YobiRuntime.cpp一个完整RenderChara正文，所有其它实现/存储/头/公开或私有声明、action-队列布局、实际父/名称及排序-命中-绘制provider与owner保持，不新增helper/影子状态/原入口。原有效内嵌空名也调用、parity只cache=-2、图号-1/death严格1/低flags2和S16容量原门槛保；正常PC53/S64低S32边界保，不做FP环境/异常回绕模拟或新增拒绝/保护/补零/钳制。全部上游-18点之父/callee/正常alias与action-队列-图形-纹理-owner及场景-失效-退出、SDK-机器FP ABI和像素运行未验。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。
+
+## BPF01 帧末调色板老化正常计数（2026-10-06）
+
+[BPF01具体SPEC](cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision)/[完整原证据](cg2d_palette_age_normal_counter_evidence.json)：只Age44E230一个计数表达式恢复正常S32 count+1，撤U32模回绕/双bit_cast并退休仅此用途bit头。原104项扫描、负图号跳过、计数>=1回收、清DX palette/图号-1/当前池计数与尾重读阶段保持，正常可计算值不变，不增加清表、释放或保护。
+
+原根21条86B/一页3内跳1ret、唯一普通点521428/父520DD0和11条40B公共尾窗口纳盘；窗口COM+18H不当绝对callee。既有1204/原equivalent处置与两域成员续记不重造。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、RENDER52/RESOURCE41枚举未闭保持；E699→703仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及所有完整门禁保持。 全部其它源头与获批CPU机制边界保持，正常alias-owner/寿命、完整父/上游与SDK-ABI/链接/像素运行仍待；未构建/测试/运行/摘要。

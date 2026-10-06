@@ -549,31 +549,32 @@ std::int32_t Sub_5176B0(const char* const text)
 {
     const auto* cursor =
         reinterpret_cast<const unsigned char*>(text);
-    const bool negative = *cursor == static_cast<unsigned char>('-');
-    if (negative) {
+    std::int32_t accumulator = 0;
+    std::int32_t sign;
+    if (*cursor == static_cast<unsigned char>('-')) {
+        sign = -1;
         ++cursor;
+    }
+    else {
+        sign = 1;
     }
 
     unsigned char currentByte = *cursor;
-    std::uint32_t accumulator = 0;
     while (currentByte != 0U) {
-        accumulator *= 62U;
+        accumulator *= 62;
 
-        std::uint32_t digit = 0;
+        std::int32_t digit;
         if (currentByte >= static_cast<unsigned char>('0')
             && currentByte <= static_cast<unsigned char>('9')) {
-            digit = static_cast<std::uint32_t>(
-                currentByte - static_cast<unsigned char>('0'));
+            digit = currentByte - static_cast<unsigned char>('0');
         }
         else if (currentByte >= static_cast<unsigned char>('a')
                  && currentByte <= static_cast<unsigned char>('z')) {
-            digit = static_cast<std::uint32_t>(
-                currentByte - static_cast<unsigned char>('a')) + 10U;
+            digit = currentByte - static_cast<unsigned char>('a') + 10;
         }
         else if (currentByte >= static_cast<unsigned char>('A')
                  && currentByte <= static_cast<unsigned char>('Z')) {
-            digit = static_cast<std::uint32_t>(
-                currentByte - static_cast<unsigned char>('A')) + 36U;
+            digit = currentByte - static_cast<unsigned char>('A') + 36;
         }
         else {
             return 0;
@@ -584,10 +585,7 @@ std::int32_t Sub_5176B0(const char* const text)
         ++cursor;
     }
 
-    const std::uint32_t resultBits = negative
-        ? std::uint32_t {0} - accumulator
-        : accumulator;
-    return std::bit_cast<std::int32_t>(resultBits);
+    return sign * accumulator;
 }
 
 std::uint8_t* Sub_517730(

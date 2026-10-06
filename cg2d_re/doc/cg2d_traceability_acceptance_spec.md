@@ -974,3 +974,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [BPD01 SPEC](cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance)/[原证据](cg2d_delimited_numeric_normal_sampling_evidence.json)。三个真实数值解析根完整104条286B/三页4绝对call14内跳6ret，26普通点16不同父分根1/13/12点和1/6/9父，只纳盘。单52D050正文恢复正常S32 value/sign与一次字节样本、下一字节先取再游标推进；52CFF0状态/52D0D0栈field两正确体保持。字符表、先乘62、任意位置负号、非法0/空0与field空-1/status空2不写输出均原样保。
 
 三新1419–1421对应已有原根；语义1419→1422/有效ID1414→1417、关联1532→1535（41.63%→41.71%）、分类540→543、NETWORK47→50枚举open，六独立正常局部static I/S E689→695。三冻定位各1不刷新；RENDER52/YOBI56/RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保；U10/R01/R04/V03四open只进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。 六软件证据不是六功能；两个正确体纳管与单decoder算式/取样实修分列，不以关联计数代完整108回复/owner或互通验收。只NetworkRuntime.cpp单Base62正文，两个正确包装/四DFI工具、其它实现/头/API/共享缓冲及帧-108handler/provider/owner保持，不新增helper或输出默认值，不复用5176B0前缀负号。撤专项U32回绕，正常S32算式/原业务字符-容量/返回保持，无额外拒绝/保护/钳制或异常模型。完整26点之父/字段-108回复-请求与状态/正常alias-缓冲及输出owner/关闭退出/SDK-机器ABI和实际互通未验；未构建/测试/运行/hash，原格式只明文、两加解密叶排除/内存CryptInt保、音频暂停，整体SPEC继续。
+
+## BPE01 两原整数根局部I/S与引用修复（2026-10-06）
+
+[BPE01验收合同](cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance)/[完整原证据及前态](cg2d_protocol_integer_normal_arithmetic_evidence.json)。只5176B0正常S32算式实修，正确517190包装保持；两根57条132B和158普通点两父、两个既有映射续记，非新功能。四新增I/S只指各根正常局部，完整父/字段/正常alias-owner/寿命、机器ABI/链接与真实明文互通未验。
+
+六BPD具名证据artifacts末项拆回五独立引用，原前五/其它字段与证据数保持；不能把串联项当可定位的多个文件，也不因修引用提升原门禁。语义1422条/1417原ID、合同关联1535/3680（41.71%）、分类543、NETWORK50枚举未闭均保持；E695→699只增加两个既有根各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及完整门禁保持。 U10/R01/R04/V03仍open；仅必要静态与measure/-Check，未构建/测试/运行/摘要。

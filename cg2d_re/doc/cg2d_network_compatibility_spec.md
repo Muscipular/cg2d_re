@@ -61,3 +61,9 @@
 三新1419–1421对应已有原根；语义1419→1422/有效ID1414→1417、关联1532→1535（41.63%→41.71%）、分类540→543、NETWORK47→50枚举open，六独立正常局部static I/S E689→695。三冻定位各1不刷新；RENDER52/YOBI56/RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保；U10/R01/R04/V03四open只进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。
 
 只NetworkRuntime.cpp单Base62正文，两个正确包装/四DFI工具、其它实现/头/API/共享缓冲及帧-108handler/provider/owner保持，不新增helper或输出默认值，不复用5176B0前缀负号。撤专项U32回绕，正常S32算式/原业务字符-容量/返回保持，无额外拒绝/保护/钳制或异常模型。完整26点之父/字段-108回复-请求与状态/正常alias-缓冲及输出owner/关闭退出/SDK-机器ABI和实际互通未验；未构建/测试/运行/hash，原格式只明文、两加解密叶排除/内存CryptInt保、音频暂停，整体SPEC继续。
+
+## BPE01 原协议整数正常算术（2026-10-06）
+
+[BPE01 SPEC](cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision)/[原证据](cg2d_protocol_integer_normal_arithmetic_evidence.json)：只恢复5176B0正常S32累计/首位sign/最终乘符号，保原base62字节表、首位负号、非法0和正确517190包装。解析不更改原帧/组包/协议字段/文本转义，不恢复两加解密叶。不能借用52D050任意位置负号算法。
+
+两原根57条132B及158普通点独立纳盘；六上批具名证据拆回独立文件引用不增原验收，四新正常局部I/S不代真实互通。语义1422条/1417原ID、合同关联1535/3680（41.71%）、分类543、NETWORK50枚举未闭均保持；E695→699只增加两个既有根各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及完整门禁保持。

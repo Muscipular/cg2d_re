@@ -773,7 +773,8 @@
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-baseline",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
-        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline"
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -850,7 +851,8 @@
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-decision",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
-        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision"
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -867,7 +869,8 @@
         "DFI01四字段基础依赖与既有技能生产三解析边已登记；本步未改源码或增加软件验收，所有306/550业务父/字段布局/owner/未知alias/Atoi内部、实际ABI/链接/原格式明文互通与运行仍待",
         "NQA01五处正常S32长度算术已修，三个队列叶原身份/门禁/发布序可追；完整父/命令/owner/间接alias/寿命、半包/部分发送/ABI/SDK和原格式明文互通仍未验",
         "RPA01仅两原跳转表/边界字节与既有父来源关联，无源码/网络格式或加解密接线改动；八原目标/局部窗口不代整父/未知alias/全部owner/SDK/ABI或明文互通运行",
-        "BPD01三分段数值解析新1419-1421、完整104条286B/26点分根父1-6-9纳盘；base62正常S32/原下一字节取样实修、两正确体保持，NETWORK50枚举open。原格式明文不变，完整108回复/所有调用父与字段/正常alias-缓冲和输出owner/SDK-ABI与互通、R1/R7/R8仍待"
+        "BPD01三分段数值解析新1419-1421、完整104条286B/26点分根父1-6-9纳盘；base62正常S32/原下一字节取样实修、两正确体保持，NETWORK50枚举open。原格式明文不变，完整108回复/所有调用父与字段/正常alias-缓冲和输出owner/SDK-ABI与互通、R1/R7/R8仍待",
+        "BPE01两既有整数根1217/1219续记，57条132B/158普通点两父纳盘；5176B0正常S32算式实修，首位负号和原格式明文保，六BPD引用修复。NETWORK50枚举仍open；完整157点之父/108回复和正常owner/alias/寿命、SDK-ABI与真实互通、R1/R7/R8仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -884,7 +887,8 @@
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
-        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
       ]
     },
     {
@@ -30179,7 +30183,11 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
-        "src/network/NetworkRuntime.cpp#ParseDelimitedIntegerStatus_52CFF0 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+        "src/network/NetworkRuntime.cpp#ParseDelimitedIntegerStatus_52CFF0",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_delimited_field_identity_spec.md"
       ],
       "differences": [
         {
@@ -30207,7 +30215,11 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
-        "src/network/NetworkRuntime.cpp#ParseDelimitedIntegerStatus_52CFF0 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+        "src/network/NetworkRuntime.cpp#ParseDelimitedIntegerStatus_52CFF0",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_delimited_field_identity_spec.md"
       ],
       "differences": [
         {
@@ -30235,7 +30247,11 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
-        "src/network/NetworkRuntime.cpp#Base62Decode_52D050 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+        "src/network/NetworkRuntime.cpp#Base62Decode_52D050",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_delimited_field_identity_spec.md"
       ],
       "differences": [
         {
@@ -30263,7 +30279,11 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
-        "src/network/NetworkRuntime.cpp#Base62Decode_52D050 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+        "src/network/NetworkRuntime.cpp#Base62Decode_52D050",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_delimited_field_identity_spec.md"
       ],
       "differences": [
         {
@@ -30291,7 +30311,11 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
-        "src/network/NetworkRuntime.cpp#ParseDelimitedBase62_52D0D0 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+        "src/network/NetworkRuntime.cpp#ParseDelimitedBase62_52D0D0",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_delimited_field_identity_spec.md"
       ],
       "differences": [
         {
@@ -30319,7 +30343,11 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-acceptance",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_evidence.json",
-        "src/network/NetworkRuntime.cpp#ParseDelimitedBase62_52D0D0 include/cg/network/NetworkRuntime.hpp doc/cg2d_network_runtime.md doc/cg2d_network_compatibility_spec.md doc/cg2d_delimited_field_identity_spec.md"
+        "src/network/NetworkRuntime.cpp#ParseDelimitedBase62_52D0D0",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_delimited_field_identity_spec.md"
       ],
       "differences": [
         {
@@ -30332,6 +30360,134 @@
       "observation": "当前完整原根字节/指令-调用-返回和普通入向只纳盘，正常字节取样/原字符-符号、cap127/空字段与不写输出和实际提供者静态对应；实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。",
       "expected": "实际128B栈field不整体清零，以cap127/原字节分隔符/ordinal调用52CED0并弃返回；首字节NUL返完整S32-1，否则实际field地址交独立52D050并透传S32，不改成十进制/5176B0或复用静态/影子缓冲。正确已有正文保持，字段上游/owner与完整回复运行未验。",
       "actual": "各原根正常局部static I/S，runtime=false；仅数值字段原格式解析，网络原格式只明文/两加解密叶排除保，不增新编码协议或异常回绕/拒绝；未构建/测试/运行/hash，不代完整回复/全部26点之父/正常alias-owner/SDK-ABI或实际互通"
+    },
+    {
+      "id": "E-NETWORK-PROTOCOL-INTEGER-00117190-I-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPE01两个原整数根57条132B/两页，158普通点两父分列；doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-protocol-integer-normal-arithmetic-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_evidence.json",
+        "src/network/NetworkRuntime.cpp#ParseProtocolInteger_517190",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_workspace_byte_pointer_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "正确空指针0/非空实际5176B0包装正文保持，原157分派点纳盘，独立局部正常静态承接",
+          "decision_ref": "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "空指针仍返0；非空实际text借用交唯一5176B0并透传完整S32结果，原157个512E40直接call只纳盘。正确包装正文及现有真实分派接线保持；不加默认解析、输出字段、严格字节或数量门槛。",
+      "expected": "空指针仍返0；非空实际text借用交唯一5176B0并透传完整S32结果，原157个512E40直接call只纳盘。正确包装正文及现有真实分派接线保持；不加默认解析、输出字段、严格字节或数量门槛。",
+      "actual": "只有正常局部I/S静态，无新函数/分母或协议格式。仅明文/两加解密叶排除；异常不专项模拟或保护，完整分派/全部回复、正常alias-owner/寿命及实际ABI/链接/互通运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-NETWORK-PROTOCOL-INTEGER-00117190-S-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPE01两个原整数根57条132B/两页，158普通点两父分列；doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-protocol-integer-normal-arithmetic-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_evidence.json",
+        "src/network/NetworkRuntime.cpp#ParseProtocolInteger_517190",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_workspace_byte_pointer_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "正确空指针0/非空实际5176B0包装正文保持，原157分派点纳盘，独立局部正常静态承接",
+          "decision_ref": "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "空指针仍返0；非空实际text借用交唯一5176B0并透传完整S32结果，原157个512E40直接call只纳盘。正确包装正文及现有真实分派接线保持；不加默认解析、输出字段、严格字节或数量门槛。",
+      "expected": "空指针仍返0；非空实际text借用交唯一5176B0并透传完整S32结果，原157个512E40直接call只纳盘。正确包装正文及现有真实分派接线保持；不加默认解析、输出字段、严格字节或数量门槛。",
+      "actual": "只有正常局部I/S静态，无新函数/分母或协议格式。仅明文/两加解密叶排除；异常不专项模拟或保护，完整分派/全部回复、正常alias-owner/寿命及实际ABI/链接/互通运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-NETWORK-PROTOCOL-INTEGER-001176B0-I-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPE01两个原整数根57条132B/两页，158普通点两父分列；doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-protocol-integer-normal-arithmetic-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_evidence.json",
+        "src/network/NetworkRuntime.cpp#Sub_5176B0",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_workspace_byte_pointer_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "恢复正常S32累计/首位sign与最终乘符号，撤额外U32模回绕/bit_cast取负；原首位负号、字符表、下一字节先取及正常可计算值保持",
+          "decision_ref": "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。",
+      "expected": "实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。",
+      "actual": "只有正常局部I/S静态，无新函数/分母或协议格式。仅明文/两加解密叶排除；异常不专项模拟或保护，完整分派/全部回复、正常alias-owner/寿命及实际ABI/链接/互通运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-NETWORK-PROTOCOL-INTEGER-001176B0-S-20261006",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPE01两个原整数根57条132B/两页，158普通点两父分列；doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-protocol-integer-normal-arithmetic-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_evidence.json",
+        "src/network/NetworkRuntime.cpp#Sub_5176B0",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_workspace_byte_pointer_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "恢复正常S32累计/首位sign与最终乘符号，撤额外U32模回绕/bit_cast取负；原首位负号、字符表、下一字节先取及正常可计算值保持",
+          "decision_ref": "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。",
+      "expected": "实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。",
+      "actual": "只有正常局部I/S静态，无新函数/分母或协议格式。仅明文/两加解密叶排除；异常不专项模拟或保护，完整分派/全部回复、正常alias-owner/寿命及实际ABI/链接/互通运行未验；未构建/测试/运行/hash"
     }
   ],
   "task_acceptance": [
@@ -30764,7 +30920,8 @@
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
-        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
       ]
     },
     {
@@ -30785,7 +30942,8 @@
         "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
-        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
       ]
     },
     {
@@ -30932,7 +31090,8 @@
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
-        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
       ]
     },
     {
@@ -31156,7 +31315,8 @@
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
-        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state"
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
       ]
     },
     {
@@ -33333,8 +33493,12 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
-      ]
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
+      ],
+      "boundary": "BPE01正常S32与首位符号；不代原机器异常/完整父和owner、ABI或实际互通运行：空指针仍返0；非空实际text借用交唯一5176B0并透传完整S32结果，原157个512E40直接call只纳盘。正确包装正文及现有真实分派接线保持；不加默认解析、输出字段、严格字节或数量门槛。"
     },
     {
       "inventory_id": "F:001171B0",
@@ -33349,8 +33513,12 @@
       "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure"
-      ]
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
+      ],
+      "boundary": "BPE01正常S32与首位符号；不代原机器异常/完整父和owner、ABI或实际互通运行：实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。"
     },
     {
       "inventory_id": "F:00117730",

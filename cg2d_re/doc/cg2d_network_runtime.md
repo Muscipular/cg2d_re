@@ -3773,3 +3773,11 @@ Copy原delimiter S8扩展与源U8比较只在源0..127分支，现U8表达在该
 三新1419–1421对应已有原根；语义1419→1422/有效ID1414→1417、关联1532→1535（41.63%→41.71%）、分类540→543、NETWORK47→50枚举open，六独立正常局部static I/S E689→695。三冻定位各1不刷新；RENDER52/YOBI56/RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保；U10/R01/R04/V03四open只进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。
 
 只NetworkRuntime.cpp单Base62正文，两个正确包装/四DFI工具、其它实现/头/API/共享缓冲及帧-108handler/provider/owner保持，不新增helper或输出默认值，不复用5176B0前缀负号。撤专项U32回绕，正常S32算式/原业务字符-容量/返回保持，无额外拒绝/保护/钳制或异常模型。完整26点之父/字段-108回复-请求与状态/正常alias-缓冲及输出owner/关闭退出/SDK-机器ABI和实际互通未验；未构建/测试/运行/hash，原格式只明文、两加解密叶排除/内存CryptInt保、音频暂停，整体SPEC继续。
+
+## BPE01 协议整数正常算术收尾（2026-10-06）
+
+[BPE01当前合同](cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision)/[完整原证据](cg2d_protocol_integer_normal_arithmetic_evidence.json)更新5176B0的当前实施：S32累计/首位sign与最终乘符号恢复，撤额外U32模回绕/bit_cast取负。原三个ASCII区间、仅首位负号、非法0、下一字节先取和正常可计算结果保持；与52D050任意位置负号职责分离。本文早期5176B0节的模回绕实现及异常结果描述由本节具名取代，不外推其它入口。
+
+517190正确包装/实际分派接线保持，两原根57条132B/两页1call13内跳4ret、158普通点（157在512E40、1在517190）只纳盘，不代全部父/回复及owner验收。两既有1217/1219全文旧映射归档并续记；六BPD具名E只拆正独立文件引用。语义1422条/1417原ID、合同关联1535/3680（41.71%）、分类543、NETWORK50枚举未闭均保持；E695→699只增加两个既有根各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及完整门禁保持。
+
+仅一CPP一正文、未新增API/缓冲或传送格式，正常S32之外不专项模拟溢出/故障或加保护。全部字段/正常alias-owner/寿命、SDK机器ABI/链接及真实明文互通仍待；仅必要静态，未构建/测试/运行/摘要，原格式只明文、两加解密叶排除、内存CryptInt与音频暂停保持。

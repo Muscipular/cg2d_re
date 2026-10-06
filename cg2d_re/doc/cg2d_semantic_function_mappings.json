@@ -157732,7 +157732,7 @@
     {
       "original_entry": "0x00517190",
       "inventory_id": "F:00117190",
-      "status": "NWT01四既有解码/格式入口静态纳管；本体不改，完整父/owner/实际ABI/运行未闭",
+      "status": "BPE01既有整数根正常局部续记；仅5176B0正常S32算式实修，正确517190包装保持，完整分派/owner与运行未验",
       "original_chunks": [
         [
           "0x00517190",
@@ -157748,16 +157748,21 @@
           "symbols": [
             "ParseProtocolInteger_517190"
           ],
-          "relationship": "原已存在完整本体；NWT01只补基线/语义分类，不新增算法"
+          "relationship": "空指针仍返0；非空实际text借用交唯一5176B0并透传完整S32结果，原157个512E40直接call只纳盘。正确包装正文及现有真实分派接线保持；不加默认解析、输出字段、严格字节或数量门槛。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_workspace_byte_pointer_spec.md",
         "doc/cg2d_workspace_byte_pointer_evidence.json",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_evidence.json"
       ],
-      "boundary": "四完整原根196条/518B/244直接call。517190空指针0/非空真实5176B0；5171B0非空真实反转义、空指针先容量/缓冲/593850复制再读当前缓冲返回。5176B0保首负号/三组ASCII合法范围/非法0、原W32基数62/S32返回；S8原比较与当前U8区间对接受集合相同。517730原63B表含NUL/第64字节不补零，单字符不读容量，原负号/首字符写序、多字符S32余数及capacity-2后置检查、失败保前缀不补NUL/目的或NULL返回保持。本体不改；NWT01仅已知工作区18 byte pointer类型收敛，SDK同域/原失败与退出/读序保持，不闭完整父/owner/alias/实际ABI/链接/正常失败/真实明文收发或运行，不专项模拟/保护或宣称异常等价。",
-      "verification_level": "四完整原根196条/518B、244直接call和63B原表及DA3F98的90直接引用/三父；一CPP五类型块与语义/登记簿限定静态核，不构建/测试/运行/摘要",
+      "boundary": "空指针仍返0；非空实际text借用交唯一5176B0并透传完整S32结果，原157个512E40直接call只纳盘。正确包装正文及现有真实分派接线保持；不加默认解析、输出字段、严格字节或数量门槛。 仅正常可计算S32域的原字符/符号、字节采样、返回与现有包装接线静态对应；原机器溢出/非法地址不专项模拟，不代完整157点之父、正常owner/alias/生命周期、SDK机器ABI/链接或实际明文互通运行。",
+      "verification_level": "两完整原根57条132B/两页1绝对call13内跳4ret与158普通点分根157/1各一父纳盘；仅一正常S32正文实修，正确包装与现有接线保持。六BPD具名E独立引用修复，不增功能/状态；正常局部static不代完整父/owner/ABI或互通运行",
       "workspace_byte_decoder_contract": {
         "group": "NWT01",
         "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
@@ -157768,6 +157773,76 @@
         "workspace_type": "std::uint8_t**",
         "full_owners_closed": false,
         "runtime_verified": false
+      },
+      "previous_mapping_before_bpe01": {
+        "original_entry": "0x00517190",
+        "inventory_id": "F:00117190",
+        "status": "NWT01四既有解码/格式入口静态纳管；本体不改，完整父/owner/实际ABI/运行未闭",
+        "original_chunks": [
+          [
+            "0x00517190",
+            "0x005171A3"
+          ]
+        ],
+        "instruction_count": 8,
+        "original_byte_count": 19,
+        "original_direct_reference_count": 157,
+        "sources": [
+          {
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbols": [
+              "ParseProtocolInteger_517190"
+            ],
+            "relationship": "原已存在完整本体；NWT01只补基线/语义分类，不新增算法"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_workspace_byte_pointer_spec.md",
+          "doc/cg2d_workspace_byte_pointer_evidence.json",
+          "doc/cg2d_network_runtime.md"
+        ],
+        "boundary": "四完整原根196条/518B/244直接call。517190空指针0/非空真实5176B0；5171B0非空真实反转义、空指针先容量/缓冲/593850复制再读当前缓冲返回。5176B0保首负号/三组ASCII合法范围/非法0、原W32基数62/S32返回；S8原比较与当前U8区间对接受集合相同。517730原63B表含NUL/第64字节不补零，单字符不读容量，原负号/首字符写序、多字符S32余数及capacity-2后置检查、失败保前缀不补NUL/目的或NULL返回保持。本体不改；NWT01仅已知工作区18 byte pointer类型收敛，SDK同域/原失败与退出/读序保持，不闭完整父/owner/alias/实际ABI/链接/正常失败/真实明文收发或运行，不专项模拟/保护或宣称异常等价。",
+        "verification_level": "四完整原根196条/518B、244直接call和63B原表及DA3F98的90直接引用/三父；一CPP五类型块与语义/登记簿限定静态核，不构建/测试/运行/摘要",
+        "workspace_byte_decoder_contract": {
+          "group": "NWT01",
+          "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "ParseProtocolInteger_517190",
+          "existing_body_before_this_step": true,
+          "body_changed": false,
+          "workspace_type": "std::uint8_t**",
+          "full_owners_closed": false,
+          "runtime_verified": false
+        }
+      },
+      "protocol_integer_normal_arithmetic": {
+        "spec_id": "BPE01",
+        "evidence_refs": [
+          "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+          "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+          "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance",
+          "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+          "doc/cg2d_protocol_integer_normal_arithmetic_evidence.json"
+        ],
+        "original_instruction_count": 8,
+        "original_code_bytes": 19,
+        "page_count": 1,
+        "outgoing_call_site_count": 1,
+        "internal_jump_site_count": 1,
+        "return_site_count": 2,
+        "incoming_reference_count": 157,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 0,
+        "source_body_changed": false,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "normal_previous_value_wrong": false,
+        "normal_s32_arithmetic_restored": false,
+        "leading_minus_only": true,
+        "original_protocol_format_unchanged": true,
+        "new_cipher_enabled": false,
+        "preserved_contract": "空指针仍返0；非空实际text借用交唯一5176B0并透传完整S32结果，原157个512E40直接call只纳盘。正确包装正文及现有真实分派接线保持；不加默认解析、输出字段、严格字节或数量门槛。",
+        "implementation_static_scope": "仅正常可计算S32域的原字符/符号、字节采样、返回与现有包装接线静态对应；原机器溢出/非法地址不专项模拟，不代完整157点之父、正常owner/alias/生命周期、SDK机器ABI/链接或实际明文互通运行。"
       }
     },
     {
@@ -157814,7 +157889,7 @@
     {
       "original_entry": "0x005176B0",
       "inventory_id": "F:001176B0",
-      "status": "NWT01四既有解码/格式入口静态纳管；本体不改，完整父/owner/实际ABI/运行未闭",
+      "status": "BPE01既有整数根正常局部续记；仅5176B0正常S32算式实修，正确517190包装保持，完整分派/owner与运行未验",
       "original_chunks": [
         [
           "0x005176B0",
@@ -157830,16 +157905,21 @@
           "symbols": [
             "Sub_5176B0"
           ],
-          "relationship": "原已存在完整本体；NWT01只补基线/语义分类，不新增算法"
+          "relationship": "实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_workspace_byte_pointer_spec.md",
         "doc/cg2d_workspace_byte_pointer_evidence.json",
-        "doc/cg2d_network_runtime.md"
+        "doc/cg2d_network_runtime.md",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_evidence.json"
       ],
-      "boundary": "四完整原根196条/518B/244直接call。517190空指针0/非空真实5176B0；5171B0非空真实反转义、空指针先容量/缓冲/593850复制再读当前缓冲返回。5176B0保首负号/三组ASCII合法范围/非法0、原W32基数62/S32返回；S8原比较与当前U8区间对接受集合相同。517730原63B表含NUL/第64字节不补零，单字符不读容量，原负号/首字符写序、多字符S32余数及capacity-2后置检查、失败保前缀不补NUL/目的或NULL返回保持。本体不改；NWT01仅已知工作区18 byte pointer类型收敛，SDK同域/原失败与退出/读序保持，不闭完整父/owner/alias/实际ABI/链接/正常失败/真实明文收发或运行，不专项模拟/保护或宣称异常等价。",
-      "verification_level": "四完整原根196条/518B、244直接call和63B原表及DA3F98的90直接引用/三父；一CPP五类型块与语义/登记簿限定静态核，不构建/测试/运行/摘要",
+      "boundary": "实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。 仅正常可计算S32域的原字符/符号、字节采样、返回与现有包装接线静态对应；原机器溢出/非法地址不专项模拟，不代完整157点之父、正常owner/alias/生命周期、SDK机器ABI/链接或实际明文互通运行。",
+      "verification_level": "两完整原根57条132B/两页1绝对call13内跳4ret与158普通点分根157/1各一父纳盘；仅一正常S32正文实修，正确包装与现有接线保持。六BPD具名E独立引用修复，不增功能/状态；正常局部static不代完整父/owner/ABI或互通运行",
       "workspace_byte_decoder_contract": {
         "group": "NWT01",
         "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
@@ -157850,6 +157930,76 @@
         "workspace_type": "std::uint8_t**",
         "full_owners_closed": false,
         "runtime_verified": false
+      },
+      "previous_mapping_before_bpe01": {
+        "original_entry": "0x005176B0",
+        "inventory_id": "F:001176B0",
+        "status": "NWT01四既有解码/格式入口静态纳管；本体不改，完整父/owner/实际ABI/运行未闭",
+        "original_chunks": [
+          [
+            "0x005176B0",
+            "0x00517721"
+          ]
+        ],
+        "instruction_count": 49,
+        "original_byte_count": 113,
+        "original_direct_reference_count": 1,
+        "sources": [
+          {
+            "path": "src/network/NetworkRuntime.cpp",
+            "symbols": [
+              "Sub_5176B0"
+            ],
+            "relationship": "原已存在完整本体；NWT01只补基线/语义分类，不新增算法"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_workspace_byte_pointer_spec.md",
+          "doc/cg2d_workspace_byte_pointer_evidence.json",
+          "doc/cg2d_network_runtime.md"
+        ],
+        "boundary": "四完整原根196条/518B/244直接call。517190空指针0/非空真实5176B0；5171B0非空真实反转义、空指针先容量/缓冲/593850复制再读当前缓冲返回。5176B0保首负号/三组ASCII合法范围/非法0、原W32基数62/S32返回；S8原比较与当前U8区间对接受集合相同。517730原63B表含NUL/第64字节不补零，单字符不读容量，原负号/首字符写序、多字符S32余数及capacity-2后置检查、失败保前缀不补NUL/目的或NULL返回保持。本体不改；NWT01仅已知工作区18 byte pointer类型收敛，SDK同域/原失败与退出/读序保持，不闭完整父/owner/alias/实际ABI/链接/正常失败/真实明文收发或运行，不专项模拟/保护或宣称异常等价。",
+        "verification_level": "四完整原根196条/518B、244直接call和63B原表及DA3F98的90直接引用/三父；一CPP五类型块与语义/登记簿限定静态核，不构建/测试/运行/摘要",
+        "workspace_byte_decoder_contract": {
+          "group": "NWT01",
+          "spec": "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+          "source": "src/network/NetworkRuntime.cpp",
+          "symbol": "Sub_5176B0",
+          "existing_body_before_this_step": true,
+          "body_changed": false,
+          "workspace_type": "std::uint8_t**",
+          "full_owners_closed": false,
+          "runtime_verified": false
+        }
+      },
+      "protocol_integer_normal_arithmetic": {
+        "spec_id": "BPE01",
+        "evidence_refs": [
+          "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+          "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+          "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-acceptance",
+          "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+          "doc/cg2d_protocol_integer_normal_arithmetic_evidence.json"
+        ],
+        "original_instruction_count": 49,
+        "original_code_bytes": 113,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "internal_jump_site_count": 12,
+        "return_site_count": 2,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "normal_previous_value_wrong": false,
+        "normal_s32_arithmetic_restored": true,
+        "leading_minus_only": true,
+        "original_protocol_format_unchanged": true,
+        "new_cipher_enabled": false,
+        "preserved_contract": "实际字节游标与S32累计0、S32符号：仅首位'-'令sign=-1且跳过一次，否则sign=1；当前位置字节一次采样。每个非NUL字节先正常S32乘62，再按原0-9/a-z/A-Z加0..9/10..35/36..61；非法立即0，后续'-'或'+'不作符号；末先采cursor[1]再推进，结束正常S32 sign*accumulator。撤额外U32模回绕/bit_cast取负，不引入溢出拒绝、钳制、保护或异常模型；旧正常可计算值/接受字节集一致，不混用52D050任意位置负号算法。",
+        "implementation_static_scope": "仅正常可计算S32域的原字符/符号、字节采样、返回与现有包装接线静态对应；原机器溢出/非法地址不专项模拟，不代完整157点之父、正常owner/alias/生命周期、SDK机器ABI/链接或实际明文互通运行。"
       }
     },
     {

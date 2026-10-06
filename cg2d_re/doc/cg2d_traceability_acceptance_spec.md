@@ -872,3 +872,11 @@ E487→491仅YOBI/BATTLE四局部I/S；旧812追加、七open与唯一进度同�
 只全根正常局部文字static；共享解码区单次借用/height入口样本与每像素fresh width、U32除法/低U8、严格<先见/候选16..<count-16保持。auto.dat父/实际图形与地图画面/共享owner运行继续推进，未构建/测试/运行/hash；网络原格式明文、内存CryptInt保、音频暂停，不新增溢出/越界策略。
 
 BOP01当步同时修复functionRows两集合输出形态：baseline_documents/feature_memberships按@(...)捕获Unique流水线输出，单项与空项均保持数组；不改全局Unique、成员、统计与门禁。派生全对象仅增加这两字段的机械形态规范化，重新measure/-Check。
+
+## BOQ01 DBF索引生产局部I/S（2026-10-06）
+
+[BOQ01 SPEC](cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision)/[原证据](cg2d_palette_dbf_index_production_evidence.json)。522900完整170条553B/三页、16call-11内跳/1ret，唯一普通入向522B8E/父522B30。五段原数据31B；58D360在.data，初值44424600、唯一直接引用5229C5为W32读。新增私有U32承载1、headerMagic→共享比较字和stride→fresh payload→S32偏移→native record地址两正文补丁。原正常值、两清零path/第255Byte判断、短读共享头/魔数不符不关闭、两分配及解码/旧块与键/重复覆盖/count-stride后pub/关闭后迭代入队保。
+
+724已有ID完整历史深拷贝续记，语义1404/1399有效ID及1517关联41.22%不变；分类521→522、RESOURCE40→41枚举open，独立局部I/S E647→649。历史直接定义1/旧FILE属性保持；七open仅引用/进展、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它门禁保持。 一根两局部证据，不把16原call计作16实现；旧五FILE/格式点及限定历史核对保，本次完整根正常索引生产独立登记。
+
+仅全根正常局部static；W32比较字非地址不扩宽，不据无直接写引用宣只读或所有alias闭合。私有vector/map沿已有批准宿主承接，不以本根代原容器机制/53AF90或SDK-owner运行。未构建/测试/运行/hash；网络原格式明文、音频暂停，不新加异常/越界/故障或关闭策略。

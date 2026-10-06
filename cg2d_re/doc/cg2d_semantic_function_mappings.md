@@ -2806,3 +2806,13 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 三既有源码根新增机器语义1401/1402/1403，语义1401→1404/有效ID1396→1399，关联1514→1517（41.14%→41.22%），分类518→521；RESOURCE37→40/RENDER32→34仍枚举open，各成员独立I/S共10条static E637→647。历史直接定位各1/旧行号保；三个原函数不当十函数，七open仅进展/引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0保持。
 
 只全根正常局部文字static；共享解码区单次借用/height入口样本与每像素fresh width、U32除法/低U8、严格<先见/候选16..<count-16保持。auto.dat父/实际图形与地图画面/共享owner运行继续推进，未构建/测试/运行/hash；网络原格式明文、内存CryptInt保、音频暂停，不新增溢出/越界策略。
+
+## BOQ01 724/522900完整DBF索引生产续记（2026-10-06）
+
+[BOQ01 SPEC](cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision)/[原证据](cg2d_palette_dbf_index_production_evidence.json)。522900完整170条553B/三页、16call-11内跳/1ret，唯一普通入向522B8E/父522B30。五段原数据31B；58D360在.data，初值44424600、唯一直接引用5229C5为W32读。新增私有U32承载1、headerMagic→共享比较字和stride→fresh payload→S32偏移→native record地址两正文补丁。原正常值、两清零path/第255Byte判断、短读共享头/魔数不符不关闭、两分配及解码/旧块与键/重复覆盖/count-stride后pub/关闭后迭代入队保。
+
+当前GraphicRead.cpp::LoadIndependentPaletteIndex_522900与同文件私有gPaletteDbfMagic58D360关联；全局W32数据不是新增原函数，sources仍单源单根，历史定义行号不刷新。
+
+724已有ID完整历史深拷贝续记，语义1404/1399有效ID及1517关联41.22%不变；分类521→522、RESOURCE40→41枚举open，独立局部I/S E647→649。历史直接定义1/旧FILE属性保持；七open仅引用/进展、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它门禁保持。
+
+仅全根正常局部static；W32比较字非地址不扩宽，不据无直接写引用宣只读或所有alias闭合。私有vector/map沿已有批准宿主承接，不以本根代原容器机制/53AF90或SDK-owner运行。未构建/测试/运行/hash；网络原格式明文、音频暂停，不新加异常/越界/故障或关闭策略。

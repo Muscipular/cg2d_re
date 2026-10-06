@@ -454,3 +454,13 @@ auto.dat及读取非零直返、失败重建后仍写回的原流程。七格式
 只核新增本体、字段/失败/调用/别名/文件差异；完整CRT启动/模式3、
 日志等其他业务FILE链与内容/运行验收仍待，音频暂停、待批/排除保持。
 不构建、链接、查产物、新增/执行测试、读写缓存样例、运行客户端或哈希校验。
+
+## BOQ01 调色板DBF索引生产实施续记（2026-10-06）
+
+[BOQ01 SPEC](cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision)/[原证据](cg2d_palette_dbf_index_production_evidence.json)。522900完整170条553B/三页、16call-11内跳/1ret，唯一普通入向522B8E/父522B30。五段原数据31B；58D360在.data，初值44424600、唯一直接引用5229C5为W32读。新增私有U32承载1、headerMagic→共享比较字和stride→fresh payload→S32偏移→native record地址两正文补丁。原正常值、两清零path/第255Byte判断、短读共享头/魔数不符不关闭、两分配及解码/旧块与键/重复覆盖/count-stride后pub/关闭后迭代入队保。
+
+本步沿PGM01原两池初始化与BOM01独立色表consumer补DBF生产；auto.dat旧0/1/6时间、定宽500018B写入及读取正文未改、不重验。当前工程委托的实施依据见具名SPEC，历史“请确认”文字不新增审批门槛。
+
+724已有ID完整历史深拷贝续记，语义1404/1399有效ID及1517关联41.22%不变；分类521→522、RESOURCE40→41枚举open，独立局部I/S E647→649。历史直接定义1/旧FILE属性保持；七open仅引用/进展、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它门禁保持。
+
+仅全根正常局部static；W32比较字非地址不扩宽，不据无直接写引用宣只读或所有alias闭合。私有vector/map沿已有批准宿主承接，不以本根代原容器机制/53AF90或SDK-owner运行。未构建/测试/运行/hash；网络原格式明文、音频暂停，不新加异常/越界/故障或关闭策略。

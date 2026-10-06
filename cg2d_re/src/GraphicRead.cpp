@@ -146,6 +146,9 @@ static_assert(sizeof(PaletteDbfHeader) == 0x20);
 static_assert(offsetof(PaletteDbfHeader, decodedLength) == 4);
 static_assert(offsetof(PaletteDbfHeader, compressedLength) == 8);
 
+// 原 58D360 的可写 W32 比较字；共享头读取后才取样，不并入文件头。
+std::uint32_t gPaletteDbfMagic58D360 = 0x00464244u;
+
 // 原 103CF58 有序唯一键表与 103CF68 载荷集合；522C50 不销毁它们。
 struct PaletteDbfState {
     PaletteDbfHeader header {};
@@ -238,7 +241,9 @@ void LoadIndependentPaletteIndex_522900()
     platform::ReadLegacyStream_53BCCD(
         &BorrowPaletteDbfState().header, 1,
         static_cast<std::uint32_t>(sizeof(PaletteDbfHeader)), file);
-    if (BorrowPaletteDbfState().header.magic != 0x00464244u) {
+    const std::uint32_t magic = BorrowPaletteDbfState().header.magic;
+    const std::uint32_t expectedMagic = gPaletteDbfMagic58D360;
+    if (magic != expectedMagic) {
         return; // 原 magic 不匹配路径没有 fclose。
     }
 
@@ -261,8 +266,10 @@ void LoadIndependentPaletteIndex_522900()
         return value;
     };
     for (std::int32_t index = 0; index < readWord(decoded); ++index) {
-        std::uint8_t* const record =
-            BorrowPaletteDbfState().payload + index * readWord(decoded + 4);
+        const std::int32_t stride = readWord(decoded + 4);
+        std::uint8_t* const payload = BorrowPaletteDbfState().payload;
+        const std::int32_t offset = stride * index;
+        std::uint8_t* const record = payload + offset;
         const auto inserted = BorrowPaletteDbfState().records.try_emplace(readWord(record), nullptr);
         inserted.first->second = record;
     }

@@ -2462,3 +2462,11 @@ BOO01本步实测：四项定向静态（源码/完整原证据/两权威JSON/�
 - **当步解决汇总问题**：派生对照发现functionRows单项/空项集合落为字符串/null；在baseline_documents/feature_memberships两赋值点显式捕获成数组，保持成员内容、计数与验收状态，重生成后按完整对象核机械形态增量，不复验未变业务。
 
 BOP01本步实测：源码/三完整原根/两权威JSON/对应文档四项定向静态通过。派生对照发现functionRows单项/空项集合变字符串/null，已按SPEC在两赋值点修复为数组；汇总器整文件唯一差异及文档复核通过。修复后measure/-Check返回0，派生完整对象仅三新映射/两域/五指标-无文档差集/七open和全原函数两集合机械形态规范化；成员、计数及完整门禁保持。语义1404/1399、关联1517(41.22%)、分类521、RESOURCE40/RENDER34、E647；15文件严格UTF8无BOM/LF和必要差异通过。未构建/测试/运行/hash，整体SPEC目标继续。
+
+## BOQ01 独立调色板DBF索引生产缺口收尾（2026-10-06）
+
+- **开发/当步解决**：先落[具体SPEC](../doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision)，实施私有W32比较字承载1/header-比较字及stride-payload取样2补丁。[原证据](../doc/cg2d_palette_dbf_index_production_evidence.json)保完整170条553B/三页16call-11内跳/1ret、唯一入向及五段31B数据；旧FILE、原失败/块和键持有/迭代入队保持。
+- **计量/历史**：724已有ID完整历史深拷贝续记，语义1404/1399有效ID及1517关联41.22%不变；分类521→522、RESOURCE40→41枚举open，独立局部I/S E647→649。历史直接定义1/旧FILE属性保持；七open仅引用/进展、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它门禁保持。 队列175、R7区间67/3061及其它功能保持。命名快照 `cg2d-re-palette-dbf-index-production-20261006`；13文件精确提交，用户既有六项排除。
+- **后续开发**：仅全根正常局部static；W32比较字非地址不扩宽，不据无直接写引用宣只读或所有alias闭合。私有vector/map沿已有批准宿主承接，不以本根代原容器机制/53AF90或SDK-owner运行。未构建/测试/运行/hash；网络原格式明文、音频暂停，不新加异常/越界/故障或关闭策略。 沿真实DBF、hidden队列和索引owner-独立色表消费继续开发，整体SPEC目标保持。
+
+BOQ01本步实测：源码/完整原证据/两权威JSON/对应文档四项定向静态通过；检查文本的反斜杠转义不匹配已按捕获旧源码字面值当步修正并复检，不改原代码或标准。measure/-Check均返回0，派生全对象仅724续记/RESOURCE41/分类522/七open，历史定义1/语义1404-1399/关联1517(41.22%)及其它成员/集合/队列和完整门禁保持。E649；13文件严格UTF8无BOM/LF和必要差异通过。未构建/测试/运行/hash，整体SPEC目标继续。

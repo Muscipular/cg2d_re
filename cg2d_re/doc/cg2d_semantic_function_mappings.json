@@ -85971,13 +85971,15 @@
     {
       "original_entry": "0x522900",
       "inventory_id": "F:00122900",
-      "status": "既有独立调色板DBF本体的文件整链已接；完整CRT/资源/运行验收仍待",
+      "status": "BOQ01 DBF完整正常索引生产续记，原可写W32比较字与stride-payload取样恢复，旧FILE/批准容器承接保，完整父/owner/资源运行未验",
       "sources": [
         {
           "path": "src/GraphicRead.cpp",
           "symbols": [
-            "LoadIndependentPaletteIndex_522900"
-          ]
+            "LoadIndependentPaletteIndex_522900",
+            "gPaletteDbfMagic58D360"
+          ],
+          "relationship": "两个256B局部清0/GetCurrentDirectoryA(256)/固定directory[255]比较反斜杠、必要strcat反斜杠，%s%s\\%s拼目录/gDataPath/CGLoadSpr.dbf，rb失败退出。对同共享32B头fread(size1,count32)忽略返回/保短读后缀，先读当前header.magic W32再读原58D360可写W32比较字，初值00464244、不升constexpr；不符原直接退出且不关闭FILE。按fresh compressedLength/decodedLength各裸字节分配，第二次fread及解码各重新读compressedLength，53AF90输出直接更新同decodedLength，返回不处理；delete压缩块后载荷集合持有实际decoded，payload=decoded+8。S32 index与每次decoded[0] count比较，逐项先从同decoded+4读S32 stride，再fresh共享payload native Byte*，先S32 stride*index再地址相加得到同record；原键record0沿已批准有序唯一键宿主表、重复键覆盖为当前实际record，旧块/旧键保持不清。结束fresh count发布后fresh stride发布、FILE关闭，再共享current=records.begin，每项保存current并前进shared iterator，旧current==end或实际record空则结束，否则读同record+4 S32值入同独立palette队列；队列/vector/map机制沿已有批准，不新查数或去重。全部原170条553B、16call/11内跳/1ret，唯一522B30 caller弃返回沿现有void角色；本根不代private容器内部/所有正常别名/解码算法/分配SDK或真实DBF运行。"
         }
       ],
       "original_end_exclusive": "0x522B29",
@@ -86050,12 +86052,156 @@
         "end_exclusive": "0x522B29",
         "instruction_count": 170
       },
-      "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行",
+      "verification_level": "完整170条553B/三页16call-11内跳/1ret、唯一普通入向，五段31B常量/直接引用与三个源码补丁；仅正常局部static I/S，未构建/测试/运行/hash",
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-baseline",
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision",
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-acceptance",
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_palette_dbf_index_production_evidence.json"
       ],
-      "boundary": "保留两个256B清零局部、第255字节目录检查及追加、共享gDataPath和CGLoadSpr.dbf路径；rb失败退出，读(1,20H)共享头忽略返回，魔数不符直接退出不关闭。两裸字节分配、读压缩长度、53AF90解码、释放压缩块/保留解码块、payload+8/唯一键覆盖、count/stride发布后才关闭，再有序索引入队均保持；不改容器/分配适配或头后缀，不加保护/拒绝。其他共享图形FILE链未因此迁移，完整CRT/资源/运行未验。"
+      "boundary": "两个256B局部清0/GetCurrentDirectoryA(256)/固定directory[255]比较反斜杠、必要strcat反斜杠，%s%s\\%s拼目录/gDataPath/CGLoadSpr.dbf，rb失败退出。对同共享32B头fread(size1,count32)忽略返回/保短读后缀，先读当前header.magic W32再读原58D360可写W32比较字，初值00464244、不升constexpr；不符原直接退出且不关闭FILE。按fresh compressedLength/decodedLength各裸字节分配，第二次fread及解码各重新读compressedLength，53AF90输出直接更新同decodedLength，返回不处理；delete压缩块后载荷集合持有实际decoded，payload=decoded+8。S32 index与每次decoded[0] count比较，逐项先从同decoded+4读S32 stride，再fresh共享payload native Byte*，先S32 stride*index再地址相加得到同record；原键record0沿已批准有序唯一键宿主表、重复键覆盖为当前实际record，旧块/旧键保持不清。结束fresh count发布后fresh stride发布、FILE关闭，再共享current=records.begin，每项保存current并前进shared iterator，旧current==end或实际record空则结束，否则读同record+4 S32值入同独立palette队列；队列/vector/map机制沿已有批准，不新查数或去重。全部原170条553B、16call/11内跳/1ret，唯一522B30 caller弃返回沿现有void角色；本根不代private容器内部/所有正常别名/解码算法/分配SDK或真实DBF运行。",
+      "function_chunks": [
+        {
+          "start": "0x522900",
+          "end_exclusive": "0x522B29"
+        }
+      ],
+      "native_provider": {
+        "source": "src/GraphicRead.cpp",
+        "symbol": "LoadIndependentPaletteIndex_522900",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "native_globals": [
+        {
+          "original_address": "0x58D360",
+          "source": "src/GraphicRead.cpp",
+          "symbol": "gPaletteDbfMagic58D360",
+          "type": "std::uint32_t",
+          "width": 4,
+          "initial_bytes": "44424600",
+          "address_field": false,
+          "writable": true,
+          "runtime_alias_verified": false
+        }
+      ],
+      "prior_palette_dbf_index_review": {
+        "original_entry": "0x522900",
+        "inventory_id": "F:00122900",
+        "status": "既有独立调色板DBF本体的文件整链已接；完整CRT/资源/运行验收仍待",
+        "sources": [
+          {
+            "path": "src/GraphicRead.cpp",
+            "symbols": [
+              "LoadIndependentPaletteIndex_522900"
+            ]
+          }
+        ],
+        "original_end_exclusive": "0x522B29",
+        "instruction_count": 170,
+        "original_direct_reference_count": 1,
+        "inbound_evidence": [
+          {
+            "address": "0x522B8E",
+            "parent_entry": "0x522B30"
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x522900",
+            "call_site": "0x522989",
+            "source": "src/GraphicRead.cpp",
+            "symbol": "LoadIndependentPaletteIndex_522900",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x522900",
+            "call_site": "0x52299B",
+            "source": "src/GraphicRead.cpp",
+            "symbol": "LoadIndependentPaletteIndex_522900",
+            "target_entry": "0x53B2F1",
+            "target_symbol": "OpenLegacyStream_53B2F1"
+          },
+          {
+            "parent_entry": "0x522900",
+            "call_site": "0x5229BB",
+            "source": "src/GraphicRead.cpp",
+            "symbol": "LoadIndependentPaletteIndex_522900",
+            "target_entry": "0x53BCCD",
+            "target_symbol": "ReadLegacyStream_53BCCD"
+          },
+          {
+            "parent_entry": "0x522900",
+            "call_site": "0x5229FE",
+            "source": "src/GraphicRead.cpp",
+            "symbol": "LoadIndependentPaletteIndex_522900",
+            "target_entry": "0x53BCCD",
+            "target_symbol": "ReadLegacyStream_53BCCD"
+          },
+          {
+            "parent_entry": "0x522900",
+            "call_site": "0x522AAB",
+            "source": "src/GraphicRead.cpp",
+            "symbol": "LoadIndependentPaletteIndex_522900",
+            "target_entry": "0x53B1D0",
+            "target_symbol": "CloseLegacyStream_53B1D0"
+          }
+        ],
+        "business_byte_evidence": [
+          {
+            "address": "0x58D364",
+            "bytes": "43474c6f61645370722e64626600"
+          },
+          {
+            "address": "0x55D064",
+            "bytes": "257325735c257300"
+          },
+          {
+            "address": "0x554920",
+            "bytes": "726200"
+          }
+        ],
+        "file_instruction_evidence": {
+          "start": "0x522900",
+          "end_exclusive": "0x522B29",
+          "instruction_count": 170
+        },
+        "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行",
+        "evidence_documents": [
+          "doc/cg2d_resource_implementation.md",
+          "doc/cg2d_stdio_contract.md"
+        ],
+        "boundary": "保留两个256B清零局部、第255字节目录检查及追加、共享gDataPath和CGLoadSpr.dbf路径；rb失败退出，读(1,20H)共享头忽略返回，魔数不符直接退出不关闭。两裸字节分配、读压缩长度、53AF90解码、释放压缩块/保留解码块、payload+8/唯一键覆盖、count/stride发布后才关闭，再有序索引入队均保持；不改容器/分配适配或头后缀，不加保护/拒绝。其他共享图形FILE链未因此迁移，完整CRT/资源/运行未验。"
+      },
+      "palette_dbf_index_production": {
+        "spec_id": "BOQ01",
+        "evidence_refs": [
+          "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-baseline",
+          "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision",
+          "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-acceptance",
+          "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+          "doc/cg2d_palette_dbf_index_production_evidence.json"
+        ],
+        "original_entry": "0x522900",
+        "original_instruction_count": 170,
+        "original_code_bytes": 553,
+        "page_count": 3,
+        "outgoing_call_site_count": 16,
+        "internal_branch_site_count": 11,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "source_global_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "两个256B局部清0/GetCurrentDirectoryA(256)/固定directory[255]比较反斜杠、必要strcat反斜杠，%s%s\\%s拼目录/gDataPath/CGLoadSpr.dbf，rb失败退出。对同共享32B头fread(size1,count32)忽略返回/保短读后缀，先读当前header.magic W32再读原58D360可写W32比较字，初值00464244、不升constexpr；不符原直接退出且不关闭FILE。按fresh compressedLength/decodedLength各裸字节分配，第二次fread及解码各重新读compressedLength，53AF90输出直接更新同decodedLength，返回不处理；delete压缩块后载荷集合持有实际decoded，payload=decoded+8。S32 index与每次decoded[0] count比较，逐项先从同decoded+4读S32 stride，再fresh共享payload native Byte*，先S32 stride*index再地址相加得到同record；原键record0沿已批准有序唯一键宿主表、重复键覆盖为当前实际record，旧块/旧键保持不清。结束fresh count发布后fresh stride发布、FILE关闭，再共享current=records.begin，每项保存current并前进shared iterator，旧current==end或实际record空则结束，否则读同record+4 S32值入同独立palette队列；队列/vector/map机制沿已有批准，不新查数或去重。全部原170条553B、16call/11内跳/1ret，唯一522B30 caller弃返回沿现有void角色；本根不代private容器内部/所有正常别名/解码算法/分配SDK或真实DBF运行。"
+      }
     },
     {
       "original_entry": "0x468520",

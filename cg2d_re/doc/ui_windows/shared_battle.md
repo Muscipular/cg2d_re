@@ -8389,3 +8389,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [裁决](../cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-decision)落实263/400/401三根23处。三个入口角色/基础字段、三个低图位置先表、target先255比较再pub/同解析actor恢复。263先target-image-caster-actor，原target=-1两支实际参数相同保共用表达式；400固定Take flags-target-pub-caster-actor、两Cast0的条件重读；401两target字段后live flags-caster-target-actor，不将两种flags合同套成一种。
 
 原400类型400的初/target效果、各flags反馈/256-52同位置-51另live与11/76，401 0后80000门禁/37-212及固定Effect110074/30/0/23、完整211/EffectList尾，263218/74尾保持。初空直接返回，循环255 Echo记录/空Finish出口、Move及263固定1/400-401固定2无RID保持。[536条2090B/66call证据](../cg2d_battle_m_skill263_400_401_sampling_evidence.json)及180B路由/48B既有图表只纳本组，不代完整战斗父/接线/生命周期和运行验收。
+
+## BNN01 402遍历与405五效果（2026-10-06）
+
+[裁决](../cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-decision)两根20处修复。402在第三Take后取live caster，沿side固定十槽端点；非空槽EffectList沿本次position、217后live target，空槽不调用/不重读，共同递增先比较后pub。405第一图表-caster-加110052，第二caster-表-加110044，高111001/111011保持；初Effect和五目标Effect分别固定/重读相应参数，两索引S32，不合并全循环位置或效果，不以初flags代五效果固定0。
+
+[342条1303B/44call证据](../cg2d_battle_m_skill402_405_sampling_evidence.json)保全部原取包/转换、各初空-循环出口与真实尾：402 Move固定58=2；405 caster Effect(-1)再Move固定58=1；均无RID，405255无额外Echo。原未初始化两项数组逐项覆盖/首正项默认0保持，不补值/保护；静态局部不代完整战斗接线/生命周期或运行。

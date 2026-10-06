@@ -2547,3 +2547,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 旧812/F:00027470按[源状态](cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-source-state)只追加五引用、ProcessBattleMSkill263/400/401三个symbol与本步对象，三根23处正常取样修复。[实际原端](cg2d_battle_m_skill263_400_401_sampling_evidence.json)三连续范围536条2090B八页66call/全部出口、本组180B压缩路由及BMP既有48B偏移上下文；无复用尾/新分类，不把已证本组路由代全路由。263/400/401角色-图号/两种flags与两Cast0合同各自保持，初空-循环退出与原58固定值/动作尾无RID不变。
 
 E467→471只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、关联1463/3680及所有完整成员/门禁保持，不新F/X/adapted。完整父17298/SEH-全部consumer/owner与其它技能-全路由、SDK-ABI-PC53-时钟RNG画面/运行另验。
+
+## BNN01 两技能主体有界映射（2026-10-06）
+
+旧812/F:00027470按[源状态](cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-source-state)仅追加五引用、ProcessBattleMSkill402/405两symbol及本步对象。两根20处正常取样实修；[两范围342条1303B五页44call](cg2d_battle_m_skill402_405_sampling_evidence.json)实际字节/全部出口、20组原EA，180B/48B表具名复用，无尾复用或全路由结论。402第三Take后live caster-遍历比较先pub、405两图不同原序/五Effect和两S32索引恢复，原消费-转换/动作与初空-循环出口/真实尾/固定58值无RID保持。
+
+E471→475仅双域四局部I/S，语义1350/有效ID1345、片段5/分类456、关联1463/3680及完整成员门禁保持，不新F/X/adapted/分类。完整父17298/SEH、其它技能-全路由/全部consumer-owner/SDK-ABI-PC53-时钟RNG画面与运行另验。

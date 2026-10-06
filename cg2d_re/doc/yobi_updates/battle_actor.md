@@ -273,3 +273,9 @@
 [具体SPEC](../cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-decision)：三根同parsed caster/target，固定caster payload先skill/各actor先level，400初Effect actor/记录同caster样本，低图分别位置-S32表-110052/110044/110081-actor，高111001/111011/111014保持。400两独立level/两图写不合并，401两target基础字段独立live位置-actor-值-payload，之后live flags效果；400用Take返回固定W32 flags，263target-image-caster-actor，两Cast0条件重读target各按原序。
 
 [证据](../cg2d_battle_m_skill263_400_401_sampling_evidence.json)保存536条2090B八页66call、23补丁/改前根及旧812。原fpUsed和其它所有生产-取包/动作/feedback-成功门禁，初空/循环两出口与各尾/固定58值无RID保持。native非拥有地址/非地址S32-W32不扩宽，不新默认/owner/异常模型；其它根头不改。有限I/S不代所有owner重进退出失效、SDK-ABI-PC53、画面或完整父/运行。
+
+## BNN01 402、405字段、图号与取样（2026-10-06）
+
+[具体SPEC](../cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-decision)：402第三Take后live caster；405同GetPos返回caster/target，各payload先skill/actor先level，402低图位置先S32表，405首图表先位置/次图位置先表，再加110052/110044、actor/payload，高图原常量。402EffectList固定position及共同递增比较先pub，405初Effect caster/记录同位置，五目标Effect按原图值/位置/actor不同顺序与两S32索引落实。
+
+[证据](../cg2d_battle_m_skill402_405_sampling_evidence.json)342条1303B五页44call、20补丁/改前根/旧812完整前态；BNM原路由及BMP图偏移仅上下文。全部原字段/取包-转换/动作、402各槽路径和405首正项或默认0与各失败/终结尾-固定58值无RID保持，不补数组值、不新增owner/保护/异常模型。native非拥有指针及非地址宽度保留，所有owner重进退出失效/SDK-ABI-PC53/画面和完整父/运行另验。

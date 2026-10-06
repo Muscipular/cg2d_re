@@ -4227,3 +4227,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 依[具体SPEC](cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-decision)三根23处恢复同解析caster/target、payload先skill/actor先level、三低图caster位置先S32原表和263同参Effect；400沿Take返回固定flags、两Cast0按条件保留或调用后重读target，401两target字段各actor先值、两字段写后另live flags-caster-target-actor。原初空Finish直接返、所有取包/动作、263 Move固定58=1/400-401固定58=2无RID和401完整终结动作保持，其它根头/真实分派不改。
 
 [证据](cg2d_battle_m_skill263_400_401_sampling_evidence.json)三范围536条2090B八页66call与全部直接出口；263107/406/16、400237/915/26、401192/769/24，无复用尾。42FC32原9W32/144W8=180B只定位263/400/401；十二S32/48B偏移具名复用BMP，不代其它技能-全路由。旧812五引用/三symbol/本步对象追加，E467→471仅双域四局部I/S；完整父17298/SEH、所有消费者/owner/SDK-ABI-PC53-时钟RNG画面及运行另验。
+
+## BNN01 技能402、405取样实修（2026-10-06）
+
+依[具体SPEC](cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-decision)两根20处：402第三Take后才live caster，payload先skill/actor先level、低图位置先S32表、遍历EffectList固定position与共同递增比较先target pub；405同parsed caster/target、基础字段原序、初Effect固定位置/首图表先位置-次图位置先表、五目标Effect各次取样与两非地址索引S32。原所有取包/转换和字段-动作、402空槽直接递增/非空217后live target、405两数组逐项覆盖和默认索引0、初空/循环各出口-真实尾及402固定58=2/405固定58=1无RID保持，其它根头不改。
+
+[证据](cg2d_battle_m_skill402_405_sampling_evidence.json)两范围342条1303B五页44call连续实际字节/出口、20补丁及改前根；BNM既有180B路由/BMP48B偏移只具名上下文，不计新表或全路由通过。旧812五引用/两symbol/本步对象，E471→475仅双域四局部I/S；完整父17298/SEH-全部consumer/owner和其它技能-全路由/SDK-ABI-PC53-时钟RNG画面及运行另验。

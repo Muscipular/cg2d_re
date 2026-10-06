@@ -171003,6 +171003,417 @@
         "shared_helper_has_separate_original_id": false,
         "preserved_contract": "S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。"
       }
+    },
+    {
+      "original_entry": "0x521AA0",
+      "inventory_id": "F:00121AA0",
+      "original_role": "原地图批次与着色图形栈描述符入队生产",
+      "status": "BOU01完整地图批次/着色栈原根生产及两CPP五补丁，真实已实现消费接线；全部caller/正常别名-consumer-owner运行未验",
+      "original_end_exclusive": "0x521B0F",
+      "instruction_count": 26,
+      "original_direct_reference_count": 2,
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "QueueMap_521AA0"
+          ],
+          "relationship": "入口S16 count仅原>=4096返S32-2，正常域保存实际record/cache3原生目标；layer W8先pub，再live count低W16 pubcacheIndex；先x参数样本再y参数样本，随后x/y S32、图号-1、value4 W32=0、action native0、batch W8=5；其余descriptor/未知字段/特殊旗不写。末fresh U16 count返回旧S16→S32，低W16+1 pub，不加负拒绝或改容量门槛；正常数据生产直接进入既有排序及case5地图消费。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-acceptance",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_evidence.json"
+      ],
+      "boundary": "入口S16 count仅原>=4096返S32-2，正常域保存实际record/cache3原生目标；layer W8先pub，再live count低W16 pubcacheIndex；先x参数样本再y参数样本，随后x/y S32、图号-1、value4 W32=0、action native0、batch W8=5；其余descriptor/未知字段/特殊旗不写。末fresh U16 count返回旧S16→S32，低W16+1 pub，不加负拒绝或改容量门槛；正常数据生产直接进入既有排序及case5地图消费。",
+      "verification_level": "完整26条111B/1页，0call-1内跳/2ret、2普通点/1已知父/1无所属函数点仅纳盘；两CPP共五补丁/其它根及BOS helper保，正常局部static I/S，不代运行",
+      "function_chunks": [
+        {
+          "start": "0x521AA0",
+          "end_exclusive": "0x521B0F"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x495e47",
+          "type": 17,
+          "parent": null
+        },
+        {
+          "ea": "0x502b44",
+          "type": 17,
+          "parent": "0x5029b0"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "QueueMap_521AA0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "map_colored_enqueue_production": {
+        "spec_id": "BOU01",
+        "evidence_refs": [
+          "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+          "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+          "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-acceptance",
+          "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+          "doc/cg2d_map_colored_enqueue_production_evidence.json"
+        ],
+        "original_entry": "0x521AA0",
+        "original_instruction_count": 26,
+        "original_code_bytes": 111,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "internal_branch_site_count": 1,
+        "return_site_count": 2,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_color_value_wrong": false,
+        "unowned_incoming_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "shared_helper_has_separate_original_id": false,
+        "preserved_contract": "入口S16 count仅原>=4096返S32-2，正常域保存实际record/cache3原生目标；layer W8先pub，再live count低W16 pubcacheIndex；先x参数样本再y参数样本，随后x/y S32、图号-1、value4 W32=0、action native0、batch W8=5；其余descriptor/未知字段/特殊旗不写。末fresh U16 count返回旧S16→S32，低W16+1 pub，不加负拒绝或改容量门槛；正常数据生产直接进入既有排序及case5地图消费。"
+      }
+    },
+    {
+      "original_entry": "0x45F090",
+      "inventory_id": "F:0005F090",
+      "original_role": "原地图批次与着色图形栈描述符入队生产",
+      "status": "BOU01完整地图批次/着色栈原根生产及两CPP五补丁，真实已实现消费接线；全部caller/正常别名-consumer-owner运行未验",
+      "original_end_exclusive": "0x45F0FA",
+      "instruction_count": 32,
+      "original_direct_reference_count": 53,
+      "sources": [
+        {
+          "path": "src/DrawGraphic.cpp",
+          "symbols": [
+            "Sub_45F090"
+          ],
+          "relationship": "私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-acceptance",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_evidence.json"
+      ],
+      "boundary": "私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。",
+      "verification_level": "完整32条106B/1页，1call-0内跳/1ret、53普通点/8已知父/0无所属函数点仅纳盘；两CPP共五补丁/其它根及BOS helper保，正常局部static I/S，不代运行",
+      "function_chunks": [
+        {
+          "start": "0x45F090",
+          "end_exclusive": "0x45F0FA"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x45f01a",
+          "type": 17,
+          "parent": "0x45efd0"
+        },
+        {
+          "ea": "0x45f1ec",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f205",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f21e",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f23a",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f253",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f27e",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f297",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f2b0",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f2cc",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f2e5",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f8be",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f8e5",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f90c",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x45f930",
+          "type": 17,
+          "parent": "0x45f190"
+        },
+        {
+          "ea": "0x460c57",
+          "type": 17,
+          "parent": "0x45fea0"
+        },
+        {
+          "ea": "0x460c6b",
+          "type": 17,
+          "parent": "0x45fea0"
+        },
+        {
+          "ea": "0x4614d2",
+          "type": 17,
+          "parent": "0x460ff0"
+        },
+        {
+          "ea": "0x461988",
+          "type": 17,
+          "parent": "0x460ff0"
+        },
+        {
+          "ea": "0x461a0a",
+          "type": 17,
+          "parent": "0x460ff0"
+        },
+        {
+          "ea": "0x461e82",
+          "type": 17,
+          "parent": "0x461b30"
+        },
+        {
+          "ea": "0x462065",
+          "type": 17,
+          "parent": "0x461b30"
+        },
+        {
+          "ea": "0x462078",
+          "type": 17,
+          "parent": "0x461b30"
+        },
+        {
+          "ea": "0x462595",
+          "type": 17,
+          "parent": "0x462330"
+        },
+        {
+          "ea": "0x4648d5",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x46491d",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x46493f",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464983",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464997",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x4649b9",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x4649fe",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464a12",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464a26",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464a49",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464ab8",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464c3a",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464cb3",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464d4f",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464db3",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x464dcd",
+          "type": 17,
+          "parent": "0x464840"
+        },
+        {
+          "ea": "0x46552b",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x465557",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x465571",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x465597",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x4655e9",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x465615",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x46562f",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x465655",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x46569a",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x4656c6",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x4656e0",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x465703",
+          "type": 17,
+          "parent": "0x465430"
+        },
+        {
+          "ea": "0x46571d",
+          "type": 17,
+          "parent": "0x465430"
+        }
+      ],
+      "native_provider": {
+        "source": "src/DrawGraphic.cpp",
+        "symbol": "Sub_45F090",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "map_colored_enqueue_production": {
+        "spec_id": "BOU01",
+        "evidence_refs": [
+          "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+          "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+          "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-acceptance",
+          "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+          "doc/cg2d_map_colored_enqueue_production_evidence.json"
+        ],
+        "original_entry": "0x45F090",
+        "original_instruction_count": 32,
+        "original_code_bytes": 106,
+        "page_count": 1,
+        "outgoing_call_site_count": 1,
+        "internal_branch_site_count": 0,
+        "return_site_count": 1,
+        "incoming_reference_count": 53,
+        "incoming_parent_count": 8,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_color_value_wrong": false,
+        "unowned_incoming_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "shared_helper_has_separate_original_id": false,
+        "preserved_contract": "私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。"
+      }
     }
   ]
 }

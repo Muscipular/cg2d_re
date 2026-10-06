@@ -1512,7 +1512,8 @@
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-baseline",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1552,7 +1553,9 @@
         "F:00121B10",
         "F:00120970",
         "F:00121C80",
-        "F:00121DD0"
+        "F:00121DD0",
+        "F:00121AA0",
+        "F:0005F090"
       ],
       "closure_task_ids": [
         "C09",
@@ -1583,7 +1586,8 @@
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1603,7 +1607,8 @@
         "BOO01两旧169/170完整464条1778B/128B固定初值-100B常量，Init查色1恢复/Read正确体及真实CPU绑定保；原85条289B低色深仅纳盘。局部枚举open，全部父/构造重建销毁owner/正常别名/像素画面与R1/R7/R8运行待",
         "BOP01三既有源码根新机器映射，完整273条768B，Get累计/组包2与Nearest首色-候选1阶段恢复/正常值保持；Resource37→40、Render32→34枚举open，auto.dat父/真实共享解码区owner-实际图形/地图画面运行及R1/R7/R8待",
         "BOS01两原入队完整227条704B/四页、422普通引用分根父仅纳盘；额外负拒绝/S32回绕退休，描述符4W32/默认字段/坐标和clip队列发布恢复，RENDER36枚举open；所有caller-正常别名/排序绘制consumer-owner/像素运行与R1/R7/R8待",
-        "BOT01两已有源码根新机器登记/完整206条650B四页、26调用点分根父1/18仅纳盘；记录目标/逐W32描述符与不同clip-batch/各图号門槛保，RENDER38枚举open；全部父/正常别名/排序绘制consumer-owner/画面及R1/R7/R8运行待"
+        "BOT01两已有源码根新机器登记/完整206条650B四页、26调用点分根父1/18仅纳盘；记录目标/逐W32描述符与不同clip-batch/各图号門槛保，RENDER38枚举open；全部父/正常别名/排序绘制consumer-owner/画面及R1/R7/R8运行待",
+        "BOU01两已有源码根新机器登记/完整58条217B两页、55调用点分根已知父1/8及1无所属函数点仅纳盘；地图目标/坐标取样与着色栈原发布，RENDER40枚举open；正常既有最终颜色值正确，全部父/正常别名/地图与绘制consumer-owner/画面及R1/R7/R8运行待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1624,7 +1629,8 @@
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
       ]
     },
     {
@@ -29206,6 +29212,118 @@
       "observation": "本根完整106条324B/2页，1call/12内跳/3ret、25普通引用/18父仅纳盘，原描述符/字段发布static核",
       "expected": "S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。",
       "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、共享helper不增原函数；不代所有26调用点之父/正常别名/排序绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-MAP-COLORED-ENQUEUE-PRODUCTION-00121AA0-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOU01两完整58条217B/两页1call1内跳3ret，55普通点及1无所属函数点保；doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-colored-enqueue-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-acceptance",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#QueueMap_521AA0 include/cg/render/GraphicPendingQueue.hpp doc/cg2d_graphic_enqueue_descriptor_production_spec.md doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两正文恢复地图实际record/坐标取样与着色栈16B原重复-重叠发布/八实参-S32透传，退休私有投影及两未用include；保原BOS/BOT roots/helper/owner；正常原最终颜色值一致",
+          "decision_ref": "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "两CPP精确五补丁，其它正文/既有helper/owner/provider/头保持；入口S16 count仅原>=4096返S32-2，正常域保存实际record/cache3原生目标；layer W8先pub，再live count低W16 pubcacheIndex；先x参数样本再y参数样本，随后x/y S32、图号-1、value4 W32=0、action native0、batch W8=5；其余descriptor/未知字段/特殊旗不写。末fresh U16 count返回旧S16→S32，低W16+1 pub，不加负拒绝或改容量门槛；正常数据生产直接进入既有排序及case5地图消费。",
+      "expected": "入口S16 count仅原>=4096返S32-2，正常域保存实际record/cache3原生目标；layer W8先pub，再live count低W16 pubcacheIndex；先x参数样本再y参数样本，随后x/y S32、图号-1、value4 W32=0、action native0、batch W8=5；其余descriptor/未知字段/特殊旗不写。末fresh U16 count返回旧S16→S32，低W16+1 pub，不加负拒绝或改容量门槛；正常数据生产直接进入既有排序及case5地图消费。",
+      "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、原最终颜色值一致、无所属点不猜父/新原函数；不代55普通点全部父/正常别名/地图绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-MAP-COLORED-ENQUEUE-PRODUCTION-00121AA0-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOU01两完整58条217B/两页1call1内跳3ret，55普通点及1无所属函数点保；doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-colored-enqueue-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-acceptance",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#QueueMap_521AA0 include/cg/render/GraphicPendingQueue.hpp doc/cg2d_graphic_enqueue_descriptor_production_spec.md doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两正文恢复地图实际record/坐标取样与着色栈16B原重复-重叠发布/八实参-S32透传，退休私有投影及两未用include；保原BOS/BOT roots/helper/owner；正常原最终颜色值一致",
+          "decision_ref": "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整26条111B/1页，0call/1内跳/2ret、2普通点/1已知父/1无所属函数点仅纳盘，原地图/栈描述符字段发布static核",
+      "expected": "入口S16 count仅原>=4096返S32-2，正常域保存实际record/cache3原生目标；layer W8先pub，再live count低W16 pubcacheIndex；先x参数样本再y参数样本，随后x/y S32、图号-1、value4 W32=0、action native0、batch W8=5；其余descriptor/未知字段/特殊旗不写。末fresh U16 count返回旧S16→S32，低W16+1 pub，不加负拒绝或改容量门槛；正常数据生产直接进入既有排序及case5地图消费。",
+      "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、原最终颜色值一致、无所属点不猜父/新原函数；不代55普通点全部父/正常别名/地图绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-MAP-COLORED-ENQUEUE-PRODUCTION-0005F090-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOU01两完整58条217B/两页1call1内跳3ret，55普通点及1无所属函数点保；doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-colored-enqueue-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-acceptance",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_evidence.json",
+        "src/DrawGraphic.cpp#Sub_45F090 include/cg/render/GraphicPendingQueue.hpp doc/cg2d_graphic_enqueue_descriptor_production_spec.md doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两正文恢复地图实际record/坐标取样与着色栈16B原重复-重叠发布/八实参-S32透传，退休私有投影及两未用include；保原BOS/BOT roots/helper/owner；正常原最终颜色值一致",
+          "decision_ref": "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "两CPP精确五补丁，其它正文/既有helper/owner/provider/头保持；私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。",
+      "expected": "私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。",
+      "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、原最终颜色值一致、无所属点不猜父/新原函数；不代55普通点全部父/正常别名/地图绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-MAP-COLORED-ENQUEUE-PRODUCTION-0005F090-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOU01两完整58条217B/两页1call1内跳3ret，55普通点及1无所属函数点保；doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-colored-enqueue-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-acceptance",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_evidence.json",
+        "src/DrawGraphic.cpp#Sub_45F090 include/cg/render/GraphicPendingQueue.hpp doc/cg2d_graphic_enqueue_descriptor_production_spec.md doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两正文恢复地图实际record/坐标取样与着色栈16B原重复-重叠发布/八实参-S32透传，退休私有投影及两未用include；保原BOS/BOT roots/helper/owner；正常原最终颜色值一致",
+          "decision_ref": "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整32条106B/1页，1call/0内跳/1ret、53普通点/8已知父/0无所属函数点仅纳盘，原地图/栈描述符字段发布static核",
+      "expected": "私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。",
+      "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、原最终颜色值一致、无所属点不猜父/新原函数；不代55普通点全部父/正常别名/地图绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
     }
   ],
   "task_acceptance": [
@@ -29457,7 +29575,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
       ]
     },
     {
@@ -29784,7 +29903,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
       ]
     },
     {
@@ -29998,7 +30118,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
       ]
     },
     {
@@ -30118,7 +30239,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
       ]
     },
     {
@@ -30209,7 +30331,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
       ]
     },
     {
@@ -30455,7 +30578,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
       ]
     },
     {
@@ -30542,7 +30666,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
-        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
       ]
     }
   ],
@@ -36109,6 +36234,28 @@
         "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
       ],
       "boundary": "BOT01原正常两入队/既有native布局、W16-W32-U8宽度与各图号门槛/clip-batch原序，原可访问descriptor逐W32消费；仅全根局部static不代全部caller/owner-正常别名/绘制像素运行：S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。"
+    },
+    {
+      "inventory_id": "F:00121AA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+      ],
+      "boundary": "BOU01原地图批次/着色栈描述符重复及重叠发布、W32-W16-U8/native布局；局部static不代全部caller/owner-正常别名/地图及绘制像素运行：入口S16 count仅原>=4096返S32-2，正常域保存实际record/cache3原生目标；layer W8先pub，再live count低W16 pubcacheIndex；先x参数样本再y参数样本，随后x/y S32、图号-1、value4 W32=0、action native0、batch W8=5；其余descriptor/未知字段/特殊旗不写。末fresh U16 count返回旧S16→S32，低W16+1 pub，不加负拒绝或改容量门槛；正常数据生产直接进入既有排序及case5地图消费。"
+    },
+    {
+      "inventory_id": "F:0005F090",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state"
+      ],
+      "boundary": "BOU01原地图批次/着色栈描述符重复及重叠发布、W32-W16-U8/native布局；局部static不代全部caller/owner-正常别名/地图及绘制像素运行：私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。"
     }
   ],
   "auxiliary_dispositions": [

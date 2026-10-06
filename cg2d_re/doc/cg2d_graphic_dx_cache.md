@@ -2381,3 +2381,11 @@ AutoMap原叶45014F和父450468各Unlock一次，显式叶32位段只由父45043
 两既有源码根新增机器映射1405/1406，语义1405→1407/有效ID1400→1402、关联1518→1520（41.25%→41.30%）、分类524→526，RENDER36→38枚举open；四独立局部static I/S E655→659。历史定位各1不刷新，RESOURCE41保持、helper不增原函数；七open仅进展引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它门禁保持。
 
 本步只整DrawGraphic.cpp两个正文补丁；BOS helper/另外两根、其它正文及布局/头/owner/provider保持。C80低图号直传，不借其它根增加[-1,999]拒绝；DD0图形号直接XY、不加map。正常S32坐标与W16-U8字段/计数保，不新加负拒绝/保护/异常策略。全部caller/正常别名及排序-绘制/owner-像素运行继续推进；未构建/测试/运行/hash，网络原格式明文、音频暂停。
+
+## BOU01 地图批次和着色图形生产（2026-10-06）
+
+[BOU01 SPEC](cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-decision)/[原证据](cg2d_map_colored_enqueue_production_evidence.json)。地图521AA0/着色45F090完整58条217B/两页，1call-1内跳/3ret；55普通调用点只纳盘，已知父分根1/8，地图495E47保parent=null，不猜所属函数。两个正文恢复地图实际record/cache3与x/y取样，及着色栈W32/W16/U8重复-重叠发布/八实参-S32返回；原正常着色最终值正确，不记颜色修复或故障等价。
+
+两既有源码根新增机器映射1407/1408；语义1407→1409/有效ID1402→1404、关联1520→1522（41.30%→41.36%）、分类526→528、RENDER38→40枚举open；四独立局部static I/S，E659→663。历史定位各1/旧行号保，RESOURCE41/队列175/R7区间67/3061及其余门禁保持；七open仅进展引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
+
+两CPP只五补丁（两个正文、退休一个私有投影及两未用include）；BOS/BOT四入队根、描述符消费helper/队列owner/排序/总绘制/provider及公开头保持。保正常S32/W32/W16/U8/native地址分工、地图batch5及不写字段；不加负拒绝、图号/结果门槛、保护或异常回绕模型。沿真实场景生产、地图/绘制consumer-owner与正常别名/像素继续推进；未构建/测试/运行/hash，网络原格式明文/音频暂停，整体SPEC范围不缩。

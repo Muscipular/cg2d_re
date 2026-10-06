@@ -1,0 +1,931 @@
+{
+  "schema_version": 1,
+  "spec_id": "BOU01",
+  "recorded_on": "2026-10-06",
+  "spec_reference": "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-baseline",
+  "implementation_tag": "cg2d-re-map-colored-enqueue-production-20261006",
+  "method": "read_only_ida_and_targeted_text_static",
+  "source_functions": [
+    {
+      "entry": "0x521AA0",
+      "id": "F:00121AA0",
+      "symbol": "QueueMap_521AA0",
+      "path": "src/render/GraphicPendingQueue.cpp",
+      "marker": "std::int32_t QueueMap_521AA0(",
+      "end": "0x521B0F",
+      "semantic_index": 1407,
+      "feature_ids": [
+        "FUNC-RENDER"
+      ],
+      "patches": 1,
+      "instructions": 26,
+      "bytes": 111,
+      "pages": 1,
+      "calls": 0,
+      "branches": 1,
+      "rets": 2,
+      "incoming": 2,
+      "parents": 1,
+      "contract": "入口S16 count仅原>=4096返S32-2，正常域保存实际record/cache3原生目标；layer W8先pub，再live count低W16 pubcacheIndex；先x参数样本再y参数样本，随后x/y S32、图号-1、value4 W32=0、action native0、batch W8=5；其余descriptor/未知字段/特殊旗不写。末fresh U16 count返回旧S16→S32，低W16+1 pub，不加负拒绝或改容量门槛；正常数据生产直接进入既有排序及case5地图消费。",
+      "unowned_incoming": 1
+    },
+    {
+      "entry": "0x45F090",
+      "id": "F:0005F090",
+      "symbol": "Sub_45F090",
+      "path": "src/DrawGraphic.cpp",
+      "marker": "std::int32_t Sub_45F090(",
+      "end": "0x45F0FA",
+      "semantic_index": 1408,
+      "feature_ids": [
+        "FUNC-RENDER"
+      ],
+      "patches": 1,
+      "instructions": 32,
+      "bytes": 106,
+      "pages": 1,
+      "calls": 1,
+      "branches": 0,
+      "rets": 1,
+      "incoming": 53,
+      "parents": 8,
+      "contract": "私有16B栈descriptor不用整块清零/投影快照；零W32先取color S32、写+2/取实际地址/写+6，再layer W8样本/写+10；零W16 +14、+0/+2/+4/+6，clip U8 +12，重复W16 +14；value4 S32样本后pubcolor W32 +8；原图号/y/x S32样本、末mix U8 +13=4，借实际栈descriptor给520970八实参(x,y,layer,imageNo,value4,1,0,address)，透传S32返回，不修改图号门槛/Draw3已证helper或复用寿命。原最终16B与旧源码正常一致，只恢复具名原发布合同，不声称颜色错误。",
+      "unowned_incoming": 0
+    }
+  ],
+  "original_regions": [
+    {
+      "start": "0x521aa0",
+      "end_exclusive": "0x521b0f",
+      "parent_entry": "0x521aa0",
+      "instruction_count": 26,
+      "code_bytes": 111,
+      "page_count": 1,
+      "outgoing_calls": [],
+      "branches": [
+        {
+          "ea": "0x521ab9",
+          "target": "0x521ac1"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x521aa0",
+          "end_exclusive": "0x521b0f",
+          "instructions": [
+            {
+              "ea": "0x521aa0",
+              "size": 7,
+              "bytes": "668b15b80e0201",
+              "text": "mov     dx, pendingGraphicCount"
+            },
+            {
+              "ea": "0x521aa7",
+              "size": 3,
+              "bytes": "0fbfca",
+              "text": "movsx   ecx, dx"
+            },
+            {
+              "ea": "0x521aaa",
+              "size": 5,
+              "bytes": "6681fa0010",
+              "text": "cmp     dx, 1000h"
+            },
+            {
+              "ea": "0x521aaf",
+              "size": 3,
+              "bytes": "8d0489",
+              "text": "lea     eax, [ecx+ecx*4]"
+            },
+            {
+              "ea": "0x521ab2",
+              "size": 7,
+              "bytes": "8d04c5b84eff00",
+              "text": "lea     eax, ds:0FF4EB8h[eax*8]"
+            },
+            {
+              "ea": "0x521ab9",
+              "size": 2,
+              "bytes": "7c06",
+              "text": "jl      short loc_521AC1"
+            },
+            {
+              "ea": "0x521abb",
+              "size": 5,
+              "bytes": "b8feffffff",
+              "text": "mov     eax, 0FFFFFFFEh"
+            },
+            {
+              "ea": "0x521ac0",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x521ac1",
+              "size": 4,
+              "bytes": "8a54240c",
+              "text": "mov     dl, [esp+arg_8]"
+            },
+            {
+              "ea": "0x521ac5",
+              "size": 7,
+              "bytes": "88148dbace0101",
+              "text": "mov     gGraphicCache3.layer[ecx*4], dl"
+            },
+            {
+              "ea": "0x521acc",
+              "size": 7,
+              "bytes": "668b15b80e0201",
+              "text": "mov     dx, pendingGraphicCount"
+            },
+            {
+              "ea": "0x521ad3",
+              "size": 8,
+              "bytes": "6689148db8ce0101",
+              "text": "mov     gGraphicCache3.cacheIndex[ecx*4], dx"
+            },
+            {
+              "ea": "0x521adb",
+              "size": 4,
+              "bytes": "8b4c2404",
+              "text": "mov     ecx, [esp+arg_0]"
+            },
+            {
+              "ea": "0x521adf",
+              "size": 4,
+              "bytes": "8b542408",
+              "text": "mov     edx, [esp+arg_4]"
+            },
+            {
+              "ea": "0x521ae3",
+              "size": 2,
+              "bytes": "8908",
+              "text": "mov     [eax], ecx"
+            },
+            {
+              "ea": "0x521ae5",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x521ae7",
+              "size": 3,
+              "bytes": "895004",
+              "text": "mov     [eax+4], edx"
+            },
+            {
+              "ea": "0x521aea",
+              "size": 7,
+              "bytes": "c74008ffffffff",
+              "text": "mov     dword ptr [eax+8], 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x521af1",
+              "size": 3,
+              "bytes": "894810",
+              "text": "mov     [eax+10h], ecx"
+            },
+            {
+              "ea": "0x521af4",
+              "size": 3,
+              "bytes": "89480c",
+              "text": "mov     [eax+0Ch], ecx"
+            },
+            {
+              "ea": "0x521af7",
+              "size": 4,
+              "bytes": "c6402405",
+              "text": "mov     byte ptr [eax+24h], 5"
+            },
+            {
+              "ea": "0x521afb",
+              "size": 7,
+              "bytes": "668b0db80e0201",
+              "text": "mov     cx, pendingGraphicCount"
+            },
+            {
+              "ea": "0x521b02",
+              "size": 3,
+              "bytes": "0fbfc1",
+              "text": "movsx   eax, cx"
+            },
+            {
+              "ea": "0x521b05",
+              "size": 2,
+              "bytes": "6641",
+              "text": "inc     cx"
+            },
+            {
+              "ea": "0x521b07",
+              "size": 7,
+              "bytes": "66890db80e0201",
+              "text": "mov     pendingGraphicCount, cx"
+            },
+            {
+              "ea": "0x521b0e",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x45f090",
+      "end_exclusive": "0x45f0fa",
+      "parent_entry": "0x45f090",
+      "instruction_count": 32,
+      "code_bytes": 106,
+      "page_count": 1,
+      "outgoing_calls": [
+        {
+          "ea": "0x45f0f1",
+          "target": "0x520970"
+        }
+      ],
+      "branches": [],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x45f090",
+          "end_exclusive": "0x45f0fa",
+          "instructions": [
+            {
+              "ea": "0x45f090",
+              "size": 3,
+              "bytes": "83ec10",
+              "text": "sub     esp, 10h"
+            },
+            {
+              "ea": "0x45f093",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x45f095",
+              "size": 4,
+              "bytes": "8b4c2428",
+              "text": "mov     ecx, [esp+10h+arg_14]"
+            },
+            {
+              "ea": "0x45f099",
+              "size": 4,
+              "bytes": "89442402",
+              "text": "mov     [esp+10h+var_E], eax"
+            },
+            {
+              "ea": "0x45f09d",
+              "size": 4,
+              "bytes": "8d542400",
+              "text": "lea     edx, [esp+10h+var_10]"
+            },
+            {
+              "ea": "0x45f0a1",
+              "size": 4,
+              "bytes": "89442406",
+              "text": "mov     [esp+10h+var_A], eax"
+            },
+            {
+              "ea": "0x45f0a5",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x45f0a6",
+              "size": 4,
+              "bytes": "8b542420",
+              "text": "mov     edx, [esp+14h+arg_8]"
+            },
+            {
+              "ea": "0x45f0aa",
+              "size": 4,
+              "bytes": "8944240e",
+              "text": "mov     [esp+14h+var_6], eax"
+            },
+            {
+              "ea": "0x45f0ae",
+              "size": 5,
+              "bytes": "6689442412",
+              "text": "mov     [esp+14h+var_2], ax"
+            },
+            {
+              "ea": "0x45f0b3",
+              "size": 5,
+              "bytes": "6689442404",
+              "text": "mov     [esp+14h+var_10], ax"
+            },
+            {
+              "ea": "0x45f0b8",
+              "size": 5,
+              "bytes": "6689442406",
+              "text": "mov     word ptr [esp+14h+var_E], ax"
+            },
+            {
+              "ea": "0x45f0bd",
+              "size": 5,
+              "bytes": "6689442408",
+              "text": "mov     word ptr [esp+14h+var_E+2], ax"
+            },
+            {
+              "ea": "0x45f0c2",
+              "size": 5,
+              "bytes": "668944240a",
+              "text": "mov     word ptr [esp+14h+var_A], ax"
+            },
+            {
+              "ea": "0x45f0c7",
+              "size": 4,
+              "bytes": "88442410",
+              "text": "mov     byte ptr [esp+14h+var_6+2], al"
+            },
+            {
+              "ea": "0x45f0cb",
+              "size": 5,
+              "bytes": "6689442412",
+              "text": "mov     [esp+14h+var_2], ax"
+            },
+            {
+              "ea": "0x45f0d0",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x45f0d1",
+              "size": 4,
+              "bytes": "8b44242c",
+              "text": "mov     eax, [esp+18h+arg_10]"
+            },
+            {
+              "ea": "0x45f0d5",
+              "size": 4,
+              "bytes": "894c2410",
+              "text": "mov     [esp+18h+var_A+2], ecx"
+            },
+            {
+              "ea": "0x45f0d9",
+              "size": 4,
+              "bytes": "8b4c2428",
+              "text": "mov     ecx, [esp+18h+arg_C]"
+            },
+            {
+              "ea": "0x45f0dd",
+              "size": 2,
+              "bytes": "6a01",
+              "text": "push    1"
+            },
+            {
+              "ea": "0x45f0df",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x45f0e0",
+              "size": 4,
+              "bytes": "8b442428",
+              "text": "mov     eax, [esp+20h+arg_4]"
+            },
+            {
+              "ea": "0x45f0e4",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x45f0e5",
+              "size": 4,
+              "bytes": "8b4c2428",
+              "text": "mov     ecx, [esp+24h+arg_0]"
+            },
+            {
+              "ea": "0x45f0e9",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x45f0ea",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x45f0eb",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x45f0ec",
+              "size": 5,
+              "bytes": "c644242d04",
+              "text": "mov     byte ptr [esp+30h+var_6+3], 4"
+            },
+            {
+              "ea": "0x45f0f1",
+              "size": 5,
+              "bytes": "e87a180c00",
+              "text": "call    Renderer__DrawGraphic3"
+            },
+            {
+              "ea": "0x45f0f6",
+              "size": 3,
+              "bytes": "83c430",
+              "text": "add     esp, 30h"
+            },
+            {
+              "ea": "0x45f0f9",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "function_extents": [
+    {
+      "entry": "0x521aa0",
+      "end_exclusive": "0x521b0f",
+      "chunks": [
+        {
+          "start": "0x521aa0",
+          "end_exclusive": "0x521b0f"
+        }
+      ]
+    },
+    {
+      "entry": "0x45f090",
+      "end_exclusive": "0x45f0fa",
+      "chunks": [
+        {
+          "start": "0x45f090",
+          "end_exclusive": "0x45f0fa"
+        }
+      ]
+    }
+  ],
+  "support": {
+    "incoming": [
+      {
+        "entry": "0x521aa0",
+        "reference_count": 2,
+        "references": [
+          {
+            "ea": "0x495e47",
+            "type": 17,
+            "parent": null
+          },
+          {
+            "ea": "0x502b44",
+            "type": 17,
+            "parent": "0x5029b0"
+          }
+        ]
+      },
+      {
+        "entry": "0x45f090",
+        "reference_count": 53,
+        "references": [
+          {
+            "ea": "0x45f01a",
+            "type": 17,
+            "parent": "0x45efd0"
+          },
+          {
+            "ea": "0x45f1ec",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f205",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f21e",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f23a",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f253",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f27e",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f297",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f2b0",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f2cc",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f2e5",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f8be",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f8e5",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f90c",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x45f930",
+            "type": 17,
+            "parent": "0x45f190"
+          },
+          {
+            "ea": "0x460c57",
+            "type": 17,
+            "parent": "0x45fea0"
+          },
+          {
+            "ea": "0x460c6b",
+            "type": 17,
+            "parent": "0x45fea0"
+          },
+          {
+            "ea": "0x4614d2",
+            "type": 17,
+            "parent": "0x460ff0"
+          },
+          {
+            "ea": "0x461988",
+            "type": 17,
+            "parent": "0x460ff0"
+          },
+          {
+            "ea": "0x461a0a",
+            "type": 17,
+            "parent": "0x460ff0"
+          },
+          {
+            "ea": "0x461e82",
+            "type": 17,
+            "parent": "0x461b30"
+          },
+          {
+            "ea": "0x462065",
+            "type": 17,
+            "parent": "0x461b30"
+          },
+          {
+            "ea": "0x462078",
+            "type": 17,
+            "parent": "0x461b30"
+          },
+          {
+            "ea": "0x462595",
+            "type": 17,
+            "parent": "0x462330"
+          },
+          {
+            "ea": "0x4648d5",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x46491d",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x46493f",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464983",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464997",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x4649b9",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x4649fe",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464a12",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464a26",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464a49",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464ab8",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464c3a",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464cb3",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464d4f",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464db3",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x464dcd",
+            "type": 17,
+            "parent": "0x464840"
+          },
+          {
+            "ea": "0x46552b",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x465557",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x465571",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x465597",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x4655e9",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x465615",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x46562f",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x465655",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x46569a",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x4656c6",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x4656e0",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x465703",
+            "type": 17,
+            "parent": "0x465430"
+          },
+          {
+            "ea": "0x46571d",
+            "type": 17,
+            "parent": "0x465430"
+          }
+        ]
+      }
+    ]
+  },
+  "snapshot_functions_before": [
+    {
+      "id": "F:00121AA0",
+      "original_entry": "0x521AA0",
+      "original_name": "sub_521AA0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbol": "QueueMap_521AA0",
+          "definition_line": 204,
+          "namespace": "cg::render"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0005F090",
+      "original_entry": "0x45F090",
+      "original_name": "sub_45F090",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/DrawGraphic.cpp",
+          "symbol": "Sub_45F090",
+          "definition_line": 128,
+          "namespace": "cg::render"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "existing_semantic_records_before": [
+    {
+      "id": "F:00121AA0",
+      "records": []
+    },
+    {
+      "id": "F:0005F090",
+      "records": []
+    }
+  ],
+  "source_bodies_before": [
+    {
+      "path": "src/render/GraphicPendingQueue.cpp",
+      "symbol": "QueueMap_521AA0",
+      "body": "std::int32_t QueueMap_521AA0(\n    const std::int32_t x, const std::int32_t y, const std::uint8_t layer)\n{\n    const std::int16_t initialCount =\n        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);\n    if (initialCount >= MAX_QUEUE_SIZE) {\n        return -2;\n    }\n    const auto queueIndex = static_cast<std::size_t>(initialCount);\n    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];\n    cache3.layer = layer;\n    cache3.cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);\n    GraphicCacheItem32& record = gLegacyPendingStorage.records[queueIndex];\n    record.x = x;\n    record.y = y;\n    record.imageNo = -1;\n    record.value4 = 0;\n    record.reference.action = nullptr;\n    record.batchType = 5;\n    const std::uint16_t resultBits = platform::gPendingGraphicCount;\n    const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));\n    platform::gPendingGraphicCount = static_cast<std::uint16_t>(resultBits + 1u);\n    return result;\n}"
+    },
+    {
+      "path": "src/DrawGraphic.cpp",
+      "symbol": "Sub_45F090",
+      "body": "std::int32_t Sub_45F090(\n    const std::int32_t x,\n    const std::int32_t y,\n    const std::uint8_t layer,\n    const std::int32_t imageNo,\n    const std::int32_t value4,\n    const std::int32_t color)\n{\n    GraphicModeFields mode {};\n    mode.color = color;\n    mode.mixMode = 4;\n    const GraphicDescriptor16 descriptor =\n        std::bit_cast<GraphicDescriptor16>(mode);\n    return DrawGraphic3_520970(\n        x,\n        y,\n        layer,\n        imageNo,\n        value4,\n        1,\n        0,\n        &descriptor);\n}"
+    }
+  ],
+  "retired_private_projection": {
+    "path": "src/DrawGraphic.cpp",
+    "symbol": "GraphicModeFields",
+    "body": "struct GraphicModeFields {\n    std::int16_t sourceX;\n    std::int16_t sourceY;\n    std::int16_t width;\n    std::int16_t height;\n    std::int32_t color;\n    std::uint8_t clip;\n    std::uint8_t mixMode;\n    std::uint16_t paletteCacheIndex;\n};\n\nstatic_assert(std::is_standard_layout_v<GraphicModeFields>);\nstatic_assert(std::is_trivially_copyable_v<GraphicModeFields>);\nstatic_assert(sizeof(GraphicModeFields) == 0x10);\nstatic_assert(offsetof(GraphicModeFields, sourceX) == 0x00);\nstatic_assert(offsetof(GraphicModeFields, sourceY) == 0x02);\nstatic_assert(offsetof(GraphicModeFields, width) == 0x04);\nstatic_assert(offsetof(GraphicModeFields, height) == 0x06);\nstatic_assert(offsetof(GraphicModeFields, color) == 0x08);\nstatic_assert(offsetof(GraphicModeFields, clip) == 0x0C);\nstatic_assert(offsetof(GraphicModeFields, mixMode) == 0x0D);\nstatic_assert(offsetof(GraphicModeFields, paletteCacheIndex) == 0x0E);\n\n"
+  },
+  "preserved_helper": {
+    "path": "src/DrawGraphic.cpp",
+    "symbol": "CopyGraphicDescriptorWords",
+    "body": "void CopyGraphicDescriptorWords(\n    std::array<std::uint8_t, 16>& output, const GraphicDescriptor16* const descriptor)\n{\n    if (descriptor != nullptr) {\n        for (std::int32_t word = 0; word < 4; ++word) {\n            std::uint32_t value;\n            std::memcpy(&value, descriptor->bytes.data() + word * 4, sizeof(value));\n            std::memcpy(output.data() + word * 4, &value, sizeof(value));\n        }\n    } else {\n        const std::uint16_t zero = 0;\n        for (std::int32_t word = 0; word < 4; ++word) {\n            std::memcpy(output.data() + word * 2, &zero, sizeof(zero));\n        }\n        const std::uint32_t color = 0xFFFFFFFFu;\n        std::memcpy(output.data() + 8, &color, sizeof(color));\n        output[12] = 0;\n        output[13] = 0;\n        std::memcpy(output.data() + 14, &zero, sizeof(zero));\n    }\n}"
+  },
+  "source_patches": [
+    {
+      "scope": "body",
+      "path": "src/render/GraphicPendingQueue.cpp",
+      "symbol": "QueueMap_521AA0",
+      "before": "std::int32_t QueueMap_521AA0(\n    const std::int32_t x, const std::int32_t y, const std::uint8_t layer)\n{\n    const std::int16_t initialCount =\n        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);\n    if (initialCount >= MAX_QUEUE_SIZE) {\n        return -2;\n    }\n    const auto queueIndex = static_cast<std::size_t>(initialCount);\n    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];\n    cache3.layer = layer;\n    cache3.cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);\n    GraphicCacheItem32& record = gLegacyPendingStorage.records[queueIndex];\n    record.x = x;\n    record.y = y;\n    record.imageNo = -1;\n    record.value4 = 0;\n    record.reference.action = nullptr;\n    record.batchType = 5;\n    const std::uint16_t resultBits = platform::gPendingGraphicCount;\n    const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));\n    platform::gPendingGraphicCount = static_cast<std::uint16_t>(resultBits + 1u);\n    return result;\n}",
+      "after": "std::int32_t QueueMap_521AA0(\n    const std::int32_t x, const std::int32_t y, const std::uint8_t layer)\n{\n    const std::int16_t initialCount =\n        std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);\n    if (initialCount >= MAX_QUEUE_SIZE) {\n        return -2;\n    }\n\n    GraphicCacheItem32* const record =\n        gLegacyPendingStorage.records.data() + initialCount;\n    GraphicCache3* const cache3 =\n        gLegacyPendingStorage.cache3.data() + initialCount;\n    cache3->layer = layer;\n    cache3->cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);\n    const std::int32_t itemX = x;\n    const std::int32_t itemY = y;\n    record->x = itemX;\n    record->y = itemY;\n    record->imageNo = -1;\n    record->value4 = 0;\n    record->reference.action = nullptr;\n    record->batchType = 5;\n    const std::uint16_t resultBits = platform::gPendingGraphicCount;\n    const auto result = static_cast<std::int32_t>(std::bit_cast<std::int16_t>(resultBits));\n    platform::gPendingGraphicCount = static_cast<std::uint16_t>(resultBits + 1u);\n    return result;\n}",
+      "purpose": "原生实际record/cache3目标，先取x/y再发布，保地图批次/原字段及计数宽度。"
+    },
+    {
+      "scope": "body",
+      "path": "src/DrawGraphic.cpp",
+      "symbol": "Sub_45F090",
+      "before": "std::int32_t Sub_45F090(\n    const std::int32_t x,\n    const std::int32_t y,\n    const std::uint8_t layer,\n    const std::int32_t imageNo,\n    const std::int32_t value4,\n    const std::int32_t color)\n{\n    GraphicModeFields mode {};\n    mode.color = color;\n    mode.mixMode = 4;\n    const GraphicDescriptor16 descriptor =\n        std::bit_cast<GraphicDescriptor16>(mode);\n    return DrawGraphic3_520970(\n        x,\n        y,\n        layer,\n        imageNo,\n        value4,\n        1,\n        0,\n        &descriptor);\n}",
+      "after": "std::int32_t Sub_45F090(\n    const std::int32_t x,\n    const std::int32_t y,\n    const std::uint8_t layer,\n    const std::int32_t imageNo,\n    const std::int32_t value4,\n    const std::int32_t color)\n{\n    GraphicDescriptor16 descriptor;\n    const std::uint32_t zero32 = 0;\n    const std::int32_t itemColor = color;\n    std::memcpy(descriptor.bytes.data() + 2, &zero32, sizeof(zero32));\n    const GraphicDescriptor16* const descriptorAddress = &descriptor;\n    std::memcpy(descriptor.bytes.data() + 6, &zero32, sizeof(zero32));\n    const std::uint8_t itemLayer = layer;\n    std::memcpy(descriptor.bytes.data() + 10, &zero32, sizeof(zero32));\n\n    const std::uint16_t zero16 = 0;\n    std::memcpy(descriptor.bytes.data() + 14, &zero16, sizeof(zero16));\n    std::memcpy(descriptor.bytes.data(), &zero16, sizeof(zero16));\n    std::memcpy(descriptor.bytes.data() + 2, &zero16, sizeof(zero16));\n    std::memcpy(descriptor.bytes.data() + 4, &zero16, sizeof(zero16));\n    std::memcpy(descriptor.bytes.data() + 6, &zero16, sizeof(zero16));\n    descriptor.bytes[12] = 0;\n    std::memcpy(descriptor.bytes.data() + 14, &zero16, sizeof(zero16));\n\n    const std::int32_t itemValue4 = value4;\n    std::memcpy(descriptor.bytes.data() + 8, &itemColor, sizeof(itemColor));\n    const std::int32_t itemImageNo = imageNo;\n    const std::int32_t itemY = y;\n    const std::int32_t itemX = x;\n    descriptor.bytes[13] = 4;\n    return DrawGraphic3_520970(\n        itemX, itemY, itemLayer, itemImageNo, itemValue4, 1, 0, descriptorAddress);\n}",
+      "purpose": "按原W32/W16/U8重复与重叠发布栈描述符，借实际栈对象给已落实Draw3；正常最终值一致，不称既有颜色错误。"
+    },
+    {
+      "scope": "retired_projection",
+      "path": "src/DrawGraphic.cpp",
+      "symbol": "GraphicModeFields",
+      "before": "struct GraphicModeFields {\n    std::int16_t sourceX;\n    std::int16_t sourceY;\n    std::int16_t width;\n    std::int16_t height;\n    std::int32_t color;\n    std::uint8_t clip;\n    std::uint8_t mixMode;\n    std::uint16_t paletteCacheIndex;\n};\n\nstatic_assert(std::is_standard_layout_v<GraphicModeFields>);\nstatic_assert(std::is_trivially_copyable_v<GraphicModeFields>);\nstatic_assert(sizeof(GraphicModeFields) == 0x10);\nstatic_assert(offsetof(GraphicModeFields, sourceX) == 0x00);\nstatic_assert(offsetof(GraphicModeFields, sourceY) == 0x02);\nstatic_assert(offsetof(GraphicModeFields, width) == 0x04);\nstatic_assert(offsetof(GraphicModeFields, height) == 0x06);\nstatic_assert(offsetof(GraphicModeFields, color) == 0x08);\nstatic_assert(offsetof(GraphicModeFields, clip) == 0x0C);\nstatic_assert(offsetof(GraphicModeFields, mixMode) == 0x0D);\nstatic_assert(offsetof(GraphicModeFields, paletteCacheIndex) == 0x0E);\n\n",
+      "after": "",
+      "purpose": "退休仅服务着色入口整块快照的私有投影；无公开类型变化。"
+    },
+    {
+      "scope": "include",
+      "path": "src/DrawGraphic.cpp",
+      "symbol": "cstddef",
+      "before": "#include <cstddef>\n",
+      "after": "",
+      "purpose": "私有投影退休后删除未用标准头。"
+    },
+    {
+      "scope": "include",
+      "path": "src/DrawGraphic.cpp",
+      "symbol": "type_traits",
+      "before": "#include <type_traits>\n",
+      "after": "",
+      "purpose": "私有投影退休后删除未用标准头。"
+    }
+  ],
+  "full_runtime_verified": false,
+  "normal_previous_color_value_wrong": false,
+  "unowned_callsite": {
+    "ea": "0x495e47",
+    "type": 17,
+    "parent": null,
+    "no_parent_or_function_identity_invented": true
+  },
+  "measurement_before": {
+    "semantic_records": 1407,
+    "semantic_inventory_ids": 1402,
+    "functions_with_document_links": 1520,
+    "document_link_percent": 41.3,
+    "reviewed_function_dispositions": 526,
+    "evidence_records": 659,
+    "render_members": 38,
+    "resource_members": 41,
+    "historical_direct_definitions": [
+      1,
+      1
+    ],
+    "tasks_closed": 10,
+    "accepted_leaf_features": 0,
+    "global_accepted": false,
+    "baseline_documents": [
+      0,
+      0
+    ]
+  },
+  "measurement_after_expected": {
+    "semantic_records": 1409,
+    "semantic_inventory_ids": 1404,
+    "functions_with_document_links": 1522,
+    "document_link_percent": 41.36,
+    "reviewed_function_dispositions": 528,
+    "evidence_records": 663,
+    "render_members": 40,
+    "resource_members": 41,
+    "historical_direct_definitions": [
+      1,
+      1
+    ],
+    "tasks_closed": 10,
+    "accepted_leaf_features": 0,
+    "global_accepted": false
+  }
+}

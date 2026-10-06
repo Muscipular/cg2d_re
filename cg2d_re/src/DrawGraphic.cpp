@@ -5,36 +5,11 @@
 #include "cg/render/GraphicPendingQueue.hpp"
 
 #include <bit>
-#include <cstddef>
 #include <cstdint>
 #include <cstring>
-#include <type_traits>
 
 namespace cg::render {
 namespace {
-
-struct GraphicModeFields {
-    std::int16_t sourceX;
-    std::int16_t sourceY;
-    std::int16_t width;
-    std::int16_t height;
-    std::int32_t color;
-    std::uint8_t clip;
-    std::uint8_t mixMode;
-    std::uint16_t paletteCacheIndex;
-};
-
-static_assert(std::is_standard_layout_v<GraphicModeFields>);
-static_assert(std::is_trivially_copyable_v<GraphicModeFields>);
-static_assert(sizeof(GraphicModeFields) == 0x10);
-static_assert(offsetof(GraphicModeFields, sourceX) == 0x00);
-static_assert(offsetof(GraphicModeFields, sourceY) == 0x02);
-static_assert(offsetof(GraphicModeFields, width) == 0x04);
-static_assert(offsetof(GraphicModeFields, height) == 0x06);
-static_assert(offsetof(GraphicModeFields, color) == 0x08);
-static_assert(offsetof(GraphicModeFields, clip) == 0x0C);
-static_assert(offsetof(GraphicModeFields, mixMode) == 0x0D);
-static_assert(offsetof(GraphicModeFields, paletteCacheIndex) == 0x0E);
 
 // 原两入口的四W32读写/空参W16-W32-W8默认发布，保正常源目标别名。
 void CopyGraphicDescriptorWords(
@@ -157,20 +132,32 @@ std::int32_t Sub_45F090(
     const std::int32_t value4,
     const std::int32_t color)
 {
-    GraphicModeFields mode {};
-    mode.color = color;
-    mode.mixMode = 4;
-    const GraphicDescriptor16 descriptor =
-        std::bit_cast<GraphicDescriptor16>(mode);
+    GraphicDescriptor16 descriptor;
+    const std::uint32_t zero32 = 0;
+    const std::int32_t itemColor = color;
+    std::memcpy(descriptor.bytes.data() + 2, &zero32, sizeof(zero32));
+    const GraphicDescriptor16* const descriptorAddress = &descriptor;
+    std::memcpy(descriptor.bytes.data() + 6, &zero32, sizeof(zero32));
+    const std::uint8_t itemLayer = layer;
+    std::memcpy(descriptor.bytes.data() + 10, &zero32, sizeof(zero32));
+
+    const std::uint16_t zero16 = 0;
+    std::memcpy(descriptor.bytes.data() + 14, &zero16, sizeof(zero16));
+    std::memcpy(descriptor.bytes.data(), &zero16, sizeof(zero16));
+    std::memcpy(descriptor.bytes.data() + 2, &zero16, sizeof(zero16));
+    std::memcpy(descriptor.bytes.data() + 4, &zero16, sizeof(zero16));
+    std::memcpy(descriptor.bytes.data() + 6, &zero16, sizeof(zero16));
+    descriptor.bytes[12] = 0;
+    std::memcpy(descriptor.bytes.data() + 14, &zero16, sizeof(zero16));
+
+    const std::int32_t itemValue4 = value4;
+    std::memcpy(descriptor.bytes.data() + 8, &itemColor, sizeof(itemColor));
+    const std::int32_t itemImageNo = imageNo;
+    const std::int32_t itemY = y;
+    const std::int32_t itemX = x;
+    descriptor.bytes[13] = 4;
     return DrawGraphic3_520970(
-        x,
-        y,
-        layer,
-        imageNo,
-        value4,
-        1,
-        0,
-        &descriptor);
+        itemX, itemY, itemLayer, itemImageNo, itemValue4, 1, 0, descriptorAddress);
 }
 
 std::int32_t Sub_521C80(

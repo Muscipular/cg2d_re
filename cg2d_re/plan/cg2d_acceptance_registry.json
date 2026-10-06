@@ -965,7 +965,8 @@
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -984,7 +985,9 @@
         "F:000568A0",
         "F:000597A0",
         "F:000597B0",
-        "F:0004B340"
+        "F:0004B340",
+        "F:00107140",
+        "F:0005D7A0"
       ],
       "closure_task_ids": [
         "T01",
@@ -1007,7 +1010,8 @@
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1024,7 +1028,8 @@
         "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟",
         "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待",
         "BPH01两键查询新1422/1423、预设旧373/三分类与原26普通点11父纳盘，4597B0完整W32接口/预设去收窄，原旗位/文本装载/音效调用保持，枚举open。全部父/键表和焦点/旧99路由、正常alias-owner/寿命、SDK-ABI/链接与实际输入/播放/画面、R1/R7/R8仍待",
-        "BPI01旧807两源阶段恢复，29条109B定向原窗口和两片段精确静态；原完整基线/正常值、现有父接线与成员保。完整字体队列消费/焦点/IME/间接alias-owner和寿命、SDK/链接/机器及画面运行仍待"
+        "BPI01旧807两源阶段恢复，29条109B定向原窗口和两片段精确静态；原完整基线/正常值、现有父接线与成员保。完整字体队列消费/焦点/IME/间接alias-owner和寿命、SDK/链接/机器及画面运行仍待",
+        "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1042,7 +1047,8 @@
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
       ]
     },
     {
@@ -1072,7 +1078,8 @@
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-baseline",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -1097,7 +1104,9 @@
         "F:00056D70",
         "F:0004B2A0",
         "F:0004B2E0",
-        "F:0004B340"
+        "F:0004B340",
+        "F:00107140",
+        "F:0005D7A0"
       ],
       "closure_task_ids": [
         "T01",
@@ -1126,7 +1135,8 @@
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-decision",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1145,7 +1155,8 @@
         "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟",
         "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待",
         "BPH01两键查询新1422/1423、预设旧373/三分类与原26普通点11父纳盘，4597B0完整W32接口/预设去收窄，原旗位/文本装载/音效调用保持，枚举open。全部父/键表和焦点/旧99路由、正常alias-owner/寿命、SDK-ABI/链接与实际输入/播放/画面、R1/R7/R8仍待",
-        "BPI01旧807两源阶段恢复，29条109B定向原窗口和两片段精确静态；原完整基线/正常值、现有父接线与成员保。完整字体队列消费/焦点/IME/间接alias-owner和寿命、SDK/链接/机器及画面运行仍待"
+        "BPI01旧807两源阶段恢复，29条109B定向原窗口和两片段精确静态；原完整基线/正常值、现有父接线与成员保。完整字体队列消费/焦点/IME/间接alias-owner和寿命、SDK/链接/机器及画面运行仍待",
+        "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1165,7 +1176,8 @@
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
       ]
     },
     {
@@ -1575,7 +1587,8 @@
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
-        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline"
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1629,7 +1642,8 @@
         "F:00120910",
         "F:00120930",
         "F:001219C0",
-        "F:00121F20"
+        "F:00121F20",
+        "F:00107140"
       ],
       "closure_task_ids": [
         "C09",
@@ -1669,7 +1683,8 @@
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
-        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision"
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1698,7 +1713,8 @@
         "BPA01匹配值绘框真实507090新机器1413/完整59条175B与唯一点父8条窗口纳盘；actual DX entry/四边正常生产/双游标阶段恢复，动态count与追加保。RENDER46枚举open，完整命中父-callee/正常alias/队列-表/纹理-Back-owner/场景失效退出/SDK-机器ABI与像素及R1/R7/R8运行待",
         "BPB01五真实波纹根160条537B六页/旧6续记与四新1414-1417；原完整8行提交/矩形-相位发布与正常S32实修，四正确依赖/既有CPU复制provider保持，五成员RENDER51枚举open。完整父-callee/正常alias/Back-Temp及其它资源-owner/场景失效退出/SDK-机器浮点ABI与像素、R1/R7/R8仍待",
         "BPC01真正角色521F20新机器1418/完整160条595B两页18点3父只纳盘；实际两游标/两计数/四W32及各U8颜色flags、mix-clip-image正常阶段实修。RENDER52/YOBI56枚举open，完整上游/原全部父-callee-正常alias/action-队列-图形-纹理-owner/场景失效退出/SDK-机器FP ABI与像素及R1/R7/R8待",
-        "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待"
+        "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待",
+        "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1728,7 +1744,8 @@
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
-        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
       ]
     },
     {
@@ -31231,6 +31248,198 @@
       "observation": "BPK01依已采用D02对5402AB/5407BC两CRT私有职责具名host承接；实际本机六类/层级、显式copy与现有throw/throw;、cleanup为源提供者，当前SDK源码证明FindHandler和BuildCatchObject职责存在，未据安装源码宣称当前生成帧/链接或展开已验。原五数组/六记录与描述符/回调数据保持，旧SDK/父接线false不改；业务copy/析构/what和单payload owner不重写",
       "expected": "BPK01依已采用D02对5402AB/5407BC两CRT私有职责具名host承接；实际本机六类/层级、显式copy与现有throw/throw;、cleanup为源提供者，当前SDK源码证明FindHandler和BuildCatchObject职责存在，未据安装源码宣称当前生成帧/链接或展开已验。原五数组/六记录与描述符/回调数据保持，旧SDK/父接线false不改；业务copy/析构/what和单payload owner不重写",
       "actual": "两完整原核315条875B/五页、27call/51内跳/两外部终止tail/三ret及各唯一普通call/父邻窗，只原身份与获批host职责/源对照，不称旧内核逐指令等价。私有头仅一职责说明，源/其他头保持；实际typed捕获/切片/引用与清理、全部成员/硬件SEH/owner寿命、生成ABI/链接/展开和正常快速退出运行未验。RPLAN.24不专项模拟/保护异常、故障等价或降低运行标准"
+    },
+    {
+      "id": "E-INPUT-HOVER-INPUT-PUBLICATION-I-20261007",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPL01两发布窗口17条72B/完整查询19条47B与两原点一父分列；doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hover-input-publication-and-click-query-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json",
+        "src/render/GraphicHitTest.cpp#Sub_507140",
+        "src/render/TextPendingQueue.cpp#FindClickedTextIndex_45D7A0",
+        "src/LoginMessage.cpp#UpdateLoginMessage",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "differences": [
+        {
+          "description": "两局部bool保存原判定再发布共享值/层字节；原查找返回/门禁和query正确源码、两消息count1/返回0及全共享owner保",
+          "decision_ref": "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "expected": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "actual": "悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要；点击查询未新增，RENDER只枚举悬停根/查询只作关联消费，不把它加入RENDER成员"
+    },
+    {
+      "id": "E-INPUT-HOVER-INPUT-PUBLICATION-S-20261007",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPL01两发布窗口17条72B/完整查询19条47B与两原点一父分列；doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hover-input-publication-and-click-query-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json",
+        "src/render/GraphicHitTest.cpp#Sub_507140",
+        "src/render/TextPendingQueue.cpp#FindClickedTextIndex_45D7A0",
+        "src/LoginMessage.cpp#UpdateLoginMessage",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "differences": [
+        {
+          "description": "两局部bool保存原判定再发布共享值/层字节；原查找返回/门禁和query正确源码、两消息count1/返回0及全共享owner保",
+          "decision_ref": "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "expected": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "actual": "悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要；点击查询未新增，RENDER只枚举悬停根/查询只作关联消费，不把它加入RENDER成员"
+    },
+    {
+      "id": "E-TEXT-HOVER-INPUT-PUBLICATION-I-20261007",
+      "feature_id": "FUNC-TEXT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPL01两发布窗口17条72B/完整查询19条47B与两原点一父分列；doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hover-input-publication-and-click-query-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json",
+        "src/render/GraphicHitTest.cpp#Sub_507140",
+        "src/render/TextPendingQueue.cpp#FindClickedTextIndex_45D7A0",
+        "src/LoginMessage.cpp#UpdateLoginMessage",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "differences": [
+        {
+          "description": "两局部bool保存原判定再发布共享值/层字节；原查找返回/门禁和query正确源码、两消息count1/返回0及全共享owner保",
+          "decision_ref": "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "expected": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "actual": "悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要；点击查询未新增，RENDER只枚举悬停根/查询只作关联消费，不把它加入RENDER成员"
+    },
+    {
+      "id": "E-TEXT-HOVER-INPUT-PUBLICATION-S-20261007",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPL01两发布窗口17条72B/完整查询19条47B与两原点一父分列；doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hover-input-publication-and-click-query-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json",
+        "src/render/GraphicHitTest.cpp#Sub_507140",
+        "src/render/TextPendingQueue.cpp#FindClickedTextIndex_45D7A0",
+        "src/LoginMessage.cpp#UpdateLoginMessage",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "differences": [
+        {
+          "description": "两局部bool保存原判定再发布共享值/层字节；原查找返回/门禁和query正确源码、两消息count1/返回0及全共享owner保",
+          "decision_ref": "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "expected": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "actual": "悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要；点击查询未新增，RENDER只枚举悬停根/查询只作关联消费，不把它加入RENDER成员"
+    },
+    {
+      "id": "E-RENDER-HOVER-INPUT-PUBLICATION-I-20261007",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPL01两发布窗口17条72B/完整查询19条47B与两原点一父分列；doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hover-input-publication-and-click-query-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json",
+        "src/render/GraphicHitTest.cpp#Sub_507140",
+        "src/render/TextPendingQueue.cpp#FindClickedTextIndex_45D7A0",
+        "src/LoginMessage.cpp#UpdateLoginMessage",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "differences": [
+        {
+          "description": "两局部bool保存原判定再发布共享值/层字节；原查找返回/门禁和query正确源码、两消息count1/返回0及全共享owner保",
+          "decision_ref": "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "expected": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "actual": "悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要；点击查询未新增，RENDER只枚举悬停根/查询只作关联消费，不把它加入RENDER成员"
+    },
+    {
+      "id": "E-RENDER-HOVER-INPUT-PUBLICATION-S-20261007",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPL01两发布窗口17条72B/完整查询19条47B与两原点一父分列；doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hover-input-publication-and-click-query-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json",
+        "src/render/GraphicHitTest.cpp#Sub_507140",
+        "src/render/TextPendingQueue.cpp#FindClickedTextIndex_45D7A0",
+        "src/LoginMessage.cpp#UpdateLoginMessage",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "differences": [
+        {
+          "description": "两局部bool保存原判定再发布共享值/层字节；原查找返回/门禁和query正确源码、两消息count1/返回0及全共享owner保",
+          "decision_ref": "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "expected": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
+      "actual": "悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要；点击查询未新增，RENDER只枚举悬停根/查询只作关联消费，不把它加入RENDER成员"
     }
   ],
   "task_acceptance": [
@@ -31604,7 +31813,8 @@
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
       ]
     },
     {
@@ -31630,7 +31840,8 @@
         "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
       ]
     },
     {
@@ -31848,7 +32059,8 @@
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
-        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state"
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
       ]
     },
     {
@@ -32079,7 +32291,8 @@
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
         "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
-        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state"
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
       ]
     },
     {
@@ -32211,7 +32424,8 @@
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
-        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state"
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
       ]
     },
     {
@@ -32345,7 +32559,8 @@
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
-        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state"
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
       ]
     },
     {
@@ -38520,6 +38735,19 @@
         "doc/cg2d_native_cpp_exception_evidence.json"
       ],
       "boundary": "当前六类显式copy与本机捕获对象/引用调整由compiler/VCRuntime提供；原x86 PMD/成员转接/私有SEH布局不再是工程待补体；BPK01依已采用D02对5402AB/5407BC两CRT私有职责具名host承接；实际本机六类/层级、显式copy与现有throw/throw;、cleanup为源提供者，当前SDK源码证明FindHandler和BuildCatchObject职责存在，未据安装源码宣称当前生成帧/链接或展开已验。原五数组/六记录与描述符/回调数据保持，旧SDK/父接线false不改；业务copy/析构/what和单payload owner不重写 两完整原核315条875B/五页、27call/51内跳/两外部终止tail/三ret及各唯一普通call/父邻窗，只原身份与获批host职责/源对照，不称旧内核逐指令等价。私有头仅一职责说明，源/其他头保持；实际typed捕获/切片/引用与清理、全部成员/硬件SEH/owner寿命、生成ABI/链接/展开和正常快速退出运行未验。RPLAN.24不专项模拟/保护异常、故障等价或降低运行标准"
+    },
+    {
+      "inventory_id": "F:0005D7A0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json"
+      ],
+      "boundary": "BPL01现有45D7A0正确查询独立纳管：edge低W8 bit0未置或count<=0返回−1；一次取S32悬停文本索引，按S32值数组从0扫描首等返回下标/无等−1，不过滤悬停−1、不清鼠标旗位或复制数组/加保护。原两点同属45CE10一父，由UpdateLoginMessage两个现有count1/返回0分支承接，唯一gMessageResult/原55A04C与全部源保持 悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要"
     }
   ],
   "auxiliary_dispositions": [

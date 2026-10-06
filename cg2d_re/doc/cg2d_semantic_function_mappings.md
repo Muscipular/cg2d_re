@@ -2992,3 +2992,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [合同](cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline)/[原证据及旧509/517全文](cg2d_native_cpp_exception_evidence.json)。F:001402AB/F:001407BC各旧记录存previous_mapping_before_bpk01，再具名移交本机compiler/VCRuntime查找/捕获复制职责；当前来源为NCE01六类型/显式copy和现有throw链，旧原数组/记录字段及SDK接线false保持。
 
 315条875B/五页27call/51内跳两外部终止tail/三ret、各唯一call/父邻窗只原基线及host角色静态；不是原体等价或新增捕获引擎。语义1425/1420、关联1538/41.79%保持，分类547→549、CRT150→152枚举open；E720→721仅一局部S，完整门禁/队列和其他域保持。
+
+## BPL01 旧悬停823与新查询1425（2026-10-07）
+
+[合同](cg2d_hover_input_publication_spec.md#hover-input-publication-baseline)/[原窗口/完整query及旧823](cg2d_hover_input_publication_evidence.json)。823/F:00107140全文存previous_mapping_before_bpl01，追加两判定源阶段修正；原2来源、格式/字符串接线及无处置状态保持，不借17条72B评完整799。新1425/F:0005D7A0完整19条47B/两点一父，现有正确S32查询及两消息count1接线登记equivalent，非新增实现。
+
+语义1426/原ID1421、关联1539/3680（41.82%）、分类550；INPUT19/TEXT25/RENDER53枚举open，E727只新增六正常局部I/S；其他域/完整门禁及队列174/待归属45保持。

@@ -54,3 +54,9 @@ signed W32文本计数>=4096才返回−2。否则按入口计数写x/y/mode/col
 当前[DrawAllQueued.cpp](../src/render/DrawAllQueued.cpp)已实现完整批次分发，case4真实调用RenderTextToSurface_456D70，旧“只有声明/未接”已过时。原521723取图形记录+0C/521727调用456D70的局部窗口与当前token消费相互对照，本组不验全部520DD0。文本消费/共享Back DIB依既有[消费SPEC](cg2d_sdl_presenter.md)继续推进；原间接虚调用operand18H保持未解析，不能当绝对callee。
 
 [TQP01局部验收](cg2d_text_queue_alignment_spec.md#text-queue-producer-source-closure)只四生产根/实际生产消费局部；854全部上游参数与业务、间接alias、排序/完整消费、初始化退出和输入渲染寿命、SDK/字形/画面运行未验。未构建/查产物/新增或执行测试/运行/摘要；单线程、音频暂停及网络原格式明文保持。
+
+## BPL01 现有点击索引查询独立基线（2026-10-07）
+
+[完整原查询与接线](cg2d_hover_input_publication_spec.md#hover-input-publication-baseline)/[原19条47B、两调用邻窗](cg2d_hover_input_publication_evidence.json)将已实现45D7A0独立登记1425/F:0005D7A0：左键edge低W8 bit0/count>0才进入，一次取S32悬停索引，首个相等元素返下标、无等返−1；悬停−1仍允许按原数组匹配，不清鼠标旗位或复制/保护数组。
+
+两普通点同属45CE10一父，现有LoginMessage.cpp两个count1/返回0分支/唯一gMessageResult保持。查询/三绘制生产/QueueText/复制/字体层、记录/令牌和owner源码未改；关联悬停父仅两判定发布阶段实修，完整799/消息和排序/消费、焦点/alias-owner寿命及SDK/运行未验。

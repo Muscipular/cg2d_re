@@ -219,9 +219,10 @@ void Sub_507140()
     gHoverColorIndexD6978C = colorIndex;
     const std::uint32_t color = kHoverColors58ACC8[colorIndex];
     const std::uint32_t focus = gWindowHasFocusCA0AB4;
+    const bool hasFocus = focus != 0;
     gValueD69768 = color;
     gHoveredGraphicPendingIndex = -1;
-    if (focus != 0) {
+    if (hasFocus) {
         gWindowHasFocusCA0AB4 = 0;
         return;
     }
@@ -258,8 +259,9 @@ void Sub_507140()
             }
             const std::int32_t inputGate = world::detail::gValueD460C8;
             gHoveredGraphicPendingIndex = -1;
+            const bool inputGateIsZero = inputGate == 0;
             *reinterpret_cast<std::uint8_t*>(&gLegacyMouseState.valueD68DB4) = 0xD4;
-            if (inputGate == 0 && gValue58589C != 0) {
+            if (inputGateIsZero && gValue58589C != 0) {
                 gHoverObjectValueD68AC8 = 0;
             }
             return;

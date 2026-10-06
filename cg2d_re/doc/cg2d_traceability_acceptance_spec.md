@@ -1016,3 +1016,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [可验合同](cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-acceptance)/[两原体/旧前态与SDK定位](cg2d_native_cpp_exception_evidence.json)。仅一组局部S：315条875B/两唯一call父邻窗、当前六类/copy和真实SDK职责定位；两旧原ID按D02登记host。旧数据接线false和所有业务源码保持，私有头只注释，不把安装源码或host批准记为生成ABI/实际捕获通过。
 
 语义1425/1420与关联1538/41.79%保持，分类549、CRT152枚举open、登记E721；队列174/待归属45、R7已审67/3061及所有完整门禁保持。C06/C07/R01/R04只增进展引用并对齐C06职责条件，仍open；10/60源码任务/0完整验收/0叶/global_accepted=false不变，实际typed捕获/切片/清理、成员/硬件SEH/owner寿命和ABI/链接/展开运行按原标准继续。
+
+## BPL01 悬停发布与点击关联正常局部I/S（2026-10-07）
+
+[验收合同](cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance)/[17条发布窗口和完整19条查询分列](cg2d_hover_input_publication_evidence.json)。三域各I/S六条只记两源判定阶段实修/关联既有查询基线，RENDER只枚举悬停根，查询仅关联消费；不把六证据算六功能或完整悬停/输入通过。旧823无处置状态保，新query equivalent有完整原基线。
+
+语义1426/1421、关联1539/41.82%、分类550、INPUT19/TEXT25/RENDER53枚举open、登记E727；队列174/待归属45、R7已审67/3061及其他域/完整门禁保持。T01/T02/U04/R01/R04/V04只引用/进展仍open，10/60源码任务/0完整验收/0叶/global_accepted=false不变；完整消息/799悬停/主循环与焦点、间接alias-owner/寿命、SDK/ABI/链接及实际输入画面按原标准继续。

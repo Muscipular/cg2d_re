@@ -114010,7 +114010,7 @@
     {
       "original_entry": "0x507140",
       "inventory_id": "F:00107140",
-      "status": "已有图像命中与描述父正文、两真实标记查找及12原格式接线；完整渲染悬停/运行未验",
+      "status": "BPL01悬停两判定发布阶段实修，原命中/描述和共享owner保持；完整799父/运行未验",
       "original_role": "排序图像命中及共享悬停描述消费",
       "original_end_exclusive": "0x507C7A",
       "instruction_count": 799,
@@ -114023,7 +114023,7 @@
           "symbols": [
             "Sub_507140"
           ],
-          "relationship": "原查找点位于Sub_507140中描述生产helper调用后"
+          "relationship": "原查找点位于Sub_507140中描述生产helper调用后；BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误"
         },
         {
           "path": "src/YobiRuntime.cpp",
@@ -114080,10 +114080,15 @@
       "evidence_documents": [
         "doc/cg2d_sub_507140.md",
         "doc/cg2d_legacy_string_compare.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json"
       ],
-      "verification_level": "原799条统计/33查找邻读取、507BEE/507C26实际call/两复用字节与45712E/457020、4581A7/457B10真实入向静态核对；整份GraphicHitTest仅两标识符/一个已有公开头，余766条/完整MainLoop加载循环/描述和命中算法不重验，未执行 本次仅335格式及分支相邻指令读取/六新增含NUL字节/既有六格式证据复用；12实际call、共享尾、源码字节和仅17标识符加一已有头静态核对，未重验原父余464条/已过两查找/主循环和加载caller。",
-      "boundary": "现MainLoop/LoadingScreen调用既有Sub_507140不改；命中/排序/门禁后借用同一graphic作DescribeHoveredYobi_507140生产，再同址D68AE8先han后kok查找。仅标准库查找转53BE40，原字段1/5、返回及层字节写入/命中流程/描述生产/共享owner/生命周期正文逐字保持，不新增状态/保护或演示生产者，不把本步接线算完整图像/悬停/显示/资源/CRT运行通过。本次仅描述helper的17标准库格式调用转真实53B304并加已有内部声明头，12实际原点按共享尾登记；场景9/10优先门禁、8次CryptInt读取次序/对象重借、黑名单结果重借、未清局部/共享缓冲及原父正文保持，不宣共享容量跨模块/运行/CRT验收完成。",
+      "verification_level": "原799条统计/33查找邻读取、507BEE/507C26实际call/两复用字节与45712E/457020、4581A7/457B10真实入向静态核对；整份GraphicHitTest仅两标识符/一个已有公开头，余766条/完整MainLoop加载循环/描述和命中算法不重验，未执行 本次仅335格式及分支相邻指令读取/六新增含NUL字节/既有六格式证据复用；12实际call、共享尾、源码字节和仅17标识符加一已有头静态核对，未重验原父余464条/已过两查找/主循环和加载caller。；悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要",
+      "boundary": "现MainLoop/LoadingScreen调用既有Sub_507140不改；命中/排序/门禁后借用同一graphic作DescribeHoveredYobi_507140生产，再同址D68AE8先han后kok查找。仅标准库查找转53BE40，原字段1/5、返回及层字节写入/命中流程/描述生产/共享owner/生命周期正文逐字保持，不新增状态/保护或演示生产者，不把本步接线算完整图像/悬停/显示/资源/CRT运行通过。本次仅描述helper的17标准库格式调用转真实53B304并加已有内部声明头，12实际原点按共享尾登记；场景9/10优先门禁、8次CryptInt读取次序/对象重借、黑名单结果重借、未清局部/共享缓冲及原父正文保持，不宣共享容量跨模块/运行/CRT验收完成。 BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误 悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要",
       "business_call_connections": [
         {
           "parent_entry": "0x507140",
@@ -114515,7 +114520,539 @@
           ]
         }
       ],
-      "business_format_source_expression_count": 17
+      "business_format_source_expression_count": 17,
+      "previous_mapping_before_bpl01": {
+        "original_entry": "0x507140",
+        "inventory_id": "F:00107140",
+        "status": "已有图像命中与描述父正文、两真实标记查找及12原格式接线；完整渲染悬停/运行未验",
+        "original_role": "排序图像命中及共享悬停描述消费",
+        "original_end_exclusive": "0x507C7A",
+        "instruction_count": 799,
+        "original_reference_count": 2,
+        "original_direct_reference_count": 2,
+        "original_direct_call_reference_count": 2,
+        "sources": [
+          {
+            "path": "src/render/GraphicHitTest.cpp",
+            "symbols": [
+              "Sub_507140"
+            ],
+            "relationship": "原查找点位于Sub_507140中描述生产helper调用后"
+          },
+          {
+            "path": "src/YobiRuntime.cpp",
+            "symbols": [
+              "DescribeHoveredYobi_507140"
+            ],
+            "relationship": "原507140描述生产的源码helper，17表达式承接12实际原格式点，不设独立原函数地址"
+          }
+        ],
+        "search_call_connections": [
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507BEE",
+            "source": "src/render/GraphicHitTest.cpp",
+            "symbol": "Sub_507140",
+            "target_entry": "0x53BE40",
+            "target_symbol": "StrStr_53BE40",
+            "source_expression": "gHoverTextD68AE8.data()",
+            "needle_expression": "\"[han]\"",
+            "needle_bytes": "5b68616e5d00",
+            "needle_address": "0x554038",
+            "needle_push_site": "0x507BE4",
+            "relationship": "同一描述生产后的共享悬停串先han后kok；既有字段发布/返回和层字节写入保持"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507C26",
+            "source": "src/render/GraphicHitTest.cpp",
+            "symbol": "Sub_507140",
+            "target_entry": "0x53BE40",
+            "target_symbol": "StrStr_53BE40",
+            "source_expression": "gHoverTextD68AE8.data()",
+            "needle_expression": "\"[kok]\"",
+            "needle_bytes": "5b6b6f6b5d00",
+            "needle_address": "0x554040",
+            "needle_push_site": "0x507C1C",
+            "relationship": "同一描述生产后的共享悬停串先han后kok；既有字段发布/返回和层字节写入保持"
+          }
+        ],
+        "inbound_evidence": [
+          {
+            "reference_site": "0x45712E",
+            "parent_entry": "0x457020",
+            "is_code": true,
+            "reference_type": 17
+          },
+          {
+            "reference_site": "0x4581A7",
+            "parent_entry": "0x457B10",
+            "is_code": true,
+            "reference_type": 17
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_sub_507140.md",
+          "doc/cg2d_legacy_string_compare.md",
+          "doc/cg2d_stdio_contract.md"
+        ],
+        "verification_level": "原799条统计/33查找邻读取、507BEE/507C26实际call/两复用字节与45712E/457020、4581A7/457B10真实入向静态核对；整份GraphicHitTest仅两标识符/一个已有公开头，余766条/完整MainLoop加载循环/描述和命中算法不重验，未执行 本次仅335格式及分支相邻指令读取/六新增含NUL字节/既有六格式证据复用；12实际call、共享尾、源码字节和仅17标识符加一已有头静态核对，未重验原父余464条/已过两查找/主循环和加载caller。",
+        "boundary": "现MainLoop/LoadingScreen调用既有Sub_507140不改；命中/排序/门禁后借用同一graphic作DescribeHoveredYobi_507140生产，再同址D68AE8先han后kok查找。仅标准库查找转53BE40，原字段1/5、返回及层字节写入/命中流程/描述生产/共享owner/生命周期正文逐字保持，不新增状态/保护或演示生产者，不把本步接线算完整图像/悬停/显示/资源/CRT运行通过。本次仅描述helper的17标准库格式调用转真实53B304并加已有内部声明头，12实际原点按共享尾登记；场景9/10优先门禁、8次CryptInt读取次序/对象重借、黑名单结果重借、未清局部/共享缓冲及原父正文保持，不宣共享容量跨模块/运行/CRT验收完成。",
+        "business_call_connections": [
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x5077B0",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x5077F4",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x50781E",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x5078DC",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507980",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x5079CB",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507A13",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507A3D",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507A6B",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507A9A",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507B40",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507BDC",
+            "source": "src/YobiRuntime.cpp",
+            "symbol": "DescribeHoveredYobi_507140"
+          }
+        ],
+        "business_format_points": [
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x5077B0",
+            "target_entry": "0x53B304",
+            "format_address": "0x58AD5C",
+            "format_bytes": "b5a5afc520252d336420252d31367300",
+            "argument_widths": [
+              "S32",
+              "T*",
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "kLevel58AD5C",
+            "source_expression": "fixed->field1D0, fixed->nameC4.data(), fixed->titleE1.data()",
+            "destination_expression": "gHoverTextD68AE8.data()",
+            "destination_capacity": 256,
+            "condition_expression": "场景9：imageNo>0、无80位、有80000位",
+            "relationship": "固定重借对象的等级/名称/额外title；格式只消费前两参，保留额外T*；格式后走旧标记消费。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x5077F4",
+            "target_entry": "0x53B304",
+            "format_address": "0x58AD44",
+            "format_bytes": "b5a5afc520252d336420252d313673205b252d3136735d00",
+            "argument_widths": [
+              "S32",
+              "T*",
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "kTitle58AD44",
+            "source_expression": "fixed->field1D0, fixed->nameC4.data(), fixed->titleE1.data()",
+            "destination_expression": "gHoverTextD68AE8.data()",
+            "destination_capacity": 256,
+            "condition_expression": "场景9优先分支100位",
+            "relationship": "固定对象三级实参，格式后才重新借+144副标题，原余门禁不动。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x50781E",
+            "target_entry": "0x53B304",
+            "format_address": "0x553FE0",
+            "format_bytes": "252d31367300",
+            "argument_widths": [
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "\"%-16s\"",
+            "source_expression": "title",
+            "destination_expression": "gHoverTitleD68BF4.data()",
+            "destination_capacity": 260,
+            "condition_expression": "上项格式后重新借+144，strlen!=0",
+            "relationship": "宽度16为最小宽度，不截断；格式后D69748=4；副标题空串保留旧缓冲和伴随值。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x5078DC",
+            "target_entry": "0x53B304",
+            "argument_widths": [
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "按结果及存在分支选择，见format_variants",
+            "source_format_expression_count": 2,
+            "source_expression": "graphic->reference.action->nameC4.data()",
+            "destination_expression": "message",
+            "destination_capacity": 128,
+            "condition_expression": "100位、Control&2及Insert&4；count<72、name!=nullptr；Contains==0实际Add，否则Already",
+            "format_variants": [
+              {
+                "format_address": "0x5532C4",
+                "format_bytes": "a477b14e2573a55ba44ab6c2a657b3e600",
+                "source_format_expression": "kAdded5532C4",
+                "source_expression": "graphic->reference.action->nameC4.data()",
+                "argument_widths": [
+                  "T*"
+                ],
+                "condition_expression": "added != 0"
+              },
+              {
+                "format_address": "0x5532B0",
+                "format_bytes": "2573a55ba44ab6c2a657b3e6a5a2b1d100",
+                "source_format_expression": "kAddFailed5532B0",
+                "source_expression": "graphic->reference.action->nameC4.data()",
+                "argument_widths": [
+                  "T*"
+                ],
+                "condition_expression": "added == 0"
+              },
+              {
+                "format_address": "0x554928",
+                "format_bytes": "2573a477a662b6c2a657b3e6a4a400",
+                "source_format_expression": "kAlready554928",
+                "source_expression": "graphic->reference.action->nameC4.data()",
+                "argument_widths": [
+                  "T*"
+                ],
+                "condition_expression": "存在分支固定提示"
+              }
+            ],
+            "source_format_branches": [
+              {
+                "source_format_expression": "added != 0 ? kAdded5532C4 : kAddFailed5532B0"
+              },
+              {
+                "source_format_expression": "kAlready554928"
+              }
+            ],
+            "consumer_expression": "Sub_44B050(message, 4, 3)",
+            "relationship": "两源码表达式/三原字节variants共一原call；Contains/Add/Remove后重新从graphic取当前action的名称T*；128B局部不预清，格式后消息。Insert满72固定提示并早返；不新增SE、截断、保护或提前缓存。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507980",
+            "target_entry": "0x53B304",
+            "argument_widths": [
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "按结果及存在分支选择，见format_variants",
+            "source_format_expression_count": 2,
+            "source_expression": "graphic->reference.action->nameC4.data()",
+            "destination_expression": "message",
+            "destination_capacity": 128,
+            "condition_expression": "100位、未中Insert路径、Control&2及Delete&4；name!=nullptr；Contains!=0实际Remove，否则Absent",
+            "format_variants": [
+              {
+                "format_address": "0x5532EC",
+                "format_bytes": "a477b14e2573b171b6c2a657b3e6a4a4b2beb0a300",
+                "source_format_expression": "kRemoved5532EC",
+                "source_expression": "graphic->reference.action->nameC4.data()",
+                "argument_widths": [
+                  "T*"
+                ],
+                "condition_expression": "removed != 0"
+              },
+              {
+                "format_address": "0x5532D8",
+                "format_bytes": "b171b6c2a657b3e6b2beb0a32573a5a2b1d100",
+                "source_format_expression": "kRemoveFailed5532D8",
+                "source_expression": "graphic->reference.action->nameC4.data()",
+                "argument_widths": [
+                  "T*"
+                ],
+                "condition_expression": "removed == 0"
+              },
+              {
+                "format_address": "0x58AD34",
+                "format_bytes": "2573a4a3a662b6c2a657b3e6a4a400",
+                "source_format_expression": "kAbsent58AD34",
+                "source_expression": "graphic->reference.action->nameC4.data()",
+                "argument_widths": [
+                  "T*"
+                ],
+                "condition_expression": "存在分支固定提示"
+              }
+            ],
+            "source_format_branches": [
+              {
+                "source_format_expression": "removed != 0 ? kRemoved5532EC : kRemoveFailed5532D8"
+              },
+              {
+                "source_format_expression": "kAbsent58AD34"
+              }
+            ],
+            "consumer_expression": "Sub_44B050(message, 4, 3)",
+            "relationship": "两源码表达式/三原字节variants共一原call；Contains/Add/Remove后重新从graphic取当前action的名称T*；128B局部不预清，格式后消息。Insert满72固定提示并早返；不新增SE、截断、保护或提前缓存。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x5079CB",
+            "target_entry": "0x53B304",
+            "format_address": "0x58AD5C",
+            "format_bytes": "b5a5afc520252d336420252d31367300",
+            "argument_widths": [
+              "S32",
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "kLevel58AD5C",
+            "source_expression": "action->field1D0, name",
+            "destination_expression": "gHoverTextD68AE8.data()",
+            "destination_capacity": 256,
+            "condition_expression": "场景9优先200位",
+            "relationship": "先选+E1标题，首字节NUL才退回+C4名称；同action等级，格式后RequestCursorState_506DE0(1,0)。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507A13",
+            "target_entry": "0x53B304",
+            "format_address": "0x586C04",
+            "format_bytes": "25732825642900",
+            "argument_widths": [
+              "T*",
+              "S32"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "\"%s(%d)\"",
+            "source_expression": "fixed->nameC4.data(), count",
+            "destination_expression": "gHoverTextD68AE8.data()",
+            "destination_capacity": 256,
+            "condition_expression": "场景9优先400位，载荷+18 S32 count>0",
+            "relationship": "先发布+1D8并固定重借对象，再取payload的+18；同固定name与count；格式后光标请求。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507A3D",
+            "target_entry": "0x53B304",
+            "format_address": "0x5535F8",
+            "format_bytes": "257300",
+            "argument_widths": [
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "\"%s\"",
+            "source_expression": "fixed->nameC4.data()",
+            "destination_expression": "gHoverTextD68AE8.data()",
+            "destination_capacity": 256,
+            "condition_expression": "场景9优先400位，count<=0",
+            "relationship": "非正数量只名称，不新增括号或数量；随后原光标请求。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507A6B",
+            "target_entry": "0x53B304",
+            "format_address": "0x5535F8",
+            "format_bytes": "257300",
+            "argument_widths": [
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "\"%s\"",
+            "source_expression": "action->nameC4.data()",
+            "destination_expression": "gHoverTextD68AE8.data()",
+            "destination_capacity": 256,
+            "condition_expression": "场景9优先800位",
+            "relationship": "同action名称；格式后原光标请求。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507A9A",
+            "target_entry": "0x53B304",
+            "format_address": "0x5535F8",
+            "format_bytes": "257300",
+            "argument_widths": [
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "\"%s\"",
+            "source_expression": "action->nameC4.data()",
+            "destination_expression": "gHoverTextD68AE8.data()",
+            "destination_capacity": 256,
+            "condition_expression": "场景9优先1000位",
+            "relationship": "只名称，不新增光标请求。"
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507B40",
+            "target_entry": "0x53B304",
+            "format_address": "0x58AD04",
+            "format_bytes": "b5a5afc520252d336420252d3136732020a5cda952202534642f252d34642020c55da44f202534642f252d346400",
+            "argument_widths": [
+              "S32",
+              "T*",
+              "S32",
+              "S32",
+              "S32",
+              "S32"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "kFull58AD04",
+            "source_expression": "fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp",
+            "destination_expression": "gHoverTextD68AE8.data()",
+            "destination_capacity": 256,
+            "condition_expression": "场景9优先80位；或场景10 position<10且P；或10<=position<20且非P且无02000000位",
+            "relationship": "两源码完整数值表达式共用一个原格式尾；读取逆于实参次序，固定等级/名称对象，场景10后三getter逐次重借对象，不合并RNG消费。",
+            "source_format_expression_count": 2,
+            "source_format_branches": [
+              {
+                "source_format_expression": "kFull58AD04",
+                "condition_expression": "scene==9 && flags&80；原507775跳507B36",
+                "source_expression": "fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp",
+                "original_value_read_order": [
+                  "0x507740",
+                  "0x50774B",
+                  "0x507756",
+                  "0x507761"
+                ],
+                "original_value_addresses": [
+                  "0xFDA748",
+                  "0xFDA738",
+                  "0xFDA728",
+                  "0xFDA718"
+                ]
+              },
+              {
+                "source_format_expression": "kFull58AD04",
+                "condition_expression": "scene==10，完整数值公尾；10..19原507B98跳507AF5",
+                "source_expression": "fixed->field1D0, fixed->nameC4.data(), hp, maxHp, fp, maxFp",
+                "original_value_read_order": [
+                  "0x507AF5",
+                  "0x507B04",
+                  "0x507B13",
+                  "0x507B22"
+                ],
+                "original_object_offsets": [
+                  "0x1C0",
+                  "0x1B0",
+                  "0x180",
+                  "0x170"
+                ],
+                "object_read_semantics": "首fixed供首getter及最终等级/名称，后三getter各从graphic重新取action"
+              }
+            ]
+          },
+          {
+            "parent_entry": "0x507140",
+            "call_site": "0x507BDC",
+            "target_entry": "0x53B304",
+            "format_address": "0x58AD5C",
+            "format_bytes": "b5a5afc520252d336420252d31367300",
+            "argument_widths": [
+              "S32",
+              "T*"
+            ],
+            "source_format_symbol": "DescribeHoveredYobi_507140",
+            "source_format_expression": "kLevel58AD5C",
+            "source_expression": "action或fixed的field1D0/nameC4，按source_format_branches",
+            "destination_expression": "gHoverTextD68AE8.data()",
+            "destination_capacity": 256,
+            "condition_expression": "scene==10；P=(payload!=nullptr && battlePosition18<10)；<10非P且无02000000、10..19且P、>=20",
+            "relationship": "三个源码等级表达式共用一个原格式尾，按分段保持伴随值4发布/重借对象和早返；不增加全数值getter。",
+            "source_format_expression_count": 3,
+            "source_format_branches": [
+              {
+                "source_format_expression": "kLevel58AD5C",
+                "source_expression": "action->field1D0, action->nameC4.data()",
+                "condition_expression": "position<10 && !P && !(action->flags&02000000)",
+                "original_jump_site": "0x507B68"
+              },
+              {
+                "source_format_expression": "kLevel58AD5C",
+                "source_expression": "fixed->field1D0, fixed->nameC4.data()",
+                "condition_expression": "10<=position<20 && P",
+                "original_binding_site": "0x507BC1"
+              },
+              {
+                "source_format_expression": "kLevel58AD5C",
+                "source_expression": "fixed->field1D0, fixed->nameC4.data()",
+                "condition_expression": "position>=20；P时先发布伴随值",
+                "original_binding_site": "0x507BC1"
+              }
+            ]
+          }
+        ],
+        "business_format_source_expression_count": 17
+      },
+      "hover_input_publication": {
+        "spec_id": "BPL01",
+        "evidence_refs": [
+          "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+          "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+          "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+          "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+          "doc/cg2d_hover_input_publication_evidence.json"
+        ],
+        "phase_instruction_count": 17,
+        "phase_code_bytes": 72,
+        "source_patch_count": 2,
+        "source_body_changed": true,
+        "full_original_root_captured": false,
+        "normal_previous_value_wrong": false,
+        "focus_decision_before_shared_writes": true,
+        "input_gate_decision_before_mouse_byte": true,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false,
+        "concurrency_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x464450",
@@ -174615,6 +175152,227 @@
         "source_body_changed": false,
         "full_general_pow_closed": false,
         "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x45D7A0",
+      "inventory_id": "F:0005D7A0",
+      "original_end_exclusive": "0x45D7CF",
+      "instruction_count": 19,
+      "original_code_bytes": 47,
+      "original_reference_count": 2,
+      "original_direct_reference_count": 2,
+      "original_direct_call_reference_count": 2,
+      "original_inbound_parent_count": 1,
+      "status": "BPL01现有点击索引查询完整正常基线/两消息接线已纳管，非新增实现；完整消息/焦点和运行未验",
+      "sources": [
+        {
+          "path": "src/render/TextPendingQueue.cpp",
+          "symbols": [
+            "FindClickedTextIndex_45D7A0"
+          ],
+          "relationship": "BPL01现有45D7A0正确查询独立纳管：edge低W8 bit0未置或count<=0返回−1；一次取S32悬停文本索引，按S32值数组从0扫描首等返回下标/无等−1，不过滤悬停−1、不清鼠标旗位或复制数组/加保护。原两点同属45CE10一父，由UpdateLoginMessage两个现有count1/返回0分支承接，唯一gMessageResult/原55A04C与全部源保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_hover_input_publication_evidence.json"
+      ],
+      "boundary": "BPL01现有45D7A0正确查询独立纳管：edge低W8 bit0未置或count<=0返回−1；一次取S32悬停文本索引，按S32值数组从0扫描首等返回下标/无等−1，不过滤悬停−1、不清鼠标旗位或复制数组/加保护。原两点同属45CE10一父，由UpdateLoginMessage两个现有count1/返回0分支承接，唯一gMessageResult/原55A04C与全部源保持 悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要",
+      "verification_level": "悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要",
+      "inbound_evidence": [
+        {
+          "from": "0x45cf90",
+          "type": 17,
+          "iscode": true,
+          "parent": "0x45ce10",
+          "parent_end_exclusive": "0x45d714",
+          "window_start": "0x45cf7c",
+          "window_end_exclusive": "0x45cfa6",
+          "rows": [
+            {
+              "ea": "0x45cf7c",
+              "size": 5,
+              "bytes": "e85f750a00",
+              "text": "call    sub_5044E0"
+            },
+            {
+              "ea": "0x45cf81",
+              "size": 3,
+              "bytes": "83c420",
+              "text": "add     esp, 20h"
+            },
+            {
+              "ea": "0x45cf84",
+              "size": 5,
+              "bytes": "a3306e9a00",
+              "text": "mov     dword_9A6E30, eax"
+            },
+            {
+              "ea": "0x45cf89",
+              "size": 2,
+              "bytes": "6a01",
+              "text": "push    1"
+            },
+            {
+              "ea": "0x45cf8b",
+              "size": 5,
+              "bytes": "684ca05500",
+              "text": "push    offset dword_55A04C"
+            },
+            {
+              "ea": "0x45cf90",
+              "size": 5,
+              "bytes": "e80b080000",
+              "text": "call    sub_45D7A0"
+            },
+            {
+              "ea": "0x45cf95",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x45cf98",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x45cf9a",
+              "size": 2,
+              "bytes": "754c",
+              "text": "jnz     short loc_45CFE8"
+            },
+            {
+              "ea": "0x45cf9c",
+              "size": 5,
+              "bytes": "68f0000000",
+              "text": "push    0F0h"
+            },
+            {
+              "ea": "0x45cfa1",
+              "size": 5,
+              "bytes": "6840010000",
+              "text": "push    140h"
+            }
+          ]
+        },
+        {
+          "from": "0x45d23a",
+          "type": 17,
+          "iscode": true,
+          "parent": "0x45ce10",
+          "parent_end_exclusive": "0x45d714",
+          "window_start": "0x45d226",
+          "window_end_exclusive": "0x45d250",
+          "rows": [
+            {
+              "ea": "0x45d226",
+              "size": 5,
+              "bytes": "e8b5720a00",
+              "text": "call    sub_5044E0"
+            },
+            {
+              "ea": "0x45d22b",
+              "size": 3,
+              "bytes": "83c420",
+              "text": "add     esp, 20h"
+            },
+            {
+              "ea": "0x45d22e",
+              "size": 5,
+              "bytes": "a3306e9a00",
+              "text": "mov     dword_9A6E30, eax"
+            },
+            {
+              "ea": "0x45d233",
+              "size": 2,
+              "bytes": "6a01",
+              "text": "push    1"
+            },
+            {
+              "ea": "0x45d235",
+              "size": 5,
+              "bytes": "684ca05500",
+              "text": "push    offset dword_55A04C"
+            },
+            {
+              "ea": "0x45d23a",
+              "size": 5,
+              "bytes": "e861050000",
+              "text": "call    sub_45D7A0"
+            },
+            {
+              "ea": "0x45d23f",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x45d242",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x45d244",
+              "size": 2,
+              "bytes": "754c",
+              "text": "jnz     short loc_45D292"
+            },
+            {
+              "ea": "0x45d246",
+              "size": 5,
+              "bytes": "68f0000000",
+              "text": "push    0F0h"
+            },
+            {
+              "ea": "0x45d24b",
+              "size": 5,
+              "bytes": "6840010000",
+              "text": "push    140h"
+            }
+          ]
+        }
+      ],
+      "native_parent_bindings": [
+        {
+          "parent_entry": "0x45CE10",
+          "call_sites": [
+            "0x45CF90",
+            "0x45D23A"
+          ],
+          "source": "src/LoginMessage.cpp",
+          "symbol": "UpdateLoginMessage",
+          "query_symbol": "FindClickedTextIndex_45D7A0",
+          "lexical_query_expression_count": 2,
+          "values_expression": "&gMessageResult",
+          "count_expression": "1",
+          "return_consumption": "==0",
+          "global_original_address": "0x55A04C"
+        }
+      ],
+      "click_query_source_state": {
+        "spec_id": "BPL01",
+        "evidence_refs": [
+          "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+          "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+          "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance",
+          "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+          "doc/cg2d_hover_input_publication_evidence.json"
+        ],
+        "source_body_already_implemented": true,
+        "source_body_changed": false,
+        "original_full_query_captured": true,
+        "normal_query_bounded_static_verified": true,
+        "full_parents_captured": false,
+        "runtime_verified": false,
+        "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
       }
     }

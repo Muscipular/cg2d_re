@@ -3118,3 +3118,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-baseline)/[四根冻结前态](cg2d_battle_skill_display_motion_sampling_evidence.json)。新增1492..1495对应417D80/4185C0/4185F0/418620，四原已有定义正常语义/equivalent，四冻结定位保。只243三W8源表达式对四原点，原技能CMP/六RAND点和三正确移动体/正常转换及其它原业务保持，不新R7/原__ftol身份。
 
 语义1496/有效1491、关联1609/3680（43.72%）、BATTLE173枚举open、分类621/E764，R7 260/3061/余2801、差队列172/待归属43和其它全部完整门禁不变。
+
+## BQG01 七工厂/批次显示/退出完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline)/[七根冻结前态](cg2d_battle_factory_batch_exit_sampling_evidence.json)。新增1496..1502对应4071C0/40FC10/40B180/40FE50/40FEB0/4186B0/418B50，七原已有完整定义正常语义/equivalent，七冻结定位全文保存。只249一处与255四处：一次event、归零encoded先目标、三低W8表达式对四原点。工厂30创建/31父case及118默认、counter1DC真实恢复量、固定effect与fresh C9C差别和其它五正确体保持，不新增R7/父表分类。
+
+语义1503/有效1498、关联1616/3680（43.91%）、BATTLE180枚举open、分类628/E766；R7 260/3061/余2801、差队列172/待归属43和其它全部完整门禁保持。

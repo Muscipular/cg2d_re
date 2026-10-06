@@ -179755,6 +179755,377 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x004071C0",
+      "inventory_id": "F:000071C0",
+      "original_role": "UpdateBattleAction249_4071C0",
+      "original_end_exclusive": "0x004072E0",
+      "instruction_count": 79,
+      "status": "BQG01七完整工厂/批次显示/退出正常源纳管，249事件一次取样和255归零/低W8共五片段实修；实际counter1DC恢复量及其余五正确体保，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction249_4071C0"
+          ],
+          "relationship": "249：固定payload，characterAction=5/framePlayingRate=100；当前effect位置非-1才Turn(source,共享目标,1,0)，PlayFrame(source,1)恰好返回1才推进施法。调用后重新取得当前effect位置，-1则frameEvent=0返回；其后一次W32读取frameEvent，同一值比较[10000,20000)。原407231 MOV EAX配407237/407242两个CMP，只新增event局部，不提前到位置哨兵之前。区间内原do循环每次先读level：>=12生成图111030，否则skill2005图104222/4003图104238；其它skill不生成仍Advance。每次创建取得当前C9C及record，直到AdvanceBattleEffect恰好返回1，原无新循环限制。最后声268/source.x→frameEvent0；图值、调用后独立取样、返回消费和正确业务保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "249：固定payload，characterAction=5/framePlayingRate=100；当前effect位置非-1才Turn(source,共享目标,1,0)，PlayFrame(source,1)恰好返回1才推进施法。调用后重新取得当前effect位置，-1则frameEvent=0返回；其后一次W32读取frameEvent，同一值比较[10000,20000)。原407231 MOV EAX配407237/407242两个CMP，只新增event局部，不提前到位置哨兵之前。区间内原do循环每次先读level：>=12生成图111030，否则skill2005图104222/4003图104238；其它skill不生成仍Advance。每次创建取得当前C9C及record，直到AdvanceBattleEffect恰好返回1，原无新循环限制。最后声268/source.x→frameEvent0；图值、调用后独立取样、返回消费和正确业务保。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_factory_batch_exit_sampling": {
+        "spec_id": "BQG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+          "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 79,
+        "original_code_bytes": 288,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 6,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "source_hp_or_icon_recipients_changed": false,
+        "original_w32_flag_register_snapshot_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0040FC10",
+      "inventory_id": "F:0000FC10",
+      "original_role": "UpdateBattleFactoryAction_40FC10",
+      "original_end_exclusive": "0x0040FE41",
+      "instruction_count": 203,
+      "status": "BQG01七完整工厂/批次显示/退出正常源纳管，249事件一次取样和255归零/低W8共五片段实修；实际counter1DC恢复量及其余五正确体保，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleFactoryAction_40FC10"
+          ],
+          "relationship": "40FC10工厂共体：固定payload，FDC为W32读后AL寄存器bit60判断，清时PlayFrame(source,0)弃返；之后重新读value1024，非0不创建仍phase162。为0才一次读取phase按原30个CMP/类型分支创建，原不是物理跳转表：130→13、116→1、117→2、133→25、149→16、150→18、151→21、152→22、153→23、119→4、120→5、121→7、122→8、123→9、124→10、125→11、126→12、134→26、135→27、136→28、137→29、131→14、132→15、146→6、157→37、158→38、161→39、217→40、250→41、252→42。匹配后NewEffect(source,0,offsetY0,type,0,1)，返回弃置、不保存+10；不匹配无创建，所有路径phase162。父31个逻辑case复用这一个原F身份；118实际表项405914同40530F但没有创建分支，走默认仍phase162。250/252表项405B24/405B2C同目标，既有父表不重新R7分类。源switch只是既有CMP语义承接，完整正确共体保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "40FC10工厂共体：固定payload，FDC为W32读后AL寄存器bit60判断，清时PlayFrame(source,0)弃返；之后重新读value1024，非0不创建仍phase162。为0才一次读取phase按原30个CMP/类型分支创建，原不是物理跳转表：130→13、116→1、117→2、133→25、149→16、150→18、151→21、152→22、153→23、119→4、120→5、121→7、122→8、123→9、124→10、125→11、126→12、134→26、135→27、136→28、137→29、131→14、132→15、146→6、157→37、158→38、161→39、217→40、250→41、252→42。匹配后NewEffect(source,0,offsetY0,type,0,1)，返回弃置、不保存+10；不匹配无创建，所有路径phase162。父31个逻辑case复用这一个原F身份；118实际表项405914同40530F但没有创建分支，走默认仍phase162。250/252表项405B24/405B2C同目标，既有父表不重新R7分类。源switch只是既有CMP语义承接，完整正确共体保持。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_factory_batch_exit_sampling": {
+        "spec_id": "BQG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+          "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 203,
+        "original_code_bytes": 561,
+        "original_page_count": 3,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "source_hp_or_icon_recipients_changed": false,
+        "original_w32_flag_register_snapshot_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0040B180",
+      "inventory_id": "F:0000B180",
+      "original_role": "UpdateBattleAction251_40B180",
+      "original_end_exclusive": "0x0040B1FA",
+      "instruction_count": 31,
+      "status": "BQG01七完整工厂/批次显示/退出正常源纳管，249事件一次取样和255归零/低W8共五片段实修；实际counter1DC恢复量及其余五正确体保，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction251_40B180"
+          ],
+          "relationship": "251：ConstructFromInt(temporary,1)后先齐读mask W32、encoded W32、readCount W8，再按同序发布source.readiness→Destroy；同temporary再次Construct1、三字段齐读后同序发布source.barValue1B0→Destroy，最后439340(source)。两个构造/RNG消费和三字段取样发布已正确，不替换为交替读取的普通CopyPayload，不改正确体。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "251：ConstructFromInt(temporary,1)后先齐读mask W32、encoded W32、readCount W8，再按同序发布source.readiness→Destroy；同temporary再次Construct1、三字段齐读后同序发布source.barValue1B0→Destroy，最后439340(source)。两个构造/RNG消费和三字段取样发布已正确，不替换为交替读取的普通CopyPayload，不改正确体。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_factory_batch_exit_sampling": {
+        "spec_id": "BQG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+          "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 31,
+        "original_code_bytes": 122,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 5,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "source_hp_or_icon_recipients_changed": false,
+        "original_w32_flag_register_snapshot_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0040FE50",
+      "inventory_id": "F:0000FE50",
+      "original_role": "UpdateBattleAction253_40FE50",
+      "original_end_exclusive": "0x0040FEA3",
+      "instruction_count": 31,
+      "status": "BQG01七完整工厂/批次显示/退出正常源纳管，249事件一次取样和255归零/低W8共五片段实修；实际counter1DC恢复量及其余五正确体保，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction253_40FE50"
+          ],
+          "relationship": "253：固定const payload，FDC W32取样后低寄存器bit60判断，清时PlayFrame(source,0)弃返；调用后独立读取source.phase恰好253且独立payload.value1024为0才NewEffect(source,0,offsetY0,43,0,1)，返回保存source.battleCastEffect10。全部路径439340(source)。不复用播放前phase/value，不窄化原W32 FDC，不改正确体。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "253：固定const payload，FDC W32取样后低寄存器bit60判断，清时PlayFrame(source,0)弃返；调用后独立读取source.phase恰好253且独立payload.value1024为0才NewEffect(source,0,offsetY0,43,0,1)，返回保存source.battleCastEffect10。全部路径439340(source)。不复用播放前phase/value，不窄化原W32 FDC，不改正确体。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_factory_batch_exit_sampling": {
+        "spec_id": "BQG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+          "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 31,
+        "original_code_bytes": 83,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "source_hp_or_icon_recipients_changed": false,
+        "original_w32_flag_register_snapshot_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0040FEB0",
+      "inventory_id": "F:0000FEB0",
+      "original_role": "UpdateBattleAction254_40FEB0",
+      "original_end_exclusive": "0x0040FEE6",
+      "instruction_count": 18,
+      "status": "BQG01七完整工厂/批次显示/退出正常源纳管，249事件一次取样和255归零/低W8共五片段实修；实际counter1DC恢复量及其余五正确体保，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction254_40FEB0"
+          ],
+          "relationship": "254：source.battleCastEffect10非拥有指针先取，payload后取；前者非空才MarkDeath(cached effect)→source.+10=null→固定payload.value1024=0，所有路径439340(source)。原空分支不清value1024，调用后的清槽与取样顺序已正确，源体保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "254：source.battleCastEffect10非拥有指针先取，payload后取；前者非空才MarkDeath(cached effect)→source.+10=null→固定payload.value1024=0，所有路径439340(source)。原空分支不清value1024，调用后的清槽与取样顺序已正确，源体保持。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_factory_batch_exit_sampling": {
+        "spec_id": "BQG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+          "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 18,
+        "original_code_bytes": 54,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "source_hp_or_icon_recipients_changed": false,
+        "original_w32_flag_register_snapshot_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x004186B0",
+      "inventory_id": "F:000186B0",
+      "original_role": "UpdateBattleAction255_4186B0",
+      "original_end_exclusive": "0x00418B48",
+      "instruction_count": 339,
+      "status": "BQG01七完整工厂/批次显示/退出正常源纳管，249事件一次取样和255归零/低W8共五片段实修；实际counter1DC恢复量及其余五正确体保，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction255_4186B0"
+          ],
+          "relationship": "255入口/创建：frameEvent先读、payload后固定，characterAction5/rate100；事件[10000,20000)进入原无限循环。每轮取当前C9C并固定effect引用（原ESI），fixed.position=-1或shared target=null均按原break到批次尾；缓存target与targetPayload。仅入口index0创建type47，position<10坐标500/450，否则150/50，NewEffect(source,x,offsetYy,47,0,1)弃返。创建后fixed effect.flags W32取样选主图：4→110000，400→FindTechnique(8,fixed.position)<12为110098否则111048，200→110135，否则重新读parent.C9C==0为110135，余路径一次RAND(0,2)+110001。固定effect.flags再W32读写cached target.FE4，之后fresh parent.battlePosition调用ApplyFlags(source)。固定引用不替换成每次fresh C9C。\n255命中/扣减：独立fixed.flags W32命中缓存，8目标phase31；100无旧flash门禁，flash1→声210/source.x→phase31。其它E000清且fixed.amount非0，cached bit2目标110008、主图非负目标主图、Rebirth(source,target)→声134/source.x。扣HP参数严格fixed.position先、fixed.amount后、shared target T*最后；Less0另读fixed.position/shared目标。负值Construct0后fixed.position→临时encoded→shared目标指针，先写目标encoded，再读/写mask，再读/写readCount，Destroy；不是先取目标后CopyPayload，也不是三字段齐读。随后fixed.flags实际低W8 bit20，cached targetPayload.FDC保W32|2、全局更新门1、alive1；此处原4188E3是TEST BYTE，新增独立activationFlags。\n255显示/恢复：fresh fixed.flags W32主缓存，8000仅439340(target)；4000先439340(target)，fixed.flags10000000当前fixed.position共享目标图22459后跳属性；否则shared[fixed.position]作为healTarget，恢复量确实读取healTarget.counter1DC（原41896C MOV [EAX+1DC]），AddHP，再fresh fixed.position共享目标GreaterHP/max，超过原上限才fresh同位置目标普通CopyPayload。不改为effect.amount；恢复数显fixed.flags W32→cached target.Y→fixed.amount→target.X，type5/style2。2000只439340(target)。其它100000回收cached targetPayload.effect1054，调用后FDC先读、槽null后FDC&~20；439340(target)后fixed.flags W32，10000000使用fresh parent.C9C的current.position共享目标图22459并跳属性，此原独立重新定位保；否则target.Y→fixed.amount→target.X/type6/style2。恢复和普通数显后原4189E6/418A85各fixed.flags低W8 bit2，cached target图22454，Attribute(source,cached target)；源共享一attributeFlags低W8表达式承接两个实际路径，不计为两个源片段。\n255共同尾：fixed.flags实际低W8 bit8清且fixed.amount非0，按cached targetPayload当前FDC W32 bit1求14*(bit+1)写fixed parent.FD0；此处原418AAB TEST BYTE，新增tailFlags。不改变W32初始/命中/主显示/恢复/回收缓存及AL/AH寄存器消费。Advance(source)恰好1结束批次，否则下一轮fresh C9C。原位置/空目标break及正常结束共同声268/source.x→speed8/rate100→parent.FF0=0→frameEvent0；共同PlayFrame(source,1)返回1才439340(source)。接收者、HP来源/上限、独立取样、原失败/哨兵、返回/RNG与调用顺序保持，无新异常、边界或迭代保护。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "255入口/创建：frameEvent先读、payload后固定，characterAction5/rate100；事件[10000,20000)进入原无限循环。每轮取当前C9C并固定effect引用（原ESI），fixed.position=-1或shared target=null均按原break到批次尾；缓存target与targetPayload。仅入口index0创建type47，position<10坐标500/450，否则150/50，NewEffect(source,x,offsetYy,47,0,1)弃返。创建后fixed effect.flags W32取样选主图：4→110000，400→FindTechnique(8,fixed.position)<12为110098否则111048，200→110135，否则重新读parent.C9C==0为110135，余路径一次RAND(0,2)+110001。固定effect.flags再W32读写cached target.FE4，之后fresh parent.battlePosition调用ApplyFlags(source)。固定引用不替换成每次fresh C9C。\n255命中/扣减：独立fixed.flags W32命中缓存，8目标phase31；100无旧flash门禁，flash1→声210/source.x→phase31。其它E000清且fixed.amount非0，cached bit2目标110008、主图非负目标主图、Rebirth(source,target)→声134/source.x。扣HP参数严格fixed.position先、fixed.amount后、shared target T*最后；Less0另读fixed.position/shared目标。负值Construct0后fixed.position→临时encoded→shared目标指针，先写目标encoded，再读/写mask，再读/写readCount，Destroy；不是先取目标后CopyPayload，也不是三字段齐读。随后fixed.flags实际低W8 bit20，cached targetPayload.FDC保W32|2、全局更新门1、alive1；此处原4188E3是TEST BYTE，新增独立activationFlags。\n255显示/恢复：fresh fixed.flags W32主缓存，8000仅439340(target)；4000先439340(target)，fixed.flags10000000当前fixed.position共享目标图22459后跳属性；否则shared[fixed.position]作为healTarget，恢复量确实读取healTarget.counter1DC（原41896C MOV [EAX+1DC]），AddHP，再fresh fixed.position共享目标GreaterHP/max，超过原上限才fresh同位置目标普通CopyPayload。不改为effect.amount；恢复数显fixed.flags W32→cached target.Y→fixed.amount→target.X，type5/style2。2000只439340(target)。其它100000回收cached targetPayload.effect1054，调用后FDC先读、槽null后FDC&~20；439340(target)后fixed.flags W32，10000000使用fresh parent.C9C的current.position共享目标图22459并跳属性，此原独立重新定位保；否则target.Y→fixed.amount→target.X/type6/style2。恢复和普通数显后原4189E6/418A85各fixed.flags低W8 bit2，cached target图22454，Attribute(source,cached target)；源共享一attributeFlags低W8表达式承接两个实际路径，不计为两个源片段。\n255共同尾：fixed.flags实际低W8 bit8清且fixed.amount非0，按cached targetPayload当前FDC W32 bit1求14*(bit+1)写fixed parent.FD0；此处原418AAB TEST BYTE，新增tailFlags。不改变W32初始/命中/主显示/恢复/回收缓存及AL/AH寄存器消费。Advance(source)恰好1结束批次，否则下一轮fresh C9C。原位置/空目标break及正常结束共同声268/source.x→speed8/rate100→parent.FF0=0→frameEvent0；共同PlayFrame(source,1)返回1才439340(source)。接收者、HP来源/上限、独立取样、原失败/哨兵、返回/RNG与调用顺序保持，无新异常、边界或迭代保护。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_factory_batch_exit_sampling": {
+        "spec_id": "BQG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+          "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 339,
+        "original_code_bytes": 1176,
+        "original_page_count": 5,
+        "original_outgoing_call_count": 29,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 4,
+        "normal_previous_values_wrong": false,
+        "source_hp_or_icon_recipients_changed": false,
+        "original_w32_flag_register_snapshot_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00418B50",
+      "inventory_id": "F:00018B50",
+      "original_role": "UpdateBattleAction256_418B50",
+      "original_end_exclusive": "0x00418B65",
+      "instruction_count": 3,
+      "status": "BQG01七完整工厂/批次显示/退出正常源纳管，249事件一次取样和255归零/低W8共五片段实修；实际counter1DC恢复量及其余五正确体保，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction256_418B50"
+          ],
+          "relationship": "256：原三条/21B写共享gValue5ABB1C=0→gValue5ABB20=1→ret，忽略父传入action。源无参数名保持；唯一父40563A调用后直接落入共同尾40563F，没有额外跳转。只纳管该原完整身份，不扩展为独立生命周期或父完整验收。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "256：原三条/21B写共享gValue5ABB1C=0→gValue5ABB20=1→ret，忽略父传入action。源无参数名保持；唯一父40563A调用后直接落入共同尾40563F，没有额外跳转。只纳管该原完整身份，不扩展为独立生命周期或父完整验收。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_factory_batch_exit_sampling": {
+        "spec_id": "BQG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+          "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+          "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 3,
+        "original_code_bytes": 21,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "source_hp_or_icon_recipients_changed": false,
+        "original_w32_flag_register_snapshot_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

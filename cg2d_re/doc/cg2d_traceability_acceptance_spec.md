@@ -1142,3 +1142,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-acceptance)/[完整633条2207B](cg2d_battle_skill_display_motion_sampling_evidence.json)。十页、45call/22入口/97jump/四ret、四父12邻窗/32B、一真实系数和三源/四原W8可追。技能图值/模式/级别与六RAND点每路径消费、无扣HP/其它图标后仍Attribute差别、W32缓存/上限copy/两条件播放/退场与三正确移动/正常转换保，正常旧值一致。两局部I/S各十二实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
 
 语义1496/1491、关联1609/43.72%、BATTLE173枚举open、分类621/E764；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保。
+
+## BQG01 七完整工厂/批次显示/退出局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance)/[完整704条2305B](cg2d_battle_factory_batch_exit_sampling_evidence.json)。十三页、47call/22入口/120jump/七ret、七父四窗实际20条/69B及三既有表项可追，256父调用后落尾，无额外jmp。只249一次event与255归零/三W8表达式对四原点共五源阶段，正常旧值一致；工厂30类型/31父case及118默认、251两齐读临时/253后取phase与保存/254回收/256两写、255实际counter1DC/固定effect与fresh C9C差别/W32及上限copy/RNG/播放尾保持。两局部I/S各十五实际来源，不代生成机器/运行或完整递归生产/owner寿命。
+
+语义1503/1498、关联1616/43.91%、BATTLE180枚举open、分类628/E766；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保持。

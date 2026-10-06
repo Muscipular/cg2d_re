@@ -2278,7 +2278,8 @@
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-baseline",
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-baseline",
-        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-baseline"
+        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2453,7 +2454,14 @@
         "F:00017D80",
         "F:000185C0",
         "F:000185F0",
-        "F:00018620"
+        "F:00018620",
+        "F:000071C0",
+        "F:0000FC10",
+        "F:0000B180",
+        "F:0000FE50",
+        "F:0000FEB0",
+        "F:000186B0",
+        "F:00018B50"
       ],
       "closure_task_ids": [
         "P01",
@@ -2557,7 +2565,8 @@
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-decision",
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-decision",
-        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-decision"
+        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2650,7 +2659,8 @@
         "BQC01五完整583条2104B/十页、58call/26入口/49jump/六ret、五父15邻窗/52B和228真实内部call229/两F32常数纳管，232三数显索引先Y、反伤归零齐读/普通扣减encoded先共享目标五阶段恢复；228..231正确体、cached W32寄存器旗位、独立RNG/原HP图标接收者/共享尾和返回保。158原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
         "BQD01四完整834条2947B/十三页、62call/26入口/86jump/八ret、四父12邻窗/35B和十F32纳管，233三/234三/237五共十一源阶段恢复：初始FDC/FCC先取、四内存W8/下边界角度两读、三数显索引先Y/两归零原序；236正确体/已证父弃返、S16width既有getter/普通helper/原W32旗位、HP图标接收者/RNG/同步帧循环/返回保。162原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、完整图形链/SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
         "BQE01七完整729条2516B/十四页、60call/26入口/77jump/十二ret、七父21邻窗/56B、两共用表项/三F32纳管；共体五/241一共六源阶段恢复，三W8源表达式承接四实际原点、index/encoded先position/共享目标、速度先零比较后phase239/声事件先X。八逻辑状态七物理身份不重复分类，五正确体/普通helper/W32缓存、HP图标接收者/RNG/两播放/循环与额外推进/返回保。169原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
-        "BQF01四完整633条2207B/十页、45call/22入口/97jump/四ret、四父12邻窗/32B和246原F32系数纳管，243三W8源表达式对四原点，原技能CMP/图值/模式/级别/六RAND物理点各路径消费、W32缓存/无扣HP/其它图标后仍Attribute区别、原上限copy/两条件播放/退场及三个正确移动体保。原无switch表，不新R7或__ftol身份；173原成员枚举open。正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open"
+        "BQF01四完整633条2207B/十页、45call/22入口/97jump/四ret、四父12邻窗/32B和246原F32系数纳管，243三W8源表达式对四原点，原技能CMP/图值/模式/级别/六RAND物理点各路径消费、W32缓存/无扣HP/其它图标后仍Attribute区别、原上限copy/两条件播放/退场及三个正确移动体保。原无switch表，不新R7或__ftol身份；173原成员枚举open。正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+        "BQG01七完整704条2305B/十三页、47call/22入口/120jump/七ret、七父四窗20条/69B和三既有表项纳管。249一次event及255归零encoded先目标/三低W8对四原点，共五片段/两体；正常旧值一致。工厂30创建/31父case与118默认无创建、251两临时齐读/253原W32后取phase与+10保存/254先指针回收/256两全局写正确体保持。255真实healTarget.counter1DC、fixed effect与普通免疫fresh C9C差别/W32缓存/HP原上限copy/RNG/播放尾保；工厂无物理switch表，不新R7/父表分类。180原成员枚举open；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2743,7 +2753,8 @@
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
-        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state"
+        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state"
       ]
     },
     {
@@ -32843,6 +32854,80 @@
       "observation": "243入口/技能图：fixed payload，fresh initial record.flags低W8 bit8清才同index.position/共享目标Turn(source,target,0,0)。另fresh current.position/共享目标Distance<20且fresh source.frameEvent0才处理。fresh current同index.position→initialFlags W32→共享target T*→targetPayload T*，image/second=-1/mode0。cached initial bit4图110000，800图110099，400为FindTechnique(8,position)<12图110098否则111048；其余skill W32按实际CMP链选择（原无物理switch表，源switch仅承接语义）。0/2007/2008/2021 level<12主110133否则111029；1为110134/111047，3为110135/111046，5为110139/111052，6为110137/111050；75..80、2096..2101、110主110074；81/84/85/87主110174/110175/110159/110160。257 second110476，level>=12 second111051且主仍-1；否则>=9才主110014。258只second110477；259一次RAND(0,2)+110001主且second110470；260 level<12主110473否则111054；262 level<12主110473/mode1，否则111049/mode0。95/3019/4002/3038原各独立RAND点，及其它default同RAND(0,2)+110001主；源default合并等价分支但每实际路径只一次RNG，六原RAND物理点不虚计六源表达式/新身份。所有图值/级别/模式和返回消费正确体保。 243命中/显示：Turn(cached target,source,1,0)后fresh ownPosition/共享attacker写target+10，fresh current.flags W32写targetPayload.FE4→fresh ownPosition ApplyFlags(position,source)。fresh level>=9且fresh skill259才NewTiled(0,15)。fresh hitIndex/flags W32，bit8 phase31；100先target.flash1→声210(x)→phase31，无新增flash旧值条件；其它hitFlags7E000清且sameindex.amount!=0，bit2 target110008，primary>=0按imageMode生成target主图、second>=0独立target次图/0；Rebirth(fresh共享ownPosition attacker,target)→声255(x)。该原分支没有扣HP，不从相似共体加Subtract/归零。 243恢复/属性/时长：fresh current.flags W32，48000只439340(target)；24000先439340(target)，fresh healIndex.flags W32 10000000当前共享目标图22459后跳共同尾，不显示Attribute；否则same healIndex.amount先position/共享目标后AddHP，fresh shared target GreaterHP/max超原上限才另fresh目标普通CopyPayload encoded/mask/count交替。数显fresh display.flags W32→targetY→same display.amount→targetX/type5/style2。12000只439340(target)。其它100000原回收target.effect1054，调用后targetFDC先读、槽null后FDC&~20；439340(target)后fresh displayIndex.flags W32 10000000当前图22459，随后仍走属性图/Attribute（与238/239不同）；即使无10000000也走Attribute，没有新的伤害数显。恢复数显/其它分支原41836A/418424各fresh current.flags低W8 bit2才cached target22454，Attribute(fresh共享ownPosition attacker,target)；源共用一W8表达式承接两原路径，不重复源片段。共同fresh tailIndex.flags低W8 bit8清且sameindex.amount非0才按cached targetPayload当前FDC W32 bit1求14*(bit+1)；取fresh skill先，FD0=duration后skill267/3029才覆盖2，frameEvent1。初始/命中/主显示/恢复/最后回收flags W32缓存及寄存器AL/AH/CL/CH保持。 243计时/退场：fresh remainingFD0>0减1，fresh source.imageNo只有110016/111055才PlayFrame0弃返；随后独立fresh FD0==0再PlayFrame0→Move，允许归零当帧按原图两次播放。fresh frameEvent1才fresh current.flags W32，两寄存器bit8/100均清MarkDeath(source)，phase17；其它事件仅返回，没有238/239的再转向分支。保原唯一ret、接收者/缓存别名/真实失败/原上限/调用返回/RNG，无新动画/迭代或异常限制。 246：fixed payload/fresh currentIndex，same record.position3 S32先，FILD正常整数乘原54D4E4 F32字节0ad7233c（0.009999999776482582），F32发布source.value54→439470→439340。现bit_cast<float>(0x3C23D70A)正确，不把系数换成double 0.01，不改正确体/实际x87未验。 247：source.offset40 F32先取，再fixed payload；原__ftol正常S32边界承接x→payload.x10，之后fresh source.offset44→S32→payload.y14，再439340。源int32转换/取样和正确体保，不新原__ftol身份或异常/回绕/机器ABI等价。 248：fixed payload，characterAction1/speed8/frameRate100；payload.y14 S32转F32 Y先、x10 S32转F32 X后，Turn(source,X,Y,1,0)→Move。调用后fresh y14转F32、x10转F32，Distance(source,X,Y)<5才fresh x10→offset40 F32、fresh y14→offset44 F32→439340，所有路径PlayFrame(source,0)返回。保Y/X读序、独立前后参数、S32/F32存储、阈值与返回，正确体不改。",
       "expected": "243入口/技能图：fixed payload，fresh initial record.flags低W8 bit8清才同index.position/共享目标Turn(source,target,0,0)。另fresh current.position/共享目标Distance<20且fresh source.frameEvent0才处理。fresh current同index.position→initialFlags W32→共享target T*→targetPayload T*，image/second=-1/mode0。cached initial bit4图110000，800图110099，400为FindTechnique(8,position)<12图110098否则111048；其余skill W32按实际CMP链选择（原无物理switch表，源switch仅承接语义）。0/2007/2008/2021 level<12主110133否则111029；1为110134/111047，3为110135/111046，5为110139/111052，6为110137/111050；75..80、2096..2101、110主110074；81/84/85/87主110174/110175/110159/110160。257 second110476，level>=12 second111051且主仍-1；否则>=9才主110014。258只second110477；259一次RAND(0,2)+110001主且second110470；260 level<12主110473否则111054；262 level<12主110473/mode1，否则111049/mode0。95/3019/4002/3038原各独立RAND点，及其它default同RAND(0,2)+110001主；源default合并等价分支但每实际路径只一次RNG，六原RAND物理点不虚计六源表达式/新身份。所有图值/级别/模式和返回消费正确体保。 243命中/显示：Turn(cached target,source,1,0)后fresh ownPosition/共享attacker写target+10，fresh current.flags W32写targetPayload.FE4→fresh ownPosition ApplyFlags(position,source)。fresh level>=9且fresh skill259才NewTiled(0,15)。fresh hitIndex/flags W32，bit8 phase31；100先target.flash1→声210(x)→phase31，无新增flash旧值条件；其它hitFlags7E000清且sameindex.amount!=0，bit2 target110008，primary>=0按imageMode生成target主图、second>=0独立target次图/0；Rebirth(fresh共享ownPosition attacker,target)→声255(x)。该原分支没有扣HP，不从相似共体加Subtract/归零。 243恢复/属性/时长：fresh current.flags W32，48000只439340(target)；24000先439340(target)，fresh healIndex.flags W32 10000000当前共享目标图22459后跳共同尾，不显示Attribute；否则same healIndex.amount先position/共享目标后AddHP，fresh shared target GreaterHP/max超原上限才另fresh目标普通CopyPayload encoded/mask/count交替。数显fresh display.flags W32→targetY→same display.amount→targetX/type5/style2。12000只439340(target)。其它100000原回收target.effect1054，调用后targetFDC先读、槽null后FDC&~20；439340(target)后fresh displayIndex.flags W32 10000000当前图22459，随后仍走属性图/Attribute（与238/239不同）；即使无10000000也走Attribute，没有新的伤害数显。恢复数显/其它分支原41836A/418424各fresh current.flags低W8 bit2才cached target22454，Attribute(fresh共享ownPosition attacker,target)；源共用一W8表达式承接两原路径，不重复源片段。共同fresh tailIndex.flags低W8 bit8清且sameindex.amount非0才按cached targetPayload当前FDC W32 bit1求14*(bit+1)；取fresh skill先，FD0=duration后skill267/3029才覆盖2，frameEvent1。初始/命中/主显示/恢复/最后回收flags W32缓存及寄存器AL/AH/CL/CH保持。 243计时/退场：fresh remainingFD0>0减1，fresh source.imageNo只有110016/111055才PlayFrame0弃返；随后独立fresh FD0==0再PlayFrame0→Move，允许归零当帧按原图两次播放。fresh frameEvent1才fresh current.flags W32，两寄存器bit8/100均清MarkDeath(source)，phase17；其它事件仅返回，没有238/239的再转向分支。保原唯一ret、接收者/缓存别名/真实失败/原上限/调用返回/RNG，无新动画/迭代或异常限制。 246：fixed payload/fresh currentIndex，same record.position3 S32先，FILD正常整数乘原54D4E4 F32字节0ad7233c（0.009999999776482582），F32发布source.value54→439470→439340。现bit_cast<float>(0x3C23D70A)正确，不把系数换成double 0.01，不改正确体/实际x87未验。 247：source.offset40 F32先取，再fixed payload；原__ftol正常S32边界承接x→payload.x10，之后fresh source.offset44→S32→payload.y14，再439340。源int32转换/取样和正确体保，不新原__ftol身份或异常/回绕/机器ABI等价。 248：fixed payload，characterAction1/speed8/frameRate100；payload.y14 S32转F32 Y先、x10 S32转F32 X后，Turn(source,X,Y,1,0)→Move。调用后fresh y14转F32、x10转F32，Distance(source,X,Y)<5才fresh x10→offset40 F32、fresh y14→offset44 F32→439340，所有路径PlayFrame(source,0)返回。保Y/X读序、独立前后参数、S32/F32存储、阈值与返回，正确体不改。",
       "actual": "四完整原根633条2207B/十页、45call/22入口/97普通内部jump/四ret，四唯一404DB0入向12邻窗/32B与一真实F32系数。只243三W8源表达式承接四真实原点：首次转向、属性共用两路径、时长；正常旧值一致，不称并发/数值或机器故障。原技能CMP链/级别/图值/模式与六RAND物理点/各路径消费、W32寄存器旗位、无扣HP事实、恢复数显/其它图标后仍Attribute区别、上限普通CopyPayload、两条件播放/退场及其它三正确移动体/正常转换/返回保持。原无物理switch表，不新R7或原__ftol身份。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-FACTORY-BATCH-EXIT-SAMPLING-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQG01七完整704条2305B/十三页、47call/120jump/七ret、七父四窗20条/69B、三既有表项及五源片段；doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-factory-batch-exit-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction249_4071C0",
+        "src/YobiRuntime.cpp#UpdateBattleFactoryAction_40FC10",
+        "src/YobiRuntime.cpp#UpdateBattleAction251_40B180",
+        "src/YobiRuntime.cpp#UpdateBattleAction253_40FE50",
+        "src/YobiRuntime.cpp#UpdateBattleAction254_40FEB0",
+        "src/YobiRuntime.cpp#UpdateBattleAction255_4186B0",
+        "src/YobiRuntime.cpp#UpdateBattleAction256_418B50",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "249事件一次W32取样及255归零position/encoded先共享目标、三个低W8表达式承接四原点；正常旧值一致。工厂30类型/31父case与118默认、255固定effect/普通免疫fresh C9C、真实counter1DC恢复量及其它五正确体/W32缓存/原接收者/上限copy/返回/RNG/批次尾保持",
+          "decision_ref": "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "249：固定payload，characterAction=5/framePlayingRate=100；当前effect位置非-1才Turn(source,共享目标,1,0)，PlayFrame(source,1)恰好返回1才推进施法。调用后重新取得当前effect位置，-1则frameEvent=0返回；其后一次W32读取frameEvent，同一值比较[10000,20000)。原407231 MOV EAX配407237/407242两个CMP，只新增event局部，不提前到位置哨兵之前。区间内原do循环每次先读level：>=12生成图111030，否则skill2005图104222/4003图104238；其它skill不生成仍Advance。每次创建取得当前C9C及record，直到AdvanceBattleEffect恰好返回1，原无新循环限制。最后声268/source.x→frameEvent0；图值、调用后独立取样、返回消费和正确业务保。 40FC10工厂共体：固定payload，FDC为W32读后AL寄存器bit60判断，清时PlayFrame(source,0)弃返；之后重新读value1024，非0不创建仍phase162。为0才一次读取phase按原30个CMP/类型分支创建，原不是物理跳转表：130→13、116→1、117→2、133→25、149→16、150→18、151→21、152→22、153→23、119→4、120→5、121→7、122→8、123→9、124→10、125→11、126→12、134→26、135→27、136→28、137→29、131→14、132→15、146→6、157→37、158→38、161→39、217→40、250→41、252→42。匹配后NewEffect(source,0,offsetY0,type,0,1)，返回弃置、不保存+10；不匹配无创建，所有路径phase162。父31个逻辑case复用这一个原F身份；118实际表项405914同40530F但没有创建分支，走默认仍phase162。250/252表项405B24/405B2C同目标，既有父表不重新R7分类。源switch只是既有CMP语义承接，完整正确共体保持。 251：ConstructFromInt(temporary,1)后先齐读mask W32、encoded W32、readCount W8，再按同序发布source.readiness→Destroy；同temporary再次Construct1、三字段齐读后同序发布source.barValue1B0→Destroy，最后439340(source)。两个构造/RNG消费和三字段取样发布已正确，不替换为交替读取的普通CopyPayload，不改正确体。 253：固定const payload，FDC W32取样后低寄存器bit60判断，清时PlayFrame(source,0)弃返；调用后独立读取source.phase恰好253且独立payload.value1024为0才NewEffect(source,0,offsetY0,43,0,1)，返回保存source.battleCastEffect10。全部路径439340(source)。不复用播放前phase/value，不窄化原W32 FDC，不改正确体。 254：source.battleCastEffect10非拥有指针先取，payload后取；前者非空才MarkDeath(cached effect)→source.+10=null→固定payload.value1024=0，所有路径439340(source)。原空分支不清value1024，调用后的清槽与取样顺序已正确，源体保持。 255入口/创建：frameEvent先读、payload后固定，characterAction5/rate100；事件[10000,20000)进入原无限循环。每轮取当前C9C并固定effect引用（原ESI），fixed.position=-1或shared target=null均按原break到批次尾；缓存target与targetPayload。仅入口index0创建type47，position<10坐标500/450，否则150/50，NewEffect(source,x,offsetYy,47,0,1)弃返。创建后fixed effect.flags W32取样选主图：4→110000，400→FindTechnique(8,fixed.position)<12为110098否则111048，200→110135，否则重新读parent.C9C==0为110135，余路径一次RAND(0,2)+110001。固定effect.flags再W32读写cached target.FE4，之后fresh parent.battlePosition调用ApplyFlags(source)。固定引用不替换成每次fresh C9C。\n255命中/扣减：独立fixed.flags W32命中缓存，8目标phase31；100无旧flash门禁，flash1→声210/source.x→phase31。其它E000清且fixed.amount非0，cached bit2目标110008、主图非负目标主图、Rebirth(source,target)→声134/source.x。扣HP参数严格fixed.position先、fixed.amount后、shared target T*最后；Less0另读fixed.position/shared目标。负值Construct0后fixed.position→临时encoded→shared目标指针，先写目标encoded，再读/写mask，再读/写readCount，Destroy；不是先取目标后CopyPayload，也不是三字段齐读。随后fixed.flags实际低W8 bit20，cached targetPayload.FDC保W32|2、全局更新门1、alive1；此处原4188E3是TEST BYTE，新增独立activationFlags。\n255显示/恢复：fresh fixed.flags W32主缓存，8000仅439340(target)；4000先439340(target)，fixed.flags10000000当前fixed.position共享目标图22459后跳属性；否则shared[fixed.position]作为healTarget，恢复量确实读取healTarget.counter1DC（原41896C MOV [EAX+1DC]），AddHP，再fresh fixed.position共享目标GreaterHP/max，超过原上限才fresh同位置目标普通CopyPayload。不改为effect.amount；恢复数显fixed.flags W32→cached target.Y→fixed.amount→target.X，type5/style2。2000只439340(target)。其它100000回收cached targetPayload.effect1054，调用后FDC先读、槽null后FDC&~20；439340(target)后fixed.flags W32，10000000使用fresh parent.C9C的current.position共享目标图22459并跳属性，此原独立重新定位保；否则target.Y→fixed.amount→target.X/type6/style2。恢复和普通数显后原4189E6/418A85各fixed.flags低W8 bit2，cached target图22454，Attribute(source,cached target)；源共享一attributeFlags低W8表达式承接两个实际路径，不计为两个源片段。\n255共同尾：fixed.flags实际低W8 bit8清且fixed.amount非0，按cached targetPayload当前FDC W32 bit1求14*(bit+1)写fixed parent.FD0；此处原418AAB TEST BYTE，新增tailFlags。不改变W32初始/命中/主显示/恢复/回收缓存及AL/AH寄存器消费。Advance(source)恰好1结束批次，否则下一轮fresh C9C。原位置/空目标break及正常结束共同声268/source.x→speed8/rate100→parent.FF0=0→frameEvent0；共同PlayFrame(source,1)返回1才439340(source)。接收者、HP来源/上限、独立取样、原失败/哨兵、返回/RNG与调用顺序保持，无新异常、边界或迭代保护。 256：原三条/21B写共享gValue5ABB1C=0→gValue5ABB20=1→ret，忽略父传入action。源无参数名保持；唯一父40563A调用后直接落入共同尾40563F，没有额外跳转。只纳管该原完整身份，不扩展为独立生命周期或父完整验收。",
+      "expected": "249：固定payload，characterAction=5/framePlayingRate=100；当前effect位置非-1才Turn(source,共享目标,1,0)，PlayFrame(source,1)恰好返回1才推进施法。调用后重新取得当前effect位置，-1则frameEvent=0返回；其后一次W32读取frameEvent，同一值比较[10000,20000)。原407231 MOV EAX配407237/407242两个CMP，只新增event局部，不提前到位置哨兵之前。区间内原do循环每次先读level：>=12生成图111030，否则skill2005图104222/4003图104238；其它skill不生成仍Advance。每次创建取得当前C9C及record，直到AdvanceBattleEffect恰好返回1，原无新循环限制。最后声268/source.x→frameEvent0；图值、调用后独立取样、返回消费和正确业务保。 40FC10工厂共体：固定payload，FDC为W32读后AL寄存器bit60判断，清时PlayFrame(source,0)弃返；之后重新读value1024，非0不创建仍phase162。为0才一次读取phase按原30个CMP/类型分支创建，原不是物理跳转表：130→13、116→1、117→2、133→25、149→16、150→18、151→21、152→22、153→23、119→4、120→5、121→7、122→8、123→9、124→10、125→11、126→12、134→26、135→27、136→28、137→29、131→14、132→15、146→6、157→37、158→38、161→39、217→40、250→41、252→42。匹配后NewEffect(source,0,offsetY0,type,0,1)，返回弃置、不保存+10；不匹配无创建，所有路径phase162。父31个逻辑case复用这一个原F身份；118实际表项405914同40530F但没有创建分支，走默认仍phase162。250/252表项405B24/405B2C同目标，既有父表不重新R7分类。源switch只是既有CMP语义承接，完整正确共体保持。 251：ConstructFromInt(temporary,1)后先齐读mask W32、encoded W32、readCount W8，再按同序发布source.readiness→Destroy；同temporary再次Construct1、三字段齐读后同序发布source.barValue1B0→Destroy，最后439340(source)。两个构造/RNG消费和三字段取样发布已正确，不替换为交替读取的普通CopyPayload，不改正确体。 253：固定const payload，FDC W32取样后低寄存器bit60判断，清时PlayFrame(source,0)弃返；调用后独立读取source.phase恰好253且独立payload.value1024为0才NewEffect(source,0,offsetY0,43,0,1)，返回保存source.battleCastEffect10。全部路径439340(source)。不复用播放前phase/value，不窄化原W32 FDC，不改正确体。 254：source.battleCastEffect10非拥有指针先取，payload后取；前者非空才MarkDeath(cached effect)→source.+10=null→固定payload.value1024=0，所有路径439340(source)。原空分支不清value1024，调用后的清槽与取样顺序已正确，源体保持。 255入口/创建：frameEvent先读、payload后固定，characterAction5/rate100；事件[10000,20000)进入原无限循环。每轮取当前C9C并固定effect引用（原ESI），fixed.position=-1或shared target=null均按原break到批次尾；缓存target与targetPayload。仅入口index0创建type47，position<10坐标500/450，否则150/50，NewEffect(source,x,offsetYy,47,0,1)弃返。创建后fixed effect.flags W32取样选主图：4→110000，400→FindTechnique(8,fixed.position)<12为110098否则111048，200→110135，否则重新读parent.C9C==0为110135，余路径一次RAND(0,2)+110001。固定effect.flags再W32读写cached target.FE4，之后fresh parent.battlePosition调用ApplyFlags(source)。固定引用不替换成每次fresh C9C。\n255命中/扣减：独立fixed.flags W32命中缓存，8目标phase31；100无旧flash门禁，flash1→声210/source.x→phase31。其它E000清且fixed.amount非0，cached bit2目标110008、主图非负目标主图、Rebirth(source,target)→声134/source.x。扣HP参数严格fixed.position先、fixed.amount后、shared target T*最后；Less0另读fixed.position/shared目标。负值Construct0后fixed.position→临时encoded→shared目标指针，先写目标encoded，再读/写mask，再读/写readCount，Destroy；不是先取目标后CopyPayload，也不是三字段齐读。随后fixed.flags实际低W8 bit20，cached targetPayload.FDC保W32|2、全局更新门1、alive1；此处原4188E3是TEST BYTE，新增独立activationFlags。\n255显示/恢复：fresh fixed.flags W32主缓存，8000仅439340(target)；4000先439340(target)，fixed.flags10000000当前fixed.position共享目标图22459后跳属性；否则shared[fixed.position]作为healTarget，恢复量确实读取healTarget.counter1DC（原41896C MOV [EAX+1DC]），AddHP，再fresh fixed.position共享目标GreaterHP/max，超过原上限才fresh同位置目标普通CopyPayload。不改为effect.amount；恢复数显fixed.flags W32→cached target.Y→fixed.amount→target.X，type5/style2。2000只439340(target)。其它100000回收cached targetPayload.effect1054，调用后FDC先读、槽null后FDC&~20；439340(target)后fixed.flags W32，10000000使用fresh parent.C9C的current.position共享目标图22459并跳属性，此原独立重新定位保；否则target.Y→fixed.amount→target.X/type6/style2。恢复和普通数显后原4189E6/418A85各fixed.flags低W8 bit2，cached target图22454，Attribute(source,cached target)；源共享一attributeFlags低W8表达式承接两个实际路径，不计为两个源片段。\n255共同尾：fixed.flags实际低W8 bit8清且fixed.amount非0，按cached targetPayload当前FDC W32 bit1求14*(bit+1)写fixed parent.FD0；此处原418AAB TEST BYTE，新增tailFlags。不改变W32初始/命中/主显示/恢复/回收缓存及AL/AH寄存器消费。Advance(source)恰好1结束批次，否则下一轮fresh C9C。原位置/空目标break及正常结束共同声268/source.x→speed8/rate100→parent.FF0=0→frameEvent0；共同PlayFrame(source,1)返回1才439340(source)。接收者、HP来源/上限、独立取样、原失败/哨兵、返回/RNG与调用顺序保持，无新异常、边界或迭代保护。 256：原三条/21B写共享gValue5ABB1C=0→gValue5ABB20=1→ret，忽略父传入action。源无参数名保持；唯一父40563A调用后直接落入共同尾40563F，没有额外跳转。只纳管该原完整身份，不扩展为独立生命周期或父完整验收。",
+      "actual": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "id": "E-BATTLE-FACTORY-BATCH-EXIT-SAMPLING-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQG01七完整704条2305B/十三页、47call/120jump/七ret、七父四窗20条/69B、三既有表项及五源片段；doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-factory-batch-exit-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction249_4071C0",
+        "src/YobiRuntime.cpp#UpdateBattleFactoryAction_40FC10",
+        "src/YobiRuntime.cpp#UpdateBattleAction251_40B180",
+        "src/YobiRuntime.cpp#UpdateBattleAction253_40FE50",
+        "src/YobiRuntime.cpp#UpdateBattleAction254_40FEB0",
+        "src/YobiRuntime.cpp#UpdateBattleAction255_4186B0",
+        "src/YobiRuntime.cpp#UpdateBattleAction256_418B50",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "249事件一次W32取样及255归零position/encoded先共享目标、三个低W8表达式承接四原点；正常旧值一致。工厂30类型/31父case与118默认、255固定effect/普通免疫fresh C9C、真实counter1DC恢复量及其它五正确体/W32缓存/原接收者/上限copy/返回/RNG/批次尾保持",
+          "decision_ref": "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "249：固定payload，characterAction=5/framePlayingRate=100；当前effect位置非-1才Turn(source,共享目标,1,0)，PlayFrame(source,1)恰好返回1才推进施法。调用后重新取得当前effect位置，-1则frameEvent=0返回；其后一次W32读取frameEvent，同一值比较[10000,20000)。原407231 MOV EAX配407237/407242两个CMP，只新增event局部，不提前到位置哨兵之前。区间内原do循环每次先读level：>=12生成图111030，否则skill2005图104222/4003图104238；其它skill不生成仍Advance。每次创建取得当前C9C及record，直到AdvanceBattleEffect恰好返回1，原无新循环限制。最后声268/source.x→frameEvent0；图值、调用后独立取样、返回消费和正确业务保。 40FC10工厂共体：固定payload，FDC为W32读后AL寄存器bit60判断，清时PlayFrame(source,0)弃返；之后重新读value1024，非0不创建仍phase162。为0才一次读取phase按原30个CMP/类型分支创建，原不是物理跳转表：130→13、116→1、117→2、133→25、149→16、150→18、151→21、152→22、153→23、119→4、120→5、121→7、122→8、123→9、124→10、125→11、126→12、134→26、135→27、136→28、137→29、131→14、132→15、146→6、157→37、158→38、161→39、217→40、250→41、252→42。匹配后NewEffect(source,0,offsetY0,type,0,1)，返回弃置、不保存+10；不匹配无创建，所有路径phase162。父31个逻辑case复用这一个原F身份；118实际表项405914同40530F但没有创建分支，走默认仍phase162。250/252表项405B24/405B2C同目标，既有父表不重新R7分类。源switch只是既有CMP语义承接，完整正确共体保持。 251：ConstructFromInt(temporary,1)后先齐读mask W32、encoded W32、readCount W8，再按同序发布source.readiness→Destroy；同temporary再次Construct1、三字段齐读后同序发布source.barValue1B0→Destroy，最后439340(source)。两个构造/RNG消费和三字段取样发布已正确，不替换为交替读取的普通CopyPayload，不改正确体。 253：固定const payload，FDC W32取样后低寄存器bit60判断，清时PlayFrame(source,0)弃返；调用后独立读取source.phase恰好253且独立payload.value1024为0才NewEffect(source,0,offsetY0,43,0,1)，返回保存source.battleCastEffect10。全部路径439340(source)。不复用播放前phase/value，不窄化原W32 FDC，不改正确体。 254：source.battleCastEffect10非拥有指针先取，payload后取；前者非空才MarkDeath(cached effect)→source.+10=null→固定payload.value1024=0，所有路径439340(source)。原空分支不清value1024，调用后的清槽与取样顺序已正确，源体保持。 255入口/创建：frameEvent先读、payload后固定，characterAction5/rate100；事件[10000,20000)进入原无限循环。每轮取当前C9C并固定effect引用（原ESI），fixed.position=-1或shared target=null均按原break到批次尾；缓存target与targetPayload。仅入口index0创建type47，position<10坐标500/450，否则150/50，NewEffect(source,x,offsetYy,47,0,1)弃返。创建后fixed effect.flags W32取样选主图：4→110000，400→FindTechnique(8,fixed.position)<12为110098否则111048，200→110135，否则重新读parent.C9C==0为110135，余路径一次RAND(0,2)+110001。固定effect.flags再W32读写cached target.FE4，之后fresh parent.battlePosition调用ApplyFlags(source)。固定引用不替换成每次fresh C9C。\n255命中/扣减：独立fixed.flags W32命中缓存，8目标phase31；100无旧flash门禁，flash1→声210/source.x→phase31。其它E000清且fixed.amount非0，cached bit2目标110008、主图非负目标主图、Rebirth(source,target)→声134/source.x。扣HP参数严格fixed.position先、fixed.amount后、shared target T*最后；Less0另读fixed.position/shared目标。负值Construct0后fixed.position→临时encoded→shared目标指针，先写目标encoded，再读/写mask，再读/写readCount，Destroy；不是先取目标后CopyPayload，也不是三字段齐读。随后fixed.flags实际低W8 bit20，cached targetPayload.FDC保W32|2、全局更新门1、alive1；此处原4188E3是TEST BYTE，新增独立activationFlags。\n255显示/恢复：fresh fixed.flags W32主缓存，8000仅439340(target)；4000先439340(target)，fixed.flags10000000当前fixed.position共享目标图22459后跳属性；否则shared[fixed.position]作为healTarget，恢复量确实读取healTarget.counter1DC（原41896C MOV [EAX+1DC]），AddHP，再fresh fixed.position共享目标GreaterHP/max，超过原上限才fresh同位置目标普通CopyPayload。不改为effect.amount；恢复数显fixed.flags W32→cached target.Y→fixed.amount→target.X，type5/style2。2000只439340(target)。其它100000回收cached targetPayload.effect1054，调用后FDC先读、槽null后FDC&~20；439340(target)后fixed.flags W32，10000000使用fresh parent.C9C的current.position共享目标图22459并跳属性，此原独立重新定位保；否则target.Y→fixed.amount→target.X/type6/style2。恢复和普通数显后原4189E6/418A85各fixed.flags低W8 bit2，cached target图22454，Attribute(source,cached target)；源共享一attributeFlags低W8表达式承接两个实际路径，不计为两个源片段。\n255共同尾：fixed.flags实际低W8 bit8清且fixed.amount非0，按cached targetPayload当前FDC W32 bit1求14*(bit+1)写fixed parent.FD0；此处原418AAB TEST BYTE，新增tailFlags。不改变W32初始/命中/主显示/恢复/回收缓存及AL/AH寄存器消费。Advance(source)恰好1结束批次，否则下一轮fresh C9C。原位置/空目标break及正常结束共同声268/source.x→speed8/rate100→parent.FF0=0→frameEvent0；共同PlayFrame(source,1)返回1才439340(source)。接收者、HP来源/上限、独立取样、原失败/哨兵、返回/RNG与调用顺序保持，无新异常、边界或迭代保护。 256：原三条/21B写共享gValue5ABB1C=0→gValue5ABB20=1→ret，忽略父传入action。源无参数名保持；唯一父40563A调用后直接落入共同尾40563F，没有额外跳转。只纳管该原完整身份，不扩展为独立生命周期或父完整验收。",
+      "expected": "249：固定payload，characterAction=5/framePlayingRate=100；当前effect位置非-1才Turn(source,共享目标,1,0)，PlayFrame(source,1)恰好返回1才推进施法。调用后重新取得当前effect位置，-1则frameEvent=0返回；其后一次W32读取frameEvent，同一值比较[10000,20000)。原407231 MOV EAX配407237/407242两个CMP，只新增event局部，不提前到位置哨兵之前。区间内原do循环每次先读level：>=12生成图111030，否则skill2005图104222/4003图104238；其它skill不生成仍Advance。每次创建取得当前C9C及record，直到AdvanceBattleEffect恰好返回1，原无新循环限制。最后声268/source.x→frameEvent0；图值、调用后独立取样、返回消费和正确业务保。 40FC10工厂共体：固定payload，FDC为W32读后AL寄存器bit60判断，清时PlayFrame(source,0)弃返；之后重新读value1024，非0不创建仍phase162。为0才一次读取phase按原30个CMP/类型分支创建，原不是物理跳转表：130→13、116→1、117→2、133→25、149→16、150→18、151→21、152→22、153→23、119→4、120→5、121→7、122→8、123→9、124→10、125→11、126→12、134→26、135→27、136→28、137→29、131→14、132→15、146→6、157→37、158→38、161→39、217→40、250→41、252→42。匹配后NewEffect(source,0,offsetY0,type,0,1)，返回弃置、不保存+10；不匹配无创建，所有路径phase162。父31个逻辑case复用这一个原F身份；118实际表项405914同40530F但没有创建分支，走默认仍phase162。250/252表项405B24/405B2C同目标，既有父表不重新R7分类。源switch只是既有CMP语义承接，完整正确共体保持。 251：ConstructFromInt(temporary,1)后先齐读mask W32、encoded W32、readCount W8，再按同序发布source.readiness→Destroy；同temporary再次Construct1、三字段齐读后同序发布source.barValue1B0→Destroy，最后439340(source)。两个构造/RNG消费和三字段取样发布已正确，不替换为交替读取的普通CopyPayload，不改正确体。 253：固定const payload，FDC W32取样后低寄存器bit60判断，清时PlayFrame(source,0)弃返；调用后独立读取source.phase恰好253且独立payload.value1024为0才NewEffect(source,0,offsetY0,43,0,1)，返回保存source.battleCastEffect10。全部路径439340(source)。不复用播放前phase/value，不窄化原W32 FDC，不改正确体。 254：source.battleCastEffect10非拥有指针先取，payload后取；前者非空才MarkDeath(cached effect)→source.+10=null→固定payload.value1024=0，所有路径439340(source)。原空分支不清value1024，调用后的清槽与取样顺序已正确，源体保持。 255入口/创建：frameEvent先读、payload后固定，characterAction5/rate100；事件[10000,20000)进入原无限循环。每轮取当前C9C并固定effect引用（原ESI），fixed.position=-1或shared target=null均按原break到批次尾；缓存target与targetPayload。仅入口index0创建type47，position<10坐标500/450，否则150/50，NewEffect(source,x,offsetYy,47,0,1)弃返。创建后fixed effect.flags W32取样选主图：4→110000，400→FindTechnique(8,fixed.position)<12为110098否则111048，200→110135，否则重新读parent.C9C==0为110135，余路径一次RAND(0,2)+110001。固定effect.flags再W32读写cached target.FE4，之后fresh parent.battlePosition调用ApplyFlags(source)。固定引用不替换成每次fresh C9C。\n255命中/扣减：独立fixed.flags W32命中缓存，8目标phase31；100无旧flash门禁，flash1→声210/source.x→phase31。其它E000清且fixed.amount非0，cached bit2目标110008、主图非负目标主图、Rebirth(source,target)→声134/source.x。扣HP参数严格fixed.position先、fixed.amount后、shared target T*最后；Less0另读fixed.position/shared目标。负值Construct0后fixed.position→临时encoded→shared目标指针，先写目标encoded，再读/写mask，再读/写readCount，Destroy；不是先取目标后CopyPayload，也不是三字段齐读。随后fixed.flags实际低W8 bit20，cached targetPayload.FDC保W32|2、全局更新门1、alive1；此处原4188E3是TEST BYTE，新增独立activationFlags。\n255显示/恢复：fresh fixed.flags W32主缓存，8000仅439340(target)；4000先439340(target)，fixed.flags10000000当前fixed.position共享目标图22459后跳属性；否则shared[fixed.position]作为healTarget，恢复量确实读取healTarget.counter1DC（原41896C MOV [EAX+1DC]），AddHP，再fresh fixed.position共享目标GreaterHP/max，超过原上限才fresh同位置目标普通CopyPayload。不改为effect.amount；恢复数显fixed.flags W32→cached target.Y→fixed.amount→target.X，type5/style2。2000只439340(target)。其它100000回收cached targetPayload.effect1054，调用后FDC先读、槽null后FDC&~20；439340(target)后fixed.flags W32，10000000使用fresh parent.C9C的current.position共享目标图22459并跳属性，此原独立重新定位保；否则target.Y→fixed.amount→target.X/type6/style2。恢复和普通数显后原4189E6/418A85各fixed.flags低W8 bit2，cached target图22454，Attribute(source,cached target)；源共享一attributeFlags低W8表达式承接两个实际路径，不计为两个源片段。\n255共同尾：fixed.flags实际低W8 bit8清且fixed.amount非0，按cached targetPayload当前FDC W32 bit1求14*(bit+1)写fixed parent.FD0；此处原418AAB TEST BYTE，新增tailFlags。不改变W32初始/命中/主显示/恢复/回收缓存及AL/AH寄存器消费。Advance(source)恰好1结束批次，否则下一轮fresh C9C。原位置/空目标break及正常结束共同声268/source.x→speed8/rate100→parent.FF0=0→frameEvent0；共同PlayFrame(source,1)返回1才439340(source)。接收者、HP来源/上限、独立取样、原失败/哨兵、返回/RNG与调用顺序保持，无新异常、边界或迭代保护。 256：原三条/21B写共享gValue5ABB1C=0→gValue5ABB20=1→ret，忽略父传入action。源无参数名保持；唯一父40563A调用后直接落入共同尾40563F，没有额外跳转。只纳管该原完整身份，不扩展为独立生命周期或父完整验收。",
+      "actual": "七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
     }
   ],
   "task_acceptance": [
@@ -33481,7 +33566,8 @@
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
-        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state"
+        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state"
       ]
     },
     {
@@ -33736,7 +33822,8 @@
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
-        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state"
+        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state"
       ]
     },
     {
@@ -33885,7 +33972,8 @@
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
-        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state"
+        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state"
       ]
     },
     {
@@ -34366,7 +34454,8 @@
         "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
         "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
         "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
-        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state"
+        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state"
       ]
     },
     {
@@ -41156,6 +41245,97 @@
         "doc/cg2d_battle_skill_display_motion_sampling_evidence.json"
       ],
       "boundary": "248：fixed payload，characterAction1/speed8/frameRate100；payload.y14 S32转F32 Y先、x10 S32转F32 X后，Turn(source,X,Y,1,0)→Move。调用后fresh y14转F32、x10转F32，Distance(source,X,Y)<5才fresh x10→offset40 F32、fresh y14→offset44 F32→439340，所有路径PlayFrame(source,0)返回。保Y/X读序、独立前后参数、S32/F32存储、阈值与返回，正确体不改。 四完整原根633条2207B/十页、45call/22入口/97普通内部jump/四ret，四唯一404DB0入向12邻窗/32B与一真实F32系数。只243三W8源表达式承接四真实原点：首次转向、属性共用两路径、时长；正常旧值一致，不称并发/数值或机器故障。原技能CMP链/级别/图值/模式与六RAND物理点/各路径消费、W32寄存器旗位、无扣HP事实、恢复数显/其它图标后仍Attribute区别、上限普通CopyPayload、两条件播放/退场及其它三正确移动体/正常转换/返回保持。原无物理switch表，不新R7或原__ftol身份。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:000071C0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "249：固定payload，characterAction=5/framePlayingRate=100；当前effect位置非-1才Turn(source,共享目标,1,0)，PlayFrame(source,1)恰好返回1才推进施法。调用后重新取得当前effect位置，-1则frameEvent=0返回；其后一次W32读取frameEvent，同一值比较[10000,20000)。原407231 MOV EAX配407237/407242两个CMP，只新增event局部，不提前到位置哨兵之前。区间内原do循环每次先读level：>=12生成图111030，否则skill2005图104222/4003图104238；其它skill不生成仍Advance。每次创建取得当前C9C及record，直到AdvanceBattleEffect恰好返回1，原无新循环限制。最后声268/source.x→frameEvent0；图值、调用后独立取样、返回消费和正确业务保。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "inventory_id": "F:0000FC10",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "40FC10工厂共体：固定payload，FDC为W32读后AL寄存器bit60判断，清时PlayFrame(source,0)弃返；之后重新读value1024，非0不创建仍phase162。为0才一次读取phase按原30个CMP/类型分支创建，原不是物理跳转表：130→13、116→1、117→2、133→25、149→16、150→18、151→21、152→22、153→23、119→4、120→5、121→7、122→8、123→9、124→10、125→11、126→12、134→26、135→27、136→28、137→29、131→14、132→15、146→6、157→37、158→38、161→39、217→40、250→41、252→42。匹配后NewEffect(source,0,offsetY0,type,0,1)，返回弃置、不保存+10；不匹配无创建，所有路径phase162。父31个逻辑case复用这一个原F身份；118实际表项405914同40530F但没有创建分支，走默认仍phase162。250/252表项405B24/405B2C同目标，既有父表不重新R7分类。源switch只是既有CMP语义承接，完整正确共体保持。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "inventory_id": "F:0000B180",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "251：ConstructFromInt(temporary,1)后先齐读mask W32、encoded W32、readCount W8，再按同序发布source.readiness→Destroy；同temporary再次Construct1、三字段齐读后同序发布source.barValue1B0→Destroy，最后439340(source)。两个构造/RNG消费和三字段取样发布已正确，不替换为交替读取的普通CopyPayload，不改正确体。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "inventory_id": "F:0000FE50",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "253：固定const payload，FDC W32取样后低寄存器bit60判断，清时PlayFrame(source,0)弃返；调用后独立读取source.phase恰好253且独立payload.value1024为0才NewEffect(source,0,offsetY0,43,0,1)，返回保存source.battleCastEffect10。全部路径439340(source)。不复用播放前phase/value，不窄化原W32 FDC，不改正确体。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "inventory_id": "F:0000FEB0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "254：source.battleCastEffect10非拥有指针先取，payload后取；前者非空才MarkDeath(cached effect)→source.+10=null→固定payload.value1024=0，所有路径439340(source)。原空分支不清value1024，调用后的清槽与取样顺序已正确，源体保持。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "inventory_id": "F:000186B0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "255入口/创建：frameEvent先读、payload后固定，characterAction5/rate100；事件[10000,20000)进入原无限循环。每轮取当前C9C并固定effect引用（原ESI），fixed.position=-1或shared target=null均按原break到批次尾；缓存target与targetPayload。仅入口index0创建type47，position<10坐标500/450，否则150/50，NewEffect(source,x,offsetYy,47,0,1)弃返。创建后fixed effect.flags W32取样选主图：4→110000，400→FindTechnique(8,fixed.position)<12为110098否则111048，200→110135，否则重新读parent.C9C==0为110135，余路径一次RAND(0,2)+110001。固定effect.flags再W32读写cached target.FE4，之后fresh parent.battlePosition调用ApplyFlags(source)。固定引用不替换成每次fresh C9C。\n255命中/扣减：独立fixed.flags W32命中缓存，8目标phase31；100无旧flash门禁，flash1→声210/source.x→phase31。其它E000清且fixed.amount非0，cached bit2目标110008、主图非负目标主图、Rebirth(source,target)→声134/source.x。扣HP参数严格fixed.position先、fixed.amount后、shared target T*最后；Less0另读fixed.position/shared目标。负值Construct0后fixed.position→临时encoded→shared目标指针，先写目标encoded，再读/写mask，再读/写readCount，Destroy；不是先取目标后CopyPayload，也不是三字段齐读。随后fixed.flags实际低W8 bit20，cached targetPayload.FDC保W32|2、全局更新门1、alive1；此处原4188E3是TEST BYTE，新增独立activationFlags。\n255显示/恢复：fresh fixed.flags W32主缓存，8000仅439340(target)；4000先439340(target)，fixed.flags10000000当前fixed.position共享目标图22459后跳属性；否则shared[fixed.position]作为healTarget，恢复量确实读取healTarget.counter1DC（原41896C MOV [EAX+1DC]），AddHP，再fresh fixed.position共享目标GreaterHP/max，超过原上限才fresh同位置目标普通CopyPayload。不改为effect.amount；恢复数显fixed.flags W32→cached target.Y→fixed.amount→target.X，type5/style2。2000只439340(target)。其它100000回收cached targetPayload.effect1054，调用后FDC先读、槽null后FDC&~20；439340(target)后fixed.flags W32，10000000使用fresh parent.C9C的current.position共享目标图22459并跳属性，此原独立重新定位保；否则target.Y→fixed.amount→target.X/type6/style2。恢复和普通数显后原4189E6/418A85各fixed.flags低W8 bit2，cached target图22454，Attribute(source,cached target)；源共享一attributeFlags低W8表达式承接两个实际路径，不计为两个源片段。\n255共同尾：fixed.flags实际低W8 bit8清且fixed.amount非0，按cached targetPayload当前FDC W32 bit1求14*(bit+1)写fixed parent.FD0；此处原418AAB TEST BYTE，新增tailFlags。不改变W32初始/命中/主显示/恢复/回收缓存及AL/AH寄存器消费。Advance(source)恰好1结束批次，否则下一轮fresh C9C。原位置/空目标break及正常结束共同声268/source.x→speed8/rate100→parent.FF0=0→frameEvent0；共同PlayFrame(source,1)返回1才439340(source)。接收者、HP来源/上限、独立取样、原失败/哨兵、返回/RNG与调用顺序保持，无新异常、边界或迭代保护。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
+    },
+    {
+      "inventory_id": "F:00018B50",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_evidence.json"
+      ],
+      "boundary": "256：原三条/21B写共享gValue5ABB1C=0→gValue5ABB20=1→ret，忽略父传入action。源无参数名保持；唯一父40563A调用后直接落入共同尾40563F，没有额外跳转。只纳管该原完整身份，不扩展为独立生命周期或父完整验收。 七完整原根704条2305B/十三页、47call/22入口/120普通内部jump/七ret，七唯一404DB0入向四窗口20邻指令/69B（256父直接落尾）及118/250/252三原表项。只249一次事件W32取样和255归零encoded先目标、三个独立低W8源表达式承接四原点，共五源片段/两源体；正常旧值一致，不称数值/并发或机器故障。厂共体30创建类型/31父case（118默认无创建仍phase162）、251两临时齐读、253原W32 FDC/后取phase与保存指针、254先借指针再回收、256双全局发布正确体保。255固定effect与普通免疫fresh C9C差别、实际healTarget.counter1DC恢复量、W32缓存、原接收者/HP上限copy/RNG/播放尾保持。工厂原无物理switch表，不新R7/父表分类。不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/画面运行；音频暂停、原格式明文，RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。"
     }
   ],
   "auxiliary_dispositions": [

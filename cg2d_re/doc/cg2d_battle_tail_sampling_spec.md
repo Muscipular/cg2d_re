@@ -151,3 +151,9 @@
 [完整合同](cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state)/[四完整633条2207B](cg2d_battle_skill_display_motion_sampling_evidence.json)纳管243/246/247/248；只243首次转向、属性共用两路径、时长条件三个W8源表达式对四原点，正常旧值一致。
 
 原技能CMP链/图值/模式/级别、六RAND物理点各路径消费及W32缓存保持，不造跳转表/R7身份。243无扣HP，其它分支图22459后仍Attribute；246原F32系数0ad7233c及247/248正确移动/正常转换保持，原上限CopyPayload/两条件播放/退场/接收者/返回保。BATTLE173枚举open/E764两局部I/S，完整生产/owner寿命/生成机器/运行及R8未完成。
+
+## BQG01 工厂、批次显示与退出取样（2026-10-07）
+
+[完整合同](cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state)/[七完整704条2305B](cg2d_battle_factory_batch_exit_sampling_evidence.json)纳管249/40FC10/251/253/254/255/256；249一次event与255归零encoded先目标、三W8源表达式对四原点，共五片段/两体，正常旧值一致。
+
+工厂30创建/31父case、118默认无创建仍phase162与250/252同父根；原CMP无物理switch表，不新增R7。251齐读临时、253W32 FDC/后取phase/保存+10、254先借指针回收、256两全局写正确体保。255恢复量确实来自healTarget.counter1DC，固定effect及普通免疫fresh C9C的差别、W32缓存/HP上限copy/RNG/批次播放尾保持。BATTLE180枚举open/E766两局部I/S；完整生产/owner寿命/生成机器/运行及R8未完成。

@@ -742,3 +742,9 @@ E487→491仅YOBI/BATTLE四局部I/S；旧812追加、七open与唯一进度同�
 [具体SPEC](cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision)与[证据](cg2d_battle_effect_callbacks_sampling_evidence.json)：两callback/三创建入口完整168条576B五页17call/14分支/八ret。位置callback恢复X截断→Y取样→X发布→Y截断发布，严格PlayFrame(1)==1才MarkDeath，标死和未完成都继续投影；MarkDeath仅标死不立即free/摘链。其它四正确根保持：坐标/轨迹两创建绑定position callback、屏幕创建绑定one-shot callback；轨迹RNG仅无设备路径/结果后取flags，mode只1加20000后另live flags，低W8优先级/固定输入坐标保。原__ftol沿CPH01 host，六callback绑定和11直接创建call分别列身份，非所有父已验。
 
 新增语义1355..1359五原ID/分类、BATTLE57→62但枚举open；语义1360/有效ID1355、分类466、关联1473/3680=40.03%、E515仅五函数各I/S。位置回调一块问题已解决，四既有正确源不计新增；原有历史定义/队列175及所有旧语义-其它域/七open-完整门禁保持。全部consumer-owner/资源重进退出、SDK/ABI/PC53-RNG画面及R1/R7/R8继续。
+
+## BNX01 特效精度与RNG合同的局部I/S（2026-10-06）
+
+[具体SPEC](cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision)和[证据](cg2d_battle_rising_emitter_fade_sampling_evidence.json)：七完整340条1215B八页19call/19普通内部出口-14ret、背景五槽switch20B/两16项S32局部表128B。上升callback一处恢复X截断后Y取样先X发布，原未舍入speed/Y中间值、F32存储/父deathFlag严格1早退与低于phase标死后仍Play(0)保。其它六正确源保持：创建先RNG再分配、无设备可二次RNG；屏幕发射先Y随机再X、创建后另live phase--；背景0贯穿1可两次发布/phase4而本次不标死，2归零贯穿3/4置flags2后标死。原业务0/4/8/255/失败和字段宽度、packed颜色高W8访问器保24位及所有caller/声明保持，全部父/ABI-PC53-RNG画面不外推。
+
+七独立原ID纳入语义1360..1366/分类、BATTLE62→69仍枚举open；语义1367/有效ID1362、分类473、关联1480/3680=40.22%、E529各函数I/S共14E。五callback绑定/七普通入向分列，历史定义已有/队列175保持；其它旧记录/功能域、七open/所有完整门禁与验收0保持。实际取样问题已解决，完整consumer-owner/资源重进退出、SDK-ABI-PC53-RNG画面及R1/R7/R8继续。

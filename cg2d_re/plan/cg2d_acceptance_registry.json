@@ -2026,7 +2026,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-baseline",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2090,7 +2091,14 @@
         "F:0001E640",
         "F:0001E720",
         "F:0001E7C0",
-        "F:0001A0D0"
+        "F:0001A0D0",
+        "F:00020D50",
+        "F:0001A200",
+        "F:00021480",
+        "F:00021570",
+        "F:00021610",
+        "F:000216B0",
+        "F:00021700"
       ],
       "closure_task_ids": [
         "P01",
@@ -2162,7 +2170,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-decision",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2223,7 +2232,8 @@
         "BNT01独立426FC0完整369条/十参-四输出和3101真实consumer、四处取样实修/原两表-门禁及两返回有界纳管，战斗成员新增原ID不代表枚举闭合；完整父/其它consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面和R1-R7-R8仍待",
         "BNU01两独立三方转向/辅助效果229条693B与既有正确源合同、五转向/37辅助入向分列并补身份，战斗成员55不代表枚举闭合；完整父/全部consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面与R1/R7/R8仍待",
         "BNV01两个特效创建函数125条412B/三处flags与坐标取样实修及独立身份纳管，战斗成员57仍未全枚举；全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
-        "BNW01两callback/三创建168条576B，位置callback Y取样先X发布已修/五身份纳管；战斗成员62仍未全枚举，全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验"
+        "BNW01两callback/三创建168条576B，位置callback Y取样先X发布已修/五身份纳管；战斗成员62仍未全枚举，全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
+        "BNX01七入口340条1215B/两局部数组与五态表纳管，上升callback坐标取样已修；BATTLE69仍未全枚举，全部consumer-owner/资源重进退出/ABI-SDK-PC53-RNG画面及R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2284,7 +2294,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
       ]
     },
     {
@@ -24603,6 +24614,412 @@
       "observation": "原完整根38条136B/全字节与出口/ret，入向2处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
       "expected": "New(2,0)空返回；one-shot callback/CC/100，设备后一次flags两发布OR40000，X→两W8值4→Y→direction→image→W16零；四S32参数无浮点/RNG或父引用",
       "actual": "仅位置callback实修/四正确源保持及五完整原根局部I/S；成员62不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00020D50-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整106条446B/2页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleRisingEffect_420D50",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "七完整源仅上升callback一补丁/整CPP精确重放，表/五态-RNG-正常精度保持；原合同：先RNG(0,15)再分配，成功后设备分支可另RNG(0,1)；两16项S32偏移/父x与两次父y、F32坐标/0.2、借用父与phase=yOffset+liveParentY-100保持",
+      "expected": "先RNG(0,15)再分配，成功后设备分支可另RNG(0,1)；两16项S32偏移/父x与两次父y、F32坐标/0.2、借用父与phase=yOffset+liveParentY-100保持",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00020D50-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整106条446B/2页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleRisingEffect_420D50",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根106条446B/全字节与出口/ret，入向2处/2父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "先RNG(0,15)再分配，成功后设备分支可另RNG(0,1)；两16项S32偏移/父x与两次父y、F32坐标/0.2、借用父与phase=yOffset+liveParentY-100保持",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-0001A200-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整39条105B/1页5call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleRisingEffect_41A200",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "七完整源仅上升callback一补丁/整CPP精确重放，表/五态-RNG-正常精度保持；原合同：固定父deathFlag严格1则标死早退；其它路径未舍入speed/Y双精度中间值与F32存储，低于phase才parent field58++/标死后仍Play(0)/坐标投影；修Y取样先X发布",
+      "expected": "固定父deathFlag严格1则标死早退；其它路径未舍入speed/Y双精度中间值与F32存储，低于phase才parent field58++/标死后仍Play(0)/坐标投影；修Y取样先X发布",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-0001A200-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整39条105B/1页5call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleRisingEffect_41A200",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根39条105B/全字节与出口/ret，入向3处/3父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "固定父deathFlag严格1则标死早退；其它路径未舍入speed/Y双精度中间值与F32存储，低于phase才parent field58++/标死后仍Play(0)/坐标投影；修Y取样先X发布",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00021480-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整66条219B/1页1call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleBackgroundFade_421480",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "七完整源仅上升callback一补丁/整CPP精确重放，表/五态-RNG-正常精度保持；原合同：原0..4五态/默认保持，alpha高W8/step S32门禁与低W8更新；0阈值饱和后贯穿1两次可发布背景/phase4，2归零后贯穿3置flags2再4标死",
+      "expected": "原0..4五态/默认保持，alpha高W8/step S32门禁与低W8更新；0阈值饱和后贯穿1两次可发布背景/phase4，2归零后贯穿3置flags2再4标死",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00021480-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整66条219B/1页1call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleBackgroundFade_421480",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根66条219B/全字节与出口/ret，入向1处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "原0..4五态/默认保持，alpha高W8/step S32门禁与低W8更新；0阈值饱和后贯穿1两次可发布背景/phase4，2归零后贯穿3置flags2再4标死",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00021570-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整49条159B/1页2call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleBackgroundFade_421570",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "七完整源仅上升callback一补丁/整CPP精确重放，表/五态-RNG-正常精度保持；原合同：原flags/callback/image/graphicIndex=-1、image非负才真实图号查找；低W8 step承接S32 field58，原F32零/alpha0/batch8/phase0/publish/x-y/W16零保持",
+      "expected": "原flags/callback/image/graphicIndex=-1、image非负才真实图号查找；低W8 step承接S32 field58，原F32零/alpha0/batch8/phase0/publish/x-y/W16零保持",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00021570-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整49条159B/1页2call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleBackgroundFade_421570",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根49条159B/全字节与出口/ret，入向3处/3父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "原flags/callback/image/graphicIndex=-1、image非负才真实图号查找；低W8 step承接S32 field58，原F32零/alpha0/batch8/phase0/publish/x-y/W16零保持",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00021610-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整37条145B/1页2call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleScreenEffect_421610",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "七完整源仅上升callback一补丁/整CPP精确重放，表/五态-RNG-正常精度保持；原合同：无设备才rebirth2=0/flags取样/rebirth1=8/OR8000，然后各路径另live flags OR40000/image110468/两W8值4、direction/X/W16零/Y，one-shot绑定保持",
+      "expected": "无设备才rebirth2=0/flags取样/rebirth1=8/OR8000，然后各路径另live flags OR40000/image110468/两W8值4、direction/X/W16零/Y，one-shot绑定保持",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00021610-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整37条145B/1页2call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleScreenEffect_421610",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根37条145B/全字节与出口/ret，入向1处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "无设备才rebirth2=0/flags取样/rebirth1=8/OR8000，然后各路径另live flags OR40000/image110468/两W8值4、direction/X/W16零/Y，one-shot绑定保持",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-000216B0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整25条67B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleScreenEmitter_4216B0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "七完整源仅上升callback一补丁/整CPP精确重放，表/五态-RNG-正常精度保持；原合同：低W8 phase&7==0才randY%480→randX%640→创建；后另live phase--/pub，负值才标死，原无初始负phase早退",
+      "expected": "低W8 phase&7==0才randY%480→randX%640→创建；后另live phase--/pub，负值才标死，原无初始负phase早退",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-000216B0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整25条67B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleScreenEmitter_4216B0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根25条67B/全字节与出口/ret，入向1处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "低W8 phase&7==0才randY%480→randX%640→创建；后另live phase--/pub，负值才标死，原无初始负phase早退",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00021700-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整18条74B/1页1call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleScreenEmitter_421700",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "七完整源仅上升callback一补丁/整CPP精确重放，表/五态-RNG-正常精度保持；原合同：New(2,0)失败空返回；原flags先取/callback/character0/OR2/pub/100/priority3/phase/W16零，发射器借用返回保持",
+      "expected": "New(2,0)失败空返回；原flags先取/callback/character0/OR2/pub/100/priority3/phase/W16零，发射器借用返回保持",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-RISING-EMITTER-FADE-00021700-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BNX01完整18条74B/1页1call与严格标死门禁/完整取样及返回；doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-rising-emitter-fade-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json",
+        "src/YobiRuntime.cpp#NewBattleScreenEmitter_421700",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "上升callback恢复Y取样先X发布，其它六正确源保持；七入口独立基线/分类和战斗成员纳管",
+          "decision_ref": "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根18条74B/全字节与出口/ret，入向1处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "New(2,0)失败空返回；原flags先取/callback/character0/OR2/pub/100/priority3/phase/W16零，发射器借用返回保持",
+      "actual": "仅上升callback实修/六正确源保持及七完整原根局部I/S；成员69不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
     }
   ],
   "task_acceptance": [
@@ -24831,7 +25248,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
       ]
     },
     {
@@ -25135,7 +25553,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
       ]
     },
     {
@@ -25326,7 +25745,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
       ]
     },
     {
@@ -25423,7 +25843,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
       ]
     },
     {
@@ -25491,7 +25912,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
       ]
     },
     {
@@ -25714,7 +26136,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
       ]
     },
     {
@@ -25778,7 +26201,8 @@
         "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
         "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
         "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
-        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
       ]
     }
   ],
@@ -30679,6 +31103,83 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state"
       ],
       "boundary": "获准x64 native非拥有地址及既有void callback承载；其它字段保宽，位置callback一处取样修正，四正确源保持；仅局部I/S，不代所有父/owner/ABI-SDK-PC53-RNG画面运行"
+    },
+    {
+      "inventory_id": "F:00020D50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址与既有void callback/packed高W8逻辑访问保持；其它字段保宽。仅完整本根局部I/S，不代全部父/owner/ABI-SDK-PC53-RNG画面或运行"
+    },
+    {
+      "inventory_id": "F:0001A200",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址与既有void callback/packed高W8逻辑访问保持；其它字段保宽。仅完整本根局部I/S，不代全部父/owner/ABI-SDK-PC53-RNG画面或运行"
+    },
+    {
+      "inventory_id": "F:00021480",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址与既有void callback/packed高W8逻辑访问保持；其它字段保宽。仅完整本根局部I/S，不代全部父/owner/ABI-SDK-PC53-RNG画面或运行"
+    },
+    {
+      "inventory_id": "F:00021570",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址与既有void callback/packed高W8逻辑访问保持；其它字段保宽。仅完整本根局部I/S，不代全部父/owner/ABI-SDK-PC53-RNG画面或运行"
+    },
+    {
+      "inventory_id": "F:00021610",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址与既有void callback/packed高W8逻辑访问保持；其它字段保宽。仅完整本根局部I/S，不代全部父/owner/ABI-SDK-PC53-RNG画面或运行"
+    },
+    {
+      "inventory_id": "F:000216B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址与既有void callback/packed高W8逻辑访问保持；其它字段保宽。仅完整本根局部I/S，不代全部父/owner/ABI-SDK-PC53-RNG画面或运行"
+    },
+    {
+      "inventory_id": "F:00021700",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有地址与既有void callback/packed高W8逻辑访问保持；其它字段保宽。仅完整本根局部I/S，不代全部父/owner/ABI-SDK-PC53-RNG画面或运行"
     }
   ],
   "auxiliary_dispositions": [

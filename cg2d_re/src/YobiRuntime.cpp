@@ -6845,8 +6845,10 @@ void UpdateBattleRisingEffect_41A200(YobiAction* const action)
         static_cast<void>(MarkDeath(action));
     }
     static_cast<void>(PlayFrame_517DA0(action, 0));
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
+    const float screenY = action->offset44;
+    action->x = screenX;
+    action->y = static_cast<std::int32_t>(screenY);
 }
 
 void UpdateBattleScalingEffect_41A270(YobiAction* const action)

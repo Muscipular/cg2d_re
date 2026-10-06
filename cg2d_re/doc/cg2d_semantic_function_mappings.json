@@ -163919,6 +163919,484 @@
         "input_screen_coordinates_s32": true,
         "no_rng_or_float_conversion": true
       }
+    },
+    {
+      "original_entry": "0x420D50",
+      "inventory_id": "F:00020D50",
+      "status": "BNX01完整正常根与既有正确源保持/独立身份纳管；全部owner/ABI-PC53及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleRisingEffect_420D50"
+          ],
+          "relationship": "先RNG(0,15)再分配，成功后设备分支可另RNG(0,1)；两16项S32偏移/父x与两次父y、F32坐标/0.2、借用父与phase=yOffset+liveParentY-100保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleRisingEffect_420D50"
+          ],
+          "relationship": "既有native非拥有T*、void callback及原业务宽度声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+      ],
+      "boundary": "先RNG(0,15)再分配，成功后设备分支可另RNG(0,1)；两16项S32偏移/父x与两次父y、F32坐标/0.2、借用父与phase=yOffset+liveParentY-100保持。地址沿获准native非拥有T*、其它原S32/F32/W32/W16/W8；原callback返回不消费，alpha逻辑高W8访问器保其它24位。只标死/原host转换保，不新owner/保护/异常回绕，不代所有父/资源寿命/ABI-SDK-PC53-RNG画面运行。",
+      "instruction_count": 106,
+      "function_chunks": [
+        {
+          "start": "0x420D50",
+          "end_exclusive": "0x420F0E"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleRisingEffect_420D50",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNX01完整106条446B/2页4call及出口；call2处/2父分列，七源仅上升callback一补丁；全部父/owner-ABI-PC53与运行未验",
+      "battle_rising_emitter_fade_sampling": {
+        "spec_id": "BNX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+        ],
+        "original_entry": "0x420D50",
+        "original_instruction_count": 106,
+        "original_code_bytes": 446,
+        "page_count": 2,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 2,
+        "incoming_reference_kind": "ordinary_direct_call",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "rng_before_allocation": true,
+        "second_rng_only_without_device": true,
+        "original_local_s32_array_items": 32
+      }
+    },
+    {
+      "original_entry": "0x41A200",
+      "inventory_id": "F:0001A200",
+      "status": "BNX01上升callback取样实修/完整原根与独立身份纳管；全部owner/ABI-PC53及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleRisingEffect_41A200"
+          ],
+          "relationship": "固定父deathFlag严格1则标死早退；其它路径未舍入speed/Y双精度中间值与F32存储，低于phase才parent field58++/标死后仍Play(0)/坐标投影；修Y取样先X发布"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleRisingEffect_41A200"
+          ],
+          "relationship": "既有native非拥有T*、void callback及原业务宽度声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+      ],
+      "boundary": "固定父deathFlag严格1则标死早退；其它路径未舍入speed/Y双精度中间值与F32存储，低于phase才parent field58++/标死后仍Play(0)/坐标投影；修Y取样先X发布。地址沿获准native非拥有T*、其它原S32/F32/W32/W16/W8；原callback返回不消费，alpha逻辑高W8访问器保其它24位。只标死/原host转换保，不新owner/保护/异常回绕，不代所有父/资源寿命/ABI-SDK-PC53-RNG画面运行。",
+      "instruction_count": 39,
+      "function_chunks": [
+        {
+          "start": "0x41A200",
+          "end_exclusive": "0x41A269"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleRisingEffect_41A200",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNX01完整39条105B/1页5call及出口；绑定3处/3父分列，七源仅上升callback一补丁；全部父/owner-ABI-PC53与运行未验",
+      "battle_rising_emitter_fade_sampling": {
+        "spec_id": "BNX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+        ],
+        "original_entry": "0x41A200",
+        "original_instruction_count": 39,
+        "original_code_bytes": 105,
+        "page_count": 1,
+        "outgoing_call_site_count": 5,
+        "incoming_reference_count": 3,
+        "incoming_parent_count": 3,
+        "incoming_reference_kind": "callback_address_binding",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "fixed_parent": true,
+        "strict_parent_death_one": true,
+        "unrounded_speed_y_preserved": true,
+        "y_sample_before_x_publication": true
+      }
+    },
+    {
+      "original_entry": "0x421480",
+      "inventory_id": "F:00021480",
+      "status": "BNX01完整正常根与既有正确源保持/独立身份纳管；全部owner/ABI-PC53及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleBackgroundFade_421480"
+          ],
+          "relationship": "原0..4五态/默认保持，alpha高W8/step S32门禁与低W8更新；0阈值饱和后贯穿1两次可发布背景/phase4，2归零后贯穿3置flags2再4标死"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleBackgroundFade_421480"
+          ],
+          "relationship": "既有native非拥有T*、void callback及原业务宽度声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+      ],
+      "boundary": "原0..4五态/默认保持，alpha高W8/step S32门禁与低W8更新；0阈值饱和后贯穿1两次可发布背景/phase4，2归零后贯穿3置flags2再4标死。地址沿获准native非拥有T*、其它原S32/F32/W32/W16/W8；原callback返回不消费，alpha逻辑高W8访问器保其它24位。只标死/原host转换保，不新owner/保护/异常回绕，不代所有父/资源寿命/ABI-SDK-PC53-RNG画面运行。",
+      "instruction_count": 66,
+      "function_chunks": [
+        {
+          "start": "0x421480",
+          "end_exclusive": "0x42155B"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleBackgroundFade_421480",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNX01完整66条219B/1页1call及出口；绑定1处/1父分列，七源仅上升callback一补丁；全部父/owner-ABI-PC53与运行未验",
+      "battle_rising_emitter_fade_sampling": {
+        "spec_id": "BNX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+        ],
+        "original_entry": "0x421480",
+        "original_instruction_count": 66,
+        "original_code_bytes": 219,
+        "page_count": 1,
+        "outgoing_call_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_binding",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "original_switch_slots": 5,
+        "switch_bytes": 20,
+        "logic_alpha_u8_preserves_other_color_bytes": true,
+        "case0_fallthrough_case1": true,
+        "case2_fallthrough_3_4": true
+      }
+    },
+    {
+      "original_entry": "0x421570",
+      "inventory_id": "F:00021570",
+      "status": "BNX01完整正常根与既有正确源保持/独立身份纳管；全部owner/ABI-PC53及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleBackgroundFade_421570"
+          ],
+          "relationship": "原flags/callback/image/graphicIndex=-1、image非负才真实图号查找；低W8 step承接S32 field58，原F32零/alpha0/batch8/phase0/publish/x-y/W16零保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleBackgroundFade_421570"
+          ],
+          "relationship": "既有native非拥有T*、void callback及原业务宽度声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+      ],
+      "boundary": "原flags/callback/image/graphicIndex=-1、image非负才真实图号查找；低W8 step承接S32 field58，原F32零/alpha0/batch8/phase0/publish/x-y/W16零保持。地址沿获准native非拥有T*、其它原S32/F32/W32/W16/W8；原callback返回不消费，alpha逻辑高W8访问器保其它24位。只标死/原host转换保，不新owner/保护/异常回绕，不代所有父/资源寿命/ABI-SDK-PC53-RNG画面运行。",
+      "instruction_count": 49,
+      "function_chunks": [
+        {
+          "start": "0x421570",
+          "end_exclusive": "0x42160F"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleBackgroundFade_421570",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNX01完整49条159B/1页2call及出口；call3处/3父分列，七源仅上升callback一补丁；全部父/owner-ABI-PC53与运行未验",
+      "battle_rising_emitter_fade_sampling": {
+        "spec_id": "BNX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+        ],
+        "original_entry": "0x421570",
+        "original_instruction_count": 49,
+        "original_code_bytes": 159,
+        "page_count": 1,
+        "outgoing_call_site_count": 2,
+        "incoming_reference_count": 3,
+        "incoming_parent_count": 3,
+        "incoming_reference_kind": "ordinary_direct_call",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "step_input_low_u8": true,
+        "only_nonnegative_image_lookup": true,
+        "original_business_defaults_preserved": true
+      }
+    },
+    {
+      "original_entry": "0x421610",
+      "inventory_id": "F:00021610",
+      "status": "BNX01完整正常根与既有正确源保持/独立身份纳管；全部owner/ABI-PC53及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleScreenEffect_421610"
+          ],
+          "relationship": "无设备才rebirth2=0/flags取样/rebirth1=8/OR8000，然后各路径另live flags OR40000/image110468/两W8值4、direction/X/W16零/Y，one-shot绑定保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleScreenEffect_421610"
+          ],
+          "relationship": "既有native非拥有T*、void callback及原业务宽度声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+      ],
+      "boundary": "无设备才rebirth2=0/flags取样/rebirth1=8/OR8000，然后各路径另live flags OR40000/image110468/两W8值4、direction/X/W16零/Y，one-shot绑定保持。地址沿获准native非拥有T*、其它原S32/F32/W32/W16/W8；原callback返回不消费，alpha逻辑高W8访问器保其它24位。只标死/原host转换保，不新owner/保护/异常回绕，不代所有父/资源寿命/ABI-SDK-PC53-RNG画面运行。",
+      "instruction_count": 37,
+      "function_chunks": [
+        {
+          "start": "0x421610",
+          "end_exclusive": "0x4216A1"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleScreenEffect_421610",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNX01完整37条145B/1页2call及出口；call1处/1父分列，七源仅上升callback一补丁；全部父/owner-ABI-PC53与运行未验",
+      "battle_rising_emitter_fade_sampling": {
+        "spec_id": "BNX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+        ],
+        "original_entry": "0x421610",
+        "original_instruction_count": 37,
+        "original_code_bytes": 145,
+        "page_count": 1,
+        "outgoing_call_site_count": 2,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "ordinary_direct_call",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "zero_eight_intermediate_values_preserved": true,
+        "only_without_device_8000_flag": true,
+        "fixed_image": 110468
+      }
+    },
+    {
+      "original_entry": "0x4216B0",
+      "inventory_id": "F:000216B0",
+      "status": "BNX01完整正常根与既有正确源保持/独立身份纳管；全部owner/ABI-PC53及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleScreenEmitter_4216B0"
+          ],
+          "relationship": "低W8 phase&7==0才randY%480→randX%640→创建；后另live phase--/pub，负值才标死，原无初始负phase早退"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleScreenEmitter_4216B0"
+          ],
+          "relationship": "既有native非拥有T*、void callback及原业务宽度声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+      ],
+      "boundary": "低W8 phase&7==0才randY%480→randX%640→创建；后另live phase--/pub，负值才标死，原无初始负phase早退。地址沿获准native非拥有T*、其它原S32/F32/W32/W16/W8；原callback返回不消费，alpha逻辑高W8访问器保其它24位。只标死/原host转换保，不新owner/保护/异常回绕，不代所有父/资源寿命/ABI-SDK-PC53-RNG画面运行。",
+      "instruction_count": 25,
+      "function_chunks": [
+        {
+          "start": "0x4216B0",
+          "end_exclusive": "0x4216F3"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleScreenEmitter_4216B0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNX01完整25条67B/1页4call及出口；绑定1处/1父分列，七源仅上升callback一补丁；全部父/owner-ABI-PC53与运行未验",
+      "battle_rising_emitter_fade_sampling": {
+        "spec_id": "BNX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+        ],
+        "original_entry": "0x4216B0",
+        "original_instruction_count": 25,
+        "original_code_bytes": 67,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_binding",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "rng_y_then_x": true,
+        "rand_only_phase_low3_zero": true,
+        "phase_resampled_after_creation": true
+      }
+    },
+    {
+      "original_entry": "0x421700",
+      "inventory_id": "F:00021700",
+      "status": "BNX01完整正常根与既有正确源保持/独立身份纳管；全部owner/ABI-PC53及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "NewBattleScreenEmitter_421700"
+          ],
+          "relationship": "New(2,0)失败空返回；原flags先取/callback/character0/OR2/pub/100/priority3/phase/W16零，发射器借用返回保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "NewBattleScreenEmitter_421700"
+          ],
+          "relationship": "既有native非拥有T*、void callback及原业务宽度声明保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+      ],
+      "boundary": "New(2,0)失败空返回；原flags先取/callback/character0/OR2/pub/100/priority3/phase/W16零，发射器借用返回保持。地址沿获准native非拥有T*、其它原S32/F32/W32/W16/W8；原callback返回不消费，alpha逻辑高W8访问器保其它24位。只标死/原host转换保，不新owner/保护/异常回绕，不代所有父/资源寿命/ABI-SDK-PC53-RNG画面运行。",
+      "instruction_count": 18,
+      "function_chunks": [
+        {
+          "start": "0x421700",
+          "end_exclusive": "0x42174A"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "NewBattleScreenEmitter_421700",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNX01完整18条74B/1页1call及出口；call1处/1父分列，七源仅上升callback一补丁；全部父/owner-ABI-PC53与运行未验",
+      "battle_rising_emitter_fade_sampling": {
+        "spec_id": "BNX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-acceptance",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+          "doc/cg2d_battle_rising_emitter_fade_sampling_evidence.json"
+        ],
+        "original_entry": "0x421700",
+        "original_instruction_count": 18,
+        "original_code_bytes": 74,
+        "page_count": 1,
+        "outgoing_call_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "ordinary_direct_call",
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "original_initial_flags_before_callback": true,
+        "original_business_flags_two": true
+      }
     }
   ]
 }

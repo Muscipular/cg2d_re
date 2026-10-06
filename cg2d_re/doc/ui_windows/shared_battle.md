@@ -8413,3 +8413,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [裁决](../cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-decision)：单根13定义14处恢复同parsed caster/target、payload先skill/actor先level、三初图各取样、附加效果target-level-skill/固定flags、基础字段与两成功skill actor先值、一S32分档行和八分档图按表先actor或payload先表。原状态类型/成功门禁-比较、固定payload跨替换动作、正确debuff默认0与未指定statusType、所有消费-字段/动作和各失败/End-Move-RID增58保持，其它根头/图表不改。86初低图表-位置-加110052、64..66/68及其它位置-表-加110081/110056；分档2006/2011/2013/2027图表先actor，2010/2012/2015/2014 payload先图表，GetBand后均先取target。2011/2013不增额外状态生产，2015/2027不增替换动作/143。
 
 [1065条/76call证据](../cg2d_battle_m_skill32_family_sampling_evidence.json)与原内部表/图矩阵只纳本根，正常debuff default0有原xor，statusType未写不补值；完整战斗接线-全部owner寿命/SDK/画面和运行另验。
+
+## BNR01 技能19族普通与反弹效果（2026-10-06）
+
+[裁决](../cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-decision)：单根26定义27处恢复同parsed角色、初低图位置-表-加法、累计先target后发布、普通Effect/Aux与两AEL、半额反馈/反弹字段-copy和末效果取样，四S32业务索引及五处实际W8门禁。原entry0/1比较、业务零/未指定lastAmount、全部图号-金额门禁/字段/动作与真实Move-RID固定58=2保持，其它根头不改。两Effect/Aux按各次固定/live参数生产；31/3037的半额、saved/live flags分工和各位置重读保持。
+
+[914条/67call证据](../cg2d_battle_m_skill19_family_sampling_evidence.json)只纳本根正常段/真实尾；完整战斗接线、全部owner寿命/SDK画面与运行另验。

@@ -297,3 +297,9 @@
 [具体SPEC](../cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-decision)：单根13定义14处恢复同parsed caster/target、payload先skill/actor先level、三初图各取样、附加效果target-level-skill/固定flags、基础字段与两成功skill actor先值、一S32分档行和八分档图按表先actor或payload先表。原状态类型/成功门禁-比较、固定payload跨替换动作、正确debuff默认0与未指定statusType、所有消费-字段/动作和各失败/End-Move-RID增58保持，其它根头/图表不改。三初图/八分档图依各次样本写1028/102C，target-level-skill附加效果后live flags、原固定flags供EffectList；基础和32..49/99..104成功字段各actor先值，后续重新读skill作原类型分派。status载荷在142/144前固定、调用后原字段顺序和141/143/37另live角色保持。
 
 [证据](../cg2d_battle_m_skill32_family_sampling_evidence.json)：1065条4656B十四页76call/全部直接和十二表间接出口，十二表117W32槽468B+93W8索引=561B、169S32/676B图矩阵与旧BMP48B偏移/具名入口上下文，13补丁/改前根和旧812完整前态保存。当前三个constexpr矩阵/重复列、S32默认0与未指定局部保持；不新owner/类型/保护/异常模型，全部owner重进退出失效/SDK-ABI-PC53与完整父/运行待验。
+
+## BNR01 累计半额与反弹字段取样（2026-10-06）
+
+[具体SPEC](../cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-decision)：单根26定义27处恢复同parsed角色、初低图位置-表-加法、累计先target后发布、普通Effect/Aux与两AEL、半额反馈/反弹字段-copy和末效果取样，四S32业务索引及五处实际W8门禁。原entry0/1比较、业务零/未指定lastAmount、全部图号-金额门禁/字段/动作与真实Move-RID固定58=2保持，其它根头不改。半额actor先累计值，反弹skill/level各actor先值；图copy source actor后先reflected位置，再source payload和dest actor/payload，末反馈W8各按实际取样。状态动作/载荷所有者保持。
+
+[原端证据](../cg2d_battle_m_skill19_family_sampling_evidence.json)：43412E..434EDF914条3505B十二页67call/全部直接和三个内部表间接出口，三表121B、3037入口36B及原48B偏移/具名低中入口只上下文，26补丁/改前根及旧812完整前态保存。不新owner/类型/保护或异常模型，完整父和owner重进退出失效、SDK/ABI/PC53运行仍待。

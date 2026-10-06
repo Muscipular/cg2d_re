@@ -2571,3 +2571,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 旧812/F:00027470按[源状态](cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-source-state)只五引用/本步对象追加，ProcessBattleMSkill32Family已在原source0登记，保留唯一symbol并更新关系，不重复追加。单根13定义14处恢复同parsed caster/target、payload先skill/actor先level、三初图各取样、附加效果target-level-skill/固定flags、基础字段与两成功skill actor先值、一S32分档行和八分档图按表先actor或payload先表。原状态类型/成功门禁-比较、固定payload跨替换动作、正确debuff默认0与未指定statusType、所有消费-字段/动作和各失败/End-Move-RID增58保持，其它根头/图表不改。
 
 [原端证据](cg2d_battle_m_skill32_family_sampling_evidence.json)：1065条4656B十四页76call/全部直接和十二表间接出口，十二表117W32槽468B+93W8索引=561B、169S32/676B图矩阵与旧BMP48B偏移/具名入口上下文，13补丁/改前根和旧812完整前态保存。E483→487仅双域四局部I/S；语义1350/有效ID1345、片段5/分类456、关联1463/3680及完整成员/门禁保持，不新F/X/adapted/分类。完整父17298/SEH-全部consumer-owner/其它技能-全路由/SDK-ABI-PC53-时钟RNG画面及运行另验。
+
+## BNR01 旧812技能19族有界映射（2026-10-06）
+
+按[源状态](cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-source-state)仅追加五引用/一源码symbol登记/本步对象，原已有代码ProcessBattleMSkill19Family不新增第二入口。单根26定义27处恢复同parsed角色、初低图位置-表-加法、累计先target后发布、普通Effect/Aux与两AEL、半额反馈/反弹字段-copy和末效果取样，四S32业务索引及五处实际W8门禁。原entry0/1比较、业务零/未指定lastAmount、全部图号-金额门禁/字段/动作与真实Move-RID固定58=2保持，其它根头不改。
+
+[证据](cg2d_battle_m_skill19_family_sampling_evidence.json)：43412E..434EDF914条3505B十二页67call/全部直接和三个内部表间接出口，三表121B、3037入口36B及原48B偏移/具名低中入口只上下文，26补丁/改前根及旧812完整前态保存。E487→491仅双域四局部I/S；语义1350/有效ID1345、片段5/分类456、关联1463/3680及完整成员/门禁保持，不新F/X/adapted/分类。

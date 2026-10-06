@@ -31939,7 +31939,9 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
                 const std::int32_t amount = payload->effects1C[numberIndex].position3;
                 const std::int32_t x = target->x;
                 static_cast<void>(NewBattleNumber_41F1A0(x, y - 80, amount, 5, 2, numberFlags));
-                if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                const std::uint8_t recoveryIconFlags = *reinterpret_cast<const std::uint8_t*>(
+                    &payload->effects1C[payload->effectRunningC9C].flags);
+                if ((recoveryIconFlags & 2u) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                 }
                 static_cast<void>(NewBattleAttributeEffects_4209C0(action, target));
@@ -31964,7 +31966,9 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
                 }
                 const std::int32_t hitIndex = payload->effectRunningC9C;
                 if (payload->effects1C[hitIndex].position3 != 0) {
-                    if ((payload->effects1C[hitIndex].flags & 2u) != 0) {
+                    const std::uint8_t hitFlags =
+                        *reinterpret_cast<const std::uint8_t*>(&payload->effects1C[hitIndex].flags);
+                    if ((hitFlags & 2u) != 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(target, 110008, 0));
                     }
                     if (imageNo >= 0) {
@@ -31977,14 +31981,18 @@ void UpdateBattleAction221_413B40(YobiAction* const action)
                     const std::int32_t amount = payload->effects1C[numberIndex].position3;
                     const std::int32_t x = target->x;
                     static_cast<void>(NewBattleNumber_41F1A0(x, y - 80, amount, 6, 2, numberFlags));
-                    if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                    const std::uint8_t damageIconFlags = *reinterpret_cast<const std::uint8_t*>(
+                        &payload->effects1C[payload->effectRunningC9C].flags);
+                    if ((damageIconFlags & 2u) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(action, 22454, 0, 0));
                     }
                     static_cast<void>(NewBattleAttributeEffects_4209C0(
                         gBattleAllEntries59E980[attackerPosition], target));
                 }
             }
-            if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+            const std::uint8_t activateFlags = *reinterpret_cast<const std::uint8_t*>(
+                &payload->effects1C[payload->effectRunningC9C].flags);
+            if ((activateFlags & 0x20u) != 0) {
                 payload->flagsFDC |= 2u;
                 gYobiUpdateGateMode = 1;
                 payload->aliveFF8 = 1;

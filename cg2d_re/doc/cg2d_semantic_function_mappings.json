@@ -178474,6 +178474,110 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x00413B40",
+      "inventory_id": "F:00013B40",
+      "original_role": "UpdateBattleAction221_413B40",
+      "original_end_exclusive": "0x00413E85",
+      "instruction_count": 248,
+      "status": "BQA02两完整成对效果/距离正常源纳管，221四低W8恢复；222和原HP/图标接收者保，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction221_413B40"
+          ],
+          "relationship": "221：固定payload，imageNo初始-1，fresh current.position先保存attackerPosition→439470推进。fresh currentIndex捕targetPosition和initialFlags W32后共享59E980目标T*/其payload一次保存，initialFlags bit4图110000；否则400时技术8/targetPosition阈12图110098或111048并源RandomEffect110014；其它skillLevel>=9图110014。target+10=共享attacker，fresh current.flags W32写target FE4→ApplyFlags(attackerPosition,action)。fresh index/flags W32先8000决定共同跳尾，4000恢复分支先10000000图22459，否则给target.readiness加amount，GreaterCrypt(target,maxHp)才普通CopyPayload上限（原encoded/mask/readCount交替，token/reserved不复制）；随后fresh flags W32→targetY→amount→targetX数显type5/style2/flags，再fresh current.flags低W8 bit2给target图22454，Attribute(action,target)。非4000且2000清时扣减：10000000用fresh共享当前目标图22459；否则target.readiness扣amount/<0 Construct0，原先齐读mask/encoded W32/readCount W8后按原序写action.readiness（确为源对象，不是target）→Destroy，现正确体保。fresh hitIndex.position3非0才同cached index.flags低W8 bit2生成target110008，imageNo非负才target图、共享attacker/target Rebirth；fresh flags W32→Y→amount→X数显type6/style2/flags，再fresh current.flags低W8 bit2给action图22454（不是target），Attribute(共享attacker,target)。扣减分支共同fresh current.flags低W8 bit20才源FDC W32|2/gate1/alive1。恢复或8000/2000跳尾不执行此激活。共同source439340→439470弃返，所有参数/返回与source/target别名、真实生产消费/业务上限和未决寿命范围保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline",
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-acceptance",
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+        "doc/cg2d_battle_effect_pair_distance_sampling_evidence.json"
+      ],
+      "boundary": "221：固定payload，imageNo初始-1，fresh current.position先保存attackerPosition→439470推进。fresh currentIndex捕targetPosition和initialFlags W32后共享59E980目标T*/其payload一次保存，initialFlags bit4图110000；否则400时技术8/targetPosition阈12图110098或111048并源RandomEffect110014；其它skillLevel>=9图110014。target+10=共享attacker，fresh current.flags W32写target FE4→ApplyFlags(attackerPosition,action)。fresh index/flags W32先8000决定共同跳尾，4000恢复分支先10000000图22459，否则给target.readiness加amount，GreaterCrypt(target,maxHp)才普通CopyPayload上限（原encoded/mask/readCount交替，token/reserved不复制）；随后fresh flags W32→targetY→amount→targetX数显type5/style2/flags，再fresh current.flags低W8 bit2给target图22454，Attribute(action,target)。非4000且2000清时扣减：10000000用fresh共享当前目标图22459；否则target.readiness扣amount/<0 Construct0，原先齐读mask/encoded W32/readCount W8后按原序写action.readiness（确为源对象，不是target）→Destroy，现正确体保。fresh hitIndex.position3非0才同cached index.flags低W8 bit2生成target110008，imageNo非负才target图、共享attacker/target Rebirth；fresh flags W32→Y→amount→X数显type6/style2/flags，再fresh current.flags低W8 bit2给action图22454（不是target），Attribute(共享attacker,target)。扣减分支共同fresh current.flags低W8 bit20才源FDC W32|2/gate1/alive1。恢复或8000/2000跳尾不执行此激活。共同source439340→439470弃返，所有参数/返回与source/target别名、真实生产消费/业务上限和未决寿命范围保。 两完整原根346条1169B/六页、34call/21入口/28普通内部jump/三ret、两唯一404DB0入向六邻窗与四F32原常数。只221四实际低W8消费，初次/随后image/damage flags W32与寄存器AL/AH消费、源对象HP零临时齐读/清源、图标的源/目标接收者和普通CopyPayload上限全部保持；222整个正确体与未落位浮点中间/实际F32存储、两个fresh目标/MarkDeath/声参数/状态及返回保持。正常旧掩码值相同，不称数值/并发或机器故障。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "verification_level": "两完整原根346条1169B/六页、34call/21入口/28普通内部jump/三ret、两唯一404DB0入向六邻窗与四F32原常数。只221四实际低W8消费，初次/随后image/damage flags W32与寄存器AL/AH消费、源对象HP零临时齐读/清源、图标的源/目标接收者和普通CopyPayload上限全部保持；222整个正确体与未落位浮点中间/实际F32存储、两个fresh目标/MarkDeath/声参数/状态及返回保持。正常旧掩码值相同，不称数值/并发或机器故障。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "battle_effect_pair_distance_sampling": {
+        "spec_id": "BQA02",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline",
+          "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
+          "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-acceptance",
+          "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+          "doc/cg2d_battle_effect_pair_distance_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 248,
+        "original_code_bytes": 837,
+        "original_page_count": 4,
+        "original_outgoing_call_count": 23,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 4,
+        "normal_previous_flag_values_wrong": false,
+        "source_zero_hp_recipient_changed": false,
+        "source_icon_recipients_changed": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00413E90",
+      "inventory_id": "F:00013E90",
+      "original_role": "UpdateBattleAction222_413E90",
+      "original_end_exclusive": "0x00413FDC",
+      "instruction_count": 98,
+      "status": "BQA02两完整成对效果/距离正常源纳管，221四低W8恢复；222和原HP/图标接收者保，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction222_413E90"
+          ],
+          "relationship": "222：fixed payload，fresh current.position/共享59E980目标供Turn(action,target,0,10.0F)，调用后另fresh current.position/共享目标供有符号Distance<20。未近则共同Move→PlayFrame(action,0)返回；近时fresh skill恰266或2022才另fresh目标payload.FF0清0，再fresh current共享目标439340→source439470，捕opponent原+10指针后source.phase22→Turn(action,opponent,0,0.0F)。原angle F32载入+真实F32 180，中间先比较180后F32发布，>180减360，否则<=-180加360，中间不重读已落位角度；speed F32载入×真实F32 0.5后F32发布。随后Move→PlayFrame0返回。其它skill近时先MarkDeath(action)→声216(x)（原第三Y未消费、音频暂停）→Move→PlayFrame0返回。保两个目标重取、参数/返回、指针先phase后发布和未落位比较/正常S32业务，不改正确体。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline",
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-acceptance",
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+        "doc/cg2d_battle_effect_pair_distance_sampling_evidence.json"
+      ],
+      "boundary": "222：fixed payload，fresh current.position/共享59E980目标供Turn(action,target,0,10.0F)，调用后另fresh current.position/共享目标供有符号Distance<20。未近则共同Move→PlayFrame(action,0)返回；近时fresh skill恰266或2022才另fresh目标payload.FF0清0，再fresh current共享目标439340→source439470，捕opponent原+10指针后source.phase22→Turn(action,opponent,0,0.0F)。原angle F32载入+真实F32 180，中间先比较180后F32发布，>180减360，否则<=-180加360，中间不重读已落位角度；speed F32载入×真实F32 0.5后F32发布。随后Move→PlayFrame0返回。其它skill近时先MarkDeath(action)→声216(x)（原第三Y未消费、音频暂停）→Move→PlayFrame0返回。保两个目标重取、参数/返回、指针先phase后发布和未落位比较/正常S32业务，不改正确体。 两完整原根346条1169B/六页、34call/21入口/28普通内部jump/三ret、两唯一404DB0入向六邻窗与四F32原常数。只221四实际低W8消费，初次/随后image/damage flags W32与寄存器AL/AH消费、源对象HP零临时齐读/清源、图标的源/目标接收者和普通CopyPayload上限全部保持；222整个正确体与未落位浮点中间/实际F32存储、两个fresh目标/MarkDeath/声参数/状态及返回保持。正常旧掩码值相同，不称数值/并发或机器故障。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "verification_level": "两完整原根346条1169B/六页、34call/21入口/28普通内部jump/三ret、两唯一404DB0入向六邻窗与四F32原常数。只221四实际低W8消费，初次/随后image/damage flags W32与寄存器AL/AH消费、源对象HP零临时齐读/清源、图标的源/目标接收者和普通CopyPayload上限全部保持；222整个正确体与未落位浮点中间/实际F32存储、两个fresh目标/MarkDeath/声参数/状态及返回保持。正常旧掩码值相同，不称数值/并发或机器故障。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "battle_effect_pair_distance_sampling": {
+        "spec_id": "BQA02",
+        "evidence_refs": [
+          "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline",
+          "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
+          "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-acceptance",
+          "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+          "doc/cg2d_battle_effect_pair_distance_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 98,
+        "original_code_bytes": 332,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 11,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "source_zero_hp_recipient_changed": false,
+        "source_icon_recipients_changed": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

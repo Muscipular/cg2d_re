@@ -1106,3 +1106,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-acceptance)/[完整397条1508B](cg2d_battle_clone_restore_sampling_evidence.json)。六页、31call/八入口/42普通jump/八ret、三父九邻窗和源Restore两个使用者对应完整原内联可追；两个先指针后图号/一个末尾低W8三阶段恢复，不称正常数值错误或原返回ABI通过。原同步循环、槽空检查/别名借用和条件回收/业务/状态保。两局部I/S各十实来源，递归依赖/生产/owner与生成机器/运行未验。
 
 语义1472/1467、关联1585/43.07%、BATTLE149枚举open、分类597/E752；R7 260/3061/余2801、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持。
+
+## BQA02 两完整成对效果/距离状态局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-acceptance)/[完整346条1169B](cg2d_battle_effect_pair_distance_sampling_evidence.json)。六页、34call/21入口/28普通jump/三ret、两父六邻窗/四常数与四低W8可追，原源HP归零三齐读/原指针寄存器分支及两图标接收者明确。只四读取边界片段，正常旧值一致；两局部I/S各十实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
+
+语义1474/1469、关联1587/43.12%、BATTLE151枚举open、分类599/E754；R7 260/3061/余2801、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持。

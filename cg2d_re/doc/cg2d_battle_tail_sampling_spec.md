@@ -115,3 +115,9 @@
 [完整合同](cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state)/[三完整397条1508B](cg2d_battle_clone_restore_sampling_evidence.json)纳管218/219/220及RestoreBattleBaseImage的两个实际使用者。218与共同Restore恢复1060指针先于图号的取样，219末尾FDC低W8；三源阶段只读取序/边界恢复，正常旧值一致，220包装正确保。原同步终帧循环/槽空检查、每操作fresh和条件回收/alpha业务下限与状态保。
 
 三个原F，不造源帮助体原callee/F/owner；BATTLE149枚举open/E752仅两局部I/S，递归依赖/其它生产及寿命/生成机器/运行和R8未完成。
+
+## BQA02 成对效果/距离状态与原HP/图标接收者（2026-10-07）
+
+[完整合同](cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state)/[两完整346条1169B](cg2d_battle_effect_pair_distance_sampling_evidence.json)纳管221/222；只221四实际低W8消费恢复，其余W32 image/damage缓存及原零临时三齐读/写源对象HP保持。恢复图22454接target，扣减图22454接source，原不按直觉更换接收者。
+
+222正确体和未落位角度比较/四原F32常数、两个fresh目标与普通业务/返回保持；BATTLE151枚举open/E754两局部I/S，递归依赖/生产和寿命/生成机器/运行及R8未完成。

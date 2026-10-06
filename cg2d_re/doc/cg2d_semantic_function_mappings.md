@@ -3082,3 +3082,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline)/[三根冻结前态](cg2d_battle_clone_restore_sampling_evidence.json)。新增1469/F:00013550、1470/F:00013750、1471/F:00013980，三个原已有定义正常语义/equivalent，冻结定位保持；后两源绑定共同Restore，它只承接原内联阶段，不独立加F/call，所有两个实际使用者均完整纳管。
 
 218/219与共同源帮助体三片段恢复、220包装及其它源正确保持。语义1472/有效1467、关联1585/3680（43.07%）、BATTLE149枚举open、分类597/E752，R7 260/3061/余2801、差队列172/待归属43与全部完整门禁保。
+
+## BQA02 两成对效果/距离完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline)/[两根冻结前态](cg2d_battle_effect_pair_distance_sampling_evidence.json)。新增1472/F:00013B40、1473/F:00013E90，两原已有定义正常语义/equivalent，冻结定位保持。只221四低W8读取恢复，原源HP归零与两个图标接收者、普通CopyPayload上限和222正确体保持。
+
+语义1474/有效1469、关联1587/3680（43.12%）、BATTLE151枚举open、分类599/E754，R7 260/3061/余2801、差队列172/待归属43与全部完整门禁不变。

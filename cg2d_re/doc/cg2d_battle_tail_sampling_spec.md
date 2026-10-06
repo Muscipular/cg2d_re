@@ -67,3 +67,9 @@
 [动作114阶段合同](cg2d_battle_action_114_spec.md#battle-action-114-source-state)/[完整489条1745B](cg2d_battle_action_114_evidence.json)补BPP当时仅字段/数据角色的余下本体。34实际call/57内部jump/六槽switch、一唯一父参数弃返邻窗、54D4B4实际四字节可追；命中/名称与两轴fresh除10、业务0/maxHp及创建/图标/公共尾正常源对应，三个源片段恢复四原TEST W8点，正常旧判断值相同。
 
 既有1428全文前态保，BPP启用[1]/类型[0]修复保持；一equivalent只完整正常源静态，BATTLE108枚举open、E736两局部I/S。完整父与全部子依赖/其它生产/owner寿命/SDK及生成机器ABI和x87实际精度/RNG/画面运行未验，完整战斗不关闭。
+
+## BPS01 运动/缩放四动作与效果回收（2026-10-07）
+
+[正常阶段合同](cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state)/[完整339条1170B](cg2d_battle_motion_scale_lifecycle_evidence.json)补113/154/155/156完整本体。原155/156判断与MarkDeath分别复用一次指针，源两片段改同阶段非拥有借用，保真实清槽/推进；113/154正确本体不改。原播放旗位是W32先读后测寄存器，原缩放中间/F32落位/两seed与RNG/五原声点及三个常数保，音频暂停。
+
+四已有定义首次明确语义与正常equivalent，BATTLE108→112仍枚举open，E738两局部I/S；完整父/全部子依赖与其它生产/owner寿命、SDK和生成机器ABI/x87实际精度/RNG/画面运行未验，完整战斗不关闭。

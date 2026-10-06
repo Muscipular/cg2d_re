@@ -3034,3 +3034,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_action_114_spec.md#battle-action-114-baseline)/[完整489条1745B及前态](cg2d_battle_action_114_evidence.json)。1428/F:0000F0A0旧BPP全文存previous_mapping_before_bpr01，当前推进完整正常源/34实际出向和唯一父邻窗，四原低W8点对应三个源片段；保正确W32缓存、两轴fresh读取、12B原表行、业务上下限和真实创建/推进顺序。
 
 语义1431/有效ID1426、文档1544/41.96%、BATTLE108、R7 259/3061及差队列172/待归属43保持；分类555→556一正常equivalent、E734→736两局部I/S；U08/R01/R04/V04仍open，原完整门禁不提升。
+
+## BPS01 四完整运动/缩放动作正常源纳管（2026-10-07）
+
+[完整合同](cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline)/[四原根/原定位前态](cg2d_battle_motion_scale_lifecycle_evidence.json)。新增1431/F:0000EFE0、1432/F:0000F790、1433/F:0000F800、1434/F:0000FB30，只明确原已有四定义，冻结定位不刷新；339条1170B/六页/29call及四唯一父邻窗可追。155/156各一指针取样片段实修，113/154正确体保，原正常无介入值一致，不称并发或生成机器错误。
+
+语义1435/有效1430、关联1548/3680（42.07%）、BATTLE112枚举open、分类560、E738；R7 259/3061/余2802、差队列172/待归属43及全部完整门禁保。__ftol沿已有正常宿主边界，不扩大CRT成员或异常模型；四任务继续open。

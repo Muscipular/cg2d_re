@@ -1058,3 +1058,9 @@ R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open�
 [限定验收](cg2d_battle_action_114_spec.md#battle-action-114-acceptance)/[完整七页489条1745B](cg2d_battle_action_114_evidence.json)。34call/57内部jump/六槽switch及一ret、唯一父邻窗、四原W8点和54D4B4常数分列；三源片段恢复真实读取宽度，正常旧掩码相同，原W32消费/业务范围/正确依赖保。两局部I/S各九独立实际来源，未把全父子/环境/owner寿命/生成机器ABI或运行记已验。
 
 分类556、E736；语义1431/1426、关联1544/41.96%、BATTLE108枚举open、R7 259/3061/余2802、差队列172/待归属43及四任务open保持；60源码closed10/完整验收0/叶0/global_accepted=false，原验收标准保。
+
+## BPS01 四动作完整正常源局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance)/[四完整原根](cg2d_battle_motion_scale_lifecycle_evidence.json)。339条1170B/六页、29call/10被调入口、34内部jump/四ret和四唯一父邻窗、三个原常数分列；155/156回收同阶段一次非拥有指针已恢复，清槽/推进与正确113/154源保。两局部I/S各十一独立实际来源，只正常源阶段，不代生成机器/x87精度/owner寿命或运行。
+
+语义1431→1435/有效1426→1430、关联1544→1548（42.07%）、BATTLE108→112枚举open、分类556→560、E736→738；R7 259/3061/余2802、差队列172/待归属43及四任务open保。60源码closed10/完整验收0/叶0/global_accepted=false，原标准继续。

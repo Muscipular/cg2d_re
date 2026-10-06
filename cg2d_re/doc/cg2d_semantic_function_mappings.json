@@ -176354,6 +176354,206 @@
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x0040EFE0",
+      "inventory_id": "F:0000EFE0",
+      "original_role": "UpdateBattleAction113_40EFE0",
+      "original_end_exclusive": "0x0040F093",
+      "instruction_count": 53,
+      "status": "BPS01完整正常运动/缩放动作源纳管，155/156回收阶段单次借用指针实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction113_40EFE0"
+          ],
+          "relationship": "动作113：先worldY发布offset44→405EA0移动→同一+10借用opponent X/扣graphicOffsetY的Y→worldY回存；原duration为+294的S32，除2/差平方/乘worldX减S32 field58加offset44后F32落位。fresh valueFF0的前值与duration比较、先增1，达到时用FE8/FEC的S32定位→439340(action)→fresh+10 MarkDeath→valueFF0清0。保原正常S32算术/浮点存储，未增加异常回绕/保护。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+        "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+      ],
+      "boundary": "动作113：先worldY发布offset44→405EA0移动→同一+10借用opponent X/扣graphicOffsetY的Y→worldY回存；原duration为+294的S32，除2/差平方/乘worldX减S32 field58加offset44后F32落位。fresh valueFF0的前值与duration比较、先增1，达到时用FE8/FEC的S32定位→439340(action)→fresh+10 MarkDeath→valueFF0清0。保原正常S32算术/浮点存储，未增加异常回绕/保护。 四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
+      "verification_level": "四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
+      "battle_motion_scale": {
+        "spec_id": "BPS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+          "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 53,
+        "original_code_bytes": 179,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_pointer_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0040F790",
+      "inventory_id": "F:0000F790",
+      "original_role": "UpdateBattleAction154_40F790",
+      "original_end_exclusive": "0x0040F7FB",
+      "instruction_count": 38,
+      "status": "BPS01完整正常运动/缩放动作源纳管，155/156回收阶段单次借用指针实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction154_40F790"
+          ],
+          "relationship": "动作154：flagsFDC原MOV W32后TEST AL60，现W32读取保持；清60才PlayFrame(action,0)且弃返。effect1060空才41CD00(action,0,原零联合参数,24,0,0)→写借用槽→PlaySe212；后fresh读取effect1060，phase W32==1才439340(action)。不能缓存创建前槽跨播放/创建/音效。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+        "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+      ],
+      "boundary": "动作154：flagsFDC原MOV W32后TEST AL60，现W32读取保持；清60才PlayFrame(action,0)且弃返。effect1060空才41CD00(action,0,原零联合参数,24,0,0)→写借用槽→PlaySe212；后fresh读取effect1060，phase W32==1才439340(action)。不能缓存创建前槽跨播放/创建/音效。 四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
+      "verification_level": "四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
+      "battle_motion_scale": {
+        "spec_id": "BPS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+          "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 38,
+        "original_code_bytes": 107,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 4,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_pointer_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0040F800",
+      "inventory_id": "F:0000F800",
+      "original_role": "UpdateBattleAction155_40F800",
+      "original_end_exclusive": "0x0040FB2E",
+      "instruction_count": 225,
+      "status": "BPS01完整正常运动/缩放动作源纳管，155/156回收阶段单次借用指针实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction155_40F800"
+          ],
+          "relationship": "动作155：flagsFDC先MOV W32/TEST AL60，清才PlayFrame(action,1)直到非0。value1024==0时41CD00模式22/末参1→先取soundX再写+10效果→PlaySe213→fresh位置和effect索引种子→RAND(1,9)乘原F32十分之一→再fresh种子→RAND(5,9)写attackMode→character8→device查询后fresh W32 flags设100000或8000→counter0。按target与scaleX比较分别减/加原F32 step，原FST保未落位中间量比较而各轴写F32；端点双轴对齐后fresh计数/总数，原比较/写入及末次分支保：缩小value1030==1设0不响、其它fresh payload flags1000选1.3/1并响；放大value1030==1设0并响、其它选1.3/1不响。其它缩小RAND(ftol(target*10),9)、放大RAND(1,ftol(target*10))，返回乘原F32十分之一发布后响；__ftol只已有CRT宿主正常S32转换承接。尾fresh总数+1与计数比较，达到时同阶段取一次+10效果→非空MarkDeath同一借用→清+10并清value1024；无论空否effect1060.phase=2/counter0，device后fresh flags清相应位，取soundX再发布flags→PlaySe212→character0→439340。真实各分支声调用不合并，音频暂停。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+        "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+      ],
+      "boundary": "动作155：flagsFDC先MOV W32/TEST AL60，清才PlayFrame(action,1)直到非0。value1024==0时41CD00模式22/末参1→先取soundX再写+10效果→PlaySe213→fresh位置和effect索引种子→RAND(1,9)乘原F32十分之一→再fresh种子→RAND(5,9)写attackMode→character8→device查询后fresh W32 flags设100000或8000→counter0。按target与scaleX比较分别减/加原F32 step，原FST保未落位中间量比较而各轴写F32；端点双轴对齐后fresh计数/总数，原比较/写入及末次分支保：缩小value1030==1设0不响、其它fresh payload flags1000选1.3/1并响；放大value1030==1设0并响、其它选1.3/1不响。其它缩小RAND(ftol(target*10),9)、放大RAND(1,ftol(target*10))，返回乘原F32十分之一发布后响；__ftol只已有CRT宿主正常S32转换承接。尾fresh总数+1与计数比较，达到时同阶段取一次+10效果→非空MarkDeath同一借用→清+10并清value1024；无论空否effect1060.phase=2/counter0，device后fresh flags清相应位，取soundX再发布flags→PlaySe212→character0→439340。真实各分支声调用不合并，音频暂停。 四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
+      "verification_level": "四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
+      "battle_motion_scale": {
+        "spec_id": "BPS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+          "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 225,
+        "original_code_bytes": 814,
+        "original_page_count": 3,
+        "original_outgoing_call_count": 19,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_pointer_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0040FB30",
+      "inventory_id": "F:0000FB30",
+      "original_role": "UpdateBattleAction156_40FB30",
+      "original_end_exclusive": "0x0040FB76",
+      "instruction_count": 23,
+      "status": "BPS01完整正常运动/缩放动作源纳管，155/156回收阶段单次借用指针实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction156_40FB30"
+          ],
+          "relationship": "动作156：flagsFDC原W32读取，清60才PlayFrame(action,0)弃返；其后fresh取一次effect1060，phase W32==3才MarkDeath该同一非拥有指针→清effect1060→439340。保持原无额外空保护的业务前提，不提前跨PlayFrame缓存、不改变owner或位宽。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+        "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+      ],
+      "boundary": "动作156：flagsFDC原W32读取，清60才PlayFrame(action,0)弃返；其后fresh取一次effect1060，phase W32==3才MarkDeath该同一非拥有指针→清effect1060→439340。保持原无额外空保护的业务前提，不提前跨PlayFrame缓存、不改变owner或位宽。 四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
+      "verification_level": "四动作完整339条1170B/六页、29实际call/34普通内部jump/四ret、四唯一普通入向同一404DB0父的15条邻窗和三个原F32常数，只当前完整正常源分支/字段/数值与调用阶段静态纳管。两源借用指针阶段修复，正常无介入值一致、不称并发/画面或生成机器bug；其余两动作正确源保持。全父/全部子依赖/其它状态生产及间接alias-owner寿命、SDK/生成机器ABI与实际x87精度、RNG/时钟/画面/运行未新验。__ftol沿已有CRT宿主正常S32转换批准边界，不扩大特殊值/故障模型；音频暂停与RPLAN.24保持。",
+      "battle_motion_scale": {
+        "spec_id": "BPS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-acceptance",
+          "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+          "doc/cg2d_battle_motion_scale_lifecycle_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 23,
+        "original_code_bytes": 70,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_pointer_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

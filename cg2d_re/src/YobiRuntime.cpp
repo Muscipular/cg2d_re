@@ -28725,8 +28725,9 @@ void UpdateBattleAction155_40F800(YobiAction* const action)
     }
     const std::int32_t total = payload->attackModeFF4;
     if (payload->valueFF0 >= total + 1) {
-        if (action->battleCastEffect10 != nullptr) {
-            static_cast<void>(MarkDeath(action->battleCastEffect10));
+        YobiAction* const castEffect = action->battleCastEffect10;
+        if (castEffect != nullptr) {
+            static_cast<void>(MarkDeath(castEffect));
             action->battleCastEffect10 = nullptr;
             payload->value1024 = 0;
         }
@@ -28748,8 +28749,9 @@ void UpdateBattleAction156_40FB30(YobiAction* const action)
     if ((payload->flagsFDC & 0x60u) == 0) {
         static_cast<void>(PlayFrame_517DA0(action, 0));
     }
-    if (payload->effect1060->phase == 3) {
-        static_cast<void>(MarkDeath(payload->effect1060));
+    YobiAction* const effect = payload->effect1060;
+    if (effect->phase == 3) {
+        static_cast<void>(MarkDeath(effect));
         payload->effect1060 = nullptr;
         AdvanceBattleCastState_439340(action);
     }

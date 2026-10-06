@@ -165326,6 +165326,84 @@
         "audio132_only_default": true,
         "source_callback_void_unchanged": true
       }
+    },
+    {
+      "original_entry": "0x41B440",
+      "inventory_id": "F:0001B440",
+      "status": "BOD01完整正常帧事件回调/四补丁解决本步取样问题，独立基线纳管；全父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleFrameEventEffect_41B440"
+          ],
+          "relationship": "入口phase先固定payload，phase0当前目标phase非零立即返回；旧frameEvent先phase1，>=10000消费；固定初游标-target先flags/targetPayload，图号4/800/400优先否则RNG0..2，406260/opponent/FE4后fresh事件<20000且1038!=1才406390及HP/五分类，否则只视觉效果/目标phase26；FD0按原分支写14/28，消费后清事件。old58-1后仅old58<=0减正FD0/重读为0才Play(1)严格1、范围图号标死后设备flags/nameY；fresh oldFade>0自增、oldFade>=20再标死，仍偏移投影"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleFrameEventEffect_41B440"
+          ],
+          "relationship": "既有native非拥有T*与void callback保持；原无新空门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-baseline",
+        "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-decision",
+        "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-acceptance",
+        "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
+        "doc/cg2d_battle_frame_event_callback_sampling_evidence.json"
+      ],
+      "boundary": "入口phase先固定payload，phase0当前目标phase非零立即返回；旧frameEvent先phase1，>=10000消费；固定初游标-target先flags/targetPayload，图号4/800/400优先否则RNG0..2，406260/opponent/FE4后fresh事件<20000且1038!=1才406390及HP/五分类，否则只视觉效果/目标phase26；FD0按原分支写14/28，消费后清事件。old58-1后仅old58<=0减正FD0/重读为0才Play(1)严格1、范围图号标死后设备flags/nameY；fresh oldFade>0自增、oldFade>=20再标死，仍偏移投影。本根target先flags/治疗金额先Y，原HP业务上下限/视觉分支及nameY两次增保；地址native非拥有，其它数值原宽，内存CryptInt token/reserved保；不代全父-callee-owner/SDK-ABI-PC53画面运行，音频暂停。",
+      "instruction_count": 471,
+      "function_chunks": [
+        {
+          "start": "0x41B440",
+          "end_exclusive": "0x41BAFB"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleFrameEventEffect_41B440",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOD01完整471条1723B/六页38call-56内部出口/四取样补丁，两个callback地址引用单父41CD00分列；全父-callee-owner/ABI-PC53未运行",
+      "battle_frame_event_callback_sampling": {
+        "spec_id": "BOD01",
+        "evidence_refs": [
+          "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-baseline",
+          "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-decision",
+          "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-acceptance",
+          "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
+          "doc/cg2d_battle_frame_event_callback_sampling_evidence.json"
+        ],
+        "original_entry": "0x41B440",
+        "original_instruction_count": 471,
+        "original_code_bytes": 1723,
+        "page_count": 6,
+        "outgoing_call_site_count": 38,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 4,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "entry_phase_before_payload": true,
+        "target_lookup_before_initial_flags_preserved": true,
+        "healing_display_value_before_target_y_preserved": true,
+        "negative_hp_copy_encoded_before_target_lookup": true,
+        "display_target_x_before_y_minus80": true,
+        "fresh_frame_event_after_406260": true,
+        "value1038_not_one_only_actual_hp_branch": true,
+        "special_visual_branch_does_not_update_hp": true,
+        "category20000000_visual110474_preserved": true,
+        "original_hp_zero_and_maximum_business_rules_preserved": true,
+        "fade_may_increment_twice_per_completed_frame": true,
+        "old_delay_and_fresh_fd0_recheck_preserved": true,
+        "markdeath_continues_device_flags_fade_and_projection": true
+      }
     }
   ]
 }

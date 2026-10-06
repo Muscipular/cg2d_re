@@ -2643,3 +2643,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [具体SPEC](cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision)/[证据](cg2d_battle_impact_callbacks_sampling_evidence.json)：两完整732条2647B十页57call/74普通内部分支/两ret，三callback地址引用来自41CD00。各五补丁恢复入口phase先payload、完成position/flags先查target、负HP临时encoded先查copyTarget，以及两数字分支flags→targetY→记录数值→targetX→S32 Y-80。保原负HP零临时/上限三字段复制、目标和载荷固定/live源游标重读、分类10000/40000/20000/default与scene计数、严格完成/标死继续、old58/FD0及偏移投影尾；通用CopyPayload/固定内存CryptInt/音频接口不改。
 
 新增语义1378..1379/两ID分类、BATTLE80→82枚举仍open；语义1380/有效ID1375、分类486、关联1493/3680=40.57%、E555仅各局部I/S共四E。十取样问题本步已解决，所有其它源码/声明、旧记录-其它域/175队列/七open与完整门禁保持；全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8继续，网络原格式明文/音频暂停。
+
+## BOD01 帧事件HP/视觉消费与消退（2026-10-06）
+
+[具体SPEC](cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-decision)/[证据](cg2d_battle_frame_event_callback_sampling_evidence.json)：完整471条1723B六页38call/56普通内部分支/一ret，两个callback地址引用来自41CD00。四补丁恢复phase先payload、负HP临时encoded先查copyTarget、style5/6数字targetX先Y-80；本根target先initialFlags/治疗金额先targetY原序保。旧事件>=10000消费，406260后fresh事件<20000且1038不严格1才实际HP/五分类，否则仅视觉/目标phase26；两分支FD0门禁不同，原HP上下限与20直接gate1/alive1保。old58/freshFD0严格零才Play(1)，图号范围标死后仍设备flags/nameY首次增，fresh旧fade可再次增/旧值>=20标死，仍偏移投影；通用复制/固定内存CryptInt/音频接口不改。
+
+新增语义1380/单ID分类、BATTLE82→83枚举仍open；语义1381/有效ID1376、分类487、关联1494/3680=40.60%、E557仅局部I/S两E。本步四取样问题已解决，全部其它源/声明、旧记录-其它域/175队列/七open与完整门禁保持，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8继续，网络原格式明文/音频暂停。

@@ -2030,7 +2030,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-baseline",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-baseline",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2107,7 +2108,12 @@
         "F:0001CD00",
         "F:0001A160",
         "F:0001A1C0",
-        "F:0001A270"
+        "F:0001A270",
+        "F:00022E50",
+        "F:00023040",
+        "F:000231D0",
+        "F:00023350",
+        "F:000234B0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2183,7 +2189,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2248,7 +2255,8 @@
         "BNX01七入口340条1215B/两局部数组与五态表纳管，上升callback坐标取样已修；BATTLE69仍未全枚举，全部consumer-owner/资源重进退出/ABI-SDK-PC53-RNG画面及R1/R7/R8待",
         "BNY01两个上游emitter258条1057B/原四局部表256B纳管，随机X取样已修/两级父与50-32完成门禁保；BATTLE71枚举未闭，完整41CD00/consumer-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
         "BNZ01共同创建完整1583条5825B/315B原数据、17定义18段修正纳管；BATTLE72未全枚举，所有25入向-20父/callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
-        "BOA01三完成/父关联/缩放回调97条306B三处坐标取样已修/独立身份纳管；BATTLE75未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待"
+        "BOA01三完成/父关联/缩放回调97条306B三处坐标取样已修/独立身份纳管；BATTLE75未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+        "BOB01五完整初始化助手608条1940B/六取样补丁已修、五独立身份纳管；BATTLE80未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2313,7 +2321,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
       ]
     },
     {
@@ -25386,6 +25395,296 @@
       "observation": "原完整根48条160B/全字节与出口/ret，入向1处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
       "expected": "phase0加原0.02、phase2减原0.02，X存F32但保double比较，Y存F32后判X；上界严格>1写phase1/X-Y1，下界<0写X-Y0/phase3，其它phase只Play(0)/投影，无MarkDeath",
       "actual": "仅三callback取样实修及完整原根局部I/S；成员75不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-00022E50-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整138条423B/2页6call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleTargetEffect_422E50",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整助手/六补丁整CPP精确重放，各固定索引-四取样/辅助live flags、条件RNG及真实空门禁保持；原合同：固定source/action payload与初始target；callback/C9优先级→固定C9C按4/flags/3/position传值；Append后重读当前flags，800000才四输出Aux；rate100、liveC9C非零才delay RNG；复制原image后十五槽音效分派，复制技能/等级，Load固定target后取X/Y、W16清270",
+      "expected": "固定source/action payload与初始target；callback/C9优先级→固定C9C按4/flags/3/position传值；Append后重读当前flags，800000才四输出Aux；rate100、liveC9C非零才delay RNG；复制原image后十五槽音效分派，复制技能/等级，Load固定target后取X/Y、W16清270",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-00022E50-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整138条423B/2页6call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleTargetEffect_422E50",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根138条423B/全字节与出口/ret，入向2普通call/单父41CD00分列，switch60B/常量8B实际字节；不据入向数宣全部父-callee完成",
+      "expected": "固定source/action payload与初始target；callback/C9优先级→固定C9C按4/flags/3/position传值；Append后重读当前flags，800000才四输出Aux；rate100、liveC9C非零才delay RNG；复制原image后十五槽音效分派，复制技能/等级，Load固定target后取X/Y、W16清270",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-00023040-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整120条398B/2页6call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleOffsetEffect_423040",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整助手/六补丁整CPP精确重放，各固定索引-四取样/辅助live flags、条件RNG及真实空门禁保持；原合同：固定source/action payload与初始target，callback后OR40000；效果flags/4/3/position传值，Append后liveflags/Aux；rate100/liveC9C条件delay后无条件图RNG0..2；复制技能/等级并Load固定target，liveC9C→targetX→position判>=10后±100；graphic→targetY→DX的S16半高，Y-200-halfHeight，W16清270后Y发布",
+      "expected": "固定source/action payload与初始target，callback后OR40000；效果flags/4/3/position传值，Append后liveflags/Aux；rate100/liveC9C条件delay后无条件图RNG0..2；复制技能/等级并Load固定target，liveC9C→targetX→position判>=10后±100；graphic→targetY→DX的S16半高，Y-200-halfHeight，W16清270后Y发布",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-00023040-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整120条398B/2页6call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleOffsetEffect_423040",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根120条398B/全字节与出口/ret，入向1普通call/单父41CD00分列，switch60B/常量8B实际字节；不据入向数宣全部父-callee完成",
+      "expected": "固定source/action payload与初始target，callback后OR40000；效果flags/4/3/position传值，Append后liveflags/Aux；rate100/liveC9C条件delay后无条件图RNG0..2；复制技能/等级并Load固定target，liveC9C→targetX→position判>=10后±100；graphic→targetY→DX的S16半高，Y-200-halfHeight，W16清270后Y发布",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-000231D0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整115条383B/2页7call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleCenterEffect_4231D0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整助手/六补丁整CPP精确重放，各固定索引-四取样/辅助live flags、条件RNG及真实空门禁保持；原合同：先action flags、source payload，再callback/C9/OR60000；固定C9C先新payload，再flags/4/3/position传值；Append后liveflags/Aux；rate100/条件delay/image→两W8值4→speed RNG4..8、复制技能/等级→320/260；转向时fresh当前目标/TurnToward→angle RNG-90..90→W16清270→double加live角度后F32发布",
+      "expected": "先action flags、source payload，再callback/C9/OR60000；固定C9C先新payload，再flags/4/3/position传值；Append后liveflags/Aux；rate100/条件delay/image→两W8值4→speed RNG4..8、复制技能/等级→320/260；转向时fresh当前目标/TurnToward→angle RNG-90..90→W16清270→double加live角度后F32发布",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-000231D0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整115条383B/2页7call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleCenterEffect_4231D0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根115条383B/全字节与出口/ret，入向1普通call/单父41CD00分列，switch60B/常量8B实际字节；不据入向数宣全部父-callee完成",
+      "expected": "先action flags、source payload，再callback/C9/OR60000；固定C9C先新payload，再flags/4/3/position传值；Append后liveflags/Aux；rate100/条件delay/image→两W8值4→speed RNG4..8、复制技能/等级→320/260；转向时fresh当前目标/TurnToward→angle RNG-90..90→W16清270→double加live角度后F32发布",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-00023350-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整112条351B/2页6call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleLowerEffect_423350",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整助手/六补丁整CPP精确重放，各固定索引-四取样/辅助live flags、条件RNG及真实空门禁保持；原合同：固定source payload与target，callback/C9后真实设备查询；单blendFlags两次发布再OR40000；固定C9C按4/flags/3/position传值，Append后liveflags/Aux；rate100/条件delay/无条件图RNG0..2→两W8值4→固定targetX、对象2CC S32半偏移加targetY，W16清270后F32 Y；不复制技能",
+      "expected": "固定source payload与target，callback/C9后真实设备查询；单blendFlags两次发布再OR40000；固定C9C按4/flags/3/position传值，Append后liveflags/Aux；rate100/条件delay/无条件图RNG0..2→两W8值4→固定targetX、对象2CC S32半偏移加targetY，W16清270后F32 Y；不复制技能",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-00023350-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整112条351B/2页6call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleLowerEffect_423350",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根112条351B/全字节与出口/ret，入向1普通call/单父41CD00分列，switch60B/常量8B实际字节；不据入向数宣全部父-callee完成",
+      "expected": "固定source payload与target，callback/C9后真实设备查询；单blendFlags两次发布再OR40000；固定C9C按4/flags/3/position传值，Append后liveflags/Aux；rate100/条件delay/无条件图RNG0..2→两W8值4→固定targetX、对象2CC S32半偏移加targetY，W16清270后F32 Y；不复制技能",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-000234B0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整123条385B/2页5call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleScreenYEffect_4234B0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "五完整助手/六补丁整CPP精确重放，各固定索引-四取样/辅助live flags、条件RNG及真实空门禁保持；原合同：固定source payload/target后取初flags，callback/CC/OR60000；固定C9C按flags/4/3/position传值、Append后liveflags/Aux；rate100/条件delay；skill20/24/28直接图号否则图RNG0..2后liveimage；两W8值4→固定targetX发布→side非空才fresh当前position写S32±1→target屏幕Y+1→W16清270→F32 Y",
+      "expected": "固定source payload/target后取初flags，callback/CC/OR60000；固定C9C按flags/4/3/position传值、Append后liveflags/Aux；rate100/条件delay；skill20/24/28直接图号否则图RNG0..2后liveimage；两W8值4→固定targetX发布→side非空才fresh当前position写S32±1→target屏幕Y+1→W16清270→F32 Y",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-INITIALIZERS-000234B0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOB01完整123条385B/2页5call及记录取样/live辅助消费-完整条件随机/坐标/返回；doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-initializers-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json",
+        "src/YobiRuntime.cpp#InitBattleScreenYEffect_4234B0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "五助手六补丁恢复四字段次序、Center游标先payload及Offset游标-X-position；本步问题解决，完整正常合同保持，五身份/分类/成员纳管",
+          "decision_ref": "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根123条385B/全字节与出口/ret，入向1普通call/单父41CD00分列，switch60B/常量8B实际字节；不据入向数宣全部父-callee完成",
+      "expected": "固定source payload/target后取初flags，callback/CC/OR60000；固定C9C按flags/4/3/position传值、Append后liveflags/Aux；rate100/条件delay；skill20/24/28直接图号否则图RNG0..2后liveimage；两W8值4→固定targetX发布→side非空才fresh当前position写S32±1→target屏幕Y+1→W16清270→F32 Y",
+      "actual": "仅五助手取样实修及完整原根局部I/S；成员80不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
     }
   ],
   "task_acceptance": [
@@ -25618,7 +25917,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
       ]
     },
     {
@@ -25926,7 +26226,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
       ]
     },
     {
@@ -26121,7 +26422,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
       ]
     },
     {
@@ -26222,7 +26524,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
       ]
     },
     {
@@ -26294,7 +26597,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
       ]
     },
     {
@@ -26521,7 +26825,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
       ]
     },
     {
@@ -26589,7 +26894,8 @@
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
-        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
       ]
     }
   ],
@@ -31633,6 +31939,61 @@
         "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
       ],
       "boundary": "获准x64 native非拥有action/parent与既有void callback，其它S32/F32保；仅本根局部I/S，不代父-owner/ABI-SDK-PC53或运行"
+    },
+    {
+      "inventory_id": "F:00022E50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有action/source/target/payload/真实callback及可空S32* side，其它S32/U32/F32原宽；仅本根局部I/S，不代全父-callee-owner/ABI-SDK-PC53或运行"
+    },
+    {
+      "inventory_id": "F:00023040",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有action/source/target/payload/真实callback及可空S32* side，其它S32/U32/F32原宽；仅本根局部I/S，不代全父-callee-owner/ABI-SDK-PC53或运行"
+    },
+    {
+      "inventory_id": "F:000231D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有action/source/target/payload/真实callback及可空S32* side，其它S32/U32/F32原宽；仅本根局部I/S，不代全父-callee-owner/ABI-SDK-PC53或运行"
+    },
+    {
+      "inventory_id": "F:00023350",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有action/source/target/payload/真实callback及可空S32* side，其它S32/U32/F32原宽；仅本根局部I/S，不代全父-callee-owner/ABI-SDK-PC53或运行"
+    },
+    {
+      "inventory_id": "F:000234B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有action/source/target/payload/真实callback及可空S32* side，其它S32/U32/F32原宽；仅本根局部I/S，不代全父-callee-owner/ABI-SDK-PC53或运行"
     }
   ],
   "auxiliary_dispositions": [

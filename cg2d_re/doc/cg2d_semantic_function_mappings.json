@@ -164823,6 +164823,357 @@
         "original_scale_phase_business_zero_one_preserved": true,
         "no_markdeath": true
       }
+    },
+    {
+      "original_entry": "0x422E50",
+      "inventory_id": "F:00022E50",
+      "status": "BOB01五完整正常初始化助手/六补丁解决本步取样差异，独立基线纳管；全部父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "InitBattleTargetEffect_422E50"
+          ],
+          "relationship": "固定source/action payload与初始target；callback/C9优先级→固定C9C按4/flags/3/position传值；Append后重读当前flags，800000才四输出Aux；rate100、liveC9C非零才delay RNG；复制原image后十五槽音效分派，复制技能/等级，Load固定target后取X/Y、W16清270"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "InitBattleTargetEffect_422E50"
+          ],
+          "relationship": "既有native非拥有action/source及真实callback初始化接口保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json"
+      ],
+      "boundary": "固定source/action payload与初始target；callback/C9优先级→固定C9C按4/flags/3/position传值；Append后重读当前flags，800000才四输出Aux；rate100、liveC9C非零才delay RNG；复制原image后十五槽音效分派，复制技能/等级，Load固定target后取X/Y、W16清270。固定载荷/目标跨调用，live游标辅助消费/条件RNG与真实空门禁保持；地址native非拥有，业务数值原宽，不新owner/异常保护；不代全父-callee-owner/SDK-ABI-PC53画面运行。",
+      "instruction_count": 138,
+      "function_chunks": [
+        {
+          "start": "0x422E50",
+          "end_exclusive": "0x422FF7"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "InitBattleTargetEffect_422E50",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOB01完整138条423B/2页6call/1补丁与全部出口，2普通call/单父41CD00分列，不代全父-callee-owner或运行",
+      "battle_initializers_sampling": {
+        "spec_id": "BOB01",
+        "evidence_refs": [
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+          "doc/cg2d_battle_initializers_sampling_evidence.json"
+        ],
+        "original_entry": "0x422E50",
+        "original_instruction_count": 138,
+        "original_code_bytes": 423,
+        "page_count": 2,
+        "outgoing_call_site_count": 6,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "effect_index_fixed_for_record": true,
+        "post_append_aux_flags_remain_live": true,
+        "original_action_source_null_guards_preserved": true,
+        "position4_sample_before_flags": true
+      }
+    },
+    {
+      "original_entry": "0x423040",
+      "inventory_id": "F:00023040",
+      "status": "BOB01五完整正常初始化助手/六补丁解决本步取样差异，独立基线纳管；全部父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "InitBattleOffsetEffect_423040"
+          ],
+          "relationship": "固定source/action payload与初始target，callback后OR40000；效果flags/4/3/position传值，Append后liveflags/Aux；rate100/liveC9C条件delay后无条件图RNG0..2；复制技能/等级并Load固定target，liveC9C→targetX→position判>=10后±100；graphic→targetY→DX的S16半高，Y-200-halfHeight，W16清270后Y发布"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "InitBattleOffsetEffect_423040"
+          ],
+          "relationship": "既有native非拥有action/source及真实callback初始化接口保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json"
+      ],
+      "boundary": "固定source/action payload与初始target，callback后OR40000；效果flags/4/3/position传值，Append后liveflags/Aux；rate100/liveC9C条件delay后无条件图RNG0..2；复制技能/等级并Load固定target，liveC9C→targetX→position判>=10后±100；graphic→targetY→DX的S16半高，Y-200-halfHeight，W16清270后Y发布。固定载荷/目标跨调用，live游标辅助消费/条件RNG与真实空门禁保持；地址native非拥有，业务数值原宽，不新owner/异常保护；不代全父-callee-owner/SDK-ABI-PC53画面运行。",
+      "instruction_count": 120,
+      "function_chunks": [
+        {
+          "start": "0x423040",
+          "end_exclusive": "0x4231CE"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "InitBattleOffsetEffect_423040",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOB01完整120条398B/2页6call/2补丁与全部出口，1普通call/单父41CD00分列，不代全父-callee-owner或运行",
+      "battle_initializers_sampling": {
+        "spec_id": "BOB01",
+        "evidence_refs": [
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+          "doc/cg2d_battle_initializers_sampling_evidence.json"
+        ],
+        "original_entry": "0x423040",
+        "original_instruction_count": 120,
+        "original_code_bytes": 398,
+        "page_count": 2,
+        "outgoing_call_site_count": 6,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": true,
+        "source_patch_count": 2,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "effect_index_fixed_for_record": true,
+        "post_append_aux_flags_remain_live": true,
+        "original_action_source_null_guards_preserved": true,
+        "flags_sample_before_position4": true,
+        "target_x_sample_before_position_value": true,
+        "s16_dx_half_height_preserved": true
+      }
+    },
+    {
+      "original_entry": "0x4231D0",
+      "inventory_id": "F:000231D0",
+      "status": "BOB01五完整正常初始化助手/六补丁解决本步取样差异，独立基线纳管；全部父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "InitBattleCenterEffect_4231D0"
+          ],
+          "relationship": "先action flags、source payload，再callback/C9/OR60000；固定C9C先新payload，再flags/4/3/position传值；Append后liveflags/Aux；rate100/条件delay/image→两W8值4→speed RNG4..8、复制技能/等级→320/260；转向时fresh当前目标/TurnToward→angle RNG-90..90→W16清270→double加live角度后F32发布"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "InitBattleCenterEffect_4231D0"
+          ],
+          "relationship": "既有native非拥有action/source及真实callback初始化接口保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json"
+      ],
+      "boundary": "先action flags、source payload，再callback/C9/OR60000；固定C9C先新payload，再flags/4/3/position传值；Append后liveflags/Aux；rate100/条件delay/image→两W8值4→speed RNG4..8、复制技能/等级→320/260；转向时fresh当前目标/TurnToward→angle RNG-90..90→W16清270→double加live角度后F32发布。固定载荷/目标跨调用，live游标辅助消费/条件RNG与真实空门禁保持；地址native非拥有，业务数值原宽，不新owner/异常保护；不代全父-callee-owner/SDK-ABI-PC53画面运行。",
+      "instruction_count": 115,
+      "function_chunks": [
+        {
+          "start": "0x4231D0",
+          "end_exclusive": "0x42334F"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "InitBattleCenterEffect_4231D0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOB01完整115条383B/2页7call/1补丁与全部出口，1普通call/单父41CD00分列，不代全父-callee-owner或运行",
+      "battle_initializers_sampling": {
+        "spec_id": "BOB01",
+        "evidence_refs": [
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+          "doc/cg2d_battle_initializers_sampling_evidence.json"
+        ],
+        "original_entry": "0x4231D0",
+        "original_instruction_count": 115,
+        "original_code_bytes": 383,
+        "page_count": 2,
+        "outgoing_call_site_count": 7,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "effect_index_fixed_for_record": true,
+        "post_append_aux_flags_remain_live": true,
+        "original_action_source_null_guards_preserved": true,
+        "flags_sample_before_position4": true,
+        "effect_index_sample_before_action_payload": true,
+        "fresh_target_after_rng_preserved": true
+      }
+    },
+    {
+      "original_entry": "0x423350",
+      "inventory_id": "F:00023350",
+      "status": "BOB01五完整正常初始化助手/六补丁解决本步取样差异，独立基线纳管；全部父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "InitBattleLowerEffect_423350"
+          ],
+          "relationship": "固定source payload与target，callback/C9后真实设备查询；单blendFlags两次发布再OR40000；固定C9C按4/flags/3/position传值，Append后liveflags/Aux；rate100/条件delay/无条件图RNG0..2→两W8值4→固定targetX、对象2CC S32半偏移加targetY，W16清270后F32 Y；不复制技能"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "InitBattleLowerEffect_423350"
+          ],
+          "relationship": "既有native非拥有action/source及真实callback初始化接口保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json"
+      ],
+      "boundary": "固定source payload与target，callback/C9后真实设备查询；单blendFlags两次发布再OR40000；固定C9C按4/flags/3/position传值，Append后liveflags/Aux；rate100/条件delay/无条件图RNG0..2→两W8值4→固定targetX、对象2CC S32半偏移加targetY，W16清270后F32 Y；不复制技能。固定载荷/目标跨调用，live游标辅助消费/条件RNG与真实空门禁保持；地址native非拥有，业务数值原宽，不新owner/异常保护；不代全父-callee-owner/SDK-ABI-PC53画面运行。",
+      "instruction_count": 112,
+      "function_chunks": [
+        {
+          "start": "0x423350",
+          "end_exclusive": "0x4234AF"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "InitBattleLowerEffect_423350",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOB01完整112条351B/2页6call/1补丁与全部出口，1普通call/单父41CD00分列，不代全父-callee-owner或运行",
+      "battle_initializers_sampling": {
+        "spec_id": "BOB01",
+        "evidence_refs": [
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+          "doc/cg2d_battle_initializers_sampling_evidence.json"
+        ],
+        "original_entry": "0x423350",
+        "original_instruction_count": 112,
+        "original_code_bytes": 351,
+        "page_count": 2,
+        "outgoing_call_site_count": 6,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "effect_index_fixed_for_record": true,
+        "post_append_aux_flags_remain_live": true,
+        "original_action_source_null_guards_preserved": true,
+        "position4_sample_before_flags": true
+      }
+    },
+    {
+      "original_entry": "0x4234B0",
+      "inventory_id": "F:000234B0",
+      "status": "BOB01五完整正常初始化助手/六补丁解决本步取样差异，独立基线纳管；全部父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "InitBattleScreenYEffect_4234B0"
+          ],
+          "relationship": "固定source payload/target后取初flags，callback/CC/OR60000；固定C9C按flags/4/3/position传值、Append后liveflags/Aux；rate100/条件delay；skill20/24/28直接图号否则图RNG0..2后liveimage；两W8值4→固定targetX发布→side非空才fresh当前position写S32±1→target屏幕Y+1→W16清270→F32 Y"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "InitBattleScreenYEffect_4234B0"
+          ],
+          "relationship": "既有native非拥有action/source/真实callback与可空S32* side数值输出接口保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_evidence.json"
+      ],
+      "boundary": "固定source payload/target后取初flags，callback/CC/OR60000；固定C9C按flags/4/3/position传值、Append后liveflags/Aux；rate100/条件delay；skill20/24/28直接图号否则图RNG0..2后liveimage；两W8值4→固定targetX发布→side非空才fresh当前position写S32±1→target屏幕Y+1→W16清270→F32 Y。固定载荷/目标跨调用，live游标辅助消费/条件RNG与真实空门禁保持；地址native非拥有，业务数值原宽，不新owner/异常保护；不代全父-callee-owner/SDK-ABI-PC53画面运行。",
+      "instruction_count": 123,
+      "function_chunks": [
+        {
+          "start": "0x4234B0",
+          "end_exclusive": "0x423631"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "InitBattleScreenYEffect_4234B0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOB01完整123条385B/2页5call/1补丁与全部出口，1普通call/单父41CD00分列，不代全父-callee-owner或运行",
+      "battle_initializers_sampling": {
+        "spec_id": "BOB01",
+        "evidence_refs": [
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-acceptance",
+          "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+          "doc/cg2d_battle_initializers_sampling_evidence.json"
+        ],
+        "original_entry": "0x4234B0",
+        "original_instruction_count": 123,
+        "original_code_bytes": 385,
+        "page_count": 2,
+        "outgoing_call_site_count": 5,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "ordinary_call",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "effect_index_fixed_for_record": true,
+        "post_append_aux_flags_remain_live": true,
+        "original_action_source_null_guards_preserved": true,
+        "flags_sample_before_position4": true,
+        "original_nullable_side_guard_preserved": true,
+        "skill20_24_28_skip_image_rng": true
+      }
     }
   ]
 }

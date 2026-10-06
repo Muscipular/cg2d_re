@@ -8876,7 +8876,12 @@ void InitBattleTargetEffect_422E50(
         sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
     action->callback = callback;
     action->displayPriority = 0xC9;
-    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::int32_t effectIndex = sourcePayload->effectRunningC9C;
+    const std::int32_t effectValue4 = sourcePayload->effects1C[effectIndex].position4;
+    const std::uint32_t effectFlags = sourcePayload->effects1C[effectIndex].flags;
+    const std::int32_t effectValue3 = sourcePayload->effects1C[effectIndex].position3;
+    const std::int32_t effectPosition = sourcePayload->effects1C[effectIndex].position;
+    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
     if ((flags & 0x800000u) != 0) {
         std::int32_t position;
@@ -8932,7 +8937,12 @@ void InitBattleOffsetEffect_423040(
         sourcePayload->effects1C[sourcePayload->effectRunningC9C].position];
     action->callback = callback;
     action->flags |= 0x40000u;
-    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::int32_t effectIndex = sourcePayload->effectRunningC9C;
+    const std::uint32_t effectFlags = sourcePayload->effects1C[effectIndex].flags;
+    const std::int32_t effectValue4 = sourcePayload->effects1C[effectIndex].position4;
+    const std::int32_t effectValue3 = sourcePayload->effects1C[effectIndex].position3;
+    const std::int32_t effectPosition = sourcePayload->effects1C[effectIndex].position;
+    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
     if ((flags & 0x800000u) != 0) {
         std::int32_t position;
@@ -8951,8 +8961,9 @@ void InitBattleOffsetEffect_423040(
     payload->castSkill103C = sourcePayload->castSkill103C;
     payload->castSkillLevel1044 = sourcePayload->castSkillLevel1044;
     static_cast<void>(render::LoadGraphic_522570(target->graphicIndex));
-    const std::int32_t position = sourcePayload->effects1C[sourcePayload->effectRunningC9C].position;
+    const std::int32_t positionIndex = sourcePayload->effectRunningC9C;
     const double x = target->offset40;
+    const std::int32_t position = sourcePayload->effects1C[positionIndex].position;
     action->offset40 = static_cast<float>(position >= 10 ? x + 100.0 : x - 100.0);
     const std::int32_t graphic = target->graphicIndex;
     const double targetY = target->offset44;
@@ -8974,8 +8985,13 @@ void InitBattleCenterEffect_4231D0(
     action->callback = callback;
     action->displayPriority = 0xC9;
     action->flags = initialFlags | 0x60000u;
+    const std::int32_t effectIndex = sourcePayload->effectRunningC9C;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::uint32_t effectFlags = sourcePayload->effects1C[effectIndex].flags;
+    const std::int32_t effectValue4 = sourcePayload->effects1C[effectIndex].position4;
+    const std::int32_t effectValue3 = sourcePayload->effects1C[effectIndex].position3;
+    const std::int32_t effectPosition = sourcePayload->effects1C[effectIndex].position;
+    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
     if ((flags & 0x800000u) != 0) {
         std::int32_t position;
@@ -9022,7 +9038,12 @@ void InitBattleLowerEffect_423350(
     const std::uint32_t blendFlags = action->flags | (hasDevice ? 0x100000u : 0x8000u);
     action->flags = blendFlags;
     action->flags = blendFlags | 0x40000u;
-    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::int32_t effectIndex = sourcePayload->effectRunningC9C;
+    const std::int32_t effectValue4 = sourcePayload->effects1C[effectIndex].position4;
+    const std::uint32_t effectFlags = sourcePayload->effects1C[effectIndex].flags;
+    const std::int32_t effectValue3 = sourcePayload->effects1C[effectIndex].position3;
+    const std::int32_t effectPosition = sourcePayload->effects1C[effectIndex].position;
+    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
     if ((flags & 0x800000u) != 0) {
         std::int32_t position;
@@ -9062,7 +9083,12 @@ void InitBattleScreenYEffect_4234B0(
     action->callback = callback;
     action->displayPriority = 0xCC;
     action->flags = initialFlags | 0x60000u;
-    AppendBattleEffect_439400(action, sourcePayload->effects1C[sourcePayload->effectRunningC9C]);
+    const std::int32_t effectIndex = sourcePayload->effectRunningC9C;
+    const std::uint32_t effectFlags = sourcePayload->effects1C[effectIndex].flags;
+    const std::int32_t effectValue4 = sourcePayload->effects1C[effectIndex].position4;
+    const std::int32_t effectValue3 = sourcePayload->effects1C[effectIndex].position3;
+    const std::int32_t effectPosition = sourcePayload->effects1C[effectIndex].position;
+    AppendBattleEffect_439400(action, {effectPosition, effectFlags, effectValue3, effectValue4});
     const std::uint32_t flags = sourcePayload->effects1C[sourcePayload->effectRunningC9C].flags;
     if ((flags & 0x800000u) != 0) {
         std::int32_t position;

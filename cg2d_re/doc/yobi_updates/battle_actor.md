@@ -357,3 +357,9 @@
 [具体SPEC](../cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision)/[证据](../cg2d_battle_completion_scale_sampling_evidence.json)：三完整97条306B三页11call/十内部出口三ret、step/1/0原常量12B。三末坐标片段各恢复X截断→Y取样→Xpub→Y截断pub。完成严格Play(1)==1/parent非空-1024非零才写2，随后标死仍投影；父关联仅非空parent死亡严格1才标死、之后仍Play(0)/投影；缩放phase0/2原step加减、X存F32但用未舍入double判定，原业务phase1/X-Y1与X-Y0/phase3保持，无MarkDeath。13目标地址引用含EBP加载，不能当13实际callback写或全父-owner已验。
 
 新增语义1370..1372/三ID分类、BATTLE72→75但枚举open；语义1373/有效ID1368、分类479、关联1486/3680=40.38%、E541仅各I/S共六E。三取样问题已解决，所有其它源/声明、旧记录-其它域/175队列/七open与完整门禁保持；全部父/callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8继续。
+
+## BOB01 五初始化助手的取样与记录消费（2026-10-06）
+
+[具体SPEC](../cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision)/[证据](../cg2d_battle_initializers_sampling_evidence.json)：五完整608条1940B十页30call/35普通内部分支/五ret，Target switch60B与100/200原常量8B、六入向来自41CD00。五记录显式固定C9C：Target/Lower先position4再flags，另三根先flags再position4；随后position3/position传值，Append后仍live flags/Aux。Center游标先新payload，Offset live游标→targetX→position值次序一并恢复。五根真实action/source空门禁、ScreenY可空side输出、所有条件RNG/固定与fresh目标、原W8值4/W16业务零及DX S16高/对象S32偏移保持。
+
+新增语义1373..1377/五ID分类、BATTLE75→80枚举仍open；语义1378/有效ID1373、分类484、关联1491/3680=40.52%、E551各局部I/S共十E。本步六补丁已解决取样问题；全部其它源/声明、旧记录-其它域/175队列/七open与完整门禁保持，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8继续。

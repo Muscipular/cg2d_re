@@ -2764,3 +2764,18 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 新1399/1400两原ID独立纳管：语义1399→1401/有效ID1394→1396、分类512→514、合同关联1512→1514/3680=41.14%；刷新两实现体同一原ID，历史直接定义1/2保。RESOURCE31→33及RENDER26→28枚举open，两根各域I/S共八新局部static证据E613→621，仍两原函数/三实现体；member_inventory_closed=false/gates空，七open仅进展/引用，175队列/R7区间67-3061、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它历史功能保持。
 
 仅已批准共享及32位正常局部静态，不代全部Tone/数组初始化父、读取/分配-回收/重入owner、上传像素/画面和R1/R7/R8。未编译/调试/测试/运行/hash；RPLAN.24正常原宽/已证地址，不新增异常保护/回绕或故障等价，网络原格式明文/内存CryptInt保/音频暂停。
+
+## BON01 723/172完整正常过渡与查色续记（2026-10-06）
+
+[基线](cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline)/[证据](cg2d_palette_transition_channel_sampling_evidence.json)。
+
+| 语义 / 原ID / 入口 | 当前Palette.cpp符号 | 本步范围 |
+| --- | --- | --- |
+| 723 / F:00050BB0 / 450BB0 | UpdatePalette_450BB0 | 完整357条、11补丁，旧FILE/CPH事实与正常转换保 |
+| 172 / F:00051220 / 451220 | RebuildPalette32 | 完整23条、RGB取样1补丁，其余发布/返回保 |
+
+完整过渡357条1499B与查色23条80B，共380条1579B/六页/15call-40内部跳/3ret，无switch；主根6普通引用/5父、查色1/1父分列。两个低色深调用分流区各20B仅纳盘；9B格式/模式与135B ToneTargets共144B，三元表逐项一致保持。12补丁(主11/查色1)恢复初始化颜色及目标差、默认指针先状态pub、Tone三Byte/索引/差/浮点、steps先Framepub、完成Tone目标B/G先Bpub/R先Gpub、版本先两状态清、Tone G/R浮点先B/GBytepub、callee后活动快照及节流counter/steps先pub并同样本判定、查色R/G中间整数先B样本。
+
+723/172两个已有ID及完整旧记录深拷贝续记，FILE及CPH六正常转换/五加法历史保；语义1401/有效ID1396/1514关联(41.14%)不变，分类514→516、RESOURCE33→35/RENDER28→30枚举open、八两域局部static I/S E621→629。历史直接定义1/0保持；两个原函数不当八函数，member_inventory_closed=false/gates空、七open仅进展/引用，队列175/R7区间67-3061/60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它历史功能保持。
+
+原512B未清path/三getc低U8/168黑色、色调helper逐项重取与业务上限255、查色完整W32颜色后纯黑1/透明0和400H返回保持；只共享/32正常局部，不代全部caller/PC53/私有ABI/数组及通道初始化-owner/像素画面和R1/R7/R8运行。未编译/调试/测试/运行/hash；RPLAN.24不增溢出/越界/补零/故障策略或回绕等价，网络原格式明文/内存CryptInt保/音频暂停。

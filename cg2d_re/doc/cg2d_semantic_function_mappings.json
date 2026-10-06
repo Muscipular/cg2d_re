@@ -12641,21 +12641,85 @@
     {
       "original_entry": "0x451220",
       "inventory_id": "F:00051220",
-      "status": "已有图形资源实现映射，完整运行未验",
+      "status": "BON01完整正常过渡/32位查色续记，原取样恢复/FILE及CPH与正确Tone helper保，全部caller-owner/运行未验",
       "original_role": "32位查色表重建",
       "sources": [
         {
           "path": "src/Palette.cpp",
           "symbols": [
             "RebuildPalette32"
-          ]
+          ],
+          "relationship": "原S32四字节游标/256色，先U8 R再G取样/整数(R<<8)+G，再U8 B取样/pack00RRGGBB；每项完整W32写色，纯黑再W32=1，最终仅索引0 W32清0，返原游标400H。flags不读/不作alpha，不增加条件拒绝/回滚/钳制；当前仅RGB取样恢复，原两W32黑色/透明0及return400H保持，全部caller/像素/owner运行另验。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-acceptance",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_transition_channel_sampling_evidence.json"
       ],
-      "boundary": "生成00RRGGBB，所有纯黑先改1，最后仅第0项清零；返回原循环最终值400H。flags不是alpha，保留非零索引黑色与透明索引0的区别。"
+      "boundary": "原S32四字节游标/256色，先U8 R再G取样/整数(R<<8)+G，再U8 B取样/pack00RRGGBB；每项完整W32写色，纯黑再W32=1，最终仅索引0 W32清0，返原游标400H。flags不读/不作alpha，不增加条件拒绝/回滚/钳制；当前仅RGB取样恢复，原两W32黑色/透明0及return400H保持，全部caller/像素/owner运行另验。；仅本根正常局部I/S，全部caller-owner-资源真实内容/画面和R1/R7/R8未验，不构建/测试/运行/hash；网络原格式明文/音频暂停",
+      "verification_level": "BON01完整23条/80B/1页/0call-2内部分支/1ret，1源码补丁；普通入向1引用/1父分列；仅正常局部静态/已证地址及数值原宽，不代当前所有正常别名/owner运行",
+      "instruction_count": 23,
+      "function_chunks": [
+        {
+          "start": "0x451220",
+          "end_exclusive": "0x451270"
+        }
+      ],
+      "native_provider": {
+        "source": "src/Palette.cpp",
+        "symbol": "RebuildPalette32",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_palette_transition_channel_review": {
+        "original_entry": "0x451220",
+        "inventory_id": "F:00051220",
+        "status": "已有图形资源实现映射，完整运行未验",
+        "original_role": "32位查色表重建",
+        "sources": [
+          {
+            "path": "src/Palette.cpp",
+            "symbols": [
+              "RebuildPalette32"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_resource_implementation.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "生成00RRGGBB，所有纯黑先改1，最后仅第0项清零；返回原循环最终值400H。flags不是alpha，保留非零索引黑色与透明索引0的区别。"
+      },
+      "palette_transition_channel_sampling": {
+        "spec_id": "BON01",
+        "evidence_refs": [
+          "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
+          "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
+          "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-acceptance",
+          "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+          "doc/cg2d_palette_transition_channel_sampling_evidence.json"
+        ],
+        "original_entry": "0x451220",
+        "original_instruction_count": 23,
+        "original_code_bytes": 80,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "internal_branch_site_count": 2,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "implemented_scope": "已批准共享和32位正常路径",
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "原S32四字节游标/256色，先U8 R再G取样/整数(R<<8)+G，再U8 B取样/pack00RRGGBB；每项完整W32写色，纯黑再W32=1，最终仅索引0 W32清0，返原游标400H。flags不读/不作alpha，不增加条件拒绝/回滚/钳制；当前仅RGB取样恢复，原两W32黑色/透明0及return400H保持，全部caller/像素/owner运行另验。"
+      }
     },
     {
       "original_entry": "0x465790",
@@ -85348,13 +85412,14 @@
     {
       "original_entry": "0x450BB0",
       "inventory_id": "F:00050BB0",
-      "status": "既有共享调色板/32位过渡本体的文件整链已接；完整渲染/启动/运行验收仍待",
+      "status": "BON01完整正常过渡/32位查色续记，原取样恢复/FILE及CPH与正确Tone helper保，全部caller-owner/运行未验",
       "sources": [
         {
           "path": "src/Palette.cpp",
           "symbols": [
             "UpdatePalette_450BB0"
-          ]
+          ],
+          "relationship": "入口先保存S32 frameVersion再active；已加载同active且transitionActive0原返0，活动不同仅threshold/capability门槛、不新增负索引处理，返原S32130*active或rb失败0/不发状态。512B未清path/%s\\\\%s/rb、16..239每色三getc低U8 B/G/R，168颜色3Byte清黑后原RGB浮点步长，close后fresh active→transitionActive/frameVersion1；defaultTone判定先throttle0/loaded号pub。每色当前B/G/R先样本，B F32pub→targetB差/G F32pub→targetG差/R F32pub→S32 steps-F64→targetR差，三F32 step按共同steps；默认Tone三Byte先样本，B Current pub→targetB差→targetIndex pub→G Current pub→targetG差→R Current pub→steps→targetR差→三F32步长，foreign原六F32清0与旧targetIndex保。共同steps先counter+1/比较/Frame pub，frame>steps完成：逐色targetB/G/R原bytepub，默认tone targetB/G先B pub、targetR先G pub；旧version先transition0清→S32+10→changing0清→version pub。未完分支每色B未舍入F64 sum在F32pub后转换低U8，G/R按F32样本转换，原六ftol正常S64→U8职责沿CPH；tone三Curr F32 pub后B转换、G F32先B Bytepub、G转换/R F32先G Bytepub/R转换，changing=1。仅已批准32路径call451220，callee后active样本保存，throttle/steps样本在counterpub前；steps<=120原counter>=2清0且每次Frame+1，>120用同S32 steps/20/counter达门槛才清0+Frame1。尾入口active与callee后样本相等才读frame，未变返入口version；否则依序R/G/B三256U8表，默认Tone[2]/[1]/[0]分别128走恒等；非中性每项fresh Tone pointer/byte、S32 i*coef>>7/原业务上限255、fresh通道指针/W8写，最终返回原B路径256或最后计算值。完整原357条含16/24调用区40B，仅共享/32位实现，不扩完整父/PC53/数组初始化-owner/画面运行。"
         }
       ],
       "original_end_exclusive": "0x45118B",
@@ -85451,7 +85516,7 @@
         "end_exclusive": "0x450D55",
         "instruction_count": 105
       },
-      "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行",
+      "verification_level": "BON01完整357条/1499B/5页/15call-38内部分支/2ret，11源码补丁；普通入向6引用/5父分列；仅正常局部静态/已证地址及数值原宽，不代当前所有正常别名/owner运行",
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
         "doc/cg2d_stdio_contract.md",
@@ -85459,9 +85524,169 @@
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-acceptance",
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
-        "doc/cg2d_compiler_helper_evidence.json"
+        "doc/cg2d_compiler_helper_evidence.json",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-acceptance",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_transition_channel_sampling_evidence.json"
       ],
-      "boundary": "保留入口活动编号/加载索引/能力门槛、512B未清path与rb失败返0且不发布状态；每色三次getc取低U8后才168号黑色修正和原浮点步长，关闭后重新取活动编号并发布过渡/已加载状态。三个原getc调用点保持逐次取样，不改CPU表、色调、节流、收尾或随机/状态次序；共享及32位原生替换保持，当前仅文件链局部核对，不据此宣布完整357条或渲染流程通过。 CPH01撤TruncatedLowByte非有限/越S64补0与Add32回绕模拟，恢复正常S64→U8/S32计数；六转换/五加法表达式和其他正文保持。六转换/计数邻窗仅局部静态，不代完整357条/全渲染/ABI/画面/运行；异常域不称等价或安全。"
+      "boundary": "入口先保存S32 frameVersion再active；已加载同active且transitionActive0原返0，活动不同仅threshold/capability门槛、不新增负索引处理，返原S32130*active或rb失败0/不发状态。512B未清path/%s\\\\%s/rb、16..239每色三getc低U8 B/G/R，168颜色3Byte清黑后原RGB浮点步长，close后fresh active→transitionActive/frameVersion1；defaultTone判定先throttle0/loaded号pub。每色当前B/G/R先样本，B F32pub→targetB差/G F32pub→targetG差/R F32pub→S32 steps-F64→targetR差，三F32 step按共同steps；默认Tone三Byte先样本，B Current pub→targetB差→targetIndex pub→G Current pub→targetG差→R Current pub→steps→targetR差→三F32步长，foreign原六F32清0与旧targetIndex保。共同steps先counter+1/比较/Frame pub，frame>steps完成：逐色targetB/G/R原bytepub，默认tone targetB/G先B pub、targetR先G pub；旧version先transition0清→S32+10→changing0清→version pub。未完分支每色B未舍入F64 sum在F32pub后转换低U8，G/R按F32样本转换，原六ftol正常S64→U8职责沿CPH；tone三Curr F32 pub后B转换、G F32先B Bytepub、G转换/R F32先G Bytepub/R转换，changing=1。仅已批准32路径call451220，callee后active样本保存，throttle/steps样本在counterpub前；steps<=120原counter>=2清0且每次Frame+1，>120用同S32 steps/20/counter达门槛才清0+Frame1。尾入口active与callee后样本相等才读frame，未变返入口version；否则依序R/G/B三256U8表，默认Tone[2]/[1]/[0]分别128走恒等；非中性每项fresh Tone pointer/byte、S32 i*coef>>7/原业务上限255、fresh通道指针/W8写，最终返回原B路径256或最后计算值。完整原357条含16/24调用区40B，仅共享/32位实现，不扩完整父/PC53/数组初始化-owner/画面运行。；仅本根正常局部I/S，全部caller-owner-资源真实内容/画面和R1/R7/R8未验，不构建/测试/运行/hash；网络原格式明文/音频暂停",
+      "function_chunks": [
+        {
+          "start": "0x450BB0",
+          "end_exclusive": "0x45118B"
+        }
+      ],
+      "native_provider": {
+        "source": "src/Palette.cpp",
+        "symbol": "UpdatePalette_450BB0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_palette_transition_channel_review": {
+        "original_entry": "0x450BB0",
+        "inventory_id": "F:00050BB0",
+        "status": "既有共享调色板/32位过渡本体的文件整链已接；完整渲染/启动/运行验收仍待",
+        "sources": [
+          {
+            "path": "src/Palette.cpp",
+            "symbols": [
+              "UpdatePalette_450BB0"
+            ]
+          }
+        ],
+        "original_end_exclusive": "0x45118B",
+        "instruction_count": 357,
+        "original_direct_reference_count": 6,
+        "inbound_evidence": [
+          {
+            "address": "0x457133",
+            "parent_entry": "0x457020"
+          },
+          {
+            "address": "0x4581AC",
+            "parent_entry": "0x457B10"
+          },
+          {
+            "address": "0x45848E",
+            "parent_entry": "0x458390"
+          },
+          {
+            "address": "0x45869A",
+            "parent_entry": "0x4585F0"
+          },
+          {
+            "address": "0x51CB14",
+            "parent_entry": "0x51C7D0"
+          },
+          {
+            "address": "0x51D0EE",
+            "parent_entry": "0x51C7D0"
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x450BB0",
+            "call_site": "0x450C24",
+            "source": "src/Palette.cpp",
+            "symbol": "UpdatePalette_450BB0",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x450BB0",
+            "call_site": "0x450C33",
+            "source": "src/Palette.cpp",
+            "symbol": "UpdatePalette_450BB0",
+            "target_entry": "0x53B2F1",
+            "target_symbol": "OpenLegacyStream_53B2F1"
+          },
+          {
+            "parent_entry": "0x450BB0",
+            "call_site": "0x450C4D",
+            "source": "src/Palette.cpp",
+            "symbol": "UpdatePalette_450BB0",
+            "target_entry": "0x53C8B3",
+            "target_symbol": "ReadLegacyStreamByte_53C8B3"
+          },
+          {
+            "parent_entry": "0x450BB0",
+            "call_site": "0x450C5A",
+            "source": "src/Palette.cpp",
+            "symbol": "UpdatePalette_450BB0",
+            "target_entry": "0x53C8B3",
+            "target_symbol": "ReadLegacyStreamByte_53C8B3"
+          },
+          {
+            "parent_entry": "0x450BB0",
+            "call_site": "0x450C67",
+            "source": "src/Palette.cpp",
+            "symbol": "UpdatePalette_450BB0",
+            "target_entry": "0x53C8B3",
+            "target_symbol": "ReadLegacyStreamByte_53C8B3"
+          },
+          {
+            "parent_entry": "0x450BB0",
+            "call_site": "0x450D44",
+            "source": "src/Palette.cpp",
+            "symbol": "UpdatePalette_450BB0",
+            "target_entry": "0x53B1D0",
+            "target_symbol": "CloseLegacyStream_53B1D0"
+          }
+        ],
+        "business_byte_evidence": [
+          {
+            "address": "0x553514",
+            "bytes": "25735c257300"
+          },
+          {
+            "address": "0x554920",
+            "bytes": "726200"
+          }
+        ],
+        "file_instruction_evidence": {
+          "start": "0x450BB0",
+          "end_exclusive": "0x450D55",
+          "instruction_count": 105
+        },
+        "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行",
+        "evidence_documents": [
+          "doc/cg2d_resource_implementation.md",
+          "doc/cg2d_stdio_contract.md",
+          "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
+          "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
+          "doc/cg2d_compiler_helper_spec.md#compiler-helper-acceptance",
+          "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+          "doc/cg2d_compiler_helper_evidence.json"
+        ],
+        "boundary": "保留入口活动编号/加载索引/能力门槛、512B未清path与rb失败返0且不发布状态；每色三次getc取低U8后才168号黑色修正和原浮点步长，关闭后重新取活动编号并发布过渡/已加载状态。三个原getc调用点保持逐次取样，不改CPU表、色调、节流、收尾或随机/状态次序；共享及32位原生替换保持，当前仅文件链局部核对，不据此宣布完整357条或渲染流程通过。 CPH01撤TruncatedLowByte非有限/越S64补0与Add32回绕模拟，恢复正常S64→U8/S32计数；六转换/五加法表达式和其他正文保持。六转换/计数邻窗仅局部静态，不代完整357条/全渲染/ABI/画面/运行；异常域不称等价或安全。"
+      },
+      "palette_transition_channel_sampling": {
+        "spec_id": "BON01",
+        "evidence_refs": [
+          "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
+          "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
+          "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-acceptance",
+          "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+          "doc/cg2d_palette_transition_channel_sampling_evidence.json"
+        ],
+        "original_entry": "0x450BB0",
+        "original_instruction_count": 357,
+        "original_code_bytes": 1499,
+        "page_count": 5,
+        "outgoing_call_site_count": 15,
+        "internal_branch_site_count": 38,
+        "return_site_count": 2,
+        "incoming_reference_count": 6,
+        "incoming_parent_count": 5,
+        "source_body_changed": true,
+        "source_patch_count": 11,
+        "implemented_scope": "已批准共享和32位正常路径",
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "入口先保存S32 frameVersion再active；已加载同active且transitionActive0原返0，活动不同仅threshold/capability门槛、不新增负索引处理，返原S32130*active或rb失败0/不发状态。512B未清path/%s\\\\%s/rb、16..239每色三getc低U8 B/G/R，168颜色3Byte清黑后原RGB浮点步长，close后fresh active→transitionActive/frameVersion1；defaultTone判定先throttle0/loaded号pub。每色当前B/G/R先样本，B F32pub→targetB差/G F32pub→targetG差/R F32pub→S32 steps-F64→targetR差，三F32 step按共同steps；默认Tone三Byte先样本，B Current pub→targetB差→targetIndex pub→G Current pub→targetG差→R Current pub→steps→targetR差→三F32步长，foreign原六F32清0与旧targetIndex保。共同steps先counter+1/比较/Frame pub，frame>steps完成：逐色targetB/G/R原bytepub，默认tone targetB/G先B pub、targetR先G pub；旧version先transition0清→S32+10→changing0清→version pub。未完分支每色B未舍入F64 sum在F32pub后转换低U8，G/R按F32样本转换，原六ftol正常S64→U8职责沿CPH；tone三Curr F32 pub后B转换、G F32先B Bytepub、G转换/R F32先G Bytepub/R转换，changing=1。仅已批准32路径call451220，callee后active样本保存，throttle/steps样本在counterpub前；steps<=120原counter>=2清0且每次Frame+1，>120用同S32 steps/20/counter达门槛才清0+Frame1。尾入口active与callee后样本相等才读frame，未变返入口version；否则依序R/G/B三256U8表，默认Tone[2]/[1]/[0]分别128走恒等；非中性每项fresh Tone pointer/byte、S32 i*coef>>7/原业务上限255、fresh通道指针/W8写，最终返回原B路径256或最后计算值。完整原357条含16/24调用区40B，仅共享/32位实现，不扩完整父/PC53/数组初始化-owner/画面运行。"
+      }
     },
     {
       "original_entry": "0x522900",

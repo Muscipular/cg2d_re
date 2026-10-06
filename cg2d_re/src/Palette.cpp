@@ -343,16 +343,19 @@ int UpdatePalette_450BB0()
                 gPaletteTarget[i].red = 0;
             }
 
-            gPaletteBlueCurrent[i] = static_cast<float>(gPalette[i].blue);
-            gPaletteGreenCurrent[i] = static_cast<float>(gPalette[i].green);
-            gPaletteRedCurrent[i] = static_cast<float>(gPalette[i].red);
+            const std::int32_t blueCurrent = gPalette[i].blue;
+            const std::int32_t greenCurrent = gPalette[i].green;
+            const std::int32_t redCurrent = gPalette[i].red;
+            gPaletteBlueCurrent[i] = static_cast<float>(blueCurrent);
             const std::int32_t blueDifference =
-                static_cast<std::int32_t>(gPaletteTarget[i].blue) - gPalette[i].blue;
+                static_cast<std::int32_t>(gPaletteTarget[i].blue) - blueCurrent;
+            gPaletteGreenCurrent[i] = static_cast<float>(greenCurrent);
             const std::int32_t greenDifference =
-                static_cast<std::int32_t>(gPaletteTarget[i].green) - gPalette[i].green;
-            const std::int32_t redDifference =
-                static_cast<std::int32_t>(gPaletteTarget[i].red) - gPalette[i].red;
+                static_cast<std::int32_t>(gPaletteTarget[i].green) - greenCurrent;
+            gPaletteRedCurrent[i] = static_cast<float>(redCurrent);
             const double steps = static_cast<double>(gPaletteTransitionSteps);
+            const std::int32_t redDifference =
+                static_cast<std::int32_t>(gPaletteTarget[i].red) - redCurrent;
             gPaletteBlueStep[i] = static_cast<float>(static_cast<double>(blueDifference) / steps);
             gPaletteGreenStep[i] = static_cast<float>(static_cast<double>(greenDifference) / steps);
             gPaletteRedStep[i] = static_cast<float>(static_cast<double>(redDifference) / steps);
@@ -362,24 +365,25 @@ int UpdatePalette_450BB0()
         const std::int32_t loadedActivePalette = gActivePalette;
         gPaletteTransitionActive = 1;
         gPaletteFrameVersion = 1;
+        const bool useDefaultTone = gPaletteTonePointer == &gPaletteTone;
         gPaletteVersionThrottle = 0;
         gLoadedPalette = loadedActivePalette;
-        if (gPaletteTonePointer == &gPaletteTone) {
+        if (useDefaultTone) {
+            const std::int32_t blueCurrent = gPaletteTone.blue;
+            const std::int32_t greenCurrent = gPaletteTone.green;
+            const std::int32_t redCurrent = gPaletteTone.red;
             toneTargetIndex = loadedActivePalette;
-            gPaletteToneBlueCurrent = static_cast<float>(gPaletteTone.blue);
+            gPaletteToneBlueCurrent = static_cast<float>(blueCurrent);
+            const std::int32_t blueDifference = gPaletteToneTargets[toneTargetIndex][2] - blueCurrent;
             gPaletteToneTargetIndex = toneTargetIndex;
-            gPaletteToneGreenCurrent = static_cast<float>(gPaletteTone.green);
-            gPaletteToneRedCurrent = static_cast<float>(gPaletteTone.red);
+            gPaletteToneGreenCurrent = static_cast<float>(greenCurrent);
+            const std::int32_t greenDifference = gPaletteToneTargets[toneTargetIndex][1] - greenCurrent;
+            gPaletteToneRedCurrent = static_cast<float>(redCurrent);
             const double steps = static_cast<double>(gPaletteTransitionSteps);
-            gPaletteToneBlueStep = static_cast<float>(
-                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][2]) - gPaletteTone.blue)
-                / steps);
-            gPaletteToneGreenStep = static_cast<float>(
-                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][1]) - gPaletteTone.green)
-                / steps);
-            gPaletteToneRedStep = static_cast<float>(
-                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][0]) - gPaletteTone.red)
-                / steps);
+            const std::int32_t redDifference = gPaletteToneTargets[toneTargetIndex][0] - redCurrent;
+            gPaletteToneBlueStep = static_cast<float>(static_cast<double>(blueDifference) / steps);
+            gPaletteToneGreenStep = static_cast<float>(static_cast<double>(greenDifference) / steps);
+            gPaletteToneRedStep = static_cast<float>(static_cast<double>(redDifference) / steps);
         } else {
             gPaletteToneRedCurrent = 0.0f;
             gPaletteToneGreenCurrent = 0.0f;
@@ -391,21 +395,28 @@ int UpdatePalette_450BB0()
         }
     }
 
-    gPaletteTransitionFrame = Add32(previousFrame, 1u);
-    if (gPaletteTransitionFrame > gPaletteTransitionSteps) {
+    const std::int32_t transitionSteps = gPaletteTransitionSteps;
+    const std::int32_t transitionFrame = Add32(previousFrame, 1u);
+    gPaletteTransitionFrame = transitionFrame;
+    if (transitionFrame > transitionSteps) {
         for (int i = 16; i < 240; ++i) {
             gPalette[i].blue = gPaletteTarget[i].blue;
             gPalette[i].green = gPaletteTarget[i].green;
             gPalette[i].red = gPaletteTarget[i].red;
         }
         if (gPaletteTonePointer == &gPaletteTone) {
-            gPaletteTone.blue = gPaletteToneTargets[toneTargetIndex][2];
-            gPaletteTone.green = gPaletteToneTargets[toneTargetIndex][1];
-            gPaletteTone.red = gPaletteToneTargets[toneTargetIndex][0];
+            const std::uint8_t blue = gPaletteToneTargets[toneTargetIndex][2];
+            const std::uint8_t green = gPaletteToneTargets[toneTargetIndex][1];
+            gPaletteTone.blue = blue;
+            const std::uint8_t red = gPaletteToneTargets[toneTargetIndex][0];
+            gPaletteTone.green = green;
+            gPaletteTone.red = red;
         }
+        const std::int32_t previousCompletionVersion = gPaletteFrameVersion;
         gPaletteTransitionActive = 0;
+        const std::int32_t completionVersion = Add32(previousCompletionVersion, 10u);
         gPaletteChanging = 0;
-        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 10u);
+        gPaletteFrameVersion = completionVersion;
     } else {
         for (int i = 16; i < 240; ++i) {
             // 蓝通道的原 __ftol 使用尚未舍入到 float 的 x87 加法值；绿/红使用已存 float。
@@ -429,27 +440,34 @@ int UpdatePalette_450BB0()
                 static_cast<double>(gPaletteToneGreenStep) + gPaletteToneGreenCurrent);
             gPaletteToneRedCurrent = static_cast<float>(
                 static_cast<double>(gPaletteToneRedStep) + gPaletteToneRedCurrent);
-            gPaletteTone.blue = TruncatedLowByte(gPaletteToneBlueCurrent);
-            gPaletteTone.green = TruncatedLowByte(gPaletteToneGreenCurrent);
-            gPaletteTone.red = TruncatedLowByte(gPaletteToneRedCurrent);
+            const std::uint8_t blue = TruncatedLowByte(gPaletteToneBlueCurrent);
+            const float green = gPaletteToneGreenCurrent;
+            gPaletteTone.blue = blue;
+            const std::uint8_t greenByte = TruncatedLowByte(green);
+            const float red = gPaletteToneRedCurrent;
+            gPaletteTone.green = greenByte;
+            gPaletteTone.red = TruncatedLowByte(red);
         }
         gPaletteChanging = 1;
     }
 
     // 8/16/24 位渲染分支已按范围排除；保留已实现的 32 位 CPU 查色表路径。
     RebuildPalette32();
-    gPaletteVersionThrottle = Add32(gPaletteVersionThrottle, 1u);
-    if (gPaletteTransitionSteps <= 120) {
-        if (gPaletteVersionThrottle >= 2) {
+    const std::int32_t rebuiltActivePalette = gActivePalette;
+    const std::int32_t throttle = Add32(gPaletteVersionThrottle, 1u);
+    const std::int32_t throttleSteps = gPaletteTransitionSteps;
+    gPaletteVersionThrottle = throttle;
+    if (throttleSteps <= 120) {
+        if (throttle >= 2) {
             gPaletteVersionThrottle = 0;
         }
         gPaletteFrameVersion = Add32(gPaletteFrameVersion, 1u);
-    } else if (gPaletteVersionThrottle >= gPaletteTransitionSteps / 20) {
+    } else if (throttle >= throttleSteps / 20) {
         gPaletteVersionThrottle = 0;
         gPaletteFrameVersion = Add32(gPaletteFrameVersion, 1u);
     }
 
-    if (previousActivePalette == gActivePalette && previousVersion == gPaletteFrameVersion) {
+    if (previousActivePalette == rebuiltActivePalette && previousVersion == gPaletteFrameVersion) {
         return previousVersion;
     }
     RebuildToneMap(&ColorChannelMaps::red, &PaletteTone::blue);
@@ -460,8 +478,11 @@ int UpdatePalette_450BB0()
 int RebuildPalette32() noexcept
 {
     for (int i = 0; i < 256; ++i) {
-        const std::uint32_t color = gPalette[i].blue
-            + ((gPalette[i].green + (static_cast<std::uint32_t>(gPalette[i].red) << 8)) << 8);
+        const std::uint32_t red = gPalette[i].red;
+        const std::uint32_t green = gPalette[i].green;
+        const std::uint32_t redGreen = (red << 8) + green;
+        const std::uint32_t blue = gPalette[i].blue;
+        const std::uint32_t color = (redGreen << 8) + blue;
         gPaletteAutoMap[i] = color;
         if (color == 0) {
             gPaletteAutoMap[i] = 1;

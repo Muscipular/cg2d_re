@@ -1,0 +1,3175 @@
+{
+  "spec_id": "BON01",
+  "recorded_on": "2026-10-06",
+  "method": "static",
+  "implementation_reference": "Git固定命名快照 cg2d-re-palette-transition-channel-sampling-20261006",
+  "full_runtime_verified": false,
+  "source_functions": [
+    {
+      "entry": "0x450BB0",
+      "id": "F:00050BB0",
+      "symbol": "UpdatePalette_450BB0",
+      "path": "src/Palette.cpp",
+      "marker": "int UpdatePalette_450BB0(",
+      "end": "0x45118B",
+      "instructions": 357,
+      "bytes": 1499,
+      "pages": 5,
+      "calls": 15,
+      "branches": 38,
+      "rets": 2,
+      "semantic_index": 723,
+      "patches": 11,
+      "incoming": 6,
+      "parents": 5,
+      "feature_ids": [
+        "FUNC-RENDER",
+        "FUNC-RESOURCE"
+      ],
+      "contract": "入口先保存S32 frameVersion再active；已加载同active且transitionActive0原返0，活动不同仅threshold/capability门槛、不新增负索引处理，返原S32130*active或rb失败0/不发状态。512B未清path/%s\\\\%s/rb、16..239每色三getc低U8 B/G/R，168颜色3Byte清黑后原RGB浮点步长，close后fresh active→transitionActive/frameVersion1；defaultTone判定先throttle0/loaded号pub。每色当前B/G/R先样本，B F32pub→targetB差/G F32pub→targetG差/R F32pub→S32 steps-F64→targetR差，三F32 step按共同steps；默认Tone三Byte先样本，B Current pub→targetB差→targetIndex pub→G Current pub→targetG差→R Current pub→steps→targetR差→三F32步长，foreign原六F32清0与旧targetIndex保。共同steps先counter+1/比较/Frame pub，frame>steps完成：逐色targetB/G/R原bytepub，默认tone targetB/G先B pub、targetR先G pub；旧version先transition0清→S32+10→changing0清→version pub。未完分支每色B未舍入F64 sum在F32pub后转换低U8，G/R按F32样本转换，原六ftol正常S64→U8职责沿CPH；tone三Curr F32 pub后B转换、G F32先B Bytepub、G转换/R F32先G Bytepub/R转换，changing=1。仅已批准32路径call451220，callee后active样本保存，throttle/steps样本在counterpub前；steps<=120原counter>=2清0且每次Frame+1，>120用同S32 steps/20/counter达门槛才清0+Frame1。尾入口active与callee后样本相等才读frame，未变返入口version；否则依序R/G/B三256U8表，默认Tone[2]/[1]/[0]分别128走恒等；非中性每项fresh Tone pointer/byte、S32 i*coef>>7/原业务上限255、fresh通道指针/W8写，最终返回原B路径256或最后计算值。完整原357条含16/24调用区40B，仅共享/32位实现，不扩完整父/PC53/数组初始化-owner/画面运行。"
+    },
+    {
+      "entry": "0x451220",
+      "id": "F:00051220",
+      "symbol": "RebuildPalette32",
+      "path": "src/Palette.cpp",
+      "marker": "int RebuildPalette32()",
+      "end": "0x451270",
+      "instructions": 23,
+      "bytes": 80,
+      "pages": 1,
+      "calls": 0,
+      "branches": 2,
+      "rets": 1,
+      "semantic_index": 172,
+      "patches": 1,
+      "incoming": 1,
+      "parents": 1,
+      "feature_ids": [
+        "FUNC-RENDER",
+        "FUNC-RESOURCE"
+      ],
+      "contract": "原S32四字节游标/256色，先U8 R再G取样/整数(R<<8)+G，再U8 B取样/pack00RRGGBB；每项完整W32写色，纯黑再W32=1，最终仅索引0 W32清0，返原游标400H。flags不读/不作alpha，不增加条件拒绝/回滚/钳制；当前仅RGB取样恢复，原两W32黑色/透明0及return400H保持，全部caller/像素/owner运行另验。"
+    }
+  ],
+  "original_function_metadata": [
+    {
+      "entry": "0x450bb0",
+      "end_exclusive": "0x45118b",
+      "chunks": [
+        {
+          "start": "0x450bb0",
+          "end_exclusive": "0x45118b"
+        }
+      ]
+    },
+    {
+      "entry": "0x451220",
+      "end_exclusive": "0x451270",
+      "chunks": [
+        {
+          "start": "0x451220",
+          "end_exclusive": "0x451270"
+        }
+      ]
+    }
+  ],
+  "original_regions": [
+    {
+      "start": "0x450bb0",
+      "end_exclusive": "0x45118b",
+      "parent_entry": "0x450bb0",
+      "instruction_count": 357,
+      "code_bytes": 1499,
+      "page_count": 5,
+      "outgoing_calls": [
+        {
+          "ea": "0x450c24",
+          "target": "0x53b304"
+        },
+        {
+          "ea": "0x450c33",
+          "target": "0x53b2f1"
+        },
+        {
+          "ea": "0x450c4d",
+          "target": "0x53c8b3"
+        },
+        {
+          "ea": "0x450c5a",
+          "target": "0x53c8b3"
+        },
+        {
+          "ea": "0x450c67",
+          "target": "0x53c8b3"
+        },
+        {
+          "ea": "0x450d44",
+          "target": "0x53b1d0"
+        },
+        {
+          "ea": "0x450ec4",
+          "target": "0x53b498"
+        },
+        {
+          "ea": "0x450ed3",
+          "target": "0x53b498"
+        },
+        {
+          "ea": "0x450ee2",
+          "target": "0x53b498"
+        },
+        {
+          "ea": "0x450f40",
+          "target": "0x53b498"
+        },
+        {
+          "ea": "0x450f50",
+          "target": "0x53b498"
+        },
+        {
+          "ea": "0x450f60",
+          "target": "0x53b498"
+        },
+        {
+          "ea": "0x450ff9",
+          "target": "0x451190"
+        },
+        {
+          "ea": "0x45100d",
+          "target": "0x451220"
+        },
+        {
+          "ea": "0x451021",
+          "target": "0x451270"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x450bd4",
+          "target": "0x450bf0"
+        },
+        {
+          "ea": "0x450bdf",
+          "target": "0x451180"
+        },
+        {
+          "ea": "0x450beb",
+          "target": "0x450e6a"
+        },
+        {
+          "ea": "0x450c08",
+          "target": "0x451180"
+        },
+        {
+          "ea": "0x450c41",
+          "target": "0x451180"
+        },
+        {
+          "ea": "0x450c7c",
+          "target": "0x450c90"
+        },
+        {
+          "ea": "0x450d3d",
+          "target": "0x450c4c"
+        },
+        {
+          "ea": "0x450d79",
+          "target": "0x450e2e"
+        },
+        {
+          "ea": "0x450e2c",
+          "target": "0x450e70"
+        },
+        {
+          "ea": "0x450e7e",
+          "target": "0x450f76"
+        },
+        {
+          "ea": "0x450ef6",
+          "target": "0x450e86"
+        },
+        {
+          "ea": "0x450f02",
+          "target": "0x450f6a"
+        },
+        {
+          "ea": "0x450f74",
+          "target": "0x450ff0"
+        },
+        {
+          "ea": "0x450fa4",
+          "target": "0x450f78"
+        },
+        {
+          "ea": "0x450fb0",
+          "target": "0x450fd7"
+        },
+        {
+          "ea": "0x450ff7",
+          "target": "0x451004"
+        },
+        {
+          "ea": "0x45100b",
+          "target": "0x451018"
+        },
+        {
+          "ea": "0x45101f",
+          "target": "0x45102c"
+        },
+        {
+          "ea": "0x451042",
+          "target": "0x45105b"
+        },
+        {
+          "ea": "0x451057",
+          "target": "0x45106c"
+        },
+        {
+          "ea": "0x451059",
+          "target": "0x451060"
+        },
+        {
+          "ea": "0x45105e",
+          "target": "0x451066"
+        },
+        {
+          "ea": "0x451070",
+          "target": "0x451084"
+        },
+        {
+          "ea": "0x45107e",
+          "target": "0x451180"
+        },
+        {
+          "ea": "0x45108e",
+          "target": "0x4510a5"
+        },
+        {
+          "ea": "0x4510a1",
+          "target": "0x451092"
+        },
+        {
+          "ea": "0x4510a3",
+          "target": "0x4510d7"
+        },
+        {
+          "ea": "0x4510bd",
+          "target": "0x4510c4"
+        },
+        {
+          "ea": "0x4510d5",
+          "target": "0x4510a7"
+        },
+        {
+          "ea": "0x4510df",
+          "target": "0x4510f6"
+        },
+        {
+          "ea": "0x4510f2",
+          "target": "0x4510e3"
+        },
+        {
+          "ea": "0x4510f4",
+          "target": "0x451128"
+        },
+        {
+          "ea": "0x45110e",
+          "target": "0x451115"
+        },
+        {
+          "ea": "0x451126",
+          "target": "0x4510f8"
+        },
+        {
+          "ea": "0x45112f",
+          "target": "0x45114f"
+        },
+        {
+          "ea": "0x451142",
+          "target": "0x451133"
+        },
+        {
+          "ea": "0x451166",
+          "target": "0x45116d"
+        },
+        {
+          "ea": "0x45117e",
+          "target": "0x451151"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x450bb0",
+          "end_exclusive": "0x45118b",
+          "instructions": [
+            {
+              "ea": "0x450bb0",
+              "size": 6,
+              "bytes": "81ec10020000",
+              "text": "sub     esp, 210h"
+            },
+            {
+              "ea": "0x450bb6",
+              "size": 5,
+              "bytes": "a1dc8f6200",
+              "text": "mov     eax, gFrameIndex_mb"
+            },
+            {
+              "ea": "0x450bbb",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x450bbc",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x450bbd",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x450bbe",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x450bbf",
+              "size": 6,
+              "bytes": "8b3dd08f6200",
+              "text": "mov     edi, gPaletteActived"
+            },
+            {
+              "ea": "0x450bc5",
+              "size": 4,
+              "bytes": "89442418",
+              "text": "mov     [esp+220h+var_208], eax"
+            },
+            {
+              "ea": "0x450bc9",
+              "size": 5,
+              "bytes": "a1f4625500",
+              "text": "mov     eax, dword_5562F4"
+            },
+            {
+              "ea": "0x450bce",
+              "size": 2,
+              "bytes": "3bc7",
+              "text": "cmp     eax, edi"
+            },
+            {
+              "ea": "0x450bd0",
+              "size": 4,
+              "bytes": "897c2414",
+              "text": "mov     [esp+220h+var_20C], edi"
+            },
+            {
+              "ea": "0x450bd4",
+              "size": 2,
+              "bytes": "751a",
+              "text": "jnz     short loc_450BF0"
+            },
+            {
+              "ea": "0x450bd6",
+              "size": 5,
+              "bytes": "a1a0b06200",
+              "text": "mov     eax, dword_62B0A0"
+            },
+            {
+              "ea": "0x450bdb",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x450bdd",
+              "size": 2,
+              "bytes": "3bc3",
+              "text": "cmp     eax, ebx"
+            },
+            {
+              "ea": "0x450bdf",
+              "size": 6,
+              "bytes": "0f849b050000",
+              "text": "jz      loc_451180"
+            },
+            {
+              "ea": "0x450be5",
+              "size": 6,
+              "bytes": "8b159cb06200",
+              "text": "mov     edx, dword_62B09C"
+            },
+            {
+              "ea": "0x450beb",
+              "size": 5,
+              "bytes": "e97a020000",
+              "text": "jmp     loc_450E6A"
+            },
+            {
+              "ea": "0x450bf0",
+              "size": 2,
+              "bytes": "8bc7",
+              "text": "mov     eax, edi"
+            },
+            {
+              "ea": "0x450bf2",
+              "size": 6,
+              "bytes": "8b15647f9a00",
+              "text": "mov     edx, dword_9A7F64"
+            },
+            {
+              "ea": "0x450bf8",
+              "size": 3,
+              "bytes": "c1e006",
+              "text": "shl     eax, 6"
+            },
+            {
+              "ea": "0x450bfb",
+              "size": 2,
+              "bytes": "03c7",
+              "text": "add     eax, edi"
+            },
+            {
+              "ea": "0x450bfd",
+              "size": 2,
+              "bytes": "d1e0",
+              "text": "shl     eax, 1"
+            },
+            {
+              "ea": "0x450bff",
+              "size": 7,
+              "bytes": "0fbf88784b5500",
+              "text": "movsx   ecx, word ptr gDefaultPalPath.field_0[eax]"
+            },
+            {
+              "ea": "0x450c06",
+              "size": 2,
+              "bytes": "3bca",
+              "text": "cmp     ecx, edx"
+            },
+            {
+              "ea": "0x450c08",
+              "size": 6,
+              "bytes": "0f8f72050000",
+              "text": "jg      loc_451180"
+            },
+            {
+              "ea": "0x450c0e",
+              "size": 6,
+              "bytes": "8d907a4b5500",
+              "text": "lea     edx, gDefaultPalPath.path[eax]"
+            },
+            {
+              "ea": "0x450c14",
+              "size": 4,
+              "bytes": "8d442420",
+              "text": "lea     eax, [esp+220h+Buffer]"
+            },
+            {
+              "ea": "0x450c18",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x450c19",
+              "size": 5,
+              "bytes": "6804cf5500",
+              "text": "push    offset gBinPath"
+            },
+            {
+              "ea": "0x450c1e",
+              "size": 5,
+              "bytes": "6814355500",
+              "text": "push    offset aSS; \"%s\\\\%s\""
+            },
+            {
+              "ea": "0x450c23",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; Buffer"
+            },
+            {
+              "ea": "0x450c24",
+              "size": 5,
+              "bytes": "e8dba60e00",
+              "text": "call    _sprintf"
+            },
+            {
+              "ea": "0x450c29",
+              "size": 4,
+              "bytes": "8d4c2430",
+              "text": "lea     ecx, [esp+230h+Buffer]"
+            },
+            {
+              "ea": "0x450c2d",
+              "size": 5,
+              "bytes": "6820495500",
+              "text": "push    offset aRb; \"rb\""
+            },
+            {
+              "ea": "0x450c32",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; FileName"
+            },
+            {
+              "ea": "0x450c33",
+              "size": 5,
+              "bytes": "e8b9a60e00",
+              "text": "call    _fopen"
+            },
+            {
+              "ea": "0x450c38",
+              "size": 2,
+              "bytes": "8bf8",
+              "text": "mov     edi, eax"
+            },
+            {
+              "ea": "0x450c3a",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x450c3c",
+              "size": 3,
+              "bytes": "83c418",
+              "text": "add     esp, 18h"
+            },
+            {
+              "ea": "0x450c3f",
+              "size": 2,
+              "bytes": "3bfb",
+              "text": "cmp     edi, ebx"
+            },
+            {
+              "ea": "0x450c41",
+              "size": 6,
+              "bytes": "0f8439050000",
+              "text": "jz      loc_451180"
+            },
+            {
+              "ea": "0x450c47",
+              "size": 5,
+              "bytes": "be10000000",
+              "text": "mov     esi, 10h"
+            },
+            {
+              "ea": "0x450c4c",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi; Stream"
+            },
+            {
+              "ea": "0x450c4d",
+              "size": 5,
+              "bytes": "e861bc0e00",
+              "text": "call    _fgetc"
+            },
+            {
+              "ea": "0x450c52",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi; Stream"
+            },
+            {
+              "ea": "0x450c53",
+              "size": 7,
+              "bytes": "8804b5626c6200",
+              "text": "mov     stru_626C60.b[esi*4], al"
+            },
+            {
+              "ea": "0x450c5a",
+              "size": 5,
+              "bytes": "e854bc0e00",
+              "text": "call    _fgetc"
+            },
+            {
+              "ea": "0x450c5f",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi; Stream"
+            },
+            {
+              "ea": "0x450c60",
+              "size": 7,
+              "bytes": "8804b5616c6200",
+              "text": "mov     stru_626C60.g[esi*4], al"
+            },
+            {
+              "ea": "0x450c67",
+              "size": 5,
+              "bytes": "e847bc0e00",
+              "text": "call    _fgetc"
+            },
+            {
+              "ea": "0x450c6c",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x450c6f",
+              "size": 6,
+              "bytes": "81fea8000000",
+              "text": "cmp     esi, 0A8h"
+            },
+            {
+              "ea": "0x450c75",
+              "size": 7,
+              "bytes": "8804b5606c6200",
+              "text": "mov     stru_626C60.r[esi*4], al"
+            },
+            {
+              "ea": "0x450c7c",
+              "size": 2,
+              "bytes": "7512",
+              "text": "jnz     short loc_450C90"
+            },
+            {
+              "ea": "0x450c7e",
+              "size": 6,
+              "bytes": "881d026f6200",
+              "text": "mov     stru_626C60.b+2A0h, bl"
+            },
+            {
+              "ea": "0x450c84",
+              "size": 6,
+              "bytes": "881d016f6200",
+              "text": "mov     stru_626C60.g+2A0h, bl"
+            },
+            {
+              "ea": "0x450c8a",
+              "size": 6,
+              "bytes": "881d006f6200",
+              "text": "mov     stru_626C60.r+2A0h, bl"
+            },
+            {
+              "ea": "0x450c90",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x450c92",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x450c94",
+              "size": 7,
+              "bytes": "8a04b5229b6200",
+              "text": "mov     al, gDxPalette.peBlue[esi*4]"
+            },
+            {
+              "ea": "0x450c9b",
+              "size": 7,
+              "bytes": "8a0cb5219b6200",
+              "text": "mov     cl, gDxPalette.peGreen[esi*4]"
+            },
+            {
+              "ea": "0x450ca2",
+              "size": 4,
+              "bytes": "89442410",
+              "text": "mov     [esp+220h+var_210], eax"
+            },
+            {
+              "ea": "0x450ca6",
+              "size": 2,
+              "bytes": "33d2",
+              "text": "xor     edx, edx"
+            },
+            {
+              "ea": "0x450ca8",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450cac",
+              "size": 7,
+              "bytes": "8a14b5209b6200",
+              "text": "mov     dl, gDxPalette.peRed[esi*4]"
+            },
+            {
+              "ea": "0x450cb3",
+              "size": 4,
+              "bytes": "894c2410",
+              "text": "mov     [esp+220h+var_210], ecx"
+            },
+            {
+              "ea": "0x450cb7",
+              "size": 2,
+              "bytes": "8bea",
+              "text": "mov     ebp, edx"
+            },
+            {
+              "ea": "0x450cb9",
+              "size": 2,
+              "bytes": "33d2",
+              "text": "xor     edx, edx"
+            },
+            {
+              "ea": "0x450cbb",
+              "size": 7,
+              "bytes": "d91cb564a66200",
+              "text": "fstp    flt_62A664[esi*4]"
+            },
+            {
+              "ea": "0x450cc2",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450cc6",
+              "size": 7,
+              "bytes": "8a14b5626c6200",
+              "text": "mov     dl, stru_626C60.b[esi*4]"
+            },
+            {
+              "ea": "0x450ccd",
+              "size": 4,
+              "bytes": "896c2410",
+              "text": "mov     [esp+220h+var_210], ebp"
+            },
+            {
+              "ea": "0x450cd1",
+              "size": 2,
+              "bytes": "2bd0",
+              "text": "sub     edx, eax"
+            },
+            {
+              "ea": "0x450cd3",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x450cd5",
+              "size": 7,
+              "bytes": "d91cb520976200",
+              "text": "fstp    flt_629720[esi*4]"
+            },
+            {
+              "ea": "0x450cdc",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450ce0",
+              "size": 4,
+              "bytes": "89542410",
+              "text": "mov     [esp+220h+var_210], edx"
+            },
+            {
+              "ea": "0x450ce4",
+              "size": 7,
+              "bytes": "8a04b5616c6200",
+              "text": "mov     al, stru_626C60.g[esi*4]"
+            },
+            {
+              "ea": "0x450ceb",
+              "size": 2,
+              "bytes": "2bc1",
+              "text": "sub     eax, ecx"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x450bb0",
+          "end_exclusive": "0x45118b",
+          "instructions": [
+            {
+              "ea": "0x450ced",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x450cef",
+              "size": 7,
+              "bytes": "d91cb518936200",
+              "text": "fstp    flt_629318[esi*4]"
+            },
+            {
+              "ea": "0x450cf6",
+              "size": 6,
+              "bytes": "db05d48f6200",
+              "text": "fild    dword_628FD4"
+            },
+            {
+              "ea": "0x450cfc",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450d00",
+              "size": 4,
+              "bytes": "89442410",
+              "text": "mov     [esp+220h+var_210], eax"
+            },
+            {
+              "ea": "0x450d04",
+              "size": 7,
+              "bytes": "8a0cb5606c6200",
+              "text": "mov     cl, stru_626C60.r[esi*4]"
+            },
+            {
+              "ea": "0x450d0b",
+              "size": 2,
+              "bytes": "2bcd",
+              "text": "sub     ecx, ebp"
+            },
+            {
+              "ea": "0x450d0d",
+              "size": 1,
+              "bytes": "46",
+              "text": "inc     esi"
+            },
+            {
+              "ea": "0x450d0e",
+              "size": 2,
+              "bytes": "d8f1",
+              "text": "fdiv    st, st(1)"
+            },
+            {
+              "ea": "0x450d10",
+              "size": 6,
+              "bytes": "81fef0000000",
+              "text": "cmp     esi, 0F0h"
+            },
+            {
+              "ea": "0x450d16",
+              "size": 7,
+              "bytes": "d91cb5b0876200",
+              "text": "fstp    gAutoMapSurface[esi*4]"
+            },
+            {
+              "ea": "0x450d1d",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450d21",
+              "size": 4,
+              "bytes": "894c2410",
+              "text": "mov     [esp+220h+var_210], ecx"
+            },
+            {
+              "ea": "0x450d25",
+              "size": 2,
+              "bytes": "d8f1",
+              "text": "fdiv    st, st(1)"
+            },
+            {
+              "ea": "0x450d27",
+              "size": 7,
+              "bytes": "d91cb5a4836200",
+              "text": "fstp    dword ptr (gGraphicDataCacheStatic.data+102Ch)[esi*4]"
+            },
+            {
+              "ea": "0x450d2e",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450d32",
+              "size": 2,
+              "bytes": "d8f1",
+              "text": "fdiv    st, st(1)"
+            },
+            {
+              "ea": "0x450d34",
+              "size": 7,
+              "bytes": "d91cb560aa6200",
+              "text": "fstp    flt_62A664+3FCh[esi*4]"
+            },
+            {
+              "ea": "0x450d3b",
+              "size": 2,
+              "bytes": "ddd8",
+              "text": "fstp    st"
+            },
+            {
+              "ea": "0x450d3d",
+              "size": 6,
+              "bytes": "0f8c09ffffff",
+              "text": "jl      loc_450C4C"
+            },
+            {
+              "ea": "0x450d43",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi; Stream"
+            },
+            {
+              "ea": "0x450d44",
+              "size": 5,
+              "bytes": "e887a40e00",
+              "text": "call    _fclose"
+            },
+            {
+              "ea": "0x450d49",
+              "size": 6,
+              "bytes": "8b3dd08f6200",
+              "text": "mov     edi, gPaletteActived"
+            },
+            {
+              "ea": "0x450d4f",
+              "size": 5,
+              "bytes": "b801000000",
+              "text": "mov     eax, 1"
+            },
+            {
+              "ea": "0x450d54",
+              "size": 5,
+              "bytes": "a3a0b06200",
+              "text": "mov     dword_62B0A0, eax"
+            },
+            {
+              "ea": "0x450d59",
+              "size": 5,
+              "bytes": "a3dc8f6200",
+              "text": "mov     gFrameIndex_mb, eax"
+            },
+            {
+              "ea": "0x450d5e",
+              "size": 5,
+              "bytes": "a1e4625500",
+              "text": "mov     eax, tColor"
+            },
+            {
+              "ea": "0x450d63",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x450d66",
+              "size": 2,
+              "bytes": "33d2",
+              "text": "xor     edx, edx"
+            },
+            {
+              "ea": "0x450d68",
+              "size": 5,
+              "bytes": "3de0625500",
+              "text": "cmp     eax, offset stru_5562E0"
+            },
+            {
+              "ea": "0x450d6d",
+              "size": 6,
+              "bytes": "891d10936200",
+              "text": "mov     dword_629310, ebx"
+            },
+            {
+              "ea": "0x450d73",
+              "size": 6,
+              "bytes": "893df4625500",
+              "text": "mov     dword_5562F4, edi"
+            },
+            {
+              "ea": "0x450d79",
+              "size": 6,
+              "bytes": "0f85af000000",
+              "text": "jnz     loc_450E2E"
+            },
+            {
+              "ea": "0x450d7f",
+              "size": 5,
+              "bytes": "a1e2625500",
+              "text": "mov     eax, dword ptr stru_5562E0.b"
+            },
+            {
+              "ea": "0x450d84",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x450d86",
+              "size": 6,
+              "bytes": "8a1de1625500",
+              "text": "mov     bl, stru_5562E0.g"
+            },
+            {
+              "ea": "0x450d8c",
+              "size": 5,
+              "bytes": "25ff000000",
+              "text": "and     eax, 0FFh"
+            },
+            {
+              "ea": "0x450d91",
+              "size": 4,
+              "bytes": "89442410",
+              "text": "mov     [esp+220h+var_210], eax"
+            },
+            {
+              "ea": "0x450d95",
+              "size": 6,
+              "bytes": "8b35e0625500",
+              "text": "mov     esi, dword ptr stru_5562E0.r"
+            },
+            {
+              "ea": "0x450d9b",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450d9f",
+              "size": 2,
+              "bytes": "8beb",
+              "text": "mov     ebp, ebx"
+            },
+            {
+              "ea": "0x450da1",
+              "size": 6,
+              "bytes": "81e6ff000000",
+              "text": "and     esi, 0FFh"
+            },
+            {
+              "ea": "0x450da7",
+              "size": 4,
+              "bytes": "896c2410",
+              "text": "mov     [esp+220h+var_210], ebp"
+            },
+            {
+              "ea": "0x450dab",
+              "size": 2,
+              "bytes": "8bcf",
+              "text": "mov     ecx, edi"
+            },
+            {
+              "ea": "0x450dad",
+              "size": 6,
+              "bytes": "d91d289f6200",
+              "text": "fstp    flt_629F28"
+            },
+            {
+              "ea": "0x450db3",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450db7",
+              "size": 4,
+              "bytes": "89742410",
+              "text": "mov     [esp+220h+var_210], esi"
+            },
+            {
+              "ea": "0x450dbb",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x450dbd",
+              "size": 7,
+              "bytes": "8a9c4956625500",
+              "text": "mov     bl, byte_556256[ecx+ecx*2]"
+            },
+            {
+              "ea": "0x450dc4",
+              "size": 6,
+              "bytes": "890dbc8b6200",
+              "text": "mov     dword_628BBC, ecx"
+            },
+            {
+              "ea": "0x450dca",
+              "size": 6,
+              "bytes": "d91d249f6200",
+              "text": "fstp    flt_629F24"
+            },
+            {
+              "ea": "0x450dd0",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450dd4",
+              "size": 2,
+              "bytes": "2bd8",
+              "text": "sub     ebx, eax"
+            },
+            {
+              "ea": "0x450dd6",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x450dd8",
+              "size": 4,
+              "bytes": "895c2410",
+              "text": "mov     [esp+220h+var_210], ebx"
+            },
+            {
+              "ea": "0x450ddc",
+              "size": 7,
+              "bytes": "8a844955625500",
+              "text": "mov     al, byte_556255[ecx+ecx*2]"
+            },
+            {
+              "ea": "0x450de3",
+              "size": 6,
+              "bytes": "d91d209f6200",
+              "text": "fstp    flt_629F20"
+            },
+            {
+              "ea": "0x450de9",
+              "size": 6,
+              "bytes": "db05d48f6200",
+              "text": "fild    dword_628FD4"
+            },
+            {
+              "ea": "0x450def",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450df3",
+              "size": 2,
+              "bytes": "2bc5",
+              "text": "sub     eax, ebp"
+            },
+            {
+              "ea": "0x450df5",
+              "size": 4,
+              "bytes": "89442410",
+              "text": "mov     [esp+220h+var_210], eax"
+            },
+            {
+              "ea": "0x450df9",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x450dfb",
+              "size": 2,
+              "bytes": "d8f1",
+              "text": "fdiv    st, st(1)"
+            },
+            {
+              "ea": "0x450dfd",
+              "size": 7,
+              "bytes": "8a844954625500",
+              "text": "mov     al, byte_556254[ecx+ecx*2]"
+            },
+            {
+              "ea": "0x450e04",
+              "size": 2,
+              "bytes": "2bc6",
+              "text": "sub     eax, esi"
+            },
+            {
+              "ea": "0x450e06",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x450e08",
+              "size": 6,
+              "bytes": "d91df88f6200",
+              "text": "fstp    flt_628FF8"
+            },
+            {
+              "ea": "0x450e0e",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450e12",
+              "size": 4,
+              "bytes": "89442410",
+              "text": "mov     [esp+220h+var_210], eax"
+            },
+            {
+              "ea": "0x450e16",
+              "size": 2,
+              "bytes": "d8f1",
+              "text": "fdiv    st, st(1)"
+            },
+            {
+              "ea": "0x450e18",
+              "size": 6,
+              "bytes": "d91df48f6200",
+              "text": "fstp    flt_628FF4"
+            },
+            {
+              "ea": "0x450e1e",
+              "size": 4,
+              "bytes": "db442410",
+              "text": "fild    [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450e22",
+              "size": 2,
+              "bytes": "d8f1",
+              "text": "fdiv    st, st(1)"
+            },
+            {
+              "ea": "0x450e24",
+              "size": 6,
+              "bytes": "d91df08f6200",
+              "text": "fstp    flt_628FF0"
+            },
+            {
+              "ea": "0x450e2a",
+              "size": 2,
+              "bytes": "ddd8",
+              "text": "fstp    st"
+            },
+            {
+              "ea": "0x450e2c",
+              "size": 2,
+              "bytes": "eb42",
+              "text": "jmp     short loc_450E70"
+            },
+            {
+              "ea": "0x450e2e",
+              "size": 10,
+              "bytes": "c705209f620000000000",
+              "text": "mov     flt_629F20, 0"
+            },
+            {
+              "ea": "0x450e38",
+              "size": 10,
+              "bytes": "c705249f620000000000",
+              "text": "mov     flt_629F24, 0"
+            },
+            {
+              "ea": "0x450e42",
+              "size": 10,
+              "bytes": "c705289f620000000000",
+              "text": "mov     flt_629F28, 0"
+            },
+            {
+              "ea": "0x450e4c",
+              "size": 10,
+              "bytes": "c705f08f620000000000",
+              "text": "mov     flt_628FF0, 0"
+            }
+          ]
+        },
+        {
+          "page_index": 2,
+          "start": "0x450bb0",
+          "end_exclusive": "0x45118b",
+          "instructions": [
+            {
+              "ea": "0x450e56",
+              "size": 10,
+              "bytes": "c705f48f620000000000",
+              "text": "mov     flt_628FF4, 0"
+            },
+            {
+              "ea": "0x450e60",
+              "size": 10,
+              "bytes": "c705f88f620000000000",
+              "text": "mov     flt_628FF8, 0"
+            },
+            {
+              "ea": "0x450e6a",
+              "size": 6,
+              "bytes": "8b0dbc8b6200",
+              "text": "mov     ecx, dword_628BBC"
+            },
+            {
+              "ea": "0x450e70",
+              "size": 5,
+              "bytes": "a1d48f6200",
+              "text": "mov     eax, dword_628FD4"
+            },
+            {
+              "ea": "0x450e75",
+              "size": 1,
+              "bytes": "42",
+              "text": "inc     edx"
+            },
+            {
+              "ea": "0x450e76",
+              "size": 2,
+              "bytes": "3bd0",
+              "text": "cmp     edx, eax"
+            },
+            {
+              "ea": "0x450e78",
+              "size": 6,
+              "bytes": "89159cb06200",
+              "text": "mov     dword_62B09C, edx"
+            },
+            {
+              "ea": "0x450e7e",
+              "size": 6,
+              "bytes": "0f8ff2000000",
+              "text": "jg      loc_450F76"
+            },
+            {
+              "ea": "0x450e84",
+              "size": 2,
+              "bytes": "33f6",
+              "text": "xor     esi, esi"
+            },
+            {
+              "ea": "0x450e86",
+              "size": 6,
+              "bytes": "d986f4876200",
+              "text": "fld     dword ptr (gPaletteDateA+40h)[esi]"
+            },
+            {
+              "ea": "0x450e8c",
+              "size": 6,
+              "bytes": "d886a4a66200",
+              "text": "fadd    (flt_62A664+40h)[esi]"
+            },
+            {
+              "ea": "0x450e92",
+              "size": 6,
+              "bytes": "d996a4a66200",
+              "text": "fst     (flt_62A664+40h)[esi]"
+            },
+            {
+              "ea": "0x450e98",
+              "size": 6,
+              "bytes": "d986e8836200",
+              "text": "fld     dword ptr (gPaletteDateB+40h)[esi]"
+            },
+            {
+              "ea": "0x450e9e",
+              "size": 6,
+              "bytes": "d88660976200",
+              "text": "fadd    (flt_629720+40h)[esi]"
+            },
+            {
+              "ea": "0x450ea4",
+              "size": 4,
+              "bytes": "d9542410",
+              "text": "fst     [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450ea8",
+              "size": 6,
+              "bytes": "d99e60976200",
+              "text": "fstp    (flt_629720+40h)[esi]"
+            },
+            {
+              "ea": "0x450eae",
+              "size": 6,
+              "bytes": "d986a4aa6200",
+              "text": "fld     dword ptr (gPaletteDateC+40h)[esi]"
+            },
+            {
+              "ea": "0x450eb4",
+              "size": 6,
+              "bytes": "d88658936200",
+              "text": "fadd    (flt_629318+40h)[esi]"
+            },
+            {
+              "ea": "0x450eba",
+              "size": 4,
+              "bytes": "d954241c",
+              "text": "fst     [esp+220h+var_204]"
+            },
+            {
+              "ea": "0x450ebe",
+              "size": 6,
+              "bytes": "d99e58936200",
+              "text": "fstp    (flt_629318+40h)[esi]"
+            },
+            {
+              "ea": "0x450ec4",
+              "size": 5,
+              "bytes": "e8cfa50e00",
+              "text": "call    __ftol"
+            },
+            {
+              "ea": "0x450ec9",
+              "size": 4,
+              "bytes": "d9442410",
+              "text": "fld     [esp+220h+var_210]"
+            },
+            {
+              "ea": "0x450ecd",
+              "size": 6,
+              "bytes": "8886629b6200",
+              "text": "mov     (gDxPalette.peBlue+40h)[esi], al"
+            },
+            {
+              "ea": "0x450ed3",
+              "size": 5,
+              "bytes": "e8c0a50e00",
+              "text": "call    __ftol"
+            },
+            {
+              "ea": "0x450ed8",
+              "size": 4,
+              "bytes": "d944241c",
+              "text": "fld     [esp+220h+var_204]"
+            },
+            {
+              "ea": "0x450edc",
+              "size": 6,
+              "bytes": "8886619b6200",
+              "text": "mov     (gDxPalette.peGreen+40h)[esi], al"
+            },
+            {
+              "ea": "0x450ee2",
+              "size": 5,
+              "bytes": "e8b1a50e00",
+              "text": "call    __ftol"
+            },
+            {
+              "ea": "0x450ee7",
+              "size": 6,
+              "bytes": "8886609b6200",
+              "text": "mov     (gDxPalette.peRed+40h)[esi], al"
+            },
+            {
+              "ea": "0x450eed",
+              "size": 3,
+              "bytes": "83c604",
+              "text": "add     esi, 4"
+            },
+            {
+              "ea": "0x450ef0",
+              "size": 6,
+              "bytes": "81fe80030000",
+              "text": "cmp     esi, 380h"
+            },
+            {
+              "ea": "0x450ef6",
+              "size": 2,
+              "bytes": "7c8e",
+              "text": "jl      short loc_450E86"
+            },
+            {
+              "ea": "0x450ef8",
+              "size": 10,
+              "bytes": "813de4625500e0625500",
+              "text": "cmp     tColor, offset stru_5562E0"
+            },
+            {
+              "ea": "0x450f02",
+              "size": 2,
+              "bytes": "7566",
+              "text": "jnz     short loc_450F6A"
+            },
+            {
+              "ea": "0x450f04",
+              "size": 6,
+              "bytes": "d905f88f6200",
+              "text": "fld     flt_628FF8"
+            },
+            {
+              "ea": "0x450f0a",
+              "size": 6,
+              "bytes": "d805289f6200",
+              "text": "fadd    flt_629F28"
+            },
+            {
+              "ea": "0x450f10",
+              "size": 6,
+              "bytes": "d91d289f6200",
+              "text": "fstp    flt_629F28"
+            },
+            {
+              "ea": "0x450f16",
+              "size": 6,
+              "bytes": "d905f48f6200",
+              "text": "fld     flt_628FF4"
+            },
+            {
+              "ea": "0x450f1c",
+              "size": 6,
+              "bytes": "d805249f6200",
+              "text": "fadd    flt_629F24"
+            },
+            {
+              "ea": "0x450f22",
+              "size": 6,
+              "bytes": "d91d249f6200",
+              "text": "fstp    flt_629F24"
+            },
+            {
+              "ea": "0x450f28",
+              "size": 6,
+              "bytes": "d905f08f6200",
+              "text": "fld     flt_628FF0"
+            },
+            {
+              "ea": "0x450f2e",
+              "size": 6,
+              "bytes": "d805209f6200",
+              "text": "fadd    flt_629F20"
+            },
+            {
+              "ea": "0x450f34",
+              "size": 6,
+              "bytes": "d91d209f6200",
+              "text": "fstp    flt_629F20"
+            },
+            {
+              "ea": "0x450f3a",
+              "size": 6,
+              "bytes": "d905289f6200",
+              "text": "fld     flt_629F28"
+            },
+            {
+              "ea": "0x450f40",
+              "size": 5,
+              "bytes": "e853a50e00",
+              "text": "call    __ftol"
+            },
+            {
+              "ea": "0x450f45",
+              "size": 6,
+              "bytes": "d905249f6200",
+              "text": "fld     flt_629F24"
+            },
+            {
+              "ea": "0x450f4b",
+              "size": 5,
+              "bytes": "a2e2625500",
+              "text": "mov     stru_5562E0.b, al"
+            },
+            {
+              "ea": "0x450f50",
+              "size": 5,
+              "bytes": "e843a50e00",
+              "text": "call    __ftol"
+            },
+            {
+              "ea": "0x450f55",
+              "size": 6,
+              "bytes": "d905209f6200",
+              "text": "fld     flt_629F20"
+            },
+            {
+              "ea": "0x450f5b",
+              "size": 5,
+              "bytes": "a2e1625500",
+              "text": "mov     stru_5562E0.g, al"
+            },
+            {
+              "ea": "0x450f60",
+              "size": 5,
+              "bytes": "e833a50e00",
+              "text": "call    __ftol"
+            },
+            {
+              "ea": "0x450f65",
+              "size": 5,
+              "bytes": "a2e0625500",
+              "text": "mov     stru_5562E0.r, al"
+            },
+            {
+              "ea": "0x450f6a",
+              "size": 10,
+              "bytes": "c705ec8f620001000000",
+              "text": "mov     dword_628FEC, 1"
+            },
+            {
+              "ea": "0x450f74",
+              "size": 2,
+              "bytes": "eb7a",
+              "text": "jmp     short loc_450FF0"
+            },
+            {
+              "ea": "0x450f76",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x450f78",
+              "size": 6,
+              "bytes": "8a90a26c6200",
+              "text": "mov     dl, (stru_626C60.b+40h)[eax]"
+            },
+            {
+              "ea": "0x450f7e",
+              "size": 6,
+              "bytes": "8890629b6200",
+              "text": "mov     (gDxPalette.peBlue+40h)[eax], dl"
+            },
+            {
+              "ea": "0x450f84",
+              "size": 6,
+              "bytes": "8a90a16c6200",
+              "text": "mov     dl, (stru_626C60.g+40h)[eax]"
+            },
+            {
+              "ea": "0x450f8a",
+              "size": 6,
+              "bytes": "8890619b6200",
+              "text": "mov     (gDxPalette.peGreen+40h)[eax], dl"
+            },
+            {
+              "ea": "0x450f90",
+              "size": 6,
+              "bytes": "8a90a06c6200",
+              "text": "mov     dl, (stru_626C60.r+40h)[eax]"
+            },
+            {
+              "ea": "0x450f96",
+              "size": 6,
+              "bytes": "8890609b6200",
+              "text": "mov     (gDxPalette.peRed+40h)[eax], dl"
+            },
+            {
+              "ea": "0x450f9c",
+              "size": 3,
+              "bytes": "83c004",
+              "text": "add     eax, 4"
+            },
+            {
+              "ea": "0x450f9f",
+              "size": 5,
+              "bytes": "3d80030000",
+              "text": "cmp     eax, 380h"
+            },
+            {
+              "ea": "0x450fa4",
+              "size": 2,
+              "bytes": "7cd2",
+              "text": "jl      short loc_450F78"
+            },
+            {
+              "ea": "0x450fa6",
+              "size": 10,
+              "bytes": "813de4625500e0625500",
+              "text": "cmp     tColor, offset stru_5562E0"
+            },
+            {
+              "ea": "0x450fb0",
+              "size": 2,
+              "bytes": "7525",
+              "text": "jnz     short loc_450FD7"
+            },
+            {
+              "ea": "0x450fb2",
+              "size": 7,
+              "bytes": "8a844956625500",
+              "text": "mov     al, byte_556256[ecx+ecx*2]"
+            },
+            {
+              "ea": "0x450fb9",
+              "size": 7,
+              "bytes": "8a944955625500",
+              "text": "mov     dl, byte_556255[ecx+ecx*2]"
+            },
+            {
+              "ea": "0x450fc0",
+              "size": 5,
+              "bytes": "a2e2625500",
+              "text": "mov     stru_5562E0.b, al"
+            },
+            {
+              "ea": "0x450fc5",
+              "size": 7,
+              "bytes": "8a844954625500",
+              "text": "mov     al, byte_556254[ecx+ecx*2]"
+            },
+            {
+              "ea": "0x450fcc",
+              "size": 6,
+              "bytes": "8815e1625500",
+              "text": "mov     stru_5562E0.g, dl"
+            },
+            {
+              "ea": "0x450fd2",
+              "size": 5,
+              "bytes": "a2e0625500",
+              "text": "mov     stru_5562E0.r, al"
+            },
+            {
+              "ea": "0x450fd7",
+              "size": 5,
+              "bytes": "a1dc8f6200",
+              "text": "mov     eax, gFrameIndex_mb"
+            },
+            {
+              "ea": "0x450fdc",
+              "size": 6,
+              "bytes": "891da0b06200",
+              "text": "mov     dword_62B0A0, ebx"
+            },
+            {
+              "ea": "0x450fe2",
+              "size": 3,
+              "bytes": "83c00a",
+              "text": "add     eax, 0Ah"
+            },
+            {
+              "ea": "0x450fe5",
+              "size": 6,
+              "bytes": "891dec8f6200",
+              "text": "mov     dword_628FEC, ebx"
+            },
+            {
+              "ea": "0x450feb",
+              "size": 5,
+              "bytes": "a3dc8f6200",
+              "text": "mov     gFrameIndex_mb, eax"
+            },
+            {
+              "ea": "0x450ff0",
+              "size": 7,
+              "bytes": "833d704b550010",
+              "text": "cmp     BITSPIXEL, 10h"
+            },
+            {
+              "ea": "0x450ff7",
+              "size": 2,
+              "bytes": "750b",
+              "text": "jnz     short loc_451004"
+            },
+            {
+              "ea": "0x450ff9",
+              "size": 5,
+              "bytes": "e892010000",
+              "text": "call    sub_451190"
+            },
+            {
+              "ea": "0x450ffe",
+              "size": 6,
+              "bytes": "8b3dd08f6200",
+              "text": "mov     edi, gPaletteActived"
+            }
+          ]
+        },
+        {
+          "page_index": 3,
+          "start": "0x450bb0",
+          "end_exclusive": "0x45118b",
+          "instructions": [
+            {
+              "ea": "0x451004",
+              "size": 7,
+              "bytes": "833d704b550020",
+              "text": "cmp     BITSPIXEL, 20h ; ' '"
+            },
+            {
+              "ea": "0x45100b",
+              "size": 2,
+              "bytes": "750b",
+              "text": "jnz     short loc_451018"
+            },
+            {
+              "ea": "0x45100d",
+              "size": 5,
+              "bytes": "e80e020000",
+              "text": "call    sub_451220"
+            },
+            {
+              "ea": "0x451012",
+              "size": 6,
+              "bytes": "8b3dd08f6200",
+              "text": "mov     edi, gPaletteActived"
+            },
+            {
+              "ea": "0x451018",
+              "size": 7,
+              "bytes": "833d704b550018",
+              "text": "cmp     BITSPIXEL, 18h"
+            },
+            {
+              "ea": "0x45101f",
+              "size": 2,
+              "bytes": "750b",
+              "text": "jnz     short loc_45102C"
+            },
+            {
+              "ea": "0x451021",
+              "size": 5,
+              "bytes": "e84a020000",
+              "text": "call    sub_451270"
+            },
+            {
+              "ea": "0x451026",
+              "size": 6,
+              "bytes": "8b3dd08f6200",
+              "text": "mov     edi, gPaletteActived"
+            },
+            {
+              "ea": "0x45102c",
+              "size": 6,
+              "bytes": "8b0d10936200",
+              "text": "mov     ecx, dword_629310"
+            },
+            {
+              "ea": "0x451032",
+              "size": 6,
+              "bytes": "8b15d48f6200",
+              "text": "mov     edx, dword_628FD4"
+            },
+            {
+              "ea": "0x451038",
+              "size": 1,
+              "bytes": "41",
+              "text": "inc     ecx"
+            },
+            {
+              "ea": "0x451039",
+              "size": 3,
+              "bytes": "83fa78",
+              "text": "cmp     edx, 78h ; 'x'"
+            },
+            {
+              "ea": "0x45103c",
+              "size": 6,
+              "bytes": "890d10936200",
+              "text": "mov     dword_629310, ecx"
+            },
+            {
+              "ea": "0x451042",
+              "size": 2,
+              "bytes": "7e17",
+              "text": "jle     short loc_45105B"
+            },
+            {
+              "ea": "0x451044",
+              "size": 5,
+              "bytes": "b867666666",
+              "text": "mov     eax, 66666667h"
+            },
+            {
+              "ea": "0x451049",
+              "size": 2,
+              "bytes": "f7ea",
+              "text": "imul    edx"
+            },
+            {
+              "ea": "0x45104b",
+              "size": 3,
+              "bytes": "c1fa03",
+              "text": "sar     edx, 3"
+            },
+            {
+              "ea": "0x45104e",
+              "size": 2,
+              "bytes": "8bc2",
+              "text": "mov     eax, edx"
+            },
+            {
+              "ea": "0x451050",
+              "size": 3,
+              "bytes": "c1e81f",
+              "text": "shr     eax, 1Fh"
+            },
+            {
+              "ea": "0x451053",
+              "size": 2,
+              "bytes": "03d0",
+              "text": "add     edx, eax"
+            },
+            {
+              "ea": "0x451055",
+              "size": 2,
+              "bytes": "3bca",
+              "text": "cmp     ecx, edx"
+            },
+            {
+              "ea": "0x451057",
+              "size": 2,
+              "bytes": "7c13",
+              "text": "jl      short loc_45106C"
+            },
+            {
+              "ea": "0x451059",
+              "size": 2,
+              "bytes": "eb05",
+              "text": "jmp     short loc_451060"
+            },
+            {
+              "ea": "0x45105b",
+              "size": 3,
+              "bytes": "83f902",
+              "text": "cmp     ecx, 2"
+            },
+            {
+              "ea": "0x45105e",
+              "size": 2,
+              "bytes": "7c06",
+              "text": "jl      short loc_451066"
+            },
+            {
+              "ea": "0x451060",
+              "size": 6,
+              "bytes": "891d10936200",
+              "text": "mov     dword_629310, ebx"
+            },
+            {
+              "ea": "0x451066",
+              "size": 6,
+              "bytes": "ff05dc8f6200",
+              "text": "inc     gFrameIndex_mb"
+            },
+            {
+              "ea": "0x45106c",
+              "size": 4,
+              "bytes": "397c2414",
+              "text": "cmp     [esp+220h+var_20C], edi"
+            },
+            {
+              "ea": "0x451070",
+              "size": 2,
+              "bytes": "7512",
+              "text": "jnz     short loc_451084"
+            },
+            {
+              "ea": "0x451072",
+              "size": 6,
+              "bytes": "8b0ddc8f6200",
+              "text": "mov     ecx, gFrameIndex_mb"
+            },
+            {
+              "ea": "0x451078",
+              "size": 4,
+              "bytes": "8b442418",
+              "text": "mov     eax, [esp+220h+var_208]"
+            },
+            {
+              "ea": "0x45107c",
+              "size": 2,
+              "bytes": "3bc1",
+              "text": "cmp     eax, ecx"
+            },
+            {
+              "ea": "0x45107e",
+              "size": 6,
+              "bytes": "0f84fc000000",
+              "text": "jz      loc_451180"
+            },
+            {
+              "ea": "0x451084",
+              "size": 5,
+              "bytes": "a1e4625500",
+              "text": "mov     eax, tColor"
+            },
+            {
+              "ea": "0x451089",
+              "size": 2,
+              "bytes": "b280",
+              "text": "mov     dl, 80h"
+            },
+            {
+              "ea": "0x45108b",
+              "size": 3,
+              "bytes": "385002",
+              "text": "cmp     [eax+2], dl"
+            },
+            {
+              "ea": "0x45108e",
+              "size": 2,
+              "bytes": "7515",
+              "text": "jnz     short loc_4510A5"
+            },
+            {
+              "ea": "0x451090",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x451092",
+              "size": 6,
+              "bytes": "8b0df0625500",
+              "text": "mov     ecx, gBGR_Data.r"
+            },
+            {
+              "ea": "0x451098",
+              "size": 3,
+              "bytes": "880401",
+              "text": "mov     [ecx+eax], al"
+            },
+            {
+              "ea": "0x45109b",
+              "size": 1,
+              "bytes": "40",
+              "text": "inc     eax"
+            },
+            {
+              "ea": "0x45109c",
+              "size": 5,
+              "bytes": "3d00010000",
+              "text": "cmp     eax, 100h"
+            },
+            {
+              "ea": "0x4510a1",
+              "size": 2,
+              "bytes": "7cef",
+              "text": "jl      short loc_451092"
+            },
+            {
+              "ea": "0x4510a3",
+              "size": 2,
+              "bytes": "eb32",
+              "text": "jmp     short loc_4510D7"
+            },
+            {
+              "ea": "0x4510a5",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x4510a7",
+              "size": 6,
+              "bytes": "8b35e4625500",
+              "text": "mov     esi, tColor"
+            },
+            {
+              "ea": "0x4510ad",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x4510af",
+              "size": 3,
+              "bytes": "8a4602",
+              "text": "mov     al, [esi+2]"
+            },
+            {
+              "ea": "0x4510b2",
+              "size": 3,
+              "bytes": "0fafc1",
+              "text": "imul    eax, ecx"
+            },
+            {
+              "ea": "0x4510b5",
+              "size": 3,
+              "bytes": "c1f807",
+              "text": "sar     eax, 7"
+            },
+            {
+              "ea": "0x4510b8",
+              "size": 5,
+              "bytes": "3dff000000",
+              "text": "cmp     eax, 0FFh"
+            },
+            {
+              "ea": "0x4510bd",
+              "size": 2,
+              "bytes": "7e05",
+              "text": "jle     short loc_4510C4"
+            },
+            {
+              "ea": "0x4510bf",
+              "size": 5,
+              "bytes": "b8ff000000",
+              "text": "mov     eax, 0FFh"
+            },
+            {
+              "ea": "0x4510c4",
+              "size": 6,
+              "bytes": "8b35f0625500",
+              "text": "mov     esi, gBGR_Data.r"
+            },
+            {
+              "ea": "0x4510ca",
+              "size": 1,
+              "bytes": "41",
+              "text": "inc     ecx"
+            },
+            {
+              "ea": "0x4510cb",
+              "size": 6,
+              "bytes": "81f900010000",
+              "text": "cmp     ecx, 100h"
+            },
+            {
+              "ea": "0x4510d1",
+              "size": 4,
+              "bytes": "88440eff",
+              "text": "mov     [esi+ecx-1], al"
+            },
+            {
+              "ea": "0x4510d5",
+              "size": 2,
+              "bytes": "7cd0",
+              "text": "jl      short loc_4510A7"
+            },
+            {
+              "ea": "0x4510d7",
+              "size": 5,
+              "bytes": "a1e4625500",
+              "text": "mov     eax, tColor"
+            },
+            {
+              "ea": "0x4510dc",
+              "size": 3,
+              "bytes": "385001",
+              "text": "cmp     [eax+1], dl"
+            },
+            {
+              "ea": "0x4510df",
+              "size": 2,
+              "bytes": "7515",
+              "text": "jnz     short loc_4510F6"
+            },
+            {
+              "ea": "0x4510e1",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x4510e3",
+              "size": 6,
+              "bytes": "8b0dec625500",
+              "text": "mov     ecx, gBGR_Data.g"
+            },
+            {
+              "ea": "0x4510e9",
+              "size": 3,
+              "bytes": "880401",
+              "text": "mov     [ecx+eax], al"
+            },
+            {
+              "ea": "0x4510ec",
+              "size": 1,
+              "bytes": "40",
+              "text": "inc     eax"
+            },
+            {
+              "ea": "0x4510ed",
+              "size": 5,
+              "bytes": "3d00010000",
+              "text": "cmp     eax, 100h"
+            },
+            {
+              "ea": "0x4510f2",
+              "size": 2,
+              "bytes": "7cef",
+              "text": "jl      short loc_4510E3"
+            },
+            {
+              "ea": "0x4510f4",
+              "size": 2,
+              "bytes": "eb32",
+              "text": "jmp     short loc_451128"
+            },
+            {
+              "ea": "0x4510f6",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x4510f8",
+              "size": 6,
+              "bytes": "8b35e4625500",
+              "text": "mov     esi, tColor"
+            },
+            {
+              "ea": "0x4510fe",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x451100",
+              "size": 3,
+              "bytes": "8a4601",
+              "text": "mov     al, [esi+1]"
+            },
+            {
+              "ea": "0x451103",
+              "size": 3,
+              "bytes": "0fafc1",
+              "text": "imul    eax, ecx"
+            },
+            {
+              "ea": "0x451106",
+              "size": 3,
+              "bytes": "c1f807",
+              "text": "sar     eax, 7"
+            },
+            {
+              "ea": "0x451109",
+              "size": 5,
+              "bytes": "3dff000000",
+              "text": "cmp     eax, 0FFh"
+            },
+            {
+              "ea": "0x45110e",
+              "size": 2,
+              "bytes": "7e05",
+              "text": "jle     short loc_451115"
+            },
+            {
+              "ea": "0x451110",
+              "size": 5,
+              "bytes": "b8ff000000",
+              "text": "mov     eax, 0FFh"
+            },
+            {
+              "ea": "0x451115",
+              "size": 6,
+              "bytes": "8b35ec625500",
+              "text": "mov     esi, gBGR_Data.g"
+            },
+            {
+              "ea": "0x45111b",
+              "size": 1,
+              "bytes": "41",
+              "text": "inc     ecx"
+            },
+            {
+              "ea": "0x45111c",
+              "size": 6,
+              "bytes": "81f900010000",
+              "text": "cmp     ecx, 100h"
+            }
+          ]
+        },
+        {
+          "page_index": 4,
+          "start": "0x450bb0",
+          "end_exclusive": "0x45118b",
+          "instructions": [
+            {
+              "ea": "0x451122",
+              "size": 4,
+              "bytes": "88440eff",
+              "text": "mov     [esi+ecx-1], al"
+            },
+            {
+              "ea": "0x451126",
+              "size": 2,
+              "bytes": "7cd0",
+              "text": "jl      short loc_4510F8"
+            },
+            {
+              "ea": "0x451128",
+              "size": 5,
+              "bytes": "a1e4625500",
+              "text": "mov     eax, tColor"
+            },
+            {
+              "ea": "0x45112d",
+              "size": 2,
+              "bytes": "3810",
+              "text": "cmp     [eax], dl"
+            },
+            {
+              "ea": "0x45112f",
+              "size": 2,
+              "bytes": "751e",
+              "text": "jnz     short loc_45114F"
+            },
+            {
+              "ea": "0x451131",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x451133",
+              "size": 6,
+              "bytes": "8b0de8625500",
+              "text": "mov     ecx, gBGR_Data.b"
+            },
+            {
+              "ea": "0x451139",
+              "size": 3,
+              "bytes": "880401",
+              "text": "mov     [ecx+eax], al"
+            },
+            {
+              "ea": "0x45113c",
+              "size": 1,
+              "bytes": "40",
+              "text": "inc     eax"
+            },
+            {
+              "ea": "0x45113d",
+              "size": 5,
+              "bytes": "3d00010000",
+              "text": "cmp     eax, 100h"
+            },
+            {
+              "ea": "0x451142",
+              "size": 2,
+              "bytes": "7cef",
+              "text": "jl      short loc_451133"
+            },
+            {
+              "ea": "0x451144",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x451145",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x451146",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x451147",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x451148",
+              "size": 6,
+              "bytes": "81c410020000",
+              "text": "add     esp, 210h"
+            },
+            {
+              "ea": "0x45114e",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x45114f",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x451151",
+              "size": 6,
+              "bytes": "8b15e4625500",
+              "text": "mov     edx, tColor"
+            },
+            {
+              "ea": "0x451157",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x451159",
+              "size": 2,
+              "bytes": "8a02",
+              "text": "mov     al, [edx]"
+            },
+            {
+              "ea": "0x45115b",
+              "size": 3,
+              "bytes": "0fafc1",
+              "text": "imul    eax, ecx"
+            },
+            {
+              "ea": "0x45115e",
+              "size": 3,
+              "bytes": "c1f807",
+              "text": "sar     eax, 7"
+            },
+            {
+              "ea": "0x451161",
+              "size": 5,
+              "bytes": "3dff000000",
+              "text": "cmp     eax, 0FFh"
+            },
+            {
+              "ea": "0x451166",
+              "size": 2,
+              "bytes": "7e05",
+              "text": "jle     short loc_45116D"
+            },
+            {
+              "ea": "0x451168",
+              "size": 5,
+              "bytes": "b8ff000000",
+              "text": "mov     eax, 0FFh"
+            },
+            {
+              "ea": "0x45116d",
+              "size": 6,
+              "bytes": "8b15e8625500",
+              "text": "mov     edx, gBGR_Data.b"
+            },
+            {
+              "ea": "0x451173",
+              "size": 1,
+              "bytes": "41",
+              "text": "inc     ecx"
+            },
+            {
+              "ea": "0x451174",
+              "size": 6,
+              "bytes": "81f900010000",
+              "text": "cmp     ecx, 100h"
+            },
+            {
+              "ea": "0x45117a",
+              "size": 4,
+              "bytes": "88440aff",
+              "text": "mov     [edx+ecx-1], al"
+            },
+            {
+              "ea": "0x45117e",
+              "size": 2,
+              "bytes": "7cd1",
+              "text": "jl      short loc_451151"
+            },
+            {
+              "ea": "0x451180",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x451181",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x451182",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x451183",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x451184",
+              "size": 6,
+              "bytes": "81c410020000",
+              "text": "add     esp, 210h"
+            },
+            {
+              "ea": "0x45118a",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x451220",
+      "end_exclusive": "0x451270",
+      "parent_entry": "0x451220",
+      "instruction_count": 23,
+      "code_bytes": 80,
+      "page_count": 1,
+      "outgoing_calls": [],
+      "branches": [
+        {
+          "ea": "0x451252",
+          "target": "0x45125a"
+        },
+        {
+          "ea": "0x451262",
+          "target": "0x451228"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x451220",
+          "end_exclusive": "0x451270",
+          "instructions": [
+            {
+              "ea": "0x451220",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x451221",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x451223",
+              "size": 5,
+              "bytes": "ba01000000",
+              "text": "mov     edx, 1"
+            },
+            {
+              "ea": "0x451228",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x45122a",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x45122c",
+              "size": 6,
+              "bytes": "8a88209b6200",
+              "text": "mov     cl, byte ptr gDxPalette.peRed[eax]"
+            },
+            {
+              "ea": "0x451232",
+              "size": 6,
+              "bytes": "8a98219b6200",
+              "text": "mov     bl, gDxPalette.peGreen[eax]"
+            },
+            {
+              "ea": "0x451238",
+              "size": 3,
+              "bytes": "c1e108",
+              "text": "shl     ecx, 8"
+            },
+            {
+              "ea": "0x45123b",
+              "size": 2,
+              "bytes": "03cb",
+              "text": "add     ecx, ebx"
+            },
+            {
+              "ea": "0x45123d",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x45123f",
+              "size": 6,
+              "bytes": "8a98229b6200",
+              "text": "mov     bl, gDxPalette.peBlue[eax]"
+            },
+            {
+              "ea": "0x451245",
+              "size": 3,
+              "bytes": "c1e108",
+              "text": "shl     ecx, 8"
+            },
+            {
+              "ea": "0x451248",
+              "size": 2,
+              "bytes": "03cb",
+              "text": "add     ecx, ebx"
+            },
+            {
+              "ea": "0x45124a",
+              "size": 2,
+              "bytes": "85c9",
+              "text": "test    ecx, ecx"
+            },
+            {
+              "ea": "0x45124c",
+              "size": 6,
+              "bytes": "8988c08b6200",
+              "text": "mov     dword ptr gPaletteAutoMap.field_0[eax], ecx"
+            },
+            {
+              "ea": "0x451252",
+              "size": 2,
+              "bytes": "7506",
+              "text": "jnz     short loc_45125A"
+            },
+            {
+              "ea": "0x451254",
+              "size": 6,
+              "bytes": "8990c08b6200",
+              "text": "mov     dword ptr gPaletteAutoMap.field_0[eax], edx"
+            },
+            {
+              "ea": "0x45125a",
+              "size": 3,
+              "bytes": "83c004",
+              "text": "add     eax, 4"
+            },
+            {
+              "ea": "0x45125d",
+              "size": 5,
+              "bytes": "3d00040000",
+              "text": "cmp     eax, 400h"
+            },
+            {
+              "ea": "0x451262",
+              "size": 2,
+              "bytes": "7cc4",
+              "text": "jl      short loc_451228"
+            },
+            {
+              "ea": "0x451264",
+              "size": 10,
+              "bytes": "c705c08b620000000000",
+              "text": "mov     dword ptr gPaletteAutoMap.field_0, 0"
+            },
+            {
+              "ea": "0x45126e",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x45126f",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "incoming_references": [
+    {
+      "entry": "0x450bb0",
+      "references": [
+        {
+          "ea": "0x457133",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x457020",
+          "text": "call    sub_450BB0"
+        },
+        {
+          "ea": "0x4581ac",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x457b10",
+          "text": "call    sub_450BB0"
+        },
+        {
+          "ea": "0x45848e",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x458390",
+          "text": "call    sub_450BB0"
+        },
+        {
+          "ea": "0x45869a",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x4585f0",
+          "text": "call    sub_450BB0"
+        },
+        {
+          "ea": "0x51cb14",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x51c7d0",
+          "text": "call    sub_450BB0"
+        },
+        {
+          "ea": "0x51d0ee",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x51c7d0",
+          "text": "call    sub_450BB0"
+        }
+      ]
+    },
+    {
+      "entry": "0x451220",
+      "references": [
+        {
+          "ea": "0x45100d",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x450bb0",
+          "text": "call    sub_451220"
+        }
+      ]
+    }
+  ],
+  "original_constants": [
+    {
+      "ea": "0x553514",
+      "size": 6,
+      "bytes": "25735c257300"
+    },
+    {
+      "ea": "0x554920",
+      "size": 3,
+      "bytes": "726200"
+    },
+    {
+      "ea": "0x556254",
+      "size": 135,
+      "bytes": "8080805a789680565680787880a080a0a080a08080a080a08080a06090a080a0a080a09070707060606080c0ffffffff80c0ff808080808080000000ffffff80808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080808080a0a0a080808080a080a08080c0ffffffff808080"
+    }
+  ],
+  "excluded_original_regions": [
+    {
+      "start": "0x450ff0",
+      "end_exclusive": "0x451004",
+      "mode": 16
+    },
+    {
+      "start": "0x451018",
+      "end_exclusive": "0x45102c",
+      "mode": 24
+    }
+  ],
+  "source_body_before": [
+    {
+      "path": "cg2d_re/src/Palette.cpp",
+      "marker": "int UpdatePalette_450BB0(",
+      "text": "int UpdatePalette_450BB0()\n{\n    const std::int32_t previousVersion = gPaletteFrameVersion;\n    const std::int32_t previousActivePalette = gActivePalette;\n    std::int32_t previousFrame = 0;\n    std::int32_t toneTargetIndex;\n\n    if (gLoadedPalette == previousActivePalette) {\n        if (gPaletteTransitionActive == 0) {\n            return 0; // 原 0x450BD6..0x450BDF 的 EAX。\n        }\n        previousFrame = gPaletteTransitionFrame;\n        toneTargetIndex = gPaletteToneTargetIndex;\n    } else {\n        const std::int32_t paletteOffset = std::bit_cast<std::int32_t>(\n            std::bit_cast<std::uint32_t>(previousActivePalette) * 130u);\n        // 原端只比较门槛，不额外处理负索引。\n        if (gPaletteFiles[previousActivePalette].threshold > gPaletteCapability) {\n            return paletteOffset;\n        }\n\n        char path[512];\n        platform::FormatLegacyString_53B304(\n            path, \"%s\\\\%s\", resource::gBinPath, gPaletteFiles[previousActivePalette].path);\n        platform::LegacyFile* file =\n            platform::OpenLegacyStream_53B2F1(path, \"rb\");\n        if (file == nullptr) {\n            return 0; // 失败不更新已加载索引；下一帧继续尝试打开。\n        }\n\n        for (int i = 16; i < 240; ++i) {\n            gPaletteTarget[i].blue = static_cast<std::uint8_t>(\n                platform::ReadLegacyStreamByte_53C8B3(file));\n            gPaletteTarget[i].green = static_cast<std::uint8_t>(\n                platform::ReadLegacyStreamByte_53C8B3(file));\n            gPaletteTarget[i].red = static_cast<std::uint8_t>(\n                platform::ReadLegacyStreamByte_53C8B3(file));\n            if (i == 168) {\n                gPaletteTarget[i].blue = 0;\n                gPaletteTarget[i].green = 0;\n                gPaletteTarget[i].red = 0;\n            }\n\n            gPaletteBlueCurrent[i] = static_cast<float>(gPalette[i].blue);\n            gPaletteGreenCurrent[i] = static_cast<float>(gPalette[i].green);\n            gPaletteRedCurrent[i] = static_cast<float>(gPalette[i].red);\n            const std::int32_t blueDifference =\n                static_cast<std::int32_t>(gPaletteTarget[i].blue) - gPalette[i].blue;\n            const std::int32_t greenDifference =\n                static_cast<std::int32_t>(gPaletteTarget[i].green) - gPalette[i].green;\n            const std::int32_t redDifference =\n                static_cast<std::int32_t>(gPaletteTarget[i].red) - gPalette[i].red;\n            const double steps = static_cast<double>(gPaletteTransitionSteps);\n            gPaletteBlueStep[i] = static_cast<float>(static_cast<double>(blueDifference) / steps);\n            gPaletteGreenStep[i] = static_cast<float>(static_cast<double>(greenDifference) / steps);\n            gPaletteRedStep[i] = static_cast<float>(static_cast<double>(redDifference) / steps);\n        }\n        platform::CloseLegacyStream_53B1D0(file);\n\n        const std::int32_t loadedActivePalette = gActivePalette;\n        gPaletteTransitionActive = 1;\n        gPaletteFrameVersion = 1;\n        gPaletteVersionThrottle = 0;\n        gLoadedPalette = loadedActivePalette;\n        if (gPaletteTonePointer == &gPaletteTone) {\n            toneTargetIndex = loadedActivePalette;\n            gPaletteToneBlueCurrent = static_cast<float>(gPaletteTone.blue);\n            gPaletteToneTargetIndex = toneTargetIndex;\n            gPaletteToneGreenCurrent = static_cast<float>(gPaletteTone.green);\n            gPaletteToneRedCurrent = static_cast<float>(gPaletteTone.red);\n            const double steps = static_cast<double>(gPaletteTransitionSteps);\n            gPaletteToneBlueStep = static_cast<float>(\n                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][2]) - gPaletteTone.blue)\n                / steps);\n            gPaletteToneGreenStep = static_cast<float>(\n                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][1]) - gPaletteTone.green)\n                / steps);\n            gPaletteToneRedStep = static_cast<float>(\n                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][0]) - gPaletteTone.red)\n                / steps);\n        } else {\n            gPaletteToneRedCurrent = 0.0f;\n            gPaletteToneGreenCurrent = 0.0f;\n            gPaletteToneBlueCurrent = 0.0f;\n            gPaletteToneRedStep = 0.0f;\n            gPaletteToneGreenStep = 0.0f;\n            gPaletteToneBlueStep = 0.0f;\n            toneTargetIndex = gPaletteToneTargetIndex;\n        }\n    }\n\n    gPaletteTransitionFrame = Add32(previousFrame, 1u);\n    if (gPaletteTransitionFrame > gPaletteTransitionSteps) {\n        for (int i = 16; i < 240; ++i) {\n            gPalette[i].blue = gPaletteTarget[i].blue;\n            gPalette[i].green = gPaletteTarget[i].green;\n            gPalette[i].red = gPaletteTarget[i].red;\n        }\n        if (gPaletteTonePointer == &gPaletteTone) {\n            gPaletteTone.blue = gPaletteToneTargets[toneTargetIndex][2];\n            gPaletteTone.green = gPaletteToneTargets[toneTargetIndex][1];\n            gPaletteTone.red = gPaletteToneTargets[toneTargetIndex][0];\n        }\n        gPaletteTransitionActive = 0;\n        gPaletteChanging = 0;\n        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 10u);\n    } else {\n        for (int i = 16; i < 240; ++i) {\n            // 蓝通道的原 __ftol 使用尚未舍入到 float 的 x87 加法值；绿/红使用已存 float。\n            const double blue = static_cast<double>(gPaletteBlueStep[i])\n                + static_cast<double>(gPaletteBlueCurrent[i]);\n            gPaletteBlueCurrent[i] = static_cast<float>(blue);\n            const float green = static_cast<float>(\n                static_cast<double>(gPaletteGreenStep[i]) + gPaletteGreenCurrent[i]);\n            gPaletteGreenCurrent[i] = green;\n            const float red = static_cast<float>(\n                static_cast<double>(gPaletteRedStep[i]) + gPaletteRedCurrent[i]);\n            gPaletteRedCurrent[i] = red;\n            gPalette[i].blue = TruncatedLowByte(blue);\n            gPalette[i].green = TruncatedLowByte(green);\n            gPalette[i].red = TruncatedLowByte(red);\n        }\n        if (gPaletteTonePointer == &gPaletteTone) {\n            gPaletteToneBlueCurrent = static_cast<float>(\n                static_cast<double>(gPaletteToneBlueStep) + gPaletteToneBlueCurrent);\n            gPaletteToneGreenCurrent = static_cast<float>(\n                static_cast<double>(gPaletteToneGreenStep) + gPaletteToneGreenCurrent);\n            gPaletteToneRedCurrent = static_cast<float>(\n                static_cast<double>(gPaletteToneRedStep) + gPaletteToneRedCurrent);\n            gPaletteTone.blue = TruncatedLowByte(gPaletteToneBlueCurrent);\n            gPaletteTone.green = TruncatedLowByte(gPaletteToneGreenCurrent);\n            gPaletteTone.red = TruncatedLowByte(gPaletteToneRedCurrent);\n        }\n        gPaletteChanging = 1;\n    }\n\n    // 8/16/24 位渲染分支已按范围排除；保留已实现的 32 位 CPU 查色表路径。\n    RebuildPalette32();\n    gPaletteVersionThrottle = Add32(gPaletteVersionThrottle, 1u);\n    if (gPaletteTransitionSteps <= 120) {\n        if (gPaletteVersionThrottle >= 2) {\n            gPaletteVersionThrottle = 0;\n        }\n        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 1u);\n    } else if (gPaletteVersionThrottle >= gPaletteTransitionSteps / 20) {\n        gPaletteVersionThrottle = 0;\n        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 1u);\n    }\n\n    if (previousActivePalette == gActivePalette && previousVersion == gPaletteFrameVersion) {\n        return previousVersion;\n    }\n    RebuildToneMap(&ColorChannelMaps::red, &PaletteTone::blue);\n    RebuildToneMap(&ColorChannelMaps::green, &PaletteTone::green);\n    return RebuildToneMap(&ColorChannelMaps::blue, &PaletteTone::red);\n}"
+    },
+    {
+      "path": "cg2d_re/src/Palette.cpp",
+      "marker": "int RebuildPalette32()",
+      "text": "int RebuildPalette32() noexcept\n{\n    for (int i = 0; i < 256; ++i) {\n        const std::uint32_t color = gPalette[i].blue\n            + ((gPalette[i].green + (static_cast<std::uint32_t>(gPalette[i].red) << 8)) << 8);\n        gPaletteAutoMap[i] = color;\n        if (color == 0) {\n            gPaletteAutoMap[i] = 1;\n        }\n    }\n    gPaletteAutoMap[0] = 0;\n    return 0x400;\n}"
+    },
+    {
+      "path": "cg2d_re/src/Palette.cpp",
+      "marker": "int RebuildToneMap(",
+      "text": "int RebuildToneMap(\n    std::uint8_t* ColorChannelMaps::* map, std::uint8_t PaletteTone::* component) noexcept\n{\n    if ((gPaletteTonePointer->*component) == 0x80) {\n        for (int i = 0; i < 256; ++i) {\n            (gColorChannelMaps.*map)[i] = static_cast<std::uint8_t>(i);\n        }\n        return 256;\n    }\n\n    int result = 0;\n    for (int i = 0; i < 256; ++i) {\n        result = (i * (gPaletteTonePointer->*component)) >> 7;\n        if (result > 255) {\n            result = 255;\n        }\n        (gColorChannelMaps.*map)[i] = static_cast<std::uint8_t>(result);\n    }\n    return result;\n}"
+    }
+  ],
+  "source_patches": [
+    {
+      "id": "BON01-palette-byte-sampling-before-current-publication",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "palette-byte-sampling-before-current-publication",
+      "before": "            gPaletteBlueCurrent[i] = static_cast<float>(gPalette[i].blue);\n            gPaletteGreenCurrent[i] = static_cast<float>(gPalette[i].green);\n            gPaletteRedCurrent[i] = static_cast<float>(gPalette[i].red);\n            const std::int32_t blueDifference =\n                static_cast<std::int32_t>(gPaletteTarget[i].blue) - gPalette[i].blue;\n            const std::int32_t greenDifference =\n                static_cast<std::int32_t>(gPaletteTarget[i].green) - gPalette[i].green;\n            const std::int32_t redDifference =\n                static_cast<std::int32_t>(gPaletteTarget[i].red) - gPalette[i].red;\n            const double steps = static_cast<double>(gPaletteTransitionSteps);",
+      "after": "            const std::int32_t blueCurrent = gPalette[i].blue;\n            const std::int32_t greenCurrent = gPalette[i].green;\n            const std::int32_t redCurrent = gPalette[i].red;\n            gPaletteBlueCurrent[i] = static_cast<float>(blueCurrent);\n            const std::int32_t blueDifference =\n                static_cast<std::int32_t>(gPaletteTarget[i].blue) - blueCurrent;\n            gPaletteGreenCurrent[i] = static_cast<float>(greenCurrent);\n            const std::int32_t greenDifference =\n                static_cast<std::int32_t>(gPaletteTarget[i].green) - greenCurrent;\n            gPaletteRedCurrent[i] = static_cast<float>(redCurrent);\n            const double steps = static_cast<double>(gPaletteTransitionSteps);\n            const std::int32_t redDifference =\n                static_cast<std::int32_t>(gPaletteTarget[i].red) - redCurrent;",
+      "original_eas": [
+        "0x450c94",
+        "0x450c9b",
+        "0x450cac",
+        "0x450cbb",
+        "0x450cc6",
+        "0x450cd5",
+        "0x450ce4",
+        "0x450cef",
+        "0x450cf6",
+        "0x450d04"
+      ],
+      "reason": "原当前B/G/R先取样，再B pub-targetB差/G pub-targetG差/R pub-steps-targetR差"
+    },
+    {
+      "id": "BON01-default-tone-before-throttle-loaded-publication",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "default-tone-before-throttle-loaded-publication",
+      "before": "        gPaletteFrameVersion = 1;\n        gPaletteVersionThrottle = 0;\n        gLoadedPalette = loadedActivePalette;\n        if (gPaletteTonePointer == &gPaletteTone) {",
+      "after": "        gPaletteFrameVersion = 1;\n        const bool useDefaultTone = gPaletteTonePointer == &gPaletteTone;\n        gPaletteVersionThrottle = 0;\n        gLoadedPalette = loadedActivePalette;\n        if (useDefaultTone) {",
+      "original_eas": [
+        "0x450d59",
+        "0x450d5e",
+        "0x450d68",
+        "0x450d6d",
+        "0x450d73",
+        "0x450d79"
+      ],
+      "reason": "原tColor取样/比较先于节流清零和已加载号发布，条件值在后使用"
+    },
+    {
+      "id": "BON01-tone-byte-and-target-sampling",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "tone-byte-and-target-sampling",
+      "before": "            toneTargetIndex = loadedActivePalette;\n            gPaletteToneBlueCurrent = static_cast<float>(gPaletteTone.blue);\n            gPaletteToneTargetIndex = toneTargetIndex;\n            gPaletteToneGreenCurrent = static_cast<float>(gPaletteTone.green);\n            gPaletteToneRedCurrent = static_cast<float>(gPaletteTone.red);\n            const double steps = static_cast<double>(gPaletteTransitionSteps);\n            gPaletteToneBlueStep = static_cast<float>(\n                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][2]) - gPaletteTone.blue)\n                / steps);\n            gPaletteToneGreenStep = static_cast<float>(\n                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][1]) - gPaletteTone.green)\n                / steps);\n            gPaletteToneRedStep = static_cast<float>(\n                (static_cast<double>(gPaletteToneTargets[toneTargetIndex][0]) - gPaletteTone.red)\n                / steps);",
+      "after": "            const std::int32_t blueCurrent = gPaletteTone.blue;\n            const std::int32_t greenCurrent = gPaletteTone.green;\n            const std::int32_t redCurrent = gPaletteTone.red;\n            toneTargetIndex = loadedActivePalette;\n            gPaletteToneBlueCurrent = static_cast<float>(blueCurrent);\n            const std::int32_t blueDifference = gPaletteToneTargets[toneTargetIndex][2] - blueCurrent;\n            gPaletteToneTargetIndex = toneTargetIndex;\n            gPaletteToneGreenCurrent = static_cast<float>(greenCurrent);\n            const std::int32_t greenDifference = gPaletteToneTargets[toneTargetIndex][1] - greenCurrent;\n            gPaletteToneRedCurrent = static_cast<float>(redCurrent);\n            const double steps = static_cast<double>(gPaletteTransitionSteps);\n            const std::int32_t redDifference = gPaletteToneTargets[toneTargetIndex][0] - redCurrent;\n            gPaletteToneBlueStep = static_cast<float>(static_cast<double>(blueDifference) / steps);\n            gPaletteToneGreenStep = static_cast<float>(static_cast<double>(greenDifference) / steps);\n            gPaletteToneRedStep = static_cast<float>(static_cast<double>(redDifference) / steps);",
+      "original_eas": [
+        "0x450d7f",
+        "0x450d86",
+        "0x450d95",
+        "0x450dad",
+        "0x450dbd",
+        "0x450dc4",
+        "0x450dca",
+        "0x450ddc",
+        "0x450de3",
+        "0x450de9",
+        "0x450dfd",
+        "0x450e08",
+        "0x450e18",
+        "0x450e24"
+      ],
+      "reason": "原固定tone三字节先取，目标B先索引/G pub，目标G先R pub，steps先目标R，三F32步长依序"
+    },
+    {
+      "id": "BON01-steps-before-frame-publication",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "steps-before-frame-publication",
+      "before": "    gPaletteTransitionFrame = Add32(previousFrame, 1u);\n    if (gPaletteTransitionFrame > gPaletteTransitionSteps) {",
+      "after": "    const std::int32_t transitionSteps = gPaletteTransitionSteps;\n    const std::int32_t transitionFrame = Add32(previousFrame, 1u);\n    gPaletteTransitionFrame = transitionFrame;\n    if (transitionFrame > transitionSteps) {",
+      "original_eas": [
+        "0x450e70",
+        "0x450e75",
+        "0x450e76",
+        "0x450e78",
+        "0x450e7e"
+      ],
+      "reason": "原先steps样本再counter加1/比较/发布，并用该样本分流"
+    },
+    {
+      "id": "BON01-completion-tone-target-before-byte-publication",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "completion-tone-target-before-byte-publication",
+      "before": "            gPaletteTone.blue = gPaletteToneTargets[toneTargetIndex][2];\n            gPaletteTone.green = gPaletteToneTargets[toneTargetIndex][1];\n            gPaletteTone.red = gPaletteToneTargets[toneTargetIndex][0];",
+      "after": "            const std::uint8_t blue = gPaletteToneTargets[toneTargetIndex][2];\n            const std::uint8_t green = gPaletteToneTargets[toneTargetIndex][1];\n            gPaletteTone.blue = blue;\n            const std::uint8_t red = gPaletteToneTargets[toneTargetIndex][0];\n            gPaletteTone.green = green;\n            gPaletteTone.red = red;",
+      "original_eas": [
+        "0x450fb2",
+        "0x450fb9",
+        "0x450fc0",
+        "0x450fc5",
+        "0x450fcc",
+        "0x450fd2"
+      ],
+      "reason": "完成分支目标B/G先B pub，R先G pub，不三次右值后写合并"
+    },
+    {
+      "id": "BON01-completion-version-before-state-clears",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "completion-version-before-state-clears",
+      "before": "        gPaletteTransitionActive = 0;\n        gPaletteChanging = 0;\n        gPaletteFrameVersion = Add32(gPaletteFrameVersion, 10u);",
+      "after": "        const std::int32_t previousCompletionVersion = gPaletteFrameVersion;\n        gPaletteTransitionActive = 0;\n        const std::int32_t completionVersion = Add32(previousCompletionVersion, 10u);\n        gPaletteChanging = 0;\n        gPaletteFrameVersion = completionVersion;",
+      "original_eas": [
+        "0x450fd7",
+        "0x450fdc",
+        "0x450fe2",
+        "0x450fe5",
+        "0x450feb"
+      ],
+      "reason": "完成帧版本取样先于两状态清，第一清后正常S32加10、第二清后发布；不添回绕或故障模拟"
+    },
+    {
+      "id": "BON01-tone-float-before-prior-byte-publication",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "tone-float-before-prior-byte-publication",
+      "before": "            gPaletteTone.blue = TruncatedLowByte(gPaletteToneBlueCurrent);\n            gPaletteTone.green = TruncatedLowByte(gPaletteToneGreenCurrent);\n            gPaletteTone.red = TruncatedLowByte(gPaletteToneRedCurrent);",
+      "after": "            const std::uint8_t blue = TruncatedLowByte(gPaletteToneBlueCurrent);\n            const float green = gPaletteToneGreenCurrent;\n            gPaletteTone.blue = blue;\n            const std::uint8_t greenByte = TruncatedLowByte(green);\n            const float red = gPaletteToneRedCurrent;\n            gPaletteTone.green = greenByte;\n            gPaletteTone.red = TruncatedLowByte(red);",
+      "original_eas": [
+        "0x450f40",
+        "0x450f45",
+        "0x450f4b",
+        "0x450f50",
+        "0x450f55",
+        "0x450f5b",
+        "0x450f60",
+        "0x450f65"
+      ],
+      "reason": "六原转换沿CPH正常S64→U8，tone G F32先B pub/R F32先G pub，原逐次值与写序恢复"
+    },
+    {
+      "id": "BON01-post-rebuild-active-and-throttle-steps",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "post-rebuild-active-and-throttle-steps",
+      "before": "    RebuildPalette32();\n    gPaletteVersionThrottle = Add32(gPaletteVersionThrottle, 1u);\n    if (gPaletteTransitionSteps <= 120) {",
+      "after": "    RebuildPalette32();\n    const std::int32_t rebuiltActivePalette = gActivePalette;\n    const std::int32_t throttle = Add32(gPaletteVersionThrottle, 1u);\n    const std::int32_t throttleSteps = gPaletteTransitionSteps;\n    gPaletteVersionThrottle = throttle;\n    if (throttleSteps <= 120) {",
+      "original_eas": [
+        "0x45100d",
+        "0x451012",
+        "0x45102c",
+        "0x451032",
+        "0x451038",
+        "0x451039",
+        "0x45103c",
+        "0x451042"
+      ],
+      "reason": "32色callee后活动号保存，节流counter/steps先样本再pub，后判定原保存活动号"
+    },
+    {
+      "id": "BON01-same-throttle-sample-for-long-period",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "same-throttle-sample-for-long-period",
+      "before": "    } else if (gPaletteVersionThrottle >= gPaletteTransitionSteps / 20) {",
+      "after": "    } else if (throttle >= throttleSteps / 20) {",
+      "original_eas": [
+        "0x451044",
+        "0x451055",
+        "0x451057",
+        "0x451060"
+      ],
+      "reason": "原同counter/steps样本执行S32/20长周期，避免发布后的再采样"
+    },
+    {
+      "id": "BON01-short-throttle-sample",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "short-throttle-sample",
+      "before": "        if (gPaletteVersionThrottle >= 2) {",
+      "after": "        if (throttle >= 2) {",
+      "original_eas": [
+        "0x45105b",
+        "0x45105e",
+        "0x451060",
+        "0x451066"
+      ],
+      "reason": "原短周期用已保存counter样本，低于2仍帧版本+1保持"
+    },
+    {
+      "id": "BON01-saved-post-rebuild-active-for-tail-comparison",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int UpdatePalette_450BB0(",
+      "expected_occurrences": 1,
+      "key": "saved-post-rebuild-active-for-tail-comparison",
+      "before": "    if (previousActivePalette == gActivePalette && previousVersion == gPaletteFrameVersion) {",
+      "after": "    if (previousActivePalette == rebuiltActivePalette && previousVersion == gPaletteFrameVersion) {",
+      "original_eas": [
+        "0x451012",
+        "0x45106c",
+        "0x451070",
+        "0x451072",
+        "0x451078",
+        "0x45107c",
+        "0x45107e"
+      ],
+      "reason": "尾用32重建后的活动号样本与入口保存值相等才读帧版本，不晚取活动号"
+    },
+    {
+      "id": "BON01-lookup-red-green-before-blue",
+      "source_path": "cg2d_re/src/Palette.cpp",
+      "root_marker": "int RebuildPalette32()",
+      "expected_occurrences": 1,
+      "before": "        const std::uint32_t color = gPalette[i].blue\n            + ((gPalette[i].green + (static_cast<std::uint32_t>(gPalette[i].red) << 8)) << 8);",
+      "after": "        const std::uint32_t red = gPalette[i].red;\n        const std::uint32_t green = gPalette[i].green;\n        const std::uint32_t redGreen = (red << 8) + green;\n        const std::uint32_t blue = gPalette[i].blue;\n        const std::uint32_t color = (redGreen << 8) + blue;",
+      "original_eas": [
+        "0x45122c",
+        "0x451232",
+        "0x451238",
+        "0x45123b",
+        "0x45123f",
+        "0x451245",
+        "0x451248"
+      ],
+      "reason": "原R/G先样本与中间整数，再B样本/pack，原W32颜色/纯黑1/索引0尾清/return400H保持"
+    }
+  ],
+  "existing_semantic_records_before": [
+    {
+      "original_entry": "0x450BB0",
+      "inventory_id": "F:00050BB0",
+      "status": "既有共享调色板/32位过渡本体的文件整链已接；完整渲染/启动/运行验收仍待",
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "UpdatePalette_450BB0"
+          ]
+        }
+      ],
+      "original_end_exclusive": "0x45118B",
+      "instruction_count": 357,
+      "original_direct_reference_count": 6,
+      "inbound_evidence": [
+        {
+          "address": "0x457133",
+          "parent_entry": "0x457020"
+        },
+        {
+          "address": "0x4581AC",
+          "parent_entry": "0x457B10"
+        },
+        {
+          "address": "0x45848E",
+          "parent_entry": "0x458390"
+        },
+        {
+          "address": "0x45869A",
+          "parent_entry": "0x4585F0"
+        },
+        {
+          "address": "0x51CB14",
+          "parent_entry": "0x51C7D0"
+        },
+        {
+          "address": "0x51D0EE",
+          "parent_entry": "0x51C7D0"
+        }
+      ],
+      "business_call_connections": [
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C24",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53B304",
+          "target_symbol": "FormatLegacyString_53B304"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C33",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53B2F1",
+          "target_symbol": "OpenLegacyStream_53B2F1"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C4D",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C5A",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450C67",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53C8B3",
+          "target_symbol": "ReadLegacyStreamByte_53C8B3"
+        },
+        {
+          "parent_entry": "0x450BB0",
+          "call_site": "0x450D44",
+          "source": "src/Palette.cpp",
+          "symbol": "UpdatePalette_450BB0",
+          "target_entry": "0x53B1D0",
+          "target_symbol": "CloseLegacyStream_53B1D0"
+        }
+      ],
+      "business_byte_evidence": [
+        {
+          "address": "0x553514",
+          "bytes": "25735c257300"
+        },
+        {
+          "address": "0x554920",
+          "bytes": "726200"
+        }
+      ],
+      "file_instruction_evidence": {
+        "start": "0x450BB0",
+        "end_exclusive": "0x450D55",
+        "instruction_count": 105
+      },
+      "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行",
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-acceptance",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_compiler_helper_evidence.json"
+      ],
+      "boundary": "保留入口活动编号/加载索引/能力门槛、512B未清path与rb失败返0且不发布状态；每色三次getc取低U8后才168号黑色修正和原浮点步长，关闭后重新取活动编号并发布过渡/已加载状态。三个原getc调用点保持逐次取样，不改CPU表、色调、节流、收尾或随机/状态次序；共享及32位原生替换保持，当前仅文件链局部核对，不据此宣布完整357条或渲染流程通过。 CPH01撤TruncatedLowByte非有限/越S64补0与Add32回绕模拟，恢复正常S64→U8/S32计数；六转换/五加法表达式和其他正文保持。六转换/计数邻窗仅局部静态，不代完整357条/全渲染/ABI/画面/运行；异常域不称等价或安全。"
+    },
+    {
+      "original_entry": "0x451220",
+      "inventory_id": "F:00051220",
+      "status": "已有图形资源实现映射，完整运行未验",
+      "original_role": "32位查色表重建",
+      "sources": [
+        {
+          "path": "src/Palette.cpp",
+          "symbols": [
+            "RebuildPalette32"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_resource_implementation.md",
+        "doc/cg2d_semantic_function_mappings.md"
+      ],
+      "boundary": "生成00RRGGBB，所有纯黑先改1，最后仅第0项清零；返回原循环最终值400H。flags不是alpha，保留非零索引黑色与透明索引0的区别。"
+    }
+  ],
+  "tone_target_source_before": "std::uint8_t gPaletteToneTargets[45][3] {\n    {128, 128, 128}, {90, 120, 150}, {128, 86, 86}, {128, 120, 120},\n    {128, 160, 128}, {160, 160, 128}, {160, 128, 128}, {160, 128, 160},\n    {128, 128, 160}, {96, 144, 160}, {128, 160, 160}, {128, 160, 144},\n    {112, 112, 112}, {96, 96, 96}, {128, 192, 255}, {255, 255, 255},\n    {128, 192, 255}, {128, 128, 128}, {128, 128, 128}, {0, 0, 0},\n    {255, 255, 255}, {128, 128, 128}, {128, 128, 128}, {128, 128, 128},\n    {128, 128, 128}, {128, 128, 128}, {128, 128, 128}, {128, 128, 128},\n    {128, 128, 128}, {128, 128, 128}, {128, 128, 128}, {128, 128, 128},\n    {128, 128, 128}, {128, 128, 128}, {128, 128, 128}, {128, 128, 128},\n    {128, 128, 128}, {128, 128, 128}, {128, 160, 160}, {160, 128, 128},\n    {128, 128, 160}, {128, 160, 128}, {128, 192, 255}, {255, 255, 255},\n    {128, 128, 128},\n};",
+  "tone_target_mismatches": [],
+  "evidence_refs": [
+    "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
+    "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
+    "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-acceptance",
+    "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+    "doc/cg2d_palette_transition_channel_sampling_evidence.json"
+  ],
+  "original_observation_totals": {
+    "functions": 2,
+    "instructions": 380,
+    "code_bytes": 1579,
+    "page_count": 6,
+    "outgoing_call_sites": 15,
+    "internal_branches": 40,
+    "return_sites": 3,
+    "incoming_ordinary_call_sites": 7,
+    "incoming_parent_counts_per_root": [
+      5,
+      1
+    ],
+    "constant_bytes": 144,
+    "excluded_low_depth_call_area_bytes": 40
+  },
+  "measurement_before": {
+    "semantic_records": 1401,
+    "semantic_inventory_ids": 1396,
+    "reviewed_function_dispositions": 514,
+    "functions_with_document_links": 1514,
+    "document_link_percent": 41.14,
+    "registry_evidence": 621,
+    "resource_members": 33,
+    "render_members": 28,
+    "tasks_closed": 10,
+    "accepted_leaf_features": 0,
+    "global_accepted": false
+  },
+  "expected_changes": {
+    "semantic_records": 0,
+    "semantic_inventory_ids": 0,
+    "functions_with_document_links": 0,
+    "reviewed_function_dispositions": 2,
+    "registry_evidence": 8,
+    "resource_members": 2,
+    "render_members": 2,
+    "full_runtime_verified": false
+  },
+  "scope": "两个已有723/172续记/完整历史保；完整原380条含低色深40B调用区仅纳盘；共享/32路径11+1取样恢复，正确Tone helper/FILE/CPH六转换五加法和135B表保，完整父/PC53/owner/像素/运行不闭",
+  "restrictions": "单线程/定向静态/measure与-Check，不构建/调试/测试/运行/hash；RPLAN.24正常原宽/native地址，不增异常策略/回绕或故障等价；网络原格式明文/内存CryptInt保/音频暂停"
+}

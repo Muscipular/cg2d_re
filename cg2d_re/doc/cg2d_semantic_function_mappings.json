@@ -165483,6 +165483,87 @@
         "trail_third_family_double_counter_preserved": true,
         "markdeath_still_priority_and_projection": true
       }
+    },
+    {
+      "original_entry": "0x41C3B0",
+      "inventory_id": "F:0001C3B0",
+      "status": "BOF01完整正常追踪命中回调/四补丁解决本步取样问题，独立基线纳管；全父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleHomingImpactEffect_41C3B0"
+          ],
+          "relationship": "phase先固定payload，phase0当前目标phase非零早退；phase1后20000000/frameEvent0才距离<=70特殊全屏偏移/标死继续，fresh事件0与距离<=8才独立普通命中；普通C9C-position/flags先固定target/payload，无406260，HP上下限/四分类-scene/default目标转向1/原音效，fresh延迟门禁FD0=14/28后event1。old58-1，old0原图号启动音效，无随机预播放；正FD0减一/fresh零才Play，未命中步长原F32+0.1后存并fresh目标转向0，已命中出界标死仍Move/五族Y先X RNG尾迹/节拍/偏移投影"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleHomingImpactEffect_41C3B0"
+          ],
+          "relationship": "既有native非拥有T*与void callback保持；原无新空门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-acceptance",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_evidence.json"
+      ],
+      "boundary": "phase先固定payload，phase0当前目标phase非零早退；phase1后20000000/frameEvent0才距离<=70特殊全屏偏移/标死继续，fresh事件0与距离<=8才独立普通命中；普通C9C-position/flags先固定target/payload，无406260，HP上下限/四分类-scene/default目标转向1/原音效，fresh延迟门禁FD0=14/28后event1。old58-1，old0原图号启动音效，无随机预播放；正FD0减一/fresh零才Play，未命中步长原F32+0.1后存并fresh目标转向0，已命中出界标死仍Move/五族Y先X RNG尾迹/节拍/偏移投影。独立70/8和全屏偏移/提前标死继续、普通position-flags先target/无406260、HP上下限-默认目标转向、命中/启动音效区别、五族Y先X RNG与110046额外节拍保；地址native非拥有，其它数值原宽、内存CryptInt token/reserved保，不代全父-callee-owner/ABI-SDK-PC53运行，音频暂停。",
+      "instruction_count": 676,
+      "function_chunks": [
+        {
+          "start": "0x41C3B0",
+          "end_exclusive": "0x41CCFD"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleHomingImpactEffect_41C3B0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOF01完整676条2381B/九页51call-83内部出口/四取样补丁，单callback地址引用/四F32常量16B及复制边界分列；全父-callee-owner/ABI-PC53未运行",
+      "battle_homing_impact_callback_sampling": {
+        "spec_id": "BOF01",
+        "evidence_refs": [
+          "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+          "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
+          "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-acceptance",
+          "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
+          "doc/cg2d_battle_homing_impact_callback_sampling_evidence.json"
+        ],
+        "original_entry": "0x41C3B0",
+        "original_instruction_count": 676,
+        "original_code_bytes": 2381,
+        "page_count": 9,
+        "outgoing_call_site_count": 51,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 4,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "entry_phase_before_payload": true,
+        "special_distance_seventy_and_normal_eight_independent": true,
+        "special_full_screen_offset_before_markdeath_preserved": true,
+        "normal_position_flags_before_target_lookup_preserved": true,
+        "no_406260_reset_preserved": true,
+        "negative_hp_copy_encoded_before_target_lookup": true,
+        "healing_display_value_y_x_then_y_minus80": true,
+        "default_display_y_value_x_then_y_minus80": true,
+        "default_target_faces_impact_before_advance": true,
+        "old_delay_zero_audio_maps_differ_from_hit_maps": true,
+        "no_random_preplay_or_shake_preserved": true,
+        "turn_step_rounded_f32_before_publish_and_fresh_target": true,
+        "out_of_bounds_markdeath_still_moves_and_emits_trail": true,
+        "five_trail_y_f32_before_x_rng_preserved": true,
+        "trail110046_extra_counter_preserved": true,
+        "no_priority_rewrite_preserved": true
+      }
     }
   ]
 }

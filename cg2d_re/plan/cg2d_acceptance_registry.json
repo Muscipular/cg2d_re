@@ -2034,7 +2034,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-baseline",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-baseline",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-baseline"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-baseline",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2120,7 +2121,8 @@
         "F:0001A9E0",
         "F:0001AF00",
         "F:0001B440",
-        "F:0001BB00"
+        "F:0001BB00",
+        "F:0001C3B0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2200,7 +2202,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-decision",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-decision"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-decision",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2269,7 +2272,8 @@
         "BOB01五完整初始化助手608条1940B/六取样补丁已修、五独立身份纳管；BATTLE80未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
         "BOC01两完整命中回调732条2647B/十取样补丁已修、两独立身份纳管；BATTLE82未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
         "BOD01完整帧事件回调471条1723B/四取样补丁已修、独立身份纳管；BATTLE83未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
-        "BOE01完整移动命中回调636条2217B/五取样补丁已修、独立身份纳管；BATTLE84未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待"
+        "BOE01完整移动命中回调636条2217B/五取样补丁已修、独立身份纳管；BATTLE84未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+        "BOF01完整追踪命中回调676条2381B/四取样补丁已修、独立身份纳管；BATTLE85未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2338,7 +2342,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state"
       ]
     },
     {
@@ -25951,6 +25956,68 @@
       "observation": "原完整636条2217B/全字节与45call-78内部出口/一ret，单callback地址引用/常量8B和既有复制-DX读取/固定字段-volatile偏移声明单列；不代全部父-callee或运行",
       "expected": "phase先固定payload，phase0当前目标phase非零早退；phase1后固定target/graphic先targetPayload/Load，special20000000与普通中心两独立live阈值/frameEvent0判断，special半屏偏移/标死仍继续。普通命中图号优先/HP上下限-分类-scene/default效果与声音、fresh delay门禁FD0=14/28后frameEvent1。old58-1，old58==0音效262/RNG0..32次Play；正FD0减一可设震幅，freshFD0零才Play/实时中心转向-移动/speed+0.5/尾迹节拍/命中1标死与rising0；最终target U8优先级先F32 X取样再优先级+20发布/偏移投影",
       "actual": "仅本回调五取样实修及完整原根局部I/S；成员84不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-HOMING-IMPACT-CALLBACK-0001C3B0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOF01完整676条2381B/九页51call-83出口/独立距离命中-追踪与出界运动尾；doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-homing-impact-callback-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-acceptance",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleHomingImpactEffect_41C3B0",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyCryptInt.cpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "追踪命中四补丁恢复入口phase/负HP encoded与两数字分支取样；本步问题解决，治疗金额先Y/default Y-金额-X及全部正常合同保，独立身份分类成员纳管",
+          "decision_ref": "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "单完整追踪命中回调/四补丁整CPP精确重放，独立距离70/8-全屏偏移/提前标死继续、原HP零/上限四分类scene计数/默认目标转向、old58/freshFD0-原F32步长/出界仍运动与五族Y先X随机/110046额外节拍/偏移尾保；原合同：phase先固定payload，phase0当前目标phase非零早退；phase1后20000000/frameEvent0才距离<=70特殊全屏偏移/标死继续，fresh事件0与距离<=8才独立普通命中；普通C9C-position/flags先固定target/payload，无406260，HP上下限/四分类-scene/default目标转向1/原音效，fresh延迟门禁FD0=14/28后event1。old58-1，old0原图号启动音效，无随机预播放；正FD0减一/fresh零才Play，未命中步长原F32+0.1后存并fresh目标转向0，已命中出界标死仍Move/五族Y先X RNG尾迹/节拍/偏移投影",
+      "expected": "phase先固定payload，phase0当前目标phase非零早退；phase1后20000000/frameEvent0才距离<=70特殊全屏偏移/标死继续，fresh事件0与距离<=8才独立普通命中；普通C9C-position/flags先固定target/payload，无406260，HP上下限/四分类-scene/default目标转向1/原音效，fresh延迟门禁FD0=14/28后event1。old58-1，old0原图号启动音效，无随机预播放；正FD0减一/fresh零才Play，未命中步长原F32+0.1后存并fresh目标转向0，已命中出界标死仍Move/五族Y先X RNG尾迹/节拍/偏移投影",
+      "actual": "仅本回调四取样实修及完整原根局部I/S；成员85不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价，音频暂停"
+    },
+    {
+      "id": "E-BATTLE-HOMING-IMPACT-CALLBACK-0001C3B0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOF01完整676条2381B/九页51call-83出口/独立距离命中-追踪与出界运动尾；doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-homing-impact-callback-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-acceptance",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleHomingImpactEffect_41C3B0",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyCryptInt.cpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "追踪命中四补丁恢复入口phase/负HP encoded与两数字分支取样；本步问题解决，治疗金额先Y/default Y-金额-X及全部正常合同保，独立身份分类成员纳管",
+          "decision_ref": "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整676条2381B/全字节与51call-83内部出口/一ret，单callback地址引用/常量16B和既有复制/固定字段-volatile偏移声明单列；不代全部父-callee或运行",
+      "expected": "phase先固定payload，phase0当前目标phase非零早退；phase1后20000000/frameEvent0才距离<=70特殊全屏偏移/标死继续，fresh事件0与距离<=8才独立普通命中；普通C9C-position/flags先固定target/payload，无406260，HP上下限/四分类-scene/default目标转向1/原音效，fresh延迟门禁FD0=14/28后event1。old58-1，old0原图号启动音效，无随机预播放；正FD0减一/fresh零才Play，未命中步长原F32+0.1后存并fresh目标转向0，已命中出界标死仍Move/五族Y先X RNG尾迹/节拍/偏移投影",
+      "actual": "仅本回调四取样实修及完整原根局部I/S；成员85不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价，音频暂停"
     }
   ],
   "task_acceptance": [
@@ -26187,7 +26254,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state"
       ]
     },
     {
@@ -26499,7 +26567,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state"
       ]
     },
     {
@@ -26698,7 +26767,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state"
       ]
     },
     {
@@ -26803,7 +26873,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state"
       ]
     },
     {
@@ -26879,7 +26950,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state"
       ]
     },
     {
@@ -27110,7 +27182,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state"
       ]
     },
     {
@@ -27182,7 +27255,8 @@
         "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
         "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
         "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
-        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state"
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state"
       ]
     }
   ],
@@ -32325,6 +32399,17 @@
         "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state"
       ],
       "boundary": "获准x64 native非拥有action/target/payload/1054与真实void callback，S32/U32/F32-原W8优先级及内存CryptInt固定字段保；仅本根局部I/S，不代全父-callee-owner/ABI-SDK-PC53或运行，音频暂停"
+    },
+    {
+      "inventory_id": "F:0001C3B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有action/target/payload/1054与真实void callback，S32/U32/F32-W32/W8及内存CryptInt固定字段保；仅本根局部I/S，不代全父-callee-owner/ABI-SDK-PC53或运行，音频暂停"
     }
   ],
   "auxiliary_dispositions": [

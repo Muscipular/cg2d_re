@@ -2267,7 +2267,8 @@
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-baseline",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-baseline",
-        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline"
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2386,7 +2387,13 @@
         "F:00010B00",
         "F:00010E30",
         "F:000113A0",
-        "F:00011A50"
+        "F:00011A50",
+        "F:00011D30",
+        "F:00011CB0",
+        "F:00011FA0",
+        "F:00011FC0",
+        "F:00011FE0",
+        "F:00012000"
       ],
       "closure_task_ids": [
         "P01",
@@ -2479,7 +2486,8 @@
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-decision",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-decision",
-        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision"
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2561,7 +2569,8 @@
         "BPR01动作114从BPP数据角色/字段修复推进完整489条1745B/34call及唯一父邻窗正常源静态，三源W8片段对应四原点，108成员不增；BPP此前完整本体未验边界由本组限定静态推进，完整父/其它生产/全部子依赖及owner-alias寿命/SDK机器ABI与x87实际精度/时钟RNG/画面运行未验，完整战斗及R8不关闭",
         "BPS01四动作完整339条1170B/六页、29call/34jump与四唯一父邻窗纳管，155/156同阶段借用取样恢复，112原成员仍枚举open；正确W32读取/运动与缩放/RNG/声音分支保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI与实际x87精度/时钟RNG/画面运行未验，完整战斗及R8未关闭",
         "BPT01三个动作完整540条1709B/九页、63call/36jump/15ret与三唯一父邻窗纳管，共享helper六完整取样对应十二原阶段，115原成员仍枚举open；原业务上下限/default与159/160不同尾保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
-        "BPU01两完整动作570条2302B/八页、32call/63jump/七ret与两唯一父邻窗纳管；七原栈初始化52元素按五源常量组40值可追，类型W8/七回收源片段修复，117原成员仍枚举open。第三槽判断/正常状态和真实字段重读保；全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭"
+        "BPU01两完整动作570条2302B/八页、32call/63jump/七ret与两唯一父邻窗纳管；七原栈初始化52元素按五源常量组40值可追，类型W8/七回收源片段修复，117原成员仍枚举open。第三槽判断/正常状态和真实字段重读保；全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+        "BPV01六完整动作243条815B/八页、19call/21jump/10ret与六唯一父邻窗纳管，165两W8消费恢复，其余五体/原未落位FP、W32缓存与fresh及166内联正常计时/四字节发布保，123原成员枚举open；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87/时钟RNG/画面运行未验，完整战斗及R8未关闭"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2643,7 +2652,8 @@
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
-        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state"
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
       ]
     },
     {
@@ -31967,6 +31977,78 @@
       "observation": "动作163：fresh effects[initialEffect].flags W32 bit80000决定进入/退出。进入FD4=0按原direction分支选side、当前位置声425/427/429/431→308=8/30F=255→device查询无设备时W32 flags|8000→fresh index/FD4=1→按四类型两图选择419C10→106C发布/返回非空才309=4后fresh槽310=4→character6/PlayFrame1。FD4=1若imageNo==原initialEffect.position4，则106C空或phase非0才FD4=2、PlayFrame0；不相等时alpha W8减7，降到0后保13B0门禁/baseImage、fresh当前图发布及原各W8draw字段/flags10000000和PlayFrame0，否则character6/PlayFrame1。FD4=2同阶段106C指针条件回收→fresh index/清106C→原position低W8加1落S8 type，按四类型四图依序419CF0的偏移2/1/-1/-2及相应槽，非零图创建；第四创建仍按第三槽非空判定，不改为本次返回判定。各创建309=4/fresh槽310=4后，fresh当前图/flags与字段发布、PlayFrame0→439470弃返→439340→frameEvent0/FD40。所有进入阶段/default共同按13B8/13BC两借用槽条件MarkDeath并仅非空时清槽。退出先character6/PlayFrame1再fresh FD4：1时alpha+7未超过255只W8发布，超过时条件回收106C/清槽、flags清10000和字段/type0、439470→439340→frameEvent/FD4清0；0时S8 type>0才播426/428/430/432、条件回收主效果并清、三辅助槽逐个取指针/条件MarkDeath后均清槽、按原side/fresh当前图与W8字段/flags发布→PlayFrame1→device无设备设10000→fresh S8 type>0才419C10退出图→发布106C并按非空写309和fresh槽310→FD4=1。其它退出FD4返回。 动作164：先character0/PlayFrame1再fresh S32 stage。stage1/2时W8 alpha+7未超过255只发布并返回；超过时仅stage1无额外空门禁MarkDeath(106C)，然后清106C/flags清10000、3080/30F255、fresh保存phaseFF0→type0→phase恢复→FF0/frameEvent/FD4清0。其它非0 stage返回。stage0沿S8 type正才播退出声、主效果/三辅助槽按原条件回收清除→side与baseImage发布、3088/30F0/3090、flags清10000000/13B00→PlayFrame1→device无设备设10000→fresh S8 type正才退出图419C10并写106C，之后按非空写309/fresh槽310，FD4=1。负direction按原分支side1、0..2或>=6为side0、3..5为side1；现有方向表达式保持。",
       "expected": "动作163：fresh effects[initialEffect].flags W32 bit80000决定进入/退出。进入FD4=0按原direction分支选side、当前位置声425/427/429/431→308=8/30F=255→device查询无设备时W32 flags|8000→fresh index/FD4=1→按四类型两图选择419C10→106C发布/返回非空才309=4后fresh槽310=4→character6/PlayFrame1。FD4=1若imageNo==原initialEffect.position4，则106C空或phase非0才FD4=2、PlayFrame0；不相等时alpha W8减7，降到0后保13B0门禁/baseImage、fresh当前图发布及原各W8draw字段/flags10000000和PlayFrame0，否则character6/PlayFrame1。FD4=2同阶段106C指针条件回收→fresh index/清106C→原position低W8加1落S8 type，按四类型四图依序419CF0的偏移2/1/-1/-2及相应槽，非零图创建；第四创建仍按第三槽非空判定，不改为本次返回判定。各创建309=4/fresh槽310=4后，fresh当前图/flags与字段发布、PlayFrame0→439470弃返→439340→frameEvent0/FD40。所有进入阶段/default共同按13B8/13BC两借用槽条件MarkDeath并仅非空时清槽。退出先character6/PlayFrame1再fresh FD4：1时alpha+7未超过255只W8发布，超过时条件回收106C/清槽、flags清10000和字段/type0、439470→439340→frameEvent/FD4清0；0时S8 type>0才播426/428/430/432、条件回收主效果并清、三辅助槽逐个取指针/条件MarkDeath后均清槽、按原side/fresh当前图与W8字段/flags发布→PlayFrame1→device无设备设10000→fresh S8 type>0才419C10退出图→发布106C并按非空写309和fresh槽310→FD4=1。其它退出FD4返回。 动作164：先character0/PlayFrame1再fresh S32 stage。stage1/2时W8 alpha+7未超过255只发布并返回；超过时仅stage1无额外空门禁MarkDeath(106C)，然后清106C/flags清10000、3080/30F255、fresh保存phaseFF0→type0→phase恢复→FF0/frameEvent/FD4清0。其它非0 stage返回。stage0沿S8 type正才播退出声、主效果/三辅助槽按原条件回收清除→side与baseImage发布、3088/30F0/3090、flags清10000000/13B00→PlayFrame1→device无设备设10000→fresh S8 type正才退出图419C10并写106C，之后按非空写309/fresh槽310，FD4=1。负direction按原分支side1、0..2或>=6为side0、3..5为side1；现有方向表达式保持。",
       "actual": "两完整原根570条2302B/八页、32实际call/63普通内部jump/七ret、两个普通唯一入向同一404DB0父六条邻窗，七组原指令即时构造的52栈表元素对应源五组40常量，只当前完整正常源/状态发布/字段/调用及同阶段回收静态。七替换模式共八源片段，恢复一实际低W8类型消费与七源回收取样（gear一循环承两个原点），正常旧值无介入相同、不称数值/并发或生成机器bug。正确原第三槽判断、全部case/default/负方向、字段W32/W8/S8、真实创建与alias借用保；不造同名原全局数据表或新增R7处置。全父/全部子依赖/其它生产与间接alias-owner寿命、SDK/生成机器ABI/RNG/时钟/画面运行未新验；音频暂停和原格式明文、RPLAN.24实际W8存储且不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-COUNT-TIMER-FLAGS-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPV01六完整243条815B/八页、19call/七入口/21jump/10ret与六唯一父，四F32常数和两原W8及正常内联计时；doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-count-timer-flags-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction165_411D30",
+        "src/YobiRuntime.cpp#UpdateBattleAction166_411CB0",
+        "src/YobiRuntime.cpp#UpdateBattleAction167_411FA0",
+        "src/YobiRuntime.cpp#UpdateBattleAction168_411FC0",
+        "src/YobiRuntime.cpp#UpdateBattleAction169_411FE0",
+        "src/YobiRuntime.cpp#UpdateBattleAction170_412000",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/world/SceneState.cpp#ConsumeBattlePlayerTimer",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "只165两实际旗位消费恢复低W8，正常旧掩码值一致；原缓存/fresh W32、未落位角度/速度中间比较及S32计数和计时/字节发布与返回保，既有timer承接不造call/F/owner",
+          "decision_ref": "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "165：FE4原W32/C04决定character8/9，rate50；初始flagsFDC W32缓存bit1，FCC按S32先增/发布。count<14*(bit+1)时角度+180保未落位中间比较360/F32发布与必要减360、speed5，fresh低W8 bit2设gate1/alive1→Move→PlayFrame1返回。count<14*bit+34时方向S32+1/达到8减8，fresh W32 flags重算门槛与fresh FCC比较，相等时speed5、fresh低W8 bit2及CountActive<=1才gate0，alive0/FF00；FF0==0建图110006，fresh旧FF0先增且旧值>=2清0；speed减原F32 0.3保未落位中间判定和原零业务限制→Move→PlayFrame1返回。count>=14*bit+54时FCC0，原初始缓存bit2清则6/100→439340→fresh phase11时4/100；否则fresh FE4/3010决定6/100或1/250→439340。其它公共尾PlayFrame1返回；缓存与fresh W32不得合并。 166：先共享当前玩家位置再借payload，位置相等时fresh queuedTargets[value13A4]供既有ConsumeBattlePlayerTimer，正常timerRemaining扣1000*seconds先W32发布、负才业务归零。这是原411CC5..411CFD内联数学承接，不是原call或新F。随后fresh index→Y→value→X、4206C0(x,y,-value)弃返→43B830弃返→439340；保S32算术/业务下限和原队列、计时共享owner，不加异常回绕/保护。 167：原W8字段308写8→439340，现有SetYobiActionField308同一原字节承载，正确本体保。 168：原W8字段308写0→439340，原字段别名和调用序保。 169：原W8字段309写255→439340，现有SetYobiActionField309同一原字节承载，正确本体保。 170：原W8字段309写0→439340，原字段别名和调用序保。",
+      "expected": "165：FE4原W32/C04决定character8/9，rate50；初始flagsFDC W32缓存bit1，FCC按S32先增/发布。count<14*(bit+1)时角度+180保未落位中间比较360/F32发布与必要减360、speed5，fresh低W8 bit2设gate1/alive1→Move→PlayFrame1返回。count<14*bit+34时方向S32+1/达到8减8，fresh W32 flags重算门槛与fresh FCC比较，相等时speed5、fresh低W8 bit2及CountActive<=1才gate0，alive0/FF00；FF0==0建图110006，fresh旧FF0先增且旧值>=2清0；speed减原F32 0.3保未落位中间判定和原零业务限制→Move→PlayFrame1返回。count>=14*bit+54时FCC0，原初始缓存bit2清则6/100→439340→fresh phase11时4/100；否则fresh FE4/3010决定6/100或1/250→439340。其它公共尾PlayFrame1返回；缓存与fresh W32不得合并。 166：先共享当前玩家位置再借payload，位置相等时fresh queuedTargets[value13A4]供既有ConsumeBattlePlayerTimer，正常timerRemaining扣1000*seconds先W32发布、负才业务归零。这是原411CC5..411CFD内联数学承接，不是原call或新F。随后fresh index→Y→value→X、4206C0(x,y,-value)弃返→43B830弃返→439340；保S32算术/业务下限和原队列、计时共享owner，不加异常回绕/保护。 167：原W8字段308写8→439340，现有SetYobiActionField308同一原字节承载，正确本体保。 168：原W8字段308写0→439340，原字段别名和调用序保。 169：原W8字段309写255→439340，现有SetYobiActionField309同一原字节承载，正确本体保。 170：原W8字段309写0→439340，原字段别名和调用序保。",
+      "actual": "六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-COUNT-TIMER-FLAGS-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPV01六完整243条815B/八页、19call/七入口/21jump/10ret与六唯一父，四F32常数和两原W8及正常内联计时；doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-count-timer-flags-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction165_411D30",
+        "src/YobiRuntime.cpp#UpdateBattleAction166_411CB0",
+        "src/YobiRuntime.cpp#UpdateBattleAction167_411FA0",
+        "src/YobiRuntime.cpp#UpdateBattleAction168_411FC0",
+        "src/YobiRuntime.cpp#UpdateBattleAction169_411FE0",
+        "src/YobiRuntime.cpp#UpdateBattleAction170_412000",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/world/SceneState.cpp#ConsumeBattlePlayerTimer",
+        "src/world/WorldUpdateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "只165两实际旗位消费恢复低W8，正常旧掩码值一致；原缓存/fresh W32、未落位角度/速度中间比较及S32计数和计时/字节发布与返回保，既有timer承接不造call/F/owner",
+          "decision_ref": "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "165：FE4原W32/C04决定character8/9，rate50；初始flagsFDC W32缓存bit1，FCC按S32先增/发布。count<14*(bit+1)时角度+180保未落位中间比较360/F32发布与必要减360、speed5，fresh低W8 bit2设gate1/alive1→Move→PlayFrame1返回。count<14*bit+34时方向S32+1/达到8减8，fresh W32 flags重算门槛与fresh FCC比较，相等时speed5、fresh低W8 bit2及CountActive<=1才gate0，alive0/FF00；FF0==0建图110006，fresh旧FF0先增且旧值>=2清0；speed减原F32 0.3保未落位中间判定和原零业务限制→Move→PlayFrame1返回。count>=14*bit+54时FCC0，原初始缓存bit2清则6/100→439340→fresh phase11时4/100；否则fresh FE4/3010决定6/100或1/250→439340。其它公共尾PlayFrame1返回；缓存与fresh W32不得合并。 166：先共享当前玩家位置再借payload，位置相等时fresh queuedTargets[value13A4]供既有ConsumeBattlePlayerTimer，正常timerRemaining扣1000*seconds先W32发布、负才业务归零。这是原411CC5..411CFD内联数学承接，不是原call或新F。随后fresh index→Y→value→X、4206C0(x,y,-value)弃返→43B830弃返→439340；保S32算术/业务下限和原队列、计时共享owner，不加异常回绕/保护。 167：原W8字段308写8→439340，现有SetYobiActionField308同一原字节承载，正确本体保。 168：原W8字段308写0→439340，原字段别名和调用序保。 169：原W8字段309写255→439340，现有SetYobiActionField309同一原字节承载，正确本体保。 170：原W8字段309写0→439340，原字段别名和调用序保。",
+      "expected": "165：FE4原W32/C04决定character8/9，rate50；初始flagsFDC W32缓存bit1，FCC按S32先增/发布。count<14*(bit+1)时角度+180保未落位中间比较360/F32发布与必要减360、speed5，fresh低W8 bit2设gate1/alive1→Move→PlayFrame1返回。count<14*bit+34时方向S32+1/达到8减8，fresh W32 flags重算门槛与fresh FCC比较，相等时speed5、fresh低W8 bit2及CountActive<=1才gate0，alive0/FF00；FF0==0建图110006，fresh旧FF0先增且旧值>=2清0；speed减原F32 0.3保未落位中间判定和原零业务限制→Move→PlayFrame1返回。count>=14*bit+54时FCC0，原初始缓存bit2清则6/100→439340→fresh phase11时4/100；否则fresh FE4/3010决定6/100或1/250→439340。其它公共尾PlayFrame1返回；缓存与fresh W32不得合并。 166：先共享当前玩家位置再借payload，位置相等时fresh queuedTargets[value13A4]供既有ConsumeBattlePlayerTimer，正常timerRemaining扣1000*seconds先W32发布、负才业务归零。这是原411CC5..411CFD内联数学承接，不是原call或新F。随后fresh index→Y→value→X、4206C0(x,y,-value)弃返→43B830弃返→439340；保S32算术/业务下限和原队列、计时共享owner，不加异常回绕/保护。 167：原W8字段308写8→439340，现有SetYobiActionField308同一原字节承载，正确本体保。 168：原W8字段308写0→439340，原字段别名和调用序保。 169：原W8字段309写255→439340，现有SetYobiActionField309同一原字节承载，正确本体保。 170：原W8字段309写0→439340，原字段别名和调用序保。",
+      "actual": "六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
     }
   ],
   "task_acceptance": [
@@ -32594,7 +32676,8 @@
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
-        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state"
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
       ]
     },
     {
@@ -32837,7 +32920,8 @@
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
-        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state"
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
       ]
     },
     {
@@ -32975,7 +33059,8 @@
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
-        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state"
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
       ]
     },
     {
@@ -33445,7 +33530,8 @@
         "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
         "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
         "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
-        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state"
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state"
       ]
     },
     {
@@ -39507,6 +39593,84 @@
         "doc/cg2d_battle_rebirth_transition_evidence.json"
       ],
       "boundary": "动作164：先character0/PlayFrame1再fresh S32 stage。stage1/2时W8 alpha+7未超过255只发布并返回；超过时仅stage1无额外空门禁MarkDeath(106C)，然后清106C/flags清10000、3080/30F255、fresh保存phaseFF0→type0→phase恢复→FF0/frameEvent/FD4清0。其它非0 stage返回。stage0沿S8 type正才播退出声、主效果/三辅助槽按原条件回收清除→side与baseImage发布、3088/30F0/3090、flags清10000000/13B00→PlayFrame1→device无设备设10000→fresh S8 type正才退出图419C10并写106C，之后按非空写309/fresh槽310，FD4=1。负direction按原分支side1、0..2或>=6为side0、3..5为side1；现有方向表达式保持。 两完整原根570条2302B/八页、32实际call/63普通内部jump/七ret、两个普通唯一入向同一404DB0父六条邻窗，七组原指令即时构造的52栈表元素对应源五组40常量，只当前完整正常源/状态发布/字段/调用及同阶段回收静态。七替换模式共八源片段，恢复一实际低W8类型消费与七源回收取样（gear一循环承两个原点），正常旧值无介入相同、不称数值/并发或生成机器bug。正确原第三槽判断、全部case/default/负方向、字段W32/W8/S8、真实创建与alias借用保；不造同名原全局数据表或新增R7处置。全父/全部子依赖/其它生产与间接alias-owner寿命、SDK/生成机器ABI/RNG/时钟/画面运行未新验；音频暂停和原格式明文、RPLAN.24实际W8存储且不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00011D30",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "165：FE4原W32/C04决定character8/9，rate50；初始flagsFDC W32缓存bit1，FCC按S32先增/发布。count<14*(bit+1)时角度+180保未落位中间比较360/F32发布与必要减360、speed5，fresh低W8 bit2设gate1/alive1→Move→PlayFrame1返回。count<14*bit+34时方向S32+1/达到8减8，fresh W32 flags重算门槛与fresh FCC比较，相等时speed5、fresh低W8 bit2及CountActive<=1才gate0，alive0/FF00；FF0==0建图110006，fresh旧FF0先增且旧值>=2清0；speed减原F32 0.3保未落位中间判定和原零业务限制→Move→PlayFrame1返回。count>=14*bit+54时FCC0，原初始缓存bit2清则6/100→439340→fresh phase11时4/100；否则fresh FE4/3010决定6/100或1/250→439340。其它公共尾PlayFrame1返回；缓存与fresh W32不得合并。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00011CB0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "166：先共享当前玩家位置再借payload，位置相等时fresh queuedTargets[value13A4]供既有ConsumeBattlePlayerTimer，正常timerRemaining扣1000*seconds先W32发布、负才业务归零。这是原411CC5..411CFD内联数学承接，不是原call或新F。随后fresh index→Y→value→X、4206C0(x,y,-value)弃返→43B830弃返→439340；保S32算术/业务下限和原队列、计时共享owner，不加异常回绕/保护。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00011FA0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "167：原W8字段308写8→439340，现有SetYobiActionField308同一原字节承载，正确本体保。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00011FC0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "168：原W8字段308写0→439340，原字段别名和调用序保。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00011FE0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "169：原W8字段309写255→439340，现有SetYobiActionField309同一原字节承载，正确本体保。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00012000",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "170：原W8字段309写0→439340，原字段别名和调用序保。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。"
     }
   ],
   "auxiliary_dispositions": [

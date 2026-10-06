@@ -85,3 +85,9 @@
 [状态合同](cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state)/[完整570条2302B](cg2d_battle_rebirth_transition_evidence.json)补163/164进入/退出/恢复。源一位置类型消费恢复原直接低W8及已有INC/S8落位；四主效果与三回收循环各同阶段取指针供判断/MarkDeath，gear一循环对应两原槽，合七模式/八片段。保持第四持久创建的真实第三槽判定、309写后fresh槽310、所有state/default/负方向与业务alpha条件。
 
 七原栈即时初始化组52值逐项对五源常量组40值，不把同名代码位置当全局数据表，R7不新增。BATTLE115→117枚举open、E742两局部I/S；全父/全部子依赖及其它生产/owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，完整战斗继续。
+
+## BPV01 计数/计时与四字节状态发布（2026-10-07）
+
+[完整合同](cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state)/[六原根243条815B](cg2d_battle_count_timer_flags_evidence.json)补165..170。165移动及达到门槛后的两旗位恢复真实低W8，初次W32缓存/中段fresh W32与未落位角度/速度比较保持；166原S32内联timer扣1000*seconds/负值业务归零由既有共享helper承接，不造新call/F/owner。167..170原308/309 W8发布和公共推进正确，另五本体保持。
+
+六完整正常语义纳管，BATTLE117→123枚举open、E744两局部I/S；全父/所有子依赖与其它生产/owner寿命、SDK/生成机器ABI和实际x87/时钟RNG/画面运行未验，完整战斗继续。

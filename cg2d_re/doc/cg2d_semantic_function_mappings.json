@@ -176812,6 +176812,319 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x00411D30",
+      "inventory_id": "F:00011D30",
+      "original_role": "UpdateBattleAction165_411D30",
+      "original_end_exclusive": "0x00411F98",
+      "instruction_count": 182,
+      "status": "BPV01六完整计数/计时/字节发布正常源纳管，165两W8读取实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction165_411D30"
+          ],
+          "relationship": "165：FE4原W32/C04决定character8/9，rate50；初始flagsFDC W32缓存bit1，FCC按S32先增/发布。count<14*(bit+1)时角度+180保未落位中间比较360/F32发布与必要减360、speed5，fresh低W8 bit2设gate1/alive1→Move→PlayFrame1返回。count<14*bit+34时方向S32+1/达到8减8，fresh W32 flags重算门槛与fresh FCC比较，相等时speed5、fresh低W8 bit2及CountActive<=1才gate0，alive0/FF00；FF0==0建图110006，fresh旧FF0先增且旧值>=2清0；speed减原F32 0.3保未落位中间判定和原零业务限制→Move→PlayFrame1返回。count>=14*bit+54时FCC0，原初始缓存bit2清则6/100→439340→fresh phase11时4/100；否则fresh FE4/3010决定6/100或1/250→439340。其它公共尾PlayFrame1返回；缓存与fresh W32不得合并。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "165：FE4原W32/C04决定character8/9，rate50；初始flagsFDC W32缓存bit1，FCC按S32先增/发布。count<14*(bit+1)时角度+180保未落位中间比较360/F32发布与必要减360、speed5，fresh低W8 bit2设gate1/alive1→Move→PlayFrame1返回。count<14*bit+34时方向S32+1/达到8减8，fresh W32 flags重算门槛与fresh FCC比较，相等时speed5、fresh低W8 bit2及CountActive<=1才gate0，alive0/FF00；FF0==0建图110006，fresh旧FF0先增且旧值>=2清0；speed减原F32 0.3保未落位中间判定和原零业务限制→Move→PlayFrame1返回。count>=14*bit+54时FCC0，原初始缓存bit2清则6/100→439340→fresh phase11时4/100；否则fresh FE4/3010决定6/100或1/250→439340。其它公共尾PlayFrame1返回；缓存与fresh W32不得合并。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "verification_level": "六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "battle_count_timer_flags": {
+        "spec_id": "BPV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+          "doc/cg2d_battle_count_timer_flags_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 182,
+        "original_code_bytes": 616,
+        "original_page_count": 3,
+        "original_outgoing_call_count": 12,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "normal_previous_flag_values_wrong": false,
+        "low_w8_flag_read_restored": true,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00411CB0",
+      "inventory_id": "F:00011CB0",
+      "original_role": "UpdateBattleAction166_411CB0",
+      "original_end_exclusive": "0x00411D2B",
+      "instruction_count": 37,
+      "status": "BPV01六完整计数/计时/字节发布正常源纳管，165两W8读取实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction166_411CB0"
+          ],
+          "relationship": "166：先共享当前玩家位置再借payload，位置相等时fresh queuedTargets[value13A4]供既有ConsumeBattlePlayerTimer，正常timerRemaining扣1000*seconds先W32发布、负才业务归零。这是原411CC5..411CFD内联数学承接，不是原call或新F。随后fresh index→Y→value→X、4206C0(x,y,-value)弃返→43B830弃返→439340；保S32算术/业务下限和原队列、计时共享owner，不加异常回绕/保护。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ConsumeBattlePlayerTimer"
+          ],
+          "relationship": "原411CC5..411CFD当前正常S32内联扣毫秒/负值业务归零承接，不新造call/F/owner或验收其它调用者"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "166：先共享当前玩家位置再借payload，位置相等时fresh queuedTargets[value13A4]供既有ConsumeBattlePlayerTimer，正常timerRemaining扣1000*seconds先W32发布、负才业务归零。这是原411CC5..411CFD内联数学承接，不是原call或新F。随后fresh index→Y→value→X、4206C0(x,y,-value)弃返→43B830弃返→439340；保S32算术/业务下限和原队列、计时共享owner，不加异常回绕/保护。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "verification_level": "六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "battle_count_timer_flags": {
+        "spec_id": "BPV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+          "doc/cg2d_battle_count_timer_flags_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 37,
+        "original_code_bytes": 123,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "low_w8_flag_read_restored": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00411FA0",
+      "inventory_id": "F:00011FA0",
+      "original_role": "UpdateBattleAction167_411FA0",
+      "original_end_exclusive": "0x00411FB3",
+      "instruction_count": 6,
+      "status": "BPV01六完整计数/计时/字节发布正常源纳管，165两W8读取实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction167_411FA0"
+          ],
+          "relationship": "167：原W8字段308写8→439340，现有SetYobiActionField308同一原字节承载，正确本体保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "167：原W8字段308写8→439340，现有SetYobiActionField308同一原字节承载，正确本体保。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "verification_level": "六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "battle_count_timer_flags": {
+        "spec_id": "BPV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+          "doc/cg2d_battle_count_timer_flags_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 6,
+        "original_code_bytes": 19,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "low_w8_flag_read_restored": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00411FC0",
+      "inventory_id": "F:00011FC0",
+      "original_role": "UpdateBattleAction168_411FC0",
+      "original_end_exclusive": "0x00411FD3",
+      "instruction_count": 6,
+      "status": "BPV01六完整计数/计时/字节发布正常源纳管，165两W8读取实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction168_411FC0"
+          ],
+          "relationship": "168：原W8字段308写0→439340，原字段别名和调用序保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "168：原W8字段308写0→439340，原字段别名和调用序保。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "verification_level": "六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "battle_count_timer_flags": {
+        "spec_id": "BPV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+          "doc/cg2d_battle_count_timer_flags_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 6,
+        "original_code_bytes": 19,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "low_w8_flag_read_restored": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00411FE0",
+      "inventory_id": "F:00011FE0",
+      "original_role": "UpdateBattleAction169_411FE0",
+      "original_end_exclusive": "0x00411FF3",
+      "instruction_count": 6,
+      "status": "BPV01六完整计数/计时/字节发布正常源纳管，165两W8读取实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction169_411FE0"
+          ],
+          "relationship": "169：原W8字段309写255→439340，现有SetYobiActionField309同一原字节承载，正确本体保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "169：原W8字段309写255→439340，现有SetYobiActionField309同一原字节承载，正确本体保。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "verification_level": "六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "battle_count_timer_flags": {
+        "spec_id": "BPV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+          "doc/cg2d_battle_count_timer_flags_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 6,
+        "original_code_bytes": 19,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "low_w8_flag_read_restored": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00412000",
+      "inventory_id": "F:00012000",
+      "original_role": "UpdateBattleAction170_412000",
+      "original_end_exclusive": "0x00412013",
+      "instruction_count": 6,
+      "status": "BPV01六完整计数/计时/字节发布正常源纳管，165两W8读取实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction170_412000"
+          ],
+          "relationship": "170：原W8字段309写0→439340，原字段别名和调用序保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_count_timer_flags_evidence.json"
+      ],
+      "boundary": "170：原W8字段309写0→439340，原字段别名和调用序保。 六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "verification_level": "六完整原根243条815B/八页、19实际call/七入口、21普通内部jump/10ret、六唯一普通入向同父404DB0的18条邻窗与四原F32常数，只当前完整正常源计数/计时/字节发布及接线静态。165两旗位阶段恢复实际低W8，正常旧掩码值一致、不称数值/并发或生成机器bug；原未落位浮点比较、缓存与fresh W32、S32数学、166既有内联timer承接及五正确体保持。计时helper不新造原call/F或复制owner；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87精度/时钟RNG/画面运行未新验，原S32业务范围和RPLAN.24不专项异常/保护/模拟/故障等价保。",
+      "battle_count_timer_flags": {
+        "spec_id": "BPV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance",
+          "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+          "doc/cg2d_battle_count_timer_flags_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 6,
+        "original_code_bytes": 19,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "low_w8_flag_read_restored": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

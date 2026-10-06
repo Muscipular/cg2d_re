@@ -1076,3 +1076,9 @@ R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open�
 [限定验收](cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-acceptance)/[完整570条2302B](cg2d_battle_rebirth_transition_evidence.json)。八页、32call/八被调入口、63内部jump/七ret及两唯一父六条邻窗，七原栈初始化组52值分列。八源片段恢复低W8类型及同阶段借用回收，正常旧值相同，不外推生成机器/并发或故障；正确第三槽/真实重读保持，两局部I/S各十独立实际来源。
 
 语义1440/1435、关联1553/42.20%、BATTLE117枚举open、分类565/E742，R7 259/3061及差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保持，运行标准保。
+
+## BPV01 六正常动作完整源局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-acceptance)/[六原根243条815B](cg2d_battle_count_timer_flags_evidence.json)。八页、19call/七入口、21普通内部jump/10ret与六唯一父18条邻窗、四F32原常数及两个实际W8点分列；计时内联正常数学/共享helper和308/309字节发布纳管。165两片段只读取宽度恢复，正常旧值相同，不外推实际x87/生成机器或故障；两局部I/S各十四独立实来源。
+
+语义1446/1441、关联1559/42.36%、BATTLE123枚举open、分类571/E744；R7 259/3061、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持，运行标准保。

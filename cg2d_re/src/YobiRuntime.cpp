@@ -29366,7 +29366,9 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
         if (angle >= 360.0) {
             action->angle50 = static_cast<float>(angle - 360.0);
         }
-        if ((payload->flagsFDC & 2u) != 0) {
+        const std::uint8_t movingFlags =
+            *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
+        if ((movingFlags & 2u) != 0) {
             gYobiUpdateGateMode = 1;
             payload->aliveFF8 = 1;
         }
@@ -29382,7 +29384,9 @@ std::int32_t UpdateBattleAction165_411D30(YobiAction* const action)
         const std::int32_t threshold = 14 * (static_cast<std::int32_t>((payload->flagsFDC >> 1) & 1u) + 1);
         if (payload->valueFCC == threshold) {
             action->value54 = 5.0F;
-            if ((payload->flagsFDC & 2u) != 0) {
+            const std::uint8_t thresholdFlags =
+                *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
+            if ((thresholdFlags & 2u) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
                     gYobiUpdateGateMode = 0;
                 }

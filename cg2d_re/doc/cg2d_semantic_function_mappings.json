@@ -166077,7 +166077,12 @@
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-decision",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-acceptance",
         "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
-        "doc/cg2d_battle_tail_sampling_evidence.json"
+        "doc/cg2d_battle_tail_sampling_evidence.json",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
       ],
       "verification_level": "BTS01完整684条2444B/13地址发布与10父，独立257槽1028B/200目标对应，一根四片段全文精确重放和指针/坐标/计数取样有限静态；全部子动作/父实参/战斗及资源owner寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
       "boundary": "入口scene先判再固定payload、scene7直接返回；phase完整S32 switch/原unsigned超256共用尾，257slot与200目标保持。count先保存递增值→pub→按该快照判>=2/置0→重读==1；Y截断后取屏幕Y，rider/gear及firstAux一次读供判空/调用，第三阶段独立重读rider，secondAux在first消费后读；MarkDeath后清槽不立即free或改owner/type。仅本组静态，完整所有动作/绑定父/callback实参与数据资源、owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验；原格式明文与音频暂停保持，不添异常保护/钳制或回绕故障模拟。",
@@ -166166,6 +166171,31 @@
         "distinct_action_targets": 200,
         "source_body_changed": true,
         "full_runtime_verified": false
+      },
+      "range_second_batch": {
+        "spec_id": "BPO01",
+        "evidence_refs": [
+          "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+          "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+          "doc/cg2d_unassigned_range_second_batch_evidence.json"
+        ],
+        "original_range_id": "X:0000573C-00005B40",
+        "table_start": "0x40573c",
+        "table_end_exclusive": "0x405b40",
+        "table_bytes": 1028,
+        "table_slots": 257,
+        "unique_parent_code_labels": 200,
+        "dispatch_instruction": "0x404dd5",
+        "guard_compare": "0x404dca",
+        "guard_branch": "0x404dcf",
+        "default_target": "0x405642",
+        "existing_bts_table_bytes_matched": true,
+        "source_body_changed": false,
+        "full_parent_newly_verified": false,
+        "unknown_indirect_alias_closed": false,
+        "runtime_verified": false
       }
     },
     {

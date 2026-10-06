@@ -2260,7 +2260,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2453,7 +2454,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2528,7 +2530,8 @@
         "BOH01五完整消费助手/图标创建更新286条952B/三个函数六还原，原三Advance四fresh游标输出/固定flags与fresh表对象保；BATTLE99未全枚举，176入向全部父-callee/共享表-owner/资源重进退出-ABI-PC53-画面与R1/R7/R8待",
         "BOI01数字创建1071原记录补132差集及完整191条、更新44条新增1397；两根235条831B/九还原与175B表/常量保，BATTLE101仍未全枚举，23父/46调用点/第二时间数字构造者-测宽/资源/字符消费-draw/回收owner-ABI-PC53-画面与R1/R7/R8待",
         "BOJ01时间1072补106差集/完整156及默认22条共178条610B，恢复Time/Number两原44B260测宽目标与Time两取样，旧Number I具名fail/六新局部I-S；BATTLE103枚举open，宽度/资源/字载荷-draw/全部父与回收重入owner-PC53-画面/R1/R7/R8待",
-        "BOK01数字图号索引/XY两个正确getter完整28条105B独立纳管，BATTLE105枚举open；资源生产者Init为RESOURCE成员/共享基线candidate不替代成员，字载荷draw/所有父-真实owner与运行门禁待"
+        "BOK01数字图号索引/XY两个正确getter完整28条105B独立纳管，BATTLE105枚举open；资源生产者Init为RESOURCE成员/共享基线candidate不替代成员，字载荷draw/所有父-真实owner与运行门禁待",
+        "BPO01原257槽/200父内代码标签1028B跳转表的X用途mapped，BATTLE105及BTS已证源码/表不变；不增动作函数或软件门禁，完整战斗/全部父和子动作/间接alias-owner寿命/SDK机器ABI/运行与其余R7区间仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2603,7 +2606,8 @@
         "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
         "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
         "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
-        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state"
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state"
       ]
     },
     {
@@ -32246,7 +32250,8 @@
         "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
         "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
-        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state"
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state"
       ]
     },
     {
@@ -32399,7 +32404,8 @@
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
-        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state"
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state"
       ]
     },
     {
@@ -40724,6 +40730,1414 @@
           "end_exclusive": "0x4face0",
           "kind": "nop_padding",
           "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000416A-00004170",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40416a",
+          "end_exclusive": "0x404170",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000417A-00004180",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40417a",
+          "end_exclusive": "0x404180",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000418C-00004190",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40418c",
+          "end_exclusive": "0x404190",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000419A-000041A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40419a",
+          "end_exclusive": "0x4041a0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000041AA-000041B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4041aa",
+          "end_exclusive": "0x4041b0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000041BA-000041C0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4041ba",
+          "end_exclusive": "0x4041c0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000041CC-000041D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4041cc",
+          "end_exclusive": "0x4041d0",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:000041DA-000041E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4041da",
+          "end_exclusive": "0x4041e0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000042A5-000042B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4042a5",
+          "end_exclusive": "0x4042b0",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:000042C1-000042D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4042c1",
+          "end_exclusive": "0x4042d0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:000043AE-000043B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4043ae",
+          "end_exclusive": "0x4043b0",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:000045FA-00004600",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4045fa",
+          "end_exclusive": "0x404600",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000487B-00004880",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40487b",
+          "end_exclusive": "0x404880",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:000048CA-000048D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4048ca",
+          "end_exclusive": "0x4048d0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000048DD-000048E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4048dd",
+          "end_exclusive": "0x4048e0",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:00004938-00004940",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x404938",
+          "end_exclusive": "0x404940",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:00004A3B-00004A40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x404a3b",
+          "end_exclusive": "0x404a40",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:00004AD1-00004AE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x404ad1",
+          "end_exclusive": "0x404ae0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:00004C42-00004C50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x404c42",
+          "end_exclusive": "0x404c50",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:00004CF7-00004D00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x404cf7",
+          "end_exclusive": "0x404d00",
+          "kind": "nop_padding",
+          "bytes": 9
+        }
+      ]
+    },
+    {
+      "id": "X:00004D5B-00004D60",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x404d5b",
+          "end_exclusive": "0x404d60",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:00004D85-00004D90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x404d85",
+          "end_exclusive": "0x404d90",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00004DAF-00004DB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x404daf",
+          "end_exclusive": "0x404db0",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:0000573C-00005B40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "jump_table",
+      "parts": [
+        {
+          "start": "0x40573c",
+          "end_exclusive": "0x405b40",
+          "kind": "jump_table",
+          "bytes": 1028
+        }
+      ]
+    },
+    {
+      "id": "X:00005B5F-00005B60",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x405b5f",
+          "end_exclusive": "0x405b60",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:00005BCA-00005BD0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x405bca",
+          "end_exclusive": "0x405bd0",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:00005CA8-00005CB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x405ca8",
+          "end_exclusive": "0x405cb0",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:00005E59-00005E60",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x405e59",
+          "end_exclusive": "0x405e60",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:00005E9B-00005EA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x405e9b",
+          "end_exclusive": "0x405ea0",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:00005ECE-00005ED0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x405ece",
+          "end_exclusive": "0x405ed0",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:0000605C-00006060",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40605c",
+          "end_exclusive": "0x406060",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:000060C2-000060D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4060c2",
+          "end_exclusive": "0x4060d0",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:0000618C-00006190",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40618c",
+          "end_exclusive": "0x406190",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0000625E-00006260",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40625e",
+          "end_exclusive": "0x406260",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:00006292-000062A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x406292",
+          "end_exclusive": "0x4062a0",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:000062F8-00006300",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4062f8",
+          "end_exclusive": "0x406300",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0000635E-00006360",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40635e",
+          "end_exclusive": "0x406360",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:00006386-00006390",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x406386",
+          "end_exclusive": "0x406390",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0000659E-000065A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40659e",
+          "end_exclusive": "0x4065a0",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:0000662A-00006630",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40662a",
+          "end_exclusive": "0x406630",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000664A-00006650",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40664a",
+          "end_exclusive": "0x406650",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0000671F-00006720",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40671f",
+          "end_exclusive": "0x406720",
+          "kind": "nop_padding",
+          "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:0000675A-00006760",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40675a",
+          "end_exclusive": "0x406760",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:000067EC-000067F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4067ec",
+          "end_exclusive": "0x4067f0",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:00006A78-00006A80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x406a78",
+          "end_exclusive": "0x406a80",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:00006B93-00006BA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x406b93",
+          "end_exclusive": "0x406ba0",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:00006C28-00006C30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x406c28",
+          "end_exclusive": "0x406c30",
+          "kind": "nop_padding",
+          "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:00006CC3-00006CD0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x406cc3",
+          "end_exclusive": "0x406cd0",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:00006D65-00006D70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x406d65",
+          "end_exclusive": "0x406d70",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:00006E03-00006E10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x406e03",
+          "end_exclusive": "0x406e10",
+          "kind": "nop_padding",
+          "bytes": 13
+        }
+      ]
+    },
+    {
+      "id": "X:000070DE-000070E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4070de",
+          "end_exclusive": "0x4070e0",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:000071BB-000071C0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4071bb",
+          "end_exclusive": "0x4071c0",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:00008169-00008170",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x408169",
+          "end_exclusive": "0x408170",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:000082E1-000082F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4082e1",
+          "end_exclusive": "0x4082f0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:0000840D-00008410",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40840d",
+          "end_exclusive": "0x408410",
+          "kind": "nop_padding",
+          "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:00008745-00008750",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x408745",
+          "end_exclusive": "0x408750",
+          "kind": "nop_padding",
+          "bytes": 11
+        }
+      ]
+    },
+    {
+      "id": "X:000087B1-000087C0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4087b1",
+          "end_exclusive": "0x4087c0",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:000090E9-000090F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4090e9",
+          "end_exclusive": "0x4090f0",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:00009374-00009380",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x409374",
+          "end_exclusive": "0x409380",
+          "kind": "nop_padding",
+          "bytes": 12
+        }
+      ]
+    },
+    {
+      "id": "X:000093AB-000093B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4093ab",
+          "end_exclusive": "0x4093b0",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:00009409-00009410",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x409409",
+          "end_exclusive": "0x409410",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:0000949B-000094A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40949b",
+          "end_exclusive": "0x4094a0",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:0000950A-00009510",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x40950a",
+          "end_exclusive": "0x409510",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:00009605-00009610",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_second_batch_evidence.json"
+      ],
+      "reason": "BPO01第二批原X全部字节用途、实际函数块边界/逐字节owner-xref及完整257表分类；mapped仅原字节用途，不计新函数/范围排除/软件开发或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x409605",
+          "end_exclusive": "0x409610",
+          "kind": "nop_padding",
+          "bytes": 11
         }
       ]
     }

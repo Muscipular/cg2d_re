@@ -1034,3 +1034,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [限定验收](cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-acceptance)/[原证据及本次前态](cg2d_float_decimal_estimate_evidence.json)。仅原正常15条52B/唯一call父的取参与发布、现一估算表达式与真实字段/调用保持静态；原232全部算法和96位/e/f/g/环境未新验。两局部I/S各九独立来源，不把无介入旧值一致称已修数值/显示错误。
 
 语义1428/1423、文档1541/41.88%、队列172/待归属43、暂停25/排除103/NOP1及R7 67/3061保持；分类553、CRT155枚举open、E730；C12/R01/R04仅追加引用/进展，60任务源码closed10/完整验收0、叶0/global_accepted=false及全部原适用门禁保持。
+
+## BPO01 第二批完整字节用途mapped（2026-10-07）
+
+[限定验收](cg2d_unassigned_range_classification_spec.md#range-second-batch-acceptance)/[64原身份前态及1477B](cg2d_unassigned_range_second_batch_evidence.json)。每段完整字节/逐字节owner和directxref、实际函数块/RET或直接JMP边界核定；完整257槽/200标签原父归属和BTS字节一致，只64辅助mapped及一父数据依据，软件I/W/S/R不提升。
+
+R7用途处置131/3061/余2930；函数3680/导入218、语义1428/1423、文档1541/41.88%、分类553、BATTLE105和E730、队列172/待归属43与暂停/排除保持；两任务R03/R04仍open、10/60源码关闭/0完整验收/0叶/global_accepted=false保持。不把填充或数据称范围排除、功能实现或未知间接目标不可达。

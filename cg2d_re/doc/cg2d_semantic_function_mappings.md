@@ -3010,3 +3010,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [限定合同](cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline)/[原阶段与683前态](cg2d_float_decimal_estimate_evidence.json)。683/F:00146F36全文前态存previous_mapping_before_bpn01；仅一正常S32估算片段实修，原15条52B与唯一call/父取参邻窗纳管。旧232元数据/四原串和复制/段、原字段及所有其它算法保持，非完整232新验收。
 
 语义1428/有效ID1423、文档1541/41.88%保持；新增一限定equivalent处置，分类552→553，CRT154→155枚举open，E728→730两局部I/S。队列172/待归属43及R7已审67/3061保持；三open任务仅进展/引用，完整门禁不提升。
+
+## BPO01 第二批64原X用途关联（2026-10-07）
+
+[第二批合同](cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state)/[完整1477B证据](cg2d_unassigned_range_second_batch_evidence.json)。64个原未处置X分别为63填充449B及一原257槽表1028B，辅助mapped只记完整字节用途。既有1308/F:00004DB0仅补原表数据关联，BTS正确源/表、所有字段/原函数身份及处置保持；不新增函数或软件实现。
+
+R7已审67→131/3061，余2930；语义1428/1423、分类553、文档1541/41.88%、BATTLE105、软件E730和队列172/待归属43保持。R03/R04只当前/引用仍open，完整间接目标/别名、所有业务和R8未验。

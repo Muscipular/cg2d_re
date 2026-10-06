@@ -43,3 +43,9 @@
 既有真实UpdateBattleActor_404DB0与include/cg/YobiRuntime.hpp声明保持单一action/入口payload和共享节点槽；实际NewBattleActor_438290等13原绑定仍按各自父合同，本步不修改绑定或子动作。内存数值载体不属于网络cipher叶排除；原格式明文及音频暂停保持。
 
 只本组消费取样与静态表对应通过，不证明本机逐指令/原异常重叠或并发等价，不放宽RPLAN.24。完整所有父/动作及资源owner寿命、SDK/ABI/PC53/时钟RNG/实际画面仍未闭。固定快照`cg2d-re-battle-tail-sampling-20261006`。
+
+## BPO01 既有战斗分派表的原X用途关联（2026-10-07）
+
+[第二批区间合同](cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline)/[原区间与表证据](cg2d_unassigned_range_second_batch_evidence.json)将X:0000573C-00005B40完整1028B登记为257×W32跳转表，404DD5以EAX×4读表、CMP100/unsigned JA到405642，200不同标签均属404DB0，完整表字节等于本SPEC已保存的BTS原表。200是原父内标签，未新增200函数。
+
+现有UpdateBattleActor_404DB0、BTS取样修正/257槽与源动作、完整684元数据/13发布/10父和公开声明保持。仅补R7该原X全部字节用途，BATTLE105不增/无新软件验收证据；完整战斗/所有子动作与父、间接alias/owner寿命/SDK/ABI和运行仍未闭。

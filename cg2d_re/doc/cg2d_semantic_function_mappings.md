@@ -2962,3 +2962,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [BPF01 SPEC](cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline)/[原证据及全文前态](cg2d_palette_age_normal_counter_evidence.json)。1204/F:0004E230仅恢复正常S32计数加一，旧映射存previous_mapping_before_bpf01；原equivalent处置、身份/冻定位和RENDER/RESOURCE成员不增加。完整原21条86B/一页3内跳1ret、唯一521428点及11条40B父窗口只納盘，不代完整父或资源寿命。
 
 单计数表达式/无用bit头实修，原104项/回收门禁/共享基址读取与公共尾保持，无额外拒绝/饱和/清表或异常回绕模型。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、RENDER52/RESOURCE41枚举未闭保持；E699→703仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及所有完整门禁保持。
+
+## BPG01 既有追加映射368取样续记（2026-10-06）
+
+[BPG01 SPEC](cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline)/[原证据及全文前态](cg2d_input_scan_budget_sampling_evidence.json)。368/F:0004ADB0单正文两个片段恢复普通字节预算先取/后计数推进、分类后新对象上的判定先取/后预算读取；旧映射存previous_mapping_before_bpg01，原equivalent分类、原身份/冻定位及INPUT/TEXT成员保持。
+
+182条660B/三页6绝对call21内跳1ret，四普通点/四父只纳盘；所有原字符/容量/截断/回滚和真实父接线保持，正常结果不变，不补猜旧99路由或输入焦点。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、INPUT14/TEXT22枚举未闭保持；E703→707仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及全部完整门禁保持。

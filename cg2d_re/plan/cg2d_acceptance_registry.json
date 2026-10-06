@@ -951,7 +951,8 @@
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -987,7 +988,8 @@
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1001,7 +1003,8 @@
         "ICL01终行S32正常含NUL长度已修，余串unsigned预算/独立扫描/末槽写后早退保持；局部原体/源三行静态不代整输入、完整父/焦点/IME/alias/所有owner寿命、机器PC53/SDK/链接/画面运行，数学异常不模拟",
         "ICM01光标两坐标工具及相位恢复正常S32，原窄化/取样/真实调用/本次值比较和发布序保持；83条原体保存仅坐标相位局部静态，三完整父/16实参/焦点/IME/alias/全部owner寿命/机器PC53/SDK/链接/画面运行仍待，异常不模拟",
         "ITA01输入绘制两匿名工具正常S32已修，21源表达式/数量/窄化/取样/真实调用/队列令牌发布保持；原332条/32引用25父保存仅算术局部，不重验完整父/字体队列消费/焦点/IME/alias/所有owner寿命/机器PC53/SDK/链接/像素画面运行，异常不模拟",
-        "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟"
+        "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟",
+        "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1016,7 +1019,8 @@
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
       ]
     },
     {
@@ -1043,7 +1047,8 @@
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-baseline",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-baseline",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-baseline",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-baseline",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline"
       ],
       "original_inventory_ids": [
         "F:00059580",
@@ -1093,7 +1098,8 @@
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-decision",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-decision",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-decision",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-decision",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1109,7 +1115,8 @@
         "ICL01终行S32正常含NUL长度已修，余串unsigned预算/独立扫描/末槽写后早退保持；局部原体/源三行静态不代整输入、完整父/焦点/IME/alias/所有owner寿命、机器PC53/SDK/链接/画面运行，数学异常不模拟",
         "ICM01光标两坐标工具及相位恢复正常S32，原窄化/取样/真实调用/本次值比较和发布序保持；83条原体保存仅坐标相位局部静态，三完整父/16实参/焦点/IME/alias/全部owner寿命/机器PC53/SDK/链接/画面运行仍待，异常不模拟",
         "ITA01输入绘制两匿名工具正常S32已修，21源表达式/数量/窄化/取样/真实调用/队列令牌发布保持；原332条/32引用25父保存仅算术局部，不重验完整父/字体队列消费/焦点/IME/alias/所有owner寿命/机器PC53/SDK/链接/像素画面运行，异常不模拟",
-        "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟"
+        "IMA01输入法显示三工具正常S32已修，32源表达式/窄化/候选SDK字段、长度下限2和取样/调用写序保持；357条1182B/21call三父保存仅正常算术局部，完整父/焦点/IME/alias/坐标writer/候选容量寿命/实际机器/SDK/链接/像素运行未验，异常不模拟",
+        "BPG01旧368两正常预算/分类片段恢复，完整182条660B/四普通点四父纳盘，原字符/容量/截断/回滚及现有接线保持，成员不增。全部父/文本绘制和键表/旧99路由/焦点、正常alias-owner/寿命及SDK机器ABI/链接/输入画面运行、R1/R7/R8仍待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1126,7 +1133,8 @@
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
       ]
     },
     {
@@ -30624,6 +30632,134 @@
       "observation": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
       "expected": "入口保存唯一动态池，104项按原顺序扫描；S32 imageNo<0跳过计数及池重读，非负沿保存池判S32 dirtyCount>=1，满足先清DX palette、重读池写imageNo=-1、再重读池供计数；两非负路沿当次保存池读取完整S32计数、正常count+1、沿同基址发布，之后才重读池进入下一项。保刚回收项仍加一、无提前free/清全表/新图号或计数门禁，真实DrawAllQueued公共尾接线/字段宽度与原生非拥有地址不改；撤额外U32模回绕/双bit_cast，不专项处理数学溢出、拒绝、钳制或故障模拟，旧正常可计算值一致。",
       "actual": "仅各域正常局部I/S；原回收/取样/公共尾和非地址位宽不变，无新功能/分母、接口或资源。异常不专项模拟或保护，完整父/上游、正常alias-owner/寿命与实际ABI/链接/像素运行未验；未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-INPUT-INPUT-SCAN-BUDGET-0004ADB0-I-20261006",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPG01追加根182条660B/三页、四普通点四父，两个原取样范围独立列明；doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-scan-budget-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-acceptance",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_input_scan_budget_sampling_evidence.json",
+        "src/Input.cpp#AppendChar_44ADB0",
+        "include/cg/Input.hpp",
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "两片段恢复每普通字节预算先采后扫描计数推进、分类后当前对象重读与判定先于新预算取样；原NUL/CR/过滤、限量字节复制追加/截断和回滚保持",
+          "decision_ref": "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
+      "expected": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
+      "actual": "仅各域正常局部I/S，无新功能/分母、输入规则、编码或保护。完整父/焦点与正常alias-owner/寿命、SDK-ABI/链接和输入画面运行未验；不声明数学异常/并发等价，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-INPUT-INPUT-SCAN-BUDGET-0004ADB0-S-20261006",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPG01追加根182条660B/三页、四普通点四父，两个原取样范围独立列明；doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-scan-budget-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-acceptance",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_input_scan_budget_sampling_evidence.json",
+        "src/Input.cpp#AppendChar_44ADB0",
+        "include/cg/Input.hpp",
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "两片段恢复每普通字节预算先采后扫描计数推进、分类后当前对象重读与判定先于新预算取样；原NUL/CR/过滤、限量字节复制追加/截断和回滚保持",
+          "decision_ref": "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
+      "expected": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
+      "actual": "仅各域正常局部I/S，无新功能/分母、输入规则、编码或保护。完整父/焦点与正常alias-owner/寿命、SDK-ABI/链接和输入画面运行未验；不声明数学异常/并发等价，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-TEXT-INPUT-SCAN-BUDGET-0004ADB0-I-20261006",
+      "feature_id": "FUNC-TEXT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPG01追加根182条660B/三页、四普通点四父，两个原取样范围独立列明；doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-scan-budget-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-acceptance",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_input_scan_budget_sampling_evidence.json",
+        "src/Input.cpp#AppendChar_44ADB0",
+        "include/cg/Input.hpp",
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "两片段恢复每普通字节预算先采后扫描计数推进、分类后当前对象重读与判定先于新预算取样；原NUL/CR/过滤、限量字节复制追加/截断和回滚保持",
+          "decision_ref": "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
+      "expected": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
+      "actual": "仅各域正常局部I/S，无新功能/分母、输入规则、编码或保护。完整父/焦点与正常alias-owner/寿命、SDK-ABI/链接和输入画面运行未验；不声明数学异常/并发等价，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-TEXT-INPUT-SCAN-BUDGET-0004ADB0-S-20261006",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPG01追加根182条660B/三页、四普通点四父，两个原取样范围独立列明；doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-input-scan-budget-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-acceptance",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_input_scan_budget_sampling_evidence.json",
+        "src/Input.cpp#AppendChar_44ADB0",
+        "include/cg/Input.hpp",
+        "doc/cg2d_input_append.md",
+        "doc/cg2d_input_append_alignment_spec.md",
+        "doc/cg2d_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "两片段恢复每普通字节预算先采后扫描计数推进、分类后当前对象重读与判定先于新预算取样；原NUL/CR/过滤、限量字节复制追加/截断和回滚保持",
+          "decision_ref": "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
+      "expected": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
+      "actual": "仅各域正常局部I/S，无新功能/分母、输入规则、编码或保护。完整父/焦点与正常alias-owner/寿命、SDK-ABI/链接和输入画面运行未验；不声明数学异常/并发等价，未构建/测试/运行/hash"
     }
   ],
   "task_acceptance": [
@@ -30992,7 +31128,8 @@
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
       ]
     },
     {
@@ -31015,7 +31152,8 @@
         "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
         "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
         "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
-        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state"
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
       ]
     },
     {
@@ -31229,7 +31367,8 @@
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
-        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
       ]
     },
     {
@@ -31455,7 +31594,8 @@
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
-        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
       ]
     },
     {
@@ -31584,7 +31724,8 @@
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
-        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state"
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
       ]
     },
     {
@@ -31716,7 +31857,8 @@
         "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
         "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
-        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
       ]
     },
     {
@@ -32924,8 +33066,12 @@
       "disposition": "equivalent",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure"
-      ]
+        "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state"
+      ],
+      "boundary": "BPG01正常预算/分类取样，不代异常或并发/机器ABI、完整父/正常owner/输入运行：仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。"
     },
     {
       "inventory_id": "F:0004B190",

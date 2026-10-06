@@ -34755,7 +34755,7 @@
     {
       "original_entry": "0x44ADB0",
       "inventory_id": "F:0004ADB0",
-      "status": "IAP01完整182条追加本体局部静态已对照；额外状态拒绝/两预清撤销，完整输入/运行未验",
+      "status": "BPG01既有追加根两正常预算/分类取样片段修正，原字符/截断/回滚及四父接线保持；完整焦点/owner与运行未验",
       "original_end_exclusive": "0x44B044",
       "instruction_count": 182,
       "sources": [
@@ -34764,7 +34764,7 @@
           "symbols": [
             "AppendChar_44ADB0"
           ],
-          "relationship": "既有真实追加本体、三StrNCpy/一StrNCat与原阶段取样保持；IAP01撤销额外拒绝与两个副本预清"
+          "relationship": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。"
         }
       ],
       "evidence_documents": [
@@ -34772,9 +34772,14 @@
         "doc/cg2d_semantic_function_mappings.md",
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_input_append_alignment_spec.md",
-        "doc/cg2d_input_append_alignment_evidence.json"
+        "doc/cg2d_input_append_alignment_evidence.json",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-acceptance",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_input_scan_budget_sampling_evidence.json"
       ],
-      "boundary": "原context空门禁/S8控制字节过滤、三Count289/288/288及拼接287−长度低U32保持；当前对象按各阶段重取，先保存/恢复total后caret。原行预算先保存再扫余串/unsigned比较，分类后重新取对象/预算；maxLine与626C20只取一次共用。原截断、孤立高位修正/光标钳制与条件回滚、626C28写1/末626C0C写20保持。IAP01仅删除HasSafeLegacyState额外门禁/两个私有常量和tail/oldText预清，原复制padding/NUL不删；不新增保护/默认值、owner或Unicode策略。异常域依RPLAN.24不专项模拟，不称安全或故障等价；完整父/间接alias/输入寿命、SDK及运行未验。",
+      "boundary": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。 两个原正常取样片段及182条完整原体/四父call身份仅局部静态；不代四完整父、键表/旧99路由、文本绘制与所有焦点/正常alias-owner/输入寿命、SDK机器ABI/链接和真实输入/画面运行；异常不专项模拟或声明等价。",
       "copy_call_connections": [
         {
           "parent_entry": "0x44ADB0",
@@ -34823,7 +34828,7 @@
           "relationship": "插入字节/末NUL/总长/光标更新后追加同一tail，调用后重取当前对象再行扫描；IAP01已撤销预清及额外拒绝，原Count/目标/源和后续行扫描保持"
         }
       ],
-      "verification_level": "原完整182条及支持叶21条/六实际目标、四追加/五分类引用；五限定源码替换之外整份Input.cpp与前提交相同，未构建/测试/运行/摘要，非完整父/寿命或故障等价",
+      "verification_level": "完整追加根182条660B/三页6绝对call21内跳1ret、四普通点/四父纳盘；单CPP两个正常取样片段修正，原门禁/真实字符串核心与容量/截断及回滚保持；正常局部static不代完整父/正常alias-owner/ABI或运行",
       "input_append_alignment": {
         "spec": "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
         "evidence": "doc/cg2d_input_append_alignment_evidence.json",
@@ -34872,6 +34877,158 @@
         "source_body_implemented": true,
         "bounded_static_verified": true,
         "runtime_verified": false
+      },
+      "previous_mapping_before_bpg01": {
+        "original_entry": "0x44ADB0",
+        "inventory_id": "F:0004ADB0",
+        "status": "IAP01完整182条追加本体局部静态已对照；额外状态拒绝/两预清撤销，完整输入/运行未验",
+        "original_end_exclusive": "0x44B044",
+        "instruction_count": 182,
+        "sources": [
+          {
+            "path": "src/Input.cpp",
+            "symbols": [
+              "AppendChar_44ADB0"
+            ],
+            "relationship": "既有真实追加本体、三StrNCpy/一StrNCat与原阶段取样保持；IAP01撤销额外拒绝与两个副本预清"
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_input_append.md",
+          "doc/cg2d_semantic_function_mappings.md",
+          "doc/cg2d_legacy_string_compare.md",
+          "doc/cg2d_input_append_alignment_spec.md",
+          "doc/cg2d_input_append_alignment_evidence.json"
+        ],
+        "boundary": "原context空门禁/S8控制字节过滤、三Count289/288/288及拼接287−长度低U32保持；当前对象按各阶段重取，先保存/恢复total后caret。原行预算先保存再扫余串/unsigned比较，分类后重新取对象/预算；maxLine与626C20只取一次共用。原截断、孤立高位修正/光标钳制与条件回滚、626C28写1/末626C0C写20保持。IAP01仅删除HasSafeLegacyState额外门禁/两个私有常量和tail/oldText预清，原复制padding/NUL不删；不新增保护/默认值、owner或Unicode策略。异常域依RPLAN.24不专项模拟，不称安全或故障等价；完整父/间接alias/输入寿命、SDK及运行未验。",
+        "copy_call_connections": [
+          {
+            "parent_entry": "0x44ADB0",
+            "call_site": "0x44AE01",
+            "source": "src/Input.cpp",
+            "symbol": "AppendChar_44ADB0",
+            "target_entry": "0x53BEC0",
+            "target_symbol": "StrNCpy_53BEC0",
+            "count_value": 289,
+            "count_width": "U32",
+            "relationship": "当前text+caret复制至289B tail，后续重新取当前输入对象；IAP01已撤销预清及额外拒绝，原复制填充/NUL保持"
+          },
+          {
+            "parent_entry": "0x44ADB0",
+            "call_site": "0x44AE16",
+            "source": "src/Input.cpp",
+            "symbol": "AppendChar_44ADB0",
+            "target_entry": "0x53BEC0",
+            "target_symbol": "StrNCpy_53BEC0",
+            "count_value": 288,
+            "count_width": "U32",
+            "relationship": "当前text复制至288B oldText，之后重取当前对象，先保存总长后光标"
+          },
+          {
+            "parent_entry": "0x44ADB0",
+            "call_site": "0x44AFF7",
+            "source": "src/Input.cpp",
+            "symbol": "AppendChar_44ADB0",
+            "target_entry": "0x53BEC0",
+            "target_symbol": "StrNCpy_53BEC0",
+            "count_value": 288,
+            "count_width": "U32",
+            "relationship": "条件回滚复制oldText至当前text，随后分别重取对象、先恢复总长再光标"
+          }
+        ],
+        "append_call_connections": [
+          {
+            "parent_entry": "0x44ADB0",
+            "call_site": "0x44AE9A",
+            "source": "src/Input.cpp",
+            "symbol": "AppendChar_44ADB0",
+            "target_entry": "0x53C790",
+            "target_symbol": "StrNCat_53C790",
+            "count_kind": "原0x11F减当前文本长度低W32/U32，复用现有remainingCapacity",
+            "count_width": "U32",
+            "relationship": "插入字节/末NUL/总长/光标更新后追加同一tail，调用后重取当前对象再行扫描；IAP01已撤销预清及额外拒绝，原Count/目标/源和后续行扫描保持"
+          }
+        ],
+        "verification_level": "原完整182条及支持叶21条/六实际目标、四追加/五分类引用；五限定源码替换之外整份Input.cpp与前提交相同，未构建/测试/运行/摘要，非完整父/寿命或故障等价",
+        "input_append_alignment": {
+          "spec": "doc/cg2d_input_append_alignment_spec.md#input-append-source-closure",
+          "evidence": "doc/cg2d_input_append_alignment_evidence.json",
+          "source": "src/Input.cpp",
+          "extra_safe_state_guard_removed": true,
+          "local_preclears_removed": 2,
+          "original_guards_and_copy_padding_retained": true,
+          "shared_control_single_snapshot_retained": true,
+          "runtime_verified": false,
+          "fault_equivalence_claimed": false,
+          "full_lifecycle_closed": false
+        },
+        "incoming_call_connections": [
+          {
+            "parent_entry": "0x44a160",
+            "call_site": "0x44a195",
+            "target_entry": "0x44adb0",
+            "source": "src/Input.cpp",
+            "symbol": "LoadInitialText_44A160"
+          },
+          {
+            "parent_entry": "0x44ab60",
+            "call_site": "0x44acb0",
+            "target_entry": "0x44adb0",
+            "source": "src/Input.cpp",
+            "symbol": "Sub_44AB60"
+          },
+          {
+            "parent_entry": "0x459580",
+            "call_site": "0x4595f8",
+            "target_entry": "0x44adb0",
+            "source": "src/platform/ImeComposition.cpp",
+            "symbol": "Sub_459580"
+          },
+          {
+            "parent_entry": "0x466dc0",
+            "call_site": "0x467261",
+            "target_entry": "0x44adb0",
+            "source": "src/platform/WindowProcedure.cpp",
+            "symbol": "WindowProcedure"
+          }
+        ],
+        "native_provider": {
+          "source": "src/Input.cpp",
+          "symbol": "AppendChar_44ADB0",
+          "source_body_implemented": true,
+          "bounded_static_verified": true,
+          "runtime_verified": false
+        }
+      },
+      "input_scan_budget_sampling": {
+        "spec_id": "BPG01",
+        "evidence_refs": [
+          "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-baseline",
+          "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision",
+          "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-acceptance",
+          "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+          "doc/cg2d_input_scan_budget_sampling_evidence.json"
+        ],
+        "original_instruction_count": 182,
+        "original_code_bytes": 660,
+        "page_count": 3,
+        "outgoing_call_site_count": 6,
+        "internal_jump_site_count": 21,
+        "return_site_count": 1,
+        "incoming_reference_count": 4,
+        "incoming_parent_count": 4,
+        "source_body_patch_count": 2,
+        "source_body_changed": true,
+        "full_original_root_captured": true,
+        "full_parents_captured": false,
+        "runtime_verified": false,
+        "normal_previous_value_wrong": false,
+        "normal_sampling_restored": true,
+        "character_budget_before_scan_increment": true,
+        "classifier_decision_before_new_budget": true,
+        "original_input_guards_and_truncation_rollback_retained": true,
+        "preserved_contract": "仅AppendChar44ADB0两个原取样片段：非NUL/非CR每字节先采同次context->maxCharPerLine S32，再++scanned并用同样本比较；分类44B1D0后先重取gCurrentInputData，保存boundary==3，再取该context新S32预算、沿同判定推进lineStart。正常旧字符/行折叠结果一致、无新输入规则；原S8过滤/允许NUL、两实际289/288B副本、三Count289/288/288与限量287减strlen低U32、剩余量unsigned比较、maxLine/626C20共同一次快照、原截断/孤立高位校正/光标钳制、条件回滚/字段恢复及相位20保持。实际四父与全部其它源头不改，不加门禁、预清/补零、编码转换、保护或异常模型；全部焦点/alias-owner/寿命与运行未验。",
+        "implementation_static_scope": "两个原正常取样片段及182条完整原体/四父call身份仅局部静态；不代四完整父、键表/旧99路由、文本绘制与所有焦点/正常alias-owner/输入寿命、SDK机器ABI/链接和真实输入/画面运行；异常不专项模拟或声明等价。"
       }
     },
     {

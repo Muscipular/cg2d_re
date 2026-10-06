@@ -949,8 +949,9 @@ void AppendChar_44ADB0(const char character)
                 foundCarriageReturn = true;
                 break;
             }
+            const std::int32_t characterBudget = context->maxCharPerLine;
             ++scanned;
-            if (scanned == context->maxCharPerLine) {
+            if (scanned == characterBudget) {
                 break;
             }
         }
@@ -966,8 +967,9 @@ void AppendChar_44ADB0(const char character)
             const std::int32_t boundary = ClassifyAnsiBoundary_44B1D0(
                 context->text + lineStart, lineBudget);
             context = gCurrentInputData;
+            const bool splitDoubleByte = boundary == 3;
             const std::int32_t nextLineBudget = context->maxCharPerLine;
-            if (boundary == 3) {
+            if (splitDoubleByte) {
                 lineStart = nextLineBudget + lineStart - 1;
             } else {
                 lineStart += nextLineBudget;

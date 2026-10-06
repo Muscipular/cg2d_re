@@ -96,3 +96,9 @@ CRT/运行门禁仍待，音频/加解密不恢复。
 [局部SPEC](cg2d_input_append_alignment_spec.md#input-append-source-closure)与[只读证据](cg2d_input_append_alignment_evidence.json)归档44ADB0 182条、44B190 21条共203，六实际目标/四追加和五分类引用。只删除额外检查/私有常量和两副本{}，追加其余全部源码、末单元叶/三复制Count289/288/288和拼接287减长度低U32保持；不是重新实现字符串核心或其它父。
 
 当前626C20共享快照已正确，不改为条件取样；原当前对象重取、行宽保存/unsigned比较、截断/钳制/回滚写序保持。此前日期说明保留预清/额外拒绝属于旧状态；本组只静态I/W/S，输入文本绘制、完整父/间接alias/焦点/寿命、SDK及运行未验。
+
+## BPG01 扫描预算与分类判定取样（2026-10-06）
+
+[BPG01具体SPEC](cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision)/[完整原证据](cg2d_input_scan_budget_sampling_evidence.json)修正AppendChar两个源片段：普通非NUL/非CR字节先采同次context的S32预算，再推进scanned/比较；44B1D0后先重取当前对象、保存boundary==3，再取新预算沿同判定推进。逐字节预算不得冻结为整行一次，与44AEE4已有正确的余串strlen前预算样本区分。
+
+原S8过滤/允许NUL、289/288B副本/三真实复制Count、低U32限量追加、unsigned余长比较、maxLine/626C20共同一次快照、原行折叠/截断/孤立高位修正/光标钳制和条件回滚/相位20保持。正常无介入旧文字结果一致，不声明数值、并发或机器ABI等价。完整原182条660B/三页6call21内跳1ret和四普通点四父只纳盘；其它源头/已有四父接线不改。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、INPUT14/TEXT22枚举未闭保持；E703→707仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及全部完整门禁保持。

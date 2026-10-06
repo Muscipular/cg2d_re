@@ -58,3 +58,9 @@ IAP01已落实五限定修改：移除非原有状态检查/两私有范围常�
 
 
 本组13精确文件UTF-8无BOM/LF、606条本地Markdown链接/39条本组证据引用及限定diff --check通过；既有measure派生后-Check退出0仅证明台账结构/缓存一致。精确提交保留用户既有六项改动。
+
+## BPG01 两个原取样片段的具名更新（2026-10-06）
+
+[BPG01裁决](cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-decision)/[原证据及旧368前态](cg2d_input_scan_budget_sampling_evidence.json)仅修追加根的逐字节预算与分类结果判定次序：44AEB9预算读在扫描计数递增前，44AEFA当前对象重读后先保存44AF03的boundary==3判定，再读取44AF06的新预算。它们与44AEE4已有正确的strlen前预算样本不同，不冻结整行或修改该正确样本。
+
+IAP01撤额外门禁/整块预清、原字符/NUL、三复制/限量追加、共同控制快照、截断与回滚等决定继续有效，44B190/44B1D0及真实字符串核心保持。单CPP两个片段以外源码/头/四父与owner不变；旧equivalent处置/两域成员续记。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、INPUT14/TEXT22枚举未闭保持；E703→707仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及全部完整门禁保持。 全部焦点/正常alias-owner/寿命及完整输入画面运行仍待。

@@ -986,3 +986,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [BPF01验收合同](cg2d_palette_age_normal_counter_spec.md#palette-age-normal-acceptance)/[原证据及前态](cg2d_palette_age_normal_counter_evidence.json)。原根21条86B及唯一公共尾11条40B，实际计数表达式正常S32恢复/无用bit头退休；两域各I/S四条只验正常局部算术/原回收与取样，不增四个功能，不代完整520DD0/全部上游和正常alias-owner/寿命或全模式像素运行。
 
 既有1204与equivalent分类续记，原字段/接口及成员保持。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、RENDER52/RESOURCE41枚举未闭保持；E699→703仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及所有完整门禁保持。 G01/G02/G04/R01/R04/V04增加进展引用且仍open；仅必要静态与measure/-Check，未构建/测试/运行/摘要。
+
+## BPG01 输入扫描预算正常局部I/S（2026-10-06）
+
+[BPG01验收合同](cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-acceptance)/[完整原证据和前态](cg2d_input_scan_budget_sampling_evidence.json)。追加原根182条660B及四普通点四父、旧368两源取样片段实修；两域各I/S四条只验当前正常局部预算/判定与原控制/回写保持，不增四个功能，不代完整四父/文本绘制/焦点和正常alias-owner/寿命或运行。
+
+语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、INPUT14/TEXT22枚举未闭保持；E703→707仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及全部完整门禁保持。 T01/T02/U04/R01/R04/V04只增进展/引用且仍open；旧表+04调用来源不借现代输入链猜补，机器ABI/SDK/链接与输入画面运行继续待。仅必要静态与measure/-Check，未构建/测试/运行/摘要。

@@ -97,3 +97,9 @@
 [完整合同](cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state)/[七原根736条2670B](cg2d_battle_attachment_alpha_background_evidence.json)纳管171、172/173共体、174、175、176、420F10和204。九非拥有槽每次操作后fresh/重复对象处理及真实mask/alpha W8/状态推进保；204两原零临时载荷mask/encoded W32/readCount W8先齐读再发布，源码两片段恢复，正常旧值一致。
 
 204五源sync语句与四原call点是41259A共享汇合，额外调用初判已撤回，原主体/子槽同步均保持；14实际普通入向同属171/172共体/204三个真实父，172/173一原入口不重计。BATTLE123→130枚举open、E746两局部I/S，递归父/其它生产和依赖/owner寿命/SDK/运行及R8未完成。
+
+## BPX01 转场/目标坐标与209取样（2026-10-07）
+
+[完整合同](cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state)/[九完整原根757条2516B](cg2d_battle_transition_effect_sampling_evidence.json)纳管177/178/179/180..203共体、205/206/207/208及209。只有209六处低W8、两处FDC先FCC后读取与零临时encoded先目标查找/原交替发布九阶段恢复，正常旧值一致；八其它体及188无创建仍转204保，24phase共一根不重计。
+
+九真实入向27邻窗/32父项、共体23立即type/六常数、source/target/attacker别名、所有业务/返回/RNG和未落位浮点中间保。BATTLE139枚举open/E748仅两局部I/S，完整递归生产/生命周期/生成机器/运行及R8未关闭。

@@ -31301,7 +31301,9 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
         if (angle >= 360.0) {
             action->angle50 = static_cast<float>(angle - 360.0);
         }
-        if ((payload->flagsFDC & 2u) != 0) {
+        const std::uint8_t movingFlags =
+            *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
+        if ((movingFlags & 2u) != 0) {
             gYobiUpdateGateMode = 1;
             payload->aliveFF8 = 1;
         }
@@ -31309,16 +31311,22 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
         return PlayFrame_517DA0(action, 1);
     }
     if (count < 14 * initialBit + 34) {
-        if ((payload->effectFlagsFE4 & 2) != 0) {
+        const std::uint8_t directionFlags =
+            *reinterpret_cast<const std::uint8_t*>(&payload->effectFlagsFE4);
+        if ((directionFlags & 2u) != 0) {
             const std::int32_t direction = action->direction + 1;
             action->direction = direction;
             if (direction >= 8) {
                 action->direction = direction - 8;
             }
         }
-        if (payload->valueFCC == 14 * (static_cast<std::int32_t>((payload->flagsFDC >> 1) & 1u) + 1)) {
+        const std::uint32_t movementThresholdFlags = payload->flagsFDC;
+        const std::int32_t movementThresholdCount = payload->valueFCC;
+        if (movementThresholdCount == 14 * (static_cast<std::int32_t>((movementThresholdFlags >> 1) & 1u) + 1)) {
             action->value54 = 5.0F;
-            if ((payload->flagsFDC & 2u) != 0) {
+            const std::uint8_t thresholdFlags =
+                *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
+            if ((thresholdFlags & 2u) != 0) {
                 if (CountBattleActiveEntries_406360() <= 1) {
                     gYobiUpdateGateMode = 0;
                 }
@@ -31340,7 +31348,9 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
             action->value54 = 0.0F;
         }
         MoveBattleByAngle_405EA0(action);
-        if (payload->valueFCC == 14 * static_cast<std::int32_t>((payload->flagsFDC >> 1) & 1u) + 24) {
+        const std::uint32_t impactThresholdFlags = payload->flagsFDC;
+        const std::int32_t impactThresholdCount = payload->valueFCC;
+        if (impactThresholdCount == 14 * static_cast<std::int32_t>((impactThresholdFlags >> 1) & 1u) + 24) {
             YobiAction* const sourceEntry = gBattleAllEntries59E980[payload->battlePosition18];
             // 原指令在覆盖目标+10前保存此指针，源与目标别名时也不重取。
             YobiAction* const attacker = sourceEntry->battleOpponent10;
@@ -31371,7 +31381,9 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                         targetPayload->effect1054 = nullptr;
                         targetPayload->flagsFDC = targetFlags & ~0x20u;
                     }
-                    if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                    const std::uint8_t randomEffectFlags = *reinterpret_cast<const std::uint8_t*>(
+                        &payload->effects1C[payload->effectRunningC9C].flags);
+                    if ((randomEffectFlags & 2u) != 0) {
                         static_cast<void>(NewBattleRandomEffect_419FC0(target, 110008, 0));
                     }
                     const std::int32_t imageEffectIndex = payload->effectRunningC9C;
@@ -31403,7 +31415,9 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                         static_cast<void>(NewBattleRandomEffect_419FC0(target, imageNo, direction));
                     }
                     NewBattleRebirthEffects_4208F0(attacker, target);
-                    if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
+                    const std::uint8_t rebirthFlags = *reinterpret_cast<const std::uint8_t*>(
+                        &payload->effects1C[payload->effectRunningC9C].flags);
+                    if ((rebirthFlags & 0x20u) != 0) {
                         targetPayload->flagsFDC |= 2u;
                         gYobiUpdateGateMode = 1;
                         targetPayload->aliveFF8 = 1;
@@ -31430,9 +31444,13 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                                 if (Less_401DB0(&compareTarget->readiness, 0)) {
                                     platform::LegacyCryptInt temporary;
                                     ConstructFromInt_401CC0(&temporary, 0);
-                                    YobiAction* const copyTarget = gBattleAllEntries59E980[
-                                        payload->effects1C[payload->effectRunningC9C].position];
-                                    CopyPayload(&copyTarget->readiness, &temporary);
+                                    const std::int32_t copyIndex = payload->effectRunningC9C;
+                                    const std::uint32_t encoded = temporary.encoded;
+                                    const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
+                                    YobiAction* const copyTarget = gBattleAllEntries59E980[copyPosition];
+                                    copyTarget->readiness.encoded = encoded;
+                                    copyTarget->readiness.mask = temporary.mask;
+                                    copyTarget->readiness.readCount = temporary.readCount;
                                     Destroy_401CF0(&temporary);
                                 }
                                 const std::int32_t displayIndex = payload->effectRunningC9C;
@@ -31440,7 +31458,9 @@ std::int32_t UpdateBattleAction209_412900(YobiAction* const action)
                                 const std::int32_t y = target->y;
                                 const std::int32_t displayed = payload->effects1C[displayIndex].position3;
                                 static_cast<void>(NewBattleNumber_41F1A0(target->x, y - 80, displayed, 6, 2, displayFlags));
-                                if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                                const std::uint8_t attributeIconFlags = *reinterpret_cast<const std::uint8_t*>(
+                                    &payload->effects1C[payload->effectRunningC9C].flags);
+                                if ((attributeIconFlags & 2u) != 0) {
                                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                                 }
                                 static_cast<void>(NewBattleAttributeEffects_4209C0(attacker, target));

@@ -177482,6 +177482,474 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x00412290",
+      "inventory_id": "F:00012290",
+      "original_role": "UpdateBattleAction177_412290",
+      "original_end_exclusive": "0x004122BA",
+      "instruction_count": 15,
+      "status": "BPX01九完整转场/坐标/效果正常源纳管，209九取样阶段实修；八正确体保，全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction177_412290"
+          ],
+          "relationship": "177：同一payload currentIndex W32→effects1C[index].position4 W32，421570(image,2,1)返回弃用且不写1060槽→439340弃返。原无新借用资源槽或回收，保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+      ],
+      "boundary": "177：同一payload currentIndex W32→effects1C[index].position4 W32，421570(image,2,1)返回弃用且不写1060槽→439340弃返。原无新借用资源槽或回收，保持。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "verification_level": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "battle_transition_effect_sampling": {
+        "spec_id": "BPX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+          "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 15,
+        "original_code_bytes": 42,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "actual_w8_consumer_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "normal_previous_payload_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x004122C0",
+      "inventory_id": "F:000122C0",
+      "original_role": "UpdateBattleAction178_4122C0",
+      "original_end_exclusive": "0x004122D7",
+      "instruction_count": 8,
+      "status": "BPX01九完整转场/坐标/效果正常源纳管，209九取样阶段实修；八正确体保，全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction178_4122C0"
+          ],
+          "relationship": "178：439340弃返后fresh action.phase W32写0；不是先设0再推进，原顺序保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+      ],
+      "boundary": "178：439340弃返后fresh action.phase W32写0；不是先设0再推进，原顺序保。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "verification_level": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "battle_transition_effect_sampling": {
+        "spec_id": "BPX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+          "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 23,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "actual_w8_consumer_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "normal_previous_payload_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x004122E0",
+      "inventory_id": "F:000122E0",
+      "original_role": "UpdateBattleAction179_4122E0",
+      "original_end_exclusive": "0x0041230A",
+      "instruction_count": 14,
+      "status": "BPX01九完整转场/坐标/效果正常源纳管，209九取样阶段实修；八正确体保，全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction179_4122E0"
+          ],
+          "relationship": "179：characterAction W32先6→517DA0(action,1)，返回恰等1才439340；其它返值不推进，原参数/返回消费保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+      ],
+      "boundary": "179：characterAction W32先6→517DA0(action,1)，返回恰等1才439340；其它返值不推进，原参数/返回消费保。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "verification_level": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "battle_transition_effect_sampling": {
+        "spec_id": "BPX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+          "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 14,
+        "original_code_bytes": 42,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "actual_w8_consumer_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "normal_previous_payload_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00412310",
+      "inventory_id": "F:00012310",
+      "original_role": "UpdateBattleActions180_203_412310",
+      "original_end_exclusive": "0x004124D7",
+      "instruction_count": 161,
+      "status": "BPX01九完整转场/坐标/效果正常源纳管，209九取样阶段实修；八正确体保，全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleActions180_203_412310"
+          ],
+          "relationship": "180..203共一原根/入向：先FDC W32读后测AL60，清则PlayFrame0弃返；fresh value1024非0直接phase W32=204。值0才一次W32捕phase，原23个CMP/固定立即type依序到41CD00(action,0,0,type,0,1)，返值弃用；188及原其它未匹配分支不创建效果，仍进入共同phase204发布。保23对实参、24父case和原空default，不造24个F或表物理身份。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+      ],
+      "boundary": "180..203共一原根/入向：先FDC W32读后测AL60，清则PlayFrame0弃返；fresh value1024非0直接phase W32=204。值0才一次W32捕phase，原23个CMP/固定立即type依序到41CD00(action,0,0,type,0,1)，返值弃用；188及原其它未匹配分支不创建效果，仍进入共同phase204发布。保23对实参、24父case和原空default，不造24个F或表物理身份。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "verification_level": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "battle_transition_effect_sampling": {
+        "spec_id": "BPX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+          "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 161,
+        "original_code_bytes": 455,
+        "original_page_count": 3,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "actual_w8_consumer_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "normal_previous_payload_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x004127B0",
+      "inventory_id": "F:000127B0",
+      "original_role": "UpdateBattleAction205_4127B0",
+      "original_end_exclusive": "0x004127E8",
+      "instruction_count": 17,
+      "status": "BPX01九完整转场/坐标/效果正常源纳管，209九取样阶段实修；八正确体保，全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction205_4127B0"
+          ],
+          "relationship": "205：characterAction先16→PlayFrame(action,1)，只有返回1才frameIndex2C0/frameRemain2C4 W32清0后439340弃返，保等待分支及清字段顺序。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+      ],
+      "boundary": "205：characterAction先16→PlayFrame(action,1)，只有返回1才frameIndex2C0/frameRemain2C4 W32清0后439340弃返，保等待分支及清字段顺序。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "verification_level": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "battle_transition_effect_sampling": {
+        "spec_id": "BPX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+          "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 17,
+        "original_code_bytes": 56,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "actual_w8_consumer_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "normal_previous_payload_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x004127F0",
+      "inventory_id": "F:000127F0",
+      "original_role": "UpdateBattleAction206_4127F0",
+      "original_end_exclusive": "0x00412822",
+      "instruction_count": 17,
+      "status": "BPX01九完整转场/坐标/效果正常源纳管，209九取样阶段实修；八正确体保，全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction206_4127F0"
+          ],
+          "relationship": "206：固定payload currentIndex→position W32→共享59E980非拥有目标T*，406190(action,target,1,0.0F)弃返后439340；真实target读取/原0浮点参数保，不加范围或空保护。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+      ],
+      "boundary": "206：固定payload currentIndex→position W32→共享59E980非拥有目标T*，406190(action,target,1,0.0F)弃返后439340；真实target读取/原0浮点参数保，不加范围或空保护。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "verification_level": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "battle_transition_effect_sampling": {
+        "spec_id": "BPX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+          "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 17,
+        "original_code_bytes": 50,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "actual_w8_consumer_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "normal_previous_payload_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00412830",
+      "inventory_id": "F:00012830",
+      "original_role": "UpdateBattleAction207_412830",
+      "original_end_exclusive": "0x0041286E",
+      "instruction_count": 18,
+      "status": "BPX01九完整转场/坐标/效果正常源纳管，209九取样阶段实修；八正确体保，全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction207_412830"
+          ],
+          "relationship": "207：固定一次currentIndex W32；effects1C[index].position W32写FE8后同index.flags W32按S32位样写FEC，原(index+2)*16是effects flags20别名，非另条记录；439470弃返后phase6。源已有W32 bit_cast对应，不改正确缓存/别名。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+      ],
+      "boundary": "207：固定一次currentIndex W32；effects1C[index].position W32写FE8后同index.flags W32按S32位样写FEC，原(index+2)*16是effects flags20别名，非另条记录；439470弃返后phase6。源已有W32 bit_cast对应，不改正确缓存/别名。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "verification_level": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "battle_transition_effect_sampling": {
+        "spec_id": "BPX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+          "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 18,
+        "original_code_bytes": 62,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "actual_w8_consumer_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "normal_previous_payload_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00412870",
+      "inventory_id": "F:00012870",
+      "original_role": "SetBattleAction208Target_412870",
+      "original_end_exclusive": "0x00412900",
+      "instruction_count": 42,
+      "status": "BPX01九完整转场/坐标/效果正常源纳管，209九取样阶段实修；八正确体保，全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "SetBattleAction208Target_412870"
+          ],
+          "relationship": "208：currentIndex→position→共享59E980目标T*；target.offset40 F32×原F64 -0.75+480中间保，以fresh offset44 F32与未落位边界比较；再fresh取offset40作原__ftol正常整数承接。低于边界branch坐标x+44/y+40，否则x-44/y-30；原X先FE8发布后fresh Y/__ftol到FEC，phase6。四原ftol点同当前CRT正常转换边界、两个真实F64常数对应；不把算式换F32，也不造机器精度/异常通过。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+      ],
+      "boundary": "208：currentIndex→position→共享59E980目标T*；target.offset40 F32×原F64 -0.75+480中间保，以fresh offset44 F32与未落位边界比较；再fresh取offset40作原__ftol正常整数承接。低于边界branch坐标x+44/y+40，否则x-44/y-30；原X先FE8发布后fresh Y/__ftol到FEC，phase6。四原ftol点同当前CRT正常转换边界、两个真实F64常数对应；不把算式换F32，也不造机器精度/异常通过。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "verification_level": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "battle_transition_effect_sampling": {
+        "spec_id": "BPX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+          "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 42,
+        "original_code_bytes": 144,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 4,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "actual_w8_consumer_count": 0,
+        "normal_previous_flag_values_wrong": false,
+        "normal_previous_payload_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00412900",
+      "inventory_id": "F:00012900",
+      "original_role": "UpdateBattleAction209_412900",
+      "original_end_exclusive": "0x00412F6A",
+      "instruction_count": 465,
+      "status": "BPX01九完整转场/坐标/效果正常源纳管，209九取样阶段实修；八正确体保，全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction209_412900"
+          ],
+          "relationship": "209：8/FE4 W32 C04条件9与rate50；FCC先增、FDC W32初始缓存bit1与14*(bit+1)门槛。首段角度+180保未落位中间比较360、speed5/fresh低W8 FDC2设gate1/alive1→Move→PlayFrame1返。中段fresh低W8 FE4 bit2决定方向+1/达8减8，fresh W32 FDC先于FCC读取决定14*(bit+1)相等时speed5/fresh低W8 FDC2和CountActive<=1才gate0/alive0，FF0清0；FF0为0建110006、fresh旧FF0先增旧值>=2归0，speed减真实F32 0.3中间负值业务归0→Move。之后fresh W32 FDC先于FCC读取命中14*bit+24才走命中链：sourceEntry从自身position、attacker=sourceEntry原+10先保存，target再读current.position，缓存targetPayload先发布target+10/source、freshcurrent.flags→FE4、FCC/1024清0、ApplyFlags。后W32 flags缓存决定8设phase31或100仅flash0时sound210(x)/flash1/phase31（原声第三Y未消费，不扩音频）；其它保C000/position3/2000/100000条件，MarkDeath后fresh target FDC W32再清1054/清20；fresh低W8 flags2决定110008、fresh W32 imageFlags决定4图110000、400技术8/阈12图110098或111048、其它attacker skill260等级12/9图111054/110473和direction1，否则一次RNG0..2图110001起；NewRebirth后fresh低W8 flags20设targetFDC2/gate1/alive1。fresh W32 damageFlags按E000/10000000图22459、amount0图22331、skill84/85/87跳伤害；否则扣fresh共享目标readiness→另fresh比较目标<0则Construct0，先捕currentIndex再读临时encoded W32，再读position/共享目标写encoded，随后mask W32读写、readCount W8读写→Destroy。保原交替发布，目标token/reserved不改。数显fresh flags W32→targetY→amount→targetX，type6/style2/flags，之后fresh低W8 flags2图22454，再Attribute。共同target439340、Turn(target,action,1,0)、action439470；整体尾PlayFrame1。FCC达14*初始bit+54时清0，原初始FDC缓存bit2决定6/100推进后phase11改4/100，或freshFE4/3010决定6/100或1/250推进。source/target/attacker共享别名捕获、所有真实调用/RNG/条件/无额外保护保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+      ],
+      "boundary": "209：8/FE4 W32 C04条件9与rate50；FCC先增、FDC W32初始缓存bit1与14*(bit+1)门槛。首段角度+180保未落位中间比较360、speed5/fresh低W8 FDC2设gate1/alive1→Move→PlayFrame1返。中段fresh低W8 FE4 bit2决定方向+1/达8减8，fresh W32 FDC先于FCC读取决定14*(bit+1)相等时speed5/fresh低W8 FDC2和CountActive<=1才gate0/alive0，FF0清0；FF0为0建110006、fresh旧FF0先增旧值>=2归0，speed减真实F32 0.3中间负值业务归0→Move。之后fresh W32 FDC先于FCC读取命中14*bit+24才走命中链：sourceEntry从自身position、attacker=sourceEntry原+10先保存，target再读current.position，缓存targetPayload先发布target+10/source、freshcurrent.flags→FE4、FCC/1024清0、ApplyFlags。后W32 flags缓存决定8设phase31或100仅flash0时sound210(x)/flash1/phase31（原声第三Y未消费，不扩音频）；其它保C000/position3/2000/100000条件，MarkDeath后fresh target FDC W32再清1054/清20；fresh低W8 flags2决定110008、fresh W32 imageFlags决定4图110000、400技术8/阈12图110098或111048、其它attacker skill260等级12/9图111054/110473和direction1，否则一次RNG0..2图110001起；NewRebirth后fresh低W8 flags20设targetFDC2/gate1/alive1。fresh W32 damageFlags按E000/10000000图22459、amount0图22331、skill84/85/87跳伤害；否则扣fresh共享目标readiness→另fresh比较目标<0则Construct0，先捕currentIndex再读临时encoded W32，再读position/共享目标写encoded，随后mask W32读写、readCount W8读写→Destroy。保原交替发布，目标token/reserved不改。数显fresh flags W32→targetY→amount→targetX，type6/style2/flags，之后fresh低W8 flags2图22454，再Attribute。共同target439340、Turn(target,action,1,0)、action439470；整体尾PlayFrame1。FCC达14*初始bit+54时清0，原初始FDC缓存bit2决定6/100推进后phase11改4/100，或freshFE4/3010决定6/100或1/250推进。source/target/attacker共享别名捕获、所有真实调用/RNG/条件/无额外保护保持。 九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "verification_level": "九完整原根757条2516B/16页、48实际call/24入口、108普通内部jump/14ret、九唯一404DB0入向27条参数-弃返邻窗与32原父分派表项、共体23type固定参数及六实际常数。只209九源码阶段：六实际低W8消费、两FDC先FCC后真实取样、临时encoded在目标查找前及原交替三字段发布；正常旧值相同，不称数值/并发或生成机器故障。八正确体与字段W32/F32/非拥有T*、source/target/attacker别名、业务边界/返回/RNG及音频暂停保；不新造24根/物理type表或R7身份。只当前完整正常源接线静态，递归父/全部外依赖与其它生产/owner寿命、SDK/生成机器ABI/真实x87/时钟RNG/画面运行未验，RPLAN.24不专项异常/模拟/故障等价保。",
+      "battle_transition_effect_sampling": {
+        "spec_id": "BPX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance",
+          "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+          "doc/cg2d_battle_transition_effect_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 465,
+        "original_code_bytes": 1642,
+        "original_page_count": 6,
+        "original_outgoing_call_count": 32,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 9,
+        "actual_w8_consumer_count": 6,
+        "normal_previous_flag_values_wrong": false,
+        "normal_previous_payload_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

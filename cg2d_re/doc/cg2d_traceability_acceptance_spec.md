@@ -1088,3 +1088,9 @@ R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open�
 [限定验收](cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-acceptance)/[完整736条2670B](cg2d_battle_attachment_alpha_background_evidence.json)。13页、43call/69内部jump/九ret、六真实分派点与同步14普通入向/三个实际父参数-弃返邻窗、九槽每操作后fresh/重复对象和两原临时完整取样可追。两源片段不改正确同步共享汇合、原字段与业务上下限，正常旧值一致；两局部I/S各十五独立来源，生成机器/环境及运行未验。
 
 语义1453/1448、关联1566/42.55%、BATTLE130枚举open、分类578/E746，R7 259/3061、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保，原标准继续。
+
+## BPX01 九完整转场/坐标/效果局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-acceptance)/[完整757条2516B](cg2d_battle_transition_effect_sampling_evidence.json)。16页、48call/24入口/108内部jump/14ret、九入向/27邻窗/32父项、23type参数链/六常数及209六实际W8/两个FDC-FCC读取序/encoded先目标与原交替发布可追。九源码阶段只修读取边界/顺序，正常旧值一致；两局部I/S各十七实来源，完整递归依赖/生产/owner与生成机器/运行未验。
+
+语义1462/1457、关联1575/42.80%、BATTLE139枚举open、分类587/E748。R7 259/3061/余2802、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false不变，原验收标准继续。

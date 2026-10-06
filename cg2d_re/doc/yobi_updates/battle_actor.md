@@ -247,3 +247,7 @@
 ## BNG01 技能114具体图号和flags原序（2026-10-06）
 
 [单根八处](../cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-decision)明确payload先skill/actor先level、同解析caster/target和比较先pub、低图号表-caster位置-加法后actor、Take固定flags-target-flags pub-caster-actor/固定参数及target两字段actor先值。原成功字段固定payload两写、143之后其它字段/动作另live和原失败/终结尾保持；[166条701B证据](../cg2d_battle_m_skill114_sampling_evidence.json)不代完整父/消费者-owner运行，其它正文/声明不改。
+
+## BNH01 技能117字段与flags原序（2026-10-06）
+
+[单根七处](../cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-decision)明确同解析caster/target与比较先pub、payload先skill/actor先level、Take固定W32-caster-target-flags pub-actor/固定参数及target两基础字段actor先值。原成功56/失败68后另live22331、73/74和Move后缀保持；[146条585B证据](../cg2d_battle_m_skill117_sampling_evidence.json)不代完整父/消费者-owner运行，其它正文/声明不改。

@@ -1171,7 +1171,6 @@
   ],
   "routing_context": {
     "normal_skill_dispatch_boundary": "0x42ae37",
-    "selected_case": 4,
     "selected_target": "0x42f739",
     "compressed_switch": {
       "ea": "0x42ae60",

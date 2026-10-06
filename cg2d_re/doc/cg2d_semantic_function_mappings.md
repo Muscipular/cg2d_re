@@ -2521,3 +2521,7 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 ## BNG01 旧812技能114及真实终结尾有界追加（2026-10-06）
 
 [验收合同](cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-acceptance)和[166条701B三页20call](cg2d_battle_m_skill114_sampling_evidence.json)含153条主体/真实13条终结尾与全部出口，BMM13条55B非新增，case114原202B/48B偏移仅上下文。单根八处实修，旧812只五引用/一symbol/本步对象；不新F/X/adapted/分类/完整成员，语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%与完整门禁保持。
+
+## BNH01 旧812技能117及Move后缀追加（2026-10-06）
+
+[验收合同](cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-acceptance)和[146条585B三页20call](cg2d_battle_m_skill117_sampling_evidence.json)含141条主体及实际五条Move后缀/全部出口，BMJ五条20B非新增，case117原202B仅上下文。单根七处实修，旧812五引用/一symbol/本步对象；同时删除99族/107/108/109/112/114当前对象及六份证据残留的selected_case:4，保正确selected_cases/target和历史前态。仅元数据修正，不新F/X/adapted/分类/完整成员，语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%与完整门禁保持。

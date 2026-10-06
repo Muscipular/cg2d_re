@@ -8363,3 +8363,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 ## BNG01 技能114图号与结果取样（2026-10-06）
 
 [八处实修](../cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-decision)保低图号原表-caster位置-加法/高111018，恢复角色字段和target先flags pub/固定参数效果。原157后80000门禁、7/1字段-143后另live target1018=253/80/37及实际caster终结-Move尾保持；[166条主体/真实尾](../cg2d_battle_m_skill114_sampling_evidence.json)不代完整共享战斗/所有owner或画面运行。
+
+## BNH01 技能117结果与Move后缀（2026-10-06）
+
+[七处实修](../cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-decision)恢复角色字段和caster-target先flags pub固定参数，原0后live W32 flags/56或68后另live reactionImage22331、73/74保持。循环255/空Finish在主体先取caster参数，直入429999 Move后缀；无末终结EffectList。[146条主体/后缀](../cg2d_battle_m_skill117_sampling_evidence.json)不代完整共享战斗/所有owner或画面运行。

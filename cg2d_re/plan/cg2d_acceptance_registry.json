@@ -1511,7 +1511,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-baseline",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-baseline"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-baseline",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1549,7 +1550,9 @@
         "F:00051D80",
         "F:00051E90",
         "F:00121B10",
-        "F:00120970"
+        "F:00120970",
+        "F:00121C80",
+        "F:00121DD0"
       ],
       "closure_task_ids": [
         "C09",
@@ -1579,7 +1582,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-decision",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-decision",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1598,7 +1602,8 @@
         "BON01两个已有723/172完整380条1579B/144B数据，12处过渡/查色取样恢复，旧FILE/CPH/Tone helper/正确表保持；共享32局部枚举open，低色深40B仅纳盘，全部父/PC53/数组-通道owner/像素画面运行与R1/R7/R8待",
         "BOO01两旧169/170完整464条1778B/128B固定初值-100B常量，Init查色1恢复/Read正确体及真实CPU绑定保；原85条289B低色深仅纳盘。局部枚举open，全部父/构造重建销毁owner/正常别名/像素画面与R1/R7/R8运行待",
         "BOP01三既有源码根新机器映射，完整273条768B，Get累计/组包2与Nearest首色-候选1阶段恢复/正常值保持；Resource37→40、Render32→34枚举open，auto.dat父/真实共享解码区owner-实际图形/地图画面运行及R1/R7/R8待",
-        "BOS01两原入队完整227条704B/四页、422普通引用分根父仅纳盘；额外负拒绝/S32回绕退休，描述符4W32/默认字段/坐标和clip队列发布恢复，RENDER36枚举open；所有caller-正常别名/排序绘制consumer-owner/像素运行与R1/R7/R8待"
+        "BOS01两原入队完整227条704B/四页、422普通引用分根父仅纳盘；额外负拒绝/S32回绕退休，描述符4W32/默认字段/坐标和clip队列发布恢复，RENDER36枚举open；所有caller-正常别名/排序绘制consumer-owner/像素运行与R1/R7/R8待",
+        "BOT01两已有源码根新机器登记/完整206条650B四页、26调用点分根父1/18仅纳盘；记录目标/逐W32描述符与不同clip-batch/各图号門槛保，RENDER38枚举open；全部父/正常别名/排序绘制consumer-owner/画面及R1/R7/R8运行待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1618,7 +1623,8 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
         "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
       ]
     },
     {
@@ -29088,6 +29094,118 @@
       "observation": "本根完整114条350B/2页，2call/12内跳/3ret；94普通引用/30父仅纳盘，原字段读取/发布静态核",
       "expected": "入口容量仅原S16>=4096返-2，不增负计数拒绝。正常容量内先保存record目标；图号[-1,999]返-2，<-1直接图号/XY0；>999只按isGraphicNo低U8是否非零决定map调用，同参数槽graphicIndex初值isGraphicNo保持，零低Byte直接图号，再XY低W16，不新查callee返回。cache3 layer pub→live count样本→y参数样本→cacheIndexpub，recordx原S32直接pub→value4样本→ypub→mappedIndexpub→descriptor存在样本→value4pub→action native pointer0。描述符四W32每对读写或空参4W16/颜色W32/两U8/末W16原默认；随后读当前descriptor.sourceX W16减offsetX/低W16pub，再重读当前sourceY W16减offsetY/pub，不在私有mode整体快照内先减。现有W16减法helper仅原字段自然窄化保，不新增故障策略。clip样本先batchType参数U8pub，clip1覆1；只有mappedIndex C18..C21 specialByte1；尾fresh U16count返回旧S16→S32并低W16+1pub。",
       "actual": "仅两入队正常局部static I/S、runtime=false；共享helper不增原函数，422调用点及其父仅引用库存、不代全父/正常别名-队列寿命/排序绘制-像素运行及R1/R7/R8；未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-GRAPHIC-SECONDARY-ENQUEUE-PRODUCTION-00121C80-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOT01两完整206条650B/四页3call22内跳5ret，26普通调用点分根纳盘；doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-secondary-enqueue-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-acceptance",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_evidence.json",
+        "src/DrawGraphic.cpp#Sub_521C80 src/DrawGraphic.cpp#CopyGraphicDescriptorWords include/cg/render/GraphicPendingQueue.hpp doc/cg2d_graphic_enqueue_descriptor_production_spec.md doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两正文恢复保存实际record/字段取样及逐W32描述符，C80 clip先batch、DD0 batch先clip，各图号门槛/callee及末计数原宽保持，BOS helper/其它根保",
+          "decision_ref": "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整DrawGraphic.cpp仅两正文、原helper/owner/provider/头保持；S16入口pendingCount仅原>=4096返S32-2；正常业务容量内保存实际record目标在两callee之前。imageNo<=999全部直传/offsetXY0，不增加其它两入口的[-1,999]拒绝；>999先map至同localgraphicIndex再XY低W16，不查返回。初始count定位cache3，layerByte先live S16cacheIndexpub；正常S32 x+S16Xpub，y+S16Y先value4样本/ypub，再descriptor是否存在样本/mappedImagepub/value4pub/action native0。复用BOS01同文件helper逐原四W32读写或空参4W16/颜色W32FFFFFFFF/两U8/末W16发布；不整块快照/清色后重写。clipByte样本先batch0、clip1覆1。special条件mapped C18..C21或原imageNo1DF0..1DFF才Byte1；尾fresh U16count返回旧S16→S32后低W16+1pub。source/input原宽与native非拥有地址保，不新拒绝/保护或回绕策略。",
+      "expected": "S16入口pendingCount仅原>=4096返S32-2；正常业务容量内保存实际record目标在两callee之前。imageNo<=999全部直传/offsetXY0，不增加其它两入口的[-1,999]拒绝；>999先map至同localgraphicIndex再XY低W16，不查返回。初始count定位cache3，layerByte先live S16cacheIndexpub；正常S32 x+S16Xpub，y+S16Y先value4样本/ypub，再descriptor是否存在样本/mappedImagepub/value4pub/action native0。复用BOS01同文件helper逐原四W32读写或空参4W16/颜色W32FFFFFFFF/两U8/末W16发布；不整块快照/清色后重写。clipByte样本先batch0、clip1覆1。special条件mapped C18..C21或原imageNo1DF0..1DFF才Byte1；尾fresh U16count返回旧S16→S32后低W16+1pub。source/input原宽与native非拥有地址保，不新拒绝/保护或回绕策略。",
+      "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、共享helper不增原函数；不代所有26调用点之父/正常别名/排序绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-GRAPHIC-SECONDARY-ENQUEUE-PRODUCTION-00121C80-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOT01两完整206条650B/四页3call22内跳5ret，26普通调用点分根纳盘；doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-secondary-enqueue-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-acceptance",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_evidence.json",
+        "src/DrawGraphic.cpp#Sub_521C80 src/DrawGraphic.cpp#CopyGraphicDescriptorWords include/cg/render/GraphicPendingQueue.hpp doc/cg2d_graphic_enqueue_descriptor_production_spec.md doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两正文恢复保存实际record/字段取样及逐W32描述符，C80 clip先batch、DD0 batch先clip，各图号门槛/callee及末计数原宽保持，BOS helper/其它根保",
+          "decision_ref": "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整100条326B/2页，2call/10内跳/2ret、1普通引用/1父仅纳盘，原描述符/字段发布static核",
+      "expected": "S16入口pendingCount仅原>=4096返S32-2；正常业务容量内保存实际record目标在两callee之前。imageNo<=999全部直传/offsetXY0，不增加其它两入口的[-1,999]拒绝；>999先map至同localgraphicIndex再XY低W16，不查返回。初始count定位cache3，layerByte先live S16cacheIndexpub；正常S32 x+S16Xpub，y+S16Y先value4样本/ypub，再descriptor是否存在样本/mappedImagepub/value4pub/action native0。复用BOS01同文件helper逐原四W32读写或空参4W16/颜色W32FFFFFFFF/两U8/末W16发布；不整块快照/清色后重写。clipByte样本先batch0、clip1覆1。special条件mapped C18..C21或原imageNo1DF0..1DFF才Byte1；尾fresh U16count返回旧S16→S32后低W16+1pub。source/input原宽与native非拥有地址保，不新拒绝/保护或回绕策略。",
+      "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、共享helper不增原函数；不代所有26调用点之父/正常别名/排序绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-GRAPHIC-SECONDARY-ENQUEUE-PRODUCTION-00121DD0-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOT01两完整206条650B/四页3call22内跳5ret，26普通调用点分根纳盘；doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-secondary-enqueue-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-acceptance",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_evidence.json",
+        "src/DrawGraphic.cpp#DrawGraphic2_521DD0 src/DrawGraphic.cpp#CopyGraphicDescriptorWords include/cg/render/GraphicPendingQueue.hpp doc/cg2d_graphic_enqueue_descriptor_production_spec.md doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两正文恢复保存实际record/字段取样及逐W32描述符，C80 clip先batch、DD0 batch先clip，各图号门槛/callee及末计数原宽保持，BOS helper/其它根保",
+          "decision_ref": "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整DrawGraphic.cpp仅两正文、原helper/owner/provider/头保持；S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。",
+      "expected": "S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。",
+      "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、共享helper不增原函数；不代所有26调用点之父/正常别名/排序绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
+    },
+    {
+      "id": "E-RENDER-GRAPHIC-SECONDARY-ENQUEUE-PRODUCTION-00121DD0-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOT01两完整206条650B/四页3call22内跳5ret，26普通调用点分根纳盘；doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-graphic-secondary-enqueue-production-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-acceptance",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_evidence.json",
+        "src/DrawGraphic.cpp#DrawGraphic2_521DD0 src/DrawGraphic.cpp#CopyGraphicDescriptorWords include/cg/render/GraphicPendingQueue.hpp doc/cg2d_graphic_enqueue_descriptor_production_spec.md doc/cg2d_graphic_dx_cache_x64_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "两正文恢复保存实际record/字段取样及逐W32描述符，C80 clip先batch、DD0 batch先clip，各图号门槛/callee及末计数原宽保持，BOS helper/其它根保",
+          "decision_ref": "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整106条324B/2页，1call/12内跳/3ret、25普通引用/18父仅纳盘，原描述符/字段发布static核",
+      "expected": "S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。",
+      "actual": "仅两根正常局部static I/S、runtime=false；两新机器映射对应已有源码、共享helper不增原函数；不代所有26调用点之父/正常别名/排序绘制-owner-像素运行及R1/R7/R8，未构建/测试/运行/hash，网络原格式明文/音频暂停"
     }
   ],
   "task_acceptance": [
@@ -29338,7 +29456,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
       ]
     },
     {
@@ -29664,7 +29783,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
       ]
     },
     {
@@ -29877,7 +29997,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
       ]
     },
     {
@@ -29996,7 +30117,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
       ]
     },
     {
@@ -30086,7 +30208,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
       ]
     },
     {
@@ -30331,7 +30454,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
       ]
     },
     {
@@ -30417,7 +30541,8 @@
         "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
-        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state"
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
       ]
     }
   ],
@@ -35962,6 +36087,28 @@
         "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state"
       ],
       "boundary": "BOS01原正常两入队/W16-W32-U8字段及真实队列，action/descriptor/record已证地址native，撤额外拒绝/回绕、逐W32消费；全根局部static不代全部caller/正常别名/排序-绘制/owner运行：入口容量仅原S16>=4096返-2，不增负计数拒绝。正常容量内先保存record目标；图号[-1,999]返-2，<-1直接图号/XY0；>999只按isGraphicNo低U8是否非零决定map调用，同参数槽graphicIndex初值isGraphicNo保持，零低Byte直接图号，再XY低W16，不新查callee返回。cache3 layer pub→live count样本→y参数样本→cacheIndexpub，recordx原S32直接pub→value4样本→ypub→mappedIndexpub→descriptor存在样本→value4pub→action native pointer0。描述符四W32每对读写或空参4W16/颜色W32/两U8/末W16原默认；随后读当前descriptor.sourceX W16减offsetX/低W16pub，再重读当前sourceY W16减offsetY/pub，不在私有mode整体快照内先减。现有W16减法helper仅原字段自然窄化保，不新增故障策略。clip样本先batchType参数U8pub，clip1覆1；只有mappedIndex C18..C21 specialByte1；尾fresh U16count返回旧S16→S32并低W16+1pub。"
+    },
+    {
+      "inventory_id": "F:00121C80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+      ],
+      "boundary": "BOT01原正常两入队/既有native布局、W16-W32-U8宽度与各图号门槛/clip-batch原序，原可访问descriptor逐W32消费；仅全根局部static不代全部caller/owner-正常别名/绘制像素运行：S16入口pendingCount仅原>=4096返S32-2；正常业务容量内保存实际record目标在两callee之前。imageNo<=999全部直传/offsetXY0，不增加其它两入口的[-1,999]拒绝；>999先map至同localgraphicIndex再XY低W16，不查返回。初始count定位cache3，layerByte先live S16cacheIndexpub；正常S32 x+S16Xpub，y+S16Y先value4样本/ypub，再descriptor是否存在样本/mappedImagepub/value4pub/action native0。复用BOS01同文件helper逐原四W32读写或空参4W16/颜色W32FFFFFFFF/两U8/末W16发布；不整块快照/清色后重写。clipByte样本先batch0、clip1覆1。special条件mapped C18..C21或原imageNo1DF0..1DFF才Byte1；尾fresh U16count返回旧S16→S32后低W16+1pub。source/input原宽与native非拥有地址保，不新拒绝/保护或回绕策略。"
+    },
+    {
+      "inventory_id": "F:00121DD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state"
+      ],
+      "boundary": "BOT01原正常两入队/既有native布局、W16-W32-U8宽度与各图号门槛/clip-batch原序，原可访问descriptor逐W32消费；仅全根局部static不代全部caller/owner-正常别名/绘制像素运行：S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。"
     }
   ],
   "auxiliary_dispositions": [

@@ -170735,6 +170735,274 @@
         "shared_helper_has_separate_original_id": false,
         "preserved_contract": "入口容量仅原S16>=4096返-2，不增负计数拒绝。正常容量内先保存record目标；图号[-1,999]返-2，<-1直接图号/XY0；>999只按isGraphicNo低U8是否非零决定map调用，同参数槽graphicIndex初值isGraphicNo保持，零低Byte直接图号，再XY低W16，不新查callee返回。cache3 layer pub→live count样本→y参数样本→cacheIndexpub，recordx原S32直接pub→value4样本→ypub→mappedIndexpub→descriptor存在样本→value4pub→action native pointer0。描述符四W32每对读写或空参4W16/颜色W32/两U8/末W16原默认；随后读当前descriptor.sourceX W16减offsetX/低W16pub，再重读当前sourceY W16减offsetY/pub，不在私有mode整体快照内先减。现有W16减法helper仅原字段自然窄化保，不新增故障策略。clip样本先batchType参数U8pub，clip1覆1；只有mappedIndex C18..C21 specialByte1；尾fresh U16count返回旧S16→S32并低W16+1pub。"
       }
+    },
+    {
+      "original_entry": "0x521C80",
+      "inventory_id": "F:00121C80",
+      "original_role": "原图形入队/批次描述符与字段生产",
+      "status": "BOT01完整两入队原根/逐W32描述符及各字段取样恢复，真实队列已接；全部caller/正常别名-consumer-owner运行未验",
+      "original_end_exclusive": "0x521DC6",
+      "instruction_count": 100,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/DrawGraphic.cpp",
+          "symbols": [
+            "Sub_521C80",
+            "CopyGraphicDescriptorWords"
+          ],
+          "relationship": "S16入口pendingCount仅原>=4096返S32-2；正常业务容量内保存实际record目标在两callee之前。imageNo<=999全部直传/offsetXY0，不增加其它两入口的[-1,999]拒绝；>999先map至同localgraphicIndex再XY低W16，不查返回。初始count定位cache3，layerByte先live S16cacheIndexpub；正常S32 x+S16Xpub，y+S16Y先value4样本/ypub，再descriptor是否存在样本/mappedImagepub/value4pub/action native0。复用BOS01同文件helper逐原四W32读写或空参4W16/颜色W32FFFFFFFF/两U8/末W16发布；不整块快照/清色后重写。clipByte样本先batch0、clip1覆1。special条件mapped C18..C21或原imageNo1DF0..1DFF才Byte1；尾fresh U16count返回旧S16→S32后低W16+1pub。source/input原宽与native非拥有地址保，不新拒绝/保护或回绕策略。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-acceptance",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_evidence.json"
+      ],
+      "boundary": "S16入口pendingCount仅原>=4096返S32-2；正常业务容量内保存实际record目标在两callee之前。imageNo<=999全部直传/offsetXY0，不增加其它两入口的[-1,999]拒绝；>999先map至同localgraphicIndex再XY低W16，不查返回。初始count定位cache3，layerByte先live S16cacheIndexpub；正常S32 x+S16Xpub，y+S16Y先value4样本/ypub，再descriptor是否存在样本/mappedImagepub/value4pub/action native0。复用BOS01同文件helper逐原四W32读写或空参4W16/颜色W32FFFFFFFF/两U8/末W16发布；不整块快照/清色后重写。clipByte样本先batch0、clip1覆1。special条件mapped C18..C21或原imageNo1DF0..1DFF才Byte1；尾fresh U16count返回旧S16→S32后低W16+1pub。source/input原宽与native非拥有地址保，不新拒绝/保护或回绕策略。",
+      "verification_level": "完整100条326B/2页，2call-10内跳/2ret、1普通引用/1父仅纳盘；整CPP两正文改/原helper保，正常局部static I/S，不代运行",
+      "function_chunks": [
+        {
+          "start": "0x521C80",
+          "end_exclusive": "0x521DC6"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x4766df",
+          "type": 17,
+          "parent": "0x476680"
+        }
+      ],
+      "native_provider": {
+        "source": "src/DrawGraphic.cpp",
+        "symbol": "Sub_521C80",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "graphic_secondary_enqueue_production": {
+        "spec_id": "BOT01",
+        "evidence_refs": [
+          "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+          "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+          "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-acceptance",
+          "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+          "doc/cg2d_graphic_secondary_enqueue_production_evidence.json"
+        ],
+        "original_entry": "0x521C80",
+        "original_instruction_count": 100,
+        "original_code_bytes": 326,
+        "page_count": 2,
+        "outgoing_call_site_count": 2,
+        "internal_branch_site_count": 10,
+        "return_site_count": 2,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "descriptor_w32_read_write_pairs": 4,
+        "clip_read_before_batch_publication": true,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "shared_helper_has_separate_original_id": false,
+        "preserved_contract": "S16入口pendingCount仅原>=4096返S32-2；正常业务容量内保存实际record目标在两callee之前。imageNo<=999全部直传/offsetXY0，不增加其它两入口的[-1,999]拒绝；>999先map至同localgraphicIndex再XY低W16，不查返回。初始count定位cache3，layerByte先live S16cacheIndexpub；正常S32 x+S16Xpub，y+S16Y先value4样本/ypub，再descriptor是否存在样本/mappedImagepub/value4pub/action native0。复用BOS01同文件helper逐原四W32读写或空参4W16/颜色W32FFFFFFFF/两U8/末W16发布；不整块快照/清色后重写。clipByte样本先batch0、clip1覆1。special条件mapped C18..C21或原imageNo1DF0..1DFF才Byte1；尾fresh U16count返回旧S16→S32后低W16+1pub。source/input原宽与native非拥有地址保，不新拒绝/保护或回绕策略。"
+      }
+    },
+    {
+      "original_entry": "0x521DD0",
+      "inventory_id": "F:00121DD0",
+      "original_role": "原图形入队/批次描述符与字段生产",
+      "status": "BOT01完整两入队原根/逐W32描述符及各字段取样恢复，真实队列已接；全部caller/正常别名-consumer-owner运行未验",
+      "original_end_exclusive": "0x521F14",
+      "instruction_count": 106,
+      "original_direct_reference_count": 25,
+      "sources": [
+        {
+          "path": "src/DrawGraphic.cpp",
+          "symbols": [
+            "DrawGraphic2_521DD0",
+            "CopyGraphicDescriptorWords"
+          ],
+          "relationship": "S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-acceptance",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_evidence.json"
+      ],
+      "boundary": "S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。",
+      "verification_level": "完整106条324B/2页，1call-12内跳/3ret、25普通引用/18父仅纳盘；整CPP两正文改/原helper保，正常局部static I/S，不代运行",
+      "function_chunks": [
+        {
+          "start": "0x521DD0",
+          "end_exclusive": "0x521F14"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x440ef0",
+          "type": 17,
+          "parent": "0x440c50"
+        },
+        {
+          "ea": "0x440f31",
+          "type": 17,
+          "parent": "0x440c50"
+        },
+        {
+          "ea": "0x4471f6",
+          "type": 17,
+          "parent": "0x447070"
+        },
+        {
+          "ea": "0x447347",
+          "type": 17,
+          "parent": "0x447230"
+        },
+        {
+          "ea": "0x4474c3",
+          "type": 17,
+          "parent": "0x4473b0"
+        },
+        {
+          "ea": "0x4475ef",
+          "type": 17,
+          "parent": "0x4474e0"
+        },
+        {
+          "ea": "0x4477e3",
+          "type": 17,
+          "parent": "0x447610"
+        },
+        {
+          "ea": "0x4479fa",
+          "type": 17,
+          "parent": "0x447820"
+        },
+        {
+          "ea": "0x447b54",
+          "type": 17,
+          "parent": "0x447a20"
+        },
+        {
+          "ea": "0x447b9d",
+          "type": 17,
+          "parent": "0x447a20"
+        },
+        {
+          "ea": "0x447d73",
+          "type": 17,
+          "parent": "0x447c40"
+        },
+        {
+          "ea": "0x447dbb",
+          "type": 17,
+          "parent": "0x447c40"
+        },
+        {
+          "ea": "0x462fc7",
+          "type": 17,
+          "parent": "0x462930"
+        },
+        {
+          "ea": "0x46c226",
+          "type": 17,
+          "parent": "0x46c1c0"
+        },
+        {
+          "ea": "0x46c26d",
+          "type": 17,
+          "parent": "0x46c1c0"
+        },
+        {
+          "ea": "0x46c2c1",
+          "type": 17,
+          "parent": "0x46c1c0"
+        },
+        {
+          "ea": "0x472c16",
+          "type": 17,
+          "parent": "0x4729b0"
+        },
+        {
+          "ea": "0x486991",
+          "type": 17,
+          "parent": "0x486040"
+        },
+        {
+          "ea": "0x486bc5",
+          "type": 17,
+          "parent": "0x486040"
+        },
+        {
+          "ea": "0x486c84",
+          "type": 17,
+          "parent": "0x486040"
+        },
+        {
+          "ea": "0x4b3ea4",
+          "type": 17,
+          "parent": "0x4b3bf0"
+        },
+        {
+          "ea": "0x4b43de",
+          "type": 17,
+          "parent": "0x4b4140"
+        },
+        {
+          "ea": "0x4b48eb",
+          "type": 17,
+          "parent": "0x4b4680"
+        },
+        {
+          "ea": "0x4c6ea7",
+          "type": 17,
+          "parent": "0x4c6d90"
+        },
+        {
+          "ea": "0x4d0cf9",
+          "type": 17,
+          "parent": "0x4d0a80"
+        }
+      ],
+      "native_provider": {
+        "source": "src/DrawGraphic.cpp",
+        "symbol": "DrawGraphic2_521DD0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "graphic_secondary_enqueue_production": {
+        "spec_id": "BOT01",
+        "evidence_refs": [
+          "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-baseline",
+          "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision",
+          "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-acceptance",
+          "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+          "doc/cg2d_graphic_secondary_enqueue_production_evidence.json"
+        ],
+        "original_entry": "0x521DD0",
+        "original_instruction_count": 106,
+        "original_code_bytes": 324,
+        "page_count": 2,
+        "outgoing_call_site_count": 1,
+        "internal_branch_site_count": 12,
+        "return_site_count": 3,
+        "incoming_reference_count": 25,
+        "incoming_parent_count": 18,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "descriptor_w32_read_write_pairs": 4,
+        "clip_read_before_batch_publication": false,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "shared_helper_has_separate_original_id": false,
+        "preserved_contract": "S16入口pendingCount仅原>=4096返-2；正常容量内保存实际record目标在XY之前。graphicIndex[-1,999]原返-2；<-1直传XY0，>999仅callXY而不map，入参graphicIndex保存原值并最终pub。cache3layer先live S16cacheIndexpub；原y参数样本在x正常S32+S16pub前，随后descriptor地址样本→正常ySum→value4样本→descriptor存在比较→ypub→原graphicIndexpub→value4pub→action native0。同BOS helper原四W32每对读写/空参W16-W32-U8默认发布。batch参数Byte先pub，随后读取当前clipByte/等1覆batch1，不能套用其它入口clip先pub的顺序。special两范围均使用原graphicIndex C18..C21或1DF0..1DFF。尾fresh U16count返回旧S16→S32后低W16+1pub；原字段宽度/native引用、正常坐标/失败保，不扩大其它入口门槛或故障模拟。"
+      }
     }
   ]
 }

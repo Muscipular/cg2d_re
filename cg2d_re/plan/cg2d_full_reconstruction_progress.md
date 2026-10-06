@@ -2486,3 +2486,11 @@ BOR01本步实测：源码/原全根与hidden全表初值/两权威JSON/对应�
 - **后续开发**：四文件补丁仅两根正文、同文件描述符helper插入、原S32回绕helper退休；其它根/既有W16减法/公开头/map-XY provider和队列布局保持。完整caller/正常源目标别名及排序/绘制consumer-owner/真实画面运行继续推进；不执行异常样例或扩大拒绝/保护策略，未构建/测试/运行/hash，网络原格式明文、音频暂停。 沿真实队列-排序/绘制和owner继续开发，整体SPEC目标保持。
 
 BOS01本步实测：源码/两完整原根及调用点/两权威JSON/对应合同四项定向静态通过；measure/-Check均返回0。核对措辞时已将422明确为调用点，其父181/30按两根分列，不误计为422父；台账和文档改后复核通过。派生完整对象仅旧7/新1404、RENDER36、语义1405/1400/关联1518(41.25%)/分类524与七open；E655，历史定义0/1、RESOURCE41/队列175及其它门禁保持。13文件严格UTF8无BOM/LF与必要差异通过；未构建/测试/运行/hash，整体SPEC目标继续。
+
+## BOT01 其余两图形入队/描述符生产收尾（2026-10-06）
+
+- **开发/当步解决**：先落[具体SPEC](../doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision)，实施两个正文/实际record与字段取样/逐W32描述符，C80 clip先batch而DD0 batch先clip，各门槛/范围保。[原证据](../doc/cg2d_graphic_secondary_enqueue_production_evidence.json)保两完整206条650B/四页3call-22内跳/5ret及26调用点分根父1/18、两个旧正文与保持的helper。
+- **计量/历史**：两既有源码根新增机器映射1405/1406，语义1405→1407/有效ID1400→1402、关联1518→1520（41.25%→41.30%）、分类524→526，RENDER36→38枚举open；四独立局部static I/S E655→659。历史定位各1不刷新，RESOURCE41保持、helper不增原函数；七open仅进展引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它门禁保持。 队列175/R7区间67/3061及其它功能保持。命名快照 `cg2d-re-graphic-secondary-enqueue-production-20261006`；13文件精确提交，用户既有六项排除。
+- **后续开发**：本步只整DrawGraphic.cpp两个正文补丁；BOS helper/另外两根、其它正文及布局/头/owner/provider保持。C80低图号直传，不借其它根增加[-1,999]拒绝；DD0图形号直接XY、不加map。正常S32坐标与W16-U8字段/计数保，不新加负拒绝/保护/异常策略。全部caller/正常别名及排序-绘制/owner-像素运行继续推进；未构建/测试/运行/hash，网络原格式明文、音频暂停。 沿真实队列排序/绘制consumer与owner继续推进整体SPEC，不以局部静态关闭运行门禁。
+
+BOT01本步实测：源码/两完整原根及调用点/两权威JSON/对应合同四项定向静态通过；measure/-Check均返回0。派生完整对象仅新1405/1406、RENDER38、语义1407/1402/关联1520(41.30%)/分类526及七open进展变化；E659，历史定位各1、RESOURCE41/队列175及其余门禁保持。原206条650B/四页和26普通调用点按两根分列父1/18只纳盘，未当调用者或运行通过。13文件严格UTF8无BOM/LF与必要差异通过；未构建/测试/运行/hash，整体SPEC目标继续。

@@ -2373,3 +2373,11 @@ AutoMap原叶45014F和父450468各Unlock一次，显式叶32位段只由父45043
 旧7完整历史续记、1404新机器映射，语义1404→1405/有效ID1399→1400、关联1517→1518（41.22%→41.25%）、分类522→524，RENDER34→36枚举open；独立局部I/S共4条E651→655。RESOURCE41保持，历史定义0/1不刷新；七open仅进展/引用、60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及全门禁保持。
 
 四文件补丁仅两根正文、同文件描述符helper插入、原S32回绕helper退休；其它根/既有W16减法/公开头/map-XY provider和队列布局保持。完整caller/正常源目标别名及排序/绘制consumer-owner/真实画面运行继续推进；不执行异常样例或扩大拒绝/保护策略，未构建/测试/运行/hash，网络原格式明文、音频暂停。
+
+## BOT01 图形号/批次入队描述符生产（2026-10-06）
+
+[BOT01 SPEC](cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-decision)/[原证据](cg2d_graphic_secondary_enqueue_production_evidence.json)。521C80/521DD0两完整入队根206条650B/四页、3call-22内跳/5ret，26普通调用点只纳盘、父分根1/18。两正文保存callee前的真实record目标与原字段样本，复用BOS01原四W32逐对消费/空参W16-W32-U8默认发布；C80 clip先batch、DD0 batch先clip各按原序，保各图号门槛/映射与仅XY的不同职责和special范围。
+
+两既有源码根新增机器映射1405/1406，语义1405→1407/有效ID1400→1402、关联1518→1520（41.25%→41.30%）、分类524→526，RENDER36→38枚举open；四独立局部static I/S E655→659。历史定位各1不刷新，RESOURCE41保持、helper不增原函数；七open仅进展引用，60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它门禁保持。
+
+本步只整DrawGraphic.cpp两个正文补丁；BOS helper/另外两根、其它正文及布局/头/owner/provider保持。C80低图号直传，不借其它根增加[-1,999]拒绝；DD0图形号直接XY、不加map。正常S32坐标与W16-U8字段/计数保，不新加负拒绝/保护/异常策略。全部caller/正常别名及排序-绘制/owner-像素运行继续推进；未构建/测试/运行/hash，网络原格式明文、音频暂停。

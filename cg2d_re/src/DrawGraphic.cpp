@@ -184,36 +184,35 @@ std::int32_t Sub_521C80(
         return -2;
     }
 
+    GraphicCacheItem32* const item =
+        gLegacyPendingStorage.records.data() + initialCount;
     std::int32_t graphicIndex = imageNo;
     std::int16_t offsetX = 0;
     std::int16_t offsetY = 0;
     if (imageNo > 999) {
         resource::GetGraphicMapNoIndex(imageNo, &graphicIndex);
-        resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
+        resource::GetGraphicXY(
+            std::bit_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
     }
 
-    const auto queueIndex = static_cast<std::size_t>(initialCount);
-    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];
-    cache3.layer = layer;
-    cache3.cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
-    GraphicCacheItem32& item = gLegacyPendingStorage.records[queueIndex];
-    item.x = x + offsetX;
-    item.y = y + offsetY;
-    item.imageNo = graphicIndex;
-    item.value4 = value4;
-    item.reference.action = nullptr;
-    if (descriptor != nullptr) {
-        item.descriptor = descriptor->bytes;
-    } else {
-        item.descriptor.fill(0);
-        item.descriptor[8] = 0xFF;
-        item.descriptor[9] = 0xFF;
-        item.descriptor[10] = 0xFF;
-        item.descriptor[11] = 0xFF;
-    }
-    item.batchType = 0;
-    if (item.descriptor[12] == 1) {
-        item.batchType = 1;
+    GraphicCache3* const cache3 =
+        gLegacyPendingStorage.cache3.data() + initialCount;
+    cache3->layer = layer;
+    cache3->cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    item->x = x + offsetX;
+    const std::int32_t adjustedY = y + offsetY;
+    const std::int32_t itemValue4 = value4;
+    item->y = adjustedY;
+    const bool hasDescriptor = descriptor != nullptr;
+    item->imageNo = graphicIndex;
+    item->value4 = itemValue4;
+    item->reference.action = nullptr;
+    CopyGraphicDescriptorWords(item->descriptor, hasDescriptor ? descriptor : nullptr);
+
+    const std::uint8_t clip = item->descriptor[12];
+    item->batchType = 0;
+    if (clip == 1) {
+        item->batchType = 1;
     }
     if ((graphicIndex >= 0xC18 && graphicIndex <= 0xC21)
         || (imageNo >= 0x1DF0 && imageNo <= 0x1DFF)) {
@@ -235,37 +234,38 @@ std::int32_t DrawGraphic2_521DD0(
     if (initialCount >= MAX_QUEUE_SIZE) {
         return -2;
     }
+
+    GraphicCacheItem32* const item =
+        gLegacyPendingStorage.records.data() + initialCount;
     if (graphicIndex >= -1 && graphicIndex <= 999) {
         return -2;
     }
     std::int16_t offsetX = 0;
     std::int16_t offsetY = 0;
     if (graphicIndex > 999) {
-        resource::GetGraphicXY(static_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
+        resource::GetGraphicXY(
+            std::bit_cast<std::uint32_t>(graphicIndex), &offsetX, &offsetY);
     }
 
-    const auto queueIndex = static_cast<std::size_t>(initialCount);
-    GraphicCache3& cache3 = gLegacyPendingStorage.cache3[queueIndex];
-    cache3.layer = layer;
-    cache3.cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
-    GraphicCacheItem32& item = gLegacyPendingStorage.records[queueIndex];
-    item.x = x + offsetX;
-    item.y = y + offsetY;
-    item.imageNo = graphicIndex;
-    item.value4 = value4;
-    item.reference.action = nullptr;
-    if (descriptor != nullptr) {
-        item.descriptor = descriptor->bytes;
-    } else {
-        item.descriptor.fill(0);
-        item.descriptor[8] = 0xFF;
-        item.descriptor[9] = 0xFF;
-        item.descriptor[10] = 0xFF;
-        item.descriptor[11] = 0xFF;
-    }
-    item.batchType = batchType;
-    if (item.descriptor[12] == 1) {
-        item.batchType = 1;
+    GraphicCache3* const cache3 =
+        gLegacyPendingStorage.cache3.data() + initialCount;
+    cache3->layer = layer;
+    cache3->cacheIndex = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
+    const std::int32_t itemY = y;
+    item->x = x + offsetX;
+    const GraphicDescriptor16* const descriptorAddress = descriptor;
+    const std::int32_t adjustedY = itemY + offsetY;
+    const std::int32_t itemValue4 = value4;
+    const bool hasDescriptor = descriptorAddress != nullptr;
+    item->y = adjustedY;
+    item->imageNo = graphicIndex;
+    item->value4 = itemValue4;
+    item->reference.action = nullptr;
+    CopyGraphicDescriptorWords(item->descriptor, hasDescriptor ? descriptorAddress : nullptr);
+
+    item->batchType = batchType;
+    if (item->descriptor[12] == 1) {
+        item->batchType = 1;
     }
     if ((graphicIndex >= 0xC18 && graphicIndex <= 0xC21)
         || (graphicIndex >= 0x1DF0 && graphicIndex <= 0x1DFF)) {

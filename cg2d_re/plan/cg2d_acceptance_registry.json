@@ -301,7 +301,8 @@
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
-        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline"
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -455,7 +456,9 @@
         "F:0013D022",
         "F:001433F0",
         "F:001402AB",
-        "F:001407BC"
+        "F:001407BC",
+        "F:00143405",
+        "F:00143435"
       ],
       "closure_task_ids": [
         "C01",
@@ -494,7 +497,8 @@
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
-        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision"
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -523,7 +527,8 @@
         "CPH01两编译器私有帮助体host纳管，调色板两工具恢复正常S64/S32；局部原体/六转换/五加法不代全部业务父/浮点环境/owner/ABI/完整调色板/资源/画面/运行，数学异常不模拟或称等价",
         "MFA01效果固定点正常S32已修，原位型/窄化/四固定点及两像素写和x87/RNG序保持；三身份仅本次局部/两正底数路径，一般pow/其它入口和错误浮点状态/完整场景/所有父/alias/owner寿命/实际ABI/SDK/像素及RNG结果运行未闭，异常不保护或模拟",
         "BPJ01现有__twoToTOS十条x87内联/完整11条21B和唯一原call身份纳管，CRT150枚举open；一般_pow/负底数/其余私有链、全调用环境/ABI/owner寿命与场景RNG及运行仍待，非新增实现或数学库闭合",
-        "BPK01两私有查找/捕获复制职责host具名承接，完整315条875B和两唯一call/父邻窗纳管，原捕获数据/业务copy与单owner保。当前SDK源码不代生成ABI；实际typed捕获/清理、全部成员/硬件SEH/owner寿命与链接/展开及正常快速退出运行仍待，CRT152枚举open"
+        "BPK01两私有查找/捕获复制职责host具名承接，完整315条875B和两唯一call/父邻窗纳管，原捕获数据/业务copy与单owner保。当前SDK源码不代生成ABI；实际typed捕获/清理、全部成员/硬件SEH/owner寿命与链接/展开及正常快速退出运行仍待，CRT152枚举open",
+        "BPM01两帮助体完整27条90B/五call两父邻窗及当前PC53/1.25加载阶段纳管，CRT154枚举open；原027F绕过543405，固定PC不代泛用PC选择，53D04C不代其余三点/特殊F80。一般_pow/其它浮点链、全环境/父/alias/owner寿命/SDK机器ABI及场景RNG与画面运行仍待，非新增实现或完整帮助体闭合"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -556,7 +561,8 @@
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
-        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state"
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state"
       ]
     },
     {
@@ -31440,6 +31446,36 @@
       "observation": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
       "expected": "BPL01仅在原50717F条件点保存focus!=0后发布当前色/图像悬停−1，在5073DC条件点保存inputGate==0后写鼠标低W8 D4并沿该判定分支；原读取/发布序、焦点清零和早返/后续gValue58589C重读、全部命中/图形/描述与owner保持。正常无介入旧值一致，不称数值/显示或并发错误",
       "actual": "悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要；点击查询未新增，RENDER只枚举悬停根/查询只作关联消费，不把它加入RENDER成员"
+    },
+    {
+      "id": "E-CRT-POW-INPUT-CONTROL-S-20261007",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPM01两完整帮助体27条90B/五普通call两父邻窗，参数关联窗口另列；doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-pow-input-control-baseline-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json",
+        "src/platform/MapEffectMath.asm#Cg2dMapEffectDivisor",
+        "src/platform/MapEffectMath.hpp",
+        "src/world/SceneState.cpp#Sub_46F1D0"
+      ],
+      "differences": [
+        {
+          "description": "既有Win64私有接口固定PC53与直接1.25 F64加载承接当前正常阶段；原027F绕过装载帮助体，泛用PC/特殊F80/其余加载点未称完整源码实现，不新增通用包装",
+          "decision_ref": "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。",
+      "expected": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。",
+      "actual": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。"
     }
   ],
   "task_acceptance": [
@@ -32060,7 +32096,8 @@
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
-        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state"
       ]
     },
     {
@@ -32292,7 +32329,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
-        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state"
       ]
     },
     {
@@ -38748,6 +38786,32 @@
         "doc/cg2d_hover_input_publication_evidence.json"
       ],
       "boundary": "BPL01现有45D7A0正确查询独立纳管：edge低W8 bit0未置或count<=0返回−1；一次取S32悬停文本索引，按S32值数组从0扫描首等返回下标/无等−1，不过滤悬停−1、不清鼠标旗位或复制数组/加保护。原两点同属45CE10一父，由UpdateLoginMessage两个现有count1/返回0分支承接，唯一gMessageResult/原55A04C与全部源保持 悬停两原窗口17条72B只本步判定阶段，完整799根/两MainLoop父未重验或新增处置；查询完整19条47B与两普通原点/一个父仅邻窗和当前参数接线，不代消息完整业务/输入焦点、间接alias与所有owner寿命/SDK/ABI/链接/输入画面运行。RPLAN.24不专项模拟/保护异常、故障或并发等价；未编译/测试/运行/摘要"
+    },
+    {
+      "inventory_id": "F:00143405",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ],
+      "boundary": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。"
+    },
+    {
+      "inventory_id": "F:00143435",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ],
+      "boundary": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。"
     }
   ],
   "auxiliary_dispositions": [

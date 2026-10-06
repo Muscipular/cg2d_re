@@ -2998,3 +2998,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [合同](cg2d_hover_input_publication_spec.md#hover-input-publication-baseline)/[原窗口/完整query及旧823](cg2d_hover_input_publication_evidence.json)。823/F:00107140全文存previous_mapping_before_bpl01，追加两判定源阶段修正；原2来源、格式/字符串接线及无处置状态保持，不借17条72B评完整799。新1425/F:0005D7A0完整19条47B/两点一父，现有正确S32查询及两消息count1接线登记equivalent，非新增实现。
 
 语义1426/原ID1421、关联1539/3680（41.82%）、分类550；INPUT19/TEXT25/RENDER53枚举open，E727只新增六正常局部I/S；其他域/完整门禁及队列174/待归属45保持。
+
+## BPM01 专用幂输入/控制字两依赖身份（2026-10-07）
+
+[BPM01合同](cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline)/[证据bpm01_input_control](cg2d_map_effect_arithmetic_evidence.json)。新增1426/F:00143405与1427/F:00143435：分根6条23B、21条67B，五普通call/两父只邻窗纳盘；既有Cg2dMapEffectDivisor的固定PC53及直接1.25加载为局部adapted来源。原027F绕过装载帮助体，特殊F80/其它PC和其余加载点未宣称源码完整实现，不新增算法或改正确源。
+
+语义1428/原ID1423、文档1541/3680（41.88%）、分类552、CRT154枚举open；缺口队列172/位置缺失171/待归属43。E728仅一局部S，两任务R01/R04及全部完整门禁保持open/未过。

@@ -175375,6 +175375,469 @@
         "full_lifecycle_closed": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x543405",
+      "inventory_id": "F:00143405",
+      "original_role": "__load_CW",
+      "original_end_exclusive": "0x54341c",
+      "instruction_count": 6,
+      "original_code_bytes": 23,
+      "original_reference_count": 1,
+      "original_direct_call_reference_count": 1,
+      "original_inbound_parent_count": 1,
+      "status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/MapEffectMath.asm",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。"
+        },
+        {
+          "path": "src/platform/MapEffectMath.hpp",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ],
+      "boundary": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+      "verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+      "function_chunks": [
+        {
+          "start": "0x543405",
+          "end_exclusive": "0x54341c"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "from": "0x53d031",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x53d022",
+          "parent_end_exclusive": "0x53d1f5",
+          "window_start": "0x53d022",
+          "window_end_exclusive": "0x53d051",
+          "rows": [
+            {
+              "ea": "0x53d022",
+              "size": 2,
+              "bytes": "8bc8",
+              "text": "mov     ecx, eax"
+            },
+            {
+              "ea": "0x53d024",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x53d025",
+              "size": 4,
+              "bytes": "9bd93c24",
+              "text": "fstcw   word ptr [esp+4+var_4]"
+            },
+            {
+              "ea": "0x53d029",
+              "size": 6,
+              "bytes": "66813c247f02",
+              "text": "cmp     word ptr [esp+4+var_4], 27Fh"
+            },
+            {
+              "ea": "0x53d02f",
+              "size": 2,
+              "bytes": "7405",
+              "text": "jz      short loc_53D036"
+            },
+            {
+              "ea": "0x53d031",
+              "size": 5,
+              "bytes": "e8cf630000",
+              "text": "call    __load_CW"
+            },
+            {
+              "ea": "0x53d036",
+              "size": 6,
+              "bytes": "81e10000f07f",
+              "text": "and     ecx, 7FF00000h"
+            },
+            {
+              "ea": "0x53d03c",
+              "size": 4,
+              "bytes": "8d542408",
+              "text": "lea     edx, [esp+4+arg_0]"
+            },
+            {
+              "ea": "0x53d040",
+              "size": 6,
+              "bytes": "81f90000f07f",
+              "text": "cmp     ecx, 7FF00000h"
+            },
+            {
+              "ea": "0x53d046",
+              "size": 6,
+              "bytes": "0f849d000000",
+              "text": "jz      loc_53D0E9"
+            },
+            {
+              "ea": "0x53d04c",
+              "size": 5,
+              "bytes": "e8e4630000",
+              "text": "call    __fload_withFB"
+            }
+          ]
+        }
+      ],
+      "pow_input_control_baseline": {
+        "spec_id": "BPM01",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "full_original_helper_captured": true,
+        "normal_native_stage_already_implemented": true,
+        "normal_native_stage_source_bound": true,
+        "full_original_general_helper_source_implemented": false,
+        "source_body_changed": false,
+        "original_default_027f_bypasses_control_loader": true,
+        "source_original_general_helper_body_added": false,
+        "full_general_pow_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x543435",
+      "inventory_id": "F:00143435",
+      "original_role": "__fload_withFB",
+      "original_end_exclusive": "0x543478",
+      "instruction_count": 21,
+      "original_code_bytes": 67,
+      "original_reference_count": 4,
+      "original_direct_call_reference_count": 4,
+      "original_inbound_parent_count": 2,
+      "status": "BPM01完整原基线及当前专用幂正常阶段来源独立纳管；原泛用帮助体源码未新增/未称完整实现，运行未验",
+      "sources": [
+        {
+          "path": "src/platform/MapEffectMath.asm",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。"
+        },
+        {
+          "path": "src/platform/MapEffectMath.hpp",
+          "symbols": [
+            "Cg2dMapEffectDivisor"
+          ],
+          "relationship": "MFA01既有Win64私有S32指数/幅值借用接口，只正常1.25活动域，未改变接口或新增原帮助体通用ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_map_effect_arithmetic_evidence.json"
+      ],
+      "boundary": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+      "verification_level": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。",
+      "function_chunks": [
+        {
+          "start": "0x543435",
+          "end_exclusive": "0x543478"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "from": "0x53d01d",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x53d019",
+          "parent_end_exclusive": "0x53d022",
+          "window_start": "0x53d019",
+          "window_end_exclusive": "0x53d022",
+          "rows": [
+            {
+              "ea": "0x53d019",
+              "size": 4,
+              "bytes": "8d54240c",
+              "text": "lea     edx, [esp+Y]"
+            },
+            {
+              "ea": "0x53d01d",
+              "size": 5,
+              "bytes": "e813640000",
+              "text": "call    __fload_withFB"
+            }
+          ]
+        },
+        {
+          "from": "0x53d04c",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x53d022",
+          "parent_end_exclusive": "0x53d1f5",
+          "window_start": "0x53d031",
+          "window_end_exclusive": "0x53d069",
+          "rows": [
+            {
+              "ea": "0x53d031",
+              "size": 5,
+              "bytes": "e8cf630000",
+              "text": "call    __load_CW"
+            },
+            {
+              "ea": "0x53d036",
+              "size": 6,
+              "bytes": "81e10000f07f",
+              "text": "and     ecx, 7FF00000h"
+            },
+            {
+              "ea": "0x53d03c",
+              "size": 4,
+              "bytes": "8d542408",
+              "text": "lea     edx, [esp+4+arg_0]"
+            },
+            {
+              "ea": "0x53d040",
+              "size": 6,
+              "bytes": "81f90000f07f",
+              "text": "cmp     ecx, 7FF00000h"
+            },
+            {
+              "ea": "0x53d046",
+              "size": 6,
+              "bytes": "0f849d000000",
+              "text": "jz      loc_53D0E9"
+            },
+            {
+              "ea": "0x53d04c",
+              "size": 5,
+              "bytes": "e8e4630000",
+              "text": "call    __fload_withFB"
+            },
+            {
+              "ea": "0x53d051",
+              "size": 6,
+              "bytes": "0f848e000000",
+              "text": "jz      loc_53D0E5"
+            },
+            {
+              "ea": "0x53d057",
+              "size": 5,
+              "bytes": "a90000f07f",
+              "text": "test    eax, 7FF00000h"
+            },
+            {
+              "ea": "0x53d05c",
+              "size": 6,
+              "bytes": "0f84f6000000",
+              "text": "jz      loc_53D158"
+            },
+            {
+              "ea": "0x53d062",
+              "size": 4,
+              "bytes": "8a4c240f",
+              "text": "mov     cl, byte ptr [esp+4+arg_4+3]"
+            },
+            {
+              "ea": "0x53d066",
+              "size": 3,
+              "bytes": "80e180",
+              "text": "and     cl, 80h"
+            }
+          ]
+        },
+        {
+          "from": "0x53d0bd",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x53d022",
+          "parent_end_exclusive": "0x53d1f5",
+          "window_start": "0x53d0ad",
+          "window_end_exclusive": "0x53d0ce",
+          "rows": [
+            {
+              "ea": "0x53d0ad",
+              "size": 5,
+              "bytes": "ba1d000000",
+              "text": "mov     edx, 1Dh"
+            },
+            {
+              "ea": "0x53d0b2",
+              "size": 5,
+              "bytes": "e8d9620000",
+              "text": "call    __startTwoArgErrorHandling"
+            },
+            {
+              "ea": "0x53d0b7",
+              "size": 1,
+              "bytes": "5a",
+              "text": "pop     edx"
+            },
+            {
+              "ea": "0x53d0b8",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x53d0b9",
+              "size": 4,
+              "bytes": "8d542408",
+              "text": "lea     edx, [esp+4+arg_0]"
+            },
+            {
+              "ea": "0x53d0bd",
+              "size": 5,
+              "bytes": "e873630000",
+              "text": "call    __fload_withFB"
+            },
+            {
+              "ea": "0x53d0c2",
+              "size": 5,
+              "bytes": "f644241608",
+              "text": "test    byte ptr [esp+4+arg_C+2], 8"
+            },
+            {
+              "ea": "0x53d0c7",
+              "size": 2,
+              "bytes": "7503",
+              "text": "jnz     short loc_53D0CC"
+            },
+            {
+              "ea": "0x53d0c9",
+              "size": 1,
+              "bytes": "41",
+              "text": "inc     ecx"
+            },
+            {
+              "ea": "0x53d0ca",
+              "size": 2,
+              "bytes": "eb33",
+              "text": "jmp     short loc_53D0FF"
+            },
+            {
+              "ea": "0x53d0cc",
+              "size": 2,
+              "bytes": "dec1",
+              "text": "faddp   st(1), st"
+            }
+          ]
+        },
+        {
+          "from": "0x53d0fa",
+          "type": 17,
+          "iscode": true,
+          "parent_entry": "0x53d022",
+          "parent_end_exclusive": "0x53d1f5",
+          "window_start": "0x53d0e9",
+          "window_end_exclusive": "0x53d115",
+          "rows": [
+            {
+              "ea": "0x53d0e9",
+              "size": 2,
+              "bytes": "33c9",
+              "text": "xor     ecx, ecx"
+            },
+            {
+              "ea": "0x53d0eb",
+              "size": 5,
+              "bytes": "25ffff0f00",
+              "text": "and     eax, 0FFFFFh"
+            },
+            {
+              "ea": "0x53d0f0",
+              "size": 4,
+              "bytes": "0b442410",
+              "text": "or      eax, [esp+4+arg_8]"
+            },
+            {
+              "ea": "0x53d0f4",
+              "size": 2,
+              "bytes": "75c3",
+              "text": "jnz     short loc_53D0B9"
+            },
+            {
+              "ea": "0x53d0f6",
+              "size": 4,
+              "bytes": "8d542408",
+              "text": "lea     edx, [esp+4+arg_0]"
+            },
+            {
+              "ea": "0x53d0fa",
+              "size": 5,
+              "bytes": "e836630000",
+              "text": "call    __fload_withFB"
+            },
+            {
+              "ea": "0x53d0ff",
+              "size": 4,
+              "bytes": "8b44240c",
+              "text": "mov     eax, [esp+4+arg_4]"
+            },
+            {
+              "ea": "0x53d103",
+              "size": 2,
+              "bytes": "8bd0",
+              "text": "mov     edx, eax"
+            },
+            {
+              "ea": "0x53d105",
+              "size": 5,
+              "bytes": "250000f07f",
+              "text": "and     eax, 7FF00000h"
+            },
+            {
+              "ea": "0x53d10a",
+              "size": 6,
+              "bytes": "81e2ffff0f00",
+              "text": "and     edx, 0FFFFFh"
+            },
+            {
+              "ea": "0x53d110",
+              "size": 5,
+              "bytes": "3d0000f07f",
+              "text": "cmp     eax, 7FF00000h"
+            }
+          ]
+        }
+      ],
+      "pow_input_control_baseline": {
+        "spec_id": "BPM01",
+        "evidence_refs": [
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance",
+          "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+          "doc/cg2d_map_effect_arithmetic_evidence.json"
+        ],
+        "full_original_helper_captured": true,
+        "normal_native_stage_already_implemented": true,
+        "normal_native_stage_source_bound": true,
+        "full_original_general_helper_source_implemented": false,
+        "source_body_changed": false,
+        "original_default_027f_bypasses_control_loader": null,
+        "source_original_general_helper_body_added": false,
+        "full_general_pow_closed": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -54,3 +54,9 @@
 [BPJ01](cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state)将原__twoToTOS/5433F0完整11条21B与唯一53D071调用独立纳管，映射到既有Cg2dMapEffectDivisor十条x87内联。归属adapted/CRT，非host或范围排除；只现有1.25底数/S32指数的专用正常域，源码与PC53/连续结果消费保持。
 
 CRT149→150枚举仍未闭，单一局部S不代新增实现、一般_pow/负底数及其余浮点私有链、全环境/机器ABI和场景RNG运行。D02/MFA01其余边界继续有效。
+
+## BPM01 专用幂输入及控制字身份补齐（2026-10-07）
+
+[BPM01](cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state)补543405/543435完整27条90B、五call/两父邻窗及既有两个1.25活动点的取参依据，两项CRT/adapted。原默认027F绕过543405，当前固定PC53只正常阶段；543435只53D04C活动域，特殊F80及其余三点保原证据，不称泛用源码已实现。ASM/头/场景源保持。
+
+CRT152→154枚举仍open，E728单一局部S只证明身份/来源。一般_pow/负底数和其余浮点链、全部环境/间接alias/owner寿命、实际机器ABI与场景RNG及运行仍未闭；D02/MFA01/BPJ01的边界及完整验收标准继续有效。

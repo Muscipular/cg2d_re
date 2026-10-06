@@ -1022,3 +1022,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [验收合同](cg2d_hover_input_publication_spec.md#hover-input-publication-acceptance)/[17条发布窗口和完整19条查询分列](cg2d_hover_input_publication_evidence.json)。三域各I/S六条只记两源判定阶段实修/关联既有查询基线，RENDER只枚举悬停根，查询仅关联消费；不把六证据算六功能或完整悬停/输入通过。旧823无处置状态保，新query equivalent有完整原基线。
 
 语义1426/1421、关联1539/41.82%、分类550、INPUT19/TEXT25/RENDER53枚举open、登记E727；队列174/待归属45、R7已审67/3061及其他域/完整门禁保持。T01/T02/U04/R01/R04/V04只引用/进展仍open，10/60源码任务/0完整验收/0叶/global_accepted=false不变；完整消息/799悬停/主循环与焦点、间接alias-owner/寿命、SDK/ABI/链接及实际输入画面按原标准继续。
+
+## BPM01 原帮助入口与当前正常阶段的局部S（2026-10-07）
+
+[限定合同](cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance)/[两原体及缺口前态](cg2d_map_effect_arithmetic_evidence.json)。完整27条90B、五普通点/两父邻窗与两个应用参数关联窗口分列；仅两个当前正常阶段的来源映射，原默认027F条件绕过和泛用PC/特殊F80未完整实施边界显式记录。源码保持，新增一CRT局部S，不登记新增实现或提升完整I。
+
+语义1428/1423、关联1541/41.88%、分类552、CRT154枚举open、E728；队列172/待归属43只移两个具名ID。暂停25/排除103/NOP1、R7已审67/3061、两open任务及10/60源码关闭/0完整验收/0叶/global_accepted=false保持；运行/SDK/ABI、完整场景RNG和所有owner寿命仍按原标准。

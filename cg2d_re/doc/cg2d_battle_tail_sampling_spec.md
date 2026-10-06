@@ -109,3 +109,9 @@
 [完整合同](cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state)/[七原根439条1445B](cg2d_battle_scene_words_death_sampling_evidence.json)纳管210..216。211四W8条件/四W16值、212一W8门控、214先flags/X后发布、216每轮索引/自身/目标位置顺序七源码阶段恢复；正常旧值一致，三其它体和现有同场景owner/原分字发布、回收及RNG/seed保持。
 
 210真实四项switch与同依赖X:0001305D-00013070共19B用途可追：三LEA对齐/四W32项16B，不称纯NOP、不新增F或范围排除。BATTLE146枚举open/E750仅两局部I/S，递归生产/生命周期/生成机器/运行及R8继续。
+
+## BPZ01 克隆/基础图还原与两个源帮助父（2026-10-07）
+
+[完整合同](cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state)/[三完整397条1508B](cg2d_battle_clone_restore_sampling_evidence.json)纳管218/219/220及RestoreBattleBaseImage的两个实际使用者。218与共同Restore恢复1060指针先于图号的取样，219末尾FDC低W8；三源阶段只读取序/边界恢复，正常旧值一致，220包装正确保。原同步终帧循环/槽空检查、每操作fresh和条件回收/alpha业务下限与状态保。
+
+三个原F，不造源帮助体原callee/F/owner；BATTLE149枚举open/E752仅两局部I/S，递归依赖/其它生产及寿命/生成机器/运行和R8未完成。

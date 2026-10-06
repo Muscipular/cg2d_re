@@ -178307,6 +178307,173 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x00413550",
+      "inventory_id": "F:00013550",
+      "original_role": "UpdateBattleAction218_413550",
+      "original_end_exclusive": "0x0041374B",
+      "instruction_count": 134,
+      "status": "BPZ01三完整克隆/还原正常源纳管，218/219及共同Restore三取样恢复；220包装保，不新造helper原F，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction218_413550"
+          ],
+          "relationship": "218：fresh current.position W32==-1时characterAction0否则6；1060为空才fresh current.position!= -1且PlayFrame1不等1就返回，否则Clone(action)借用T*写1060、返回指针callback清0，先fresh currentIndex/1060指针、后该index.position4读并写克隆image；随后每操作fresh1060写character0/alpha W8=0→PlayFrame0弃返立即返回。非空1060先RandomEffect(action,110471,0)弃返、Has3D0时主体flags8000和fresh副体flags10000置位；主体308=8→fresh副体308=8→fresh1060指针读alpha+7，未达255时主体alpha-7正常低于等0归0、随后fresh1060指针alpha低W8+7发布返回。达255时MarkDeath该缓存指针，fresh currentIndex先取后1060清空，同cached记录.position!= -1才fresh FDC W32先捕/13B0=1，flags10000000清则旧主体image保存13AC后读position4换图；-1分支13B0=0/同flag清则直接position4换图。共同character0/3080/alpha255/303255→PlayFrame0→Has3D0清主体8000→frameEvent0→439340。源与副体别名时按原重取/发布序，不加创建失败保护或提前推进。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-acceptance",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+        "doc/cg2d_battle_clone_restore_sampling_evidence.json"
+      ],
+      "boundary": "218：fresh current.position W32==-1时characterAction0否则6；1060为空才fresh current.position!= -1且PlayFrame1不等1就返回，否则Clone(action)借用T*写1060、返回指针callback清0，先fresh currentIndex/1060指针、后该index.position4读并写克隆image；随后每操作fresh1060写character0/alpha W8=0→PlayFrame0弃返立即返回。非空1060先RandomEffect(action,110471,0)弃返、Has3D0时主体flags8000和fresh副体flags10000置位；主体308=8→fresh副体308=8→fresh1060指针读alpha+7，未达255时主体alpha-7正常低于等0归0、随后fresh1060指针alpha低W8+7发布返回。达255时MarkDeath该缓存指针，fresh currentIndex先取后1060清空，同cached记录.position!= -1才fresh FDC W32先捕/13B0=1，flags10000000清则旧主体image保存13AC后读position4换图；-1分支13B0=0/同flag清则直接position4换图。共同character0/3080/alpha255/303255→PlayFrame0→Has3D0清主体8000→frameEvent0→439340。源与副体别名时按原重取/发布序，不加创建失败保护或提前推进。 三完整原根397条1508B/六页、31call/八入口/42普通内部jump/八ret、三唯一父404DB0九邻窗与219/220原内联帮助阶段。实际源只有218一指针取样、219一低W8条件及共同Restore一指针取样三阶段；220包装保，两真实帮助体使用者全部对应完整原根，helper不新造原call/F/owner。正常旧值一致，不称数值/并发或机器故障；1060/1058借用、每操作fresh/条件回收、同对象别名、同步终帧循环及原业务alpha下限/宽度/返回/状态保。只当前完整正常源接线静态，不外推递归父/全部子依赖和其它生产/owner寿命、SDK/生成机器ABI/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "verification_level": "三完整原根397条1508B/六页、31call/八入口/42普通内部jump/八ret、三唯一父404DB0九邻窗与219/220原内联帮助阶段。实际源只有218一指针取样、219一低W8条件及共同Restore一指针取样三阶段；220包装保，两真实帮助体使用者全部对应完整原根，helper不新造原call/F/owner。正常旧值一致，不称数值/并发或机器故障；1060/1058借用、每操作fresh/条件回收、同对象别名、同步终帧循环及原业务alpha下限/宽度/返回/状态保。只当前完整正常源接线静态，不外推递归父/全部子依赖和其它生产/owner寿命、SDK/生成机器ABI/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "battle_clone_restore_sampling": {
+        "spec_id": "BPZ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-acceptance",
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+          "doc/cg2d_battle_clone_restore_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 134,
+        "original_code_bytes": 507,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 9,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "shared_inline_helper_changed": false,
+        "shared_inline_helper_patch_count": 0,
+        "new_original_helper_identity_added": false,
+        "new_original_helper_call_added": false,
+        "normal_previous_pointer_values_wrong": false,
+        "normal_previous_flag_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00413750",
+      "inventory_id": "F:00013750",
+      "original_role": "UpdateBattleAction219_413750",
+      "original_end_exclusive": "0x00413979",
+      "instruction_count": 147,
+      "status": "BPZ01三完整克隆/还原正常源纳管，218/219及共同Restore三取样恢复；220包装保，不新造helper原F，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction219_413750",
+            "RestoreBattleBaseImage"
+          ],
+          "relationship": "219：源RestoreBattleBaseImage承接413750..413905原内联阶段；1060为空时Clone/action返回指针写槽/该指针callback清0，fresh1060指针先捕后基础13AC图号W32读/写该副体，随后fresh1060 character10/alpha0，再一次fresh1060与其image>999才PlayFrame1；不等1时原同步循环只fresh1060继续PlayFrame1直到等1，随后原确实fresh检查1060为空则返回。非空或同步完成则RandomEffect110471/Has3D和双3088，同218透明度每次-7/+7未到255返回false承接原早退；到255 MarkDeath缓存副体后先捕13AC图号再清1060、主体image还原/character10/3080/alpha255/303255；cached基础图号>999才PlayFrame1，不等1同步推进本体到终帧，不新查图号/不设循环限。之后13B0和frameEvent清0、Has3D0清主体8000，bool true只源内联阶段完成标识而非原callee/返回ABI。219后续实际FDC低W8/0C清时一次借1058非空MarkDeath/条件清槽→stateFE0 W32|2→phase48；有0C时CenteredEffect110169→声215(x)（原第三Y未消费，音频暂停）→fresh stateFE0 W32|2→439340。保原循环、失败/早返、业务下限、借用别名及状态顺序。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-acceptance",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+        "doc/cg2d_battle_clone_restore_sampling_evidence.json"
+      ],
+      "boundary": "219：源RestoreBattleBaseImage承接413750..413905原内联阶段；1060为空时Clone/action返回指针写槽/该指针callback清0，fresh1060指针先捕后基础13AC图号W32读/写该副体，随后fresh1060 character10/alpha0，再一次fresh1060与其image>999才PlayFrame1；不等1时原同步循环只fresh1060继续PlayFrame1直到等1，随后原确实fresh检查1060为空则返回。非空或同步完成则RandomEffect110471/Has3D和双3088，同218透明度每次-7/+7未到255返回false承接原早退；到255 MarkDeath缓存副体后先捕13AC图号再清1060、主体image还原/character10/3080/alpha255/303255；cached基础图号>999才PlayFrame1，不等1同步推进本体到终帧，不新查图号/不设循环限。之后13B0和frameEvent清0、Has3D0清主体8000，bool true只源内联阶段完成标识而非原callee/返回ABI。219后续实际FDC低W8/0C清时一次借1058非空MarkDeath/条件清槽→stateFE0 W32|2→phase48；有0C时CenteredEffect110169→声215(x)（原第三Y未消费，音频暂停）→fresh stateFE0 W32|2→439340。保原循环、失败/早返、业务下限、借用别名及状态顺序。 三完整原根397条1508B/六页、31call/八入口/42普通内部jump/八ret、三唯一父404DB0九邻窗与219/220原内联帮助阶段。实际源只有218一指针取样、219一低W8条件及共同Restore一指针取样三阶段；220包装保，两真实帮助体使用者全部对应完整原根，helper不新造原call/F/owner。正常旧值一致，不称数值/并发或机器故障；1060/1058借用、每操作fresh/条件回收、同对象别名、同步终帧循环及原业务alpha下限/宽度/返回/状态保。只当前完整正常源接线静态，不外推递归父/全部子依赖和其它生产/owner寿命、SDK/生成机器ABI/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "verification_level": "三完整原根397条1508B/六页、31call/八入口/42普通内部jump/八ret、三唯一父404DB0九邻窗与219/220原内联帮助阶段。实际源只有218一指针取样、219一低W8条件及共同Restore一指针取样三阶段；220包装保，两真实帮助体使用者全部对应完整原根，helper不新造原call/F/owner。正常旧值一致，不称数值/并发或机器故障；1060/1058借用、每操作fresh/条件回收、同对象别名、同步终帧循环及原业务alpha下限/宽度/返回/状态保。只当前完整正常源接线静态，不外推递归父/全部子依赖和其它生产/owner寿命、SDK/生成机器ABI/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "battle_clone_restore_sampling": {
+        "spec_id": "BPZ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-acceptance",
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+          "doc/cg2d_battle_clone_restore_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 147,
+        "original_code_bytes": 553,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 13,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "shared_inline_helper_changed": true,
+        "shared_inline_helper_patch_count": 1,
+        "new_original_helper_identity_added": false,
+        "new_original_helper_call_added": false,
+        "normal_previous_pointer_values_wrong": false,
+        "normal_previous_flag_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00413980",
+      "inventory_id": "F:00013980",
+      "original_role": "UpdateBattleAction220_413980",
+      "original_end_exclusive": "0x00413B40",
+      "instruction_count": 116,
+      "status": "BPZ01三完整克隆/还原正常源纳管，218/219及共同Restore三取样恢复；220包装保，不新造helper原F，完整生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction220_413980",
+            "RestoreBattleBaseImage"
+          ],
+          "relationship": "220：413980..413B35原完整还原内联与219帮助体对应，初次Clone后1060指针4139A7先取、13AC图号4139AD后读，字段写4139B6；后续fresh1060/character10/alpha0、image>999同步终帧、原槽空早退和每次-7/+7、回收先13AC后清1060/恢复主体字段与同步终帧、13B0/frameEvent清0/Has3D清8000全部同源帮助体。Restore源bool true后只phase214，false不推进；原无Centered/sound/439340尾。两实际源调用者均完整捕获并纳管，共同源helper不新造原函数F或跨模块owner。220包装本体正确不改。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-acceptance",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+        "doc/cg2d_battle_clone_restore_sampling_evidence.json"
+      ],
+      "boundary": "220：413980..413B35原完整还原内联与219帮助体对应，初次Clone后1060指针4139A7先取、13AC图号4139AD后读，字段写4139B6；后续fresh1060/character10/alpha0、image>999同步终帧、原槽空早退和每次-7/+7、回收先13AC后清1060/恢复主体字段与同步终帧、13B0/frameEvent清0/Has3D清8000全部同源帮助体。Restore源bool true后只phase214，false不推进；原无Centered/sound/439340尾。两实际源调用者均完整捕获并纳管，共同源helper不新造原函数F或跨模块owner。220包装本体正确不改。 三完整原根397条1508B/六页、31call/八入口/42普通内部jump/八ret、三唯一父404DB0九邻窗与219/220原内联帮助阶段。实际源只有218一指针取样、219一低W8条件及共同Restore一指针取样三阶段；220包装保，两真实帮助体使用者全部对应完整原根，helper不新造原call/F/owner。正常旧值一致，不称数值/并发或机器故障；1060/1058借用、每操作fresh/条件回收、同对象别名、同步终帧循环及原业务alpha下限/宽度/返回/状态保。只当前完整正常源接线静态，不外推递归父/全部子依赖和其它生产/owner寿命、SDK/生成机器ABI/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "verification_level": "三完整原根397条1508B/六页、31call/八入口/42普通内部jump/八ret、三唯一父404DB0九邻窗与219/220原内联帮助阶段。实际源只有218一指针取样、219一低W8条件及共同Restore一指针取样三阶段；220包装保，两真实帮助体使用者全部对应完整原根，helper不新造原call/F/owner。正常旧值一致，不称数值/并发或机器故障；1060/1058借用、每操作fresh/条件回收、同对象别名、同步终帧循环及原业务alpha下限/宽度/返回/状态保。只当前完整正常源接线静态，不外推递归父/全部子依赖和其它生产/owner寿命、SDK/生成机器ABI/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。",
+      "battle_clone_restore_sampling": {
+        "spec_id": "BPZ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-acceptance",
+          "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+          "doc/cg2d_battle_clone_restore_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 116,
+        "original_code_bytes": 448,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 9,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "shared_inline_helper_changed": true,
+        "shared_inline_helper_patch_count": 1,
+        "new_original_helper_identity_added": false,
+        "new_original_helper_call_added": false,
+        "normal_previous_pointer_values_wrong": false,
+        "normal_previous_flag_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

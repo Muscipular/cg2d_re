@@ -3076,3 +3076,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline)/[七根冻结前态](cg2d_battle_scene_words_death_sampling_evidence.json)。新增1462..1468对应F:00012F70/00013070/00013110/000131B0/000132B0/000133D0/00013400，七原已有定义正常语义/equivalent，冻结定位保持。四体七读取阶段恢复、三正确体保，不改场景owner、W32字段、其它发布/业务/回收/RNG。
 
 语义1469/有效1464、关联1582/3680（42.99%）、BATTLE146枚举open、分类594/E750；R7 260/3061/余2801仅新增同210原19B用途，差队列172/待归属43与全部完整门禁保。
+
+## BPZ01 三克隆/基础图还原完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline)/[三根冻结前态](cg2d_battle_clone_restore_sampling_evidence.json)。新增1469/F:00013550、1470/F:00013750、1471/F:00013980，三个原已有定义正常语义/equivalent，冻结定位保持；后两源绑定共同Restore，它只承接原内联阶段，不独立加F/call，所有两个实际使用者均完整纳管。
+
+218/219与共同源帮助体三片段恢复、220包装及其它源正确保持。语义1472/有效1467、关联1585/3680（43.07%）、BATTLE149枚举open、分类597/E752，R7 260/3061/余2801、差队列172/待归属43与全部完整门禁保。

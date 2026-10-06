@@ -31747,7 +31747,9 @@ void UpdateBattleAction218_413550(YobiAction* const action)
         payload->effect1060 = copy;
         copy->callback = nullptr;
         const std::int32_t index = payload->effectRunningC9C;
-        payload->effect1060->imageNo = payload->effects1C[index].position4;
+        YobiAction* const imageCopy = payload->effect1060;
+        const std::int32_t imageNo = payload->effects1C[index].position4;
+        imageCopy->imageNo = imageNo;
         payload->effect1060->characterAction = 0;
         SetYobiActionField30F(payload->effect1060, 0);
         static_cast<void>(PlayFrame_517DA0(payload->effect1060, 0));
@@ -31809,7 +31811,9 @@ bool RestoreBattleBaseImage(YobiAction* const action, BattleActorPayload* const 
         YobiAction* const copy = CloneBattleAction_41EAB0(action);
         payload->effect1060 = copy;
         copy->callback = nullptr;
-        payload->effect1060->imageNo = payload->baseImage13AC;
+        YobiAction* const imageCopy = payload->effect1060;
+        const std::int32_t baseImage = payload->baseImage13AC;
+        imageCopy->imageNo = baseImage;
         payload->effect1060->characterAction = 10;
         SetYobiActionField30F(payload->effect1060, 0);
         YobiAction* const currentCopy = payload->effect1060;
@@ -31867,7 +31871,9 @@ void UpdateBattleAction219_413750(YobiAction* const action)
     if (!RestoreBattleBaseImage(action, payload)) {
         return;
     }
-    if ((payload->flagsFDC & 0x0Cu) == 0) {
+    const std::uint8_t flags =
+        *reinterpret_cast<const std::uint8_t*>(&payload->flagsFDC);
+    if ((flags & 0x0Cu) == 0) {
         YobiAction* const effect = payload->attachedEffect1058;
         if (effect != nullptr) {
             static_cast<void>(MarkDeath(effect));

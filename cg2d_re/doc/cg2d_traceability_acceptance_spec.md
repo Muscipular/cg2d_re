@@ -1100,3 +1100,9 @@ R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open�
 [限定验收](cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-acceptance)/[完整439条1445B](cg2d_battle_scene_words_death_sampling_evidence.json)。九页、40call/16入口/37普通jump/一四项switch/17ret、七入向21邻窗及四体七读取阶段可追；正常旧值一致，八/十六位原消费、读取发布序和同场景owner不扩大为运行值错误。两局部I/S各十六独立实来源，完整递归/生产/owner与生成机器/运行未验。
 
 X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W32表/唯一引用证明19B用途mapped，只R7 259→260/余2801。语义1469/1464、关联1582/42.99%、BATTLE146枚举open、分类594/E750，差队列172/待归属43、五任务open及60源码closed10/完整验收0/叶0/global_accepted=false保。
+
+## BPZ01 三完整克隆/基础图还原局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-acceptance)/[完整397条1508B](cg2d_battle_clone_restore_sampling_evidence.json)。六页、31call/八入口/42普通jump/八ret、三父九邻窗和源Restore两个使用者对应完整原内联可追；两个先指针后图号/一个末尾低W8三阶段恢复，不称正常数值错误或原返回ABI通过。原同步循环、槽空检查/别名借用和条件回收/业务/状态保。两局部I/S各十实来源，递归依赖/生产/owner与生成机器/运行未验。
+
+语义1472/1467、关联1585/43.07%、BATTLE149枚举open、分类597/E752；R7 260/3061/余2801、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持。

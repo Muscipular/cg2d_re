@@ -2273,7 +2273,8 @@
         "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
-        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline"
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2426,7 +2427,9 @@
         "F:00013750",
         "F:00013980",
         "F:00013B40",
-        "F:00013E90"
+        "F:00013E90",
+        "F:00013FE0",
+        "F:000150F0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2525,7 +2528,8 @@
         "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
-        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision"
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2613,7 +2617,8 @@
         "BPX01九完整757条2516B/16页、48call/108jump/14ret与九入向/27邻窗/32原父case、共体23type与六常数纳管；209六W8/两读取序/encoded先目标及原交替载荷九阶段恢复，正常旧值一致；139原成员枚举仍open。八其它正确体和188无效果仍204、别名/业务/返回/RNG及音频暂停保；递归父/其它生产/全部外依赖和owner寿命、生成机器ABI/真实x87/时钟RNG/画面运行未验，完整战斗和R8继续open",
         "BPY01七完整439条1445B/九页、40call/16入口/37jump/一四项switch/17ret与七入向21邻窗纳管，四体七W8-W16/读取序阶段恢复、三正确体保，146成员枚举open；210同依赖19B三LEA对齐及四W32表用途mapped只R7。其它递归父/全部子依赖/生产与alias-owner寿命、SDK/生成机器ABI/画面运行未验，完整战斗和R8继续open，音频暂停",
         "BPZ01三完整397条1508B/六页、31call/42jump/八ret与三入向九邻窗纳管；218先1060指针后新图号/219低W8/Restore先1060指针后基础图号三源阶段恢复，两帮助体使用者219/220原内联全部对应，不增helper F/原call，149原成员枚举open。正常旧值相同，原同步终帧循环/借用alias及业务/状态保；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open",
-        "BQA02两完整346条1169B/六页、34call/21入口/28jump/三ret与两父六邻窗/四F32常数纳管，221四实际低W8恢复，222正确源和原源HP归零/图标接收者/齐读、普通上限CopyPayload、W32缓存/未落位FP保，151原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open"
+        "BQA02两完整346条1169B/六页、34call/21入口/28jump/三ret与两父六邻窗/四F32常数纳管，221四实际低W8恢复，222正确源和原源HP归零/图标接收者/齐读、普通上限CopyPayload、W32缓存/未落位FP保，151原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+        "BQB01两完整289条1074B/五页、25call/14入口/十jump/四ret与两父六邻窗纳管，225九指针/字段/实参/抛物线取样阶段恢复，223正确体与四普通CopyPayload、真实重复清字段/坐标还原保。224既有BRC01完整adapted记录不重复计数，153原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2701,7 +2706,8 @@
         "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
-        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state"
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
       ]
     },
     {
@@ -32453,6 +32459,70 @@
       "observation": "221：固定payload，imageNo初始-1，fresh current.position先保存attackerPosition→439470推进。fresh currentIndex捕targetPosition和initialFlags W32后共享59E980目标T*/其payload一次保存，initialFlags bit4图110000；否则400时技术8/targetPosition阈12图110098或111048并源RandomEffect110014；其它skillLevel>=9图110014。target+10=共享attacker，fresh current.flags W32写target FE4→ApplyFlags(attackerPosition,action)。fresh index/flags W32先8000决定共同跳尾，4000恢复分支先10000000图22459，否则给target.readiness加amount，GreaterCrypt(target,maxHp)才普通CopyPayload上限（原encoded/mask/readCount交替，token/reserved不复制）；随后fresh flags W32→targetY→amount→targetX数显type5/style2/flags，再fresh current.flags低W8 bit2给target图22454，Attribute(action,target)。非4000且2000清时扣减：10000000用fresh共享当前目标图22459；否则target.readiness扣amount/<0 Construct0，原先齐读mask/encoded W32/readCount W8后按原序写action.readiness（确为源对象，不是target）→Destroy，现正确体保。fresh hitIndex.position3非0才同cached index.flags低W8 bit2生成target110008，imageNo非负才target图、共享attacker/target Rebirth；fresh flags W32→Y→amount→X数显type6/style2/flags，再fresh current.flags低W8 bit2给action图22454（不是target），Attribute(共享attacker,target)。扣减分支共同fresh current.flags低W8 bit20才源FDC W32|2/gate1/alive1。恢复或8000/2000跳尾不执行此激活。共同source439340→439470弃返，所有参数/返回与source/target别名、真实生产消费/业务上限和未决寿命范围保。 222：fixed payload，fresh current.position/共享59E980目标供Turn(action,target,0,10.0F)，调用后另fresh current.position/共享目标供有符号Distance<20。未近则共同Move→PlayFrame(action,0)返回；近时fresh skill恰266或2022才另fresh目标payload.FF0清0，再fresh current共享目标439340→source439470，捕opponent原+10指针后source.phase22→Turn(action,opponent,0,0.0F)。原angle F32载入+真实F32 180，中间先比较180后F32发布，>180减360，否则<=-180加360，中间不重读已落位角度；speed F32载入×真实F32 0.5后F32发布。随后Move→PlayFrame0返回。其它skill近时先MarkDeath(action)→声216(x)（原第三Y未消费、音频暂停）→Move→PlayFrame0返回。保两个目标重取、参数/返回、指针先phase后发布和未落位比较/正常S32业务，不改正确体。",
       "expected": "221：固定payload，imageNo初始-1，fresh current.position先保存attackerPosition→439470推进。fresh currentIndex捕targetPosition和initialFlags W32后共享59E980目标T*/其payload一次保存，initialFlags bit4图110000；否则400时技术8/targetPosition阈12图110098或111048并源RandomEffect110014；其它skillLevel>=9图110014。target+10=共享attacker，fresh current.flags W32写target FE4→ApplyFlags(attackerPosition,action)。fresh index/flags W32先8000决定共同跳尾，4000恢复分支先10000000图22459，否则给target.readiness加amount，GreaterCrypt(target,maxHp)才普通CopyPayload上限（原encoded/mask/readCount交替，token/reserved不复制）；随后fresh flags W32→targetY→amount→targetX数显type5/style2/flags，再fresh current.flags低W8 bit2给target图22454，Attribute(action,target)。非4000且2000清时扣减：10000000用fresh共享当前目标图22459；否则target.readiness扣amount/<0 Construct0，原先齐读mask/encoded W32/readCount W8后按原序写action.readiness（确为源对象，不是target）→Destroy，现正确体保。fresh hitIndex.position3非0才同cached index.flags低W8 bit2生成target110008，imageNo非负才target图、共享attacker/target Rebirth；fresh flags W32→Y→amount→X数显type6/style2/flags，再fresh current.flags低W8 bit2给action图22454（不是target），Attribute(共享attacker,target)。扣减分支共同fresh current.flags低W8 bit20才源FDC W32|2/gate1/alive1。恢复或8000/2000跳尾不执行此激活。共同source439340→439470弃返，所有参数/返回与source/target别名、真实生产消费/业务上限和未决寿命范围保。 222：fixed payload，fresh current.position/共享59E980目标供Turn(action,target,0,10.0F)，调用后另fresh current.position/共享目标供有符号Distance<20。未近则共同Move→PlayFrame(action,0)返回；近时fresh skill恰266或2022才另fresh目标payload.FF0清0，再fresh current共享目标439340→source439470，捕opponent原+10指针后source.phase22→Turn(action,opponent,0,0.0F)。原angle F32载入+真实F32 180，中间先比较180后F32发布，>180减360，否则<=-180加360，中间不重读已落位角度；speed F32载入×真实F32 0.5后F32发布。随后Move→PlayFrame0返回。其它skill近时先MarkDeath(action)→声216(x)（原第三Y未消费、音频暂停）→Move→PlayFrame0返回。保两个目标重取、参数/返回、指针先phase后发布和未落位比较/正常S32业务，不改正确体。",
       "actual": "两完整原根346条1169B/六页、34call/21入口/28普通内部jump/三ret、两唯一404DB0入向六邻窗与四F32原常数。只221四实际低W8消费，初次/随后image/damage flags W32与寄存器AL/AH消费、源对象HP零临时齐读/清源、图标的源/目标接收者和普通CopyPayload上限全部保持；222整个正确体与未落位浮点中间/实际F32存储、两个fresh目标/MarkDeath/声参数/状态及返回保持。正常旧掩码值相同，不称数值/并发或机器故障。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-PET-RIDER-SAMPLING-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQB01两完整289条1074B/五页、25call/十jump/四ret和两父六邻窗/225九源阶段；doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-pet-rider-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-acceptance",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction223_413FE0",
+        "src/YobiRuntime.cpp#UpdateBattleAction225_4150F0",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "只225九源阶段：逐项当前指针先源值、两deltaX先Y后offsetX实参、抛物线time/baseY先取后算；正常旧值一致，223正确体、四CopyPayload交替与重复清字段/坐标还原保持，224既有BRC01记录和源保",
+          "decision_ref": "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "223：先取共享当前玩家位置，再固定action.payload，GetBattlePetPosition(playerPosition)弃返回；调用后fresh currentIndex读取position S32一次。position>=0先发布共享5ABBFC，再439470→439340后返回；负值恰-2且共享旧snapshot>=0才4965D0→snapshot=-1；其它负值直接共同439470→439340。无新增影子状态/索引限制，两个原ret及回调次序保持，现有正确本体不改。 225创建：固定payload，初始rider13C8为空才source.imageNo存13AC，再fresh imageNo映射→NewBattleRider(action,image)，返回T*写13C8且直接phase1。各fresh骑乘槽field58=0/characterAction11/nameC4原字节含NUL复制/field1D0；field1D0和四坐标各先当前rider T*再源S32/F32值。四独立rider先读，readiness/maxHp/barValue/barMaximum按encoded W32→mask W32→readCount W8逐项读写，普通CopyPayload不齐读、不复制token/reserved。x/y/offset40/44各独立fresh、flags|14，source graphicIndex=-1/lastImage0→406260，fresh effect T*后frameX S32→effect.deltaX；再effect T*、rider T*、deltaX S32、targetY F32、offset40 F32加法→F32 targetX，Turn(rider,targetX,targetY,1,0)，fresh rider.value54=8→PlayFrame(rider,0)弃返→fresh rider声465(x)后返回，音频暂停，原第三Y未消费。 225运行：初始已捕rider.characterAction11，fresh effect/rider先，deltaX→targetY→offset40加法F32参数，Distance(rider,targetX,targetY)>=5走fresh rider Move；否则先effect指针/deltaX+offset40算式，后rider指针/F32offset40发布，再fresh effect/rider→offset44复制。逐阶段重取rider，将offset40/44分别按原__ftol正常S32边界转换、各共享屏幕offset W32读后加并发布deltaX/Y，再fresh rider各复制deltaX/Y到x/y。另fresh rider，先field58 S32、baseY S32，正常S32 displacement=(time-15)^2-225后baseY+displacement发布Y；另fresh rider取previous并++发布，previous>15才读source.frameY且<=displacement进入退场。原两遍phase0/field580与flags&~14顺序保，MarkDeath(fresh rider)后先借effect，再清rider槽，复制source.offset40，再fresh effect、source.offset40先捕、effect.offset44发布、S32投影x/y分别发布，baseImage13AC恢复image→MarkDeath(fresh effect)→effect槽null→声462(x)→PlayFrame(action,0)→439470→439340。最后fresh rider非空才PlayFrame0，无防空/钳制/回绕或其它异常专项，正确坐标还原/双重清字段和其它旧源保持。",
+      "expected": "223：先取共享当前玩家位置，再固定action.payload，GetBattlePetPosition(playerPosition)弃返回；调用后fresh currentIndex读取position S32一次。position>=0先发布共享5ABBFC，再439470→439340后返回；负值恰-2且共享旧snapshot>=0才4965D0→snapshot=-1；其它负值直接共同439470→439340。无新增影子状态/索引限制，两个原ret及回调次序保持，现有正确本体不改。 225创建：固定payload，初始rider13C8为空才source.imageNo存13AC，再fresh imageNo映射→NewBattleRider(action,image)，返回T*写13C8且直接phase1。各fresh骑乘槽field58=0/characterAction11/nameC4原字节含NUL复制/field1D0；field1D0和四坐标各先当前rider T*再源S32/F32值。四独立rider先读，readiness/maxHp/barValue/barMaximum按encoded W32→mask W32→readCount W8逐项读写，普通CopyPayload不齐读、不复制token/reserved。x/y/offset40/44各独立fresh、flags|14，source graphicIndex=-1/lastImage0→406260，fresh effect T*后frameX S32→effect.deltaX；再effect T*、rider T*、deltaX S32、targetY F32、offset40 F32加法→F32 targetX，Turn(rider,targetX,targetY,1,0)，fresh rider.value54=8→PlayFrame(rider,0)弃返→fresh rider声465(x)后返回，音频暂停，原第三Y未消费。 225运行：初始已捕rider.characterAction11，fresh effect/rider先，deltaX→targetY→offset40加法F32参数，Distance(rider,targetX,targetY)>=5走fresh rider Move；否则先effect指针/deltaX+offset40算式，后rider指针/F32offset40发布，再fresh effect/rider→offset44复制。逐阶段重取rider，将offset40/44分别按原__ftol正常S32边界转换、各共享屏幕offset W32读后加并发布deltaX/Y，再fresh rider各复制deltaX/Y到x/y。另fresh rider，先field58 S32、baseY S32，正常S32 displacement=(time-15)^2-225后baseY+displacement发布Y；另fresh rider取previous并++发布，previous>15才读source.frameY且<=displacement进入退场。原两遍phase0/field580与flags&~14顺序保，MarkDeath(fresh rider)后先借effect，再清rider槽，复制source.offset40，再fresh effect、source.offset40先捕、effect.offset44发布、S32投影x/y分别发布，baseImage13AC恢复image→MarkDeath(fresh effect)→effect槽null→声462(x)→PlayFrame(action,0)→439470→439340。最后fresh rider非空才PlayFrame0，无防空/钳制/回绕或其它异常专项，正确坐标还原/双重清字段和其它旧源保持。",
+      "actual": "两完整原根289条1074B/五页、25call/14入口/十普通内部jump/四ret，两唯一404DB0入向六邻窗。只225九源阶段恢复指针先源值、两实参deltaX先Y后offsetX、抛物线time和baseY先取后算；正常旧值一致，不称并发或机器故障。223正确完整体不改；四普通CopyPayload交替encoded/mask/readCount、真实S32/F32/W32/W8边界、每阶段fresh槽/已有借指针、贴近先算后rider、两遍清字段/坐标还原、创建/回收/调用/返回保持。224既有BRC01 adapted完整记录及正确体保，不重复纳管计数。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-PET-RIDER-SAMPLING-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQB01两完整289条1074B/五页、25call/十jump/四ret和两父六邻窗/225九源阶段；doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-pet-rider-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-acceptance",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction223_413FE0",
+        "src/YobiRuntime.cpp#UpdateBattleAction225_4150F0",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "只225九源阶段：逐项当前指针先源值、两deltaX先Y后offsetX实参、抛物线time/baseY先取后算；正常旧值一致，223正确体、四CopyPayload交替与重复清字段/坐标还原保持，224既有BRC01记录和源保",
+          "decision_ref": "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "223：先取共享当前玩家位置，再固定action.payload，GetBattlePetPosition(playerPosition)弃返回；调用后fresh currentIndex读取position S32一次。position>=0先发布共享5ABBFC，再439470→439340后返回；负值恰-2且共享旧snapshot>=0才4965D0→snapshot=-1；其它负值直接共同439470→439340。无新增影子状态/索引限制，两个原ret及回调次序保持，现有正确本体不改。 225创建：固定payload，初始rider13C8为空才source.imageNo存13AC，再fresh imageNo映射→NewBattleRider(action,image)，返回T*写13C8且直接phase1。各fresh骑乘槽field58=0/characterAction11/nameC4原字节含NUL复制/field1D0；field1D0和四坐标各先当前rider T*再源S32/F32值。四独立rider先读，readiness/maxHp/barValue/barMaximum按encoded W32→mask W32→readCount W8逐项读写，普通CopyPayload不齐读、不复制token/reserved。x/y/offset40/44各独立fresh、flags|14，source graphicIndex=-1/lastImage0→406260，fresh effect T*后frameX S32→effect.deltaX；再effect T*、rider T*、deltaX S32、targetY F32、offset40 F32加法→F32 targetX，Turn(rider,targetX,targetY,1,0)，fresh rider.value54=8→PlayFrame(rider,0)弃返→fresh rider声465(x)后返回，音频暂停，原第三Y未消费。 225运行：初始已捕rider.characterAction11，fresh effect/rider先，deltaX→targetY→offset40加法F32参数，Distance(rider,targetX,targetY)>=5走fresh rider Move；否则先effect指针/deltaX+offset40算式，后rider指针/F32offset40发布，再fresh effect/rider→offset44复制。逐阶段重取rider，将offset40/44分别按原__ftol正常S32边界转换、各共享屏幕offset W32读后加并发布deltaX/Y，再fresh rider各复制deltaX/Y到x/y。另fresh rider，先field58 S32、baseY S32，正常S32 displacement=(time-15)^2-225后baseY+displacement发布Y；另fresh rider取previous并++发布，previous>15才读source.frameY且<=displacement进入退场。原两遍phase0/field580与flags&~14顺序保，MarkDeath(fresh rider)后先借effect，再清rider槽，复制source.offset40，再fresh effect、source.offset40先捕、effect.offset44发布、S32投影x/y分别发布，baseImage13AC恢复image→MarkDeath(fresh effect)→effect槽null→声462(x)→PlayFrame(action,0)→439470→439340。最后fresh rider非空才PlayFrame0，无防空/钳制/回绕或其它异常专项，正确坐标还原/双重清字段和其它旧源保持。",
+      "expected": "223：先取共享当前玩家位置，再固定action.payload，GetBattlePetPosition(playerPosition)弃返回；调用后fresh currentIndex读取position S32一次。position>=0先发布共享5ABBFC，再439470→439340后返回；负值恰-2且共享旧snapshot>=0才4965D0→snapshot=-1；其它负值直接共同439470→439340。无新增影子状态/索引限制，两个原ret及回调次序保持，现有正确本体不改。 225创建：固定payload，初始rider13C8为空才source.imageNo存13AC，再fresh imageNo映射→NewBattleRider(action,image)，返回T*写13C8且直接phase1。各fresh骑乘槽field58=0/characterAction11/nameC4原字节含NUL复制/field1D0；field1D0和四坐标各先当前rider T*再源S32/F32值。四独立rider先读，readiness/maxHp/barValue/barMaximum按encoded W32→mask W32→readCount W8逐项读写，普通CopyPayload不齐读、不复制token/reserved。x/y/offset40/44各独立fresh、flags|14，source graphicIndex=-1/lastImage0→406260，fresh effect T*后frameX S32→effect.deltaX；再effect T*、rider T*、deltaX S32、targetY F32、offset40 F32加法→F32 targetX，Turn(rider,targetX,targetY,1,0)，fresh rider.value54=8→PlayFrame(rider,0)弃返→fresh rider声465(x)后返回，音频暂停，原第三Y未消费。 225运行：初始已捕rider.characterAction11，fresh effect/rider先，deltaX→targetY→offset40加法F32参数，Distance(rider,targetX,targetY)>=5走fresh rider Move；否则先effect指针/deltaX+offset40算式，后rider指针/F32offset40发布，再fresh effect/rider→offset44复制。逐阶段重取rider，将offset40/44分别按原__ftol正常S32边界转换、各共享屏幕offset W32读后加并发布deltaX/Y，再fresh rider各复制deltaX/Y到x/y。另fresh rider，先field58 S32、baseY S32，正常S32 displacement=(time-15)^2-225后baseY+displacement发布Y；另fresh rider取previous并++发布，previous>15才读source.frameY且<=displacement进入退场。原两遍phase0/field580与flags&~14顺序保，MarkDeath(fresh rider)后先借effect，再清rider槽，复制source.offset40，再fresh effect、source.offset40先捕、effect.offset44发布、S32投影x/y分别发布，baseImage13AC恢复image→MarkDeath(fresh effect)→effect槽null→声462(x)→PlayFrame(action,0)→439470→439340。最后fresh rider非空才PlayFrame0，无防空/钳制/回绕或其它异常专项，正确坐标还原/双重清字段和其它旧源保持。",
+      "actual": "两完整原根289条1074B/五页、25call/14入口/十普通内部jump/四ret，两唯一404DB0入向六邻窗。只225九源阶段恢复指针先源值、两实参deltaX先Y后offsetX、抛物线time和baseY先取后算；正常旧值一致，不称并发或机器故障。223正确完整体不改；四普通CopyPayload交替encoded/mask/readCount、真实S32/F32/W32/W8边界、每阶段fresh槽/已有借指针、贴近先算后rider、两遍清字段/坐标还原、创建/回收/调用/返回保持。224既有BRC01 adapted完整记录及正确体保，不重复纳管计数。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
     }
   ],
   "task_acceptance": [
@@ -33086,7 +33156,8 @@
         "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
-        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state"
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
       ]
     },
     {
@@ -33336,7 +33407,8 @@
         "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
-        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state"
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
       ]
     },
     {
@@ -33480,7 +33552,8 @@
         "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
-        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state"
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
       ]
     },
     {
@@ -33956,7 +34029,8 @@
         "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
-        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state"
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
       ]
     },
     {
@@ -40460,6 +40534,32 @@
         "doc/cg2d_battle_effect_pair_distance_sampling_evidence.json"
       ],
       "boundary": "222：fixed payload，fresh current.position/共享59E980目标供Turn(action,target,0,10.0F)，调用后另fresh current.position/共享目标供有符号Distance<20。未近则共同Move→PlayFrame(action,0)返回；近时fresh skill恰266或2022才另fresh目标payload.FF0清0，再fresh current共享目标439340→source439470，捕opponent原+10指针后source.phase22→Turn(action,opponent,0,0.0F)。原angle F32载入+真实F32 180，中间先比较180后F32发布，>180减360，否则<=-180加360，中间不重读已落位角度；speed F32载入×真实F32 0.5后F32发布。随后Move→PlayFrame0返回。其它skill近时先MarkDeath(action)→声216(x)（原第三Y未消费、音频暂停）→Move→PlayFrame0返回。保两个目标重取、参数/返回、指针先phase后发布和未落位比较/正常S32业务，不改正确体。 两完整原根346条1169B/六页、34call/21入口/28普通内部jump/三ret、两唯一404DB0入向六邻窗与四F32原常数。只221四实际低W8消费，初次/随后image/damage flags W32与寄存器AL/AH消费、源对象HP零临时齐读/清源、图标的源/目标接收者和普通CopyPayload上限全部保持；222整个正确体与未落位浮点中间/实际F32存储、两个fresh目标/MarkDeath/声参数/状态及返回保持。正常旧掩码值相同，不称数值/并发或机器故障。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00013FE0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-acceptance",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_evidence.json"
+      ],
+      "boundary": "223：先取共享当前玩家位置，再固定action.payload，GetBattlePetPosition(playerPosition)弃返回；调用后fresh currentIndex读取position S32一次。position>=0先发布共享5ABBFC，再439470→439340后返回；负值恰-2且共享旧snapshot>=0才4965D0→snapshot=-1；其它负值直接共同439470→439340。无新增影子状态/索引限制，两个原ret及回调次序保持，现有正确本体不改。 两完整原根289条1074B/五页、25call/14入口/十普通内部jump/四ret，两唯一404DB0入向六邻窗。只225九源阶段恢复指针先源值、两实参deltaX先Y后offsetX、抛物线time和baseY先取后算；正常旧值一致，不称并发或机器故障。223正确完整体不改；四普通CopyPayload交替encoded/mask/readCount、真实S32/F32/W32/W8边界、每阶段fresh槽/已有借指针、贴近先算后rider、两遍清字段/坐标还原、创建/回收/调用/返回保持。224既有BRC01 adapted完整记录及正确体保，不重复纳管计数。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:000150F0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-acceptance",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_evidence.json"
+      ],
+      "boundary": "225创建：固定payload，初始rider13C8为空才source.imageNo存13AC，再fresh imageNo映射→NewBattleRider(action,image)，返回T*写13C8且直接phase1。各fresh骑乘槽field58=0/characterAction11/nameC4原字节含NUL复制/field1D0；field1D0和四坐标各先当前rider T*再源S32/F32值。四独立rider先读，readiness/maxHp/barValue/barMaximum按encoded W32→mask W32→readCount W8逐项读写，普通CopyPayload不齐读、不复制token/reserved。x/y/offset40/44各独立fresh、flags|14，source graphicIndex=-1/lastImage0→406260，fresh effect T*后frameX S32→effect.deltaX；再effect T*、rider T*、deltaX S32、targetY F32、offset40 F32加法→F32 targetX，Turn(rider,targetX,targetY,1,0)，fresh rider.value54=8→PlayFrame(rider,0)弃返→fresh rider声465(x)后返回，音频暂停，原第三Y未消费。 225运行：初始已捕rider.characterAction11，fresh effect/rider先，deltaX→targetY→offset40加法F32参数，Distance(rider,targetX,targetY)>=5走fresh rider Move；否则先effect指针/deltaX+offset40算式，后rider指针/F32offset40发布，再fresh effect/rider→offset44复制。逐阶段重取rider，将offset40/44分别按原__ftol正常S32边界转换、各共享屏幕offset W32读后加并发布deltaX/Y，再fresh rider各复制deltaX/Y到x/y。另fresh rider，先field58 S32、baseY S32，正常S32 displacement=(time-15)^2-225后baseY+displacement发布Y；另fresh rider取previous并++发布，previous>15才读source.frameY且<=displacement进入退场。原两遍phase0/field580与flags&~14顺序保，MarkDeath(fresh rider)后先借effect，再清rider槽，复制source.offset40，再fresh effect、source.offset40先捕、effect.offset44发布、S32投影x/y分别发布，baseImage13AC恢复image→MarkDeath(fresh effect)→effect槽null→声462(x)→PlayFrame(action,0)→439470→439340。最后fresh rider非空才PlayFrame0，无防空/钳制/回绕或其它异常专项，正确坐标还原/双重清字段和其它旧源保持。 两完整原根289条1074B/五页、25call/14入口/十普通内部jump/四ret，两唯一404DB0入向六邻窗。只225九源阶段恢复指针先源值、两实参deltaX先Y后offsetX、抛物线time和baseY先取后算；正常旧值一致，不称并发或机器故障。223正确完整体不改；四普通CopyPayload交替encoded/mask/readCount、真实S32/F32/W32/W8边界、每阶段fresh槽/已有借指针、贴近先算后rider、两遍清字段/坐标还原、创建/回收/调用/返回保持。224既有BRC01 adapted完整记录及正确体保，不重复纳管计数。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
     }
   ],
   "auxiliary_dispositions": [

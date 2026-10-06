@@ -1112,3 +1112,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-acceptance)/[完整346条1169B](cg2d_battle_effect_pair_distance_sampling_evidence.json)。六页、34call/21入口/28普通jump/三ret、两父六邻窗/四常数与四低W8可追，原源HP归零三齐读/原指针寄存器分支及两图标接收者明确。只四读取边界片段，正常旧值一致；两局部I/S各十实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
 
 语义1474/1469、关联1587/43.12%、BATTLE151枚举open、分类599/E754；R7 260/3061/余2801、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持。
+
+## BQB01 两完整宠物快照/骑乘状态局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-acceptance)/[完整289条1074B](cg2d_battle_pet_rider_sampling_evidence.json)。五页、25call/14入口/十jump/四ret、两父六邻窗和225九源码阶段可追。正常旧值一致；223正确体、四CopyPayload交替、每阶段fresh槽/已有借指针、真实重复清字段/原坐标还原保持，224既有基线不重复计数。两局部I/S各十实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
+
+语义1476/1471、关联1589/43.18%、BATTLE153枚举open、分类601/E756；R7 260/3061/余2801、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持。

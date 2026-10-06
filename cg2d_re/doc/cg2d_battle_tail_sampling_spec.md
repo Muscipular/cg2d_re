@@ -121,3 +121,9 @@
 [完整合同](cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state)/[两完整346条1169B](cg2d_battle_effect_pair_distance_sampling_evidence.json)纳管221/222；只221四实际低W8消费恢复，其余W32 image/damage缓存及原零临时三齐读/写源对象HP保持。恢复图22454接target，扣减图22454接source，原不按直觉更换接收者。
 
 222正确体和未落位角度比较/四原F32常数、两个fresh目标与普通业务/返回保持；BATTLE151枚举open/E754两局部I/S，递归依赖/生产和寿命/生成机器/运行及R8未完成。
+
+## BQB01 宠物快照与骑乘读取合同（2026-10-07）
+
+[完整合同](cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state)/[两完整289条1074B](cg2d_battle_pet_rider_sampling_evidence.json)纳管223/225；225九阶段恢复各当前对象先源字段、两实参deltaX先Y后offsetX、抛物线time/baseY先取后算。正常旧值一致，223正确体与四普通CopyPayload交替、真实重复清字段和坐标/image还原保持。
+
+224已有BRC01完整adapted记录和正确体保，不重复纳管。BATTLE153枚举open/E756两局部I/S，完整递归生产/owner寿命/生成机器/运行及R8未完成。

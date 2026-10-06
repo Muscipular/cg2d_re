@@ -3088,3 +3088,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline)/[两根冻结前态](cg2d_battle_effect_pair_distance_sampling_evidence.json)。新增1472/F:00013B40、1473/F:00013E90，两原已有定义正常语义/equivalent，冻结定位保持。只221四低W8读取恢复，原源HP归零与两个图标接收者、普通CopyPayload上限和222正确体保持。
 
 语义1474/有效1469、关联1587/3680（43.12%）、BATTLE151枚举open、分类599/E754，R7 260/3061/余2801、差队列172/待归属43与全部完整门禁不变。
+
+## BQB01 两宠物快照/骑乘完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline)/[两根冻结前态](cg2d_battle_pet_rider_sampling_evidence.json)。新增1474/F:00013FE0、1475/F:000150F0，两原已有定义正常语义/equivalent，冻结定位保持。只225九读取阶段，223正确体与四复制/真实重复清字段/坐标还原保；224既有BRC01完整adapted记录全文不改。
+
+语义1476/有效1471、关联1589/3680（43.18%）、BATTLE153枚举open、分类601/E756，R7 260/3061/余2801、差队列172/待归属43和全部完整门禁不变。

@@ -181044,6 +181044,438 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x0047A4C0",
+      "inventory_id": "F:0007A4C0",
+      "original_role": "Sub_47A4C0",
+      "original_end_exclusive": "0x0047A4F4",
+      "instruction_count": 16,
+      "status": "BQM01八完整技能列表与窗口动画正常源纳管，仅47C570三片段低W8/四低W16取样修复；其余七正确体/回调/失败和原RNG保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47A4C0"
+          ],
+          "relationship": "47A4C0列表创建：先D672AC W32=3，再发布双S32/void callback CC4230，随后一次借window10 T*，非空W32 state&~8000，始终调用475AA0(10,1,0,null)，真实返回含null交调用者，原16条52B/一call/一jump/一ret。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+      ],
+      "boundary": "47A4C0列表创建：先D672AC W32=3，再发布双S32/void callback CC4230，随后一次借window10 T*，非空W32 state&~8000，始终调用475AA0(10,1,0,null)，真实返回含null交调用者，原16条52B/一call/一jump/一ret。 八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "verification_level": "八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "battle_skill_window_click_sampling": {
+        "spec_id": "BQM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+          "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 16,
+        "original_code_bytes": 52,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 4,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "shared_pair_w16_and_coordinates_w32_kept": true,
+        "original_w32_flags_snapshots_kept": true,
+        "original_callbacks_and_completion_tpp_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0047A500",
+      "inventory_id": "F:0007A500",
+      "original_role": "Sub_47A500",
+      "original_end_exclusive": "0x0047A53E",
+      "instruction_count": 18,
+      "status": "BQM01八完整技能列表与窗口动画正常源纳管，仅47C570三片段低W8/四低W16取样修复；其余七正确体/回调/失败和原RNG保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47A500"
+          ],
+          "relationship": "47A500技术创建：callback先发布，window10 T*先取样，然后mode W32=4/skillIndex W32存D2EA60，借窗非空才W32 state&~8000；始终475AA0(10,1,0,null)返回，不重取窗口或伪造成功。原18条62B/一call/一jump/一ret。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+      ],
+      "boundary": "47A500技术创建：callback先发布，window10 T*先取样，然后mode W32=4/skillIndex W32存D2EA60，借窗非空才W32 state&~8000；始终475AA0(10,1,0,null)返回，不重取窗口或伪造成功。原18条62B/一call/一jump/一ret。 八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "verification_level": "八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "battle_skill_window_click_sampling": {
+        "spec_id": "BQM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+          "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 18,
+        "original_code_bytes": 62,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "shared_pair_w16_and_coordinates_w32_kept": true,
+        "original_w32_flags_snapshots_kept": true,
+        "original_callbacks_and_completion_tpp_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0047A5C0",
+      "inventory_id": "F:0007A5C0",
+      "original_role": "Sub_47A5C0",
+      "original_end_exclusive": "0x0047A5FB",
+      "instruction_count": 19,
+      "status": "BQM01八完整技能列表与窗口动画正常源纳管，仅47C570三片段低W8/四低W16取样修复；其余七正确体/回调/失败和原RNG保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47A5C0"
+          ],
+          "relationship": "47A5C0返回：一次借window10，空返回0；mode W32按原无符号>6默认0与七表项0..6分派，0/3/5/6只W32 state|8000并返回1，4调用479EA0(借窗,fresh D2EA60)弃返后0，1/2及其它0。原19条59B/一call/两普通jump/一物理switch/两ret；OR CH为W32缓存，不窄化写；37B相邻X内七W32表及九NOP有完整用途。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+      ],
+      "boundary": "47A5C0返回：一次借window10，空返回0；mode W32按原无符号>6默认0与七表项0..6分派，0/3/5/6只W32 state|8000并返回1，4调用479EA0(借窗,fresh D2EA60)弃返后0，1/2及其它0。原19条59B/一call/两普通jump/一物理switch/两ret；OR CH为W32缓存，不窄化写；37B相邻X内七W32表及九NOP有完整用途。 八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "verification_level": "八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "battle_skill_window_click_sampling": {
+        "spec_id": "BQM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+          "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 19,
+        "original_code_bytes": 59,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "shared_pair_w16_and_coordinates_w32_kept": true,
+        "original_w32_flags_snapshots_kept": true,
+        "original_callbacks_and_completion_tpp_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00479EA0",
+      "inventory_id": "F:00079EA0",
+      "original_role": "Sub_479EA0",
+      "original_end_exclusive": "0x00479FFF",
+      "instruction_count": 110,
+      "status": "BQM01八完整技能列表与窗口动画正常源纳管，仅47C570三片段低W8/四低W16取样修复；其余七正确体/回调/失败和原RNG保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_479EA0"
+          ],
+          "relationship": "479EA0列表重建：15配对索引按S16查输入skillIndex，首匹配或无匹配回row0；mode3、scroll=row-9后原负值和负skillIndex各清0。元素1..16先隐藏；1/3与10..16显示；27.data图3BA24。15对used W16非0且canRebirth W32为0或5才原序写S8配对行，剩余到15填-1。原479FA9只一次读取rows[end]的S8 gate，end固定15，不能改成逐行非负门禁或补保护；15行在cached gate非负时按各S8 row取used W16，count-10原负时0存maximum。元素17..26逐次fresh elements写47C570 callback，保T*及真正函数指针；原110条351B/无call/18jump/一ret。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+      ],
+      "boundary": "479EA0列表重建：15配对索引按S16查输入skillIndex，首匹配或无匹配回row0；mode3、scroll=row-9后原负值和负skillIndex各清0。元素1..16先隐藏；1/3与10..16显示；27.data图3BA24。15对used W16非0且canRebirth W32为0或5才原序写S8配对行，剩余到15填-1。原479FA9只一次读取rows[end]的S8 gate，end固定15，不能改成逐行非负门禁或补保护；15行在cached gate非负时按各S8 row取used W16，count-10原负时0存maximum。元素17..26逐次fresh elements写47C570 callback，保T*及真正函数指针；原110条351B/无call/18jump/一ret。 八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "verification_level": "八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "battle_skill_window_click_sampling": {
+        "spec_id": "BQM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+          "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 110,
+        "original_code_bytes": 351,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 3,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "shared_pair_w16_and_coordinates_w32_kept": true,
+        "original_w32_flags_snapshots_kept": true,
+        "original_callbacks_and_completion_tpp_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00475AA0",
+      "inventory_id": "F:00075AA0",
+      "original_role": "CreateWindowAnimation_475AA0",
+      "original_end_exclusive": "0x00475C03",
+      "instruction_count": 113,
+      "status": "BQM01八完整技能列表与窗口动画正常源纳管，仅47C570三片段低W8/四低W16取样修复；其余七正确体/回调/失败和原RNG保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "CreateWindowAnimation_475AA0"
+          ],
+          "relationship": "475AA0窗口动画包装：原型T*先取width/height W32；仅10/11/12/14/27原序消耗RAND(-15,15)后读/写x，RAND(-15,15)后读/写y；x负、y负各RAND(10,20)，x+width>640和y+height>480各按原620-width..640-width及460-height..480-height采样写。六物理RAND，条件独立且保顺序；随后一次借现window，非空只W32关闭请求，之后fresh重读window槽取其x再y；空则状态x再y。原八形参475950(x,y,width,height,id,flags,mode,T**)真实返回，完成槽仅已证非拥有T**拓宽。113条355B/七call两callee/十一jump/一ret，107代码入向只完整登记，未全面验证全部父。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+      ],
+      "boundary": "475AA0窗口动画包装：原型T*先取width/height W32；仅10/11/12/14/27原序消耗RAND(-15,15)后读/写x，RAND(-15,15)后读/写y；x负、y负各RAND(10,20)，x+width>640和y+height>480各按原620-width..640-width及460-height..480-height采样写。六物理RAND，条件独立且保顺序；随后一次借现window，非空只W32关闭请求，之后fresh重读window槽取其x再y；空则状态x再y。原八形参475950(x,y,width,height,id,flags,mode,T**)真实返回，完成槽仅已证非拥有T**拓宽。113条355B/七call两callee/十一jump/一ret，107代码入向只完整登记，未全面验证全部父。 八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "verification_level": "八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "battle_skill_window_click_sampling": {
+        "spec_id": "BQM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+          "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 113,
+        "original_code_bytes": 355,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 7,
+        "original_inbound_count": 107,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "shared_pair_w16_and_coordinates_w32_kept": true,
+        "original_w32_flags_snapshots_kept": true,
+        "original_callbacks_and_completion_tpp_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00475950",
+      "inventory_id": "F:00075950",
+      "original_role": "Sub_475950",
+      "original_end_exclusive": "0x00475A9E",
+      "instruction_count": 123,
+      "status": "BQM01八完整技能列表与窗口动画正常源纳管，仅47C570三片段低W8/四低W16取样修复；其余七正确体/回调/失败和原RNG保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_475950"
+          ],
+          "relationship": "475950动画动作创建：声56/x320后NewYobiAction(3,24H payload)，空时完成槽非空清null→OpenWindow(id)弃返→null。成功一次payload T*；callback4758D0、priority W8 DF、flags W32|6，value1C W32=0/flag20 W16=0后flags形参低W8 bit1才flag20=1。x/y/height/width按原低S16拓为S32，id低W16、counter W16=0、width/height值和非拥有T**槽保存。mode形参低W8：0中心为各尺寸/2向零+坐标、deltaX=0/deltaY=(centerY-lowY)/10、halfWidth=centerX-lowX；1两中心/两delta依原写序；其它不补写中心/delta。123条334B/三call三callee/五jump/三ret；音效原未消费第三Y不造shim，音频继续暂停。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+      ],
+      "boundary": "475950动画动作创建：声56/x320后NewYobiAction(3,24H payload)，空时完成槽非空清null→OpenWindow(id)弃返→null。成功一次payload T*；callback4758D0、priority W8 DF、flags W32|6，value1C W32=0/flag20 W16=0后flags形参低W8 bit1才flag20=1。x/y/height/width按原低S16拓为S32，id低W16、counter W16=0、width/height值和非拥有T**槽保存。mode形参低W8：0中心为各尺寸/2向零+坐标、deltaX=0/deltaY=(centerY-lowY)/10、halfWidth=centerX-lowX；1两中心/两delta依原写序；其它不补写中心/delta。123条334B/三call三callee/五jump/三ret；音效原未消费第三Y不造shim，音频继续暂停。 八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "verification_level": "八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "battle_skill_window_click_sampling": {
+        "spec_id": "BQM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+          "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 123,
+        "original_code_bytes": 334,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 3,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "shared_pair_w16_and_coordinates_w32_kept": true,
+        "original_w32_flags_snapshots_kept": true,
+        "original_callbacks_and_completion_tpp_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x004758D0",
+      "inventory_id": "F:000758D0",
+      "original_role": "Sub_4758D0",
+      "original_end_exclusive": "0x0047594E",
+      "instruction_count": 49,
+      "status": "BQM01八完整技能列表与窗口动画正常源纳管，仅47C570三片段低W8/四低W16取样修复；其余七正确体/回调/失败和原RNG保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4758D0"
+          ],
+          "relationship": "4758D0动画更新：一次payload T*，顺序halfHeight/centerY/halfWidth/centerX W32快照生成矩形DrawGraphicHover。绘制后fresh action.deltaX→payload.halfWidth→halfHeight，先写新halfWidth，fresh deltaY，原counter低S16>=10比较先于halfHeight写；完成则OpenWindow(id低S16)弃返→MarkDeath(action)弃返→fresh action非拥有完成T**槽，非空清null，最终counter W16++。不把MarkDeath变成立即释放、不先取完成槽或用增后counter决定完成；49条126B/三call三callee/两jump/一ret，只有一个callback地址数据入向。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+      ],
+      "boundary": "4758D0动画更新：一次payload T*，顺序halfHeight/centerY/halfWidth/centerX W32快照生成矩形DrawGraphicHover。绘制后fresh action.deltaX→payload.halfWidth→halfHeight，先写新halfWidth，fresh deltaY，原counter低S16>=10比较先于halfHeight写；完成则OpenWindow(id低S16)弃返→MarkDeath(action)弃返→fresh action非拥有完成T**槽，非空清null，最终counter W16++。不把MarkDeath变成立即释放、不先取完成槽或用增后counter决定完成；49条126B/三call三callee/两jump/一ret，只有一个callback地址数据入向。 八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "verification_level": "八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "battle_skill_window_click_sampling": {
+        "spec_id": "BQM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+          "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 49,
+        "original_code_bytes": 126,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "shared_pair_w16_and_coordinates_w32_kept": true,
+        "original_w32_flags_snapshots_kept": true,
+        "original_callbacks_and_completion_tpp_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0047C570",
+      "inventory_id": "F:0007C570",
+      "original_role": "Sub_47C570",
+      "original_end_exclusive": "0x0047C700",
+      "instruction_count": 125,
+      "status": "BQM01八完整技能列表与窗口动画正常源纳管，仅47C570三片段低W8/四低W16取样修复；其余七正确体/回调/失败和原RNG保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47C570"
+          ],
+          "relationship": "47C570技能列表点击：scroll+index-17读S8配对行，行负或used W16=0返回0；点击state W32掩码2取一次。点击用索引S16及flags W32 cache，mask1<<原低5位：使能则fresh当前窗/配对/0调用47A000→声51→consumed1；禁用仅skillId72且518C60返回0发586548原29B消息(4,3)，总声55，不consumed1。点击分支后fresh flags W32取一次并缓存给hover及绘制；hover state低bit1仅寄存器TEST，不新增byte内存要求；原47C653实际索引低W8读取→visual2/hoverPair→mask使能才复制5864C8原25B含NUL。cached click非0覆visual1；之后fresh currentWindow T*与其elements T*，原47C6C2独立索引低W8与cached flags算enabled0/1。原坐标四低W16读取顺序元素Y、元素X、窗口Y、窗口X；源用每次memcpy两字节并按S16和正常加法取S16 x/y，共享坐标W32不改。47B6C0(x,y,S8 visual,pair,enabled,3,223,FFFFFFFF)，最后返回consumed。三片段仅两W8及四W16取样/顺序，正常旧值一致；125条400B/六call五callee/十jump/三ret，不造shift拒绝/新保护/故障等价。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+      ],
+      "boundary": "47C570技能列表点击：scroll+index-17读S8配对行，行负或used W16=0返回0；点击state W32掩码2取一次。点击用索引S16及flags W32 cache，mask1<<原低5位：使能则fresh当前窗/配对/0调用47A000→声51→consumed1；禁用仅skillId72且518C60返回0发586548原29B消息(4,3)，总声55，不consumed1。点击分支后fresh flags W32取一次并缓存给hover及绘制；hover state低bit1仅寄存器TEST，不新增byte内存要求；原47C653实际索引低W8读取→visual2/hoverPair→mask使能才复制5864C8原25B含NUL。cached click非0覆visual1；之后fresh currentWindow T*与其elements T*，原47C6C2独立索引低W8与cached flags算enabled0/1。原坐标四低W16读取顺序元素Y、元素X、窗口Y、窗口X；源用每次memcpy两字节并按S16和正常加法取S16 x/y，共享坐标W32不改。47B6C0(x,y,S8 visual,pair,enabled,3,223,FFFFFFFF)，最后返回consumed。三片段仅两W8及四W16取样/顺序，正常旧值一致；125条400B/六call五callee/十jump/三ret，不造shift拒绝/新保护/故障等价。 八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "verification_level": "八完整原根573条1739B/十二页、22物理call/十三callee、50普通jump/一物理七项switch/十三ret。仅47C570三片段/一体，两个实际W8原点和四低W16坐标取样及其顺序恢复，正常旧值一致；配对索引W16、flags/坐标W32与其余七正确体及旧字节保持。真实创建失败/null、原RNG消费、模式及回调发布/借窗关闭、counter比较前后、MarkDeath后取T**完成槽和返回保持。六外父邻窗36条/115B只局部call/消费者，不代完整父；107创建包装代码入向只登记。37B X七W32表/九NOP用途mapped，不等新函数或范围排除。完整技能内容生产、其它子依赖/全部父、owner寿命、窗口10/26与57C368 token、SDK/生成机器ABI/画面运行及R8未验；原格式明文、音频暂停、RPLAN.24不专项异常/保护/模拟/故障等价保持。",
+      "battle_skill_window_click_sampling": {
+        "spec_id": "BQM01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance",
+          "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+          "doc/cg2d_battle_skill_window_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 125,
+        "original_code_bytes": 400,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 6,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 3,
+        "normal_previous_values_wrong": false,
+        "shared_pair_w16_and_coordinates_w32_kept": true,
+        "original_w32_flags_snapshots_kept": true,
+        "original_callbacks_and_completion_tpp_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -3154,3 +3154,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline)/[三根冻结前态](cg2d_battle_button_reopen_click_sampling_evidence.json)。新增1517..1519对应4975A0/497770/497900，三原已有完整定义正常语义/equivalent、三冻结定位保。只三个全局点击低W8片段；共享W32/原W8标记、各专属初次创建/再操作、主mode写序、空结果/图先尾清/返回/旧字节保持。不新R7，不把数据入向当代码call，不重验已过通用链。
 
 语义1520/有效1515、关联1633/3680（44.38%）、BATTLE197枚举open、分类645/E776；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。
+
+## BQM01 八完整技能窗口与列表正常源（2026-10-07）
+
+[完整合同](cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline)/[八冻结前态](cg2d_battle_skill_window_click_sampling_evidence.json)。1520..1527八原已有完整定义正常语义/equivalent，冻结定位全文保；47C570三片段实修、其它七正确体保。不虚计两callback数据入向或107包装入向的完整父验收；首NUL两旧文本29/25共54B保。语义1528/有效1523、关联1641/3680（44.59%）、BATTLE205枚举open、分类653/E778；37B真实X用途mapped使R7 261/3061/余2800，差队列172/待归属43及其它完整门禁保持。

@@ -1178,3 +1178,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-acceptance)/[完整359条1191B](cg2d_battle_button_reopen_click_sampling_evidence.json)。六页、21call/8callee/45jump/十二ret、三数据xref/三32B原型与11-11-21共43B旧hover有据。三个已选分支鼠标掩码2低W8读实修，共享W32与原W8标记、技能重选/重建/关闭返回、物品flag重开与Flush、宠物W32关闭请求、初次点击模式写序/真实创建空结果和图先尾清/返回保持；正常旧值一致。两局部I/S各十五实来源，不代完整UI/生产与owner寿命/生成机器或运行，已过通用链不重验。
 
 语义1520/1515、关联1633/44.38%、BATTLE197枚举open、分类645/E776；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保持。
+
+## BQM01 技能窗口与列表局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-acceptance)/[完整573条1739B](cg2d_battle_skill_window_click_sampling_evidence.json)。十二页22call/13callee/50普通jump/一七项switch/13ret、六外父邻窗36条115B与54B首NUL旧文本有据；47C570两W8索引/四W16坐标取样顺序实修，W16索引/W32坐标与flags、其余七体和原失败/null/RNG/回调/完成槽保持。37B X七W32目标加九NOP用途mapped不等新函数/排除；107包装入向仅登记。两局部I/S各十七真实来源，不代完整生产/父/owner寿命、窗口10-26/运行验收。R7 261/3061余2800、五任务open/60源码closed10/完整验收0/叶0/global=false；关联1641/44.59%、BATTLE205枚举open/E778保持限定口径。

@@ -35298,7 +35298,8 @@ std::int32_t Sub_47C570(const std::int32_t index, const std::int32_t state)
     }
     const std::uint32_t flags = world::detail::gBattleSkillFlags5ABC04;
     if ((state & 1) != 0) {
-        const auto skillIndex = static_cast<std::uint8_t>(world::detail::gSkillPairsF63370[pairIndex].index);
+        const auto skillIndex = *reinterpret_cast<const std::uint8_t*>(
+            &world::detail::gSkillPairsF63370[pairIndex].index);
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
         if ((flags & (1u << (skillIndex & 31u))) != 0) {
@@ -35310,10 +35311,22 @@ std::int32_t Sub_47C570(const std::int32_t index, const std::int32_t state)
     }
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = &window->elements[index];
-    const auto skillIndex = static_cast<std::uint8_t>(world::detail::gSkillPairsF63370[pairIndex].index);
+    const auto skillIndex = *reinterpret_cast<const std::uint8_t*>(
+        &world::detail::gSkillPairsF63370[pairIndex].index);
     const std::int32_t enabled = (flags & (1u << (skillIndex & 31u))) != 0 ? 1 : 0;
-    const auto y = static_cast<std::int16_t>(element->y + window->y);
-    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    // 原47C6DA..47C6E6依次读取元素Y/X、窗口Y/X低W16；共享坐标仍为W32。
+    std::uint16_t elementY;
+    std::memcpy(&elementY, &element->y, sizeof(elementY));
+    std::uint16_t elementX;
+    std::memcpy(&elementX, &element->x, sizeof(elementX));
+    std::uint16_t windowY;
+    std::memcpy(&windowY, &window->y, sizeof(windowY));
+    const auto y = static_cast<std::int16_t>(
+        std::bit_cast<std::int16_t>(elementY) + std::bit_cast<std::int16_t>(windowY));
+    std::uint16_t windowX;
+    std::memcpy(&windowX, &window->x, sizeof(windowX));
+    const auto x = static_cast<std::int16_t>(
+        std::bit_cast<std::int16_t>(elementX) + std::bit_cast<std::int16_t>(windowX));
     Sub_47B6C0(x, y, visualState, pairIndex, enabled, 3, 223, 0xFFFFFFFFu);
     return consumed;
 }

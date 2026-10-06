@@ -187,3 +187,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 [完整合同](cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state)/[三完整359条1191B](cg2d_battle_button_reopen_click_sampling_evidence.json)纳管4975A0/497770/497900；只各已选分支全局鼠标掩码2低W8读，共享edgeButtons存储仍W32，pending/flag本已有W8保，正常旧值一致。
 
 技能重选/重建/关闭返回、物品待选重开先存槽后清flag/Flush、宠物window28 W32关闭请求各原分支保持；不照搬再操作逻辑或宠物尾。原初次主mode先专属mode后、真实创建空结果/图先尾清/返回与三份43B旧hover保持。三数据xref实际索引2-3-4三条32B字段有据，不虚计代码call/重验已过通用链或新R7；BATTLE197枚举open/E776两局部I/S，完整UI/owner寿命/运行及R8未完成。
+
+## BQM01 技能窗口与列表取样（2026-10-07）
+
+[完整合同](cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state)/[八原根](cg2d_battle_skill_window_click_sampling_evidence.json)纳管技能列表创建/技术创建/返回、列表重建、窗口动画包装/创建/更新与点击八完整573条1739B。仅47C570两真实W8索引及四低W16坐标读顺序三片段/一体实修，共享索引W16/坐标和flags W32保，正常旧值一致。其它七正确体、真实失败/null/六RNG/末尾gate/回调和MarkDeath后取非拥有T**槽保持。37B七项返回表/九NOP用途mapped，R7 261/3061余2800。BATTLE205仍open，完整生产/父/owner寿命/窗口10-26及运行未验。

@@ -32513,7 +32513,8 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
     using namespace platform::legacy_crypt_int;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
     const BattleEntryEffectRecord& initial = payload->effects1C[payload->effectRunningC9C];
-    if ((initial.flags & 8u) == 0) {
+    const std::uint8_t turnFlags = *reinterpret_cast<const std::uint8_t*>(&initial.flags);
+    if ((turnFlags & 8u) == 0) {
         TurnBattleToward_406190(action, gBattleAllEntries59E980[initial.position], 0, 0.0F);
     }
     const std::int32_t distancePosition = payload->effects1C[payload->effectRunningC9C].position;
@@ -32661,7 +32662,9 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
                 showAttributes = true;
             }
             if (showAttributes) {
-                if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
+                const std::uint8_t attributeFlags = *reinterpret_cast<const std::uint8_t*>(
+                    &payload->effects1C[payload->effectRunningC9C].flags);
+                if ((attributeFlags & 2u) != 0) {
                     static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                 }
                 static_cast<void>(NewBattleAttributeEffects_4209C0(
@@ -32669,7 +32672,9 @@ void UpdateBattleAction243_417D80(YobiAction* const action)
             }
         }
         const std::int32_t tailIndex = payload->effectRunningC9C;
-        if ((payload->effects1C[tailIndex].flags & 8u) == 0
+        const std::uint8_t tailFlags =
+            *reinterpret_cast<const std::uint8_t*>(&payload->effects1C[tailIndex].flags);
+        if ((tailFlags & 8u) == 0
             && payload->effects1C[tailIndex].position3 != 0) {
             const std::int32_t duration = 14 * static_cast<std::int32_t>(((targetPayload->flagsFDC >> 1) & 1u) + 1u);
             const std::int32_t skill = payload->castSkill103C;

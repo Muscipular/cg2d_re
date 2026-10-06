@@ -3112,3 +3112,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-baseline)/[七根冻结前态](cg2d_battle_shared_cast_arc_sampling_evidence.json)。新增1485..1491对应416DB0/417410/417AC0/417B80/417CC0/418550/418580，七原已有定义正常语义/equivalent；238/239两表项共用一个原身份，不新增R7分类，七冻结定位保。只共体五/241一六阶段，三W8源表达式承接四原点，其余五正确体/普通helper和原业务/调用/返回保持。
 
 语义1492/有效1487、关联1605/3680（43.61%）、BATTLE169枚举open、分类617/E762，R7 260/3061/余2801、差队列172/待归属43与其它全部完整门禁不变。
+
+## BQF01 四技能显示/移动参数完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-baseline)/[四根冻结前态](cg2d_battle_skill_display_motion_sampling_evidence.json)。新增1492..1495对应417D80/4185C0/4185F0/418620，四原已有定义正常语义/equivalent，四冻结定位保。只243三W8源表达式对四原点，原技能CMP/六RAND点和三正确移动体/正常转换及其它原业务保持，不新R7/原__ftol身份。
+
+语义1496/有效1491、关联1609/3680（43.72%）、BATTLE173枚举open、分类621/E764，R7 260/3061/余2801、差队列172/待归属43和其它全部完整门禁不变。

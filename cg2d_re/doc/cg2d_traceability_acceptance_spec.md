@@ -1136,3 +1136,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-acceptance)/[完整729条2516B](cg2d_battle_shared_cast_arc_sampling_evidence.json)。十四页、60call/26入口/77jump/十二ret、七父21邻窗/56B、两共用表项/三F32/四原W8和六源码阶段可追。共体归零序/三W8表达式/速度先零比较后phase239和241声事件先X分别落实，原五正确体及W32缓存/接收者/RNG/两播放/真实循环/哨兵后额外推进/返回保。两局部I/S各十五实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
 
 语义1492/1487、关联1605/43.61%、BATTLE169枚举open、分类617/E762；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保。
+
+## BQF01 四完整技能显示/移动参数局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-acceptance)/[完整633条2207B](cg2d_battle_skill_display_motion_sampling_evidence.json)。十页、45call/22入口/97jump/四ret、四父12邻窗/32B、一真实系数和三源/四原W8可追。技能图值/模式/级别与六RAND点每路径消费、无扣HP/其它图标后仍Attribute差别、W32缓存/上限copy/两条件播放/退场与三正确移动/正常转换保，正常旧值一致。两局部I/S各十二实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
+
+语义1496/1491、关联1609/43.72%、BATTLE173枚举open、分类621/E764；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保。

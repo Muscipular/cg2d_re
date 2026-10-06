@@ -145,3 +145,9 @@
 [完整合同](cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state)/[七完整729条2516B](cg2d_battle_shared_cast_arc_sampling_evidence.json)纳管235、238/239共体、240..242、244/245，八逻辑状态只增七身份。原两表项同4055E1/417410，既有R7表分类保。
 
 只共体五/241一共六阶段：归零index/encoded先position/共享目标、三W8源表达式对应四原点、速度零比较先phase239后、声事件先X。其它五正确体/普通helper、原W32缓存及HP图标/Attribute接收者/RNG/两播放/原循环/哨兵后额外推进/返回保。BATTLE169枚举open/E762两局部I/S，完整生产/owner寿命/生成机器/运行与R8未完成。
+
+## BQF01 技能显示与移动参数取样（2026-10-07）
+
+[完整合同](cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state)/[四完整633条2207B](cg2d_battle_skill_display_motion_sampling_evidence.json)纳管243/246/247/248；只243首次转向、属性共用两路径、时长条件三个W8源表达式对四原点，正常旧值一致。
+
+原技能CMP链/图值/模式/级别、六RAND物理点各路径消费及W32缓存保持，不造跳转表/R7身份。243无扣HP，其它分支图22459后仍Attribute；246原F32系数0ad7233c及247/248正确移动/正常转换保持，原上限CopyPayload/两条件播放/退场/接收者/返回保。BATTLE173枚举open/E764两局部I/S，完整生产/owner寿命/生成机器/运行及R8未完成。

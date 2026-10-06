@@ -7622,8 +7622,9 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
     using world::detail::gBattleAllEntries59E980;
     using world::detail::gBattleSceneAction5ABA94;
     using namespace platform::legacy_crypt_int;
+    const std::int32_t initialPhase = action->phase;
     auto* const payload = static_cast<BattleActorPayload*>(action->payload);
-    if (action->phase == 0) {
+    if (initialPhase == 0) {
         YobiAction* const currentTarget = gBattleAllEntries59E980[
             payload->effects1C[payload->effectRunningC9C].position];
         if (currentTarget->phase != 0) {
@@ -7633,8 +7634,9 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
     action->phase = 1;
     YobiAction* const target = gBattleAllEntries59E980[
         payload->effects1C[payload->effectRunningC9C].position];
+    const std::int32_t targetGraphic = target->graphicIndex;
     auto* const targetPayload = static_cast<BattleActorPayload*>(target->payload);
-    static_cast<void>(render::LoadGraphic_522570(target->graphicIndex));
+    static_cast<void>(render::LoadGraphic_522570(targetGraphic));
     if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20000000u) != 0) {
         const std::int32_t halfHeight = render::ReadGraphicDxHeight(target->graphicIndex) / 2;
         const double threshold = static_cast<double>(halfHeight) + target->graphicOffsetY + target->offset44 - 50.0;
@@ -7682,9 +7684,13 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                 if (Less_401DB0(&compareTarget->readiness, 0)) {
                     platform::LegacyCryptInt temporary;
                     ConstructFromInt_401CC0(&temporary, 0);
+                    const std::int32_t copyIndex = payload->effectRunningC9C;
+                    const std::uint32_t encoded = temporary.encoded;
                     YobiAction* const copyTarget = gBattleAllEntries59E980[
-                        payload->effects1C[payload->effectRunningC9C].position];
-                    CopyPayload(&copyTarget->readiness, &temporary);
+                        payload->effects1C[copyIndex].position];
+                    copyTarget->readiness.encoded = encoded;
+                    copyTarget->readiness.mask = temporary.mask;
+                    copyTarget->readiness.readCount = temporary.readCount;
                     Destroy_401CF0(&temporary);
                 }
                 if ((payload->effects1C[payload->effectRunningC9C].flags & 0x20u) != 0) {
@@ -7725,9 +7731,11 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
                     }
                     const std::int32_t displayIndex = payload->effectRunningC9C;
                     const std::uint32_t displayFlags = payload->effects1C[displayIndex].flags;
-                    const std::int32_t y = target->y - 80;
+                    const std::int32_t targetY = target->y;
                     const std::int32_t displayed = payload->effects1C[displayIndex].position3;
-                    static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 5, 2, displayFlags));
+                    const std::int32_t targetX = target->x;
+                    const std::int32_t y = targetY - 80;
+                    static_cast<void>(NewBattleNumber_41F1A0(targetX, y, displayed, 5, 2, displayFlags));
                     if ((payload->effects1C[payload->effectRunningC9C].flags & 2u) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
                     }
@@ -7849,8 +7857,10 @@ void UpdateBattleMovingImpactEffect_41BB00(YobiAction* const action)
             }
         }
     }
-    action->displayPriority = static_cast<std::uint8_t>(target->displayPriority + 20);
-    const std::int32_t x = static_cast<std::int32_t>(action->offset40);
+    const std::uint8_t targetPriority = target->displayPriority;
+    const float projectedX = action->offset40;
+    action->displayPriority = static_cast<std::uint8_t>(targetPriority + 20);
+    const std::int32_t x = static_cast<std::int32_t>(projectedX);
     const std::int32_t offsetX = static_cast<std::int32_t>(gYobiScreenOffsetX);
     const float y = action->offset44;
     action->x = x + offsetX;

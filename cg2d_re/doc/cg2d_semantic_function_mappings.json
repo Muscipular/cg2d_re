@@ -165404,6 +165404,85 @@
         "old_delay_and_fresh_fd0_recheck_preserved": true,
         "markdeath_continues_device_flags_fade_and_projection": true
       }
+    },
+    {
+      "original_entry": "0x41BB00",
+      "inventory_id": "F:0001BB00",
+      "status": "BOE01完整正常移动命中回调/五补丁解决本步取样问题，独立基线纳管；全父-callee-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleMovingImpactEffect_41BB00"
+          ],
+          "relationship": "phase先固定payload，phase0当前目标phase非零早退；phase1后固定target/graphic先targetPayload/Load，special20000000与普通中心两独立live阈值/frameEvent0判断，special半屏偏移/标死仍继续。普通命中图号优先/HP上下限-分类-scene/default效果与声音、fresh delay门禁FD0=14/28后frameEvent1。old58-1，old58==0音效262/RNG0..32次Play；正FD0减一可设震幅，freshFD0零才Play/实时中心转向-移动/speed+0.5/尾迹节拍/命中1标死与rising0；最终target U8优先级先F32 X取样再优先级+20发布/偏移投影"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleMovingImpactEffect_41BB00"
+          ],
+          "relationship": "既有native非拥有T*与void callback保持；原无新空门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-baseline",
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-decision",
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-acceptance",
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_moving_impact_callback_sampling_evidence.json"
+      ],
+      "boundary": "phase先固定payload，phase0当前目标phase非零早退；phase1后固定target/graphic先targetPayload/Load，special20000000与普通中心两独立live阈值/frameEvent0判断，special半屏偏移/标死仍继续。普通命中图号优先/HP上下限-分类-scene/default效果与声音、fresh delay门禁FD0=14/28后frameEvent1。old58-1，old58==0音效262/RNG0..32次Play；正FD0减一可设震幅，freshFD0零才Play/实时中心转向-移动/speed+0.5/尾迹节拍/命中1标死与rising0；最终target U8优先级先F32 X取样再优先级+20发布/偏移投影。特殊和普通两独立实时阈值/提前标死继续、HP业务上下限、三次live DX半高/default X-金额-Y、固定目标载荷/live源游标保；地址native非拥有，其它数值原宽、原W8优先级截断与内存CryptInt token/reserved保；不代全父-callee-owner/ABI-SDK-PC53运行，音频暂停。",
+      "instruction_count": 636,
+      "function_chunks": [
+        {
+          "start": "0x41BB00",
+          "end_exclusive": "0x41C3A9"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleMovingImpactEffect_41BB00",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOE01完整636条2217B/八页45call-78内部出口/五取样补丁，单callback地址引用与原常量8B、DX/复制边界分列；全父-callee-owner/ABI-PC53未运行",
+      "battle_moving_impact_callback_sampling": {
+        "spec_id": "BOE01",
+        "evidence_refs": [
+          "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-baseline",
+          "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-decision",
+          "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-acceptance",
+          "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+          "doc/cg2d_battle_moving_impact_callback_sampling_evidence.json"
+        ],
+        "original_entry": "0x41BB00",
+        "original_instruction_count": 636,
+        "original_code_bytes": 2217,
+        "page_count": 8,
+        "outgoing_call_site_count": 45,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 5,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "entry_phase_before_payload": true,
+        "initial_graphic_before_target_payload": true,
+        "three_later_dx_height_reads_remain_live": true,
+        "negative_hp_copy_encoded_before_target_lookup": true,
+        "healing_display_y_value_x_then_y_minus80": true,
+        "default_display_x_value_y_preserved": true,
+        "priority_x_sample_before_priority_publication": true,
+        "special_early_markdeath_does_not_skip_normal_hit_or_motion": true,
+        "old_zero_delay_shared_audio262_preserved": true,
+        "random_preplay_count_and_zero_skip_preserved": true,
+        "fd0_positive_shake_level_and_fresh_zero_check": true,
+        "speed_hit_sample_before_speed_publication_preserved": true,
+        "trail_third_family_double_counter_preserved": true,
+        "markdeath_still_priority_and_projection": true
+      }
     }
   ]
 }

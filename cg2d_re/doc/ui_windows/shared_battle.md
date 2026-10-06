@@ -8491,3 +8491,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [具体SPEC](../cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-decision)/[证据](../cg2d_battle_frame_event_callback_sampling_evidence.json)：完整471条1723B六页38call/56普通内部分支/一ret，两个callback地址引用来自41CD00。四补丁恢复phase先payload、负HP临时encoded先查copyTarget、style5/6数字targetX先Y-80；本根target先initialFlags/治疗金额先targetY原序保。旧事件>=10000消费，406260后fresh事件<20000且1038不严格1才实际HP/五分类，否则仅视觉/目标phase26；两分支FD0门禁不同，原HP上下限与20直接gate1/alive1保。old58/freshFD0严格零才Play(1)，图号范围标死后仍设备flags/nameY首次增，fresh旧fade可再次增/旧值>=20标死，仍偏移投影；通用复制/固定内存CryptInt/音频接口不改。
 
 新增语义1380/单ID分类、BATTLE82→83枚举仍open；语义1381/有效ID1376、分类487、关联1494/3680=40.60%、E557仅局部I/S两E。本步四取样问题已解决，全部其它源/声明、旧记录-其它域/175队列/七open与完整门禁保持，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8继续，网络原格式明文/音频暂停。
+
+## BOE01 移动命中与标死后运动尾（2026-10-06）
+
+[具体SPEC](../cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-decision)/[证据](../cg2d_battle_moving_impact_callback_sampling_evidence.json)：完整636条2217B八页45call/78普通内部分支/一ret、原F32 50/0.5共8B，单callback地址引用来自41CD00。五补丁恢复phase先payload、首次图号先targetPayload、负HP临时encoded先查copyTarget、治疗Y-金额-X后Y-80、末优先级发布前F32 X取样；default X-金额-Y/三次live DX低S16半高原序保。特殊提前标死仍继续普通命中/HP四分类、延迟和运动；old58严格0启动音效262/RNG0..32次Play，正FD0减一-技能level震幅/fresh零门禁、实时中心F32转向/移动-speed+0.5、旧hit先速度发布/尾迹第三族额外nameX++-共同节拍/最终标死-rising0/原W8优先级+20与偏移投影保。
+
+新增语义1381/单ID分类、BATTLE83→84枚举仍open；语义1382/有效ID1377、分类488、关联1495/3680=40.62%、E559局部I/S两E，百分比沿现Percent两位Round。五取样问题本步已解决，全部其它源/声明-边界、旧记录-其它域/175队列/七open与完整门禁保持，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8继续，网络原格式明文/音频暂停。

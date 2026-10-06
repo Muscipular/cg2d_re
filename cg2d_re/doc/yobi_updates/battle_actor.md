@@ -267,3 +267,9 @@
 ## BNL01 普通非零角色与mode3原取样（2026-10-06）
 
 [单根23定义24处](../cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-decision)恢复同解析caster/target、payload/actor先字段和2007表、258坐标S32、普通/自身转向两类Effect-Aux与100C字段原序，固定tailAmount沿原两分支EDI取样，四索引S32/两比较位置及末W8保持。原未指定局部不补值，原图分工/所有字段与动作-早返/终结Move-RID增58及其它根头声明保持；[985条3600B证据](../cg2d_battle_m_attack_nonzero_sampling_evidence.json)不代完整父/所有owner运行。
+
+## BNM01 263、400、401字段与动作取样（2026-10-06）
+
+[具体SPEC](../cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-decision)：三根同parsed caster/target，固定caster payload先skill/各actor先level，400初Effect actor/记录同caster样本，低图分别位置-S32表-110052/110044/110081-actor，高111001/111011/111014保持。400两独立level/两图写不合并，401两target基础字段独立live位置-actor-值-payload，之后live flags效果；400用Take返回固定W32 flags，263target-image-caster-actor，两Cast0条件重读target各按原序。
+
+[证据](../cg2d_battle_m_skill263_400_401_sampling_evidence.json)保存536条2090B八页66call、23补丁/改前根及旧812。原fpUsed和其它所有生产-取包/动作/feedback-成功门禁，初空/循环两出口与各尾/固定58值无RID保持。native非拥有地址/非地址S32-W32不扩宽，不新默认/owner/异常模型；其它根头不改。有限I/S不代所有owner重进退出失效、SDK-ABI-PC53、画面或完整父/运行。

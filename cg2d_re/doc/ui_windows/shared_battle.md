@@ -8383,3 +8383,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 ## BNL01 普通非零与自身转向后继（2026-10-06）
 
 [23组实修](../cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-decision)明确2007 actor/payload先图表、258坐标分别原序、普通Effect/Aux具体取样和mode3 actor先pub/两路固定tailAmount-转向字段与后继效果。仍读普通附图数组（436719），末20沿真实W8，前面AL/AH沿W32样本；[985条主体/真实RID尾](../cg2d_battle_m_attack_nonzero_sampling_evidence.json)不代完整共享战斗-owner/ABI或画面运行。
+
+## BNM01 三个特殊技能入口（2026-10-06）
+
+[裁决](../cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-decision)落实263/400/401三根23处。三个入口角色/基础字段、三个低图位置先表、target先255比较再pub/同解析actor恢复。263先target-image-caster-actor，原target=-1两支实际参数相同保共用表达式；400固定Take flags-target-pub-caster-actor、两Cast0的条件重读；401两target字段后live flags-caster-target-actor，不将两种flags合同套成一种。
+
+原400类型400的初/target效果、各flags反馈/256-52同位置-51另live与11/76，401 0后80000门禁/37-212及固定Effect110074/30/0/23、完整211/EffectList尾，263218/74尾保持。初空直接返回，循环255 Echo记录/空Finish出口、Move及263固定1/400-401固定2无RID保持。[536条2090B/66call证据](../cg2d_battle_m_skill263_400_401_sampling_evidence.json)及180B路由/48B既有图表只纳本组，不代完整战斗父/接线/生命周期和运行验收。

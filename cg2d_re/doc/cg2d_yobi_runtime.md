@@ -4221,3 +4221,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 ## BNL01 普通攻击非零23组取样实修（2026-10-06）
 
 [具体SPEC](cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-decision)单根23定义24处恢复角色字段/2007图表及258两坐标、同解析target、普通及mode3自身转向的Effect/字段-固定amount取样，四S32索引/两比较和末真实W8门禁。[985条3600B十四页95call](cg2d_battle_m_attack_nonzero_sampling_evidence.json)含979条主体及六条RID尾，BNK尾21B非新增。原图数组分工/未指定局部、取包-模式与cached/live flags/动作-早返及终结Move-RID增58保持，不代完整父/所有consumer-owner运行。
+
+## BNM01 技能263、400、401取样实修（2026-10-06）
+
+依[具体SPEC](cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-decision)三根23处恢复同解析caster/target、payload先skill/actor先level、三低图caster位置先S32原表和263同参Effect；400沿Take返回固定flags、两Cast0按条件保留或调用后重读target，401两target字段各actor先值、两字段写后另live flags-caster-target-actor。原初空Finish直接返、所有取包/动作、263 Move固定58=1/400-401固定58=2无RID和401完整终结动作保持，其它根头/真实分派不改。
+
+[证据](cg2d_battle_m_skill263_400_401_sampling_evidence.json)三范围536条2090B八页66call与全部直接出口；263107/406/16、400237/915/26、401192/769/24，无复用尾。42FC32原9W32/144W8=180B只定位263/400/401；十二S32/48B偏移具名复用BMP，不代其它技能-全路由。旧812五引用/三symbol/本步对象追加，E467→471仅双域四局部I/S；完整父17298/SEH、所有消费者/owner/SDK-ABI-PC53-时钟RNG画面及运行另验。

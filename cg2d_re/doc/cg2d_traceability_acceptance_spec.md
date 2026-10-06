@@ -676,3 +676,9 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 ## BNL01 普通非零局部I/S（2026-10-06）
 
 [验收合同](cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-acceptance)限定单根23定义24处落码和[985条完整正常区段/真实RID尾](cg2d_battle_m_attack_nonzero_sampling_evidence.json)。E463→467仅YOBI/BATTLE四局部I/S，七open、P01源码closed及全部完整成员/门禁和其它指标保持。坐标/Effect取样-原固定amount与末W8、四S32索引及原图分工和未指定局部边界有界证明，不代完整父SEH-所有consumer-owner/SDK-ABI-PC53-时钟RNG画面或R1/R7/R8。
+
+## BNM01 技能263、400、401局部开发验收（2026-10-06）
+
+依[具体验收](cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-acceptance)登记三根23定义23处正常取样实修：[536条2090B八页66call](cg2d_battle_m_skill263_400_401_sampling_evidence.json)连续实际字节/直接出口与23组EA，本组180B原路由/既有48B图表只作上下文。I核整CPP限定重放/关联声明和分派；S核原连续段及263同参Effect、400Take固定flags/条件Cast0重读与401两字段后live flags，各低/高图及初空-循环两出口/原尾-固定58=1或2无RID保持。
+
+E467→471仅YOBI/BATTLE四局部I/S。旧812五引用/三symbol/本步对象、双域基线/阻碍与七open任务同步；不新F/X/adapted/分类/完整成员。语义1350/有效ID1345、片段5/分类456、YOBI55/BATTLE52/RENDER26/LOOP32、关联1463/3680、60源码closed10/完整验收0/P01closed保持。完整父SEH/所有consumer-owner/其它技能-全路由/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8继续，不以本组三根-536条或静态汇总代整体。不构建/测试/运行/摘要；网络原格式明文，音频暂停。

@@ -2541,3 +2541,9 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 ## BNL01 旧812普通攻击非零有界追加（2026-10-06）
 
 [验收合同](cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-acceptance)与[985条3600B十四页95call](cg2d_battle_m_attack_nonzero_sampling_evidence.json)保存979条主体及RID尾六条21B/1call（BNK非新增），原2007六S32表与普通/自身业务初始化仅上下文。23定义24处/两比较同一文本两处实修；旧812五引用/一symbol/本步对象，不新F/X/adapted/分类/完整成员，语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%及完整门禁保持。
+
+## BNM01 三技能主体有界映射追加（2026-10-06）
+
+旧812/F:00027470按[源状态](cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-source-state)只追加五引用、ProcessBattleMSkill263/400/401三个symbol与本步对象，三根23处正常取样修复。[实际原端](cg2d_battle_m_skill263_400_401_sampling_evidence.json)三连续范围536条2090B八页66call/全部出口、本组180B压缩路由及BMP既有48B偏移上下文；无复用尾/新分类，不把已证本组路由代全路由。263/400/401角色-图号/两种flags与两Cast0合同各自保持，初空-循环退出与原58固定值/动作尾无RID不变。
+
+E467→471只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、关联1463/3680及所有完整成员/门禁保持，不新F/X/adapted。完整父17298/SEH-全部consumer/owner与其它技能-全路由、SDK-ABI-PC53-时钟RNG画面/运行另验。

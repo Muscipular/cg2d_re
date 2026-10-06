@@ -668,3 +668,7 @@ E297→301四局部I/S共用本根证据；语义1324/有效ID1319、disposition
 ## BNJ01 技能106族局部I/S（2026-10-06）
 
 [验收合同](cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-acceptance)限定单根八处落码与[409条原主体/Move-RID尾](cg2d_battle_m_skill106_family_sampling_evidence.json)。E453→457仅YOBI/BATTLE四局部I/S；七任务open、全部完整成员/门禁及其它指标分类保持。两Effect取样/双S32索引和原2002额外取包/29容量/live门禁-原初末动作有界证明，不代完整父SEH-所有consumer-owner/SDK-ABI-PC53-时钟RNG画面运行或R1/R7/R8。
+
+## BNK01 公共攻击三父局部I/W/S（2026-10-06）
+
+[验收合同](cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-acceptance)限定两根四处/三参数差异落码和[80条三父/前缀](cg2d_battle_m_attack_targets_call_sampling_evidence.json)、真实core/四输出与value角色Move-RID/两种58后继静态接线。E457→463仅YOBI/BATTLE六局部I/W/S；七open和P01源码closed状态不变、全部完整成员/门禁及其它指标保持。P01已有3089本体基线保持，不代编译链接、全部consumer-owner/SDK-ABI-PC53-时钟RNG画面、完整父或R1/R7/R8。

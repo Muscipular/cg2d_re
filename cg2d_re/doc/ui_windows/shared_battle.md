@@ -8375,3 +8375,7 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 ## BNJ01 技能106/111/2002效果与取包（2026-10-06）
 
 [八处实修](../cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-decision)恢复两Effect原参数取样/双S32索引、同解析target与34后比较位置。2002原额外两整数/29容量名称/一整数消费后live flags门禁、0后level<90的112/74/64和末64，111初/末动作及106初动作保持；[409条原主体/真实尾](../cg2d_battle_m_skill106_family_sampling_evidence.json)不代完整共享战斗-owner或画面运行。
+
+## BNK01 三父公共攻击九参桥（2026-10-06）
+
+[三组取样实修](../cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision)明确73零/3100 index-level-skill，而普通入口传mode后已读currentSkill，包装不再live重读skill。四独立位置输出及live value角色Move/RID、3100固定1和其它增58保持；[80条三父/前缀](../cg2d_battle_m_attack_targets_call_sampling_evidence.json)及三现有C++调用点只证明静态I/W/S。P01完整core源码保持，不重验3089条、不代完整共享战斗-owner/ABI或画面运行。

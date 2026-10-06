@@ -259,3 +259,7 @@
 ## BNJ01 技能106族角色与参数原序（2026-10-06）
 
 [单根八处](../cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-decision)恢复同解析caster/target、payload先skill/actor先level，普通Effect firstImage-flags-target-caster-actor、Aux选中图-second-first-flags-target-caster-actor、两S32索引及34后target先比较/256-52沿同位置/51另live。原2002消费/live门禁与初末动作及真实Move-RID增58保持；[409条1436B证据](../cg2d_battle_m_skill106_family_sampling_evidence.json)不代完整父/所有owner运行，其它根头/声明不改。
+
+## BNK01 公共攻击父参数与结束角色（2026-10-06）
+
+[两根四处](../cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision)将73零/3100三值原序与普通入口currentSkill快照显式传包装。公共core后沿另live value5ABA7C位置取actor/Move，再RID和原固定1/增58；不改为caster位置、不新255/空对象门禁或终结效果。[80条304B证据](../cg2d_battle_m_attack_targets_call_sampling_evidence.json)含BNI24条复用，不代原完整父/所有owner和运行；core/其它正文与声明保持。

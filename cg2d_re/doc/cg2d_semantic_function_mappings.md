@@ -2533,3 +2533,7 @@ YOBI53→55/BATTLE50→52同两F、LOOP31→32仅场景；语义1349→1350/有�
 ## BNJ01 旧812技能106族有界追加（2026-10-06）
 
 [验收合同](cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-acceptance)及[409条1436B六页48call](cg2d_battle_m_skill106_family_sampling_evidence.json)完整保存主体399条和真实尾十条39B/2call，BMT既有尾非新增，低202B/高45B定位与八W32初始化仅上下文。单根八处实修，旧812只五引用/一symbol/本步对象，不新F/X/adapted/分类/完整成员；语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%与完整门禁保持。
+
+## BNK01 旧812公共攻击三父桥追加（2026-10-06）
+
+[验收合同](cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-acceptance)与[80条304B四页九call](cg2d_battle_m_attack_targets_call_sampling_evidence.json)纳管三原九参call/三个现有调用点及value角色尾，BNI24条89B非新增。两根四补丁、三组差异落码；旧812五引用/一symbol/本步对象，F:00024620现有P01完整记录/3089本体不改，经P01与共享战斗文档本步追加追踪桥修正。不新F/X/adapted/分类/完整成员，语义1350/有效ID1345、片段5/分类456、关联1463/3680=39.76%保持。

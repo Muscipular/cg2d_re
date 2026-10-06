@@ -20694,11 +20694,11 @@ namespace {
 // 42B253/43576F/436983共用九参生产尾；3100写1，其余两路递增。
 void ProcessBattleMSkillAttackTargets(
     YobiAction* const scene, BattleScenePayload* const payload,
+    const std::int32_t skill, const std::int32_t skillLevel, const std::int32_t skillLevelIndex,
     const std::int32_t fpUsed, const bool fixedState)
 {
     TakeBattleMSkillAttackTargets_424620(
-        scene, gBattleMSkill5AAA78, gBattleMSkillLevel5A4A2C,
-        gBattleMSkillLevelIndex5A3A18, fpUsed,
+        scene, skill, skillLevel, skillLevelIndex, fpUsed,
         &gBattleMCasterPosition5AAA64, &gBattleMValue5ABA7C,
         &gBattleMTargetPosition5AAA40, &gBattleMRedirectPosition5AAA70);
     MoveBattleCastState_439380(world::detail::gBattleAllEntries59E980[gBattleMValue5ABA7C]);
@@ -20829,16 +20829,25 @@ void ProcessBattleMSkillHeader(
     case 73: {
         const std::int32_t mode = TakeBattleMInteger_438F70(scene);
         if (mode == 0) {
-            ProcessBattleMSkillAttackTargets(scene, payload, fpUsed, false);
+            const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
+            const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
+            const std::int32_t attackSkill = gBattleMSkill5AAA78;
+            ProcessBattleMSkillAttackTargets(
+                scene, payload, attackSkill, attackSkillLevel, attackSkillLevelIndex, fpUsed, false);
         } else {
             ProcessBattleMSkill73NonzeroMode(scene, payload, mode);
         }
         break;
     }
-    case 3100:
+    case 3100: {
         TakeBattleMInteger_438F70(scene);
-        ProcessBattleMSkillAttackTargets(scene, payload, fpUsed, true);
+        const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
+        const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
+        const std::int32_t attackSkill = gBattleMSkill5AAA78;
+        ProcessBattleMSkillAttackTargets(
+            scene, payload, attackSkill, attackSkillLevel, attackSkillLevelIndex, fpUsed, true);
         break;
+    }
     case 0: case 1: case 3: case 5: case 6: case 72:
     case 75: case 76: case 77: case 78: case 79: case 80: case 81:
     case 84: case 85: case 87: case 94: case 95: case 96:
@@ -20850,7 +20859,10 @@ void ProcessBattleMSkillHeader(
         const std::int32_t mode = TakeBattleMInteger_438F70(scene);
         const std::int32_t currentSkill = gBattleMSkill5AAA78;
         if (currentSkill == 72 || currentSkill == 113 || currentSkill == 2017 || mode == 0) {
-            ProcessBattleMSkillAttackTargets(scene, payload, fpUsed, false);
+            const std::int32_t attackSkillLevelIndex = gBattleMSkillLevelIndex5A3A18;
+            const std::int32_t attackSkillLevel = gBattleMSkillLevel5A4A2C;
+            ProcessBattleMSkillAttackTargets(
+                scene, payload, currentSkill, attackSkillLevel, attackSkillLevelIndex, fpUsed, false);
         } else {
             ProcessBattleMSkillAttackNonzeroMode(scene, payload, fpUsed, mode);
         }

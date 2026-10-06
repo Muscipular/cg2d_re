@@ -70,3 +70,7 @@ FUNC-BATTLE仅登记本步已证成员及局部I/W/S证据；全战斗枚举、�
 P01源码工作项与F:00024620的adapted处置可依本节关闭；限定I/W/S证据归档于[登记簿](../plan/cg2d_acceptance_registry.json)，实现版本固定为Git命名快照cg2d-re-battle-attack-source-20261004。
 八D01适配源码均已对齐；并不表示八完整功能或战斗B/I/W/S/R均通过。FUNC-BATTLE成员枚举、全生产/动作/生命周期和运行按§4保留，R仍blocked、音频暂停。
 本步无构建/产物检查/新增或执行测试/客户端或算法运行/文件摘要计算；仅将真实静态观察归档，台账汇总不能代运行或完整功能验收。
+
+## 6. BNK01 三父参数取样桥修正（2026-10-06）
+
+[三父子SPEC](cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision)解决原73零/3100 index-level-skill求值隐含，以及普通入口435B32的skill快照在包装被重读。现有私有包装改为接收三固定S32，三caller分别原序取样；公共九参本体/头、四独立输出及value角色Move-RID/原58后继保持。[80条304B四页九call证据](cg2d_battle_m_attack_targets_call_sampling_evidence.json)只记录父桥与前缀，其中BNI24条非新增；本体3089条不重验、不算本步新增。本合同§5的P01源码closed与D01唯一入口适配保持，BNK仅增三父静态I/W/S证据，不推所有父/完整ABI-owner/运行通过。

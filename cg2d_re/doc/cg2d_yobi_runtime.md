@@ -4213,3 +4213,7 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 ## BNJ01 技能106族八处实修（2026-10-06）
 
 [具体SPEC](cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-decision)恢复106/111/2002单根角色字段/同解析target、两Effect具体取样、两S32索引与34后比较位置。[409条1436B六页48call](cg2d_battle_m_skill106_family_sampling_evidence.json)含399条主体及真实Move-RID尾十条39B；BMT尾非新增。原2002额外取包/名称29容量和后续live flags门禁、各初末动作/cached W32位选择-具名重读/跨target图数组保持，不代完整父/所有consumer-owner运行。
+
+## BNK01 公共攻击三父参数取样实修（2026-10-06）
+
+[具体SPEC](cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision)两根四处恢复73零/3100 levelIndex-level-skill原序显式取样、普通mode后currentSkill快照再index/level，既有包装只传固定值到真实九参424620。[80条304B四页九call](cg2d_battle_m_attack_targets_call_sampling_evidence.json)含三原call/普通prefix与value角色Move-RID/两种58后继；BNI24条89B复用非新增。P01现有3089本体/公开声明及其它根保持，不代全部父/SDK-ABI-owner或运行。

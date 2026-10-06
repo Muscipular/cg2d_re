@@ -163307,6 +163307,144 @@
         "caller_consumes_initial_output_before_move_rid": true,
         "full_runtime_verified": false
       }
+    },
+    {
+      "original_entry": "0x4242B0",
+      "inventory_id": "F:000242B0",
+      "status": "BNU01既有正确完整正常本体保持、独立身份/基线与分类纳管；全部consumer-owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AppendBattleRedirect_4242B0"
+          ],
+          "relationship": "六参/三方24次Cast与四EffectList、三W32字段各live actor/payload、S32 redirect返回；两个父的忽略/消费返回分工保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "AppendBattleRedirect_4242B0"
+          ],
+          "relationship": "既有公开接口/原生非拥有T*与S32/W32或16B值语义声明保持，不增公共布局/API"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-acceptance",
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+        "doc/cg2d_battle_redirect_aux_baseline_evidence.json"
+      ],
+      "boundary": "六参/三方24次Cast与四EffectList、三W32字段各live actor/payload、S32 redirect返回；两个父的忽略/消费返回分工保持。原正常输入数据/字段-固定与live取样及返回保持；native非拥有地址承载沿获批x64规则，其它值不拓宽。不计源码新增/修改，不加owner/free/默认/容量-空值保护/RNG/补零/钳制/回绕或故障模型；不代全部父/owner-SDK-ABI-PC53-时钟RNG画面运行。",
+      "instruction_count": 180,
+      "function_chunks": [
+        {
+          "start": "0x4242B0",
+          "end_exclusive": "0x4244F1"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "AppendBattleRedirect_4242B0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNU01完整180条577B/3页28call与全部正常出口；普通入向5处/2父单列，源/头保持精确静态；不验所有父全文/完整owner或运行",
+      "battle_redirect_aux_baseline": {
+        "spec_id": "BNU01",
+        "evidence_refs": [
+          "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
+          "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
+          "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-acceptance",
+          "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+          "doc/cg2d_battle_redirect_aux_baseline_evidence.json"
+        ],
+        "original_entry": "0x4242B0",
+        "original_instruction_count": 180,
+        "original_code_bytes": 577,
+        "page_count": 3,
+        "outgoing_call_site_count": 28,
+        "incoming_reference_count": 5,
+        "incoming_parent_count": 2,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "redirect_cast_calls": 24,
+        "redirect_effect_list_calls": 4,
+        "three_w32_fields": true,
+        "returns_s32_redirect": true,
+        "keeps_live_actor_samples_per_action": true
+      }
+    },
+    {
+      "original_entry": "0x43BC10",
+      "inventory_id": "F:0003BC10",
+      "status": "BNU01既有正确完整正常本体保持、独立身份/基线与分类纳管；全部consumer-owner/ABI-SDK及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AppendBattleAuxEffects_43BC10"
+          ],
+          "relationship": "六参/fixed flags800000、固定payload/CA0-1跨两Append、第三次按旧槽position4-flags-position3-position取16B记录；false不访问action、true三Effect/无新判空"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "AppendBattleAuxEffects_43BC10"
+          ],
+          "relationship": "既有公开接口/原生非拥有T*与S32/W32或16B值语义声明保持，不增公共布局/API"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-acceptance",
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+        "doc/cg2d_battle_redirect_aux_baseline_evidence.json"
+      ],
+      "boundary": "六参/fixed flags800000、固定payload/CA0-1跨两Append、第三次按旧槽position4-flags-position3-position取16B记录；false不访问action、true三Effect/无新判空。原正常输入数据/字段-固定与live取样及返回保持；native非拥有地址承载沿获批x64规则，其它值不拓宽。不计源码新增/修改，不加owner/free/默认/容量-空值保护/RNG/补零/钳制/回绕或故障模型；不代全部父/owner-SDK-ABI-PC53-时钟RNG画面运行。",
+      "instruction_count": 49,
+      "function_chunks": [
+        {
+          "start": "0x43BC10",
+          "end_exclusive": "0x43BC84"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "AppendBattleAuxEffects_43BC10",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BNU01完整49条116B/1页3call与全部正常出口；普通入向37处/14父单列，源/头保持精确静态；不验所有父全文/完整owner或运行",
+      "battle_redirect_aux_baseline": {
+        "spec_id": "BNU01",
+        "evidence_refs": [
+          "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
+          "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
+          "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-acceptance",
+          "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+          "doc/cg2d_battle_redirect_aux_baseline_evidence.json"
+        ],
+        "original_entry": "0x43BC10",
+        "original_instruction_count": 49,
+        "original_code_bytes": 116,
+        "page_count": 1,
+        "outgoing_call_site_count": 3,
+        "incoming_reference_count": 37,
+        "incoming_parent_count": 14,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "fixed_payload_and_previous_across_two_appends": true,
+        "third_reads_previous_record_in_original_order": true,
+        "flag_gate_false_does_not_access_action": true,
+        "source_keeps_no_new_null_guard": true,
+        "record_bytes": 16
+      }
     }
   ]
 }

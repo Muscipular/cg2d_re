@@ -315,3 +315,9 @@
 依[具体SPEC](../cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-decision)，单根四处恢复target255比较先发布、普通Effect/Aux的target输出先source输出，以及redirect输出发布后的参数原序；十参/四native非拥有S32输出、原每轮八业务零/最后零values扫描、两图表-固定flags/value及所有门禁/两返回保持。[证据](../cg2d_battle_skill_targets_core_evidence.json)：独立426FC0完整369条1185B五页32call/全部直接出口和两ret，十三条31B选择叶/两40B表及唯一4369CC caller26条94B上下文分别计数；四补丁和改前根/独立ID前态保存。初initial/source同GetPos返回依序写；正常255只sourceEnd/74、初/target空只Finish。caller原十实参和返回后重读initial-Move/RID固定1保持，其它根/header不改。
 
 原ID已在库存，新增独立语义记录1350/adapted分类与FUNC-BATTLE显式成员52→53，旧812整记录保持。语义1351/有效ID1346、分类457、文件关联1464/3680=39.78%，E495→497仅BATTLE两局部I/S；175定位队列不变（此前已有历史定义）、七open/60源码closed10及全部完整门禁保持。完整战斗/父SEH、全部consumer-owner/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/运行仍待。
+
+## BNU01 转向字段与辅助旧槽语义（2026-10-06）
+
+[具体SPEC](../cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision)：两既有正确根保持，新增三方转向与辅助效果的独立原ID/基线、语义映射、adapted分类和战斗成员。[证据](../cg2d_battle_redirect_aux_baseline_evidence.json)：229条693B四页31call/两ret和一条件出口：转向180条28call/24Cast-四EffectList-三字段及S32返回，辅助49条三Effect/fixed flags800000-payload/CA0-1跨两Append-旧四字段读取；五转向/37辅助入向与返回消费窗口分列。source/redirect/target的完整序列/每次actor取样保持，不合并别名；三W32字段各写后另取actor，辅助第三记录沿旧槽position4-flags-position3-position，非输入flags替代。既有源码/头和caller不改，BQA/BQR已过未变生产叶不复验。
+
+新增语义1351/1352绑定原F:000242B0/F:0003BC10，战斗成员53→55但完整枚举仍open；语义1353/有效ID1348、分类459、关联1466/3680=39.84%、E497→501仅各函数I/S四条。两ID已有历史定义、不在原175队列，不虚减队列；所有旧语义/其它域成员、60源码closed10/七open和完整门禁保持。完整父/所有consumer-owner/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/运行另验。

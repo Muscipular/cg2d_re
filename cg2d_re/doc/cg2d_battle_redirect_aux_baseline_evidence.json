@@ -1,0 +1,2069 @@
+{
+  "spec_id": "BNU01",
+  "date": "2026-10-06",
+  "scope": "两独立正确函数完整正常根/三方与辅助消费-身份缺口，不代所有父/owner或运行",
+  "inventory_ids": [
+    "F:000242B0",
+    "F:0003BC10"
+  ],
+  "original_function_extents": [
+    {
+      "entry": "0x4242b0",
+      "end_exclusive": "0x4244f1",
+      "chunks": [
+        {
+          "start": "0x4242b0",
+          "end_exclusive": "0x4244f1"
+        }
+      ],
+      "instruction_count": 180
+    },
+    {
+      "entry": "0x43bc10",
+      "end_exclusive": "0x43bc84",
+      "chunks": [
+        {
+          "start": "0x43bc10",
+          "end_exclusive": "0x43bc84"
+        }
+      ],
+      "instruction_count": 49
+    }
+  ],
+  "original_regions": [
+    {
+      "start": "0x4242b0",
+      "end_exclusive": "0x4244f1",
+      "parent_entry": "0x4242b0",
+      "instruction_count": 180,
+      "code_bytes": 577,
+      "page_count": 3,
+      "outgoing_calls": [
+        {
+          "ea": "0x4242c7",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x4242e3",
+          "target": "0x4393a0"
+        },
+        {
+          "ea": "0x4242f3",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x424303",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x424313",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x424326",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x424336",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42434e",
+          "target": "0x4393a0"
+        },
+        {
+          "ea": "0x42436e",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x424392",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x4243b9",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x4243c9",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x4243d9",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x4243e9",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x4243f9",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x424409",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42441c",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42442c",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42443c",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42444c",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x424464",
+          "target": "0x4393a0"
+        },
+        {
+          "ea": "0x424477",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x424487",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x42449f",
+          "target": "0x4393a0"
+        },
+        {
+          "ea": "0x4244af",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x4244bf",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x4244d2",
+          "target": "0x4392a0"
+        },
+        {
+          "ea": "0x4244e2",
+          "target": "0x4392a0"
+        }
+      ],
+      "branches": [],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x4242b0",
+          "end_exclusive": "0x4244f1",
+          "instructions": [
+            {
+              "ea": "0x4242b0",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x4242b1",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x4242b2",
+              "size": 4,
+              "bytes": "8b6c2410",
+              "text": "mov     ebp, [esp+8+arg_4]"
+            },
+            {
+              "ea": "0x4242b6",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x4242b7",
+              "size": 4,
+              "bytes": "8b742410",
+              "text": "mov     esi, [esp+0Ch+a1]"
+            },
+            {
+              "ea": "0x4242bb",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x4242bc",
+              "size": 7,
+              "bytes": "8b04ad80e95900",
+              "text": "mov     eax, gBattleEntry[ebp*4]"
+            },
+            {
+              "ea": "0x4242c3",
+              "size": 2,
+              "bytes": "6a4a",
+              "text": "push    4Ah ; 'J'; a3"
+            },
+            {
+              "ea": "0x4242c5",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x4242c6",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4242c7",
+              "size": 5,
+              "bytes": "e8d44f0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4242cc",
+              "size": 4,
+              "bytes": "8b5c2430",
+              "text": "mov     ebx, [esp+1Ch+a4]"
+            },
+            {
+              "ea": "0x4242d0",
+              "size": 4,
+              "bytes": "8b4c242c",
+              "text": "mov     ecx, [esp+1Ch+a3]"
+            },
+            {
+              "ea": "0x4242d4",
+              "size": 4,
+              "bytes": "8b7c2434",
+              "text": "mov     edi, [esp+1Ch+a2]"
+            },
+            {
+              "ea": "0x4242d8",
+              "size": 7,
+              "bytes": "8b14ad80e95900",
+              "text": "mov     edx, gBattleEntry[ebp*4]"
+            },
+            {
+              "ea": "0x4242df",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx; a4"
+            },
+            {
+              "ea": "0x4242e0",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a3"
+            },
+            {
+              "ea": "0x4242e1",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi; a2"
+            },
+            {
+              "ea": "0x4242e2",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a1"
+            },
+            {
+              "ea": "0x4242e3",
+              "size": 5,
+              "bytes": "e8b8500100",
+              "text": "call    BattleEntry__AppendEffectList"
+            },
+            {
+              "ea": "0x4242e8",
+              "size": 7,
+              "bytes": "8b04ad80e95900",
+              "text": "mov     eax, gBattleEntry[ebp*4]"
+            },
+            {
+              "ea": "0x4242ef",
+              "size": 2,
+              "bytes": "6a19",
+              "text": "push    19h; a3"
+            },
+            {
+              "ea": "0x4242f1",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x4242f2",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4242f3",
+              "size": 5,
+              "bytes": "e8a84f0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4242f8",
+              "size": 7,
+              "bytes": "8b0cad80e95900",
+              "text": "mov     ecx, gBattleEntry[ebp*4]"
+            },
+            {
+              "ea": "0x4242ff",
+              "size": 2,
+              "bytes": "6a49",
+              "text": "push    49h ; 'I'; a3"
+            },
+            {
+              "ea": "0x424301",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x424302",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x424303",
+              "size": 5,
+              "bytes": "e8984f0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x424308",
+              "size": 7,
+              "bytes": "8b14ad80e95900",
+              "text": "mov     edx, gBattleEntry[ebp*4]"
+            },
+            {
+              "ea": "0x42430f",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0; a3"
+            },
+            {
+              "ea": "0x424311",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x424312",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x424313",
+              "size": 5,
+              "bytes": "e8884f0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x424318",
+              "size": 7,
+              "bytes": "8b04ad80e95900",
+              "text": "mov     eax, gBattleEntry[ebp*4]"
+            },
+            {
+              "ea": "0x42431f",
+              "size": 3,
+              "bytes": "83c440",
+              "text": "add     esp, 40h"
+            },
+            {
+              "ea": "0x424322",
+              "size": 2,
+              "bytes": "6a19",
+              "text": "push    19h; a3"
+            },
+            {
+              "ea": "0x424324",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x424325",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x424326",
+              "size": 5,
+              "bytes": "e8754f0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42432b",
+              "size": 7,
+              "bytes": "8b0cbd80e95900",
+              "text": "mov     ecx, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x424332",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0; a3"
+            },
+            {
+              "ea": "0x424334",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x424335",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x424336",
+              "size": 5,
+              "bytes": "e8654f0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42433b",
+              "size": 4,
+              "bytes": "8b542438",
+              "text": "mov     edx, [esp+28h+a3]"
+            },
+            {
+              "ea": "0x42433f",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x424346",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx; a4"
+            },
+            {
+              "ea": "0x424347",
+              "size": 4,
+              "bytes": "8b5c2438",
+              "text": "mov     ebx, [esp+2Ch+arg_8]"
+            },
+            {
+              "ea": "0x42434b",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a3"
+            },
+            {
+              "ea": "0x42434c",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx; a2"
+            },
+            {
+              "ea": "0x42434d",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a1"
+            },
+            {
+              "ea": "0x42434e",
+              "size": 5,
+              "bytes": "e84d500100",
+              "text": "call    BattleEntry__AppendEffectList"
+            },
+            {
+              "ea": "0x424353",
+              "size": 7,
+              "bytes": "8b0cbd80e95900",
+              "text": "mov     ecx, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x42435a",
+              "size": 2,
+              "bytes": "6a29",
+              "text": "push    29h ; ')'; a3"
+            },
+            {
+              "ea": "0x42435c",
+              "size": 3,
+              "bytes": "8b510c",
+              "text": "mov     edx, [ecx+0Ch]"
+            },
+            {
+              "ea": "0x42435f",
+              "size": 6,
+              "bytes": "899a0c100000",
+              "text": "mov     [edx+100Ch], ebx"
+            },
+            {
+              "ea": "0x424365",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x42436c",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x42436d",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x42436e",
+              "size": 5,
+              "bytes": "e82d4f0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x424373",
+              "size": 7,
+              "bytes": "8b0cbd80e95900",
+              "text": "mov     ecx, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x42437a",
+              "size": 2,
+              "bytes": "6a50",
+              "text": "push    50h ; 'P'; a3"
+            },
+            {
+              "ea": "0x42437c",
+              "size": 3,
+              "bytes": "8b510c",
+              "text": "mov     edx, [ecx+0Ch]"
+            },
+            {
+              "ea": "0x42437f",
+              "size": 10,
+              "bytes": "c78218100000fc000000",
+              "text": "mov     dword ptr [edx+1018h], 0FCh"
+            },
+            {
+              "ea": "0x424389",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x424390",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x424391",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x424392",
+              "size": 5,
+              "bytes": "e8094f0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x424397",
+              "size": 7,
+              "bytes": "8b0cbd80e95900",
+              "text": "mov     ecx, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x42439e",
+              "size": 3,
+              "bytes": "83c440",
+              "text": "add     esp, 40h"
+            },
+            {
+              "ea": "0x4243a1",
+              "size": 3,
+              "bytes": "8b510c",
+              "text": "mov     edx, [ecx+0Ch]"
+            },
+            {
+              "ea": "0x4243a4",
+              "size": 2,
+              "bytes": "6a45",
+              "text": "push    45h ; 'E'; a3"
+            },
+            {
+              "ea": "0x4243a6",
+              "size": 10,
+              "bytes": "c7821010000048570000",
+              "text": "mov     dword ptr [edx+1010h], 5748h"
+            },
+            {
+              "ea": "0x4243b0",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x4243b7",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x4243b8",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4243b9",
+              "size": 5,
+              "bytes": "e8e24e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4243be",
+              "size": 7,
+              "bytes": "8b0cbd80e95900",
+              "text": "mov     ecx, gBattleEntry[edi*4]"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x4242b0",
+          "end_exclusive": "0x4244f1",
+          "instructions": [
+            {
+              "ea": "0x4243c5",
+              "size": 2,
+              "bytes": "6a24",
+              "text": "push    24h ; '$'; a3"
+            },
+            {
+              "ea": "0x4243c7",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x4243c8",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4243c9",
+              "size": 5,
+              "bytes": "e8d24e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4243ce",
+              "size": 7,
+              "bytes": "8b14bd80e95900",
+              "text": "mov     edx, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x4243d5",
+              "size": 2,
+              "bytes": "6a4b",
+              "text": "push    4Bh ; 'K'; a3"
+            },
+            {
+              "ea": "0x4243d7",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x4243d8",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4243d9",
+              "size": 5,
+              "bytes": "e8c24e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4243de",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x4243e5",
+              "size": 2,
+              "bytes": "6a07",
+              "text": "push    7; a3"
+            },
+            {
+              "ea": "0x4243e7",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x4243e8",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4243e9",
+              "size": 5,
+              "bytes": "e8b24e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4243ee",
+              "size": 7,
+              "bytes": "8b0cbd80e95900",
+              "text": "mov     ecx, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x4243f5",
+              "size": 2,
+              "bytes": "6a04",
+              "text": "push    4; a3"
+            },
+            {
+              "ea": "0x4243f7",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x4243f8",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4243f9",
+              "size": 5,
+              "bytes": "e8a24e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4243fe",
+              "size": 7,
+              "bytes": "8b14bd80e95900",
+              "text": "mov     edx, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x424405",
+              "size": 2,
+              "bytes": "6a2c",
+              "text": "push    2Ch ; ','; a3"
+            },
+            {
+              "ea": "0x424407",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x424408",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x424409",
+              "size": 5,
+              "bytes": "e8924e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42440e",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x424415",
+              "size": 3,
+              "bytes": "83c448",
+              "text": "add     esp, 48h"
+            },
+            {
+              "ea": "0x424418",
+              "size": 2,
+              "bytes": "6a49",
+              "text": "push    49h ; 'I'; a3"
+            },
+            {
+              "ea": "0x42441a",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x42441b",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x42441c",
+              "size": 5,
+              "bytes": "e87f4e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x424421",
+              "size": 7,
+              "bytes": "8b0cbd80e95900",
+              "text": "mov     ecx, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x424428",
+              "size": 2,
+              "bytes": "6a0a",
+              "text": "push    0Ah; a3"
+            },
+            {
+              "ea": "0x42442a",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x42442b",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x42442c",
+              "size": 5,
+              "bytes": "e86f4e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x424431",
+              "size": 7,
+              "bytes": "8b14bd80e95900",
+              "text": "mov     edx, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x424438",
+              "size": 2,
+              "bytes": "6a4c",
+              "text": "push    4Ch ; 'L'; a3"
+            },
+            {
+              "ea": "0x42443a",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x42443b",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x42443c",
+              "size": 5,
+              "bytes": "e85f4e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x424441",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x424448",
+              "size": 2,
+              "bytes": "6a4a",
+              "text": "push    4Ah ; 'J'; a3"
+            },
+            {
+              "ea": "0x42444a",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x42444b",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x42444c",
+              "size": 5,
+              "bytes": "e84f4e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x424451",
+              "size": 4,
+              "bytes": "8b4c2454",
+              "text": "mov     ecx, [esp+40h+a4]"
+            },
+            {
+              "ea": "0x424455",
+              "size": 4,
+              "bytes": "8b542450",
+              "text": "mov     edx, [esp+40h+a3]"
+            },
+            {
+              "ea": "0x424459",
+              "size": 7,
+              "bytes": "8b04bd80e95900",
+              "text": "mov     eax, gBattleEntry[edi*4]"
+            },
+            {
+              "ea": "0x424460",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a4"
+            },
+            {
+              "ea": "0x424461",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a3"
+            },
+            {
+              "ea": "0x424462",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx; a2"
+            },
+            {
+              "ea": "0x424463",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a1"
+            },
+            {
+              "ea": "0x424464",
+              "size": 5,
+              "bytes": "e8374f0100",
+              "text": "call    BattleEntry__AppendEffectList"
+            },
+            {
+              "ea": "0x424469",
+              "size": 7,
+              "bytes": "8b0c9d80e95900",
+              "text": "mov     ecx, gBattleEntry[ebx*4]"
+            },
+            {
+              "ea": "0x424470",
+              "size": 3,
+              "bytes": "83c440",
+              "text": "add     esp, 40h"
+            },
+            {
+              "ea": "0x424473",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0; a3"
+            },
+            {
+              "ea": "0x424475",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            },
+            {
+              "ea": "0x424476",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x424477",
+              "size": 5,
+              "bytes": "e8244e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42447c",
+              "size": 7,
+              "bytes": "8b149d80e95900",
+              "text": "mov     edx, gBattleEntry[ebx*4]"
+            },
+            {
+              "ea": "0x424483",
+              "size": 2,
+              "bytes": "6a1c",
+              "text": "push    1Ch; a3"
+            },
+            {
+              "ea": "0x424485",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x424486",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x424487",
+              "size": 5,
+              "bytes": "e8144e0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x42448c",
+              "size": 4,
+              "bytes": "8b44243c",
+              "text": "mov     eax, [esp+28h+a4]"
+            },
+            {
+              "ea": "0x424490",
+              "size": 4,
+              "bytes": "8b4c2438",
+              "text": "mov     ecx, [esp+28h+a3]"
+            },
+            {
+              "ea": "0x424494",
+              "size": 7,
+              "bytes": "8b149d80e95900",
+              "text": "mov     edx, gBattleEntry[ebx*4]"
+            },
+            {
+              "ea": "0x42449b",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a4"
+            },
+            {
+              "ea": "0x42449c",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a3"
+            },
+            {
+              "ea": "0x42449d",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a2"
+            },
+            {
+              "ea": "0x42449e",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a1"
+            },
+            {
+              "ea": "0x42449f",
+              "size": 5,
+              "bytes": "e8fc4e0100",
+              "text": "call    BattleEntry__AppendEffectList"
+            },
+            {
+              "ea": "0x4244a4",
+              "size": 7,
+              "bytes": "8b049d80e95900",
+              "text": "mov     eax, gBattleEntry[ebx*4]"
+            },
+            {
+              "ea": "0x4244ab",
+              "size": 2,
+              "bytes": "6a49",
+              "text": "push    49h ; 'I'; a3"
+            },
+            {
+              "ea": "0x4244ad",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x4244ae",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4244af",
+              "size": 5,
+              "bytes": "e8ec4d0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4244b4",
+              "size": 7,
+              "bytes": "8b0c9d80e95900",
+              "text": "mov     ecx, gBattleEntry[ebx*4]"
+            },
+            {
+              "ea": "0x4244bb",
+              "size": 2,
+              "bytes": "6a4a",
+              "text": "push    4Ah ; 'J'; a3"
+            },
+            {
+              "ea": "0x4244bd",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a2"
+            }
+          ]
+        },
+        {
+          "page_index": 2,
+          "start": "0x4242b0",
+          "end_exclusive": "0x4244f1",
+          "instructions": [
+            {
+              "ea": "0x4244be",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4244bf",
+              "size": 5,
+              "bytes": "e8dc4d0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4244c4",
+              "size": 7,
+              "bytes": "8b149d80e95900",
+              "text": "mov     edx, gBattleEntry[ebx*4]"
+            },
+            {
+              "ea": "0x4244cb",
+              "size": 3,
+              "bytes": "83c440",
+              "text": "add     esp, 40h"
+            },
+            {
+              "ea": "0x4244ce",
+              "size": 2,
+              "bytes": "6a40",
+              "text": "push    40h ; '@'; a3"
+            },
+            {
+              "ea": "0x4244d0",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a2"
+            },
+            {
+              "ea": "0x4244d1",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4244d2",
+              "size": 5,
+              "bytes": "e8c94d0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4244d7",
+              "size": 7,
+              "bytes": "8b049d80e95900",
+              "text": "mov     eax, gBattleEntry[ebx*4]"
+            },
+            {
+              "ea": "0x4244de",
+              "size": 2,
+              "bytes": "6a01",
+              "text": "push    1; a3"
+            },
+            {
+              "ea": "0x4244e0",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a2"
+            },
+            {
+              "ea": "0x4244e1",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi; a1"
+            },
+            {
+              "ea": "0x4244e2",
+              "size": 5,
+              "bytes": "e8b94d0100",
+              "text": "call    BattleScene__AppendCastList"
+            },
+            {
+              "ea": "0x4244e7",
+              "size": 3,
+              "bytes": "83c418",
+              "text": "add     esp, 18h"
+            },
+            {
+              "ea": "0x4244ea",
+              "size": 2,
+              "bytes": "8bc7",
+              "text": "mov     eax, edi"
+            },
+            {
+              "ea": "0x4244ec",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x4244ed",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x4244ee",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x4244ef",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4244f0",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x43bc10",
+      "end_exclusive": "0x43bc84",
+      "parent_entry": "0x43bc10",
+      "instruction_count": 49,
+      "code_bytes": 116,
+      "page_count": 1,
+      "outgoing_calls": [
+        {
+          "ea": "0x43bc3f",
+          "target": "0x439400"
+        },
+        {
+          "ea": "0x43bc52",
+          "target": "0x439400"
+        },
+        {
+          "ea": "0x43bc77",
+          "target": "0x439400"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x43bc1b",
+          "target": "0x43bc82"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x43bc10",
+          "end_exclusive": "0x43bc84",
+          "instructions": [
+            {
+              "ea": "0x43bc10",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x43bc11",
+              "size": 4,
+              "bytes": "8b6c2410",
+              "text": "mov     ebp, [esp+4+a3]"
+            },
+            {
+              "ea": "0x43bc15",
+              "size": 6,
+              "bytes": "f7c500008000",
+              "text": "test    ebp, 8388608"
+            },
+            {
+              "ea": "0x43bc1b",
+              "size": 2,
+              "bytes": "7465",
+              "text": "jz      short loc_43BC82"
+            },
+            {
+              "ea": "0x43bc1d",
+              "size": 4,
+              "bytes": "8b442418",
+              "text": "mov     eax, [esp+4+a5]"
+            },
+            {
+              "ea": "0x43bc21",
+              "size": 4,
+              "bytes": "8b4c2414",
+              "text": "mov     ecx, [esp+4+a4]"
+            },
+            {
+              "ea": "0x43bc25",
+              "size": 4,
+              "bytes": "8b54240c",
+              "text": "mov     edx, [esp+4+a2]"
+            },
+            {
+              "ea": "0x43bc29",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x43bc2a",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x43bc2b",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x43bc2c",
+              "size": 4,
+              "bytes": "8b7c2414",
+              "text": "mov     edi, [esp+10h+a1]"
+            },
+            {
+              "ea": "0x43bc30",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a5"
+            },
+            {
+              "ea": "0x43bc31",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a4"
+            },
+            {
+              "ea": "0x43bc32",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a3"
+            },
+            {
+              "ea": "0x43bc33",
+              "size": 3,
+              "bytes": "8b5f0c",
+              "text": "mov     ebx, [edi+0Ch]"
+            },
+            {
+              "ea": "0x43bc36",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a5"
+            },
+            {
+              "ea": "0x43bc37",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi; a1"
+            },
+            {
+              "ea": "0x43bc38",
+              "size": 6,
+              "bytes": "8bb3a00c0000",
+              "text": "mov     esi, [ebx+0CA0h]"
+            },
+            {
+              "ea": "0x43bc3e",
+              "size": 1,
+              "bytes": "4e",
+              "text": "dec     esi"
+            },
+            {
+              "ea": "0x43bc3f",
+              "size": 5,
+              "bytes": "e8bcd7ffff",
+              "text": "call    BattleEntry__AppendEffect"
+            },
+            {
+              "ea": "0x43bc44",
+              "size": 4,
+              "bytes": "8b44243c",
+              "text": "mov     eax, [esp+24h+arg_14]"
+            },
+            {
+              "ea": "0x43bc48",
+              "size": 4,
+              "bytes": "8b4c242c",
+              "text": "mov     ecx, [esp+24h+a2]"
+            },
+            {
+              "ea": "0x43bc4c",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0; a5"
+            },
+            {
+              "ea": "0x43bc4e",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax; a4"
+            },
+            {
+              "ea": "0x43bc4f",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp; a3"
+            },
+            {
+              "ea": "0x43bc50",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a5"
+            },
+            {
+              "ea": "0x43bc51",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi; a1"
+            },
+            {
+              "ea": "0x43bc52",
+              "size": 5,
+              "bytes": "e8a9d7ffff",
+              "text": "call    BattleEntry__AppendEffect"
+            },
+            {
+              "ea": "0x43bc57",
+              "size": 2,
+              "bytes": "8bd6",
+              "text": "mov     edx, esi"
+            },
+            {
+              "ea": "0x43bc59",
+              "size": 3,
+              "bytes": "83c602",
+              "text": "add     esi, 2"
+            },
+            {
+              "ea": "0x43bc5c",
+              "size": 3,
+              "bytes": "c1e204",
+              "text": "shl     edx, 4"
+            },
+            {
+              "ea": "0x43bc5f",
+              "size": 3,
+              "bytes": "c1e604",
+              "text": "shl     esi, 4"
+            },
+            {
+              "ea": "0x43bc62",
+              "size": 4,
+              "bytes": "8b4c1a28",
+              "text": "mov     ecx, [edx+ebx+28h]"
+            },
+            {
+              "ea": "0x43bc66",
+              "size": 3,
+              "bytes": "8d041a",
+              "text": "lea     eax, [edx+ebx]"
+            },
+            {
+              "ea": "0x43bc69",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a5"
+            },
+            {
+              "ea": "0x43bc6a",
+              "size": 3,
+              "bytes": "8b0c1e",
+              "text": "mov     ecx, [esi+ebx]"
+            },
+            {
+              "ea": "0x43bc6d",
+              "size": 3,
+              "bytes": "8b5024",
+              "text": "mov     edx, [eax+24h]"
+            },
+            {
+              "ea": "0x43bc70",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a4"
+            },
+            {
+              "ea": "0x43bc71",
+              "size": 3,
+              "bytes": "8b501c",
+              "text": "mov     edx, [eax+1Ch]"
+            },
+            {
+              "ea": "0x43bc74",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx; a3"
+            },
+            {
+              "ea": "0x43bc75",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx; a5"
+            },
+            {
+              "ea": "0x43bc76",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi; a1"
+            },
+            {
+              "ea": "0x43bc77",
+              "size": 5,
+              "bytes": "e884d7ffff",
+              "text": "call    BattleEntry__AppendEffect"
+            },
+            {
+              "ea": "0x43bc7c",
+              "size": 3,
+              "bytes": "83c43c",
+              "text": "add     esp, 3Ch"
+            },
+            {
+              "ea": "0x43bc7f",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x43bc80",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x43bc81",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x43bc82",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x43bc83",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "incoming_context": {
+    "redirect": [
+      {
+        "ea": "0x424c47",
+        "mnem": "call",
+        "caller_entry": "0x424620"
+      },
+      {
+        "ea": "0x424d38",
+        "mnem": "call",
+        "caller_entry": "0x424620"
+      },
+      {
+        "ea": "0x425155",
+        "mnem": "call",
+        "caller_entry": "0x424620"
+      },
+      {
+        "ea": "0x42583a",
+        "mnem": "call",
+        "caller_entry": "0x424620"
+      },
+      {
+        "ea": "0x42727f",
+        "mnem": "call",
+        "caller_entry": "0x426fc0"
+      }
+    ],
+    "auxiliary": [
+      {
+        "ea": "0x418c51",
+        "mnem": "call",
+        "caller_entry": "0x418b70"
+      },
+      {
+        "ea": "0x4192ab",
+        "mnem": "call",
+        "caller_entry": "0x419180"
+      },
+      {
+        "ea": "0x4194f3",
+        "mnem": "call",
+        "caller_entry": "0x419390"
+      },
+      {
+        "ea": "0x41976e",
+        "mnem": "call",
+        "caller_entry": "0x4195f0"
+      },
+      {
+        "ea": "0x419e7e",
+        "mnem": "call",
+        "caller_entry": "0x419da0"
+      },
+      {
+        "ea": "0x41dce7",
+        "mnem": "call",
+        "caller_entry": "0x41cd00"
+      },
+      {
+        "ea": "0x41e0c2",
+        "mnem": "call",
+        "caller_entry": "0x41cd00"
+      },
+      {
+        "ea": "0x422f10",
+        "mnem": "call",
+        "caller_entry": "0x422e50"
+      },
+      {
+        "ea": "0x423108",
+        "mnem": "call",
+        "caller_entry": "0x423040"
+      },
+      {
+        "ea": "0x423284",
+        "mnem": "call",
+        "caller_entry": "0x4231d0"
+      },
+      {
+        "ea": "0x42342c",
+        "mnem": "call",
+        "caller_entry": "0x423350"
+      },
+      {
+        "ea": "0x423575",
+        "mnem": "call",
+        "caller_entry": "0x4234b0"
+      },
+      {
+        "ea": "0x4255ea",
+        "mnem": "call",
+        "caller_entry": "0x424620"
+      },
+      {
+        "ea": "0x425678",
+        "mnem": "call",
+        "caller_entry": "0x424620"
+      },
+      {
+        "ea": "0x42576e",
+        "mnem": "call",
+        "caller_entry": "0x424620"
+      },
+      {
+        "ea": "0x425df5",
+        "mnem": "call",
+        "caller_entry": "0x424620"
+      },
+      {
+        "ea": "0x4271e5",
+        "mnem": "call",
+        "caller_entry": "0x426fc0"
+      },
+      {
+        "ea": "0x427a2d",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x42b08d",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x42b44b",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x42c5ed",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x42c9e6",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x42db6a",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x42e2c4",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x42e520",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x42e74d",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x4318ab",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x431c31",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x431fbd",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x4345ac",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x434de9",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x4351bf",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x435457",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x43567b",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x435984",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x4361be",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      },
+      {
+        "ea": "0x436752",
+        "mnem": "call",
+        "caller_entry": "0x427470"
+      }
+    ],
+    "redirect_return_consumption_windows": [
+      {
+        "call_site": "0x424c47",
+        "instructions": [
+          {
+            "ea": "0x424c47",
+            "size": 5,
+            "bytes": "e864f6ffff",
+            "text": "call    sub_4242B0"
+          },
+          {
+            "ea": "0x424c4c",
+            "size": 3,
+            "bytes": "8b4500",
+            "text": "mov     eax, [ebp+0]"
+          },
+          {
+            "ea": "0x424c4f",
+            "size": 2,
+            "bytes": "6a0b",
+            "text": "push    0Bh; a3"
+          },
+          {
+            "ea": "0x424c51",
+            "size": 7,
+            "bytes": "8b0c8580e95900",
+            "text": "mov     ecx, gBattleEntry[eax*4]"
+          },
+          {
+            "ea": "0x424c58",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx; a2"
+          }
+        ]
+      },
+      {
+        "call_site": "0x424d38",
+        "instructions": [
+          {
+            "ea": "0x424d38",
+            "size": 5,
+            "bytes": "e873f5ffff",
+            "text": "call    sub_4242B0"
+          },
+          {
+            "ea": "0x424d3d",
+            "size": 7,
+            "bytes": "8b049d80e95900",
+            "text": "mov     eax, gBattleEntry[ebx*4]"
+          },
+          {
+            "ea": "0x424d44",
+            "size": 2,
+            "bytes": "6a0b",
+            "text": "push    0Bh; a3"
+          },
+          {
+            "ea": "0x424d46",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax; a2"
+          },
+          {
+            "ea": "0x424d47",
+            "size": 1,
+            "bytes": "56",
+            "text": "push    esi; a1"
+          }
+        ]
+      },
+      {
+        "call_site": "0x425155",
+        "instructions": [
+          {
+            "ea": "0x425155",
+            "size": 5,
+            "bytes": "e856f1ffff",
+            "text": "call    sub_4242B0"
+          },
+          {
+            "ea": "0x42515a",
+            "size": 2,
+            "bytes": "8b0f",
+            "text": "mov     ecx, [edi]"
+          },
+          {
+            "ea": "0x42515c",
+            "size": 2,
+            "bytes": "6a4a",
+            "text": "push    4Ah ; 'J'; a3"
+          },
+          {
+            "ea": "0x42515e",
+            "size": 2,
+            "bytes": "8bd8",
+            "text": "mov     ebx, eax"
+          },
+          {
+            "ea": "0x425160",
+            "size": 7,
+            "bytes": "8b148d80e95900",
+            "text": "mov     edx, gBattleEntry[ecx*4]"
+          }
+        ]
+      },
+      {
+        "call_site": "0x42583a",
+        "instructions": [
+          {
+            "ea": "0x42583a",
+            "size": 5,
+            "bytes": "e871eaffff",
+            "text": "call    sub_4242B0"
+          },
+          {
+            "ea": "0x42583f",
+            "size": 2,
+            "bytes": "8b0f",
+            "text": "mov     ecx, [edi]"
+          },
+          {
+            "ea": "0x425841",
+            "size": 2,
+            "bytes": "6a4a",
+            "text": "push    4Ah ; 'J'; a3"
+          },
+          {
+            "ea": "0x425843",
+            "size": 2,
+            "bytes": "8bd8",
+            "text": "mov     ebx, eax"
+          },
+          {
+            "ea": "0x425845",
+            "size": 7,
+            "bytes": "8b148d80e95900",
+            "text": "mov     edx, gBattleEntry[ecx*4]"
+          }
+        ]
+      },
+      {
+        "call_site": "0x42727f",
+        "instructions": [
+          {
+            "ea": "0x42727f",
+            "size": 5,
+            "bytes": "e82cd0ffff",
+            "text": "call    sub_4242B0"
+          },
+          {
+            "ea": "0x427284",
+            "size": 2,
+            "bytes": "8b17",
+            "text": "mov     edx, [edi]"
+          },
+          {
+            "ea": "0x427286",
+            "size": 2,
+            "bytes": "6a0b",
+            "text": "push    0Bh; a3"
+          },
+          {
+            "ea": "0x427288",
+            "size": 7,
+            "bytes": "8b049580e95900",
+            "text": "mov     eax, gBattleEntry[edx*4]"
+          },
+          {
+            "ea": "0x42728f",
+            "size": 1,
+            "bytes": "50",
+            "text": "push    eax; a2"
+          }
+        ]
+      }
+    ]
+  },
+  "source_body_before": [
+    {
+      "marker": "std::int32_t AppendBattleRedirect_4242B0",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "text": "std::int32_t AppendBattleRedirect_4242B0(\n    YobiAction* const scene, const std::int32_t source, const std::int32_t target,\n    const std::uint32_t flags, const std::int32_t value, const std::int32_t redirect)\n{\n    using world::detail::gBattleAllEntries59E980;\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[source], 74);\n    AppendBattleEffectList_4393A0(gBattleAllEntries59E980[source], redirect, flags, value);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[source], 25);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[source], 73);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[source], 0);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[source], 25);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 0);\n    AppendBattleEffectList_4393A0(gBattleAllEntries59E980[redirect], target, flags, value);\n    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[redirect]->payload)->targetPosition100C = target;\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 41);\n    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[redirect]->payload)->value1018 = 252;\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 80);\n    static_cast<BattleActorPayload*>(gBattleAllEntries59E980[redirect]->payload)->reactionImage1010 = 0x5748;\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 69);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 36);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 75);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 7);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 4);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 44);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 73);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 10);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 76);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[redirect], 74);\n    AppendBattleEffectList_4393A0(gBattleAllEntries59E980[redirect], target, flags, value);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[target], 0);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[target], 28);\n    AppendBattleEffectList_4393A0(gBattleAllEntries59E980[target], source, flags, value);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[target], 73);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[target], 74);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[target], 64);\n    AppendBattleCast_4392A0(scene, gBattleAllEntries59E980[target], 1);\n    return redirect;\n}"
+    },
+    {
+      "marker": "void AppendBattleAuxEffects_43BC10",
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "text": "void AppendBattleAuxEffects_43BC10(\n    YobiAction* const action, const std::int32_t position, const std::uint32_t flags,\n    const std::int32_t value3, const std::int32_t value4, const std::int32_t value5)\n{\n    if ((flags & 0x800000u) == 0) {\n        return;\n    }\n    auto* const payload = static_cast<BattleActorPayload*>(action->payload);\n    const std::int32_t previous = payload->effectCountCA0 - 1;\n    AppendBattleEffect_439400(action, {position, flags, value3, value4});\n    AppendBattleEffect_439400(action, {position, flags, value5, 0});\n    BattleEntryEffectRecord original;\n    original.position4 = payload->effects1C[previous].position4;\n    original.flags = payload->effects1C[previous].flags;\n    original.position3 = payload->effects1C[previous].position3;\n    original.position = payload->effects1C[previous].position;\n    AppendBattleEffect_439400(action, original);\n}"
+    }
+  ],
+  "source_body_changed": false,
+  "source_patches": [],
+  "tracking_before": {
+    "semantic_records": 1351,
+    "semantic_inventory_ids": 1346,
+    "classifications": 457,
+    "evidence": 497,
+    "battle_members": 53,
+    "both_semantic_records_absent": true,
+    "both_dispositions_absent": true,
+    "both_battle_members_absent": true,
+    "both_historical_definitions_present": true,
+    "both_absent_from_development_gap_queue": true
+  },
+  "verification_boundary": {
+    "full_original_function_normal_bodies_reviewed": true,
+    "all_parent_bodies_or_consumers_reviewed": false,
+    "full_runtime_verified": false,
+    "redirect_cast_calls": 24,
+    "redirect_effect_list_calls": 4,
+    "aux_effect_calls": 3,
+    "redirect_fields_width": 4,
+    "aux_value_record_bytes": 16,
+    "original_s32_previous_and_fixed_payload_across_two_appends_preserved": true,
+    "original_aux_four_field_read_order_preserved": true,
+    "source_patch_count": 0
+  },
+  "implementation_tag": "cg2d-re-battle-redirect-aux-baseline-20261006",
+  "previous_snapshot_functions": [
+    {
+      "id": "F:000242B0",
+      "original_entry": "0x4242B0",
+      "original_name": "sub_4242B0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "AppendBattleRedirect_4242B0",
+          "definition_line": 11241,
+          "namespace": "cg::login::detail"
+        }
+      ],
+      "baseline_documents": null,
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": null,
+      "sources": []
+    },
+    {
+      "id": "F:0003BC10",
+      "original_entry": "0x43BC10",
+      "original_name": "sub_43BC10",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "AppendBattleAuxEffects_43BC10",
+          "definition_line": 26321,
+          "namespace": "cg::login::detail"
+        }
+      ],
+      "baseline_documents": null,
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": null,
+      "sources": []
+    }
+  ]
+}

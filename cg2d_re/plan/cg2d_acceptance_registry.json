@@ -1320,7 +1320,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-baseline",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-baseline",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000597E0",
@@ -1357,7 +1358,9 @@
         "F:00122CB0",
         "F:00123140",
         "F:00050BB0",
-        "F:00051220"
+        "F:00051220",
+        "F:00050470",
+        "F:00050A80"
       ],
       "closure_task_ids": [
         "G01",
@@ -1380,7 +1383,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-decision",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-decision",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1394,7 +1398,8 @@
         "BOK01三已有根736/160/165完整662条2101B/55B数据，13处原字段/条件去重重读-首见引用恢复，RESOURCE29枚举open；全部主表分配-GraphicRead内容/解码消费/真实owner-ABI/画面运行与R1/R7/R8待",
         "BOL01两个已有167/168完整257条683B/4页，读盘两取样恢复/正确raw-RLE保持，旧不重叠前提和回绕注释修正；RESOURCE31枚举open，当前全部正常别名/所有caller-真实内容/draw/调色板消费/主表与FILE owner-画面运行、R1/R7/R8待",
         "BOM01两原343条1250B/五页，七生产取样/两W32纯黑发布和B-G-R native承载恢复，刷新helper/包装正确体保；两新原ID/两域枚举open，低色深541B仅纳盘，全部通道初始化/Tone父-分配/回收owner/真实像素上传/画面运行与R1/R7/R8待",
-        "BON01两个已有723/172完整380条1579B/144B数据，12处过渡/查色取样恢复，旧FILE/CPH/Tone helper/正确表保持；共享32局部枚举open，低色深40B仅纳盘，全部父/PC53/数组-通道owner/像素画面运行与R1/R7/R8待"
+        "BON01两个已有723/172完整380条1579B/144B数据，12处过渡/查色取样恢复，旧FILE/CPH/Tone helper/正确表保持；共享32局部枚举open，低色深40B仅纳盘，全部父/PC53/数组-通道owner/像素画面运行与R1/R7/R8待",
+        "BOO01两旧169/170完整464条1778B/128B固定初值-100B常量，Init查色1恢复/Read正确体及真实CPU绑定保；原85条289B低色深仅纳盘。局部枚举open，全部父/构造重建销毁owner/正常别名/像素画面与R1/R7/R8运行待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1411,7 +1416,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
       ]
     },
     {
@@ -1486,7 +1492,8 @@
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-baseline",
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-baseline",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1518,7 +1525,9 @@
         "F:00122CB0",
         "F:00123140",
         "F:00050BB0",
-        "F:00051220"
+        "F:00051220",
+        "F:00050470",
+        "F:00050A80"
       ],
       "closure_task_ids": [
         "C09",
@@ -1545,7 +1554,8 @@
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-decision",
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-decision",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1561,7 +1571,8 @@
         "CPH01两编译器私有帮助体host纳管，调色板两工具恢复正常S64/S32；局部原体/六转换/五加法不代全部业务父/浮点环境/owner/ABI/完整调色板/资源/画面/运行，数学异常不模拟或称等价",
         "BMH01聊天图形加载后的native DX缓存基址→借用W32 graphicIndex→低S16高度取样恢复；现代字段读取在render内承载，旧读取接口/所有其它消费者保持，完整DX/像素/资源owner与画面运行仍待",
         "BOM01两原343条1250B/五页，七生产取样/两W32纯黑发布和B-G-R native承载恢复，刷新helper/包装正确体保；两新原ID/两域枚举open，低色深541B仅纳盘，全部通道初始化/Tone父-分配/回收owner/真实像素上传/画面运行与R1/R7/R8待",
-        "BON01两个已有723/172完整380条1579B/144B数据，12处过渡/查色取样恢复，旧FILE/CPH/Tone helper/正确表保持；共享32局部枚举open，低色深40B仅纳盘，全部父/PC53/数组-通道owner/像素画面运行与R1/R7/R8待"
+        "BON01两个已有723/172完整380条1579B/144B数据，12处过渡/查色取样恢复，旧FILE/CPH/Tone helper/正确表保持；共享32局部枚举open，低色深40B仅纳盘，全部父/PC53/数组-通道owner/像素画面运行与R1/R7/R8待",
+        "BOO01两旧169/170完整464条1778B/128B固定初值-100B常量，Init查色1恢复/Read正确体及真实CPU绑定保；原85条289B低色深仅纳盘。局部枚举open，全部父/构造重建销毁owner/正常别名/像素画面与R1/R7/R8运行待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1578,7 +1589,8 @@
         "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
         "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
       ]
     },
     {
@@ -28232,6 +28244,254 @@
       "observation": "本根完整23条80B/1页，0call/2内跳/1ret、1普通入向-1父；144B格式及45组三元表逐项、低色深40B分列",
       "expected": "原S32四字节游标/256色，先U8 R再G取样/整数(R<<8)+G，再U8 B取样/pack00RRGGBB；每项完整W32写色，纯黑再W32=1，最终仅索引0 W32清0，返原游标400H。flags不读/不作alpha，不增加条件拒绝/回滚/钳制；当前仅RGB取样恢复，原两W32黑色/透明0及return400H保持，全部caller/像素/owner运行另验。",
       "actual": "仅已批准共享/32色正常局部static I/S，runtime=false；两个原ID续记/八两域证据不代全部父-PC53/ABI/通道初始化-owner/像素画面运行和R1/R7/R8，未构建/测试/运行/hash；音频暂停"
+    },
+    {
+      "id": "E-RENDER-PALETTE-INITIALIZATION-READ-SAMPLING-00050470-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOO01完整464条1778B/固定128B与100B常量、低色深85条289B分列；doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-initialization-read-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json",
+        "src/Palette.cpp#InitPalette32",
+        "include/cg/Palette.hpp",
+        "src/render/RendererResources.cpp#CreateRendererPaletteBinding",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "Init查色1处R-G-中间整数-B取样恢复；Read DWORD逐项头尾复制/初值128B/FILE/备份先168黑色/实际独立绑定/中性通道保持，85条289B仅纳盘",
+          "decision_ref": "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅Init1处取样恢复，Read正确正文与其它根保，本根：固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。",
+      "expected": "固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。",
+      "actual": "仅共享/32色正常局部static I/S，runtime=false；两个已有原ID续记/八两域证据不代全部父/构造-重建-销毁owner/正常别名/资源像素运行及R1/R7/R8；未构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RENDER-PALETTE-INITIALIZATION-READ-SAMPLING-00050470-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOO01完整464条1778B/固定128B与100B常量、低色深85条289B分列；doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-initialization-read-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json",
+        "src/Palette.cpp#InitPalette32",
+        "include/cg/Palette.hpp",
+        "src/render/RendererResources.cpp#CreateRendererPaletteBinding",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "Init查色1处R-G-中间整数-B取样恢复；Read DWORD逐项头尾复制/初值128B/FILE/备份先168黑色/实际独立绑定/中性通道保持，85条289B仅纳盘",
+          "decision_ref": "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整387条1544B/5页，12call/23内跳/3ret、2普通入向-2父；固定初始化128条128B静态展开，八常量100B，低色深85条289B分列",
+      "expected": "固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。",
+      "actual": "仅共享/32色正常局部static I/S，runtime=false；两个已有原ID续记/八两域证据不代全部父/构造-重建-销毁owner/正常别名/资源像素运行及R1/R7/R8；未构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-PALETTE-INITIALIZATION-READ-SAMPLING-00050470-I-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOO01完整464条1778B/固定128B与100B常量、低色深85条289B分列；doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-initialization-read-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json",
+        "src/Palette.cpp#InitPalette32",
+        "include/cg/Palette.hpp",
+        "src/render/RendererResources.cpp#CreateRendererPaletteBinding",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "Init查色1处R-G-中间整数-B取样恢复；Read DWORD逐项头尾复制/初值128B/FILE/备份先168黑色/实际独立绑定/中性通道保持，85条289B仅纳盘",
+          "decision_ref": "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅Init1处取样恢复，Read正确正文与其它根保，本根：固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。",
+      "expected": "固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。",
+      "actual": "仅共享/32色正常局部static I/S，runtime=false；两个已有原ID续记/八两域证据不代全部父/构造-重建-销毁owner/正常别名/资源像素运行及R1/R7/R8；未构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-PALETTE-INITIALIZATION-READ-SAMPLING-00050470-S-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOO01完整464条1778B/固定128B与100B常量、低色深85条289B分列；doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-initialization-read-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json",
+        "src/Palette.cpp#InitPalette32",
+        "include/cg/Palette.hpp",
+        "src/render/RendererResources.cpp#CreateRendererPaletteBinding",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "Init查色1处R-G-中间整数-B取样恢复；Read DWORD逐项头尾复制/初值128B/FILE/备份先168黑色/实际独立绑定/中性通道保持，85条289B仅纳盘",
+          "decision_ref": "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整387条1544B/5页，12call/23内跳/3ret、2普通入向-2父；固定初始化128条128B静态展开，八常量100B，低色深85条289B分列",
+      "expected": "固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。",
+      "actual": "仅共享/32色正常局部static I/S，runtime=false；两个已有原ID续记/八两域证据不代全部父/构造-重建-销毁owner/正常别名/资源像素运行及R1/R7/R8；未构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RENDER-PALETTE-INITIALIZATION-READ-SAMPLING-00050A80-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOO01完整464条1778B/固定128B与100B常量、低色深85条289B分列；doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-initialization-read-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json",
+        "src/Palette.cpp#ReadPalette",
+        "include/cg/Palette.hpp",
+        "src/render/RendererResources.cpp#CreateRendererPaletteBinding",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "Init查色1处R-G-中间整数-B取样恢复；Read DWORD逐项头尾复制/初值128B/FILE/备份先168黑色/实际独立绑定/中性通道保持，85条289B仅纳盘",
+          "decision_ref": "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅Init1处取样恢复，Read正确正文与其它根保，本根：S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。",
+      "expected": "S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。",
+      "actual": "仅共享/32色正常局部static I/S，runtime=false；两个已有原ID续记/八两域证据不代全部父/构造-重建-销毁owner/正常别名/资源像素运行及R1/R7/R8；未构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RENDER-PALETTE-INITIALIZATION-READ-SAMPLING-00050A80-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOO01完整464条1778B/固定128B与100B常量、低色深85条289B分列；doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-initialization-read-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json",
+        "src/Palette.cpp#ReadPalette",
+        "include/cg/Palette.hpp",
+        "src/render/RendererResources.cpp#CreateRendererPaletteBinding",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "Init查色1处R-G-中间整数-B取样恢复；Read DWORD逐项头尾复制/初值128B/FILE/备份先168黑色/实际独立绑定/中性通道保持，85条289B仅纳盘",
+          "decision_ref": "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整77条234B/1页，7call/4内跳/2ret、1普通入向-1父；固定初始化128条128B静态展开，八常量100B，低色深85条289B分列",
+      "expected": "S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。",
+      "actual": "仅共享/32色正常局部static I/S，runtime=false；两个已有原ID续记/八两域证据不代全部父/构造-重建-销毁owner/正常别名/资源像素运行及R1/R7/R8；未构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-PALETTE-INITIALIZATION-READ-SAMPLING-00050A80-I-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOO01完整464条1778B/固定128B与100B常量、低色深85条289B分列；doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-initialization-read-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json",
+        "src/Palette.cpp#ReadPalette",
+        "include/cg/Palette.hpp",
+        "src/render/RendererResources.cpp#CreateRendererPaletteBinding",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "Init查色1处R-G-中间整数-B取样恢复；Read DWORD逐项头尾复制/初值128B/FILE/备份先168黑色/实际独立绑定/中性通道保持，85条289B仅纳盘",
+          "decision_ref": "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅Init1处取样恢复，Read正确正文与其它根保，本根：S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。",
+      "expected": "S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。",
+      "actual": "仅共享/32色正常局部static I/S，runtime=false；两个已有原ID续记/八两域证据不代全部父/构造-重建-销毁owner/正常别名/资源像素运行及R1/R7/R8；未构建/测试/运行/hash，音频暂停"
+    },
+    {
+      "id": "E-RESOURCE-PALETTE-INITIALIZATION-READ-SAMPLING-00050A80-S-20261006",
+      "feature_id": "FUNC-RESOURCE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOO01完整464条1778B/固定128B与100B常量、低色深85条289B分列；doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-palette-initialization-read-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json",
+        "src/Palette.cpp#ReadPalette",
+        "include/cg/Palette.hpp",
+        "src/render/RendererResources.cpp#CreateRendererPaletteBinding",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "Init查色1处R-G-中间整数-B取样恢复；Read DWORD逐项头尾复制/初值128B/FILE/备份先168黑色/实际独立绑定/中性通道保持，85条289B仅纳盘",
+          "decision_ref": "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "本根完整77条234B/1页，7call/4内跳/2ret、1普通入向-1父；固定初始化128条128B静态展开，八常量100B，低色深85条289B分列",
+      "expected": "S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。",
+      "actual": "仅共享/32色正常局部static I/S，runtime=false；两个已有原ID续记/八两域证据不代全部父/构造-重建-销毁owner/正常别名/资源像素运行及R1/R7/R8；未构建/测试/运行/hash，音频暂停"
     }
   ],
   "task_acceptance": [
@@ -28477,7 +28737,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
       ]
     },
     {
@@ -28798,7 +29059,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
       ]
     },
     {
@@ -29006,7 +29268,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
       ]
     },
     {
@@ -29120,7 +29383,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
       ]
     },
     {
@@ -29205,7 +29469,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
       ]
     },
     {
@@ -29445,7 +29710,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
       ]
     },
     {
@@ -29526,7 +29792,8 @@
         "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
         "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
         "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
-        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
       ]
     }
   ],
@@ -34980,6 +35247,28 @@
         "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state"
       ],
       "boundary": "BON01共享和32色正常过渡/查色，原Byte-S32/F32/F64/正常S64低U8宽度、FILE与通道地址native；低色深40B调用区按既定范围排除；完整原根局部I/S不代所有父/PC53/数组-通道owner/像素画面运行，不宣异常/私有ABI"
+    },
+    {
+      "inventory_id": "F:00050470",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
+      ],
+      "boundary": "BOO01本根正常S32/U8/W32与已证native地址；Init低色深85条289B分列、原DX实际对象按既定批准承接，完整局部I/S不代全部父/owner/像素运行：固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。"
+    },
+    {
+      "inventory_id": "F:00050A80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state"
+      ],
+      "boundary": "BOO01本根正常S32/U8/W32与已证native地址；Init低色深85条289B分列、原DX实际对象按既定批准承接，完整局部I/S不代全部父/owner/像素运行：S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。"
     }
   ],
   "auxiliary_dispositions": [

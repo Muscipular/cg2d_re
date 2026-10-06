@@ -12428,23 +12428,29 @@
     {
       "original_entry": "0x450470",
       "inventory_id": "F:00050470",
-      "status": "共享逻辑/32位分支已映射且文件链已接；低色深目标沿既定排除，完整启动/运行未验",
+      "status": "BOO01完整共享/32初始化及资源读取续记；Init1处查色取样恢复、Read正确体与旧FILE链/实际绑定保，全部caller-owner/运行未验",
       "original_role": "调色板共享初始化与32位目标",
       "sources": [
         {
           "path": "src/Palette.cpp",
           "symbols": [
             "InitPalette32"
-          ]
+          ],
+          "relationship": "固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
         "doc/cg2d_sdl_presenter.md",
         "doc/cg2d_render_depth_scope.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json"
       ],
-      "boundary": "只映射已确认共享逻辑及32位分支：固定色、首次672字节消费、168号置黑前备份、CPU调色板绑定与原错误返回。8/16/24位目标按既有用户排除，不把8位源索引或调色板资源一并排除。 本轮六个格式/文件调用统一LegacyFile，首次224×B/G/R原序getc、EOF低U8为FF、关闭后全调色板备份再168置黑保持；能力/绑定/CPU查色表正文未改。",
+      "boundary": "固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。；仅本根正常局部I/S，全部caller-资源owner/像素和R1/R7/R8运行未验，不构建/测试/运行/hash；网络原格式明文/音频暂停",
       "original_end_exclusive": "0x450A78",
       "instruction_count": 387,
       "original_direct_reference_count": 2,
@@ -12523,26 +12529,169 @@
         "end_exclusive": "0x450840",
         "instruction_count": 54
       },
-      "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行"
+      "verification_level": "BOO01完整387条/1544B/5页/12call-23内跳/3ret，1源码补丁；普通入向2引用/2父；128B固定初值/100B常量静态，不代全部别名/owner运行",
+      "function_chunks": [
+        {
+          "start": "0x450470",
+          "end_exclusive": "0x450A78"
+        }
+      ],
+      "native_provider": {
+        "source": "src/Palette.cpp",
+        "symbol": "InitPalette32",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_palette_initialization_read_review": {
+        "original_entry": "0x450470",
+        "inventory_id": "F:00050470",
+        "status": "共享逻辑/32位分支已映射且文件链已接；低色深目标沿既定排除，完整启动/运行未验",
+        "original_role": "调色板共享初始化与32位目标",
+        "sources": [
+          {
+            "path": "src/Palette.cpp",
+            "symbols": [
+              "InitPalette32"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_resource_implementation.md",
+          "doc/cg2d_sdl_presenter.md",
+          "doc/cg2d_render_depth_scope.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "只映射已确认共享逻辑及32位分支：固定色、首次672字节消费、168号置黑前备份、CPU调色板绑定与原错误返回。8/16/24位目标按既有用户排除，不把8位源索引或调色板资源一并排除。 本轮六个格式/文件调用统一LegacyFile，首次224×B/G/R原序getc、EOF低U8为FF、关闭后全调色板备份再168置黑保持；能力/绑定/CPU查色表正文未改。",
+        "original_end_exclusive": "0x450A78",
+        "instruction_count": 387,
+        "original_direct_reference_count": 2,
+        "inbound_evidence": [
+          {
+            "address": "0x457775",
+            "parent_entry": "0x4576B0"
+          },
+          {
+            "address": "0x466C16",
+            "parent_entry": "0x466B80"
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x450470",
+            "call_site": "0x4507AB",
+            "source": "src/Palette.cpp",
+            "symbol": "InitPalette32",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x450470",
+            "call_site": "0x4507BD",
+            "source": "src/Palette.cpp",
+            "symbol": "InitPalette32",
+            "target_entry": "0x53B2F1",
+            "target_symbol": "OpenLegacyStream_53B2F1"
+          },
+          {
+            "parent_entry": "0x450470",
+            "call_site": "0x4507F6",
+            "source": "src/Palette.cpp",
+            "symbol": "InitPalette32",
+            "target_entry": "0x53C8B3",
+            "target_symbol": "ReadLegacyStreamByte_53C8B3"
+          },
+          {
+            "parent_entry": "0x450470",
+            "call_site": "0x4507FF",
+            "source": "src/Palette.cpp",
+            "symbol": "InitPalette32",
+            "target_entry": "0x53C8B3",
+            "target_symbol": "ReadLegacyStreamByte_53C8B3"
+          },
+          {
+            "parent_entry": "0x450470",
+            "call_site": "0x450807",
+            "source": "src/Palette.cpp",
+            "symbol": "InitPalette32",
+            "target_entry": "0x53C8B3",
+            "target_symbol": "ReadLegacyStreamByte_53C8B3"
+          },
+          {
+            "parent_entry": "0x450470",
+            "call_site": "0x450821",
+            "source": "src/Palette.cpp",
+            "symbol": "InitPalette32",
+            "target_entry": "0x53B1D0",
+            "target_symbol": "CloseLegacyStream_53B1D0"
+          }
+        ],
+        "business_byte_evidence": [
+          {
+            "address": "0x553514",
+            "bytes": "25735c257300"
+          },
+          {
+            "address": "0x554920",
+            "bytes": "726200"
+          }
+        ],
+        "file_instruction_evidence": {
+          "start": "0x450780",
+          "end_exclusive": "0x450840",
+          "instruction_count": 54
+        },
+        "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行"
+      },
+      "palette_initialization_read_sampling": {
+        "spec_id": "BOO01",
+        "evidence_refs": [
+          "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+          "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+          "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+          "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+          "doc/cg2d_palette_initialization_read_sampling_evidence.json"
+        ],
+        "original_entry": "0x450470",
+        "original_instruction_count": 387,
+        "original_code_bytes": 1544,
+        "page_count": 5,
+        "outgoing_call_site_count": 12,
+        "internal_branch_site_count": 23,
+        "return_site_count": 3,
+        "incoming_reference_count": 2,
+        "incoming_parent_count": 2,
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "implemented_scope": "已批准共享和32位初始化/原索引资源读取",
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "固定32项局部128Byte原R/G/B/flags初值保持；0..9/246..255固定色flags2，再10..15/240..245固定色flags5，目标每项B-G-R-flags写序。入口首判gPaletteInitialized，首次512B未清path/%s\\%s/rb索引0，打开失败原字节Error Code13/uType10返0；16..239各三getc低U8先B再G再R/flags5，close后全1024Byte备份，备份在168号三Byte清黑之前。共享独立palette创建按已批准CPU native绑定承接：原CreatePalette输出槽非空判断，不把HRESULT猜为成功；现有实际对象分配/256色复制/owner发布保，失败原Error Code15/uType10返0。仅已批准32渲染，256色查色每项先R再G取样、(R<<8)+G，再B取样和pack00RRGGBB；完整W32pub，纯黑再W32=1，最终索引0W32清0。尾重新读取initialized，首次每项Blue→Green→Red各fresh通道指针写U8 i，随后initialized1/changing0/返1。共享色资源保，三个8/16/24区85条289B仅纳盘排除；不新增空指针/容量/EOF拒绝或业务限制，不外推所有父/SDK-owner/像素运行。"
+      }
     },
     {
       "original_entry": "0x450A80",
       "inventory_id": "F:00050A80",
-      "status": "既有调色板读取本体的真实FILE整链已接；完整启动/运行未验",
+      "status": "BOO01完整共享/32初始化及资源读取续记；Init1处查色取样恢复、Read正确体与旧FILE链/实际绑定保，全部caller-owner/运行未验",
       "original_role": "调色板文件读取",
       "sources": [
         {
           "path": "src/Palette.cpp",
           "symbols": [
             "ReadPalette"
-          ]
+          ],
+          "relationship": "S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_resource_implementation.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_evidence.json"
       ],
-      "boundary": "打开失败沿原提示返回0；逐项按B/G/R读中间224色并设flags=5，EOF窄化为FF而非新失败；关闭后从当前调色板复制首尾16项。不额外置黑168、改活动编号或重建查色表。 本轮六个格式/文件调用统一LegacyFile，256B局部path未清，原错误提示、224×B/G/R逐次读取、低U8返回与关闭后头尾复制保持；原读取失败及原颜色状态未改。",
+      "boundary": "S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。；仅本根正常局部I/S，全部caller-资源owner/像素和R1/R7/R8运行未验，不构建/测试/运行/hash；网络原格式明文/音频暂停",
       "original_end_exclusive": "0x450B6A",
       "instruction_count": 77,
       "original_direct_reference_count": 1,
@@ -12617,7 +12766,138 @@
         "end_exclusive": "0x450B6A",
         "instruction_count": 77
       },
-      "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行"
+      "verification_level": "BOO01完整77条/234B/1页/7call-4内跳/2ret，0源码补丁；普通入向1引用/1父；128B固定初值/100B常量静态，不代全部别名/owner运行",
+      "function_chunks": [
+        {
+          "start": "0x450A80",
+          "end_exclusive": "0x450B6A"
+        }
+      ],
+      "native_provider": {
+        "source": "src/Palette.cpp",
+        "symbol": "ReadPalette",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "prior_palette_initialization_read_review": {
+        "original_entry": "0x450A80",
+        "inventory_id": "F:00050A80",
+        "status": "既有调色板读取本体的真实FILE整链已接；完整启动/运行未验",
+        "original_role": "调色板文件读取",
+        "sources": [
+          {
+            "path": "src/Palette.cpp",
+            "symbols": [
+              "ReadPalette"
+            ]
+          }
+        ],
+        "evidence_documents": [
+          "doc/cg2d_resource_implementation.md",
+          "doc/cg2d_semantic_function_mappings.md"
+        ],
+        "boundary": "打开失败沿原提示返回0；逐项按B/G/R读中间224色并设flags=5，EOF窄化为FF而非新失败；关闭后从当前调色板复制首尾16项。不额外置黑168、改活动编号或重建查色表。 本轮六个格式/文件调用统一LegacyFile，256B局部path未清，原错误提示、224×B/G/R逐次读取、低U8返回与关闭后头尾复制保持；原读取失败及原颜色状态未改。",
+        "original_end_exclusive": "0x450B6A",
+        "instruction_count": 77,
+        "original_direct_reference_count": 1,
+        "inbound_evidence": [
+          {
+            "address": "0x45A1B4",
+            "parent_entry": "0x45A190"
+          }
+        ],
+        "business_call_connections": [
+          {
+            "parent_entry": "0x450A80",
+            "call_site": "0x450AA9",
+            "source": "src/Palette.cpp",
+            "symbol": "ReadPalette",
+            "target_entry": "0x53B304",
+            "target_symbol": "FormatLegacyString_53B304"
+          },
+          {
+            "parent_entry": "0x450A80",
+            "call_site": "0x450AB8",
+            "source": "src/Palette.cpp",
+            "symbol": "ReadPalette",
+            "target_entry": "0x53B2F1",
+            "target_symbol": "OpenLegacyStream_53B2F1"
+          },
+          {
+            "parent_entry": "0x450A80",
+            "call_site": "0x450AFC",
+            "source": "src/Palette.cpp",
+            "symbol": "ReadPalette",
+            "target_entry": "0x53C8B3",
+            "target_symbol": "ReadLegacyStreamByte_53C8B3"
+          },
+          {
+            "parent_entry": "0x450A80",
+            "call_site": "0x450B05",
+            "source": "src/Palette.cpp",
+            "symbol": "ReadPalette",
+            "target_entry": "0x53C8B3",
+            "target_symbol": "ReadLegacyStreamByte_53C8B3"
+          },
+          {
+            "parent_entry": "0x450A80",
+            "call_site": "0x450B0D",
+            "source": "src/Palette.cpp",
+            "symbol": "ReadPalette",
+            "target_entry": "0x53C8B3",
+            "target_symbol": "ReadLegacyStreamByte_53C8B3"
+          },
+          {
+            "parent_entry": "0x450A80",
+            "call_site": "0x450B23",
+            "source": "src/Palette.cpp",
+            "symbol": "ReadPalette",
+            "target_entry": "0x53B1D0",
+            "target_symbol": "CloseLegacyStream_53B1D0"
+          }
+        ],
+        "business_byte_evidence": [
+          {
+            "address": "0x553514",
+            "bytes": "25735c257300"
+          },
+          {
+            "address": "0x554920",
+            "bytes": "726200"
+          }
+        ],
+        "file_instruction_evidence": {
+          "start": "0x450A80",
+          "end_exclusive": "0x450B6A",
+          "instruction_count": 77
+        },
+        "verification_level": "四父范围991条/十直接入向及全部调用取证；指定文件路径406条逐指令核对、23调用/原路径mode字节/限定源码差异静态核对；未重新验收四父全部渲染或容器分支，未执行"
+      },
+      "palette_initialization_read_sampling": {
+        "spec_id": "BOO01",
+        "evidence_refs": [
+          "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-baseline",
+          "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision",
+          "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-acceptance",
+          "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+          "doc/cg2d_palette_initialization_read_sampling_evidence.json"
+        ],
+        "original_entry": "0x450A80",
+        "original_instruction_count": 77,
+        "original_code_bytes": 234,
+        "page_count": 1,
+        "outgoing_call_site_count": 7,
+        "internal_branch_site_count": 4,
+        "return_site_count": 2,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "implemented_scope": "已批准共享和32位初始化/原索引资源读取",
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "S32 index直接寻原PaletteFile130B条目path；256B未清局部path/%s\\%s/rb，打开失败原字节Error/uType10返0。16..239共224色依次三getc低U8 B/G/R、flags5，不以EOF增失败。close之后从当前gPalette逐项W32载入再W32发布头0..15及尾240..255，两个独立顺序循环；当前PaletteEntry4B值赋正确，不能改Byte分写。成功返1，不修改168号、活动/loaded、initialized、查色表或renderer，不增加索引/output校验；原两返回及FILE六call保持，正常输出别名逐项消费，原地址x64 native承载。"
+      }
     },
     {
       "original_entry": "0x450B70",

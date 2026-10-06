@@ -234,8 +234,11 @@ int InitPalette32()
 
     // 原 32 位路径在创建独立调色板对象后建立 CPU 查色表。
     for (int i = 0; i < 256; ++i) {
-        const std::uint32_t color = gPalette[i].blue
-            + ((gPalette[i].green + (static_cast<std::uint32_t>(gPalette[i].red) << 8)) << 8);
+        const std::uint32_t red = gPalette[i].red;
+        const std::uint32_t green = gPalette[i].green;
+        const std::uint32_t redGreen = (red << 8) + green;
+        const std::uint32_t blue = gPalette[i].blue;
+        const std::uint32_t color = (redGreen << 8) + blue;
         gPaletteAutoMap[i] = color;
         if (color == 0) {
             gPaletteAutoMap[i] = 1;

@@ -2444,3 +2444,11 @@ BOA01验证结论：三完整回调/整CPP从HEAD仅三坐标补丁精确重放�
 - **增量与旧事实**：723/172两个已有ID及完整旧记录深拷贝续记，FILE及CPH六正常转换/五加法历史保；语义1401/有效ID1396/1514关联(41.14%)不变，分类514→516、RESOURCE33→35/RENDER28→30枚举open、八两域局部static I/S E621→629。历史直接定义1/0保持；两个原函数不当八函数，member_inventory_closed=false/gates空、七open仅进展/引用，队列175/R7区间67-3061/60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它历史功能保持。 命名快照 `cg2d-re-palette-transition-channel-sampling-20261006`；13文件精确提交，用户既有六项排除。只恢复原正常取样，旧FILE/CPH/Tone helper和正确初值不重写，不全面核其它父。
 - **后续推进**：原512B未清path/三getc低U8/168黑色、色调helper逐项重取与业务上限255、查色完整W32颜色后纯黑1/透明0和400H返回保持；只共享/32正常局部，不代全部caller/PC53/私有ABI/数组及通道初始化-owner/像素画面和R1/R7/R8运行。未编译/调试/测试/运行/hash；RPLAN.24不增溢出/越界/补零/故障策略或回绕等价，网络原格式明文/内存CryptInt保/音频暂停。 沿真实上层触发、初始化/consumer-owner继续开发，整体SPEC目标保持。
 - **实际核验结果**：两根六页380条1579B完整连续原字节/指令、chunk/七入向与12补丁位点、两低色深调用区40B、144B数据封套通过；原135B三元表按45x3逐Byte一致且源初始化保持。整Palette.cpp仅主11/查色1恢复，初始化/完成/浮点Byte/节流快照与RGB原序、六正常转换/五加法、Tone helper及BOM承载/生产-GPC-公开头保持通过。两个权威JSON全对象仅723/172续记/完整旧记录、两分类/两域成员/八I-S/七open引用；分类边界已按本步过渡/查色原宽及低色深范围记录。看板生成/-Check退出0，派生全对象仅两根/两域/分类516/七open增量，13文件UTF8无BOM/LF与diff通过；唯一进度实际文件数同步为13，无构建/测试/运行/hash。
+
+## BOO01 调色板初始化与读取缺口收尾（2026-10-06）
+
+- **开发/当步解决**：先落[具体SPEC](../doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision)，Init查色取样1处恢复，Read及正确固定初值/现有真实绑定保。[完整证据](../doc/cg2d_palette_initialization_read_sampling_evidence.json)保两完整原根464条1778B/六页/19call-27内跳/5ret、三入向、128B固定初始化与100B常量，85条289B低色深按既有范围分列。
+- **可度量进展**：169/170两已有ID完整历史深拷贝续记，语义1401/有效ID1396及1514关联41.14%不变；分类516→518、RESOURCE35→37/RENDER30→32仍枚举open，八两域局部static I/S E629→637。历史定义0/0保持，两个原函数不计八函数；七open及完整门禁保持，不代全部父/owner/正常别名/像素运行。 60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及队列175保持。命名快照 `cg2d-re-palette-initialization-read-sampling-20261006`；本步13文件精确提交，用户既有六项排除。
+- **后续开发**：本步静态与汇总仅验上述范围；未构建/测试/运行/hash。原DX机制沿已有批准承接，不猜HRESULT或补COM模拟，不扩溢出/越界策略。网络原格式明文，音频暂停；继续沿实际初始化/资源消费/owner推进整体SPEC。 全部父、实际构造重建销毁及画面消费继续按七项open任务推进，不以局部静态宣布整体完成。
+
+BOO01本步实测：四项定向静态（源码/完整原证据/两权威JSON/文档任务）及派生全对象差异通过；measure与-Check均返回0。检查发现三个JSON物理换行CRLF，当步统一LF并核对象不变，13文件严格UTF8无BOM/LF及必要差异复检通过。分类518、RESOURCE37/RENDER32、E637；历史直接定义0/0、语义1401/1396及1514关联、队列/七open/完整门禁保持。未编译/测试/运行/hash，整体SPEC目标继续。

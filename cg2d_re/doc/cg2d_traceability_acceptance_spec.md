@@ -854,3 +854,11 @@ E487→491仅YOBI/BATTLE四局部I/S；旧812追加、七open与唯一进度同�
 723/172两个已有ID及完整旧记录深拷贝续记，FILE及CPH六正常转换/五加法历史保；语义1401/有效ID1396/1514关联(41.14%)不变，分类514→516、RESOURCE33→35/RENDER28→30枚举open、八两域局部static I/S E621→629。历史直接定义1/0保持；两个原函数不当八函数，member_inventory_closed=false/gates空、七open仅进展/引用，队列175/R7区间67-3061/60源码closed10/完整验收0/global_accepted=false/accepted_leaf_features=0及其它历史功能保持。 旧FILE105条/CPH邻窗按旧范围保持，两个当前完整原根/取样独立记录；原15call含低色深/ftol/FILE分列，不拿源码词法call数相除覆盖率。
 
 原512B未清path/三getc低U8/168黑色、色调helper逐项重取与业务上限255、查色完整W32颜色后纯黑1/透明0和400H返回保持；只共享/32正常局部，不代全部caller/PC53/私有ABI/数组及通道初始化-owner/像素画面和R1/R7/R8运行。未编译/调试/测试/运行/hash；RPLAN.24不增溢出/越界/补零/故障策略或回绕等价，网络原格式明文/内存CryptInt保/音频暂停。
+
+## BOO01 初始化/读取的两域局部I/S（2026-10-06）
+
+[BOO01 SPEC](cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-decision)/[原证据](cg2d_palette_initialization_read_sampling_evidence.json)。完整初始化387条1544B与读取77条234B，共464条1778B/六页/19call-27内跳/5ret、三普通入向。原8/16/24区85条289B按既定范围排除；固定128条写入、128B局部色表与当前逐字节一致，八段原常量100B保留。Init仅1处恢复R→G→中间整数→B查色取样；W32完整色/纯黑1/透明0保持。Read原逐项DWORD头尾复制保持，不改Byte分写；旧FILE链、备份先168置黑、实际独立CPU绑定、中性通道顺序保。
+
+169/170两已有ID完整历史深拷贝续记，语义1401/有效ID1396及1514关联41.14%不变；分类516→518、RESOURCE35→37/RENDER30→32仍枚举open，八两域局部static I/S E629→637。历史定义0/0保持，两个原函数不计八函数；七open及完整门禁保持，不代全部父/owner/正常别名/像素运行。 旧stdio六call/根及局部核对历史完整保，本次完整两根独立取证；低色深区和获批SDK机制分列，不拿源码call词法数量计算原覆盖率。
+
+本步静态与汇总仅验上述范围；未构建/测试/运行/hash。原DX机制沿已有批准承接，不猜HRESULT或补COM模拟，不扩溢出/越界策略。网络原格式明文，音频暂停；继续沿实际初始化/资源消费/owner推进整体SPEC。

@@ -1028,3 +1028,9 @@ BOP01当步同时修复functionRows两集合输出形态：baseline_documents/fe
 [限定合同](cg2d_map_effect_arithmetic_spec.md#pow-input-control-acceptance)/[两原体及缺口前态](cg2d_map_effect_arithmetic_evidence.json)。完整27条90B、五普通点/两父邻窗与两个应用参数关联窗口分列；仅两个当前正常阶段的来源映射，原默认027F条件绕过和泛用PC/特殊F80未完整实施边界显式记录。源码保持，新增一CRT局部S，不登记新增实现或提升完整I。
 
 语义1428/1423、关联1541/41.88%、分类552、CRT154枚举open、E728；队列172/待归属43只移两个具名ID。暂停25/排除103/NOP1、R7已审67/3061、两open任务及10/60源码关闭/0完整验收/0叶/global_accepted=false保持；运行/SDK/ABI、完整场景RNG和所有owner寿命仍按原标准。
+
+## BPN01 正常指数估算的一源差与局部I/S（2026-10-07）
+
+[限定验收](cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-acceptance)/[原证据及本次前态](cg2d_float_decimal_estimate_evidence.json)。仅原正常15条52B/唯一call父的取参与发布、现一估算表达式与真实字段/调用保持静态；原232全部算法和96位/e/f/g/环境未新验。两局部I/S各九独立来源，不把无介入旧值一致称已修数值/显示错误。
+
+语义1428/1423、文档1541/41.88%、队列172/待归属43、暂停25/排除103/NOP1及R7 67/3061保持；分类553、CRT155枚举open、E730；C12/R01/R04仅追加引用/进展，60任务源码closed10/完整验收0、叶0/global_accepted=false及全部原适用门禁保持。

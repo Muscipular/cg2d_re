@@ -302,7 +302,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-baseline",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-baseline",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-baseline",
-        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline"
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline"
       ],
       "original_inventory_ids": [
         "F:00053E10",
@@ -458,7 +459,8 @@
         "F:001402AB",
         "F:001407BC",
         "F:00143405",
-        "F:00143435"
+        "F:00143435",
+        "F:00146F36"
       ],
       "closure_task_ids": [
         "C01",
@@ -498,7 +500,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-decision",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-decision",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-decision",
-        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision"
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-decision",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -528,7 +531,8 @@
         "MFA01效果固定点正常S32已修，原位型/窄化/四固定点及两像素写和x87/RNG序保持；三身份仅本次局部/两正底数路径，一般pow/其它入口和错误浮点状态/完整场景/所有父/alias/owner寿命/实际ABI/SDK/像素及RNG结果运行未闭，异常不保护或模拟",
         "BPJ01现有__twoToTOS十条x87内联/完整11条21B和唯一原call身份纳管，CRT150枚举open；一般_pow/负底数/其余私有链、全调用环境/ABI/owner寿命与场景RNG及运行仍待，非新增实现或数学库闭合",
         "BPK01两私有查找/捕获复制职责host具名承接，完整315条875B和两唯一call/父邻窗纳管，原捕获数据/业务copy与单owner保。当前SDK源码不代生成ABI；实际typed捕获/清理、全部成员/硬件SEH/owner寿命与链接/展开及正常快速退出运行仍待，CRT152枚举open",
-        "BPM01两帮助体完整27条90B/五call两父邻窗及当前PC53/1.25加载阶段纳管，CRT154枚举open；原027F绕过543405，固定PC不代泛用PC选择，53D04C不代其余三点/特殊F80。一般_pow/其它浮点链、全环境/父/alias/owner寿命/SDK机器ABI及场景RNG与画面运行仍待，非新增实现或完整帮助体闭合"
+        "BPM01两帮助体完整27条90B/五call两父邻窗及当前PC53/1.25加载阶段纳管，CRT154枚举open；原027F绕过543405，固定PC不代泛用PC选择，53D04C不代其余三点/特殊F80。一般_pow/其它浮点链、全环境/父/alias/owner寿命/SDK机器ABI及场景RNG与画面运行仍待，非新增实现或完整帮助体闭合",
+        "BPN01数字生成正常估算一表达式恢复S32，原15条52B/真实fltout邻窗局部静态纳管，CRT155枚举open；原232全部算法、e/f/g正常及失败/全部调用消费、初始化/owner-alias寿命/SDK机器ABI/链接与浮点环境及完整运行仍待，不代整个格式库验收"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -562,7 +566,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state"
       ]
     },
     {
@@ -31476,6 +31481,68 @@
       "observation": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。",
       "expected": "BPM01原__load_CW完整6条23B：只取原保存CW的PC两位(0300)，并入007F、以W16写临时槽后FLDCW；53D022先FSTCW/CMP027F，相同则绕过唯一53D031调用。现有Cg2dMapEffectDivisor按MFA01保存CW、固定027F供正常专用路径、尾恢复原CW，登记该PC53阶段适配来源；不把固定值称完整泛用帮助体、不新增同名体或改正确源。 BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。",
       "actual": "本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。"
+    },
+    {
+      "id": "E-CRT-FLOAT-DECIMAL-ESTIMATE-I-20261007",
+      "feature_id": "FUNC-CRT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPN01正常估算15条52B/唯一544F43实际fltout取参与发布邻窗；doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-float-decimal-normal-estimate-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-acceptance",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
+        "doc/cg2d_float_decimal_estimate_evidence.json",
+        "src/platform/LegacyFloatNumeric.cpp#GenerateLegacyFloatDecimal_546F36",
+        "src/platform/LegacyFloatNumeric.hpp",
+        "src/platform/LegacyFloatFormat.cpp#ProduceLegacyFloatDigits_544F17",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "正常指数估算恢复S32乘加减及SAR16，退休本片段U32/bit_cast包装；原字段自然域在S32内，真实96位多字进位/字段及全部字符/调用保持，无新门槛或异常模型",
+          "decision_ref": "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPN01只546F36正常有限值的十进制指数估算：原547041..547075的15条52B以4D10/4D/134312F4计算S32估算并SAR16。当前表达式恢复正常S32乘加减/算术右移，去U32估算与bit_cast<S32>包装；原15位指数与最高尾数字节自然域使本段中间值均在S32内，不新增输入门槛。原真实96位多字进位/所有W32-W16-W8存储、零及四特殊串/原写序、幂缩放/局部0.1/21位上限/舍入裁剪和S8-NUL、原80位按值与fltout单记录复用均保；正常无介入旧值一致，不声称数值错误或故障等价。",
+      "expected": "BPN01只546F36正常有限值的十进制指数估算：原547041..547075的15条52B以4D10/4D/134312F4计算S32估算并SAR16。当前表达式恢复正常S32乘加减/算术右移，去U32估算与bit_cast<S32>包装；原15位指数与最高尾数字节自然域使本段中间值均在S32内，不新增输入门槛。原真实96位多字进位/所有W32-W16-W8存储、零及四特殊串/原写序、幂缩放/局部0.1/21位上限/舍入裁剪和S8-NUL、原80位按值与fltout单记录复用均保；正常无介入旧值一致，不声称数值错误或故障等价。",
+      "actual": "仅原正常估算15条52B/一页及唯一544F43→546F36普通call的544F17取参/发布邻窗，当前一算术片段静态对应；原完整232条既有元数据/字符串/复制/段边界保，不重验全数字生成、96位链或完整父。全e/f/g文本/字段消费、初始化/跨TU/所有owner及alias寿命、浮点环境/SDK机器ABI/链接/完整格式业务和运行仍未闭；RPLAN.24不专项模拟/保护数学异常，不把真实多字进位删除或本步称异常等价。"
+    },
+    {
+      "id": "E-CRT-FLOAT-DECIMAL-ESTIMATE-S-20261007",
+      "feature_id": "FUNC-CRT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPN01正常估算15条52B/唯一544F43实际fltout取参与发布邻窗；doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-float-decimal-normal-estimate-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-acceptance",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
+        "doc/cg2d_float_decimal_estimate_evidence.json",
+        "src/platform/LegacyFloatNumeric.cpp#GenerateLegacyFloatDecimal_546F36",
+        "src/platform/LegacyFloatNumeric.hpp",
+        "src/platform/LegacyFloatFormat.cpp#ProduceLegacyFloatDigits_544F17",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "正常指数估算恢复S32乘加减及SAR16，退休本片段U32/bit_cast包装；原字段自然域在S32内，真实96位多字进位/字段及全部字符/调用保持，无新门槛或异常模型",
+          "decision_ref": "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BPN01只546F36正常有限值的十进制指数估算：原547041..547075的15条52B以4D10/4D/134312F4计算S32估算并SAR16。当前表达式恢复正常S32乘加减/算术右移，去U32估算与bit_cast<S32>包装；原15位指数与最高尾数字节自然域使本段中间值均在S32内，不新增输入门槛。原真实96位多字进位/所有W32-W16-W8存储、零及四特殊串/原写序、幂缩放/局部0.1/21位上限/舍入裁剪和S8-NUL、原80位按值与fltout单记录复用均保；正常无介入旧值一致，不声称数值错误或故障等价。",
+      "expected": "BPN01只546F36正常有限值的十进制指数估算：原547041..547075的15条52B以4D10/4D/134312F4计算S32估算并SAR16。当前表达式恢复正常S32乘加减/算术右移，去U32估算与bit_cast<S32>包装；原15位指数与最高尾数字节自然域使本段中间值均在S32内，不新增输入门槛。原真实96位多字进位/所有W32-W16-W8存储、零及四特殊串/原写序、幂缩放/局部0.1/21位上限/舍入裁剪和S8-NUL、原80位按值与fltout单记录复用均保；正常无介入旧值一致，不声称数值错误或故障等价。",
+      "actual": "仅原正常估算15条52B/一页及唯一544F43→546F36普通call的544F17取参/发布邻窗，当前一算术片段静态对应；原完整232条既有元数据/字符串/复制/段边界保，不重验全数字生成、96位链或完整父。全e/f/g文本/字段消费、初始化/跨TU/所有owner及alias寿命、浮点环境/SDK机器ABI/链接/完整格式业务和运行仍未闭；RPLAN.24不专项模拟/保护数学异常，不把真实多字进位删除或本步称异常等价。"
     }
   ],
   "task_acceptance": [
@@ -32097,7 +32164,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state"
       ]
     },
     {
@@ -32330,7 +32398,8 @@
         "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
         "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
-        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state"
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state"
       ]
     },
     {
@@ -32928,6 +32997,14 @@
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+      ]
+    },
+    {
+      "task_id": "C12",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state"
       ]
     }
   ],
@@ -38812,6 +38889,19 @@
         "doc/cg2d_map_effect_arithmetic_evidence.json"
       ],
       "boundary": "BPM01原__fload_withFB完整21条67B：正常F64指数域不为7FF时原FLD qword并保CMP返回标志，特殊分支的原F80字节构造保留原证据。当前53D04C对应既有两个1.25底数活动点的实际加载，Cg2dMapEffectDivisor直接FLD相同F64常量、FILD真实S32指数且结果连续消费；其余三原点只纳盘，不外推通用加载/特殊值源码已实现，不新增包装或改正确源。 本步只两个完整原帮助体27条90B和五普通call/两个父的邻窗，以及既有两个1.25/signedLevel−1活动点的正常输入/控制字阶段对应。控制字原027F跳过543405，不能称该帮助体在默认路径必执行；泛用PC选择、特殊F64/F80载荷、其它一般_pow/负底数、全部父/间接alias/owner寿命、SDK/机器ABI/链接、场景RNG及画面运行仍未闭。RPLAN.24不专项模拟/保护异常/溢出或宣称故障等价。"
+    },
+    {
+      "inventory_id": "F:00146F36",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-decision",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-acceptance",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
+        "doc/cg2d_float_decimal_estimate_evidence.json"
+      ],
+      "boundary": "BPN01仅本次正常15条52B估算算术及原232既有源码来源，完整数字生成/父/环境/运行未新验；BPN01只546F36正常有限值的十进制指数估算：原547041..547075的15条52B以4D10/4D/134312F4计算S32估算并SAR16。当前表达式恢复正常S32乘加减/算术右移，去U32估算与bit_cast<S32>包装；原15位指数与最高尾数字节自然域使本段中间值均在S32内，不新增输入门槛。原真实96位多字进位/所有W32-W16-W8存储、零及四特殊串/原写序、幂缩放/局部0.1/21位上限/舍入裁剪和S8-NUL、原80位按值与fltout单记录复用均保；正常无介入旧值一致，不声称数值错误或故障等价。 仅原正常估算15条52B/一页及唯一544F43→546F36普通call的544F17取参/发布邻窗，当前一算术片段静态对应；原完整232条既有元数据/字符串/复制/段边界保，不重验全数字生成、96位链或完整父。全e/f/g文本/字段消费、初始化/跨TU/所有owner及alias寿命、浮点环境/SDK机器ABI/链接/完整格式业务和运行仍未闭；RPLAN.24不专项模拟/保护数学异常，不把真实多字进位删除或本步称异常等价。"
     }
   ],
   "auxiliary_dispositions": [

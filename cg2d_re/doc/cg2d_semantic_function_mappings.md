@@ -3004,3 +3004,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [BPM01合同](cg2d_map_effect_arithmetic_spec.md#pow-input-control-baseline)/[证据bpm01_input_control](cg2d_map_effect_arithmetic_evidence.json)。新增1426/F:00143405与1427/F:00143435：分根6条23B、21条67B，五普通call/两父只邻窗纳盘；既有Cg2dMapEffectDivisor的固定PC53及直接1.25加载为局部adapted来源。原027F绕过装载帮助体，特殊F80/其它PC和其余加载点未宣称源码完整实现，不新增算法或改正确源。
 
 语义1428/原ID1423、文档1541/3680（41.88%）、分类552、CRT154枚举open；缺口队列172/位置缺失171/待归属43。E728仅一局部S，两任务R01/R04及全部完整门禁保持open/未过。
+
+## BPN01 既有数字生成正常估算源差（2026-10-07）
+
+[限定合同](cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-baseline)/[原阶段与683前态](cg2d_float_decimal_estimate_evidence.json)。683/F:00146F36全文前态存previous_mapping_before_bpn01；仅一正常S32估算片段实修，原15条52B与唯一call/父取参邻窗纳管。旧232元数据/四原串和复制/段、原字段及所有其它算法保持，非完整232新验收。
+
+语义1428/有效ID1423、文档1541/41.88%保持；新增一限定equivalent处置，分类552→553，CRT154→155枚举open，E728→730两局部I/S。队列172/待归属43及R7已审67/3061保持；三open任务仅进展/引用，完整门禁不提升。

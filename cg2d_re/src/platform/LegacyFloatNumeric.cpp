@@ -371,9 +371,10 @@ std::int32_t GenerateLegacyFloatDecimal_546F36(const LegacyFloat80 value,
         return 0;
     }
 
-    const std::uint32_t estimateBits = exponent * 0x4D10u
-        + ((exponent >> 8) + (high >> 24) * 2u) * 0x4Du - 0x134312F4u;
-    std::int32_t decimal = std::bit_cast<std::int32_t>(estimateBits) >> 16;
+    const std::int32_t estimate = static_cast<std::int32_t>(exponent) * 0x4D10
+        + (static_cast<std::int32_t>(exponent >> 8)
+            + static_cast<std::int32_t>(high >> 24) * 2) * 0x4D - 0x134312F4;
+    std::int32_t decimal = estimate >> 16;
     LegacyFloat96 scaled;
     StoreFloat16(scaled.bytes, 0);
     StoreFloat16(scaled.bytes + 10, static_cast<std::uint16_t>(exponent));

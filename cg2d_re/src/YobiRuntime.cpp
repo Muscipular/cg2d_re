@@ -23010,9 +23010,14 @@ void TurnBattleToward_406190(
         }
         const std::int32_t magnitude = std::abs(static_cast<std::int32_t>(difference));
         if (static_cast<double>(magnitude) >= step) {
-            difference = difference < 0.0 ? -static_cast<double>(step) : static_cast<double>(step);
+            if (difference < 0.0) {
+                action->angle50 = static_cast<float>(static_cast<double>(action->angle50) - step);
+            } else {
+                action->angle50 = static_cast<float>(static_cast<double>(step) + action->angle50);
+            }
+        } else {
+            action->angle50 = static_cast<float>(difference + action->angle50);
         }
-        action->angle50 = static_cast<float>(difference + action->angle50);
     }
     if (updateDirection == 1) {
         Sub_405CB0(action);

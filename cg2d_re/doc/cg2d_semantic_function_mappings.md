@@ -2661,3 +2661,21 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 [具体SPEC](cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision)/[证据](cg2d_battle_homing_impact_callback_sampling_evidence.json)：完整676条2381B九页51call/83普通内部分支/一ret、原F32 0.1/-200/840/680常量16B，单callback地址引用来自41CD00。四补丁恢复phase先payload、负HP临时encoded先查copyTarget、style5金额-Y-X与style6 Y-金额-X后正常S32 Y-80。特殊flags20000000/frameEvent0-距离<=70全屏偏移/标死继续与fresh事件0/距离<=8普通命中独立，无406260；原HP上下限四分类-scene/default目标转向1-不同命中/启动音效映射保。old58/正FD0-fresh零才Play，未命中F32步长+0.1先发布再fresh目标转向，已命中出界标死仍Move/五族Y先X RNG-F32尾迹/110046额外nameX增与共同节拍/偏移投影保。
 
 新增语义1382/单ID分类、BATTLE84→85枚举仍open；语义1383/有效ID1378、分类489、关联1496/3680=40.65%、E561局部I/S两E。本步四取样问题已解决，全部其它源/声明-复制边界、旧记录-其它域/175队列/七open与完整门禁保持，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8继续，网络原格式明文/音频暂停。
+
+## BOG01 九助手独立原ID与真实角度依赖（2026-10-06）
+
+[具体SPEC](cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline)/[证据](cg2d_battle_motion_angle_dependency_evidence.json)。原证据完整九根441条1422B/11页/14call-60普通跳转（406356外尾跳__ftol独列）/17ret与一个八槽switch32B；219条入向引用仅作上下文。80B常量、原可写F64表3400B逐项静态对照，不换sin/atan2/fmod。对象转向恢复负向当前角-step/正向step+当前角/小余量difference+当前角；46F970恢复左表先权重、左乘后右表/右乘。两CPP两处还原，其余七正确根保，原空门禁与无空门禁、Y差先X/F32、角差单圈、S32截断幅度、F32发布后仅方向参数严格1、两次运动live角/速度、原八方向与重复归一、表index/fraction/八象限保。
+
+| 语义序号 | 原ID/入口 | 实际源码 | 本步源码状态 |
+| --- | --- | --- | --- |
+| 1383 | F:00005EA0 / 0x405EA0 | src/YobiRuntime.cpp / MoveBattleByAngle_405EA0 | 正确实现独立纳管 |
+| 1384 | F:000060D0 / 0x4060D0 | src/YobiRuntime.cpp / TurnBattleTowardPosition_4060D0 | 正确实现独立纳管 |
+| 1385 | F:00006190 / 0x406190 | src/YobiRuntime.cpp / TurnBattleToward_406190 | 原表达/取样还原 |
+| 1386 | F:00006300 / 0x406300 | src/YobiRuntime.cpp / GetBattleDistance_406300 | 正确实现独立纳管 |
+| 1387 | F:0006F930 / 0x46F930 | src/world/SceneState.cpp / Sub_46F930 | 正确实现独立纳管 |
+| 1388 | F:0006F950 / 0x46F950 | src/world/SceneState.cpp / Sub_46F950 | 正确实现独立纳管 |
+| 1389 | F:0006F970 / 0x46F970 | src/world/SceneState.cpp / Sub_46F970 | 原表达/取样还原 |
+| 1390 | F:0006F8F0 / 0x46F8F0 | src/world/SceneState.cpp / Sub_46F8F0 | 正确实现独立纳管 |
+| 1391 | F:00005CB0 / 0x405CB0 | src/YobiRuntime.cpp / Sub_405CB0 | 正确实现独立纳管 |
+
+九独立语义1383..1391/adapted分类，BATTLE85→94枚举仍open；语义1392/有效ID1387、分类498、关联1505/3680=40.90%、E579局部I/S18条。175待处置队列、其它域/历史、60源码closed10/完整验收0/P01及七open/完整门禁保持。表修改者/全部219入向父-callee-owner/生命周期/ABI-PC53-实际画面与R1/R7/R8继续；网络原格式明文/音频暂停，不构建/测试/运行/摘要。

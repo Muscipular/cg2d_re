@@ -165564,6 +165564,591 @@
         "trail110046_extra_counter_preserved": true,
         "no_priority_rewrite_preserved": true
       }
+    },
+    {
+      "original_entry": "0x405EA0",
+      "inventory_id": "F:00005EA0",
+      "status": "BOG01完整正常助手/正确实现独立纳管；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "MoveBattleByAngle_405EA0"
+          ],
+          "relationship": "两次角度/速度live读取：X角调用46F950→乘value54→另取Y角→加X/F32发布→46F930(Y角)→重新读value54/Y并F32发布；原无空门禁，无场外检查或death处理。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "MoveBattleByAngle_405EA0"
+          ],
+          "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "instruction_count": 17,
+      "function_chunks": [
+        {
+          "start": "0x405EA0",
+          "end_exclusive": "0x405ECE"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "MoveBattleByAngle_405EA0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOG01完整17条46B/1页/2call-0跳转-1ret，原调用及表位型局部静态，0补丁；宿主数值/全部父与运行未验",
+      "battle_motion_angle_dependency": {
+        "spec_id": "BOG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+          "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        ],
+        "original_entry": "0x405EA0",
+        "original_instruction_count": 17,
+        "original_code_bytes": 46,
+        "page_count": 1,
+        "outgoing_call_site_count": 2,
+        "incoming_reference_count": 75,
+        "incoming_parent_count": 54,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "两次角度/速度live读取：X角调用46F950→乘value54→另取Y角→加X/F32发布→46F930(Y角)→重新读value54/Y并F32发布；原无空门禁，无场外检查或death处理。"
+      }
+    },
+    {
+      "original_entry": "0x4060D0",
+      "inventory_id": "F:000060D0",
+      "status": "BOG01完整正常助手/正确实现独立纳管；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "TurnBattleTowardPosition_4060D0"
+          ],
+          "relationship": "step先比较原零、Y差先于X差且分别F32；无空门禁；step零直接目标角F32，否则F64目标角-当前角，>180减360、<=-180加360各一次，正常S32截断后abs再与step比较。负差达到步长则当前角-step；正差则step+当前角；小余量则difference+当前角；先F32发布，仅updateDirection严格1调用405CB0。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "TurnBattleTowardPosition_4060D0"
+          ],
+          "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "instruction_count": 61,
+      "function_chunks": [
+        {
+          "start": "0x4060D0",
+          "end_exclusive": "0x40618C"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "TurnBattleTowardPosition_4060D0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOG01完整61条188B/1页/4call-9跳转-1ret，原调用及表位型局部静态，0补丁；宿主数值/全部父与运行未验",
+      "battle_motion_angle_dependency": {
+        "spec_id": "BOG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+          "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        ],
+        "original_entry": "0x4060D0",
+        "original_instruction_count": 61,
+        "original_code_bytes": 188,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 29,
+        "incoming_parent_count": 22,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "step先比较原零、Y差先于X差且分别F32；无空门禁；step零直接目标角F32，否则F64目标角-当前角，>180减360、<=-180加360各一次，正常S32截断后abs再与step比较。负差达到步长则当前角-step；正差则step+当前角；小余量则difference+当前角；先F32发布，仅updateDirection严格1调用405CB0。"
+      }
+    },
+    {
+      "original_entry": "0x406190",
+      "inventory_id": "F:00006190",
+      "status": "BOG01完整正常助手/原公式或表取样已还原；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "TurnBattleToward_406190"
+          ],
+          "relationship": "action先空返回、target后空返回；其它与坐标转向同公式，目标Y差先X差/F32；原负向当前角-step、正向step+当前角、余量difference+当前角恢复，发布F32后仅updateDirection==1更新方向，不abs(step)或钳制。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "TurnBattleToward_406190"
+          ],
+          "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "instruction_count": 66,
+      "function_chunks": [
+        {
+          "start": "0x406190",
+          "end_exclusive": "0x40625E"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "TurnBattleToward_406190",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOG01完整66条206B/1页/4call-11跳转-1ret，原调用及表位型局部静态，1补丁；宿主数值/全部父与运行未验",
+      "battle_motion_angle_dependency": {
+        "spec_id": "BOG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+          "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        ],
+        "original_entry": "0x406190",
+        "original_instruction_count": 66,
+        "original_code_bytes": 206,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 51,
+        "incoming_parent_count": 40,
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "action先空返回、target后空返回；其它与坐标转向同公式，目标Y差先X差/F32；原负向当前角-step、正向step+当前角、余量difference+当前角恢复，发布F32后仅updateDirection==1更新方向，不abs(step)或钳制。"
+      }
+    },
+    {
+      "original_entry": "0x406300",
+      "inventory_id": "F:00006300",
+      "status": "BOG01完整正常助手/正确实现独立纳管；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "GetBattleDistance_406300"
+          ],
+          "relationship": "first/second原空返回0；secondY-firstY先于X差，未先F32差值；X平方+Y平方后唯一F32平方和，原平方和正数才fsqrt/尾跳__ftol53B498，正常S32截断返回，其它0。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "GetBattleDistance_406300"
+          ],
+          "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "instruction_count": 33,
+      "function_chunks": [
+        {
+          "start": "0x406300",
+          "end_exclusive": "0x40635E"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "GetBattleDistance_406300",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOG01完整33条94B/1页/0call-5跳转-1ret，原调用及表位型局部静态，0补丁；宿主数值/全部父与运行未验",
+      "battle_motion_angle_dependency": {
+        "spec_id": "BOG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+          "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        ],
+        "original_entry": "0x406300",
+        "original_instruction_count": 33,
+        "original_code_bytes": 94,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "incoming_reference_count": 25,
+        "incoming_parent_count": 19,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "first/second原空返回0；secondY-firstY先于X差，未先F32差值；X平方+Y平方后唯一F32平方和，原平方和正数才fsqrt/尾跳__ftol53B498，正常S32截断返回，其它0。"
+      }
+    },
+    {
+      "original_entry": "0x46F930",
+      "inventory_id": "F:0006F930",
+      "status": "BOG01完整正常助手/正确实现独立纳管；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F930"
+          ],
+          "relationship": "参数局部F32地址先交46F8F0重复圈归一→读F32角→正常S32截断→可写360项F64位型表55DF10[index]返回F64，不以sin重算。"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "Sub_46F930"
+          ],
+          "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "instruction_count": 8,
+      "function_chunks": [
+        {
+          "start": "0x46F930",
+          "end_exclusive": "0x46F94E"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_46F930",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOG01完整8条30B/1页/2call-0跳转-1ret，原调用及表位型局部静态，0补丁；宿主数值/全部父与运行未验",
+      "battle_motion_angle_dependency": {
+        "spec_id": "BOG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+          "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        ],
+        "original_entry": "0x46F930",
+        "original_instruction_count": 8,
+        "original_code_bytes": 30,
+        "page_count": 1,
+        "outgoing_call_site_count": 2,
+        "incoming_reference_count": 8,
+        "incoming_parent_count": 8,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "参数局部F32地址先交46F8F0重复圈归一→读F32角→正常S32截断→可写360项F64位型表55DF10[index]返回F64，不以sin重算。"
+      }
+    },
+    {
+      "original_entry": "0x46F950",
+      "inventory_id": "F:0006F950",
+      "status": "BOG01完整正常助手/正确实现独立纳管；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F950"
+          ],
+          "relationship": "F32角+原F32 90后落F32，交46F930并返回F64，原未额外取模/限制输入。"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "Sub_46F950"
+          ],
+          "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "instruction_count": 7,
+      "function_chunks": [
+        {
+          "start": "0x46F950",
+          "end_exclusive": "0x46F967"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_46F950",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOG01完整7条23B/1页/1call-0跳转-1ret，原调用及表位型局部静态，0补丁；宿主数值/全部父与运行未验",
+      "battle_motion_angle_dependency": {
+        "spec_id": "BOG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+          "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        ],
+        "original_entry": "0x46F950",
+        "original_instruction_count": 7,
+        "original_code_bytes": 23,
+        "page_count": 1,
+        "outgoing_call_site_count": 1,
+        "incoming_reference_count": 7,
+        "incoming_parent_count": 7,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "F32角+原F32 90后落F32，交46F930并返回F64，原未额外取模/限制输入。"
+      }
+    },
+    {
+      "original_entry": "0x46F970",
+      "inventory_id": "F:0006F970",
+      "status": "BOG01完整正常助手/原公式或表取样已还原；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F970"
+          ],
+          "relationship": "原两分量均0返回0；首/次分量负标记1/2，abs首<abs次标记4，以较小绝对分量/较大分量*64；正常S32截断index，index+1仅原业务最大64，fraction独立落F32；左表项先于1-fraction、左乘后右表项/右乘，和落F32；八selector依次angle/180-angle/360-angle/angle+180/90-angle/angle+90/angle+270/270-angle，返回F64，不能换atan2。"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "Sub_46F970"
+          ],
+          "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "instruction_count": 114,
+      "function_chunks": [
+        {
+          "start": "0x46F970",
+          "end_exclusive": "0x46FACF"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_46F970",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOG01完整114条351B/2页/1call-10跳转-9ret，原调用及表位型局部静态，1补丁；宿主数值/全部父与运行未验",
+      "battle_motion_angle_dependency": {
+        "spec_id": "BOG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+          "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        ],
+        "original_entry": "0x46F970",
+        "original_instruction_count": 114,
+        "original_code_bytes": 351,
+        "page_count": 2,
+        "outgoing_call_site_count": 1,
+        "incoming_reference_count": 11,
+        "incoming_parent_count": 7,
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "原两分量均0返回0；首/次分量负标记1/2，abs首<abs次标记4，以较小绝对分量/较大分量*64；正常S32截断index，index+1仅原业务最大64，fraction独立落F32；左表项先于1-fraction、左乘后右表项/右乘，和落F32；八selector依次angle/180-angle/360-angle/angle+180/90-angle/angle+90/angle+270/270-angle，返回F64，不能换atan2。"
+      }
+    },
+    {
+      "original_entry": "0x46F8F0",
+      "inventory_id": "F:0006F8F0",
+      "status": "BOG01完整正常助手/正确实现独立纳管；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46F8F0"
+          ],
+          "relationship": "native非拥有float*，无新空门禁；每圈fresh上界>=360时减原F32 360并存F32重来，否则fresh下界<0加360/F32重来，达到[0,360)原返回；原重复循环保，不改fmod或一次圈调整。"
+        },
+        {
+          "path": "include/cg/world/SceneState.hpp",
+          "symbols": [
+            "Sub_46F8F0"
+          ],
+          "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "instruction_count": 20,
+      "function_chunks": [
+        {
+          "start": "0x46F8F0",
+          "end_exclusive": "0x46F92B"
+        }
+      ],
+      "native_provider": {
+        "source": "src/world/SceneState.cpp",
+        "symbol": "Sub_46F8F0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOG01完整20条59B/1页/0call-4跳转-1ret，原调用及表位型局部静态，0补丁；宿主数值/全部父与运行未验",
+      "battle_motion_angle_dependency": {
+        "spec_id": "BOG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+          "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        ],
+        "original_entry": "0x46F8F0",
+        "original_instruction_count": 20,
+        "original_code_bytes": 59,
+        "page_count": 1,
+        "outgoing_call_site_count": 0,
+        "incoming_reference_count": 6,
+        "incoming_parent_count": 6,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "native非拥有float*，无新空门禁；每圈fresh上界>=360时减原F32 360并存F32重来，否则fresh下界<0加360/F32重来，达到[0,360)原返回；原重复循环保，不改fmod或一次圈调整。"
+      }
+    },
+    {
+      "original_entry": "0x405CB0",
+      "inventory_id": "F:00005CB0",
+      "status": "BOG01完整正常助手/正确实现独立纳管；全父-callee/表生产消费-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_405CB0"
+          ],
+          "relationship": "native非拥有action，无新空门禁；角>=360减360否则<0加360，仅调整一次F32；八区间逐条live比较/W32方向：15..60→4、60..120→5、120..165→6、165..195→7、195..240→0、240..300→1、300..345→2、345..360或0..15→3，下含上不含；不循环归一。"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "Sub_405CB0"
+          ],
+          "relationship": "既有声明与native非拥有对象/float*、F32参数及F64/S32返回保；不扩大接口或异常门禁"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+      ],
+      "boundary": "地址native非拥有、原位型表与数值宽度保；仅正常局部静态，全部父/表生产消费-owner/ABI-PC53及运行未验。",
+      "instruction_count": 115,
+      "function_chunks": [
+        {
+          "start": "0x405CB0",
+          "end_exclusive": "0x405E59"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "Sub_405CB0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOG01完整115条425B/2页/0call-21跳转-1ret，原调用及表位型局部静态，0补丁；宿主数值/全部父与运行未验",
+      "battle_motion_angle_dependency": {
+        "spec_id": "BOG01",
+        "evidence_refs": [
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-acceptance",
+          "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+          "doc/cg2d_battle_motion_angle_dependency_evidence.json"
+        ],
+        "original_entry": "0x405CB0",
+        "original_instruction_count": 115,
+        "original_code_bytes": 425,
+        "page_count": 2,
+        "outgoing_call_site_count": 0,
+        "incoming_reference_count": 7,
+        "incoming_parent_count": 6,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "preserved_contract": "native非拥有action，无新空门禁；角>=360减360否则<0加360，仅调整一次F32；八区间逐条live比较/W32方向：15..60→4、60..120→5、120..165→6、165..195→7、195..240→0、240..300→1、300..345→2、345..360或0..15→3，下含上不含；不循环归一。"
+      }
     }
   ]
 }

@@ -8118,12 +8118,13 @@ double __cdecl Sub_46F970(const float first, const float second)
     const std::int32_t index = static_cast<std::int32_t>(scaled);
     const std::int32_t nextIndex = index + 1 > 64 ? 64 : index + 1;
     const float fraction = static_cast<float>(scaled - static_cast<double>(index));
+    const double leftSample = std::bit_cast<double>(
+        gAngleTableBits55EA50[static_cast<std::size_t>(index)]);
     const double firstWeight = 1.0 - static_cast<double>(fraction);
-    const double left = std::bit_cast<double>(
-        gAngleTableBits55EA50[static_cast<std::size_t>(index)]) * firstWeight;
-    const double right = std::bit_cast<double>(
-        gAngleTableBits55EA50[static_cast<std::size_t>(nextIndex)])
-        * static_cast<double>(fraction);
+    const double left = leftSample * firstWeight;
+    const double rightSample = std::bit_cast<double>(
+        gAngleTableBits55EA50[static_cast<std::size_t>(nextIndex)]);
+    const double right = rightSample * static_cast<double>(fraction);
     const float angle = static_cast<float>(left + right);
 
     switch (selector) {

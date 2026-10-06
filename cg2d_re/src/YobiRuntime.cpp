@@ -33060,7 +33060,8 @@ std::int32_t Sub_43C910()
     bool pending = false;
     for (YobiAction* const action : world::detail::gBattleEntries59E980) {
         if (action != nullptr
-            && (static_cast<const BattleActorPayload*>(action->payload)->flagsFDC & 1u) == 0) {
+            && (*reinterpret_cast<const std::uint8_t*>(
+                &static_cast<const BattleActorPayload*>(action->payload)->flagsFDC) & 1u) == 0) {
             action->phase = 2;
             pending = true;
         }
@@ -33076,10 +33077,12 @@ void Sub_43C9A0()
             YobiAction* const action = gBattleEntries59E980[index];
             if (action != nullptr) {
                 const auto* const payload = static_cast<const BattleActorPayload*>(action->payload);
-                const float y = static_cast<float>(
-                    static_cast<double>(payload->y0C) - static_cast<double>(payload->y04));
-                const float x = static_cast<float>(
-                    static_cast<double>(payload->x08) - static_cast<double>(payload->x00));
+                const double yEnd = static_cast<double>(payload->y0C);
+                const double yStart = static_cast<double>(payload->y04);
+                const float y = static_cast<float>(yEnd - yStart);
+                const double xEnd = static_cast<double>(payload->x08);
+                const double xStart = static_cast<double>(payload->x00);
+                const float x = static_cast<float>(xEnd - xStart);
                 const float angle = static_cast<float>(Sub_46F970(x, y));
                 gBattleEntries59E980[index]->angle50 = angle;
                 Sub_405CB0(gBattleEntries59E980[index]);
@@ -33087,10 +33090,14 @@ void Sub_43C9A0()
             }
         }
     };
-    if ((gBattlePlayerFlags5ABCAC & 1u) != 0) {
+    const std::uint8_t firstFlags =
+        *reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC);
+    if ((firstFlags & 1u) != 0) {
         turnEntries(10, 20);
     }
-    if ((gBattlePlayerFlags5ABCAC & 2u) != 0) {
+    const std::uint8_t secondFlags =
+        *reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC);
+    if ((secondFlags & 2u) != 0) {
         turnEntries(0, 10);
     }
 }
@@ -33100,7 +33107,8 @@ std::int32_t Sub_43CA50()
     std::int32_t count = 0;
     for (const YobiAction* const action : world::detail::gBattleEntries59E980) {
         if (action != nullptr
-            && (static_cast<const BattleActorPayload*>(action->payload)->flagsFDC & 4u) != 0) {
+            && (*reinterpret_cast<const std::uint8_t*>(
+                &static_cast<const BattleActorPayload*>(action->payload)->flagsFDC) & 4u) != 0) {
             ++count;
         }
     }

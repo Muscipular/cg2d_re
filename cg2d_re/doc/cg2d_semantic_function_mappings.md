@@ -3124,3 +3124,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline)/[七根冻结前态](cg2d_battle_factory_batch_exit_sampling_evidence.json)。新增1496..1502对应4071C0/40FC10/40B180/40FE50/40FEB0/4186B0/418B50，七原已有完整定义正常语义/equivalent，七冻结定位全文保存。只249一处与255四处：一次event、归零encoded先目标、三低W8表达式对四原点。工厂30创建/31父case及118默认、counter1DC真实恢复量、固定effect与fresh C9C差别和其它五正确体保持，不新增R7/父表分类。
 
 语义1503/有效1498、关联1616/3680（43.91%）、BATTLE180枚举open、分类628/E766；R7 260/3061/余2801、差队列172/待归属43和其它全部完整门禁保持。
+
+## BQH01 六参战遍历/朝向/名字与推进完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline)/[六根冻结前态](cg2d_battle_participant_turn_name_sampling_evidence.json)。新增1503..1508对应40CAC0/40CAF0/43C910/43C9A0/43CA50/43CA80，六原已有完整定义正常语义/equivalent，六冻结定位保。只三个源体五片段：四实际低W8表达式/四原点和两阵营共享投影四S32先后/F32发布。原前20槽、前后玩家位/目标取样、返回消费、名字Y前X后/颜色继承与两推进正确体及公开边界保，不新R7。
+
+语义1509/有效1504、关联1622/3680（44.08%）、BATTLE186枚举open、分类634/E768；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。

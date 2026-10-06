@@ -180126,6 +180126,330 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x0040CAC0",
+      "inventory_id": "F:0000CAC0",
+      "original_role": "AdvanceBattleLinkedCast_40CAC0",
+      "original_end_exclusive": "0x0040CAED",
+      "instruction_count": 14,
+      "status": "BQH01六完整推进/参战遍历/朝向/名字正常源纳管，三个源体五片段恢复四低W8及投影四S32读序/F32发布，三个正确体保持；完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AdvanceBattleLinkedCast_40CAC0"
+          ],
+          "relationship": "40CAC0：借用固定source.payload，当前C9C→同record.position→共享22槽目标T*，439340(target)之后439340(source)。原唯一父404DB0 case73直接调用并弃返，没有新增空目标/边界门槛；两原调用及位置/别名顺序和源正确体保持。局部承接父实际未消费的返回，不承诺生成机器ABI。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+      ],
+      "boundary": "40CAC0：借用固定source.payload，当前C9C→同record.position→共享22槽目标T*，439340(target)之后439340(source)。原唯一父404DB0 case73直接调用并弃返，没有新增空目标/边界门槛；两原调用及位置/别名顺序和源正确体保持。局部承接父实际未消费的返回，不承诺生成机器ABI。 六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_participant_turn_name_sampling": {
+        "spec_id": "BQH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+          "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 14,
+        "original_code_bytes": 45,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_coordinate_fields_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0040CAF0",
+      "inventory_id": "F:0000CAF0",
+      "original_role": "AdvanceBattleEffectAndCast_40CAF0",
+      "original_end_exclusive": "0x0040CB06",
+      "instruction_count": 9,
+      "status": "BQH01六完整推进/参战遍历/朝向/名字正常源纳管，三个源体五片段恢复四低W8及投影四S32读序/F32发布，三个正确体保持；完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "AdvanceBattleEffectAndCast_40CAF0"
+          ],
+          "relationship": "40CAF0：439470(source)弃返，随后439340(source)，顺序和源正确体保持。原唯一父404DB0 case74弃返，没有按第一个返回新增条件，也没有提前缓存施法状态；局部正常源不承诺生成机器ABI。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+      ],
+      "boundary": "40CAF0：439470(source)弃返，随后439340(source)，顺序和源正确体保持。原唯一父404DB0 case74弃返，没有按第一个返回新增条件，也没有提前缓存施法状态；局部正常源不承诺生成机器ABI。 六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_participant_turn_name_sampling": {
+        "spec_id": "BQH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+          "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 9,
+        "original_code_bytes": 22,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_coordinate_fields_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0043C910",
+      "inventory_id": "F:0003C910",
+      "original_role": "Sub_43C910",
+      "original_end_exclusive": "0x0043C94A",
+      "instruction_count": 19,
+      "status": "BQH01六完整推进/参战遍历/朝向/名字正常源纳管，三个源体五片段恢复四低W8及投影四S32读序/F32发布，三个正确体保持；完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43C910"
+          ],
+          "relationship": "43C910：遍历原59E980..59E9D0前20槽（新端span直接借用22槽数组前20，不另建影子表），每槽T*一次取样，空跳过，非空借payload；FDC实际低W8 bit1清才写固定actor.phase2并记pending。即使已找到对象仍遍历剩余槽，pending返回0、全部无pending返回1；不改为只检查第一个、全22槽或W32载入。原43C921 TEST BYTE由显式std::uint8_t内存读承接。父43CBB0的43CFEF调用后43CFF4 CMP EAX,EBP/43CFF6 JNZ，父43CBEA MOV EBP,1有据，与当前源==1消费相符；不计父整体闭合。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+      ],
+      "boundary": "43C910：遍历原59E980..59E9D0前20槽（新端span直接借用22槽数组前20，不另建影子表），每槽T*一次取样，空跳过，非空借payload；FDC实际低W8 bit1清才写固定actor.phase2并记pending。即使已找到对象仍遍历剩余槽，pending返回0、全部无pending返回1；不改为只检查第一个、全22槽或W32载入。原43C921 TEST BYTE由显式std::uint8_t内存读承接。父43CBB0的43CFEF调用后43CFF4 CMP EAX,EBP/43CFF6 JNZ，父43CBEA MOV EBP,1有据，与当前源==1消费相符；不计父整体闭合。 六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_participant_turn_name_sampling": {
+        "spec_id": "BQH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+          "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 19,
+        "original_code_bytes": 58,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_coordinate_fields_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0043C9A0",
+      "inventory_id": "F:0003C9A0",
+      "original_role": "Sub_43C9A0",
+      "original_end_exclusive": "0x0043CA4B",
+      "instruction_count": 62,
+      "status": "BQH01六完整推进/参战遍历/朝向/名字正常源纳管，三个源体五片段恢复四低W8及投影四S32读序/F32发布，三个正确体保持；完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43C9A0"
+          ],
+          "relationship": "43C9A0：原43C9A0先独立读取玩家旗位低W8，bit1设才按10..19槽顺序处理；全部调用完到43C9F5再重新读同全局低W8，bit2设才按0..9槽处理。不能齐取两位或复用第一次值；全局存储仍W32供其它消费者。每槽先T*非空再固定payload，原两物理路径均y0C S32先读→y04 S32后读/FILD-FISUB→F32发布Y，再x08 S32先读→x00 S32后读→F32发布X，然后Sub46F970(X,Y)。源共享lambda以double准确承接正常S32差，显式四操作数次序，保Y/X两个独立F32发布；不新异常/S32回绕或实际x87等价门禁。角度返回F64降F32之后重新从共享槽取对象写angle50，之后再次共享槽取对象Sub405CB0；调用后又重新取共享槽PlayFrame(object,1)弃返。两阵营各三原call共六物理点共享三源表达式，保每实际路径消费、调用后独立指针/返回及前后旗位取样，不保存旧actor到后续调用；源五阶段中的三修复在本根（投影、firstFlags、secondFlags）。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+      ],
+      "boundary": "43C9A0：原43C9A0先独立读取玩家旗位低W8，bit1设才按10..19槽顺序处理；全部调用完到43C9F5再重新读同全局低W8，bit2设才按0..9槽处理。不能齐取两位或复用第一次值；全局存储仍W32供其它消费者。每槽先T*非空再固定payload，原两物理路径均y0C S32先读→y04 S32后读/FILD-FISUB→F32发布Y，再x08 S32先读→x00 S32后读→F32发布X，然后Sub46F970(X,Y)。源共享lambda以double准确承接正常S32差，显式四操作数次序，保Y/X两个独立F32发布；不新异常/S32回绕或实际x87等价门禁。角度返回F64降F32之后重新从共享槽取对象写angle50，之后再次共享槽取对象Sub405CB0；调用后又重新取共享槽PlayFrame(object,1)弃返。两阵营各三原call共六物理点共享三源表达式，保每实际路径消费、调用后独立指针/返回及前后旗位取样，不保存旧actor到后续调用；源五阶段中的三修复在本根（投影、firstFlags、secondFlags）。 六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_participant_turn_name_sampling": {
+        "spec_id": "BQH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+          "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 62,
+        "original_code_bytes": 171,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 6,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 3,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_coordinate_fields_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0043CA50",
+      "inventory_id": "F:0003CA50",
+      "original_role": "Sub_43CA50",
+      "original_end_exclusive": "0x0043CA76",
+      "instruction_count": 13,
+      "status": "BQH01六完整推进/参战遍历/朝向/名字正常源纳管，三个源体五片段恢复四低W8及投影四S32读序/F32发布，三个正确体保持；完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43CA50"
+          ],
+          "relationship": "43CA50：同原前20槽，每槽共享T*一次取样，空跳过，非空固定payload的FDC实际低W8 bit4设才count++；遍历全部20后返回count。43CA60 TEST BYTE用std::uint8_t内存读承接，不宽读FDC或扩到22槽。原唯一父43D188返回CMP EAX,2/43D190 JL跳过，当前源>=2消费相符；不因此声明父其它门禁已验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+      ],
+      "boundary": "43CA50：同原前20槽，每槽共享T*一次取样，空跳过，非空固定payload的FDC实际低W8 bit4设才count++；遍历全部20后返回count。43CA60 TEST BYTE用std::uint8_t内存读承接，不宽读FDC或扩到22槽。原唯一父43D188返回CMP EAX,2/43D190 JL跳过，当前源>=2消费相符；不因此声明父其它门禁已验。 六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_participant_turn_name_sampling": {
+        "spec_id": "BQH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+          "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 13,
+        "original_code_bytes": 38,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_coordinate_fields_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0043CA80",
+      "inventory_id": "F:0003CA80",
+      "original_role": "Sub_43CA80",
+      "original_end_exclusive": "0x0043CB05",
+      "instruction_count": 54,
+      "status": "BQH01六完整推进/参战遍历/朝向/名字正常源纳管，三个源体五片段恢复四低W8及投影四S32读序/F32发布，三个正确体保持；完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43CA80"
+          ],
+          "relationship": "43CA80：原颜色寄存器初值0，W16 gValue5F974C为0返回；非零遍历前20槽，仅非空槽继续。每个非空槽fresh W32当前position<20才按index==position短路或GetPet(position)更新color为4/0；position>=20保留前一非空槽color，不能每轮无条件重置或钳制position。GetPet调用后重新共享槽取actor，name C4地址先、actor.y-24后，TextMeasure(name,1)后再次共享槽取actor.x，宽度按原正常S32向零除2，X=x-width/2。DrawText2(x,y,0,1,color,name,0)原七参/源公开S16 X/Y、S8颜色边界保持，不去掉现有原W16存储边界也不补溢出模拟。原DrawText前Y/name从同缓存actor，测量后X从新共享槽，原正确体保持。43CBB0三个实际call43CFD1/43D03C/43D100分别对应源三个Sub43CA80调用；只新邻窗接线，不声称父完整运行/寿命闭合。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+      ],
+      "boundary": "43CA80：原颜色寄存器初值0，W16 gValue5F974C为0返回；非零遍历前20槽，仅非空槽继续。每个非空槽fresh W32当前position<20才按index==position短路或GetPet(position)更新color为4/0；position>=20保留前一非空槽color，不能每轮无条件重置或钳制position。GetPet调用后重新共享槽取actor，name C4地址先、actor.y-24后，TextMeasure(name,1)后再次共享槽取actor.x，宽度按原正常S32向零除2，X=x-width/2。DrawText2(x,y,0,1,color,name,0)原七参/源公开S16 X/Y、S8颜色边界保持，不去掉现有原W16存储边界也不补溢出模拟。原DrawText前Y/name从同缓存actor，测量后X从新共享槽，原正确体保持。43CBB0三个实际call43CFD1/43D03C/43D100分别对应源三个Sub43CA80调用；只新邻窗接线，不声称父完整运行/寿命闭合。 六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "verification_level": "六完整原根171条467B/六页、13call/8callee、19普通内部jump/六ret；八原入向来自404DB0/43CBB0，两推进父与六场景消费父各捕一个实际前指令/call/后指令，八窗24条107B。另存场景局部返回比较/EBP=1初始化窗，父switch仅邻近观察、不新增R7分类或父完整验收。只三个源体五片段：43C910/43CA50低W8 FDC、43C9A0两独立低W8全局读取与共享两阵营投影的四S32操作数原序/F32 Y后X发布；四新W8表达式对四原点，投影一源片段承接两物理路径，正常旧值一致。20槽共享span/前后fresh指针/两阵营顺序/返回消费/正确名字Y前X后和逐槽颜色继承、两个正确推进体保。不外推生成机器ABI/实际x87/其它全部生产与owner寿命/递归父/画面运行；R7/任务完整门禁保，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价及原验收标准保持。",
+      "battle_participant_turn_name_sampling": {
+        "spec_id": "BQH01",
+        "evidence_refs": [
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance",
+          "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+          "doc/cg2d_battle_participant_turn_name_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 54,
+        "original_code_bytes": 133,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 3,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_player_flags_storage_kept": true,
+        "original_s32_coordinate_fields_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

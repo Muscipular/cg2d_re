@@ -157,3 +157,9 @@
 [完整合同](cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state)/[七完整704条2305B](cg2d_battle_factory_batch_exit_sampling_evidence.json)纳管249/40FC10/251/253/254/255/256；249一次event与255归零encoded先目标、三W8源表达式对四原点，共五片段/两体，正常旧值一致。
 
 工厂30创建/31父case、118默认无创建仍phase162与250/252同父根；原CMP无物理switch表，不新增R7。251齐读临时、253W32 FDC/后取phase/保存+10、254先借指针回收、256两全局写正确体保。255恢复量确实来自healTarget.counter1DC，固定effect及普通免疫fresh C9C的差别、W32缓存/HP上限copy/RNG/批次播放尾保持。BATTLE180枚举open/E766两局部I/S；完整生产/owner寿命/生成机器/运行及R8未完成。
+
+## BQH01 参战遍历、朝向与名字取样（2026-10-07）
+
+[完整合同](cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state)/[六完整171条467B](cg2d_battle_participant_turn_name_sampling_evidence.json)纳管40CAC0/40CAF0/43C910/43C9A0/43CA50/43CA80；三个源体五片段：两FDC低W8、两独立玩家旗位低W8、两阵营共享投影四S32读序/F32 Y后X发布。正常旧值一致。
+
+20槽span直接借22槽数组前20，先10..19后重读旗位再0..9，角度发布/运动/播放均按原重新取共享对象。名字测量前Y/后X、position>=20颜色继承、正常向零半宽与既有公开S16/S8边界、两推进正确体保持。八父八窗24条107B及局部返回比较可追，父switch仅邻近记录、不新R7/父完整验收；BATTLE186枚举open/E768两局部I/S，完整生产/owner寿命/生成机器/实际x87/运行及R8未完成。

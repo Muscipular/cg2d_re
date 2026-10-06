@@ -1148,3 +1148,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-acceptance)/[完整704条2305B](cg2d_battle_factory_batch_exit_sampling_evidence.json)。十三页、47call/22入口/120jump/七ret、七父四窗实际20条/69B及三既有表项可追，256父调用后落尾，无额外jmp。只249一次event与255归零/三W8表达式对四原点共五源阶段，正常旧值一致；工厂30类型/31父case及118默认、251两齐读临时/253后取phase与保存/254回收/256两写、255实际counter1DC/固定effect与fresh C9C差别/W32及上限copy/RNG/播放尾保持。两局部I/S各十五实际来源，不代生成机器/运行或完整递归生产/owner寿命。
 
 语义1503/1498、关联1616/43.91%、BATTLE180枚举open、分类628/E766；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保持。
+
+## BQH01 六完整参战/朝向/名字与推进局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-acceptance)/[完整171条467B](cg2d_battle_participant_turn_name_sampling_evidence.json)。六页、13call/8callee/19jump/六ret、八真实入向/八窗24条107B及父返回比较/EBP=1局部依据可追。两FDC/两玩家旗位四低W8、两阵营共享投影四S32读序/F32 Y后X发布，共五片段/三体，正常旧值一致。前20槽共享span、先10..19后重读位再0..9、调用后fresh目标、名字测量前Y后X/颜色继承及两推进正确体保；父switch只邻近观察，不新R7或父完整验收。两局部I/S各十七实际来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
+
+语义1509/1504、关联1622/44.08%、BATTLE186枚举open、分类634/E768；R7 260/3061/余2801、差队列172/待归属43、四任务open和60源码closed10/完整验收0/叶0/global_accepted=false保持。

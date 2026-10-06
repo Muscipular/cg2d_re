@@ -2029,7 +2029,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-baseline",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-baseline"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2103,7 +2104,10 @@
         "F:00021700",
         "F:0001A310",
         "F:0001A7D0",
-        "F:0001CD00"
+        "F:0001CD00",
+        "F:0001A160",
+        "F:0001A1C0",
+        "F:0001A270"
       ],
       "closure_task_ids": [
         "P01",
@@ -2178,7 +2182,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2242,7 +2247,8 @@
         "BNW01两callback/三创建168条576B，位置callback Y取样先X发布已修/五身份纳管；战斗成员62仍未全枚举，全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
         "BNX01七入口340条1215B/两局部数组与五态表纳管，上升callback坐标取样已修；BATTLE69仍未全枚举，全部consumer-owner/资源重进退出/ABI-SDK-PC53-RNG画面及R1/R7/R8待",
         "BNY01两个上游emitter258条1057B/原四局部表256B纳管，随机X取样已修/两级父与50-32完成门禁保；BATTLE71枚举未闭，完整41CD00/consumer-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
-        "BNZ01共同创建完整1583条5825B/315B原数据、17定义18段修正纳管；BATTLE72未全枚举，所有25入向-20父/callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待"
+        "BNZ01共同创建完整1583条5825B/315B原数据、17定义18段修正纳管；BATTLE72未全枚举，所有25入向-20父/callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+        "BOA01三完成/父关联/缩放回调97条306B三处坐标取样已修/独立身份纳管；BATTLE75未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2306,7 +2312,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
       ]
     },
     {
@@ -25205,6 +25212,180 @@
       "observation": "原完整根1583条5825B/全字节与出口/ret，入向25处/20父身份按callback绑定或普通call单列；不据入向数宣父完成",
       "expected": "六参含third S32 offsetY或native非拥有existingAction；原48类型压缩13组/35技能分派、四原switch与表、flags取样/两次效果四字段固定值、递归childAura及blend-link-tail真实两个载荷门禁/位置返回保持；17补丁18段含6scope、11取样定义12段实修",
       "actual": "仅共同创建入口实修及完整原根局部I/S；成员72不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-COMPLETION-SCALE-0001A160-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOA01完整27条84B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-completion-scale-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleCompletingEffect_41A160",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三个callback各一补丁恢复Y取样先X发布；完成-父关联-缩放合同保，三独立基线/分类和成员纳管",
+          "decision_ref": "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "三完整callback三补丁/整CPP精确重放、原常量12B/通知-标死后继续与缩放阶段保持；原合同：PlayFrame(1)严格1才取parent；parent非空/payload1024非零写2，然后MarkDeath；所有路径继续X截断/Y先取样/Xpub/Y截断pub，不新payload门禁",
+      "expected": "PlayFrame(1)严格1才取parent；parent非空/payload1024非零写2，然后MarkDeath；所有路径继续X截断/Y先取样/Xpub/Y截断pub，不新payload门禁",
+      "actual": "仅三callback取样实修及完整原根局部I/S；成员75不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-COMPLETION-SCALE-0001A160-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOA01完整27条84B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-completion-scale-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleCompletingEffect_41A160",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三个callback各一补丁恢复Y取样先X发布；完成-父关联-缩放合同保，三独立基线/分类和成员纳管",
+          "decision_ref": "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根27条84B/全字节与出口/ret，入向6处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "PlayFrame(1)严格1才取parent；parent非空/payload1024非零写2，然后MarkDeath；所有路径继续X截断/Y先取样/Xpub/Y截断pub，不新payload门禁",
+      "actual": "仅三callback取样实修及完整原根局部I/S；成员75不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-COMPLETION-SCALE-0001A1C0-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOA01完整22条62B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-completion-scale-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleParentEffect_41A1C0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三个callback各一补丁恢复Y取样先X发布；完成-父关联-缩放合同保，三独立基线/分类和成员纳管",
+          "decision_ref": "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "三完整callback三补丁/整CPP精确重放、原常量12B/通知-标死后继续与缩放阶段保持；原合同：原可空parent仅deathFlag严格1才MarkDeath，之后仍PlayFrame(0)/坐标投影；不早退或free",
+      "expected": "原可空parent仅deathFlag严格1才MarkDeath，之后仍PlayFrame(0)/坐标投影；不早退或free",
+      "actual": "仅三callback取样实修及完整原根局部I/S；成员75不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-COMPLETION-SCALE-0001A1C0-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOA01完整22条62B/1页4call与严格标死门禁/完整取样及返回；doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-completion-scale-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleParentEffect_41A1C0",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三个callback各一补丁恢复Y取样先X发布；完成-父关联-缩放合同保，三独立基线/分类和成员纳管",
+          "decision_ref": "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根22条62B/全字节与出口/ret，入向6处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "原可空parent仅deathFlag严格1才MarkDeath，之后仍PlayFrame(0)/坐标投影；不早退或free",
+      "actual": "仅三callback取样实修及完整原根局部I/S；成员75不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-COMPLETION-SCALE-0001A270-I-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOA01完整48条160B/1页3call与严格标死门禁/完整取样及返回；doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-completion-scale-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleScalingEffect_41A270",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三个callback各一补丁恢复Y取样先X发布；完成-父关联-缩放合同保，三独立基线/分类和成员纳管",
+          "decision_ref": "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "三完整callback三补丁/整CPP精确重放、原常量12B/通知-标死后继续与缩放阶段保持；原合同：phase0加原0.02、phase2减原0.02，X存F32但保double比较，Y存F32后判X；上界严格>1写phase1/X-Y1，下界<0写X-Y0/phase3，其它phase只Play(0)/投影，无MarkDeath",
+      "expected": "phase0加原0.02、phase2减原0.02，X存F32但保double比较，Y存F32后判X；上界严格>1写phase1/X-Y1，下界<0写X-Y0/phase3，其它phase只Play(0)/投影，无MarkDeath",
+      "actual": "仅三callback取样实修及完整原根局部I/S；成员75不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
+    },
+    {
+      "id": "E-BATTLE-COMPLETION-SCALE-0001A270-S-20261006",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BOA01完整48条160B/1页3call与严格标死门禁/完整取样及返回；doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-completion-scale-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleScalingEffect_41A270",
+        "include/cg/YobiRuntime.hpp"
+      ],
+      "differences": [
+        {
+          "description": "三个callback各一补丁恢复Y取样先X发布；完成-父关联-缩放合同保，三独立基线/分类和成员纳管",
+          "decision_ref": "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整根48条160B/全字节与出口/ret，入向1处/1父身份按callback绑定或普通call单列；不据入向数宣父完成",
+      "expected": "phase0加原0.02、phase2减原0.02，X存F32但保double比较，Y存F32后判X；上界严格>1写phase1/X-Y1，下界<0写X-Y0/phase3，其它phase只Play(0)/投影，无MarkDeath",
+      "actual": "仅三callback取样实修及完整原根局部I/S；成员75不代完整战斗/全部consumer-owner-SDK-ABI-PC53-实际RNG画面运行，全部完整门禁与R1/R7/R8继续，不宣异常或编译生成机制等价"
     }
   ],
   "task_acceptance": [
@@ -25436,7 +25617,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
       ]
     },
     {
@@ -25743,7 +25925,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
       ]
     },
     {
@@ -25937,7 +26120,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
       ]
     },
     {
@@ -26037,7 +26221,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
       ]
     },
     {
@@ -26108,7 +26293,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
       ]
     },
     {
@@ -26334,7 +26520,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
       ]
     },
     {
@@ -26401,7 +26588,8 @@
         "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
         "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
         "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
-        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state"
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
       ]
     }
   ],
@@ -31412,6 +31600,39 @@
         "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state"
       ],
       "boundary": "获准x64 native非拥有source/action与第三输入地址承载，其余S32/W32/F32/W8/W16保；完整正常本根局部I/S，不代所有父/callee-owner/ABI-SDK-PC53-RNG画面或运行"
+    },
+    {
+      "inventory_id": "F:0001A160",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有action/parent与既有void callback，其它S32/F32保；仅本根局部I/S，不代父-owner/ABI-SDK-PC53或运行"
+    },
+    {
+      "inventory_id": "F:0001A1C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有action/parent与既有void callback，其它S32/F32保；仅本根局部I/S，不代父-owner/ABI-SDK-PC53或运行"
+    },
+    {
+      "inventory_id": "F:0001A270",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state"
+      ],
+      "boundary": "获准x64 native非拥有action/parent与既有void callback，其它S32/F32保；仅本根局部I/S，不代父-owner/ABI-SDK-PC53或运行"
     }
   ],
   "auxiliary_dispositions": [

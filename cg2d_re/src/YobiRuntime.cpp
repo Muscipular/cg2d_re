@@ -6813,8 +6813,10 @@ void UpdateBattleCompletingEffect_41A160(YobiAction* const action)
         }
         static_cast<void>(MarkDeath(action));
     }
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
+    const float screenY = action->offset44;
+    action->x = screenX;
+    action->y = static_cast<std::int32_t>(screenY);
 }
 
 void UpdateBattleParentEffect_41A1C0(YobiAction* const action)
@@ -6824,8 +6826,10 @@ void UpdateBattleParentEffect_41A1C0(YobiAction* const action)
         static_cast<void>(MarkDeath(action));
     }
     static_cast<void>(PlayFrame_517DA0(action, 0));
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
+    const float screenY = action->offset44;
+    action->x = screenX;
+    action->y = static_cast<std::int32_t>(screenY);
 }
 
 void UpdateBattleRisingEffect_41A200(YobiAction* const action)
@@ -6874,8 +6878,10 @@ void UpdateBattleScalingEffect_41A270(YobiAction* const action)
         }
     }
     static_cast<void>(PlayFrame_517DA0(action, 0));
-    action->x = static_cast<std::int32_t>(action->offset40);
-    action->y = static_cast<std::int32_t>(action->offset44);
+    const std::int32_t screenX = static_cast<std::int32_t>(action->offset40);
+    const float screenY = action->offset44;
+    action->x = screenX;
+    action->y = static_cast<std::int32_t>(screenY);
 }
 
 void UpdateBattleRandomEmitter_41A310(YobiAction* const action)

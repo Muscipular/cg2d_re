@@ -164618,6 +164618,211 @@
         "sampling_patch_definitions": 11,
         "sampling_replaced_spans": 12
       }
+    },
+    {
+      "original_entry": "0x41A160",
+      "inventory_id": "F:0001A160",
+      "status": "BOA01完整正常回调/独立基线纳管，三个坐标取样各一补丁实修；全部父-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleCompletingEffect_41A160"
+          ],
+          "relationship": "PlayFrame(1)严格1才取parent；parent非空/payload1024非零写2，然后MarkDeath；所有路径继续X截断/Y先取样/Xpub/Y截断pub，不新payload门禁"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleCompletingEffect_41A160"
+          ],
+          "relationship": "既有native非拥有T*与void callback接口保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_evidence.json"
+      ],
+      "boundary": "PlayFrame(1)严格1才取parent；parent非空/payload1024非零写2，然后MarkDeath；所有路径继续X截断/Y先取样/Xpub/Y截断pub，不新payload门禁。地址native非拥有T*、其它S32/F32原宽，callback返回不消费/host转换/只标死责任保，不新owner/判空-容量保护/异常回绕，不代全父/callee-owner/ABI-PC53画面运行。",
+      "instruction_count": 27,
+      "function_chunks": [
+        {
+          "start": "0x41A160",
+          "end_exclusive": "0x41A1B4"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleCompletingEffect_41A160",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOA01完整27条84B/1页4call与全部出口/一取样补丁，地址引用6/父41CD00分列，未验全父-owner/ABI-PC53运行",
+      "battle_completion_scale_sampling": {
+        "spec_id": "BOA01",
+        "evidence_refs": [
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+          "doc/cg2d_battle_completion_scale_sampling_evidence.json"
+        ],
+        "original_entry": "0x41A160",
+        "original_instruction_count": 27,
+        "original_code_bytes": 84,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 6,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "y_sample_before_x_publication": true,
+        "completion_strict_playframe_one": true,
+        "parent1024_nonzero_only": true
+      }
+    },
+    {
+      "original_entry": "0x41A1C0",
+      "inventory_id": "F:0001A1C0",
+      "status": "BOA01完整正常回调/独立基线纳管，三个坐标取样各一补丁实修；全部父-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleParentEffect_41A1C0"
+          ],
+          "relationship": "原可空parent仅deathFlag严格1才MarkDeath，之后仍PlayFrame(0)/坐标投影；不早退或free"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleParentEffect_41A1C0"
+          ],
+          "relationship": "既有native非拥有T*与void callback接口保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_evidence.json"
+      ],
+      "boundary": "原可空parent仅deathFlag严格1才MarkDeath，之后仍PlayFrame(0)/坐标投影；不早退或free。地址native非拥有T*、其它S32/F32原宽，callback返回不消费/host转换/只标死责任保，不新owner/判空-容量保护/异常回绕，不代全父/callee-owner/ABI-PC53画面运行。",
+      "instruction_count": 22,
+      "function_chunks": [
+        {
+          "start": "0x41A1C0",
+          "end_exclusive": "0x41A1FE"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleParentEffect_41A1C0",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOA01完整22条62B/1页4call与全部出口/一取样补丁，地址引用6/父41CD00分列，未验全父-owner/ABI-PC53运行",
+      "battle_completion_scale_sampling": {
+        "spec_id": "BOA01",
+        "evidence_refs": [
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+          "doc/cg2d_battle_completion_scale_sampling_evidence.json"
+        ],
+        "original_entry": "0x41A1C0",
+        "original_instruction_count": 22,
+        "original_code_bytes": 62,
+        "page_count": 1,
+        "outgoing_call_site_count": 4,
+        "incoming_reference_count": 6,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "y_sample_before_x_publication": true,
+        "parent_death_strict_one": true,
+        "still_plays_after_markdeath": true
+      }
+    },
+    {
+      "original_entry": "0x41A270",
+      "inventory_id": "F:0001A270",
+      "status": "BOA01完整正常回调/独立基线纳管，三个坐标取样各一补丁实修；全部父-owner/ABI-PC53与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleScalingEffect_41A270"
+          ],
+          "relationship": "phase0加原0.02、phase2减原0.02，X存F32但保double比较，Y存F32后判X；上界严格>1写phase1/X-Y1，下界<0写X-Y0/phase3，其它phase只Play(0)/投影，无MarkDeath"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "UpdateBattleScalingEffect_41A270"
+          ],
+          "relationship": "既有native非拥有T*与void callback接口保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_evidence.json"
+      ],
+      "boundary": "phase0加原0.02、phase2减原0.02，X存F32但保double比较，Y存F32后判X；上界严格>1写phase1/X-Y1，下界<0写X-Y0/phase3，其它phase只Play(0)/投影，无MarkDeath。地址native非拥有T*、其它S32/F32原宽，callback返回不消费/host转换/只标死责任保，不新owner/判空-容量保护/异常回绕，不代全父/callee-owner/ABI-PC53画面运行。",
+      "instruction_count": 48,
+      "function_chunks": [
+        {
+          "start": "0x41A270",
+          "end_exclusive": "0x41A310"
+        }
+      ],
+      "native_provider": {
+        "source": "src/YobiRuntime.cpp",
+        "symbol": "UpdateBattleScalingEffect_41A270",
+        "source_body_implemented": true,
+        "runtime_verified": false
+      },
+      "verification_level": "BOA01完整48条160B/1页3call与全部出口/一取样补丁，地址引用1/父41CD00分列，未验全父-owner/ABI-PC53运行",
+      "battle_completion_scale_sampling": {
+        "spec_id": "BOA01",
+        "evidence_refs": [
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-acceptance",
+          "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+          "doc/cg2d_battle_completion_scale_sampling_evidence.json"
+        ],
+        "original_entry": "0x41A270",
+        "original_instruction_count": 48,
+        "original_code_bytes": 160,
+        "page_count": 1,
+        "outgoing_call_site_count": 3,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "incoming_reference_kind": "callback_address_reference",
+        "source_body_changed": true,
+        "source_patch_count": 1,
+        "full_original_function_normal_body_reviewed": true,
+        "full_runtime_verified": false,
+        "y_sample_before_x_publication": true,
+        "unrounded_x_comparison_preserved": true,
+        "original_scale_phase_business_zero_one_preserved": true,
+        "no_markdeath": true
+      }
     }
   ]
 }

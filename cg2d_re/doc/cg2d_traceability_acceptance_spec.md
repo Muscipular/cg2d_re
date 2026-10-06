@@ -1070,3 +1070,9 @@ R7 259/3061/余2802；语义1431/1426、关联1544/41.96%、BATTLE108枚举open�
 [限定验收](cg2d_battle_resource_copy_spec.md#battle-resource-copy-acceptance)/[完整540条1709B](cg2d_battle_resource_copy_evidence.json)。九页、63call/11入口、36普通内部jump/15ret与三唯一父九条邻窗，十二原临时复制阶段对应共享helper六取样片段；各字段读齐后按真实次序写，业务上下限、构造/析构及公共尾和162正确体保。两局部I/S各十二独立实际来源，仅正常源阶段，不代全父子/owner寿命或运行。
 
 语义1438/有效1433、关联1551/42.15%、BATTLE115枚举open、分类563/E740；R7 259/3061、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保，原标准继续。
+
+## BPU01 两完整图像状态源局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-acceptance)/[完整570条2302B](cg2d_battle_rebirth_transition_evidence.json)。八页、32call/八被调入口、63内部jump/七ret及两唯一父六条邻窗，七原栈初始化组52值分列。八源片段恢复低W8类型及同阶段借用回收，正常旧值相同，不外推生成机器/并发或故障；正确第三槽/真实重读保持，两局部I/S各十独立实际来源。
+
+语义1440/1435、关联1553/42.20%、BATTLE117枚举open、分类565/E742，R7 259/3061及差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保持，运行标准保。

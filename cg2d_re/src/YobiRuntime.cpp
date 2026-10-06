@@ -29132,13 +29132,15 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             break;
         }
         case 2: {
-            if (payload->rebirthEffect106C != nullptr) {
-                static_cast<void>(MarkDeath(payload->rebirthEffect106C));
+            YobiAction* const previousEffect = payload->rebirthEffect106C;
+            if (previousEffect != nullptr) {
+                static_cast<void>(MarkDeath(previousEffect));
             }
             const std::int32_t effectIndex = payload->effectRunningC9C;
             payload->rebirthEffect106C = nullptr;
-            const std::uint8_t type = static_cast<std::uint8_t>(
-                static_cast<std::uint8_t>(payload->effects1C[effectIndex].position) + 1);
+            const std::uint8_t position = *reinterpret_cast<const std::uint8_t*>(
+                &payload->effects1C[effectIndex].position);
+            const std::uint8_t type = static_cast<std::uint8_t>(position + 1);
             payload->rebirthEffectType1080 = std::bit_cast<std::int8_t>(type);
             std::int32_t imageNo = kRebirthPersistentImages4113EB[payload->rebirthEffectType1080 - 1][0];
             if (imageNo != 0) {
@@ -29199,8 +29201,9 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
             break;
         }
         for (YobiAction*& slot : payload->auxiliaryGear13B8) {
-            if (slot != nullptr) {
-                static_cast<void>(MarkDeath(slot));
+            YobiAction* const effect = slot;
+            if (effect != nullptr) {
+                static_cast<void>(MarkDeath(effect));
                 slot = nullptr;
             }
         }
@@ -29212,8 +29215,9 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
     if (payload->valueFD4 == 1) {
         const std::uint8_t alpha = GetYobiActionField30F(action);
         if (alpha + 7 > 255) {
-            if (payload->rebirthEffect106C != nullptr) {
-                static_cast<void>(MarkDeath(payload->rebirthEffect106C));
+            YobiAction* const previousEffect = payload->rebirthEffect106C;
+            if (previousEffect != nullptr) {
+                static_cast<void>(MarkDeath(previousEffect));
             }
             payload->rebirthEffect106C = nullptr;
             const std::uint32_t flags = action->flags & ~0x10000u;
@@ -29233,13 +29237,15 @@ void UpdateBattleAction163_4113A0(YobiAction* const action)
         if (initialType > 0) {
             static_cast<void>(audio::PlaySe_52C450(kRebirthExitSounds411901[initialType - 1], action->x));
         }
-        if (payload->rebirthEffect106C != nullptr) {
-            static_cast<void>(MarkDeath(payload->rebirthEffect106C));
+        YobiAction* const previousEffect = payload->rebirthEffect106C;
+        if (previousEffect != nullptr) {
+            static_cast<void>(MarkDeath(previousEffect));
         }
         payload->rebirthEffect106C = nullptr;
         for (YobiAction*& slot : payload->rebirthAuxiliaryEffects1074) {
-            if (slot != nullptr) {
-                static_cast<void>(MarkDeath(slot));
+            YobiAction* const effect = slot;
+            if (effect != nullptr) {
+                static_cast<void>(MarkDeath(effect));
             }
             slot = nullptr;
         }
@@ -29303,13 +29309,15 @@ void UpdateBattleAction164_411A50(YobiAction* const action)
     if (initialType > 0) {
         static_cast<void>(audio::PlaySe_52C450(kRebirthExitSounds411901[initialType - 1], action->x));
     }
-    if (payload->rebirthEffect106C != nullptr) {
-        static_cast<void>(MarkDeath(payload->rebirthEffect106C));
+    YobiAction* const previousEffect = payload->rebirthEffect106C;
+    if (previousEffect != nullptr) {
+        static_cast<void>(MarkDeath(previousEffect));
     }
     payload->rebirthEffect106C = nullptr;
     for (YobiAction*& slot : payload->rebirthAuxiliaryEffects1074) {
-        if (slot != nullptr) {
-            static_cast<void>(MarkDeath(slot));
+        YobiAction* const effect = slot;
+        if (effect != nullptr) {
+            static_cast<void>(MarkDeath(effect));
         }
         slot = nullptr;
     }

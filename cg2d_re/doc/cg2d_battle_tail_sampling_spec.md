@@ -79,3 +79,9 @@
 [资源复制合同](cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state)/[三完整原根](cg2d_battle_resource_copy_evidence.json)补159/160/162完整540条1709B/九页。两资源体各六临时复制先读齐载荷再写，源码既有共享helper六片段恢复取样，两个W32/一个W8及各读/写序保；原目标token/reserved、内存CryptInt构造/析构与0/最大值业务上下限保持。159仍推进、160仍置phase37，default确实走公共尾，162正确复位入口全文保持。
 
 三原已有定义首次明确正常语义/处置，BATTLE112→115枚举open、E740两局部I/S；完整父/全部子依赖与其它生产/owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，完整战斗不关闭。
+
+## BPU01 图像切换/淡入淡出与恢复两完整正常动作（2026-10-07）
+
+[状态合同](cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state)/[完整570条2302B](cg2d_battle_rebirth_transition_evidence.json)补163/164进入/退出/恢复。源一位置类型消费恢复原直接低W8及已有INC/S8落位；四主效果与三回收循环各同阶段取指针供判断/MarkDeath，gear一循环对应两原槽，合七模式/八片段。保持第四持久创建的真实第三槽判定、309写后fresh槽310、所有state/default/负方向与业务alpha条件。
+
+七原栈即时初始化组52值逐项对五源常量组40值，不把同名代码位置当全局数据表，R7不新增。BATTLE115→117枚举open、E742两局部I/S；全父/全部子依赖及其它生产/owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，完整战斗继续。

@@ -176712,6 +176712,106 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x004113A0",
+      "inventory_id": "F:000113A0",
+      "original_role": "UpdateBattleAction163_4113A0",
+      "original_end_exclusive": "0x00411A46",
+      "instruction_count": 417,
+      "status": "BPU01两完整图像切换/恢复正常源纳管，低W8类型消费与回收指针取样实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction163_4113A0"
+          ],
+          "relationship": "动作163：fresh effects[initialEffect].flags W32 bit80000决定进入/退出。进入FD4=0按原direction分支选side、当前位置声425/427/429/431→308=8/30F=255→device查询无设备时W32 flags|8000→fresh index/FD4=1→按四类型两图选择419C10→106C发布/返回非空才309=4后fresh槽310=4→character6/PlayFrame1。FD4=1若imageNo==原initialEffect.position4，则106C空或phase非0才FD4=2、PlayFrame0；不相等时alpha W8减7，降到0后保13B0门禁/baseImage、fresh当前图发布及原各W8draw字段/flags10000000和PlayFrame0，否则character6/PlayFrame1。FD4=2同阶段106C指针条件回收→fresh index/清106C→原position低W8加1落S8 type，按四类型四图依序419CF0的偏移2/1/-1/-2及相应槽，非零图创建；第四创建仍按第三槽非空判定，不改为本次返回判定。各创建309=4/fresh槽310=4后，fresh当前图/flags与字段发布、PlayFrame0→439470弃返→439340→frameEvent0/FD40。所有进入阶段/default共同按13B8/13BC两借用槽条件MarkDeath并仅非空时清槽。退出先character6/PlayFrame1再fresh FD4：1时alpha+7未超过255只W8发布，超过时条件回收106C/清槽、flags清10000和字段/type0、439470→439340→frameEvent/FD4清0；0时S8 type>0才播426/428/430/432、条件回收主效果并清、三辅助槽逐个取指针/条件MarkDeath后均清槽、按原side/fresh当前图与W8字段/flags发布→PlayFrame1→device无设备设10000→fresh S8 type>0才419C10退出图→发布106C并按非空写309和fresh槽310→FD4=1。其它退出FD4返回。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-acceptance",
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+        "doc/cg2d_battle_rebirth_transition_evidence.json"
+      ],
+      "boundary": "动作163：fresh effects[initialEffect].flags W32 bit80000决定进入/退出。进入FD4=0按原direction分支选side、当前位置声425/427/429/431→308=8/30F=255→device查询无设备时W32 flags|8000→fresh index/FD4=1→按四类型两图选择419C10→106C发布/返回非空才309=4后fresh槽310=4→character6/PlayFrame1。FD4=1若imageNo==原initialEffect.position4，则106C空或phase非0才FD4=2、PlayFrame0；不相等时alpha W8减7，降到0后保13B0门禁/baseImage、fresh当前图发布及原各W8draw字段/flags10000000和PlayFrame0，否则character6/PlayFrame1。FD4=2同阶段106C指针条件回收→fresh index/清106C→原position低W8加1落S8 type，按四类型四图依序419CF0的偏移2/1/-1/-2及相应槽，非零图创建；第四创建仍按第三槽非空判定，不改为本次返回判定。各创建309=4/fresh槽310=4后，fresh当前图/flags与字段发布、PlayFrame0→439470弃返→439340→frameEvent0/FD40。所有进入阶段/default共同按13B8/13BC两借用槽条件MarkDeath并仅非空时清槽。退出先character6/PlayFrame1再fresh FD4：1时alpha+7未超过255只W8发布，超过时条件回收106C/清槽、flags清10000和字段/type0、439470→439340→frameEvent/FD4清0；0时S8 type>0才播426/428/430/432、条件回收主效果并清、三辅助槽逐个取指针/条件MarkDeath后均清槽、按原side/fresh当前图与W8字段/flags发布→PlayFrame1→device无设备设10000→fresh S8 type>0才419C10退出图→发布106C并按非空写309和fresh槽310→FD4=1。其它退出FD4返回。 两完整原根570条2302B/八页、32实际call/63普通内部jump/七ret、两个普通唯一入向同一404DB0父六条邻窗，七组原指令即时构造的52栈表元素对应源五组40常量，只当前完整正常源/状态发布/字段/调用及同阶段回收静态。七替换模式共八源片段，恢复一实际低W8类型消费与七源回收取样（gear一循环承两个原点），正常旧值无介入相同、不称数值/并发或生成机器bug。正确原第三槽判断、全部case/default/负方向、字段W32/W8/S8、真实创建与alias借用保；不造同名原全局数据表或新增R7处置。全父/全部子依赖/其它生产与间接alias-owner寿命、SDK/生成机器ABI/RNG/时钟/画面运行未新验；音频暂停和原格式明文、RPLAN.24实际W8存储且不专项异常/保护/模拟/故障等价保。",
+      "verification_level": "两完整原根570条2302B/八页、32实际call/63普通内部jump/七ret、两个普通唯一入向同一404DB0父六条邻窗，七组原指令即时构造的52栈表元素对应源五组40常量，只当前完整正常源/状态发布/字段/调用及同阶段回收静态。七替换模式共八源片段，恢复一实际低W8类型消费与七源回收取样（gear一循环承两个原点），正常旧值无介入相同、不称数值/并发或生成机器bug。正确原第三槽判断、全部case/default/负方向、字段W32/W8/S8、真实创建与alias借用保；不造同名原全局数据表或新增R7处置。全父/全部子依赖/其它生产与间接alias-owner寿命、SDK/生成机器ABI/RNG/时钟/画面运行未新验；音频暂停和原格式明文、RPLAN.24实际W8存储且不专项异常/保护/模拟/故障等价保。",
+      "battle_rebirth_transition": {
+        "spec_id": "BPU01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
+          "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
+          "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-acceptance",
+          "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+          "doc/cg2d_battle_rebirth_transition_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 417,
+        "original_code_bytes": 1702,
+        "original_page_count": 6,
+        "original_outgoing_call_count": 24,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 6,
+        "normal_previous_pointer_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00411A50",
+      "inventory_id": "F:00011A50",
+      "original_role": "UpdateBattleAction164_411A50",
+      "original_end_exclusive": "0x00411CA8",
+      "instruction_count": 153,
+      "status": "BPU01两完整图像切换/恢复正常源纳管，低W8类型消费与回收指针取样实修；全生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "UpdateBattleAction164_411A50"
+          ],
+          "relationship": "动作164：先character0/PlayFrame1再fresh S32 stage。stage1/2时W8 alpha+7未超过255只发布并返回；超过时仅stage1无额外空门禁MarkDeath(106C)，然后清106C/flags清10000、3080/30F255、fresh保存phaseFF0→type0→phase恢复→FF0/frameEvent/FD4清0。其它非0 stage返回。stage0沿S8 type正才播退出声、主效果/三辅助槽按原条件回收清除→side与baseImage发布、3088/30F0/3090、flags清10000000/13B00→PlayFrame1→device无设备设10000→fresh S8 type正才退出图419C10并写106C，之后按非空写309/fresh槽310，FD4=1。负direction按原分支side1、0..2或>=6为side0、3..5为side1；现有方向表达式保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-acceptance",
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+        "doc/cg2d_battle_rebirth_transition_evidence.json"
+      ],
+      "boundary": "动作164：先character0/PlayFrame1再fresh S32 stage。stage1/2时W8 alpha+7未超过255只发布并返回；超过时仅stage1无额外空门禁MarkDeath(106C)，然后清106C/flags清10000、3080/30F255、fresh保存phaseFF0→type0→phase恢复→FF0/frameEvent/FD4清0。其它非0 stage返回。stage0沿S8 type正才播退出声、主效果/三辅助槽按原条件回收清除→side与baseImage发布、3088/30F0/3090、flags清10000000/13B00→PlayFrame1→device无设备设10000→fresh S8 type正才退出图419C10并写106C，之后按非空写309/fresh槽310，FD4=1。负direction按原分支side1、0..2或>=6为side0、3..5为side1；现有方向表达式保持。 两完整原根570条2302B/八页、32实际call/63普通内部jump/七ret、两个普通唯一入向同一404DB0父六条邻窗，七组原指令即时构造的52栈表元素对应源五组40常量，只当前完整正常源/状态发布/字段/调用及同阶段回收静态。七替换模式共八源片段，恢复一实际低W8类型消费与七源回收取样（gear一循环承两个原点），正常旧值无介入相同、不称数值/并发或生成机器bug。正确原第三槽判断、全部case/default/负方向、字段W32/W8/S8、真实创建与alias借用保；不造同名原全局数据表或新增R7处置。全父/全部子依赖/其它生产与间接alias-owner寿命、SDK/生成机器ABI/RNG/时钟/画面运行未新验；音频暂停和原格式明文、RPLAN.24实际W8存储且不专项异常/保护/模拟/故障等价保。",
+      "verification_level": "两完整原根570条2302B/八页、32实际call/63普通内部jump/七ret、两个普通唯一入向同一404DB0父六条邻窗，七组原指令即时构造的52栈表元素对应源五组40常量，只当前完整正常源/状态发布/字段/调用及同阶段回收静态。七替换模式共八源片段，恢复一实际低W8类型消费与七源回收取样（gear一循环承两个原点），正常旧值无介入相同、不称数值/并发或生成机器bug。正确原第三槽判断、全部case/default/负方向、字段W32/W8/S8、真实创建与alias借用保；不造同名原全局数据表或新增R7处置。全父/全部子依赖/其它生产与间接alias-owner寿命、SDK/生成机器ABI/RNG/时钟/画面运行未新验；音频暂停和原格式明文、RPLAN.24实际W8存储且不专项异常/保护/模拟/故障等价保。",
+      "battle_rebirth_transition": {
+        "spec_id": "BPU01",
+        "evidence_refs": [
+          "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
+          "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
+          "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-acceptance",
+          "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+          "doc/cg2d_battle_rebirth_transition_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 153,
+        "original_code_bytes": 600,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 8,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "normal_previous_pointer_values_wrong": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

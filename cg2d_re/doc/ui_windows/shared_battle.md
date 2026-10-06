@@ -8419,3 +8419,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [裁决](../cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-decision)：单根26定义27处恢复同parsed角色、初低图位置-表-加法、累计先target后发布、普通Effect/Aux与两AEL、半额反馈/反弹字段-copy和末效果取样，四S32业务索引及五处实际W8门禁。原entry0/1比较、业务零/未指定lastAmount、全部图号-金额门禁/字段/动作与真实Move-RID固定58=2保持，其它根头不改。两Effect/Aux按各次固定/live参数生产；31/3037的半额、saved/live flags分工和各位置重读保持。
 
 [914条/67call证据](../cg2d_battle_m_skill19_family_sampling_evidence.json)只纳本根正常段/真实尾；完整战斗接线、全部owner寿命/SDK画面与运行另验。
+
+## BNS01 技能267效果数量与两轮效果（2026-10-06）
+
+按[具体SPEC](../cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision)，单根25定义27处恢复角色字段、effectCount/初图、累计发布-普通与循环/末Effect-Aux参数、图copy/反馈-state取样；四S32业务索引和两W8门禁，原全部图号-字段/金额门禁/动作与真实Move-RID固定58=1保持，其它根头不改。[证据](../cg2d_battle_m_skill267_sampling_evidence.json)：434EDF..43573F576条2144B八页45call及全部直接出口，无内部表/复用尾；267/3029原180B/36B入口表和十二S32/48B偏移仅上下文，25补丁/改前根与旧812完整前态保存。循环累计source先清flags pub，末Effect沿固定flags/Aux另live flags；入口两个W32业务零和未指定lastAmount、所有原调用/门禁-状态动作保持。
+
+旧812只五引用/一既有源码symbol登记/本步对象，E491→495仅双域四局部I/S，七open及全部其它指标/完整成员-门禁保持。完整父17298/SEH、其它技能/全路由、全部consumer-owner/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/运行另验。

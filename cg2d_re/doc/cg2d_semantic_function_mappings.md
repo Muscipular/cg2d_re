@@ -2577,3 +2577,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 按[源状态](cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-source-state)仅追加五引用/一源码symbol登记/本步对象，原已有代码ProcessBattleMSkill19Family不新增第二入口。单根26定义27处恢复同parsed角色、初低图位置-表-加法、累计先target后发布、普通Effect/Aux与两AEL、半额反馈/反弹字段-copy和末效果取样，四S32业务索引及五处实际W8门禁。原entry0/1比较、业务零/未指定lastAmount、全部图号-金额门禁/字段/动作与真实Move-RID固定58=2保持，其它根头不改。
 
 [证据](cg2d_battle_m_skill19_family_sampling_evidence.json)：43412E..434EDF914条3505B十二页67call/全部直接和三个内部表间接出口，三表121B、3037入口36B及原48B偏移/具名低中入口只上下文，26补丁/改前根及旧812完整前态保存。E487→491仅双域四局部I/S；语义1350/有效ID1345、片段5/分类456、关联1463/3680及完整成员/门禁保持，不新F/X/adapted/分类。
+
+## BNS01 旧812技能267有界追加（2026-10-06）
+
+按[具体SPEC](cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision)，单根25定义27处恢复角色字段、effectCount/初图、累计发布-普通与循环/末Effect-Aux参数、图copy/反馈-state取样；四S32业务索引和两W8门禁，原全部图号-字段/金额门禁/动作与真实Move-RID固定58=1保持，其它根头不改。[证据](cg2d_battle_m_skill267_sampling_evidence.json)：434EDF..43573F576条2144B八页45call及全部直接出口，无内部表/复用尾；267/3029原180B/36B入口表和十二S32/48B偏移仅上下文，25补丁/改前根与旧812完整前态保存。循环累计source先清flags pub，末Effect沿固定flags/Aux另live flags；入口两个W32业务零和未指定lastAmount、所有原调用/门禁-状态动作保持。
+
+旧812只五引用/一既有源码symbol登记/本步对象，E491→495仅双域四局部I/S，七open及全部其它指标/完整成员-门禁保持。完整父17298/SEH、其它技能/全路由、全部consumer-owner/SDK-ABI-PC53-时钟RNG画面及R1/R7/R8/运行另验。

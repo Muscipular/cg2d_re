@@ -3100,3 +3100,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline)/[五根冻结前态](cg2d_battle_timing_coordinate_damage_sampling_evidence.json)。新增1476..1480对应416000/416020/4160A0/416150/416220，五原已有定义正常语义/equivalent，原冻结定位保。只232五读取阶段，228..231正确体、原W32缓存旗位、两归零HP接收者/上限CopyPayload/独立RNG/共享尾/返回保持。
 
 语义1481/有效1476、关联1594/3680（43.32%）、BATTLE158枚举open、分类606/E758，R7 260/3061/余2801、差队列172/待归属43及其它全部完整门禁不变。
+
+## BQD01 四转段/反弹/反伤完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-baseline)/[四根冻结前态](cg2d_battle_bounce_reflection_sampling_evidence.json)。新增1481..1484对应416860/416AB0/406630/416DD0，四原已有定义正常语义/equivalent，原冻结定位保。三源本体十一读取/载荷阶段，236正确体/父弃返和普通helper/S16width边界保。
+
+语义1485/有效1480、关联1598/3680（43.42%）、BATTLE162枚举open、分类610/E760，R7 260/3061/余2801、差队列172/待归属43与其它全部完整门禁不变。

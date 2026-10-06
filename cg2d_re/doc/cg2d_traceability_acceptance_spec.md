@@ -1124,3 +1124,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance)/[完整583条2104B](cg2d_battle_timing_coordinate_damage_sampling_evidence.json)。十页、58call/26入口/49jump/六ret、五父15邻窗/52B、228真实内部call229透传返回及两F32常数/五源码阶段可追。正常旧值一致，反伤三齐读/写source和普通扣减encoded先共享目标/后两字段交替分别落实，原HP/图标/Attribute接收者、寄存器W32旗位与独立RNG/共享尾/返回保持。两局部I/S各十三实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
 
 语义1481/1476、关联1594/43.32%、BATTLE158枚举open、分类606/E758；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保。
+
+## BQD01 四完整转段/反弹/反伤状态局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-acceptance)/[完整834条2947B](cg2d_battle_bounce_reflection_sampling_evidence.json)。十三页、62call/26入口/86jump/八ret、四父12邻窗/35B、十F32与十一源码阶段可追。四内存W8及W32寄存器消费分清，234下边界两角度读、237两归零独立原序和三数显索引分别落实；正常旧值一致，236只已证父弃返、S16width/共享helper/原业务/接收者/RNG/同步帧循环/返回保。两局部I/S各十四实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命及图形链。
+
+语义1485/1480、关联1598/43.42%、BATTLE162枚举open、分类610/E760；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保。

@@ -1118,3 +1118,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-acceptance)/[完整289条1074B](cg2d_battle_pet_rider_sampling_evidence.json)。五页、25call/14入口/十jump/四ret、两父六邻窗和225九源码阶段可追。正常旧值一致；223正确体、四CopyPayload交替、每阶段fresh槽/已有借指针、真实重复清字段/原坐标还原保持，224既有基线不重复计数。两局部I/S各十实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
 
 语义1476/1471、关联1589/43.18%、BATTLE153枚举open、分类601/E756；R7 260/3061/余2801、差队列172/待归属43、四任务open及60源码closed10/完整验收0/叶0/global_accepted=false保持。
+
+## BQC01 五完整计时/坐标/恢复扣减状态局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance)/[完整583条2104B](cg2d_battle_timing_coordinate_damage_sampling_evidence.json)。十页、58call/26入口/49jump/六ret、五父15邻窗/52B、228真实内部call229透传返回及两F32常数/五源码阶段可追。正常旧值一致，反伤三齐读/写source和普通扣减encoded先共享目标/后两字段交替分别落实，原HP/图标/Attribute接收者、寄存器W32旗位与独立RNG/共享尾/返回保持。两局部I/S各十三实来源，不代生成机器/实际x87/运行或完整递归生产/owner寿命。
+
+语义1481/1476、关联1594/43.32%、BATTLE158枚举open、分类606/E758；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保。

@@ -127,3 +127,9 @@
 [完整合同](cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state)/[两完整289条1074B](cg2d_battle_pet_rider_sampling_evidence.json)纳管223/225；225九阶段恢复各当前对象先源字段、两实参deltaX先Y后offsetX、抛物线time/baseY先取后算。正常旧值一致，223正确体与四普通CopyPayload交替、真实重复清字段和坐标/image还原保持。
 
 224已有BRC01完整adapted记录和正确体保，不重复纳管。BATTLE153枚举open/E756两局部I/S，完整递归生产/owner寿命/生成机器/运行及R8未完成。
+
+## BQC01 计时、坐标与恢复扣减取样（2026-10-07）
+
+[完整合同](cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state)/[五完整583条2104B](cg2d_battle_timing_coordinate_damage_sampling_evidence.json)纳管228..232；只232三数显currentIndex先Y、反伤零临时三齐读/写source、普通扣减encoded先共享目标且后两字段交替五阶段恢复。两种复制不能合并；普通上限CopyPayload交替正确保持。
+
+228..231正确体及229真实250重复发布/228透传返回、230 flags完整S32坐标、231两原F32/独立if/previous返回保。232原W32缓存寄存器旗位、独立RNG/HP及图标接收者/共享尾/返回保持。BATTLE158枚举open/E758两局部I/S，完整生产/owner寿命/生成机器/运行与R8未完成。

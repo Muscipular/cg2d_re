@@ -2274,7 +2274,8 @@
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline",
-        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline"
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2429,7 +2430,12 @@
         "F:00013B40",
         "F:00013E90",
         "F:00013FE0",
-        "F:000150F0"
+        "F:000150F0",
+        "F:00016000",
+        "F:00016020",
+        "F:000160A0",
+        "F:00016150",
+        "F:00016220"
       ],
       "closure_task_ids": [
         "P01",
@@ -2529,7 +2535,8 @@
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
-        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision"
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2618,7 +2625,8 @@
         "BPY01七完整439条1445B/九页、40call/16入口/37jump/一四项switch/17ret与七入向21邻窗纳管，四体七W8-W16/读取序阶段恢复、三正确体保，146成员枚举open；210同依赖19B三LEA对齐及四W32表用途mapped只R7。其它递归父/全部子依赖/生产与alias-owner寿命、SDK/生成机器ABI/画面运行未验，完整战斗和R8继续open，音频暂停",
         "BPZ01三完整397条1508B/六页、31call/42jump/八ret与三入向九邻窗纳管；218先1060指针后新图号/219低W8/Restore先1060指针后基础图号三源阶段恢复，两帮助体使用者219/220原内联全部对应，不增helper F/原call，149原成员枚举open。正常旧值相同，原同步终帧循环/借用alias及业务/状态保；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open",
         "BQA02两完整346条1169B/六页、34call/21入口/28jump/三ret与两父六邻窗/四F32常数纳管，221四实际低W8恢复，222正确源和原源HP归零/图标接收者/齐读、普通上限CopyPayload、W32缓存/未落位FP保，151原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
-        "BQB01两完整289条1074B/五页、25call/14入口/十jump/四ret与两父六邻窗纳管，225九指针/字段/实参/抛物线取样阶段恢复，223正确体与四普通CopyPayload、真实重复清字段/坐标还原保。224既有BRC01完整adapted记录不重复计数，153原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open"
+        "BQB01两完整289条1074B/五页、25call/14入口/十jump/四ret与两父六邻窗纳管，225九指针/字段/实参/抛物线取样阶段恢复，223正确体与四普通CopyPayload、真实重复清字段/坐标还原保。224既有BRC01完整adapted记录不重复计数，153原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+        "BQC01五完整583条2104B/十页、58call/26入口/49jump/六ret、五父15邻窗/52B和228真实内部call229/两F32常数纳管，232三数显索引先Y、反伤归零齐读/普通扣减encoded先共享目标五阶段恢复；228..231正确体、cached W32寄存器旗位、独立RNG/原HP图标接收者/共享尾和返回保。158原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2707,7 +2715,8 @@
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
-        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state"
       ]
     },
     {
@@ -32523,6 +32532,76 @@
       "observation": "223：先取共享当前玩家位置，再固定action.payload，GetBattlePetPosition(playerPosition)弃返回；调用后fresh currentIndex读取position S32一次。position>=0先发布共享5ABBFC，再439470→439340后返回；负值恰-2且共享旧snapshot>=0才4965D0→snapshot=-1；其它负值直接共同439470→439340。无新增影子状态/索引限制，两个原ret及回调次序保持，现有正确本体不改。 225创建：固定payload，初始rider13C8为空才source.imageNo存13AC，再fresh imageNo映射→NewBattleRider(action,image)，返回T*写13C8且直接phase1。各fresh骑乘槽field58=0/characterAction11/nameC4原字节含NUL复制/field1D0；field1D0和四坐标各先当前rider T*再源S32/F32值。四独立rider先读，readiness/maxHp/barValue/barMaximum按encoded W32→mask W32→readCount W8逐项读写，普通CopyPayload不齐读、不复制token/reserved。x/y/offset40/44各独立fresh、flags|14，source graphicIndex=-1/lastImage0→406260，fresh effect T*后frameX S32→effect.deltaX；再effect T*、rider T*、deltaX S32、targetY F32、offset40 F32加法→F32 targetX，Turn(rider,targetX,targetY,1,0)，fresh rider.value54=8→PlayFrame(rider,0)弃返→fresh rider声465(x)后返回，音频暂停，原第三Y未消费。 225运行：初始已捕rider.characterAction11，fresh effect/rider先，deltaX→targetY→offset40加法F32参数，Distance(rider,targetX,targetY)>=5走fresh rider Move；否则先effect指针/deltaX+offset40算式，后rider指针/F32offset40发布，再fresh effect/rider→offset44复制。逐阶段重取rider，将offset40/44分别按原__ftol正常S32边界转换、各共享屏幕offset W32读后加并发布deltaX/Y，再fresh rider各复制deltaX/Y到x/y。另fresh rider，先field58 S32、baseY S32，正常S32 displacement=(time-15)^2-225后baseY+displacement发布Y；另fresh rider取previous并++发布，previous>15才读source.frameY且<=displacement进入退场。原两遍phase0/field580与flags&~14顺序保，MarkDeath(fresh rider)后先借effect，再清rider槽，复制source.offset40，再fresh effect、source.offset40先捕、effect.offset44发布、S32投影x/y分别发布，baseImage13AC恢复image→MarkDeath(fresh effect)→effect槽null→声462(x)→PlayFrame(action,0)→439470→439340。最后fresh rider非空才PlayFrame0，无防空/钳制/回绕或其它异常专项，正确坐标还原/双重清字段和其它旧源保持。",
       "expected": "223：先取共享当前玩家位置，再固定action.payload，GetBattlePetPosition(playerPosition)弃返回；调用后fresh currentIndex读取position S32一次。position>=0先发布共享5ABBFC，再439470→439340后返回；负值恰-2且共享旧snapshot>=0才4965D0→snapshot=-1；其它负值直接共同439470→439340。无新增影子状态/索引限制，两个原ret及回调次序保持，现有正确本体不改。 225创建：固定payload，初始rider13C8为空才source.imageNo存13AC，再fresh imageNo映射→NewBattleRider(action,image)，返回T*写13C8且直接phase1。各fresh骑乘槽field58=0/characterAction11/nameC4原字节含NUL复制/field1D0；field1D0和四坐标各先当前rider T*再源S32/F32值。四独立rider先读，readiness/maxHp/barValue/barMaximum按encoded W32→mask W32→readCount W8逐项读写，普通CopyPayload不齐读、不复制token/reserved。x/y/offset40/44各独立fresh、flags|14，source graphicIndex=-1/lastImage0→406260，fresh effect T*后frameX S32→effect.deltaX；再effect T*、rider T*、deltaX S32、targetY F32、offset40 F32加法→F32 targetX，Turn(rider,targetX,targetY,1,0)，fresh rider.value54=8→PlayFrame(rider,0)弃返→fresh rider声465(x)后返回，音频暂停，原第三Y未消费。 225运行：初始已捕rider.characterAction11，fresh effect/rider先，deltaX→targetY→offset40加法F32参数，Distance(rider,targetX,targetY)>=5走fresh rider Move；否则先effect指针/deltaX+offset40算式，后rider指针/F32offset40发布，再fresh effect/rider→offset44复制。逐阶段重取rider，将offset40/44分别按原__ftol正常S32边界转换、各共享屏幕offset W32读后加并发布deltaX/Y，再fresh rider各复制deltaX/Y到x/y。另fresh rider，先field58 S32、baseY S32，正常S32 displacement=(time-15)^2-225后baseY+displacement发布Y；另fresh rider取previous并++发布，previous>15才读source.frameY且<=displacement进入退场。原两遍phase0/field580与flags&~14顺序保，MarkDeath(fresh rider)后先借effect，再清rider槽，复制source.offset40，再fresh effect、source.offset40先捕、effect.offset44发布、S32投影x/y分别发布，baseImage13AC恢复image→MarkDeath(fresh effect)→effect槽null→声462(x)→PlayFrame(action,0)→439470→439340。最后fresh rider非空才PlayFrame0，无防空/钳制/回绕或其它异常专项，正确坐标还原/双重清字段和其它旧源保持。",
       "actual": "两完整原根289条1074B/五页、25call/14入口/十普通内部jump/四ret，两唯一404DB0入向六邻窗。只225九源阶段恢复指针先源值、两实参deltaX先Y后offsetX、抛物线time和baseY先取后算；正常旧值一致，不称并发或机器故障。223正确完整体不改；四普通CopyPayload交替encoded/mask/readCount、真实S32/F32/W32/W8边界、每阶段fresh槽/已有借指针、贴近先算后rider、两遍清字段/坐标还原、创建/回收/调用/返回保持。224既有BRC01 adapted完整记录及正确体保，不重复纳管计数。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-TIMING-COORDINATE-DAMAGE-SAMPLING-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQC01五完整583条2104B/十页、58call/49jump/六ret和五父15邻窗/228内部call/两常数/232五阶段；doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-timing-coordinate-damage-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction228_416000",
+        "src/YobiRuntime.cpp#UpdateBattleAction229_416020",
+        "src/YobiRuntime.cpp#UpdateBattleAction230_4160A0",
+        "src/YobiRuntime.cpp#UpdateBattleAction231_416150",
+        "src/YobiRuntime.cpp#UpdateBattleAction232_416220",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "只232五源阶段：三数显currentIndex先Y、反伤零临时三齐读后写source、普通扣减encoded先于共享目标且后两字段交替。正常旧值一致；228..231正确体、寄存器W32缓存旗位、两HP接收者/图标/Attribute和独立RNG/共享尾/业务阈值/返回保持",
+          "decision_ref": "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "228：固定action.payload，valueFF0 S32清0→source.phase229→直接call229(action)，透传其返回S32。原416019真实call和原ret，非推测fallthrough/新状态身份。 229：固定payload，characterAction3，fresh valueFF0 S32有符号<60才先framePlayingRate250、再fresh计时250-4*t发布，随后另fresh计时++，PlayFrame(action,0)返回；>=60清计时0→439340→PlayFrame(action,0)返回。保真实250重复写、三次计时读取/正常S32和两个原返回，不做饱和/回绕/额外限制。 230：固定payload/currentIndex，effects.flags按原S32整数FILD语义转F32 Y后同cached index.position S32转F32 X，Turn(action,X,Y,1,10)→Move(action)→PlayFrame0弃返。调用后fresh index再按Y后X构造Distance(action,X,Y)，返回有符号<8才fresh index.position→offset40 F32发布，再另fresh index.flags按S32→offset44 F32发布，439470→439340。flags槽此处是完整32位坐标位模式，不当位旗筛选、不共用第二次索引，正常源保持。 231：先取source.value54 F32减原54D4E0 F32字节6666e63e（0.44999998807907104），中间再固定payload/characterAction9→F32速度发布；原未落位中间和原54D420 F32零比较，负值才正常业务置0。framePlayingRate100→Move后fresh速度<=0才439340后速度6，PlayFrame0弃返。fresh valueFF0==0创建source图110006；调用后另fresh valueFF0==1再创建110007，允许前调用改变计时。最后再次取previous，++发布；previous>=2再清0但仍返回previous。保原正常下限/两个独立if/三取样/返回，实际x87机器未验。 232：固定payload，characterAction3/value54=10/frameRate100，fresh current.position共享目标Turn(action,target,1,0)→Move；另fresh position/共享目标Distance<20才处理，未近只共同RNG/尾PlayFrame。近时fresh同index.position先目标T*、flags W32后、目标payload T*后缓存，Turn(target,action,1,0)→targetPayload.castSkill=-1，fresh own battlePosition18/共享attacker写target+10、cached flags写目标FE4，另fresh ownPosition ApplyFlags(position,action)。flags bit8置target.phase31；否则100且flash1004==0声210(x)→flash1/phase31，非零只共同尾；其它进入恢复/反伤/扣减。所有BL/BH测试消费已缓存W32寄存器旗位，不改成共享内存W8读取。 232其余近距：cached flags C000全清且fresh current.position3!=0才目标payload x10/y14 S32→target offsets F32。2000反伤预效果：bit2给source图110008；RAND(0,2)+110001给target图→Rebirth(action,target)，取source skill后source FE4=2000；skill非404/406且cached bit20才source FDC|2/gate1/alive1。非2000预效果：100000回收target.effect1054，调用后目标FDC先读、槽null后FDC&~20；bit2给target110008，再独立RAND(0,2)+110001图和Rebirth，bit20激活目标FDC/gate/alive。原业务、共享目标别名/缓存和两次独立RNG路径保。 232 HP/共同尾：8000只439340(target)；否则4000先439340(target)，10000000 fresh共享当前目标图22459；否则fresh current同record.position3先amount再position/共享目标AddHP，调用后fresh共享目标GreaterHP/max，超过原上限才另fresh目标普通CopyPayload encoded/mask/count交替。恢复数显先currentIndex→cached target.Y→同index.amount→target.X，type5/style2/cached W32 flags；bit2 target图22454→Attribute(action,target)。否则2000先439340(target)，10000000同当前图22459；否则fresh amount扣source HP，<0 Construct0后mask W32/encoded W32/readCount W8三齐读，再按同序写source HP→Destroy；反伤数显先index→source.Y→amount→source.X/type6/style2/flags，bit2 source图22454，后Attribute仍(action,target)，原4166B5跳共享4165C4/5CC call点保逻辑且不新增原call计数。其它普通扣减：10000000当前图22459，否则fresh record.amount=0给当前目标图22331，非0amount先、position/共享目标后扣HP；fresh共享目标Less0，负值Construct0消耗RNG后再fresh index→position→temporary.encoded W32→共享目标T*，发布encoded，随后mask W32/readCount W8交替读写→Destroy。普通扣减数显先index→cached target.Y→amount→target.X/type6/style2/flags，bit2 target图22454→Attribute(action,target)，最终439340(target)。近距共同cached bit8清且fresh current.amount!=0才按缓存目标payload当前FDC W32的bit1计算14*(bit+1)写source FD0，随后439340(action)→439470(action)。所有距离路径共同NextRandom&1恰0图110004/1图110006给source NewPosition，PlayFrame(action,0)返回。保两个HP归零接收者、图标/Attribute接收者、原上限、调用共享尾/返回/RNG消费和非拥有指针/生命周期边界。",
+      "expected": "228：固定action.payload，valueFF0 S32清0→source.phase229→直接call229(action)，透传其返回S32。原416019真实call和原ret，非推测fallthrough/新状态身份。 229：固定payload，characterAction3，fresh valueFF0 S32有符号<60才先framePlayingRate250、再fresh计时250-4*t发布，随后另fresh计时++，PlayFrame(action,0)返回；>=60清计时0→439340→PlayFrame(action,0)返回。保真实250重复写、三次计时读取/正常S32和两个原返回，不做饱和/回绕/额外限制。 230：固定payload/currentIndex，effects.flags按原S32整数FILD语义转F32 Y后同cached index.position S32转F32 X，Turn(action,X,Y,1,10)→Move(action)→PlayFrame0弃返。调用后fresh index再按Y后X构造Distance(action,X,Y)，返回有符号<8才fresh index.position→offset40 F32发布，再另fresh index.flags按S32→offset44 F32发布，439470→439340。flags槽此处是完整32位坐标位模式，不当位旗筛选、不共用第二次索引，正常源保持。 231：先取source.value54 F32减原54D4E0 F32字节6666e63e（0.44999998807907104），中间再固定payload/characterAction9→F32速度发布；原未落位中间和原54D420 F32零比较，负值才正常业务置0。framePlayingRate100→Move后fresh速度<=0才439340后速度6，PlayFrame0弃返。fresh valueFF0==0创建source图110006；调用后另fresh valueFF0==1再创建110007，允许前调用改变计时。最后再次取previous，++发布；previous>=2再清0但仍返回previous。保原正常下限/两个独立if/三取样/返回，实际x87机器未验。 232：固定payload，characterAction3/value54=10/frameRate100，fresh current.position共享目标Turn(action,target,1,0)→Move；另fresh position/共享目标Distance<20才处理，未近只共同RNG/尾PlayFrame。近时fresh同index.position先目标T*、flags W32后、目标payload T*后缓存，Turn(target,action,1,0)→targetPayload.castSkill=-1，fresh own battlePosition18/共享attacker写target+10、cached flags写目标FE4，另fresh ownPosition ApplyFlags(position,action)。flags bit8置target.phase31；否则100且flash1004==0声210(x)→flash1/phase31，非零只共同尾；其它进入恢复/反伤/扣减。所有BL/BH测试消费已缓存W32寄存器旗位，不改成共享内存W8读取。 232其余近距：cached flags C000全清且fresh current.position3!=0才目标payload x10/y14 S32→target offsets F32。2000反伤预效果：bit2给source图110008；RAND(0,2)+110001给target图→Rebirth(action,target)，取source skill后source FE4=2000；skill非404/406且cached bit20才source FDC|2/gate1/alive1。非2000预效果：100000回收target.effect1054，调用后目标FDC先读、槽null后FDC&~20；bit2给target110008，再独立RAND(0,2)+110001图和Rebirth，bit20激活目标FDC/gate/alive。原业务、共享目标别名/缓存和两次独立RNG路径保。 232 HP/共同尾：8000只439340(target)；否则4000先439340(target)，10000000 fresh共享当前目标图22459；否则fresh current同record.position3先amount再position/共享目标AddHP，调用后fresh共享目标GreaterHP/max，超过原上限才另fresh目标普通CopyPayload encoded/mask/count交替。恢复数显先currentIndex→cached target.Y→同index.amount→target.X，type5/style2/cached W32 flags；bit2 target图22454→Attribute(action,target)。否则2000先439340(target)，10000000同当前图22459；否则fresh amount扣source HP，<0 Construct0后mask W32/encoded W32/readCount W8三齐读，再按同序写source HP→Destroy；反伤数显先index→source.Y→amount→source.X/type6/style2/flags，bit2 source图22454，后Attribute仍(action,target)，原4166B5跳共享4165C4/5CC call点保逻辑且不新增原call计数。其它普通扣减：10000000当前图22459，否则fresh record.amount=0给当前目标图22331，非0amount先、position/共享目标后扣HP；fresh共享目标Less0，负值Construct0消耗RNG后再fresh index→position→temporary.encoded W32→共享目标T*，发布encoded，随后mask W32/readCount W8交替读写→Destroy。普通扣减数显先index→cached target.Y→amount→target.X/type6/style2/flags，bit2 target图22454→Attribute(action,target)，最终439340(target)。近距共同cached bit8清且fresh current.amount!=0才按缓存目标payload当前FDC W32的bit1计算14*(bit+1)写source FD0，随后439340(action)→439470(action)。所有距离路径共同NextRandom&1恰0图110004/1图110006给source NewPosition，PlayFrame(action,0)返回。保两个HP归零接收者、图标/Attribute接收者、原上限、调用共享尾/返回/RNG消费和非拥有指针/生命周期边界。",
+      "actual": "五完整原根583条2104B/十页、58call/26入口/49普通内部jump/六ret，五404DB0入向15邻窗/52B及228→229真实内部入向共六入向，两原F32常数。只232五源阶段：三数显currentIndex先Y，反伤零临时mask/encoded/readCount齐读，普通扣减零临时encoded先于共享目标指针且后两字段交替。正常旧值一致，不称并发或数值/机器故障；228..231正确整源、232其它W32缓存/寄存器旗位/独立RNG/原HP图标接收者、上限普通CopyPayload/共享调用尾/返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "id": "E-BATTLE-TIMING-COORDINATE-DAMAGE-SAMPLING-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQC01五完整583条2104B/十页、58call/49jump/六ret和五父15邻窗/228内部call/两常数/232五阶段；doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-timing-coordinate-damage-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_evidence.json",
+        "src/YobiRuntime.cpp#UpdateBattleAction228_416000",
+        "src/YobiRuntime.cpp#UpdateBattleAction229_416020",
+        "src/YobiRuntime.cpp#UpdateBattleAction230_4160A0",
+        "src/YobiRuntime.cpp#UpdateBattleAction231_416150",
+        "src/YobiRuntime.cpp#UpdateBattleAction232_416220",
+        "src/YobiRuntime.cpp#UpdateBattleActor_404DB0",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "只232五源阶段：三数显currentIndex先Y、反伤零临时三齐读后写source、普通扣减encoded先于共享目标且后两字段交替。正常旧值一致；228..231正确体、寄存器W32缓存旗位、两HP接收者/图标/Attribute和独立RNG/共享尾/业务阈值/返回保持",
+          "decision_ref": "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "228：固定action.payload，valueFF0 S32清0→source.phase229→直接call229(action)，透传其返回S32。原416019真实call和原ret，非推测fallthrough/新状态身份。 229：固定payload，characterAction3，fresh valueFF0 S32有符号<60才先framePlayingRate250、再fresh计时250-4*t发布，随后另fresh计时++，PlayFrame(action,0)返回；>=60清计时0→439340→PlayFrame(action,0)返回。保真实250重复写、三次计时读取/正常S32和两个原返回，不做饱和/回绕/额外限制。 230：固定payload/currentIndex，effects.flags按原S32整数FILD语义转F32 Y后同cached index.position S32转F32 X，Turn(action,X,Y,1,10)→Move(action)→PlayFrame0弃返。调用后fresh index再按Y后X构造Distance(action,X,Y)，返回有符号<8才fresh index.position→offset40 F32发布，再另fresh index.flags按S32→offset44 F32发布，439470→439340。flags槽此处是完整32位坐标位模式，不当位旗筛选、不共用第二次索引，正常源保持。 231：先取source.value54 F32减原54D4E0 F32字节6666e63e（0.44999998807907104），中间再固定payload/characterAction9→F32速度发布；原未落位中间和原54D420 F32零比较，负值才正常业务置0。framePlayingRate100→Move后fresh速度<=0才439340后速度6，PlayFrame0弃返。fresh valueFF0==0创建source图110006；调用后另fresh valueFF0==1再创建110007，允许前调用改变计时。最后再次取previous，++发布；previous>=2再清0但仍返回previous。保原正常下限/两个独立if/三取样/返回，实际x87机器未验。 232：固定payload，characterAction3/value54=10/frameRate100，fresh current.position共享目标Turn(action,target,1,0)→Move；另fresh position/共享目标Distance<20才处理，未近只共同RNG/尾PlayFrame。近时fresh同index.position先目标T*、flags W32后、目标payload T*后缓存，Turn(target,action,1,0)→targetPayload.castSkill=-1，fresh own battlePosition18/共享attacker写target+10、cached flags写目标FE4，另fresh ownPosition ApplyFlags(position,action)。flags bit8置target.phase31；否则100且flash1004==0声210(x)→flash1/phase31，非零只共同尾；其它进入恢复/反伤/扣减。所有BL/BH测试消费已缓存W32寄存器旗位，不改成共享内存W8读取。 232其余近距：cached flags C000全清且fresh current.position3!=0才目标payload x10/y14 S32→target offsets F32。2000反伤预效果：bit2给source图110008；RAND(0,2)+110001给target图→Rebirth(action,target)，取source skill后source FE4=2000；skill非404/406且cached bit20才source FDC|2/gate1/alive1。非2000预效果：100000回收target.effect1054，调用后目标FDC先读、槽null后FDC&~20；bit2给target110008，再独立RAND(0,2)+110001图和Rebirth，bit20激活目标FDC/gate/alive。原业务、共享目标别名/缓存和两次独立RNG路径保。 232 HP/共同尾：8000只439340(target)；否则4000先439340(target)，10000000 fresh共享当前目标图22459；否则fresh current同record.position3先amount再position/共享目标AddHP，调用后fresh共享目标GreaterHP/max，超过原上限才另fresh目标普通CopyPayload encoded/mask/count交替。恢复数显先currentIndex→cached target.Y→同index.amount→target.X，type5/style2/cached W32 flags；bit2 target图22454→Attribute(action,target)。否则2000先439340(target)，10000000同当前图22459；否则fresh amount扣source HP，<0 Construct0后mask W32/encoded W32/readCount W8三齐读，再按同序写source HP→Destroy；反伤数显先index→source.Y→amount→source.X/type6/style2/flags，bit2 source图22454，后Attribute仍(action,target)，原4166B5跳共享4165C4/5CC call点保逻辑且不新增原call计数。其它普通扣减：10000000当前图22459，否则fresh record.amount=0给当前目标图22331，非0amount先、position/共享目标后扣HP；fresh共享目标Less0，负值Construct0消耗RNG后再fresh index→position→temporary.encoded W32→共享目标T*，发布encoded，随后mask W32/readCount W8交替读写→Destroy。普通扣减数显先index→cached target.Y→amount→target.X/type6/style2/flags，bit2 target图22454→Attribute(action,target)，最终439340(target)。近距共同cached bit8清且fresh current.amount!=0才按缓存目标payload当前FDC W32的bit1计算14*(bit+1)写source FD0，随后439340(action)→439470(action)。所有距离路径共同NextRandom&1恰0图110004/1图110006给source NewPosition，PlayFrame(action,0)返回。保两个HP归零接收者、图标/Attribute接收者、原上限、调用共享尾/返回/RNG消费和非拥有指针/生命周期边界。",
+      "expected": "228：固定action.payload，valueFF0 S32清0→source.phase229→直接call229(action)，透传其返回S32。原416019真实call和原ret，非推测fallthrough/新状态身份。 229：固定payload，characterAction3，fresh valueFF0 S32有符号<60才先framePlayingRate250、再fresh计时250-4*t发布，随后另fresh计时++，PlayFrame(action,0)返回；>=60清计时0→439340→PlayFrame(action,0)返回。保真实250重复写、三次计时读取/正常S32和两个原返回，不做饱和/回绕/额外限制。 230：固定payload/currentIndex，effects.flags按原S32整数FILD语义转F32 Y后同cached index.position S32转F32 X，Turn(action,X,Y,1,10)→Move(action)→PlayFrame0弃返。调用后fresh index再按Y后X构造Distance(action,X,Y)，返回有符号<8才fresh index.position→offset40 F32发布，再另fresh index.flags按S32→offset44 F32发布，439470→439340。flags槽此处是完整32位坐标位模式，不当位旗筛选、不共用第二次索引，正常源保持。 231：先取source.value54 F32减原54D4E0 F32字节6666e63e（0.44999998807907104），中间再固定payload/characterAction9→F32速度发布；原未落位中间和原54D420 F32零比较，负值才正常业务置0。framePlayingRate100→Move后fresh速度<=0才439340后速度6，PlayFrame0弃返。fresh valueFF0==0创建source图110006；调用后另fresh valueFF0==1再创建110007，允许前调用改变计时。最后再次取previous，++发布；previous>=2再清0但仍返回previous。保原正常下限/两个独立if/三取样/返回，实际x87机器未验。 232：固定payload，characterAction3/value54=10/frameRate100，fresh current.position共享目标Turn(action,target,1,0)→Move；另fresh position/共享目标Distance<20才处理，未近只共同RNG/尾PlayFrame。近时fresh同index.position先目标T*、flags W32后、目标payload T*后缓存，Turn(target,action,1,0)→targetPayload.castSkill=-1，fresh own battlePosition18/共享attacker写target+10、cached flags写目标FE4，另fresh ownPosition ApplyFlags(position,action)。flags bit8置target.phase31；否则100且flash1004==0声210(x)→flash1/phase31，非零只共同尾；其它进入恢复/反伤/扣减。所有BL/BH测试消费已缓存W32寄存器旗位，不改成共享内存W8读取。 232其余近距：cached flags C000全清且fresh current.position3!=0才目标payload x10/y14 S32→target offsets F32。2000反伤预效果：bit2给source图110008；RAND(0,2)+110001给target图→Rebirth(action,target)，取source skill后source FE4=2000；skill非404/406且cached bit20才source FDC|2/gate1/alive1。非2000预效果：100000回收target.effect1054，调用后目标FDC先读、槽null后FDC&~20；bit2给target110008，再独立RAND(0,2)+110001图和Rebirth，bit20激活目标FDC/gate/alive。原业务、共享目标别名/缓存和两次独立RNG路径保。 232 HP/共同尾：8000只439340(target)；否则4000先439340(target)，10000000 fresh共享当前目标图22459；否则fresh current同record.position3先amount再position/共享目标AddHP，调用后fresh共享目标GreaterHP/max，超过原上限才另fresh目标普通CopyPayload encoded/mask/count交替。恢复数显先currentIndex→cached target.Y→同index.amount→target.X，type5/style2/cached W32 flags；bit2 target图22454→Attribute(action,target)。否则2000先439340(target)，10000000同当前图22459；否则fresh amount扣source HP，<0 Construct0后mask W32/encoded W32/readCount W8三齐读，再按同序写source HP→Destroy；反伤数显先index→source.Y→amount→source.X/type6/style2/flags，bit2 source图22454，后Attribute仍(action,target)，原4166B5跳共享4165C4/5CC call点保逻辑且不新增原call计数。其它普通扣减：10000000当前图22459，否则fresh record.amount=0给当前目标图22331，非0amount先、position/共享目标后扣HP；fresh共享目标Less0，负值Construct0消耗RNG后再fresh index→position→temporary.encoded W32→共享目标T*，发布encoded，随后mask W32/readCount W8交替读写→Destroy。普通扣减数显先index→cached target.Y→amount→target.X/type6/style2/flags，bit2 target图22454→Attribute(action,target)，最终439340(target)。近距共同cached bit8清且fresh current.amount!=0才按缓存目标payload当前FDC W32的bit1计算14*(bit+1)写source FD0，随后439340(action)→439470(action)。所有距离路径共同NextRandom&1恰0图110004/1图110006给source NewPosition，PlayFrame(action,0)返回。保两个HP归零接收者、图标/Attribute接收者、原上限、调用共享尾/返回/RNG消费和非拥有指针/生命周期边界。",
+      "actual": "五完整原根583条2104B/十页、58call/26入口/49普通内部jump/六ret，五404DB0入向15邻窗/52B及228→229真实内部入向共六入向，两原F32常数。只232五源阶段：三数显currentIndex先Y，反伤零临时mask/encoded/readCount齐读，普通扣减零临时encoded先于共享目标指针且后两字段交替。正常旧值一致，不称并发或数值/机器故障；228..231正确整源、232其它W32缓存/寄存器旗位/独立RNG/原HP图标接收者、上限普通CopyPayload/共享调用尾/返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
     }
   ],
   "task_acceptance": [
@@ -33157,7 +33236,8 @@
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
-        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state"
       ]
     },
     {
@@ -33408,7 +33488,8 @@
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
-        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state"
       ]
     },
     {
@@ -33553,7 +33634,8 @@
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
-        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state"
       ]
     },
     {
@@ -34030,7 +34112,8 @@
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
         "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
         "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
-        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state"
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state"
       ]
     },
     {
@@ -40560,6 +40643,71 @@
         "doc/cg2d_battle_pet_rider_sampling_evidence.json"
       ],
       "boundary": "225创建：固定payload，初始rider13C8为空才source.imageNo存13AC，再fresh imageNo映射→NewBattleRider(action,image)，返回T*写13C8且直接phase1。各fresh骑乘槽field58=0/characterAction11/nameC4原字节含NUL复制/field1D0；field1D0和四坐标各先当前rider T*再源S32/F32值。四独立rider先读，readiness/maxHp/barValue/barMaximum按encoded W32→mask W32→readCount W8逐项读写，普通CopyPayload不齐读、不复制token/reserved。x/y/offset40/44各独立fresh、flags|14，source graphicIndex=-1/lastImage0→406260，fresh effect T*后frameX S32→effect.deltaX；再effect T*、rider T*、deltaX S32、targetY F32、offset40 F32加法→F32 targetX，Turn(rider,targetX,targetY,1,0)，fresh rider.value54=8→PlayFrame(rider,0)弃返→fresh rider声465(x)后返回，音频暂停，原第三Y未消费。 225运行：初始已捕rider.characterAction11，fresh effect/rider先，deltaX→targetY→offset40加法F32参数，Distance(rider,targetX,targetY)>=5走fresh rider Move；否则先effect指针/deltaX+offset40算式，后rider指针/F32offset40发布，再fresh effect/rider→offset44复制。逐阶段重取rider，将offset40/44分别按原__ftol正常S32边界转换、各共享屏幕offset W32读后加并发布deltaX/Y，再fresh rider各复制deltaX/Y到x/y。另fresh rider，先field58 S32、baseY S32，正常S32 displacement=(time-15)^2-225后baseY+displacement发布Y；另fresh rider取previous并++发布，previous>15才读source.frameY且<=displacement进入退场。原两遍phase0/field580与flags&~14顺序保，MarkDeath(fresh rider)后先借effect，再清rider槽，复制source.offset40，再fresh effect、source.offset40先捕、effect.offset44发布、S32投影x/y分别发布，baseImage13AC恢复image→MarkDeath(fresh effect)→effect槽null→声462(x)→PlayFrame(action,0)→439470→439340。最后fresh rider非空才PlayFrame0，无防空/钳制/回绕或其它异常专项，正确坐标还原/双重清字段和其它旧源保持。 两完整原根289条1074B/五页、25call/14入口/十普通内部jump/四ret，两唯一404DB0入向六邻窗。只225九源阶段恢复指针先源值、两实参deltaX先Y后offsetX、抛物线time和baseY先取后算；正常旧值一致，不称并发或机器故障。223正确完整体不改；四普通CopyPayload交替encoded/mask/readCount、真实S32/F32/W32/W8边界、每阶段fresh槽/已有借指针、贴近先算后rider、两遍清字段/坐标还原、创建/回收/调用/返回保持。224既有BRC01 adapted完整记录及正确体保，不重复纳管计数。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00016000",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_evidence.json"
+      ],
+      "boundary": "228：固定action.payload，valueFF0 S32清0→source.phase229→直接call229(action)，透传其返回S32。原416019真实call和原ret，非推测fallthrough/新状态身份。 五完整原根583条2104B/十页、58call/26入口/49普通内部jump/六ret，五404DB0入向15邻窗/52B及228→229真实内部入向共六入向，两原F32常数。只232五源阶段：三数显currentIndex先Y，反伤零临时mask/encoded/readCount齐读，普通扣减零临时encoded先于共享目标指针且后两字段交替。正常旧值一致，不称并发或数值/机器故障；228..231正确整源、232其它W32缓存/寄存器旗位/独立RNG/原HP图标接收者、上限普通CopyPayload/共享调用尾/返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00016020",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_evidence.json"
+      ],
+      "boundary": "229：固定payload，characterAction3，fresh valueFF0 S32有符号<60才先framePlayingRate250、再fresh计时250-4*t发布，随后另fresh计时++，PlayFrame(action,0)返回；>=60清计时0→439340→PlayFrame(action,0)返回。保真实250重复写、三次计时读取/正常S32和两个原返回，不做饱和/回绕/额外限制。 五完整原根583条2104B/十页、58call/26入口/49普通内部jump/六ret，五404DB0入向15邻窗/52B及228→229真实内部入向共六入向，两原F32常数。只232五源阶段：三数显currentIndex先Y，反伤零临时mask/encoded/readCount齐读，普通扣减零临时encoded先于共享目标指针且后两字段交替。正常旧值一致，不称并发或数值/机器故障；228..231正确整源、232其它W32缓存/寄存器旗位/独立RNG/原HP图标接收者、上限普通CopyPayload/共享调用尾/返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:000160A0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_evidence.json"
+      ],
+      "boundary": "230：固定payload/currentIndex，effects.flags按原S32整数FILD语义转F32 Y后同cached index.position S32转F32 X，Turn(action,X,Y,1,10)→Move(action)→PlayFrame0弃返。调用后fresh index再按Y后X构造Distance(action,X,Y)，返回有符号<8才fresh index.position→offset40 F32发布，再另fresh index.flags按S32→offset44 F32发布，439470→439340。flags槽此处是完整32位坐标位模式，不当位旗筛选、不共用第二次索引，正常源保持。 五完整原根583条2104B/十页、58call/26入口/49普通内部jump/六ret，五404DB0入向15邻窗/52B及228→229真实内部入向共六入向，两原F32常数。只232五源阶段：三数显currentIndex先Y，反伤零临时mask/encoded/readCount齐读，普通扣减零临时encoded先于共享目标指针且后两字段交替。正常旧值一致，不称并发或数值/机器故障；228..231正确整源、232其它W32缓存/寄存器旗位/独立RNG/原HP图标接收者、上限普通CopyPayload/共享调用尾/返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00016150",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_evidence.json"
+      ],
+      "boundary": "231：先取source.value54 F32减原54D4E0 F32字节6666e63e（0.44999998807907104），中间再固定payload/characterAction9→F32速度发布；原未落位中间和原54D420 F32零比较，负值才正常业务置0。framePlayingRate100→Move后fresh速度<=0才439340后速度6，PlayFrame0弃返。fresh valueFF0==0创建source图110006；调用后另fresh valueFF0==1再创建110007，允许前调用改变计时。最后再次取previous，++发布；previous>=2再清0但仍返回previous。保原正常下限/两个独立if/三取样/返回，实际x87机器未验。 五完整原根583条2104B/十页、58call/26入口/49普通内部jump/六ret，五404DB0入向15邻窗/52B及228→229真实内部入向共六入向，两原F32常数。只232五源阶段：三数显currentIndex先Y，反伤零临时mask/encoded/readCount齐读，普通扣减零临时encoded先于共享目标指针且后两字段交替。正常旧值一致，不称并发或数值/机器故障；228..231正确整源、232其它W32缓存/寄存器旗位/独立RNG/原HP图标接收者、上限普通CopyPayload/共享调用尾/返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
+    },
+    {
+      "inventory_id": "F:00016220",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-acceptance",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_evidence.json"
+      ],
+      "boundary": "232：固定payload，characterAction3/value54=10/frameRate100，fresh current.position共享目标Turn(action,target,1,0)→Move；另fresh position/共享目标Distance<20才处理，未近只共同RNG/尾PlayFrame。近时fresh同index.position先目标T*、flags W32后、目标payload T*后缓存，Turn(target,action,1,0)→targetPayload.castSkill=-1，fresh own battlePosition18/共享attacker写target+10、cached flags写目标FE4，另fresh ownPosition ApplyFlags(position,action)。flags bit8置target.phase31；否则100且flash1004==0声210(x)→flash1/phase31，非零只共同尾；其它进入恢复/反伤/扣减。所有BL/BH测试消费已缓存W32寄存器旗位，不改成共享内存W8读取。 232其余近距：cached flags C000全清且fresh current.position3!=0才目标payload x10/y14 S32→target offsets F32。2000反伤预效果：bit2给source图110008；RAND(0,2)+110001给target图→Rebirth(action,target)，取source skill后source FE4=2000；skill非404/406且cached bit20才source FDC|2/gate1/alive1。非2000预效果：100000回收target.effect1054，调用后目标FDC先读、槽null后FDC&~20；bit2给target110008，再独立RAND(0,2)+110001图和Rebirth，bit20激活目标FDC/gate/alive。原业务、共享目标别名/缓存和两次独立RNG路径保。 232 HP/共同尾：8000只439340(target)；否则4000先439340(target)，10000000 fresh共享当前目标图22459；否则fresh current同record.position3先amount再position/共享目标AddHP，调用后fresh共享目标GreaterHP/max，超过原上限才另fresh目标普通CopyPayload encoded/mask/count交替。恢复数显先currentIndex→cached target.Y→同index.amount→target.X，type5/style2/cached W32 flags；bit2 target图22454→Attribute(action,target)。否则2000先439340(target)，10000000同当前图22459；否则fresh amount扣source HP，<0 Construct0后mask W32/encoded W32/readCount W8三齐读，再按同序写source HP→Destroy；反伤数显先index→source.Y→amount→source.X/type6/style2/flags，bit2 source图22454，后Attribute仍(action,target)，原4166B5跳共享4165C4/5CC call点保逻辑且不新增原call计数。其它普通扣减：10000000当前图22459，否则fresh record.amount=0给当前目标图22331，非0amount先、position/共享目标后扣HP；fresh共享目标Less0，负值Construct0消耗RNG后再fresh index→position→temporary.encoded W32→共享目标T*，发布encoded，随后mask W32/readCount W8交替读写→Destroy。普通扣减数显先index→cached target.Y→amount→target.X/type6/style2/flags，bit2 target图22454→Attribute(action,target)，最终439340(target)。近距共同cached bit8清且fresh current.amount!=0才按缓存目标payload当前FDC W32的bit1计算14*(bit+1)写source FD0，随后439340(action)→439470(action)。所有距离路径共同NextRandom&1恰0图110004/1图110006给source NewPosition，PlayFrame(action,0)返回。保两个HP归零接收者、图标/Attribute接收者、原上限、调用共享尾/返回/RNG消费和非拥有指针/生命周期边界。 五完整原根583条2104B/十页、58call/26入口/49普通内部jump/六ret，五404DB0入向15邻窗/52B及228→229真实内部入向共六入向，两原F32常数。只232五源阶段：三数显currentIndex先Y，反伤零临时mask/encoded/readCount齐读，普通扣减零临时encoded先于共享目标指针且后两字段交替。正常旧值一致，不称并发或数值/机器故障；228..231正确整源、232其它W32缓存/寄存器旗位/独立RNG/原HP图标接收者、上限普通CopyPayload/共享调用尾/返回保持。只当前完整正常源接线静态，不外推递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器ABI/实际x87/画面运行；音频暂停，RPLAN.24不专项异常/保护/回绕/故障等价保。"
     }
   ],
   "auxiliary_dispositions": [

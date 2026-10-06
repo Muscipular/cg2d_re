@@ -30958,8 +30958,9 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                             payload->effects1C[payload->effectRunningC9C].position];
                         CopyPayload(&copyTarget->readiness, &copyTarget->maxHp);
                     }
+                    const std::int32_t recoveryDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = target->y - 80;
-                    const std::int32_t displayed = payload->effects1C[payload->effectRunningC9C].position3;
+                    const std::int32_t displayed = payload->effects1C[recoveryDisplayIndex].position3;
                     static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 5, 2, flags));
                     if ((flags & 2u) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));
@@ -30977,14 +30978,18 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                     if (Less_401DB0(&action->readiness, 0)) {
                         platform::LegacyCryptInt temporary;
                         ConstructFromInt_401CC0(&temporary, 0);
-                        // 此反伤分支的原复制序是mask、encoded、readCount。
-                        action->readiness.mask = temporary.mask;
-                        action->readiness.encoded = temporary.encoded;
-                        action->readiness.readCount = temporary.readCount;
+                        // 原416655..416671先齐读，再按mask、encoded、readCount发布。
+                        const std::uint32_t mask = temporary.mask;
+                        const std::uint32_t encoded = temporary.encoded;
+                        const std::uint8_t readCount = temporary.readCount;
+                        action->readiness.mask = mask;
+                        action->readiness.encoded = encoded;
+                        action->readiness.readCount = readCount;
                         Destroy_401CF0(&temporary);
                     }
+                    const std::int32_t reflectionDisplayIndex = payload->effectRunningC9C;
                     const std::int32_t y = action->y - 80;
-                    const std::int32_t displayed = payload->effects1C[payload->effectRunningC9C].position3;
+                    const std::int32_t displayed = payload->effects1C[reflectionDisplayIndex].position3;
                     static_cast<void>(NewBattleNumber_41F1A0(action->x, y, displayed, 6, 2, flags));
                     if ((flags & 2u) != 0) {
                         static_cast<void>(NewBattleFloatingIcon_41F4C0(action, 22454, 0, 0));
@@ -31005,14 +31010,19 @@ std::int32_t UpdateBattleAction232_416220(YobiAction* const action)
                         if (Less_401DB0(&compareTarget->readiness, 0)) {
                             platform::LegacyCryptInt temporary;
                             ConstructFromInt_401CC0(&temporary, 0);
-                            // 构造消耗RNG之后，原指令才重取当前效果和目标对象。
-                            YobiAction* const copyTarget = gBattleAllEntries59E980[
-                                payload->effects1C[payload->effectRunningC9C].position];
-                            CopyPayload(&copyTarget->readiness, &temporary);
+                            // 原416753..416781先取位置/encoded，再借目标；后两字段交替读写。
+                            const std::int32_t copyIndex = payload->effectRunningC9C;
+                            const std::int32_t copyPosition = payload->effects1C[copyIndex].position;
+                            const std::uint32_t encoded = temporary.encoded;
+                            YobiAction* const copyTarget = gBattleAllEntries59E980[copyPosition];
+                            copyTarget->readiness.encoded = encoded;
+                            copyTarget->readiness.mask = temporary.mask;
+                            copyTarget->readiness.readCount = temporary.readCount;
                             Destroy_401CF0(&temporary);
                         }
+                        const std::int32_t damageDisplayIndex = payload->effectRunningC9C;
                         const std::int32_t y = target->y - 80;
-                        const std::int32_t displayed = payload->effects1C[payload->effectRunningC9C].position3;
+                        const std::int32_t displayed = payload->effects1C[damageDisplayIndex].position3;
                         static_cast<void>(NewBattleNumber_41F1A0(target->x, y, displayed, 6, 2, flags));
                         if ((flags & 2u) != 0) {
                             static_cast<void>(NewBattleFloatingIcon_41F4C0(target, 22454, 0, 0));

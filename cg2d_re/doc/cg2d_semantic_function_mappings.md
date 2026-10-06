@@ -3094,3 +3094,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline)/[两根冻结前态](cg2d_battle_pet_rider_sampling_evidence.json)。新增1474/F:00013FE0、1475/F:000150F0，两原已有定义正常语义/equivalent，冻结定位保持。只225九读取阶段，223正确体与四复制/真实重复清字段/坐标还原保；224既有BRC01完整adapted记录全文不改。
 
 语义1476/有效1471、关联1589/3680（43.18%）、BATTLE153枚举open、分类601/E756，R7 260/3061/余2801、差队列172/待归属43和全部完整门禁不变。
+
+## BQC01 五计时/坐标/恢复扣减完整正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline)/[五根冻结前态](cg2d_battle_timing_coordinate_damage_sampling_evidence.json)。新增1476..1480对应416000/416020/4160A0/416150/416220，五原已有定义正常语义/equivalent，原冻结定位保。只232五读取阶段，228..231正确体、原W32缓存旗位、两归零HP接收者/上限CopyPayload/独立RNG/共享尾/返回保持。
+
+语义1481/有效1476、关联1594/3680（43.32%）、BATTLE158枚举open、分类606/E758，R7 260/3061/余2801、差队列172/待归属43及其它全部完整门禁不变。

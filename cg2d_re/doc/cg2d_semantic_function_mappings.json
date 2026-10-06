@@ -171819,6 +171819,91 @@
         "preserved_contract": "先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。",
         "implementation_static_scope": "两根正常调用/字段与取样静态；描边除RECT零写取消其它全保，脏区四W16读取恢复且完整返回/dirty尾保；不代parent/全provider-owner或运行"
       }
+    },
+    {
+      "original_entry": "0x507090",
+      "inventory_id": "F:00107090",
+      "original_role": "按value4匹配队列记录、DX尺寸生成矩形并追加描边",
+      "status": "BPA01完整原根/独立机器缺口与DX目标-四边-双游标阶段差异已落实，局部static，完整命中/资源-owner/像素运行未验",
+      "original_end_exclusive": "0x50713F",
+      "instruction_count": 59,
+      "original_direct_reference_count": 1,
+      "sources": [
+        {
+          "path": "src/render/GraphicPendingQueue.cpp",
+          "symbols": [
+            "DrawMatchingGraphicHover_507090"
+          ],
+          "relationship": "入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。"
+        },
+        {
+          "path": "include/cg/render/GraphicPendingQueue.hpp",
+          "symbols": [
+            "DrawMatchingGraphicHover_507090",
+            "GraphicCacheItem32",
+            "GraphicCache3"
+          ],
+          "relationship": "既有48B主记录/4B平行层native唯一承载及声明保持，冻结定位不刷新"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-acceptance",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_matching_hover_record_sampling_evidence.json"
+      ],
+      "boundary": "入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。",
+      "verification_level": "完整59条175B/一页1call5内跳1ret与唯一普通点/父8条25B窗口只纳盘；单正文恢复实际DX条目先取得、四边正常S32生产和原双native游标推进，原动态追加遍历保持；局部static不代完整父-owner或像素/机器ABI运行",
+      "function_chunks": [
+        {
+          "start": "0x507090",
+          "end_exclusive": "0x50713F"
+        }
+      ],
+      "inbound_evidence": [
+        {
+          "ea": "0x5076bd",
+          "type": 17,
+          "parent": "0x507140"
+        }
+      ],
+      "native_provider": {
+        "source": "src/render/GraphicPendingQueue.cpp",
+        "symbol": "DrawMatchingGraphicHover_507090",
+        "source_body_implemented": true,
+        "source_body_changed": true,
+        "runtime_verified": false
+      },
+      "matching_hover_record_sampling": {
+        "spec_id": "BPA01",
+        "evidence_refs": [
+          "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
+          "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision",
+          "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-acceptance",
+          "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+          "doc/cg2d_matching_hover_record_sampling_evidence.json"
+        ],
+        "original_instruction_count": 59,
+        "original_code_bytes": 175,
+        "page_count": 1,
+        "outgoing_call_site_count": 1,
+        "internal_jump_site_count": 5,
+        "return_site_count": 1,
+        "incoming_reference_count": 1,
+        "incoming_parent_count": 1,
+        "source_body_patch_count": 1,
+        "source_body_changed": true,
+        "actual_dx_entry_before_y_x": true,
+        "coordinates_produced_bottom_top_right_left": true,
+        "count_sample_before_two_native_cursor_advance": true,
+        "dynamic_appended_items_preserved": true,
+        "normal_previous_coordinates_or_color_wrong": false,
+        "full_original_root_captured": true,
+        "runtime_verified": false,
+        "preserved_contract": "入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。",
+        "implementation_static_scope": "完整59条原根正常取样/DX实际地址/四边生产/两游标推进局部I/S，唯一点/父窗口只纳盘；正常旧坐标颜色/匹配结果一致，不代完整父-owner/像素运行"
+      }
     }
   ]
 }

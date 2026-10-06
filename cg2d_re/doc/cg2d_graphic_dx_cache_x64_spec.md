@@ -265,3 +265,11 @@ P1/P4表56/48B、主动作/P4子项32B和帧/坐标12/8B保持，分配/清理�
 x/y原W32位置保+0/+4，脏区四W16从真实字段地址读取，descriptor随现有native记录访问，不将旧32B stride当x64镜像。RECT仅既有实现私有边界，不引入公开底层类型。新增机器1411/1412对应已有两个原根；语义1411→1413/有效ID1406→1408、关联1524→1526（41.41%→41.47%）、分类531→533、RENDER43→45枚举open，四独立局部static I/S E669→673。冻结定位各1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/R7区间67/3061及其它门禁保，七open只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。
 
 只GraphicPendingQueue.cpp两个完整正文补丁；头/布局/实际父、排序/入队/描边包装、共享Back/调色板/纹理provider与owner保持，不新增helper或状态。原父忽略两EAX/既有void和native低S16-W16-U8接口保，不记机器ABI/EAX等价。完整生产-父-callee/正常别名/逐面owner/dirty重建-场景退出及SDK-机器ABI、全模式像素运行未验；不增加保护/拒绝/钳制、计数写/释放或异常回绕模型。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。
+
+## BPA01 匹配绘框的实际DX条目与平行游标（2026-10-06）
+
+[BPA01 SPEC](cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision)/[原证据](cg2d_matching_hover_record_sampling_evidence.json)。真实507090完整59条175B/一页1call5内跳1ret，唯一普通点5076BD/父507140及8条25B窗口仅纳盘。单正文恢复匹配参数/实际DX条目在y/x前取得、四边bottom/top/right/left正常S32生产、count先取再index/主record/平行层native推进；七实参U16边界、CE/DA和step0、绘框追加项参与后续遍历保持。无介入旧正常坐标/颜色/匹配结果一致，不称像素错误。 已批队列48B/DX32B/层4B沿各native类型推进，仅地址拓宽，不当旧raw布局或新增句柄表；尺寸仍先高后宽S16。
+
+新增机器1413对应已有原根，语义1413→1414/有效ID1408→1409、关联1526→1527（41.47%→41.49%）、分类533→534、RENDER45→46枚举open，两独立根内局部static I/S E673→675。冻定位1/旧行号、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；七open仅进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
+
+只GraphicPendingQueue.cpp一个完整正文补丁；所有其它正文/头/布局/实际父、绘框/排序/provider与owner保持，不新增helper/私有状态/原入口。原S32参数任意、不借父>=3门槛；正count后初始化平行游标，不经cacheIndex重定位、首匹配退出或固定入口长度。完整命中/全部callee与正常alias、队列-表/纹理-Back-owner/场景-失效-退出、SDK-机器ABI/全模式像素运行未验；不加拒绝/补零/保护/钳制或异常回绕模型。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。

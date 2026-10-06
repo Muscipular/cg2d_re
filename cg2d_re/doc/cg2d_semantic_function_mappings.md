@@ -2912,3 +2912,9 @@ E475→479只双域四局部I/S；语义1350/有效ID1345、片段5/分类456、
 | 1412 / F:00120AD0 @520AD0 | 同文件FillDirtyArea_520AD0，mix/颜色后实际四W16顺序恢复；完整返回严格判busy才写共享dirty |
 
 新增机器1411/1412对应已有两个原根；语义1411→1413/有效ID1406→1408、关联1524→1526（41.41%→41.47%）、分类531→533、RENDER43→45枚举open，四独立局部static I/S E669→673。冻结定位各1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/R7区间67/3061及其它门禁保，七open只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保持。 两真实原根不新增分母，冻定位各1不刷新；正文之外源码保持。软件I/S仅正常两根局部，不代原EAX/机器ABI、父/下游全部像素与寿命或运行。
+
+## BPA01 匹配绘框独立机器缺口收尾（2026-10-06）
+
+[BPA01 SPEC](cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline)/[原证据](cg2d_matching_hover_record_sampling_evidence.json)。机器1413关联F:00107090@507090、GraphicPendingQueue.cpp::DrawMatchingGraphicHover_507090及既有队列声明；真正原身份/冻定位1不增分母。真实507090完整59条175B/一页1call5内跳1ret，唯一普通点5076BD/父507140及8条25B窗口仅纳盘。单正文恢复匹配参数/实际DX条目在y/x前取得、四边bottom/top/right/left正常S32生产、count先取再index/主record/平行层native推进；七实参U16边界、CE/DA和step0、绘框追加项参与后续遍历保持。无介入旧正常坐标/颜色/匹配结果一致，不称像素错误。
+
+新增机器1413对应已有原根，语义1413→1414/有效ID1408→1409、关联1526→1527（41.47%→41.49%）、分类533→534、RENDER45→46枚举open，两独立根内局部static I/S E673→675。冻定位1/旧行号、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；七open仅进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。 两I/S只同根正常局部，parent窗口8条另列，不代整个父/队列或运行。

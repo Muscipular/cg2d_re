@@ -2549,3 +2549,12 @@ BOY01本步实测：九完整原根/稳定身份及7地址-2尾跳、范围登�
 - **后续开发**：只GraphicPendingQueue.cpp两个完整正文补丁；头/布局/实际父、排序/入队/描边包装、共享Back/调色板/纹理provider与owner保持，不新增helper或状态。原父忽略两EAX/既有void和native低S16-W16-U8接口保，不记机器ABI/EAX等价。完整生产-父-callee/正常别名/逐面owner/dirty重建-场景退出及SDK-机器ABI、全模式像素运行未验；不增加保护/拒绝/钳制、计数写/释放或异常回绕模型。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。
 
 BOZ01本步实测：整CPP仅两完整正文补丁、描边除RECT声明逐字保/脏区四W16实际读取及完整返回-dirty尾保，两完整原根/同一父两个普通点和实际case2/3窗口、两权威JSON完整增量、对应合同/七open任务四项定向静态通过。原父窗口从实际5216E9起8条24B，最初中部窗口已弃用、不纳盘或计覆盖。measure/-Check均返回0；派生完整对象仅两新1411/1412、RENDER45、语义1413/1408/关联1526(41.47%)/分类533及七open进展变化，E673。冻定位各1、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25及所有完整门禁保持。13文件严格UTF8无BOM/LF和必要差异通过；两当步差异已落实，不声称原EAX/机器ABI、全部Back/纹理-owner/dirty重建或全模式像素已验，未构建/测试/运行/hash，整体SPEC继续。
+
+## BPA01 匹配绘框实际条目/四边与双游标收尾（2026-10-06）
+
+- **开发/当步解决**：先落[具体SPEC](../doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision)，单匹配正文恢复实际DXentry在y/x前取得、四边原正常生产与两native游标推进，计数先取/新追加项参与保持。无介入旧正常坐标/颜色/匹配结果正确，不称像素错误。
+- **原证据/身份**：[完整原59条](../doc/cg2d_matching_hover_record_sampling_evidence.json)175B/一页1call5内跳1ret与唯一普通点/父、8条25B实际窗口只纳盘，旧正文/冻定位1保。父当前定义并生产共享hover且已有调用/排序，只核当前接线，不代父全体或运行。
+- **计量/交付**：新增机器1413对应已有原根，语义1413→1414/有效ID1408→1409、关联1526→1527（41.47%→41.49%）、分类533→534、RENDER45→46枚举open，两独立根内局部static I/S E673→675。冻定位1/旧行号、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；七open仅进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。 固定命名快照 `cg2d-re-matching-hover-record-sampling-20261006`；13文件精确提交，用户既有六项排除。
+- **后续开发**：只GraphicPendingQueue.cpp一个完整正文补丁；所有其它正文/头/布局/实际父、绘框/排序/provider与owner保持，不新增helper/私有状态/原入口。原S32参数任意、不借父>=3门槛；正count后初始化平行游标，不经cacheIndex重定位、首匹配退出或固定入口长度。完整命中/全部callee与正常alias、队列-表/纹理-Back-owner/场景-失效-退出、SDK-机器ABI/全模式像素运行未验；不加拒绝/补零/保护/钳制或异常回绕模型。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。
+
+BPA01本步实测：整CPP仅单匹配绘框正文补丁，实际DX条目/原四边正常生产/两native游标及动态count阶段、完整59条175B/唯一点父与8条25B真实窗口、两权威JSON完整增量、合同/七open任务四项定向静态通过；实现禁项核查区分注释与代码，不以“不得经cacheIndex”注释误判实现。measure/-Check均返回0；派生完整对象仅新1413、RENDER46、语义1414/1409/关联1527(41.49%)/分类534与七open进展变化，E675。冻定位1、RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25及全部完整门禁保持。13文件严格UTF8无BOM/LF和差异通过；当前源码阶段差异已落实，正常旧坐标/颜色与匹配结果不记错误，不代完整父/所有callee-正常别名/队列-表与纹理-Back-owner/场景-失效-退出/SDK-机器ABI或像素运行，未构建/测试/运行/hash，整体SPEC继续。

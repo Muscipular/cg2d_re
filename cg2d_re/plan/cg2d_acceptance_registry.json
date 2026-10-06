@@ -1517,7 +1517,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-baseline",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-baseline",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-baseline",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -1564,7 +1565,8 @@
         "F:0004C3C0",
         "F:000536D0",
         "F:00122210",
-        "F:00120AD0"
+        "F:00120AD0",
+        "F:00107090"
       ],
       "closure_task_ids": [
         "C09",
@@ -1600,7 +1602,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-decision",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-decision",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-decision",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1625,7 +1628,8 @@
         "BOV01旧249完整续记/原41条139B及195普通点115父仅纳盘，单helper撤额外索引拒绝/size_t、-2原前缀写保持；RENDER41枚举open。完整父/正常别名/描边case2填充-owner-像素与SDK/机器ABI、R1/R7/R8运行待",
         "BOW01真正44C3C0新机器映射/完整136条412B及2点2父仅纳盘，44C408只是20条46B内部节点段；单释放叶恢复surface一次/count先取再推进。RENDER42枚举open，完整Destroy/父-callee/正常别名/逐面owner/双树-C09/重建退出-像素及SDK-机器ABI、R1/R7/R8运行待",
         "BOX01真实4536D0新机器映射/完整57条140B及唯一点父只纳盘；节点count先取再推进/native循环与不短路恢复、Temp-Back-呈现器尾保持。RENDER43枚举open，唯一父/正常别名/失效-重建-逐面owner/双树-C09-像素及SDK-机器ABI、R1/R7/R8运行待",
-        "BOZ01两真实描边/脏区消费者完整72条188B/两普通点同一父纳盘、两正文实修独立机器身份1411/1412；RENDER45枚举open，完整生产/父-callee/正常别名/Back-纹理-owner/dirty重建与SDK-机器ABI/模式像素及R1/R7/R8待"
+        "BOZ01两真实描边/脏区消费者完整72条188B/两普通点同一父纳盘、两正文实修独立机器身份1411/1412；RENDER45枚举open，完整生产/父-callee/正常别名/Back-纹理-owner/dirty重建与SDK-机器ABI/模式像素及R1/R7/R8待",
+        "BPA01匹配值绘框真实507090新机器1413/完整59条175B与唯一点父8条窗口纳盘；actual DX entry/四边正常生产/双游标阶段恢复，动态count与追加保。RENDER46枚举open，完整命中父-callee/正常alias/队列-表/纹理-Back-owner/场景失效退出/SDK-机器ABI与像素及R1/R7/R8运行待"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1651,7 +1655,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
       ]
     },
     {
@@ -29659,6 +29664,72 @@
       "observation": "当前完整原根字节连续覆盖/原call分支与唯一普通引用只纳盘，原字段宽度/样本及实际下游接口有定向静态对应；先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。",
       "expected": "先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。",
       "actual": "正常局部static I/S，不称旧坐标/颜色错误；历史定位1保、无新helper/原入口，实际record借用/native接口保持；完整父-callee/正常别名/Back-纹理-owner/dirty重建/场景退出及SDK-机器ABI/像素运行未验，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-MATCHING-HOVER-00107090-I-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPA01真实完整59条175B/1call5内跳1ret，唯一普通点父与8条25B调用窗口；doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-matching-hover-record-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-acceptance",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_matching_hover_record_sampling_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#DrawMatchingGraphicHover_507090",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "src/render/GraphicDxCacheState.hpp",
+        "src/render/GraphicHitTest.cpp",
+        "src/DrawGraphicHover.cpp",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "differences": [
+        {
+          "description": "单正文恢复匹配参数/实际DX条目取得/四边S32原生产与两native游标推进，动态count先取/新增项参与及所有其它字段-下游保持",
+          "decision_ref": "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "整CPP仅单匹配绘框正文补丁，实际record/层/DX条目借用和四边生产/动态count阶段恢复，原父/头/绘框/provider保持；入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。",
+      "expected": "入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。",
+      "actual": "单原根正常局部static I/S、runtime=false，旧正常坐标/颜色与匹配结果不记错误，冻结定位1/既有调用保持；不代完整命中/全部callee-正常alias/队列-表与纹理-Back-owner/场景-失效-退出/SDK-机器ABI或全模式像素，未构建/测试/运行/hash"
+    },
+    {
+      "id": "E-RENDER-MATCHING-HOVER-00107090-S-20261006",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BPA01真实完整59条175B/1call5内跳1ret，唯一普通点父与8条25B调用窗口；doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-matching-hover-record-sampling-20261006",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-acceptance",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_matching_hover_record_sampling_evidence.json",
+        "src/render/GraphicPendingQueue.cpp#DrawMatchingGraphicHover_507090",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "src/render/GraphicDxCacheState.hpp",
+        "src/render/GraphicHitTest.cpp",
+        "src/DrawGraphicHover.cpp",
+        "doc/cg2d_sub_507140.md"
+      ],
+      "differences": [
+        {
+          "description": "单正文恢复匹配参数/实际DX条目取得/四边S32原生产与两native游标推进，动态count先取/新增项参与及所有其它字段-下游保持",
+          "decision_ref": "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-06",
+      "observation": "原完整59条175B单页/call跳转返回与唯一引用只纳盘；各取样/四边正常S32-U16边界/动态追加遍历和原native双游标静态对应，父8条仅限定接线证据；入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。",
+      "expected": "入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。",
+      "actual": "单原根正常局部static I/S、runtime=false，旧正常坐标/颜色与匹配结果不记错误，冻结定位1/既有调用保持；不代完整命中/全部callee-正常alias/队列-表与纹理-Back-owner/场景-失效-退出/SDK-机器ABI或全模式像素，未构建/测试/运行/hash"
     }
   ],
   "task_acceptance": [
@@ -29917,7 +29988,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
       ]
     },
     {
@@ -30250,7 +30322,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
       ]
     },
     {
@@ -30470,7 +30543,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
       ]
     },
     {
@@ -30595,7 +30669,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
       ]
     },
     {
@@ -30691,7 +30766,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
       ]
     },
     {
@@ -30950,7 +31026,8 @@
         "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
       ]
     },
     {
@@ -31043,7 +31120,8 @@
         "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
         "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
         "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
-        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
       ]
     }
   ],
@@ -36687,6 +36765,17 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state"
       ],
       "boundary": "BOZ01真实case2/3矩形消费者沿既有native接口/CPU下游；仅两正文取样和栈发布静态，父原EAX未消费/既有void保持，不宣称机器ABI或全部像素/owner运行：先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。"
+    },
+    {
+      "inventory_id": "F:00107090",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-baseline",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-decision",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state"
+      ],
+      "boundary": "BPA01原非地址宽度/取样和动态遍历保，按已批x64承载两native队列游标及真实DXentry，不代完整父-callee/所有正常别名/owner-像素或机器ABI运行：入口S16共享count非正返回，任意S32参数不加>=3门槛；正count后初始化同一主记录/native层槽两游标。每轮先读record.value4再取匹配参数，不匹配只公共尾；匹配W8层→S32image→按原D4分支→nativeDX基址→W32hover→实际DXentry→S32y/x→S16height/width。四边正常S32按bottom=y+h+2、top=y-2、right=w+x+2、left=x-2生产，仅既有DrawGraphicHover边界转U16，层CE/DA、step0，调用一次且保入队副作用。尾freshS16count→++S32index→++主record→++平行层槽→同count比较，不经cacheIndex/重排/入口长度快照或首匹配退出；新追加项继续参与。所有owner/尺寸provider/父和正确像素算法保，正常旧坐标颜色值不记错误；native非拥有指针按已批布局推进，禁新拒绝/保护/异常回绕策略。"
     }
   ],
   "auxiliary_dispositions": [

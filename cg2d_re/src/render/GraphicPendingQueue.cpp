@@ -138,36 +138,47 @@ void DrawMatchingGraphicHover_507090(const std::int32_t value4)
         return;
     }
 
+    // 原平行主记录/层槽遍历，不经排序槽cacheIndex回查主记录。
+    const GraphicCache3* layerRecord = gLegacyPendingStorage.cache3.data();
+    const GraphicCacheItem32* record = gLegacyPendingStorage.records.data();
     do {
-        const auto queueIndex = static_cast<std::size_t>(index);
-        const GraphicCacheItem32& record =
-            gLegacyPendingStorage.records[queueIndex];
-        if (record.value4 == value4) {
-            // 原函数平行读取层槽，不经排序槽的 cacheIndex 回查主记录。
-            const std::uint8_t layer = gLegacyPendingStorage.cache3[queueIndex].layer;
-            const std::int32_t imageNo = record.imageNo;
+        const std::int32_t itemValue4 = record->value4;
+        const std::int32_t requestedValue4 = value4;
+        if (itemValue4 == requestedValue4) {
+            const std::uint8_t layer = layerRecord->layer;
+            const std::int32_t imageNo = record->imageNo;
+            const std::uint8_t hoverLayer =
+                layer < 0xD4 ? std::uint8_t{0xCE} : std::uint8_t{0xDA};
             const DxGraphicEntry* const dxBase = gGraphicDxCache103CFA4;
             const std::uint32_t hover = login::detail::gValueD69768;
-            const std::int32_t y = record.y;
-            const std::int32_t x = record.x;
+            const DxGraphicEntry* const entry = dxBase + imageNo;
+            const std::int32_t y = record->y;
+            const std::int32_t x = record->x;
             const std::int16_t height =
-                std::bit_cast<std::int16_t>(dxBase[imageNo].height);
+                std::bit_cast<std::int16_t>(entry->height);
             const std::int16_t width =
-                std::bit_cast<std::int16_t>(dxBase[imageNo].width);
+                std::bit_cast<std::int16_t>(entry->width);
 
+            // 原50710A..507117的正常S32计算序，U16只在既有调用边界取得。
+            const std::int32_t bottom = y + height + 2;
+            const std::int32_t top = y - 2;
+            const std::int32_t right = width + x + 2;
+            const std::int32_t left = x - 2;
             login::detail::DrawGraphicHover(
-                static_cast<std::uint16_t>(x - 2),
-                static_cast<std::uint16_t>(y - 2),
-                static_cast<std::uint16_t>(x + width + 2),
-                static_cast<std::uint16_t>(y + height + 2),
-                layer < 0xD4 ? std::uint8_t{0xCE} : std::uint8_t{0xDA},
+                static_cast<std::uint16_t>(left),
+                static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(right),
+                static_cast<std::uint16_t>(bottom),
+                hoverLayer,
                 hover,
                 0);
         }
 
-        // 绘框会追加同一队列；原507124先重读计数，再递增遍历下标。
+        // 绘框会追加同一队列；先重读计数，再按原序推进两条native游标。
         count = std::bit_cast<std::int16_t>(platform::gPendingGraphicCount);
         ++index;
+        ++record;
+        ++layerRecord;
     } while (index < count);
 }
 

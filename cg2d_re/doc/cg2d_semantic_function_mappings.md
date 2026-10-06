@@ -3148,3 +3148,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [完整合同](cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline)/[四根冻结前态](cg2d_battle_shortcut_defense_state_sampling_evidence.json)。新增1513..1516对应497000/497100/497210/4973C0，四原已有完整定义正常语义/equivalent、四冻结定位保。三个输入状态一次低W8→S8实修；原共享W32/门槛/专属尾/真实创建/返回与正确防御原格式G/旧字节和两父六源表达式承接九原路径保，不新R7。当前4C7AE0源名ProcessWindowShortcuts按冻结定位解析，不猜Sub名。
 
 语义1517/有效1512、关联1630/3680（44.29%）、BATTLE194枚举open、分类642/E774；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。
+
+## BQL01 三完整按钮再操作正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline)/[三根冻结前态](cg2d_battle_button_reopen_click_sampling_evidence.json)。新增1517..1519对应4975A0/497770/497900，三原已有完整定义正常语义/equivalent、三冻结定位保。只三个全局点击低W8片段；共享W32/原W8标记、各专属初次创建/再操作、主mode写序、空结果/图先尾清/返回/旧字节保持。不新R7，不把数据入向当代码call，不重验已过通用链。
+
+语义1520/有效1515、关联1633/3680（44.38%）、BATTLE197枚举open、分类645/E776；R7 260/3061/余2801、差队列172/待归属43及其它完整门禁保持。

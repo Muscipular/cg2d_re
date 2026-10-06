@@ -35781,7 +35781,8 @@ std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)
             gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
             consumed = 1;
         }
-    } else if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {
+    } else if ((*reinterpret_cast<const std::uint8_t*>(
+        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {
         gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);
         gBattleItemTargetFlagCC4D40 = 0;
         login::detail::FlushBattleEntries_43C060();
@@ -35832,7 +35833,8 @@ std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)
             gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(28, 1, 0, nullptr);
             consumed = 1;
         }
-    } else if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    } else if ((*reinterpret_cast<const std::uint8_t*>(
+        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         WindowInstance* const window = gWindowStates[28].window;
         if (window != nullptr) {
             window->state |= 0x8000u;
@@ -36177,7 +36179,8 @@ std::int32_t Sub_4975A0(const std::int32_t index, const std::int32_t state)
             gBattleSkillWindowActionCC1A10 = Sub_47A4C0(&Sub_4974C0);
             consumed = 1;
         }
-    } else if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+    } else if ((*reinterpret_cast<const std::uint8_t*>(
+        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {
         if (gBattleSkillTargetPendingD303F8 != 0) {
             gBattleSkillWindowActionCC1A10 = Sub_47A500(
                 world::detail::gBattleSelectedSkill5ABB5C, &Sub_4974C0);

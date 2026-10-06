@@ -180882,6 +180882,168 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x004975A0",
+      "inventory_id": "F:000975A0",
+      "original_role": "Sub_4975A0",
+      "original_end_exclusive": "0x00497762",
+      "instruction_count": 129,
+      "status": "BQL01三完整技能物品宠物按钮正常源纳管，各已选全局点击掩码2低W8读取实修；真实重选/重开/关闭及图先尾清差别保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4975A0"
+          ],
+          "relationship": "4975A0技能按钮：入口固定graphic T*，先skillUsed W32非0就图3B9C8/返回0；然后窗口26.userState W32非0，默认3B9C7/专属mode[2]非0图3B9C8/返回0。启用consumed0、一次缓存hover=state&1，非0复制原5540F0含NUL11B a8cfa5cea7deafe0a14300。mode[2]0且cached state掩码2设：Close→主mode2先写→mode[2]1后写（与快捷入口先后不同，不合并）→Flush→fresh commandAction MarkDeath→全局null→5ABCC0=0→声51/x320→CB054C W8=0→Sub47A4C0(&Sub4974C0)返回保存CC1A10→consumed1。mode[2]已设则原4976A9实际低W8全局点击掩码2：skillTargetPending D303F8原W8非0时fresh selectedSkill W32、&4974C0传Sub47A500，返回先存CC1A10，pending W8=0后Flush；pending0且window10非空时Sub47A5C0返回非0才mode[2]=0；window10为空则Sub47A4C0创建保存，包括空结果。原六页中的本根两页/9call及三分支结果保存保持，两个47A4C0物理点源两个表达式不合并；没有新增consumed1给原再操作路径。\n共同图默认3B9C7、入口cached hover非0覆3B9C9、fresh mode[2]非0覆3B9C8，图写后fresh window10存在则CC1A10=null；否则fresh该槽空且fresh pending W8=0才mode[2]=0，最后返回consumed。原首两拒绝与window存在/普通尾四ret，源归并尾返回保同0/1结果。原pending读写本已uint8，既有W8正确体保；只点击全局edgeButtons原W8恢复，不将共享字段或其它pending扩宽/窄化，不加创建失败成功/保护，不外推完整owner寿命。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-decision",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-acceptance",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
+        "doc/cg2d_battle_button_reopen_click_sampling_evidence.json"
+      ],
+      "boundary": "4975A0技能按钮：入口固定graphic T*，先skillUsed W32非0就图3B9C8/返回0；然后窗口26.userState W32非0，默认3B9C7/专属mode[2]非0图3B9C8/返回0。启用consumed0、一次缓存hover=state&1，非0复制原5540F0含NUL11B a8cfa5cea7deafe0a14300。mode[2]0且cached state掩码2设：Close→主mode2先写→mode[2]1后写（与快捷入口先后不同，不合并）→Flush→fresh commandAction MarkDeath→全局null→5ABCC0=0→声51/x320→CB054C W8=0→Sub47A4C0(&Sub4974C0)返回保存CC1A10→consumed1。mode[2]已设则原4976A9实际低W8全局点击掩码2：skillTargetPending D303F8原W8非0时fresh selectedSkill W32、&4974C0传Sub47A500，返回先存CC1A10，pending W8=0后Flush；pending0且window10非空时Sub47A5C0返回非0才mode[2]=0；window10为空则Sub47A4C0创建保存，包括空结果。原六页中的本根两页/9call及三分支结果保存保持，两个47A4C0物理点源两个表达式不合并；没有新增consumed1给原再操作路径。\n共同图默认3B9C7、入口cached hover非0覆3B9C9、fresh mode[2]非0覆3B9C8，图写后fresh window10存在则CC1A10=null；否则fresh该槽空且fresh pending W8=0才mode[2]=0，最后返回consumed。原首两拒绝与window存在/普通尾四ret，源归并尾返回保同0/1结果。原pending读写本已uint8，既有W8正确体保；只点击全局edgeButtons原W8恢复，不将共享字段或其它pending扩宽/窄化，不加创建失败成功/保护，不外推完整owner寿命。 三完整按钮原根359条1191B/六页、21call/8callee、45普通内部jump/十二ret。各唯一原数据xref来自56B710数组头，实际索引2/3/4三条32B prototype及各data/callback字段、11/11/21共43B旧hover含NUL可追；没有直接代码入向，不虚构call。只三个已选分支全局鼠标掩码2读取恢复W8，三个表达式对三个原点，共享edgeButtons存储仍W32，正常旧值一致，不称数值/并发或机器故障。原W8 pending/标记、skillUsed与userState门禁、主mode先专属mode后写/初始点击创建、技能重选/重建/关闭结果消费、物品待选重开/宠物W32关闭请求差别、各真实创建结果/图先尾清/返回与旧字节保持。既有窗口26三个元素绑定有据，通用初始化/事件链前步已过不重验，不代全部14元素/99窗口/57C368 token/生产与owner寿命、SDK/生成机器ABI/画面运行。无新R7/原型表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与原标准保持。",
+      "verification_level": "三完整按钮原根359条1191B/六页、21call/8callee、45普通内部jump/十二ret。各唯一原数据xref来自56B710数组头，实际索引2/3/4三条32B prototype及各data/callback字段、11/11/21共43B旧hover含NUL可追；没有直接代码入向，不虚构call。只三个已选分支全局鼠标掩码2读取恢复W8，三个表达式对三个原点，共享edgeButtons存储仍W32，正常旧值一致，不称数值/并发或机器故障。原W8 pending/标记、skillUsed与userState门禁、主mode先专属mode后写/初始点击创建、技能重选/重建/关闭结果消费、物品待选重开/宠物W32关闭请求差别、各真实创建结果/图先尾清/返回与旧字节保持。既有窗口26三个元素绑定有据，通用初始化/事件链前步已过不重验，不代全部14元素/99窗口/57C368 token/生产与owner寿命、SDK/生成机器ABI/画面运行。无新R7/原型表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与原标准保持。",
+      "battle_button_reopen_click_sampling": {
+        "spec_id": "BQL01",
+        "evidence_refs": [
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline",
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-decision",
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-acceptance",
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
+          "doc/cg2d_battle_button_reopen_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 129,
+        "original_code_bytes": 450,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 9,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_edge_buttons_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00497770",
+      "inventory_id": "F:00097770",
+      "original_role": "Sub_497770",
+      "original_end_exclusive": "0x004978FB",
+      "instruction_count": 121,
+      "status": "BQL01三完整技能物品宠物按钮正常源纳管，各已选全局点击掩码2低W8读取实修；真实重选/重开/关闭及图先尾清差别保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_497770"
+          ],
+          "relationship": "497770物品按钮：入口固定graphic，先skillUsed W32非0图3B9D4/返回0，再userState W32非0默认3B9D3、mode[3]非0图3B9D4/返回0。启用consumed0；cached state掩码1复制原5540E4含NUL11B a8cfa5ceaaabab7ea14300。mode[3]0且state掩码2设：Close→主mode3→mode[3]1→Flush→fresh commandAction MarkDeath→清全局→5ABCC4=0→声51/x320→CB054C W8=0→CreateWindowAnimation(27,1,0,null)返回存D2F790→consumed1。mode[3]已设，原497873实际低W8全局点击掩码2设且itemTargetFlag CC4D40原W8非0才创建同27返回先存D2F790，flag W8=0后Flush；该原重开路径不新增consumed1。已有flag uint8读写正确体保，源短路次序同原，不宽读鼠标点击位。\n共同图默认3B9D3、cached state1覆3B9D5、fresh mode[3]非0覆3B9D4；之后fresh window27存在则D2F790=null，否则fresh槽空且fresh flag W8=0才mode[3]=0，返回consumed。图先于尾清mode，不重新计算图；四原ret/7call、实际空结果和标记读写/Flush前后/别名次序保。只有点击全局edgeButtons原W8实修。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-decision",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-acceptance",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
+        "doc/cg2d_battle_button_reopen_click_sampling_evidence.json"
+      ],
+      "boundary": "497770物品按钮：入口固定graphic，先skillUsed W32非0图3B9D4/返回0，再userState W32非0默认3B9D3、mode[3]非0图3B9D4/返回0。启用consumed0；cached state掩码1复制原5540E4含NUL11B a8cfa5ceaaabab7ea14300。mode[3]0且state掩码2设：Close→主mode3→mode[3]1→Flush→fresh commandAction MarkDeath→清全局→5ABCC4=0→声51/x320→CB054C W8=0→CreateWindowAnimation(27,1,0,null)返回存D2F790→consumed1。mode[3]已设，原497873实际低W8全局点击掩码2设且itemTargetFlag CC4D40原W8非0才创建同27返回先存D2F790，flag W8=0后Flush；该原重开路径不新增consumed1。已有flag uint8读写正确体保，源短路次序同原，不宽读鼠标点击位。\n共同图默认3B9D3、cached state1覆3B9D5、fresh mode[3]非0覆3B9D4；之后fresh window27存在则D2F790=null，否则fresh槽空且fresh flag W8=0才mode[3]=0，返回consumed。图先于尾清mode，不重新计算图；四原ret/7call、实际空结果和标记读写/Flush前后/别名次序保。只有点击全局edgeButtons原W8实修。 三完整按钮原根359条1191B/六页、21call/8callee、45普通内部jump/十二ret。各唯一原数据xref来自56B710数组头，实际索引2/3/4三条32B prototype及各data/callback字段、11/11/21共43B旧hover含NUL可追；没有直接代码入向，不虚构call。只三个已选分支全局鼠标掩码2读取恢复W8，三个表达式对三个原点，共享edgeButtons存储仍W32，正常旧值一致，不称数值/并发或机器故障。原W8 pending/标记、skillUsed与userState门禁、主mode先专属mode后写/初始点击创建、技能重选/重建/关闭结果消费、物品待选重开/宠物W32关闭请求差别、各真实创建结果/图先尾清/返回与旧字节保持。既有窗口26三个元素绑定有据，通用初始化/事件链前步已过不重验，不代全部14元素/99窗口/57C368 token/生产与owner寿命、SDK/生成机器ABI/画面运行。无新R7/原型表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与原标准保持。",
+      "verification_level": "三完整按钮原根359条1191B/六页、21call/8callee、45普通内部jump/十二ret。各唯一原数据xref来自56B710数组头，实际索引2/3/4三条32B prototype及各data/callback字段、11/11/21共43B旧hover含NUL可追；没有直接代码入向，不虚构call。只三个已选分支全局鼠标掩码2读取恢复W8，三个表达式对三个原点，共享edgeButtons存储仍W32，正常旧值一致，不称数值/并发或机器故障。原W8 pending/标记、skillUsed与userState门禁、主mode先专属mode后写/初始点击创建、技能重选/重建/关闭结果消费、物品待选重开/宠物W32关闭请求差别、各真实创建结果/图先尾清/返回与旧字节保持。既有窗口26三个元素绑定有据，通用初始化/事件链前步已过不重验，不代全部14元素/99窗口/57C368 token/生产与owner寿命、SDK/生成机器ABI/画面运行。无新R7/原型表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与原标准保持。",
+      "battle_button_reopen_click_sampling": {
+        "spec_id": "BQL01",
+        "evidence_refs": [
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline",
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-decision",
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-acceptance",
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
+          "doc/cg2d_battle_button_reopen_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 121,
+        "original_code_bytes": 395,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 7,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_edge_buttons_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00497900",
+      "inventory_id": "F:00097900",
+      "original_role": "Sub_497900",
+      "original_end_exclusive": "0x00497A5A",
+      "instruction_count": 109,
+      "status": "BQL01三完整技能物品宠物按钮正常源纳管，各已选全局点击掩码2低W8读取实修；真实重选/重开/关闭及图先尾清差别保持，完整生产/生命周期/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_497900"
+          ],
+          "relationship": "497900宠物按钮：入口固定graphic，先skillUsed W32非0图3B9CB/返回0；再userState W32非0默认3B9CA、mode[4]非0图3B9CB/返回0。启用consumed0，state1复制原5540CC含NUL21B a56cb3eac364aaaba9ceabcaa64cc364aaaba14300。mode[4]0且state2设：Close→主mode4→mode[4]1→Flush→fresh commandAction MarkDeath→全局null→声51/x320→CreateWindowAnimation(28,1,0,null)返回存D2D60C→consumed1；原不清5ABCC0/5ABCC4/CB054C，也不套入物品待选标记分支。mode[4]已设时4979F7实际低W8全局点击掩码2设，借当前window28一次判空，非空window.state W32缓存|8000写回（原OR CH寄存器，不窄为内存W8），只请求关闭，没有新创建/标死/consumed1。\n共同图默认3B9CA、cached state1覆3B9CC、fresh mode[4]非0覆3B9CB；图写后fresh window28存在则D2D60C=null，否则fresh槽空就mode[4]=0，无额外pending条件，返回consumed。原四ret/5call、空分支/创建结果/关闭请求W32及图优先级/尾次序保持，只全局点击位原W8恢复。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-decision",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-acceptance",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
+        "doc/cg2d_battle_button_reopen_click_sampling_evidence.json"
+      ],
+      "boundary": "497900宠物按钮：入口固定graphic，先skillUsed W32非0图3B9CB/返回0；再userState W32非0默认3B9CA、mode[4]非0图3B9CB/返回0。启用consumed0，state1复制原5540CC含NUL21B a56cb3eac364aaaba9ceabcaa64cc364aaaba14300。mode[4]0且state2设：Close→主mode4→mode[4]1→Flush→fresh commandAction MarkDeath→全局null→声51/x320→CreateWindowAnimation(28,1,0,null)返回存D2D60C→consumed1；原不清5ABCC0/5ABCC4/CB054C，也不套入物品待选标记分支。mode[4]已设时4979F7实际低W8全局点击掩码2设，借当前window28一次判空，非空window.state W32缓存|8000写回（原OR CH寄存器，不窄为内存W8），只请求关闭，没有新创建/标死/consumed1。\n共同图默认3B9CA、cached state1覆3B9CC、fresh mode[4]非0覆3B9CB；图写后fresh window28存在则D2D60C=null，否则fresh槽空就mode[4]=0，无额外pending条件，返回consumed。原四ret/5call、空分支/创建结果/关闭请求W32及图优先级/尾次序保持，只全局点击位原W8恢复。 三完整按钮原根359条1191B/六页、21call/8callee、45普通内部jump/十二ret。各唯一原数据xref来自56B710数组头，实际索引2/3/4三条32B prototype及各data/callback字段、11/11/21共43B旧hover含NUL可追；没有直接代码入向，不虚构call。只三个已选分支全局鼠标掩码2读取恢复W8，三个表达式对三个原点，共享edgeButtons存储仍W32，正常旧值一致，不称数值/并发或机器故障。原W8 pending/标记、skillUsed与userState门禁、主mode先专属mode后写/初始点击创建、技能重选/重建/关闭结果消费、物品待选重开/宠物W32关闭请求差别、各真实创建结果/图先尾清/返回与旧字节保持。既有窗口26三个元素绑定有据，通用初始化/事件链前步已过不重验，不代全部14元素/99窗口/57C368 token/生产与owner寿命、SDK/生成机器ABI/画面运行。无新R7/原型表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与原标准保持。",
+      "verification_level": "三完整按钮原根359条1191B/六页、21call/8callee、45普通内部jump/十二ret。各唯一原数据xref来自56B710数组头，实际索引2/3/4三条32B prototype及各data/callback字段、11/11/21共43B旧hover含NUL可追；没有直接代码入向，不虚构call。只三个已选分支全局鼠标掩码2读取恢复W8，三个表达式对三个原点，共享edgeButtons存储仍W32，正常旧值一致，不称数值/并发或机器故障。原W8 pending/标记、skillUsed与userState门禁、主mode先专属mode后写/初始点击创建、技能重选/重建/关闭结果消费、物品待选重开/宠物W32关闭请求差别、各真实创建结果/图先尾清/返回与旧字节保持。既有窗口26三个元素绑定有据，通用初始化/事件链前步已过不重验，不代全部14元素/99窗口/57C368 token/生产与owner寿命、SDK/生成机器ABI/画面运行。无新R7/原型表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与原标准保持。",
+      "battle_button_reopen_click_sampling": {
+        "spec_id": "BQL01",
+        "evidence_refs": [
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline",
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-decision",
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-acceptance",
+          "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
+          "doc/cg2d_battle_button_reopen_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 109,
+        "original_code_bytes": 346,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 5,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_shared_slot_receivers_kept": true,
+        "shared_w32_edge_buttons_storage_kept": true,
+        "original_s32_selection_values_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

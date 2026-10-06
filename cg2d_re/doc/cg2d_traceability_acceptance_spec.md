@@ -1172,3 +1172,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [限定验收](cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-acceptance)/[完整197条767B](cg2d_battle_shortcut_defense_state_sampling_evidence.json)。四页、20call/7callee/27jump/五ret，快捷九代码入向九窗27条119B及防御1数据xref/第二32B行/15B旧hover/2B原G有据。三个输入状态低W8→S8读、共享W32/原门槛/各专属尾/真实创建结果和回收声返回、防御正确图优先级/原字节/原格式明文G保持；正常旧值一致。两局部I/S各十七实来源，不代完整UI父/窗口26、生产与owner寿命/组包连接发送/生成机器或运行。
 
 语义1517/1512、关联1630/44.29%、BATTLE194枚举open、分类642/E774；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保持。
+
+## BQL01 三完整按钮再操作局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-acceptance)/[完整359条1191B](cg2d_battle_button_reopen_click_sampling_evidence.json)。六页、21call/8callee/45jump/十二ret、三数据xref/三32B原型与11-11-21共43B旧hover有据。三个已选分支鼠标掩码2低W8读实修，共享W32与原W8标记、技能重选/重建/关闭返回、物品flag重开与Flush、宠物W32关闭请求、初次点击模式写序/真实创建空结果和图先尾清/返回保持；正常旧值一致。两局部I/S各十五实来源，不代完整UI/生产与owner寿命/生成机器或运行，已过通用链不重验。
+
+语义1520/1515、关联1633/44.38%、BATTLE197枚举open、分类645/E776；R7 260/3061/余2801、差队列172/待归属43、四任务open与60源码closed10/完整验收0/叶0/global_accepted=false保持。

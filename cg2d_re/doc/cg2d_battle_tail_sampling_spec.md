@@ -181,3 +181,9 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 [完整合同](cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state)/[四完整197条767B](cg2d_battle_shortcut_defense_state_sampling_evidence.json)纳管497000/497100/497210/4973C0；只三个快捷状态读各低W8→S8，保字段W32存储/同值两次比较。正常旧值一致，原门槛/技能已用/模式2-3-4与各专属清零差别/真实创建结果、关闭清理回收声和返回保。
 
 防御正确体/默认悬停选中图优先级、15B旧hover、原G含NUL2B及原格式明文发送顺序/弃返保持，不加加解密或发送失败早退。快捷九入向九窗27条119B、防御数据xref数组头及第二行56B730..56B750 callback字段56B74C有据，不混prototype/runtime，不新R7；BATTLE194枚举open/E774两局部I/S，完整UI/owner寿命/组包连接/运行及R8未完成。
+
+## BQL01 按钮再操作点击取样（2026-10-07）
+
+[完整合同](cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state)/[三完整359条1191B](cg2d_battle_button_reopen_click_sampling_evidence.json)纳管4975A0/497770/497900；只各已选分支全局鼠标掩码2低W8读，共享edgeButtons存储仍W32，pending/flag本已有W8保，正常旧值一致。
+
+技能重选/重建/关闭返回、物品待选重开先存槽后清flag/Flush、宠物window28 W32关闭请求各原分支保持；不照搬再操作逻辑或宠物尾。原初次主mode先专属mode后、真实创建空结果/图先尾清/返回与三份43B旧hover保持。三数据xref实际索引2-3-4三条32B字段有据，不虚计代码call/重验已过通用链或新R7；BATTLE197枚举open/E776两局部I/S，完整UI/owner寿命/运行及R8未完成。

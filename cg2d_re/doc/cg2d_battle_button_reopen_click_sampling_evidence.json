@@ -1,0 +1,3558 @@
+{
+  "spec_id": "BQL01",
+  "recorded_on": "2026-10-07",
+  "source_functions": [
+    {
+      "index": 1517,
+      "id": "F:000975A0",
+      "entry": "0x004975A0",
+      "end_exclusive": "0x00497762",
+      "symbol": "Sub_4975A0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "contract": "4975A0技能按钮：入口固定graphic T*，先skillUsed W32非0就图3B9C8/返回0；然后窗口26.userState W32非0，默认3B9C7/专属mode[2]非0图3B9C8/返回0。启用consumed0、一次缓存hover=state&1，非0复制原5540F0含NUL11B a8cfa5cea7deafe0a14300。mode[2]0且cached state掩码2设：Close→主mode2先写→mode[2]1后写（与快捷入口先后不同，不合并）→Flush→fresh commandAction MarkDeath→全局null→5ABCC0=0→声51/x320→CB054C W8=0→Sub47A4C0(&Sub4974C0)返回保存CC1A10→consumed1。mode[2]已设则原4976A9实际低W8全局点击掩码2：skillTargetPending D303F8原W8非0时fresh selectedSkill W32、&4974C0传Sub47A500，返回先存CC1A10，pending W8=0后Flush；pending0且window10非空时Sub47A5C0返回非0才mode[2]=0；window10为空则Sub47A4C0创建保存，包括空结果。原六页中的本根两页/9call及三分支结果保存保持，两个47A4C0物理点源两个表达式不合并；没有新增consumed1给原再操作路径。\n共同图默认3B9C7、入口cached hover非0覆3B9C9、fresh mode[2]非0覆3B9C8，图写后fresh window10存在则CC1A10=null；否则fresh该槽空且fresh pending W8=0才mode[2]=0，最后返回consumed。原首两拒绝与window存在/普通尾四ret，源归并尾返回保同0/1结果。原pending读写本已uint8，既有W8正确体保；只点击全局edgeButtons原W8恢复，不将共享字段或其它pending扩宽/窄化，不加创建失败成功/保护，不外推完整owner寿命。",
+      "body_changed": true,
+      "source_patch_count": 1,
+      "inbound_count": 1
+    },
+    {
+      "index": 1518,
+      "id": "F:00097770",
+      "entry": "0x00497770",
+      "end_exclusive": "0x004978FB",
+      "symbol": "Sub_497770",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "contract": "497770物品按钮：入口固定graphic，先skillUsed W32非0图3B9D4/返回0，再userState W32非0默认3B9D3、mode[3]非0图3B9D4/返回0。启用consumed0；cached state掩码1复制原5540E4含NUL11B a8cfa5ceaaabab7ea14300。mode[3]0且state掩码2设：Close→主mode3→mode[3]1→Flush→fresh commandAction MarkDeath→清全局→5ABCC4=0→声51/x320→CB054C W8=0→CreateWindowAnimation(27,1,0,null)返回存D2F790→consumed1。mode[3]已设，原497873实际低W8全局点击掩码2设且itemTargetFlag CC4D40原W8非0才创建同27返回先存D2F790，flag W8=0后Flush；该原重开路径不新增consumed1。已有flag uint8读写正确体保，源短路次序同原，不宽读鼠标点击位。\n共同图默认3B9D3、cached state1覆3B9D5、fresh mode[3]非0覆3B9D4；之后fresh window27存在则D2F790=null，否则fresh槽空且fresh flag W8=0才mode[3]=0，返回consumed。图先于尾清mode，不重新计算图；四原ret/7call、实际空结果和标记读写/Flush前后/别名次序保。只有点击全局edgeButtons原W8实修。",
+      "body_changed": true,
+      "source_patch_count": 1,
+      "inbound_count": 1
+    },
+    {
+      "index": 1519,
+      "id": "F:00097900",
+      "entry": "0x00497900",
+      "end_exclusive": "0x00497A5A",
+      "symbol": "Sub_497900",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "contract": "497900宠物按钮：入口固定graphic，先skillUsed W32非0图3B9CB/返回0；再userState W32非0默认3B9CA、mode[4]非0图3B9CB/返回0。启用consumed0，state1复制原5540CC含NUL21B a56cb3eac364aaaba9ceabcaa64cc364aaaba14300。mode[4]0且state2设：Close→主mode4→mode[4]1→Flush→fresh commandAction MarkDeath→全局null→声51/x320→CreateWindowAnimation(28,1,0,null)返回存D2D60C→consumed1；原不清5ABCC0/5ABCC4/CB054C，也不套入物品待选标记分支。mode[4]已设时4979F7实际低W8全局点击掩码2设，借当前window28一次判空，非空window.state W32缓存|8000写回（原OR CH寄存器，不窄为内存W8），只请求关闭，没有新创建/标死/consumed1。\n共同图默认3B9CA、cached state1覆3B9CC、fresh mode[4]非0覆3B9CB；图写后fresh window28存在则D2D60C=null，否则fresh槽空就mode[4]=0，无额外pending条件，返回consumed。原四ret/5call、空分支/创建结果/关闭请求W32及图优先级/尾次序保持，只全局点击位原W8恢复。",
+      "body_changed": true,
+      "source_patch_count": 1,
+      "inbound_count": 1
+    }
+  ],
+  "original_functions": [
+    {
+      "start": "0x4975a0",
+      "end_exclusive": "0x497762",
+      "parent_entry": "0x4975a0",
+      "instruction_count": 129,
+      "code_bytes": 450,
+      "page_count": 2,
+      "outgoing_calls": [
+        {
+          "ea": "0x497643",
+          "target": "0x496f10"
+        },
+        {
+          "ea": "0x49765d",
+          "target": "0x43c060"
+        },
+        {
+          "ea": "0x497669",
+          "target": "0x404d00"
+        },
+        {
+          "ea": "0x497686",
+          "target": "0x52c450"
+        },
+        {
+          "ea": "0x497696",
+          "target": "0x47a4c0"
+        },
+        {
+          "ea": "0x4976c6",
+          "target": "0x47a500"
+        },
+        {
+          "ea": "0x4976d9",
+          "target": "0x43c060"
+        },
+        {
+          "ea": "0x4976ed",
+          "target": "0x47a4c0"
+        },
+        {
+          "ea": "0x4976fc",
+          "target": "0x47a5c0"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x4975c4",
+          "target": "0x4975d3"
+        },
+        {
+          "ea": "0x4975d9",
+          "target": "0x4975f8"
+        },
+        {
+          "ea": "0x4975e9",
+          "target": "0x4975f2"
+        },
+        {
+          "ea": "0x497607",
+          "target": "0x497632"
+        },
+        {
+          "ea": "0x497638",
+          "target": "0x4976a9"
+        },
+        {
+          "ea": "0x49763d",
+          "target": "0x49770b"
+        },
+        {
+          "ea": "0x4976a7",
+          "target": "0x49770b"
+        },
+        {
+          "ea": "0x4976b0",
+          "target": "0x49770b"
+        },
+        {
+          "ea": "0x4976b8",
+          "target": "0x4976e0"
+        },
+        {
+          "ea": "0x4976de",
+          "target": "0x49770b"
+        },
+        {
+          "ea": "0x4976e6",
+          "target": "0x4976fc"
+        },
+        {
+          "ea": "0x4976fa",
+          "target": "0x49770b"
+        },
+        {
+          "ea": "0x497703",
+          "target": "0x49770b"
+        },
+        {
+          "ea": "0x497716",
+          "target": "0x49771f"
+        },
+        {
+          "ea": "0x497725",
+          "target": "0x49772e"
+        },
+        {
+          "ea": "0x497734",
+          "target": "0x497744"
+        },
+        {
+          "ea": "0x49774a",
+          "target": "0x49775a"
+        },
+        {
+          "ea": "0x497752",
+          "target": "0x49775a"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x4975a0",
+          "end_exclusive": "0x497762",
+          "instructions": [
+            {
+              "ea": "0x4975a0",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x4975a1",
+              "size": 4,
+              "bytes": "8b442408",
+              "text": "mov     eax, [esp+4+arg_0]"
+            },
+            {
+              "ea": "0x4975a5",
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "text": "mov     ecx, gCurrentWindow"
+            },
+            {
+              "ea": "0x4975ab",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x4975ac",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x4975ad",
+              "size": 3,
+              "bytes": "8b512c",
+              "text": "mov     edx, [ecx+2Ch]"
+            },
+            {
+              "ea": "0x4975b0",
+              "size": 3,
+              "bytes": "8d04c0",
+              "text": "lea     eax, [eax+eax*8]"
+            },
+            {
+              "ea": "0x4975b3",
+              "size": 2,
+              "bytes": "33db",
+              "text": "xor     ebx, ebx"
+            },
+            {
+              "ea": "0x4975b5",
+              "size": 4,
+              "bytes": "8b6c821c",
+              "text": "mov     ebp, [edx+eax*4+1Ch]"
+            },
+            {
+              "ea": "0x4975b9",
+              "size": 5,
+              "bytes": "a168bc5a00",
+              "text": "mov     eax, gIsSkillUsed"
+            },
+            {
+              "ea": "0x4975be",
+              "size": 2,
+              "bytes": "3bc3",
+              "text": "cmp     eax, ebx"
+            },
+            {
+              "ea": "0x4975c0",
+              "size": 4,
+              "bytes": "895c2408",
+              "text": "mov     [esp+0Ch+var_4], ebx"
+            },
+            {
+              "ea": "0x4975c4",
+              "size": 2,
+              "bytes": "740d",
+              "text": "jz      short loc_4975D3"
+            },
+            {
+              "ea": "0x4975c6",
+              "size": 7,
+              "bytes": "c74500c8b90300",
+              "text": "mov     dword ptr [ebp+0], 3B9C8h"
+            },
+            {
+              "ea": "0x4975cd",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x4975ce",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x4975d0",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4975d1",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x4975d2",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x4975d3",
+              "size": 6,
+              "bytes": "391d50b2c900",
+              "text": "cmp     gWindowState.userState+888h, ebx"
+            },
+            {
+              "ea": "0x4975d9",
+              "size": 2,
+              "bytes": "741d",
+              "text": "jz      short loc_4975F8"
+            },
+            {
+              "ea": "0x4975db",
+              "size": 7,
+              "bytes": "c74500c7b90300",
+              "text": "mov     dword ptr [ebp+0], 3B9C7h"
+            },
+            {
+              "ea": "0x4975e2",
+              "size": 5,
+              "bytes": "a184bc5a00",
+              "text": "mov     eax, BattleScene__SelectionModeUsed+8"
+            },
+            {
+              "ea": "0x4975e7",
+              "size": 2,
+              "bytes": "3bc3",
+              "text": "cmp     eax, ebx"
+            },
+            {
+              "ea": "0x4975e9",
+              "size": 2,
+              "bytes": "7407",
+              "text": "jz      short loc_4975F2"
+            },
+            {
+              "ea": "0x4975eb",
+              "size": 7,
+              "bytes": "c74500c8b90300",
+              "text": "mov     dword ptr [ebp+0], 3B9C8h"
+            },
+            {
+              "ea": "0x4975f2",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x4975f3",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x4975f5",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4975f6",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x4975f7",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x4975f8",
+              "size": 4,
+              "bytes": "8b542414",
+              "text": "mov     edx, [esp+0Ch+arg_4]"
+            },
+            {
+              "ea": "0x4975fc",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x4975fd",
+              "size": 2,
+              "bytes": "8bf2",
+              "text": "mov     esi, edx"
+            },
+            {
+              "ea": "0x4975ff",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x497600",
+              "size": 3,
+              "bytes": "83e601",
+              "text": "and     esi, 1"
+            },
+            {
+              "ea": "0x497603",
+              "size": 4,
+              "bytes": "89742418",
+              "text": "mov     [esp+14h+arg_0], esi"
+            },
+            {
+              "ea": "0x497607",
+              "size": 2,
+              "bytes": "7429",
+              "text": "jz      short loc_497632"
+            },
+            {
+              "ea": "0x497609",
+              "size": 5,
+              "bytes": "bff0405500",
+              "text": "mov     edi, offset asc_5540F0; \"使用技能。\""
+            },
+            {
+              "ea": "0x49760e",
+              "size": 3,
+              "bytes": "83c9ff",
+              "text": "or      ecx, 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x497611",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x497613",
+              "size": 2,
+              "bytes": "f2ae",
+              "text": "repne scasb"
+            },
+            {
+              "ea": "0x497615",
+              "size": 2,
+              "bytes": "f7d1",
+              "text": "not     ecx"
+            },
+            {
+              "ea": "0x497617",
+              "size": 2,
+              "bytes": "2bf9",
+              "text": "sub     edi, ecx"
+            },
+            {
+              "ea": "0x497619",
+              "size": 2,
+              "bytes": "8bc1",
+              "text": "mov     eax, ecx"
+            },
+            {
+              "ea": "0x49761b",
+              "size": 2,
+              "bytes": "8bf7",
+              "text": "mov     esi, edi"
+            },
+            {
+              "ea": "0x49761d",
+              "size": 5,
+              "bytes": "bfe88ad600",
+              "text": "mov     edi, offset byte_D68AE8"
+            },
+            {
+              "ea": "0x497622",
+              "size": 3,
+              "bytes": "c1e902",
+              "text": "shr     ecx, 2"
+            },
+            {
+              "ea": "0x497625",
+              "size": 2,
+              "bytes": "f3a5",
+              "text": "rep movsd"
+            },
+            {
+              "ea": "0x497627",
+              "size": 2,
+              "bytes": "8bc8",
+              "text": "mov     ecx, eax"
+            },
+            {
+              "ea": "0x497629",
+              "size": 3,
+              "bytes": "83e103",
+              "text": "and     ecx, 3"
+            },
+            {
+              "ea": "0x49762c",
+              "size": 2,
+              "bytes": "f3a4",
+              "text": "rep movsb"
+            },
+            {
+              "ea": "0x49762e",
+              "size": 4,
+              "bytes": "8b742418",
+              "text": "mov     esi, [esp+14h+arg_0]"
+            },
+            {
+              "ea": "0x497632",
+              "size": 6,
+              "bytes": "391d84bc5a00",
+              "text": "cmp     BattleScene__SelectionModeUsed+8, ebx"
+            },
+            {
+              "ea": "0x497638",
+              "size": 2,
+              "bytes": "756f",
+              "text": "jnz     short loc_4976A9"
+            },
+            {
+              "ea": "0x49763a",
+              "size": 3,
+              "bytes": "f6c202",
+              "text": "test    dl, 2"
+            },
+            {
+              "ea": "0x49763d",
+              "size": 6,
+              "bytes": "0f84c8000000",
+              "text": "jz      loc_49770B"
+            },
+            {
+              "ea": "0x497643",
+              "size": 5,
+              "bytes": "e8c8f8ffff",
+              "text": "call    BattleScene__CloseAllSubWindow"
+            },
+            {
+              "ea": "0x497648",
+              "size": 5,
+              "bytes": "bf01000000",
+              "text": "mov     edi, 1"
+            },
+            {
+              "ea": "0x49764d",
+              "size": 10,
+              "bytes": "c70570bc5a0002000000",
+              "text": "mov     BattleScene__SelectionMode, 2"
+            },
+            {
+              "ea": "0x497657",
+              "size": 6,
+              "bytes": "893d84bc5a00",
+              "text": "mov     BattleScene__SelectionModeUsed+8, edi"
+            },
+            {
+              "ea": "0x49765d",
+              "size": 5,
+              "bytes": "e8fe49faff",
+              "text": "call    BattleScene__FlushEntry"
+            },
+            {
+              "ea": "0x497662",
+              "size": 6,
+              "bytes": "8b0d00bc5a00",
+              "text": "mov     ecx, dword_5ABC00"
+            },
+            {
+              "ea": "0x497668",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x497669",
+              "size": 5,
+              "bytes": "e892d6f6ff",
+              "text": "call    Yobi__MarkDeath"
+            },
+            {
+              "ea": "0x49766e",
+              "size": 5,
+              "bytes": "68f0000000",
+              "text": "push    0F0h"
+            },
+            {
+              "ea": "0x497673",
+              "size": 5,
+              "bytes": "6840010000",
+              "text": "push    140h"
+            },
+            {
+              "ea": "0x497678",
+              "size": 2,
+              "bytes": "6a33",
+              "text": "push    33h ; '3'"
+            },
+            {
+              "ea": "0x49767a",
+              "size": 6,
+              "bytes": "891d00bc5a00",
+              "text": "mov     dword_5ABC00, ebx"
+            },
+            {
+              "ea": "0x497680",
+              "size": 6,
+              "bytes": "891dc0bc5a00",
+              "text": "mov     dword_5ABCC0, ebx"
+            },
+            {
+              "ea": "0x497686",
+              "size": 5,
+              "bytes": "e8c54d0900",
+              "text": "call    World__PlaySe"
+            },
+            {
+              "ea": "0x49768b",
+              "size": 5,
+              "bytes": "68c0744900",
+              "text": "push    offset sub_4974C0"
+            },
+            {
+              "ea": "0x497690",
+              "size": 6,
+              "bytes": "881d4c05cb00",
+              "text": "mov     byte_CB054C, bl"
+            },
+            {
+              "ea": "0x497696",
+              "size": 5,
+              "bytes": "e8252efeff",
+              "text": "call    sub_47A4C0"
+            },
+            {
+              "ea": "0x49769b",
+              "size": 3,
+              "bytes": "83c414",
+              "text": "add     esp, 14h"
+            },
+            {
+              "ea": "0x49769e",
+              "size": 5,
+              "bytes": "a3101acc00",
+              "text": "mov     dword_CC1A10, eax"
+            },
+            {
+              "ea": "0x4976a3",
+              "size": 4,
+              "bytes": "897c2410",
+              "text": "mov     [esp+14h+var_4], edi"
+            },
+            {
+              "ea": "0x4976a7",
+              "size": 2,
+              "bytes": "eb62",
+              "text": "jmp     short loc_49770B"
+            },
+            {
+              "ea": "0x4976a9",
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "text": "test    byte ptr gMouseClickState, 2"
+            },
+            {
+              "ea": "0x4976b0",
+              "size": 2,
+              "bytes": "7459",
+              "text": "jz      short loc_49770B"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x4975a0",
+          "end_exclusive": "0x497762",
+          "instructions": [
+            {
+              "ea": "0x4976b2",
+              "size": 6,
+              "bytes": "381df803d300",
+              "text": "cmp     BattleScene__NeedSelectTarget, bl"
+            },
+            {
+              "ea": "0x4976b8",
+              "size": 2,
+              "bytes": "7426",
+              "text": "jz      short loc_4976E0"
+            },
+            {
+              "ea": "0x4976ba",
+              "size": 6,
+              "bytes": "8b155cbb5a00",
+              "text": "mov     edx, gSelectedSkillIndex"
+            },
+            {
+              "ea": "0x4976c0",
+              "size": 5,
+              "bytes": "68c0744900",
+              "text": "push    offset sub_4974C0"
+            },
+            {
+              "ea": "0x4976c5",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x4976c6",
+              "size": 5,
+              "bytes": "e8352efeff",
+              "text": "call    BattleScene__SelectionCallback2"
+            },
+            {
+              "ea": "0x4976cb",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x4976ce",
+              "size": 5,
+              "bytes": "a3101acc00",
+              "text": "mov     dword_CC1A10, eax"
+            },
+            {
+              "ea": "0x4976d3",
+              "size": 6,
+              "bytes": "881df803d300",
+              "text": "mov     BattleScene__NeedSelectTarget, bl"
+            },
+            {
+              "ea": "0x4976d9",
+              "size": 5,
+              "bytes": "e88249faff",
+              "text": "call    BattleScene__FlushEntry"
+            },
+            {
+              "ea": "0x4976de",
+              "size": 2,
+              "bytes": "eb2b",
+              "text": "jmp     short loc_49770B"
+            },
+            {
+              "ea": "0x4976e0",
+              "size": 6,
+              "bytes": "391d04adc900",
+              "text": "cmp     gWindowState.window+348h, ebx"
+            },
+            {
+              "ea": "0x4976e6",
+              "size": 2,
+              "bytes": "7514",
+              "text": "jnz     short loc_4976FC"
+            },
+            {
+              "ea": "0x4976e8",
+              "size": 5,
+              "bytes": "68c0744900",
+              "text": "push    offset sub_4974C0"
+            },
+            {
+              "ea": "0x4976ed",
+              "size": 5,
+              "bytes": "e8ce2dfeff",
+              "text": "call    sub_47A4C0"
+            },
+            {
+              "ea": "0x4976f2",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x4976f5",
+              "size": 5,
+              "bytes": "a3101acc00",
+              "text": "mov     dword_CC1A10, eax"
+            },
+            {
+              "ea": "0x4976fa",
+              "size": 2,
+              "bytes": "eb0f",
+              "text": "jmp     short loc_49770B"
+            },
+            {
+              "ea": "0x4976fc",
+              "size": 5,
+              "bytes": "e8bf2efeff",
+              "text": "call    sub_47A5C0"
+            },
+            {
+              "ea": "0x497701",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x497703",
+              "size": 2,
+              "bytes": "7406",
+              "text": "jz      short loc_49770B"
+            },
+            {
+              "ea": "0x497705",
+              "size": 6,
+              "bytes": "891d84bc5a00",
+              "text": "mov     BattleScene__SelectionModeUsed+8, ebx"
+            },
+            {
+              "ea": "0x49770b",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x49770c",
+              "size": 2,
+              "bytes": "3bf3",
+              "text": "cmp     esi, ebx"
+            },
+            {
+              "ea": "0x49770e",
+              "size": 7,
+              "bytes": "c74500c7b90300",
+              "text": "mov     dword ptr [ebp+0], 3B9C7h"
+            },
+            {
+              "ea": "0x497715",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x497716",
+              "size": 2,
+              "bytes": "7407",
+              "text": "jz      short loc_49771F"
+            },
+            {
+              "ea": "0x497718",
+              "size": 7,
+              "bytes": "c74500c9b90300",
+              "text": "mov     dword ptr [ebp+0], 3B9C9h"
+            },
+            {
+              "ea": "0x49771f",
+              "size": 6,
+              "bytes": "391d84bc5a00",
+              "text": "cmp     BattleScene__SelectionModeUsed+8, ebx"
+            },
+            {
+              "ea": "0x497725",
+              "size": 2,
+              "bytes": "7407",
+              "text": "jz      short loc_49772E"
+            },
+            {
+              "ea": "0x497727",
+              "size": 7,
+              "bytes": "c74500c8b90300",
+              "text": "mov     dword ptr [ebp+0], 3B9C8h"
+            },
+            {
+              "ea": "0x49772e",
+              "size": 6,
+              "bytes": "391d04adc900",
+              "text": "cmp     gWindowState.window+348h, ebx"
+            },
+            {
+              "ea": "0x497734",
+              "size": 2,
+              "bytes": "740e",
+              "text": "jz      short loc_497744"
+            },
+            {
+              "ea": "0x497736",
+              "size": 4,
+              "bytes": "8b442408",
+              "text": "mov     eax, [esp+0Ch+var_4]"
+            },
+            {
+              "ea": "0x49773a",
+              "size": 6,
+              "bytes": "891d101acc00",
+              "text": "mov     dword_CC1A10, ebx"
+            },
+            {
+              "ea": "0x497740",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x497741",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x497742",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x497743",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x497744",
+              "size": 6,
+              "bytes": "391d101acc00",
+              "text": "cmp     dword_CC1A10, ebx"
+            },
+            {
+              "ea": "0x49774a",
+              "size": 2,
+              "bytes": "750e",
+              "text": "jnz     short loc_49775A"
+            },
+            {
+              "ea": "0x49774c",
+              "size": 6,
+              "bytes": "381df803d300",
+              "text": "cmp     BattleScene__NeedSelectTarget, bl"
+            },
+            {
+              "ea": "0x497752",
+              "size": 2,
+              "bytes": "7506",
+              "text": "jnz     short loc_49775A"
+            },
+            {
+              "ea": "0x497754",
+              "size": 6,
+              "bytes": "891d84bc5a00",
+              "text": "mov     BattleScene__SelectionModeUsed+8, ebx"
+            },
+            {
+              "ea": "0x49775a",
+              "size": 4,
+              "bytes": "8b442408",
+              "text": "mov     eax, [esp+0Ch+var_4]"
+            },
+            {
+              "ea": "0x49775e",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x49775f",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x497760",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x497761",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x497770",
+      "end_exclusive": "0x4978fb",
+      "parent_entry": "0x497770",
+      "instruction_count": 121,
+      "code_bytes": 395,
+      "page_count": 2,
+      "outgoing_calls": [
+        {
+          "ea": "0x49780a",
+          "target": "0x496f10"
+        },
+        {
+          "ea": "0x497824",
+          "target": "0x43c060"
+        },
+        {
+          "ea": "0x497830",
+          "target": "0x404d00"
+        },
+        {
+          "ea": "0x49784f",
+          "target": "0x52c450"
+        },
+        {
+          "ea": "0x497860",
+          "target": "0x475aa0"
+        },
+        {
+          "ea": "0x49788d",
+          "target": "0x475aa0"
+        },
+        {
+          "ea": "0x4978a1",
+          "target": "0x43c060"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x497795",
+          "target": "0x4977a2"
+        },
+        {
+          "ea": "0x4977a9",
+          "target": "0x4977c5"
+        },
+        {
+          "ea": "0x4977b8",
+          "target": "0x4977c0"
+        },
+        {
+          "ea": "0x4977d1",
+          "target": "0x4977f8"
+        },
+        {
+          "ea": "0x4977ff",
+          "target": "0x497873"
+        },
+        {
+          "ea": "0x497804",
+          "target": "0x4978a6"
+        },
+        {
+          "ea": "0x497871",
+          "target": "0x4978a6"
+        },
+        {
+          "ea": "0x49787a",
+          "target": "0x4978a6"
+        },
+        {
+          "ea": "0x497883",
+          "target": "0x4978a6"
+        },
+        {
+          "ea": "0x4978b3",
+          "target": "0x4978bb"
+        },
+        {
+          "ea": "0x4978c1",
+          "target": "0x4978c9"
+        },
+        {
+          "ea": "0x4978cf",
+          "target": "0x4978dd"
+        },
+        {
+          "ea": "0x4978e3",
+          "target": "0x4978f4"
+        },
+        {
+          "ea": "0x4978ed",
+          "target": "0x4978f4"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x497770",
+          "end_exclusive": "0x4978fb",
+          "instructions": [
+            {
+              "ea": "0x497770",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x497771",
+              "size": 4,
+              "bytes": "8b442408",
+              "text": "mov     eax, [esp+4+arg_0]"
+            },
+            {
+              "ea": "0x497775",
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "text": "mov     ecx, gCurrentWindow"
+            },
+            {
+              "ea": "0x49777b",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x49777c",
+              "size": 8,
+              "bytes": "c744240400000000",
+              "text": "mov     [esp+8+var_4], 0"
+            },
+            {
+              "ea": "0x497784",
+              "size": 3,
+              "bytes": "8b512c",
+              "text": "mov     edx, [ecx+2Ch]"
+            },
+            {
+              "ea": "0x497787",
+              "size": 3,
+              "bytes": "8d04c0",
+              "text": "lea     eax, [eax+eax*8]"
+            },
+            {
+              "ea": "0x49778a",
+              "size": 4,
+              "bytes": "8b5c821c",
+              "text": "mov     ebx, [edx+eax*4+1Ch]"
+            },
+            {
+              "ea": "0x49778e",
+              "size": 5,
+              "bytes": "a168bc5a00",
+              "text": "mov     eax, gIsSkillUsed"
+            },
+            {
+              "ea": "0x497793",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x497795",
+              "size": 2,
+              "bytes": "740b",
+              "text": "jz      short loc_4977A2"
+            },
+            {
+              "ea": "0x497797",
+              "size": 6,
+              "bytes": "c703d4b90300",
+              "text": "mov     dword ptr [ebx], 3B9D4h"
+            },
+            {
+              "ea": "0x49779d",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x49779f",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4977a0",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x4977a1",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x4977a2",
+              "size": 5,
+              "bytes": "a150b2c900",
+              "text": "mov     eax, gWindowState.userState+888h"
+            },
+            {
+              "ea": "0x4977a7",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x4977a9",
+              "size": 2,
+              "bytes": "741a",
+              "text": "jz      short loc_4977C5"
+            },
+            {
+              "ea": "0x4977ab",
+              "size": 6,
+              "bytes": "c703d3b90300",
+              "text": "mov     dword ptr [ebx], 3B9D3h"
+            },
+            {
+              "ea": "0x4977b1",
+              "size": 5,
+              "bytes": "a188bc5a00",
+              "text": "mov     eax, BattleScene__SelectionModeUsed+0Ch"
+            },
+            {
+              "ea": "0x4977b6",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x4977b8",
+              "size": 2,
+              "bytes": "7406",
+              "text": "jz      short loc_4977C0"
+            },
+            {
+              "ea": "0x4977ba",
+              "size": 6,
+              "bytes": "c703d4b90300",
+              "text": "mov     dword ptr [ebx], 3B9D4h"
+            },
+            {
+              "ea": "0x4977c0",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x4977c2",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4977c3",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x4977c4",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x4977c5",
+              "size": 4,
+              "bytes": "8b542410",
+              "text": "mov     edx, [esp+8+arg_4]"
+            },
+            {
+              "ea": "0x4977c9",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x4977ca",
+              "size": 2,
+              "bytes": "8bea",
+              "text": "mov     ebp, edx"
+            },
+            {
+              "ea": "0x4977cc",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x4977cd",
+              "size": 3,
+              "bytes": "83e501",
+              "text": "and     ebp, 1"
+            },
+            {
+              "ea": "0x4977d0",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x4977d1",
+              "size": 2,
+              "bytes": "7425",
+              "text": "jz      short loc_4977F8"
+            },
+            {
+              "ea": "0x4977d3",
+              "size": 5,
+              "bytes": "bfe4405500",
+              "text": "mov     edi, offset asc_5540E4; \"使用物品。\""
+            },
+            {
+              "ea": "0x4977d8",
+              "size": 3,
+              "bytes": "83c9ff",
+              "text": "or      ecx, 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x4977db",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x4977dd",
+              "size": 2,
+              "bytes": "f2ae",
+              "text": "repne scasb"
+            },
+            {
+              "ea": "0x4977df",
+              "size": 2,
+              "bytes": "f7d1",
+              "text": "not     ecx"
+            },
+            {
+              "ea": "0x4977e1",
+              "size": 2,
+              "bytes": "2bf9",
+              "text": "sub     edi, ecx"
+            },
+            {
+              "ea": "0x4977e3",
+              "size": 2,
+              "bytes": "8bc1",
+              "text": "mov     eax, ecx"
+            },
+            {
+              "ea": "0x4977e5",
+              "size": 2,
+              "bytes": "8bf7",
+              "text": "mov     esi, edi"
+            },
+            {
+              "ea": "0x4977e7",
+              "size": 5,
+              "bytes": "bfe88ad600",
+              "text": "mov     edi, offset byte_D68AE8"
+            },
+            {
+              "ea": "0x4977ec",
+              "size": 3,
+              "bytes": "c1e902",
+              "text": "shr     ecx, 2"
+            },
+            {
+              "ea": "0x4977ef",
+              "size": 2,
+              "bytes": "f3a5",
+              "text": "rep movsd"
+            },
+            {
+              "ea": "0x4977f1",
+              "size": 2,
+              "bytes": "8bc8",
+              "text": "mov     ecx, eax"
+            },
+            {
+              "ea": "0x4977f3",
+              "size": 3,
+              "bytes": "83e103",
+              "text": "and     ecx, 3"
+            },
+            {
+              "ea": "0x4977f6",
+              "size": 2,
+              "bytes": "f3a4",
+              "text": "rep movsb"
+            },
+            {
+              "ea": "0x4977f8",
+              "size": 5,
+              "bytes": "a188bc5a00",
+              "text": "mov     eax, BattleScene__SelectionModeUsed+0Ch"
+            },
+            {
+              "ea": "0x4977fd",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x4977ff",
+              "size": 2,
+              "bytes": "7572",
+              "text": "jnz     short loc_497873"
+            },
+            {
+              "ea": "0x497801",
+              "size": 3,
+              "bytes": "f6c202",
+              "text": "test    dl, 2"
+            },
+            {
+              "ea": "0x497804",
+              "size": 6,
+              "bytes": "0f849c000000",
+              "text": "jz      loc_4978A6"
+            },
+            {
+              "ea": "0x49780a",
+              "size": 5,
+              "bytes": "e801f7ffff",
+              "text": "call    BattleScene__CloseAllSubWindow"
+            },
+            {
+              "ea": "0x49780f",
+              "size": 5,
+              "bytes": "bf01000000",
+              "text": "mov     edi, 1"
+            },
+            {
+              "ea": "0x497814",
+              "size": 10,
+              "bytes": "c70570bc5a0003000000",
+              "text": "mov     BattleScene__SelectionMode, 3"
+            },
+            {
+              "ea": "0x49781e",
+              "size": 6,
+              "bytes": "893d88bc5a00",
+              "text": "mov     BattleScene__SelectionModeUsed+0Ch, edi"
+            },
+            {
+              "ea": "0x497824",
+              "size": 5,
+              "bytes": "e83748faff",
+              "text": "call    BattleScene__FlushEntry"
+            },
+            {
+              "ea": "0x497829",
+              "size": 6,
+              "bytes": "8b0d00bc5a00",
+              "text": "mov     ecx, dword_5ABC00"
+            },
+            {
+              "ea": "0x49782f",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x497830",
+              "size": 5,
+              "bytes": "e8cbd4f6ff",
+              "text": "call    Yobi__MarkDeath"
+            },
+            {
+              "ea": "0x497835",
+              "size": 5,
+              "bytes": "68f0000000",
+              "text": "push    0F0h"
+            },
+            {
+              "ea": "0x49783a",
+              "size": 2,
+              "bytes": "33f6",
+              "text": "xor     esi, esi"
+            },
+            {
+              "ea": "0x49783c",
+              "size": 5,
+              "bytes": "6840010000",
+              "text": "push    140h"
+            },
+            {
+              "ea": "0x497841",
+              "size": 2,
+              "bytes": "6a33",
+              "text": "push    33h ; '3'"
+            },
+            {
+              "ea": "0x497843",
+              "size": 6,
+              "bytes": "893500bc5a00",
+              "text": "mov     dword_5ABC00, esi"
+            },
+            {
+              "ea": "0x497849",
+              "size": 6,
+              "bytes": "8935c4bc5a00",
+              "text": "mov     dword_5ABCC4, esi"
+            },
+            {
+              "ea": "0x49784f",
+              "size": 5,
+              "bytes": "e8fc4b0900",
+              "text": "call    World__PlaySe"
+            },
+            {
+              "ea": "0x497854",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x497855",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x497856",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x497857",
+              "size": 2,
+              "bytes": "6a1b",
+              "text": "push    1Bh"
+            },
+            {
+              "ea": "0x497859",
+              "size": 7,
+              "bytes": "c6054c05cb0000",
+              "text": "mov     byte_CB054C, 0"
+            },
+            {
+              "ea": "0x497860",
+              "size": 5,
+              "bytes": "e83be2fdff",
+              "text": "call    Yobi__newWindow2"
+            },
+            {
+              "ea": "0x497865",
+              "size": 3,
+              "bytes": "83c420",
+              "text": "add     esp, 20h"
+            },
+            {
+              "ea": "0x497868",
+              "size": 5,
+              "bytes": "a390f7d200",
+              "text": "mov     dword_D2F790, eax"
+            },
+            {
+              "ea": "0x49786d",
+              "size": 4,
+              "bytes": "897c2410",
+              "text": "mov     [esp+14h+var_4], edi"
+            },
+            {
+              "ea": "0x497871",
+              "size": 2,
+              "bytes": "eb33",
+              "text": "jmp     short loc_4978A6"
+            },
+            {
+              "ea": "0x497873",
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "text": "test    byte ptr gMouseClickState, 2"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x497770",
+          "end_exclusive": "0x4978fb",
+          "instructions": [
+            {
+              "ea": "0x49787a",
+              "size": 2,
+              "bytes": "742a",
+              "text": "jz      short loc_4978A6"
+            },
+            {
+              "ea": "0x49787c",
+              "size": 5,
+              "bytes": "a0404dcc00",
+              "text": "mov     al, byte_CC4D40"
+            },
+            {
+              "ea": "0x497881",
+              "size": 2,
+              "bytes": "84c0",
+              "text": "test    al, al"
+            },
+            {
+              "ea": "0x497883",
+              "size": 2,
+              "bytes": "7421",
+              "text": "jz      short loc_4978A6"
+            },
+            {
+              "ea": "0x497885",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x497887",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x497889",
+              "size": 2,
+              "bytes": "6a01",
+              "text": "push    1"
+            },
+            {
+              "ea": "0x49788b",
+              "size": 2,
+              "bytes": "6a1b",
+              "text": "push    1Bh"
+            },
+            {
+              "ea": "0x49788d",
+              "size": 5,
+              "bytes": "e80ee2fdff",
+              "text": "call    Yobi__newWindow2"
+            },
+            {
+              "ea": "0x497892",
+              "size": 3,
+              "bytes": "83c410",
+              "text": "add     esp, 10h"
+            },
+            {
+              "ea": "0x497895",
+              "size": 5,
+              "bytes": "a390f7d200",
+              "text": "mov     dword_D2F790, eax"
+            },
+            {
+              "ea": "0x49789a",
+              "size": 7,
+              "bytes": "c605404dcc0000",
+              "text": "mov     byte_CC4D40, 0"
+            },
+            {
+              "ea": "0x4978a1",
+              "size": 5,
+              "bytes": "e8ba47faff",
+              "text": "call    BattleScene__FlushEntry"
+            },
+            {
+              "ea": "0x4978a6",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x4978a8",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x4978a9",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x4978aa",
+              "size": 2,
+              "bytes": "3be8",
+              "text": "cmp     ebp, eax"
+            },
+            {
+              "ea": "0x4978ac",
+              "size": 6,
+              "bytes": "c703d3b90300",
+              "text": "mov     dword ptr [ebx], 3B9D3h"
+            },
+            {
+              "ea": "0x4978b2",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x4978b3",
+              "size": 2,
+              "bytes": "7406",
+              "text": "jz      short loc_4978BB"
+            },
+            {
+              "ea": "0x4978b5",
+              "size": 6,
+              "bytes": "c703d5b90300",
+              "text": "mov     dword ptr [ebx], 3B9D5h"
+            },
+            {
+              "ea": "0x4978bb",
+              "size": 6,
+              "bytes": "390588bc5a00",
+              "text": "cmp     BattleScene__SelectionModeUsed+0Ch, eax"
+            },
+            {
+              "ea": "0x4978c1",
+              "size": 2,
+              "bytes": "7406",
+              "text": "jz      short loc_4978C9"
+            },
+            {
+              "ea": "0x4978c3",
+              "size": 6,
+              "bytes": "c703d4b90300",
+              "text": "mov     dword ptr [ebx], 3B9D4h"
+            },
+            {
+              "ea": "0x4978c9",
+              "size": 6,
+              "bytes": "390598b2c900",
+              "text": "cmp     gWindowState.window+8DCh, eax"
+            },
+            {
+              "ea": "0x4978cf",
+              "size": 2,
+              "bytes": "740c",
+              "text": "jz      short loc_4978DD"
+            },
+            {
+              "ea": "0x4978d1",
+              "size": 5,
+              "bytes": "a390f7d200",
+              "text": "mov     dword_D2F790, eax"
+            },
+            {
+              "ea": "0x4978d6",
+              "size": 4,
+              "bytes": "8b442404",
+              "text": "mov     eax, [esp+8+var_4]"
+            },
+            {
+              "ea": "0x4978da",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4978db",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x4978dc",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x4978dd",
+              "size": 6,
+              "bytes": "390590f7d200",
+              "text": "cmp     dword_D2F790, eax"
+            },
+            {
+              "ea": "0x4978e3",
+              "size": 2,
+              "bytes": "750f",
+              "text": "jnz     short loc_4978F4"
+            },
+            {
+              "ea": "0x4978e5",
+              "size": 6,
+              "bytes": "8a0d404dcc00",
+              "text": "mov     cl, byte_CC4D40"
+            },
+            {
+              "ea": "0x4978eb",
+              "size": 2,
+              "bytes": "84c9",
+              "text": "test    cl, cl"
+            },
+            {
+              "ea": "0x4978ed",
+              "size": 2,
+              "bytes": "7505",
+              "text": "jnz     short loc_4978F4"
+            },
+            {
+              "ea": "0x4978ef",
+              "size": 5,
+              "bytes": "a388bc5a00",
+              "text": "mov     BattleScene__SelectionModeUsed+0Ch, eax"
+            },
+            {
+              "ea": "0x4978f4",
+              "size": 4,
+              "bytes": "8b442404",
+              "text": "mov     eax, [esp+8+var_4]"
+            },
+            {
+              "ea": "0x4978f8",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x4978f9",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x4978fa",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "start": "0x497900",
+      "end_exclusive": "0x497a5a",
+      "parent_entry": "0x497900",
+      "instruction_count": 109,
+      "code_bytes": 346,
+      "page_count": 2,
+      "outgoing_calls": [
+        {
+          "ea": "0x497997",
+          "target": "0x496f10"
+        },
+        {
+          "ea": "0x4979b1",
+          "target": "0x43c060"
+        },
+        {
+          "ea": "0x4979bd",
+          "target": "0x404d00"
+        },
+        {
+          "ea": "0x4979d8",
+          "target": "0x52c450"
+        },
+        {
+          "ea": "0x4979e4",
+          "target": "0x475aa0"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x497925",
+          "target": "0x497932"
+        },
+        {
+          "ea": "0x497939",
+          "target": "0x497955"
+        },
+        {
+          "ea": "0x497948",
+          "target": "0x497950"
+        },
+        {
+          "ea": "0x497960",
+          "target": "0x497989"
+        },
+        {
+          "ea": "0x497990",
+          "target": "0x4979f7"
+        },
+        {
+          "ea": "0x497995",
+          "target": "0x497a10"
+        },
+        {
+          "ea": "0x4979f5",
+          "target": "0x497a10"
+        },
+        {
+          "ea": "0x4979fe",
+          "target": "0x497a10"
+        },
+        {
+          "ea": "0x497a07",
+          "target": "0x497a10"
+        },
+        {
+          "ea": "0x497a1c",
+          "target": "0x497a24"
+        },
+        {
+          "ea": "0x497a2a",
+          "target": "0x497a32"
+        },
+        {
+          "ea": "0x497a38",
+          "target": "0x497a46"
+        },
+        {
+          "ea": "0x497a4c",
+          "target": "0x497a53"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x497900",
+          "end_exclusive": "0x497a5a",
+          "instructions": [
+            {
+              "ea": "0x497900",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x497901",
+              "size": 4,
+              "bytes": "8b442408",
+              "text": "mov     eax, [esp+4+arg_0]"
+            },
+            {
+              "ea": "0x497905",
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "text": "mov     ecx, gCurrentWindow"
+            },
+            {
+              "ea": "0x49790b",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x49790c",
+              "size": 8,
+              "bytes": "c744240400000000",
+              "text": "mov     [esp+8+var_4], 0"
+            },
+            {
+              "ea": "0x497914",
+              "size": 3,
+              "bytes": "8b512c",
+              "text": "mov     edx, [ecx+2Ch]"
+            },
+            {
+              "ea": "0x497917",
+              "size": 3,
+              "bytes": "8d04c0",
+              "text": "lea     eax, [eax+eax*8]"
+            },
+            {
+              "ea": "0x49791a",
+              "size": 4,
+              "bytes": "8b5c821c",
+              "text": "mov     ebx, [edx+eax*4+1Ch]"
+            },
+            {
+              "ea": "0x49791e",
+              "size": 5,
+              "bytes": "a168bc5a00",
+              "text": "mov     eax, gIsSkillUsed"
+            },
+            {
+              "ea": "0x497923",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x497925",
+              "size": 2,
+              "bytes": "740b",
+              "text": "jz      short loc_497932"
+            },
+            {
+              "ea": "0x497927",
+              "size": 6,
+              "bytes": "c703cbb90300",
+              "text": "mov     dword ptr [ebx], 3B9CBh"
+            },
+            {
+              "ea": "0x49792d",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x49792f",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x497930",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x497931",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x497932",
+              "size": 5,
+              "bytes": "a150b2c900",
+              "text": "mov     eax, gWindowState.userState+888h"
+            },
+            {
+              "ea": "0x497937",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x497939",
+              "size": 2,
+              "bytes": "741a",
+              "text": "jz      short loc_497955"
+            },
+            {
+              "ea": "0x49793b",
+              "size": 6,
+              "bytes": "c703cab90300",
+              "text": "mov     dword ptr [ebx], 3B9CAh"
+            },
+            {
+              "ea": "0x497941",
+              "size": 5,
+              "bytes": "a18cbc5a00",
+              "text": "mov     eax, BattleScene__SelectionModeUsed+10h"
+            },
+            {
+              "ea": "0x497946",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x497948",
+              "size": 2,
+              "bytes": "7406",
+              "text": "jz      short loc_497950"
+            },
+            {
+              "ea": "0x49794a",
+              "size": 6,
+              "bytes": "c703cbb90300",
+              "text": "mov     dword ptr [ebx], 3B9CBh"
+            },
+            {
+              "ea": "0x497950",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x497952",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x497953",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x497954",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x497955",
+              "size": 4,
+              "bytes": "8b542410",
+              "text": "mov     edx, [esp+8+arg_4]"
+            },
+            {
+              "ea": "0x497959",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x49795a",
+              "size": 2,
+              "bytes": "8bea",
+              "text": "mov     ebp, edx"
+            },
+            {
+              "ea": "0x49795c",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x49795d",
+              "size": 3,
+              "bytes": "83e501",
+              "text": "and     ebp, 1"
+            },
+            {
+              "ea": "0x497960",
+              "size": 2,
+              "bytes": "7427",
+              "text": "jz      short loc_497989"
+            },
+            {
+              "ea": "0x497962",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x497963",
+              "size": 5,
+              "bytes": "bfcc405500",
+              "text": "mov     edi, offset asc_5540CC; \"召喚寵物或封印寵物。\""
+            },
+            {
+              "ea": "0x497968",
+              "size": 3,
+              "bytes": "83c9ff",
+              "text": "or      ecx, 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x49796b",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x49796d",
+              "size": 2,
+              "bytes": "f2ae",
+              "text": "repne scasb"
+            },
+            {
+              "ea": "0x49796f",
+              "size": 2,
+              "bytes": "f7d1",
+              "text": "not     ecx"
+            },
+            {
+              "ea": "0x497971",
+              "size": 2,
+              "bytes": "2bf9",
+              "text": "sub     edi, ecx"
+            },
+            {
+              "ea": "0x497973",
+              "size": 2,
+              "bytes": "8bc1",
+              "text": "mov     eax, ecx"
+            },
+            {
+              "ea": "0x497975",
+              "size": 2,
+              "bytes": "8bf7",
+              "text": "mov     esi, edi"
+            },
+            {
+              "ea": "0x497977",
+              "size": 5,
+              "bytes": "bfe88ad600",
+              "text": "mov     edi, offset byte_D68AE8"
+            },
+            {
+              "ea": "0x49797c",
+              "size": 3,
+              "bytes": "c1e902",
+              "text": "shr     ecx, 2"
+            },
+            {
+              "ea": "0x49797f",
+              "size": 2,
+              "bytes": "f3a5",
+              "text": "rep movsd"
+            },
+            {
+              "ea": "0x497981",
+              "size": 2,
+              "bytes": "8bc8",
+              "text": "mov     ecx, eax"
+            },
+            {
+              "ea": "0x497983",
+              "size": 3,
+              "bytes": "83e103",
+              "text": "and     ecx, 3"
+            },
+            {
+              "ea": "0x497986",
+              "size": 2,
+              "bytes": "f3a4",
+              "text": "rep movsb"
+            },
+            {
+              "ea": "0x497988",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x497989",
+              "size": 5,
+              "bytes": "a18cbc5a00",
+              "text": "mov     eax, BattleScene__SelectionModeUsed+10h"
+            },
+            {
+              "ea": "0x49798e",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x497990",
+              "size": 2,
+              "bytes": "7565",
+              "text": "jnz     short loc_4979F7"
+            },
+            {
+              "ea": "0x497992",
+              "size": 3,
+              "bytes": "f6c202",
+              "text": "test    dl, 2"
+            },
+            {
+              "ea": "0x497995",
+              "size": 2,
+              "bytes": "7479",
+              "text": "jz      short loc_497A10"
+            },
+            {
+              "ea": "0x497997",
+              "size": 5,
+              "bytes": "e874f5ffff",
+              "text": "call    BattleScene__CloseAllSubWindow"
+            },
+            {
+              "ea": "0x49799c",
+              "size": 5,
+              "bytes": "be01000000",
+              "text": "mov     esi, 1"
+            },
+            {
+              "ea": "0x4979a1",
+              "size": 10,
+              "bytes": "c70570bc5a0004000000",
+              "text": "mov     BattleScene__SelectionMode, 4"
+            },
+            {
+              "ea": "0x4979ab",
+              "size": 6,
+              "bytes": "89358cbc5a00",
+              "text": "mov     BattleScene__SelectionModeUsed+10h, esi"
+            },
+            {
+              "ea": "0x4979b1",
+              "size": 5,
+              "bytes": "e8aa46faff",
+              "text": "call    BattleScene__FlushEntry"
+            },
+            {
+              "ea": "0x4979b6",
+              "size": 6,
+              "bytes": "8b0d00bc5a00",
+              "text": "mov     ecx, dword_5ABC00"
+            },
+            {
+              "ea": "0x4979bc",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x4979bd",
+              "size": 5,
+              "bytes": "e83ed3f6ff",
+              "text": "call    Yobi__MarkDeath"
+            },
+            {
+              "ea": "0x4979c2",
+              "size": 5,
+              "bytes": "68f0000000",
+              "text": "push    0F0h"
+            },
+            {
+              "ea": "0x4979c7",
+              "size": 5,
+              "bytes": "6840010000",
+              "text": "push    140h"
+            },
+            {
+              "ea": "0x4979cc",
+              "size": 2,
+              "bytes": "6a33",
+              "text": "push    33h ; '3'"
+            },
+            {
+              "ea": "0x4979ce",
+              "size": 10,
+              "bytes": "c70500bc5a0000000000",
+              "text": "mov     dword_5ABC00, 0"
+            },
+            {
+              "ea": "0x4979d8",
+              "size": 5,
+              "bytes": "e8734a0900",
+              "text": "call    World__PlaySe"
+            },
+            {
+              "ea": "0x4979dd",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x4979df",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x4979e1",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x4979e2",
+              "size": 2,
+              "bytes": "6a1c",
+              "text": "push    1Ch"
+            },
+            {
+              "ea": "0x4979e4",
+              "size": 5,
+              "bytes": "e8b7e0fdff",
+              "text": "call    Yobi__newWindow2"
+            },
+            {
+              "ea": "0x4979e9",
+              "size": 3,
+              "bytes": "83c420",
+              "text": "add     esp, 20h"
+            },
+            {
+              "ea": "0x4979ec",
+              "size": 5,
+              "bytes": "a30cd6d200",
+              "text": "mov     dword_D2D60C, eax"
+            },
+            {
+              "ea": "0x4979f1",
+              "size": 4,
+              "bytes": "8974240c",
+              "text": "mov     [esp+10h+var_4], esi"
+            },
+            {
+              "ea": "0x4979f5",
+              "size": 2,
+              "bytes": "eb19",
+              "text": "jmp     short loc_497A10"
+            },
+            {
+              "ea": "0x4979f7",
+              "size": 7,
+              "bytes": "f6059c8dd60002",
+              "text": "test    byte ptr gMouseClickState, 2"
+            },
+            {
+              "ea": "0x4979fe",
+              "size": 2,
+              "bytes": "7410",
+              "text": "jz      short loc_497A10"
+            },
+            {
+              "ea": "0x497a00",
+              "size": 5,
+              "bytes": "a1ecb2c900",
+              "text": "mov     eax, gWindowState.window+930h"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x497900",
+          "end_exclusive": "0x497a5a",
+          "instructions": [
+            {
+              "ea": "0x497a05",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x497a07",
+              "size": 2,
+              "bytes": "7407",
+              "text": "jz      short loc_497A10"
+            },
+            {
+              "ea": "0x497a09",
+              "size": 2,
+              "bytes": "8b08",
+              "text": "mov     ecx, [eax]"
+            },
+            {
+              "ea": "0x497a0b",
+              "size": 3,
+              "bytes": "80cd80",
+              "text": "or      ch, 80h"
+            },
+            {
+              "ea": "0x497a0e",
+              "size": 2,
+              "bytes": "8908",
+              "text": "mov     [eax], ecx"
+            },
+            {
+              "ea": "0x497a10",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x497a12",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x497a13",
+              "size": 2,
+              "bytes": "3be8",
+              "text": "cmp     ebp, eax"
+            },
+            {
+              "ea": "0x497a15",
+              "size": 6,
+              "bytes": "c703cab90300",
+              "text": "mov     dword ptr [ebx], 3B9CAh"
+            },
+            {
+              "ea": "0x497a1b",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x497a1c",
+              "size": 2,
+              "bytes": "7406",
+              "text": "jz      short loc_497A24"
+            },
+            {
+              "ea": "0x497a1e",
+              "size": 6,
+              "bytes": "c703ccb90300",
+              "text": "mov     dword ptr [ebx], 3B9CCh"
+            },
+            {
+              "ea": "0x497a24",
+              "size": 6,
+              "bytes": "39058cbc5a00",
+              "text": "cmp     BattleScene__SelectionModeUsed+10h, eax"
+            },
+            {
+              "ea": "0x497a2a",
+              "size": 2,
+              "bytes": "7406",
+              "text": "jz      short loc_497A32"
+            },
+            {
+              "ea": "0x497a2c",
+              "size": 6,
+              "bytes": "c703cbb90300",
+              "text": "mov     dword ptr [ebx], 3B9CBh"
+            },
+            {
+              "ea": "0x497a32",
+              "size": 6,
+              "bytes": "3905ecb2c900",
+              "text": "cmp     gWindowState.window+930h, eax"
+            },
+            {
+              "ea": "0x497a38",
+              "size": 2,
+              "bytes": "740c",
+              "text": "jz      short loc_497A46"
+            },
+            {
+              "ea": "0x497a3a",
+              "size": 5,
+              "bytes": "a30cd6d200",
+              "text": "mov     dword_D2D60C, eax"
+            },
+            {
+              "ea": "0x497a3f",
+              "size": 4,
+              "bytes": "8b442404",
+              "text": "mov     eax, [esp+8+var_4]"
+            },
+            {
+              "ea": "0x497a43",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x497a44",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x497a45",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x497a46",
+              "size": 6,
+              "bytes": "39050cd6d200",
+              "text": "cmp     dword_D2D60C, eax"
+            },
+            {
+              "ea": "0x497a4c",
+              "size": 2,
+              "bytes": "7505",
+              "text": "jnz     short loc_497A53"
+            },
+            {
+              "ea": "0x497a4e",
+              "size": 5,
+              "bytes": "a38cbc5a00",
+              "text": "mov     BattleScene__SelectionModeUsed+10h, eax"
+            },
+            {
+              "ea": "0x497a53",
+              "size": 4,
+              "bytes": "8b442404",
+              "text": "mov     eax, [esp+8+var_4]"
+            },
+            {
+              "ea": "0x497a57",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x497a58",
+              "size": 1,
+              "bytes": "59",
+              "text": "pop     ecx"
+            },
+            {
+              "ea": "0x497a59",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "inbound": [
+    {
+      "from": "0x56b710",
+      "type": 1,
+      "parent": null,
+      "root": "0x4975a0"
+    },
+    {
+      "from": "0x56b710",
+      "type": 1,
+      "parent": null,
+      "root": "0x497770"
+    },
+    {
+      "from": "0x56b710",
+      "type": 1,
+      "parent": null,
+      "root": "0x497900"
+    }
+  ],
+  "supplement": {
+    "button_rows": [
+      {
+        "start": "0x56b750",
+        "end_exclusive": "0x56b770",
+        "size": 32,
+        "bytes": "01000000530000001400000040000000140000000100000028b65600a0754900",
+        "index": 2,
+        "data_pointer_ea": "0x56b768",
+        "data_pointer": "0x56b628",
+        "callback_pointer_ea": "0x56b76c",
+        "callback_pointer": "0x4975a0"
+      },
+      {
+        "start": "0x56b770",
+        "end_exclusive": "0x56b790",
+        "size": 32,
+        "bytes": "01000000530000002d00000040000000140000000100000040b6560070774900",
+        "index": 3,
+        "data_pointer_ea": "0x56b788",
+        "data_pointer": "0x56b640",
+        "callback_pointer_ea": "0x56b78c",
+        "callback_pointer": "0x497770"
+      },
+      {
+        "start": "0x56b790",
+        "end_exclusive": "0x56b7b0",
+        "size": 32,
+        "bytes": "01000000990000001400000040000000140000000100000058b6560000794900",
+        "index": 4,
+        "data_pointer_ea": "0x56b7a8",
+        "data_pointer": "0x56b658",
+        "callback_pointer_ea": "0x56b7ac",
+        "callback_pointer": "0x497900"
+      }
+    ],
+    "hover_texts": [
+      {
+        "start": "0x5540f0",
+        "size": 11,
+        "bytes": "a8cfa5cea7deafe0a14300",
+        "terminated": true
+      },
+      {
+        "start": "0x5540e4",
+        "size": 11,
+        "bytes": "a8cfa5ceaaabab7ea14300",
+        "terminated": true
+      },
+      {
+        "start": "0x5540cc",
+        "size": 21,
+        "bytes": "a56cb3eac364aaaba9ceabcaa64cc364aaaba14300",
+        "terminated": true
+      }
+    ],
+    "new_r7_classification": false
+  },
+  "source_bodies_before": [
+    {
+      "symbol": "Sub_4975A0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "body": "std::int32_t Sub_4975A0(const std::int32_t index, const std::int32_t state)\n{\n    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n    if (world::detail::gBattleSkillUsed5ABC68 != 0) {\n        graphic->imageNo = 0x3B9C8;\n        return 0;\n    }\n    if (gWindowStates[26].userState.value != 0) {\n        graphic->imageNo = 0x3B9C7;\n        if (world::detail::gBattleSelectionModes5ABC7C[2] != 0) {\n            graphic->imageNo = 0x3B9C8;\n        }\n        return 0;\n    }\n    std::int32_t consumed = 0;\n    const std::int32_t hover = state & 1;\n    if (hover != 0) {\n        std::strcpy(gHoverTextD68AE8.data(), \"\\xA8\\xCF\\xA5\\xCE\\xA7\\xDE\\xAF\\xE0\\xA1\\x43\");\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[2] == 0) {\n        if ((state & 2) != 0) {\n            Sub_496F10();\n            world::detail::gBattleSelectionMode5ABC70 = 2;\n            world::detail::gBattleSelectionModes5ABC7C[2] = 1;\n            login::detail::FlushBattleEntries_43C060();\n            login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);\n            world::detail::gBattleCommandAction5ABC00 = nullptr;\n            world::detail::gBattleValue5ABCC0 = 0;\n            static_cast<void>(audio::PlaySe_52C450(51, 320));\n            gBattleValueCB054C = 0;\n            gBattleSkillWindowActionCC1A10 = Sub_47A4C0(&Sub_4974C0);\n            consumed = 1;\n        }\n    } else if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {\n        if (gBattleSkillTargetPendingD303F8 != 0) {\n            gBattleSkillWindowActionCC1A10 = Sub_47A500(\n                world::detail::gBattleSelectedSkill5ABB5C, &Sub_4974C0);\n            gBattleSkillTargetPendingD303F8 = 0;\n            login::detail::FlushBattleEntries_43C060();\n        } else if (gWindowStates[10].window != nullptr) {\n            if (Sub_47A5C0() != 0) {\n                world::detail::gBattleSelectionModes5ABC7C[2] = 0;\n            }\n        } else {\n            gBattleSkillWindowActionCC1A10 = Sub_47A4C0(&Sub_4974C0);\n        }\n    }\n    graphic->imageNo = 0x3B9C7;\n    if (hover != 0) {\n        graphic->imageNo = 0x3B9C9;\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[2] != 0) {\n        graphic->imageNo = 0x3B9C8;\n    }\n    if (gWindowStates[10].window != nullptr) {\n        gBattleSkillWindowActionCC1A10 = nullptr;\n    } else if (gBattleSkillWindowActionCC1A10 == nullptr && gBattleSkillTargetPendingD303F8 == 0) {\n        world::detail::gBattleSelectionModes5ABC7C[2] = 0;\n    }\n    return consumed;\n}\n"
+    },
+    {
+      "symbol": "Sub_497770",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "body": "std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)\n{\n    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n    if (world::detail::gBattleSkillUsed5ABC68 != 0) {\n        graphic->imageNo = 0x3B9D4;\n        return 0;\n    }\n    if (gWindowStates[26].userState.value != 0) {\n        graphic->imageNo = 0x3B9D3;\n        if (world::detail::gBattleSelectionModes5ABC7C[3] != 0) {\n            graphic->imageNo = 0x3B9D4;\n        }\n        return 0;\n    }\n    std::int32_t consumed = 0;\n    if ((state & 1) != 0) {\n        std::strcpy(gHoverTextD68AE8.data(), \"\\xA8\\xCF\\xA5\\xCE\\xAA\\xAB\\xAB\\x7E\\xA1\\x43\");\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[3] == 0) {\n        if ((state & 2) != 0) {\n            Sub_496F10();\n            world::detail::gBattleSelectionMode5ABC70 = 3;\n            world::detail::gBattleSelectionModes5ABC7C[3] = 1;\n            login::detail::FlushBattleEntries_43C060();\n            login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);\n            world::detail::gBattleCommandAction5ABC00 = nullptr;\n            world::detail::gBattleItemTargetPending5ABCC4 = 0;\n            static_cast<void>(audio::PlaySe_52C450(51, 320));\n            gBattleValueCB054C = 0;\n            gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);\n            consumed = 1;\n        }\n    } else if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {\n        gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);\n        gBattleItemTargetFlagCC4D40 = 0;\n        login::detail::FlushBattleEntries_43C060();\n    }\n    graphic->imageNo = 0x3B9D3;\n    if ((state & 1) != 0) {\n        graphic->imageNo = 0x3B9D5;\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[3] != 0) {\n        graphic->imageNo = 0x3B9D4;\n    }\n    if (gWindowStates[27].window != nullptr) {\n        gBattleItemWindowActionD2F790 = nullptr;\n    } else if (gBattleItemWindowActionD2F790 == nullptr && gBattleItemTargetFlagCC4D40 == 0) {\n        world::detail::gBattleSelectionModes5ABC7C[3] = 0;\n    }\n    return consumed;\n}\n"
+    },
+    {
+      "symbol": "Sub_497900",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "body": "std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)\n{\n    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n    if (world::detail::gBattleSkillUsed5ABC68 != 0) {\n        graphic->imageNo = 0x3B9CB;\n        return 0;\n    }\n    if (gWindowStates[26].userState.value != 0) {\n        graphic->imageNo = 0x3B9CA;\n        if (world::detail::gBattleSelectionModes5ABC7C[4] != 0) {\n            graphic->imageNo = 0x3B9CB;\n        }\n        return 0;\n    }\n    std::int32_t consumed = 0;\n    if ((state & 1) != 0) {\n        std::strcpy(gHoverTextD68AE8.data(),\n            \"\\xA5\\x6C\\xB3\\xEA\\xC3\\x64\\xAA\\xAB\\xA9\\xCE\\xAB\\xCA\\xA6\\x4C\\xC3\\x64\\xAA\\xAB\\xA1\\x43\");\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[4] == 0) {\n        if ((state & 2) != 0) {\n            Sub_496F10();\n            world::detail::gBattleSelectionMode5ABC70 = 4;\n            world::detail::gBattleSelectionModes5ABC7C[4] = 1;\n            login::detail::FlushBattleEntries_43C060();\n            login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);\n            world::detail::gBattleCommandAction5ABC00 = nullptr;\n            static_cast<void>(audio::PlaySe_52C450(51, 320));\n            gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(28, 1, 0, nullptr);\n            consumed = 1;\n        }\n    } else if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {\n        WindowInstance* const window = gWindowStates[28].window;\n        if (window != nullptr) {\n            window->state |= 0x8000u;\n        }\n    }\n    graphic->imageNo = 0x3B9CA;\n    if ((state & 1) != 0) {\n        graphic->imageNo = 0x3B9CC;\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[4] != 0) {\n        graphic->imageNo = 0x3B9CB;\n    }\n    if (gWindowStates[28].window != nullptr) {\n        gBattlePetWindowActionD2D60C = nullptr;\n    } else if (gBattlePetWindowActionD2D60C == nullptr) {\n        world::detail::gBattleSelectionModes5ABC7C[4] = 0;\n    }\n    return consumed;\n}\n"
+    }
+  ],
+  "source_bodies_after": [
+    {
+      "symbol": "Sub_4975A0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "body": "std::int32_t Sub_4975A0(const std::int32_t index, const std::int32_t state)\n{\n    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n    if (world::detail::gBattleSkillUsed5ABC68 != 0) {\n        graphic->imageNo = 0x3B9C8;\n        return 0;\n    }\n    if (gWindowStates[26].userState.value != 0) {\n        graphic->imageNo = 0x3B9C7;\n        if (world::detail::gBattleSelectionModes5ABC7C[2] != 0) {\n            graphic->imageNo = 0x3B9C8;\n        }\n        return 0;\n    }\n    std::int32_t consumed = 0;\n    const std::int32_t hover = state & 1;\n    if (hover != 0) {\n        std::strcpy(gHoverTextD68AE8.data(), \"\\xA8\\xCF\\xA5\\xCE\\xA7\\xDE\\xAF\\xE0\\xA1\\x43\");\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[2] == 0) {\n        if ((state & 2) != 0) {\n            Sub_496F10();\n            world::detail::gBattleSelectionMode5ABC70 = 2;\n            world::detail::gBattleSelectionModes5ABC7C[2] = 1;\n            login::detail::FlushBattleEntries_43C060();\n            login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);\n            world::detail::gBattleCommandAction5ABC00 = nullptr;\n            world::detail::gBattleValue5ABCC0 = 0;\n            static_cast<void>(audio::PlaySe_52C450(51, 320));\n            gBattleValueCB054C = 0;\n            gBattleSkillWindowActionCC1A10 = Sub_47A4C0(&Sub_4974C0);\n            consumed = 1;\n        }\n    } else if ((*reinterpret_cast<const std::uint8_t*>(\n        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {\n        if (gBattleSkillTargetPendingD303F8 != 0) {\n            gBattleSkillWindowActionCC1A10 = Sub_47A500(\n                world::detail::gBattleSelectedSkill5ABB5C, &Sub_4974C0);\n            gBattleSkillTargetPendingD303F8 = 0;\n            login::detail::FlushBattleEntries_43C060();\n        } else if (gWindowStates[10].window != nullptr) {\n            if (Sub_47A5C0() != 0) {\n                world::detail::gBattleSelectionModes5ABC7C[2] = 0;\n            }\n        } else {\n            gBattleSkillWindowActionCC1A10 = Sub_47A4C0(&Sub_4974C0);\n        }\n    }\n    graphic->imageNo = 0x3B9C7;\n    if (hover != 0) {\n        graphic->imageNo = 0x3B9C9;\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[2] != 0) {\n        graphic->imageNo = 0x3B9C8;\n    }\n    if (gWindowStates[10].window != nullptr) {\n        gBattleSkillWindowActionCC1A10 = nullptr;\n    } else if (gBattleSkillWindowActionCC1A10 == nullptr && gBattleSkillTargetPendingD303F8 == 0) {\n        world::detail::gBattleSelectionModes5ABC7C[2] = 0;\n    }\n    return consumed;\n}\n",
+      "body_changed": true
+    },
+    {
+      "symbol": "Sub_497770",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "body": "std::int32_t Sub_497770(const std::int32_t index, const std::int32_t state)\n{\n    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n    if (world::detail::gBattleSkillUsed5ABC68 != 0) {\n        graphic->imageNo = 0x3B9D4;\n        return 0;\n    }\n    if (gWindowStates[26].userState.value != 0) {\n        graphic->imageNo = 0x3B9D3;\n        if (world::detail::gBattleSelectionModes5ABC7C[3] != 0) {\n            graphic->imageNo = 0x3B9D4;\n        }\n        return 0;\n    }\n    std::int32_t consumed = 0;\n    if ((state & 1) != 0) {\n        std::strcpy(gHoverTextD68AE8.data(), \"\\xA8\\xCF\\xA5\\xCE\\xAA\\xAB\\xAB\\x7E\\xA1\\x43\");\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[3] == 0) {\n        if ((state & 2) != 0) {\n            Sub_496F10();\n            world::detail::gBattleSelectionMode5ABC70 = 3;\n            world::detail::gBattleSelectionModes5ABC7C[3] = 1;\n            login::detail::FlushBattleEntries_43C060();\n            login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);\n            world::detail::gBattleCommandAction5ABC00 = nullptr;\n            world::detail::gBattleItemTargetPending5ABCC4 = 0;\n            static_cast<void>(audio::PlaySe_52C450(51, 320));\n            gBattleValueCB054C = 0;\n            gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);\n            consumed = 1;\n        }\n    } else if ((*reinterpret_cast<const std::uint8_t*>(\n        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0 && gBattleItemTargetFlagCC4D40 != 0) {\n        gBattleItemWindowActionD2F790 = CreateWindowAnimation_475AA0(27, 1, 0, nullptr);\n        gBattleItemTargetFlagCC4D40 = 0;\n        login::detail::FlushBattleEntries_43C060();\n    }\n    graphic->imageNo = 0x3B9D3;\n    if ((state & 1) != 0) {\n        graphic->imageNo = 0x3B9D5;\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[3] != 0) {\n        graphic->imageNo = 0x3B9D4;\n    }\n    if (gWindowStates[27].window != nullptr) {\n        gBattleItemWindowActionD2F790 = nullptr;\n    } else if (gBattleItemWindowActionD2F790 == nullptr && gBattleItemTargetFlagCC4D40 == 0) {\n        world::detail::gBattleSelectionModes5ABC7C[3] = 0;\n    }\n    return consumed;\n}\n",
+      "body_changed": true
+    },
+    {
+      "symbol": "Sub_497900",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "body": "std::int32_t Sub_497900(const std::int32_t index, const std::int32_t state)\n{\n    auto* const graphic = static_cast<WindowGraphicData*>(gCurrentWindow->elements[index].data);\n    if (world::detail::gBattleSkillUsed5ABC68 != 0) {\n        graphic->imageNo = 0x3B9CB;\n        return 0;\n    }\n    if (gWindowStates[26].userState.value != 0) {\n        graphic->imageNo = 0x3B9CA;\n        if (world::detail::gBattleSelectionModes5ABC7C[4] != 0) {\n            graphic->imageNo = 0x3B9CB;\n        }\n        return 0;\n    }\n    std::int32_t consumed = 0;\n    if ((state & 1) != 0) {\n        std::strcpy(gHoverTextD68AE8.data(),\n            \"\\xA5\\x6C\\xB3\\xEA\\xC3\\x64\\xAA\\xAB\\xA9\\xCE\\xAB\\xCA\\xA6\\x4C\\xC3\\x64\\xAA\\xAB\\xA1\\x43\");\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[4] == 0) {\n        if ((state & 2) != 0) {\n            Sub_496F10();\n            world::detail::gBattleSelectionMode5ABC70 = 4;\n            world::detail::gBattleSelectionModes5ABC7C[4] = 1;\n            login::detail::FlushBattleEntries_43C060();\n            login::detail::MarkDeath(world::detail::gBattleCommandAction5ABC00);\n            world::detail::gBattleCommandAction5ABC00 = nullptr;\n            static_cast<void>(audio::PlaySe_52C450(51, 320));\n            gBattlePetWindowActionD2D60C = CreateWindowAnimation_475AA0(28, 1, 0, nullptr);\n            consumed = 1;\n        }\n    } else if ((*reinterpret_cast<const std::uint8_t*>(\n        &platform::gLegacyMouseState.edgeButtons) & 2u) != 0) {\n        WindowInstance* const window = gWindowStates[28].window;\n        if (window != nullptr) {\n            window->state |= 0x8000u;\n        }\n    }\n    graphic->imageNo = 0x3B9CA;\n    if ((state & 1) != 0) {\n        graphic->imageNo = 0x3B9CC;\n    }\n    if (world::detail::gBattleSelectionModes5ABC7C[4] != 0) {\n        graphic->imageNo = 0x3B9CB;\n    }\n    if (gWindowStates[28].window != nullptr) {\n        gBattlePetWindowActionD2D60C = nullptr;\n    } else if (gBattlePetWindowActionD2D60C == nullptr) {\n        world::detail::gBattleSelectionModes5ABC7C[4] = 0;\n    }\n    return consumed;\n}\n",
+      "body_changed": true
+    }
+  ],
+  "source_patches": [
+    {
+      "stage": "按钮2已选分支点击掩码2实际低W8",
+      "symbol": "Sub_4975A0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_eas": [
+        "0x4976a9"
+      ],
+      "original_instructions": [
+        {
+          "ea": "0x4976a9",
+          "size": 7,
+          "bytes": "f6059c8dd60002",
+          "text": "test    byte ptr gMouseClickState, 2"
+        }
+      ],
+      "before": "(platform::gLegacyMouseState.edgeButtons & 2u)",
+      "after": "(*reinterpret_cast<const std::uint8_t*>(\n        &platform::gLegacyMouseState.edgeButtons) & 2u)"
+    },
+    {
+      "stage": "按钮3已选分支点击掩码2实际低W8",
+      "symbol": "Sub_497770",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_eas": [
+        "0x497873"
+      ],
+      "original_instructions": [
+        {
+          "ea": "0x497873",
+          "size": 7,
+          "bytes": "f6059c8dd60002",
+          "text": "test    byte ptr gMouseClickState, 2"
+        }
+      ],
+      "before": "(platform::gLegacyMouseState.edgeButtons & 2u)",
+      "after": "(*reinterpret_cast<const std::uint8_t*>(\n        &platform::gLegacyMouseState.edgeButtons) & 2u)"
+    },
+    {
+      "stage": "按钮4已选分支点击掩码2实际低W8",
+      "symbol": "Sub_497900",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_eas": [
+        "0x4979f7"
+      ],
+      "original_instructions": [
+        {
+          "ea": "0x4979f7",
+          "size": 7,
+          "bytes": "f6059c8dd60002",
+          "text": "test    byte ptr gMouseClickState, 2"
+        }
+      ],
+      "before": "(platform::gLegacyMouseState.edgeButtons & 2u)",
+      "after": "(*reinterpret_cast<const std::uint8_t*>(\n        &platform::gLegacyMouseState.edgeButtons) & 2u)"
+    }
+  ],
+  "source_body_patch_count": 3,
+  "changed_source_body_count": 3,
+  "actual_w8_consumer_count": 3,
+  "new_w8_source_expression_count": 3,
+  "normal_previous_values_wrong": false,
+  "new_r7_classification": false,
+  "direct_call_mapping": [
+    {
+      "target": "0x496f10",
+      "source_symbol": "Sub_496F10",
+      "note": "原初次点击关闭/清九模式",
+      "call_sites": [
+        {
+          "root": "0x4975a0",
+          "ea": "0x497643"
+        },
+        {
+          "root": "0x497770",
+          "ea": "0x49780a"
+        },
+        {
+          "root": "0x497900",
+          "ea": "0x497997"
+        }
+      ]
+    },
+    {
+      "target": "0x43c060",
+      "source_symbol": "FlushBattleEntries_43C060",
+      "note": "原创建前/重选结果存与flag清零后",
+      "call_sites": [
+        {
+          "root": "0x4975a0",
+          "ea": "0x49765d"
+        },
+        {
+          "root": "0x4975a0",
+          "ea": "0x4976d9"
+        },
+        {
+          "root": "0x497770",
+          "ea": "0x497824"
+        },
+        {
+          "root": "0x497770",
+          "ea": "0x4978a1"
+        },
+        {
+          "root": "0x497900",
+          "ea": "0x4979b1"
+        }
+      ]
+    },
+    {
+      "target": "0x404d00",
+      "source_symbol": "MarkDeath",
+      "note": "fresh commandAction，之后清原全局",
+      "call_sites": [
+        {
+          "root": "0x4975a0",
+          "ea": "0x497669"
+        },
+        {
+          "root": "0x497770",
+          "ea": "0x497830"
+        },
+        {
+          "root": "0x497900",
+          "ea": "0x4979bd"
+        }
+      ]
+    },
+    {
+      "target": "0x52c450",
+      "source_symbol": "PlaySe_52C450",
+      "note": "51/x320，原第三Y240未消费",
+      "call_sites": [
+        {
+          "root": "0x4975a0",
+          "ea": "0x497686"
+        },
+        {
+          "root": "0x497770",
+          "ea": "0x49784f"
+        },
+        {
+          "root": "0x497900",
+          "ea": "0x4979d8"
+        }
+      ]
+    },
+    {
+      "target": "0x47a4c0",
+      "source_symbol": "Sub_47A4C0",
+      "note": "技能初次/无window10重建&4974C0，各返回存CC1A10",
+      "call_sites": [
+        {
+          "root": "0x4975a0",
+          "ea": "0x497696"
+        },
+        {
+          "root": "0x4975a0",
+          "ea": "0x4976ed"
+        }
+      ]
+    },
+    {
+      "target": "0x47a500",
+      "source_symbol": "Sub_47A500",
+      "note": "技能selectedSkill/&4974C0，返回先存后pending0/Flush",
+      "call_sites": [
+        {
+          "root": "0x4975a0",
+          "ea": "0x4976c6"
+        }
+      ]
+    },
+    {
+      "target": "0x47a5c0",
+      "source_symbol": "Sub_47A5C0",
+      "note": "技能window10非空且pending0时，非0才清mode",
+      "call_sites": [
+        {
+          "root": "0x4975a0",
+          "ea": "0x4976fc"
+        }
+      ]
+    },
+    {
+      "target": "0x475aa0",
+      "source_symbol": "CreateWindowAnimation_475AA0",
+      "note": "物品27初次/重开、宠物28初次，真实返回保存包括空",
+      "call_sites": [
+        {
+          "root": "0x497770",
+          "ea": "0x497860"
+        },
+        {
+          "root": "0x497770",
+          "ea": "0x49788d"
+        },
+        {
+          "root": "0x497900",
+          "ea": "0x4979e4"
+        }
+      ]
+    }
+  ],
+  "callback_current_source": {
+    "prototype_rows": [
+      "{1, 83, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B628}, &Sub_4975A0},",
+      "{1, 83, 45, 64, 20, 1, {.graphic = &gWindowGraphic56B640}, &Sub_497770},",
+      "{1, 153, 20, 64, 20, 1, {.graphic = &gWindowGraphic56B658}, &Sub_497900},"
+    ],
+    "full_window_26_closed": false,
+    "full_window_table_57c368_closed": false,
+    "common_constructor_consumer_reverified": false
+  },
+  "shared_edge_buttons_storage_width": 32,
+  "existing_skill_pending_storage_width": 8,
+  "existing_item_flag_storage_width": 8,
+  "full_source_functions_normal_static_mapped": true,
+  "implementation_static_scope": "三完整按钮原根359条1191B/六页、21call/8callee、45普通内部jump/十二ret。各唯一原数据xref来自56B710数组头，实际索引2/3/4三条32B prototype及各data/callback字段、11/11/21共43B旧hover含NUL可追；没有直接代码入向，不虚构call。只三个已选分支全局鼠标掩码2读取恢复W8，三个表达式对三个原点，共享edgeButtons存储仍W32，正常旧值一致，不称数值/并发或机器故障。原W8 pending/标记、skillUsed与userState门禁、主mode先专属mode后写/初始点击创建、技能重选/重建/关闭结果消费、物品待选重开/宠物W32关闭请求差别、各真实创建结果/图先尾清/返回与旧字节保持。既有窗口26三个元素绑定有据，通用初始化/事件链前步已过不重验，不代全部14元素/99窗口/57C368 token/生产与owner寿命、SDK/生成机器ABI/画面运行。无新R7/原型表分类，音频暂停、网络原格式明文、RPLAN.24不专项异常/保护/回绕/故障等价与原标准保持。",
+  "full_parent_newly_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "fault_equivalence_claimed": false,
+  "feature_before": {
+    "id": "FUNC-BATTLE",
+    "kind": "flow",
+    "parent_id": null,
+    "title": "战斗状态与执行",
+    "domain": "BATTLE",
+    "scope": "included",
+    "baseline_documents": [
+      "doc/ui_windows/shared_battle.md",
+      "doc/yobi_updates/battle_scene.md",
+      "doc/yobi_updates/battle_actor.md",
+      "doc/cg2d_battle_attack_targets_spec.md",
+      "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+      "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-baseline",
+      "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+      "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+      "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+      "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline",
+      "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline",
+      "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+      "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+      "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+      "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+      "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+      "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+      "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+      "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
+      "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+      "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
+      "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+      "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-baseline",
+      "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-baseline",
+      "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+      "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-baseline",
+      "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-baseline",
+      "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-baseline",
+      "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-baseline",
+      "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-baseline",
+      "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-baseline",
+      "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+      "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-baseline",
+      "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-baseline",
+      "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-baseline",
+      "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-baseline",
+      "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-baseline",
+      "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-baseline",
+      "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-baseline",
+      "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-baseline",
+      "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-baseline",
+      "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-baseline",
+      "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-baseline",
+      "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-baseline",
+      "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-baseline",
+      "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-baseline",
+      "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-baseline",
+      "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
+      "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline",
+      "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-baseline",
+      "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-baseline",
+      "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+      "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-baseline",
+      "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-baseline",
+      "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-baseline",
+      "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+      "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+      "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+      "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+      "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+      "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+      "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline",
+      "doc/cg2d_battle_action_114_spec.md#battle-action-114-baseline",
+      "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+      "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-baseline",
+      "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
+      "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+      "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+      "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+      "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+      "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
+      "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline",
+      "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+      "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-baseline",
+      "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-baseline",
+      "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-baseline",
+      "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+      "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+      "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline",
+      "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline",
+      "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline"
+    ],
+    "original_inventory_ids": [
+      "F:00024620",
+      "F:0001EAB0",
+      "F:0001EB10",
+      "F:0001E5C0",
+      "F:0001E5F0",
+      "F:00038290",
+      "F:00004DB0",
+      "F:00021FB0",
+      "F:000225D0",
+      "F:00022780",
+      "F:000221F0",
+      "F:000222B0",
+      "F:00022A30",
+      "F:00022B00",
+      "F:00022BC0",
+      "F:00022C20",
+      "F:00022C90",
+      "F:00021F90",
+      "F:00022370",
+      "F:00014050",
+      "F:000154C0",
+      "F:00015940",
+      "F:0003B610",
+      "F:000383B0",
+      "F:00039340",
+      "F:00039380",
+      "F:00039470",
+      "F:000390E0",
+      "F:000393A0",
+      "F:0003B7F0",
+      "F:000394A0",
+      "F:000391E0",
+      "F:000392A0",
+      "F:00039400",
+      "F:000392F0",
+      "F:0003B940",
+      "F:0003B8C0",
+      "F:0003B860",
+      "F:0003B9B0",
+      "F:00039770",
+      "F:00039600",
+      "F:00039670",
+      "F:00038F70",
+      "F:00038FE0",
+      "F:00039B30",
+      "F:00039920",
+      "F:0003BF30",
+      "F:0003B290",
+      "F:0003B360",
+      "F:000383F0",
+      "F:0003B6C0",
+      "F:0003CBB0",
+      "F:00026FC0",
+      "F:000242B0",
+      "F:0003BC10",
+      "F:00019FC0",
+      "F:0001E680",
+      "F:00019FA0",
+      "F:0001E640",
+      "F:0001E720",
+      "F:0001E7C0",
+      "F:0001A0D0",
+      "F:00020D50",
+      "F:0001A200",
+      "F:00021480",
+      "F:00021570",
+      "F:00021610",
+      "F:000216B0",
+      "F:00021700",
+      "F:0001A310",
+      "F:0001A7D0",
+      "F:0001CD00",
+      "F:0001A160",
+      "F:0001A1C0",
+      "F:0001A270",
+      "F:00022E50",
+      "F:00023040",
+      "F:000231D0",
+      "F:00023350",
+      "F:000234B0",
+      "F:0001A9E0",
+      "F:0001AF00",
+      "F:0001B440",
+      "F:0001BB00",
+      "F:0001C3B0",
+      "F:00005EA0",
+      "F:000060D0",
+      "F:00006190",
+      "F:00006300",
+      "F:0006F930",
+      "F:0006F950",
+      "F:0006F970",
+      "F:0006F8F0",
+      "F:00005CB0",
+      "F:00006260",
+      "F:00006390",
+      "F:0003BC90",
+      "F:0001F4C0",
+      "F:0001F450",
+      "F:0001F1A0",
+      "F:0001F110",
+      "F:000206C0",
+      "F:0004B260",
+      "F:0005A710",
+      "F:0005A8B0",
+      "F:0000F0A0",
+      "F:00010E90",
+      "F:00010FC0",
+      "F:0000EFE0",
+      "F:0000F790",
+      "F:0000F800",
+      "F:0000FB30",
+      "F:000107C0",
+      "F:00010B00",
+      "F:00010E30",
+      "F:000113A0",
+      "F:00011A50",
+      "F:00011D30",
+      "F:00011CB0",
+      "F:00011FA0",
+      "F:00011FC0",
+      "F:00011FE0",
+      "F:00012000",
+      "F:00012020",
+      "F:000120F0",
+      "F:000121D0",
+      "F:00012210",
+      "F:00012260",
+      "F:00020F10",
+      "F:000124E0",
+      "F:00012290",
+      "F:000122C0",
+      "F:000122E0",
+      "F:00012310",
+      "F:000127B0",
+      "F:000127F0",
+      "F:00012830",
+      "F:00012870",
+      "F:00012900",
+      "F:00012F70",
+      "F:00013070",
+      "F:00013110",
+      "F:000131B0",
+      "F:000132B0",
+      "F:000133D0",
+      "F:00013400",
+      "F:00013550",
+      "F:00013750",
+      "F:00013980",
+      "F:00013B40",
+      "F:00013E90",
+      "F:00013FE0",
+      "F:000150F0",
+      "F:00016000",
+      "F:00016020",
+      "F:000160A0",
+      "F:00016150",
+      "F:00016220",
+      "F:00016860",
+      "F:00016AB0",
+      "F:00006630",
+      "F:00016DD0",
+      "F:00016DB0",
+      "F:00017410",
+      "F:00017AC0",
+      "F:00017B80",
+      "F:00017CC0",
+      "F:00018550",
+      "F:00018580",
+      "F:00017D80",
+      "F:000185C0",
+      "F:000185F0",
+      "F:00018620",
+      "F:000071C0",
+      "F:0000FC10",
+      "F:0000B180",
+      "F:0000FE50",
+      "F:0000FEB0",
+      "F:000186B0",
+      "F:00018B50",
+      "F:0000CAC0",
+      "F:0000CAF0",
+      "F:0003C910",
+      "F:0003C9A0",
+      "F:0003CA50",
+      "F:0003CA80",
+      "F:0003C560",
+      "F:0003C060",
+      "F:00096F10",
+      "F:000972B0",
+      "F:00097000",
+      "F:00097100",
+      "F:00097210",
+      "F:000973C0"
+    ],
+    "closure_task_ids": [
+      "P01",
+      "U08",
+      "U09",
+      "V04"
+    ],
+    "dependencies": [
+      "FUNC-YOBI",
+      "FUNC-RENDER",
+      "FUNC-NETWORK"
+    ],
+    "acceptance_focus": "攻击生产、动作/事件、回合、载荷归属与清理",
+    "decision_refs": [
+      "doc/cg2d_closure_decisions_spec.md",
+      "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+      "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-decision",
+      "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+      "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+      "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+      "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision",
+      "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision",
+      "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
+      "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+      "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+      "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+      "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+      "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+      "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+      "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
+      "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+      "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
+      "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
+      "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision",
+      "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision",
+      "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
+      "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision",
+      "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-decision",
+      "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-decision",
+      "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-decision",
+      "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-decision",
+      "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-decision",
+      "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-decision",
+      "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision",
+      "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-decision",
+      "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-decision",
+      "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-decision",
+      "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-decision",
+      "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-decision",
+      "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-decision",
+      "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-decision",
+      "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-decision",
+      "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-decision",
+      "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision",
+      "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-decision",
+      "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-decision",
+      "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-decision",
+      "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-decision",
+      "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-decision",
+      "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-decision",
+      "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-decision",
+      "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision",
+      "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-decision",
+      "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
+      "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision",
+      "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+      "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+      "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision",
+      "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision",
+      "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+      "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+      "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision",
+      "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-decision",
+      "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-decision",
+      "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
+      "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+      "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+      "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+      "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+      "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+      "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision",
+      "doc/cg2d_battle_action_114_spec.md#battle-action-114-decision",
+      "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+      "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-decision",
+      "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
+      "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+      "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+      "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+      "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+      "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
+      "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
+      "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision",
+      "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-decision",
+      "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-decision",
+      "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-decision",
+      "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+      "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+      "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-decision",
+      "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-decision",
+      "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision"
+    ],
+    "blockers": [
+      "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
+      "音频传递依赖仍暂停；完整战斗原新对照与V04/V05未验，运行受执行限制",
+      "BCS01两旧Clone/Copy增量及三既有残影/基础角色入口纳管，九字组与三取样差异已修；同五F跨YOBI不双计，全部战斗状态/目标和数据资源生产、浅别名owner重进退出/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BTS01真实主回调公共尾四片段已修，257case/200既有目标保持；同一F跨YOBI不双计。完整全部动作/绑定父与实参、战斗状态和数据资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行仍未验",
+      "BAS01三附件同步十三差异实修、四表44槽176B及真实主回调1/1/2消费可追，同三F跨YOBI不双计；完整附件生产/全部动作实参和战斗数据资源、owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BAP01八442条1393B/24call和3绑定15父可追，BC0/C20独立分工及发布清理、六槽表/type3缩放/原失败与回调取样落实；同八F跨YOBI不双计。全部绑定父/动作实参/战斗数据资源与owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BAR01退场七槽五段/装备三段和完整状态根可追，八窗401条1549B与完整177条608B/前置16条66B分列；同四F跨YOBI不双计。完整三父/动作实参/战斗数据资源与owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BRA01真实case226→4154C0完整原体与入口/角色恢复/位置/计数/清槽取样已修；已有F:000154C0双域不双计，原28call保持。完整224/227/全部动作实参与数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+      "BRB01真实case227→415940完整根及入口/恢复角色/动画/位置/计数与旧首槽消费已修，已有F:00015940双域不双计；原28call保持。224余927条3519B与所有动作实参/数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+      "BRC01真实case224→414050完整根、来源目标/点表参数/循环/计数和角色恢复取样已修，已有F:00014050双域不双计，90call保持。224/226/227父本体有限原静态差集0；所有其它动作实参/数据资源生产消费与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+      "BEV01真实4383F0→4383B0→43B360→43B610和三推进根可追，22动态mask/初始化后slot发布与各不同null/计数/哨兵保持。同五F双域不多计，完整188父/所有其它动作/实参/数据资源及owner/SDK/ABI/PC53/时钟RNG/画面运行未闭",
+      "BQR01事件参与者初始化、动作/目标追加与22槽就绪/超时恢复五源差异已修，101普通call7父和8出向可追；同四F双域不多计。完整七父/其它动作实参/数据资源及owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未闭",
+      "BQA01就绪恢复实调用重置/Append及显式索引追加/完整效果追加四身份纳管，原顺序/索引复读和各null/哨兵/返回保持、源码未新增。同四F双域不多计，完整26父/其它动作实参/列表数据资源和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BMR01整数与字符串当前游标、预读/目标扫描本地游标四身份纳管；旧格式/双字节/NUL及原调用合同保持，同四F双域不多计。全部M数据资源/动作生产消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BMS01原RID头表/明确游标读→两参与者W8自增/游标成功pub或失败恢复合同纳管；同五F双域不双计、旧439770不重复身份。全部8父/其它M动作与资源生产消费和owner/SDK/ABI/PC53/时钟RNG/画面仍未闭",
+      "BMD01原25消息/技能382表槽和19表外分类、22B计数/W8次数/S32输出与特效对/20*36B名称表生产、正确攻击/辅助图形合同纳管；同三F双域不双计，全部6父与资源消费/owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BME01实际43B360→43B290→439B30/工厂/等待和32/22非拥有表初始化合同纳管，保两merge取样/失败及cached/live分工，同三F双域不双计；全部3父/事件资源消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BMF01消息完成→Init/活动mask注销和十状态C/M队列/绘制/退出明文真实消费纳管，95call5父139出向/三表可追；两根共用不重复计，完整事件分派/资源/owner/时钟RNG/画面仍待",
+      "BMG01失活CHT/BST/负延迟执行入口和四内联计时正常条件恢复；仅旧812追加和双域四局部I/S，不新成员/分类/身份，全部消息目标、owner/时钟RNG/画面未闭",
+      "BMH01ACTION/FP/CHT/变身/追加技能/结束六真实消费及63call/既有CopyPayload合同纳管，正常条件先pub和加载后取样恢复；仅局部I/S/旧812追加，不新完整分类/成员，全部父/owner/时钟RNG/画面未闭",
+      "BMI01Escape/Clear/Support/三宠物的原列表/seed/两Rand/不同ready和Finish→58/父回存合同纳管，60call与原分支可追；局部I/S且旧812追加不新分类/成员，全部资源owner/时钟RNG/画面未闭",
+      "BMJ01Equipment/StatusValue/Debuff/Power/Rebirth/QueuedValue正常消费、89call与有界原分支纳管，三存在条件/技能等级/两W8/flags→target恢复；只旧812追加及四局部I/S，不新完整分类/成员，全部资源owner/时钟RNG/画面未闭",
+      "BMK01POS/MON正常/失败返回及61call与原跳转纳管，坐标/玩家/target/效果/失败W8/工厂固定槽取样恢复；仅旧812追加和四局部I/S，不新完整分类/成员，资源owner/时钟RNG/画面未闭",
+      "BML01RID/GMN取包、工厂发布/载体与成员列表和170call原跳转纳管，flags/效果/坐标/三W8/linked与caster门禁恢复；仅旧812追加及四局部I/S，不新完整分类/成员，全部资源owner/时钟RNG/画面未闭",
+      "BMM01道具/连击119call与原直接/间接表分支纳管，target/消息与累计pub、两W8和参数/索引/player/末目标寿命取样恢复；仅旧812追加及四局部I/S，不新完整分类/成员，全部消费者/资源owner/时钟RNG/画面未闭",
+      "BMN01技能头0有界入口/等待态35call与五压缩表实际长度/宽度/默认映射纳管，一次58/四W8/两条件pub时序恢复；仅旧812追加及四局部I/S，不新完整分类/成员，正常主体全部消费者/资源owner/时钟RNG/画面仍待",
+      "BMO01技能4caster/target同解析位置、字段与效果参数取样、两S32索引/player/165-27恢复，入口21W32-118W8表仅case4定位；仅旧812追加和双域四局部I/S，不新分类/完整成员，其它技能全部消费者/资源owner/时钟RNG/画面继续",
+      "BMP01原累计-反向效果参数与字段/83索引-player/条件pub及一W8取样恢复，低段四case仅定位，偏移表原新对应保持；仅旧812追加与双域四局部I/S，不新分类/完整成员，其它技能全部消费者/资源owner/时钟RNG/画面继续",
+      "BMQ01五技能同caster自身效果与字段/图号原序、空actor条件先位置pub恢复，仅旧812追加和双域四局部I/S；五case路由仅上下文，不新分类/完整成员，其它技能所有消费者/资源owner/时钟RNG/画面继续",
+      "BMT01四根二十二处、202B三case入口/原48B偏移与正常八W32初值纳管，两个原循环都核；仅旧812追加和双域四局部I/S，不新分类/完整成员，全部其它技能/消费者/资源owner/时钟RNG/画面继续",
+      "BMU01同解析caster-target与条件pub、字段/Album之后效果参数恢复；仅旧812追加与双域四局部I/S，不新分类/完整成员或工厂null/立即释放模型，98及其它各技能/全路由-完整父-SEH/所有消费者-资源owner-时钟RNG-画面继续",
+      "BMV01同位置caster与payload-skill、actor先level/mode和caster先低段图偏移恢复；三Take/空Finish和六动作后true保持，无目标/RID/58新消费，仅旧812与四局部I/S，不新完整成员，各模式及完整父-SEH/消费者-owner运行继续",
+      "BMW01目标比较先pub/同位置空门禁-解析target效果及两字段actor先值恢复，255/空Finish均仍终结-Move-RID-增58，五动作live保持；仅旧812及四局部I/S，不新完整成员，其它模式/完整父-SEH/消费者-owner运行继续",
+      "BMX01换位固定oldSlot/moving与八坐标/三附件各次取样、mode8 flagsFDC W8及Reset固定target恢复；原非对称门禁/槽发布与255或空Finish后的终结Move-RID-增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+      "BMY01两类中点/效果参数-S32选择/字段-player和0-149条件取样、14双位置金额类型恢复；12/13初始失败直接回存-循环selected终结74、14无空门禁且双哨兵caster终结和Move-RID-增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+      "BMZ01两路径核后保持6/3共用，目标比较pub-effect/aux参数-S32选择/player同位置恢复；无actor空门禁及flags条件重读/47-46和不同哨兵参数尾-Move-RID增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+      "BNA01 flags caster先pub/固定值与live-S32选择/状态字段恢复，原19模式入口和动态mode/默认正确消费纳管；仅旧812/四局部I-S及原98区段覆盖，不新完整成员/分类，所有消费者-owner/SDK/ABI/时钟RNG/画面运行继续",
+      "BNB01三种状态路径的固定payload跨144/余数重读和原消费保持，14定义15处实修；400条主体/既有尾及实际99..104-2019-3001入口不能代完整战斗接线/生命周期-运行/SDK/画面及其它技能-全路由/R1-R7-R8",
+      "BNC01技能107原四动作/取包、初空返回和循环Finish后终结Move增58无RID保持，五处实修；该93条有界主体不能代完整战斗接线/生命周期-运行/SDK画面及其它技能-全路由/R1-R7-R8",
+      "BND01 108固定amount/各次live、两正常149/184-159门禁与失败68/22331/59及末55共用尾保持，十处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNE01 109三级flags选择/22329-22331和各次live/主体55后Move原尾保持，九处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNF01 112原flags先pub/0后一次W32-EAX/AH选择/两个位置切换与原取包-动作/Move尾保持，九处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNG01 114原图号表-caster-加法/target先flags pub、157后门禁和原成功/失败与终结Move尾保持，八处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNH01 117同解析角色/基础字段与caster-target先flags pub、0后W32 live门禁/56或68后另live22331-73/74与真实Move后缀保持，七处实修；该主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNI01 73非零具体效果取样/同解析target与34后比较位置、双S32索引原序恢复，原两字段先判空/live flags门禁-原动作与Move-RID-增58保持；不能代73零模式完整消费者/全case/全部战斗接线-owner/SDK画面或R1-R7-R8",
+      "BNJ01 106族角色字段/同解析target、两Effect具体参数-S32索引与34后比较位置原序恢复，原2002额外取包/29容量-live门禁、cached W32选择和原初/末动作-Move/RID/增58保持；不能代其它技能/完整战斗接线-owner/SDK画面或R1-R7-R8",
+      "BNK01 73零/3100 index-level-skill、普通mode后cached skill再index-level及四输出/value角色尾恢复，三原call对照三现有调用点；P01 core源码closed保持，不代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNL01普通非零坐标/图-角色与Effect、mode3自身转向字段/固定金额/末W8、四S32索引和两比较原序恢复，原图数组分工/取包-动作/两类终结与Move/RID/增58保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNM01 263同参Effect、400固定Take flags/条件重读两Cast0、401两字段后live flags与三低图角色先表恢复，原消费-动作/各失败与固定58值无RID保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNN01 402第三Take后live caster/图号-目标遍历与比较先pub、405两图次序/五Effect各次取样和两S32索引恢复，原消费-转换-动作与各失败/固定58尾无RID保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNO01预读caster缓存/两段分支坐标-固定100C与carrier/rider取样、普通Effect/Aux/四S32索引和位置比较-最终恢复/两W8门禁恢复；原子角色/消费-字段/动作及Move-RID固定58尾保持，不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNP01累计总量先target/固定flags与响应W8、各低高图-反射字段/最终AEL、2005族Effect/Aux-两S32索引和位置比较恢复；原消费/同侧149后重读-响应优先/动作及两真实Move-RID/固定2或增一尾保持，不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNQ01三初图与八分档图各时点、target-level-skill附加效果/角色字段和两成功skill-S32行恢复，原状态类型/比较-固定payload跨替换动作/成功门禁、全部取包-字段/动作与End-Move-RID增58尾保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNR01初图/累计与普通效果、半额反馈-反弹字段/copy和末效果取样恢复，四S32索引/五W8门禁；原entry0/1比较/图号/金额门禁-全部动作及真实Move-RID固定2保持，不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNS01 effectCount/图号、累计-普通和反馈Effect/Aux各固定-live时点、字段/copy和真实Move-RID固定1实修；576条/25定义27处不代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNT01独立426FC0完整369条/十参-四输出和3101真实consumer、四处取样实修/原两表-门禁及两返回有界纳管，战斗成员新增原ID不代表枚举闭合；完整父/其它consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面和R1-R7-R8仍待",
+      "BNU01两独立三方转向/辅助效果229条693B与既有正确源合同、五转向/37辅助入向分列并补身份，战斗成员55不代表枚举闭合；完整父/全部consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面与R1/R7/R8仍待",
+      "BNV01两个特效创建函数125条412B/三处flags与坐标取样实修及独立身份纳管，战斗成员57仍未全枚举；全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
+      "BNW01两callback/三创建168条576B，位置callback Y取样先X发布已修/五身份纳管；战斗成员62仍未全枚举，全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
+      "BNX01七入口340条1215B/两局部数组与五态表纳管，上升callback坐标取样已修；BATTLE69仍未全枚举，全部consumer-owner/资源重进退出/ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+      "BNY01两个上游emitter258条1057B/原四局部表256B纳管，随机X取样已修/两级父与50-32完成门禁保；BATTLE71枚举未闭，完整41CD00/consumer-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+      "BNZ01共同创建完整1583条5825B/315B原数据、17定义18段修正纳管；BATTLE72未全枚举，所有25入向-20父/callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+      "BOA01三完成/父关联/缩放回调97条306B三处坐标取样已修/独立身份纳管；BATTLE75未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOB01五完整初始化助手608条1940B/六取样补丁已修、五独立身份纳管；BATTLE80未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOC01两完整命中回调732条2647B/十取样补丁已修、两独立身份纳管；BATTLE82未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOD01完整帧事件回调471条1723B/四取样补丁已修、独立身份纳管；BATTLE83未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOE01完整移动命中回调636条2217B/五取样补丁已修、独立身份纳管；BATTLE84未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOF01完整追踪命中回调676条2381B/四取样补丁已修、独立身份纳管；BATTLE85未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOG01九完整距离/转向/运动-原表角度依赖441条1422B/两处公式及取样已还原、原表3400B独立纳管；BATTLE94未全枚举，全部219入向父-callee/表生产消费-owner/生命周期/ABI-PC53-RNG画面与R1/R7/R8待",
+      "BOH01五完整消费助手/图标创建更新286条952B/三个函数六还原，原三Advance四fresh游标输出/固定flags与fresh表对象保；BATTLE99未全枚举，176入向全部父-callee/共享表-owner/资源重进退出-ABI-PC53-画面与R1/R7/R8待",
+      "BOI01数字创建1071原记录补132差集及完整191条、更新44条新增1397；两根235条831B/九还原与175B表/常量保，BATTLE101仍未全枚举，23父/46调用点/第二时间数字构造者-测宽/资源/字符消费-draw/回收owner-ABI-PC53-画面与R1/R7/R8待",
+      "BOJ01时间1072补106差集/完整156及默认22条共178条610B，恢复Time/Number两原44B260测宽目标与Time两取样，旧Number I具名fail/六新局部I-S；BATTLE103枚举open，宽度/资源/字载荷-draw/全部父与回收重入owner-PC53-画面/R1/R7/R8待",
+      "BOK01数字图号索引/XY两个正确getter完整28条105B独立纳管，BATTLE105枚举open；资源生产者Init为RESOURCE成员/共享基线candidate不替代成员，字载荷draw/所有父-真实owner与运行门禁待",
+      "BPO01原257槽/200父内代码标签1028B跳转表的X用途mapped，BATTLE105及BTS已证源码/表不变；不增动作函数或软件门禁，完整战斗/全部父和子动作/间接alias-owner寿命/SDK机器ABI/运行与其余R7区间仍待",
+      "BPP01第三批128X全1272B用途及三动作的表数据/源码角色已纳管，BATTLE108枚举open；40F0A0一消费片段恢复+04启用/+00类型。三父489/57/136仅元数据，完整本体/状态/RNG/所有子父调用和owner-alias寿命/SDK机器ABI/运行未新验，三函数处置null；两局部I-S只真实字段修复，不代X/完整战斗验收",
+      "BPQ01动作141/143完整193条649B/六call与两唯一父邻窗正常源静态纳管，两真实W8读取恢复，108成员不增；完整父/其它状态生产/所有子调用与owner-alias寿命/SDK机器ABI/时钟RNG/画面运行未验，动作114仍只BPP局部，完整战斗和R8不关闭",
+      "BPR01动作114从BPP数据角色/字段修复推进完整489条1745B/34call及唯一父邻窗正常源静态，三源W8片段对应四原点，108成员不增；BPP此前完整本体未验边界由本组限定静态推进，完整父/其它生产/全部子依赖及owner-alias寿命/SDK机器ABI与x87实际精度/时钟RNG/画面运行未验，完整战斗及R8不关闭",
+      "BPS01四动作完整339条1170B/六页、29call/34jump与四唯一父邻窗纳管，155/156同阶段借用取样恢复，112原成员仍枚举open；正确W32读取/运动与缩放/RNG/声音分支保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI与实际x87精度/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPT01三个动作完整540条1709B/九页、63call/36jump/15ret与三唯一父邻窗纳管，共享helper六完整取样对应十二原阶段，115原成员仍枚举open；原业务上下限/default与159/160不同尾保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPU01两完整动作570条2302B/八页、32call/63jump/七ret与两唯一父邻窗纳管；七原栈初始化52元素按五源常量组40值可追，类型W8/七回收源片段修复，117原成员仍枚举open。第三槽判断/正常状态和真实字段重读保；全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPV01六完整动作243条815B/八页、19call/21jump/10ret与六唯一父邻窗纳管，165两W8消费恢复，其余五体/原未落位FP、W32缓存与fresh及166内联正常计时/四字节发布保，123原成员枚举open；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPW01七完整根736条2670B/13页、43call/69jump/九ret及六唯一分派点与sync14入向/三父纳管，九槽每操作后fresh/重复alias及真实共享调用汇合保持；204只两临时复制全取样，130原成员仍枚举open。额外同步初判已撤回未改正确call；递归父/其它生产及全部子依赖/owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，完整战斗和R8未关闭",
+      "BPX01九完整757条2516B/16页、48call/108jump/14ret与九入向/27邻窗/32原父case、共体23type与六常数纳管；209六W8/两读取序/encoded先目标及原交替载荷九阶段恢复，正常旧值一致；139原成员枚举仍open。八其它正确体和188无效果仍204、别名/业务/返回/RNG及音频暂停保；递归父/其它生产/全部外依赖和owner寿命、生成机器ABI/真实x87/时钟RNG/画面运行未验，完整战斗和R8继续open",
+      "BPY01七完整439条1445B/九页、40call/16入口/37jump/一四项switch/17ret与七入向21邻窗纳管，四体七W8-W16/读取序阶段恢复、三正确体保，146成员枚举open；210同依赖19B三LEA对齐及四W32表用途mapped只R7。其它递归父/全部子依赖/生产与alias-owner寿命、SDK/生成机器ABI/画面运行未验，完整战斗和R8继续open，音频暂停",
+      "BPZ01三完整397条1508B/六页、31call/42jump/八ret与三入向九邻窗纳管；218先1060指针后新图号/219低W8/Restore先1060指针后基础图号三源阶段恢复，两帮助体使用者219/220原内联全部对应，不增helper F/原call，149原成员枚举open。正常旧值相同，原同步终帧循环/借用alias及业务/状态保；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open",
+      "BQA02两完整346条1169B/六页、34call/21入口/28jump/三ret与两父六邻窗/四F32常数纳管，221四实际低W8恢复，222正确源和原源HP归零/图标接收者/齐读、普通上限CopyPayload、W32缓存/未落位FP保，151原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQB01两完整289条1074B/五页、25call/14入口/十jump/四ret与两父六邻窗纳管，225九指针/字段/实参/抛物线取样阶段恢复，223正确体与四普通CopyPayload、真实重复清字段/坐标还原保。224既有BRC01完整adapted记录不重复计数，153原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQC01五完整583条2104B/十页、58call/26入口/49jump/六ret、五父15邻窗/52B和228真实内部call229/两F32常数纳管，232三数显索引先Y、反伤归零齐读/普通扣减encoded先共享目标五阶段恢复；228..231正确体、cached W32寄存器旗位、独立RNG/原HP图标接收者/共享尾和返回保。158原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQD01四完整834条2947B/十三页、62call/26入口/86jump/八ret、四父12邻窗/35B和十F32纳管，233三/234三/237五共十一源阶段恢复：初始FDC/FCC先取、四内存W8/下边界角度两读、三数显索引先Y/两归零原序；236正确体/已证父弃返、S16width既有getter/普通helper/原W32旗位、HP图标接收者/RNG/同步帧循环/返回保。162原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、完整图形链/SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQE01七完整729条2516B/十四页、60call/26入口/77jump/十二ret、七父21邻窗/56B、两共用表项/三F32纳管；共体五/241一共六源阶段恢复，三W8源表达式承接四实际原点、index/encoded先position/共享目标、速度先零比较后phase239/声事件先X。八逻辑状态七物理身份不重复分类，五正确体/普通helper/W32缓存、HP图标接收者/RNG/两播放/循环与额外推进/返回保。169原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQF01四完整633条2207B/十页、45call/22入口/97jump/四ret、四父12邻窗/32B和246原F32系数纳管，243三W8源表达式对四原点，原技能CMP/图值/模式/级别/六RAND物理点各路径消费、W32缓存/无扣HP/其它图标后仍Attribute区别、原上限copy/两条件播放/退场及三个正确移动体保。原无switch表，不新R7或__ftol身份；173原成员枚举open。正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQG01七完整704条2305B/十三页、47call/22入口/120jump/七ret、七父四窗20条/69B和三既有表项纳管。249一次event及255归零encoded先目标/三低W8对四原点，共五片段/两体；正常旧值一致。工厂30创建/31父case与118默认无创建、251两临时齐读/253原W32后取phase与+10保存/254先指针回收/256两全局写正确体保持。255真实healTarget.counter1DC、fixed effect与普通免疫fresh C9C差别/W32缓存/HP原上限copy/RNG/播放尾保；工厂无物理switch表，不新R7/父表分类。180原成员枚举open；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open",
+      "BQH01六完整171条467B/六页、13call/8callee/19jump/六ret，八入向八窗24条107B及局部父返回比较/EBP=1纳管。43C910/43CA50低W8 FDC、43C9A0两独立低W8玩家旗位及两阵营共享投影四S32读序/F32 Y后X发布，共五片段/三体，四W8原点/四源表达式，正常旧值一致。前20槽共享span/10..19后重读位再0..9、调用后fresh共享目标/返回消费、名字测量前Y后X/颜色继承/原S16公开边界及两推进正确体保持；父switch仅邻近记录，不新增R7或父完整验收。186原成员枚举open；其它全部生产/owner寿命/递归父、SDK/生成机器ABI/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQI01单完整266条901B/四页、7call/2callee/63jump/三ret，六UI父八入向八窗40条141B及20项原栈矩阵纳管；四读取片段/六低W8源表达式对应七原点，正常旧值一致。参数flags/目标全局W32、四源选中OR/两清除AND原W32写，六HP比较物理点/四源表达式、调用后共享目标重取、两侧十槽与排除、400短路和矩阵最后匹配/原不匹配初值、每列fresh前排别名/0-1返回保持。原矩阵是20栈写，无物理switch表，不新R7。187原成员枚举open；其它全部目标生产/owner寿命/递归UI父、SDK/生成机器ABI/画面运行未验，完整战斗和R8继续open",
+      "BQJ01三完整145条467B/三页、8call/5callee/14jump/四ret，45代码入向45窗135条693B、1数据xref/32B实际prototype与15B原hover纳管。两文件四借用阶段：Flush首共享对象供判空/AND，保后两fresh槽；Close技能/道具/宠物分别当阶段取一次供判空/MarkDeath，调用后清该非空全局，不齐取三槽。正常旧值一致，九S32清零/10-27-28窗口W32关闭/原空分支和callback正确图优先级/原字节/调用链/返回保持；实际callback字段56B72C，结构头56B710是type1，32B prototype/36B runtime不混，当前原型/发布/消费有据但完整窗口26/57C368未知token/全部UI父与owner寿命未闭合。190原成员枚举open，无新R7；生成机器ABI/画面运行、完整战斗和R8继续open",
+      "BQK01四完整197条767B/四页、20call/7callee/27jump/五ret，快捷九代码入向九窗27条119B、防御1数据xref/第二32B prototype/15B旧hover/2B G纳管。仅三个快捷入口状态各一次低W8→S8，三原点/三表达式，正常旧值一致；共享W32存储和原门槛/skillUsed/模式2-3-4、各专属清零/创建空结果/关闭清理回收声和返回、完整防御正确图优先级/原字节/网络原格式明文G保持。不照搬技能物品尾到宠物/防御，不加发送失败早退；当前两父六源表达式承接原九入向，不代完整父流或窗口26/57C368 token/全部owner寿命。194原成员枚举open，无新R7；SDK/生成机器ABI/组包连接发送/画面运行、完整战斗与R8未验"
+    ],
+    "gates": {},
+    "member_inventory_closed": false,
+    "member_inventory_evidence_refs": [
+      "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+      "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
+      "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+      "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+      "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+      "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
+      "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+      "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+      "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+      "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+      "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+      "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+      "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+      "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+      "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+      "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+      "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+      "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+      "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
+      "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+      "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+      "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state",
+      "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state",
+      "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-source-state",
+      "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-source-state",
+      "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-source-state",
+      "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-source-state",
+      "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state",
+      "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-source-state",
+      "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-source-state",
+      "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-source-state",
+      "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-source-state",
+      "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-source-state",
+      "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-source-state",
+      "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-source-state",
+      "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-source-state",
+      "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-source-state",
+      "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-source-state",
+      "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-source-state",
+      "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-source-state",
+      "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-source-state",
+      "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
+      "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
+      "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+      "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+      "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+      "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+      "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
+      "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+      "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+      "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+      "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
+      "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
+      "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+      "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
+      "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+      "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+      "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+      "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+      "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+      "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state",
+      "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
+      "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+      "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
+      "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+      "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+      "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+      "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+      "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+      "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+      "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+      "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+      "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
+      "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
+      "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+      "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+      "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+      "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state",
+      "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+      "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state"
+    ]
+  },
+  "snapshot_functions_before": [
+    {
+      "id": "F:000975A0",
+      "original_entry": "0x4975A0",
+      "original_name": "sub_4975A0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4975A0",
+          "definition_line": 36148,
+          "namespace": "cg::ui::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00097770",
+      "original_entry": "0x497770",
+      "original_name": "sub_497770",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_497770",
+          "definition_line": 35753,
+          "namespace": "cg::ui::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00097900",
+      "original_entry": "0x497900",
+      "original_name": "sub_497900",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_497900",
+          "definition_line": 35805,
+          "namespace": "cg::ui::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ]
+}

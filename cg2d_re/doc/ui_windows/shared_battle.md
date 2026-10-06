@@ -8401,3 +8401,9 @@ P01源码工作项关闭，全部战斗数据/间接目标、动作与载荷生�
 [裁决](../cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-decision)21组23处恢复预读每GetPos后caster缓存（255也读取）、退出沿该位置actor，两段八分支坐标按原一次索引/Y先X/caster不同读取时点-偏移/actor与固定100C写入。402/405的图号取样模板不外推；404/406各自点选择/偏移与尾406前五槽别名、404尾3/8/14/19保持。
 
 原两子角色/carrier和骑乘字段-八CryptInt临时四复制/名称/offset、普通second Effect/Aux与四S32索引-34后target先比较、最终caster/value恢复、self W8 bit40/完整W32 200000及second flagsFDC W8 bit2保持。原所有取包/动作、初空与循环255/空/真实Move-RID-固定58=1及未指定局部不补值。[完整正常主体1286条/147call证据](../cg2d_battle_m_skill404_family_sampling_evidence.json)只纳本根，404既有表/406直跳仅本组定位，不代完整战斗接线/所有owner生命周期或运行。
+
+## BNP01 累计反弹与共用攻击取样（2026-10-06）
+
+[裁决](../cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-decision)：两根24处恢复同parsed caster/target、payload先skill/actor先level、2028低高图的角色/payload-表各次取样、累计总量先target/固定flags与实际W8响应、反射字段/总量和最终AEL；2005族Effect/Aux-两S32索引/target先比较。原全部取包/字段-list-count、固定响应优先和149后双位置重读、动作/各失败-2028固定58=2与2005增一的真实Move/RID尾保持，其它根头不改。2028低图位置/正常S32除3-actor/payload先表，高actor先表/表先payload；累计反弹零/非零进入真实不同尾，4003原减3101/901/1后零值按指令顺序落入4357BA，原接线保留。
+
+[713条/72call证据](../cg2d_battle_m_skill2028_2005_sampling_evidence.json)及复用尾分列，不新增容量/溢出保护、默认值或私有owner；完整战斗接线/生命周期与运行另验。

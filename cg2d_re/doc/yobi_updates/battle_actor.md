@@ -285,3 +285,9 @@
 [具体SPEC](../cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-decision)单根23处：初同GetPos actor、预读比较缓存、两坐标各分支caster/点-偏移取样、初Effect位置先effectCount、rider先指针再field1D0值/两轴caster位置先rider及source、普通Effect/Aux和四S32索引-位置比较/恢复尾。原两子角色先后创建/四W16业务零置一、优先级W8-坐标/album、native carrier已证字段、八CryptInt正常临时-四rider复制和未写flags08保持；没有新增owner/默认/保护/异常模型。
 
 [1286条4898B十七页147call](../cg2d_battle_m_skill404_family_sampling_evidence.json)保存实际字节/出口和23补丁/改前根，406三节点18B与404既有路由/BMO业务初始化仅上下文。原self/普通取包-字段/动作与各出口/真实Move-RID固定58=1、末selfFlags W8 bit40（200000仍W32）及second flagsFDC W8 bit2恢复，selfFlags未指定不补值。既有rider X算术/Y复制保持，全部owner重进退出失效/SDK-ABI-PC53画面与完整父/运行另验。
+
+## BNP01 2028/2005族字段与效果取样（2026-10-06）
+
+[具体SPEC](../cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-decision)：两根24处恢复同parsed caster/target、payload先skill/actor先level、2028低高图的角色/payload-表各次取样、累计总量先target/固定flags与实际W8响应、反射字段/总量和最终AEL；2005族Effect/Aux-两S32索引/target先比较。原全部取包/字段-list-count、固定响应优先和149后双位置重读、动作/各失败-2028固定58=2与2005增一的真实Move/RID尾保持，其它根头不改。2028 target/反射两基础字段各actor先live值，caster反馈总量actor先global金额，末AEL amount-flags-caster target-reflected source-actor；相邻10000000仍W32，response bit20原W8。2005数组入口一次业务零/首正项默认0与原cached-live flags/反馈保持。
+
+[证据](../cg2d_battle_m_skill2028_2005_sampling_evidence.json)：四范围713条2702B十一页72call连续字节/全部出口、24补丁/改前两根与旧812完整前态；BMP79条348B/9call+BMT7条26B/2call共86条374B/11call复用非新增，新627条2328B/61call分列。2028五S32/20B图表、实际56B表和4003顺序入口/2005既有表仅本组定位，不代全路由。native非拥有地址与非地址宽度不扩，不新增owner/保护/异常模型；全部owner重进退出失效/SDK-ABI-PC53/画面及完整父/运行待验。

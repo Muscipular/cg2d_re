@@ -4239,3 +4239,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 依[具体SPEC](cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-decision)单根21组23定义23处恢复同parsed caster/target、预读caster比较缓存/首EffectList、两段各八分支坐标的一次S32索引-Y/X/不同caster时点及固定100C、初Effect位置先effectCount、rider字段和两轴取样、四S32索引/普通Effect-Aux和位置比较、最终恢复/尾坐标与两实际W8门禁。预读缓存三定义属一组；原首字段/两子角色-carrier生产/八CryptInt临时和四rider复制/所有取包-动作/初空与循环出口、未指定selfFlags/carrier flags08及真实Move-RID固定58=1保持，其它根头不改。
 
 [1286条4898B十七页147call](cg2d_battle_m_skill404_family_sampling_evidence.json)及全部直接出口、23补丁/改前根/旧812完整前态；404既有180B表、406三节点18B直跳和BMO八W32零写只上下文。旧812五引用/一symbol/本步对象，E475→479仅双域四局部I/S；完整父17298/SEH-全部consumer-owner/其它技能-全路由/SDK-ABI-PC53-时钟RNG画面与运行另验。
+
+## BNP01 2028累计反馈与2005/4003（2026-10-06）
+
+依[具体SPEC](cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-decision)，两根24处恢复同parsed caster/target、payload先skill/actor先level、2028低高图的角色/payload-表各次取样、累计总量先target/固定flags与实际W8响应、反射字段/总量和最终AEL；2005族Effect/Aux-两S32索引/target先比较。原全部取包/字段-list-count、固定响应优先和149后双位置重读、动作/各失败-2028固定58=2与2005增一的真实Move/RID尾保持，其它根头不改。
+
+[证据](cg2d_battle_m_skill2028_2005_sampling_evidence.json)：四范围713条2702B十一页72call连续字节/全部出口、24补丁/改前两根与旧812完整前态；BMP79条348B/9call+BMT7条26B/2call共86条374B/11call复用非新增，新627条2328B/61call分列。2028五S32/20B图表、实际56B表和4003顺序入口/2005既有表仅本组定位，不代全路由。旧812五引用/两symbol/本步对象，E479→483仅双域四局部I/S；完整父17298/SEH-全部consumer/owner-其它技能/SDK-ABI-PC53-时钟RNG画面与运行另验。

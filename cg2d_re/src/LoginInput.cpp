@@ -66,9 +66,7 @@ std::int32_t AddW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        + std::bit_cast<std::uint32_t>(right));
+    return left + right;
 }
 
 void DrawCapability4SavedSlotGraphic(
@@ -570,13 +568,15 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
         if (static_cast<std::uint8_t>(
                 platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
                     geometry.x, &platform::gLegacyMouseState.mouseX)) != 0
-            && detail::ReadLegacyMouseX()
-                < AddW32(geometry.x, geometry.width)
+            && platform::legacy_crypt_int::Less_401DB0(
+                &platform::gLegacyMouseState.mouseX,
+                AddW32(geometry.x, geometry.width))
             && static_cast<std::uint8_t>(
                 platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
                     geometry.y, &platform::gLegacyMouseState.mouseY)) != 0
-            && detail::ReadLegacyMouseY()
-                < AddW32(geometry.y, geometry.height)) {
+            && platform::legacy_crypt_int::Less_401DB0(
+                &platform::gLegacyMouseState.mouseY,
+                AddW32(geometry.y, geometry.height))) {
             const std::uint8_t click =
                 static_cast<std::uint8_t>(detail::gValueD68D9C);
             hoveredSlot = slotIndex;

@@ -258,3 +258,9 @@ R01/U11与完整CRT/owner/alias/实际ABI/运行未闭；不构建、测试、�
 依[BSB01 SPEC](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state)，既有LegacyCryptInt库新增IntLessCryptRaw_401FA0：右载体单次Read_401EC0，S32 lhs<right仅替换低BYTE，保读取值高24位。原401FA0完整5条17B，经既有401EA0五字节尾跳到Read；八直接调用的32条96B后窗均TEST AL。调用条件现显式取uint8低BYTE，避免将完整W32返回当布尔值。
 
 主地图两个上界／两输入框四下界／保存槽两下界全部接同一原入口，保持同一原生非拥有对象／鼠标owner、短路与原±16／其余几何、计数及RNG。旧正常布尔逻辑正确，本步补具名原体与完整原返回；不新增数值状态、保护或网络算法。语义82身份保持，新增单adapted／MAP与INPUT各一实际成员，原已审X15B用途不重复计R7；完整机器ABI、未知间接alias／调用与所有生命周期／运行仍未验。
+
+## 401DB0与能力4鼠标上界（BSC01，2026-10-07）
+
+[BSC01 SPEC](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline)登记真实F:00001DB0／Less_401DB0，完整4条15B：一次401EC0读取、S32 EAX<stack maximum、SETL AL、RET4。新端bool接口及整个库正文保持，能力4两个父六上界原点接回该入口，阈值计算先于单次读取，同唯一mouseX／mouseY、计数和RNG保。
+
+本步只六已确认TEST AL条件与现bool适配域；原读取值的高24位／未知完整EAX消费者、其它间接alias和机器thiscall ABI不据此记为完成，不能由AL正确外推整个数值库。此前BSB01整数在左的原W32返回与八调用保持，两种比较方向不混用。三私有回绕体的正常S32恢复不修改Read／构析／真实位型或低W16转换；所有完整门禁保持。

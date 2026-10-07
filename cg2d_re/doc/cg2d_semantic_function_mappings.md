@@ -3252,3 +3252,9 @@ LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布
 已有语义82/F:00001FA0补IntLessCryptRaw_401FA0的实际声明与正文／完整W32返回，1297/F:000417E0仅同步两比较点；见[原基线](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline)。原叶5条17B／单call、八直接入向与32条96B AL后窗、401EA0一条5B尾跳可追，回调466条1483B仅局部上下文；不重复新增F或重新验完整父。
 
 五源码12片段含一新体／声明、八原点及两既有鼠标头引用，保一次右读取／S32方向与高24位＋AL、原同一对象与短路。语义1582／有效1575、文档1693／3680（46.01%）保持，单adapted处置715、MAP69／INPUT20、四局部I-S／E824；RPA01已审X15B及R7 288余2773全文保持。冻结定义行／pending／差队列、源码closed11／完整0与完整门禁保持。
+
+## BSC01 能力4输入与直接比较叶（2026-10-07）
+
+新增1582／1583／1584对应真实F:00064E30／F:00065430／F:00001DB0，入口ProcessCapability4Input_464E30、ProcessCapability4SavedSlotSelector_465430、Less_401DB0；见[基线](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline)。三根616条2058B／十页、51directcall／十八callee、61jump／两RET及RET4；六上界原点均AL条件，比较叶只该调用域，完整父／EAX或ABI不外推。
+
+两源九片段恢复三普通S32体、六原上界单读，保低W16／BSB下界／原短路与其它正文、两轮计数／图号除余；库体全文保持。两X2／3B仅NOP用途，语义1585／有效1578、文档1696／3680（46.09%）、718处置／INPUT23／E826／R7 290余2771。冻结定义行／pending／缺口队列、源码closed11（P05原closed）／完整0及全部完整门禁保持。

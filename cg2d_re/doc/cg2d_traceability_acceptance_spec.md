@@ -1280,3 +1280,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline)、[裁决](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision)、[验收](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-acceptance)与[源码状态](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state)关联完整5条17B原叶、八AL条件和五源12片段。具名体一次右读取、S32 lhs<right覆盖AL／保高24位，八原点显式低W8；既有单读副作用／原鼠标与action对象、短路和原其余正文保持，旧正常条件结果正确。
 
 语义82补原体／1297仅局部两点，不增语义或文档计数；单adapted／MAP及INPUT各一成员，四局部I-S各18来源、E820→824。已审X与R7不重复变更，R01／R04／U11只current／refs、仍open；完整gates／成员枚举、源码closed11与完整功能叶0保持，未知alias／所有数值入口与父流程、CRT-SDK-机器ABI／正常owner寿命／明文互通及运行R8继续原标准。
+
+## BSC01 能力4正常算式开发验收（2026-10-07）
+
+[基线](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline)、[裁决](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision)、[验收](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance)与[源码状态](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state)关联三原根616条2058B与两源九片段。三私有体改普通S32、六上界接现401DB0先算阈值再单次读，原BSB下界／同鼠标owner和短路、组合／焦点框／低W16及保存槽两轮／图号除余保持；比较库体不改，仅AL条件域不代完整EAX／ABI。
+
+三adapted原F／INPUT三实际成员，两X5B只填充用途，两局部I-S各20实际来源、E824→826；全部完整门禁／枚举、源码closed11／完整功能叶0保持，P05旧closed不重开，U10／R04仅current／refs仍open。数学异常不专项处理／不称修复，完整父／资源寿命、所有其它调用和SDK-机器ABI／明文互通及运行R8继续原标准。

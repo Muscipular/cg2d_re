@@ -3098,3 +3098,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 语义82补具名原体／完整W32，1297仅两个比较点，语义1582／有效1575、文档1693／3680（46.01%）保持；原401FA0单adapted处置714→715、MAP68→69／INPUT19→20、四局部I-S／E824。无F／code区各7、pending18、差队列172／171缺定位／43待归属、源码closed11／完整功能叶0／globalfalse与所有整体门禁保持；R01／R04／U11只current／refs仍open。未知间接alias／所有其它调用、正常owner寿命／完整父流程与资源、CRT-SDK-机器ABI／原格式明文互通及运行R8继续推进。原格式明文、音频暂停、RPLAN.24和不构建测试运行／摘要限制保持。
 
 静态验收结果：五整源仅12授权片段／单读W32返回与八低W8原点、完整原叶与AL后窗／转发／已审X、完整机器和文档增量均通过；文本汇总及-Check均完成，完整派生快照／17文件UTF-8无BOM-LF与四局部I-S各18项实际来源核对通过。未构建、测试或运行，所有完整门禁保持，整体SPEC目标继续。
+
+## BSC01 能力4输入正常加减与六上界调用（2026-10-07）
+
+先落[子SPEC](../doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision)，实际只改LoginInput.cpp／LoginInputController.cpp九精确片段：三个私有AddW32／SubtractW32的uint32回绕／bit_cast改普通S32 +／-；两个框四上界和保存槽两上界接已有Less_401DB0，原S32阈值先算再单读同mouseX／mouseY。保原正常值／字段宽度与noexcept、不新增异常／保护／限制；BSB六下界低W8／低W16和真实位型、全部其它正文／焦点字符串NUL／计时保存与声音保持，保存槽两轮现场visibleCount／选中悬停默认图号／signed除余及偏移保持，既有比较库体全文不改。
+
+两个原输入根350条1262B／五页、262条781B／四页，比较叶4条15B／一页，合616条2058B／十页、51directcall／十八callee／61jump、两RET及RET4；两父唯一464840@464ADF／464DD5、六上界原点AL条件可追。比较叶限原低BYTE条件域，原保高24位的完整EAX／未知alias和机器thiscall ABI未验，不借局部适配称全库完成。内部4655C0不是新F；两真实X2＋3B全90／canonical nop、无入向前RET后真入口，仅填充用途。
+
+三F1582／1583／1584、INPUT20→23／语义1585有效1578／文档1696／3680（46.09%）／718处置／E826／R7 290余2771。无F／code区各7、pending18、差队列172／171缺定位／43待归属、源码closed11（P05旧closed保）／完整功能叶0／globalfalse与所有完整门禁保持；U10／R04只current／refs仍open。现正常值正确，不称已发生运行故障；完整两父／所有数值接口与EAX／alias、数据生产消费／owner寿命／资源及CRT-SDK-机器ABI、原格式明文互通与运行R8继续推进。音频暂停、RPLAN.24与不构建测试运行／摘要限制保持。
+
+静态验收结果：两整源仅九授权片段／三普通S32体与六原上界、原BSB下界／低W16和库体保持，三完整原根／六AL后窗／两X用途、完整机器与文档增量均通过；文本汇总及-Check均完成，完整派生快照／14文件UTF-8无BOM-LF与两局部I-S各20实际来源核对通过。未构建、测试或运行，P05旧closed及全部完整门禁保持，整体SPEC目标继续。

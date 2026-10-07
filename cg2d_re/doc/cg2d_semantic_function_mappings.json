@@ -185058,6 +185058,183 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x464E30",
+      "inventory_id": "F:00064E30",
+      "original_role": "ProcessCapability4Input_464E30",
+      "original_end_exclusive": "0x46531e",
+      "instruction_count": 350,
+      "status": "BSC01能力4输入两原根和比较叶纳管；三私有正常S32算式/六原上界接线实修，原正常值保持，完整父/全部EAX或alias/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/LoginInputController.cpp",
+          "symbols": [
+            "ProcessCapability4Input_464E30",
+            "AddW32",
+            "SubtractW32",
+            "LowW16"
+          ],
+          "relationship": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+      ],
+      "boundary": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "capability4_input_normal_arithmetic": {
+        "spec_id": "BSC01",
+        "evidence_refs": [
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline",
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+          "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 350,
+        "original_code_bytes": 1262,
+        "original_page_count": 5,
+        "original_direct_call_count": 31,
+        "original_unique_callee_count": 15,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 6,
+        "source_normal_s32_helper_count": 2,
+        "source_restored_upper_bound_call_count": 4,
+        "prior_integer_left_compare_routes_and_short_circuit_kept": true,
+        "original_native_mouse_owner_and_read_rng_order_kept": true,
+        "original_text_low_w16_and_real_bit_formats_kept": true,
+        "normal_previous_values_wrong": false,
+        "source_comparison_library_unchanged": true,
+        "original_only_six_known_al_call_domain": null,
+        "dependency_r7_classification_count": 2,
+        "full_original_parent_or_machine_abi_verified": false,
+        "full_eax_result_or_alias_domain_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x465430",
+      "inventory_id": "F:00065430",
+      "original_role": "ProcessCapability4SavedSlotSelector_465430",
+      "original_end_exclusive": "0x46573d",
+      "instruction_count": 262,
+      "status": "BSC01能力4输入两原根和比较叶纳管；三私有正常S32算式/六原上界接线实修，原正常值保持，完整父/全部EAX或alias/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/LoginInput.cpp",
+          "symbols": [
+            "ProcessCapability4SavedSlotSelector_465430",
+            "AddW32",
+            "DrawCapability4SavedSlotGraphic"
+          ],
+          "relationship": "完整262条781B/四页、19directcall/五callee/19jump/一RET，唯一464840@464DD5。私有AddW32恢复正常S32几何/图号/递增，两个上界接401DB0先算阈值再单读；两BSB整数左侧下界及短路、原10x16几何/命中保存后现场count、两轮现场visibleCount/序号、选中/悬停/默认图号与层、signed除10/余10、绘制偏移/返回及原声音保持，不新增容量限制、保护或字体测量；内部4655C0不是新F。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+      ],
+      "boundary": "完整262条781B/四页、19directcall/五callee/19jump/一RET，唯一464840@464DD5。私有AddW32恢复正常S32几何/图号/递增，两个上界接401DB0先算阈值再单读；两BSB整数左侧下界及短路、原10x16几何/命中保存后现场count、两轮现场visibleCount/序号、选中/悬停/默认图号与层、signed除10/余10、绘制偏移/返回及原声音保持，不新增容量限制、保护或字体测量；内部4655C0不是新F。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "capability4_input_normal_arithmetic": {
+        "spec_id": "BSC01",
+        "evidence_refs": [
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline",
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+          "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 262,
+        "original_code_bytes": 781,
+        "original_page_count": 4,
+        "original_direct_call_count": 19,
+        "original_unique_callee_count": 5,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_normal_s32_helper_count": 1,
+        "source_restored_upper_bound_call_count": 2,
+        "prior_integer_left_compare_routes_and_short_circuit_kept": true,
+        "original_native_mouse_owner_and_read_rng_order_kept": true,
+        "original_text_low_w16_and_real_bit_formats_kept": true,
+        "normal_previous_values_wrong": false,
+        "source_comparison_library_unchanged": true,
+        "original_only_six_known_al_call_domain": null,
+        "dependency_r7_classification_count": 2,
+        "full_original_parent_or_machine_abi_verified": false,
+        "full_eax_result_or_alias_domain_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x401DB0",
+      "inventory_id": "F:00001DB0",
+      "original_role": "Less_401DB0",
+      "original_end_exclusive": "0x401dbf",
+      "instruction_count": 4,
+      "status": "BSC01能力4输入两原根和比较叶纳管；三私有正常S32算式/六原上界接线实修，原正常值保持，完整父/全部EAX或alias/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "Less_401DB0",
+            "Read_401EC0"
+          ],
+          "relationship": "完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+      ],
+      "boundary": "完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "capability4_input_normal_arithmetic": {
+        "spec_id": "BSC01",
+        "evidence_refs": [
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline",
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
+          "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+          "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 4,
+        "original_code_bytes": 15,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_unique_callee_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_normal_s32_helper_count": 0,
+        "source_restored_upper_bound_call_count": 0,
+        "prior_integer_left_compare_routes_and_short_circuit_kept": true,
+        "original_native_mouse_owner_and_read_rng_order_kept": true,
+        "original_text_low_w16_and_real_bit_formats_kept": true,
+        "normal_previous_values_wrong": false,
+        "source_comparison_library_unchanged": true,
+        "original_only_six_known_al_call_domain": true,
+        "dependency_r7_classification_count": 2,
+        "full_original_parent_or_machine_abi_verified": false,
+        "full_eax_result_or_alias_domain_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

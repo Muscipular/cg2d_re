@@ -54,3 +54,9 @@ reader 前重新清空缓冲。
 `Sub_533680`、`Sub_5335F0` 与 `gSelectedSavedSlot105C394` 仅在私有
 `LoginInputDependencies.hpp` 中保留真实声明；本项不实现 reader、不定义持久
 状态、不提供固定返回，也不增加额外门禁。
+
+## 能力4输入正常S32算式与六上界（BSC01，2026-10-07）
+
+按[BSC01 SPEC](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state)，LoginInput的一个AddW32与LoginInputController的AddW32／SubtractW32恢复普通S32加减，保int32形参与返回／noexcept及所有调用。两个输入框四上界、保存槽两上界接回既有Less_401DB0，S32阈值先算后单次读取同一原鼠标对象；原BSB01六下界、短路／计数-RNG、LowW16与实际位型、焦点／文字NUL／计时／保存和声音保持。
+
+两完整输入根612条2043B／九页，比较叶4条15B只六AL条件域；正常值原本正确，本步撤掉专项回绕模型，不模拟异常或新增保护／容量限制。保存槽两轮现场visibleCount、选中／悬停／默认图号和signed除余／偏移保持，4655C0属于内部绘制指令，不造函数。三真实F及INPUT三成员纳管、两X5B仅填充用途；完整所有父／ABI、未知EAX／alias与运行仍未验，音频暂停，U10／R04仍open、P05旧closed保持。

@@ -2458,3 +2458,9 @@ ready后文字y→x取样，依次加20／140并保持两S16；文字提交后�
 按[BSP01裁决](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision)，503990按top／left／height／width取齐，先bottom后right；503A20命中前按top／height／left／width，命中后另读top／left／height／width与原step，再普通S32算四边。删除ToBits／AddWrapped几何回绕模型，最终U16四边不删；可选hover后先text T*、再textY低W16／textX低W16，最后DrawText。
 
 原三鼠标BYTE样本／八位结果、hoverMode门禁与文字必画／返回／全部参数、同非拥有记录与文字及布局、头和所有父／callee保持。两原根116条275B／两页、4直接／三目标、11跳转／3RET；入向520个CALL以七独立引用页完整捕获。人物45E0C0两命中／两绘制和462090各一有实际证据，其它102／30调用父不借本步记验收。原11／2B相邻NOP只用途；两个原语新增1596／1597，不造helper或调用父身份。完整输入事件／渲染消费／全部alias-owner寿命与人物流程仍待。
+
+## 人物模态共享对象与状态门禁更新（BSQ01，2026-10-07）
+
+按[BSQ01裁决](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision)，462090入口一次native非拥有modalAction，空时创建返回保共享槽发布，失败与原LTE0继续借该样本；接既有IsYobiActionStateLessOrEqual→401DA0，撤发布后重读与Ready>=1替代。Play79后的actionToDestroy独立单读已正确保持，清槽移回原非空MarkDeath分支，结果1后继续按钮及四提示绘制。
+
+原五字符串5／21／15／21／13B逐字节、同未清256B四复制／测宽／绘制、原按钮记录／普通S32布局和最终S16、原门禁／返回／参数及其它完整源／头／父／依赖保持。原238条663B／四页、14直接／八目标、五跳转／三RET，唯一460FF0@461390，单9B相邻NOP只用途；新1598单F，不造文本／helper身份。普通比较真假原正确，本步恢复原入口和对象读写分支，不称运行故障；完整人物／事件／显示／全部owner寿命与依赖验收继续。

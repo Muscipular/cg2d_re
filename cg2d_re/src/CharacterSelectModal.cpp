@@ -37,21 +37,22 @@ std::int32_t ProcessCharacterModal_462090(
     };
     std::int32_t result = 0;
 
-    if (state::gCharacterModalAction == nullptr) {
-        state::gCharacterModalAction = login::detail::Sub_5044E0(
+    login::YobiAction* modalAction = state::gCharacterModalAction;
+    if (modalAction == nullptr) {
+        modalAction = login::detail::Sub_5044E0(
             x - 192,
             y - 96,
             384,
             192,
             4,
             1);
-        if (state::gCharacterModalAction == nullptr) {
+        state::gCharacterModalAction = modalAction;
+        if (modalAction == nullptr) {
             return 0;
         }
     }
 
-    login::YobiAction* const action = state::gCharacterModalAction;
-    if (!login::detail::IsYobiActionReady(action, 1)) {
+    if (login::detail::IsYobiActionStateLessOrEqual(modalAction, 0)) {
         return 0;
     }
 
@@ -62,8 +63,8 @@ std::int32_t ProcessCharacterModal_462090(
             state::gCharacterModalAction;
         if (actionToDestroy != nullptr) {
             login::detail::MarkDeath(actionToDestroy);
+            state::gCharacterModalAction = nullptr;
         }
-        state::gCharacterModalAction = nullptr;
     }
 
     detail::Sub_503A20(

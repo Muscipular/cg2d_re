@@ -186313,6 +186313,68 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x462090",
+      "inventory_id": "F:00062090",
+      "original_role": "ProcessCharacterModal_462090",
+      "original_end_exclusive": "0x462327",
+      "instruction_count": 238,
+      "status": "BSQ01人物模态复用入口/创建返回样本进原LTE0门禁，声音后原单对象保，清槽归非空分支。单源两片段只局部静态，完整人物父/依赖/全部消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterSelectModal.cpp",
+          "symbols": [
+            "ProcessCharacterModal_462090"
+          ],
+          "relationship": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-acceptance",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
+        "doc/cg2d_character_modal_action_gate_evidence.json"
+      ],
+      "boundary": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "verification_level": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "character_modal_action_gate": {
+        "spec_id": "BSQ01",
+        "evidence_refs": [
+          "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
+          "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision",
+          "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-acceptance",
+          "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
+          "doc/cg2d_character_modal_action_gate_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 238,
+        "original_code_bytes": 663,
+        "original_page_count": 4,
+        "original_direct_call_count": 14,
+        "original_unique_callee_count": 8,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_changed_existing_function_count_in_batch": 1,
+        "source_entry_nonowning_modal_sample_count": 1,
+        "source_return_sample_reused_for_failure_and_lte": true,
+        "source_lte_zero_original_entry_restored": true,
+        "source_ready_greater_equal_one_replacement_removed": true,
+        "original_shared_modal_owner_kept": true,
+        "creation_shared_publish_before_failure_branch_kept": true,
+        "source_sound_following_independent_click_sample_kept": true,
+        "cleanup_reuses_entry_modal_sample": false,
+        "nonnull_mark_and_clear_only_kept": true,
+        "original_five_text_bytes_and_four_shared_buffer_copies_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

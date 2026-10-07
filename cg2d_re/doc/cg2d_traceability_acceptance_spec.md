@@ -1364,3 +1364,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline)、[裁决](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision)、[验收](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-acceptance)及[原证据](cg2d_modal_button_geometry_sampling_evidence.json)对应两个真F、五片段整源增量、两个局部I-S／各16实际来源、双13B用途分类及U11／V03／R04引用仍open。核四集中静态、汇总器／-Check终态、完整派生快照与编码／引用；完整门禁、P05原closed和其它对象保。
 
 116条275B／两页、4直接／三目标、520CALL／七引用页不等于全部父验收。命中与绘制取样次序分别恢复，hover后重新取记录／text-Y-X，普通S32与实际窄边界、三鼠标BYTE及结果位保持。完整父／三依赖、真实事件／文字图像生产消费、全部owner寿命、CRT-SDK／机器ABI／链接、人物创建-主地图／明文互通／实际画面／运行R8仍待。
+
+## BSQ01 人物模态共享对象与原LTE0开发验收（2026-10-07）
+
+[基线](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline)、[裁决](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision)、[验收](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-acceptance)及[原证据](cg2d_character_modal_action_gate_evidence.json)对应单真F、两片段整源增量、两局部I-S／各18实际来源、九字节用途分类和U11／V03／R04引用仍open。四集中静态、measure／-Check终态、完整派生快照／编码／引用／差异记录，P05原closed与全部完整门禁保持。
+
+238条663B／四页、14直接／八目标、唯一实际caller、五字符串原字节及创建返回／LTE0／声音后独立对象／非空标死清槽点为局部证据；Ready>=1普通真假虽等价，恢复原401DA0，不外推比较异常。完整事件／文字图像消费、人物父／八依赖／全部正常owner寿命、CRT-SDK／机器ABI／链接、创建-主地图／原格式明文互通／画面／运行R8仍待。

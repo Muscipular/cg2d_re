@@ -799,7 +799,8 @@
         "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-baseline",
         "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-baseline",
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline",
-        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline"
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -814,7 +815,8 @@
         "F:0005DEE0",
         "F:0005E0C0",
         "F:00103990",
-        "F:00103A20"
+        "F:00103A20",
+        "F:00062090"
       ],
       "closure_task_ids": [
         "P08",
@@ -836,7 +838,8 @@
         "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-decision",
         "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-decision",
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-decision",
-        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision"
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -848,7 +851,8 @@
         "BSM01人物删除进度45DC00完整102条325B/两页，6直接/6目标无间接、7jump/2RET，唯一460FF0@46132A；55ABE8只读10B正文+NUL共11B已原字节取证。单源六精确片段/一既有业务体：补标准cstring、撤固定10长度和280/232坐标；初次只读文本strlen取U32长度，×9后发布W16 stage1，再逻辑右移6+2，普通S32创建阶段借本地x/192/width/96/4/1；轮询非零一次取action，非空才MarkDeath/清槽；ready后rows与y先取再算textY、只读文本strlen后才取columns/算(columns*8-length)*8，最后x/textX，两S16保。不造可变文本缓冲/owner；原普通值正确，不称运行故障，11B字节/生命周期、Reset/入口阶段与创建后重读/启动后现场++/轮询早退、观察者及其余整源/删除请求回复与人物父保。新1592/单adapted F:0005DC00，CHARACTER7→8；语义1593有效1586/文档1704（46.30%）/处置728/E846；单X11B全90逐BYTE真实NOP/无入向/前RET后入口只原用途登记，R7 299余2762，不造Reset/布局/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/六依赖、真实删除回复/人物创建-主地图/图像输入消费、全部正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制/既定排除保，不构建测试运行或摘要。",
         "BSN01认证失败提示45D7E0完整113条413B/两页，7直接/7目标无间接、6jump/2RET，唯一460FF0@46140C；原55C5E8正文14B+NUL15B逐字节取证，撤未证编码名/陈旧未交接注释。单源六片段/一既有业务体：初次5044E0用64/168/512/144/4/1原常量，所有原字段发布保；命中width→x→减66→y单取→left→bottom→top→right；Play51后一次native非拥有action，复用判断与MarkDeath/清槽；ready后文字y→x取样与加20/140，两S16；文字调用后图像独立width→y→图号→x，再原S32 SAR1/y+123/halfWidth+x。原普通值正确，不称运行故障；低W8鼠标/DF与两图号、同16B descriptor/借用、原15B静态寿命、Reset/发布/hover/结果1早退与独立ready/其它整源、人物父/依赖正文保持，不造新owner。新1593/单adapted F:0005D7E0，CHARACTER8→9；语义1594有效1587/文档1705（46.33%）/处置729/E848；单X3B全90逐BYTE真实NOP/无入向/前RET后入口只用途，R7 300余2761，不造Reset/descriptor/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/七依赖、事件输入与渲染消费/全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
         "BSO01两确认父完整433条1194B/七页，26直接/合计10唯一目标无间接、19jump/6RET：45DEE0 165条425B三页/10call八目标/两caller（45E090@45E0A8、460FF0@461483），45E0C0 268条769B四页/16call八目标/唯一460FF0@461193。单源四片段/两既有业务体：创建/LTE各借入口modalAction，创建后发布唯一共享槽，失败门禁/LTE继续借同返回样本；各Play79后独立clickedAction一次取共享槽，复用非空判断/MarkDeath清槽，不跨声音复用入口对象。原普通分支正确，不称运行故障；既有宽高非正默认192/96、两相同right=left+158及第二hover覆盖、警告确认优先短路、两local记录/各draw现场hoverSeq、同256B四复制/测宽/文字参数与S16、图号/低W8/返回/其余整源和默认wrapper/父/依赖正文保，无新owner。新1594/1595两adapted F:0005DEE0/F:0005E0C0，CHARACTER9→11；语义1596有效1589/文档1707（46.39%）/处置731/E850；两X7/15B共22全90逐BYTE真实NOP/无入向/各前RET后入口仅原对齐用途，R7 302余2759，不造wrapper/记录/内部块F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整两父/合计10依赖、全部共享弹窗正常alias-owner寿命/事件输入/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
-        "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+        "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+        "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -860,7 +864,8 @@
         "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
         "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
-        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state"
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state"
       ]
     },
     {
@@ -36645,6 +36650,86 @@
       "observation": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 命中：top/left/height/width取样、bottom/right计算，鼠标结果原文保持。 BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 绘制：命中前top/height/left/width、命中后独立记录和step，hover后text/Y/X取样，四U16与两S16保持。",
       "expected": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 命中：top/left/height/width取样、bottom/right计算，鼠标结果原文保持。 BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 绘制：命中前top/height/left/width、命中后独立记录和step，hover后text/Y/X取样，四U16与两S16保持。",
       "actual": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-CHARACTER-MODAL-ACTION-GATE-I-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSQ01人物模态238条663B/四页、14direct/八目标、五jump/三RET，唯一460FF0@461390；创建返回/原槽单样本进入LTE0门禁，声音后单对象/非空标死清槽，doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-modal-action-gate-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-acceptance",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
+        "doc/cg2d_character_modal_action_gate_evidence.json",
+        "src/CharacterSelectModal.cpp#ProcessCharacterModal_462090",
+        "src/CharacterSelectState.hpp",
+        "include/cg/CharacterSelectScene.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/LoginMessageDependencies.hpp",
+        "src/YobiRuntime.cpp#IsYobiActionStateLessOrEqual",
+        "include/cg/YobiRuntime.hpp",
+        "src/CharacterModalButton.cpp#Sub_503990",
+        "src/CharacterModalButton.cpp#Sub_503A20",
+        "doc/cg2d_modal_button_geometry_sampling_spec.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源两片段/一既有父：一次入口modalAction，创建返回复用于失败/LTE0、保共享槽发布，接原401DA0；撤发布后重读和Ready>=1替代。声音后原单actionToDestroy样本保，清槽归非空MarkDeath分支。原五文本/同256B四复制测宽绘制、记录与普通几何/窄边界/返回/参数及其它整源、头/人物父/八依赖保。一真F/单9B用途仅局部，不代全部寿命/完整人物父/依赖/机器ABI或运行",
+          "decision_ref": "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "expected": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "actual": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-CHARACTER-MODAL-ACTION-GATE-S-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSQ01人物模态238条663B/四页、14direct/八目标、五jump/三RET，唯一460FF0@461390；创建返回/原槽单样本进入LTE0门禁，声音后单对象/非空标死清槽，doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-modal-action-gate-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-acceptance",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
+        "doc/cg2d_character_modal_action_gate_evidence.json",
+        "src/CharacterSelectModal.cpp#ProcessCharacterModal_462090",
+        "src/CharacterSelectState.hpp",
+        "include/cg/CharacterSelectScene.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/LoginMessageDependencies.hpp",
+        "src/YobiRuntime.cpp#IsYobiActionStateLessOrEqual",
+        "include/cg/YobiRuntime.hpp",
+        "src/CharacterModalButton.cpp#Sub_503990",
+        "src/CharacterModalButton.cpp#Sub_503A20",
+        "doc/cg2d_modal_button_geometry_sampling_spec.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源两片段/一既有父：一次入口modalAction，创建返回复用于失败/LTE0、保共享槽发布，接原401DA0；撤发布后重读和Ready>=1替代。声音后原单actionToDestroy样本保，清槽归非空MarkDeath分支。原五文本/同256B四复制测宽绘制、记录与普通几何/窄边界/返回/参数及其它整源、头/人物父/八依赖保。一真F/单9B用途仅局部，不代全部寿命/完整人物父/依赖/机器ABI或运行",
+          "decision_ref": "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "expected": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "actual": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
     }
   ],
   "task_acceptance": [
@@ -37138,7 +37223,8 @@
         "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
         "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
-        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state"
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state"
       ]
     },
     {
@@ -37411,7 +37497,8 @@
         "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
         "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
-        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state"
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state"
       ]
     },
     {
@@ -37636,7 +37723,8 @@
         "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
         "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
-        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state"
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state"
       ]
     },
     {
@@ -46555,6 +46643,19 @@
         "doc/cg2d_modal_button_geometry_sampling_evidence.json"
       ],
       "boundary": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 绘制：命中前top/height/left/width、命中后独立记录和step，hover后text/Y/X取样，四U16与两S16保持。"
+    },
+    {
+      "inventory_id": "F:00062090",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-acceptance",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
+        "doc/cg2d_character_modal_action_gate_evidence.json"
+      ],
+      "boundary": "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
     }
   ],
   "auxiliary_dispositions": [
@@ -54734,6 +54835,28 @@
           "end_exclusive": "0x503ab0",
           "kind": "nop_padding",
           "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:00062327-00062330",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-acceptance",
+        "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
+        "doc/cg2d_character_modal_action_gate_evidence.json"
+      ],
+      "reason": "BSQ01 9B全90逐BYTE真实NOP，无入向、前RET后真入口，仅原对齐用途，不造helper/块/调用父F或范围排除/运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x462327",
+          "end_exclusive": "0x462330",
+          "kind": "nop_padding",
+          "bytes": 9
         }
       ]
     }

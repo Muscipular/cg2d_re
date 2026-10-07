@@ -3336,3 +3336,9 @@ CHARACTER9→11，语义1596有效1589／文档1707／3680（46.39%）／731处�
 新增1596／1597对应F:00103990／F:00103A20，主符号Sub_503990／Sub_503A20，同源CharacterModalButton.cpp。见[基线](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline)：116条275B／两指令页、4直接／三目标，520实际CALL入向七页；仅两个既有原语本体／五精确片段，撤普通几何回绕、原字段分阶段取样，真实W16与鼠标结果保。
 
 CHARACTER11→13，语义1598有效1591／文档1709／3680（46.44%）／733处置／E852；双11／2B对齐用途使R7 302→304余2757。无新helper／调用父F或排除，冻结定位／pending18／差队列和完整门禁保；局部不代所有调用父／三依赖／正常alias-owner寿命／机器ABI或运行。
+
+## BSQ01 人物模态创建与状态门禁（2026-10-07）
+
+新增1598对应F:00062090／ProcessCharacterModal_462090，同源CharacterSelectModal.cpp。见[基线](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline)：238条663B／四页、14直接／八目标、唯一460FF0@461390。两片段沿入口／创建返回取样进入原LTE0，原声音后单对象保、清槽归非空分支；五字符串与四共享缓冲绘制保持，不新增helper／文案F。
+
+CHARACTER13→14，语义1599有效1592／文档1710／3680（46.47%）／734处置／E854；九字节对齐用途使R7 304→305余2756。冻结定位／pending18／差队列与全完整门禁保持，局部不代完整人物父／八依赖／全部正常alias-owner寿命／机器ABI或运行。

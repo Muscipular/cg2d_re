@@ -3438,3 +3438,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [完整基线](cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline)对应F:0011A5A0/B0/E0/F0及新1616-1619：四完整叶15条68B/四页、无CALL两jump四RET、11点六父；三个正文仅恢复实际BYTE发布，B0同action取样/原生指针返回/条件W16取消及F0原正确W16取消保持。
 
 语义1620有效1613/文档1731（47.04%）/处置761/E888、LOOP42两局部I-S各21来源/R7 327→331余2730，四区28B仅原用途。TEXT28/INPUT29/NETWORK55/CHARACTER23/LOGIN13/MAP69及全部旧1616语义/冻结定位/pending18/差队列/原任务和完整门禁保；不以字段叶覆盖代完整世界/玩家状态或父/provider/正常寿命、ABI及运行。
+
+## BTL01 玩家与动作状态访问宽度合同（2026-10-07）
+
+[完整基线](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline)对应十三原F与新1620-1632，29条133B/十三页、15点两父，无CALL无jump十三RET。八W8 OR/三W16清位已实修，另两正确W16取消保持，参数/值发布及返回、唯一owner/跨字段观察保。
+
+汇总预期语义1633有效1626/文档1744（47.39%）/处置774/E892、LOOP46/BATTLE262/四局部I-S各29来源；十三NOP区107B只用途，R7 331→344余2717。全部旧1620语义与其它成员/冻结定位/pending18/差队列/任务及完整门禁保，不以叶访问纳管代完整父、资料生产消费、正常寿命、SDK-ABI或运行。

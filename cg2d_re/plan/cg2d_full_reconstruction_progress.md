@@ -3488,3 +3488,15 @@ A0原高BYTE OR1→18C低BYTE1；E0原高BYTE OR2；B0先取一次action再18C�
 全部旧1616语义与TEXT28/INPUT29/NETWORK55/CHARACTER23/LOGIN13/MAP69/冻结定位/pending18/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse及全部完整门禁保。全六父/玩家资料生产消费与全部正常owner-alias寿命、ABI/链接/画面/明文互通及运行R8继续；集中静态/派生终态后追加真实结果。
 
 BTK01完成结果：三个原正文三处实际BYTE发布已修，两处原W16取消和同action返回保持。完整源/原指令与28B用途/机器/文档四组静态通过；measure及-Check同次顺序执行均终态0，完整派生快照逐对象与十二文件UTF-8无BOM/LF、真实四锚点和两I-S各21来源、文本差异检查通过。实际语义1620有效1613/文档1731（47.04%）/处置761/E888、LOOP42、R7 331余2730；pending18/原ECX pending7/差队列及三任务open/完整叶0与globalfalse保持，不声称完整父/寿命或运行验收。精确十二文件提交并固定本步命名快照，用户六项既有改动保持；整体SPEC目标继续推进。
+
+## BTL01 相邻玩家与动作状态原宽度实修（2026-10-07）
+
+上一BTK01已提交三个玩家状态BYTE发布修正。继续同一唯一PlayerRuntimeSlots字段依赖，发现十一正文仍扩大真实读写宽度，先落[子SPEC](../doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision)再修SceneState.cpp十一唯一片段：51A600/51A620仅flags18A高BYTE OR40/80；BDB0/BDD0/BE10/BE20/BE40/BEE0仅flags18C[2]实际BYTE OR1/2/24/8/50/80；BDC0/BDF0/BE30只flags18C[2..3]真实W16 ANDFFFE/FFFD/FFF7，以2B memcpy避免宽指针别名。51A610/51A630本来正确W16 ANDBFFF/7FFF整正文不改，不能把取消也统一BYTE。
+
+BDD0同完整入参取样、置位→value190 W32发布→原同值返回与BDF0清位→value190 W32零顺序保。原跨字段W32观察/低W16及其它BYTE、既有BEC0/BE50、两父全部正文和现接口保，不造helper/owner/新状态或业务规则。普通此前同位值不称数值/并发故障，RPLAN.24/网络原格式明文/内部LegacyCryptInt/音频暂停保持。
+
+十三完整根29条133B/十三页十三块、无CALL无jump十三RET，15直接点两父；十三相邻区逐BYTE真实90/NN_NOP、无入向/前RET后真入口，共107B只用途。十三既有F新语义1620-1632/十一adapted两equivalent，四玩家状态LOOP42→46、九共享动作状态沿既有BQR02合同BATTLE253→262；四局部I-S各29来源，语义1633有效1626/文档1744（47.39%）/处置774/E892/R7 344余2717为本步预期，集中静态与汇总结束后追加实际结果。
+
+全部旧1620语义及其它成员/冻结定位/pending18与原ECX pending7/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse及完整门禁保持。全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续；不以叶宽度纳管代整体验收。
+
+BTL01完成结果：十一正文八BYTE置位/三真实W16清位已修，两正确W16清位与值发布/返回/唯一owner和其它源头保持。四组集中静态全部通过；原区间检查的IDA align显示误判已解决，107B每条真实NN_NOP/90/size1及边界/无入向证据保留，失败组重跑通过。measure及-Check同次顺序执行均终态0；完整快照逐对象与十二UTF-8无BOM/LF、四锚点、四I-S各29真实来源及文本差异检查通过。实际语义1633有效1626/文档1744（47.39%）/处置774/E892、LOOP46/BATTLE262/R7 344余2717；pending18及pending7、差队列和任务状态/完整门禁保。精确十二文件提交及本步命名快照，用户六项既有改动保持；整体目标继续，未编译测试运行，不替代全父/寿命或运行验收。

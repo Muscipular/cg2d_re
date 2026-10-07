@@ -1,0 +1,2373 @@
+{
+  "spec_id": "BTL01",
+  "recorded_on": "2026-10-07",
+  "implementation_static_scope": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+  "source_functions": [
+    {
+      "id": "F:0011A600",
+      "entry": "0x51A600",
+      "index": 1620,
+      "symbol": "Sub_51A600",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 0,
+      "feature_id": "FUNC-LOOP",
+      "role": "玩家4000置位",
+      "contract": "flags18A高BYTE OR40，低BYTE不读写。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011A610",
+      "entry": "0x51A610",
+      "index": 1621,
+      "symbol": "Sub_51A610",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": false,
+      "disposition": "equivalent",
+      "existing": false,
+      "original_index": 1,
+      "feature_id": "FUNC-LOOP",
+      "role": "玩家4000原W16清位",
+      "contract": "原flags18A真实W16 AND BFFF，正确正文保持。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011A620",
+      "entry": "0x51A620",
+      "index": 1622,
+      "symbol": "Sub_51A620",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 2,
+      "feature_id": "FUNC-LOOP",
+      "role": "玩家8000置位",
+      "contract": "flags18A高BYTE OR80，低BYTE不读写。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011A630",
+      "entry": "0x51A630",
+      "index": 1623,
+      "symbol": "Sub_51A630",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": false,
+      "disposition": "equivalent",
+      "existing": false,
+      "original_index": 3,
+      "feature_id": "FUNC-LOOP",
+      "role": "玩家8000原W16清位",
+      "contract": "原flags18A真实W16 AND7FFF，正确正文保持。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011BDB0",
+      "entry": "0x51BDB0",
+      "index": 1624,
+      "symbol": "Sub_51BDB0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 4,
+      "feature_id": "FUNC-BATTLE",
+      "role": "动作bit0置位",
+      "contract": "flags18C[2]实际W8 OR1，不触及其余三BYTE。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011BDC0",
+      "entry": "0x51BDC0",
+      "index": 1625,
+      "symbol": "Sub_51BDC0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 5,
+      "feature_id": "FUNC-BATTLE",
+      "role": "动作bit0清位",
+      "contract": "flags18C[2..3]实际W16 ANDFFFE，不触及低W16；以2B memcpy承载，不造uint16指针别名。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011BDD0",
+      "entry": "0x51BDD0",
+      "index": 1626,
+      "symbol": "Sub_51BDD0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 6,
+      "feature_id": "FUNC-BATTLE",
+      "role": "动作bit1与value190发布",
+      "contract": "原arg先取为完整S32，同flags18C[2]实际W8 OR2→value190 W32发布→返回同value，原两调用参数/弃返保。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011BDF0",
+      "entry": "0x51BDF0",
+      "index": 1627,
+      "symbol": "Sub_51BDF0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 7,
+      "feature_id": "FUNC-BATTLE",
+      "role": "动作bit1与value190清除",
+      "contract": "同flags18C[2..3]真实W16 ANDFFFD→value190完整W32清0，顺序保；以2B memcpy承载。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011BE10",
+      "entry": "0x51BE10",
+      "index": 1628,
+      "symbol": "Sub_51BE10",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 8,
+      "feature_id": "FUNC-BATTLE",
+      "role": "动作24置位",
+      "contract": "flags18C[2]实际W8 OR24，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011BE20",
+      "entry": "0x51BE20",
+      "index": 1629,
+      "symbol": "Sub_51BE20",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 9,
+      "feature_id": "FUNC-BATTLE",
+      "role": "动作bit3置位",
+      "contract": "flags18C[2]实际W8 OR8，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011BE30",
+      "entry": "0x51BE30",
+      "index": 1630,
+      "symbol": "Sub_51BE30",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 10,
+      "feature_id": "FUNC-BATTLE",
+      "role": "动作bit3清位",
+      "contract": "flags18C[2..3]真实W16 ANDFFF7，以2B memcpy承载，低W16不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011BE40",
+      "entry": "0x51BE40",
+      "index": 1631,
+      "symbol": "Sub_51BE40",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 11,
+      "feature_id": "FUNC-BATTLE",
+      "role": "动作50置位",
+      "contract": "flags18C[2]实际W8 OR50，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "F:0011BEE0",
+      "entry": "0x51BEE0",
+      "index": 1632,
+      "symbol": "Sub_51BEE0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 12,
+      "feature_id": "FUNC-BATTLE",
+      "role": "观察动作bit7置位",
+      "contract": "flags18C[2]实际W8 OR80，两观察入口实际call点接线保，不将父未验写成完整验收。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    }
+  ],
+  "original_functions": [
+    {
+      "start": "0x51A600",
+      "end_exclusive": "0x51A608",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51a600",
+          "0x51a608"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51aabd",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51A600"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51a600",
+          "size": 7,
+          "bytes": "800d8ba8fd0040",
+          "mnemonic": "or",
+          "text": "or      byte ptr gPlayerDataVal.field_18A+1, 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a607",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51a600",
+          "end_exclusive": "0x51a608",
+          "bytes": "800d8ba8fd0040c3"
+        }
+      ],
+      "code_bytes": 8,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51A610",
+      "end_exclusive": "0x51A61A",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51a610",
+          "0x51a61a"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51aac6",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51A610"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51a610",
+          "size": 9,
+          "bytes": "6681258aa8fd00ffbf",
+          "mnemonic": "and",
+          "text": "and     gPlayerDataVal.field_18A, 0BFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a619",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51a610",
+          "end_exclusive": "0x51a61a",
+          "bytes": "6681258aa8fd00ffbfc3"
+        }
+      ],
+      "code_bytes": 10,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51A620",
+      "end_exclusive": "0x51A628",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51a620",
+          "0x51a628"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51aaf7",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51A620"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51a620",
+          "size": 7,
+          "bytes": "800d8ba8fd0080",
+          "mnemonic": "or",
+          "text": "or      byte ptr gPlayerDataVal.field_18A+1, 80h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a627",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51a620",
+          "end_exclusive": "0x51a628",
+          "bytes": "800d8ba8fd0080c3"
+        }
+      ],
+      "code_bytes": 8,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51A630",
+      "end_exclusive": "0x51A63A",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51a630",
+          "0x51a63a"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51ab00",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51A630"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51a630",
+          "size": 9,
+          "bytes": "6681258aa8fd00ff7f",
+          "mnemonic": "and",
+          "text": "and     gPlayerDataVal.field_18A, 7FFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a639",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51a630",
+          "end_exclusive": "0x51a63a",
+          "bytes": "6681258aa8fd00ff7fc3"
+        }
+      ],
+      "code_bytes": 10,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51BDB0",
+      "end_exclusive": "0x51BDB8",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51bdb0",
+          "0x51bdb8"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51ab10",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51BDB0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51bdb0",
+          "size": 7,
+          "bytes": "800d8ea8fd0001",
+          "mnemonic": "or",
+          "text": "or      gPlayerDataVal.charActionState, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x51bdb7",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51bdb0",
+          "end_exclusive": "0x51bdb8",
+          "bytes": "800d8ea8fd0001c3"
+        }
+      ],
+      "code_bytes": 8,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51BDC0",
+      "end_exclusive": "0x51BDCA",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51bdc0",
+          "0x51bdca"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51ab26",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51BDC0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51bdc0",
+          "size": 9,
+          "bytes": "6681258ea8fd00feff",
+          "mnemonic": "and",
+          "text": "and     word ptr gPlayerDataVal.charActionState, 0FFFEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x51bdc9",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51bdc0",
+          "end_exclusive": "0x51bdca",
+          "bytes": "6681258ea8fd00feffc3"
+        }
+      ],
+      "code_bytes": 10,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51BDD0",
+      "end_exclusive": "0x51BDE1",
+      "count": 4,
+      "chunks": [
+        [
+          "0x51bdd0",
+          "0x51bde1"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51ab49",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51BDD0"
+        },
+        {
+          "source": "0x51ad80",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51BDD0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51bdd0",
+          "size": 4,
+          "bytes": "8b442404",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51bdd4",
+          "size": 7,
+          "bytes": "800d8ea8fd0002",
+          "mnemonic": "or",
+          "text": "or      gPlayerDataVal.charActionState, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x51bddb",
+          "size": 5,
+          "bytes": "a390a8fd00",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerDataVal.field_190, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51bde0",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51bdd0",
+          "end_exclusive": "0x51bde1",
+          "bytes": "8b442404800d8ea8fd0002a390a8fd00c3"
+        }
+      ],
+      "code_bytes": 17,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51BDF0",
+      "end_exclusive": "0x51BE04",
+      "count": 3,
+      "chunks": [
+        [
+          "0x51bdf0",
+          "0x51be04"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51ad96",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51BDF0; jumptable 0051A85A case 64"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51bdf0",
+          "size": 9,
+          "bytes": "6681258ea8fd00fdff",
+          "mnemonic": "and",
+          "text": "and     word ptr gPlayerDataVal.charActionState, 0FFFDh",
+          "call_target": null
+        },
+        {
+          "ea": "0x51bdf9",
+          "size": 10,
+          "bytes": "c70590a8fd0000000000",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerDataVal.field_190, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x51be03",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51bdf0",
+          "end_exclusive": "0x51be04",
+          "bytes": "6681258ea8fd00fdffc70590a8fd0000000000c3"
+        }
+      ],
+      "code_bytes": 20,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51BE10",
+      "end_exclusive": "0x51BE18",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51be10",
+          "0x51be18"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51ab62",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51BE10; jumptable 0051A85A case 47"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51be10",
+          "size": 7,
+          "bytes": "800d8ea8fd0024",
+          "mnemonic": "or",
+          "text": "or      gPlayerDataVal.charActionState, 24h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51be17",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51be10",
+          "end_exclusive": "0x51be18",
+          "bytes": "800d8ea8fd0024c3"
+        }
+      ],
+      "code_bytes": 8,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51BE20",
+      "end_exclusive": "0x51BE28",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51be20",
+          "0x51be28"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51ab7f",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51BE20"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51be20",
+          "size": 7,
+          "bytes": "800d8ea8fd0008",
+          "mnemonic": "or",
+          "text": "or      gPlayerDataVal.charActionState, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x51be27",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51be20",
+          "end_exclusive": "0x51be28",
+          "bytes": "800d8ea8fd0008c3"
+        }
+      ],
+      "code_bytes": 8,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51BE30",
+      "end_exclusive": "0x51BE3A",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51be30",
+          "0x51be3a"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51ab95",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51BE30"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51be30",
+          "size": 9,
+          "bytes": "6681258ea8fd00f7ff",
+          "mnemonic": "and",
+          "text": "and     word ptr gPlayerDataVal.charActionState, 0FFF7h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51be39",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51be30",
+          "end_exclusive": "0x51be3a",
+          "bytes": "6681258ea8fd00f7ffc3"
+        }
+      ],
+      "code_bytes": 10,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51BE40",
+      "end_exclusive": "0x51BE48",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51be40",
+          "0x51be48"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x51abab",
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51BE40; jumptable 0051A85A case 49"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51be40",
+          "size": 7,
+          "bytes": "800d8ea8fd0050",
+          "mnemonic": "or",
+          "text": "or      gPlayerDataVal.charActionState, 50h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51be47",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51be40",
+          "end_exclusive": "0x51be48",
+          "bytes": "800d8ea8fd0050c3"
+        }
+      ],
+      "code_bytes": 8,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    },
+    {
+      "start": "0x51BEE0",
+      "end_exclusive": "0x51BEE8",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51bee0",
+          "0x51bee8"
+        ]
+      ],
+      "inbound": [
+        {
+          "source": "0x4409f8",
+          "type": 17,
+          "code": true,
+          "function": "0x440920",
+          "text": "call    sub_51BEE0"
+        },
+        {
+          "source": "0x440ad6",
+          "type": 17,
+          "code": true,
+          "function": "0x440920",
+          "text": "call    sub_51BEE0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51bee0",
+          "size": 7,
+          "bytes": "800d8ea8fd0080",
+          "mnemonic": "or",
+          "text": "or      gPlayerDataVal.charActionState, 80h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51bee7",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x51bee0",
+          "end_exclusive": "0x51bee8",
+          "bytes": "800d8ea8fd0080c3"
+        }
+      ],
+      "code_bytes": 8,
+      "pages": 1,
+      "calls": [],
+      "indirect_calls": []
+    }
+  ],
+  "original_unassigned_ranges": [
+    {
+      "start": "0x51A608",
+      "end_exclusive": "0x51A610",
+      "size": 8,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x51a608",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a609",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51a607",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51a610"
+    },
+    {
+      "start": "0x51A61A",
+      "end_exclusive": "0x51A620",
+      "size": 6,
+      "bytes": "909090909090",
+      "decode": [
+        {
+          "ea": "0x51a61a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51a619",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51a620"
+    },
+    {
+      "start": "0x51A628",
+      "end_exclusive": "0x51A630",
+      "size": 8,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x51a628",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a629",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51a627",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51a630"
+    },
+    {
+      "start": "0x51A63A",
+      "end_exclusive": "0x51A640",
+      "size": 6,
+      "bytes": "909090909090",
+      "decode": [
+        {
+          "ea": "0x51a63a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51a639",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51a640"
+    },
+    {
+      "start": "0x51BDB8",
+      "end_exclusive": "0x51BDC0",
+      "size": 8,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x51bdb8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdb9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdba",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51bdb7",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51bdc0"
+    },
+    {
+      "start": "0x51BDCA",
+      "end_exclusive": "0x51BDD0",
+      "size": 6,
+      "bytes": "909090909090",
+      "decode": [
+        {
+          "ea": "0x51bdca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdcb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdcc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdcd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdce",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdcf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51bdc9",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51bdd0"
+    },
+    {
+      "start": "0x51BDE1",
+      "end_exclusive": "0x51BDF0",
+      "size": 15,
+      "bytes": "909090909090909090909090909090",
+      "decode": [
+        {
+          "ea": "0x51bde1",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde2",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde3",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdeb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bded",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51bde0",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51bdf0"
+    },
+    {
+      "start": "0x51BE04",
+      "end_exclusive": "0x51BE10",
+      "size": 12,
+      "bytes": "909090909090909090909090",
+      "decode": [
+        {
+          "ea": "0x51be04",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be05",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be06",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be07",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be08",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be09",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51be03",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51be10"
+    },
+    {
+      "start": "0x51BE18",
+      "end_exclusive": "0x51BE20",
+      "size": 8,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x51be18",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be19",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51be17",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51be20"
+    },
+    {
+      "start": "0x51BE28",
+      "end_exclusive": "0x51BE30",
+      "size": 8,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x51be28",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be29",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51be27",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51be30"
+    },
+    {
+      "start": "0x51BE3A",
+      "end_exclusive": "0x51BE40",
+      "size": 6,
+      "bytes": "909090909090",
+      "decode": [
+        {
+          "ea": "0x51be3a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51be39",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51be40"
+    },
+    {
+      "start": "0x51BE48",
+      "end_exclusive": "0x51BE50",
+      "size": 8,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x51be48",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be49",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51be47",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51be50"
+    },
+    {
+      "start": "0x51BEE8",
+      "end_exclusive": "0x51BEF0",
+      "size": 8,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x51bee8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bee9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beeb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beed",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "preceding": {
+        "ea": "0x51bee7",
+        "mnemonic": "retn"
+      },
+      "following_function": "0x51bef0"
+    }
+  ],
+  "source_patches": [
+    {
+      "from": "void Sub_51A600()\n{\n    gPlayerRuntime.flags18A |= 0x4000u;\n}",
+      "to": "void Sub_51A600()\n{\n    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A)[1] |= 0x40u;\n}"
+    },
+    {
+      "from": "void Sub_51A620()\n{\n    gPlayerRuntime.flags18A |= 0x8000u;\n}",
+      "to": "void Sub_51A620()\n{\n    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A)[1] |= 0x80u;\n}"
+    },
+    {
+      "from": "void Sub_51BDB0()\n{\n    gPlayerRuntime.flags18C |= 0x00010000u;\n}",
+      "to": "void Sub_51BDB0()\n{\n    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 1u;\n}"
+    },
+    {
+      "from": "void Sub_51BE10()\n{\n    gPlayerRuntime.flags18C |= 0x00240000u;\n}",
+      "to": "void Sub_51BE10()\n{\n    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 0x24u;\n}"
+    },
+    {
+      "from": "void Sub_51BE20()\n{\n    gPlayerRuntime.flags18C |= 0x00080000u;\n}",
+      "to": "void Sub_51BE20()\n{\n    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 8u;\n}"
+    },
+    {
+      "from": "void Sub_51BE40()\n{\n    gPlayerRuntime.flags18C |= 0x00500000u;\n}",
+      "to": "void Sub_51BE40()\n{\n    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 0x50u;\n}"
+    },
+    {
+      "from": "void Sub_51BEE0()\n{\n    gPlayerRuntime.flags18C |= 0x00800000u;\n}",
+      "to": "void Sub_51BEE0()\n{\n    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 0x80u;\n}"
+    },
+    {
+      "from": "void Sub_51BDC0()\n{\n    gPlayerRuntime.flags18C &= 0xFFFEFFFFu;\n}",
+      "to": "void Sub_51BDC0()\n{\n    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;\n    std::uint16_t actionFlags;\n    std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));\n    actionFlags &= 0xFFFEu;\n    std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));\n}"
+    },
+    {
+      "from": "void Sub_51BE30()\n{\n    gPlayerRuntime.flags18C &= 0xFFF7FFFFu;\n}",
+      "to": "void Sub_51BE30()\n{\n    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;\n    std::uint16_t actionFlags;\n    std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));\n    actionFlags &= 0xFFF7u;\n    std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));\n}"
+    },
+    {
+      "from": "std::int32_t Sub_51BDD0(const std::int32_t value)\n{\n    gPlayerRuntime.flags18C |= 0x00020000u;\n    gPlayerRuntime.value190 = value;\n    return value;\n}",
+      "to": "std::int32_t Sub_51BDD0(const std::int32_t value)\n{\n    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 2u;\n    gPlayerRuntime.value190 = value;\n    return value;\n}"
+    },
+    {
+      "from": "void Sub_51BDF0()\n{\n    gPlayerRuntime.flags18C &= 0xFFFDFFFFu;\n    gPlayerRuntime.value190 = 0;\n}",
+      "to": "void Sub_51BDF0()\n{\n    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;\n    std::uint16_t actionFlags;\n    std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));\n    actionFlags &= 0xFFFDu;\n    std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));\n    gPlayerRuntime.value190 = 0;\n}"
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "src/world/SceneState.cpp",
+      "length": 450035
+    }
+  ],
+  "snapshot_functions_before": [
+    {
+      "id": "F:0011A600",
+      "original_entry": "0x51A600",
+      "original_name": "sub_51A600",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51A600",
+          "definition_line": 9679,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011A610",
+      "original_entry": "0x51A610",
+      "original_name": "sub_51A610",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51A610",
+          "definition_line": 9684,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011A620",
+      "original_entry": "0x51A620",
+      "original_name": "sub_51A620",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51A620",
+          "definition_line": 9689,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011A630",
+      "original_entry": "0x51A630",
+      "original_name": "sub_51A630",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51A630",
+          "definition_line": 9694,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011BDB0",
+      "original_entry": "0x51BDB0",
+      "original_name": "sub_51BDB0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51BDB0",
+          "definition_line": 9699,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011BDC0",
+      "original_entry": "0x51BDC0",
+      "original_name": "sub_51BDC0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51BDC0",
+          "definition_line": 9704,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011BDD0",
+      "original_entry": "0x51BDD0",
+      "original_name": "sub_51BDD0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51BDD0",
+          "definition_line": 9744,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011BDF0",
+      "original_entry": "0x51BDF0",
+      "original_name": "sub_51BDF0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51BDF0",
+          "definition_line": 9751,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011BE10",
+      "original_entry": "0x51BE10",
+      "original_name": "sub_51BE10",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51BE10",
+          "definition_line": 9709,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011BE20",
+      "original_entry": "0x51BE20",
+      "original_name": "sub_51BE20",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51BE20",
+          "definition_line": 9714,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011BE30",
+      "original_entry": "0x51BE30",
+      "original_name": "sub_51BE30",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51BE30",
+          "definition_line": 9719,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011BE40",
+      "original_entry": "0x51BE40",
+      "original_name": "sub_51BE40",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51BE40",
+          "definition_line": 9724,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011BEE0",
+      "original_entry": "0x51BEE0",
+      "original_name": "sub_51BEE0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51BEE0",
+          "definition_line": 9729,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "ranges_before": [
+    {
+      "id": "X:0011A608-0011A610",
+      "start": "0x51A608",
+      "end_exclusive": "0x51A610",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011A61A-0011A620",
+      "start": "0x51A61A",
+      "end_exclusive": "0x51A620",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011A628-0011A630",
+      "start": "0x51A628",
+      "end_exclusive": "0x51A630",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011A63A-0011A640",
+      "start": "0x51A63A",
+      "end_exclusive": "0x51A640",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011BDB8-0011BDC0",
+      "start": "0x51BDB8",
+      "end_exclusive": "0x51BDC0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011BDCA-0011BDD0",
+      "start": "0x51BDCA",
+      "end_exclusive": "0x51BDD0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011BDE1-0011BDF0",
+      "start": "0x51BDE1",
+      "end_exclusive": "0x51BDF0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011BE04-0011BE10",
+      "start": "0x51BE04",
+      "end_exclusive": "0x51BE10",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011BE18-0011BE20",
+      "start": "0x51BE18",
+      "end_exclusive": "0x51BE20",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011BE28-0011BE30",
+      "start": "0x51BE28",
+      "end_exclusive": "0x51BE30",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011BE3A-0011BE40",
+      "start": "0x51BE3A",
+      "end_exclusive": "0x51BE40",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011BE48-0011BE50",
+      "start": "0x51BE48",
+      "end_exclusive": "0x51BE50",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011BEE8-0011BEF0",
+      "start": "0x51BEE8",
+      "end_exclusive": "0x51BEF0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    }
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "U10",
+      "state": "open",
+      "reference_count": 36
+    },
+    {
+      "task_id": "V03",
+      "state": "open",
+      "reference_count": 43
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 214
+    }
+  ],
+  "feature_member_counts_before": [
+    {
+      "id": "FUNC-LOOP",
+      "count": 42
+    },
+    {
+      "id": "FUNC-BATTLE",
+      "count": 253
+    }
+  ],
+  "source_length": 450035,
+  "feature_members_after": [
+    {
+      "id": "FUNC-LOOP",
+      "count": 46
+    },
+    {
+      "id": "FUNC-BATTLE",
+      "count": 262
+    }
+  ],
+  "new_semantic_count": 13,
+  "new_function_disposition_count": 13,
+  "new_range_disposition_count": 13,
+  "source_body_changed_count": 11,
+  "runtime_verified": false,
+  "full_parent_or_machine_abi_verified": false,
+  "full_lifecycle_closed": false,
+  "fault_equivalence_claimed": false,
+  "original_owner_and_other_source_bodies_kept": true
+}

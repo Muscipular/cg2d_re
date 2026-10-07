@@ -10177,7 +10177,7 @@ void Sub_51A5F0()
 
 void Sub_51A600()
 {
-    gPlayerRuntime.flags18A |= 0x4000u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A)[1] |= 0x40u;
 }
 
 void Sub_51A610()
@@ -10187,7 +10187,7 @@ void Sub_51A610()
 
 void Sub_51A620()
 {
-    gPlayerRuntime.flags18A |= 0x8000u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A)[1] |= 0x80u;
 }
 
 void Sub_51A630()
@@ -10197,37 +10197,45 @@ void Sub_51A630()
 
 void Sub_51BDB0()
 {
-    gPlayerRuntime.flags18C |= 0x00010000u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 1u;
 }
 
 void Sub_51BDC0()
 {
-    gPlayerRuntime.flags18C &= 0xFFFEFFFFu;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;
+    std::uint16_t actionFlags;
+    std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
+    actionFlags &= 0xFFFEu;
+    std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
 }
 
 void Sub_51BE10()
 {
-    gPlayerRuntime.flags18C |= 0x00240000u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 0x24u;
 }
 
 void Sub_51BE20()
 {
-    gPlayerRuntime.flags18C |= 0x00080000u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 8u;
 }
 
 void Sub_51BE30()
 {
-    gPlayerRuntime.flags18C &= 0xFFF7FFFFu;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;
+    std::uint16_t actionFlags;
+    std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
+    actionFlags &= 0xFFF7u;
+    std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
 }
 
 void Sub_51BE40()
 {
-    gPlayerRuntime.flags18C |= 0x00500000u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 0x50u;
 }
 
 void Sub_51BEE0()
 {
-    gPlayerRuntime.flags18C |= 0x00800000u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 0x80u;
 }
 
 login::YobiAction* Sub_51A5B0()
@@ -10242,14 +10250,18 @@ login::YobiAction* Sub_51A5B0()
 
 std::int32_t Sub_51BDD0(const std::int32_t value)
 {
-    gPlayerRuntime.flags18C |= 0x00020000u;
+    reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[2] |= 2u;
     gPlayerRuntime.value190 = value;
     return value;
 }
 
 void Sub_51BDF0()
 {
-    gPlayerRuntime.flags18C &= 0xFFFDFFFFu;
+    auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;
+    std::uint16_t actionFlags;
+    std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
+    actionFlags &= 0xFFFDu;
+    std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
     gPlayerRuntime.value190 = 0;
 }
 

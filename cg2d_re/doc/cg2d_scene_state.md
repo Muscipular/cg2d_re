@@ -7733,3 +7733,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 按[BTK01裁决](cg2d_player_state_byte_publication_spec.md#player-state-byte-decision)实修A0/B0/E0三个既有正文三片段：A0只flags18A高BYTE OR1，再flags18C低BYTE1；E0只高BYTE OR2；B0先取同action，再直接低BYTE0。B0原NULL/field2E4!=2才真实W16 AND FEFF并返回同原生action，F0原无门禁真实W16 AND FDFF，均保持，不能把取消也统一改BYTE。
 
 四完整叶15条68B/四页四块、无CALL两jump四RET，11入向六父。flags18A W16/flags18C W32唯一owner及跨字段观察/其它部分保，不造影子状态/helper。补四原F语义1616-1619、LOOP38→42/三adapted一equivalent、两局部I-S各21来源及四NOP区28B用途；测宽/三条清理父正确保正文，不纳新身份。全六父/资料生产消费/正常寿命、ABI/链接/明文互通/运行未验。
+
+## 玩家及动作状态叶实际W8/W16访问（BTL01，2026-10-07）
+
+按[BTL01裁决](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision)实修SceneState.cpp十一既有正文十一片段：八置位只改原BYTE，三动作取消只改flags18C高W16，以2B memcpy保储存别名；两玩家BFFF/7FFF取消原W16正确保。BDD0仍先取同完整参数→BYTE OR2→value190 W32发布→同值返回，BDF0 W16 ANDFFFD→value190 W32零；现BEC0/BE50、两父与所有接口/唯一owner保。
+
+十三完整叶29条133B/十三页、无CALL无jump十三RET，15点两父。十三新语义1620-1632/十一adapted两equivalent、LOOP42→46/BATTLE253→262，四局部I-S各29来源/十三区107B仅NOP用途；全父/资料生产消费/正常寿命及ABI、链接、明文互通和运行仍需整体验收。

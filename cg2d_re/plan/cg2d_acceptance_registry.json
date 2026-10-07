@@ -602,7 +602,8 @@
         "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
         "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline",
         "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-baseline",
-        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline"
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -646,7 +647,11 @@
         "F:0011A5A0",
         "F:0011A5B0",
         "F:0011A5E0",
-        "F:0011A5F0"
+        "F:0011A5F0",
+        "F:0011A600",
+        "F:0011A610",
+        "F:0011A620",
+        "F:0011A630"
       ],
       "closure_task_ids": [
         "U11",
@@ -678,7 +683,8 @@
         "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision",
         "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision",
         "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-decision",
-        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision"
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -701,7 +707,8 @@
         "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
         "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
         "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
-        "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+        "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+        "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -725,7 +732,8 @@
         "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
         "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
         "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
-        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state"
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state"
       ]
     },
     {
@@ -2546,7 +2554,8 @@
         "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline",
         "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
-        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline"
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2801,7 +2810,16 @@
         "F:0010D3C0",
         "F:0010D120",
         "F:0010D500",
-        "F:0010D3B0"
+        "F:0010D3B0",
+        "F:0011BDB0",
+        "F:0011BDC0",
+        "F:0011BDD0",
+        "F:0011BDF0",
+        "F:0011BE10",
+        "F:0011BE20",
+        "F:0011BE30",
+        "F:0011BE40",
+        "F:0011BEE0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2923,7 +2941,8 @@
         "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision",
         "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
-        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision"
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -3034,7 +3053,8 @@
         "BQU01三完整988条3638B/14页，92CALL=91direct/24callee+1GetTickCount IAT、137普通jump/三switch/四RET；两体18位置恢复15真实W8/两cost-first既有桥和W32 held谓词先count pub，正常值/FP单Read与RNG一致。主state0..5/模式0..4/phase0..3/20槽/三提示取样/原256B H-S-I-W和目标后freshsocket发送/弃返、名称费用W32坐标→S16与图尾、各种count-command-lastPet/Close保；正确目标提示体不改。倒计时完整到期门禁/多次N和W|FF每次fresh socket/flag重读/finish/MarkDeath清槽/十秒声与16B显示保。62B X=2B同寄存器MOV对齐+60B三W32表/十五目标及三入向仅用途mapped，R7 265余2796。899/922旧业务/历史保完整续记、1559一新正常F，242成员open。纠正BQT keyboard泛称，本根完整静态已补，上游43CBB0/全技能-pet生产/其它窗口/owner寿命/SDK/机器ABI/运行/R8未验；原旧阶段描述不代表当前仍缺该主根，不增键盘事实",
         "BQV01四完整287条872B/六页，16directcall两callee/36jump十二RET、46真实代码入向/16父只登记；两consumer体四片段恢复两个BYTE桥调用与图号W32→DX表T*→hoverImage/动作字段→同表height/width低S16，共用低BYTE桥一处实修、render三小桥/opaque声明仅已证非拥有T*不造新原F，原flags/坐标W32/尺寸W16及旧DX接口保。原四排20项/40-80-100-200优先/配对纵邻-右邻-左邻、两十位或全体排除自身与position/+20/40-41/42/-1、矩形lowW16/层206/heldimage/0保持；两正确Reset9/五宠used严格1且flags6AA严格2体纳管不改。四X共40B全90/NOPdecode/逐byte无入向、前RET后函数填充用途mapped，R7 269余2792；246成员open，完整targetFlags/技能-pet生产、43CBB0等上游/其它父/全部owner及窗口寿命/SDK/机器ABI/运行/R8未验，原协议明文与音频/执行限制保",
         "BQW01四完整164条542B/五页，7CALL=6direct四callee+1GetTickCount IAT/16jump八RET、五入向四父；两体三片段恢复live endBits W32→S32 SAR低1和C/M各word-copy→held next→tail-copy→CMP4谓词→pub/可选0，正常结果/共享W32及原20槽四1000H槽保。正确初始化30秒/计数/clear-发布/显示/活宠-last门禁与clear W32 AND~40体不改，P六%X/A双%X原text+2/24B格式和真实输出地址、scan返回弃置及partial失败后续、pending严格1的held turn→pending0→snapshot→结束位发布、C-P-A优先于第二BYTE U且U优先M/原首参未使用和全部return保。四X18B NOP全字节/逐byte无入向/前RET后真入口用途mapped，R7 273余2788；250成员open，BMF01既有43CBB0完整十状态正常源静态与三域局部I-S继承不复检，完整512E40分派/全技能-pet生产/全部owner及窗口寿命/SDK/ABI/画面运行/R8未验，原协议明文及音频/执行限制保",
-        "BQX01三完整323条1177B/六页、34directcall十九callee/24jump五RET无switch，三真实入向同512E40只局部绑定。两主根11片段恢复四数值载体mask-encoded-W8 count读齐再pub/非正type count先独立序，四construct-destroy/RNG保；type2及非2 type3谓词先pub、两field首parser前递增/低S16-S32 pub后判持有返回值，原负值零写/姓名<=28或只首BYTE清保。既有ReadPlayerFlags18A改同private owner一次4B跨字段观察、offsetof adjacency assert与注释，原W16 flags18A/W32 flags18C不扩/旧caller不改。原4结果/3图名/15技能与8B/29B、三2048B未清buffer/2047容量/comma-bar/Base62/两Unescape链和解析返弃、旧格式明文/各种失败及清理保持。正确W16 sZWu三指令叶及caller覆盖EAX有据，原53BDC0栈探测只元信息，音频暂停，不据本步验callee或ABI。真实两X4/3B共7B全NOP无入向/前RET后入口用途mapped，R7 275余2786；253成员open，全部owner/窗口寿命/全生产/其它resultconsumer/完整512E40分派/CRT-SDK-ABI/画面运行/R8未验"
+        "BQX01三完整323条1177B/六页、34directcall十九callee/24jump五RET无switch，三真实入向同512E40只局部绑定。两主根11片段恢复四数值载体mask-encoded-W8 count读齐再pub/非正type count先独立序，四construct-destroy/RNG保；type2及非2 type3谓词先pub、两field首parser前递增/低S16-S32 pub后判持有返回值，原负值零写/姓名<=28或只首BYTE清保。既有ReadPlayerFlags18A改同private owner一次4B跨字段观察、offsetof adjacency assert与注释，原W16 flags18A/W32 flags18C不扩/旧caller不改。原4结果/3图名/15技能与8B/29B、三2048B未清buffer/2047容量/comma-bar/Base62/两Unescape链和解析返弃、旧格式明文/各种失败及清理保持。正确W16 sZWu三指令叶及caller覆盖EAX有据，原53BDC0栈探测只元信息，音频暂停，不据本步验callee或ABI。真实两X4/3B共7B全NOP无入向/前RET后入口用途mapped，R7 275余2786；253成员open，全部owner/窗口寿命/全生产/其它resultconsumer/完整512E40分派/CRT-SDK-ABI/画面运行/R8未验",
+        "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3145,7 +3165,8 @@
         "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
         "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
-        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state"
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state"
       ]
     },
     {
@@ -38303,6 +38324,210 @@
       "observation": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
       "expected": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
       "actual": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+    },
+    {
+      "id": "E-PLAYER-ACTION-FLAG-WIDTHS-LOOP-I-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTL01十三完整状态叶29条133B/十三页无call无jump十三RET、15点两父，八W8置位/五W16清位及两value190时点，doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-action-flag-widths-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json",
+        "src/world/SceneState.cpp#Sub_51A600",
+        "src/world/SceneState.cpp#Sub_51A610",
+        "src/world/SceneState.cpp#Sub_51A620",
+        "src/world/SceneState.cpp#Sub_51A630",
+        "src/world/SceneState.cpp#Sub_51BDB0",
+        "src/world/SceneState.cpp#Sub_51BDC0",
+        "src/world/SceneState.cpp#Sub_51BDD0",
+        "src/world/SceneState.cpp#Sub_51BDF0",
+        "src/world/SceneState.cpp#Sub_51BE10",
+        "src/world/SceneState.cpp#Sub_51BE20",
+        "src/world/SceneState.cpp#Sub_51BE30",
+        "src/world/SceneState.cpp#Sub_51BE40",
+        "src/world/SceneState.cpp#Sub_51BEE0",
+        "src/world/SceneState.cpp#Sub_51A840",
+        "src/YobiRuntime.cpp#Sub_440920",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp#Sub_51BE50",
+        "src/world/SceneState.cpp#Sub_51BEC0",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline"
+      ],
+      "differences": [
+        {
+          "description": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+          "decision_ref": "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "expected": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "actual": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "E-PLAYER-ACTION-FLAG-WIDTHS-LOOP-S-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTL01十三完整状态叶29条133B/十三页无call无jump十三RET、15点两父，八W8置位/五W16清位及两value190时点，doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-action-flag-widths-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json",
+        "src/world/SceneState.cpp#Sub_51A600",
+        "src/world/SceneState.cpp#Sub_51A610",
+        "src/world/SceneState.cpp#Sub_51A620",
+        "src/world/SceneState.cpp#Sub_51A630",
+        "src/world/SceneState.cpp#Sub_51BDB0",
+        "src/world/SceneState.cpp#Sub_51BDC0",
+        "src/world/SceneState.cpp#Sub_51BDD0",
+        "src/world/SceneState.cpp#Sub_51BDF0",
+        "src/world/SceneState.cpp#Sub_51BE10",
+        "src/world/SceneState.cpp#Sub_51BE20",
+        "src/world/SceneState.cpp#Sub_51BE30",
+        "src/world/SceneState.cpp#Sub_51BE40",
+        "src/world/SceneState.cpp#Sub_51BEE0",
+        "src/world/SceneState.cpp#Sub_51A840",
+        "src/YobiRuntime.cpp#Sub_440920",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp#Sub_51BE50",
+        "src/world/SceneState.cpp#Sub_51BEC0",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline"
+      ],
+      "differences": [
+        {
+          "description": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+          "decision_ref": "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "expected": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "actual": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "E-PLAYER-ACTION-FLAG-WIDTHS-BATTLE-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTL01十三完整状态叶29条133B/十三页无call无jump十三RET、15点两父，八W8置位/五W16清位及两value190时点，doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-action-flag-widths-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json",
+        "src/world/SceneState.cpp#Sub_51A600",
+        "src/world/SceneState.cpp#Sub_51A610",
+        "src/world/SceneState.cpp#Sub_51A620",
+        "src/world/SceneState.cpp#Sub_51A630",
+        "src/world/SceneState.cpp#Sub_51BDB0",
+        "src/world/SceneState.cpp#Sub_51BDC0",
+        "src/world/SceneState.cpp#Sub_51BDD0",
+        "src/world/SceneState.cpp#Sub_51BDF0",
+        "src/world/SceneState.cpp#Sub_51BE10",
+        "src/world/SceneState.cpp#Sub_51BE20",
+        "src/world/SceneState.cpp#Sub_51BE30",
+        "src/world/SceneState.cpp#Sub_51BE40",
+        "src/world/SceneState.cpp#Sub_51BEE0",
+        "src/world/SceneState.cpp#Sub_51A840",
+        "src/YobiRuntime.cpp#Sub_440920",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp#Sub_51BE50",
+        "src/world/SceneState.cpp#Sub_51BEC0",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline"
+      ],
+      "differences": [
+        {
+          "description": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+          "decision_ref": "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "expected": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "actual": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "id": "E-PLAYER-ACTION-FLAG-WIDTHS-BATTLE-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTL01十三完整状态叶29条133B/十三页无call无jump十三RET、15点两父，八W8置位/五W16清位及两value190时点，doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-action-flag-widths-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json",
+        "src/world/SceneState.cpp#Sub_51A600",
+        "src/world/SceneState.cpp#Sub_51A610",
+        "src/world/SceneState.cpp#Sub_51A620",
+        "src/world/SceneState.cpp#Sub_51A630",
+        "src/world/SceneState.cpp#Sub_51BDB0",
+        "src/world/SceneState.cpp#Sub_51BDC0",
+        "src/world/SceneState.cpp#Sub_51BDD0",
+        "src/world/SceneState.cpp#Sub_51BDF0",
+        "src/world/SceneState.cpp#Sub_51BE10",
+        "src/world/SceneState.cpp#Sub_51BE20",
+        "src/world/SceneState.cpp#Sub_51BE30",
+        "src/world/SceneState.cpp#Sub_51BE40",
+        "src/world/SceneState.cpp#Sub_51BEE0",
+        "src/world/SceneState.cpp#Sub_51A840",
+        "src/YobiRuntime.cpp#Sub_440920",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp#Sub_51BE50",
+        "src/world/SceneState.cpp#Sub_51BEC0",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline"
+      ],
+      "differences": [
+        {
+          "description": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+          "decision_ref": "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "expected": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "actual": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
     }
   ],
   "task_acceptance": [
@@ -38770,7 +38995,8 @@
         "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state",
         "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-source-state",
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-source-state",
-        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state"
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state"
       ]
     },
     {
@@ -38820,7 +39046,8 @@
         "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state",
         "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-source-state",
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-source-state",
-        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state"
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state"
       ]
     },
     {
@@ -39345,7 +39572,8 @@
         "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state",
         "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-source-state",
         "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-source-state",
-        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state"
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state"
       ]
     },
     {
@@ -48633,6 +48861,175 @@
         "doc/cg2d_player_state_byte_publication_evidence.json"
       ],
       "boundary": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+    },
+    {
+      "inventory_id": "F:0011A600",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18A高BYTE OR40，低BYTE不读写。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011A610",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "原flags18A真实W16 AND BFFF，正确正文保持。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011A620",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18A高BYTE OR80，低BYTE不读写。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011A630",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "原flags18A真实W16 AND7FFF，正确正文保持。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011BDB0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR1，不触及其余三BYTE。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011BDC0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2..3]实际W16 ANDFFFE，不触及低W16；以2B memcpy承载，不造uint16指针别名。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011BDD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "原arg先取为完整S32，同flags18C[2]实际W8 OR2→value190 W32发布→返回同value，原两调用参数/弃返保。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011BDF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "同flags18C[2..3]真实W16 ANDFFFD→value190完整W32清0，顺序保；以2B memcpy承载。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011BE10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR24，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011BE20",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR8，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011BE30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2..3]真实W16 ANDFFF7，以2B memcpy承载，低W16不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011BE40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR50，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+    },
+    {
+      "inventory_id": "F:0011BEE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR80，两观察入口实际call点接线保，不将父未验写成完整验收。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
     }
   ],
   "auxiliary_dispositions": [
@@ -59039,6 +59436,1096 @@
           "size": 1,
           "bytes": "90",
           "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0011A608-0011A610",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51a608",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a609",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a60f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011A61A-0011A620",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 6,
+      "original_bytes": "909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51a61a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a61f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011A628-0011A630",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51a628",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a629",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a62f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011A63A-0011A640",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 6,
+      "original_bytes": "909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51a63a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51a63f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011BDB8-0011BDC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51bdb8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdb9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdba",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdbf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011BDCA-0011BDD0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 6,
+      "original_bytes": "909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51bdca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdcb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdcc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdcd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdce",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdcf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011BDE1-0011BDF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 15,
+      "original_bytes": "909090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51bde1",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde2",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde3",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bde9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdeb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bded",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bdef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011BE04-0011BE10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 12,
+      "original_bytes": "909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51be04",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be05",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be06",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be07",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be08",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be09",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be0f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011BE18-0011BE20",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51be18",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be19",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be1f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011BE28-0011BE30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51be28",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be29",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be2f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011BE3A-0011BE40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 6,
+      "original_bytes": "909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51be3a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be3f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011BE48-0011BE50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51be48",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be49",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51be4f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011BEE8-0011BEF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "reason": "BTL01十三相邻区107B逐BYTE实际NN_NOP/90/无入向/前RET后真入口，仅原对齐用途，不造原F/helper/范围排除或完整运行验收",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51bee8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51bee9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beeb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beed",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51beef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "mnemonic": "",
+          "text": "align 10h"
         }
       ]
     }

@@ -1466,3 +1466,9 @@ source→共享BYTE/同输入NUL、未初始化FF不作原文本/现owner初值�
 [基线](cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline)、[裁决](cg2d_player_state_byte_publication_spec.md#player-state-byte-decision)、[验收](cg2d_player_state_byte_publication_spec.md#player-state-byte-acceptance)和[证据](cg2d_player_state_byte_publication_evidence.json)对应一cpp三正文三片段、四新语义/实际LOOP成员及处置（F0equivalent）、两局部I-S各21来源及四区28B用途。三任务仅current/引用保open，P05-P08原closed/pending7及完整门禁保。
 
 两高BYTE OR及18C低BYTE1/0发布落实，实际W16取消/同action/field2E4条件、owner布局/跨字段观察与全其它源头保持；完整15原指令/11点六父只证叶边界。全父/资料生产消费及全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续。
+
+## BTL01 玩家/动作状态访问宽度开发验收（2026-10-07）
+
+[基线](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline)、[裁决](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision)、[验收](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance)和[证据](cg2d_player_action_flag_widths_evidence.json)覆盖一源十一正文十一片段：八BYTE置位、三原W16动作取消，另两正确W16取消及值取样/发布/返回保持。十三完整根29条133B/15点两父与107B用途有据，未验全父。
+
+十三实际原F新增语义/处置及两域成员，LOOP46/BATTLE262；四局部I-S各29真实来源，三任务仅current/引用保open。原pending7/其它pending18、已closed任务及全部完整门禁保；全正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续，不以局部pass替代。

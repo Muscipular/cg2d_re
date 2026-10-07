@@ -188011,6 +188011,812 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x51A600",
+      "inventory_id": "F:0011A600",
+      "original_role": "玩家4000置位",
+      "original_end_exclusive": "0x51A608",
+      "original_chunks": [
+        {
+          "start": "0x51a600",
+          "end_exclusive": "0x51a608",
+          "bytes": "800d8ba8fd0040c3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A600"
+          ],
+          "relationship": "flags18A高BYTE OR40，低BYTE不读写。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18A高BYTE OR40，低BYTE不读写。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51A610",
+      "inventory_id": "F:0011A610",
+      "original_role": "玩家4000原W16清位",
+      "original_end_exclusive": "0x51A61A",
+      "original_chunks": [
+        {
+          "start": "0x51a610",
+          "end_exclusive": "0x51a61a",
+          "bytes": "6681258aa8fd00ffbfc3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A610"
+          ],
+          "relationship": "原flags18A真实W16 AND BFFF，正确正文保持。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "原flags18A真实W16 AND BFFF，正确正文保持。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 10,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51A620",
+      "inventory_id": "F:0011A620",
+      "original_role": "玩家8000置位",
+      "original_end_exclusive": "0x51A628",
+      "original_chunks": [
+        {
+          "start": "0x51a620",
+          "end_exclusive": "0x51a628",
+          "bytes": "800d8ba8fd0080c3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A620"
+          ],
+          "relationship": "flags18A高BYTE OR80，低BYTE不读写。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18A高BYTE OR80，低BYTE不读写。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51A630",
+      "inventory_id": "F:0011A630",
+      "original_role": "玩家8000原W16清位",
+      "original_end_exclusive": "0x51A63A",
+      "original_chunks": [
+        {
+          "start": "0x51a630",
+          "end_exclusive": "0x51a63a",
+          "bytes": "6681258aa8fd00ff7fc3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A630"
+          ],
+          "relationship": "原flags18A真实W16 AND7FFF，正确正文保持。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "原flags18A真实W16 AND7FFF，正确正文保持。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 10,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BDB0",
+      "inventory_id": "F:0011BDB0",
+      "original_role": "动作bit0置位",
+      "original_end_exclusive": "0x51BDB8",
+      "original_chunks": [
+        {
+          "start": "0x51bdb0",
+          "end_exclusive": "0x51bdb8",
+          "bytes": "800d8ea8fd0001c3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BDB0"
+          ],
+          "relationship": "flags18C[2]实际W8 OR1，不触及其余三BYTE。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR1，不触及其余三BYTE。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BDC0",
+      "inventory_id": "F:0011BDC0",
+      "original_role": "动作bit0清位",
+      "original_end_exclusive": "0x51BDCA",
+      "original_chunks": [
+        {
+          "start": "0x51bdc0",
+          "end_exclusive": "0x51bdca",
+          "bytes": "6681258ea8fd00feffc3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BDC0"
+          ],
+          "relationship": "flags18C[2..3]实际W16 ANDFFFE，不触及低W16；以2B memcpy承载，不造uint16指针别名。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2..3]实际W16 ANDFFFE，不触及低W16；以2B memcpy承载，不造uint16指针别名。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 10,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BDD0",
+      "inventory_id": "F:0011BDD0",
+      "original_role": "动作bit1与value190发布",
+      "original_end_exclusive": "0x51BDE1",
+      "original_chunks": [
+        {
+          "start": "0x51bdd0",
+          "end_exclusive": "0x51bde1",
+          "bytes": "8b442404800d8ea8fd0002a390a8fd00c3"
+        }
+      ],
+      "instruction_count": 4,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BDD0"
+          ],
+          "relationship": "原arg先取为完整S32，同flags18C[2]实际W8 OR2→value190 W32发布→返回同value，原两调用参数/弃返保。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "原arg先取为完整S32，同flags18C[2]实际W8 OR2→value190 W32发布→返回同value，原两调用参数/弃返保。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 4,
+        "original_code_bytes": 17,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 2,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BDF0",
+      "inventory_id": "F:0011BDF0",
+      "original_role": "动作bit1与value190清除",
+      "original_end_exclusive": "0x51BE04",
+      "original_chunks": [
+        {
+          "start": "0x51bdf0",
+          "end_exclusive": "0x51be04",
+          "bytes": "6681258ea8fd00fdffc70590a8fd0000000000c3"
+        }
+      ],
+      "instruction_count": 3,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BDF0"
+          ],
+          "relationship": "同flags18C[2..3]真实W16 ANDFFFD→value190完整W32清0，顺序保；以2B memcpy承载。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "同flags18C[2..3]真实W16 ANDFFFD→value190完整W32清0，顺序保；以2B memcpy承载。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 3,
+        "original_code_bytes": 20,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BE10",
+      "inventory_id": "F:0011BE10",
+      "original_role": "动作24置位",
+      "original_end_exclusive": "0x51BE18",
+      "original_chunks": [
+        {
+          "start": "0x51be10",
+          "end_exclusive": "0x51be18",
+          "bytes": "800d8ea8fd0024c3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BE10"
+          ],
+          "relationship": "flags18C[2]实际W8 OR24，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR24，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BE20",
+      "inventory_id": "F:0011BE20",
+      "original_role": "动作bit3置位",
+      "original_end_exclusive": "0x51BE28",
+      "original_chunks": [
+        {
+          "start": "0x51be20",
+          "end_exclusive": "0x51be28",
+          "bytes": "800d8ea8fd0008c3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BE20"
+          ],
+          "relationship": "flags18C[2]实际W8 OR8，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR8，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BE30",
+      "inventory_id": "F:0011BE30",
+      "original_role": "动作bit3清位",
+      "original_end_exclusive": "0x51BE3A",
+      "original_chunks": [
+        {
+          "start": "0x51be30",
+          "end_exclusive": "0x51be3a",
+          "bytes": "6681258ea8fd00f7ffc3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BE30"
+          ],
+          "relationship": "flags18C[2..3]真实W16 ANDFFF7，以2B memcpy承载，低W16不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2..3]真实W16 ANDFFF7，以2B memcpy承载，低W16不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 10,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BE40",
+      "inventory_id": "F:0011BE40",
+      "original_role": "动作50置位",
+      "original_end_exclusive": "0x51BE48",
+      "original_chunks": [
+        {
+          "start": "0x51be40",
+          "end_exclusive": "0x51be48",
+          "bytes": "800d8ea8fd0050c3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BE40"
+          ],
+          "relationship": "flags18C[2]实际W8 OR50，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR50，其余三BYTE不触及。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BEE0",
+      "inventory_id": "F:0011BEE0",
+      "original_role": "观察动作bit7置位",
+      "original_end_exclusive": "0x51BEE8",
+      "original_chunks": [
+        {
+          "start": "0x51bee0",
+          "end_exclusive": "0x51bee8",
+          "bytes": "800d8ea8fd0080c3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTL01十三完整状态叶、十一正文恢复八W8置位/三W16清位，两正确玩家清位及原值发布返回保，完整父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BEE0"
+          ],
+          "relationship": "flags18C[2]实际W8 OR80，两观察入口实际call点接线保，不将父未验写成完整验收。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_player_action_flag_widths_evidence.json"
+      ],
+      "boundary": "flags18C[2]实际W8 OR80，两观察入口实际call点接线保，不将父未验写成完整验收。 BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "verification_level": "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+      "player_action_flag_widths": {
+        "spec_id": "BTL01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance",
+          "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+          "doc/cg2d_player_action_flag_widths_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 2,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "actual_original_flag_width_restored_or_kept": true,
+        "original_arg_sample_value_publication_and_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

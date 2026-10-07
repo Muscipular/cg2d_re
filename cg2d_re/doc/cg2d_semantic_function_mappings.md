@@ -3194,3 +3194,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQV01 四正常F与四NOP区间用途（2026-10-07）
 
 [原基线](cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline)/[四冻结定义/完整源及桥](cg2d_battle_target_hover_sampling_evidence.json)：1560..1563四新正常语义，目标/高亮两体四片段、共用真实低BYTE桥一处及三调用期同表DX桥，正确Reset9/五宠严格W16体保持；附属桥不造原身份、原共享W32/W16和row/返回/绘制序保。四equivalent/四BATTLE成员，语义1564/有效1557、文档关联1675/3680（45.52%）、分类694/BATTLE246枚举open/E796；四X共40B全NOP/逐byte无入向/前RET后真入口用途mapped，R7 269余2792，无F/有效区间各7/差队列172与43待归属及全部其余对象保持。
+
+## BQW01 四正常F及四填充用途（2026-10-07）
+
+[原基线](cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline)/[四定位/源前后与既有上游历史](cg2d_battle_command_init_packet_producer_sampling_evidence.json)：1564..1567四新正常语义/四equivalent与四BATTLE成员，语义1568/有效1561、文档1679/3680（45.62%，沿既有Round算法）、分类698/BATTLE250枚举open/E798；两体三片段/两正确体与原P-A格式/partial scan和写序可追。1349 BMF父完整历史/三域成员与既有判定保，不混为缺定位或新验收。四X18B全NOP/逐byte无入向/前RET后真入口用途mapped，R7 273余2788；无F/有效区间各7/差队列172及43待归属和全部其余对象保。

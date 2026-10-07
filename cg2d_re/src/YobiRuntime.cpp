@@ -22633,7 +22633,7 @@ void Sub_43BFF0()
     }
     for (std::size_t index = 0; index < gBattleEntries59E980.size(); ++index) {
         YobiAction* const action = gBattleEntries59E980[index];
-        if (action != nullptr && ((gBattleEndBits5ABBC0 >> index) & 1u) != 0) {
+        if (action != nullptr && ((std::bit_cast<std::int32_t>(gBattleEndBits5ABBC0) >> index) & 1) != 0) {
             action->flags |= 0x40u;
         }
     }

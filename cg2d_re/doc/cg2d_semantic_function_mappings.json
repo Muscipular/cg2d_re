@@ -183811,6 +183811,234 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x43c4e0",
+      "inventory_id": "F:0003C4E0",
+      "original_role": "Sub_43C4E0",
+      "original_end_exclusive": "0x43c55e",
+      "instruction_count": 23,
+      "status": "BQW01完整初始化/结束位清与发布/C-P-A-U-M真实消息生产正常源纳管，两体三片段恢复S32 SAR和两队列word-copy/next/tail-copy/CMP/pub阶段；两正确体/原20槽四1000H槽/P-A真实格式与partial scan后续保；完整512E40分派/全生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_43C4E0"
+          ],
+          "relationship": "43C4E0完整正确命令初始化：active1→tickW32/截止+30000→秒/command/skillCount/petCount零→clear W32 flags40→按当前结束位发布→X493/Y-106/CommandValue17/SkillUsed0→真实活宠→fresh LastPet不等才skillIndex-1；原入向43D01C来自既有完整静态纳管DrawBattleScene，正确正文不改。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json"
+      ],
+      "boundary": "43C4E0完整正确命令初始化：active1→tickW32/截止+30000→秒/command/skillCount/petCount零→clear W32 flags40→按当前结束位发布→X493/Y-106/CommandValue17/SkillUsed0→真实活宠→fresh LastPet不等才skillIndex-1；原入向43D01C来自既有完整静态纳管DrawBattleScene，正确正文不改。 四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "verification_level": "四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "battle_command_init_packet_producer_sampling": {
+        "spec_id": "BQW01",
+        "evidence_refs": [
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 23,
+        "original_code_bytes": 126,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 4,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_partial_scan_failure_behavior_kept": true,
+        "original_normal_w32_s32_storage_kept": true,
+        "original_20_entry_and_four_slot_boundaries_kept": true,
+        "original_init_write_order_kept": true,
+        "dependency_r7_classification_count": 4,
+        "full_normal_source_static_mapped": true,
+        "existing_upstream_normal_source_static_baseline": "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43c040",
+      "inventory_id": "F:0003C040",
+      "original_role": "Sub_43C040",
+      "original_end_exclusive": "0x43c05f",
+      "instruction_count": 10,
+      "status": "BQW01完整初始化/结束位清与发布/C-P-A-U-M真实消息生产正常源纳管，两体三片段恢复S32 SAR和两队列word-copy/next/tail-copy/CMP/pub阶段；两正确体/原20槽四1000H槽/P-A真实格式与partial scan后续保；完整512E40分派/全生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43C040"
+          ],
+          "relationship": "43C040完整正确清结束标志：前20槽每次借action T*非空才flags共享W32 AND~40，原分支/槽序及W32写保持，不改为低BYTE写。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json"
+      ],
+      "boundary": "43C040完整正确清结束标志：前20槽每次借action T*非空才flags共享W32 AND~40，原分支/槽序及W32写保持，不改为低BYTE写。 四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "verification_level": "四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "battle_command_init_packet_producer_sampling": {
+        "spec_id": "BQW01",
+        "evidence_refs": [
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 10,
+        "original_code_bytes": 31,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_partial_scan_failure_behavior_kept": true,
+        "original_normal_w32_s32_storage_kept": true,
+        "original_20_entry_and_four_slot_boundaries_kept": true,
+        "original_init_write_order_kept": true,
+        "dependency_r7_classification_count": 4,
+        "full_normal_source_static_mapped": true,
+        "existing_upstream_normal_source_static_baseline": "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43bff0",
+      "inventory_id": "F:0003BFF0",
+      "original_role": "Sub_43BFF0",
+      "original_end_exclusive": "0x43c039",
+      "instruction_count": 26,
+      "status": "BQW01完整初始化/结束位清与发布/C-P-A-U-M真实消息生产正常源纳管，两体三片段恢复S32 SAR和两队列word-copy/next/tail-copy/CMP/pub阶段；两正确体/原20槽四1000H槽/P-A真实格式与partial scan后续保；完整512E40分派/全生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43BFF0"
+          ],
+          "relationship": "43BFF0完整结束位消费/发布：sceneTypeW32严格10、turnSnapshot先turnW32后且相等才前20槽；每nonNull action才fresh endBitsW32、bit_castS32算术右移SAR按slot/TEST低1，再flagsW32 OR40；普通低位结果一致，修一SAR消费，初始化和A消息两真实入向对应。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json"
+      ],
+      "boundary": "43BFF0完整结束位消费/发布：sceneTypeW32严格10、turnSnapshot先turnW32后且相等才前20槽；每nonNull action才fresh endBitsW32、bit_castS32算术右移SAR按slot/TEST低1，再flagsW32 OR40；普通低位结果一致，修一SAR消费，初始化和A消息两真实入向对应。 四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "verification_level": "四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "battle_command_init_packet_producer_sampling": {
+        "spec_id": "BQW01",
+        "evidence_refs": [
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 26,
+        "original_code_bytes": 73,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 2,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_partial_scan_failure_behavior_kept": true,
+        "original_normal_w32_s32_storage_kept": true,
+        "original_20_entry_and_four_slot_boundaries_kept": true,
+        "original_init_write_order_kept": true,
+        "dependency_r7_classification_count": 4,
+        "full_normal_source_static_mapped": true,
+        "existing_upstream_normal_source_static_baseline": "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x50d3c0",
+      "inventory_id": "F:0010D3C0",
+      "original_role": "Sub_50D3C0",
+      "original_end_exclusive": "0x50d4f8",
+      "instruction_count": 105,
+      "status": "BQW01完整初始化/结束位清与发布/C-P-A-U-M真实消息生产正常源纳管，两体三片段恢复S32 SAR和两队列word-copy/next/tail-copy/CMP/pub阶段；两正确体/原20槽四1000H槽/P-A真实格式与partial scan后续保；完整512E40分派/全生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_50D3C0"
+          ],
+          "relationship": "50D3C0完整原C/P/A/第二字节U/M战斗消息生产：C/M各四1000H槽、入口held W32索引→借destination T*→一次首NUL长度→word copy→held next→tail copy→wrap谓词→next pub→可选零写，两个copy/pub片段实修；P从text+2按原六%X到六真实W32槽，A原双%X到endBits/turn、pending严格1才held turn→pending0→snapshot→43BFF0；C/P/A优先于第二字节U，U优先M，其余无写/原void保，首参数未使用/原格式明文及失败部分写不改。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json"
+      ],
+      "boundary": "50D3C0完整原C/P/A/第二字节U/M战斗消息生产：C/M各四1000H槽、入口held W32索引→借destination T*→一次首NUL长度→word copy→held next→tail copy→wrap谓词→next pub→可选零写，两个copy/pub片段实修；P从text+2按原六%X到六真实W32槽，A原双%X到endBits/turn、pending严格1才held turn→pending0→snapshot→43BFF0；C/P/A优先于第二字节U，U优先M，其余无写/原void保，首参数未使用/原格式明文及失败部分写不改。 四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "verification_level": "四完整164条542B/五页，七CALL=六direct/四callee+一GetTickCount IAT、十六普通jump/八RET无switch，五入向/四父只登记。两体三片段：结束位W32 fresh→S32 SAR低1观察恢复，C/M各word copy→held next增量→tail copy→CMP4谓词→pub→可选零写恢复，普通旧结果/四1000H槽与共享W32保；不新保护/回绕/故障模型。初始化30秒/计数和显示写序、clear20槽W32 AND~40两正确体纳管不改，P六%X/A双%X原text+2/U优先M/首参未用与partial scan失败后续、pending严格1的turn取样-pending0-snapshot-结束位发布原序保；原24B格式/既有Scan接口不改、明文兼容不加解密。BMF01 DrawBattleScene43CBB0已有完整十状态正常源码静态和三域局部I/S，本批继承不全面重核，完整父生命周期/SDK/ABI/运行不据此验。四相关X共18B逐byte90/NOPdecode无入向/前RET后入口用途mapped，R7 273/3061余2788。四新正常F1564..1567，语义1568/有效1561、文档1679/3680（45.62%，沿汇总器Round）、分类698/BATTLE250枚举open/E798。无F/有效区间各7/差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；整个512E40封包分派/全技能-pet生产/owner与窗口寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24及原协议明文保持。",
+      "battle_command_init_packet_producer_sampling": {
+        "spec_id": "BQW01",
+        "evidence_refs": [
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+          "doc/cg2d_battle_command_init_packet_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 105,
+        "original_code_bytes": 312,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_partial_scan_failure_behavior_kept": true,
+        "original_normal_w32_s32_storage_kept": true,
+        "original_20_entry_and_four_slot_boundaries_kept": true,
+        "original_init_write_order_kept": true,
+        "dependency_r7_classification_count": 4,
+        "full_normal_source_static_mapped": true,
+        "existing_upstream_normal_source_static_baseline": "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

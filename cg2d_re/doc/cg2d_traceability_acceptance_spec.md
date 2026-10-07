@@ -1218,3 +1218,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQV01 目标与高亮局部I/S、四填充用途（2026-10-07）
 
 [限定验收](cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance)/[四完整287条872B](cg2d_battle_target_hover_sampling_evidence.json)，六页16直接call两callee/36jump十二RET、46实际代码入向/16父只登记；两consumer四片段/共用BYTE桥一处、同held DX表/三个承载桥与opaque声明落实，原row/bit优先/邻位图序/返回码/四lowW16矩形/严格W16活宠及Reset9正确体保。四40B NOP用途mapped，四处置/246open成员/两局部I/S各22真实来源与五任务不代全生产/其它父/owner/运行；60源码closed10/完整验收0/叶0/global=false，14精确文件与音频/验证限制保。
+
+## BQW01 初始化与消息生产局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance)/[四完整164条542B](cg2d_battle_command_init_packet_producer_sampling_evidence.json)，五页七call（六direct四callee+一IAT）/十六jump八RET；两体三片段/原W32/S32 SAR及C-M word-copy-next-tail-copy-CMP-pub、P-A旧格式/24B原字节和真实W32输出/partial失败后续/严格pending1、20槽四1000H槽及两正确体保。四18B NOP用途mapped，四处置/250open成员/两I-S各22真实来源不代全分派/生产/owner/运行；五任务open/60源码closed10/完整验收0/叶0/global=false，13精确文件及音频/执行限制保持。

@@ -6000,10 +6000,14 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
         const std::int32_t index = gBattleCWriteIndex5AAA6C;
         char* const destination = gBattleCQueue5A4A3C.data()
             + static_cast<std::ptrdiff_t>(index) * 0x1000;
-        std::memcpy(destination, text, std::strlen(text) + 1);
+        const std::size_t byteCount = std::strlen(text) + 1;
+        const std::size_t wordBytes = byteCount & ~std::size_t{3};
+        std::memcpy(destination, text, wordBytes);
         const std::int32_t next = index + 1;
+        std::memcpy(destination + wordBytes, text + wordBytes, byteCount - wordBytes);
+        const bool wrap = next >= 4;
         gBattleCWriteIndex5AAA6C = next;
-        if (next >= 4) {
+        if (wrap) {
             gBattleCWriteIndex5AAA6C = 0;
         }
         return;
@@ -6034,10 +6038,14 @@ void Sub_50D3C0(const std::uintptr_t, const char* const text)
         const std::int32_t index = gBattleMWriteIndex5A3A1C;
         char* const destination = gBattleMQueue59FA18.data()
             + static_cast<std::ptrdiff_t>(index) * 0x1000;
-        std::memcpy(destination, text, std::strlen(text) + 1);
+        const std::size_t byteCount = std::strlen(text) + 1;
+        const std::size_t wordBytes = byteCount & ~std::size_t{3};
+        std::memcpy(destination, text, wordBytes);
         const std::int32_t next = index + 1;
+        std::memcpy(destination + wordBytes, text + wordBytes, byteCount - wordBytes);
+        const bool wrap = next >= 4;
         gBattleMWriteIndex5A3A1C = next;
-        if (next >= 4) {
+        if (wrap) {
             gBattleMWriteIndex5A3A1C = 0;
         }
     }

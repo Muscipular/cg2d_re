@@ -3174,3 +3174,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQQ01 两关闭代码身份与两区间用途（2026-10-07）
 
 [原基线](cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-baseline)/[完整证据](cg2d_battle_window_release_range_sampling_evidence.json)：记录1541/1542使用inventory_id=null/既有code_identity绑定X:0007B0C1-0007B110、X:00085663-00085700内确切关闭片段，不创建F或改3680分母。语义1543/有效F1536、无F与有效区间记录各7；F分类667、关联1654/3680（44.95%）、BATTLE219枚举open保持。两X整236B代码/11W32目标/26W8索引/LEA对齐与NOP分项mapped，R7 264/3061余2797；两局部I/S使E786，开发队列172/待归属43保持。不是原型头数据xref等于callback字段，也不以原末尾EAX1改实际弃返void适配。
+
+## BQR02 十一状态/计数/选择正常原身份（2026-10-07）
+
+[原基线](cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline)/[十一冻结源体](cg2d_battle_skill_state_producer_sampling_evidence.json)：1543..1553十一正常语义/equivalent，全部冻结定位保持；语义1554/有效F1547、关联1665/3680（45.24%）、分类678/BATTLE230枚举open/E788。两体三片段/四原内存点实修，九正确体/真实11h提供者和原低S8/计数RNG/明文序保；无F及有效区间各7、R7 264/3061余2797/开发队列172与43待归属保持。原数据xref关系不等源地址不是代码，CC4D14六来源指令均已核；71入向及两个BQQ01无父CALL定位不代完整父验收。

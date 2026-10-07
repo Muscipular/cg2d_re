@@ -182405,6 +182405,600 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x479640",
+      "inventory_id": "F:00079640",
+      "original_role": "Sub_479640",
+      "original_end_exclusive": "0x47964B",
+      "instruction_count": 2,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_479640"
+          ],
+          "relationship": "共享制造回退D67AF8 W32清0，原两指令/RET无EAX定义；现正常S32储存保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "共享制造回退D67AF8 W32清0，原两指令/RET无EAX定义；现正常S32储存保持。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 11,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x479650",
+      "inventory_id": "F:00079650",
+      "original_role": "Sub_479650",
+      "original_end_exclusive": "0x479657",
+      "instruction_count": 2,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_479650"
+          ],
+          "relationship": "同D67AF8 W32增1，不新饱和/回绕模拟；与479660减后发布消费同源。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "同D67AF8 W32增1，不新饱和/回绕模拟；与479660减后发布消费同源。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 7,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 10,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4796C0",
+      "inventory_id": "F:000796C0",
+      "original_role": "Sub_4796C0",
+      "original_end_exclusive": "0x4796C8",
+      "instruction_count": 2,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4796C0"
+          ],
+          "relationship": "D67AFC W8清0；与4796D0增/4796E0减及47B210消费同源，不合并D67AFD。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "D67AFC W8清0；与4796D0增/4796E0减及47B210消费同源，不合并D67AFD。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4796D0",
+      "inventory_id": "F:000796D0",
+      "original_role": "Sub_4796D0",
+      "original_end_exclusive": "0x4796D7",
+      "instruction_count": 2,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4796D0"
+          ],
+          "relationship": "D67AFC W8增1，正常计数保持；与现4796E0 W8减共享。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "D67AFC W8增1，正常计数保持；与现4796E0 W8减共享。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 7,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 8,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4796F0",
+      "inventory_id": "F:000796F0",
+      "original_role": "Sub_4796F0",
+      "original_end_exclusive": "0x4796F8",
+      "instruction_count": 2,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4796F0"
+          ],
+          "relationship": "D67AFD W8清0，窗口10/12关闭及其他35个原引用共享，原引用只登记不全验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "D67AFD W8清0，窗口10/12关闭及其他35个原引用共享，原引用只登记不全验。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x47A140",
+      "inventory_id": "F:0007A140",
+      "original_role": "Sub_47A140",
+      "original_end_exclusive": "0x47A198",
+      "instruction_count": 30,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47A140"
+          ],
+          "relationship": "window10 T*非空且fresh W32 mode2才读held skill index；rebirth W32非0与enabled W8非0真假不同才index+(enabled?100:0)→fresh socket→原510F50 fS，弃返回；同enabled缓存不fresh，不改正常S32。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "window10 T*非空且fresh W32 mode2才读held skill index；rebirth W32非0与enabled W8非0真假不同才index+(enabled?100:0)→fresh socket→原510F50 fS，弃返回；同enabled缓存不fresh，不改正常S32。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 30,
+        "original_code_bytes": 88,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 2,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x47A540",
+      "inventory_id": "F:0007A540",
+      "original_role": "Sub_47A540",
+      "original_end_exclusive": "0x47A574",
+      "instruction_count": 16,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47A540"
+          ],
+          "relationship": "入口callback值已held，mode5 W32先pub→CC4D14非拥有原生callback T* pub→fresh window10 T*，非空仅state W32清8000→475AA0(10,1,0,nullptr)，原借Yobi返回透传。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "入口callback值已held，mode5 W32先pub→CC4D14非拥有原生callback T* pub→fresh window10 T*，非空仅state W32清8000→475AA0(10,1,0,nullptr)，原借Yobi返回透传。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 16,
+        "original_code_bytes": 52,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 4,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x47A580",
+      "inventory_id": "F:0007A580",
+      "original_role": "Sub_47A580",
+      "original_end_exclusive": "0x47A5B4",
+      "instruction_count": 16,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47A580"
+          ],
+          "relationship": "与47A540正常机制相同但mode6 W32，保独立原入口/原返回；不把AND CH误窄化W32状态存取。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "与47A540正常机制相同但mode6 W32，保独立原入口/原返回；不把AND CH误窄化W32状态存取。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 16,
+        "original_code_bytes": 52,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 4,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BEC0",
+      "inventory_id": "F:0011BEC0",
+      "original_role": "Sub_51BEC0",
+      "original_end_exclusive": "0x51BED4",
+      "instruction_count": 7,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BEC0"
+          ],
+          "relationship": "FDA88E W8 flags→FDA890 W32 value按序各一次，flags&2非0返同value，否则0；不合并两次来源/删低位清0时value取样。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "FDA88E W8 flags→FDA890 W32 value按序各一次，flags&2非0返同value，否则0；不合并两次来源/删低位清0时value取样。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 7,
+        "original_code_bytes": 20,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 24,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51BE50",
+      "inventory_id": "F:0011BE50",
+      "original_role": "Sub_51BE50",
+      "original_end_exclusive": "0x51BEB6",
+      "instruction_count": 31,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51BE50"
+          ],
+          "relationship": "入口flags W8缓存，bit1设且value190==requested则返入口低S8；否则负requested短路不取4410E0，非负>=0x11归0；held value→Y取Read→X取Read→fresh socket→原511E60 klF(socket,x,y,value)；packet低S8保持。发送后fresh flags W8 OR2，value0才同地址fresh W16 ANDFFFD，最后W32 value190发布；同共享W32储存，2B memcpy不造宽指针别名。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "入口flags W8缓存，bit1设且value190==requested则返入口低S8；否则负requested短路不取4410E0，非负>=0x11归0；held value→Y取Read→X取Read→fresh socket→原511E60 klF(socket,x,y,value)；packet低S8保持。发送后fresh flags W8 OR2，value0才同地址fresh W16 ANDFFFD，最后W32 value190发布；同共享W32储存，2B memcpy不造宽指针别名。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 31,
+        "original_code_bytes": 102,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 4,
+        "original_inbound_count": 13,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4410E0",
+      "inventory_id": "F:000410E0",
+      "original_role": "Sub_4410E0",
+      "original_end_exclusive": "0x4410E6",
+      "instruction_count": 2,
+      "status": "BQR02十一完整计数/回复/选择/动作状态与范围提供者正常源纳管，两动作体三片段恢复FDA88E四W8/W16内存点；九正确体及原明文/返回/计数RNG保持，完整生产/consumer与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4410E0"
+          ],
+          "relationship": "原动作值范围提供者2条6B真实MOV EAX,11h/RET，无call/branch，现0x11常量正确，51BE50仅非负requested才实际消费；不虚称动态容量/固定成功替身。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+      ],
+      "boundary": "原动作值范围提供者2条6B真实MOV EAX,11h/RET，无call/branch，现0x11常量正确，51BE50仅非负requested才实际消费；不虚称动态容量/固定成功替身。 十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "verification_level": "十一完整正常原根112条361B/十一页，七实际直接CALL/五callee、十普通jump/十一RET；九正确体保持，两动作状态体三片段/四实际内存点恢复FDA88E入口W8读×2、发布W8 OR2与value0的fresh W16 ANDFFFD，以2B memcpy保别名及共享W32储存。普通旧值一致，不称数值/并发/异常故障；入口低S8去重返回、原负参数短路/0x11范围正常归0、Y→X各单次原Read401EC0/计数RNG、fresh socket/原fS与klF明文组包、返回及发送后状态发布序保持。五计数正常W32/W8清增、技能回复held真假/参数+100与两宠物mode5/6原生回调发布/借窗口/原Yobi结果透传有据。71代码入向/25有IDA父仅登记；两个无父真实调用来自已纳管BQQ01关闭片段；CC4D14两写四读/三consumer只定位，全部consumer父/计数生产者/数据容量/owner寿命与SDK/机器ABI/运行/R8未验。新11原正常身份/处置、BATTLE230枚举open；R7 264/3061余2797/开发队列172与43待归属、完整门禁保持。原格式明文、音频暂停/不构建测试运行摘要及RPLAN.24保持。",
+      "battle_skill_state_producer_sampling": {
+        "spec_id": "BQR02",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance",
+          "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+          "doc/cg2d_battle_skill_state_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 6,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 3,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_normal_storage_kept": true,
+        "original_low_s8_returns_kept": true,
+        "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

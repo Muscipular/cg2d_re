@@ -10158,14 +10158,16 @@ void Sub_51BDF0()
 
 std::int32_t Sub_51BEC0()
 {
-    const auto flags = static_cast<std::uint8_t>(gPlayerRuntime.flags18C >> 16);
+    const std::uint8_t flags =
+        reinterpret_cast<const std::uint8_t*>(&gPlayerRuntime.flags18C)[2];
     const std::int32_t value = gPlayerRuntime.value190;
     return (flags & 2u) != 0 ? value : 0;
 }
 
 std::int8_t Sub_51BE50(const std::int32_t requested)
 {
-    const auto flags = static_cast<std::uint8_t>(gPlayerRuntime.flags18C >> 16);
+    const std::uint8_t flags =
+        reinterpret_cast<const std::uint8_t*>(&gPlayerRuntime.flags18C)[2];
     if ((flags & 2u) != 0 && gPlayerRuntime.value190 == requested) {
         return std::bit_cast<std::int8_t>(flags);
     }
@@ -10178,9 +10180,14 @@ std::int8_t Sub_51BE50(const std::int32_t requested)
     const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(&gPlayerSnapshotX);
     const std::int32_t result =
         network::Sub_511E60(platform::gConnectionSocket, x, y, value);
-    gPlayerRuntime.flags18C |= 0x00020000u;
+    // 原51BE97/51BEA5：先W8置位，动作0时另作同地址W16清位。
+    auto* const actionBytes = reinterpret_cast<std::uint8_t*>(&gPlayerRuntime.flags18C) + 2;
+    actionBytes[0] |= 2u;
     if (value == 0) {
-        gPlayerRuntime.flags18C &= 0xFFFDFFFFu;
+        std::uint16_t actionFlags;
+        std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
+        actionFlags &= 0xFFFDu;
+        std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
     }
     gPlayerRuntime.value190 = value;
     return std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(result));

@@ -207,3 +207,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQQ01 窗口关闭代码区间取样（2026-10-07）
 
 [完整合同](cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state)/[两完整42条145B](cg2d_battle_window_release_range_sampling_evidence.json)沿上批四个真实CALL，纳管窗口10/12关闭原代码区间；一制造体两片段恢复旧W8→借window12 T*→减后发布及D67AFE减后先发布/同held谓词。普通旧值一致，窗口10正确体/初后mode取样差别、原W8/W32储存和S32动作条件保。两48B原型release真实字段与471276局部弃返核清，void适配正确保。两X整236B分项mapped/两个有效code_identity，F分母及219成员保持；完整制造/技能生产、其它父/owner寿命和运行另验。
+
+## BQR02 技能计数/选择与动作状态生产（2026-10-07）
+
+[完整合同](cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state)/[十一完整112条361B](cg2d_battle_skill_state_producer_sampling_evidence.json)沿关闭/回退依赖纳管五清增计数、技能回复、mode5/6 selector、动作状态读/发布与真实范围常量。两动作体三片段恢复FDA88E两个W8读及发送后W8 OR2/动作0 fresh W16 ANDFFFD，2B memcpy保持别名/共享W32，普通值一致。九正确体、原低S8返回/短路/Y-X单Read/计数RNG、held值/fresh socket、原fS与klF明文及发送后状态发布保持。71入向/25父、CC4D14两写四读只登记；230成员open，完整数据/consumer/owner寿命和运行另验，无新R7。

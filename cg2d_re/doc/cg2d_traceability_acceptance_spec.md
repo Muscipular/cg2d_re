@@ -1198,3 +1198,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQQ01 关闭片段与区间用途局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-acceptance)/[42条145B与整236B用途](cg2d_battle_window_release_range_sampling_evidence.json)。一制造体两片段修复发布/取样序，另一正确体、两48B原型真实release绑定及局部弃返适配保持；六实际CALL/九分支/两RET有据。两个code_identity不增F分母/219成员，两个X mapped只证字节用途；两I/S各15真实来源不代通用回收/全部dispatch/数据生产/父/owner寿命或运行。五任务open/60源码closed10/完整验收0/叶0/global=false，音频暂停及不构建测试运行摘要限制保。
+
+## BQR02 技能与动作状态局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance)/[十一完整原根](cg2d_battle_skill_state_producer_sampling_evidence.json)，112条361B/十一页、七call五callee/十jump十一ret；两体三片段恢复四原W8/W16点，九正确体/原低S8返回、短路/常量范围、Y-X单Read和计数RNG/fresh socket/明文/发送后发布序保持。两个网络前缀只证明原格式推送，六callback来源/71入向只登记，完整封包/consumer/数据生产/owner寿命/运行未据本批验收。两I/S各24真实来源，四任务open/60源码closed10/完整验收0/叶0/global=false与R7保持；12精确文件，音频及验证限制保。

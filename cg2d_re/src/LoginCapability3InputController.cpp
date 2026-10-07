@@ -52,18 +52,14 @@ std::int32_t AddW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        + std::bit_cast<std::uint32_t>(right));
+    return left + right;
 }
 
 std::int32_t SubtractW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        - std::bit_cast<std::uint32_t>(right));
+    return left - right;
 }
 
 std::uint16_t LowW16(const std::int32_t value) noexcept
@@ -92,11 +88,15 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
             || std::strlen(gInputContext9A5960.text) == 0) {
             result = -1;
         } else {
+            const std::int32_t accountByteLength =
+                gInputContext9A5960.totalByteLength;
+            const std::int32_t passwordByteLength =
+                gInputContext9A5678.totalByteLength;
             result = 1;
             gInputContext9A5960.text[static_cast<std::size_t>(
-                gInputContext9A5960.totalByteLength)] = '\0';
+                accountByteLength)] = '\0';
             gInputContext9A5678.text[static_cast<std::size_t>(
-                gInputContext9A5678.totalByteLength)] = '\0';
+                passwordByteLength)] = '\0';
         }
     } else if ((detail::Sub_45F100(&secondaryButton) & 1) != 0
         && mode == 0) {
@@ -148,11 +148,15 @@ std::int32_t ProcessCapability3Input_45FA70(const std::int32_t mode)
                     gInputContext9A5960.text)
                 && !input::IsRejectedInputText_404060(
                     gInputContext9A5678.text)) {
+                const std::int32_t accountByteLength =
+                    gInputContext9A5960.totalByteLength;
+                const std::int32_t passwordByteLength =
+                    gInputContext9A5678.totalByteLength;
                 result = 1;
                 gInputContext9A5960.text[static_cast<std::size_t>(
-                    gInputContext9A5960.totalByteLength)] = '\0';
+                    accountByteLength)] = '\0';
                 gInputContext9A5678.text[static_cast<std::size_t>(
-                    gInputContext9A5678.totalByteLength)] = '\0';
+                    passwordByteLength)] = '\0';
             } else {
                 requestedFocus = 0;
             }

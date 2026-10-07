@@ -3118,3 +3118,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 冻结定位／无F与code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整功能叶0／globalfalse和全部完整门禁保持；U10／R04只current／引用仍open。完整调用父／命中与图像依赖、未知alias与owner寿命、CRT-SDK-机器ABI／链接、原格式明文互通及像素运行R8继续推进。音频暂停、RPLAN.24和不构建测试运行／摘要限制保持。
 
 静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照仅两F／INPUT两成员与候选、两任务／两R7／六指标增量，13文件UTF-8无BOM-LF／实际引用及定向diff通过。未构建、测试或运行；P05原closed与全部完整门禁保持，整体SPEC目标继续。
+
+## BSE01 能力3输入正常加减与提交取样（2026-10-07）
+
+先落[子SPEC](../doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-decision)，实修LoginCapability3InputController.cpp四精确片段：两私有AddW32／SubtractW32改普通S32 +／-，按钮和普通Enter成功块先单读账号／密码totalByteLength@+12C，再result1／账号NUL／密码NUL；三既有源函数变更，不新增工具接口或owner。原正常值正确，不声称运行故障，不新增数学异常模型／保护／限制或误用+128 caret。
+
+保LowW16与实际位型、模式返回、strlen／校验与Tab-Enter短路、两次当前context和度量后Y-X-font／IME三输入绘制、密码后账号S16焦点矩形、共享焦点表／私有focus-latch与SetContext发布序、两个按钮图号和尾部版本绘制及其余整源。屏幕键盘既有排除保；完整原301条1068B／五页、23直接调用／12唯一目标、39跳转／一RET，唯一45F190@45F699，包含排除分支四原点但不计已实现。单真X4B全90／逐BYTE canonical nop，无入向前RET后入口，仅填充用途。
+
+新映射1587／单adapted F:0005FA70／INPUT25→26，语义1588有效1581／文档1699／3680（46.17%）／721处置／E830／R7 293余2768。冻结定位／无F-code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整叶0／globalfalse及完整门禁保；U10／R04只current/引用仍open。完整45F190父／命中输入绘制依赖、全部正常alias-owner寿命／CRT-SDK-机器ABI与链接、明文互通和运行R8继续推进；音频暂停、RPLAN.24与不构建测试运行或摘要保。
+
+静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照仅单F／INPUT一成员与候选、两任务／单R7／六指标增量，12文件UTF-8无BOM-LF／实际引用与定向diff通过。未构建、测试或运行；P05原closed和完整门禁保持，整体SPEC目标继续。

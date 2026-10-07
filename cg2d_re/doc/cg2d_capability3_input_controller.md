@@ -109,3 +109,9 @@ latch `dword_9A6E9C` 写 1，不改当前索引；`mode<=0` 时，若 latch 非�
   `DrawGraphicHover`、`DrawInputText` 与 `DrawText3` 边界，没有建立副本。
 - `D:\Source\STONAGE` 不参与本文地址、字段、顺序、状态或验收结论，不能作为
   本函数的行为证据。
+
+## 正常加减与两提交取样更新（BSE01，2026-10-07）
+
+按[BSE01裁决](cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-decision)，两私有AddW32／SubtractW32恢复普通S32，替代旧文中的专项回绕模型；LowW16与真实位型转换、IME和两个S16焦点矩形保持。按钮和普通Enter成功路径先各一次取账号／密码totalByteLength（+12C），两值持有齐后才result1→账号NUL→密码NUL，不误用caretByteOffset／不增加容量或负值门禁。原正常值已正确，本步恢复源读取与发布顺序，不声称运行故障。
+
+单源四片段／三既有源函数变更，原键序／strlen和校验短路、两次当前context／Y-X-font、模式返回／focus-latch、两按钮与尾部绘制版本及其它整源保持。屏幕键盘沿[已决排除](cg2d_external_keyboard_wrapper.md)；完整301条1068B／五页包含该分支四原调用证据，不据此记该路径已实现。一个真实F:0005FA70／映射1587及INPUT成员纳管，单X4B只填充用途；完整45F190父／输入绘制依赖、别名与寿命、SDK-机器ABI／链接和运行仍待。

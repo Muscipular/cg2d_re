@@ -185345,6 +185345,68 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45FA70",
+      "inventory_id": "F:0005FA70",
+      "original_role": "ProcessCapability3Input_45FA70",
+      "original_end_exclusive": "0x45fe9c",
+      "instruction_count": 301,
+      "status": "BSE01能力3输入两私有正常S32工具与两普通成功提交取样实修；单源四片段，原键盘排除/低W16及其它正文保持，仅局部静态，完整父/依赖/机器ABI/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/LoginCapability3InputController.cpp",
+          "symbols": [
+            "ProcessCapability3Input_45FA70",
+            "AddW32",
+            "SubtractW32",
+            "LowW16"
+          ],
+          "relationship": "完整301条1068B/五页/23原directcall12callee/39jump/一RET，唯一45F190@45F699。两私有工具普通S32、两普通成功路径账号/密码+12C各一次先读齐，再result1/两NUL发布；按键与strlen/校验短路、两次当前输入取样Y-X-font、低W16/两S16焦点矩形及latch/尾部绘制与版本保持，屏幕键盘原四点证据保持既有排除。三既有源函数局部变更，不称完整父/全部依赖和ABI/寿命/运行完成。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-baseline",
+        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-decision",
+        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-acceptance",
+        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
+        "doc/cg2d_capability3_input_normal_sampling_evidence.json"
+      ],
+      "boundary": "完整301条1068B/五页/23原directcall12callee/39jump/一RET，唯一45F190@45F699。两私有工具普通S32、两普通成功路径账号/密码+12C各一次先读齐，再result1/两NUL发布；按键与strlen/校验短路、两次当前输入取样Y-X-font、低W16/两S16焦点矩形及latch/尾部绘制与版本保持，屏幕键盘原四点证据保持既有排除。三既有源函数局部变更，不称完整父/全部依赖和ABI/寿命/运行完成。 BSE01能力3输入完整301条1068B/五页、23原directcall/12callee、39jump/一RET，唯一45F190@45F699；原完整体保留已排除屏幕键盘路径的四原调用证据，不恢复该路径或将其记已实现。单源四精确片段：两私有Add/Sub回绕bitcast改普通S32，两普通按钮/Enter成功路径先各一次读齐账号/密码+12C totalByteLength再写result1/账号NUL/密码NUL，不误用+128 caret或预先窄化/新保护。原正常数值正确，不称运行故障；LowW16/真实位型、模式返回、strlen/校验/键盘短路、两次当前上下文读取及Y-X-font/度量到绘制、两密码账号S16矩形/焦点owner-latch与尾部图号版本/原其它整源保持。新增F:0005FA70映射1587和单adapted/INPUT25→26/语义1588有效1581/文档1699（46.17%）/处置721/E830；单真X4B全90逐BYTE canonical nop/无入向前RET后入口，只用途mapped/R7 293余2768。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和完整门禁保；U10/R04只current/refs仍open。完整45F190父/命中绘制输入依赖、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通与运行R8仍待；原网络明文/音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "verification_level": "BSE01能力3输入完整301条1068B/五页、23原directcall/12callee、39jump/一RET，唯一45F190@45F699；原完整体保留已排除屏幕键盘路径的四原调用证据，不恢复该路径或将其记已实现。单源四精确片段：两私有Add/Sub回绕bitcast改普通S32，两普通按钮/Enter成功路径先各一次读齐账号/密码+12C totalByteLength再写result1/账号NUL/密码NUL，不误用+128 caret或预先窄化/新保护。原正常数值正确，不称运行故障；LowW16/真实位型、模式返回、strlen/校验/键盘短路、两次当前上下文读取及Y-X-font/度量到绘制、两密码账号S16矩形/焦点owner-latch与尾部图号版本/原其它整源保持。新增F:0005FA70映射1587和单adapted/INPUT25→26/语义1588有效1581/文档1699（46.17%）/处置721/E830；单真X4B全90逐BYTE canonical nop/无入向前RET后入口，只用途mapped/R7 293余2768。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和完整门禁保；U10/R04只current/refs仍open。完整45F190父/命中绘制输入依赖、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通与运行R8仍待；原网络明文/音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "capability3_input_normal_sampling": {
+        "spec_id": "BSE01",
+        "evidence_refs": [
+          "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-baseline",
+          "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-decision",
+          "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-acceptance",
+          "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
+          "doc/cg2d_capability3_input_normal_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 301,
+        "original_code_bytes": 1068,
+        "original_page_count": 5,
+        "original_direct_call_count": 23,
+        "original_unique_callee_count": 12,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 4,
+        "normal_s32_helper_count": 2,
+        "success_snapshots_before_nul_count": 2,
+        "sampled_length_field_offset": "0x12C",
+        "sampled_length_type": "signed W32",
+        "source_changed_existing_function_count": 3,
+        "original_mode_result_text_validation_and_key_short_circuit_kept": true,
+        "original_low_w16_and_real_bit_format_kept": true,
+        "original_two_current_context_samples_kept": true,
+        "original_focus_owner_and_latch_kept": true,
+        "prior_screen_keyboard_exclusion_kept": true,
+        "normal_previous_values_wrong": false,
+        "dependency_r7_classification_count": 1,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

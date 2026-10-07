@@ -3264,3 +3264,9 @@ LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布
 新增1585／1586对应真实F:001036F0／F:00103780，QueryLoginControlState_5036F0／DrawLoginControl_503780。见[基线](cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline)：两根176条439B／三页、5直接调用／3目标、20跳转／3RET，45CA20四真实入向。单源五片段恢复普通S32和字段取样阶段，保低W16、鼠标位域与模式／描述符／图号及其它整源；两X9B只填充用途。
 
 语义1587／有效1580、文档1698／3680（46.14%）、720处置／INPUT25／E828／R7 292余2769。两既有源码体的冻结定位行不刷新；pending18／缺口队列和完整门禁保持。本步只局部源码与原顺序，不代完整父、命中／绘制消费、SDK-机器ABI、寿命或运行。
+
+## BSE01 能力3输入正常算式／提交取样（2026-10-07）
+
+新增1587对应真实F:0005FA70／ProcessCapability3Input_45FA70，私有AddW32／SubtractW32／LowW16仅附加来源，不造F。见[基线](cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-baseline)：完整301条1068B／五页、23原直接调用／12目标、39跳转／一RET，唯一45F190@45F699；四原屏幕键盘分支调用只证据／保持既有排除。
+
+单源四片段恢复两正常S32工具、按钮与普通Enter先读齐两个+12C长度后按result1／账号NUL／密码NUL发布，低W16／焦点／其它整源保。单X4B仅用途；语义1588／有效1581、文档1699／3680（46.17%）、721处置／INPUT26／E830／R7 293余2768。冻结定位／pending18／缺口队列与完整门禁保持，局部不代全部父／依赖、ABI与寿命／运行。

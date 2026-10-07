@@ -9482,7 +9482,7 @@ std::uint8_t Sub_469C90()
     if (pendingIsZero && gValue9A86D8 == 0 && gValue9FB92E == 0) {
         gValueC82220 = 0;
     }
-    if ((gPlayerRuntime.flags18C & 0x00800000u) != 0) {
+    if ((ReadPlayerActionFlagsByte() & 0x80u) != 0) {
         return static_cast<std::uint8_t>(pendingIsZero);
     }
     if (gValueC8A7A8 != 0 && ui::ReadValueD67BE0() == 0) {
@@ -9506,12 +9506,13 @@ std::uint8_t Sub_469C90()
     }
     if ((gValueFF0D36 == 0 || (ReadPlayerFlags18A() & 0x100u) != 0)
         && gValue62B5AA == 0 && gValueC82220 == 0 && ui::ReadValueD67BE0() == 0) {
-        if (gValueC8A778 >= 500u) {
+        const bool forceContinuousMove = gValueC8A778 >= 500u;
+        if (forceContinuousMove) {
             gValueC8A79C = 1;
         }
-        if (gValueC8A79C == 1) {
-            const auto click = static_cast<std::uint8_t>(
-                platform::gLegacyMouseState.edgeButtons);
+        if (forceContinuousMove || gValueC8A79C == 1) {
+            const auto click = *reinterpret_cast<const unsigned char*>(
+                &platform::gLegacyMouseState.edgeButtons);
             if ((click & 1u) != 0) {
                 gValueC8A79C = 0;
             } else {
@@ -9522,15 +9523,21 @@ std::uint8_t Sub_469C90()
                     gValue55DDAC = sampledTick;
                     platform::LegacyCryptInt temporary;
                     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, targetX);
-                    gValue9A7F88.mask = temporary.mask;
-                    gValue9A7F88.encoded = temporary.encoded;
-                    gValue9A7F88.readCount = temporary.readCount;
+                    const std::uint32_t maskX = temporary.mask;
+                    const std::uint32_t encodedX = temporary.encoded;
+                    const std::uint8_t readCountX = temporary.readCount;
+                    gValue9A7F88.mask = maskX;
+                    gValue9A7F88.encoded = encodedX;
+                    gValue9A7F88.readCount = readCountX;
                     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
                     platform::legacy_crypt_int::ConstructFromInt_401CC0(
                         &temporary, gPlayerMoveTargetY);
-                    gValue9A7F98.encoded = temporary.encoded;
-                    gValue9A7F98.mask = temporary.mask;
-                    gValue9A7F98.readCount = temporary.readCount;
+                    const std::uint32_t encodedY = temporary.encoded;
+                    const std::uint32_t maskY = temporary.mask;
+                    const std::uint8_t readCountY = temporary.readCount;
+                    gValue9A7F98.encoded = encodedY;
+                    gValue9A7F98.mask = maskY;
+                    gValue9A7F98.readCount = readCountY;
                     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
                     gValueC821FC = 1;
                 }
@@ -9559,15 +9566,21 @@ std::uint8_t Sub_469C90()
                 platform::LegacyCryptInt temporary;
                 platform::legacy_crypt_int::ConstructFromInt_401CC0(
                     &temporary, gPlayerMoveTargetX);
-                gValue9A7F88.encoded = temporary.encoded;
-                gValue9A7F88.mask = temporary.mask;
-                gValue9A7F88.readCount = temporary.readCount;
+                const std::uint32_t encodedX = temporary.encoded;
+                const std::uint32_t maskX = temporary.mask;
+                const std::uint8_t readCountX = temporary.readCount;
+                gValue9A7F88.encoded = encodedX;
+                gValue9A7F88.mask = maskX;
+                gValue9A7F88.readCount = readCountX;
                 platform::legacy_crypt_int::Destroy_401CF0(&temporary);
                 platform::legacy_crypt_int::ConstructFromInt_401CC0(
                     &temporary, gPlayerMoveTargetY);
-                gValue9A7F98.readCount = temporary.readCount;
-                gValue9A7F98.encoded = temporary.encoded;
-                gValue9A7F98.mask = temporary.mask;
+                const std::uint8_t readCountY = temporary.readCount;
+                const std::uint32_t encodedY = temporary.encoded;
+                const std::uint32_t maskY = temporary.mask;
+                gValue9A7F98.readCount = readCountY;
+                gValue9A7F98.encoded = encodedY;
+                gValue9A7F98.mask = maskY;
                 platform::legacy_crypt_int::Destroy_401CF0(&temporary);
                 gValueC821FC = 1;
             }
@@ -9607,21 +9620,35 @@ std::uint16_t Sub_469FC0()
                     gValueC821FC = 0;
                     static_cast<void>(Sub_46B6F0());
                 }
-                std::int16_t pathCount = std::bit_cast<std::int16_t>(gValueC82200);
-                if (pathCount == 0 && gValueC82202 == 0) {
-                    Sub_46B4B0(std::bit_cast<std::int16_t>(gValue55D9FC));
-                    pathCount = std::bit_cast<std::int16_t>(gValueC82200);
-                    gValue55D9FC = 0xFFFFu;
-                }
-                if (pathCount > 0 && gValueC82202 == 0) {
-                    Sub_46ABD0();
-                    if (std::bit_cast<std::int16_t>(gValueC82202) > 0) {
-                        static_cast<void>(Sub_46AA00());
+                // 原两次非零队列分支复用刚比较的W16，回调后才重新取样。
+                const std::int16_t queuedCount = []() -> std::int16_t {
+                    std::int16_t pathCount = std::bit_cast<std::int16_t>(gValueC82200);
+                    if (pathCount == 0) {
+                        const std::int16_t pendingCount =
+                            std::bit_cast<std::int16_t>(gValueC82202);
+                        if (pendingCount != 0) {
+                            return pendingCount;
+                        }
+                        Sub_46B4B0(std::bit_cast<std::int16_t>(gValue55D9FC));
+                        pathCount = std::bit_cast<std::int16_t>(gValueC82200);
+                        gValue55D9FC = 0xFFFFu;
                     }
-                    static_cast<void>(ui::Sub_4CD3E0());
-                    static_cast<void>(Sub_46AC10());
-                }
-                if (std::bit_cast<std::int16_t>(gValueC82202) > 0) {
+                    if (pathCount > 0) {
+                        const std::int16_t pendingCount =
+                            std::bit_cast<std::int16_t>(gValueC82202);
+                        if (pendingCount != 0) {
+                            return pendingCount;
+                        }
+                        Sub_46ABD0();
+                        if (std::bit_cast<std::int16_t>(gValueC82202) > 0) {
+                            static_cast<void>(Sub_46AA00());
+                        }
+                        static_cast<void>(ui::Sub_4CD3E0());
+                        static_cast<void>(Sub_46AC10());
+                    }
+                    return std::bit_cast<std::int16_t>(gValueC82202);
+                }();
+                if (queuedCount > 0) {
                     static_cast<void>(Sub_46AF30());
                     const std::int16_t direction =
                         std::bit_cast<std::int16_t>(gPendingDirections9A86D4[0]);

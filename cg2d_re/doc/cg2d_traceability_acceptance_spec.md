@@ -1584,3 +1584,11 @@ U10/V03/R04 current/引用保持open，原pending18/pending7/closed11与完整�
 三任务只current/引用更新仍open，原pending/差队列/closed11和完整门禁保。全部父/callee/正常owner-alias寿命/机器ABI/画面/明文互通及运行R8继续；不以原根归档代完整功能验收。网络原格式明文、内部LegacyCryptInt、音频暂停和RPLAN.24持续。
 
 BUA01集中静态已通过：完整源码仅两限定片段/三根原指令与入向窗口/真实公共尾、证据和台账/对应文档/三任务模型一致。纯文本汇总及 -Check 已通过，派生快照实值为语义1677/有效1670、合同关联1788（48.59%）、处置818/E944、R7已审386/余2675，LOOP89/MAP86。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保；仅局部静态，不代编译、链接、正常寿命或运行。命名快照：cg2d-re-follow-gate-word-sampling-20261008。
+
+## BUB01 玩家移动控制开发验收（2026-10-08）
+
+[基线](cg2d_player_move_control_sampling_spec.md#player-move-control-baseline)、[裁决](cg2d_player_move_control_sampling_spec.md#player-move-control-decision)、[验收](cg2d_player_move_control_sampling_spec.md#player-move-control-acceptance)及[证据](cg2d_player_move_control_sampling_evidence.json)覆盖两根298条1262B、八片段/一局部lambda与原返回视图/18B用途。LOOP89→91/MAP86→88各两局部I-S各25真实来源，仅本步静态，完整门禁不伪闭。
+
+三任务仅current/引用仍open，原pending/差队列/closed11保。完整MainLoop/上游/callee、正常owner-alias寿命/数值/机器ABI/链接/画面/明文互通和R8继续；网络原格式明文、内部LegacyCryptInt、音频暂停与RPLAN.24保持。
+
+BUB01集中静态已通过：完整Scene仅两既有正文八限定片段、两个BYTE/模式短路/四处三预取及两队列W16比较复用，一局部lambda保回调后fresh取样；五原页298条1262B/元数据/18B用途、两窗口、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1679/有效1672、合同1790（48.64%）、处置820/E948、R7已审388/余2673、LOOP91/MAP88。全部原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅局部静态，不代完整寿命/数值/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-move-control-sampling-20261008。

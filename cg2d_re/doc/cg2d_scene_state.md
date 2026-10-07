@@ -7851,3 +7851,11 @@ category W16、flags114与主flags完整W32读/发布保持，不能因AH/AL运�
 46A990正确正文保持：gate0不清表，非零才W32前对→W32后对→W16末项全1，五槽按W16 flags非零后读同slot action指针、顺序写W16索引。两个门禁的第二项/逐项S16、首负终止、非拥有action与原callee顺序保持。469FAD公共尾实际转调469FC0后收栈返回；不猜该callee返回。32B尾区只对齐用途，完整父/正常寿命/机器ABI和运行继续。
 
 BUA01集中静态已通过：完整源码仅两限定片段/三根原指令与入向窗口/真实公共尾、证据和台账/对应文档/三任务模型一致。纯文本汇总及 -Check 已通过，派生快照实值为语义1677/有效1670、合同关联1788（48.59%）、处置818/E944、R7已审386/余2675，LOOP89/MAP86。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保；仅局部静态，不代编译、链接、正常寿命或运行。命名快照：cg2d-re-follow-gate-word-sampling-20261008。
+
+## 玩家移动控制八处取样实修（BUB01，2026-10-08）
+
+[完整基线](cg2d_player_move_control_sampling_spec.md#player-move-control-baseline)覆盖469C90/469FC0两根298条1262B/五页、48直接call/4间接tick/42jump/3RET及两入向局部窗口。只修Scene两既有正文八片段：C90玩家FDA88E与鼠标低BYTE、elapsed>=500后直入连续分支不重读模式W16、连续X/Y与单次X/Y四处不同顺序三预取后pub；FC0一局部无捕获lambda复用两次非零队列W16比较。
+
+原回调后fresh读取、tick调用/target与tick写序、四Ctor/四Destroy/RNG/X完后fresh Y保；全部其余源码/既有两reader及邻接断言保持。原FC0尾EAX沿468200，ECX/EDX承担双投影，不造worldX/AL1返回；现U8/U16局部观察具名适配，完整上游/寿命/数值/机器ABI与运行继续。18B实际NN_NOP只用途。
+
+BUB01集中静态已通过：完整Scene仅两既有正文八限定片段、两个BYTE/模式短路/四处三预取及两队列W16比较复用，一局部lambda保回调后fresh取样；五原页298条1262B/元数据/18B用途、两窗口、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1679/有效1672、合同1790（48.64%）、处置820/E948、R7已审388/余2673、LOOP91/MAP88。全部原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅局部静态，不代完整寿命/数值/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-move-control-sampling-20261008。

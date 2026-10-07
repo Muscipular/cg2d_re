@@ -191982,6 +191982,150 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x469C90",
+      "inventory_id": "F:00069C90",
+      "original_role": "原玩家BYTE门禁/目标临时取样与连续单次分支分发",
+      "original_end_exclusive": "0x469fb6",
+      "original_chunks": [
+        [
+          "0x469c90",
+          "0x469fb6"
+        ]
+      ],
+      "instruction_count": 200,
+      "status": "BUB01两完整玩家移动控制根298条1262B；两正文八片段恢复两BYTE/模式短路/四目标三预取及两队列W16比较复用，一局部lambda保回调后fresh读取，原返回视图/下游/数值/RNG序保；完整父/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_469C90"
+          ],
+          "relationship": "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-baseline",
+        "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision",
+        "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-acceptance",
+        "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
+        "doc/cg2d_player_move_control_sampling_evidence.json"
+      ],
+      "boundary": "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。",
+      "verification_level": "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。",
+      "player_move_control_sampling": {
+        "spec_id": "BUB01",
+        "evidence_refs": [
+          "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-baseline",
+          "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision",
+          "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-acceptance",
+          "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
+          "doc/cg2d_player_move_control_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 200,
+        "original_code_bytes": 806,
+        "original_page_count": 3,
+        "original_direct_call_count": 26,
+        "original_indirect_call_count": 4,
+        "original_jump_count": 26,
+        "original_return_count": 2,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 7,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "original_player_and_mouse_byte_gates_restored": true,
+        "original_continuous_mode_shortcircuit_restored": true,
+        "original_four_coordinate_preloads_and_branch_specific_orders_restored": true,
+        "original_two_queue_word_comparisons_reused": false,
+        "original_callback_fresh_reads_and_call_order_kept": true,
+        "original_tick_counts_target_orders_and_ctor_dtor_rng_kept": true,
+        "original_native_u8_u16_local_return_observation_adaptation_decided": true,
+        "original_fc0_return_after_468200_and_projection_preloads_kept": true,
+        "original_return_observation_decision_ref": "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision",
+        "original_owner_shared_byte_readers_layout_assertions_other_bodies_and_network_plaintext_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x469FC0",
+      "inventory_id": "F:00069FC0",
+      "original_role": "原路径/队列W16分支比较结果复用后接单步与跟随推进",
+      "original_end_exclusive": "0x46a188",
+      "original_chunks": [
+        [
+          "0x469fc0",
+          "0x46a188"
+        ]
+      ],
+      "instruction_count": 98,
+      "status": "BUB01两完整玩家移动控制根298条1262B；两正文八片段恢复两BYTE/模式短路/四目标三预取及两队列W16比较复用，一局部lambda保回调后fresh读取，原返回视图/下游/数值/RNG序保；完整父/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_469FC0"
+          ],
+          "relationship": "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-baseline",
+        "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision",
+        "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-acceptance",
+        "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
+        "doc/cg2d_player_move_control_sampling_evidence.json"
+      ],
+      "boundary": "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。",
+      "verification_level": "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。",
+      "player_move_control_sampling": {
+        "spec_id": "BUB01",
+        "evidence_refs": [
+          "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-baseline",
+          "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision",
+          "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-acceptance",
+          "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
+          "doc/cg2d_player_move_control_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 98,
+        "original_code_bytes": 456,
+        "original_page_count": 2,
+        "original_direct_call_count": 22,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 16,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 1,
+        "new_named_global_helper_count": 0,
+        "original_player_and_mouse_byte_gates_restored": false,
+        "original_continuous_mode_shortcircuit_restored": false,
+        "original_four_coordinate_preloads_and_branch_specific_orders_restored": false,
+        "original_two_queue_word_comparisons_reused": true,
+        "original_callback_fresh_reads_and_call_order_kept": true,
+        "original_tick_counts_target_orders_and_ctor_dtor_rng_kept": true,
+        "original_native_u8_u16_local_return_observation_adaptation_decided": true,
+        "original_fc0_return_after_468200_and_projection_preloads_kept": true,
+        "original_return_observation_decision_ref": "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision",
+        "original_owner_shared_byte_readers_layout_assertions_other_bodies_and_network_plaintext_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

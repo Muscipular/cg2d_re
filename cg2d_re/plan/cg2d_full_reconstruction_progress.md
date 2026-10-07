@@ -3716,3 +3716,17 @@ BTZ01已提交，本步聚焦相邻生产消费链的46A5A0/46A940/46A990三根�
 新增1674-1676/adapted/三真实F、LOOP86→89/MAP83→86各两局部I-S各25来源/三R7；预期语义1677/有效1670、文档1788（48.59%）、处置818/E944、R7 386余2675，集中静态/汇总后记实值。三任务只current/引用仍open，原pending18/ECX pending7/closed11/差队列及完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整生产消费与正常寿命/父/callee/机器ABI/链接/画面/明文互通及运行R8继续。
 
 BUA01集中静态已通过：完整源码仅两限定片段/三根原指令与入向窗口/真实公共尾、证据和台账/对应文档/三任务模型一致。纯文本汇总及 -Check 已通过，派生快照实值为语义1677/有效1670、合同关联1788（48.59%）、处置818/E944、R7已审386/余2675，LOOP89/MAP86。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保；仅局部静态，不代编译、链接、正常寿命或运行。命名快照：cg2d-re-follow-gate-word-sampling-20261008。
+
+## BUB01 玩家移动控制BYTE/短路/临时预取与队列取样实修（2026-10-08）
+
+BUA01已提交；先复用已取得46A190/46A5F0完整原指令，确认两调度正文一致后保持代码，将开发焦点转至实际上游469C90/469FC0。既有IDA只读MCP完整取得两根298条1262B/五页两块、48直接call/4间接GetTickCount/42jump/3RET及两入向局部窗口。
+
+确认C90七片段：原FDA88E BYTE及鼠标D68D9C BYTE被整W32字段读后筛位；原elapsed>=500发布模式W16=1后直入连续分支，现又读模式；四目标临时量原均三值预取齐后pub，现边读边pub。另确认FC0两非零队列分支原复用C82202 W16比较结果，现末门禁多读一次。先落[子SPEC](../doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision)，只修Scene两既有正文八片段：复用玩家Byte reader/鼠标unsigned char低字节读取；模式短路；连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask先W32/W32/W8预取后同序pub；FC0一局部无捕获lambda返回原比较S16，所有回调后必要fresh取样保。
+
+原四Ctor/四Destroy/RNG、X完整寿命后fresh Y、四间接tick/250ms比较与连续tick→采X→发布tick、单次tick→发布tick→采X区别保持。原路径/队列W16/S16、B4B0后fresh pathCount再清方向、ABD0后AA门禁及UI-AC后fresh队列、AF30/方向持有/BCF0/速度/Y-X W16 Add/单步/回读Y-X入队/跟随/停门禁/清W16/双移动/468200和投影双W32预取写序保持。两个既有reader/邻接断言与全部其它源保，无新全局helper/声明/owner/布局；现U8/U16局部观察具名适配，不猜全上游ABI。
+
+原FC0尾实际ECX/EDX双投影、EAX沿468200，正常返回保，不改成worldX或AL1。MainLoop调用C90后局部下一46BD40，完整MainLoop与上游未代验。两尾区10/8共18B显示align，已按实际insn_t.itype逐项确认NN_NOP/单BYTE90，无入向/后真入口，只用途，不造范围排除。
+
+新增1677-1678/adapted、LOOP89→91/MAP86→88各两局部I-S各25来源/两R7；预期语义1679/有效1672、合同1790（48.64%）、处置820/E948、R7已审388/余2673，静态/汇总后记实值。三任务current/引用仍open、pending18/ECX pending7/closed11/差队列与完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整生产消费/正常寿命/数值/机器ABI/链接/画面/明文互通及R8继续。
+
+BUB01集中静态已通过：完整Scene仅两既有正文八限定片段、两个BYTE/模式短路/四处三预取及两队列W16比较复用，一局部lambda保回调后fresh取样；五原页298条1262B/元数据/18B用途、两窗口、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1679/有效1672、合同1790（48.64%）、处置820/E948、R7已审388/余2673、LOOP91/MAP88。全部原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅局部静态，不代完整寿命/数值/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-move-control-sampling-20261008。

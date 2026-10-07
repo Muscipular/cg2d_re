@@ -3396,3 +3396,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [完整基线](cg2d_logout_progress_sampling_spec.md#logout-progress-baseline)补四已有真F：1606父45EBB0、1607请求进度45ED90、1608过渡45EEE0、1609重置45ED80。267条961B/六页、32直接CALL二十三目标+一GetTick导入、29jump六RET与World→父→三叶真实消费。仅进度体三片段恢复初始化发布/布局原序、非零轮询单action、横宽先算后x；父/过渡/重置及原四文本/六槽/GE1/W16 reply和普通阶段/失败/维护清理与返回保持。
 
 语义1610有效1603／文档1721（46.77%）／处置748，LOOP34→38，E874两局部I-S各29来源；四X15B真NOP原用途使R7 315→319余2742。LOGIN10/INPUT27/CHARACTER22/MAP69、冻结定位/pending18/差队列与完整门禁保。不造四个新原函数或称完整退出互通通过，局部不代所有World父/二十三provider/正常alias-owner寿命/ABI/链接或运行。
+
+## BTE01 登出请求回复返回与取样合同（2026-10-07）
+
+[完整基线](cg2d_logout_reply_sampling_spec.md#logout-reply-baseline)对应既有1065轮询全字段保持后追加、新1610启动/1611回复；三原根121条421B/四页、六direct两Tick/16jump七RET与45ED90/512E40 HMNy实际消费。仅callback cpp三片段/私有hpp一片段恢复逐BYTE比较和原S32±1/0/末次callee返回、原状态分支样本及三数值字段先取齐后pub；启动/轮询和原文本/格式/网络/音频调用保。
+
+语义1612有效1605、文档1723（46.82%）、处置751；LOGIN10→13/E876两局部I-S各28来源，R7 319→321余2740，两原X合27B只对齐。NETWORK54/LOOP38/INPUT27/CHARACTER22/MAP69、冻结定位/pending18/差队列和全部完整门禁保持；补两个已有原F的语义，不造新原函数或宣称完整协议/正常寿命/ABI/运行通过。

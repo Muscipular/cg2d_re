@@ -144623,10 +144623,15 @@
       ],
       "evidence_documents": [
         "doc/cg2d_login_request.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json"
       ],
-      "boundary": "无参数/S32结果；独立W16登出回复快照后清状态：1→1，2→2，其余→-2；非完成时一次U32tick自然回绕差值严格大于600000才写共享消息返回-1。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。",
-      "status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验",
+      "boundary": "无参数/S32结果；独立W16登出回复快照后清状态：1→1，2→2，其余→-2；非完成时一次U32tick自然回绕差值严格大于600000才写共享消息返回-1。 本步只将原文定长复制恢复53B304真实原call，原无占位/无变参/原字节含NUL和共享1024B余部保持，不新建状态或提高超时保护，原父/实际收发/CRT运行未闭合。 BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "status": "已有请求轮询本体与一真实超时格式接线，完整收发/运行未验；BTE01追加三完整根及现真实回复/发送/请求消费有限静态，轮询整源保持，完整往返与运行未验",
       "original_end_exclusive": "0x508CF0",
       "instruction_count": 26,
       "original_direct_reference_count": 1,
@@ -144666,7 +144671,43 @@
         }
       ],
       "business_format_source_expression_count": 1,
-      "verification_level": " 本次仅15超时相邻指令读取/原call与文案字节/源码单个复制改回格式入口及已有头静态核对；完成态正文/发送和调用者不重验，未执行。"
+      "verification_level": " 本次仅15超时相邻指令读取/原call与文案字节/源码单个复制改回格式入口及已有头静态核对；完成态正文/发送和调用者不重验，未执行。；BTE01原26条96B完整读取，先W16回复取样再清状态/原Tick与格式写处及45ED90唯一caller静态，未执行。",
+      "logout_reply_sampling": {
+        "spec_id": "BTE01",
+        "evidence_refs": [
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+          "doc/cg2d_logout_reply_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 26,
+        "original_code_bytes": 96,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_unique_callee_count": 1,
+        "original_indirect_call_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_hpp_patch_count": 0,
+        "source_changed_existing_original_function_count": 0,
+        "source_callback_signed_return_contract_restored": false,
+        "source_callback_received_expected_byte_read_and_short_circuit_restored": false,
+        "source_three_tuple_samples_before_publication_restored": false,
+        "original_constructor_zero_destructor_and_rng_calls_kept": true,
+        "original_destination_vft_and_reserved_bytes_kept": true,
+        "original_start_and_poll_bodies_kept": true,
+        "original_poll_reply_read_before_status_clear_kept": true,
+        "original_pending_scene_audio_caller_and_plain_protocol_kept": true,
+        "original_caller_ignores_callback_return_verified": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x534520",
@@ -187162,6 +187203,137 @@
         "original_four_texts_and_parent_failure_maintenance_message_routes_kept": true,
         "original_ge1_poll_signed_returns_and_clear_order_kept": true,
         "original_audio_callers_and_plain_protocol_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x508C40",
+      "inventory_id": "F:00108C40",
+      "original_role": "登出请求启动",
+      "original_end_exclusive": "0x508c81",
+      "instruction_count": 11,
+      "status": "BTE01原发送/回复完整根及真实退出消费者；仅回复三片段/私有头一片段实修，启动保持。局部静态，所有依赖/寿命/ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbols": [
+            "Sub_508C40"
+          ],
+          "relationship": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json"
+      ],
+      "boundary": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "verification_level": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "logout_reply_sampling": {
+        "spec_id": "BTE01",
+        "evidence_refs": [
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+          "doc/cg2d_logout_reply_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 65,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_unique_callee_count": 1,
+        "original_indirect_call_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_hpp_patch_count": 0,
+        "source_changed_existing_original_function_count": 0,
+        "source_callback_signed_return_contract_restored": false,
+        "source_callback_received_expected_byte_read_and_short_circuit_restored": false,
+        "source_three_tuple_samples_before_publication_restored": false,
+        "original_constructor_zero_destructor_and_rng_calls_kept": true,
+        "original_destination_vft_and_reserved_bytes_kept": true,
+        "original_start_and_poll_bodies_kept": true,
+        "original_poll_reply_read_before_status_clear_kept": true,
+        "original_pending_scene_audio_caller_and_plain_protocol_kept": true,
+        "original_caller_ignores_callback_return_verified": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x508CF0",
+      "inventory_id": "F:00108CF0",
+      "original_role": "登出异步回复与跨场景数值发布",
+      "original_end_exclusive": "0x508df4",
+      "instruction_count": 84,
+      "status": "BTE01原发送/回复完整根及真实退出消费者；仅回复三片段/私有头一片段实修，启动保持。局部静态，所有依赖/寿命/ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbols": [
+            "Sub_508CF0"
+          ],
+          "relationship": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+        },
+        {
+          "path": "src/LoginRequestDependencies.hpp",
+          "symbols": [
+            "Sub_508CF0"
+          ],
+          "relationship": "原callback私有声明对齐S32返回/非拥有native socket与文本参数；现网络模板仍弃返回，不新协议/别名或声称机器ABI"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json"
+      ],
+      "boundary": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "verification_level": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "logout_reply_sampling": {
+        "spec_id": "BTE01",
+        "evidence_refs": [
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+          "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+          "doc/cg2d_logout_reply_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 84,
+        "original_code_bytes": 260,
+        "original_page_count": 2,
+        "original_direct_call_count": 4,
+        "original_unique_callee_count": 4,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_hpp_patch_count": 1,
+        "source_changed_existing_original_function_count": 1,
+        "source_callback_signed_return_contract_restored": true,
+        "source_callback_received_expected_byte_read_and_short_circuit_restored": true,
+        "source_three_tuple_samples_before_publication_restored": true,
+        "original_constructor_zero_destructor_and_rng_calls_kept": true,
+        "original_destination_vft_and_reserved_bytes_kept": true,
+        "original_start_and_poll_bodies_kept": true,
+        "original_poll_reply_read_before_status_clear_kept": true,
+        "original_pending_scene_audio_caller_and_plain_protocol_kept": true,
+        "original_caller_ignores_callback_return_verified": true,
         "normal_previous_values_wrong": false,
         "original_source_rest_unchanged": true,
         "full_original_parent_or_machine_abi_verified": false,

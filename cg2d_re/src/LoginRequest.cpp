@@ -207,28 +207,46 @@ std::int32_t Sub_508C90()
     return -1;
 }
 
-void Sub_508CF0(const std::uintptr_t, const char* const result, const char*)
+std::int32_t Sub_508CF0(
+    const std::uintptr_t, const char* const result, const char*)
 {
-    if (gRequestStatus == 1) {
+    const bool waitingForReply = gRequestStatus == 1;
+    if (waitingForReply) {
         gRequestStatus = 2;
-        if (std::strcmp(result, kSuccessfulResult) == 0) {
-            gReplyCodeDA3B2E = 1;
+    }
+
+    // 原两路均按 result、常量逐字节读取；不匹配返回原无符号比较的 -1/1。
+    std::size_t index = 0;
+    for (;;) {
+        const auto received = static_cast<unsigned char>(result[index]);
+        const auto expected = static_cast<unsigned char>(kSuccessfulResult[index]);
+        if (received != expected) {
+            return received < expected ? -1 : 1;
         }
-        return;
+        if (received == 0) {
+            break;
+        }
+        ++index;
     }
-    if (std::strcmp(result, kSuccessfulResult) != 0) {
-        return;
+    if (waitingForReply) {
+        gReplyCodeDA3B2E = 1;
+        return 0;
     }
+
     gRequestStatus = 2;
     gReplyCodeDA3B2E = 2;
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
-    world::detail::gValue73ECD0.mask = temporary.mask;
-    world::detail::gValue73ECD0.encoded = temporary.encoded;
-    world::detail::gValue73ECD0.readCount = temporary.readCount;
+    // 原先取齐 +8/+4/+C，再按相同顺序发布；目的虚表与保留字节不写。
+    const std::uint32_t mask = temporary.mask;
+    const std::uint32_t encoded = temporary.encoded;
+    const std::uint8_t readCount = temporary.readCount;
+    world::detail::gValue73ECD0.mask = mask;
+    world::detail::gValue73ECD0.encoded = encoded;
+    world::detail::gValue73ECD0.readCount = readCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     static_cast<void>(world::SetPendingSceneType(7));
-    static_cast<void>(audio::PlaySe_52C450(60, 320));
+    return audio::PlaySe_52C450(60, 320);
 }
 
 } // namespace cg::login::detail

@@ -740,7 +740,8 @@
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline",
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
         "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
-        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline"
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -752,7 +753,10 @@
         "F:00064840",
         "F:0005C5A0",
         "F:0005FEA0",
-        "F:0005D990"
+        "F:0005D990",
+        "F:00108C40",
+        "F:00108C90",
+        "F:00108CF0"
       ],
       "closure_task_ids": [
         "P18",
@@ -774,7 +778,8 @@
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision",
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision",
         "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision",
-        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision"
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -785,7 +790,8 @@
         "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
         "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
         "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
-        "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
+        "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+        "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -796,7 +802,8 @@
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
         "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
-        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state"
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state"
       ]
     },
     {
@@ -37643,6 +37650,106 @@
       "observation": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
       "expected": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
       "actual": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验"
+    },
+    {
+      "id": "E-LOGOUT-REPLY-SAMPLING-I-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTE01三完整根121条421B/四页，六direct两Tick、16jump七RET；45ED90发送/轮询与512E40 HMNy两文本生产/原弃返回，成功十一B及原超时十五B，doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-logout-reply-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json",
+        "src/LoginRequest.cpp#Sub_508C40",
+        "src/LoginRequest.cpp#Sub_508C90",
+        "src/LoginRequest.cpp#Sub_508CF0",
+        "src/LoginRequestDependencies.hpp",
+        "include/cg/LoginRequest.hpp",
+        "src/world/SceneState.cpp#Sub_45ED90",
+        "src/network/NetworkRuntime.cpp#Sub_512BD0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#TryDispatchReply",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArguments",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/SceneState.cpp#SetPendingSceneType",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/LegacyAudio.hpp",
+        "src/platform/MainLoopSupport.cpp#ReadTickCount32",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+          "decision_ref": "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "expected": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "actual": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+    },
+    {
+      "id": "E-LOGOUT-REPLY-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTE01三完整根121条421B/四页，六direct两Tick、16jump七RET；45ED90发送/轮询与512E40 HMNy两文本生产/原弃返回，成功十一B及原超时十五B，doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-logout-reply-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json",
+        "src/LoginRequest.cpp#Sub_508C40",
+        "src/LoginRequest.cpp#Sub_508C90",
+        "src/LoginRequest.cpp#Sub_508CF0",
+        "src/LoginRequestDependencies.hpp",
+        "include/cg/LoginRequest.hpp",
+        "src/world/SceneState.cpp#Sub_45ED90",
+        "src/network/NetworkRuntime.cpp#Sub_512BD0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/network/NetworkRuntime.cpp#TryDispatchReply",
+        "src/network/NetworkRuntime.cpp#DecodeDispatchArguments",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/SceneState.cpp#SetPendingSceneType",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/LegacyAudio.hpp",
+        "src/platform/MainLoopSupport.cpp#ReadTickCount32",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_local_determinism_spec.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+          "decision_ref": "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "expected": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+      "actual": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
     }
   ],
   "task_acceptance": [
@@ -38103,7 +38210,8 @@
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
         "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
-        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state"
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state"
       ]
     },
     {
@@ -38146,7 +38254,8 @@
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
         "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
         "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
-        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state"
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state"
       ]
     },
     {
@@ -38664,7 +38773,8 @@
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
         "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
         "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
-        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state"
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state"
       ]
     },
     {
@@ -47778,6 +47888,45 @@
         "doc/cg2d_logout_progress_sampling_evidence.json"
       ],
       "boundary": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验"
+    },
+    {
+      "inventory_id": "F:00108C40",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json"
+      ],
+      "boundary": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+    },
+    {
+      "inventory_id": "F:00108C90",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json"
+      ],
+      "boundary": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+    },
+    {
+      "inventory_id": "F:00108CF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json"
+      ],
+      "boundary": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
     }
   ],
   "auxiliary_dispositions": [
@@ -57359,6 +57508,204 @@
         },
         {
           "ea": "0x45ef7f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00108C81-00108C90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json"
+      ],
+      "reason": "BTE01两个原范围合27B，每BYTE实际NN_NOP/90/无入向、前RET后真入口；仅原对齐用途，不造F/helper/范围排除或运行验收",
+      "classification": "alignment_nop",
+      "original_size": 15,
+      "original_bytes": "909090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x508c81",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c82",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c83",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c84",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c85",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c86",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c87",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c88",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c89",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c8a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c8b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c8c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c8d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c8e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508c8f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00108DF4-00108E00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance",
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_logout_reply_sampling_evidence.json"
+      ],
+      "reason": "BTE01两个原范围合27B，每BYTE实际NN_NOP/90/无入向、前RET后真入口；仅原对齐用途，不造F/helper/范围排除或运行验收",
+      "classification": "alignment_nop",
+      "original_size": 12,
+      "original_bytes": "909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x508df4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508df5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508df6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508df7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508df8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508df9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508dfa",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508dfb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508dfc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508dfd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508dfe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x508dff",
           "size": 1,
           "bytes": "90",
           "is_nop": true

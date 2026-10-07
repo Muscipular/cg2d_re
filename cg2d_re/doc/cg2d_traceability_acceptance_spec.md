@@ -1608,3 +1608,11 @@ BUC01集中静态已通过：完整Yobi仅一既有正文两片段，X/Y各原�
 三任务current/引用仍open，pending/差队列/closed11及完整门禁保。旧未实现状态更新为当前定义/调用已存在；完整数值/x87/正常owner-alias寿命/生产消费/上游callee/机器ABI/链接/画面/明文互通与R8继续。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
 
 BUD01集中静态已通过：两完整源码/三既有正文与HEAD一致，源码修改及新增实现0；十原页576条1958B/元数据/三窗口/两父复用/10B用途与证据/台账/对应文档和三任务模型一致，当前目标生产/移动调用状态已纠正。汇总及 -Check 已通过，完整派生快照实值为语义1683/有效1676、合同1794（48.75%）、处置824/E956、R7已审392/余2669、LOOP95/MAP92。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；只本步基线静态归档，不代完整正常寿命/数值/x87/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-turn-path-baseline-20261008。
+
+## BUE01 鼠标目标格六BYTE开发验收（2026-10-08）
+
+[基线](cg2d_cursor_grid_byte_sampling_spec.md#cursor-grid-byte-baseline)、[裁决](cg2d_cursor_grid_byte_sampling_spec.md#cursor-grid-byte-decision)、[验收](cg2d_cursor_grid_byte_sampling_spec.md#cursor-grid-byte-acceptance)及[证据](cg2d_cursor_grid_byte_sampling_evidence.json)覆盖167条619B/三页、六BYTE片段/三W32所有者、原目标/16B描述符/事件/tick后fresh基线、8B实际F64/5B用途及唯一局部窗口。LOOP95→96/MAP92→93各两局部I-S各25来源，只本步静态。
+
+三任务current/引用仍open，pending/差队列/closed11与完整门禁保。完整正常生产消费/owner-alias寿命、数值/x87/上游callee/机器ABI/链接/像素画面/明文互通及R8继续；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
+
+BUE01集中静态已通过：完整Scene仅一既有正文六BYTE片段变化，原独立门禁/取样、三W32所有者与目标/16B描述符/事件/tick后fresh基线保持；三原页167条619B/元数据/窗口、8B实际F64/5B用途、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1684/有效1677、合同1795（48.78%）、处置825/E960、R7已审393/余2668、LOOP96/MAP93。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87/正常寿命/机器ABI/编译/链接/像素画面/运行。命名快照：cg2d-re-cursor-grid-byte-sampling-20261008。

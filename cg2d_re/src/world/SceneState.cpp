@@ -9057,7 +9057,8 @@ std::uint8_t Sub_46F680()
 
     if (platform::legacy_crypt_int::Less_401DB0(
             &platform::gLegacyMouseState.mouseY, 456)
-        && ((static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212
+        && ((*reinterpret_cast<const unsigned char*>(
+                    &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::ReadDragItemIndex_584DA4() < 0)
             || gValueC8A780 != 0 || gValue62B308 != 0 || gValue62B398 != 0)
         && gValueC8A79C == 0) {
@@ -9075,7 +9076,8 @@ std::uint8_t Sub_46F680()
     const bool mouseBelowLimit = platform::legacy_crypt_int::Less_401DB0(
         &platform::gLegacyMouseState.mouseY, 456);
     if (!mouseBelowLimit
-        || !((static_cast<std::uint8_t>(platform::gLegacyMouseState.valueD68DB4) < 212
+        || !((*reinterpret_cast<const unsigned char*>(
+                    &platform::gLegacyMouseState.valueD68DB4) < 212
                 && ui::ReadDragItemIndex_584DA4() < 0)
             || gValueC8A77C != 0 || gValue62B308 != 0 || gValue62B398 != 0)) {
         gValueC8A778 = 0;
@@ -9083,14 +9085,15 @@ std::uint8_t Sub_46F680()
         return static_cast<std::uint8_t>(mouseBelowLimit);
     }
 
-    const auto leftClick = static_cast<std::uint8_t>(
-        platform::gLegacyMouseState.edgeButtons);
+    const auto leftClick = *reinterpret_cast<const unsigned char*>(
+        &platform::gLegacyMouseState.edgeButtons);
     if ((leftClick & 1u) != 0 && gValueC8A774 == 0) {
         gValueC8A7A0 = 1;
         gValueC8A778 = 0;
         gValueC8A794 = platform::ReadTickCount32();
     }
-    if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons) & 1u) != 0
+    if ((*reinterpret_cast<const unsigned char*>(
+            &platform::gLegacyMouseState.heldButtons) & 1u) != 0
         && gValueC8A774 == 0) {
         const std::uint32_t baseline = gValueC8A794;
         gValueC8A7A4 = 1;
@@ -9102,12 +9105,13 @@ std::uint8_t Sub_46F680()
         gValueC8A778 = 0;
         gValueC8A794 = 0;
     }
-    const auto rightClick = static_cast<std::uint8_t>(
-        platform::gLegacyMouseState.edgeButtons);
+    const auto rightClick = *reinterpret_cast<const unsigned char*>(
+        &platform::gLegacyMouseState.edgeButtons);
     if ((rightClick & 2u) != 0 && gValueC8A7A8 == 0) {
         gValueC8A7A8 = 1;
     }
-    if ((static_cast<std::uint8_t>(platform::gLegacyMouseState.heldButtons) & 2u) != 0
+    if ((*reinterpret_cast<const unsigned char*>(
+            &platform::gLegacyMouseState.heldButtons) & 2u) != 0
         && gValueC8A7A8 == 0) {
         gValueC8A7AC = 1;
     }

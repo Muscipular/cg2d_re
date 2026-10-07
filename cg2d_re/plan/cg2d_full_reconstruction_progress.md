@@ -3758,3 +3758,17 @@ BUC01代码修复已提交。沿实际移动控制依赖检查46B370目标格转
 新1680-1682/adapted/三个F、LOOP92→95/MAP89→92各两局部I-S各25来源/三R7；预期语义1683/有效1676、合同1794（48.75%）、处置824/E956、R7已审392/余2669，静态/汇总后记实值。三任务current/引用仍open，pending18/ECX pending7/closed11/差队列及完整门禁保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整生产消费/正常寿命/数值/x87/机器ABI/链接/画面/明文互通及R8继续。
 
 BUD01集中静态已通过：两完整源码/三既有正文与HEAD一致，源码修改及新增实现0；十原页576条1958B/元数据/三窗口/两父复用/10B用途与证据/台账/对应文档和三任务模型一致，当前目标生产/移动调用状态已纠正。汇总及 -Check 已通过，完整派生快照实值为语义1683/有效1676、合同1794（48.75%）、处置824/E956、R7已审392/余2669、LOOP95/MAP92。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；只本步基线静态归档，不代完整正常寿命/数值/x87/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-turn-path-baseline-20261008。
+
+## BUE01 鼠标目标格生产六处BYTE宽度实修（2026-10-08）
+
+BUD01基线收口已提交，本步继续实际生产入口46F680。既有IDA只读MCP完整取证167条619B/三页一块、11直接call/2GetTickCount间接call/23jump/2RET与唯一51C7D0@51D24B局部窗口，后下一504A50；不复检完整MainLoop。
+
+确认两次D68DB4事件状态BYTE unsigned<212、两次D68D9C click BYTE、两次D68D98 held BYTE原取样，当前均从三个W32所有者字段整读后cast。先落[子SPEC](../doc/cg2d_cursor_grid_byte_sampling_spec.md#cursor-grid-byte-decision)，只修Scene一个既有正文六片段，沿已有unsigned char别名方式直接读原低BYTE，保持两门禁/绘制后fresh样本/左右button各自时点和短路。无新getter/lambda/声明/owner/布局，三个W32字段/头文件与全体其它源保持。
+
+投影与普通S32算式、实际F64 0.5/ftol、目标Y先于X/反投影/四事件W32清序、drawY→drawX及既有DrawGraphic保持源码。原描述符零写为偏移2/6/10 W32和0/14 W16五写完整覆盖16B，再+8 W32 FFFF/+13 BYTE4；现全零值初始化及覆盖布局正确，保持代码，不猜残留栈字节。左click单tick/pub，held先W32基线读取再pub持有事件、tick后从同字段fresh重读作差/pub elapsed保，不能改用此前局部baseline；右click/held原W32门禁/标志写序与U8正常AL2/早退Less保。
+
+已加载8B F64 0.5只位值归档；原5B实际NN_NOP/90、无入向/后46F8F0仅用途。现U8局部未消费窗口具名适配，不外推全上游弃返/完整ABI。新1683/adapted/F:0006F680、LOOP95→96/MAP92→93各两局部I-S各25来源/一R7；预期语义1684/有效1677、合同1795（48.78%）、处置825/E960、R7已审393/余2668，集中静态/汇总后记实值。
+
+三任务current/引用仍open、pending18/ECX pending7/closed11/差队列和完整门禁保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整正常生产消费/寿命/数值/x87/上游callee/机器ABI/链接/像素画面/明文互通及R8继续。
+
+BUE01集中静态已通过：完整Scene仅一既有正文六BYTE片段变化，原独立门禁/取样、三W32所有者与目标/16B描述符/事件/tick后fresh基线保持；三原页167条619B/元数据/窗口、8B实际F64/5B用途、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1684/有效1677、合同1795（48.78%）、处置825/E960、R7已审393/余2668、LOOP96/MAP93。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87/正常寿命/机器ABI/编译/链接/像素画面/运行。命名快照：cg2d-re-cursor-grid-byte-sampling-20261008。

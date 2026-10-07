@@ -1174,7 +1174,8 @@
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-baseline",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline",
-        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline"
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -1229,7 +1230,8 @@
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision",
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision",
-        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision"
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1249,7 +1251,8 @@
         "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验",
         "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行",
         "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行",
-        "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行"
+        "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
+        "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1269,7 +1272,8 @@
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
-        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state"
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state"
       ]
     },
     {
@@ -48005,6 +48009,54 @@
       "observation": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
       "expected": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
       "actual": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验"
+    },
+    {
+      "id": "E-CREATION-CONTROLLER-FUNC-CHARACTER-S-20261008",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVH01完整130条464B/两页、18直接/16目标/30跳转/一RET，唯一World场景4十条41B；D01固定1与原ECX未知保，源码0改动无新I，pending7/18完整功能待验保持。doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-creation-controller-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-acceptance",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
+        "doc/cg2d_creation_controller_baseline_evidence.json",
+        "src/CharacterSelectScene.cpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/CharacterVersionUpgrade.cpp",
+        "src/world/WorldUpdate.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_creation_gate_adaptation_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_ida_inventory.json",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md",
+        "doc/cg2d_creation_and_module_adaptation_evidence.md",
+        "doc/cg2d_local_determinism_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
+          "decision_ref": "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
+      "expected": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
+      "actual": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推"
     }
   ],
   "task_acceptance": [
@@ -48593,7 +48645,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state"
       ]
     },
     {
@@ -48878,7 +48931,8 @@
         "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
         "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
         "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
-        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state"
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state"
       ]
     },
     {
@@ -49168,7 +49222,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
-        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state"
       ]
     },
     {
@@ -60498,6 +60553,22 @@
         "doc/cg2d_back_temp_full_source_snapshot_evidence.json"
       ],
       "boundary": "原18条49B：先整Back→Temp复制，忽略结果后一次RAND(0,35)，仅AL&FE、完整EAX写FF48E4并原位返回。现恢复完整W32写入/返回，六原调用点及六源调用均弃值；共享九处NULL源RECT请求恢复实际Back整面/无缩放无色键和原native正常资源失败，失败后RNG控制流保。I-S限定准备/整源复制合同、接口接线与15B用途，不代完整上层父/像素/其它callee/owner-alias寿命/机器ABI链接运行验收"
+    },
+    {
+      "inventory_id": "F:000626A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-acceptance",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
+        "doc/cg2d_creation_controller_baseline_evidence.json"
+      ],
+      "boundary": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
+      "approved_decision_ref": "doc/cg2d_local_determinism_spec.md",
+      "original_entry_ECX_unknown": true,
+      "pending_function_acceptance_retained": true
     }
   ],
   "auxiliary_dispositions": [

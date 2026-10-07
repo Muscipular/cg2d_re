@@ -108,12 +108,17 @@
     {
       "original_entry": "0x4626A0",
       "inventory_id": "F:000626A0",
-      "status": "具名适配源码接线已对齐，完整功能未验",
-      "implementation_state": "WorldUpdate唯一真实调用显式gate=1，旧无参声明已清；完整本体保持",
-      "remaining_requirement": "P08源码工作项已关闭；version正文、完整创建/请求往返及运行仍待，不以局部接线代FUNC-CHARACTER验收",
+      "status": "完整controller批准适配范围内静态原新已纳管，完整创建功能未验",
+      "implementation_state": "BVH01完整130条464B本体与唯一World场景4静态映射；D01/P08显式gate=1及原ECX未知保，BRT01版本零正文唯一定义已完成，正确源码保持",
+      "remaining_requirement": "完整创建交互/真实请求回复、所有callee和正常owner-alias寿命、机器ABI链接及运行仍待；pending7及18身份保留，不以完整controller静态映射代FUNC-CHARACTER验收",
       "evidence_documents": [
         "doc/cg2d_creation_gate_adaptation_spec.md",
-        "doc/cg2d_creation_and_module_adaptation_evidence.md"
+        "doc/cg2d_creation_and_module_adaptation_evidence.md",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-acceptance",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
+        "doc/cg2d_creation_controller_baseline_evidence.json"
       ],
       "decision_spec": "doc/cg2d_local_determinism_spec.md"
     },
@@ -199338,6 +199343,110 @@
         "full_machine_abi_verified": false,
         "full_lifecycle_closed": false,
         "normal_failure_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4626A0",
+      "inventory_id": "F:000626A0",
+      "original_role": "原创建controller：批准门禁/同帧连续状态推进和恢复回边",
+      "original_end_exclusive": "0x462870",
+      "original_chunks": [
+        {
+          "start": "0x4626a0",
+          "end_exclusive": "0x462870"
+        }
+      ],
+      "instruction_count": 130,
+      "status": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
+      "sources": [
+        {
+          "path": "src/CharacterSelectScene.cpp",
+          "symbols": [
+            "ProcessCreationScene_4626A0"
+          ],
+          "relationship": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推"
+        },
+        {
+          "path": "src/CharacterSelectSceneDependencies.hpp",
+          "symbols": [
+            "ProcessCreationScene_4626A0"
+          ],
+          "relationship": "既有私有std::int32_t entryGate显式参数/无默认值保持；D01固定1是批准适配，原ECX未知保"
+        },
+        {
+          "path": "src/world/WorldUpdate.cpp",
+          "symbols": [
+            "Update"
+          ],
+          "relationship": "唯一场景4输入后显式调用ProcessCreationScene_4626A0(1)，Yobi/角色/输入/44A410调度保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-acceptance",
+        "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
+        "doc/cg2d_creation_controller_baseline_evidence.json"
+      ],
+      "boundary": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
+      "verification_level": "BVH01批准适配范围限定静态：4626A0完整130条464B/两页，18直接/16目标、30跳转/一返回，唯一WorldUpdate场景4十条41B真实调度；同帧0/1/2/3→10/11/12→30/31→100/101与462726回边/两返回值判定、W16计数/恢复BYTE及清理-请求序正确保持。D01/P08入口固定1仍是具名适配，原ECX未知保；BRT01版本零正文已定义事实承接，源码0改动无新I；新1762/F:000626A0 adapted映射与CHARACTER一限定S，pending7继续保留完整功能待验，所有成员/闭包、请求往返/所有callee/owner-alias寿命/ABI运行门禁不外推",
+      "creation_controller_baseline": {
+        "spec_id": "BVH01",
+        "evidence_refs": [
+          "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-baseline",
+          "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision",
+          "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-acceptance",
+          "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-source-state",
+          "doc/cg2d_creation_controller_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 130,
+        "original_code_bytes": 464,
+        "original_page_count": 2,
+        "original_direct_call_count": 18,
+        "original_direct_call_target_count": 16,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 30,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "original_world_caller_instruction_count": 10,
+        "original_world_caller_code_bytes": 41,
+        "already_existing_root_kept": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": false,
+        "new_range_count": 0,
+        "new_feature_member_count": 0,
+        "original_entry_ECX_unknown": true,
+        "approved_entry_gate": 1,
+        "approved_decision_ref": "doc/cg2d_local_determinism_spec.md",
+        "P08_connection_kept": true,
+        "original_register_equivalence_claimed": false,
+        "controller_static_verified_in_approved_gate_scope": true,
+        "same_frame_state_chain_and_tail_backedge_retained": true,
+        "W16_counter_and_restore_BYTE_order_retained": true,
+        "cleanup_and_request_order_retained": true,
+        "BRT01_version_definition_contract_retained": true,
+        "pending_index": 7,
+        "pending_function_acceptance_retained": true,
+        "pending_record_policy_kept": true,
+        "pending_previous_status": "具名适配源码接线已对齐，完整功能未验",
+        "pending_previous_implementation_state": "WorldUpdate唯一真实调用显式gate=1，旧无参声明已清；完整本体保持",
+        "pending_previous_remaining_requirement": "P08源码工作项已关闭；version正文、完整创建/请求往返及运行仍待，不以局部接线代FUNC-CHARACTER验收",
+        "current_document_fact_correction_count": 2,
+        "full_all_callees_verified": false,
+        "full_parent_and_callee_closure_verified": false,
+        "full_pixels_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "request_round_trip_runtime_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }

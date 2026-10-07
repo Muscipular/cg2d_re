@@ -7,7 +7,7 @@
 
 [原证据](cg2d_character_select_scene.md#creation-gate-exit-evidence)：WorldUpdate场景4先4596D0再4626A0；后者保存入口ECX，部分路径在状态10与1比较。输入链退出ECX随路径变化，DirectSound外部接口失败可留外部寄存器残值，当前cg2d证据不能确定；不能用新端SDL/编译器寄存器替代。
 
-CharacterSelectScene已有ProcessCreationScene_4626A0(int32_t entryGate)完整显式本体，无默认参数；WorldUpdate仍调用无参缺口。正常选择完成/错误恢复会在同次本体内置gate=1，但尚未证明所有初始状态10不可达。
+CharacterSelectScene已有ProcessCreationScene_4626A0(int32_t entryGate)完整显式本体，无默认参数；WorldUpdate已按P08显式传1并清理旧无参声明。正常选择完成/错误恢复会在同次本体内置gate=1，但尚未证明所有初始状态10不可达。
 
 ## 已决定的明确规则
 
@@ -28,7 +28,7 @@ CharacterSelectScene已有ProcessCreationScene_4626A0(int32_t entryGate)完整�
 
 ## 验收与等待范围
 
-决议已解除等待批准；当前仍保留显式本体及可见无参缺口，后续按上表接线。其他七项适配各按D01独立边界，网络与音频不由gate决定。
+决议及P08接线已完成；显式本体、固定1和原调用序保持，完整controller原新由[BVH01](cg2d_creation_controller_baseline_spec.md#creation-controller-source-state)承接，完整功能仍待验。其他七项适配各按D01独立边界，网络与音频不由gate决定。
 
 本决议只允许上述接线及新增差异静态核对，不解除不构建/测试/运行/计算摘要的限制。真实创建交互、请求往返与完整启动仍须后续验收。
 
@@ -38,3 +38,13 @@ P08已按本SPEC接线：WorldUpdate场景4在输入处理后显式调用既有�
 删除旧无参声明；本体、后续局部门禁赋值与Yobi/绘制顺序保持。
 详见[静态收口证据](cg2d_creation_and_module_adaptation_evidence.md#p08-创建入口显式gate)。
 仅源码接线工作项关闭，创建交互、version生产、网络及运行仍未验。
+
+## BVH01当前接线与完整静态本体纳管（2026-10-08）
+
+[完整基线](cg2d_creation_controller_baseline_spec.md#creation-controller-baseline)、[纳管决定](cg2d_creation_controller_baseline_spec.md#creation-controller-decision)及[原证](cg2d_creation_controller_baseline_evidence.json)：创建controller完整130条464B/两页，18直接/16目标、30跳转/一RET、唯一World场景4十条41B；批准D01固定1/原ECX未知分开保留，现同帧连续状态推进及后半回边正确。本页两处现时无参待接句已更正，D01/P08固定1及唯一带参调用不变。完整controller已有正确实现，本步新增原新与静态S；版本零正文唯一对象已由BRT落实，完整功能仍待，未确定原ECX，也未改变适配行为。五源/完整本体与声明全文保持，代码0改动/无新I；新1762/F:000626A0 adapted与CHARACTER一限定S各26真实来源，pending7/18仍保完整功能待验、成员23不新增、U11/V03/R04仍open。所有callee/完整创建交互与请求回复、owner-alias寿命/机器ABI链接运行未验，全部闭包保持。
+
+### BVH01 当前创建controller原新限定静态结果
+
+集中静态通过：完整原根130条464B/两页、18直接/16目标/零间接/30跳转/一RET、唯一World场景4十条41B，原入口ECX保存及两后半回边有实际指令；五源/完整本体及私有S32声明、唯一D01 gate1调度与BRT const[1]正文/共享消费全文保持，代码0改动无新I。入口SPEC两现时无参待接句已更正、pending7当前说明承接本体原新和已完成正文事实；pending7/18与原policy保。完整机器/派生仅一原新/F、pending7当前事实、一域S/三任务与三指标差集；十四文件UTF8无BOM/LF、四锚点/一限定S的26真实来源通过。
+
+文本汇总及Check均退出0；实际语义1763/有效1756、合同1873（50.90%）、F904/E1079，R7已审465余2596/CHARACTER23、原分类120/mixed3/完整入口排除113、closed11（P08/U03原closed）/差队列及完整闭包保持。完整controller只在D01批准固定门禁范围静态通过，原ECX仍未知，不称原寄存器等价；完整创建交互/请求回复、16个callee及正常owner-alias寿命、机器ABI链接/运行和R8未验，整体目标继续。

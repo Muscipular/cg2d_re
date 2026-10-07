@@ -2500,3 +2500,13 @@ ready后文字y→x取样，依次加20／140并保持两S16；文字提交后�
 按[BTA01裁决](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision)实修CharacterVersionUpgrade.cpp六case片段／两个既有业务体：case4、100、200各一次native非拥有action，复用于非空判断和原EQ1／MarkDeath；case局部块隔离变量。原两观察槽、401D00单Read/RNG、100先状态101再Reset／200先Reset再状态201／不额外清槽，文本／测宽／居中／列数下限和全部其它源保。
 
 普通场景的三版本mode2/4/5／首NUL与旧场景abcdefg明文正文保持；普通成功清Yobi／两preview、末队列[3]及双slot mode1消费，旧成功／尾背景的差异保持。313条1154B／五页、34direct十三目标、54jump两RET及WorldUpdate两实际CALL；五原正文17/15/15/15/8B已证相等。两510B原用途精确96B目标／408B值表／2B8BFF自MOV与4B真NOP，不造x64地址表。新1604／1605两F、CHARACTER20→22；所有父／依赖／正常alias-owner寿命、互通／机器ABI和运行未验。
+
+## BVH01创建controller完整原新与待验层级（2026-10-08）
+
+[完整基线](cg2d_creation_controller_baseline_spec.md#creation-controller-baseline)、[纳管决定](cg2d_creation_controller_baseline_spec.md#creation-controller-decision)及[原证](cg2d_creation_controller_baseline_evidence.json)：创建controller完整130条464B/两页，18直接/16目标、30跳转/一RET、唯一World场景4十条41B；批准D01固定1/原ECX未知分开保留，现同帧连续状态推进及后半回边正确。0/1/2/3→10/11/12→30/31→100/101、局部门禁返回1/2、W16计数及恢复BYTE/462726回边均有完整原证/源对应；不改为每帧一次switch。正文原零前缀及唯一const[1]已由BRT收口，本步不再列缺定义；P08显式gate接线已完成，入口SPEC现时旧句纠正。五源/完整本体与声明全文保持，代码0改动/无新I；新1762/F:000626A0 adapted与CHARACTER一限定S各26真实来源，pending7/18仍保完整功能待验、成员23不新增、U11/V03/R04仍open。所有callee/完整创建交互与请求回复、owner-alias寿命/机器ABI链接运行未验，全部闭包保持。
+
+### BVH01 当前创建controller原新限定静态结果
+
+集中静态通过：完整原根130条464B/两页、18直接/16目标/零间接/30跳转/一RET、唯一World场景4十条41B，原入口ECX保存及两后半回边有实际指令；五源/完整本体及私有S32声明、唯一D01 gate1调度与BRT const[1]正文/共享消费全文保持，代码0改动无新I。入口SPEC两现时无参待接句已更正、pending7当前说明承接本体原新和已完成正文事实；pending7/18与原policy保。完整机器/派生仅一原新/F、pending7当前事实、一域S/三任务与三指标差集；十四文件UTF8无BOM/LF、四锚点/一限定S的26真实来源通过。
+
+文本汇总及Check均退出0；实际语义1763/有效1756、合同1873（50.90%）、F904/E1079，R7已审465余2596/CHARACTER23、原分类120/mixed3/完整入口排除113、closed11（P08/U03原closed）/差队列及完整闭包保持。完整controller只在D01批准固定门禁范围静态通过，原ECX仍未知，不称原寄存器等价；完整创建交互/请求回复、16个callee及正常owner-alias寿命、机器ABI链接/运行和R8未验，整体目标继续。

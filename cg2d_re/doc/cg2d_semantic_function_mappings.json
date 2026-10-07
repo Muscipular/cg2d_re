@@ -132679,7 +132679,7 @@
     {
       "original_entry": "0x47CB00",
       "inventory_id": "F:0007CB00",
-      "status": "既有配方/宠物/骑乘费用行真实格式依赖已接；完整技能数据/父路由/CRT/画面/运行未据本步验收",
+      "status": "BQS01既有费用行完整正常源已纳管并接原cost-first桥，旧格式/20B/名称后fresh费用/数字-图与描述符保持；全部生产/owner寿命/运行未验",
       "original_end_exclusive": "0x47CC76",
       "instruction_count": 123,
       "sources": [
@@ -132688,12 +132688,17 @@
           "symbols": [
             "Sub_47CB00"
           ],
-          "relationship": "仅格式接口改变，名称后取费用/同区数字消费及完整其他正文保持"
+          "relationship": "两活宠分别held record和pair，完整descriptor零初始化/color W32/byte13=4；nameNUL直接return。ClearTextTail→空DrawText→fresh位置/映射/action/FP cost→原401F80单右Read→flags禁用色7覆缺FP色6→nameDrawText→fresh record.fp到同20B %3d/既有原格式接口→数字绘制→三图表按S8visual/descriptor图，原坐标/层/颜色/返回保持。"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_10.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
       ],
       "boundary": "仅一格式callee接一原点；两次独立43C4B0分别取得宠物与配对宠物索引、配对S16技术索引及固定技术T*沿既有合同保持。原名称空门槛/战斗宠物位置405B40/FP比较/5ABB78位与颜色/层清理/占位/名称全部正文不动。名称绘完后重新读取同一record->fp普通S32，以既有%3d写未清20B、数字(x+186,y+3)/低U8 graphicLayer消费，末原54F454图号/完整图形层和W32描述符不动；不复用前段cost、不增加查询、清零、保护或改变void裁决。",
       "original_incoming": [
@@ -132737,12 +132742,42 @@
           "relationship": "名称绘完才重读同一技术FP S32，未清20B/%3d→数字消费→原图形/void；不复用前段FP比较的cost"
         }
       ],
-      "verification_level": "原123指令统计，仅42条名称后费用/普通S32折算或技术FP/格式/数字消费/相邻图形新邻窗仅读，余81与已过核心不重验；一原点/callee、既有%3d/20B合同/固定借用或重取索引时点、原形参层宽度和void裁决限定静态核。普通call1/data0只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原123指令统计，仅42条名称后费用/普通S32折算或技术FP/格式/数字消费/相邻图形新邻窗仅读，余81与已过核心不重验；一原点/callee、既有%3d/20B合同/固定借用或重取索引时点、原形参层宽度和void裁决限定静态核。普通call1/data0只登记，不推完整父路由，未构建执行。",
+      "battle_pet_skill_selection_sampling": {
+        "spec_id": "BQS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+          "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 123,
+        "original_code_bytes": 374,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 10,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "previous_mapping_status": "既有配方/宠物/骑乘费用行真实格式依赖已接；完整技能数据/父路由/CRT/画面/运行未据本步验收",
+        "previous_source_relationship": "仅格式接口改变，名称后取费用/同区数字消费及完整其他正文保持",
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_callback_fresh_held_difference_kept": true,
+        "original_normal_s32_w32_and_s16_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x47CE70",
       "inventory_id": "F:0007CE70",
-      "status": "既有配方/宠物/骑乘费用行真实格式依赖已接；完整技能数据/父路由/CRT/画面/运行未据本步验收",
+      "status": "BQS01既有费用行完整正常源已纳管并接原cost-first桥，旧格式/20B/名称后fresh费用/数字-图与描述符保持；全部生产/owner寿命/运行未验",
       "original_end_exclusive": "0x47CFD9",
       "instruction_count": 119,
       "sources": [
@@ -132751,12 +132786,17 @@
           "symbols": [
             "Sub_47CE70"
           ],
-          "relationship": "仅格式接口改变，名称后取费用/同区数字消费及完整其他正文保持"
+          "relationship": "入口held骑宠/pair/record，descriptor初始化顺序和nameNUL保持；同空字/颜色/名称→fresh费用%3d/20B→数字→图序，位置不映射；原401F80桥以同cost/action单读，表3B5B7/8/9及S8visual不新钳制。"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_10.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
       ],
       "boundary": "仅一格式callee接一原点；原入口5ABC38骑乘宠物S32/配对S16技术索引及固定技术T*保持，不改为43C4B0查询。名称空门槛/当前5ABCA4战斗位置及FP比较/5ABB78位与颜色/层清理/占位/名称全文不動。名称绘完后重新读同一record->fp普通S32/%3d写未清20B，数字(x+186,y+3)/低U8 graphicLayer消费，末原54F454图号/完整图形层和W32描述符及void裁决不动；不复用前段cost、清零、保护或改变关联方。",
       "original_incoming": [
@@ -132800,7 +132840,37 @@
           "relationship": "名称绘完才重读同一技术FP S32，未清20B/%3d→数字消费→原图形/void；不复用前段FP比较的cost"
         }
       ],
-      "verification_level": "原119指令统计，仅42条名称后费用/普通S32折算或技术FP/格式/数字消费/相邻图形新邻窗仅读，余77与已过核心不重验；一原点/callee、既有%3d/20B合同/固定借用或重取索引时点、原形参层宽度和void裁决限定静态核。普通call1/data0只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原119指令统计，仅42条名称后费用/普通S32折算或技术FP/格式/数字消费/相邻图形新邻窗仅读，余77与已过核心不重验；一原点/callee、既有%3d/20B合同/固定借用或重取索引时点、原形参层宽度和void裁决限定静态核。普通call1/data0只登记，不推完整父路由，未构建执行。",
+      "battle_pet_skill_selection_sampling": {
+        "spec_id": "BQS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+          "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 119,
+        "original_code_bytes": 361,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 7,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "previous_mapping_status": "既有配方/宠物/骑乘费用行真实格式依赖已接；完整技能数据/父路由/CRT/画面/运行未据本步验收",
+        "previous_source_relationship": "仅格式接口改变，名称后取费用/同区数字消费及完整其他正文保持",
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_callback_fresh_held_difference_kept": true,
+        "original_normal_s32_w32_and_s16_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x49B670",
@@ -182992,6 +183062,237 @@
         "original_normal_storage_kept": true,
         "original_low_s8_returns_kept": true,
         "original_getval_alias_and_rng_effects_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x47C950",
+      "inventory_id": "F:0007C950",
+      "original_role": "Sub_47C950",
+      "original_end_exclusive": "0x47CAFE",
+      "instruction_count": 136,
+      "status": "BQS01宠物选择消费/正确FP比较叶完整正常源纳管，五体13片段恢复取样/宽度与三个cost-first父；正常值/单读/RNG/回调差别及原返回保持，完整生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47C950"
+          ],
+          "relationship": "借graphic先mode；mode5活宠/映射位置，mode6骑宠/原位置；有效名称才FP cost-first单Read后短路flags，初/尾capacity取样先row++；有可用技能即element8.visible=0/返0。否则原W32 hover cache、click callback held(-1)→fresh窗口W32关闭→声音51/consumed1，原graphic借用尾default-hover-pressed/返回保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+      ],
+      "boundary": "借graphic先mode；mode5活宠/映射位置，mode6骑宠/原位置；有效名称才FP cost-first单Read后短路flags，初/尾capacity取样先row++；有可用技能即element8.visible=0/返0。否则原W32 hover cache、click callback held(-1)→fresh窗口W32关闭→声音51/consumed1，原graphic借用尾default-hover-pressed/返回保。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "verification_level": "六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "battle_pet_skill_selection_sampling": {
+        "spec_id": "BQS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+          "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 136,
+        "original_code_bytes": 430,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 5,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 3,
+        "previous_mapping_status": null,
+        "previous_source_relationship": null,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_callback_fresh_held_difference_kept": true,
+        "original_normal_s32_w32_and_s16_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x47CC80",
+      "inventory_id": "F:0007CC80",
+      "original_role": "Sub_47CC80",
+      "original_end_exclusive": "0x47CE67",
+      "instruction_count": 145,
+      "status": "BQS01宠物选择消费/正确FP比较叶完整正常源纳管，五体13片段恢复取样/宽度与三个cost-first父；正常值/单读/RNG/回调差别及原返回保持，完整生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47CC80"
+          ],
+          "relationship": "pairIndex=index-17 S32，五次活宠获取/三次S16 pair读取按实际阶段，先nameNUL返0；enabled flags mask后FP≥cost单读/低W8点击，callback先判slot非空→fresh活宠/pair→fresh同slot间接call(selected S16)；callback空也W32关闭/声音51/consumed1；mask禁用点击声音55，FP不足不补声。尾一次W8 visualFlags/hover提示/pressed优先、四W16坐标原序→47CB00/返consumed。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+      ],
+      "boundary": "pairIndex=index-17 S32，五次活宠获取/三次S16 pair读取按实际阶段，先nameNUL返0；enabled flags mask后FP≥cost单读/低W8点击，callback先判slot非空→fresh活宠/pair→fresh同slot间接call(selected S16)；callback空也W32关闭/声音51/consumed1；mask禁用点击声音55，FP不足不补声。尾一次W8 visualFlags/hover提示/pressed优先、四W16坐标原序→47CB00/返consumed。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "verification_level": "六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "battle_pet_skill_selection_sampling": {
+        "spec_id": "BQS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+          "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 145,
+        "original_code_bytes": 487,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 11,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 4,
+        "previous_mapping_status": null,
+        "previous_source_relationship": null,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_callback_fresh_held_difference_kept": true,
+        "original_normal_s32_w32_and_s16_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x47CFE0",
+      "inventory_id": "F:0007CFE0",
+      "original_role": "Sub_47CFE0",
+      "original_end_exclusive": "0x47D169",
+      "instruction_count": 127,
+      "status": "BQS01宠物选择消费/正确FP比较叶完整正常源纳管，五体13片段恢复取样/宽度与三个cost-first父；正常值/单读/RNG/回调差别及原返回保持，完整生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47CFE0"
+          ],
+          "relationship": "同前三正常门禁但held入口骑宠/pair/record，callback一次held T*后fresh骑宠/pair，再call同T*；保FP不足无声和null也关闭/声51/consumed1。一次W8尾visualFlags/四W16坐标→47CE70/返consumed；S32形参/共享坐标、W32关闭状态不窄化。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+      ],
+      "boundary": "同前三正常门禁但held入口骑宠/pair/record，callback一次held T*后fresh骑宠/pair，再call同T*；保FP不足无声和null也关闭/声51/consumed1。一次W8尾visualFlags/四W16坐标→47CE70/返consumed；S32形参/共享坐标、W32关闭状态不窄化。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "verification_level": "六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "battle_pet_skill_selection_sampling": {
+        "spec_id": "BQS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+          "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 127,
+        "original_code_bytes": 393,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 5,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 4,
+        "previous_mapping_status": null,
+        "previous_source_relationship": null,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_callback_fresh_held_difference_kept": true,
+        "original_normal_s32_w32_and_s16_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x401D70",
+      "inventory_id": "F:00001D70",
+      "original_role": "GreaterEqual_401D70",
+      "original_end_exclusive": "0x401D7F",
+      "instruction_count": 4,
+      "status": "BQS01宠物选择消费/正确FP比较叶完整正常源纳管，五体13片段恢复取样/宽度与三个cost-first父；正常值/单读/RNG/回调差别及原返回保持，完整生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "GreaterEqual_401D70"
+          ],
+          "relationship": "原401D70四条15B，左FP对象一次Read401EC0→S32 CMP other/SETNL→RET4，当前GreaterEqual与既有Yobi typed桥正确保；不删FP检查/改读次数或新增恒定成功。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "IsYobiActionFpGreaterEqual"
+          ],
+          "relationship": "原401D70经既有Yobi typed桥，action私有FP非拥有对象→平台S32>=cost，单Read401EC0与计数RNG。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+      ],
+      "boundary": "原401D70四条15B，左FP对象一次Read401EC0→S32 CMP other/SETNL→RET4，当前GreaterEqual与既有Yobi typed桥正确保；不删FP检查/改读次数或新增恒定成功。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "verification_level": "六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。",
+      "battle_pet_skill_selection_sampling": {
+        "spec_id": "BQS01",
+        "evidence_refs": [
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance",
+          "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+          "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 4,
+        "original_code_bytes": 15,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 23,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "previous_mapping_status": null,
+        "previous_source_relationship": null,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_callback_fresh_held_difference_kept": true,
+        "original_normal_s32_w32_and_s16_storage_kept": true,
         "new_r7_classification": false,
         "full_normal_source_static_mapped": true,
         "full_parent_newly_verified": false,

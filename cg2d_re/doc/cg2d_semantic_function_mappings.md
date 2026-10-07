@@ -3178,3 +3178,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQR02 十一状态/计数/选择正常原身份（2026-10-07）
 
 [原基线](cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline)/[十一冻结源体](cg2d_battle_skill_state_producer_sampling_evidence.json)：1543..1553十一正常语义/equivalent，全部冻结定位保持；语义1554/有效F1547、关联1665/3680（45.24%）、分类678/BATTLE230枚举open/E788。两体三片段/四原内存点实修，九正确体/真实11h提供者和原低S8/计数RNG/明文序保；无F及有效区间各7、R7 264/3061余2797/开发队列172与43待归属保持。原数据xref关系不等源地址不是代码，CC4D14六来源指令均已核；71入向及两个BQQ01无父CALL定位不代完整父验收。
+
+## BQS01 四新原F与两费用行完整续记（2026-10-07）
+
+[原基线](cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline)/[六冻结定位与两旧记录全文](cg2d_battle_pet_skill_selection_sampling_evidence.json)：1554..1557四新正常语义，983/984两格式记录保business_*和原证据，只当前status/source关系、五引用及完整子基线增量；旧状态/关系和全文在证据保留，不重复原ID。六equivalent/六成员，语义1558/有效1551、关联1669/3680（45.35%）、分类684/BATTLE236枚举open/E790；无F/有效区间各7/R7 264余2797/差队列172与43待归属保持。原三间接operand0/slot/2不是函数地址，三数据xref不等actual字段；28入向只登记，不据引用验收全部父。

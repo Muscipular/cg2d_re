@@ -211,3 +211,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQR02 技能计数/选择与动作状态生产（2026-10-07）
 
 [完整合同](cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state)/[十一完整112条361B](cg2d_battle_skill_state_producer_sampling_evidence.json)沿关闭/回退依赖纳管五清增计数、技能回复、mode5/6 selector、动作状态读/发布与真实范围常量。两动作体三片段恢复FDA88E两个W8读及发送后W8 OR2/动作0 fresh W16 ANDFFFD，2B memcpy保持别名/共享W32，普通值一致。九正确体、原低S8返回/短路/Y-X单Read/计数RNG、held值/fresh socket、原fS与klF明文及发送后状态发布保持。71入向/25父、CC4D14两写四读只登记；230成员open，完整数据/consumer/owner寿命和运行另验，无新R7。
+
+## BQS01 宠物选择消费与费用行（2026-10-07）
+
+[完整合同](cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state)/[六完整654条2060B](cg2d_battle_pet_skill_selection_sampling_evidence.json)纳管skip/普通/骑乘consumer、两费用行和正确>=叶。五体13片段恢复loop初尾界先row++/held hover、四点击W8与两尾W8 cache、八坐标W16/2B memcpy及三cost-first父；普通值/FP单读与计数RNG保。普通fresh callback与骑宠held callback/null收尾/FP不足无声、原费用%3d/20B/数字图及34B旧tooltip/三图表保。元素8实际561C94/两列表17..26十槽store有据；mode5/6正常可见不新fallback。两旧983/984历史/格式业务字段保且当前状态同步，236成员open/不新R7，完整生产/父/owner/运行另验。

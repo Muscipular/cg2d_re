@@ -37212,7 +37212,7 @@ void Sub_47CB00(
         world::detail::gBattleCurrentPosition5ABCA4);
     login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
     const std::int32_t cost = record->fp;
-    std::int8_t nameColor = login::detail::IsYobiActionFpLessThan(action, cost) ? 6 : 0;
+    std::int8_t nameColor = login::detail::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
     const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
         nameColor = 7;
@@ -37248,7 +37248,7 @@ void Sub_47CE70(
     const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
     const std::int32_t cost = record->fp;
     login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
-    std::int8_t nameColor = login::detail::IsYobiActionFpLessThan(action, cost) ? 6 : 0;
+    std::int8_t nameColor = login::detail::IsCostGreaterThanYobiActionFp(cost, action) ? 6 : 0;
     const std::uint32_t flags = world::detail::gBattlePetSkillFlags5ABB78;
     if ((flags & (1u << (static_cast<std::uint32_t>(pairIndex) & 31u))) == 0) {
         nameColor = 7;
@@ -37285,7 +37285,7 @@ std::int32_t Sub_47CC80(const std::int32_t index, const std::int32_t state)
         const std::int32_t cost = world::detail::gPetRuntimeF633F8[costPet].techniquesD8[technique].fp;
         const std::int32_t position = world::detail::GetBattlePetPosition_405B40(playerPosition);
         if (login::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
-            && (state & 2) != 0) {
+            && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
             if (gPetSkillSelectionCallbackCC4D14 != nullptr) {
                 const std::int32_t pet = world::detail::Sub_43C4B0();
                 const auto selected = std::bit_cast<std::int16_t>(
@@ -37296,21 +37296,33 @@ std::int32_t Sub_47CC80(const std::int32_t index, const std::int32_t state)
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-    } else if ((state & 2) != 0) {
+    } else if ((reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
-    if ((state & 1) != 0) {
+    const std::uint8_t visualFlags = reinterpret_cast<const std::uint8_t*>(&state)[0];
+    if ((visualFlags & 1u) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
         std::strcpy(gHoverTextD68AE8.data(), kSkillUsable586518);
     }
-    if ((state & 2) != 0) {
+    if ((visualFlags & 2u) != 0) {
         visualState = 1;
     }
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = &window->elements[index];
-    const auto y = static_cast<std::int16_t>(element->y + window->y);
-    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    // 原坐标按element Y/X、window Y/X取低W16，避免宽指针别名。
+    std::uint16_t elementYBits;
+    std::uint16_t elementXBits;
+    std::uint16_t windowYBits;
+    std::uint16_t windowXBits;
+    std::memcpy(&elementYBits, &element->y, sizeof(elementYBits));
+    std::memcpy(&elementXBits, &element->x, sizeof(elementXBits));
+    std::memcpy(&windowYBits, &window->y, sizeof(windowYBits));
+    std::memcpy(&windowXBits, &window->x, sizeof(windowXBits));
+    const auto y = static_cast<std::int16_t>(
+        std::bit_cast<std::int16_t>(elementYBits) + std::bit_cast<std::int16_t>(windowYBits));
+    const auto x = static_cast<std::int16_t>(
+        std::bit_cast<std::int16_t>(elementXBits) + std::bit_cast<std::int16_t>(windowXBits));
     Sub_47CB00(x, y, visualState, pairIndex, 3, 223, 0xFFFFFFFFu);
     return consumed;
 }
@@ -37331,7 +37343,7 @@ std::int32_t Sub_47CFE0(const std::int32_t index, const std::int32_t state)
         const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
         const std::int32_t cost = record->fp;
         if (login::detail::IsYobiActionFpGreaterEqual(world::detail::gBattleEntries59E980[position], cost)
-            && (state & 2) != 0) {
+            && (reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
             const WindowValueCallback callback = gPetSkillSelectionCallbackCC4D14;
             if (callback != nullptr) {
                 const auto pet = std::bit_cast<std::int32_t>(world::detail::gBattleRidePet5ABC38);
@@ -37343,21 +37355,33 @@ std::int32_t Sub_47CFE0(const std::int32_t index, const std::int32_t state)
             static_cast<void>(audio::PlaySe_52C450(51, 320));
             consumed = 1;
         }
-    } else if ((state & 2) != 0) {
+    } else if ((reinterpret_cast<const std::uint8_t*>(&state)[0] & 2u) != 0) {
         static_cast<void>(audio::PlaySe_52C450(55, 320));
     }
-    if ((state & 1) != 0) {
+    const std::uint8_t visualFlags = reinterpret_cast<const std::uint8_t*>(&state)[0];
+    if ((visualFlags & 1u) != 0) {
         visualState = 2;
         gSkillWindowHoverD2F744 = pairIndex;
         std::strcpy(gHoverTextD68AE8.data(), kSkillUsable586518);
     }
-    if ((state & 2) != 0) {
+    if ((visualFlags & 2u) != 0) {
         visualState = 1;
     }
     const WindowInstance* const window = gCurrentWindow;
     const WindowElement* const element = &window->elements[index];
-    const auto y = static_cast<std::int16_t>(element->y + window->y);
-    const auto x = static_cast<std::int16_t>(element->x + window->x);
+    // 原坐标按element Y/X、window Y/X取低W16，避免宽指针别名。
+    std::uint16_t elementYBits;
+    std::uint16_t elementXBits;
+    std::uint16_t windowYBits;
+    std::uint16_t windowXBits;
+    std::memcpy(&elementYBits, &element->y, sizeof(elementYBits));
+    std::memcpy(&elementXBits, &element->x, sizeof(elementXBits));
+    std::memcpy(&windowYBits, &window->y, sizeof(windowYBits));
+    std::memcpy(&windowXBits, &window->x, sizeof(windowXBits));
+    const auto y = static_cast<std::int16_t>(
+        std::bit_cast<std::int16_t>(elementYBits) + std::bit_cast<std::int16_t>(windowYBits));
+    const auto x = static_cast<std::int16_t>(
+        std::bit_cast<std::int16_t>(elementXBits) + std::bit_cast<std::int16_t>(windowXBits));
     Sub_47CE70(x, y, visualState, pairIndex, 3, 223, 0xFFFFFFFFu);
     return consumed;
 }
@@ -37605,24 +37629,29 @@ std::int32_t Sub_47C950(const std::int32_t index, const std::int32_t state)
     const auto* const pet = &world::detail::gPetRuntimeF633F8[petIndex];
     std::int32_t count = 0;
     std::int32_t unavailable = 0;
-    for (std::int32_t row = 0; row < pet->value6A4; ++row) {
+    std::int32_t row = 0;
+    std::int32_t capacity = pet->value6A4;
+    while (row < capacity) {
         const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[row].index);
         const auto* const record = &pet->techniquesD8[technique];
         if (record->name[0] != '\0') {
             const std::int32_t cost = record->fp;
             login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
-            if (login::detail::IsYobiActionFpLessThan(action, cost)
+            if (login::detail::IsCostGreaterThanYobiActionFp(cost, action)
                 || (world::detail::gBattlePetSkillFlags5ABB78 & (1u << (static_cast<std::uint32_t>(row) & 31u))) == 0) {
                 ++unavailable;
             }
             ++count;
         }
+        capacity = pet->value6A4;
+        ++row;
     }
     if (count > unavailable) {
         gCurrentWindow->elements[8].visible = 0;
         return 0;
     }
-    if ((state & 1) != 0) {
+    const bool hovered = (state & 1) != 0;
+    if (hovered) {
         std::strcpy(gHoverTextD68AE8.data(), kPetSkillSkip5865A8);
     }
     std::int32_t consumed = 0;
@@ -37636,7 +37665,7 @@ std::int32_t Sub_47C950(const std::int32_t index, const std::int32_t state)
         consumed = 1;
     }
     graphic->imageNo = 0x3BE7E;
-    if ((state & 1) != 0) {
+    if (hovered) {
         graphic->imageNo = 0x3BE80;
     }
     if ((state & 8) != 0) {

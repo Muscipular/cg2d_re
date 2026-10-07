@@ -1202,3 +1202,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQR02 技能与动作状态局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-acceptance)/[十一完整原根](cg2d_battle_skill_state_producer_sampling_evidence.json)，112条361B/十一页、七call五callee/十jump十一ret；两体三片段恢复四原W8/W16点，九正确体/原低S8返回、短路/常量范围、Y-X单Read和计数RNG/fresh socket/明文/发送后发布序保持。两个网络前缀只证明原格式推送，六callback来源/71入向只登记，完整封包/consumer/数据生产/owner寿命/运行未据本批验收。两I/S各24真实来源，四任务open/60源码closed10/完整验收0/叶0/global=false与R7保持；12精确文件，音频及验证限制保。
+
+## BQS01 宠物消费/费用行局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance)/[六完整654条2060B](cg2d_battle_pet_skill_selection_sampling_evidence.json)，十一页39CALL（36直接/13callee和三间接）、40jump/九RET；五体13片段恢复取样/低W8/八W16及原FP callee桥，正确>=叶/每次单读与计数RNG、普通fresh/骑宠held/null收尾和返回/无声差别/格式与图序保。两个旧记录完整续记且保原业务/历史，三数据绑定/十槽store/首NUL及表有据；局部DrawText Word消费不代全renderer/全部父/数据生产/owner/运行。两I/S各23实际来源，四任务open/60源码closed10/完整验收0/叶0/global=false和R7保持；12精确文件，音频及验证限制保。

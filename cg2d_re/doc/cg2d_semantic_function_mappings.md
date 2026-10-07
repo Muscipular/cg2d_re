@@ -3324,3 +3324,9 @@ CHARACTER7→8，语义1593有效1586／文档1704／3680（46.30%）／728处�
 新增1593对应真实F:0005D7E0／UpdateAuthenticationFailure_45D7E0，保现S32接口，不造Reset／descriptor／内部块F。见[基线](cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-baseline)：完整113条413B／两页、7直接／7目标，唯一460FF0@46140C；原55C5E8十五字节和descriptor初始化已核。六片段恢复原常量创建、命中／声音后单对象／文字图像独立字段阶段及SAR，撤未证编码标签，原普通值和其它整源保持。
 
 CHARACTER8→9，语义1594有效1587／文档1705／3680（46.33%）／729处置／E848；单3B原对齐用途使R7 299→300余2761。冻结定位／pending18／差队列与全部完整门禁保，局部不代完整父、七依赖、正常消费寿命／机器ABI或运行。
+
+## BSO01 通用确认与删除警告（2026-10-07）
+
+新增1594／1595对应F:0005DEE0／F:0005E0C0，两个主符号分别ProcessConfirmationDialog_45DEE0／ProcessCharacterDeletionWarning_45E0C0，保S32接口，不造未变默认wrapper／本地记录／内部块F。见[基线](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline)：433条1194B／七页、26直接／合计10目标，各真实caller独立保。单源四片段各复用原创建返回／入口样本进失败和LTE门禁，声音后独立单对象清理。
+
+CHARACTER9→11，语义1596有效1589／文档1707／3680（46.39%）／731处置／E850；两原7／15B对齐用途使R7 300→302余2759。冻结定位／pending18／差队列和全完整门禁保，局部不代完整两父、依赖、消费／全部正常alias-owner寿命、机器ABI或运行。

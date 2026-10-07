@@ -186059,6 +186059,132 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45DEE0",
+      "inventory_id": "F:0005DEE0",
+      "original_role": "ProcessConfirmationDialog_45DEE0",
+      "original_end_exclusive": "0x45e089",
+      "instruction_count": 165,
+      "status": "BSO01两确认父各两片段恢复创建返回/原槽样本进入失败和LTE检查、声音后独立单对象清理；单源四片段，只局部静态，完整父/依赖/全部消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterDeletionConfirmation.cpp",
+          "symbols": [
+            "ProcessConfirmationDialog_45DEE0"
+          ],
+          "relationship": "BSO01两确认父完整433条1194B/七页，26直接/合计10唯一目标无间接、19jump/6RET：45DEE0 165条425B三页/10call八目标/两caller（45E090@45E0A8、460FF0@461483），45E0C0 268条769B四页/16call八目标/唯一460FF0@461193。单源四片段/两既有业务体：创建/LTE各借入口modalAction，创建后发布唯一共享槽，失败门禁/LTE继续借同返回样本；各Play79后独立clickedAction一次取共享槽，复用非空判断/MarkDeath清槽，不跨声音复用入口对象。原普通分支正确，不称运行故障；既有宽高非正默认192/96、两相同right=left+158及第二hover覆盖、警告确认优先短路、两local记录/各draw现场hoverSeq、同256B四复制/测宽/文字参数与S16、图号/低W8/返回/其余整源和默认wrapper/父/依赖正文保，无新owner。新1594/1595两adapted F:0005DEE0/F:0005E0C0，CHARACTER9→11；语义1596有效1589/文档1707（46.39%）/处置731/E850；两X7/15B共22全90逐BYTE真实NOP/无入向/各前RET后入口仅原对齐用途，R7 302余2759，不造wrapper/记录/内部块F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整两父/合计10依赖、全部共享弹窗正常alias-owner寿命/事件输入/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 通用确认：既定宽高和两命中/hover覆盖、点击后继续两图像/一次测宽文字与结果保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-decision",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-acceptance",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
+        "doc/cg2d_confirmation_modal_action_sampling_evidence.json"
+      ],
+      "boundary": "BSO01两确认父完整433条1194B/七页，26直接/合计10唯一目标无间接、19jump/6RET：45DEE0 165条425B三页/10call八目标/两caller（45E090@45E0A8、460FF0@461483），45E0C0 268条769B四页/16call八目标/唯一460FF0@461193。单源四片段/两既有业务体：创建/LTE各借入口modalAction，创建后发布唯一共享槽，失败门禁/LTE继续借同返回样本；各Play79后独立clickedAction一次取共享槽，复用非空判断/MarkDeath清槽，不跨声音复用入口对象。原普通分支正确，不称运行故障；既有宽高非正默认192/96、两相同right=left+158及第二hover覆盖、警告确认优先短路、两local记录/各draw现场hoverSeq、同256B四复制/测宽/文字参数与S16、图号/低W8/返回/其余整源和默认wrapper/父/依赖正文保，无新owner。新1594/1595两adapted F:0005DEE0/F:0005E0C0，CHARACTER9→11；语义1596有效1589/文档1707（46.39%）/处置731/E850；两X7/15B共22全90逐BYTE真实NOP/无入向/各前RET后入口仅原对齐用途，R7 302余2759，不造wrapper/记录/内部块F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整两父/合计10依赖、全部共享弹窗正常alias-owner寿命/事件输入/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 通用确认：既定宽高和两命中/hover覆盖、点击后继续两图像/一次测宽文字与结果保。",
+      "verification_level": "BSO01两确认父完整433条1194B/七页，26直接/合计10唯一目标无间接、19jump/6RET：45DEE0 165条425B三页/10call八目标/两caller（45E090@45E0A8、460FF0@461483），45E0C0 268条769B四页/16call八目标/唯一460FF0@461193。单源四片段/两既有业务体：创建/LTE各借入口modalAction，创建后发布唯一共享槽，失败门禁/LTE继续借同返回样本；各Play79后独立clickedAction一次取共享槽，复用非空判断/MarkDeath清槽，不跨声音复用入口对象。原普通分支正确，不称运行故障；既有宽高非正默认192/96、两相同right=left+158及第二hover覆盖、警告确认优先短路、两local记录/各draw现场hoverSeq、同256B四复制/测宽/文字参数与S16、图号/低W8/返回/其余整源和默认wrapper/父/依赖正文保，无新owner。新1594/1595两adapted F:0005DEE0/F:0005E0C0，CHARACTER9→11；语义1596有效1589/文档1707（46.39%）/处置731/E850；两X7/15B共22全90逐BYTE真实NOP/无入向/各前RET后入口仅原对齐用途，R7 302余2759，不造wrapper/记录/内部块F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整两父/合计10依赖、全部共享弹窗正常alias-owner寿命/事件输入/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "confirmation_modal_action_sampling": {
+        "spec_id": "BSO01",
+        "evidence_refs": [
+          "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline",
+          "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-decision",
+          "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-acceptance",
+          "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
+          "doc/cg2d_confirmation_modal_action_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 165,
+        "original_code_bytes": 425,
+        "original_page_count": 3,
+        "original_direct_call_count": 10,
+        "original_unique_callee_count": 8,
+        "original_indirect_call_count": 0,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_changed_existing_function_count_in_batch": 2,
+        "source_entry_nonowning_modal_sample_count": 1,
+        "source_return_sample_reused_for_failure_and_lte": true,
+        "original_shared_modal_owner_kept": true,
+        "creation_shared_publish_before_failure_branch_kept": true,
+        "source_sound_following_independent_click_sample_count": 1,
+        "cleanup_reuses_entry_modal_sample": false,
+        "nonnull_mark_and_clear_only_kept": true,
+        "original_generic_width_height_nonpositive_default_kept": true,
+        "original_generic_both_hit_right_bounds_kept": true,
+        "original_generic_second_hover_override_kept": true,
+        "original_warning_confirm_priority_short_circuit_kept": true,
+        "original_warning_shared_buffer_and_four_text_copies_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x45E0C0",
+      "inventory_id": "F:0005E0C0",
+      "original_role": "ProcessCharacterDeletionWarning_45E0C0",
+      "original_end_exclusive": "0x45e3c1",
+      "instruction_count": 268,
+      "status": "BSO01两确认父各两片段恢复创建返回/原槽样本进入失败和LTE检查、声音后独立单对象清理；单源四片段，只局部静态，完整父/依赖/全部消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterDeletionConfirmation.cpp",
+          "symbols": [
+            "ProcessCharacterDeletionWarning_45E0C0"
+          ],
+          "relationship": "BSO01两确认父完整433条1194B/七页，26直接/合计10唯一目标无间接、19jump/6RET：45DEE0 165条425B三页/10call八目标/两caller（45E090@45E0A8、460FF0@461483），45E0C0 268条769B四页/16call八目标/唯一460FF0@461193。单源四片段/两既有业务体：创建/LTE各借入口modalAction，创建后发布唯一共享槽，失败门禁/LTE继续借同返回样本；各Play79后独立clickedAction一次取共享槽，复用非空判断/MarkDeath清槽，不跨声音复用入口对象。原普通分支正确，不称运行故障；既有宽高非正默认192/96、两相同right=left+158及第二hover覆盖、警告确认优先短路、两local记录/各draw现场hoverSeq、同256B四复制/测宽/文字参数与S16、图号/低W8/返回/其余整源和默认wrapper/父/依赖正文保，无新owner。新1594/1595两adapted F:0005DEE0/F:0005E0C0，CHARACTER9→11；语义1596有效1589/文档1707（46.39%）/处置731/E850；两X7/15B共22全90逐BYTE真实NOP/无入向/各前RET后入口仅原对齐用途，R7 302余2759，不造wrapper/记录/内部块F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整两父/合计10依赖、全部共享弹窗正常alias-owner寿命/事件输入/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 删除警告：两本地记录/确认优先短路和各绘制现场序号、四原文案同256B及测宽/绘制与结果保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-decision",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-acceptance",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
+        "doc/cg2d_confirmation_modal_action_sampling_evidence.json"
+      ],
+      "boundary": "BSO01两确认父完整433条1194B/七页，26直接/合计10唯一目标无间接、19jump/6RET：45DEE0 165条425B三页/10call八目标/两caller（45E090@45E0A8、460FF0@461483），45E0C0 268条769B四页/16call八目标/唯一460FF0@461193。单源四片段/两既有业务体：创建/LTE各借入口modalAction，创建后发布唯一共享槽，失败门禁/LTE继续借同返回样本；各Play79后独立clickedAction一次取共享槽，复用非空判断/MarkDeath清槽，不跨声音复用入口对象。原普通分支正确，不称运行故障；既有宽高非正默认192/96、两相同right=left+158及第二hover覆盖、警告确认优先短路、两local记录/各draw现场hoverSeq、同256B四复制/测宽/文字参数与S16、图号/低W8/返回/其余整源和默认wrapper/父/依赖正文保，无新owner。新1594/1595两adapted F:0005DEE0/F:0005E0C0，CHARACTER9→11；语义1596有效1589/文档1707（46.39%）/处置731/E850；两X7/15B共22全90逐BYTE真实NOP/无入向/各前RET后入口仅原对齐用途，R7 302余2759，不造wrapper/记录/内部块F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整两父/合计10依赖、全部共享弹窗正常alias-owner寿命/事件输入/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 删除警告：两本地记录/确认优先短路和各绘制现场序号、四原文案同256B及测宽/绘制与结果保。",
+      "verification_level": "BSO01两确认父完整433条1194B/七页，26直接/合计10唯一目标无间接、19jump/6RET：45DEE0 165条425B三页/10call八目标/两caller（45E090@45E0A8、460FF0@461483），45E0C0 268条769B四页/16call八目标/唯一460FF0@461193。单源四片段/两既有业务体：创建/LTE各借入口modalAction，创建后发布唯一共享槽，失败门禁/LTE继续借同返回样本；各Play79后独立clickedAction一次取共享槽，复用非空判断/MarkDeath清槽，不跨声音复用入口对象。原普通分支正确，不称运行故障；既有宽高非正默认192/96、两相同right=left+158及第二hover覆盖、警告确认优先短路、两local记录/各draw现场hoverSeq、同256B四复制/测宽/文字参数与S16、图号/低W8/返回/其余整源和默认wrapper/父/依赖正文保，无新owner。新1594/1595两adapted F:0005DEE0/F:0005E0C0，CHARACTER9→11；语义1596有效1589/文档1707（46.39%）/处置731/E850；两X7/15B共22全90逐BYTE真实NOP/无入向/各前RET后入口仅原对齐用途，R7 302余2759，不造wrapper/记录/内部块F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整两父/合计10依赖、全部共享弹窗正常alias-owner寿命/事件输入/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "confirmation_modal_action_sampling": {
+        "spec_id": "BSO01",
+        "evidence_refs": [
+          "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline",
+          "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-decision",
+          "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-acceptance",
+          "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
+          "doc/cg2d_confirmation_modal_action_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 268,
+        "original_code_bytes": 769,
+        "original_page_count": 4,
+        "original_direct_call_count": 16,
+        "original_unique_callee_count": 8,
+        "original_indirect_call_count": 0,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_changed_existing_function_count_in_batch": 2,
+        "source_entry_nonowning_modal_sample_count": 1,
+        "source_return_sample_reused_for_failure_and_lte": true,
+        "original_shared_modal_owner_kept": true,
+        "creation_shared_publish_before_failure_branch_kept": true,
+        "source_sound_following_independent_click_sample_count": 1,
+        "cleanup_reuses_entry_modal_sample": false,
+        "nonnull_mark_and_clear_only_kept": true,
+        "original_generic_width_height_nonpositive_default_kept": true,
+        "original_generic_both_hit_right_bounds_kept": true,
+        "original_generic_second_hover_override_kept": true,
+        "original_warning_confirm_priority_short_circuit_kept": true,
+        "original_warning_shared_buffer_and_four_text_copies_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

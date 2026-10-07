@@ -1352,3 +1352,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-baseline)、[裁决](cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-decision)、[验收](cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-acceptance)与[源码状态](cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state)关联原113条413B和单源六片段：创建原常量；矩形width-x-减66-y单取-left-bottom-top-right；Play51后action单取／非空死亡清槽；文字y-x／两S16，文字后图像width-y-图号-x／SAR和坐标阶段。原15B提示字节／静态寿命、16B descriptor、hover／DF／两图号与其它正文保，编码名保持未证。
 
 单adapted／CHARACTER一真实成员，两局部I-S各17实际来源，E846→848；单3B真实NOP只对齐用途。U11／V03／R04只current／引用仍open，P05原closed／closed11／完整叶0／globalfalse和完整门禁保持。完整人物父／七依赖、事件输入／渲染生产消费、正常alias-owner寿命、CRT-SDK／机器ABI／链接、人物创建-主地图与明文往返／实际画面／运行仍待；不把字段取样算依赖或整体验收。
+
+## BSO01 两弹窗创建与点击清理对象开发验收（2026-10-07）
+
+[基线](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline)、[裁决](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-decision)、[验收](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-acceptance)与[源码状态](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state)关联两原根433条1194B和单源四片段／两体：各创建／失败／LTE借同modalAction与返回值、保共享槽发布；各Play79后独立clickedAction单读供非空判断／死亡清槽。原门槛／命中／hover、警告短路、局部记录／各绘制序号、四文字同缓冲与测宽／绘制、返回及其余正文保持。
+
+两单adapted／CHARACTER两真实成员，两局部I-S各18真实来源，E848→850；双7／15B只原对齐用途，不造wrapper或记录F。U11／V03／R04只current／引用仍open，P05原closed／closed11／完整叶0／globalfalse与完整门禁保持。完整两父／合计十依赖、全部共享弹窗正常alias-owner寿命、事件输入／文本图像消费、CRT-SDK／机器ABI／链接及人物创建-主地图／明文互通／实际画面／运行仍待，局部不外推。

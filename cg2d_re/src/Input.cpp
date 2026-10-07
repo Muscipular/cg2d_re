@@ -1531,7 +1531,24 @@ void Sub_44AB60()
             nextIndex = 0;
             history.tail626838 = 0;
         }
-        if (std::strcmp(context->text, history.records[oldIndex]) == 0) {
+        const char* const previousText = history.records[oldIndex];
+        bool sameAsPrevious = false;
+        std::size_t comparisonIndex = 0;
+        for (;;) {
+            const auto inputByte =
+                static_cast<unsigned char>(context->text[comparisonIndex]);
+            const auto previousByte =
+                static_cast<unsigned char>(previousText[comparisonIndex]);
+            if (inputByte != previousByte) {
+                break;
+            }
+            if (inputByte == 0) {
+                sameAsPrevious = true;
+                break;
+            }
+            ++comparisonIndex;
+        }
+        if (sameAsPrevious) {
             history.tail626838 = static_cast<std::uint32_t>(oldIndex);
         } else {
             std::strcpy(history.records[nextIndex], context->text);
@@ -1558,7 +1575,23 @@ void Sub_44AB60()
     if (context == &gInputContextC8B1B8) {
         char message[256];
         const char* const text = gInputContextC8B1B8.text;
-        if (std::strcmp(text, world::detail::BorrowPlayerDisplayText(1)) == 0) {
+        const char* const playerName = world::detail::BorrowPlayerDisplayText(1);
+        bool targetsSelf = false;
+        std::size_t comparisonIndex = 0;
+        for (;;) {
+            const auto inputByte = static_cast<unsigned char>(text[comparisonIndex]);
+            const auto playerByte =
+                static_cast<unsigned char>(playerName[comparisonIndex]);
+            if (inputByte != playerByte) {
+                break;
+            }
+            if (inputByte == 0) {
+                targetsSelf = true;
+                break;
+            }
+            ++comparisonIndex;
+        }
+        if (targetsSelf) {
             platform::FormatLegacyString_53B304(message, kBlacklistSelfText554938);
         } else if (blacklist::ContainsBlacklistRecord_4013D0(text) != 0) {
             platform::FormatLegacyString_53B304(message, kBlacklistExistingFormat554928, text);

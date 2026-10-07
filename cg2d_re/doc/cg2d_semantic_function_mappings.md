@@ -3408,3 +3408,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [基线](cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline)对应F:0011B140／新语义1612／CharacterNameExists_51B140：完整45条97B/一页、无call七jump两RET与46388D真实创建消费。单片段恢复name BYTE→record BYTE、同输入样本NUL与失配短路，原两记录/每槽重比/148B跨度/296B owner和S32 1/0保持；不新增字符/空名/容量规则或辅助函数。
 
 语义1613有效1606、文档1724（46.85%）、处置752、CHARACTER23/E878两局部I-S各15来源，R7 321→322余2739，15B原NOP仅用途。LOGIN13/NETWORK54/LOOP38/INPUT27/MAP69、冻结定位/pending18/差队列/原P05-P08与全部完整门禁保；不以局部查重源纳管代人物创建/记录全部生产消费/ABI或运行。
+
+## BTG01 按键分发与回车字节读取合同（2026-10-07）
+
+[完整基线](cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline)对应新1613／F:000596D0双chunk分派及既有766／F:0004AB60全部格式/生产消费字段保持后追加。两根229条785B/四页三chunk、21direct二十目标/无间接/44jump四RET，十九code入向三父/Enter唯一45974B。仅Enter两BYTE比较实修，所有原字段、字节、分支与父正文保持。
+
+语义1614有效1607/文档1725（46.88%）/处置754、INPUT29/E880两局部I-S各26来源、R7 322→324余2737，仅两个新1B。尾13B RPA01原对象/引用保，不能重复加R7或造401920新F。LOGIN13/CHARACTER23/NETWORK54/LOOP38/MAP69、冻结定位/pending18/差队列和原任务及全部完整门禁保持；局部不代全部输入/聊天/名单文件/SDK-ABI或运行。

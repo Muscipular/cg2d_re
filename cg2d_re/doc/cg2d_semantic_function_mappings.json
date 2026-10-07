@@ -94955,7 +94955,7 @@
     {
       "original_entry": "0x44AB60",
       "inventory_id": "F:0004AB60",
-      "status": "既有回车父的全部黑名单提示格式及清理写序已接原合同；完整输入/文件/运行未验",
+      "status": "既有回车父的全部黑名单提示格式及清理写序已接原合同；完整输入/文件/运行未验；BTG01完整175条591B与历史/黑名单两BYTE比较实修，旧格式/清理/原正确控制流保持，全部父/provider/正常寿命和运行未验",
       "original_end_exclusive": "0x44ADAF",
       "instruction_count": 175,
       "original_direct_reference_count": 1,
@@ -95091,10 +95091,53 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_input_key_dispatch.md"
+        "doc/cg2d_input_key_dispatch.md",
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline",
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision",
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-acceptance",
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
+        "doc/cg2d_enter_text_byte_sampling_evidence.json"
       ],
-      "verification_level": "完整175条/唯一入向、两格式点/三个互斥表达式/四格式原字节/分支AL消费、首字节→caret→length/提示→切换→相位及整份源码/JSON限定差异静态核对；未重验其余输入/历史/聊天/黑名单本体/原消费者内部，未执行",
-      "boundary": "自录无参提示与已有/加入成功/失败全部格式接真实53B304，借用输入文本/玩家名/黑名单owner与256B未清message保持；同一原公共点对应现有两互斥表达式，动态每条路径仍一次。按44AD77/7D/83将源码首字节→length→caret改为原首字节→caret→length，三写后提示，再切626AA0，末相位20；聊天分支独有的length→caret→首字节及IME/历史/发送/多行正文不改，不补未知字段/owner/业务保护，不记完整交互或文件运行已验收。"
+      "verification_level": "完整175条/唯一入向、两格式点/三个互斥表达式/四格式原字节/分支AL消费、首字节→caret→length/提示→切换→相位及整份源码/JSON限定差异静态核对；未重验其余输入/历史/聊天/黑名单本体/原消费者内部，未执行；BTG01追加完整Enter根及按键父双chunk、两BYTE比较和全部保留项有限静态，原所有格式证据保，未执行。",
+      "boundary": "自录无参提示与已有/加入成功/失败全部格式接真实53B304，借用输入文本/玩家名/黑名单owner与256B未清message保持；同一原公共点对应现有两互斥表达式，动态每条路径仍一次。按44AD77/7D/83将源码首字节→length→caret改为原首字节→caret→length，三写后提示，再切626AA0，末相位20；聊天分支独有的length→caret→首字节及IME/历史/发送/多行正文不改，不补未知字段/owner/业务保护，不记完整交互或文件运行已验收。 BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行",
+      "enter_text_byte_sampling": {
+        "spec_id": "BTG01",
+        "evidence_refs": [
+          "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline",
+          "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision",
+          "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-acceptance",
+          "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
+          "doc/cg2d_enter_text_byte_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 175,
+        "original_code_bytes": 591,
+        "original_page_count": 3,
+        "original_chunk_count": 1,
+        "original_direct_call_count": 9,
+        "original_unique_callee_count": 8,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_inbound_parent_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_changed_existing_original_function_count": 1,
+        "source_chat_input_before_history_byte_restored": true,
+        "source_blacklist_input_before_player_name_byte_restored": true,
+        "source_each_comparison_nul_uses_same_input_byte_sample_restored": true,
+        "original_only_equality_branch_predicate_kept": true,
+        "original_history_real_low_byte_signed_view_normal_increment_and_ring_kept": true,
+        "original_context_fresh_sampling_and_clear_order_kept": true,
+        "original_four_blacklist_texts_and_full_format_contracts_kept": true,
+        "original_key_dispatch_body_two_chunks_and_audio_calls_kept": true,
+        "original_existing_tail_padding_disposition_kept": true,
+        "new_helper_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x461B30",
@@ -187392,6 +187435,86 @@
         "original_record_stride_148_and_full_296_byte_owner_kept": true,
         "original_only_equality_and_zero_one_signed_return_kept": true,
         "original_creation_caller_message_validation_and_plain_protocol_kept": true,
+        "new_helper_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4596D0",
+      "inventory_id": "F:000596D0",
+      "original_role": "主场景按键编辑分发",
+      "original_end_exclusive": "0x45975f",
+      "original_chunks": [
+        {
+          "start": "0x4596d0",
+          "end_exclusive": "0x45975f",
+          "count": 37,
+          "bytes": "8a0d09f07300b00253b31084c8753c840508f073007534841d1ef073007405e8dc0effff841d20f073007405e8cf10ffff841d1df073007405e8320effff841d1ff073007405e8650effff841d00f073007405e86812ffff841d26f073007405e85b13ffff841d01f073007405e83ef90a00841d05f073005b7405e81014fffff6051bf07300047405e9c281faffc3",
+          "code_bytes": 143
+        },
+        {
+          "start": "0x401920",
+          "end_exclusive": "0x401953",
+          "count": 17,
+          "bytes": "6a02e8a92a100083c40485c0741c6a64e89b29100068f000000068400100006a39e80aab120083c410c36a63e82f28100059c3",
+          "code_bytes": 51
+        }
+      ],
+      "instruction_count": 54,
+      "status": "BTG01主场景按键分发原双chunk完整基线与现正确正文静态；Enter两BYTE比较实修，所有父/provider/正常寿命/ABI和运行未验",
+      "sources": [
+        {
+          "path": "src/InputKeyDispatch.cpp",
+          "symbols": [
+            "ProcessKeyInput_4596D0"
+          ],
+          "relationship": "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline",
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision",
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-acceptance",
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
+        "doc/cg2d_enter_text_byte_sampling_evidence.json"
+      ],
+      "boundary": "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行",
+      "verification_level": "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行",
+      "enter_text_byte_sampling": {
+        "spec_id": "BTG01",
+        "evidence_refs": [
+          "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline",
+          "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision",
+          "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-acceptance",
+          "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
+          "doc/cg2d_enter_text_byte_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 54,
+        "original_code_bytes": 194,
+        "original_page_count": 1,
+        "original_chunk_count": 2,
+        "original_direct_call_count": 12,
+        "original_unique_callee_count": 12,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 19,
+        "original_inbound_parent_count": 3,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_changed_existing_original_function_count": 0,
+        "source_chat_input_before_history_byte_restored": false,
+        "source_blacklist_input_before_player_name_byte_restored": false,
+        "source_each_comparison_nul_uses_same_input_byte_sample_restored": false,
+        "original_only_equality_branch_predicate_kept": true,
+        "original_history_real_low_byte_signed_view_normal_increment_and_ring_kept": true,
+        "original_context_fresh_sampling_and_clear_order_kept": true,
+        "original_four_blacklist_texts_and_full_format_contracts_kept": true,
+        "original_key_dispatch_body_two_chunks_and_audio_calls_kept": true,
+        "original_existing_tail_padding_disposition_kept": true,
         "new_helper_count": 0,
         "normal_previous_values_wrong": false,
         "original_source_rest_unchanged": true,

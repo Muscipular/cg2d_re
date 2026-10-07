@@ -1436,3 +1436,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline)、[裁决](cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision)、[验收](cg2d_character_name_byte_sampling_spec.md#character-name-byte-acceptance)与[原证据](cg2d_character_name_byte_sampling_evidence.json)对应一业务体一片段、单既有真F新语义/CHARACTER成员/处置、两局部I-S各15来源、单15B用途。U10/V03/R04只current/引用保open，P05-P08原closed及原ECX未知/pending7保。
 
 原45完整指令、输入→记录BYTE与同输入NUL、两槽148B/296B owner、每槽输入起点及原S321/0落实。原9A51E8参数/FF0D18复制截断/非零state102局部已证，创建父与其它验证和所有相关源头保持。全创建父/全部记录和输入的生产消费/间接别名/正常寿命/ABI/链接/画面/明文互通/运行R8继续，集中静态和派生结果随唯一进度追加。
+
+## BTG01 回车文本比较开发验收（2026-10-07）
+
+[基线](cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline)、[裁决](cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision)、[验收](cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-acceptance)与[原证据](cg2d_enter_text_byte_sampling_evidence.json)对应Enter一个业务体两片段、既有766追加/单新父语义、INPUT两成员/两处置、两局部I-S各26来源、两个新1B用途及旧13B RPA01处置保持。U10/V03/R04仅current/引用保open，原P05-P08 closed/原ECX未知pending7保。
+
+两比较输入→对方BYTE及同输入NUL落实，原历史低W8/S8/正常推进环、context现场样本/颜色游标清序、四格式/AL/未清256B/提示切换与phase及按键原mask/次序、Tab空叶/音频原调用保。229完整原指令、19点三父及Enter唯一消费只证本步边界，全父/二十provider/全部正常owner-alias寿命、SDK-ABI/链接/画面/原格式明文互通/运行R8继续；集中静态和派生结果随唯一进度追加。

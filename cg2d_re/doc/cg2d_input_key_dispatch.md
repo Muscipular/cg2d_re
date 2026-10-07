@@ -319,3 +319,11 @@ C9A930并返回S32的两倍，不引入字体度量或钳制。实际父入口�
 [44A7D0当前源码](cg2d_input_terminal_length_spec.md#input-terminal-length-source-state)只撤终行U32加法/bit_cast回绕承载，保正常S32 strlen长度+1计入NUL；独立扫描和末槽写后早退不改。唯一4596FC调用、公开/私有签名、原0x10键位和相位/门禁不变；只保存七条邻窗，不重验完整4596D0或恢复暂停音频。
 
 原终行44A923 repne scasb、44A92A not ecx、44A92E写槽、44A932 signed比较及原字段仍可追。全输入分派/焦点/IME、其他编辑/所有owner/alias/机器环境/SDK/显示运行仍待，数学异常不专项处理或模拟。
+
+## 回车历史/本人文本字节取样更新（BTG01，2026-10-07）
+
+按[BTG01裁决](cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision)实修Input.cpp内Sub_44AB60两片段：历史去重先输入BYTE再旧记录BYTE，黑名单本人判断先输入BYTE再玩家name BYTE，相等后均复用同输入样本判NUL，失配短路，仅全等谓词。无helper/额外外调/共享状态或编码改写，原正常比较结果此前正确。
+
+IME/聊天空早返、历史真实低W8/S8/普通S32推进与64环、去重/复制及449FA0后现场context、颜色先读/游标-1/50C940、三次新context清length/caret/text及末再取样、六context CR、四原格式/未清256B/名单AL/清序/提示与切换/phase20保持。父按键顺序/Tab空叶及两chunk音频原调用保持且暂停，网络原格式明文保持。
+
+完整父54条194B/双chunk、Enter175条591B/三页，合229条785B/四页/21direct二十目标/44jump四RET；分派十九点三父，Enter唯一45974B。766原格式字段保后追加，父新1613/INPUT27→29，两局部I-S各26来源。两个新1B只对齐用途，尾13B已有RPA01整对象保持，不造尾F/重复R7或改相邻加解密叶排除。全部父/provider/正常寿命/ABI/运行未验。

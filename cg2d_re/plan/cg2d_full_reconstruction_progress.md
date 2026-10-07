@@ -3460,3 +3460,19 @@ source BYTE先取shared BYTE后取，相等后同source样本NUL/失配短路，
 2026-10-07：两cpp六唯一片段、原两文本业务体和两个已有helper，高BYTE只改/旧free指针复用/分配实际U32参数及native返回发布判NULL/短复制每轮目标地址→source BYTE落实；原三字段发布/玩家名字重取/两40-39布局/未写gap/三NUL与所有其它关联源头保持。两完整原根304条834B/六页、11direct五目标/两Tick/30jump六RET、两个唯一接收消费、两真实W8标记/三前缀/单组14B逐BYTE用途，完整机器增量、四文档和三任务六列，四组静态全部通过。measure/-Check同会话终态0，完整派生快照通过；13文件UTF-8无BOM/LF、四锚点与两I-S各23真实来源/差异文本通过。
 
 已修本步全部确认的标记、指针及API参数取样差异，普通S32保持，不新增异常回绕/保护/钳制/补零/拒绝/限长或helper。语义1616有效1609/文档1727（46.93%）/处置757/E884、TEXT27/R7 327余2734；旧1614语义/六其它域/冻结定位/pending18/差队列/原任务与全部完整门禁保。提交清单13文件，排除保护六项用户既有改动，整体SPEC目标继续active。全接收父/provider与正常owner-alias文本生产/绘制/过期释放域、ABI/链接/画面/明文互通/运行R8继续；未编译/测试/运行/算法样例或计算摘要，不以局部静态代完整验收。
+
+## BTJ01 聊天气泡消费/过期指针与绘制字段取样实修（2026-10-07）
+
+上一BTI01已修两原文本生产入口/两个既有helper两cpp六片段并同步13文件提交。本轮沿生命周期消费：43D860实际为朝向调整，91条完整原叶与现正文正确保持，不误作清理/不造修改；真正缺口在既有442F70聊天窗口。先落[子SPEC](../doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-decision)，实施YobiRuntime.cpp一个原业务体六唯一片段，聚焦正文不全面重验父。
+
+过期原旧text先取再清本地flags，NULL/free同样本/原清槽；未过期原气泡与action flags短路后取text，并复用同谓词指针作首测宽；底部现场fullS32 metricFont复用第二测宽，第二text新取+41。两绘制改真实低W8 color/font与低W16 X/原第二Y先第一X先，向零half及最终S16保持；首Draw后九宫格X仍另现场读全W32，不能误缩。原unsigned deadline<=tick、零length也覆盖stateIndex别名/非零含负数、首测宽/图高/现场Y/指标、两行max/第二Draw后新font指标扣Y/原callee和九宫格/fallback及所有其它正文保，无新helper/保护/拒绝/钳制/补零/限长/编码或异常回绕。
+
+原窗口[4433C6,443562)134条412B/三页53+70+11，8direct六目标/一Tick/11jump无RET；父1220元数据/唯一4417E0@441D9B保持，非完整root复验、其它1086条不代验。1073全部原role/source/end/count/十名称格式点与AAS01所有字段、原LOOP/MAP成员与adapted处置保后追加，实际TextMeasure提供者已按冻结定位对齐Font.cpp，不留错误路径引用。
+
+无新语义/F/处置/R7/范围排除：语义1616有效1609/文档1727（46.93%）/处置757/R7 327余2734保持，TEXT27→28/E886两局部I-S各21来源。原INPUT29/NETWORK55/CHARACTER23/LOGIN13/LOOP38/MAP69与所有旧字段/冻结定位/pending18/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse和全部完整门禁保。网络原格式明文/音频暂停不变，全父/provider/全部正常文本生产绘制过期寿命、ABI/链接/画面/明文互通/运行R8继续，集中静态/派生终态后追加真实结果。
+
+### BTJ01 集中静态与派生结果
+
+2026-10-07：整YobiRuntime.cpp仅既有1073业务体六唯一片段，旧free与谓词text/指标font样本复用、真实W8色/font及W16文本X/原读序和九宫格另读全W32落实，原length/stateIndex别名/负数路径/动态指标/全部其它正文和Font.cpp provider保持；聊天窗口134条412B/三页、8direct六目标/一Tick/11jump无RET、原真实宽度及父1220元数据/唯一caller，完整机器增量、四文档和三任务六列，四组静态全部通过。measure/-Check同会话终态0，完整派生快照通过；12文件UTF-8无BOM/LF、四锚点及两I-S各21真实来源/差异文本通过。
+
+本步确认的消费/释放读取差异已修，无新helper/规则/异常模型。TEXT28/E886；语义1616有效1609/文档1727（46.93%）/处置757/R7 327余2734保，1073十格式/AAS01/原LOOP-MAP与adapted处置、全部其它旧字段/冻结定位/pending18/差队列/任务和完整门禁保。提交清单12文件，排除保护六项用户既有改动，整体SPEC目标继续active。其它1086条未复验，全父/provider与全部正常文本生产绘制过期释放域、ABI/链接/画面/明文互通/运行R8继续；未编译/测试/运行/算法样例或计算摘要，不以局部静态代完整验收。

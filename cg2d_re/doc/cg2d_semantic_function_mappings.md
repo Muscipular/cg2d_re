@@ -3426,3 +3426,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [完整基线](cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-baseline)对应F:00042DC0/1614和F:0011A6A0/1615：两原根304条834B/六页、11direct五目标/两Tick/30jump六RET、两个唯一接收消费。两cpp六片段恢复高BYTE、旧释放指针、分配U32数量/native return、短复制每轮目标地址先取；原两正文/两个已有helper及布局/失败/正常算术保，无新原F/helper。
 
 语义1616有效1609/文档1727（46.93%）/处置757/E884、TEXT27两局部I-S各23来源/R7 325→327余2734；INPUT29/NETWORK55/CHARACTER23/LOGIN13/LOOP38/MAP69、全部旧1614语义/冻结定位/pending18/差队列和原任务/完整门禁保。完整正常文本分配/借用/绘制/过期释放域及ABI、链接/明文互通/运行仍待。
+
+## BTJ01 既有实体附加绘制的聊天窗口消费合同（2026-10-07）
+
+[局部完整基线](cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-baseline)追加到1073/F:00042F70，原role/source/end/count/十名称格式点和AAS01全部字段、LOOP/MAP两成员及adapted处置保持。聊天134条412B/三页只覆盖过期释放和气泡绘制，父1220元数据/唯一caller保持，其它1086条不代验；一源六片段落实样本复用、真实W8/W16及九宫格另读全W32。
+
+语义1616有效1609/文档1727（46.93%）/处置757/R7 327余2734保持，TEXT28/E886两局部I-S各21来源。原六域及LOOP38/MAP69成员/冻结定位/pending18/差队列/旧处置/任务与完整门禁保；不把局部消费/过期静态当全实体绘制、正常寿命/SDK或运行。

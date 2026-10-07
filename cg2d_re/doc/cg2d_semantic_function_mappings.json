@@ -145793,7 +145793,7 @@
       "original_entry": "0x442F70",
       "inventory_id": "F:00042F70",
       "original_role": "地图实体附加绘制、名称与状态图标",
-      "status": "AAS01附加入口骑乘快照/首附件逐次取样实修；既有名称十原格式点保留，完整实体/运行未验",
+      "status": "AAS01附加入口骑乘快照/首附件逐次取样实修；既有名称十原格式点保留，完整实体/运行未验；BTJ01原聊天窗口134条412B/一体六片段恢复过期指针/谓词text与metricFont样本、真实W8/W16绘制读序；十名称点与AAS01原字段保，全父/provider/寿命/运行未验",
       "original_end_exclusive": "0x443FF1",
       "instruction_count": 1220,
       "original_direct_reference_count": 1,
@@ -146153,10 +146153,15 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-acceptance",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_attachment_sampling_evidence.json"
+        "doc/cg2d_actor_attachment_sampling_evidence.json",
+        "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-baseline",
+        "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-decision",
+        "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-acceptance",
+        "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-source-state",
+        "doc/cg2d_actor_chat_consumer_sampling_evidence.json"
       ],
-      "verification_level": "原1220条统计仅读268名称及邻控制流；十真实call/同格式字节复用、六玩家借用映射/非玩家字段与三共尾/现源码一个标识符静态核对，余952条及状态图标/玩家和资源生产/4417E0调用者不重验，未执行。；AAS01追加两局部窗143条495B和两root元数据/type17关系，原全1220其它1077条不重验；新增静态不代先前名称10点/一源码表达式或完整父/运行",
-      "boundary": "名称S16mode>0门禁；玩家模式1..6/name和ownTitle/动态原称号表/三文本，颜色1/4/5/2/0/0；非玩家100/非80000及image非0时六字段/颜色0/1/4/5/2/2，其他80200回退不限制正模式<=6，含200且非空title优先否则name；未清256B格式后Y/测宽/X/绘制。只stdcallee变化，旧对象/状态/字段别名/生命周期/原声效与所有其他正文保持，不加空串skip/转码/截断/保护；十原点共一个现表达式，原父/完整名称/画面/资源和CRT/运行/总PLAN未闭合。；AAS01入口保真实空action早退，frameX→payload→frameY→骑乘槽→index，两帧偏移用同骑乘快照；首附件绘制初空值判断复用initialChild写X，后三目标槽先取再读主Y/worldX/Y、动画及两偏移子槽逐次读取，图形槽在X相加前取。创建/刷新/失败/MarkDeath清槽和条/聊天/索引别名/名称/挂件/action30正文保持；不新增保护或回绕/故障模拟，不冒称其它1077条、完整callee/生产/owner寿命/SDK/CPU浮点/场景运行已验。",
+      "verification_level": "原1220条统计仅读268名称及邻控制流；十真实call/同格式字节复用、六玩家借用映射/非玩家字段与三共尾/现源码一个标识符静态核对，余952条及状态图标/玩家和资源生产/4417E0调用者不重验，未执行。；AAS01追加两局部窗143条495B和两root元数据/type17关系，原全1220其它1077条不重验；新增静态不代先前名称10点/一源码表达式或完整父/运行；BTJ01完整局部134条412B/三页有限静态，父只元数据/唯一caller，未复验其它1086条；原所有名称/附件字段保，不执行。",
+      "boundary": "名称S16mode>0门禁；玩家模式1..6/name和ownTitle/动态原称号表/三文本，颜色1/4/5/2/0/0；非玩家100/非80000及image非0时六字段/颜色0/1/4/5/2/2，其他80200回退不限制正模式<=6，含200且非空title优先否则name；未清256B格式后Y/测宽/X/绘制。只stdcallee变化，旧对象/状态/字段别名/生命周期/原声效与所有其他正文保持，不加空串skip/转码/截断/保护；十原点共一个现表达式，原父/完整名称/画面/资源和CRT/运行/总PLAN未闭合。；AAS01入口保真实空action早退，frameX→payload→frameY→骑乘槽→index，两帧偏移用同骑乘快照；首附件绘制初空值判断复用initialChild写X，后三目标槽先取再读主Y/worldX/Y、动画及两偏移子槽逐次读取，图形槽在X相加前取。创建/刷新/失败/MarkDeath清槽和条/聊天/索引别名/名称/挂件/action30正文保持；不新增保护或回绕/故障模拟，不冒称其它1077条、完整callee/生产/owner寿命/SDK/CPU浮点/场景运行已验。 BTJ01既有1073/Sub_442F70仅原聊天窗口[4433C6,443562)134条412B/三页53+70+11，8direct六目标/一Tick/11jump无RET；父元数据1220条及唯一4417E0@441D9B保，非完整root复验、不代其余1086条。YobiRuntime.cpp一原业务体六唯一片段：过期旧text地址先取再清本地flags且复用同地址NULL/free；未过期原气泡/flags短路才取drawableText并复用同谓词指针测首行，fullS32 font当场读；底部metricFont现场样本复用给第二测宽，第二text新取+41；两绘制依原text→真实低W8 color/font→真实低W16 actionX取样，第二Y先算再X/第一X先取再Y，负width/2向零及最终真实S16保持；首Draw后九宫格X另现场读全W32，不误缩为W16。原unsigned deadline<=tick、零length仍覆盖stateIndex别名/非零含负数绘制、首测宽→图高→现场Y→font指标/两行maxwidth/第二Draw后重新font指标扣Y/四callee次序、九宫格原图/大小/颜色/参数、fallback原Y→X/后续名称及所有其它正文保。1073十原名称格式点/生产消费与AAS01全部字段和两LOOP/MAP成员/原adapted整处置保后追加；无新F/语义/处置/R7/排除，TEXT27→28及两局部I-S。字段owner/布局不变、不扩普通S32或造异常/保护/钳制/拒绝/补零/限长/helper；完整父/callee/全部正常文本分配绘制过期寿命、SDK-ABI/画面/明文互通/运行未验",
       "actor_attachment_sampling": {
         "spec_id": "AAS01",
         "partial_windows": 2,
@@ -146170,6 +146175,43 @@
           "doc/cg2d_actor_attachment_sampling_evidence.json"
         ],
         "full_body_reverified": false
+      },
+      "actor_chat_consumer_sampling": {
+        "spec_id": "BTJ01",
+        "evidence_refs": [
+          "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-baseline",
+          "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-decision",
+          "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-acceptance",
+          "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-source-state",
+          "doc/cg2d_actor_chat_consumer_sampling_evidence.json"
+        ],
+        "full_original_root_reverified": false,
+        "original_root_instruction_count": 1220,
+        "partial_original_window_instruction_count": 134,
+        "partial_original_window_code_bytes": 412,
+        "partial_original_window_page_count": 3,
+        "partial_original_window_direct_call_count": 8,
+        "partial_original_window_unique_callee_count": 6,
+        "partial_original_window_tick_import_count": 1,
+        "original_root_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 6,
+        "source_expired_text_sample_before_flags_and_reused_for_free_restored": true,
+        "source_predicate_text_reused_first_measure_restored": true,
+        "source_metric_font_sample_reused_second_measure_restored": true,
+        "source_draw_actual_w8_color_font_and_w16_x_restored": true,
+        "source_draw_sampling_order_restored": true,
+        "source_ninegrid_separate_fresh_full_w32_x_kept": true,
+        "original_business_formats_and_attachment_fields_preserved": true,
+        "original_existing_disposition_and_memberships_preserved": true,
+        "new_helper_count": 0,
+        "new_semantic_count": 0,
+        "new_function_disposition_count": 0,
+        "new_r7_classification_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {

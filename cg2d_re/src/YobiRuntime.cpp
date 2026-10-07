@@ -5958,45 +5958,61 @@ void Sub_442F70(YobiAction* const action, const std::int32_t primaryIndex)
 
     if ((flags & 0x2000u) != 0) {
         const std::uint32_t now = platform::ReadTickCount32();
+        const char* drawableText = nullptr;
         if (payload->chatDeadline14 <= now) {
+            char* const expiredText = payload->text1C;
             flags &= 0xDFFFu;
-            if (payload->text1C != nullptr) {
-                std::free(payload->text1C);
+            if (expiredText != nullptr) {
+                std::free(expiredText);
                 payload->text1C = nullptr;
             }
         } else if (gChatBubbles554338 != 0 && (action->flags & 0x180u) != 0
-                   && payload->text1C != nullptr) {
+                   && (drawableText = payload->text1C) != nullptr) {
             // 原var_114与对象索引别名；包括零长度，后面的共享状态清位仍用此值。
             stateIndex = payload->textLength24;
             if (stateIndex != 0) {
-                std::int32_t width = TextMeasure(payload->text1C, payload->font28);
+                const std::int32_t firstMeasureFont = payload->font28;
+                std::int32_t width = TextMeasure(drawableText, firstMeasureFont);
                 const std::int32_t height = Sub_4417A0(action->imageNo);
                 std::int32_t y = height + action->y - 32;
+                const std::int32_t metricFont = payload->font28;
                 const std::int32_t bottom =
-                    render::gFontMetrics[payload->font28].doubleHeight + y + 8;
+                    render::gFontMetrics[metricFont].doubleHeight + y + 8;
                 if (stateIndex > 40) {
+                    const char* const secondMeasureText = payload->text1C + 41;
                     const std::int32_t secondWidth =
-                        TextMeasure(payload->text1C + 41, payload->font28);
+                        TextMeasure(secondMeasureText, metricFont);
                     if (width < secondWidth) {
                         width = secondWidth;
                     }
                     const char* const text = payload->text1C + 41;
                     const auto color = std::bit_cast<std::int8_t>(
-                        static_cast<std::uint8_t>(payload->color20));
-                    const auto font = static_cast<std::int8_t>(payload->font28);
-                    const auto x = static_cast<std::int16_t>(action->x - width / 2);
-                    DrawText(x, static_cast<std::int16_t>(y + 4), 0, font, color, text, 0, 0);
+                        *reinterpret_cast<const std::uint8_t*>(&payload->color20));
+                    const auto font = std::bit_cast<std::int8_t>(
+                        *reinterpret_cast<const std::uint8_t*>(&payload->font28));
+                    const std::int32_t drawY = y + 4;
+                    std::int16_t actionX;
+                    std::memcpy(&actionX, &action->x, sizeof(actionX));
+                    const auto x = static_cast<std::int16_t>(
+                        static_cast<std::int32_t>(actionX) - width / 2);
+                    DrawText(x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
                     y -= render::gFontMetrics[payload->font28].doubleHeight;
                 }
                 const std::int32_t halfWidth = width / 2;
                 const char* const text = payload->text1C;
                 const auto color = std::bit_cast<std::int8_t>(
-                    static_cast<std::uint8_t>(payload->color20));
-                const auto font = static_cast<std::int8_t>(payload->font28);
-                const auto x = static_cast<std::int16_t>(action->x - halfWidth);
-                DrawText(x, static_cast<std::int16_t>(y + 4), 0, font, color, text, 0, 0);
+                    *reinterpret_cast<const std::uint8_t*>(&payload->color20));
+                const auto font = std::bit_cast<std::int8_t>(
+                    *reinterpret_cast<const std::uint8_t*>(&payload->font28));
+                std::int16_t actionX;
+                std::memcpy(&actionX, &action->x, sizeof(actionX));
+                const std::int32_t drawY = y + 4;
+                const auto x = static_cast<std::int16_t>(
+                    static_cast<std::int32_t>(actionX) - halfWidth);
+                DrawText(x, static_cast<std::int16_t>(drawY), 0, font, color, text, 0, 0);
+                const std::int32_t borderActionX = action->x;
                 DrawNineGrid_49BE00(
-                    0x3BE84, static_cast<std::int16_t>(action->x - halfWidth - 5),
+                    0x3BE84, static_cast<std::int16_t>(borderActionX - halfWidth - 5),
                     static_cast<std::int16_t>(y - 1), static_cast<std::int16_t>(width + 10),
                     static_cast<std::int16_t>(bottom - y + 2), 0xCE, -1,
                     std::bit_cast<std::int32_t>(0x80FFFFFFu), 74, 54);

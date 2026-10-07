@@ -4389,3 +4389,11 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 原payload/玩家末次action名与非玩家43D860、Tick/deadline、三前缀/两strncmp、原NULL失败及三字段写序、40阈/AL2与40-39布局/+41/未写gap/三NUL和所有其它源头保持，无新helper/规则/异常模拟。两完整根304条834B/六页两块，11direct五目标/两Tick/30jump六RET；唯一50CAE0@50CDBD/50CDEE已接，void返回弃保。
 
 补两既有真F语义1614/1615、TEXT25→27/两adapted/两局部I-S各23来源，两NOP区14B只用途；全部接收父/provider/正常分配释放域与绘制过期寿命、SDK-ABI/链接/画面/明文互通/运行未验，音频暂停与网络原格式明文保持。
+
+## 聊天气泡绘制与过期释放取样更新（BTJ01，2026-10-07）
+
+按[BTJ01裁决](cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-decision)实修Sub_442F70一个业务体六片段：过期旧text样本先取再清本地flags，NULL/free复用；气泡/flags短路后取text并复用首测宽，底部metricFont样本复用第二测宽，第二text新取+41。两DrawText恢复真实低W8 color/font及真实低W16 X/原第二Y先与第一X先顺序；第一Draw后九宫格另现场读取全W32 X，原向零半宽及最终S16保。
+
+只完整取聊天窗口[4433C6,443562)134条412B/三页，8direct六目标/一Tick/11jump无RET，父1220元数据/唯一441D9B保；其它1086条不由本步代验。原零length/stateIndex别名/负数路径、首测宽→图高/现场Y、两行max/第二Draw后新font指标扣Y/四callee/九宫格与fallback及全部其他正文保持。
+
+1073全部十名称格式点/AAS01字段、原LOOP/MAP成员和adapted处置保后追加，无新语义/F/处置/R7；TEXT27→28/两局部I-S各21实际来源，字体测宽实际提供者Font.cpp引用已对齐。全父/provider/全部正常文本分配—绘制—过期寿命、SDK-ABI/链接/画面/明文互通/运行仍未验。

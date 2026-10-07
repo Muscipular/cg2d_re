@@ -137,7 +137,10 @@ void CopyInitialPlayerActionIdentity(
 void UpdateMapActorMode(YobiAction*& slot, std::int32_t mode, std::int32_t imageNo);
 // 50B380公共尾：先捕获payload，再探测字段17，不新增action空检查。
 void ApplyMapActorReplyAttachments(YobiAction* action, const char* text);
-// 50A3E0/46AFE0：先读目标X，重读同一共享槽后读目标Y；入口非空由调用方处理。
+// 50A3E0：以调用方已判非空的同一T*读目标X，随后重读共享槽读目标Y。
+void ReadMapActorTarget(
+    YobiAction* action, YobiAction*& slot, std::int32_t* x, std::int32_t* y);
+// 既有入口：先取槽T*读目标X，再重读同一共享槽读目标Y；不新增空检查。
 void ReadMapActorTarget(
     YobiAction*& slot, std::int32_t* x, std::int32_t* y);
 void ClearMapActorPathCount(YobiAction* action) noexcept; // 51B080仅清原+270 W16。

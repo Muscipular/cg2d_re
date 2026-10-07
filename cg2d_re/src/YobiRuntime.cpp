@@ -4011,11 +4011,18 @@ void ApplyMapActorReplyAttachments(YobiAction* const action, const char* const t
 }
 
 void ReadMapActorTarget(
+    YobiAction* const action, YobiAction*& slot,
+    std::int32_t* const x, std::int32_t* const y)
+{
+    *x = platform::legacy_crypt_int::Read_401EC0(&action->mapX200);
+    *y = platform::legacy_crypt_int::Read_401EC0(&slot->mapY210);
+}
+
+void ReadMapActorTarget(
     YobiAction*& slot, std::int32_t* const x, std::int32_t* const y)
 {
     YobiAction* const action = slot;
-    *x = platform::legacy_crypt_int::Read_401EC0(&action->mapX200);
-    *y = platform::legacy_crypt_int::Read_401EC0(&slot->mapY210);
+    ReadMapActorTarget(action, slot, x, y);
 }
 
 void ClearMapActorPathCount(YobiAction* const action) noexcept

@@ -190606,6 +190606,93 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x50A3E0",
+      "inventory_id": "F:0010A3E0",
+      "original_role": "原JJQj团队槽按base62掩码生产/解除、坐标与队列计数消费及玩家/对象绑定发布",
+      "original_end_exclusive": "0x50a6a4",
+      "original_chunks": [
+        [
+          "0x50a3e0",
+          "0x50a6a4"
+        ]
+      ],
+      "instruction_count": 228,
+      "status": "BTR01完整团队JJQj I/T回复228条708B/四页，三实修取样/一同名重载及旧签名代理，原字段/掩码/次序/NULL/门槛和void观察保；全部正常寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_50A3E0"
+          ],
+          "relationship": "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ReadMapActorTarget"
+          ],
+          "relationship": "同名原生T*+共享T&重载先held X后fresh Y；旧签名入口取槽后代理，原46AFE0调用保持"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "ReadMapActorTarget"
+          ],
+          "relationship": "同名重载声明显式区分已取首X指针与共享Y槽；旧签名及非拥有边界保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-baseline",
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-decision",
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-acceptance",
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state",
+        "doc/cg2d_team_reply_sampling_evidence.json"
+      ],
+      "boundary": "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。",
+      "verification_level": "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。",
+      "team_reply_sampling": {
+        "spec_id": "BTR01",
+        "evidence_refs": [
+          "doc/cg2d_team_reply_sampling_spec.md#team-reply-baseline",
+          "doc/cg2d_team_reply_sampling_spec.md#team-reply-decision",
+          "doc/cg2d_team_reply_sampling_spec.md#team-reply-acceptance",
+          "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state",
+          "doc/cg2d_team_reply_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 228,
+        "original_code_bytes": 708,
+        "original_page_count": 4,
+        "original_direct_call_count": 19,
+        "original_unique_direct_callee_count": 13,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 26,
+        "original_return_count": 5,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 4,
+        "source_header_patch_count": 1,
+        "existing_source_body_count": 2,
+        "new_same_name_helper_overload_count": 1,
+        "original_both_same_object_index_compare_and_find_restored": true,
+        "original_null_sample_same_first_x_pointer_restored": true,
+        "original_independent_fresh_y_pointer_kept": true,
+        "original_old_helper_interface_and_sample_observation_kept": true,
+        "original_mask_fields_text_threshold_and_value_publication_kept": true,
+        "original_all_callee_order_slot_clear_count_next_and_coordinate_short_circuit_kept": true,
+        "original_same_find_result_null_and_publication_kept": true,
+        "original_unconsumed_mixed_return_void_observation_adaptation": true,
+        "original_return_clear_decision_ref": "doc/cg2d_team_reply_sampling_spec.md#team-reply-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_named_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

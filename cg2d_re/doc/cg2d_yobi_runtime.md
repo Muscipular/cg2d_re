@@ -4421,3 +4421,9 @@ D9D0仍NULL早返/负参数短路不取范围provider/非负>=17归0→现场pay
 按[裁决](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision)修十既有正文/六声明：五flags42高BYTE OR1/2/40/80/04保marker44/value10C发布序；449C90保一次W16取样，条件同held值写回并以std::uint16_t返有定义低W16/NULL0，原高W16残余不模拟。五纯地址C40/CD0/D30/D90/DB30以同flags引用返非拥有原生地址/NULL返nullptr，原七W16取消保。
 
 CC0/C00/C70正确正文不改，marker清→完整模式2与场景门禁→NULL顺序保。C70早返整数/正常地址混合保持void观察裁决，七偏移/混合叶不伪造统一返回。十三原根164条550B/十三页、1call/17jump/13RET、18点五父及十一NOP区90B有据；完整正常生产消费/owner-alias寿命、SDK-ABI与运行未验。
+
+## 目标X已取指针与Y共享槽的同名重载（BTR01，2026-10-07）
+
+[原基线](cg2d_team_reply_sampling_spec.md#team-reply-baseline)50A453取action并作NULL检查，50A469同指针+200读取X，50A46E再取槽后50A47C读Y。既有ReadMapActorTarget新增四参数重载(action,slot,x,y)，按同held X/fresh Y执行；旧三参数入口先取slot为action，再代理重载，原46AFE0调用及取样保持。头声明及非拥有、不公开布局/SDK类型边界一致，不新增检查或持有。
+
+完整源仅既有helper段替换为一新同名重载与旧入口代理；原内部LegacyCryptInt保留。原root228条708B/19call与全部字段/掩码/次序在子SPEC，LOOP72/NETWORK57各两局部I-S；全callee/正常owner-alias寿命、SDK-ABI及运行R8仍未验。

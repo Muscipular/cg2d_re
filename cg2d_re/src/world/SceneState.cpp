@@ -2450,17 +2450,21 @@ void Sub_50A3E0(
         network::ParseDelimitedBase62_52D0D0(payload, '|', 1));
     auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(index)];
     if (mask == 0) {
-        if (slot.flags != 0 && slot.objectIndex != gPlayerRuntime.objectIndex) {
-            login::YobiAction* const action =
-                FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(slot.objectIndex));
-            if (action != nullptr) {
-                Sub_442C70(action);
+        if (slot.flags != 0) {
+            const std::uint32_t objectIndex = slot.objectIndex;
+            if (objectIndex != gPlayerRuntime.objectIndex) {
+                login::YobiAction* const action =
+                    FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
+                if (action != nullptr) {
+                    Sub_442C70(action);
+                }
             }
         }
         std::int32_t x = -1;
         std::int32_t y = -1;
-        if (slot.action != nullptr) {
-            login::detail::ReadMapActorTarget(slot.action, &x, &y);
+        login::YobiAction* const targetAction = slot.action;
+        if (targetAction != nullptr) {
+            login::detail::ReadMapActorTarget(targetAction, slot.action, &x, &y);
         }
         slot.flags = 0;
         slot.action = nullptr;
@@ -2517,9 +2521,10 @@ void Sub_50A3E0(
         std::strcpy(
             slot.name18.data(), std::strlen(name) <= 16 ? name : kUnknownText554590);
     }
-    if (slot.objectIndex != gPlayerRuntime.objectIndex) {
+    const std::uint32_t objectIndex = slot.objectIndex;
+    if (objectIndex != gPlayerRuntime.objectIndex) {
         login::YobiAction* const action =
-            FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(slot.objectIndex));
+            FindObjectYobi_4462B0(std::bit_cast<std::int32_t>(objectIndex));
         if (action != nullptr) {
             slot.action = action;
             Sub_442C40(action);

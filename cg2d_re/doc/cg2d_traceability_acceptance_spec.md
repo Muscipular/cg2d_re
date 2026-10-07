@@ -1502,3 +1502,9 @@ source→共享BYTE/同输入NUL、未初始化FF不作原文本/现owner初值�
 [基线](cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-baseline)、[裁决](cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-decision)、[验收](cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-acceptance)与[证据](cg2d_pet_slot_shutdown_sampling_evidence.json)对应完整37条110B、两个真实调用路径/复用上游清0、2B用途以及一正文两片段实修；无新接口或owner。LOOP70→71/两局部I-S各21来源，仅适用本步静态。
 
 BTP01十三元数据只改为真实观察描述，不修改其证据/代码/分类/计数。三任务仅current/引用保open，原pending18/pending7、closed任务与完整门禁保持；全父/全部正常生产消费及owner-alias寿命、SDK-ABI/链接/明文互通/运行R8继续。
+
+## BTR01 团队原格式回复取样开发验收（2026-10-07）
+
+[基线](cg2d_team_reply_sampling_spec.md#team-reply-baseline)、[裁决](cg2d_team_reply_sampling_spec.md#team-reply-decision)、[验收](cg2d_team_reply_sampling_spec.md#team-reply-acceptance)及[证据](cg2d_team_reply_sampling_evidence.json)对应完整228条708B/19call及唯一原模板/上游清0、三真实取样差异实修/同名重载与12B用途。LOOP71→72/NETWORK56→57、各两局部I-S各25来源，均仅适用本步静态。
+
+三任务仅current/引用保open；原pending18/ECX pending7/closed11/其它成员及完整门禁保。原协议字段、掩码、明文与内部LegacyCryptInt保持；全callee/全部正常owner-alias寿命、SDK-ABI/链接/明文互通及运行R8继续，不据局部返回裁决声明全通过。

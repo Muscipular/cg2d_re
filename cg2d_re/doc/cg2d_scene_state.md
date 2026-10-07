@@ -7769,3 +7769,9 @@ D9D0范围provider仍原Sub_4410E0，NULL/负值短路及>=17普通归0、payloa
 按[子SPEC](cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-decision)，51B080一正文两片段修复玩家/非玩家两处同action取样作NULL与field270 W16清0、非玩家原FDA88A跨字段W32读取复用ReadPlayerFlags18A。仅条件成立才取非玩家action，442C70独立再次取槽、五槽flags→objectIndex→action清序及尾51A5B0原生地址结果保持；无新helper/owner/保护，既有布局与三callee不改。
 
 完整37条110B/3call/7jump/1RET/2入向与尾2B对齐用途有据。50A3E0尾透传至512E40清0，50D000方向MOVSX覆盖，局部观察不代全部父/正常寿命或机器ABI/运行。BTP01十三语义机器字段更正为真实局部观察及上游清0，原证据/源码/计数保持。
+
+## 团队JJQj回复同索引与首X取样（BTR01，2026-10-07）
+
+按[裁决](cg2d_team_reply_sampling_spec.md#team-reply-decision)实修50A3E0三片段：离组/入组各同objectIndex供玩家比较和查找、离组原NULL同targetAction供首X，Y仍独立重读共享槽。Yobi既有读取工具增加同名T*+T&重载，旧签名代理并保持旧取样；三文件五片段，无新命名helper/owner/保护或布局改变。
+
+完整228条708B按70条归档四页、19直接call/13目标/26jump/5RET/唯一512E40原JJQj I/T入向。原掩码/字段/value10先0C/名称16门槛、两绑定与两状态发布、清槽计数及next/坐标短路正确保持。混合残值唯一上游清0，父void观察具名保；全callee/全部正常寿命与机器ABI/运行未验。

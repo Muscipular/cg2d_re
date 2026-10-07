@@ -191766,6 +191766,222 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x46A5A0",
+      "inventory_id": "F:0006A5A0",
+      "original_role": "原W16 gate和跨W32玩家标志通过后给顺序表第二项借用对象入队",
+      "original_end_exclusive": "0x46a5e2",
+      "original_chunks": [
+        [
+          "0x46a5a0",
+          "0x46a5e2"
+        ]
+      ],
+      "instruction_count": 20,
+      "status": "BUA01三完整跟随根62条208B，两门禁各一片段复用既有FDA88A跨字段W32读取，正确顺序表构建正文保持；公共尾真实转调469FC0已记录，完整父/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46A5A0"
+          ],
+          "relationship": "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-baseline",
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-acceptance",
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
+        "doc/cg2d_follow_gate_word_sampling_evidence.json"
+      ],
+      "boundary": "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。",
+      "verification_level": "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。",
+      "follow_gate_word_sampling": {
+        "spec_id": "BUA01",
+        "evidence_refs": [
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-baseline",
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-acceptance",
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
+          "doc/cg2d_follow_gate_word_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 20,
+        "original_code_bytes": 66,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "original_cross_field_single_w32_read_restored": true,
+        "existing_reader_and_layout_assertion_kept": true,
+        "original_correct_order_builder_body_kept": false,
+        "original_gate_word_shortcircuit_second_s16_index_and_nonowning_pointer_calls_kept": true,
+        "original_follow_order_size_and_flags_then_pointer_order_kept": true,
+        "original_network_format_and_plaintext_interface_kept": true,
+        "original_void_local_caller_observation_adaptation_decided": true,
+        "original_parent_tail_call_469fc0_recorded": true,
+        "original_caller_observation_decision_ref": "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46A940",
+      "inventory_id": "F:0006A940",
+      "original_role": "同原门禁后从第二项逐S16索引调普通移动/首负终止",
+      "original_end_exclusive": "0x46a987",
+      "original_chunks": [
+        [
+          "0x46a940",
+          "0x46a987"
+        ]
+      ],
+      "instruction_count": 22,
+      "status": "BUA01三完整跟随根62条208B，两门禁各一片段复用既有FDA88A跨字段W32读取，正确顺序表构建正文保持；公共尾真实转调469FC0已记录，完整父/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46A940"
+          ],
+          "relationship": "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-baseline",
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-acceptance",
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
+        "doc/cg2d_follow_gate_word_sampling_evidence.json"
+      ],
+      "boundary": "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。",
+      "verification_level": "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。",
+      "follow_gate_word_sampling": {
+        "spec_id": "BUA01",
+        "evidence_refs": [
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-baseline",
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-acceptance",
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
+          "doc/cg2d_follow_gate_word_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 22,
+        "original_code_bytes": 71,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "original_cross_field_single_w32_read_restored": true,
+        "existing_reader_and_layout_assertion_kept": true,
+        "original_correct_order_builder_body_kept": false,
+        "original_gate_word_shortcircuit_second_s16_index_and_nonowning_pointer_calls_kept": true,
+        "original_follow_order_size_and_flags_then_pointer_order_kept": true,
+        "original_network_format_and_plaintext_interface_kept": true,
+        "original_void_local_caller_observation_adaptation_decided": true,
+        "original_parent_tail_call_469fc0_recorded": true,
+        "original_caller_observation_decision_ref": "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46A990",
+      "inventory_id": "F:0006A990",
+      "original_role": "gate非零才按W32/W32/W16哨兵写序从五槽flags/action建立顺序表",
+      "original_end_exclusive": "0x46a9d7",
+      "original_chunks": [
+        [
+          "0x46a990",
+          "0x46a9d7"
+        ]
+      ],
+      "instruction_count": 20,
+      "status": "BUA01三完整跟随根62条208B，两门禁各一片段复用既有FDA88A跨字段W32读取，正确顺序表构建正文保持；公共尾真实转调469FC0已记录，完整父/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46A990"
+          ],
+          "relationship": "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-baseline",
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-acceptance",
+        "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
+        "doc/cg2d_follow_gate_word_sampling_evidence.json"
+      ],
+      "boundary": "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。",
+      "verification_level": "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。",
+      "follow_gate_word_sampling": {
+        "spec_id": "BUA01",
+        "evidence_refs": [
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-baseline",
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-acceptance",
+          "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
+          "doc/cg2d_follow_gate_word_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 20,
+        "original_code_bytes": 71,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "original_cross_field_single_w32_read_restored": false,
+        "existing_reader_and_layout_assertion_kept": true,
+        "original_correct_order_builder_body_kept": true,
+        "original_gate_word_shortcircuit_second_s16_index_and_nonowning_pointer_calls_kept": true,
+        "original_follow_order_size_and_flags_then_pointer_order_kept": true,
+        "original_network_format_and_plaintext_interface_kept": true,
+        "original_void_local_caller_observation_adaptation_decided": true,
+        "original_parent_tail_call_469fc0_recorded": true,
+        "original_caller_observation_decision_ref": "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

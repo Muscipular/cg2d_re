@@ -3704,3 +3704,15 @@ BTY01已提交，本步沿移动调度的真实玩家生产消费链核46A410/46
 ### BTZ01 集中静态与汇总实值（2026-10-08）
 
 集中静态通过：完整SceneState仅两正文四预取/pub片段变化，snapshotX encoded-first/snapshotY count-first及到格两轴mask-first次序、各两构造/两销毁、RNG和X完整寿命后fresh Y保；全部其它数值/字段/方向/计数/原MIS70与明文接口语句保持。两根四归档段235条969B/三局部窗口/两实际尾区7B、证据全部字段与跨日记录、完整机器/五文档/三任务模型、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1674/有效1667、文档1785（48.51%）、处置815/E940、R7已审383/余2678、LOOP86/MAP83；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整父/callee/全部正常owner-alias寿命/数值/机器ABI/明文互通及运行R8继续。
+
+## BUA01 跟随两门禁跨字段W32读取实修（2026-10-08）
+
+BTZ01已提交，本步聚焦相邻生产消费链的46A5A0/46A940/46A990三根。既有IDA只读MCP完整取证62条208B/三归档页三块、2call/11jump/3RET、3入向两父局部窗口。两原门禁gate W16非零后均单次MOV EAX取FDA88A W32/TEST AH1，当前却分别读flags18A W16和flags18C W32后拼接，原读取次数/范围/边界不一致。
+
+先记[子SPEC](../doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision)，只修Scene两既有门禁正文各一片段，复用ReadPlayerFlags18A一次跨4B取样。既有reader/邻接断言、正确46A990和所有其它源保持，无新lambda/helper/声明/owner/布局。原gate/S16第二项或逐项、首负终止、同借用action及441F60/442730调用序保持，不另添NULL/越界门槛。46A990 gate0不清表，非零才W32/W32/W16写全1，五槽按W16 flags→同slot action→W16顺序索引写入保持。
+
+公共尾初稿曾概括为低AL1，补取469FAD实际为CALL469FC0→ADD ESP,14h→RET，已纠正文档/机器草案，未以猜测保留错误或改返回合同。三现void只登记局部观察适配，完整两父/上游/callee与机器ABI继续按原证据推进。旧五槽末项前视未消费读裁决保持，不造第六槽或异常等价；三尾区14/9/9共32B逐地址90/NN_NOP无入向/后真入口，仅用途。
+
+新增1674-1676/adapted/三真实F、LOOP86→89/MAP83→86各两局部I-S各25来源/三R7；预期语义1677/有效1670、文档1788（48.59%）、处置818/E944、R7 386余2675，集中静态/汇总后记实值。三任务只current/引用仍open，原pending18/ECX pending7/closed11/差队列及完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整生产消费与正常寿命/父/callee/机器ABI/链接/画面/明文互通及运行R8继续。
+
+BUA01集中静态已通过：完整源码仅两限定片段/三根原指令与入向窗口/真实公共尾、证据和台账/对应文档/三任务模型一致。纯文本汇总及 -Check 已通过，派生快照实值为语义1677/有效1670、合同关联1788（48.59%）、处置818/E944、R7已审386/余2675，LOOP89/MAP86。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保；仅局部静态，不代编译、链接、正常寿命或运行。命名快照：cg2d-re-follow-gate-word-sampling-20261008。

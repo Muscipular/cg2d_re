@@ -1576,3 +1576,11 @@ U10/V03/R04 current/引用保持open，原pending18/pending7/closed11与完整�
 ### BTZ01 集中静态与汇总实值（2026-10-08）
 
 集中静态通过：完整SceneState仅两正文四预取/pub片段变化，snapshotX encoded-first/snapshotY count-first及到格两轴mask-first次序、各两构造/两销毁、RNG和X完整寿命后fresh Y保；全部其它数值/字段/方向/计数/原MIS70与明文接口语句保持。两根四归档段235条969B/三局部窗口/两实际尾区7B、证据全部字段与跨日记录、完整机器/五文档/三任务模型、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1674/有效1667、文档1785（48.51%）、处置815/E940、R7已审383/余2678、LOOP86/MAP83；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整父/callee/全部正常owner-alias寿命/数值/机器ABI/明文互通及运行R8继续。
+
+## BUA01 跟随单W32门禁开发验收（2026-10-08）
+
+[基线](cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-baseline)、[裁决](cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision)、[验收](cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-acceptance)及[证据](cg2d_follow_gate_word_sampling_evidence.json)覆盖三根62条208B/三局部窗口、公共尾真实转调与32B用途；两门禁各一片段恢复既有W32取样，正确顺序表正文保持。LOOP86→89/MAP83→86各两局部I-S各25真实来源，仅本步静态。
+
+三任务只current/引用更新仍open，原pending/差队列/closed11和完整门禁保。全部父/callee/正常owner-alias寿命/机器ABI/画面/明文互通及运行R8继续；不以原根归档代完整功能验收。网络原格式明文、内部LegacyCryptInt、音频暂停和RPLAN.24持续。
+
+BUA01集中静态已通过：完整源码仅两限定片段/三根原指令与入向窗口/真实公共尾、证据和台账/对应文档/三任务模型一致。纯文本汇总及 -Check 已通过，派生快照实值为语义1677/有效1670、合同关联1788（48.59%）、处置818/E944、R7已审386/余2675，LOOP89/MAP86。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保；仅局部静态，不代编译、链接、正常寿命或运行。命名快照：cg2d-re-follow-gate-word-sampling-20261008。

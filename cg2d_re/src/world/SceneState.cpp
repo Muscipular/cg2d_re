@@ -8989,9 +8989,8 @@ void Sub_46A5A0(const std::int32_t x, const std::int32_t y)
     if (gValueFF0D36 == 0) {
         return;
     }
-    // 原跨FDA88A的W32读取；不依赖现代成员布局形成别名。
-    const std::uint32_t flags = static_cast<std::uint32_t>(gPlayerRuntime.flags18A)
-        | (gPlayerRuntime.flags18C << 16);
+    // 原FDA88A一次W32取样，复用同一已证跨字段边界。
+    const std::uint32_t flags = ReadPlayerFlags18A();
     if ((flags & 0x100u) == 0) {
         return;
     }
@@ -9009,8 +9008,7 @@ void Sub_46A940()
     if (gValueFF0D36 == 0) {
         return;
     }
-    const std::uint32_t flags = static_cast<std::uint32_t>(gPlayerRuntime.flags18A)
-        | (gPlayerRuntime.flags18C << 16);
+    const std::uint32_t flags = ReadPlayerFlags18A();
     if ((flags & 0x100u) == 0) {
         return;
     }

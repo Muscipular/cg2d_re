@@ -4495,3 +4495,11 @@ AreMapActorTargetsAdjacent四对独立current→previous显式取样、符号条
 ### BTZ01 集中静态与汇总实值（2026-10-08）
 
 集中静态通过：完整SceneState仅两正文四预取/pub片段变化，snapshotX encoded-first/snapshotY count-first及到格两轴mask-first次序、各两构造/两销毁、RNG和X完整寿命后fresh Y保；全部其它数值/字段/方向/计数/原MIS70与明文接口语句保持。两根四归档段235条969B/三局部窗口/两实际尾区7B、证据全部字段与跨日记录、完整机器/五文档/三任务模型、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1674/有效1667、文档1785（48.51%）、处置815/E940、R7已审383/余2678、LOOP86/MAP83；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整父/callee/全部正常owner-alias寿命/数值/机器ABI/明文互通及运行R8继续。
+
+## 跟随入队与逐项移动的原门禁（BUA01，2026-10-08）
+
+按[裁决](cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision)，Scene 46A5A0/46A940各一片段恢复FDA88A一次跨W32取样；46A5A0仅第二项S16非负后以同借用action/原x-y调441F60，46A940从第二项到第五项、首负停止、同action调442730。不提前读指针或增加NULL/越界检查，正确46A990和Yobi入队/移动/五槽调度正文保持。
+
+三根完整62条208B、3两父局部调用窗口及469FAD CALL469FC0→ADD ESP,14h→RET有据。三现void只登记具名局部寄存器观察适配，不称全部上游弃返；完整父/callee、正常owner-alias寿命、机器ABI与运行未验。旧末项前视未消费读裁决不变，不扩成第六槽或异常模拟。
+
+BUA01集中静态已通过：完整源码仅两限定片段/三根原指令与入向窗口/真实公共尾、证据和台账/对应文档/三任务模型一致。纯文本汇总及 -Check 已通过，派生快照实值为语义1677/有效1670、合同关联1788（48.59%）、处置818/E944、R7已审386/余2675，LOOP89/MAP86。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保；仅局部静态，不代编译、链接、正常寿命或运行。命名快照：cg2d-re-follow-gate-word-sampling-20261008。

@@ -35956,7 +35956,8 @@ void Sub_444410(
         const std::int32_t secondX = distance(x, &action->mapX200);
         const std::int32_t secondY = distance(y, &action->mapY210);
         const std::int32_t difference = yLarger ? secondY - secondX : secondX - secondY;
-        if (difference > 1 || (record.flags42 & 0x200u) != 0) {
+        if (difference > 1
+            || (reinterpret_cast<const unsigned char*>(&record.flags42)[1] & 2u) != 0) {
             return;
         }
         [[fallthrough]];
@@ -36081,9 +36082,12 @@ void Sub_444410(
                 const std::int32_t image = character_select::detail::Sub_51B740(option2);
                 payload->action30->imageNo = image;
             }
-        } else if (payload->action30 != nullptr) {
-            login::detail::MarkDeath(payload->action30);
-            payload->action30 = nullptr;
+        } else {
+            login::YobiAction* const gear = payload->action30;
+            if (gear != nullptr) {
+                login::detail::MarkDeath(gear);
+                payload->action30 = nullptr;
+            }
         }
         if (option3 > 0) {
             std::int32_t image = character_select::detail::Sub_51B740(option3);
@@ -36094,29 +36098,34 @@ void Sub_444410(
                     platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
                 payload->action34 = login::detail::NewYobiGearPet_441130(image, petX, petY);
             }
-            if (payload->action34 != nullptr) {
-                payload->action34->imageNo = image;
+            login::YobiAction* const firstPet = payload->action34;
+            if (firstPet != nullptr) {
+                firstPet->imageNo = image;
             }
             if (option4 == 6) {
+                login::YobiAction* const previousSecondPet = payload->action38;
                 ++image;
-                if (payload->action38 == nullptr) {
+                if (previousSecondPet == nullptr) {
                     const std::int32_t petY =
                         platform::legacy_crypt_int::Read_401EC0(&action->mapY1F0);
                     const std::int32_t petX =
                         platform::legacy_crypt_int::Read_401EC0(&action->mapX1E0);
                     payload->action38 = login::detail::NewYobiGearPet_441130(image, petX, petY);
                 }
-                if (payload->action38 != nullptr) {
-                    payload->action38->imageNo = image;
+                login::YobiAction* const secondPet = payload->action38;
+                if (secondPet != nullptr) {
+                    secondPet->imageNo = image;
                 }
             }
         } else {
-            if (payload->action34 != nullptr) {
-                login::detail::MarkDeath(payload->action34);
+            login::YobiAction* const firstPet = payload->action34;
+            if (firstPet != nullptr) {
+                login::detail::MarkDeath(firstPet);
                 payload->action34 = nullptr;
             }
-            if (payload->action38 != nullptr) {
-                login::detail::MarkDeath(payload->action38);
+            login::YobiAction* const secondPet = payload->action38;
+            if (secondPet != nullptr) {
+                login::detail::MarkDeath(secondPet);
                 payload->action38 = nullptr;
             }
         }
@@ -36153,8 +36162,9 @@ void Sub_444410(
         }
         {
             login::YobiAction* const ride = payload->action44;
+            const bool resetRide = option1 >= 0 || ride != nullptr;
             payload->counter48 = 0;
-            if (option1 >= 0 || ride != nullptr) {
+            if (resetRide) {
                 ride->characterAction = 0;
                 if (action->characterAction == 1) {
                     payload->action44->characterAction = 1;
@@ -36169,7 +36179,7 @@ void Sub_444410(
         return;
     case 200:
         if (option1 != 0) {
-            gWorldObjects[payload->index].flags120 |= 0x1000u;
+            reinterpret_cast<unsigned char*>(&gWorldObjects[payload->index].flags120)[1] |= 0x10u;
         } else {
             gWorldObjects[payload->index].flags120 &= 0xEFFFu;
         }

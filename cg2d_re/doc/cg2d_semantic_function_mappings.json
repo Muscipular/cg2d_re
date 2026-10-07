@@ -188898,6 +188898,138 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x50BCD0",
+      "inventory_id": "F:0010BCD0",
+      "original_role": "NI逐行字段解析及玩家/非玩家路由",
+      "original_end_exclusive": "0x50BF14",
+      "original_chunks": [
+        {
+          "start": "0x50bcd0",
+          "end_exclusive": "0x50bf14",
+          "bytes": "b820200000e8e6000300a10c6e9a005785c0c7442408000000000f851c020000b9a87f9a00e8a661efff85c00f850a0200008b8c242c2000008d4424245068ff0700006a016a2c51e8b31102008d7c243883c9ff33c083c414f2aef7d1490f84d8010000538d9424281000005556c744241801000000895424208d8424300800008d4c24305068ff0700006a016a7c51e86b1102008d94244408000052e8de1202008bf06a028d44244c6a7c50e81e1202006a038d4c24586a7c518bf8e80e1202006a048d5424646a7c528bd8e8fe1102008be86a058d4424706a7c50e8ee11020083c4488d4c243089442410515550535756e8584bf3ff83c41885c00f85fc0000006a068d5424346a7c52e8bf110200894424306a078d4424406a7c50e8ad1102006a088d4c244c6a7c518944244ce89b1102006a098d5424586a7c528944244ce8891102008b0d80a8fd0083c4303bce8944242c753e8b0db402ff0085c90f84990000008b91a802000085d20f848b0000008b4c24288b542424508b442420508b442418515255505357e8dfe9000083c420eb6956e844a4f3ff83c40485c075378b54241485d27e138d8c2430100000393174494083c1043bc27cf481fa0010000073398b4424204289542414893083c00489442420eb258b4c242c8b54241c518b4c242c528b54242c518b4c241c525551535750e84485f3ff83c4248b4424188d542430405268ff07000089442420508b8424442000006a2c50e8de0f02008d7c244483c9ff33c083c414f2aef7d1490f8541feffff5e5d5b5f81c420200000c3"
+        }
+      ],
+      "instruction_count": 195,
+      "status": "BTN01两完整NI解析/非玩家消费根及一正文九片段实修，正确NI、原创建后fresh槽和参数/字段/返回保，完整提供者/正常寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_50BCD0"
+          ],
+          "relationship": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline",
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision",
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-acceptance",
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
+        "doc/cg2d_actor_reply_consumer_sampling_evidence.json"
+      ],
+      "boundary": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_reply_consumer_sampling": {
+        "spec_id": "BTN01",
+        "evidence_refs": [
+          "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline",
+          "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision",
+          "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-acceptance",
+          "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
+          "doc/cg2d_actor_reply_consumer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 195,
+        "original_code_bytes": 580,
+        "original_page_count": 3,
+        "original_direct_call_count": 18,
+        "original_callee_count": 9,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 15,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "actual_original_w8_accesses_restored_or_kept": true,
+        "original_ni_layout_fields_and_capacities_kept": true,
+        "original_nonplayer_created_return_publication_then_fresh_slot_test_kept": true,
+        "original_pet_pointer_samples_old_child_clear_and_ride_decision_restored": true,
+        "original_owner_fields_callbacks_cryptint_rng_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_inbound_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x444410",
+      "inventory_id": "F:00044410",
+      "original_role": "非玩家39有效动作与共享子槽消费",
+      "original_end_exclusive": "0x444E32",
+      "original_chunks": [
+        {
+          "start": "0x444410",
+          "end_exclusive": "0x444e32",
+          "bytes": "5355568b74241085f6570f840d0a00008b7e0c8b4424243dc80000008b2f896c24140f87f509000033c98a88d44e4400ff248d344e440066c7867002000000006a016a0056e866abffff8b54242c83c40c8996b80200005f5e5d5bc38b4424208d5cad00c1e3048b4c241c2bddc1e3028dbe000200008983f4c45a008b442418578983f8c45a0050898bfcc45a00e85ddbfbff83c40884c0741c8b44241c8d96100200005250e845dbfbff83c40884c00f85670900008b6c24185755e80fdbfbff83c40885c057557d0ce801dbfbff83c408f7d8eb08e8f5dafbff83c4088b4c241c8dae10020000555189442428e8dddafbff83c40885c0557d118b54242052e8cbdafbff83c408f7d8eb0d8b44242050e8badafbff83c4088b4c2420572bc88b4c241c517966e8a4dafbff83c40885c0577d138b54241c52e892dafbff8bf883c408f7dfeb0f8b44241c50e87fdafbff83c4088bf88b4c241c5551e86fdafbff83c40885c0557d138b54242052e85ddafbfff7d883c4082bc7eb758b44242050e84adafbff83c4082bc7eb64e83edafbff83c40885c0577d138b54241c52e82cdafbff8bf883c408f7dfeb0f8b44241c50e819dafbff83c4088bf88b4c241c5551e809dafbff83c40885c0557d118b54242052e8f7d9fbff83c408f7d8eb0d8b44242050e8e6d9fbff83c4082bf88bc783f8010f8f23080000f68303c55a00020f85160800008b6c24148d44ad00c1e0042bc5c1e00289442434668b8002c55a00f6c4020f84c2010000f6c4010f84b90100006683be700200000a73158b4c241c8b542418515256e862d9ffffe9aa010000bb01000000bf3c03ff0033ed66396fd40f84510100008b47d88b0d80a8fd003bc10f84910000008b0f6689a9700200008b0f0fbf86700200002bc38b9486480200008b848620020000525051e8fce3ffff0fbf86700200002bc383c4088b9486440200008b8c86480200002bd18b8c861c020000895424248b948620020000db4424242bca894c2424d91c24db44242451d91c24e8f486020083c00483c408250700008079054883c8f8408b178982b8020000e9af000000a1b402ff003bc574076689a8700200000fbf86700200002bc38b8c86480200008b9486200200005152e877570d00a1b402ff0083c4083bc5746b0fbf86700200002bc38b8c86440200008b9486480200002bca8b94861c020000894c242051db4424242b948620020000d91c248954242451db442428d91c24e85786020083c00483c408250700008079054883c8f8408b0f8981b80200008b178b82b8020000a384a8fd00e81b570d00e8e639020083c7304381fffc03ff000f8c95feffff8b4c241c8b542418515256e876d7ffff8b44244083c40cc780f4c45a00ffffffffeb158b4c241c8b542418515256e853d7ffff83c40c33ed837c242401750a8b442428898684020000556a0156e894a7ffff83c40c5f5e5d5bc36a016a02e9300100006a016a03e90efcffff6a016a0456e870a7ffff8b44242c83c40c8986b80200005f5e5d5bc36a016a05e9020100006a016a06e9e0fbffff6a016a0756e842a7ffff8b44242c83c40c8986b80200005f5e5d5bc36a016a08e9d40000006a016a09e9b2fbffff6a016a0a56e814a7ffff8b44242c83c40c8986b80200005f5e5d5bc36a016a0be9a60000006a016a0ce984fbffff6a016a0d56e8e6a6ffff8b44242c83c40c8986b80200005f5e5d5bc36a016a0eeb7b6a016a0fe959fbffff6a016a1056e8bba6ffff8b44242c83c40c8986b80200005f5e5d5bc36a016a11eb506a016a1256e899a6ffff8b54242c83c40cc786b4020000ffffffff8996b80200005f5e5d5bc36a016a1356e873a6ffff8b44242c83c40cc786b4020000ffffffff8986b80200005f5e5d5bc36a016a0156e84da6ffff8b4c242c83c40c898eb80200005f5e5d5bc38b44242885c07c165056e8cce3ffff6a016a0056e822a6ffff83c414eb0956e8e7e3ffff83c4048b44241c8b4c2418505156e8f4e0ffff8b54242c83c40c8996b80200005f5e5d5bc38b4424285683f8017517e8f3e1ffff8b44242483c4048986b80200005f5e5d5bc3e80ce2ffff8b44242483c4048986b80200005f5e5d5bc38b44242885c07c0c5056e88be2ffff83c408eb2556e8b0e2ffffeb1a8b44242885c07c0c5056e8cfe2ffff83c408eb0956e8f4e2ffff83c4048b4c241c8b542418515256e861e0ffff8b44242c83c40c8986b80200005f5e5d5bc38b4424285683f8017517e8008fffff8b4c242483c404898eb80200005f5e5d5bc3e8198fffff8b4c242483c404898eb80200005f5e5d5bc38b44242885c00f842a0200005056e8248fffff8b54242883c4088996b80200005f5e5d5bc356e87c8fffff8b44242483c4048986b80200005f5e5d5bc38b4424285683f8017517e88b8fffff8b4c242483c404898eb80200005f5e5d5bc3e8a48fffff8b4c242483c404898eb80200005f5e5d5bc356e8bc8fffff8b54242483c4048996b80200005f5e5d5bc38b44241c8b4c2418505156e87adfffff6a016a005666c786700200000000e877a4ffff8b5424388d44ad0083c4188996b8020000c1e0042bc55f5e5dc70485f4c45a00ffffffff5bc38b5c242853e8c76b0d00538986a8020000e8bb6b0d008b0f8b5c243433ed83c4088d1489c1e2042bd13bdd890495c8c45a008b47307e2f3bc5751253e8906b0d0050e83ac5ffff83c408894730396f30742453e8796b0d008b4f3083c4048981a8020000eb103bc5740c50e82101fcff83c404896f308b4424303bc50f8e8f00000050e8496b0d008bd88b473483c4043bc575248d8ef0010000e892d2fbff508d8ee0010000e886d2fbff5053e80fc5ffff83c40c8947348b47343bc574068998a8020000837c243406756b8b4738433bc575248d8ef0010000e852d2fbff508d8ee0010000e846d2fbff5053e8cfc4ffff83c40c8947388b47383bc574388b5424348998a802000089573c5f5e5d5bc38b47343bc5740c50e87300fcff83c404896f348b47383bc5740c50e86000fcff83c404896f388b54243489573c5f5e5d5bc38b4424285056e8138dffff8b4c242883c408898eb80200005f5e5d5bc356e83b8dffff8b54242483c4048996b80200005f5e5d5bc38b6c242833db3beb0f8c9b000000395f447537536a02e8defdfbff8947448958088b474483c4088998b00200008b4f44c641150a8b5744c74224340000008b47448b482480cd0289482455e8096a0d008b4f448981a80200008b078d1480c1e2042bd08b0495c8c45a0050e879730d008986a8020000b80100000089462c8b4f44895f4883c4088999b00200008b8eb00200003bc80f85ab0000008b57445f5e5d8982b00200005bc3c7462c020000008b47443bc3895f480f84880000008998b00200008b8eb0020000b8010000003bc875738b4f445f5e5d8981b00200005bc38b542428c7462c0300000052e867690d0083c4048986a8020000c74748000000005f5e5d5bc38b4424288b3f85c0741c8d04bfc1e0042bc7800c85e1c55a00105f5e8d0485e0c55a005d5bc38d0cbfc1e1042bcf6681248de0c55a00ffef8d048de0c55a005f5e5d5bc3"
+        }
+      ],
+      "instruction_count": 877,
+      "status": "BTN01两完整NI解析/非玩家消费根及一正文九片段实修，正确NI、原创建后fresh槽和参数/字段/返回保，完整提供者/正常寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_444410"
+          ],
+          "relationship": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline",
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision",
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-acceptance",
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
+        "doc/cg2d_actor_reply_consumer_sampling_evidence.json"
+      ],
+      "boundary": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_reply_consumer_sampling": {
+        "spec_id": "BTN01",
+        "evidence_refs": [
+          "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline",
+          "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision",
+          "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-acceptance",
+          "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
+          "doc/cg2d_actor_reply_consumer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 877,
+        "original_code_bytes": 2594,
+        "original_page_count": 13,
+        "original_direct_call_count": 80,
+        "original_callee_count": 33,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 76,
+        "original_return_count": 31,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 9,
+        "actual_original_w8_accesses_restored_or_kept": true,
+        "original_ni_layout_fields_and_capacities_kept": true,
+        "original_nonplayer_created_return_publication_then_fresh_slot_test_kept": true,
+        "original_pet_pointer_samples_old_child_clear_and_ride_decision_restored": true,
+        "original_owner_fields_callbacks_cryptint_rng_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_inbound_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

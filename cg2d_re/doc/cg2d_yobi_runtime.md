@@ -4403,3 +4403,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 按[完整父基线](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-baseline)修既有ApplyPlayerAppearanceReply：三创建依同返回值NULL结果先判后pub，不另读共享槽决定成功；映射图号后fresh槽写图号保。第二pet先取action38再普通S32++；三个删除分支同原生子指针NULL/MarkDeath/清槽，保payload/两次原图号映射、gear-pet二次映射、两处Y→X读取、失败及kind3C尾。
 
 原SetYobiWalkSpeed/ApplyPlayerRideReply/ApplyPlayerPhase3Reply正文和所有接口保，无新helper或独立原F。只以F:0011A840新语义1633关联本case60已有拆分正文，不造helper身份；完整owner-alias寿命/提供者与SDK-ABI、链接和运行未验。
+
+## 非玩家回复消费实际BYTE与子槽取样（BTN01，2026-10-07）
+
+按[BTN01裁决](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision)实修既有444410一个正文九片段：距离>1短路后flags42只高BYTE TEST2；flags120设置只高BYTE OR10，取消原W16 ANDEFFF保；两个pet重读fresh槽后同ptr NULL/写图号、第二pet先取旧+38再普通S32++、三个同旧ptr删除、ride条件先取再counter48清。
+
+非玩家创建后原fresh槽NULL判断保持，与玩家BTM01原创建结果判断有别；gear转换后fresh槽写、pet直接held图号和原四次Y→X/CryptInt RNG消费保。877条2594B/十三页、80call/33callee、76jump/31RET，39有效case/默认及原跟随/骑乘/phase/返回接口保；无新helper/状态/保护。完整正常owner-alias寿命/提供者和SDK-ABI、链接/运行未验。

@@ -3512,3 +3512,15 @@ BTL01完成结果：十一正文八BYTE置位/三真实W16清位已修，两正�
 所有旧1633语义与其它成员/冻结定位/pending18和原ECX pending7/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse及全部完整门禁保。全入向父50BCD0/27provider全部正常生产消费与owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行R8继续，不以静态父映射代全寿命/运行。
 
 BTM01完成结果：两个cpp两个正文三替换已修，完整两源/外观七子片段/全部39有效case与默认、原根与372B两表填充、机器及文档任务四组集中静态通过；九页全部630原MCP字段逐项通过。measure及-Check同次顺序执行均终态0；完整派生快照逐对象、十四文件UTF-8无BOM/LF、四锚点/两I-S各21真实来源与文本差异检查通过。实际语义1634有效1627/文档1745（47.42%）/处置775/E894、LOOP47、R7 345余2716，全部旧对象/队列/pending18及pending7/任务与完整门禁保持。十四文件精确提交并固定本步命名快照，用户六项既有改动保持；整体目标继续，未编译测试运行，不代全入向父、27provider生产消费与正常寿命或运行R8。
+
+## BTN01 NI正确生产端与非玩家动作消费九片段实修（2026-10-07）
+
+上一BTM01已提交玩家动作父及外观取样。本步沿唯一入向50BCD0与另一实际消费444410，完整两根1072条3174B/十六页、98实际direct CALL（含一栈probe）/无indirect CALL、91jump/32RET，各唯一512E40与50BCD0入向。NI195条580B/18call9callee正确，保持原gate/Ripple一次读取、原','和'|'1..9/Base62/S32、观察完整EAX短路及6..9延后、玩家/非玩家同ptr路由，missing原0x1000B容量与0x1000项阈值/增count→写cursor→增cursor，不造容量/邻栈或异常保护/发送。
+
+先落[子SPEC](../doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision)，实修YobiRuntime既有444410一正文九片段：case50距离>1先返，flags42只高BYTE TEST2；case200 flags120只高BYTE OR10，原W16 ANDEFFF取消保；两个pet fresh槽后同ptr NULL/写图号、第二pet先取旧+38再普通S32++、三旧child同ptr NULL/MarkDeath/清槽、ride同条件先取再counter48清。非玩家原创建pub后fresh槽比较保，不能照套玩家BTM01创建结果。原39有效case/默认、距离重复CryptInt/SUB sign/RNG与原四Y→X、图号转换/直接pet图号、W16 flags与unsigned field270、Reset四slot/S16路径、骑乘phase和其它接口/字段/owner保。402000实际相等与现Equal承接已纳管，无新helper。
+
+两相邻区378B：12B实际90/NN_NOP；366B真实2B8BFF MOV EDI,EDI（不是NOP）、160B四十目标/201BYTE selector/3B NOP，仅两同父data读/无code入向，只用途，不造F或x64 W32地址表。两既有F新语义1634-1635/equivalent-adapted、NETWORK55→56/LOOP47→48与四局部I-S各22来源。预期语义1636有效1629/文档1747（47.47%）/处置777/E898/R7 347余2714，集中静态/汇总结束后追加实际结果。
+
+所有旧1634语义与其它成员/冻结定位/pending18及原ECX pending7/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse和全部完整门禁保。网络原格式NI明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。全512E40、观察440920、provider正常生产消费与owner-alias寿命、SDK-ABI/链接/画面/互通与运行R8继续，不以两根静态代全生命周期。
+
+BTN01完成结果：非玩家同正文九片段已修、NI与其它源头保持，创建后fresh判断与pet/旧child/ride时点及两BYTE/原W16取消分界落实。四组集中静态和十六页全部1072原MCP字段检查通过；两根3174B/98direct CALL/91jump/32RET、39有效case/默认及378B每段用途有据。measure及-Check同次顺序执行均终态0；完整快照逐对象、十三文件UTF-8无BOM/LF、四锚点/四I-S各22真实来源及文本差异检查通过。实际语义1636有效1629/文档1747（47.47%）/处置777/E898、NETWORK56/LOOP48、R7 347余2714，全部旧对象/队列/pending18与pending7/任务及完整门禁保。十三文件精确提交并固定本步命名快照，用户六项既有改动保持；整体目标继续，未编译测试运行，不代完整上游/观察/provider生产消费及正常寿命或运行R8。

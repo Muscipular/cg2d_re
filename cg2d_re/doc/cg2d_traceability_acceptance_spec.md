@@ -1478,3 +1478,9 @@ source→共享BYTE/同输入NUL、未初始化FF不作原文本/现owner初值�
 [基线](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-baseline)、[裁决](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-decision)、[验收](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-acceptance)及[证据](cg2d_player_action_dispatch_sampling_evidence.json)对应两个cpp两个正文三替换：速度先取action、动作200原W8/W16、外观创建/删除与第二pet取样。完整父630条1740B/九页、39有效case与默认有据，372B两表与填充仅用途。
 
 单原F与LOOP47/单adapted、两局部I-S各21来源；三任务仅current/引用保open，旧pending7/其它pending18、已closed任务及全部完整门禁保。不能把源码静态、27callee定位及入向父局部弃返当全producer-consumer、正常寿命或运行R8通过。
+
+## BTN01 NI角色回复消费开发验收（2026-10-07）
+
+[基线](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline)、[裁决](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision)、[验收](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-acceptance)及[证据](cg2d_actor_reply_consumer_sampling_evidence.json)对应两完整根与一cpp一正文九片段。NI原布局/字段/路由和普通missing序保持，非玩家实际BYTE及同pet/旧child/ride取样已修，原创建后fresh槽判断保。
+
+两新原F语义/处置与NETWORK56/LOOP48，四局部I-S各22真实来源、378B两区只用途；三任务仅current/引用保open，原pending7/其它pending18、closed任务及所有完整门禁保。SDK栈probe与局部静态不能代机器ABI/全正常producer-consumer和owner-alias寿命/明文互通/运行R8。

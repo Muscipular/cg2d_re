@@ -7745,3 +7745,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [BTM01裁决](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-decision)实修两个cpp两个既有正文三替换：case1先取同action再发布速度/写原field284；case200原W8 OR10与高W16 ANDEFFF；外观case60原三个创建结果/子槽及三个删除指针取样。原39有效case/默认、速度-1→100、其它调用/输入/值发布与owner保持，骑乘及phase3正文不改。
 
 完整51A840父630条1740B/九页、98直接call/27callee、31jump/46RET，唯一50BCD0局部八参弃返有据，入向父未全验。372B为160B目标/201BYTE selector/11B填充及两data读，不能统称NOP。单新语义1633/adapted与LOOP46→47/两局部I-S各21来源；全provider生产消费/正常寿命、ABI/链接/明文互通及运行仍按整体SPEC推进。
+
+## NI原解析与非玩家动作消费接线（BTN01，2026-10-07）
+
+[BTN01基线](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline)纳管正确50BCD0，正文不改：原gate/Ripple一次读、','逐行与'|'1..9、观察完整EAX短路、6..9延后解析、玩家NULL/图号门禁→八参51A840及非玩家同查找ptr→九参444410。missing原0x1000B容量/0x1000项阈值与原写序保持，不补容量/邻栈/保护/发送，网络NI原格式明文。
+
+完整NI195条580B/三页、18call/9callee（含栈probe）、15jump/1RET，唯一512E40入向。现444410消费九片段实修与Reset四slot/路径取样已有承接保；两原F新1634-1635/equivalent-adapted、NETWORK56/LOOP48/四局部I-S各22来源。完整512E40/观察/provider生产消费/正常寿命、ABI/链接/互通及运行仍待整体验收。

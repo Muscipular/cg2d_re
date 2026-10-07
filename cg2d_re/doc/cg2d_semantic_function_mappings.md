@@ -3166,3 +3166,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQO01 四完整收尾/初始化/返回/滚动正常源（2026-10-07）
 
 [完整合同](cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline)/[四冻结前态](cg2d_battle_skill_window_lifecycle_sampling_evidence.json)。1530..1533四原已有完整定义正常语义/equivalent，冻结定位全文保，三体九片段实修/初始化正确体保。四完整260条837B/六页、17call/十callee/40jump/七项switch/五ret，十二收尾邻窗60条305B仅局部调用、83助手代码入向只登记。真实callback字段54E444/561C14和首NUL两串42B有据；42B X七表项/MOV对齐/12NOP用途mapped。语义1534/有效1529、关联1647/3680（44.76%）、分类660/BATTLE212枚举open/E782；R7 262/3061/余2799、差队列172/待归属43及其它完整门禁保。
+
+## BQP01 七列表/回退及cost-first正常源身份（2026-10-07）
+
+[完整合同](cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline)/[七冻结前态](cg2d_battle_skill_lists_rollback_sampling_evidence.json)：1534..1540七原已有定义正常语义/equivalent，七冻结定位保；401F80现正确平台叶加Yobi typed桥secondary source，不虚造新原函数给桥。四体六片段/一桥及两父，普通值/FP单读/计数RNG不变；原坐标getter别名保。语义1541/有效1536、关联1654/3680（44.95%）、分类667/BATTLE219枚举open/E784；R7 262/3061余2799、差队列172/待归属43与其它完整门禁保。38入向/四无IDA父代码区间只真实登记，不凭父缺失排除。

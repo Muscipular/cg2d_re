@@ -34264,6 +34264,12 @@ bool IsYobiActionFpLessThan(YobiAction* const action, const std::int32_t cost)
     return platform::legacy_crypt_int::Less_401DB0(&action->barValue1B0, cost);
 }
 
+// 原401F80：cost在左、action FP为右值；右对象只读一次，保留计数/RNG消费。
+bool IsCostGreaterThanYobiActionFp(const std::int32_t cost, YobiAction* const action)
+{
+    return platform::legacy_crypt_int::IntGreaterCrypt_401F80(cost, &action->barValue1B0);
+}
+
 bool IsYobiActionFpGreaterEqual(YobiAction* const action, const std::int32_t cost)
 {
     return platform::legacy_crypt_int::GreaterEqual_401D70(&action->barValue1B0, cost);

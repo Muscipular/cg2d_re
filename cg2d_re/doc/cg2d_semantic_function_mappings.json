@@ -181836,6 +181836,391 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x00479B80",
+      "inventory_id": "F:00079B80",
+      "original_role": "Sub_479B80",
+      "original_end_exclusive": "0x00479C80",
+      "instruction_count": 79,
+      "status": "BQP01七完整普通/宠物/骑宠列表与回退及原cost-first比较叶正常源纳管，四体六片段与一typed桥/两父接线；原普通值/FP单读及计数RNG保持，全部生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_479B80"
+          ],
+          "relationship": "479B80普通技能列表：15配对按index S16查输入skillIndex，首匹配或无匹配回row0，不以used过滤索引搜索。原EAX held position=row-9先算、mode W32=0后scroll=position发布，position负与skillIndex负两原路径各position=0/scroll=0。slider参数position取held值，不再读共享scroll；之后fresh oldMaximum W32、elements[11] T*传4742C0弃返。1..16隐藏、1/3显示；15 used W16计数，maximum=count-10原负时0；10..16显示，27.data图3BA24、17..26写47B820真callback，保持fresh elements逐次读取。79条256B/一页、一call/12jump/一ret；只一个position计算/缓存片段实修。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "479B80普通技能列表：15配对按index S16查输入skillIndex，首匹配或无匹配回row0，不以used过滤索引搜索。原EAX held position=row-9先算、mode W32=0后scroll=position发布，position负与skillIndex负两原路径各position=0/scroll=0。slider参数position取held值，不再读共享scroll；之后fresh oldMaximum W32、elements[11] T*传4742C0弃返。1..16隐藏、1/3显示；15 used W16计数，maximum=count-10原负时0；10..16显示，27.data图3BA24、17..26写47B820真callback，保持fresh elements逐次读取。79条256B/一页、一call/12jump/一ret；只一个position计算/缓存片段实修。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "verification_level": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "battle_skill_lists_rollback_sampling": {
+        "spec_id": "BQP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 79,
+        "original_code_bytes": 256,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 3,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_getval_trampoline_alias_kept": true,
+        "original_normal_s32_and_w8_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00479C80",
+      "inventory_id": "F:00079C80",
+      "original_role": "Sub_479C80",
+      "original_end_exclusive": "0x00479D91",
+      "instruction_count": 75,
+      "status": "BQP01七完整普通/宠物/骑宠列表与回退及原cost-first比较叶正常源纳管，四体六片段与一typed桥/两父接线；原普通值/FP单读及计数RNG保持，全部生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_479C80"
+          ],
+          "relationship": "479C80普通技术列表：mode W32=1/scroll0，pairIndex S32非负才取配对index S16存选中技能，负保持旧值；oldMaximum W32先取，elements11 T*传4742C0(max,0)弃返。1..16先隐藏，2/4/5/9显示、6再显式隐藏；fresh selectedSkill技术name[0] W8逐行到首NUL/15计count，maximum=count-10原负时0；10..16显示后14/15隐藏，27.data图3BA26、17..26写47BC00。75条273B/一页、一call/七jump/一ret；完整正确体保，不造新clear或业务分支。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "479C80普通技术列表：mode W32=1/scroll0，pairIndex S32非负才取配对index S16存选中技能，负保持旧值；oldMaximum W32先取，elements11 T*传4742C0(max,0)弃返。1..16先隐藏，2/4/5/9显示、6再显式隐藏；fresh selectedSkill技术name[0] W8逐行到首NUL/15计count，maximum=count-10原负时0；10..16显示后14/15隐藏，27.data图3BA26、17..26写47BC00。75条273B/一页、一call/七jump/一ret；完整正确体保，不造新clear或业务分支。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "verification_level": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "battle_skill_lists_rollback_sampling": {
+        "spec_id": "BQP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 75,
+        "original_code_bytes": 273,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 2,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_getval_trampoline_alias_kept": true,
+        "original_normal_s32_and_w8_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00479660",
+      "inventory_id": "F:00079660",
+      "original_role": "Sub_479660",
+      "original_end_exclusive": "0x004796B5",
+      "instruction_count": 24,
+      "status": "BQP01七完整普通/宠物/骑宠列表与回退及原cost-first比较叶正常源纳管，四体六片段与一typed桥/两父接线；原普通值/FP单读及计数RNG保持，全部生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_479660"
+          ],
+          "relationship": "479660制造回退：原D67AF8 W32一次读/减1/先发布，分支复用减后held值；非0返回、不读W8 flag5F9754；零才读flag，零仍返回。有效才Y GetVal401EA0→X GetVal401EA0→fresh socket调用511DD0(socket,x,y,62)弃返；401EA0仅E91B000000尾跳401EC0，现Read401EC0承接正确/两Y-X单读和计数RNG保持，不误改成只读getter或另算法。发送后旧occupancy[7]实际W8取样、寄存器减值→flag W8=0→原cell W8回写；然后原47A140尾跳对应源void调用后退出，不虚计原call。24条85B/一页、三call/两门禁jump和一外尾转移/一ret。两片段仅counter held分支、旧cell减值在flag清零前；W32/W8储存及正常S32算术、短路和真实原MIS网络三参序均保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "479660制造回退：原D67AF8 W32一次读/减1/先发布，分支复用减后held值；非0返回、不读W8 flag5F9754；零才读flag，零仍返回。有效才Y GetVal401EA0→X GetVal401EA0→fresh socket调用511DD0(socket,x,y,62)弃返；401EA0仅E91B000000尾跳401EC0，现Read401EC0承接正确/两Y-X单读和计数RNG保持，不误改成只读getter或另算法。发送后旧occupancy[7]实际W8取样、寄存器减值→flag W8=0→原cell W8回写；然后原47A140尾跳对应源void调用后退出，不虚计原call。24条85B/一页、三call/两门禁jump和一外尾转移/一ret。两片段仅counter held分支、旧cell减值在flag清零前；W32/W8储存及正常S32算术、短路和真实原MIS网络三参序均保。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "verification_level": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "battle_skill_lists_rollback_sampling": {
+        "spec_id": "BQP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 24,
+        "original_code_bytes": 85,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 8,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_getval_trampoline_alias_kept": true,
+        "original_normal_s32_and_w8_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x004796E0",
+      "inventory_id": "F:000796E0",
+      "original_role": "Sub_4796E0",
+      "original_end_exclusive": "0x004796E7",
+      "instruction_count": 2,
+      "status": "BQP01七完整普通/宠物/骑宠列表与回退及原cost-first比较叶正常源纳管，四体六片段与一typed桥/两父接线；原普通值/FP单读及计数RNG保持，全部生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_4796E0"
+          ],
+          "relationship": "4796E0仅DEC BYTE D67AFC/RET：2条7B/一页、无call/jump、一ret，源uint8--正确体保，不扩大为其它计数/cleanup、不声明异常或回绕模拟。四原调用点47B0EF/47B0FD/485690/4856A2位于未列F的代码区间，只登记真实CALL/无IDA父，不据此排除或伪造F身份。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "4796E0仅DEC BYTE D67AFC/RET：2条7B/一页、无call/jump、一ret，源uint8--正确体保，不扩大为其它计数/cleanup、不声明异常或回绕模拟。四原调用点47B0EF/47B0FD/485690/4856A2位于未列F的代码区间，只登记真实CALL/无IDA父，不据此排除或伪造F身份。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "verification_level": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "battle_skill_lists_rollback_sampling": {
+        "spec_id": "BQP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 7,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 8,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_getval_trampoline_alias_kept": true,
+        "original_normal_s32_and_w8_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0047A1A0",
+      "inventory_id": "F:0007A1A0",
+      "original_role": "Sub_47A1A0",
+      "original_end_exclusive": "0x0047A31C",
+      "instruction_count": 108,
+      "status": "BQP01七完整普通/宠物/骑宠列表与回退及原cost-first比较叶正常源纳管，四体六片段与一typed桥/两父接线；原普通值/FP单读及计数RNG保持，全部生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47A1A0"
+          ],
+          "relationship": "47A1A0宠物技术列表：mode5/scroll0，1..16隐藏、2显示/maximum0、10..16显示先完成，然后GetBattlePetIndex返回S32负则直接退出，不清新增字段或假创建。有效固定pet T*，user name6BD首W8非NUL优先，否则name6AC，复制原旧字节到window元素2.text。一次pet.slot value6A4 W32初界，逐pair index S16取tech record，name首W8非NUL才fresh position→405B40 petPosition→fresh entry T*→record.fp W32；原cost-first401F80(cost,&action FP)经typed bridge，单读右FP/计数RNG且弃bool返仍调用，不合并或删除。每轮尾fresh slot W32先取、后index++，再held count比较；结束8显示、fresh slot-10写maximum不钳制负值、7显示、27.data图3BA28、17..26写47CC80。108条380B/两页、三call/九jump/一ret；一个loop片段明示尾界取序及cost-first接线，普通数值/FP读取次数与旧实现一致。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "47A1A0宠物技术列表：mode5/scroll0，1..16隐藏、2显示/maximum0、10..16显示先完成，然后GetBattlePetIndex返回S32负则直接退出，不清新增字段或假创建。有效固定pet T*，user name6BD首W8非NUL优先，否则name6AC，复制原旧字节到window元素2.text。一次pet.slot value6A4 W32初界，逐pair index S16取tech record，name首W8非NUL才fresh position→405B40 petPosition→fresh entry T*→record.fp W32；原cost-first401F80(cost,&action FP)经typed bridge，单读右FP/计数RNG且弃bool返仍调用，不合并或删除。每轮尾fresh slot W32先取、后index++，再held count比较；结束8显示、fresh slot-10写maximum不钳制负值、7显示、27.data图3BA28、17..26写47CC80。108条380B/两页、三call/九jump/一ret；一个loop片段明示尾界取序及cost-first接线，普通数值/FP读取次数与旧实现一致。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "verification_level": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "battle_skill_lists_rollback_sampling": {
+        "spec_id": "BQP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 108,
+        "original_code_bytes": 380,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_getval_trampoline_alias_kept": true,
+        "original_normal_s32_and_w8_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x0047A320",
+      "inventory_id": "F:0007A320",
+      "original_role": "Sub_47A320",
+      "original_end_exclusive": "0x0047A483",
+      "instruction_count": 100,
+      "status": "BQP01七完整普通/宠物/骑宠列表与回退及原cost-first比较叶正常源纳管，四体六片段与一typed桥/两父接线；原普通值/FP单读及计数RNG保持，全部生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47A320"
+          ],
+          "relationship": "47A320骑宠技术列表：mode6/scroll0、1..16隐藏/2显示/maximum0/10..16显示后读取ridePet W32按S32负则退出。有效fresh position→elements T*→displayAction T*→元素2.textData T*，借displayAction+C4旧名称复制，不新名称副本或改容量；固定ride pet T*、一次slot W32初界。各pair index S16/name W8非NUL才fresh currentPosition/entry T*→record.fp W32→cost-first401F80单右值读/计数RNG，弃返不删调用。每轮尾先fresh slot W32再index++，出口8显示/fresh slot-10原负值保持/7显示/图3BA28/17..26写47CFE0。100条355B/两页、一call/七jump/一ret；两个片段恢复名称目标取序和loop尾界/cost-first接线，不改其它业务。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "47A320骑宠技术列表：mode6/scroll0、1..16隐藏/2显示/maximum0/10..16显示后读取ridePet W32按S32负则退出。有效fresh position→elements T*→displayAction T*→元素2.textData T*，借displayAction+C4旧名称复制，不新名称副本或改容量；固定ride pet T*、一次slot W32初界。各pair index S16/name W8非NUL才fresh currentPosition/entry T*→record.fp W32→cost-first401F80单右值读/计数RNG，弃返不删调用。每轮尾先fresh slot W32再index++，出口8显示/fresh slot-10原负值保持/7显示/图3BA28/17..26写47CFE0。100条355B/两页、一call/七jump/一ret；两个片段恢复名称目标取序和loop尾界/cost-first接线，不改其它业务。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "verification_level": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "battle_skill_lists_rollback_sampling": {
+        "spec_id": "BQP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 100,
+        "original_code_bytes": 355,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_getval_trampoline_alias_kept": true,
+        "original_normal_s32_and_w8_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x00401F80",
+      "inventory_id": "F:00001F80",
+      "original_role": "IntGreaterCrypt_401F80",
+      "original_end_exclusive": "0x00401F91",
+      "instruction_count": 5,
+      "status": "BQP01七完整普通/宠物/骑宠列表与回退及原cost-first比较叶正常源纳管，四体六片段与一typed桥/两父接线；原普通值/FP单读及计数RNG保持，全部生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/platform/LegacyCryptInt.cpp",
+          "symbols": [
+            "IntGreaterCrypt_401F80"
+          ],
+          "relationship": "401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "IsCostGreaterThanYobiActionFp"
+          ],
+          "relationship": "新typed cost-first桥，直接调用原401F80右FP单读；仅两模式5/6父，不全局改旧FP接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "verification_level": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。",
+      "battle_skill_lists_rollback_sampling": {
+        "spec_id": "BQP01",
+        "evidence_refs": [
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+          "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 5,
+        "original_code_bytes": 17,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 15,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_fp_single_read_effects_kept": true,
+        "original_getval_trampoline_alias_kept": true,
+        "original_normal_s32_and_w8_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -765,6 +765,8 @@ bool IsYobiActionStateLessOrEqual(
     std::int32_t maximum);
 // 原47BA53直接比较action+1B0；读取同源FP一次，不增加空保护。
 bool IsYobiActionFpLessThan(YobiAction* action, std::int32_t cost);
+// 原401F80 cost-first FP检查；只消费一次右对象，保持读取计数与RNG。
+bool IsCostGreaterThanYobiActionFp(std::int32_t cost, YobiAction* action);
 // 原47C78D/47C8ED同源FP比较，各自单次读取，不缓存结果。
 bool IsYobiActionFpGreaterEqual(YobiAction* action, std::int32_t cost);
 std::int32_t ReadYobiActionFpOnce(YobiAction* action); // 原+1B0，47A7A0每次显示单独读取。

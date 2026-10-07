@@ -2287,7 +2287,8 @@
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
         "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-baseline",
-        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline"
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2501,7 +2502,14 @@
         "F:00096AE0",
         "F:0007A620",
         "F:0007B110",
-        "F:000742C0"
+        "F:000742C0",
+        "F:00079B80",
+        "F:00079C80",
+        "F:00079660",
+        "F:000796E0",
+        "F:0007A1A0",
+        "F:0007A320",
+        "F:00001F80"
       ],
       "closure_task_ids": [
         "P01",
@@ -2614,7 +2622,8 @@
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-decision",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
         "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-decision",
-        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision"
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2716,7 +2725,8 @@
         "BQL01三完整359条1191B/六页、21call/8callee/45jump/十二ret，三数据xref/三32B prototype及11-11-21共43B旧hover纳管。仅各按钮已选分支全局点击掩码2低W8，三原点/三表达式，正常旧值一致；共享edgeButtons仍W32、pending/flag本已有W8，主mode先专属mode后/初次点击创建、技能重选-重建-关闭返回/物品待选重开存槽后清flag-Flush/宠物W32请求关闭、真实空创建结果与图先尾清/返回差别保持。当前窗口26元素2-3-4绑定有据，通用初始化/事件链已过不重验，完整窗口/全部14元素/57C368 token和owner寿命未闭合。197原成员枚举open，无新R7；SDK/生成机器ABI/画面运行、完整战斗与R8未验",
         "BQM01八完整573条1739B/十二页、22call/13callee/50普通jump/一七项switch/13ret；三片段一体恢复47C570两W8索引与四W16坐标读取顺序，正常旧值一致。列表gate末尾一次、原滚动/最大值/显示回调、创建失败和七正确体、六RNG、真实null/回调与非拥有完成T**/MarkDeath后取槽保持；六外父邻窗仅36条115B，107包装入向只登记。37B X七W32表和九NOP真实用途mapped，R7 261/3061余2800；BATTLE205成员仍open。全部内容生产/其它子依赖与完整父、owner寿命、窗口10/26和57C368 token、SDK/生成机器/画面运行与R8未验",
         "BQN01三完整313条1108B/六页、16call含15直接/十callee及一CC4230 CALL EAX槽消费、26jump/五ret；两体四片段恢复条件selectedSkill W32重读/cost两W32取序/实际hover形参低W8及四低W16坐标序，正常旧值一致。名称NUL/W16配对/W32共享字段与三FP比较、null回调仍关闭consume1、旧83B提示/11B原S格式与989正确体原发送后写序保。两个新ID加989完整追加/三处置，208成员枚举open；三写一读CC4230取证，已过两发布者复用BQM01，47A490仅清零点登记/一个外父六条13B，不虚造地址0函数或完整父验收。R7无新分类；内容生产/其它模式/全部父/owner寿命、SDK/生成机器/画面运行和R8未验",
-        "BQO01四完整260条837B/六页、17call/十callee/40普通jump/七项switch/五ret；三体九片段恢复window10先userState、三action槽按阶段一次T*、返回按钮elements/hover/data顺序与hover缓存/两形参W8、助手两height W32序，正常旧值一致。47A620正确体/原W32关闭/回退W8减计数/正常S32计算与别名/42B旧提示保；实际原型48B初始化字段54E444和元素index4/32B callback561C14有据，不把IDA原型/数组头当指针。42B X七W32表/2B MOV对齐和12NOP用途mapped，R7 262/3061余2799；十二收尾父60条305B仅局部相邻调用，83助手入向仅登记。BATTLE212枚举open，完整生产/其它子依赖/父/owner寿命/SDK/生成机器/画面运行/R8未验"
+        "BQO01四完整260条837B/六页、17call/十callee/40普通jump/七项switch/五ret；三体九片段恢复window10先userState、三action槽按阶段一次T*、返回按钮elements/hover/data顺序与hover缓存/两形参W8、助手两height W32序，正常旧值一致。47A620正确体/原W32关闭/回退W8减计数/正常S32计算与别名/42B旧提示保；实际原型48B初始化字段54E444和元素index4/32B callback561C14有据，不把IDA原型/数组头当指针。42B X七W32表/2B MOV对齐和12NOP用途mapped，R7 262/3061余2799；十二收尾父60条305B仅局部相邻调用，83助手入向仅登记。BATTLE212枚举open，完整生产/其它子依赖/父/owner寿命/SDK/生成机器/画面运行/R8未验",
+        "BQP01七完整393条1373B/九页、十call/六callee/37普通jump及一47A140外尾转移/七ret，四体六片段与一bool/S32/非拥有T* cost-first桥及两父接线。原普通列表held position/counter减后发布与谓词、旧W8 cell取序/两宠物loop初尾界先index++/骑宠名称目标读取实修；正常值/FP单读与计数RNG一致。401EA0实际尾跳401EC0，既有坐标读取正确不改；原401F80正确叶及其它三正确体/负maximum/真实失败与模式callback、原MIS(socket,x,y,62)明文序/返回保。38入向仅登记、四无IDA父代码区间真实CALL不排除/伪造F，不新R7。219成员枚举open，所有生产/其它callback与父/owner寿命、SDK/生成机器/画面运行及R8未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2818,7 +2828,8 @@
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
         "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
-        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state"
       ]
     },
     {
@@ -33608,6 +33619,90 @@
       "observation": "496AE0无参void收尾：window26槽一次取非空才继续；原value10 S32>0清0、value14 S32<0清0，各条件独立，空窗不写任何后段字段。496B0C原window10 T*读取先于userState W32=2发布，再依次10/27/28各fresh T*，非空只W32 state|8000关闭请求；OR CH是原W32寄存器缓存，不窄化写、不即时释放窗口。之后CC1A10/D2F790/D2D60C三展开action槽按阶段各一次借T*判空并MarkDeath，非空清该共享槽后才取下一槽，不齐取或借后再次读槽为实参，不把MarkDeath变为delete。原53条176B/一页、三call同404D00/九jump/一ret；源入口early return与尾void同结果。四片段：window10读取/状态写序及三个阶段一次指针取样，正常旧值一致；12代码入向五父/十二邻窗60条305B只局部调用/相邻写序，不推完整父或owner。 47A620窗口10初始化/刷新：value==-1才先mode W32缓存、scroll=0，原无符号>6默认及七表项mode0→479B80(fresh currentWindow,-1)，3→479EA0(fresh currentWindow,-1)，4先fresh selectedSkill再fresh currentWindow→47A000(skill,1)，5→47A1A0(fresh window)，6→47A320(fresh window)，1/2/其它不调用。随后fresh mode W32缓存、hover=-1，仅mode1/2/4且fresh selectedSkill.name[0] W8为NUL回退；mode2先4796E0→D67AFD W8--，mode1/2再479660，三种都fresh currentWindow→479B80(0)。之后每写独立fresh currentWindow/elements，6.visible=0，fresh mode1才1；8.visible=0，fresh mode5才1，再独立fresh mode6才1，始终返回1。原92条342B/两页、八call七callee/17普通jump/一七项switch/一ret；现完整正确体保，不合并新mode判断、两更新元素或回退。原54E420原型头不是callback字段，实际54E444=47A620/elements54E440=561B78，源码窗口10对应原型row有据。 47B110返回按钮：入口currentWindow T*缓存、elements T*先取，再hover=state S32&1缓存寄存器，之后元素index.data借graphic T*并跨调用持有，consumed0。cached hover时fresh mode1/4复制586488原21B、mode2复制586470原21B，均含首NUL；其它不写hover。点击原47B16C TEST BYTE形参state低W8 mask2，fresh mode1→479B80(借窗,fresh selectedSkill)→479660，2→479C80(借窗,-1)→4796E0→D67AFD W8--，4→479EA0(借窗,fresh skill)，其它不调用子分支；任何点击都声51/x320→consumed1。固定graphic先图3B571，入口cached hover覆3B573，原47B1FA形参低W8 mask8再覆3B572，返回consumed。不让callee改变currentWindow后重借graphic/旧window，不重读hover，不把mask8当mask2。原85条250B/两页、六call六callee/13普通jump/一ret；四片段借element/hover缓存、两W8和尾hover消费。唯一数据xref561B78是30元素数组头，真实index4/32B记录561BF8..561C18/data561C10→561AD0/callback561C14→47B110，源第4项完整值逐字节匹配。 4742C0滚动位置助手：入口借element T*及一次data T*，maximum S32<=0取element.y W32；正时先element.height W32再previous element.height W32，原差×position S32/maximum向零、后fresh element.y加得到y。先写previous element.y，随后fresh读element.y得delta，写入口借data的+8 W32并返回delta。source WindowMouseData.deltaY与WindowGraphicData.offsetY同+8有既有offsetof断言/四字节memcpy，type1调用不能错转仅Mouse结构或新拒绝。原30条69B/一页、无call/一jump/两ret；源归并共同写/返回同正常结果。一片段只两height W32取序，最大值0/负分支、原S32计算与写后再取baseY/别名及返回保，不补钳制/异常或回绕模拟。83代码入向只完整登记，本步仅既有47A000父依赖承接，不全面复查83父。",
       "expected": "496AE0无参void收尾：window26槽一次取非空才继续；原value10 S32>0清0、value14 S32<0清0，各条件独立，空窗不写任何后段字段。496B0C原window10 T*读取先于userState W32=2发布，再依次10/27/28各fresh T*，非空只W32 state|8000关闭请求；OR CH是原W32寄存器缓存，不窄化写、不即时释放窗口。之后CC1A10/D2F790/D2D60C三展开action槽按阶段各一次借T*判空并MarkDeath，非空清该共享槽后才取下一槽，不齐取或借后再次读槽为实参，不把MarkDeath变为delete。原53条176B/一页、三call同404D00/九jump/一ret；源入口early return与尾void同结果。四片段：window10读取/状态写序及三个阶段一次指针取样，正常旧值一致；12代码入向五父/十二邻窗60条305B只局部调用/相邻写序，不推完整父或owner。 47A620窗口10初始化/刷新：value==-1才先mode W32缓存、scroll=0，原无符号>6默认及七表项mode0→479B80(fresh currentWindow,-1)，3→479EA0(fresh currentWindow,-1)，4先fresh selectedSkill再fresh currentWindow→47A000(skill,1)，5→47A1A0(fresh window)，6→47A320(fresh window)，1/2/其它不调用。随后fresh mode W32缓存、hover=-1，仅mode1/2/4且fresh selectedSkill.name[0] W8为NUL回退；mode2先4796E0→D67AFD W8--，mode1/2再479660，三种都fresh currentWindow→479B80(0)。之后每写独立fresh currentWindow/elements，6.visible=0，fresh mode1才1；8.visible=0，fresh mode5才1，再独立fresh mode6才1，始终返回1。原92条342B/两页、八call七callee/17普通jump/一七项switch/一ret；现完整正确体保，不合并新mode判断、两更新元素或回退。原54E420原型头不是callback字段，实际54E444=47A620/elements54E440=561B78，源码窗口10对应原型row有据。 47B110返回按钮：入口currentWindow T*缓存、elements T*先取，再hover=state S32&1缓存寄存器，之后元素index.data借graphic T*并跨调用持有，consumed0。cached hover时fresh mode1/4复制586488原21B、mode2复制586470原21B，均含首NUL；其它不写hover。点击原47B16C TEST BYTE形参state低W8 mask2，fresh mode1→479B80(借窗,fresh selectedSkill)→479660，2→479C80(借窗,-1)→4796E0→D67AFD W8--，4→479EA0(借窗,fresh skill)，其它不调用子分支；任何点击都声51/x320→consumed1。固定graphic先图3B571，入口cached hover覆3B573，原47B1FA形参低W8 mask8再覆3B572，返回consumed。不让callee改变currentWindow后重借graphic/旧window，不重读hover，不把mask8当mask2。原85条250B/两页、六call六callee/13普通jump/一ret；四片段借element/hover缓存、两W8和尾hover消费。唯一数据xref561B78是30元素数组头，真实index4/32B记录561BF8..561C18/data561C10→561AD0/callback561C14→47B110，源第4项完整值逐字节匹配。 4742C0滚动位置助手：入口借element T*及一次data T*，maximum S32<=0取element.y W32；正时先element.height W32再previous element.height W32，原差×position S32/maximum向零、后fresh element.y加得到y。先写previous element.y，随后fresh读element.y得delta，写入口借data的+8 W32并返回delta。source WindowMouseData.deltaY与WindowGraphicData.offsetY同+8有既有offsetof断言/四字节memcpy，type1调用不能错转仅Mouse结构或新拒绝。原30条69B/一页、无call/一jump/两ret；源归并共同写/返回同正常结果。一片段只两height W32取序，最大值0/负分支、原S32计算与写后再取baseY/别名及返回保，不补钳制/异常或回绕模拟。83代码入向只完整登记，本步仅既有47A000父依赖承接，不全面复查83父。",
       "actual": "四完整260条837B/六页、17直接call/十callee、40普通jump/一实际七项switch/五ret。三体九片段恢复window10 T*取样先userState发布、三action槽按阶段一次T*、返回按钮elements/hover/data顺序和入口hover缓存/两形参W8、助手两height W32取序；正常旧值一致，47A620完整正确体与W32关闭/正常S32计算/别名和旧42B提示保。原型头/数组头数据xref不等callback字段，实际54E444与数组第4项561C14有完整48/32B和源行值；12收尾父邻窗60条305B仅调用相邻序，助手83代码入向只登记。42B X有原七W32目标与2B MOV同寄存器/12NOP对齐，mapped仅字节用途；R7 262/3061余2799。完整生产/其它子依赖/全部父、窗口10/26与57C368 token及owner寿命、SDK/生成机器ABI/画面运行/R8未验。原格式明文、音频暂停与RPLAN.24不新增保护/故障/回绕模拟保持。"
+    },
+    {
+      "id": "E-BATTLE-SKILL-LISTS-ROLLBACK-SAMPLING-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQP01七完整393条1373B/九页、十call/37普通jump与一外尾转移/七ret、401EA0别名及原cost-first单右值读/四代码区间CALL；doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-skill-lists-rollback-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_479B80",
+        "src/ui/WindowRuntime.cpp#Sub_479C80",
+        "src/ui/WindowRuntime.cpp#Sub_479660",
+        "src/ui/WindowRuntime.cpp#Sub_4796E0",
+        "src/ui/WindowRuntime.cpp#Sub_47A1A0",
+        "src/ui/WindowRuntime.cpp#Sub_47A320",
+        "src/platform/LegacyCryptInt.cpp#IntGreaterCrypt_401F80",
+        "src/YobiRuntime.cpp#IsCostGreaterThanYobiActionFp",
+        "include/cg/YobiRuntime.hpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "四体六片段恢复held position/减后counter谓词与发布/旧W8 cell取序、两宠物loop尾界先index++/骑宠名称目标读序；一typed cost-first桥两父接现正确401F80。普通值/FP单读及计数RNG同旧源，不称故障；三正确体与原GetVal尾别名、负maximum/失败/模式callback、原MIS明文发送及Y-X/socket序保持",
+          "decision_ref": "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "479B80普通技能列表：15配对按index S16查输入skillIndex，首匹配或无匹配回row0，不以used过滤索引搜索。原EAX held position=row-9先算、mode W32=0后scroll=position发布，position负与skillIndex负两原路径各position=0/scroll=0。slider参数position取held值，不再读共享scroll；之后fresh oldMaximum W32、elements[11] T*传4742C0弃返。1..16隐藏、1/3显示；15 used W16计数，maximum=count-10原负时0；10..16显示，27.data图3BA24、17..26写47B820真callback，保持fresh elements逐次读取。79条256B/一页、一call/12jump/一ret；只一个position计算/缓存片段实修。 479C80普通技术列表：mode W32=1/scroll0，pairIndex S32非负才取配对index S16存选中技能，负保持旧值；oldMaximum W32先取，elements11 T*传4742C0(max,0)弃返。1..16先隐藏，2/4/5/9显示、6再显式隐藏；fresh selectedSkill技术name[0] W8逐行到首NUL/15计count，maximum=count-10原负时0；10..16显示后14/15隐藏，27.data图3BA26、17..26写47BC00。75条273B/一页、一call/七jump/一ret；完整正确体保，不造新clear或业务分支。 479660制造回退：原D67AF8 W32一次读/减1/先发布，分支复用减后held值；非0返回、不读W8 flag5F9754；零才读flag，零仍返回。有效才Y GetVal401EA0→X GetVal401EA0→fresh socket调用511DD0(socket,x,y,62)弃返；401EA0仅E91B000000尾跳401EC0，现Read401EC0承接正确/两Y-X单读和计数RNG保持，不误改成只读getter或另算法。发送后旧occupancy[7]实际W8取样、寄存器减值→flag W8=0→原cell W8回写；然后原47A140尾跳对应源void调用后退出，不虚计原call。24条85B/一页、三call/两门禁jump和一外尾转移/一ret。两片段仅counter held分支、旧cell减值在flag清零前；W32/W8储存及正常S32算术、短路和真实原MIS网络三参序均保。 4796E0仅DEC BYTE D67AFC/RET：2条7B/一页、无call/jump、一ret，源uint8--正确体保，不扩大为其它计数/cleanup、不声明异常或回绕模拟。四原调用点47B0EF/47B0FD/485690/4856A2位于未列F的代码区间，只登记真实CALL/无IDA父，不据此排除或伪造F身份。 47A1A0宠物技术列表：mode5/scroll0，1..16隐藏、2显示/maximum0、10..16显示先完成，然后GetBattlePetIndex返回S32负则直接退出，不清新增字段或假创建。有效固定pet T*，user name6BD首W8非NUL优先，否则name6AC，复制原旧字节到window元素2.text。一次pet.slot value6A4 W32初界，逐pair index S16取tech record，name首W8非NUL才fresh position→405B40 petPosition→fresh entry T*→record.fp W32；原cost-first401F80(cost,&action FP)经typed bridge，单读右FP/计数RNG且弃bool返仍调用，不合并或删除。每轮尾fresh slot W32先取、后index++，再held count比较；结束8显示、fresh slot-10写maximum不钳制负值、7显示、27.data图3BA28、17..26写47CC80。108条380B/两页、三call/九jump/一ret；一个loop片段明示尾界取序及cost-first接线，普通数值/FP读取次数与旧实现一致。 47A320骑宠技术列表：mode6/scroll0、1..16隐藏/2显示/maximum0/10..16显示后读取ridePet W32按S32负则退出。有效fresh position→elements T*→displayAction T*→元素2.textData T*，借displayAction+C4旧名称复制，不新名称副本或改容量；固定ride pet T*、一次slot W32初界。各pair index S16/name W8非NUL才fresh currentPosition/entry T*→record.fp W32→cost-first401F80单右值读/计数RNG，弃返不删调用。每轮尾先fresh slot W32再index++，出口8显示/fresh slot-10原负值保持/7显示/图3BA28/17..26写47CFE0。100条355B/两页、一call/七jump/一ret；两个片段恢复名称目标取序和loop尾界/cost-first接线，不改其它业务。 401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。",
+      "expected": "479B80普通技能列表：15配对按index S16查输入skillIndex，首匹配或无匹配回row0，不以used过滤索引搜索。原EAX held position=row-9先算、mode W32=0后scroll=position发布，position负与skillIndex负两原路径各position=0/scroll=0。slider参数position取held值，不再读共享scroll；之后fresh oldMaximum W32、elements[11] T*传4742C0弃返。1..16隐藏、1/3显示；15 used W16计数，maximum=count-10原负时0；10..16显示，27.data图3BA24、17..26写47B820真callback，保持fresh elements逐次读取。79条256B/一页、一call/12jump/一ret；只一个position计算/缓存片段实修。 479C80普通技术列表：mode W32=1/scroll0，pairIndex S32非负才取配对index S16存选中技能，负保持旧值；oldMaximum W32先取，elements11 T*传4742C0(max,0)弃返。1..16先隐藏，2/4/5/9显示、6再显式隐藏；fresh selectedSkill技术name[0] W8逐行到首NUL/15计count，maximum=count-10原负时0；10..16显示后14/15隐藏，27.data图3BA26、17..26写47BC00。75条273B/一页、一call/七jump/一ret；完整正确体保，不造新clear或业务分支。 479660制造回退：原D67AF8 W32一次读/减1/先发布，分支复用减后held值；非0返回、不读W8 flag5F9754；零才读flag，零仍返回。有效才Y GetVal401EA0→X GetVal401EA0→fresh socket调用511DD0(socket,x,y,62)弃返；401EA0仅E91B000000尾跳401EC0，现Read401EC0承接正确/两Y-X单读和计数RNG保持，不误改成只读getter或另算法。发送后旧occupancy[7]实际W8取样、寄存器减值→flag W8=0→原cell W8回写；然后原47A140尾跳对应源void调用后退出，不虚计原call。24条85B/一页、三call/两门禁jump和一外尾转移/一ret。两片段仅counter held分支、旧cell减值在flag清零前；W32/W8储存及正常S32算术、短路和真实原MIS网络三参序均保。 4796E0仅DEC BYTE D67AFC/RET：2条7B/一页、无call/jump、一ret，源uint8--正确体保，不扩大为其它计数/cleanup、不声明异常或回绕模拟。四原调用点47B0EF/47B0FD/485690/4856A2位于未列F的代码区间，只登记真实CALL/无IDA父，不据此排除或伪造F身份。 47A1A0宠物技术列表：mode5/scroll0，1..16隐藏、2显示/maximum0、10..16显示先完成，然后GetBattlePetIndex返回S32负则直接退出，不清新增字段或假创建。有效固定pet T*，user name6BD首W8非NUL优先，否则name6AC，复制原旧字节到window元素2.text。一次pet.slot value6A4 W32初界，逐pair index S16取tech record，name首W8非NUL才fresh position→405B40 petPosition→fresh entry T*→record.fp W32；原cost-first401F80(cost,&action FP)经typed bridge，单读右FP/计数RNG且弃bool返仍调用，不合并或删除。每轮尾fresh slot W32先取、后index++，再held count比较；结束8显示、fresh slot-10写maximum不钳制负值、7显示、27.data图3BA28、17..26写47CC80。108条380B/两页、三call/九jump/一ret；一个loop片段明示尾界取序及cost-first接线，普通数值/FP读取次数与旧实现一致。 47A320骑宠技术列表：mode6/scroll0、1..16隐藏/2显示/maximum0/10..16显示后读取ridePet W32按S32负则退出。有效fresh position→elements T*→displayAction T*→元素2.textData T*，借displayAction+C4旧名称复制，不新名称副本或改容量；固定ride pet T*、一次slot W32初界。各pair index S16/name W8非NUL才fresh currentPosition/entry T*→record.fp W32→cost-first401F80单右值读/计数RNG，弃返不删调用。每轮尾先fresh slot W32再index++，出口8显示/fresh slot-10原负值保持/7显示/图3BA28/17..26写47CFE0。100条355B/两页、一call/七jump/一ret；两个片段恢复名称目标取序和loop尾界/cost-first接线，不改其它业务。 401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。",
+      "actual": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。"
+    },
+    {
+      "id": "E-BATTLE-SKILL-LISTS-ROLLBACK-SAMPLING-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQP01七完整393条1373B/九页、十call/37普通jump与一外尾转移/七ret、401EA0别名及原cost-first单右值读/四代码区间CALL；doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-skill-lists-rollback-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_479B80",
+        "src/ui/WindowRuntime.cpp#Sub_479C80",
+        "src/ui/WindowRuntime.cpp#Sub_479660",
+        "src/ui/WindowRuntime.cpp#Sub_4796E0",
+        "src/ui/WindowRuntime.cpp#Sub_47A1A0",
+        "src/ui/WindowRuntime.cpp#Sub_47A320",
+        "src/platform/LegacyCryptInt.cpp#IntGreaterCrypt_401F80",
+        "src/YobiRuntime.cpp#IsCostGreaterThanYobiActionFp",
+        "include/cg/YobiRuntime.hpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp"
+      ],
+      "differences": [
+        {
+          "description": "四体六片段恢复held position/减后counter谓词与发布/旧W8 cell取序、两宠物loop尾界先index++/骑宠名称目标读序；一typed cost-first桥两父接现正确401F80。普通值/FP单读及计数RNG同旧源，不称故障；三正确体与原GetVal尾别名、负maximum/失败/模式callback、原MIS明文发送及Y-X/socket序保持",
+          "decision_ref": "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "479B80普通技能列表：15配对按index S16查输入skillIndex，首匹配或无匹配回row0，不以used过滤索引搜索。原EAX held position=row-9先算、mode W32=0后scroll=position发布，position负与skillIndex负两原路径各position=0/scroll=0。slider参数position取held值，不再读共享scroll；之后fresh oldMaximum W32、elements[11] T*传4742C0弃返。1..16隐藏、1/3显示；15 used W16计数，maximum=count-10原负时0；10..16显示，27.data图3BA24、17..26写47B820真callback，保持fresh elements逐次读取。79条256B/一页、一call/12jump/一ret；只一个position计算/缓存片段实修。 479C80普通技术列表：mode W32=1/scroll0，pairIndex S32非负才取配对index S16存选中技能，负保持旧值；oldMaximum W32先取，elements11 T*传4742C0(max,0)弃返。1..16先隐藏，2/4/5/9显示、6再显式隐藏；fresh selectedSkill技术name[0] W8逐行到首NUL/15计count，maximum=count-10原负时0；10..16显示后14/15隐藏，27.data图3BA26、17..26写47BC00。75条273B/一页、一call/七jump/一ret；完整正确体保，不造新clear或业务分支。 479660制造回退：原D67AF8 W32一次读/减1/先发布，分支复用减后held值；非0返回、不读W8 flag5F9754；零才读flag，零仍返回。有效才Y GetVal401EA0→X GetVal401EA0→fresh socket调用511DD0(socket,x,y,62)弃返；401EA0仅E91B000000尾跳401EC0，现Read401EC0承接正确/两Y-X单读和计数RNG保持，不误改成只读getter或另算法。发送后旧occupancy[7]实际W8取样、寄存器减值→flag W8=0→原cell W8回写；然后原47A140尾跳对应源void调用后退出，不虚计原call。24条85B/一页、三call/两门禁jump和一外尾转移/一ret。两片段仅counter held分支、旧cell减值在flag清零前；W32/W8储存及正常S32算术、短路和真实原MIS网络三参序均保。 4796E0仅DEC BYTE D67AFC/RET：2条7B/一页、无call/jump、一ret，源uint8--正确体保，不扩大为其它计数/cleanup、不声明异常或回绕模拟。四原调用点47B0EF/47B0FD/485690/4856A2位于未列F的代码区间，只登记真实CALL/无IDA父，不据此排除或伪造F身份。 47A1A0宠物技术列表：mode5/scroll0，1..16隐藏、2显示/maximum0、10..16显示先完成，然后GetBattlePetIndex返回S32负则直接退出，不清新增字段或假创建。有效固定pet T*，user name6BD首W8非NUL优先，否则name6AC，复制原旧字节到window元素2.text。一次pet.slot value6A4 W32初界，逐pair index S16取tech record，name首W8非NUL才fresh position→405B40 petPosition→fresh entry T*→record.fp W32；原cost-first401F80(cost,&action FP)经typed bridge，单读右FP/计数RNG且弃bool返仍调用，不合并或删除。每轮尾fresh slot W32先取、后index++，再held count比较；结束8显示、fresh slot-10写maximum不钳制负值、7显示、27.data图3BA28、17..26写47CC80。108条380B/两页、三call/九jump/一ret；一个loop片段明示尾界取序及cost-first接线，普通数值/FP读取次数与旧实现一致。 47A320骑宠技术列表：mode6/scroll0、1..16隐藏/2显示/maximum0/10..16显示后读取ridePet W32按S32负则退出。有效fresh position→elements T*→displayAction T*→元素2.textData T*，借displayAction+C4旧名称复制，不新名称副本或改容量；固定ride pet T*、一次slot W32初界。各pair index S16/name W8非NUL才fresh currentPosition/entry T*→record.fp W32→cost-first401F80单右值读/计数RNG，弃返不删调用。每轮尾先fresh slot W32再index++，出口8显示/fresh slot-10原负值保持/7显示/图3BA28/17..26写47CFE0。100条355B/两页、一call/七jump/一ret；两个片段恢复名称目标取序和loop尾界/cost-first接线，不改其它业务。 401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。",
+      "expected": "479B80普通技能列表：15配对按index S16查输入skillIndex，首匹配或无匹配回row0，不以used过滤索引搜索。原EAX held position=row-9先算、mode W32=0后scroll=position发布，position负与skillIndex负两原路径各position=0/scroll=0。slider参数position取held值，不再读共享scroll；之后fresh oldMaximum W32、elements[11] T*传4742C0弃返。1..16隐藏、1/3显示；15 used W16计数，maximum=count-10原负时0；10..16显示，27.data图3BA24、17..26写47B820真callback，保持fresh elements逐次读取。79条256B/一页、一call/12jump/一ret；只一个position计算/缓存片段实修。 479C80普通技术列表：mode W32=1/scroll0，pairIndex S32非负才取配对index S16存选中技能，负保持旧值；oldMaximum W32先取，elements11 T*传4742C0(max,0)弃返。1..16先隐藏，2/4/5/9显示、6再显式隐藏；fresh selectedSkill技术name[0] W8逐行到首NUL/15计count，maximum=count-10原负时0；10..16显示后14/15隐藏，27.data图3BA26、17..26写47BC00。75条273B/一页、一call/七jump/一ret；完整正确体保，不造新clear或业务分支。 479660制造回退：原D67AF8 W32一次读/减1/先发布，分支复用减后held值；非0返回、不读W8 flag5F9754；零才读flag，零仍返回。有效才Y GetVal401EA0→X GetVal401EA0→fresh socket调用511DD0(socket,x,y,62)弃返；401EA0仅E91B000000尾跳401EC0，现Read401EC0承接正确/两Y-X单读和计数RNG保持，不误改成只读getter或另算法。发送后旧occupancy[7]实际W8取样、寄存器减值→flag W8=0→原cell W8回写；然后原47A140尾跳对应源void调用后退出，不虚计原call。24条85B/一页、三call/两门禁jump和一外尾转移/一ret。两片段仅counter held分支、旧cell减值在flag清零前；W32/W8储存及正常S32算术、短路和真实原MIS网络三参序均保。 4796E0仅DEC BYTE D67AFC/RET：2条7B/一页、无call/jump、一ret，源uint8--正确体保，不扩大为其它计数/cleanup、不声明异常或回绕模拟。四原调用点47B0EF/47B0FD/485690/4856A2位于未列F的代码区间，只登记真实CALL/无IDA父，不据此排除或伪造F身份。 47A1A0宠物技术列表：mode5/scroll0，1..16隐藏、2显示/maximum0、10..16显示先完成，然后GetBattlePetIndex返回S32负则直接退出，不清新增字段或假创建。有效固定pet T*，user name6BD首W8非NUL优先，否则name6AC，复制原旧字节到window元素2.text。一次pet.slot value6A4 W32初界，逐pair index S16取tech record，name首W8非NUL才fresh position→405B40 petPosition→fresh entry T*→record.fp W32；原cost-first401F80(cost,&action FP)经typed bridge，单读右FP/计数RNG且弃bool返仍调用，不合并或删除。每轮尾fresh slot W32先取、后index++，再held count比较；结束8显示、fresh slot-10写maximum不钳制负值、7显示、27.data图3BA28、17..26写47CC80。108条380B/两页、三call/九jump/一ret；一个loop片段明示尾界取序及cost-first接线，普通数值/FP读取次数与旧实现一致。 47A320骑宠技术列表：mode6/scroll0、1..16隐藏/2显示/maximum0/10..16显示后读取ridePet W32按S32负则退出。有效fresh position→elements T*→displayAction T*→元素2.textData T*，借displayAction+C4旧名称复制，不新名称副本或改容量；固定ride pet T*、一次slot W32初界。各pair index S16/name W8非NUL才fresh currentPosition/entry T*→record.fp W32→cost-first401F80单右值读/计数RNG，弃返不删调用。每轮尾先fresh slot W32再index++，出口8显示/fresh slot-10原负值保持/7显示/图3BA28/17..26写47CFE0。100条355B/两页、一call/七jump/一ret；两个片段恢复名称目标取序和loop尾界/cost-first接线，不改其它业务。 401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。",
+      "actual": "七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。"
     }
   ],
   "task_acceptance": [
@@ -34255,7 +34350,8 @@
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
         "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
-        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state"
       ]
     },
     {
@@ -34521,7 +34617,8 @@
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
         "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
-        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state"
       ]
     },
     {
@@ -34679,7 +34776,8 @@
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
         "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
-        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state"
       ]
     },
     {
@@ -35169,7 +35267,8 @@
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
         "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
-        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state"
       ]
     },
     {
@@ -42466,6 +42565,97 @@
         "doc/cg2d_battle_skill_window_lifecycle_sampling_evidence.json"
       ],
       "boundary": "4742C0滚动位置助手：入口借element T*及一次data T*，maximum S32<=0取element.y W32；正时先element.height W32再previous element.height W32，原差×position S32/maximum向零、后fresh element.y加得到y。先写previous element.y，随后fresh读element.y得delta，写入口借data的+8 W32并返回delta。source WindowMouseData.deltaY与WindowGraphicData.offsetY同+8有既有offsetof断言/四字节memcpy，type1调用不能错转仅Mouse结构或新拒绝。原30条69B/一页、无call/一jump/两ret；源归并共同写/返回同正常结果。一片段只两height W32取序，最大值0/负分支、原S32计算与写后再取baseY/别名及返回保，不补钳制/异常或回绕模拟。83代码入向只完整登记，本步仅既有47A000父依赖承接，不全面复查83父。 四完整260条837B/六页、17直接call/十callee、40普通jump/一实际七项switch/五ret。三体九片段恢复window10 T*取样先userState发布、三action槽按阶段一次T*、返回按钮elements/hover/data顺序和入口hover缓存/两形参W8、助手两height W32取序；正常旧值一致，47A620完整正确体与W32关闭/正常S32计算/别名和旧42B提示保。原型头/数组头数据xref不等callback字段，实际54E444与数组第4项561C14有完整48/32B和源行值；12收尾父邻窗60条305B仅调用相邻序，助手83代码入向只登记。42B X有原七W32目标与2B MOV同寄存器/12NOP对齐，mapped仅字节用途；R7 262/3061余2799。完整生产/其它子依赖/全部父、窗口10/26与57C368 token及owner寿命、SDK/生成机器ABI/画面运行/R8未验。原格式明文、音频暂停与RPLAN.24不新增保护/故障/回绕模拟保持。"
+    },
+    {
+      "inventory_id": "F:00079B80",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "479B80普通技能列表：15配对按index S16查输入skillIndex，首匹配或无匹配回row0，不以used过滤索引搜索。原EAX held position=row-9先算、mode W32=0后scroll=position发布，position负与skillIndex负两原路径各position=0/scroll=0。slider参数position取held值，不再读共享scroll；之后fresh oldMaximum W32、elements[11] T*传4742C0弃返。1..16隐藏、1/3显示；15 used W16计数，maximum=count-10原负时0；10..16显示，27.data图3BA24、17..26写47B820真callback，保持fresh elements逐次读取。79条256B/一页、一call/12jump/一ret；只一个position计算/缓存片段实修。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。"
+    },
+    {
+      "inventory_id": "F:00079C80",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "479C80普通技术列表：mode W32=1/scroll0，pairIndex S32非负才取配对index S16存选中技能，负保持旧值；oldMaximum W32先取，elements11 T*传4742C0(max,0)弃返。1..16先隐藏，2/4/5/9显示、6再显式隐藏；fresh selectedSkill技术name[0] W8逐行到首NUL/15计count，maximum=count-10原负时0；10..16显示后14/15隐藏，27.data图3BA26、17..26写47BC00。75条273B/一页、一call/七jump/一ret；完整正确体保，不造新clear或业务分支。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。"
+    },
+    {
+      "inventory_id": "F:00079660",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "479660制造回退：原D67AF8 W32一次读/减1/先发布，分支复用减后held值；非0返回、不读W8 flag5F9754；零才读flag，零仍返回。有效才Y GetVal401EA0→X GetVal401EA0→fresh socket调用511DD0(socket,x,y,62)弃返；401EA0仅E91B000000尾跳401EC0，现Read401EC0承接正确/两Y-X单读和计数RNG保持，不误改成只读getter或另算法。发送后旧occupancy[7]实际W8取样、寄存器减值→flag W8=0→原cell W8回写；然后原47A140尾跳对应源void调用后退出，不虚计原call。24条85B/一页、三call/两门禁jump和一外尾转移/一ret。两片段仅counter held分支、旧cell减值在flag清零前；W32/W8储存及正常S32算术、短路和真实原MIS网络三参序均保。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。"
+    },
+    {
+      "inventory_id": "F:000796E0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "4796E0仅DEC BYTE D67AFC/RET：2条7B/一页、无call/jump、一ret，源uint8--正确体保，不扩大为其它计数/cleanup、不声明异常或回绕模拟。四原调用点47B0EF/47B0FD/485690/4856A2位于未列F的代码区间，只登记真实CALL/无IDA父，不据此排除或伪造F身份。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。"
+    },
+    {
+      "inventory_id": "F:0007A1A0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "47A1A0宠物技术列表：mode5/scroll0，1..16隐藏、2显示/maximum0、10..16显示先完成，然后GetBattlePetIndex返回S32负则直接退出，不清新增字段或假创建。有效固定pet T*，user name6BD首W8非NUL优先，否则name6AC，复制原旧字节到window元素2.text。一次pet.slot value6A4 W32初界，逐pair index S16取tech record，name首W8非NUL才fresh position→405B40 petPosition→fresh entry T*→record.fp W32；原cost-first401F80(cost,&action FP)经typed bridge，单读右FP/计数RNG且弃bool返仍调用，不合并或删除。每轮尾fresh slot W32先取、后index++，再held count比较；结束8显示、fresh slot-10写maximum不钳制负值、7显示、27.data图3BA28、17..26写47CC80。108条380B/两页、三call/九jump/一ret；一个loop片段明示尾界取序及cost-first接线，普通数值/FP读取次数与旧实现一致。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。"
+    },
+    {
+      "inventory_id": "F:0007A320",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "47A320骑宠技术列表：mode6/scroll0、1..16隐藏/2显示/maximum0/10..16显示后读取ridePet W32按S32负则退出。有效fresh position→elements T*→displayAction T*→元素2.textData T*，借displayAction+C4旧名称复制，不新名称副本或改容量；固定ride pet T*、一次slot W32初界。各pair index S16/name W8非NUL才fresh currentPosition/entry T*→record.fp W32→cost-first401F80单右值读/计数RNG，弃返不删调用。每轮尾先fresh slot W32再index++，出口8显示/fresh slot-10原负值保持/7显示/图3BA28/17..26写47CFE0。100条355B/两页、一call/七jump/一ret；两个片段恢复名称目标取序和loop尾界/cost-first接线，不改其它业务。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。"
+    },
+    {
+      "inventory_id": "F:00001F80",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_evidence.json"
+      ],
+      "boundary": "401F80正常比较叶：arg1 LegacyCryptInt*借右对象，调用401EA0→401EC0一次，后读arg0 S32并按有符号lhs>rhs置AL bool返回；5条17B/一页、一call/无jump/一ret。既有IntGreaterCrypt_401F80(lhs,rhs)正文正确保，仅新增其原语义基线/equivalent与BATTLE依赖身份。新login::detail::IsCostGreaterThanYobiActionFp(cost,YobiAction*)以action私有barValue1B0调用该叶；公共边界仅bool/S32/非拥有T*，不暴露私有FP字段/存储，不添nil成功或RNG/解码替代。旧IsYobiActionFpLessThan的正常反向比较与一次读取等价，原消费者不全局替换；只两宠物列表接新cost-first桥，不称旧正常FP数值或计数RNG错误。15原入向只登记，不推全部父或异常/生成机器ABI验收。 七完整393条1373B/九页、十物理call/六callee、37普通jump+一47A140外尾转移/七ret，无switch/新R7。四既有体六片段恢复普通列表held position、counter减后held谓词/旧W8 cell取序、两宠物loop初/尾W32界先index++与骑宠名称目标取序；新增一bool/S32/非拥有T* cost-first桥及声明，两父接现正确401F80。普通数值/原FP单读次数和计数RNG一致；两列表/字节减计数/比较叶三正确体与原回调、失败/负maximum、原MIS原格式明文及Y-X/socket序保持。401EA0实际尾跳401EC0，既有坐标取值正确不改；无新解码/网络加解密。38代码入向仅登记，四无IDA父代码区间CALL只真实登记不伪造F/排除；其它生产/模式callback/全部父/owner寿命、窗口10-26/57C368 token、SDK/生成机器ABI/画面运行及R8未验，音频暂停与RPLAN.24不专项异常/保护/模拟保。"
     }
   ],
   "auxiliary_dispositions": [

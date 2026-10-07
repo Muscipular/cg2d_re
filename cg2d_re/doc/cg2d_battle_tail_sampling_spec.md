@@ -199,3 +199,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQO01 技能窗口收尾与初始化取样（2026-10-07）
 
 [完整合同](cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state)/[四完整260条837B](cg2d_battle_skill_window_lifecycle_sampling_evidence.json)纳管496AE0/47A620/47B110/4742C0。三体九片段恢复window10先userState、三槽分阶段一次T*、返回按钮hover缓存/两W8及助手两height W32序；正常旧值一致，初始化正确体/原关闭请求/回退/正常S32与别名/旧42B提示保。真实48B原型callback54E444及index4/32B callback561C14有据，不将原型或数组头当函数指针。42B X七表项与对齐用途mapped，R7 262/3061余2799；212成员仍open/两局部I-S，全部父/其它子依赖/生产与owner寿命、运行未验。
+
+## BQP01 技能列表与制造回退取样（2026-10-07）
+
+[完整合同](cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state)/[七完整393条1373B](cg2d_battle_skill_lists_rollback_sampling_evidence.json)纳管普通列表/技术、计数回退/字节减计数、两宠物模式与原401F80。四体六片段恢复held position/counter减后held谓词与旧cell序、loop尾界先index++/骑宠名称目标取序；一typed cost-first桥/两父接原单右FP读。普通值/FP单读次数和计数RNG同旧源，401EA0实际尾跳401EC0/坐标取值正确不改，不称不同解码。三正确体/原失败/負maximum/模式callback/原MIS明文及尾转移保；四无IDA父代码区间CALL只登记不造F/排除。219成员open/两I-S不代生产/其它模式callback/完整父/owner寿命与运行，无新R7。

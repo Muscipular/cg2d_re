@@ -34999,15 +34999,17 @@ void Sub_479B80(WindowInstance* const window, const std::int32_t skillIndex)
     if (row >= 15) {
         row = 0;
     }
+    std::int32_t position = row - 9;
     gSkillWindowModeD672AC = 0;
-    gSkillWindowScrollD2D648 = row - 9;
-    if (gSkillWindowScrollD2D648 < 0) {
-        gSkillWindowScrollD2D648 = 0;
+    gSkillWindowScrollD2D648 = position;
+    if (position < 0) {
+        position = 0;
+        gSkillWindowScrollD2D648 = position;
     }
     if (skillIndex < 0) {
-        gSkillWindowScrollD2D648 = 0;
+        position = 0;
+        gSkillWindowScrollD2D648 = position;
     }
-    const std::int32_t position = gSkillWindowScrollD2D648;
     const std::int32_t oldMaximum = gSkillWindowMaximumCA000C;
     static_cast<void>(Sub_4742C0(&window->elements[11], oldMaximum, position));
     for (std::int32_t index = 1; index <= 16; ++index) {
@@ -37380,7 +37382,9 @@ void Sub_47A1A0(WindowInstance* const window)
         name = pet->name6AC.data();
     }
     std::strcpy(static_cast<WindowTextData*>(window->elements[2].data)->text, name);
-    for (std::int32_t index = 0; index < pet->value6A4; ++index) {
+    std::int32_t index = 0;
+    std::int32_t count = pet->value6A4;
+    while (index < count) {
         const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[index].index);
         const auto* const record = &pet->techniquesD8[technique];
         if (record->name[0] != '\0') {
@@ -37388,8 +37392,10 @@ void Sub_47A1A0(WindowInstance* const window)
                 world::detail::gBattleCurrentPosition5ABCA4);
             login::YobiAction* const action = world::detail::gBattleEntries59E980[position];
             const std::int32_t cost = record->fp;
-            static_cast<void>(login::detail::IsYobiActionFpLessThan(action, cost));
+            static_cast<void>(login::detail::IsCostGreaterThanYobiActionFp(cost, action));
         }
+        count = pet->value6A4;
+        ++index;
     }
     window->elements[8].visible = 1;
     gSkillWindowMaximumCA000C = pet->value6A4 - 10;
@@ -37417,18 +37423,25 @@ void Sub_47A320(WindowInstance* const window)
         return;
     }
     const std::int32_t position = world::detail::gBattleCurrentPosition5ABCA4;
-    const char* const name = login::detail::BorrowYobiNameC4(world::detail::gBattleEntries59E980[position]);
-    std::strcpy(static_cast<WindowTextData*>(window->elements[2].data)->text, name);
+    const WindowElement* const elements = window->elements;
+    login::YobiAction* const displayAction = world::detail::gBattleEntries59E980[position];
+    auto* const textData = static_cast<WindowTextData*>(elements[2].data);
+    const char* const name = login::detail::BorrowYobiNameC4(displayAction);
+    std::strcpy(textData->text, name);
     const auto* const pet = &world::detail::gPetRuntimeF633F8[petIndex];
-    for (std::int32_t index = 0; index < pet->value6A4; ++index) {
+    std::int32_t index = 0;
+    std::int32_t count = pet->value6A4;
+    while (index < count) {
         const auto technique = std::bit_cast<std::int16_t>(pet->techniquePairs650[index].index);
         const auto* const record = &pet->techniquesD8[technique];
         if (record->name[0] != '\0') {
             const std::int32_t currentPosition = world::detail::gBattleCurrentPosition5ABCA4;
             login::YobiAction* const action = world::detail::gBattleEntries59E980[currentPosition];
             const std::int32_t cost = record->fp;
-            static_cast<void>(login::detail::IsYobiActionFpLessThan(action, cost));
+            static_cast<void>(login::detail::IsCostGreaterThanYobiActionFp(cost, action));
         }
+        count = pet->value6A4;
+        ++index;
     }
     window->elements[8].visible = 1;
     gSkillWindowMaximumCA000C = pet->value6A4 - 10;
@@ -38248,8 +38261,9 @@ void Sub_479650()
 
 void Sub_479660()
 {
-    --gValueD67AF8;
-    if (gValueD67AF8 != 0 || gValue5F9754 == 0) {
+    const std::int32_t remainingCount = gValueD67AF8 - 1;
+    gValueD67AF8 = remainingCount;
+    if (remainingCount != 0 || gValue5F9754 == 0) {
         return;
     }
     const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&world::detail::gPlayerY);
@@ -38257,8 +38271,9 @@ void Sub_479660()
     static_cast<void>(network::Sub_511DD0(platform::gConnectionSocket, x, y, 62));
     auto* const occupancy = reinterpret_cast<unsigned char*>(world::gValueD67B08.data());
     const std::uint8_t previous = occupancy[7];
+    const auto next = static_cast<std::uint8_t>(previous - 1);
     gValue5F9754 = 0;
-    occupancy[7] = static_cast<std::uint8_t>(previous - 1);
+    occupancy[7] = next;
     Sub_47A140();
 }
 

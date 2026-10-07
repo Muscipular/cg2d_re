@@ -1190,3 +1190,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQO01 窗口收尾与初始化局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-acceptance)/[四完整260条837B](cg2d_battle_skill_window_lifecycle_sampling_evidence.json)。三体九片段取序/阶段借用/hover缓存和两W8实修，原W32关闭、初始化正确体/回退W8减计数/正常S32计算与+8别名/42B提示保，正常旧值一致。真实48/32B原型callback字段54E444/561C14不等IDA头；原七表项/42B用途及十二父60条305B限定静态，83助手入向仅登记。两I/S各十六真实来源不代完整生产/其它父/owner寿命/运行；R7 262/3061余2799、五任务open/60源码closed10/完整验收0/叶0/global=false；关联1647/44.76%、BATTLE212枚举open/E782保限定口径。
+
+## BQP01 列表与回退局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance)/[七完整393条1373B](cg2d_battle_skill_lists_rollback_sampling_evidence.json)。九页十call/六callee/37普通jump加一外尾转移/七ret、坐标GetVal真实尾别名、cost-first单右FP读与计数RNG有据；四体六片段/一typed桥/两父/三正确体保。普通值和原FP单读副作用同旧源，原MIS明文/回调/失败/负maximum及原序保持。两I/S各二十真实来源不代全解码/异常/父/owner/运行；14精确文件，1654/44.95%文档关联、BATTLE219枚举open/E784、四任务open/60源码closed10/完整验收0/叶0/global=false和R7/差队列保持。

@@ -2286,7 +2286,8 @@
         "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
-        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-baseline"
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-baseline",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2496,7 +2497,11 @@
         "F:0007C570",
         "F:0007A000",
         "F:0007C700",
-        "F:000974C0"
+        "F:000974C0",
+        "F:00096AE0",
+        "F:0007A620",
+        "F:0007B110",
+        "F:000742C0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2608,7 +2613,8 @@
         "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-decision",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
-        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-decision"
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-decision",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2709,7 +2715,8 @@
         "BQK01四完整197条767B/四页、20call/7callee/27jump/五ret，快捷九代码入向九窗27条119B、防御1数据xref/第二32B prototype/15B旧hover/2B G纳管。仅三个快捷入口状态各一次低W8→S8，三原点/三表达式，正常旧值一致；共享W32存储和原门槛/skillUsed/模式2-3-4、各专属清零/创建空结果/关闭清理回收声和返回、完整防御正确图优先级/原字节/网络原格式明文G保持。不照搬技能物品尾到宠物/防御，不加发送失败早退；当前两父六源表达式承接原九入向，不代完整父流或窗口26/57C368 token/全部owner寿命。194原成员枚举open，无新R7；SDK/生成机器ABI/组包连接发送/画面运行、完整战斗与R8未验",
         "BQL01三完整359条1191B/六页、21call/8callee/45jump/十二ret，三数据xref/三32B prototype及11-11-21共43B旧hover纳管。仅各按钮已选分支全局点击掩码2低W8，三原点/三表达式，正常旧值一致；共享edgeButtons仍W32、pending/flag本已有W8，主mode先专属mode后/初次点击创建、技能重选-重建-关闭返回/物品待选重开存槽后清flag-Flush/宠物W32请求关闭、真实空创建结果与图先尾清/返回差别保持。当前窗口26元素2-3-4绑定有据，通用初始化/事件链已过不重验，完整窗口/全部14元素/57C368 token和owner寿命未闭合。197原成员枚举open，无新R7；SDK/生成机器ABI/画面运行、完整战斗与R8未验",
         "BQM01八完整573条1739B/十二页、22call/13callee/50普通jump/一七项switch/13ret；三片段一体恢复47C570两W8索引与四W16坐标读取顺序，正常旧值一致。列表gate末尾一次、原滚动/最大值/显示回调、创建失败和七正确体、六RNG、真实null/回调与非拥有完成T**/MarkDeath后取槽保持；六外父邻窗仅36条115B，107包装入向只登记。37B X七W32表和九NOP真实用途mapped，R7 261/3061余2800；BATTLE205成员仍open。全部内容生产/其它子依赖与完整父、owner寿命、窗口10/26和57C368 token、SDK/生成机器/画面运行与R8未验",
-        "BQN01三完整313条1108B/六页、16call含15直接/十callee及一CC4230 CALL EAX槽消费、26jump/五ret；两体四片段恢复条件selectedSkill W32重读/cost两W32取序/实际hover形参低W8及四低W16坐标序，正常旧值一致。名称NUL/W16配对/W32共享字段与三FP比较、null回调仍关闭consume1、旧83B提示/11B原S格式与989正确体原发送后写序保。两个新ID加989完整追加/三处置，208成员枚举open；三写一读CC4230取证，已过两发布者复用BQM01，47A490仅清零点登记/一个外父六条13B，不虚造地址0函数或完整父验收。R7无新分类；内容生产/其它模式/全部父/owner寿命、SDK/生成机器/画面运行和R8未验"
+        "BQN01三完整313条1108B/六页、16call含15直接/十callee及一CC4230 CALL EAX槽消费、26jump/五ret；两体四片段恢复条件selectedSkill W32重读/cost两W32取序/实际hover形参低W8及四低W16坐标序，正常旧值一致。名称NUL/W16配对/W32共享字段与三FP比较、null回调仍关闭consume1、旧83B提示/11B原S格式与989正确体原发送后写序保。两个新ID加989完整追加/三处置，208成员枚举open；三写一读CC4230取证，已过两发布者复用BQM01，47A490仅清零点登记/一个外父六条13B，不虚造地址0函数或完整父验收。R7无新分类；内容生产/其它模式/全部父/owner寿命、SDK/生成机器/画面运行和R8未验",
+        "BQO01四完整260条837B/六页、17call/十callee/40普通jump/七项switch/五ret；三体九片段恢复window10先userState、三action槽按阶段一次T*、返回按钮elements/hover/data顺序与hover缓存/两形参W8、助手两height W32序，正常旧值一致。47A620正确体/原W32关闭/回退W8减计数/正常S32计算与别名/42B旧提示保；实际原型48B初始化字段54E444和元素index4/32B callback561C14有据，不把IDA原型/数组头当指针。42B X七W32表/2B MOV对齐和12NOP用途mapped，R7 262/3061余2799；十二收尾父60条305B仅局部相邻调用，83助手入向仅登记。BATTLE212枚举open，完整生产/其它子依赖/父/owner寿命/SDK/生成机器/画面运行/R8未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2810,7 +2817,8 @@
         "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
-        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state"
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
       ]
     },
     {
@@ -33524,6 +33532,82 @@
       "observation": "47A000技术列表生成：mode W32=4、scroll W32=0；directSkill低W8非0直接存index，否则index S32非负才取配对索引S16保存，负保持旧技能。读oldMaximum W32后以元素11 T*传4742C0(oldMaximum,0)弃返；随后元素1..16隐藏、2/4/5/9显示。原47A093一次取selectedSkill W32→canRebirth W32，非0显示6后47A0B4才再读selectedSkill；0路径重用缓存，不无条件重读。15技术逐个name[0] W8直到NUL计数，原count-10负时0存maximum；10..16显示后14/15隐藏，27.data图3BA26，17..26逐次fresh elements写47C700真回调。原86条315B/两页、一call/十jump/一ret，第三低W8形参/原S16配对/NUL判断与void保；仅一个条件重读片段实修。 47C700技术回调：scroll+index-17 S32 technique，一次selectedSkill取record，技术name[0] W8为NUL返回0。原47C747先技术value7C W32、47C753后fpReduce W32，正常S32乘法再/100向零得cached cost，不加宽/故障或钳制。value8C W32非0才fresh position/entry T*调用FP>=cost，原AL结果用bool；点击state S32 mask2在允许和拒绝两原路径缓存为同源clicked。允许点击一次借CC4230真实void(S32 skill,S32 technique)函数指针，非空才fresh skill/technique调用；即使null回调也fresh currentWindow并W32 state|8000→声51/x320→consumed1；拒绝点击声55不置消费。原47C804 TEST BYTE形参state低W8 bit1才hover：fresh selectedSkill取record，visual2/hoverTechnique发布后fresh canUse，0原586588；非0fresh position/entry FP<cached cost，真586568假586518，三旧NUL串逐字节复制。最后cached click且fresh selectedSkill.canUse非0才fresh position/entry FP>=cached cost，真覆visual1；不沿用入口allowed或合并三比较。fresh currentWindow/element T*，四低W16按元素Y→元素X→窗口Y→窗口X取、各S16和取S16结果，memcpy只两字节/共享坐标W32保。47B9B0(x,y,S8 visual,technique+100,3,223,FFFFFFFF)，返consumed0/1。原175条579B/三页、七call其中六直接/五目标及一个CALL EAX槽消费、十五jump/两ret；不是call地址0，不造function ID。仅两读取序/低W8/四低W16共三片段，正常旧值一致。 4974C0双S32/void命令消费：先selectedSkill W32 pub、再selectedTechnique W32 pub，按原两个输入读technique.value84 W32 target，再fresh position W32调用43C560(position,target)。非0只pending D303F8 W8=1/返回，不发送；零路径fresh position→selectedTechnique→selectedSkill依序重读，未清256B以原553FF0 S|%X|%X|%X、三个U32技能/技术/位置格式化。格式后fresh socket原生uintptr取样真实SendBattlePacket弃返，随后Flush→声57/x320→fresh skillCount W32取→commandState W32=2→count+1→再次Flush→声51/x320→496AE0。两次刷新/两次音效及写序不合并；不因发送返回拒绝后写、不加转义/协议或加解密。原52条214B/一页、八call/六callee、一jump/两ret。正文原正确保持；既有989格式局部记录全文保，增加完整正常源合同/证据及一equivalent处置，不重复新增语义ID。五地址数据入向不虚计代码调用；本步CALL EAX真实CC4230消费与BQM01已过47A4C0/47A500生产承接，47A490清零只登记，不据此宣称其完整父已验。",
       "expected": "47A000技术列表生成：mode W32=4、scroll W32=0；directSkill低W8非0直接存index，否则index S32非负才取配对索引S16保存，负保持旧技能。读oldMaximum W32后以元素11 T*传4742C0(oldMaximum,0)弃返；随后元素1..16隐藏、2/4/5/9显示。原47A093一次取selectedSkill W32→canRebirth W32，非0显示6后47A0B4才再读selectedSkill；0路径重用缓存，不无条件重读。15技术逐个name[0] W8直到NUL计数，原count-10负时0存maximum；10..16显示后14/15隐藏，27.data图3BA26，17..26逐次fresh elements写47C700真回调。原86条315B/两页、一call/十jump/一ret，第三低W8形参/原S16配对/NUL判断与void保；仅一个条件重读片段实修。 47C700技术回调：scroll+index-17 S32 technique，一次selectedSkill取record，技术name[0] W8为NUL返回0。原47C747先技术value7C W32、47C753后fpReduce W32，正常S32乘法再/100向零得cached cost，不加宽/故障或钳制。value8C W32非0才fresh position/entry T*调用FP>=cost，原AL结果用bool；点击state S32 mask2在允许和拒绝两原路径缓存为同源clicked。允许点击一次借CC4230真实void(S32 skill,S32 technique)函数指针，非空才fresh skill/technique调用；即使null回调也fresh currentWindow并W32 state|8000→声51/x320→consumed1；拒绝点击声55不置消费。原47C804 TEST BYTE形参state低W8 bit1才hover：fresh selectedSkill取record，visual2/hoverTechnique发布后fresh canUse，0原586588；非0fresh position/entry FP<cached cost，真586568假586518，三旧NUL串逐字节复制。最后cached click且fresh selectedSkill.canUse非0才fresh position/entry FP>=cached cost，真覆visual1；不沿用入口allowed或合并三比较。fresh currentWindow/element T*，四低W16按元素Y→元素X→窗口Y→窗口X取、各S16和取S16结果，memcpy只两字节/共享坐标W32保。47B9B0(x,y,S8 visual,technique+100,3,223,FFFFFFFF)，返consumed0/1。原175条579B/三页、七call其中六直接/五目标及一个CALL EAX槽消费、十五jump/两ret；不是call地址0，不造function ID。仅两读取序/低W8/四低W16共三片段，正常旧值一致。 4974C0双S32/void命令消费：先selectedSkill W32 pub、再selectedTechnique W32 pub，按原两个输入读technique.value84 W32 target，再fresh position W32调用43C560(position,target)。非0只pending D303F8 W8=1/返回，不发送；零路径fresh position→selectedTechnique→selectedSkill依序重读，未清256B以原553FF0 S|%X|%X|%X、三个U32技能/技术/位置格式化。格式后fresh socket原生uintptr取样真实SendBattlePacket弃返，随后Flush→声57/x320→fresh skillCount W32取→commandState W32=2→count+1→再次Flush→声51/x320→496AE0。两次刷新/两次音效及写序不合并；不因发送返回拒绝后写、不加转义/协议或加解密。原52条214B/一页、八call/六callee、一jump/两ret。正文原正确保持；既有989格式局部记录全文保，增加完整正常源合同/证据及一equivalent处置，不重复新增语义ID。五地址数据入向不虚计代码调用；本步CALL EAX真实CC4230消费与BQM01已过47A4C0/47A500生产承接，47A490清零只登记，不据此宣称其完整父已验。",
       "actual": "三个完整313条1108B/六页、16物理call（15直接/十callee与一CALL EAX槽消费）、26普通jump/五ret；无物理switch/新R7。只两体四片段：条件selectedSkill W32重读、cost两个W32取序、hover实际state形参低W8及四坐标低W16取序，正常旧值一致。NUL名称首字节判断、S32状态/计算、W16配对、W32共享坐标/状态、三FP比较/三旧提示83B和S格式11B、回调null仍关闭/consume1及消息/命令写序保持。CC4230仅三原写点/一读点：47A490清零、BQM01已过47A4C0/47A500发布、47C700借用后双S32/void消费；不造地址0函数，不扩大已过生产复核。一个外父六条13B只局部call；两新语义与989完整追加、三equivalent，所有历史989字段保。完整数据生产/其它模式/全部父、owner寿命/窗口10-26与57C368 token、SDK/生成机器ABI/画面运行与R8未验；音频暂停、网络原格式明文和RPLAN.24不专项异常/保护/回绕/故障等价保持。"
+    },
+    {
+      "id": "E-BATTLE-SKILL-WINDOW-LIFECYCLE-SAMPLING-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQO01四完整260条837B/六页、17call/40jump/五ret、七项switch与42B X、实际48/32B原型/42B旧提示和十二父60条305B；doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-skill-window-lifecycle-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_496AE0",
+        "src/ui/WindowRuntime.cpp#Sub_47A620",
+        "src/ui/WindowRuntime.cpp#Sub_47B110",
+        "src/ui/WindowRuntime.cpp#Sub_4742C0",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/YobiRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state"
+      ],
+      "differences": [
+        {
+          "description": "三体九片段恢复window10 T*先userState发布、三展开槽每阶段一次借用/MarkDeath后清槽、返回按钮hover缓存/实际两W8及助手高度W32序，正常旧值一致；初始化正确体/真实关闭请求/借窗口和graphic跨调用保持、回退与正常S32计算/别名/返回及旧提示保",
+          "decision_ref": "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "496AE0无参void收尾：window26槽一次取非空才继续；原value10 S32>0清0、value14 S32<0清0，各条件独立，空窗不写任何后段字段。496B0C原window10 T*读取先于userState W32=2发布，再依次10/27/28各fresh T*，非空只W32 state|8000关闭请求；OR CH是原W32寄存器缓存，不窄化写、不即时释放窗口。之后CC1A10/D2F790/D2D60C三展开action槽按阶段各一次借T*判空并MarkDeath，非空清该共享槽后才取下一槽，不齐取或借后再次读槽为实参，不把MarkDeath变为delete。原53条176B/一页、三call同404D00/九jump/一ret；源入口early return与尾void同结果。四片段：window10读取/状态写序及三个阶段一次指针取样，正常旧值一致；12代码入向五父/十二邻窗60条305B只局部调用/相邻写序，不推完整父或owner。 47A620窗口10初始化/刷新：value==-1才先mode W32缓存、scroll=0，原无符号>6默认及七表项mode0→479B80(fresh currentWindow,-1)，3→479EA0(fresh currentWindow,-1)，4先fresh selectedSkill再fresh currentWindow→47A000(skill,1)，5→47A1A0(fresh window)，6→47A320(fresh window)，1/2/其它不调用。随后fresh mode W32缓存、hover=-1，仅mode1/2/4且fresh selectedSkill.name[0] W8为NUL回退；mode2先4796E0→D67AFD W8--，mode1/2再479660，三种都fresh currentWindow→479B80(0)。之后每写独立fresh currentWindow/elements，6.visible=0，fresh mode1才1；8.visible=0，fresh mode5才1，再独立fresh mode6才1，始终返回1。原92条342B/两页、八call七callee/17普通jump/一七项switch/一ret；现完整正确体保，不合并新mode判断、两更新元素或回退。原54E420原型头不是callback字段，实际54E444=47A620/elements54E440=561B78，源码窗口10对应原型row有据。 47B110返回按钮：入口currentWindow T*缓存、elements T*先取，再hover=state S32&1缓存寄存器，之后元素index.data借graphic T*并跨调用持有，consumed0。cached hover时fresh mode1/4复制586488原21B、mode2复制586470原21B，均含首NUL；其它不写hover。点击原47B16C TEST BYTE形参state低W8 mask2，fresh mode1→479B80(借窗,fresh selectedSkill)→479660，2→479C80(借窗,-1)→4796E0→D67AFD W8--，4→479EA0(借窗,fresh skill)，其它不调用子分支；任何点击都声51/x320→consumed1。固定graphic先图3B571，入口cached hover覆3B573，原47B1FA形参低W8 mask8再覆3B572，返回consumed。不让callee改变currentWindow后重借graphic/旧window，不重读hover，不把mask8当mask2。原85条250B/两页、六call六callee/13普通jump/一ret；四片段借element/hover缓存、两W8和尾hover消费。唯一数据xref561B78是30元素数组头，真实index4/32B记录561BF8..561C18/data561C10→561AD0/callback561C14→47B110，源第4项完整值逐字节匹配。 4742C0滚动位置助手：入口借element T*及一次data T*，maximum S32<=0取element.y W32；正时先element.height W32再previous element.height W32，原差×position S32/maximum向零、后fresh element.y加得到y。先写previous element.y，随后fresh读element.y得delta，写入口借data的+8 W32并返回delta。source WindowMouseData.deltaY与WindowGraphicData.offsetY同+8有既有offsetof断言/四字节memcpy，type1调用不能错转仅Mouse结构或新拒绝。原30条69B/一页、无call/一jump/两ret；源归并共同写/返回同正常结果。一片段只两height W32取序，最大值0/负分支、原S32计算与写后再取baseY/别名及返回保，不补钳制/异常或回绕模拟。83代码入向只完整登记，本步仅既有47A000父依赖承接，不全面复查83父。",
+      "expected": "496AE0无参void收尾：window26槽一次取非空才继续；原value10 S32>0清0、value14 S32<0清0，各条件独立，空窗不写任何后段字段。496B0C原window10 T*读取先于userState W32=2发布，再依次10/27/28各fresh T*，非空只W32 state|8000关闭请求；OR CH是原W32寄存器缓存，不窄化写、不即时释放窗口。之后CC1A10/D2F790/D2D60C三展开action槽按阶段各一次借T*判空并MarkDeath，非空清该共享槽后才取下一槽，不齐取或借后再次读槽为实参，不把MarkDeath变为delete。原53条176B/一页、三call同404D00/九jump/一ret；源入口early return与尾void同结果。四片段：window10读取/状态写序及三个阶段一次指针取样，正常旧值一致；12代码入向五父/十二邻窗60条305B只局部调用/相邻写序，不推完整父或owner。 47A620窗口10初始化/刷新：value==-1才先mode W32缓存、scroll=0，原无符号>6默认及七表项mode0→479B80(fresh currentWindow,-1)，3→479EA0(fresh currentWindow,-1)，4先fresh selectedSkill再fresh currentWindow→47A000(skill,1)，5→47A1A0(fresh window)，6→47A320(fresh window)，1/2/其它不调用。随后fresh mode W32缓存、hover=-1，仅mode1/2/4且fresh selectedSkill.name[0] W8为NUL回退；mode2先4796E0→D67AFD W8--，mode1/2再479660，三种都fresh currentWindow→479B80(0)。之后每写独立fresh currentWindow/elements，6.visible=0，fresh mode1才1；8.visible=0，fresh mode5才1，再独立fresh mode6才1，始终返回1。原92条342B/两页、八call七callee/17普通jump/一七项switch/一ret；现完整正确体保，不合并新mode判断、两更新元素或回退。原54E420原型头不是callback字段，实际54E444=47A620/elements54E440=561B78，源码窗口10对应原型row有据。 47B110返回按钮：入口currentWindow T*缓存、elements T*先取，再hover=state S32&1缓存寄存器，之后元素index.data借graphic T*并跨调用持有，consumed0。cached hover时fresh mode1/4复制586488原21B、mode2复制586470原21B，均含首NUL；其它不写hover。点击原47B16C TEST BYTE形参state低W8 mask2，fresh mode1→479B80(借窗,fresh selectedSkill)→479660，2→479C80(借窗,-1)→4796E0→D67AFD W8--，4→479EA0(借窗,fresh skill)，其它不调用子分支；任何点击都声51/x320→consumed1。固定graphic先图3B571，入口cached hover覆3B573，原47B1FA形参低W8 mask8再覆3B572，返回consumed。不让callee改变currentWindow后重借graphic/旧window，不重读hover，不把mask8当mask2。原85条250B/两页、六call六callee/13普通jump/一ret；四片段借element/hover缓存、两W8和尾hover消费。唯一数据xref561B78是30元素数组头，真实index4/32B记录561BF8..561C18/data561C10→561AD0/callback561C14→47B110，源第4项完整值逐字节匹配。 4742C0滚动位置助手：入口借element T*及一次data T*，maximum S32<=0取element.y W32；正时先element.height W32再previous element.height W32，原差×position S32/maximum向零、后fresh element.y加得到y。先写previous element.y，随后fresh读element.y得delta，写入口借data的+8 W32并返回delta。source WindowMouseData.deltaY与WindowGraphicData.offsetY同+8有既有offsetof断言/四字节memcpy，type1调用不能错转仅Mouse结构或新拒绝。原30条69B/一页、无call/一jump/两ret；源归并共同写/返回同正常结果。一片段只两height W32取序，最大值0/负分支、原S32计算与写后再取baseY/别名及返回保，不补钳制/异常或回绕模拟。83代码入向只完整登记，本步仅既有47A000父依赖承接，不全面复查83父。",
+      "actual": "四完整260条837B/六页、17直接call/十callee、40普通jump/一实际七项switch/五ret。三体九片段恢复window10 T*取样先userState发布、三action槽按阶段一次T*、返回按钮elements/hover/data顺序和入口hover缓存/两形参W8、助手两height W32取序；正常旧值一致，47A620完整正确体与W32关闭/正常S32计算/别名和旧42B提示保。原型头/数组头数据xref不等callback字段，实际54E444与数组第4项561C14有完整48/32B和源行值；12收尾父邻窗60条305B仅调用相邻序，助手83代码入向只登记。42B X有原七W32目标与2B MOV同寄存器/12NOP对齐，mapped仅字节用途；R7 262/3061余2799。完整生产/其它子依赖/全部父、窗口10/26与57C368 token及owner寿命、SDK/生成机器ABI/画面运行/R8未验。原格式明文、音频暂停与RPLAN.24不新增保护/故障/回绕模拟保持。"
+    },
+    {
+      "id": "E-BATTLE-SKILL-WINDOW-LIFECYCLE-SAMPLING-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQO01四完整260条837B/六页、17call/40jump/五ret、七项switch与42B X、实际48/32B原型/42B旧提示和十二父60条305B；doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-skill-window-lifecycle-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_496AE0",
+        "src/ui/WindowRuntime.cpp#Sub_47A620",
+        "src/ui/WindowRuntime.cpp#Sub_47B110",
+        "src/ui/WindowRuntime.cpp#Sub_4742C0",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/YobiRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state"
+      ],
+      "differences": [
+        {
+          "description": "三体九片段恢复window10 T*先userState发布、三展开槽每阶段一次借用/MarkDeath后清槽、返回按钮hover缓存/实际两W8及助手高度W32序，正常旧值一致；初始化正确体/真实关闭请求/借窗口和graphic跨调用保持、回退与正常S32计算/别名/返回及旧提示保",
+          "decision_ref": "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "496AE0无参void收尾：window26槽一次取非空才继续；原value10 S32>0清0、value14 S32<0清0，各条件独立，空窗不写任何后段字段。496B0C原window10 T*读取先于userState W32=2发布，再依次10/27/28各fresh T*，非空只W32 state|8000关闭请求；OR CH是原W32寄存器缓存，不窄化写、不即时释放窗口。之后CC1A10/D2F790/D2D60C三展开action槽按阶段各一次借T*判空并MarkDeath，非空清该共享槽后才取下一槽，不齐取或借后再次读槽为实参，不把MarkDeath变为delete。原53条176B/一页、三call同404D00/九jump/一ret；源入口early return与尾void同结果。四片段：window10读取/状态写序及三个阶段一次指针取样，正常旧值一致；12代码入向五父/十二邻窗60条305B只局部调用/相邻写序，不推完整父或owner。 47A620窗口10初始化/刷新：value==-1才先mode W32缓存、scroll=0，原无符号>6默认及七表项mode0→479B80(fresh currentWindow,-1)，3→479EA0(fresh currentWindow,-1)，4先fresh selectedSkill再fresh currentWindow→47A000(skill,1)，5→47A1A0(fresh window)，6→47A320(fresh window)，1/2/其它不调用。随后fresh mode W32缓存、hover=-1，仅mode1/2/4且fresh selectedSkill.name[0] W8为NUL回退；mode2先4796E0→D67AFD W8--，mode1/2再479660，三种都fresh currentWindow→479B80(0)。之后每写独立fresh currentWindow/elements，6.visible=0，fresh mode1才1；8.visible=0，fresh mode5才1，再独立fresh mode6才1，始终返回1。原92条342B/两页、八call七callee/17普通jump/一七项switch/一ret；现完整正确体保，不合并新mode判断、两更新元素或回退。原54E420原型头不是callback字段，实际54E444=47A620/elements54E440=561B78，源码窗口10对应原型row有据。 47B110返回按钮：入口currentWindow T*缓存、elements T*先取，再hover=state S32&1缓存寄存器，之后元素index.data借graphic T*并跨调用持有，consumed0。cached hover时fresh mode1/4复制586488原21B、mode2复制586470原21B，均含首NUL；其它不写hover。点击原47B16C TEST BYTE形参state低W8 mask2，fresh mode1→479B80(借窗,fresh selectedSkill)→479660，2→479C80(借窗,-1)→4796E0→D67AFD W8--，4→479EA0(借窗,fresh skill)，其它不调用子分支；任何点击都声51/x320→consumed1。固定graphic先图3B571，入口cached hover覆3B573，原47B1FA形参低W8 mask8再覆3B572，返回consumed。不让callee改变currentWindow后重借graphic/旧window，不重读hover，不把mask8当mask2。原85条250B/两页、六call六callee/13普通jump/一ret；四片段借element/hover缓存、两W8和尾hover消费。唯一数据xref561B78是30元素数组头，真实index4/32B记录561BF8..561C18/data561C10→561AD0/callback561C14→47B110，源第4项完整值逐字节匹配。 4742C0滚动位置助手：入口借element T*及一次data T*，maximum S32<=0取element.y W32；正时先element.height W32再previous element.height W32，原差×position S32/maximum向零、后fresh element.y加得到y。先写previous element.y，随后fresh读element.y得delta，写入口借data的+8 W32并返回delta。source WindowMouseData.deltaY与WindowGraphicData.offsetY同+8有既有offsetof断言/四字节memcpy，type1调用不能错转仅Mouse结构或新拒绝。原30条69B/一页、无call/一jump/两ret；源归并共同写/返回同正常结果。一片段只两height W32取序，最大值0/负分支、原S32计算与写后再取baseY/别名及返回保，不补钳制/异常或回绕模拟。83代码入向只完整登记，本步仅既有47A000父依赖承接，不全面复查83父。",
+      "expected": "496AE0无参void收尾：window26槽一次取非空才继续；原value10 S32>0清0、value14 S32<0清0，各条件独立，空窗不写任何后段字段。496B0C原window10 T*读取先于userState W32=2发布，再依次10/27/28各fresh T*，非空只W32 state|8000关闭请求；OR CH是原W32寄存器缓存，不窄化写、不即时释放窗口。之后CC1A10/D2F790/D2D60C三展开action槽按阶段各一次借T*判空并MarkDeath，非空清该共享槽后才取下一槽，不齐取或借后再次读槽为实参，不把MarkDeath变为delete。原53条176B/一页、三call同404D00/九jump/一ret；源入口early return与尾void同结果。四片段：window10读取/状态写序及三个阶段一次指针取样，正常旧值一致；12代码入向五父/十二邻窗60条305B只局部调用/相邻写序，不推完整父或owner。 47A620窗口10初始化/刷新：value==-1才先mode W32缓存、scroll=0，原无符号>6默认及七表项mode0→479B80(fresh currentWindow,-1)，3→479EA0(fresh currentWindow,-1)，4先fresh selectedSkill再fresh currentWindow→47A000(skill,1)，5→47A1A0(fresh window)，6→47A320(fresh window)，1/2/其它不调用。随后fresh mode W32缓存、hover=-1，仅mode1/2/4且fresh selectedSkill.name[0] W8为NUL回退；mode2先4796E0→D67AFD W8--，mode1/2再479660，三种都fresh currentWindow→479B80(0)。之后每写独立fresh currentWindow/elements，6.visible=0，fresh mode1才1；8.visible=0，fresh mode5才1，再独立fresh mode6才1，始终返回1。原92条342B/两页、八call七callee/17普通jump/一七项switch/一ret；现完整正确体保，不合并新mode判断、两更新元素或回退。原54E420原型头不是callback字段，实际54E444=47A620/elements54E440=561B78，源码窗口10对应原型row有据。 47B110返回按钮：入口currentWindow T*缓存、elements T*先取，再hover=state S32&1缓存寄存器，之后元素index.data借graphic T*并跨调用持有，consumed0。cached hover时fresh mode1/4复制586488原21B、mode2复制586470原21B，均含首NUL；其它不写hover。点击原47B16C TEST BYTE形参state低W8 mask2，fresh mode1→479B80(借窗,fresh selectedSkill)→479660，2→479C80(借窗,-1)→4796E0→D67AFD W8--，4→479EA0(借窗,fresh skill)，其它不调用子分支；任何点击都声51/x320→consumed1。固定graphic先图3B571，入口cached hover覆3B573，原47B1FA形参低W8 mask8再覆3B572，返回consumed。不让callee改变currentWindow后重借graphic/旧window，不重读hover，不把mask8当mask2。原85条250B/两页、六call六callee/13普通jump/一ret；四片段借element/hover缓存、两W8和尾hover消费。唯一数据xref561B78是30元素数组头，真实index4/32B记录561BF8..561C18/data561C10→561AD0/callback561C14→47B110，源第4项完整值逐字节匹配。 4742C0滚动位置助手：入口借element T*及一次data T*，maximum S32<=0取element.y W32；正时先element.height W32再previous element.height W32，原差×position S32/maximum向零、后fresh element.y加得到y。先写previous element.y，随后fresh读element.y得delta，写入口借data的+8 W32并返回delta。source WindowMouseData.deltaY与WindowGraphicData.offsetY同+8有既有offsetof断言/四字节memcpy，type1调用不能错转仅Mouse结构或新拒绝。原30条69B/一页、无call/一jump/两ret；源归并共同写/返回同正常结果。一片段只两height W32取序，最大值0/负分支、原S32计算与写后再取baseY/别名及返回保，不补钳制/异常或回绕模拟。83代码入向只完整登记，本步仅既有47A000父依赖承接，不全面复查83父。",
+      "actual": "四完整260条837B/六页、17直接call/十callee、40普通jump/一实际七项switch/五ret。三体九片段恢复window10 T*取样先userState发布、三action槽按阶段一次T*、返回按钮elements/hover/data顺序和入口hover缓存/两形参W8、助手两height W32取序；正常旧值一致，47A620完整正确体与W32关闭/正常S32计算/别名和旧42B提示保。原型头/数组头数据xref不等callback字段，实际54E444与数组第4项561C14有完整48/32B和源行值；12收尾父邻窗60条305B仅调用相邻序，助手83代码入向只登记。42B X有原七W32目标与2B MOV同寄存器/12NOP对齐，mapped仅字节用途；R7 262/3061余2799。完整生产/其它子依赖/全部父、窗口10/26与57C368 token及owner寿命、SDK/生成机器ABI/画面运行/R8未验。原格式明文、音频暂停与RPLAN.24不新增保护/故障/回绕模拟保持。"
     }
   ],
   "task_acceptance": [
@@ -34170,7 +34254,8 @@
         "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
-        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state"
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
       ]
     },
     {
@@ -34255,7 +34340,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
         "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
-        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state"
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
       ]
     },
     {
@@ -34434,7 +34520,8 @@
         "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
-        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state"
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
       ]
     },
     {
@@ -34591,7 +34678,8 @@
         "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
-        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state"
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
       ]
     },
     {
@@ -35080,7 +35168,8 @@
         "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
         "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
-        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state"
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state"
       ]
     },
     {
@@ -42325,6 +42414,58 @@
         "doc/cg2d_battle_technique_selection_sampling_evidence.json"
       ],
       "boundary": "4974C0双S32/void命令消费：先selectedSkill W32 pub、再selectedTechnique W32 pub，按原两个输入读technique.value84 W32 target，再fresh position W32调用43C560(position,target)。非0只pending D303F8 W8=1/返回，不发送；零路径fresh position→selectedTechnique→selectedSkill依序重读，未清256B以原553FF0 S|%X|%X|%X、三个U32技能/技术/位置格式化。格式后fresh socket原生uintptr取样真实SendBattlePacket弃返，随后Flush→声57/x320→fresh skillCount W32取→commandState W32=2→count+1→再次Flush→声51/x320→496AE0。两次刷新/两次音效及写序不合并；不因发送返回拒绝后写、不加转义/协议或加解密。原52条214B/一页、八call/六callee、一jump/两ret。正文原正确保持；既有989格式局部记录全文保，增加完整正常源合同/证据及一equivalent处置，不重复新增语义ID。五地址数据入向不虚计代码调用；本步CALL EAX真实CC4230消费与BQM01已过47A4C0/47A500生产承接，47A490清零只登记，不据此宣称其完整父已验。 三个完整313条1108B/六页、16物理call（15直接/十callee与一CALL EAX槽消费）、26普通jump/五ret；无物理switch/新R7。只两体四片段：条件selectedSkill W32重读、cost两个W32取序、hover实际state形参低W8及四坐标低W16取序，正常旧值一致。NUL名称首字节判断、S32状态/计算、W16配对、W32共享坐标/状态、三FP比较/三旧提示83B和S格式11B、回调null仍关闭/consume1及消息/命令写序保持。CC4230仅三原写点/一读点：47A490清零、BQM01已过47A4C0/47A500发布、47C700借用后双S32/void消费；不造地址0函数，不扩大已过生产复核。一个外父六条13B只局部call；两新语义与989完整追加、三equivalent，所有历史989字段保。完整数据生产/其它模式/全部父、owner寿命/窗口10-26与57C368 token、SDK/生成机器ABI/画面运行与R8未验；音频暂停、网络原格式明文和RPLAN.24不专项异常/保护/回绕/故障等价保持。"
+    },
+    {
+      "inventory_id": "F:00096AE0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_evidence.json"
+      ],
+      "boundary": "496AE0无参void收尾：window26槽一次取非空才继续；原value10 S32>0清0、value14 S32<0清0，各条件独立，空窗不写任何后段字段。496B0C原window10 T*读取先于userState W32=2发布，再依次10/27/28各fresh T*，非空只W32 state|8000关闭请求；OR CH是原W32寄存器缓存，不窄化写、不即时释放窗口。之后CC1A10/D2F790/D2D60C三展开action槽按阶段各一次借T*判空并MarkDeath，非空清该共享槽后才取下一槽，不齐取或借后再次读槽为实参，不把MarkDeath变为delete。原53条176B/一页、三call同404D00/九jump/一ret；源入口early return与尾void同结果。四片段：window10读取/状态写序及三个阶段一次指针取样，正常旧值一致；12代码入向五父/十二邻窗60条305B只局部调用/相邻写序，不推完整父或owner。 四完整260条837B/六页、17直接call/十callee、40普通jump/一实际七项switch/五ret。三体九片段恢复window10 T*取样先userState发布、三action槽按阶段一次T*、返回按钮elements/hover/data顺序和入口hover缓存/两形参W8、助手两height W32取序；正常旧值一致，47A620完整正确体与W32关闭/正常S32计算/别名和旧42B提示保。原型头/数组头数据xref不等callback字段，实际54E444与数组第4项561C14有完整48/32B和源行值；12收尾父邻窗60条305B仅调用相邻序，助手83代码入向只登记。42B X有原七W32目标与2B MOV同寄存器/12NOP对齐，mapped仅字节用途；R7 262/3061余2799。完整生产/其它子依赖/全部父、窗口10/26与57C368 token及owner寿命、SDK/生成机器ABI/画面运行/R8未验。原格式明文、音频暂停与RPLAN.24不新增保护/故障/回绕模拟保持。"
+    },
+    {
+      "inventory_id": "F:0007A620",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_evidence.json"
+      ],
+      "boundary": "47A620窗口10初始化/刷新：value==-1才先mode W32缓存、scroll=0，原无符号>6默认及七表项mode0→479B80(fresh currentWindow,-1)，3→479EA0(fresh currentWindow,-1)，4先fresh selectedSkill再fresh currentWindow→47A000(skill,1)，5→47A1A0(fresh window)，6→47A320(fresh window)，1/2/其它不调用。随后fresh mode W32缓存、hover=-1，仅mode1/2/4且fresh selectedSkill.name[0] W8为NUL回退；mode2先4796E0→D67AFD W8--，mode1/2再479660，三种都fresh currentWindow→479B80(0)。之后每写独立fresh currentWindow/elements，6.visible=0，fresh mode1才1；8.visible=0，fresh mode5才1，再独立fresh mode6才1，始终返回1。原92条342B/两页、八call七callee/17普通jump/一七项switch/一ret；现完整正确体保，不合并新mode判断、两更新元素或回退。原54E420原型头不是callback字段，实际54E444=47A620/elements54E440=561B78，源码窗口10对应原型row有据。 四完整260条837B/六页、17直接call/十callee、40普通jump/一实际七项switch/五ret。三体九片段恢复window10 T*取样先userState发布、三action槽按阶段一次T*、返回按钮elements/hover/data顺序和入口hover缓存/两形参W8、助手两height W32取序；正常旧值一致，47A620完整正确体与W32关闭/正常S32计算/别名和旧42B提示保。原型头/数组头数据xref不等callback字段，实际54E444与数组第4项561C14有完整48/32B和源行值；12收尾父邻窗60条305B仅调用相邻序，助手83代码入向只登记。42B X有原七W32目标与2B MOV同寄存器/12NOP对齐，mapped仅字节用途；R7 262/3061余2799。完整生产/其它子依赖/全部父、窗口10/26与57C368 token及owner寿命、SDK/生成机器ABI/画面运行/R8未验。原格式明文、音频暂停与RPLAN.24不新增保护/故障/回绕模拟保持。"
+    },
+    {
+      "inventory_id": "F:0007B110",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_evidence.json"
+      ],
+      "boundary": "47B110返回按钮：入口currentWindow T*缓存、elements T*先取，再hover=state S32&1缓存寄存器，之后元素index.data借graphic T*并跨调用持有，consumed0。cached hover时fresh mode1/4复制586488原21B、mode2复制586470原21B，均含首NUL；其它不写hover。点击原47B16C TEST BYTE形参state低W8 mask2，fresh mode1→479B80(借窗,fresh selectedSkill)→479660，2→479C80(借窗,-1)→4796E0→D67AFD W8--，4→479EA0(借窗,fresh skill)，其它不调用子分支；任何点击都声51/x320→consumed1。固定graphic先图3B571，入口cached hover覆3B573，原47B1FA形参低W8 mask8再覆3B572，返回consumed。不让callee改变currentWindow后重借graphic/旧window，不重读hover，不把mask8当mask2。原85条250B/两页、六call六callee/13普通jump/一ret；四片段借element/hover缓存、两W8和尾hover消费。唯一数据xref561B78是30元素数组头，真实index4/32B记录561BF8..561C18/data561C10→561AD0/callback561C14→47B110，源第4项完整值逐字节匹配。 四完整260条837B/六页、17直接call/十callee、40普通jump/一实际七项switch/五ret。三体九片段恢复window10 T*取样先userState发布、三action槽按阶段一次T*、返回按钮elements/hover/data顺序和入口hover缓存/两形参W8、助手两height W32取序；正常旧值一致，47A620完整正确体与W32关闭/正常S32计算/别名和旧42B提示保。原型头/数组头数据xref不等callback字段，实际54E444与数组第4项561C14有完整48/32B和源行值；12收尾父邻窗60条305B仅调用相邻序，助手83代码入向只登记。42B X有原七W32目标与2B MOV同寄存器/12NOP对齐，mapped仅字节用途；R7 262/3061余2799。完整生产/其它子依赖/全部父、窗口10/26与57C368 token及owner寿命、SDK/生成机器ABI/画面运行/R8未验。原格式明文、音频暂停与RPLAN.24不新增保护/故障/回绕模拟保持。"
+    },
+    {
+      "inventory_id": "F:000742C0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_evidence.json"
+      ],
+      "boundary": "4742C0滚动位置助手：入口借element T*及一次data T*，maximum S32<=0取element.y W32；正时先element.height W32再previous element.height W32，原差×position S32/maximum向零、后fresh element.y加得到y。先写previous element.y，随后fresh读element.y得delta，写入口借data的+8 W32并返回delta。source WindowMouseData.deltaY与WindowGraphicData.offsetY同+8有既有offsetof断言/四字节memcpy，type1调用不能错转仅Mouse结构或新拒绝。原30条69B/一页、无call/一jump/两ret；源归并共同写/返回同正常结果。一片段只两height W32取序，最大值0/负分支、原S32计算与写后再取baseY/别名及返回保，不补钳制/异常或回绕模拟。83代码入向只完整登记，本步仅既有47A000父依赖承接，不全面复查83父。 四完整260条837B/六页、17直接call/十callee、40普通jump/一实际七项switch/五ret。三体九片段恢复window10 T*取样先userState发布、三action槽按阶段一次T*、返回按钮elements/hover/data顺序和入口hover缓存/两形参W8、助手两height W32取序；正常旧值一致，47A620完整正确体与W32关闭/正常S32计算/别名和旧42B提示保。原型头/数组头数据xref不等callback字段，实际54E444与数组第4项561C14有完整48/32B和源行值；12收尾父邻窗60条305B仅调用相邻序，助手83代码入向只登记。42B X有原七W32目标与2B MOV同寄存器/12NOP对齐，mapped仅字节用途；R7 262/3061余2799。完整生产/其它子依赖/全部父、窗口10/26与57C368 token及owner寿命、SDK/生成机器ABI/画面运行/R8未验。原格式明文、音频暂停与RPLAN.24不新增保护/故障/回绕模拟保持。"
     }
   ],
   "auxiliary_dispositions": [
@@ -48469,6 +48610,40 @@
           "end_exclusive": "0x47a620",
           "kind": "nop_padding",
           "bytes": 8
+        }
+      ]
+    },
+    {
+      "id": "X:0007A776-0007A7A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-decision",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-acceptance",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_evidence.json"
+      ],
+      "reason": "BQO01依47A620实际七项W32分发表/唯一入向及42B全文：首2B MOV同一寄存器对齐、28B七表项、尾12NOP；mapped仅字节用途，不计新函数/范围排除或软件运行验收",
+      "classification": "mixed_table_data",
+      "parts": [
+        {
+          "start": "0x47a776",
+          "end_exclusive": "0x47a778",
+          "kind": "alignment_bytes",
+          "bytes": 2
+        },
+        {
+          "start": "0x47a778",
+          "end_exclusive": "0x47a794",
+          "kind": "jump_table",
+          "bytes": 28
+        },
+        {
+          "start": "0x47a794",
+          "end_exclusive": "0x47a7a0",
+          "kind": "nop_padding",
+          "bytes": 12
         }
       ]
     }

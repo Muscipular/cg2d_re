@@ -1186,3 +1186,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQN01 技术选择与命令消费局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-acceptance)/[三完整313条1108B](cg2d_battle_technique_selection_sampling_evidence.json)。两体四源片段/第三正确体保，三FP比较、CC4230三写一读/双S32压栈CALL EAX、原提示83B与S格式11B、一个外父六条13B有据；不把寄存器操作数0当函数地址、不重验已过两发布者或合并发送后写序。989历史字段保/正常旧值一致；两局部I/S各十六真实来源，不代完整内容生产/所有模式/父/owner及运行。两新ID加989三处置/BATTLE208枚举open/E780，关联1643/44.65%；四任务open/60源码closed10/完整验收0/叶0/global=false与R7/差队列保持。
+
+## BQO01 窗口收尾与初始化局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-acceptance)/[四完整260条837B](cg2d_battle_skill_window_lifecycle_sampling_evidence.json)。三体九片段取序/阶段借用/hover缓存和两W8实修，原W32关闭、初始化正确体/回退W8减计数/正常S32计算与+8别名/42B提示保，正常旧值一致。真实48/32B原型callback字段54E444/561C14不等IDA头；原七表项/42B用途及十二父60条305B限定静态，83助手入向仅登记。两I/S各十六真实来源不代完整生产/其它父/owner寿命/运行；R7 262/3061余2799、五任务open/60源码closed10/完整验收0/叶0/global=false；关联1647/44.76%、BATTLE212枚举open/E782保限定口径。

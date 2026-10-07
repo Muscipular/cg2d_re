@@ -35643,8 +35643,8 @@ void Sub_496AE0()
     if (std::bit_cast<std::int32_t>(gWindowStates[26].value14) < 0) {
         gWindowStates[26].value14 = 0;
     }
-    gWindowStates[26].userState.value = 2;
     WindowInstance* window = gWindowStates[10].window;
+    gWindowStates[26].userState.value = 2;
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
@@ -35656,16 +35656,19 @@ void Sub_496AE0()
     if (window != nullptr) {
         window->state |= 0x8000u;
     }
-    if (gBattleSkillWindowActionCC1A10 != nullptr) {
-        login::detail::MarkDeath(gBattleSkillWindowActionCC1A10);
+    login::YobiAction* const skillAction = gBattleSkillWindowActionCC1A10;
+    if (skillAction != nullptr) {
+        login::detail::MarkDeath(skillAction);
         gBattleSkillWindowActionCC1A10 = nullptr;
     }
-    if (gBattleItemWindowActionD2F790 != nullptr) {
-        login::detail::MarkDeath(gBattleItemWindowActionD2F790);
+    login::YobiAction* const itemAction = gBattleItemWindowActionD2F790;
+    if (itemAction != nullptr) {
+        login::detail::MarkDeath(itemAction);
         gBattleItemWindowActionD2F790 = nullptr;
     }
-    if (gBattlePetWindowActionD2D60C != nullptr) {
-        login::detail::MarkDeath(gBattlePetWindowActionD2D60C);
+    login::YobiAction* const petAction = gBattlePetWindowActionD2D60C;
+    if (petAction != nullptr) {
+        login::detail::MarkDeath(petAction);
         gBattlePetWindowActionD2D60C = nullptr;
     }
 }
@@ -37461,9 +37464,11 @@ login::YobiAction* Sub_47A580(const WindowValueCallback callback)
 std::int32_t Sub_47B110(const std::int32_t index, const std::int32_t state)
 {
     WindowInstance* const window = gCurrentWindow;
-    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);
+    const WindowElement* const element = &window->elements[index];
+    const bool hovered = (state & 1) != 0;
+    auto* const graphic = static_cast<WindowGraphicData*>(element->data);
     std::int32_t consumed = 0;
-    if ((state & 1) != 0) {
+    if (hovered) {
         const std::int32_t mode = gSkillWindowModeD672AC;
         if (mode == 1 || mode == 4) {
             std::strcpy(gHoverTextD68AE8.data(), kSkillBackToList586488);
@@ -37471,7 +37476,7 @@ std::int32_t Sub_47B110(const std::int32_t index, const std::int32_t state)
             std::strcpy(gHoverTextD68AE8.data(), kSkillBackToTechniques586470);
         }
     }
-    if ((state & 2) != 0) {
+    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 2u) != 0) {
         switch (gSkillWindowModeD672AC) {
         case 1:
             Sub_479B80(window, gSkillWindowIndexD2EA60);
@@ -37492,10 +37497,10 @@ std::int32_t Sub_47B110(const std::int32_t index, const std::int32_t state)
         consumed = 1;
     }
     graphic->imageNo = 0x3B571;
-    if ((state & 1) != 0) {
+    if (hovered) {
         graphic->imageNo = 0x3B573;
     }
-    if ((state & 8) != 0) {
+    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 8u) != 0) {
         graphic->imageNo = 0x3B572;
     }
     return consumed;
@@ -39390,7 +39395,9 @@ std::int32_t Sub_4742C0(
     if (maximum <= 0) {
         y = element->y;
     } else {
-        y = (element->height - (element - 1)->height) * position / maximum;
+        const std::int32_t height = element->height;
+        const std::int32_t previousHeight = (element - 1)->height;
+        y = (height - previousHeight) * position / maximum;
         y += element->y;
     }
     (element - 1)->y = y;

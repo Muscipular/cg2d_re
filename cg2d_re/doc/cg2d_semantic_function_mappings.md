@@ -3162,3 +3162,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQN01 两新正常身份及989完整追加（2026-10-07）
 
 [完整合同](cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-baseline)/[三冻结前态](cg2d_battle_technique_selection_sampling_evidence.json)：1528/1529对应47A000/47C700；989原局部格式字段全文保持，仅加完整4974C0合同与证据，不重复ID。三完整313条1108B/六页、15直接call/十callee及一CC4230 CALL EAX消费；两个新身份加989三equivalent，三冻结定位保。两体四源片段/正常旧值一致，回调三写一读仅两已过发布者复用BQM01，其它父不推。语义1530/有效1525、关联1643/3680（44.65%）、分类656/BATTLE208枚举open/E780；R7 261/3061/余2800、差队列172/待归属43及其它完整门禁保。
+
+## BQO01 四完整收尾/初始化/返回/滚动正常源（2026-10-07）
+
+[完整合同](cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-baseline)/[四冻结前态](cg2d_battle_skill_window_lifecycle_sampling_evidence.json)。1530..1533四原已有完整定义正常语义/equivalent，冻结定位全文保，三体九片段实修/初始化正确体保。四完整260条837B/六页、17call/十callee/40jump/七项switch/五ret，十二收尾邻窗60条305B仅局部调用、83助手代码入向只登记。真实callback字段54E444/561C14和首NUL两串42B有据；42B X七表项/MOV对齐/12NOP用途mapped。语义1534/有效1529、关联1647/3680（44.76%）、分类660/BATTLE212枚举open/E782；R7 262/3061/余2799、差队列172/待归属43及其它完整门禁保。

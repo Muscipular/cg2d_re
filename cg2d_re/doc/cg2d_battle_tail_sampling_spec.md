@@ -195,3 +195,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQN01 技术选择与命令消费（2026-10-07）
 
 [完整合同](cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state)/[三根313条1108B](cg2d_battle_technique_selection_sampling_evidence.json)纳管47A000/47C700和989既有4974C0完整追加。两体四片段恢复selectedSkill条件W32重读/cost两W32取序/hover形参实际W8和四坐标W16序，正常旧值一致。NUL/W16配对/共享W32、三FP比较/双S32借用回调/null仍关闭消费和989原格式明文/真实发送后写序保；原三提示83B与S格式11B保。208成员枚举open/两局部I-S，不新R7；完整内容生产/其它模式/全部父/owner寿命与运行未验。
+
+## BQO01 技能窗口收尾与初始化取样（2026-10-07）
+
+[完整合同](cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state)/[四完整260条837B](cg2d_battle_skill_window_lifecycle_sampling_evidence.json)纳管496AE0/47A620/47B110/4742C0。三体九片段恢复window10先userState、三槽分阶段一次T*、返回按钮hover缓存/两W8及助手两height W32序；正常旧值一致，初始化正确体/原关闭请求/回退/正常S32与别名/旧42B提示保。真实48B原型callback54E444及index4/32B callback561C14有据，不将原型或数组头当函数指针。42B X七表项与对齐用途mapped，R7 262/3061余2799；212成员仍open/两局部I-S，全部父/其它子依赖/生产与owner寿命、运行未验。

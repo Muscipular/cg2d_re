@@ -1,0 +1,4147 @@
+{
+  "spec_id": "BQO01",
+  "recorded_on": "2026-10-07",
+  "source_functions": [
+    {
+      "index": 1530,
+      "id": "F:00096AE0",
+      "entry": "0x00496AE0",
+      "end_exclusive": "0x00496B90",
+      "symbol": "Sub_496AE0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "contract": "496AE0无参void收尾：window26槽一次取非空才继续；原value10 S32>0清0、value14 S32<0清0，各条件独立，空窗不写任何后段字段。496B0C原window10 T*读取先于userState W32=2发布，再依次10/27/28各fresh T*，非空只W32 state|8000关闭请求；OR CH是原W32寄存器缓存，不窄化写、不即时释放窗口。之后CC1A10/D2F790/D2D60C三展开action槽按阶段各一次借T*判空并MarkDeath，非空清该共享槽后才取下一槽，不齐取或借后再次读槽为实参，不把MarkDeath变为delete。原53条176B/一页、三call同404D00/九jump/一ret；源入口early return与尾void同结果。四片段：window10读取/状态写序及三个阶段一次指针取样，正常旧值一致；12代码入向五父/十二邻窗60条305B只局部调用/相邻写序，不推完整父或owner。",
+      "body_changed": true,
+      "source_patch_count": 4,
+      "inbound_count": 12
+    },
+    {
+      "index": 1531,
+      "id": "F:0007A620",
+      "entry": "0x0047A620",
+      "end_exclusive": "0x0047A776",
+      "symbol": "Sub_47A620",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "contract": "47A620窗口10初始化/刷新：value==-1才先mode W32缓存、scroll=0，原无符号>6默认及七表项mode0→479B80(fresh currentWindow,-1)，3→479EA0(fresh currentWindow,-1)，4先fresh selectedSkill再fresh currentWindow→47A000(skill,1)，5→47A1A0(fresh window)，6→47A320(fresh window)，1/2/其它不调用。随后fresh mode W32缓存、hover=-1，仅mode1/2/4且fresh selectedSkill.name[0] W8为NUL回退；mode2先4796E0→D67AFD W8--，mode1/2再479660，三种都fresh currentWindow→479B80(0)。之后每写独立fresh currentWindow/elements，6.visible=0，fresh mode1才1；8.visible=0，fresh mode5才1，再独立fresh mode6才1，始终返回1。原92条342B/两页、八call七callee/17普通jump/一七项switch/一ret；现完整正确体保，不合并新mode判断、两更新元素或回退。原54E420原型头不是callback字段，实际54E444=47A620/elements54E440=561B78，源码窗口10对应原型row有据。",
+      "body_changed": false,
+      "source_patch_count": 0,
+      "inbound_count": 1
+    },
+    {
+      "index": 1532,
+      "id": "F:0007B110",
+      "entry": "0x0047B110",
+      "end_exclusive": "0x0047B20A",
+      "symbol": "Sub_47B110",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "contract": "47B110返回按钮：入口currentWindow T*缓存、elements T*先取，再hover=state S32&1缓存寄存器，之后元素index.data借graphic T*并跨调用持有，consumed0。cached hover时fresh mode1/4复制586488原21B、mode2复制586470原21B，均含首NUL；其它不写hover。点击原47B16C TEST BYTE形参state低W8 mask2，fresh mode1→479B80(借窗,fresh selectedSkill)→479660，2→479C80(借窗,-1)→4796E0→D67AFD W8--，4→479EA0(借窗,fresh skill)，其它不调用子分支；任何点击都声51/x320→consumed1。固定graphic先图3B571，入口cached hover覆3B573，原47B1FA形参低W8 mask8再覆3B572，返回consumed。不让callee改变currentWindow后重借graphic/旧window，不重读hover，不把mask8当mask2。原85条250B/两页、六call六callee/13普通jump/一ret；四片段借element/hover缓存、两W8和尾hover消费。唯一数据xref561B78是30元素数组头，真实index4/32B记录561BF8..561C18/data561C10→561AD0/callback561C14→47B110，源第4项完整值逐字节匹配。",
+      "body_changed": true,
+      "source_patch_count": 4,
+      "inbound_count": 1
+    },
+    {
+      "index": 1533,
+      "id": "F:000742C0",
+      "entry": "0x004742C0",
+      "end_exclusive": "0x00474305",
+      "symbol": "Sub_4742C0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "contract": "4742C0滚动位置助手：入口借element T*及一次data T*，maximum S32<=0取element.y W32；正时先element.height W32再previous element.height W32，原差×position S32/maximum向零、后fresh element.y加得到y。先写previous element.y，随后fresh读element.y得delta，写入口借data的+8 W32并返回delta。source WindowMouseData.deltaY与WindowGraphicData.offsetY同+8有既有offsetof断言/四字节memcpy，type1调用不能错转仅Mouse结构或新拒绝。原30条69B/一页、无call/一jump/两ret；源归并共同写/返回同正常结果。一片段只两height W32取序，最大值0/负分支、原S32计算与写后再取baseY/别名及返回保，不补钳制/异常或回绕模拟。83代码入向只完整登记，本步仅既有47A000父依赖承接，不全面复查83父。",
+      "body_changed": true,
+      "source_patch_count": 1,
+      "inbound_count": 83
+    }
+  ],
+  "original_functions": [
+    {
+      "entry": "0x496ae0",
+      "end_exclusive": "0x496b90",
+      "incoming": [
+        {
+          "from": "0x49757c",
+          "type": 17,
+          "code": true,
+          "parent": "0x4974c0"
+        },
+        {
+          "from": "0x497eb1",
+          "type": 17,
+          "code": true,
+          "parent": "0x497e30"
+        },
+        {
+          "from": "0x497fba",
+          "type": 17,
+          "code": true,
+          "parent": "0x497e30"
+        },
+        {
+          "from": "0x498079",
+          "type": 17,
+          "code": true,
+          "parent": "0x497ff0"
+        },
+        {
+          "from": "0x498132",
+          "type": 17,
+          "code": true,
+          "parent": "0x497ff0"
+        },
+        {
+          "from": "0x498308",
+          "type": 17,
+          "code": true,
+          "parent": "0x4982c0"
+        },
+        {
+          "from": "0x49860d",
+          "type": 17,
+          "code": true,
+          "parent": "0x498520"
+        },
+        {
+          "from": "0x498630",
+          "type": 17,
+          "code": true,
+          "parent": "0x498520"
+        },
+        {
+          "from": "0x4987b2",
+          "type": 17,
+          "code": true,
+          "parent": "0x498520"
+        },
+        {
+          "from": "0x4987f0",
+          "type": 17,
+          "code": true,
+          "parent": "0x498520"
+        },
+        {
+          "from": "0x498a87",
+          "type": 17,
+          "code": true,
+          "parent": "0x498520"
+        },
+        {
+          "from": "0x499011",
+          "type": 17,
+          "code": true,
+          "parent": "0x498520"
+        }
+      ],
+      "start": "0x496ae0",
+      "parent_entry": "0x496ae0",
+      "instruction_count": 53,
+      "code_bytes": 176,
+      "page_count": 1,
+      "outgoing_calls": [
+        {
+          "ea": "0x496b50",
+          "target": "0x404d00"
+        },
+        {
+          "ea": "0x496b68",
+          "target": "0x404d00"
+        },
+        {
+          "ea": "0x496b80",
+          "target": "0x404d00"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x496aea",
+          "target": "0x496b8e"
+        },
+        {
+          "ea": "0x496af6",
+          "target": "0x496afe"
+        },
+        {
+          "ea": "0x496b04",
+          "target": "0x496b0c"
+        },
+        {
+          "ea": "0x496b1d",
+          "target": "0x496b26"
+        },
+        {
+          "ea": "0x496b2d",
+          "target": "0x496b36"
+        },
+        {
+          "ea": "0x496b3d",
+          "target": "0x496b46"
+        },
+        {
+          "ea": "0x496b4d",
+          "target": "0x496b5e"
+        },
+        {
+          "ea": "0x496b65",
+          "target": "0x496b76"
+        },
+        {
+          "ea": "0x496b7d",
+          "target": "0x496b8e"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x496ae0",
+          "end_exclusive": "0x496b90",
+          "instructions": [
+            {
+              "ea": "0x496ae0",
+              "size": 5,
+              "bytes": "a144b2c900",
+              "text": "mov     eax, gWindowState.window+888h"
+            },
+            {
+              "ea": "0x496ae5",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x496ae6",
+              "size": 2,
+              "bytes": "33f6",
+              "text": "xor     esi, esi"
+            },
+            {
+              "ea": "0x496ae8",
+              "size": 2,
+              "bytes": "3bc6",
+              "text": "cmp     eax, esi"
+            },
+            {
+              "ea": "0x496aea",
+              "size": 6,
+              "bytes": "0f849e000000",
+              "text": "jz      loc_496B8E"
+            },
+            {
+              "ea": "0x496af0",
+              "size": 6,
+              "bytes": "393548b2c900",
+              "text": "cmp     gWindowState.field_10+888h, esi"
+            },
+            {
+              "ea": "0x496af6",
+              "size": 2,
+              "bytes": "7e06",
+              "text": "jle     short loc_496AFE"
+            },
+            {
+              "ea": "0x496af8",
+              "size": 6,
+              "bytes": "893548b2c900",
+              "text": "mov     gWindowState.field_10+888h, esi"
+            },
+            {
+              "ea": "0x496afe",
+              "size": 6,
+              "bytes": "39354cb2c900",
+              "text": "cmp     gWindowState.field_14+888h, esi"
+            },
+            {
+              "ea": "0x496b04",
+              "size": 2,
+              "bytes": "7d06",
+              "text": "jge     short loc_496B0C"
+            },
+            {
+              "ea": "0x496b06",
+              "size": 6,
+              "bytes": "89354cb2c900",
+              "text": "mov     gWindowState.field_14+888h, esi"
+            },
+            {
+              "ea": "0x496b0c",
+              "size": 5,
+              "bytes": "a104adc900",
+              "text": "mov     eax, gWindowState.window+348h"
+            },
+            {
+              "ea": "0x496b11",
+              "size": 10,
+              "bytes": "c70550b2c90002000000",
+              "text": "mov     gWindowState.userState+888h, 2"
+            },
+            {
+              "ea": "0x496b1b",
+              "size": 2,
+              "bytes": "3bc6",
+              "text": "cmp     eax, esi"
+            },
+            {
+              "ea": "0x496b1d",
+              "size": 2,
+              "bytes": "7407",
+              "text": "jz      short loc_496B26"
+            },
+            {
+              "ea": "0x496b1f",
+              "size": 2,
+              "bytes": "8b08",
+              "text": "mov     ecx, [eax]"
+            },
+            {
+              "ea": "0x496b21",
+              "size": 3,
+              "bytes": "80cd80",
+              "text": "or      ch, 80h"
+            },
+            {
+              "ea": "0x496b24",
+              "size": 2,
+              "bytes": "8908",
+              "text": "mov     [eax], ecx"
+            },
+            {
+              "ea": "0x496b26",
+              "size": 5,
+              "bytes": "a198b2c900",
+              "text": "mov     eax, gWindowState.window+8DCh"
+            },
+            {
+              "ea": "0x496b2b",
+              "size": 2,
+              "bytes": "3bc6",
+              "text": "cmp     eax, esi"
+            },
+            {
+              "ea": "0x496b2d",
+              "size": 2,
+              "bytes": "7407",
+              "text": "jz      short loc_496B36"
+            },
+            {
+              "ea": "0x496b2f",
+              "size": 2,
+              "bytes": "8b08",
+              "text": "mov     ecx, [eax]"
+            },
+            {
+              "ea": "0x496b31",
+              "size": 3,
+              "bytes": "80cd80",
+              "text": "or      ch, 80h"
+            },
+            {
+              "ea": "0x496b34",
+              "size": 2,
+              "bytes": "8908",
+              "text": "mov     [eax], ecx"
+            },
+            {
+              "ea": "0x496b36",
+              "size": 5,
+              "bytes": "a1ecb2c900",
+              "text": "mov     eax, gWindowState.window+930h"
+            },
+            {
+              "ea": "0x496b3b",
+              "size": 2,
+              "bytes": "3bc6",
+              "text": "cmp     eax, esi"
+            },
+            {
+              "ea": "0x496b3d",
+              "size": 2,
+              "bytes": "7407",
+              "text": "jz      short loc_496B46"
+            },
+            {
+              "ea": "0x496b3f",
+              "size": 2,
+              "bytes": "8b08",
+              "text": "mov     ecx, [eax]"
+            },
+            {
+              "ea": "0x496b41",
+              "size": 3,
+              "bytes": "80cd80",
+              "text": "or      ch, 80h"
+            },
+            {
+              "ea": "0x496b44",
+              "size": 2,
+              "bytes": "8908",
+              "text": "mov     [eax], ecx"
+            },
+            {
+              "ea": "0x496b46",
+              "size": 5,
+              "bytes": "a1101acc00",
+              "text": "mov     eax, dword_CC1A10"
+            },
+            {
+              "ea": "0x496b4b",
+              "size": 2,
+              "bytes": "3bc6",
+              "text": "cmp     eax, esi"
+            },
+            {
+              "ea": "0x496b4d",
+              "size": 2,
+              "bytes": "740f",
+              "text": "jz      short loc_496B5E"
+            },
+            {
+              "ea": "0x496b4f",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x496b50",
+              "size": 5,
+              "bytes": "e8abe1f6ff",
+              "text": "call    Yobi__MarkDeath"
+            },
+            {
+              "ea": "0x496b55",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x496b58",
+              "size": 6,
+              "bytes": "8935101acc00",
+              "text": "mov     dword_CC1A10, esi"
+            },
+            {
+              "ea": "0x496b5e",
+              "size": 5,
+              "bytes": "a190f7d200",
+              "text": "mov     eax, dword_D2F790"
+            },
+            {
+              "ea": "0x496b63",
+              "size": 2,
+              "bytes": "3bc6",
+              "text": "cmp     eax, esi"
+            },
+            {
+              "ea": "0x496b65",
+              "size": 2,
+              "bytes": "740f",
+              "text": "jz      short loc_496B76"
+            },
+            {
+              "ea": "0x496b67",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x496b68",
+              "size": 5,
+              "bytes": "e893e1f6ff",
+              "text": "call    Yobi__MarkDeath"
+            },
+            {
+              "ea": "0x496b6d",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x496b70",
+              "size": 6,
+              "bytes": "893590f7d200",
+              "text": "mov     dword_D2F790, esi"
+            },
+            {
+              "ea": "0x496b76",
+              "size": 5,
+              "bytes": "a10cd6d200",
+              "text": "mov     eax, dword_D2D60C"
+            },
+            {
+              "ea": "0x496b7b",
+              "size": 2,
+              "bytes": "3bc6",
+              "text": "cmp     eax, esi"
+            },
+            {
+              "ea": "0x496b7d",
+              "size": 2,
+              "bytes": "740f",
+              "text": "jz      short loc_496B8E"
+            },
+            {
+              "ea": "0x496b7f",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x496b80",
+              "size": 5,
+              "bytes": "e87be1f6ff",
+              "text": "call    Yobi__MarkDeath"
+            },
+            {
+              "ea": "0x496b85",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x496b88",
+              "size": 6,
+              "bytes": "89350cd6d200",
+              "text": "mov     dword_D2D60C, esi"
+            },
+            {
+              "ea": "0x496b8e",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x496b8f",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "entry": "0x47a620",
+      "end_exclusive": "0x47a776",
+      "incoming": [
+        {
+          "from": "0x54e420",
+          "type": 1,
+          "code": false,
+          "parent": null
+        }
+      ],
+      "start": "0x47a620",
+      "parent_entry": "0x47a620",
+      "instruction_count": 92,
+      "code_bytes": 342,
+      "page_count": 2,
+      "outgoing_calls": [
+        {
+          "ea": "0x47a652",
+          "target": "0x479b80"
+        },
+        {
+          "ea": "0x47a665",
+          "target": "0x479ea0"
+        },
+        {
+          "ea": "0x47a67d",
+          "target": "0x47a000"
+        },
+        {
+          "ea": "0x47a68e",
+          "target": "0x47a1a0"
+        },
+        {
+          "ea": "0x47a69c",
+          "target": "0x47a320"
+        },
+        {
+          "ea": "0x47a6e4",
+          "target": "0x4796e0"
+        },
+        {
+          "ea": "0x47a6ef",
+          "target": "0x479660"
+        },
+        {
+          "ea": "0x47a6fd",
+          "target": "0x479b80"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x47a62d",
+          "target": "0x47a6a4"
+        },
+        {
+          "ea": "0x47a641",
+          "target": "0x47a6a4"
+        },
+        {
+          "ea": "0x47a65a",
+          "target": "0x47a6a4"
+        },
+        {
+          "ea": "0x47a66d",
+          "target": "0x47a6a4"
+        },
+        {
+          "ea": "0x47a685",
+          "target": "0x47a6a4"
+        },
+        {
+          "ea": "0x47a693",
+          "target": "0x47a6a1"
+        },
+        {
+          "ea": "0x47a6b5",
+          "target": "0x47a705"
+        },
+        {
+          "ea": "0x47a6ba",
+          "target": "0x47a6c1"
+        },
+        {
+          "ea": "0x47a6bf",
+          "target": "0x47a705"
+        },
+        {
+          "ea": "0x47a6d5",
+          "target": "0x47a705"
+        },
+        {
+          "ea": "0x47a6d8",
+          "target": "0x47a6ef"
+        },
+        {
+          "ea": "0x47a6db",
+          "target": "0x47a6e4"
+        },
+        {
+          "ea": "0x47a6e0",
+          "target": "0x47a6f4"
+        },
+        {
+          "ea": "0x47a6e2",
+          "target": "0x47a705"
+        },
+        {
+          "ea": "0x47a71e",
+          "target": "0x47a72f"
+        },
+        {
+          "ea": "0x47a74a",
+          "target": "0x47a75a"
+        },
+        {
+          "ea": "0x47a761",
+          "target": "0x47a772"
+        }
+      ],
+      "switches": [
+        {
+          "ea": "0x47a643",
+          "jumps": "0x47a778",
+          "jump_count": 7,
+          "jump_width": 4,
+          "jump_bytes": "4aa64700a4a64700a4a647005ca647006fa6470087a6470095a64700",
+          "lowcase": 0,
+          "default": "0x47a6a4",
+          "ncases": 7,
+          "flags": 8650756
+        }
+      ],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x47a620",
+          "end_exclusive": "0x47a776",
+          "instructions": [
+            {
+              "ea": "0x47a620",
+              "size": 4,
+              "bytes": "8b442404",
+              "text": "mov     eax, [esp+arg_0]"
+            },
+            {
+              "ea": "0x47a624",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x47a625",
+              "size": 3,
+              "bytes": "83f8ff",
+              "text": "cmp     eax, 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x47a628",
+              "size": 5,
+              "bytes": "bf01000000",
+              "text": "mov     edi, 1"
+            },
+            {
+              "ea": "0x47a62d",
+              "size": 2,
+              "bytes": "7575",
+              "text": "jnz     short def_47A643; jumptable 0047A643 default case, cases 1,2"
+            },
+            {
+              "ea": "0x47a62f",
+              "size": 5,
+              "bytes": "a1ac72d600",
+              "text": "mov     eax, dword_D672AC"
+            },
+            {
+              "ea": "0x47a634",
+              "size": 10,
+              "bytes": "c70548d6d20000000000",
+              "text": "mov     dword_D2D648, 0"
+            },
+            {
+              "ea": "0x47a63e",
+              "size": 3,
+              "bytes": "83f806",
+              "text": "cmp     eax, 6; switch 7 cases"
+            },
+            {
+              "ea": "0x47a641",
+              "size": 2,
+              "bytes": "7761",
+              "text": "ja      short def_47A643; jumptable 0047A643 default case, cases 1,2"
+            },
+            {
+              "ea": "0x47a643",
+              "size": 7,
+              "bytes": "ff248578a74700",
+              "text": "jmp     ds:jpt_47A643[eax*4]; switch jump"
+            },
+            {
+              "ea": "0x47a64a",
+              "size": 5,
+              "bytes": "a19446cf00",
+              "text": "mov     eax, gCurrentWindow; jumptable 0047A643 case 0"
+            },
+            {
+              "ea": "0x47a64f",
+              "size": 2,
+              "bytes": "6aff",
+              "text": "push    0FFFFFFFFh"
+            },
+            {
+              "ea": "0x47a651",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x47a652",
+              "size": 5,
+              "bytes": "e829f5ffff",
+              "text": "call    sub_479B80"
+            },
+            {
+              "ea": "0x47a657",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x47a65a",
+              "size": 2,
+              "bytes": "eb48",
+              "text": "jmp     short def_47A643; jumptable 0047A643 default case, cases 1,2"
+            },
+            {
+              "ea": "0x47a65c",
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "text": "mov     ecx, gCurrentWindow; jumptable 0047A643 case 3"
+            },
+            {
+              "ea": "0x47a662",
+              "size": 2,
+              "bytes": "6aff",
+              "text": "push    0FFFFFFFFh"
+            },
+            {
+              "ea": "0x47a664",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x47a665",
+              "size": 5,
+              "bytes": "e836f8ffff",
+              "text": "call    sub_479EA0"
+            },
+            {
+              "ea": "0x47a66a",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x47a66d",
+              "size": 2,
+              "bytes": "eb35",
+              "text": "jmp     short def_47A643; jumptable 0047A643 default case, cases 1,2"
+            },
+            {
+              "ea": "0x47a66f",
+              "size": 6,
+              "bytes": "8b1560ead200",
+              "text": "mov     edx, dword_D2EA60; jumptable 0047A643 case 4"
+            },
+            {
+              "ea": "0x47a675",
+              "size": 5,
+              "bytes": "a19446cf00",
+              "text": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": "0x47a67a",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x47a67b",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x47a67c",
+              "size": 1,
+              "bytes": "50",
+              "text": "push    eax"
+            },
+            {
+              "ea": "0x47a67d",
+              "size": 5,
+              "bytes": "e87ef9ffff",
+              "text": "call    sub_47A000"
+            },
+            {
+              "ea": "0x47a682",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x47a685",
+              "size": 2,
+              "bytes": "eb1d",
+              "text": "jmp     short def_47A643; jumptable 0047A643 default case, cases 1,2"
+            },
+            {
+              "ea": "0x47a687",
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "text": "mov     ecx, gCurrentWindow; jumptable 0047A643 case 5"
+            },
+            {
+              "ea": "0x47a68d",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x47a68e",
+              "size": 5,
+              "bytes": "e80dfbffff",
+              "text": "call    sub_47A1A0"
+            },
+            {
+              "ea": "0x47a693",
+              "size": 2,
+              "bytes": "eb0c",
+              "text": "jmp     short loc_47A6A1"
+            },
+            {
+              "ea": "0x47a695",
+              "size": 6,
+              "bytes": "8b159446cf00",
+              "text": "mov     edx, gCurrentWindow; jumptable 0047A643 case 6"
+            },
+            {
+              "ea": "0x47a69b",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x47a69c",
+              "size": 5,
+              "bytes": "e87ffcffff",
+              "text": "call    sub_47A320"
+            },
+            {
+              "ea": "0x47a6a1",
+              "size": 3,
+              "bytes": "83c404",
+              "text": "add     esp, 4"
+            },
+            {
+              "ea": "0x47a6a4",
+              "size": 5,
+              "bytes": "a1ac72d600",
+              "text": "mov     eax, dword_D672AC; jumptable 0047A643 default case, cases 1,2"
+            },
+            {
+              "ea": "0x47a6a9",
+              "size": 10,
+              "bytes": "c70544f7d200ffffffff",
+              "text": "mov     dword_D2F744, 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x47a6b3",
+              "size": 2,
+              "bytes": "85c0",
+              "text": "test    eax, eax"
+            },
+            {
+              "ea": "0x47a6b5",
+              "size": 2,
+              "bytes": "7e4e",
+              "text": "jle     short loc_47A705"
+            },
+            {
+              "ea": "0x47a6b7",
+              "size": 3,
+              "bytes": "83f802",
+              "text": "cmp     eax, 2"
+            },
+            {
+              "ea": "0x47a6ba",
+              "size": 2,
+              "bytes": "7e05",
+              "text": "jle     short loc_47A6C1"
+            },
+            {
+              "ea": "0x47a6bc",
+              "size": 3,
+              "bytes": "83f804",
+              "text": "cmp     eax, 4"
+            },
+            {
+              "ea": "0x47a6bf",
+              "size": 2,
+              "bytes": "7544",
+              "text": "jnz     short loc_47A705"
+            },
+            {
+              "ea": "0x47a6c1",
+              "size": 6,
+              "bytes": "8b0d60ead200",
+              "text": "mov     ecx, dword_D2EA60"
+            },
+            {
+              "ea": "0x47a6c7",
+              "size": 6,
+              "bytes": "69c94c4c0000",
+              "text": "imul    ecx, 4C4Ch"
+            },
+            {
+              "ea": "0x47a6cd",
+              "size": 6,
+              "bytes": "8a91fcbaf100",
+              "text": "mov     dl, byte ptr gSkillList.name[ecx]"
+            },
+            {
+              "ea": "0x47a6d3",
+              "size": 2,
+              "bytes": "84d2",
+              "text": "test    dl, dl"
+            },
+            {
+              "ea": "0x47a6d5",
+              "size": 2,
+              "bytes": "752e",
+              "text": "jnz     short loc_47A705"
+            },
+            {
+              "ea": "0x47a6d7",
+              "size": 1,
+              "bytes": "48",
+              "text": "dec     eax"
+            },
+            {
+              "ea": "0x47a6d8",
+              "size": 2,
+              "bytes": "7415",
+              "text": "jz      short loc_47A6EF"
+            },
+            {
+              "ea": "0x47a6da",
+              "size": 1,
+              "bytes": "48",
+              "text": "dec     eax"
+            },
+            {
+              "ea": "0x47a6db",
+              "size": 2,
+              "bytes": "7407",
+              "text": "jz      short loc_47A6E4"
+            },
+            {
+              "ea": "0x47a6dd",
+              "size": 3,
+              "bytes": "83e802",
+              "text": "sub     eax, 2"
+            },
+            {
+              "ea": "0x47a6e0",
+              "size": 2,
+              "bytes": "7412",
+              "text": "jz      short loc_47A6F4"
+            },
+            {
+              "ea": "0x47a6e2",
+              "size": 2,
+              "bytes": "eb21",
+              "text": "jmp     short loc_47A705"
+            },
+            {
+              "ea": "0x47a6e4",
+              "size": 5,
+              "bytes": "e8f7efffff",
+              "text": "call    sub_4796E0"
+            },
+            {
+              "ea": "0x47a6e9",
+              "size": 6,
+              "bytes": "fe0dfd7ad600",
+              "text": "dec     byte_D67AFD"
+            },
+            {
+              "ea": "0x47a6ef",
+              "size": 5,
+              "bytes": "e86cefffff",
+              "text": "call    sub_479660"
+            },
+            {
+              "ea": "0x47a6f4",
+              "size": 6,
+              "bytes": "8b159446cf00",
+              "text": "mov     edx, gCurrentWindow"
+            },
+            {
+              "ea": "0x47a6fa",
+              "size": 2,
+              "bytes": "6a00",
+              "text": "push    0"
+            },
+            {
+              "ea": "0x47a6fc",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x47a6fd",
+              "size": 5,
+              "bytes": "e87ef4ffff",
+              "text": "call    sub_479B80"
+            },
+            {
+              "ea": "0x47a702",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x47a705",
+              "size": 5,
+              "bytes": "a19446cf00",
+              "text": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": "0x47a70a",
+              "size": 3,
+              "bytes": "8b482c",
+              "text": "mov     ecx, [eax+2Ch]"
+            },
+            {
+              "ea": "0x47a70d",
+              "size": 10,
+              "bytes": "c781f000000000000000",
+              "text": "mov     dword ptr [ecx+0F0h], 0"
+            },
+            {
+              "ea": "0x47a717",
+              "size": 5,
+              "bytes": "a1ac72d600",
+              "text": "mov     eax, dword_D672AC"
+            },
+            {
+              "ea": "0x47a71c",
+              "size": 2,
+              "bytes": "3bc7",
+              "text": "cmp     eax, edi"
+            },
+            {
+              "ea": "0x47a71e",
+              "size": 2,
+              "bytes": "750f",
+              "text": "jnz     short loc_47A72F"
+            },
+            {
+              "ea": "0x47a720",
+              "size": 6,
+              "bytes": "8b159446cf00",
+              "text": "mov     edx, gCurrentWindow"
+            },
+            {
+              "ea": "0x47a726",
+              "size": 3,
+              "bytes": "8b422c",
+              "text": "mov     eax, [edx+2Ch]"
+            },
+            {
+              "ea": "0x47a729",
+              "size": 6,
+              "bytes": "89b8f0000000",
+              "text": "mov     [eax+0F0h], edi"
+            },
+            {
+              "ea": "0x47a72f",
+              "size": 6,
+              "bytes": "8b0d9446cf00",
+              "text": "mov     ecx, gCurrentWindow"
+            },
+            {
+              "ea": "0x47a735",
+              "size": 3,
+              "bytes": "8b512c",
+              "text": "mov     edx, [ecx+2Ch]"
+            },
+            {
+              "ea": "0x47a738",
+              "size": 10,
+              "bytes": "c7823801000000000000",
+              "text": "mov     dword ptr [edx+138h], 0"
+            },
+            {
+              "ea": "0x47a742",
+              "size": 5,
+              "bytes": "a1ac72d600",
+              "text": "mov     eax, dword_D672AC"
+            },
+            {
+              "ea": "0x47a747",
+              "size": 3,
+              "bytes": "83f805",
+              "text": "cmp     eax, 5"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x47a620",
+          "end_exclusive": "0x47a776",
+          "instructions": [
+            {
+              "ea": "0x47a74a",
+              "size": 2,
+              "bytes": "750e",
+              "text": "jnz     short loc_47A75A"
+            },
+            {
+              "ea": "0x47a74c",
+              "size": 5,
+              "bytes": "a19446cf00",
+              "text": "mov     eax, gCurrentWindow"
+            },
+            {
+              "ea": "0x47a751",
+              "size": 3,
+              "bytes": "8b482c",
+              "text": "mov     ecx, [eax+2Ch]"
+            },
+            {
+              "ea": "0x47a754",
+              "size": 6,
+              "bytes": "89b938010000",
+              "text": "mov     [ecx+138h], edi"
+            },
+            {
+              "ea": "0x47a75a",
+              "size": 7,
+              "bytes": "833dac72d60006",
+              "text": "cmp     dword_D672AC, 6"
+            },
+            {
+              "ea": "0x47a761",
+              "size": 2,
+              "bytes": "750f",
+              "text": "jnz     short loc_47A772"
+            },
+            {
+              "ea": "0x47a763",
+              "size": 6,
+              "bytes": "8b159446cf00",
+              "text": "mov     edx, gCurrentWindow"
+            },
+            {
+              "ea": "0x47a769",
+              "size": 3,
+              "bytes": "8b422c",
+              "text": "mov     eax, [edx+2Ch]"
+            },
+            {
+              "ea": "0x47a76c",
+              "size": 6,
+              "bytes": "89b838010000",
+              "text": "mov     [eax+138h], edi"
+            },
+            {
+              "ea": "0x47a772",
+              "size": 2,
+              "bytes": "8bc7",
+              "text": "mov     eax, edi"
+            },
+            {
+              "ea": "0x47a774",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x47a775",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "entry": "0x47b110",
+      "end_exclusive": "0x47b20a",
+      "incoming": [
+        {
+          "from": "0x561b78",
+          "type": 1,
+          "code": false,
+          "parent": null
+        }
+      ],
+      "start": "0x47b110",
+      "parent_entry": "0x47b110",
+      "instruction_count": 85,
+      "code_bytes": 250,
+      "page_count": 2,
+      "outgoing_calls": [
+        {
+          "ea": "0x47b18b",
+          "target": "0x479ea0"
+        },
+        {
+          "ea": "0x47b19f",
+          "target": "0x479c80"
+        },
+        {
+          "ea": "0x47b1a7",
+          "target": "0x4796e0"
+        },
+        {
+          "ea": "0x47b1bc",
+          "target": "0x479b80"
+        },
+        {
+          "ea": "0x47b1c4",
+          "target": "0x479660"
+        },
+        {
+          "ea": "0x47b1d5",
+          "target": "0x52c450"
+        }
+      ],
+      "branches": [
+        {
+          "ea": "0x47b135",
+          "target": "0x47b16c"
+        },
+        {
+          "ea": "0x47b13d",
+          "target": "0x47b147"
+        },
+        {
+          "ea": "0x47b140",
+          "target": "0x47b195"
+        },
+        {
+          "ea": "0x47b145",
+          "target": "0x47b16c"
+        },
+        {
+          "ea": "0x47b171",
+          "target": "0x47b1e2"
+        },
+        {
+          "ea": "0x47b179",
+          "target": "0x47b1b4"
+        },
+        {
+          "ea": "0x47b17c",
+          "target": "0x47b19c"
+        },
+        {
+          "ea": "0x47b181",
+          "target": "0x47b1c9"
+        },
+        {
+          "ea": "0x47b193",
+          "target": "0x47b1c9"
+        },
+        {
+          "ea": "0x47b19a",
+          "target": "0x47b14c"
+        },
+        {
+          "ea": "0x47b1b2",
+          "target": "0x47b1c9"
+        },
+        {
+          "ea": "0x47b1f2",
+          "target": "0x47b1fa"
+        },
+        {
+          "ea": "0x47b1ff",
+          "target": "0x47b207"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x47b110",
+          "end_exclusive": "0x47b20a",
+          "instructions": [
+            {
+              "ea": "0x47b110",
+              "size": 4,
+              "bytes": "8b442404",
+              "text": "mov     eax, [esp+arg_0]"
+            },
+            {
+              "ea": "0x47b114",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x47b115",
+              "size": 6,
+              "bytes": "8b1d9446cf00",
+              "text": "mov     ebx, gCurrentWindow"
+            },
+            {
+              "ea": "0x47b11b",
+              "size": 1,
+              "bytes": "55",
+              "text": "push    ebp"
+            },
+            {
+              "ea": "0x47b11c",
+              "size": 4,
+              "bytes": "8b6c2410",
+              "text": "mov     ebp, [esp+8+arg_4]"
+            },
+            {
+              "ea": "0x47b120",
+              "size": 3,
+              "bytes": "8d04c0",
+              "text": "lea     eax, [eax+eax*8]"
+            },
+            {
+              "ea": "0x47b123",
+              "size": 3,
+              "bytes": "8b4b2c",
+              "text": "mov     ecx, [ebx+2Ch]"
+            },
+            {
+              "ea": "0x47b126",
+              "size": 2,
+              "bytes": "33d2",
+              "text": "xor     edx, edx"
+            },
+            {
+              "ea": "0x47b128",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x47b129",
+              "size": 3,
+              "bytes": "83e501",
+              "text": "and     ebp, 1"
+            },
+            {
+              "ea": "0x47b12c",
+              "size": 4,
+              "bytes": "8b44811c",
+              "text": "mov     eax, [ecx+eax*4+1Ch]"
+            },
+            {
+              "ea": "0x47b130",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x47b131",
+              "size": 4,
+              "bytes": "89442414",
+              "text": "mov     [esp+10h+arg_0], eax"
+            },
+            {
+              "ea": "0x47b135",
+              "size": 2,
+              "bytes": "7435",
+              "text": "jz      short loc_47B16C"
+            },
+            {
+              "ea": "0x47b137",
+              "size": 5,
+              "bytes": "a1ac72d600",
+              "text": "mov     eax, dword_D672AC"
+            },
+            {
+              "ea": "0x47b13c",
+              "size": 1,
+              "bytes": "48",
+              "text": "dec     eax"
+            },
+            {
+              "ea": "0x47b13d",
+              "size": 2,
+              "bytes": "7408",
+              "text": "jz      short loc_47B147"
+            },
+            {
+              "ea": "0x47b13f",
+              "size": 1,
+              "bytes": "48",
+              "text": "dec     eax"
+            },
+            {
+              "ea": "0x47b140",
+              "size": 2,
+              "bytes": "7453",
+              "text": "jz      short loc_47B195"
+            },
+            {
+              "ea": "0x47b142",
+              "size": 3,
+              "bytes": "83e802",
+              "text": "sub     eax, 2"
+            },
+            {
+              "ea": "0x47b145",
+              "size": 2,
+              "bytes": "7525",
+              "text": "jnz     short loc_47B16C"
+            },
+            {
+              "ea": "0x47b147",
+              "size": 5,
+              "bytes": "bf88645800",
+              "text": "mov     edi, offset asc_586488; \"切換回技能一覽視窗。\""
+            },
+            {
+              "ea": "0x47b14c",
+              "size": 3,
+              "bytes": "83c9ff",
+              "text": "or      ecx, 0FFFFFFFFh"
+            },
+            {
+              "ea": "0x47b14f",
+              "size": 2,
+              "bytes": "33c0",
+              "text": "xor     eax, eax"
+            },
+            {
+              "ea": "0x47b151",
+              "size": 2,
+              "bytes": "f2ae",
+              "text": "repne scasb"
+            },
+            {
+              "ea": "0x47b153",
+              "size": 2,
+              "bytes": "f7d1",
+              "text": "not     ecx"
+            },
+            {
+              "ea": "0x47b155",
+              "size": 2,
+              "bytes": "2bf9",
+              "text": "sub     edi, ecx"
+            },
+            {
+              "ea": "0x47b157",
+              "size": 2,
+              "bytes": "8bc1",
+              "text": "mov     eax, ecx"
+            },
+            {
+              "ea": "0x47b159",
+              "size": 2,
+              "bytes": "8bf7",
+              "text": "mov     esi, edi"
+            },
+            {
+              "ea": "0x47b15b",
+              "size": 5,
+              "bytes": "bfe88ad600",
+              "text": "mov     edi, offset byte_D68AE8"
+            },
+            {
+              "ea": "0x47b160",
+              "size": 3,
+              "bytes": "c1e902",
+              "text": "shr     ecx, 2"
+            },
+            {
+              "ea": "0x47b163",
+              "size": 2,
+              "bytes": "f3a5",
+              "text": "rep movsd"
+            },
+            {
+              "ea": "0x47b165",
+              "size": 2,
+              "bytes": "8bc8",
+              "text": "mov     ecx, eax"
+            },
+            {
+              "ea": "0x47b167",
+              "size": 3,
+              "bytes": "83e103",
+              "text": "and     ecx, 3"
+            },
+            {
+              "ea": "0x47b16a",
+              "size": 2,
+              "bytes": "f3a4",
+              "text": "rep movsb"
+            },
+            {
+              "ea": "0x47b16c",
+              "size": 5,
+              "bytes": "f644241802",
+              "text": "test    byte ptr [esp+10h+arg_4], 2"
+            },
+            {
+              "ea": "0x47b171",
+              "size": 2,
+              "bytes": "746f",
+              "text": "jz      short loc_47B1E2"
+            },
+            {
+              "ea": "0x47b173",
+              "size": 5,
+              "bytes": "a1ac72d600",
+              "text": "mov     eax, dword_D672AC"
+            },
+            {
+              "ea": "0x47b178",
+              "size": 1,
+              "bytes": "48",
+              "text": "dec     eax"
+            },
+            {
+              "ea": "0x47b179",
+              "size": 2,
+              "bytes": "7439",
+              "text": "jz      short loc_47B1B4"
+            },
+            {
+              "ea": "0x47b17b",
+              "size": 1,
+              "bytes": "48",
+              "text": "dec     eax"
+            },
+            {
+              "ea": "0x47b17c",
+              "size": 2,
+              "bytes": "741e",
+              "text": "jz      short loc_47B19C"
+            },
+            {
+              "ea": "0x47b17e",
+              "size": 3,
+              "bytes": "83e802",
+              "text": "sub     eax, 2"
+            },
+            {
+              "ea": "0x47b181",
+              "size": 2,
+              "bytes": "7546",
+              "text": "jnz     short loc_47B1C9"
+            },
+            {
+              "ea": "0x47b183",
+              "size": 6,
+              "bytes": "8b0d60ead200",
+              "text": "mov     ecx, dword_D2EA60"
+            },
+            {
+              "ea": "0x47b189",
+              "size": 1,
+              "bytes": "51",
+              "text": "push    ecx"
+            },
+            {
+              "ea": "0x47b18a",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x47b18b",
+              "size": 5,
+              "bytes": "e810edffff",
+              "text": "call    sub_479EA0"
+            },
+            {
+              "ea": "0x47b190",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x47b193",
+              "size": 2,
+              "bytes": "eb34",
+              "text": "jmp     short loc_47B1C9"
+            },
+            {
+              "ea": "0x47b195",
+              "size": 5,
+              "bytes": "bf70645800",
+              "text": "mov     edi, offset asc_586470; \"切換回技能等級視窗。\""
+            },
+            {
+              "ea": "0x47b19a",
+              "size": 2,
+              "bytes": "ebb0",
+              "text": "jmp     short loc_47B14C"
+            },
+            {
+              "ea": "0x47b19c",
+              "size": 2,
+              "bytes": "6aff",
+              "text": "push    0FFFFFFFFh; a2"
+            },
+            {
+              "ea": "0x47b19e",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx; a1"
+            },
+            {
+              "ea": "0x47b19f",
+              "size": 5,
+              "bytes": "e8dceaffff",
+              "text": "call    sub_479C80"
+            },
+            {
+              "ea": "0x47b1a4",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x47b1a7",
+              "size": 5,
+              "bytes": "e834e5ffff",
+              "text": "call    sub_4796E0"
+            },
+            {
+              "ea": "0x47b1ac",
+              "size": 6,
+              "bytes": "fe0dfd7ad600",
+              "text": "dec     byte_D67AFD"
+            },
+            {
+              "ea": "0x47b1b2",
+              "size": 2,
+              "bytes": "eb15",
+              "text": "jmp     short loc_47B1C9"
+            },
+            {
+              "ea": "0x47b1b4",
+              "size": 6,
+              "bytes": "8b1560ead200",
+              "text": "mov     edx, dword_D2EA60"
+            },
+            {
+              "ea": "0x47b1ba",
+              "size": 1,
+              "bytes": "52",
+              "text": "push    edx"
+            },
+            {
+              "ea": "0x47b1bb",
+              "size": 1,
+              "bytes": "53",
+              "text": "push    ebx"
+            },
+            {
+              "ea": "0x47b1bc",
+              "size": 5,
+              "bytes": "e8bfe9ffff",
+              "text": "call    sub_479B80"
+            },
+            {
+              "ea": "0x47b1c1",
+              "size": 3,
+              "bytes": "83c408",
+              "text": "add     esp, 8"
+            },
+            {
+              "ea": "0x47b1c4",
+              "size": 5,
+              "bytes": "e897e4ffff",
+              "text": "call    sub_479660"
+            },
+            {
+              "ea": "0x47b1c9",
+              "size": 5,
+              "bytes": "68f0000000",
+              "text": "push    0F0h"
+            },
+            {
+              "ea": "0x47b1ce",
+              "size": 5,
+              "bytes": "6840010000",
+              "text": "push    140h"
+            },
+            {
+              "ea": "0x47b1d3",
+              "size": 2,
+              "bytes": "6a33",
+              "text": "push    33h ; '3'"
+            },
+            {
+              "ea": "0x47b1d5",
+              "size": 5,
+              "bytes": "e876120b00",
+              "text": "call    World__PlaySe"
+            },
+            {
+              "ea": "0x47b1da",
+              "size": 3,
+              "bytes": "83c40c",
+              "text": "add     esp, 0Ch"
+            },
+            {
+              "ea": "0x47b1dd",
+              "size": 5,
+              "bytes": "ba01000000",
+              "text": "mov     edx, 1"
+            },
+            {
+              "ea": "0x47b1e2",
+              "size": 4,
+              "bytes": "8b442414",
+              "text": "mov     eax, [esp+10h+arg_0]"
+            },
+            {
+              "ea": "0x47b1e6",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x47b1e7",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x47b1e8",
+              "size": 2,
+              "bytes": "85ed",
+              "text": "test    ebp, ebp"
+            },
+            {
+              "ea": "0x47b1ea",
+              "size": 1,
+              "bytes": "5d",
+              "text": "pop     ebp"
+            },
+            {
+              "ea": "0x47b1eb",
+              "size": 6,
+              "bytes": "c70071b50300",
+              "text": "mov     dword ptr [eax], 3B571h"
+            },
+            {
+              "ea": "0x47b1f1",
+              "size": 1,
+              "bytes": "5b",
+              "text": "pop     ebx"
+            },
+            {
+              "ea": "0x47b1f2",
+              "size": 2,
+              "bytes": "7406",
+              "text": "jz      short loc_47B1FA"
+            },
+            {
+              "ea": "0x47b1f4",
+              "size": 6,
+              "bytes": "c70073b50300",
+              "text": "mov     dword ptr [eax], 3B573h"
+            }
+          ]
+        },
+        {
+          "page_index": 1,
+          "start": "0x47b110",
+          "end_exclusive": "0x47b20a",
+          "instructions": [
+            {
+              "ea": "0x47b1fa",
+              "size": 5,
+              "bytes": "f644240808",
+              "text": "test    byte ptr [esp+arg_4], 8"
+            },
+            {
+              "ea": "0x47b1ff",
+              "size": 2,
+              "bytes": "7406",
+              "text": "jz      short loc_47B207"
+            },
+            {
+              "ea": "0x47b201",
+              "size": 6,
+              "bytes": "c70072b50300",
+              "text": "mov     dword ptr [eax], 3B572h"
+            },
+            {
+              "ea": "0x47b207",
+              "size": 2,
+              "bytes": "8bc2",
+              "text": "mov     eax, edx"
+            },
+            {
+              "ea": "0x47b209",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "entry": "0x4742c0",
+      "end_exclusive": "0x474305",
+      "incoming": [
+        {
+          "from": "0x4743e5",
+          "type": 17,
+          "code": true,
+          "parent": "0x4743b0"
+        },
+        {
+          "from": "0x47441c",
+          "type": 17,
+          "code": true,
+          "parent": "0x4743b0"
+        },
+        {
+          "from": "0x477cec",
+          "type": 17,
+          "code": true,
+          "parent": "0x477710"
+        },
+        {
+          "from": "0x477dba",
+          "type": 17,
+          "code": true,
+          "parent": "0x477710"
+        },
+        {
+          "from": "0x477e92",
+          "type": 17,
+          "code": true,
+          "parent": "0x477710"
+        },
+        {
+          "from": "0x477f49",
+          "type": 17,
+          "code": true,
+          "parent": "0x477710"
+        },
+        {
+          "from": "0x479be3",
+          "type": 17,
+          "code": true,
+          "parent": "0x479b80"
+        },
+        {
+          "from": "0x479cc1",
+          "type": 17,
+          "code": true,
+          "parent": "0x479c80"
+        },
+        {
+          "from": "0x479dd8",
+          "type": 17,
+          "code": true,
+          "parent": "0x479da0"
+        },
+        {
+          "from": "0x47a04e",
+          "type": 17,
+          "code": true,
+          "parent": "0x47a000"
+        },
+        {
+          "from": "0x47b441",
+          "type": 17,
+          "code": true,
+          "parent": "0x47b3d0"
+        },
+        {
+          "from": "0x47b4e8",
+          "type": 17,
+          "code": true,
+          "parent": "0x47b470"
+        },
+        {
+          "from": "0x47b597",
+          "type": 17,
+          "code": true,
+          "parent": "0x47b520"
+        },
+        {
+          "from": "0x47b653",
+          "type": 17,
+          "code": true,
+          "parent": "0x47b5d0"
+        },
+        {
+          "from": "0x492683",
+          "type": 17,
+          "code": true,
+          "parent": "0x492520"
+        },
+        {
+          "from": "0x492703",
+          "type": 17,
+          "code": true,
+          "parent": "0x492520"
+        },
+        {
+          "from": "0x4927af",
+          "type": 17,
+          "code": true,
+          "parent": "0x492520"
+        },
+        {
+          "from": "0x4954cb",
+          "type": 17,
+          "code": true,
+          "parent": "0x495450"
+        },
+        {
+          "from": "0x49558e",
+          "type": 17,
+          "code": true,
+          "parent": "0x495500"
+        },
+        {
+          "from": "0x49563f",
+          "type": 17,
+          "code": true,
+          "parent": "0x4955c0"
+        },
+        {
+          "from": "0x495723",
+          "type": 17,
+          "code": true,
+          "parent": "0x495670"
+        },
+        {
+          "from": "0x49ebc7",
+          "type": 17,
+          "code": true,
+          "parent": "0x49eb50"
+        },
+        {
+          "from": "0x49ec7f",
+          "type": 17,
+          "code": true,
+          "parent": "0x49ec00"
+        },
+        {
+          "from": "0x49ed3c",
+          "type": 17,
+          "code": true,
+          "parent": "0x49ecc0"
+        },
+        {
+          "from": "0x49ee1a",
+          "type": 17,
+          "code": true,
+          "parent": "0x49ed80"
+        },
+        {
+          "from": "0x49f2d7",
+          "type": 17,
+          "code": true,
+          "parent": "0x49f260"
+        },
+        {
+          "from": "0x49f38f",
+          "type": 17,
+          "code": true,
+          "parent": "0x49f310"
+        },
+        {
+          "from": "0x49f44c",
+          "type": 17,
+          "code": true,
+          "parent": "0x49f3d0"
+        },
+        {
+          "from": "0x49f52a",
+          "type": 17,
+          "code": true,
+          "parent": "0x49f490"
+        },
+        {
+          "from": "0x4a2862",
+          "type": 17,
+          "code": true,
+          "parent": "0x4a2700"
+        },
+        {
+          "from": "0x4a4527",
+          "type": 17,
+          "code": true,
+          "parent": "0x4a4420"
+        },
+        {
+          "from": "0x4a8169",
+          "type": 17,
+          "code": true,
+          "parent": "0x4a8140"
+        },
+        {
+          "from": "0x4aaa3a",
+          "type": 17,
+          "code": true,
+          "parent": "0x4aa9c0"
+        },
+        {
+          "from": "0x4aaaeb",
+          "type": 17,
+          "code": true,
+          "parent": "0x4aaa70"
+        },
+        {
+          "from": "0x4adc47",
+          "type": 17,
+          "code": true,
+          "parent": "0x4adbd0"
+        },
+        {
+          "from": "0x4add08",
+          "type": 17,
+          "code": true,
+          "parent": "0x4adc80"
+        },
+        {
+          "from": "0x4addcc",
+          "type": 17,
+          "code": true,
+          "parent": "0x4add50"
+        },
+        {
+          "from": "0x4adeb5",
+          "type": 17,
+          "code": true,
+          "parent": "0x4ade10"
+        },
+        {
+          "from": "0x4afaca",
+          "type": 17,
+          "code": true,
+          "parent": "0x4afa60"
+        },
+        {
+          "from": "0x4b03b6",
+          "type": 17,
+          "code": true,
+          "parent": "0x4b0290"
+        },
+        {
+          "from": "0x4b03d6",
+          "type": 17,
+          "code": true,
+          "parent": "0x4b0290"
+        },
+        {
+          "from": "0x4b03f3",
+          "type": 17,
+          "code": true,
+          "parent": "0x4b0290"
+        },
+        {
+          "from": "0x4b0c95",
+          "type": 17,
+          "code": true,
+          "parent": "0x4b0a50"
+        },
+        {
+          "from": "0x4b1522",
+          "type": 17,
+          "code": true,
+          "parent": "0x4b1260"
+        },
+        {
+          "from": "0x4b4de5",
+          "type": 17,
+          "code": true,
+          "parent": "0x4b4db0"
+        },
+        {
+          "from": "0x4bac7e",
+          "type": 17,
+          "code": true,
+          "parent": "0x4baa50"
+        },
+        {
+          "from": "0x4bad8b",
+          "type": 17,
+          "code": true,
+          "parent": "0x4bad10"
+        },
+        {
+          "from": "0x4bae93",
+          "type": 17,
+          "code": true,
+          "parent": "0x4bae10"
+        },
+        {
+          "from": "0x4baf90",
+          "type": 17,
+          "code": true,
+          "parent": "0x4baf10"
+        },
+        {
+          "from": "0x4bb0aa",
+          "type": 17,
+          "code": true,
+          "parent": "0x4bb010"
+        },
+        {
+          "from": "0x4bc1fd",
+          "type": 17,
+          "code": true,
+          "parent": "0x4bc150"
+        },
+        {
+          "from": "0x4bc939",
+          "type": 17,
+          "code": true,
+          "parent": "0x4bc660"
+        },
+        {
+          "from": "0x4bd07b",
+          "type": 17,
+          "code": true,
+          "parent": "0x4bcee0"
+        },
+        {
+          "from": "0x4bfffa",
+          "type": 17,
+          "code": true,
+          "parent": "0x4bff60"
+        },
+        {
+          "from": "0x4c0090",
+          "type": 17,
+          "code": true,
+          "parent": "0x4bff60"
+        },
+        {
+          "from": "0x4c00fc",
+          "type": 17,
+          "code": true,
+          "parent": "0x4bff60"
+        },
+        {
+          "from": "0x4c0203",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c0160"
+        },
+        {
+          "from": "0x4c02a5",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c0160"
+        },
+        {
+          "from": "0x4c0319",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c0160"
+        },
+        {
+          "from": "0x4c0420",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c0380"
+        },
+        {
+          "from": "0x4c04bf",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c0380"
+        },
+        {
+          "from": "0x4c0534",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c0380"
+        },
+        {
+          "from": "0x4c064a",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c0590"
+        },
+        {
+          "from": "0x4c0706",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c0590"
+        },
+        {
+          "from": "0x4c0797",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c0590"
+        },
+        {
+          "from": "0x4c1c3f",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c1bc0"
+        },
+        {
+          "from": "0x4c3eef",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c3e70"
+        },
+        {
+          "from": "0x4c97e2",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c96f0"
+        },
+        {
+          "from": "0x4c9954",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c96f0"
+        },
+        {
+          "from": "0x4c99ef",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c96f0"
+        },
+        {
+          "from": "0x4c9b3b",
+          "type": 17,
+          "code": true,
+          "parent": "0x4c96f0"
+        },
+        {
+          "from": "0x4cbe94",
+          "type": 17,
+          "code": true,
+          "parent": "0x4cbdb0"
+        },
+        {
+          "from": "0x4cbf90",
+          "type": 17,
+          "code": true,
+          "parent": "0x4cbdb0"
+        },
+        {
+          "from": "0x4cc129",
+          "type": 17,
+          "code": true,
+          "parent": "0x4cbdb0"
+        },
+        {
+          "from": "0x4cc2e9",
+          "type": 17,
+          "code": true,
+          "parent": "0x4cbdb0"
+        },
+        {
+          "from": "0x4ccb15",
+          "type": 17,
+          "code": true,
+          "parent": "0x4cc9b0"
+        },
+        {
+          "from": "0x4ccbdf",
+          "type": 17,
+          "code": true,
+          "parent": "0x4cc9b0"
+        },
+        {
+          "from": "0x4cccca",
+          "type": 17,
+          "code": true,
+          "parent": "0x4cc9b0"
+        },
+        {
+          "from": "0x4cdf72",
+          "type": 17,
+          "code": true,
+          "parent": "0x4cde40"
+        },
+        {
+          "from": "0x4ce0bb",
+          "type": 17,
+          "code": true,
+          "parent": "0x4cdfa0"
+        },
+        {
+          "from": "0x4ce277",
+          "type": 17,
+          "code": true,
+          "parent": "0x4ce1f0"
+        },
+        {
+          "from": "0x4ce338",
+          "type": 17,
+          "code": true,
+          "parent": "0x4ce2b0"
+        },
+        {
+          "from": "0x4ce523",
+          "type": 17,
+          "code": true,
+          "parent": "0x4ce3f0"
+        }
+      ],
+      "start": "0x4742c0",
+      "parent_entry": "0x4742c0",
+      "instruction_count": 30,
+      "code_bytes": 69,
+      "page_count": 1,
+      "outgoing_calls": [],
+      "branches": [
+        {
+          "ea": "0x4742cf",
+          "target": "0x4742e2"
+        }
+      ],
+      "switches": [],
+      "instruction_pages": [
+        {
+          "page_index": 0,
+          "start": "0x4742c0",
+          "end_exclusive": "0x474305",
+          "instructions": [
+            {
+              "ea": "0x4742c0",
+              "size": 4,
+              "bytes": "8b4c2404",
+              "text": "mov     ecx, [esp+a1]"
+            },
+            {
+              "ea": "0x4742c4",
+              "size": 1,
+              "bytes": "56",
+              "text": "push    esi"
+            },
+            {
+              "ea": "0x4742c5",
+              "size": 1,
+              "bytes": "57",
+              "text": "push    edi"
+            },
+            {
+              "ea": "0x4742c6",
+              "size": 4,
+              "bytes": "8b7c2410",
+              "text": "mov     edi, [esp+8+a2]"
+            },
+            {
+              "ea": "0x4742ca",
+              "size": 3,
+              "bytes": "8b711c",
+              "text": "mov     esi, [ecx+1Ch]"
+            },
+            {
+              "ea": "0x4742cd",
+              "size": 2,
+              "bytes": "85ff",
+              "text": "test    edi, edi"
+            },
+            {
+              "ea": "0x4742cf",
+              "size": 2,
+              "bytes": "7f11",
+              "text": "jg      short loc_4742E2"
+            },
+            {
+              "ea": "0x4742d1",
+              "size": 3,
+              "bytes": "8b410c",
+              "text": "mov     eax, [ecx+0Ch]"
+            },
+            {
+              "ea": "0x4742d4",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x4742d5",
+              "size": 3,
+              "bytes": "8941e8",
+              "text": "mov     [ecx-18h], eax"
+            },
+            {
+              "ea": "0x4742d8",
+              "size": 3,
+              "bytes": "8b510c",
+              "text": "mov     edx, [ecx+0Ch]"
+            },
+            {
+              "ea": "0x4742db",
+              "size": 2,
+              "bytes": "2bc2",
+              "text": "sub     eax, edx"
+            },
+            {
+              "ea": "0x4742dd",
+              "size": 3,
+              "bytes": "894608",
+              "text": "mov     [esi+8], eax"
+            },
+            {
+              "ea": "0x4742e0",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x4742e1",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            },
+            {
+              "ea": "0x4742e2",
+              "size": 3,
+              "bytes": "8b4114",
+              "text": "mov     eax, [ecx+14h]"
+            },
+            {
+              "ea": "0x4742e5",
+              "size": 3,
+              "bytes": "8b51f0",
+              "text": "mov     edx, [ecx-10h]"
+            },
+            {
+              "ea": "0x4742e8",
+              "size": 2,
+              "bytes": "2bc2",
+              "text": "sub     eax, edx"
+            },
+            {
+              "ea": "0x4742ea",
+              "size": 5,
+              "bytes": "0faf442414",
+              "text": "imul    eax, [esp+8+a3]"
+            },
+            {
+              "ea": "0x4742ef",
+              "size": 1,
+              "bytes": "99",
+              "text": "cdq"
+            },
+            {
+              "ea": "0x4742f0",
+              "size": 2,
+              "bytes": "f7ff",
+              "text": "idiv    edi"
+            },
+            {
+              "ea": "0x4742f2",
+              "size": 3,
+              "bytes": "8b510c",
+              "text": "mov     edx, [ecx+0Ch]"
+            },
+            {
+              "ea": "0x4742f5",
+              "size": 1,
+              "bytes": "5f",
+              "text": "pop     edi"
+            },
+            {
+              "ea": "0x4742f6",
+              "size": 2,
+              "bytes": "03c2",
+              "text": "add     eax, edx"
+            },
+            {
+              "ea": "0x4742f8",
+              "size": 3,
+              "bytes": "8941e8",
+              "text": "mov     [ecx-18h], eax"
+            },
+            {
+              "ea": "0x4742fb",
+              "size": 3,
+              "bytes": "8b510c",
+              "text": "mov     edx, [ecx+0Ch]"
+            },
+            {
+              "ea": "0x4742fe",
+              "size": 2,
+              "bytes": "2bc2",
+              "text": "sub     eax, edx"
+            },
+            {
+              "ea": "0x474300",
+              "size": 3,
+              "bytes": "894608",
+              "text": "mov     [esi+8], eax"
+            },
+            {
+              "ea": "0x474303",
+              "size": 1,
+              "bytes": "5e",
+              "text": "pop     esi"
+            },
+            {
+              "ea": "0x474304",
+              "size": 1,
+              "bytes": "c3",
+              "text": "retn"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "supplement": {
+    "texts": [
+      {
+        "address": "0x586488",
+        "size_including_nul": 21,
+        "bytes": "a4c1b4aba65ea7deafe0a440c4fdb5f8b5a1a14300"
+      },
+      {
+        "address": "0x586470",
+        "size_including_nul": 21,
+        "bytes": "a4c1b4aba65ea7deafe0b5a5afc5b5f8b5a1a14300"
+      }
+    ],
+    "callback_addresses": [
+      {
+        "address": "0x54e420",
+        "value": "0x0",
+        "bytes": "00000000",
+        "item_head": "0x54e420",
+        "item_name": "WindowProtoSkill_10"
+      },
+      {
+        "address": "0x561b78",
+        "value": "0x1",
+        "bytes": "01000000",
+        "item_head": "0x561b78",
+        "item_name": "stru_561B78"
+      }
+    ],
+    "range": {
+      "start": "0x47a776",
+      "end_exclusive": "0x47a7a0",
+      "bytes": "8bff4aa64700a4a64700a4a647005ca647006fa6470087a6470095a64700909090909090909090909090"
+    },
+    "range_refs": [
+      {
+        "to": "0x47a778",
+        "from": "0x47a643",
+        "type": 3,
+        "code": false,
+        "parent_entry": "0x47a620"
+      }
+    ],
+    "prototype": {
+      "start": "0x54e420",
+      "end_exclusive": "0x54e450",
+      "bytes": "0000000004000000190000007a000000f100000002010000010101801e000000781b560020a64700a0a74700e0b04700",
+      "elements_field": "0x54e440",
+      "elements_value": "0x561b78",
+      "callback_field": "0x54e444",
+      "callback_value": "0x47a620"
+    },
+    "element_prototype": {
+      "index": 4,
+      "start": "0x561bf8",
+      "end_exclusive": "0x561c18",
+      "bytes": "01000000100000001c000000320000000f00000001000000d01a560010b14700",
+      "data_field": "0x561c10",
+      "data_value": "0x561ad0",
+      "callback_field": "0x561c14",
+      "callback_value": "0x47b110"
+    },
+    "parent_windows": [
+      {
+        "site": "0x49757c",
+        "parent_entry": "0x4974c0",
+        "start": "0x497574",
+        "end_exclusive": "0x497588",
+        "instructions": [
+          {
+            "ea": "0x497574",
+            "size": 5,
+            "bytes": "e8d74e0900",
+            "text": "call    World__PlaySe"
+          },
+          {
+            "ea": "0x497579",
+            "size": 3,
+            "bytes": "83c434",
+            "text": "add     esp, 34h"
+          },
+          {
+            "ea": "0x49757c",
+            "size": 5,
+            "bytes": "e85ff5ffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x497581",
+            "size": 6,
+            "bytes": "81c400010000",
+            "text": "add     esp, 100h"
+          },
+          {
+            "ea": "0x497587",
+            "size": 1,
+            "bytes": "c3",
+            "text": "retn"
+          }
+        ]
+      },
+      {
+        "site": "0x497eb1",
+        "parent_entry": "0x497e30",
+        "start": "0x497ea7",
+        "end_exclusive": "0x497ebd",
+        "instructions": [
+          {
+            "ea": "0x497ea7",
+            "size": 5,
+            "bytes": "e80446faff",
+            "text": "call    Battle__GetBattlePetIndex"
+          },
+          {
+            "ea": "0x497eac",
+            "size": 5,
+            "bytes": "a3903f5500",
+            "text": "mov     gLastPetIndex, eax"
+          },
+          {
+            "ea": "0x497eb1",
+            "size": 5,
+            "bytes": "e82aecffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x497eb6",
+            "size": 6,
+            "bytes": "81c400010000",
+            "text": "add     esp, 100h"
+          },
+          {
+            "ea": "0x497ebc",
+            "size": 1,
+            "bytes": "c3",
+            "text": "retn"
+          }
+        ]
+      },
+      {
+        "site": "0x497fba",
+        "parent_entry": "0x497e30",
+        "start": "0x497fb0",
+        "end_exclusive": "0x497fc9",
+        "instructions": [
+          {
+            "ea": "0x497fb0",
+            "size": 5,
+            "bytes": "e8fb44faff",
+            "text": "call    Battle__GetBattlePetIndex"
+          },
+          {
+            "ea": "0x497fb5",
+            "size": 5,
+            "bytes": "a3903f5500",
+            "text": "mov     gLastPetIndex, eax"
+          },
+          {
+            "ea": "0x497fba",
+            "size": 5,
+            "bytes": "e821ebffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x497fbf",
+            "size": 5,
+            "bytes": "68f0000000",
+            "text": "push    0F0h"
+          },
+          {
+            "ea": "0x497fc4",
+            "size": 5,
+            "bytes": "6840010000",
+            "text": "push    140h"
+          }
+        ]
+      },
+      {
+        "site": "0x498079",
+        "parent_entry": "0x497ff0",
+        "start": "0x498069",
+        "end_exclusive": "0x498085",
+        "instructions": [
+          {
+            "ea": "0x498069",
+            "size": 10,
+            "bytes": "c7053cbc5a0005000000",
+            "text": "mov     BattleScene__CommandState, 5"
+          },
+          {
+            "ea": "0x498073",
+            "size": 6,
+            "bytes": "890d903f5500",
+            "text": "mov     gLastPetIndex, ecx"
+          },
+          {
+            "ea": "0x498079",
+            "size": 5,
+            "bytes": "e862eaffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x49807e",
+            "size": 6,
+            "bytes": "81c400010000",
+            "text": "add     esp, 100h"
+          },
+          {
+            "ea": "0x498084",
+            "size": 1,
+            "bytes": "c3",
+            "text": "retn"
+          }
+        ]
+      },
+      {
+        "site": "0x498132",
+        "parent_entry": "0x497ff0",
+        "start": "0x498122",
+        "end_exclusive": "0x498141",
+        "instructions": [
+          {
+            "ea": "0x498122",
+            "size": 10,
+            "bytes": "c7053cbc5a0005000000",
+            "text": "mov     BattleScene__CommandState, 5"
+          },
+          {
+            "ea": "0x49812c",
+            "size": 6,
+            "bytes": "8915903f5500",
+            "text": "mov     gLastPetIndex, edx"
+          },
+          {
+            "ea": "0x498132",
+            "size": 5,
+            "bytes": "e8a9e9ffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x498137",
+            "size": 5,
+            "bytes": "68f0000000",
+            "text": "push    0F0h"
+          },
+          {
+            "ea": "0x49813c",
+            "size": 5,
+            "bytes": "6840010000",
+            "text": "push    140h"
+          }
+        ]
+      },
+      {
+        "site": "0x498308",
+        "parent_entry": "0x4982c0",
+        "start": "0x498301",
+        "end_exclusive": "0x49831a",
+        "instructions": [
+          {
+            "ea": "0x498301",
+            "size": 2,
+            "bytes": "33f6",
+            "text": "xor     esi, esi"
+          },
+          {
+            "ea": "0x498303",
+            "size": 5,
+            "bytes": "e8583dfaff",
+            "text": "call    BattleScene__FlushEntry"
+          },
+          {
+            "ea": "0x498308",
+            "size": 5,
+            "bytes": "e8d3e7ffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x49830d",
+            "size": 6,
+            "bytes": "8b0da4bc5a00",
+            "text": "mov     ecx, gMyPostion"
+          },
+          {
+            "ea": "0x498313",
+            "size": 7,
+            "bytes": "8b148d80e95900",
+            "text": "mov     edx, gBattleEntry[ecx*4]"
+          }
+        ]
+      },
+      {
+        "site": "0x49860d",
+        "parent_entry": "0x498520",
+        "start": "0x498602",
+        "end_exclusive": "0x49861d",
+        "instructions": [
+          {
+            "ea": "0x498602",
+            "size": 6,
+            "bytes": "8935640dff00",
+            "text": "mov     gWorld__SceneState, esi"
+          },
+          {
+            "ea": "0x498608",
+            "size": 5,
+            "bytes": "a3f4bb5a00",
+            "text": "mov     BattleScene__SkillActionCount, eax"
+          },
+          {
+            "ea": "0x49860d",
+            "size": 5,
+            "bytes": "e8cee4ffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x498612",
+            "size": 6,
+            "bytes": "892d74bc5a00",
+            "text": "mov     BattleScene__PlayerActionState, ebp"
+          },
+          {
+            "ea": "0x498618",
+            "size": 5,
+            "bytes": "e93c050000",
+            "text": "jmp     def_498583; jumptable 00498583 default case"
+          }
+        ]
+      },
+      {
+        "site": "0x498630",
+        "parent_entry": "0x498520",
+        "start": "0x498624",
+        "end_exclusive": "0x498640",
+        "instructions": [
+          {
+            "ea": "0x498624",
+            "size": 5,
+            "bytes": "a3acbc5a00",
+            "text": "mov     gBattlePlayerFlag, eax"
+          },
+          {
+            "ea": "0x498629",
+            "size": 7,
+            "bytes": "c60540bc5a0000",
+            "text": "mov     byte_5ABC40, 0"
+          },
+          {
+            "ea": "0x498630",
+            "size": 5,
+            "bytes": "e8abe4ffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x498635",
+            "size": 6,
+            "bytes": "892d74bc5a00",
+            "text": "mov     BattleScene__PlayerActionState, ebp"
+          },
+          {
+            "ea": "0x49863b",
+            "size": 5,
+            "bytes": "e919050000",
+            "text": "jmp     def_498583; jumptable 00498583 default case"
+          }
+        ]
+      },
+      {
+        "site": "0x4987b2",
+        "parent_entry": "0x498520",
+        "start": "0x4987a6",
+        "end_exclusive": "0x4987c2",
+        "instructions": [
+          {
+            "ea": "0x4987a6",
+            "size": 2,
+            "bytes": "741a",
+            "text": "jz      short loc_4987C2"
+          },
+          {
+            "ea": "0x4987a8",
+            "size": 10,
+            "bytes": "c7053cbc5a0003000000",
+            "text": "mov     BattleScene__CommandState, 3"
+          },
+          {
+            "ea": "0x4987b2",
+            "size": 5,
+            "bytes": "e829e3ffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x4987b7",
+            "size": 6,
+            "bytes": "892d74bc5a00",
+            "text": "mov     BattleScene__PlayerActionState, ebp"
+          },
+          {
+            "ea": "0x4987bd",
+            "size": 5,
+            "bytes": "e997030000",
+            "text": "jmp     def_498583; jumptable 00498583 default case"
+          }
+        ]
+      },
+      {
+        "site": "0x4987f0",
+        "parent_entry": "0x498520",
+        "start": "0x4987ea",
+        "end_exclusive": "0x498800",
+        "instructions": [
+          {
+            "ea": "0x4987ea",
+            "size": 1,
+            "bytes": "40",
+            "text": "inc     eax"
+          },
+          {
+            "ea": "0x4987eb",
+            "size": 5,
+            "bytes": "a3f4bb5a00",
+            "text": "mov     BattleScene__SkillActionCount, eax"
+          },
+          {
+            "ea": "0x4987f0",
+            "size": 5,
+            "bytes": "e8ebe2ffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x4987f5",
+            "size": 6,
+            "bytes": "892d74bc5a00",
+            "text": "mov     BattleScene__PlayerActionState, ebp"
+          },
+          {
+            "ea": "0x4987fb",
+            "size": 5,
+            "bytes": "e959030000",
+            "text": "jmp     def_498583; jumptable 00498583 default case"
+          }
+        ]
+      },
+      {
+        "site": "0x498a87",
+        "parent_entry": "0x498520",
+        "start": "0x498a7d",
+        "end_exclusive": "0x498a93",
+        "instructions": [
+          {
+            "ea": "0x498a7d",
+            "size": 5,
+            "bytes": "a3f4bb5a00",
+            "text": "mov     BattleScene__SkillActionCount, eax"
+          },
+          {
+            "ea": "0x498a82",
+            "size": 5,
+            "bytes": "e8d935faff",
+            "text": "call    BattleScene__FlushEntry"
+          },
+          {
+            "ea": "0x498a87",
+            "size": 5,
+            "bytes": "e854e0ffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x498a8c",
+            "size": 5,
+            "bytes": "a04c05cb00",
+            "text": "mov     al, byte_CB054C"
+          },
+          {
+            "ea": "0x498a91",
+            "size": 2,
+            "bytes": "84c0",
+            "text": "test    al, al"
+          }
+        ]
+      },
+      {
+        "site": "0x499011",
+        "parent_entry": "0x498520",
+        "start": "0x499007",
+        "end_exclusive": "0x499022",
+        "instructions": [
+          {
+            "ea": "0x499007",
+            "size": 5,
+            "bytes": "e8a434faff",
+            "text": "call    Battle__GetBattlePetIndex"
+          },
+          {
+            "ea": "0x49900c",
+            "size": 5,
+            "bytes": "a3903f5500",
+            "text": "mov     gLastPetIndex, eax"
+          },
+          {
+            "ea": "0x499011",
+            "size": 5,
+            "bytes": "e8cadaffff",
+            "text": "call    BattleScene__closeAllWin"
+          },
+          {
+            "ea": "0x499016",
+            "size": 5,
+            "bytes": "e93efbffff",
+            "text": "jmp     def_498583; jumptable 00498583 default case"
+          },
+          {
+            "ea": "0x49901b",
+            "size": 7,
+            "bytes": "833d50b2c90003",
+            "text": "cmp     gWindowState.userState+888h, 3; jumptable 00498583 case 5"
+          }
+        ]
+      }
+    ],
+    "alignment": {
+      "start": "0x47a776",
+      "size": 2,
+      "bytes": "8bff",
+      "decoded_mnemonic": "mov",
+      "operand_types": [
+        1,
+        1
+      ],
+      "operand_registers": [
+        7,
+        7
+      ]
+    }
+  },
+  "source_prototype_row": {
+    "count": 30,
+    "matching": [
+      {
+        "index": 4,
+        "row": "    {1, 16, 28, 50, 15, 1, {.graphic = &gWindowGraphic561AD0}, &Sub_47B110},"
+      }
+    ]
+  },
+  "source_bodies_before": [
+    {
+      "symbol": "Sub_496AE0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "type": "void",
+      "body": "void Sub_496AE0()\n{\n    if (gWindowStates[26].window == nullptr) {\n        return;\n    }\n    if (std::bit_cast<std::int32_t>(gWindowStates[26].value10) > 0) {\n        gWindowStates[26].value10 = 0;\n    }\n    if (std::bit_cast<std::int32_t>(gWindowStates[26].value14) < 0) {\n        gWindowStates[26].value14 = 0;\n    }\n    gWindowStates[26].userState.value = 2;\n    WindowInstance* window = gWindowStates[10].window;\n    if (window != nullptr) {\n        window->state |= 0x8000u;\n    }\n    window = gWindowStates[27].window;\n    if (window != nullptr) {\n        window->state |= 0x8000u;\n    }\n    window = gWindowStates[28].window;\n    if (window != nullptr) {\n        window->state |= 0x8000u;\n    }\n    if (gBattleSkillWindowActionCC1A10 != nullptr) {\n        login::detail::MarkDeath(gBattleSkillWindowActionCC1A10);\n        gBattleSkillWindowActionCC1A10 = nullptr;\n    }\n    if (gBattleItemWindowActionD2F790 != nullptr) {\n        login::detail::MarkDeath(gBattleItemWindowActionD2F790);\n        gBattleItemWindowActionD2F790 = nullptr;\n    }\n    if (gBattlePetWindowActionD2D60C != nullptr) {\n        login::detail::MarkDeath(gBattlePetWindowActionD2D60C);\n        gBattlePetWindowActionD2D60C = nullptr;\n    }\n}\n",
+      "snapshot": {
+        "id": "F:00096AE0",
+        "original_entry": "0x496AE0",
+        "original_name": "BattleScene::closeAllWin",
+        "semantic_indices": [],
+        "pending_indices": [],
+        "direct_snapshot_definitions": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_496AE0",
+            "definition_line": 35611,
+            "namespace": "cg::ui::detail"
+          }
+        ],
+        "baseline_documents": [],
+        "classification_refs": [],
+        "disposition": null,
+        "feature_memberships": [],
+        "sources": []
+      },
+      "records": []
+    },
+    {
+      "symbol": "Sub_47A620",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "type": "std::int32_t",
+      "body": "std::int32_t Sub_47A620(const std::int32_t value)\n{\n    if (value == -1) {\n        const std::int32_t mode = gSkillWindowModeD672AC;\n        gSkillWindowScrollD2D648 = 0;\n        switch (mode) {\n        case 0:\n            Sub_479B80(gCurrentWindow, -1);\n            break;\n        case 3:\n            Sub_479EA0(gCurrentWindow, -1);\n            break;\n        case 4: {\n            const std::int32_t skillIndex = gSkillWindowIndexD2EA60;\n            Sub_47A000(gCurrentWindow, skillIndex, 1);\n            break;\n        }\n        case 5:\n            Sub_47A1A0(gCurrentWindow);\n            break;\n        case 6:\n            Sub_47A320(gCurrentWindow);\n            break;\n        default:\n            break;\n        }\n    }\n    const std::int32_t mode = gSkillWindowModeD672AC;\n    gSkillWindowHoverD2F744 = -1;\n    if ((mode == 1 || mode == 2 || mode == 4)\n        && world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].name[0] == '\\0') {\n        if (mode == 2) {\n            Sub_4796E0();\n            --gValueD67AFD;\n        }\n        if (mode == 1 || mode == 2) {\n            Sub_479660();\n        }\n        Sub_479B80(gCurrentWindow, 0);\n    }\n    gCurrentWindow->elements[6].visible = 0;\n    if (gSkillWindowModeD672AC == 1) {\n        gCurrentWindow->elements[6].visible = 1;\n    }\n    gCurrentWindow->elements[8].visible = 0;\n    if (gSkillWindowModeD672AC == 5) {\n        gCurrentWindow->elements[8].visible = 1;\n    }\n    if (gSkillWindowModeD672AC == 6) {\n        gCurrentWindow->elements[8].visible = 1;\n    }\n    return 1;\n}\n",
+      "snapshot": {
+        "id": "F:0007A620",
+        "original_entry": "0x47A620",
+        "original_name": "sub_47A620",
+        "semantic_indices": [],
+        "pending_indices": [],
+        "direct_snapshot_definitions": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_47A620",
+            "definition_line": 37598,
+            "namespace": "cg::ui::detail"
+          }
+        ],
+        "baseline_documents": [],
+        "classification_refs": [],
+        "disposition": null,
+        "feature_memberships": [],
+        "sources": []
+      },
+      "records": []
+    },
+    {
+      "symbol": "Sub_47B110",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "type": "std::int32_t",
+      "body": "std::int32_t Sub_47B110(const std::int32_t index, const std::int32_t state)\n{\n    WindowInstance* const window = gCurrentWindow;\n    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);\n    std::int32_t consumed = 0;\n    if ((state & 1) != 0) {\n        const std::int32_t mode = gSkillWindowModeD672AC;\n        if (mode == 1 || mode == 4) {\n            std::strcpy(gHoverTextD68AE8.data(), kSkillBackToList586488);\n        } else if (mode == 2) {\n            std::strcpy(gHoverTextD68AE8.data(), kSkillBackToTechniques586470);\n        }\n    }\n    if ((state & 2) != 0) {\n        switch (gSkillWindowModeD672AC) {\n        case 1:\n            Sub_479B80(window, gSkillWindowIndexD2EA60);\n            Sub_479660();\n            break;\n        case 2:\n            Sub_479C80(window, -1);\n            Sub_4796E0();\n            --gValueD67AFD;\n            break;\n        case 4:\n            Sub_479EA0(window, gSkillWindowIndexD2EA60);\n            break;\n        default:\n            break;\n        }\n        static_cast<void>(audio::PlaySe_52C450(51, 320));\n        consumed = 1;\n    }\n    graphic->imageNo = 0x3B571;\n    if ((state & 1) != 0) {\n        graphic->imageNo = 0x3B573;\n    }\n    if ((state & 8) != 0) {\n        graphic->imageNo = 0x3B572;\n    }\n    return consumed;\n}\n",
+      "snapshot": {
+        "id": "F:0007B110",
+        "original_entry": "0x47B110",
+        "original_name": "sub_47B110",
+        "semantic_indices": [],
+        "pending_indices": [],
+        "direct_snapshot_definitions": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_47B110",
+            "definition_line": 37431,
+            "namespace": "cg::ui::detail"
+          }
+        ],
+        "baseline_documents": [],
+        "classification_refs": [],
+        "disposition": null,
+        "feature_memberships": [],
+        "sources": []
+      },
+      "records": []
+    },
+    {
+      "symbol": "Sub_4742C0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "type": "std::int32_t",
+      "body": "std::int32_t Sub_4742C0(\n    WindowElement* const element, const std::int32_t maximum, const std::int32_t position)\n{\n    auto* const data = static_cast<std::byte*>(element->data);\n    std::int32_t y;\n    if (maximum <= 0) {\n        y = element->y;\n    } else {\n        y = (element->height - (element - 1)->height) * position / maximum;\n        y += element->y;\n    }\n    (element - 1)->y = y;\n    const std::int32_t delta = y - element->y;\n    // 4C0160也传入type1图形载荷；原+8写入对应其offsetY。\n    static_assert(offsetof(WindowMouseData, deltaY) == offsetof(WindowGraphicData, offsetY));\n    std::memcpy(data + offsetof(WindowMouseData, deltaY), &delta, sizeof(delta));\n    return delta;\n}\n",
+      "snapshot": {
+        "id": "F:000742C0",
+        "original_entry": "0x4742C0",
+        "original_name": "sub_4742C0",
+        "semantic_indices": [],
+        "pending_indices": [],
+        "direct_snapshot_definitions": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4742C0",
+            "definition_line": 39355,
+            "namespace": "cg::ui::detail"
+          }
+        ],
+        "baseline_documents": [],
+        "classification_refs": [],
+        "disposition": null,
+        "feature_memberships": [],
+        "sources": []
+      },
+      "records": []
+    }
+  ],
+  "source_bodies_after": [
+    {
+      "symbol": "Sub_496AE0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "type": "void",
+      "body": "void Sub_496AE0()\n{\n    if (gWindowStates[26].window == nullptr) {\n        return;\n    }\n    if (std::bit_cast<std::int32_t>(gWindowStates[26].value10) > 0) {\n        gWindowStates[26].value10 = 0;\n    }\n    if (std::bit_cast<std::int32_t>(gWindowStates[26].value14) < 0) {\n        gWindowStates[26].value14 = 0;\n    }\n    WindowInstance* window = gWindowStates[10].window;\n    gWindowStates[26].userState.value = 2;\n    if (window != nullptr) {\n        window->state |= 0x8000u;\n    }\n    window = gWindowStates[27].window;\n    if (window != nullptr) {\n        window->state |= 0x8000u;\n    }\n    window = gWindowStates[28].window;\n    if (window != nullptr) {\n        window->state |= 0x8000u;\n    }\n    login::YobiAction* const skillAction = gBattleSkillWindowActionCC1A10;\n    if (skillAction != nullptr) {\n        login::detail::MarkDeath(skillAction);\n        gBattleSkillWindowActionCC1A10 = nullptr;\n    }\n    login::YobiAction* const itemAction = gBattleItemWindowActionD2F790;\n    if (itemAction != nullptr) {\n        login::detail::MarkDeath(itemAction);\n        gBattleItemWindowActionD2F790 = nullptr;\n    }\n    login::YobiAction* const petAction = gBattlePetWindowActionD2D60C;\n    if (petAction != nullptr) {\n        login::detail::MarkDeath(petAction);\n        gBattlePetWindowActionD2D60C = nullptr;\n    }\n}\n",
+      "snapshot": {
+        "id": "F:00096AE0",
+        "original_entry": "0x496AE0",
+        "original_name": "BattleScene::closeAllWin",
+        "semantic_indices": [],
+        "pending_indices": [],
+        "direct_snapshot_definitions": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_496AE0",
+            "definition_line": 35611,
+            "namespace": "cg::ui::detail"
+          }
+        ],
+        "baseline_documents": [],
+        "classification_refs": [],
+        "disposition": null,
+        "feature_memberships": [],
+        "sources": []
+      },
+      "records": []
+    },
+    {
+      "symbol": "Sub_47A620",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "type": "std::int32_t",
+      "body": "std::int32_t Sub_47A620(const std::int32_t value)\n{\n    if (value == -1) {\n        const std::int32_t mode = gSkillWindowModeD672AC;\n        gSkillWindowScrollD2D648 = 0;\n        switch (mode) {\n        case 0:\n            Sub_479B80(gCurrentWindow, -1);\n            break;\n        case 3:\n            Sub_479EA0(gCurrentWindow, -1);\n            break;\n        case 4: {\n            const std::int32_t skillIndex = gSkillWindowIndexD2EA60;\n            Sub_47A000(gCurrentWindow, skillIndex, 1);\n            break;\n        }\n        case 5:\n            Sub_47A1A0(gCurrentWindow);\n            break;\n        case 6:\n            Sub_47A320(gCurrentWindow);\n            break;\n        default:\n            break;\n        }\n    }\n    const std::int32_t mode = gSkillWindowModeD672AC;\n    gSkillWindowHoverD2F744 = -1;\n    if ((mode == 1 || mode == 2 || mode == 4)\n        && world::detail::gSkillsF1BAFC[gSkillWindowIndexD2EA60].name[0] == '\\0') {\n        if (mode == 2) {\n            Sub_4796E0();\n            --gValueD67AFD;\n        }\n        if (mode == 1 || mode == 2) {\n            Sub_479660();\n        }\n        Sub_479B80(gCurrentWindow, 0);\n    }\n    gCurrentWindow->elements[6].visible = 0;\n    if (gSkillWindowModeD672AC == 1) {\n        gCurrentWindow->elements[6].visible = 1;\n    }\n    gCurrentWindow->elements[8].visible = 0;\n    if (gSkillWindowModeD672AC == 5) {\n        gCurrentWindow->elements[8].visible = 1;\n    }\n    if (gSkillWindowModeD672AC == 6) {\n        gCurrentWindow->elements[8].visible = 1;\n    }\n    return 1;\n}\n",
+      "snapshot": {
+        "id": "F:0007A620",
+        "original_entry": "0x47A620",
+        "original_name": "sub_47A620",
+        "semantic_indices": [],
+        "pending_indices": [],
+        "direct_snapshot_definitions": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_47A620",
+            "definition_line": 37598,
+            "namespace": "cg::ui::detail"
+          }
+        ],
+        "baseline_documents": [],
+        "classification_refs": [],
+        "disposition": null,
+        "feature_memberships": [],
+        "sources": []
+      },
+      "records": []
+    },
+    {
+      "symbol": "Sub_47B110",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "type": "std::int32_t",
+      "body": "std::int32_t Sub_47B110(const std::int32_t index, const std::int32_t state)\n{\n    WindowInstance* const window = gCurrentWindow;\n    const WindowElement* const element = &window->elements[index];\n    const bool hovered = (state & 1) != 0;\n    auto* const graphic = static_cast<WindowGraphicData*>(element->data);\n    std::int32_t consumed = 0;\n    if (hovered) {\n        const std::int32_t mode = gSkillWindowModeD672AC;\n        if (mode == 1 || mode == 4) {\n            std::strcpy(gHoverTextD68AE8.data(), kSkillBackToList586488);\n        } else if (mode == 2) {\n            std::strcpy(gHoverTextD68AE8.data(), kSkillBackToTechniques586470);\n        }\n    }\n    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 2u) != 0) {\n        switch (gSkillWindowModeD672AC) {\n        case 1:\n            Sub_479B80(window, gSkillWindowIndexD2EA60);\n            Sub_479660();\n            break;\n        case 2:\n            Sub_479C80(window, -1);\n            Sub_4796E0();\n            --gValueD67AFD;\n            break;\n        case 4:\n            Sub_479EA0(window, gSkillWindowIndexD2EA60);\n            break;\n        default:\n            break;\n        }\n        static_cast<void>(audio::PlaySe_52C450(51, 320));\n        consumed = 1;\n    }\n    graphic->imageNo = 0x3B571;\n    if (hovered) {\n        graphic->imageNo = 0x3B573;\n    }\n    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 8u) != 0) {\n        graphic->imageNo = 0x3B572;\n    }\n    return consumed;\n}\n",
+      "snapshot": {
+        "id": "F:0007B110",
+        "original_entry": "0x47B110",
+        "original_name": "sub_47B110",
+        "semantic_indices": [],
+        "pending_indices": [],
+        "direct_snapshot_definitions": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_47B110",
+            "definition_line": 37431,
+            "namespace": "cg::ui::detail"
+          }
+        ],
+        "baseline_documents": [],
+        "classification_refs": [],
+        "disposition": null,
+        "feature_memberships": [],
+        "sources": []
+      },
+      "records": []
+    },
+    {
+      "symbol": "Sub_4742C0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "type": "std::int32_t",
+      "body": "std::int32_t Sub_4742C0(\n    WindowElement* const element, const std::int32_t maximum, const std::int32_t position)\n{\n    auto* const data = static_cast<std::byte*>(element->data);\n    std::int32_t y;\n    if (maximum <= 0) {\n        y = element->y;\n    } else {\n        const std::int32_t height = element->height;\n        const std::int32_t previousHeight = (element - 1)->height;\n        y = (height - previousHeight) * position / maximum;\n        y += element->y;\n    }\n    (element - 1)->y = y;\n    const std::int32_t delta = y - element->y;\n    // 4C0160也传入type1图形载荷；原+8写入对应其offsetY。\n    static_assert(offsetof(WindowMouseData, deltaY) == offsetof(WindowGraphicData, offsetY));\n    std::memcpy(data + offsetof(WindowMouseData, deltaY), &delta, sizeof(delta));\n    return delta;\n}\n",
+      "snapshot": {
+        "id": "F:000742C0",
+        "original_entry": "0x4742C0",
+        "original_name": "sub_4742C0",
+        "semantic_indices": [],
+        "pending_indices": [],
+        "direct_snapshot_definitions": [
+          {
+            "path": "src/ui/WindowRuntime.cpp",
+            "symbol": "Sub_4742C0",
+            "definition_line": 39355,
+            "namespace": "cg::ui::detail"
+          }
+        ],
+        "baseline_documents": [],
+        "classification_refs": [],
+        "disposition": null,
+        "feature_memberships": [],
+        "sources": []
+      },
+      "records": []
+    }
+  ],
+  "source_patches": [
+    {
+      "symbol": "Sub_496AE0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_sites": [
+        "0x496B0C",
+        "0x496B11"
+      ],
+      "before": "    gWindowStates[26].userState.value = 2;\n    WindowInstance* window = gWindowStates[10].window;",
+      "after": "    WindowInstance* window = gWindowStates[10].window;\n    gWindowStates[26].userState.value = 2;",
+      "purpose": "window10 T*取样先于window26.userState W32=2"
+    },
+    {
+      "symbol": "Sub_496AE0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_sites": [
+        "0x496B46"
+      ],
+      "before": "    if (gBattleSkillWindowActionCC1A10 != nullptr) {\n        login::detail::MarkDeath(gBattleSkillWindowActionCC1A10);\n        gBattleSkillWindowActionCC1A10 = nullptr;\n    }",
+      "after": "    login::YobiAction* const skillAction = gBattleSkillWindowActionCC1A10;\n    if (skillAction != nullptr) {\n        login::detail::MarkDeath(skillAction);\n        gBattleSkillWindowActionCC1A10 = nullptr;\n    }",
+      "purpose": "当前阶段一次借T*供判空/MarkDeath，非空清共享槽后才取下一槽"
+    },
+    {
+      "symbol": "Sub_496AE0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_sites": [
+        "0x496B5E"
+      ],
+      "before": "    if (gBattleItemWindowActionD2F790 != nullptr) {\n        login::detail::MarkDeath(gBattleItemWindowActionD2F790);\n        gBattleItemWindowActionD2F790 = nullptr;\n    }",
+      "after": "    login::YobiAction* const itemAction = gBattleItemWindowActionD2F790;\n    if (itemAction != nullptr) {\n        login::detail::MarkDeath(itemAction);\n        gBattleItemWindowActionD2F790 = nullptr;\n    }",
+      "purpose": "当前阶段一次借T*供判空/MarkDeath，非空清共享槽后才取下一槽"
+    },
+    {
+      "symbol": "Sub_496AE0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_sites": [
+        "0x496B76"
+      ],
+      "before": "    if (gBattlePetWindowActionD2D60C != nullptr) {\n        login::detail::MarkDeath(gBattlePetWindowActionD2D60C);\n        gBattlePetWindowActionD2D60C = nullptr;\n    }",
+      "after": "    login::YobiAction* const petAction = gBattlePetWindowActionD2D60C;\n    if (petAction != nullptr) {\n        login::detail::MarkDeath(petAction);\n        gBattlePetWindowActionD2D60C = nullptr;\n    }",
+      "purpose": "当前阶段一次借T*供判空/MarkDeath，非空清共享槽后才取下一槽"
+    },
+    {
+      "symbol": "Sub_47B110",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_sites": [
+        "0x47B123",
+        "0x47B129",
+        "0x47B12C"
+      ],
+      "before": "    auto* const graphic = static_cast<WindowGraphicData*>(window->elements[index].data);\n    std::int32_t consumed = 0;\n    if ((state & 1) != 0) {",
+      "after": "    const WindowElement* const element = &window->elements[index];\n    const bool hovered = (state & 1) != 0;\n    auto* const graphic = static_cast<WindowGraphicData*>(element->data);\n    std::int32_t consumed = 0;\n    if (hovered) {",
+      "purpose": "先取elements T*后缓存hover=S32 state&1，再借graphic T*，hover快照跨调用保"
+    },
+    {
+      "symbol": "Sub_47B110",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_sites": [
+        "0x47B16C"
+      ],
+      "before": "    if ((state & 2) != 0) {",
+      "after": "    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 2u) != 0) {",
+      "purpose": "原TEST BYTE栈state掩码2只低W8，形参S32保"
+    },
+    {
+      "symbol": "Sub_47B110",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_sites": [
+        "0x47B1E8"
+      ],
+      "before": "    if ((state & 1) != 0) {",
+      "after": "    if (hovered) {",
+      "purpose": "图像尾使用入口held hover寄存器，不重复读参数"
+    },
+    {
+      "symbol": "Sub_47B110",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_sites": [
+        "0x47B1FA"
+      ],
+      "before": "    if ((state & 8) != 0) {",
+      "after": "    if ((*reinterpret_cast<const std::uint8_t*>(&state) & 8u) != 0) {",
+      "purpose": "图像pressed覆写原TEST BYTE栈state低W8，不能沿用点击掩码"
+    },
+    {
+      "symbol": "Sub_4742C0",
+      "source_path": "src/ui/WindowRuntime.cpp",
+      "original_sites": [
+        "0x4742E2",
+        "0x4742E5"
+      ],
+      "before": "        y = (element->height - (element - 1)->height) * position / maximum;",
+      "after": "        const std::int32_t height = element->height;\n        const std::int32_t previousHeight = (element - 1)->height;\n        y = (height - previousHeight) * position / maximum;",
+      "purpose": "原height再previousHeight两个W32取序，正常S32乘/除与后取baseY保"
+    }
+  ],
+  "source_body_patch_count": 9,
+  "changed_source_body_count": 3,
+  "new_w8_source_expression_count": 2,
+  "normal_previous_values_wrong": false,
+  "new_r7_classification": true,
+  "full_source_functions_normal_static_mapped": true,
+  "implementation_static_scope": "四完整260条837B/六页、17直接call/十callee、40普通jump/一实际七项switch/五ret。三体九片段恢复window10 T*取样先userState发布、三action槽按阶段一次T*、返回按钮elements/hover/data顺序和入口hover缓存/两形参W8、助手两height W32取序；正常旧值一致，47A620完整正确体与W32关闭/正常S32计算/别名和旧42B提示保。原型头/数组头数据xref不等callback字段，实际54E444与数组第4项561C14有完整48/32B和源行值；12收尾父邻窗60条305B仅调用相邻序，助手83代码入向只登记。42B X有原七W32目标与2B MOV同寄存器/12NOP对齐，mapped仅字节用途；R7 262/3061余2799。完整生产/其它子依赖/全部父、窗口10/26与57C368 token及owner寿命、SDK/生成机器ABI/画面运行/R8未验。原格式明文、音频暂停与RPLAN.24不新增保护/故障/回绕模拟保持。",
+  "full_parent_newly_verified": false,
+  "full_lifecycle_closed": false,
+  "runtime_verified": false,
+  "fault_equivalence_claimed": false,
+  "feature_before": {
+    "id": "FUNC-BATTLE",
+    "kind": "flow",
+    "parent_id": null,
+    "title": "战斗状态与执行",
+    "domain": "BATTLE",
+    "scope": "included",
+    "baseline_documents": [
+      "doc/ui_windows/shared_battle.md",
+      "doc/yobi_updates/battle_scene.md",
+      "doc/yobi_updates/battle_actor.md",
+      "doc/cg2d_battle_attack_targets_spec.md",
+      "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-baseline",
+      "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-baseline",
+      "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-baseline",
+      "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-baseline",
+      "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-baseline",
+      "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-baseline",
+      "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-baseline",
+      "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-baseline",
+      "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-baseline",
+      "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-baseline",
+      "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-baseline",
+      "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-baseline",
+      "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-baseline",
+      "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-baseline",
+      "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-baseline",
+      "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+      "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-baseline",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-baseline",
+      "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-baseline",
+      "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-baseline",
+      "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-baseline",
+      "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-baseline",
+      "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-baseline",
+      "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-baseline",
+      "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-baseline",
+      "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-baseline",
+      "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-baseline",
+      "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-baseline",
+      "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-baseline",
+      "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-baseline",
+      "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-baseline",
+      "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-baseline",
+      "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-baseline",
+      "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-baseline",
+      "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-baseline",
+      "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-baseline",
+      "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-baseline",
+      "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-baseline",
+      "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-baseline",
+      "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-baseline",
+      "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-baseline",
+      "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-baseline",
+      "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-baseline",
+      "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-baseline",
+      "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-baseline",
+      "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-baseline",
+      "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-baseline",
+      "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-baseline",
+      "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-baseline",
+      "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-baseline",
+      "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-baseline",
+      "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-baseline",
+      "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-baseline",
+      "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-baseline",
+      "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-baseline",
+      "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-baseline",
+      "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-baseline",
+      "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-baseline",
+      "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-baseline",
+      "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-baseline",
+      "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-baseline",
+      "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-baseline",
+      "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-baseline",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-baseline",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-baseline",
+      "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-baseline",
+      "doc/cg2d_battle_action_114_spec.md#battle-action-114-baseline",
+      "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-baseline",
+      "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-baseline",
+      "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-baseline",
+      "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-baseline",
+      "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-baseline",
+      "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-baseline",
+      "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-baseline",
+      "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-baseline",
+      "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-baseline",
+      "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-baseline",
+      "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-baseline",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-baseline",
+      "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-baseline",
+      "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-baseline",
+      "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-baseline",
+      "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-baseline",
+      "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-baseline",
+      "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-baseline",
+      "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-baseline",
+      "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-baseline",
+      "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-baseline",
+      "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-baseline"
+    ],
+    "original_inventory_ids": [
+      "F:00024620",
+      "F:0001EAB0",
+      "F:0001EB10",
+      "F:0001E5C0",
+      "F:0001E5F0",
+      "F:00038290",
+      "F:00004DB0",
+      "F:00021FB0",
+      "F:000225D0",
+      "F:00022780",
+      "F:000221F0",
+      "F:000222B0",
+      "F:00022A30",
+      "F:00022B00",
+      "F:00022BC0",
+      "F:00022C20",
+      "F:00022C90",
+      "F:00021F90",
+      "F:00022370",
+      "F:00014050",
+      "F:000154C0",
+      "F:00015940",
+      "F:0003B610",
+      "F:000383B0",
+      "F:00039340",
+      "F:00039380",
+      "F:00039470",
+      "F:000390E0",
+      "F:000393A0",
+      "F:0003B7F0",
+      "F:000394A0",
+      "F:000391E0",
+      "F:000392A0",
+      "F:00039400",
+      "F:000392F0",
+      "F:0003B940",
+      "F:0003B8C0",
+      "F:0003B860",
+      "F:0003B9B0",
+      "F:00039770",
+      "F:00039600",
+      "F:00039670",
+      "F:00038F70",
+      "F:00038FE0",
+      "F:00039B30",
+      "F:00039920",
+      "F:0003BF30",
+      "F:0003B290",
+      "F:0003B360",
+      "F:000383F0",
+      "F:0003B6C0",
+      "F:0003CBB0",
+      "F:00026FC0",
+      "F:000242B0",
+      "F:0003BC10",
+      "F:00019FC0",
+      "F:0001E680",
+      "F:00019FA0",
+      "F:0001E640",
+      "F:0001E720",
+      "F:0001E7C0",
+      "F:0001A0D0",
+      "F:00020D50",
+      "F:0001A200",
+      "F:00021480",
+      "F:00021570",
+      "F:00021610",
+      "F:000216B0",
+      "F:00021700",
+      "F:0001A310",
+      "F:0001A7D0",
+      "F:0001CD00",
+      "F:0001A160",
+      "F:0001A1C0",
+      "F:0001A270",
+      "F:00022E50",
+      "F:00023040",
+      "F:000231D0",
+      "F:00023350",
+      "F:000234B0",
+      "F:0001A9E0",
+      "F:0001AF00",
+      "F:0001B440",
+      "F:0001BB00",
+      "F:0001C3B0",
+      "F:00005EA0",
+      "F:000060D0",
+      "F:00006190",
+      "F:00006300",
+      "F:0006F930",
+      "F:0006F950",
+      "F:0006F970",
+      "F:0006F8F0",
+      "F:00005CB0",
+      "F:00006260",
+      "F:00006390",
+      "F:0003BC90",
+      "F:0001F4C0",
+      "F:0001F450",
+      "F:0001F1A0",
+      "F:0001F110",
+      "F:000206C0",
+      "F:0004B260",
+      "F:0005A710",
+      "F:0005A8B0",
+      "F:0000F0A0",
+      "F:00010E90",
+      "F:00010FC0",
+      "F:0000EFE0",
+      "F:0000F790",
+      "F:0000F800",
+      "F:0000FB30",
+      "F:000107C0",
+      "F:00010B00",
+      "F:00010E30",
+      "F:000113A0",
+      "F:00011A50",
+      "F:00011D30",
+      "F:00011CB0",
+      "F:00011FA0",
+      "F:00011FC0",
+      "F:00011FE0",
+      "F:00012000",
+      "F:00012020",
+      "F:000120F0",
+      "F:000121D0",
+      "F:00012210",
+      "F:00012260",
+      "F:00020F10",
+      "F:000124E0",
+      "F:00012290",
+      "F:000122C0",
+      "F:000122E0",
+      "F:00012310",
+      "F:000127B0",
+      "F:000127F0",
+      "F:00012830",
+      "F:00012870",
+      "F:00012900",
+      "F:00012F70",
+      "F:00013070",
+      "F:00013110",
+      "F:000131B0",
+      "F:000132B0",
+      "F:000133D0",
+      "F:00013400",
+      "F:00013550",
+      "F:00013750",
+      "F:00013980",
+      "F:00013B40",
+      "F:00013E90",
+      "F:00013FE0",
+      "F:000150F0",
+      "F:00016000",
+      "F:00016020",
+      "F:000160A0",
+      "F:00016150",
+      "F:00016220",
+      "F:00016860",
+      "F:00016AB0",
+      "F:00006630",
+      "F:00016DD0",
+      "F:00016DB0",
+      "F:00017410",
+      "F:00017AC0",
+      "F:00017B80",
+      "F:00017CC0",
+      "F:00018550",
+      "F:00018580",
+      "F:00017D80",
+      "F:000185C0",
+      "F:000185F0",
+      "F:00018620",
+      "F:000071C0",
+      "F:0000FC10",
+      "F:0000B180",
+      "F:0000FE50",
+      "F:0000FEB0",
+      "F:000186B0",
+      "F:00018B50",
+      "F:0000CAC0",
+      "F:0000CAF0",
+      "F:0003C910",
+      "F:0003C9A0",
+      "F:0003CA50",
+      "F:0003CA80",
+      "F:0003C560",
+      "F:0003C060",
+      "F:00096F10",
+      "F:000972B0",
+      "F:00097000",
+      "F:00097100",
+      "F:00097210",
+      "F:000973C0",
+      "F:000975A0",
+      "F:00097770",
+      "F:00097900",
+      "F:0007A4C0",
+      "F:0007A500",
+      "F:0007A5C0",
+      "F:00079EA0",
+      "F:00075AA0",
+      "F:00075950",
+      "F:000758D0",
+      "F:0007C570",
+      "F:0007A000",
+      "F:0007C700",
+      "F:000974C0"
+    ],
+    "closure_task_ids": [
+      "P01",
+      "U08",
+      "U09",
+      "V04"
+    ],
+    "dependencies": [
+      "FUNC-YOBI",
+      "FUNC-RENDER",
+      "FUNC-NETWORK"
+    ],
+    "acceptance_focus": "攻击生产、动作/事件、回合、载荷归属与清理",
+    "decision_refs": [
+      "doc/cg2d_closure_decisions_spec.md",
+      "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-decision",
+      "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-decision",
+      "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-decision",
+      "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-decision",
+      "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-decision",
+      "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-decision",
+      "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-decision",
+      "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-decision",
+      "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-decision",
+      "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-decision",
+      "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-decision",
+      "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-decision",
+      "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-decision",
+      "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-decision",
+      "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-decision",
+      "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+      "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-decision",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-decision",
+      "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-decision",
+      "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-decision",
+      "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-decision",
+      "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-decision",
+      "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-decision",
+      "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-decision",
+      "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-decision",
+      "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-decision",
+      "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-decision",
+      "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-decision",
+      "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-decision",
+      "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-decision",
+      "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-decision",
+      "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-decision",
+      "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-decision",
+      "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-decision",
+      "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-decision",
+      "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-decision",
+      "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-decision",
+      "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-decision",
+      "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-decision",
+      "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-decision",
+      "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-decision",
+      "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-decision",
+      "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-decision",
+      "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-decision",
+      "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-decision",
+      "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-decision",
+      "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-decision",
+      "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-decision",
+      "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision",
+      "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-decision",
+      "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-decision",
+      "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-decision",
+      "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-decision",
+      "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-decision",
+      "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-decision",
+      "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-decision",
+      "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-decision",
+      "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-decision",
+      "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-decision",
+      "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-decision",
+      "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-decision",
+      "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-decision",
+      "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-decision",
+      "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-decision",
+      "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-decision",
+      "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-decision",
+      "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-decision",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-decision",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-decision",
+      "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-decision",
+      "doc/cg2d_battle_action_114_spec.md#battle-action-114-decision",
+      "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-decision",
+      "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-decision",
+      "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-decision",
+      "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-decision",
+      "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-decision",
+      "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-decision",
+      "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-decision",
+      "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-decision",
+      "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-decision",
+      "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-decision",
+      "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-decision",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-decision",
+      "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-decision",
+      "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-decision",
+      "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-decision",
+      "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-decision",
+      "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-decision",
+      "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-decision",
+      "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-decision",
+      "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-decision",
+      "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-decision",
+      "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-decision"
+    ],
+    "blockers": [
+      "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
+      "音频传递依赖仍暂停；完整战斗原新对照与V04/V05未验，运行受执行限制",
+      "BCS01两旧Clone/Copy增量及三既有残影/基础角色入口纳管，九字组与三取样差异已修；同五F跨YOBI不双计，全部战斗状态/目标和数据资源生产、浅别名owner重进退出/借用失效、SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BTS01真实主回调公共尾四片段已修，257case/200既有目标保持；同一F跨YOBI不双计。完整全部动作/绑定父与实参、战斗状态和数据资源生产、owner重进退出/浅别名/借用失效、SDK/ABI/PC53/时钟RNG/画面运行仍未验",
+      "BAS01三附件同步十三差异实修、四表44槽176B及真实主回调1/1/2消费可追，同三F跨YOBI不双计；完整附件生产/全部动作实参和战斗数据资源、owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BAP01八442条1393B/24call和3绑定15父可追，BC0/C20独立分工及发布清理、六槽表/type3缩放/原失败与回调取样落实；同八F跨YOBI不双计。全部绑定父/动作实参/战斗数据资源与owner浅别名寿命/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BAR01退场七槽五段/装备三段和完整状态根可追，八窗401条1549B与完整177条608B/前置16条66B分列；同四F跨YOBI不双计。完整三父/动作实参/战斗数据资源与owner重进退出/浅别名/借用失效/SDK/ABI/PC53/时钟RNG/画面运行未验",
+      "BRA01真实case226→4154C0完整原体与入口/角色恢复/位置/计数/清槽取样已修；已有F:000154C0双域不双计，原28call保持。完整224/227/全部动作实参与数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+      "BRB01真实case227→415940完整根及入口/恢复角色/动画/位置/计数与旧首槽消费已修，已有F:00015940双域不双计；原28call保持。224余927条3519B与所有动作实参/数据资源生产和owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+      "BRC01真实case224→414050完整根、来源目标/点表参数/循环/计数和角色恢复取样已修，已有F:00014050双域不双计，90call保持。224/226/227父本体有限原静态差集0；所有其它动作实参/数据资源生产消费与owner寿命/SDK/ABI/PC53/时钟RNG/画面运行仍待",
+      "BEV01真实4383F0→4383B0→43B360→43B610和三推进根可追，22动态mask/初始化后slot发布与各不同null/计数/哨兵保持。同五F双域不多计，完整188父/所有其它动作/实参/数据资源及owner/SDK/ABI/PC53/时钟RNG/画面运行未闭",
+      "BQR01事件参与者初始化、动作/目标追加与22槽就绪/超时恢复五源差异已修，101普通call7父和8出向可追；同四F双域不多计。完整七父/其它动作实参/数据资源及owner/SDK/ABI/PC53/浮点状态/时钟RNG/画面运行未闭",
+      "BQA01就绪恢复实调用重置/Append及显式索引追加/完整效果追加四身份纳管，原顺序/索引复读和各null/哨兵/返回保持、源码未新增。同四F双域不多计，完整26父/其它动作实参/列表数据资源和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BMR01整数与字符串当前游标、预读/目标扫描本地游标四身份纳管；旧格式/双字节/NUL及原调用合同保持，同四F双域不多计。全部M数据资源/动作生产消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BMS01原RID头表/明确游标读→两参与者W8自增/游标成功pub或失败恢复合同纳管；同五F双域不双计、旧439770不重复身份。全部8父/其它M动作与资源生产消费和owner/SDK/ABI/PC53/时钟RNG/画面仍未闭",
+      "BMD01原25消息/技能382表槽和19表外分类、22B计数/W8次数/S32输出与特效对/20*36B名称表生产、正确攻击/辅助图形合同纳管；同三F双域不双计，全部6父与资源消费/owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BME01实际43B360→43B290→439B30/工厂/等待和32/22非拥有表初始化合同纳管，保两merge取样/失败及cached/live分工，同三F双域不双计；全部3父/事件资源消费和owner/SDK/ABI/PC53/时钟RNG/画面未闭",
+      "BMF01消息完成→Init/活动mask注销和十状态C/M队列/绘制/退出明文真实消费纳管，95call5父139出向/三表可追；两根共用不重复计，完整事件分派/资源/owner/时钟RNG/画面仍待",
+      "BMG01失活CHT/BST/负延迟执行入口和四内联计时正常条件恢复；仅旧812追加和双域四局部I/S，不新成员/分类/身份，全部消息目标、owner/时钟RNG/画面未闭",
+      "BMH01ACTION/FP/CHT/变身/追加技能/结束六真实消费及63call/既有CopyPayload合同纳管，正常条件先pub和加载后取样恢复；仅局部I/S/旧812追加，不新完整分类/成员，全部父/owner/时钟RNG/画面未闭",
+      "BMI01Escape/Clear/Support/三宠物的原列表/seed/两Rand/不同ready和Finish→58/父回存合同纳管，60call与原分支可追；局部I/S且旧812追加不新分类/成员，全部资源owner/时钟RNG/画面未闭",
+      "BMJ01Equipment/StatusValue/Debuff/Power/Rebirth/QueuedValue正常消费、89call与有界原分支纳管，三存在条件/技能等级/两W8/flags→target恢复；只旧812追加及四局部I/S，不新完整分类/成员，全部资源owner/时钟RNG/画面未闭",
+      "BMK01POS/MON正常/失败返回及61call与原跳转纳管，坐标/玩家/target/效果/失败W8/工厂固定槽取样恢复；仅旧812追加和四局部I/S，不新完整分类/成员，资源owner/时钟RNG/画面未闭",
+      "BML01RID/GMN取包、工厂发布/载体与成员列表和170call原跳转纳管，flags/效果/坐标/三W8/linked与caster门禁恢复；仅旧812追加及四局部I/S，不新完整分类/成员，全部资源owner/时钟RNG/画面未闭",
+      "BMM01道具/连击119call与原直接/间接表分支纳管，target/消息与累计pub、两W8和参数/索引/player/末目标寿命取样恢复；仅旧812追加及四局部I/S，不新完整分类/成员，全部消费者/资源owner/时钟RNG/画面未闭",
+      "BMN01技能头0有界入口/等待态35call与五压缩表实际长度/宽度/默认映射纳管，一次58/四W8/两条件pub时序恢复；仅旧812追加及四局部I/S，不新完整分类/成员，正常主体全部消费者/资源owner/时钟RNG/画面仍待",
+      "BMO01技能4caster/target同解析位置、字段与效果参数取样、两S32索引/player/165-27恢复，入口21W32-118W8表仅case4定位；仅旧812追加和双域四局部I/S，不新分类/完整成员，其它技能全部消费者/资源owner/时钟RNG/画面继续",
+      "BMP01原累计-反向效果参数与字段/83索引-player/条件pub及一W8取样恢复，低段四case仅定位，偏移表原新对应保持；仅旧812追加与双域四局部I/S，不新分类/完整成员，其它技能全部消费者/资源owner/时钟RNG/画面继续",
+      "BMQ01五技能同caster自身效果与字段/图号原序、空actor条件先位置pub恢复，仅旧812追加和双域四局部I/S；五case路由仅上下文，不新分类/完整成员，其它技能所有消费者/资源owner/时钟RNG/画面继续",
+      "BMT01四根二十二处、202B三case入口/原48B偏移与正常八W32初值纳管，两个原循环都核；仅旧812追加和双域四局部I/S，不新分类/完整成员，全部其它技能/消费者/资源owner/时钟RNG/画面继续",
+      "BMU01同解析caster-target与条件pub、字段/Album之后效果参数恢复；仅旧812追加与双域四局部I/S，不新分类/完整成员或工厂null/立即释放模型，98及其它各技能/全路由-完整父-SEH/所有消费者-资源owner-时钟RNG-画面继续",
+      "BMV01同位置caster与payload-skill、actor先level/mode和caster先低段图偏移恢复；三Take/空Finish和六动作后true保持，无目标/RID/58新消费，仅旧812与四局部I/S，不新完整成员，各模式及完整父-SEH/消费者-owner运行继续",
+      "BMW01目标比较先pub/同位置空门禁-解析target效果及两字段actor先值恢复，255/空Finish均仍终结-Move-RID-增58，五动作live保持；仅旧812及四局部I/S，不新完整成员，其它模式/完整父-SEH/消费者-owner运行继续",
+      "BMX01换位固定oldSlot/moving与八坐标/三附件各次取样、mode8 flagsFDC W8及Reset固定target恢复；原非对称门禁/槽发布与255或空Finish后的终结Move-RID-增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+      "BMY01两类中点/效果参数-S32选择/字段-player和0-149条件取样、14双位置金额类型恢复；12/13初始失败直接回存-循环selected终结74、14无空门禁且双哨兵caster终结和Move-RID-增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+      "BMZ01两路径核后保持6/3共用，目标比较pub-effect/aux参数-S32选择/player同位置恢复；无actor空门禁及flags条件重读/47-46和不同哨兵参数尾-Move-RID增58保持，仅旧812/四局部I-S，不新完整成员，其它mode/完整父-SEH/消费者-owner运行继续",
+      "BNA01 flags caster先pub/固定值与live-S32选择/状态字段恢复，原19模式入口和动态mode/默认正确消费纳管；仅旧812/四局部I-S及原98区段覆盖，不新完整成员/分类，所有消费者-owner/SDK/ABI/时钟RNG/画面运行继续",
+      "BNB01三种状态路径的固定payload跨144/余数重读和原消费保持，14定义15处实修；400条主体/既有尾及实际99..104-2019-3001入口不能代完整战斗接线/生命周期-运行/SDK/画面及其它技能-全路由/R1-R7-R8",
+      "BNC01技能107原四动作/取包、初空返回和循环Finish后终结Move增58无RID保持，五处实修；该93条有界主体不能代完整战斗接线/生命周期-运行/SDK画面及其它技能-全路由/R1-R7-R8",
+      "BND01 108固定amount/各次live、两正常149/184-159门禁与失败68/22331/59及末55共用尾保持，十处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNE01 109三级flags选择/22329-22331和各次live/主体55后Move原尾保持，九处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNF01 112原flags先pub/0后一次W32-EAX/AH选择/两个位置切换与原取包-动作/Move尾保持，九处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNG01 114原图号表-caster-加法/target先flags pub、157后门禁和原成功/失败与终结Move尾保持，八处实修；该有界主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNH01 117同解析角色/基础字段与caster-target先flags pub、0后W32 live门禁/56或68后另live22331-73/74与真实Move后缀保持，七处实修；该主体不能代完整战斗接线/生命周期运行/SDK画面、其它技能-全路由及R1-R7-R8",
+      "BNI01 73非零具体效果取样/同解析target与34后比较位置、双S32索引原序恢复，原两字段先判空/live flags门禁-原动作与Move-RID-增58保持；不能代73零模式完整消费者/全case/全部战斗接线-owner/SDK画面或R1-R7-R8",
+      "BNJ01 106族角色字段/同解析target、两Effect具体参数-S32索引与34后比较位置原序恢复，原2002额外取包/29容量-live门禁、cached W32选择和原初/末动作-Move/RID/增58保持；不能代其它技能/完整战斗接线-owner/SDK画面或R1-R7-R8",
+      "BNK01 73零/3100 index-level-skill、普通mode后cached skill再index-level及四输出/value角色尾恢复，三原call对照三现有调用点；P01 core源码closed保持，不代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNL01普通非零坐标/图-角色与Effect、mode3自身转向字段/固定金额/末W8、四S32索引和两比较原序恢复，原图数组分工/取包-动作/两类终结与Move/RID/增58保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNM01 263同参Effect、400固定Take flags/条件重读两Cast0、401两字段后live flags与三低图角色先表恢复，原消费-动作/各失败与固定58值无RID保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNN01 402第三Take后live caster/图号-目标遍历与比较先pub、405两图次序/五Effect各次取样和两S32索引恢复，原消费-转换-动作与各失败/固定58尾无RID保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNO01预读caster缓存/两段分支坐标-固定100C与carrier/rider取样、普通Effect/Aux/四S32索引和位置比较-最终恢复/两W8门禁恢复；原子角色/消费-字段/动作及Move-RID固定58尾保持，不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNP01累计总量先target/固定flags与响应W8、各低高图-反射字段/最终AEL、2005族Effect/Aux-两S32索引和位置比较恢复；原消费/同侧149后重读-响应优先/动作及两真实Move-RID/固定2或增一尾保持，不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNQ01三初图与八分档图各时点、target-level-skill附加效果/角色字段和两成功skill-S32行恢复，原状态类型/比较-固定payload跨替换动作/成功门禁、全部取包-字段/动作与End-Move-RID增58尾保持；不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNR01初图/累计与普通效果、半额反馈-反弹字段/copy和末效果取样恢复，四S32索引/五W8门禁；原entry0/1比较/图号/金额门禁-全部动作及真实Move-RID固定2保持，不能代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNS01 effectCount/图号、累计-普通和反馈Effect/Aux各固定-live时点、字段/copy和真实Move-RID固定1实修；576条/25定义27处不代完整战斗接线-owner/SDK画面/ABI或R1-R7-R8",
+      "BNT01独立426FC0完整369条/十参-四输出和3101真实consumer、四处取样实修/原两表-门禁及两返回有界纳管，战斗成员新增原ID不代表枚举闭合；完整父/其它consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面和R1-R7-R8仍待",
+      "BNU01两独立三方转向/辅助效果229条693B与既有正确源合同、五转向/37辅助入向分列并补身份，战斗成员55不代表枚举闭合；完整父/全部consumer-owner重进退出失效/SDK-ABI-PC53-时钟RNG画面与R1/R7/R8仍待",
+      "BNV01两个特效创建函数125条412B/三处flags与坐标取样实修及独立身份纳管，战斗成员57仍未全枚举；全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
+      "BNW01两callback/三创建168条576B，位置callback Y取样先X发布已修/五身份纳管；战斗成员62仍未全枚举，全部consumer-owner重进退出失效/SDK-ABI-PC53-实际RNG画面与R1/R7/R8未验",
+      "BNX01七入口340条1215B/两局部数组与五态表纳管，上升callback坐标取样已修；BATTLE69仍未全枚举，全部consumer-owner/资源重进退出/ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+      "BNY01两个上游emitter258条1057B/原四局部表256B纳管，随机X取样已修/两级父与50-32完成门禁保；BATTLE71枚举未闭，完整41CD00/consumer-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+      "BNZ01共同创建完整1583条5825B/315B原数据、17定义18段修正纳管；BATTLE72未全枚举，所有25入向-20父/callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面及R1/R7/R8待",
+      "BOA01三完成/父关联/缩放回调97条306B三处坐标取样已修/独立身份纳管；BATTLE75未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOB01五完整初始化助手608条1940B/六取样补丁已修、五独立身份纳管；BATTLE80未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOC01两完整命中回调732条2647B/十取样补丁已修、两独立身份纳管；BATTLE82未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOD01完整帧事件回调471条1723B/四取样补丁已修、独立身份纳管；BATTLE83未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOE01完整移动命中回调636条2217B/五取样补丁已修、独立身份纳管；BATTLE84未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOF01完整追踪命中回调676条2381B/四取样补丁已修、独立身份纳管；BATTLE85未全枚举，全部父-callee-owner/资源重进退出-ABI-SDK-PC53-RNG画面与R1/R7/R8待",
+      "BOG01九完整距离/转向/运动-原表角度依赖441条1422B/两处公式及取样已还原、原表3400B独立纳管；BATTLE94未全枚举，全部219入向父-callee/表生产消费-owner/生命周期/ABI-PC53-RNG画面与R1/R7/R8待",
+      "BOH01五完整消费助手/图标创建更新286条952B/三个函数六还原，原三Advance四fresh游标输出/固定flags与fresh表对象保；BATTLE99未全枚举，176入向全部父-callee/共享表-owner/资源重进退出-ABI-PC53-画面与R1/R7/R8待",
+      "BOI01数字创建1071原记录补132差集及完整191条、更新44条新增1397；两根235条831B/九还原与175B表/常量保，BATTLE101仍未全枚举，23父/46调用点/第二时间数字构造者-测宽/资源/字符消费-draw/回收owner-ABI-PC53-画面与R1/R7/R8待",
+      "BOJ01时间1072补106差集/完整156及默认22条共178条610B，恢复Time/Number两原44B260测宽目标与Time两取样，旧Number I具名fail/六新局部I-S；BATTLE103枚举open，宽度/资源/字载荷-draw/全部父与回收重入owner-PC53-画面/R1/R7/R8待",
+      "BOK01数字图号索引/XY两个正确getter完整28条105B独立纳管，BATTLE105枚举open；资源生产者Init为RESOURCE成员/共享基线candidate不替代成员，字载荷draw/所有父-真实owner与运行门禁待",
+      "BPO01原257槽/200父内代码标签1028B跳转表的X用途mapped，BATTLE105及BTS已证源码/表不变；不增动作函数或软件门禁，完整战斗/全部父和子动作/间接alias-owner寿命/SDK机器ABI/运行与其余R7区间仍待",
+      "BPP01第三批128X全1272B用途及三动作的表数据/源码角色已纳管，BATTLE108枚举open；40F0A0一消费片段恢复+04启用/+00类型。三父489/57/136仅元数据，完整本体/状态/RNG/所有子父调用和owner-alias寿命/SDK机器ABI/运行未新验，三函数处置null；两局部I-S只真实字段修复，不代X/完整战斗验收",
+      "BPQ01动作141/143完整193条649B/六call与两唯一父邻窗正常源静态纳管，两真实W8读取恢复，108成员不增；完整父/其它状态生产/所有子调用与owner-alias寿命/SDK机器ABI/时钟RNG/画面运行未验，动作114仍只BPP局部，完整战斗和R8不关闭",
+      "BPR01动作114从BPP数据角色/字段修复推进完整489条1745B/34call及唯一父邻窗正常源静态，三源W8片段对应四原点，108成员不增；BPP此前完整本体未验边界由本组限定静态推进，完整父/其它生产/全部子依赖及owner-alias寿命/SDK机器ABI与x87实际精度/时钟RNG/画面运行未验，完整战斗及R8不关闭",
+      "BPS01四动作完整339条1170B/六页、29call/34jump与四唯一父邻窗纳管，155/156同阶段借用取样恢复，112原成员仍枚举open；正确W32读取/运动与缩放/RNG/声音分支保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI与实际x87精度/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPT01三个动作完整540条1709B/九页、63call/36jump/15ret与三唯一父邻窗纳管，共享helper六完整取样对应十二原阶段，115原成员仍枚举open；原业务上下限/default与159/160不同尾保，全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPU01两完整动作570条2302B/八页、32call/63jump/七ret与两唯一父邻窗纳管；七原栈初始化52元素按五源常量组40值可追，类型W8/七回收源片段修复，117原成员仍枚举open。第三槽判断/正常状态和真实字段重读保；全父/全部子依赖与其它生产/alias-owner寿命、SDK和生成机器ABI/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPV01六完整动作243条815B/八页、19call/21jump/10ret与六唯一父邻窗纳管，165两W8消费恢复，其余五体/原未落位FP、W32缓存与fresh及166内联正常计时/四字节发布保，123原成员枚举open；全父/全部子依赖与其它生产/alias-owner寿命、SDK/生成机器ABI及实际x87/时钟RNG/画面运行未验，完整战斗及R8未关闭",
+      "BPW01七完整根736条2670B/13页、43call/69jump/九ret及六唯一分派点与sync14入向/三父纳管，九槽每操作后fresh/重复alias及真实共享调用汇合保持；204只两临时复制全取样，130原成员仍枚举open。额外同步初判已撤回未改正确call；递归父/其它生产及全部子依赖/owner寿命、SDK/生成机器ABI/时钟RNG/画面运行未验，完整战斗和R8未关闭",
+      "BPX01九完整757条2516B/16页、48call/108jump/14ret与九入向/27邻窗/32原父case、共体23type与六常数纳管；209六W8/两读取序/encoded先目标及原交替载荷九阶段恢复，正常旧值一致；139原成员枚举仍open。八其它正确体和188无效果仍204、别名/业务/返回/RNG及音频暂停保；递归父/其它生产/全部外依赖和owner寿命、生成机器ABI/真实x87/时钟RNG/画面运行未验，完整战斗和R8继续open",
+      "BPY01七完整439条1445B/九页、40call/16入口/37jump/一四项switch/17ret与七入向21邻窗纳管，四体七W8-W16/读取序阶段恢复、三正确体保，146成员枚举open；210同依赖19B三LEA对齐及四W32表用途mapped只R7。其它递归父/全部子依赖/生产与alias-owner寿命、SDK/生成机器ABI/画面运行未验，完整战斗和R8继续open，音频暂停",
+      "BPZ01三完整397条1508B/六页、31call/42jump/八ret与三入向九邻窗纳管；218先1060指针后新图号/219低W8/Restore先1060指针后基础图号三源阶段恢复，两帮助体使用者219/220原内联全部对应，不增helper F/原call，149原成员枚举open。正常旧值相同，原同步终帧循环/借用alias及业务/状态保；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open",
+      "BQA02两完整346条1169B/六页、34call/21入口/28jump/三ret与两父六邻窗/四F32常数纳管，221四实际低W8恢复，222正确源和原源HP归零/图标接收者/齐读、普通上限CopyPayload、W32缓存/未落位FP保，151原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQB01两完整289条1074B/五页、25call/14入口/十jump/四ret与两父六邻窗纳管，225九指针/字段/实参/抛物线取样阶段恢复，223正确体与四普通CopyPayload、真实重复清字段/坐标还原保。224既有BRC01完整adapted记录不重复计数，153原成员枚举open。正常旧值一致；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQC01五完整583条2104B/十页、58call/26入口/49jump/六ret、五父15邻窗/52B和228真实内部call229/两F32常数纳管，232三数显索引先Y、反伤归零齐读/普通扣减encoded先共享目标五阶段恢复；228..231正确体、cached W32寄存器旗位、独立RNG/原HP图标接收者/共享尾和返回保。158原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQD01四完整834条2947B/十三页、62call/26入口/86jump/八ret、四父12邻窗/35B和十F32纳管，233三/234三/237五共十一源阶段恢复：初始FDC/FCC先取、四内存W8/下边界角度两读、三数显索引先Y/两归零原序；236正确体/已证父弃返、S16width既有getter/普通helper/原W32旗位、HP图标接收者/RNG/同步帧循环/返回保。162原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、完整图形链/SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQE01七完整729条2516B/十四页、60call/26入口/77jump/十二ret、七父21邻窗/56B、两共用表项/三F32纳管；共体五/241一共六源阶段恢复，三W8源表达式承接四实际原点、index/encoded先position/共享目标、速度先零比较后phase239/声事件先X。八逻辑状态七物理身份不重复分类，五正确体/普通helper/W32缓存、HP图标接收者/RNG/两播放/循环与额外推进/返回保。169原成员枚举open；正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQF01四完整633条2207B/十页、45call/22入口/97jump/四ret、四父12邻窗/32B和246原F32系数纳管，243三W8源表达式对四原点，原技能CMP/图值/模式/级别/六RAND物理点各路径消费、W32缓存/无扣HP/其它图标后仍Attribute区别、原上限copy/两条件播放/退场及三个正确移动体保。原无switch表，不新R7或__ftol身份；173原成员枚举open。正常旧值一致，递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQG01七完整704条2305B/十三页、47call/22入口/120jump/七ret、七父四窗20条/69B和三既有表项纳管。249一次event及255归零encoded先目标/三低W8对四原点，共五片段/两体；正常旧值一致。工厂30创建/31父case与118默认无创建、251两临时齐读/253原W32后取phase与+10保存/254先指针回收/256两全局写正确体保持。255真实healTarget.counter1DC、fixed effect与普通免疫fresh C9C差别/W32缓存/HP原上限copy/RNG/播放尾保；工厂无物理switch表，不新R7/父表分类。180原成员枚举open；递归父/全部子依赖/其它生产与owner寿命、SDK/生成机器/画面运行未验，完整战斗和R8继续open",
+      "BQH01六完整171条467B/六页、13call/8callee/19jump/六ret，八入向八窗24条107B及局部父返回比较/EBP=1纳管。43C910/43CA50低W8 FDC、43C9A0两独立低W8玩家旗位及两阵营共享投影四S32读序/F32 Y后X发布，共五片段/三体，四W8原点/四源表达式，正常旧值一致。前20槽共享span/10..19后重读位再0..9、调用后fresh共享目标/返回消费、名字测量前Y后X/颜色继承/原S16公开边界及两推进正确体保持；父switch仅邻近记录，不新增R7或父完整验收。186原成员枚举open；其它全部生产/owner寿命/递归父、SDK/生成机器ABI/实际x87/画面运行未验，完整战斗和R8继续open",
+      "BQI01单完整266条901B/四页、7call/2callee/63jump/三ret，六UI父八入向八窗40条141B及20项原栈矩阵纳管；四读取片段/六低W8源表达式对应七原点，正常旧值一致。参数flags/目标全局W32、四源选中OR/两清除AND原W32写，六HP比较物理点/四源表达式、调用后共享目标重取、两侧十槽与排除、400短路和矩阵最后匹配/原不匹配初值、每列fresh前排别名/0-1返回保持。原矩阵是20栈写，无物理switch表，不新R7。187原成员枚举open；其它全部目标生产/owner寿命/递归UI父、SDK/生成机器ABI/画面运行未验，完整战斗和R8继续open",
+      "BQJ01三完整145条467B/三页、8call/5callee/14jump/四ret，45代码入向45窗135条693B、1数据xref/32B实际prototype与15B原hover纳管。两文件四借用阶段：Flush首共享对象供判空/AND，保后两fresh槽；Close技能/道具/宠物分别当阶段取一次供判空/MarkDeath，调用后清该非空全局，不齐取三槽。正常旧值一致，九S32清零/10-27-28窗口W32关闭/原空分支和callback正确图优先级/原字节/调用链/返回保持；实际callback字段56B72C，结构头56B710是type1，32B prototype/36B runtime不混，当前原型/发布/消费有据但完整窗口26/57C368未知token/全部UI父与owner寿命未闭合。190原成员枚举open，无新R7；生成机器ABI/画面运行、完整战斗和R8继续open",
+      "BQK01四完整197条767B/四页、20call/7callee/27jump/五ret，快捷九代码入向九窗27条119B、防御1数据xref/第二32B prototype/15B旧hover/2B G纳管。仅三个快捷入口状态各一次低W8→S8，三原点/三表达式，正常旧值一致；共享W32存储和原门槛/skillUsed/模式2-3-4、各专属清零/创建空结果/关闭清理回收声和返回、完整防御正确图优先级/原字节/网络原格式明文G保持。不照搬技能物品尾到宠物/防御，不加发送失败早退；当前两父六源表达式承接原九入向，不代完整父流或窗口26/57C368 token/全部owner寿命。194原成员枚举open，无新R7；SDK/生成机器ABI/组包连接发送/画面运行、完整战斗与R8未验",
+      "BQL01三完整359条1191B/六页、21call/8callee/45jump/十二ret，三数据xref/三32B prototype及11-11-21共43B旧hover纳管。仅各按钮已选分支全局点击掩码2低W8，三原点/三表达式，正常旧值一致；共享edgeButtons仍W32、pending/flag本已有W8，主mode先专属mode后/初次点击创建、技能重选-重建-关闭返回/物品待选重开存槽后清flag-Flush/宠物W32请求关闭、真实空创建结果与图先尾清/返回差别保持。当前窗口26元素2-3-4绑定有据，通用初始化/事件链已过不重验，完整窗口/全部14元素/57C368 token和owner寿命未闭合。197原成员枚举open，无新R7；SDK/生成机器ABI/画面运行、完整战斗与R8未验",
+      "BQM01八完整573条1739B/十二页、22call/13callee/50普通jump/一七项switch/13ret；三片段一体恢复47C570两W8索引与四W16坐标读取顺序，正常旧值一致。列表gate末尾一次、原滚动/最大值/显示回调、创建失败和七正确体、六RNG、真实null/回调与非拥有完成T**/MarkDeath后取槽保持；六外父邻窗仅36条115B，107包装入向只登记。37B X七W32表和九NOP真实用途mapped，R7 261/3061余2800；BATTLE205成员仍open。全部内容生产/其它子依赖与完整父、owner寿命、窗口10/26和57C368 token、SDK/生成机器/画面运行与R8未验",
+      "BQN01三完整313条1108B/六页、16call含15直接/十callee及一CC4230 CALL EAX槽消费、26jump/五ret；两体四片段恢复条件selectedSkill W32重读/cost两W32取序/实际hover形参低W8及四低W16坐标序，正常旧值一致。名称NUL/W16配对/W32共享字段与三FP比较、null回调仍关闭consume1、旧83B提示/11B原S格式与989正确体原发送后写序保。两个新ID加989完整追加/三处置，208成员枚举open；三写一读CC4230取证，已过两发布者复用BQM01，47A490仅清零点登记/一个外父六条13B，不虚造地址0函数或完整父验收。R7无新分类；内容生产/其它模式/全部父/owner寿命、SDK/生成机器/画面运行和R8未验"
+    ],
+    "gates": {},
+    "member_inventory_closed": false,
+    "member_inventory_evidence_refs": [
+      "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+      "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
+      "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+      "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+      "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+      "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
+      "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+      "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+      "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+      "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+      "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+      "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+      "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+      "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+      "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+      "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+      "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+      "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+      "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+      "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
+      "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+      "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+      "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state",
+      "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state",
+      "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-source-state",
+      "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-source-state",
+      "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-source-state",
+      "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-source-state",
+      "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+      "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state",
+      "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-source-state",
+      "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-source-state",
+      "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-source-state",
+      "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-source-state",
+      "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-source-state",
+      "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-source-state",
+      "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-source-state",
+      "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-source-state",
+      "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-source-state",
+      "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-source-state",
+      "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-source-state",
+      "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-source-state",
+      "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-source-state",
+      "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-source-state",
+      "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
+      "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
+      "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+      "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+      "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+      "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+      "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
+      "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+      "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+      "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+      "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
+      "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
+      "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+      "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
+      "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+      "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+      "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+      "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+      "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+      "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+      "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state",
+      "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
+      "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+      "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
+      "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+      "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+      "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+      "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+      "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+      "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+      "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+      "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+      "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+      "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
+      "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
+      "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+      "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+      "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+      "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state",
+      "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+      "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+      "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
+      "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+      "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state"
+    ]
+  },
+  "snapshot_functions_before": [
+    {
+      "id": "F:00096AE0",
+      "original_entry": "0x496AE0",
+      "original_name": "BattleScene::closeAllWin",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_496AE0",
+          "definition_line": 35611,
+          "namespace": "cg::ui::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0007A620",
+      "original_entry": "0x47A620",
+      "original_name": "sub_47A620",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_47A620",
+          "definition_line": 37598,
+          "namespace": "cg::ui::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0007B110",
+      "original_entry": "0x47B110",
+      "original_name": "sub_47B110",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_47B110",
+          "definition_line": 37431,
+          "namespace": "cg::ui::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:000742C0",
+      "original_entry": "0x4742C0",
+      "original_name": "sub_4742C0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbol": "Sub_4742C0",
+          "definition_line": 39355,
+          "namespace": "cg::ui::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "range_before": {
+    "id": "X:0007A776-0007A7A0",
+    "start": "0x47A776",
+    "end_exclusive": "0x47A7A0",
+    "state": "unassessed",
+    "source": "doc/cg2d_ida_inventory.json",
+    "disposition": null
+  }
+}

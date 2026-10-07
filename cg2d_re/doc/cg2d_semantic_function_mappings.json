@@ -198141,6 +198141,178 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x4535B0",
+      "inventory_id": "F:000535B0",
+      "original_role": "原源矩形复制/四块转场根：BlitSurfaceToBack_4535B0",
+      "original_end_exclusive": "0x4536c6",
+      "original_chunks": [
+        {
+          "start": "0x4535b0",
+          "end_exclusive": "0x4536c6"
+        }
+      ],
+      "instruction_count": 92,
+      "status": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/render/SurfaceState.cpp",
+          "symbols": [
+            "BlitSurfaceToBack_4535B0"
+          ],
+          "relationship": "原92条278B/两页；源RECT先top/right/left/bottom保存，x/y低S16四门禁/负位移裁剪，逻辑尺寸各初始/后续fresh读，按原式回写源RECT；最终4536A4/4536AA也movsx低S16目的坐标，既有S16接口/所有caller转换正确保持。真实native无色键复制沿既有SDK承接，正常offscreen返0/native0或-1保持，十三原caller丢返回；完整所有父/像素/alias寿命/ABI运行未验"
+        },
+        {
+          "path": "include/cg/render/SurfaceState.hpp",
+          "symbols": [
+            "BlitSurfaceToBack_4535B0"
+          ],
+          "relationship": "既有低S16坐标/四S32矩形引用/借用T*与S32返回声明正确保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json"
+      ],
+      "boundary": "原92条278B/两页；源RECT先top/right/left/bottom保存，x/y低S16四门禁/负位移裁剪，逻辑尺寸各初始/后续fresh读，按原式回写源RECT；最终4536A4/4536AA也movsx低S16目的坐标，既有S16接口/所有caller转换正确保持。真实native无色键复制沿既有SDK承接，正常offscreen返0/native0或-1保持，十三原caller丢返回；完整所有父/像素/alias寿命/ABI运行未验",
+      "verification_level": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "quadrant_transition_blit_baseline": {
+        "spec_id": "BVB01",
+        "evidence_refs": [
+          "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+          "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+          "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+          "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+          "doc/cg2d_quadrant_transition_blit_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 92,
+        "original_code_bytes": 278,
+        "original_page_count": 2,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 9,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 13,
+        "already_existing_body_kept": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": false,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 308,
+        "original_root_total_code_bytes": 1147,
+        "original_total_page_count": 6,
+        "original_caller_window_count": 15,
+        "original_caller_window_instruction_count": 210,
+        "original_caller_window_code_bytes": 697,
+        "caller_window_totals_include_overlap": true,
+        "original_total_nop_tail_bytes": 21,
+        "original_native_resource_failure_scope_retained": true,
+        "low_S16_arguments_confirmed_at_final_native_submission": true,
+        "quadrant_nonsymmetric_zero_publication_retained": true,
+        "crypt_int_fields_sampled_before_publication": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51EC10",
+      "inventory_id": "F:0011EC10",
+      "original_role": "原源矩形复制/四块转场根：Sub_51EC10",
+      "original_end_exclusive": "0x51ef75",
+      "original_chunks": [
+        {
+          "start": "0x51ec10",
+          "end_exclusive": "0x51ef75"
+        }
+      ],
+      "instruction_count": 216,
+      "status": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51EC10"
+          ],
+          "relationship": "原216条869B/四页；四RECT64B、步长低S8零取4、共享触发/phase和两方向坐标原写序/非对称写0边界保持；清屏后四块逐次fresh借Temp/Y/X低S16/同RECT复制，完成后CryptInt2→3或3→4，三字段mask/encoded/count取齐后同序发布/Dtor再phase=-1/真实0或1保持。原两个caller多压未消费0实参不新增新端接口，case18/19传mode0/1/value并透传结果；原内部CryptInt保而非网络加解密，完整父/alias/像素/ABI运行未验"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51EC10"
+          ],
+          "relationship": "既有两S32实参/返回声明正确保持；原额外零实参不消费，不增占位API"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json"
+      ],
+      "boundary": "原216条869B/四页；四RECT64B、步长低S8零取4、共享触发/phase和两方向坐标原写序/非对称写0边界保持；清屏后四块逐次fresh借Temp/Y/X低S16/同RECT复制，完成后CryptInt2→3或3→4，三字段mask/encoded/count取齐后同序发布/Dtor再phase=-1/真实0或1保持。原两个caller多压未消费0实参不新增新端接口，case18/19传mode0/1/value并透传结果；原内部CryptInt保而非网络加解密，完整父/alias/像素/ABI运行未验",
+      "verification_level": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "quadrant_transition_blit_baseline": {
+        "spec_id": "BVB01",
+        "evidence_refs": [
+          "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+          "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+          "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+          "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+          "doc/cg2d_quadrant_transition_blit_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 216,
+        "original_code_bytes": 869,
+        "original_page_count": 4,
+        "original_direct_call_count": 7,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 25,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 2,
+        "already_existing_body_kept": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": false,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 308,
+        "original_root_total_code_bytes": 1147,
+        "original_total_page_count": 6,
+        "original_caller_window_count": 15,
+        "original_caller_window_instruction_count": 210,
+        "original_caller_window_code_bytes": 697,
+        "caller_window_totals_include_overlap": true,
+        "original_total_nop_tail_bytes": 21,
+        "original_native_resource_failure_scope_retained": true,
+        "low_S16_arguments_confirmed_at_final_native_submission": true,
+        "quadrant_nonsymmetric_zero_publication_retained": true,
+        "crypt_int_fields_sampled_before_publication": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

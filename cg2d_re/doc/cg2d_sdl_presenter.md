@@ -2036,3 +2036,15 @@ FadeIn还有最终直接调用。上述是源码/指定接线静态，完整父/
 集中静态已通过：完整162条625B/三页、BOZ01既有19条57B原caller准确复用和15B NN_NOP用途；整cpp仅一个具名片段，正确caller整源/四其他函数及原混合解绑/返回尾保持。完整语义/登记簿与派生快照只有具名模型差异，七对应文档/三任务与十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
 
 文本汇总与Check均退出0；实际语义1750/有效1743、合同1861（50.57%）、F891/E1050、R7已审453余2608、LOOP163/RENDER64。既有1412/BOZ证据及四旧BUU错误证据fail保持，pending18/未知ECX、closed11/原差队列与全部闭包保持；只有本步尺寸取样修复/静态对照通过，完整父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。
+
+## BVB01源矩形复制与四块提交基线（2026-10-08）
+
+[完整基线](cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline)、[裁决](cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision)及[原证](cg2d_quadrant_transition_blit_baseline_evidence.json)补4535B0/51EC10：两完整根308条1147B/六页，十五局部累计210条697B含重叠邻指令，不当五完整父覆盖。
+
+4536A4/4536AA最终BltFast坐标仍低S16，现S16接口/十三caller正确保。RECT读序top/right/left/bottom、四交集门禁与负位移/后续fresh逻辑尺寸裁剪保；既有native无色键及正常资源失败边界沿BPB01，不删成额外保护。四块逐次Temp→Y→X低S16→同RECT，源码0改动/无新I，仅两限定S，像素/alias寿命/完整ABI运行继续。
+
+### BVB01 当前基线限定静态结果
+
+集中静态通过：两完整根308条1147B/六页、十五局部累计210条697B含重叠邻指令、两21B实际NN_NOP；五相关源与HEAD全文相同，两完整正确正文/低S16声明/case18-19接线及原非对称写0/三字段发布保持。源码0改动/无新I，完整机器与派生快照只有具名差异；十四文件UTF8无BOM/LF、四锚点/两限定S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1753/有效1746、合同1864（50.65%）、F894/E1056、R7已审456余2605、LOOP166/RENDER67。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有旧记录与完整闭包保持；完整五父/其他callee、owner-alias寿命、机器ABI/链接/像素/正常失败/运行及R8未验，整体目标继续。

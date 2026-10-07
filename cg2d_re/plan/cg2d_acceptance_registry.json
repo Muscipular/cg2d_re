@@ -649,7 +649,8 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline",
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -815,7 +816,9 @@
         "F:0004CD80",
         "F:0004D490",
         "F:0004C9A0",
-        "F:00051350"
+        "F:00051350",
+        "F:000535B0",
+        "F:0011EC10"
       ],
       "closure_task_ids": [
         "U11",
@@ -889,7 +892,8 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -954,7 +958,8 @@
         "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
         "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
         "BUZ01填充根完整162条625B/三页、两direct/六indirect call/15跳转/两返回、一入向一父；caller19条57B原证准确复用BOZ01，一15B NN_NOP用途。原逻辑宽高保存/条件fresh低W16发布阶段恢复，一cpp一个具名片段、零头/新helper/owner；四S16坐标/两接口检查/原混合-共享stage解绑null-Draw/完整W32与busy消费保。新F adapted，LOOP/RENDER各限定I-S，完整所有父/callee/owner-alias/机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
-        "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。"
+        "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
+        "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1020,7 +1025,8 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state"
       ]
     },
     {
@@ -2397,7 +2403,8 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline",
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -2464,7 +2471,9 @@
         "F:0004CD80",
         "F:0004D490",
         "F:0004C9A0",
-        "F:00051350"
+        "F:00051350",
+        "F:000535B0",
+        "F:0011EC10"
       ],
       "closure_task_ids": [
         "C09",
@@ -2511,7 +2520,8 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -2547,7 +2557,8 @@
         "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
         "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
         "BUZ01填充根完整162条625B/三页、两direct/六indirect call/15跳转/两返回、一入向一父；caller19条57B原证准确复用BOZ01，一15B NN_NOP用途。原逻辑宽高保存/条件fresh低W16发布阶段恢复，一cpp一个具名片段、零头/新helper/owner；四S16坐标/两接口检查/原混合-共享stage解绑null-Draw/完整W32与busy消费保。新F adapted，LOOP/RENDER各限定I-S，完整所有父/callee/owner-alias/机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
-        "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。"
+        "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
+        "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2584,7 +2595,8 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state"
       ]
     },
     {
@@ -46773,6 +46785,100 @@
       "observation": "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
       "expected": "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
       "actual": "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。"
+    },
+    {
+      "id": "E-QUADRANT-TRANSITION-BLIT-BASELINE-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVB01两已有正确根308条1147B/六页、十五局部窗口累计210条697B含重叠邻指令及两21B用途；S仅现有复制/四块生产提交与状态发布，源码0改动/无新I。doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-quadrant-transition-blit-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdate.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_ripple_full_strip_production_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md"
+      ],
+      "differences": [
+        {
+          "description": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+          "decision_ref": "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "expected": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "actual": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。"
+    },
+    {
+      "id": "E-QUADRANT-TRANSITION-BLIT-BASELINE-FUNC-RENDER-S-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVB01两已有正确根308条1147B/六页、十五局部窗口累计210条697B含重叠邻指令及两21B用途；S仅现有复制/四块生产提交与状态发布，源码0改动/无新I。doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-quadrant-transition-blit-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdate.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_ripple_full_strip_production_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_graphic_dx_cache.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md"
+      ],
+      "differences": [
+        {
+          "description": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+          "decision_ref": "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "expected": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "actual": "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。"
     }
   ],
   "task_acceptance": [
@@ -47930,7 +48036,8 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state"
       ]
     },
     {
@@ -48107,7 +48214,8 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state"
       ]
     },
     {
@@ -48488,7 +48596,8 @@
         "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
         "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
-        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state"
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state"
       ]
     },
     {
@@ -59095,6 +59204,32 @@
         "doc/cg2d_render_depth_scope.json#/records/11"
       ],
       "boundary": "原783条2600B/12页、零direct/两indirect/84跳转/两返回，三caller同522210；RECT四S32回写边界，初始left/top与负值裁剪后right/bottom分别按原+94/+98读点取样恢复。原mode非2宽高<=2拒绝/mode2宽0拒绝、三个32位模式的left+1起笔/边角行列/低W16颜色与AutoMap或256扩展RGB、physical pitch和native Back失败门禁/返回保持；已批仅32位，混合入口不整体排除，低色深分支未实现不计债务；原caller BOZ53条131B正确保持，完整父/alias/像素/ABI/运行未验"
+    },
+    {
+      "inventory_id": "F:000535B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json"
+      ],
+      "boundary": "原92条278B/两页；源RECT先top/right/left/bottom保存，x/y低S16四门禁/负位移裁剪，逻辑尺寸各初始/后续fresh读，按原式回写源RECT；最终4536A4/4536AA也movsx低S16目的坐标，既有S16接口/所有caller转换正确保持。真实native无色键复制沿既有SDK承接，正常offscreen返0/native0或-1保持，十三原caller丢返回；完整所有父/像素/alias寿命/ABI运行未验"
+    },
+    {
+      "inventory_id": "F:0011EC10",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json"
+      ],
+      "boundary": "原216条869B/四页；四RECT64B、步长低S8零取4、共享触发/phase和两方向坐标原写序/非对称写0边界保持；清屏后四块逐次fresh借Temp/Y/X低S16/同RECT复制，完成后CryptInt2→3或3→4，三字段mask/encoded/count取齐后同序发布/Dtor再phase=-1/真实0或1保持。原两个caller多压未消费0实参不新增新端接口，case18/19传mode0/1/value并透传结果；原内部CryptInt保而非网络加解密，完整父/alias/像素/ABI运行未验"
     }
   ],
   "auxiliary_dispositions": [
@@ -82315,6 +82450,189 @@
         },
         {
           "ea": "0x451d7f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:000536C6-000536D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json"
+      ],
+      "reason": "BVB01两已有正确复制/四块转场根尾合21B实际NN_NOP/90，本区10B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 10,
+      "original_bytes": "90909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x4536c6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x4536c7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x4536c8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x4536c9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x4536ca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x4536cb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x4536cc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x4536cd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x4536ce",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x4536cf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011EF75-0011EF80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-acceptance",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
+        "doc/cg2d_quadrant_transition_blit_baseline_evidence.json"
+      ],
+      "reason": "BVB01两已有正确复制/四块转场根尾合21B实际NN_NOP/90，本区11B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 11,
+      "original_bytes": "9090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51ef75",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef76",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef77",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef78",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef79",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef7a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef7b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef7c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef7d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef7e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51ef7f",
           "size": 1,
           "bytes": "90",
           "is_nop": true,

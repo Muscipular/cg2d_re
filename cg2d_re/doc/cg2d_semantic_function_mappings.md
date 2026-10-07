@@ -3803,3 +3803,15 @@ R1记录11→12/mixed2→3，分类说明和具名分类120同步，完整入口
 集中静态已通过：完整783条2600B/12页、BOZ53条131B准确复用、3B RGB与8B实际NN_NOP；整cpp只有一个prefix，原三32位像素/模式拒绝/physical pitch与正确caller整源/私有声明保持。三完整机器只有具名差异，R1原11记录和1411/旧证据保持；完整派生快照只新mixed身份、两域/候选、四任务/一X、R1分类来源和对应指标变化，八对应文档/十七文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
 
 文本汇总与Check均退出0；实际语义1751/有效1744、合同1862（50.60%）、F892/E1054、R7已审454余2607、LOOP164/RENDER65。R1清单12/mixed3、具名分类120、原完整入口排除113；不扣整个混合F或计低色深为实现。pending18/未知ECX、closed11/原差队列和全闭包、旧四BUU错误证据fail保持；只有本步尺寸取样/适用32位局部静态通过，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。
+
+## BVB01两个已有正确入口纳管（2026-10-08）
+
+[原基线](cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline)、[裁决](cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision)、[源态](cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state)及[原证](cg2d_quadrant_transition_blit_baseline_evidence.json)：1751/F:000535B0为源RECT裁剪复制，1752/F:0011EC10为四块转场，两adapted。两完整根308条1147B/六页、十五局部累计210条697B含重叠、两21B NN_NOP用途；未冒称完整五父或SDK ABI一致。
+
+五源/两正文正确保持，零代码/无新I；LOOP164→166/RENDER65→67各一限定S、三个任务仍open。预期语义1753/有效1746、合同1864/F894/E1056/R7已审456余2605；R1具名分类120/mixed3/全入口排除113及全部旧记录保持。
+
+### BVB01 当前基线限定静态结果
+
+集中静态通过：两完整根308条1147B/六页、十五局部累计210条697B含重叠邻指令、两21B实际NN_NOP；五相关源与HEAD全文相同，两完整正确正文/低S16声明/case18-19接线及原非对称写0/三字段发布保持。源码0改动/无新I，完整机器与派生快照只有具名差异；十四文件UTF8无BOM/LF、四锚点/两限定S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1753/有效1746、合同1864（50.65%）、F894/E1056、R7已审456余2605、LOOP166/RENDER67。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有旧记录与完整闭包保持；完整五父/其他callee、owner-alias寿命、机器ABI/链接/像素/正常失败/运行及R8未验，整体目标继续。

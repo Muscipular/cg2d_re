@@ -8007,3 +8007,15 @@ BUO01必要静态已通过：完整Scene只两数据初始化改原768B/512常�
 ### BUS01 本步实际结果
 
 必要静态通过：四完整原根200条699B/五页、九局部后窗/28B原消息/四尾53B，四正确正文与四cpp/声明/提供者完整保持，两机器台账及五文档/四任务完整模型核定；四锚点/25来源及UTF-8无BOM/LF通过。派生核对模型按汇总器既有成员排序规范对齐，成员集合和数量未改，完整快照其余对象保持。文本汇总与-Check通过：语义1723/有效1716、文档1834（49.84%）、处置864/E1018、R7已审429/余2632，LOOP135/MAP128/RENDER57/BATTLE263，NETWORK61保持。代码改动/新增实现0，四域只S、无I；四任务open、完整叶验收0、整体未验收。未编译、测试或运行，不代全父/callee、资源寿命/业务失败/机器ABI、链接/像素/文件/明文互通及R8。命名快照cg2d-re-renderer-rebuild-baseline-20261008，整体目标active。
+
+## BVB01四块转场的生产与发布基线（2026-10-08）
+
+[完整基线](cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline)、[保留裁决](cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision)及[原证](cg2d_quadrant_transition_blit_baseline_evidence.json)固定51EC10完整216条869B/四页。四RECT64B、低S8零取4、共享触发/phase、两方向坐标原读写阶段正确；mode1 x1<320及y2<240等原写0，不按对称性改320/240。
+
+清屏后四次逐块fresh Temp→Y低S16→X低S16→同RECT复制；完成独立重读phase，CryptInt2→3/3→4后三字段mask/encoded/count取齐再同序发布、析构后phase=-1/原0或1保持。case18/19原额外零实参未消费，新端两实参/返回正确保。源码0改动/无新I，完整控制父/callee/alias寿命及运行继续。
+
+### BVB01 当前基线限定静态结果
+
+集中静态通过：两完整根308条1147B/六页、十五局部累计210条697B含重叠邻指令、两21B实际NN_NOP；五相关源与HEAD全文相同，两完整正确正文/低S16声明/case18-19接线及原非对称写0/三字段发布保持。源码0改动/无新I，完整机器与派生快照只有具名差异；十四文件UTF8无BOM/LF、四锚点/两限定S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1753/有效1746、合同1864（50.65%）、F894/E1056、R7已审456余2605、LOOP166/RENDER67。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有旧记录与完整闭包保持；完整五父/其他callee、owner-alias寿命、机器ABI/链接/像素/正常失败/运行及R8未验，整体目标继续。

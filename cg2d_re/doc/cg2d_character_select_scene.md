@@ -2488,3 +2488,9 @@ ready后文字y→x取样，依次加20／140并保持两S16；文字提交后�
 按[BSY01裁决](cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision)实修CharacterSelectPreview.cpp内460D00两片段：变体余数→取共享槽→商→读图号／追加偏移；+2B0／+15／+30／+34／+2B8五字段各自重读gPreviewActions，优先级写后才算x，再取槽写入。初次图号和33100／33101特例仍借创建返回，最终FrameMove取槽原正确保留。
 
 原187条728B／三页、六direct六目标、36jump一RET，460FF0三个真实CALL绑定消费。四原14项图号表／默认2及记录生产消费／失败和非拥有槽保持；单24B区间精确16B四目标跳表＋8B真NOP，只记原用途。新1603单F／CHARACTER18→19，两局部I-S；完整选择／创建-主地图、全部alias-owner寿命与运行未验。资料备份／恢复、清理及已落位过渡动作没有本步源码修改，不把历史“待实施”记录当作当前缺口。
+
+## 人物槽普通样式推进更新（BSZ01，2026-10-07）
+
+按[BSZ01裁决](cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision)实修CharacterSelectSlot.cpp三片段：删私有IncrementWrapping及其唯一bit头，空槽style改为普通S32 mode+1。原461DFC INC按RPLAN.24承接；普通值原正确，不称溢出／运行故障修复。七按钮／七坐标、空槽独立命中、原+14局部10000→9999、三格式／256B、PUK／toggle门禁、两预览取槽及所有其它整源／父保持。
+
+原343条1375B／五页、20direct九目标、26jump一RET，两父460FF0@4614F8和462330@46257B。既有767完整生产消费字段保，仅追加根基线／合同，不造重复语义；CHARACTER19→20，两局部I-S各20来源。单1B真NOP只用途，完整所有父／依赖／正常alias-owner寿命／机器ABI与运行未验。

@@ -804,7 +804,8 @@
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline",
         "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
-        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-baseline"
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-baseline",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -825,7 +826,8 @@
         "F:00062870",
         "F:00062880",
         "F:0005E770",
-        "F:00060D00"
+        "F:00060D00",
+        "F:00061B30"
       ],
       "closure_task_ids": [
         "P08",
@@ -852,7 +854,8 @@
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision",
         "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
-        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision"
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -869,7 +872,8 @@
         "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
         "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
         "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
-        "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验"
+        "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验",
+        "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -886,7 +890,8 @@
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
         "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
-        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state"
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state"
       ]
     },
     {
@@ -37156,6 +37161,90 @@
       "observation": "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验",
       "expected": "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验",
       "actual": "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验"
+    },
+    {
+      "id": "E-CHARACTER-SLOT-NORMAL-MODE-I-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSZ01人物槽完整343条1375B/五页、20direct九目标、26jump一RET，两真实460FF0/462330消费点；原空槽461DFC INC与RPLAN.24正常算术，doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-slot-normal-mode-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-acceptance",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
+        "doc/cg2d_character_slot_normal_mode_evidence.json",
+        "src/CharacterSelectSlot.cpp#ProcessCharacterSlot_461B30",
+        "src/CharacterSelectScene.cpp#ProcessScene_460FF0",
+        "src/CharacterVersionUpgrade.cpp#ProcessScene_462330",
+        "include/cg/CharacterSelectScene.hpp",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/LoginRequest.cpp#Sub_51B110",
+        "include/cg/LoginRequest.hpp",
+        "src/YobiRuntime.cpp#SetYobiActionField2B0",
+        "src/YobiRuntime.cpp#Sub_517880",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源三片段/一原业务体：style=mode+1普通S32，删除私有IncrementWrapping/仅其使用的bit头。既有767原格式字节/三生产消费与字段全部保并追加完整根；七按钮/坐标/门禁、两存在判定/低BYTE、S16字段/局部10000→9999/原256B借用、两预览取槽/背景/S32返回保。单1B原用途只局部，普通值原正确，不作回绕故障/运行等价验收或代完整两父/九callee/所有正常寿命/ABI",
+          "decision_ref": "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行",
+      "expected": "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行",
+      "actual": "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行"
+    },
+    {
+      "id": "E-CHARACTER-SLOT-NORMAL-MODE-S-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSZ01人物槽完整343条1375B/五页、20direct九目标、26jump一RET，两真实460FF0/462330消费点；原空槽461DFC INC与RPLAN.24正常算术，doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-slot-normal-mode-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-acceptance",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
+        "doc/cg2d_character_slot_normal_mode_evidence.json",
+        "src/CharacterSelectSlot.cpp#ProcessCharacterSlot_461B30",
+        "src/CharacterSelectScene.cpp#ProcessScene_460FF0",
+        "src/CharacterVersionUpgrade.cpp#ProcessScene_462330",
+        "include/cg/CharacterSelectScene.hpp",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/LoginRequest.cpp#Sub_51B110",
+        "include/cg/LoginRequest.hpp",
+        "src/YobiRuntime.cpp#SetYobiActionField2B0",
+        "src/YobiRuntime.cpp#Sub_517880",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyFormat.hpp",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源三片段/一原业务体：style=mode+1普通S32，删除私有IncrementWrapping/仅其使用的bit头。既有767原格式字节/三生产消费与字段全部保并追加完整根；七按钮/坐标/门禁、两存在判定/低BYTE、S16字段/局部10000→9999/原256B借用、两预览取槽/背景/S32返回保。单1B原用途只局部，普通值原正确，不作回绕故障/运行等价验收或代完整两父/九callee/所有正常寿命/ABI",
+          "decision_ref": "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行",
+      "expected": "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行",
+      "actual": "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行"
     }
   ],
   "task_acceptance": [
@@ -37654,7 +37743,8 @@
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
         "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
-        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state"
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state"
       ]
     },
     {
@@ -37932,7 +38022,8 @@
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
         "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
-        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state"
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state"
       ]
     },
     {
@@ -38162,7 +38253,8 @@
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
         "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
-        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state"
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state"
       ]
     },
     {
@@ -47159,6 +47251,19 @@
         "doc/cg2d_character_preview_slot_sampling_evidence.json"
       ],
       "boundary": "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验"
+    },
+    {
+      "inventory_id": "F:00061B30",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-acceptance",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
+        "doc/cg2d_character_slot_normal_mode_evidence.json"
+      ],
+      "boundary": "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行"
     }
   ],
   "auxiliary_dispositions": [
@@ -55570,6 +55675,28 @@
               "is_nop": true
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "X:0006208F-00062090",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-acceptance",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
+        "doc/cg2d_character_slot_normal_mode_evidence.json"
+      ],
+      "reason": "BSZ01单1B全90逐BYTE真NOP，无入向、前RET后真入口，仅原对齐用途，不造helper/F或范围排除/运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x46208f",
+          "end_exclusive": "0x462090",
+          "kind": "nop_padding",
+          "bytes": 1
         }
       ]
     }

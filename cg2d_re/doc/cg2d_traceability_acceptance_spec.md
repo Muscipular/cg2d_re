@@ -1394,3 +1394,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-baseline)、[裁决](cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision)、[验收](cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-acceptance)及[原证据](cg2d_character_preview_slot_sampling_evidence.json)对应单真F／一既有体／两片段、CHARACTER单成员、两局部I-S各23实际来源、单24B原用途及U11／V03／R04引用仍open。原P05／P08 closed及全部完整门禁保持。
 
 变体余数／共享槽／商／图号次序及五字段独立读槽恢复，优先级写后计算x；原局部New返回仍供初次图号，不把全部action一律改为读槽。187条完整728B、四图号表和三个实际CALL只证本步生产消费；所有父／依赖、正常alias-owner寿命、机器ABI／链接、原格式明文互通与运行R8仍待。集中静态及派生终态结果随唯一进度追加。
+
+## BSZ01 人物槽正常样式开发验收（2026-10-07）
+
+[基线](cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline)、[裁决](cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision)、[验收](cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-acceptance)及[原证据](cg2d_character_slot_normal_mode_evidence.json)对应767既有完整根追加／无新语义、一原业务体／一私有helper删除／三片段、CHARACTER单成员及单equivalent正常处置、两局部I-S各20来源、单1B用途及三任务引用仍open。P05／P08原closed和全部完整门禁保持。
+
+空槽普通S32 mode+1落实RPLAN.24，不删原+14局部业务阈值，不增回绕故障门禁。完整343条／两真实父调用及原字段、格式／绘制／preview保持只作局部静态；全部父／callee／正常alias-owner寿命、ABI／链接／原格式明文互通、画面和运行R8继续。集中静态与派生结果追加唯一进度。

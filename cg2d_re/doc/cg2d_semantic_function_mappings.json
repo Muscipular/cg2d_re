@@ -95055,7 +95055,7 @@
     {
       "original_entry": "0x461B30",
       "inventory_id": "F:00061B30",
-      "status": "既有角色槽父的全部三处显示格式已接真实核心；完整槽位交互/画面运行未验",
+      "status": "既有角色槽父的全部三处显示格式已接真实核心；完整槽位交互/画面运行未验；BSZ01完整343条1375B五页及正常style算术追加；单源三片段移除回绕模拟，不代完整父/依赖/正常寿命或运行",
       "original_end_exclusive": "0x46208F",
       "instruction_count": 343,
       "original_direct_reference_count": 2,
@@ -95172,10 +95172,50 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_character_select_scene.md"
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-acceptance",
+        "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
+        "doc/cg2d_character_slot_normal_mode_evidence.json"
       ],
-      "verification_level": "完整父边界/343条指令统计/两入向，仅[461E93,461F99)显示及预览相邻段取证；三格式点/三表达式/两个原格式字节组、字段符号/局部阈值/即刻绘制与整份源码/JSON限定差异静态核对；不重验其余槽位父本体/消费者内部，未执行",
-      "boundary": "全部三个宿主sprintf接真实53B304，原S16→S32与S32参数、+14局部≥10000设9999、+54借用NUL文本及%4d/%s保持。三次复用既有256B未清局部，各次格式后立即DrawText2，随后预览非空写+2B0=1、重取同槽并FrameMove(100,0,0)；+00名称仍直接绘制。其他UI/命中/样式/两次存在判定/背景/S32返回正文逐字保持；不增加清尾、截断、转码、补零或异常保护，不推定字段业务名，不记完整交互/画面已验收。"
+      "verification_level": "完整父边界/343条指令统计/两入向，仅[461E93,461F99)显示及预览相邻段取证；三格式点/三表达式/两个原格式字节组、字段符号/局部阈值/即刻绘制与整份源码/JSON限定差异静态核对；不重验其余槽位父本体/消费者内部，未执行 BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行",
+      "boundary": "全部三个宿主sprintf接真实53B304，原S16→S32与S32参数、+14局部≥10000设9999、+54借用NUL文本及%4d/%s保持。三次复用既有256B未清局部，各次格式后立即DrawText2，随后预览非空写+2B0=1、重取同槽并FrameMove(100,0,0)；+00名称仍直接绘制。其他UI/命中/样式/两次存在判定/背景/S32返回正文逐字保持；不增加清尾、截断、转码、补零或异常保护，不推定字段业务名，不记完整交互/画面已验收。 BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行",
+      "character_slot_normal_mode": {
+        "spec_id": "BSZ01",
+        "evidence_refs": [
+          "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
+          "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision",
+          "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-acceptance",
+          "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
+          "doc/cg2d_character_slot_normal_mode_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 343,
+        "original_code_bytes": 1375,
+        "original_page_count": 5,
+        "original_direct_call_count": 20,
+        "original_unique_callee_count": 9,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 2,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_changed_existing_original_function_count": 1,
+        "source_removed_private_helper_count": 1,
+        "source_normal_signed_mode_increment_restored": true,
+        "source_bit_wrap_simulator_removed": true,
+        "original_empty_slot_query_without_mode_guard_kept": true,
+        "original_local_10000_to_9999_business_threshold_kept": true,
+        "original_preview_two_distinct_slot_samples_kept": true,
+        "original_seven_ui_records_and_seven_coordinates_kept": true,
+        "original_mapping_fields_except_scoped_appends_kept": true,
+        "new_semantic_record_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x533360",

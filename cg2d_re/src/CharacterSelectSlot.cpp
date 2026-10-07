@@ -8,7 +8,6 @@
 #include "platform/LegacyFormat.hpp"
 
 #include <array>
-#include <bit>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
@@ -78,12 +77,6 @@ std::int32_t ReadRecordInt32(
     std::int32_t value;
     std::memcpy(&value, record.data() + offset, sizeof(value));
     return value;
-}
-
-std::int32_t IncrementWrapping(std::int32_t value)
-{
-    const std::uint32_t bits = std::bit_cast<std::uint32_t>(value) + 1u;
-    return std::bit_cast<std::int32_t>(bits);
 }
 
 } // namespace
@@ -204,7 +197,7 @@ std::int32_t ProcessCharacterSlot_461B30(
         if ((detail::Sub_45F100(&uiRecords[0]) & 1) != 0) {
             result = 0;
         }
-        style = IncrementWrapping(mode);
+        style = mode + 1;
     }
 
     login::detail::DrawText3(30, 450, 0, 4, detail::gText9A4EAC, 0);

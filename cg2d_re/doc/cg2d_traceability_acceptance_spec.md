@@ -1496,3 +1496,9 @@ source→共享BYTE/同输入NUL、未初始化FF不作原文本/现owner初值�
 [基线](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline)、[裁决](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision)、[验收](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance)及[证据](cg2d_actor_movement_flag_sampling_evidence.json)对应十正文/六声明、十三完整根/18点五父，五BYTE与held W16、五原生地址及低W16结果、七void适配及BD0父链清0有分别证据。
 
 十三实际F/处置与LOOP70、两局部I-S各27来源及十一NOP区90B用途；三任务仅current/引用保open，原pending7/其它pending18/closed任务和全部完整门禁保。正确CC0/C00/C70及JJQj原模板保持，不误报缺线；全正常生产消费/owner-alias寿命、SDK-ABI/链接/明文互通/运行R8仍需整体推进。
+
+## BTQ01 五槽退组父局部开发验收（2026-10-07）
+
+[基线](cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-baseline)、[裁决](cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-decision)、[验收](cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-acceptance)与[证据](cg2d_pet_slot_shutdown_sampling_evidence.json)对应完整37条110B、两个真实调用路径/复用上游清0、2B用途以及一正文两片段实修；无新接口或owner。LOOP70→71/两局部I-S各21来源，仅适用本步静态。
+
+BTP01十三元数据只改为真实观察描述，不修改其证据/代码/分类/计数。三任务仅current/引用保open，原pending18/pending7、closed任务与完整门禁保持；全父/全部正常生产消费及owner-alias寿命、SDK-ABI/链接/明文互通/运行R8继续。

@@ -44,3 +44,7 @@ BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，�
 十正文/六声明的完整源码差异、十三原根164条550B及18条调用路径/唯一上游清0链、十一NOP区90B、完整机器台账与五文档/三任务的定向静态均通过；逐页原字段核对及纯文本measure/-Check终态为0。完整派生快照只包含具名增量，十四文件UTF-8无BOM/LF及两局部I-S各27条真实来源通过。
 
 实际语义1658、有效1651、文档关联1769（48.07%）、处置799/E902、LOOP70；R7已复核367/余2694。完整叶验收0、整体未通过。未编译、测试或运行；五完整父链、全部生产消费/正常寿命与机器ABI及运行R8仍按原门禁推进，不以本步静态结果代替。
+
+## 元数据描述更正（BTQ01，2026-10-07）
+
+[后续子SPEC](cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-decision)将十三语义1645-1657的original_all_actual_callers_discard_return_kept更名为original_local_caller_observation_and_upstream_return_clear_kept、值保true。原字段误称全部直接弃返；本SPEC与已取原证据始终明确BD0尾透传50A3E0至512E40清0。只修机器描述，原BTP01源码、证据、处置、数量及局部验收边界不变。

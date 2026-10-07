@@ -7763,3 +7763,9 @@ D9D0范围provider仍原Sub_4410E0，NULL/负值短路及>=17普通归0、payloa
 [原端基线](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline)核18点五父，不能将BD0@50A650称为直接弃返：50A3E0尾RET原透传数组偏移，唯一上游512E40@514C55调用后XOR EAX清0再RET，残值没有业务消费。现JJQj I/T模板接线和父void合同正确，正文/网络均保持，不把模板调用误判成缺接线。
 
 十三移动状态叶新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27来源，五地址和一低W16结果分别恢复；七void观察与混合门禁具名裁决。不新增地址持有/owner，局部父链不替代五完整父/正常寿命或机器ABI及运行。
+
+## 五槽退组同指针与跨字段取样（BTQ01，2026-10-07）
+
+按[子SPEC](cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-decision)，51B080一正文两片段修复玩家/非玩家两处同action取样作NULL与field270 W16清0、非玩家原FDA88A跨字段W32读取复用ReadPlayerFlags18A。仅条件成立才取非玩家action，442C70独立再次取槽、五槽flags→objectIndex→action清序及尾51A5B0原生地址结果保持；无新helper/owner/保护，既有布局与三callee不改。
+
+完整37条110B/3call/7jump/1RET/2入向与尾2B对齐用途有据。50A3E0尾透传至512E40清0，50D000方向MOVSX覆盖，局部观察不代全部父/正常寿命或机器ABI/运行。BTP01十三语义机器字段更正为真实局部观察及上游清0，原证据/源码/计数保持。

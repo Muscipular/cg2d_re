@@ -3554,3 +3554,17 @@ BTO01完成结果：八正文/七声明已落实，六W8/三原W16、七同字�
 十正文/六声明的完整源码差异、十三原根164条550B及18条调用路径/唯一上游清0链、十一NOP区90B、完整机器台账与五文档/三任务的定向静态均通过；逐页原字段核对及纯文本measure/-Check终态为0。完整派生快照只包含具名增量，十四文件UTF-8无BOM/LF及两局部I-S各27条真实来源通过。
 
 实际语义1658、有效1651、文档关联1769（48.07%）、处置799/E902、LOOP70；R7已复核367/余2694。完整叶验收0、整体未通过。未编译、测试或运行；五完整父链、全部生产消费/正常寿命与机器ABI及运行R8仍按原门禁推进，不以本步静态结果代替。
+
+## BTQ01 五槽退组父的同指针与W32取样实修（2026-10-07）
+
+BTP01已提交，本步沿真实直接父51B080只读完整37条110B/一页一块、3直接callee/7jump/1RET/2入向。发现两NULL判断与清0重新取槽action、非玩家原FDA88A W32读取被缩为W16。先落[子SPEC](../doc/cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-decision)，实修SceneState.cpp一正文两片段：玩家先held action后同NULL/field270 W16清0；非玩家复用既有ReadPlayerFlags18A一次W32、TEST AH1等值条件，成立后才held action同NULL/清0。随后442C70仍另取槽action，原门禁/五槽逐W16 flags→W32 objectIndex→原生指针清/尾51A5B0原生地址透传保持。其余正确源码、声明、布局及字段数据不改，无新helper/owner/保护/回绕模型。
+
+两个原调用者不能统称直接弃返：50A4C8在50A3E0尾RET透传、至唯一上游512E40@514C5D清EAX0（复用BTP01已取完整窗）；50D043后MOVSX EAX方向覆盖。BTP01十三机器元数据original_all_actual_callers_discard_return_kept误写全部弃返，本步更名为original_local_caller_observation_and_upstream_return_clear_kept并保true，原证据/文档已正确说明透传链，原BTP01源码/处置/计数保。尾2B IDA列表显示align不能以列表助记符判断，逐BYTEdecode两90/NN_NOP、无入向/后真入口，只用途。
+
+新语义1658/adapted/实际F处置、LOOP70→71/两局部I-S各21真实来源和一R7用途；预期语义1659/有效1652、文档1770（48.10%）、处置800/E904、R7 368余2693，集中静态/汇总终态后记实值。三任务仅current/引用保持open、全部旧对象及完整门禁保；网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24持续。全父链/全部正常生产消费与owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行R8继续，局部静态不代整体验收。
+
+## 本步静态终态（2026-10-07）
+
+完整cpp两片段、完整37原MCP字段/两父路径及复用上游清0、2B逐BYTE用途、完整台账具名增量及BTP01十三描述更正、五文档/三任务定向静态通过。纯文本measure/-Check终态0；完整派生快照仅一语义/一X/三任务及六指标，十三文件UTF-8无BOM/LF和两局部I-S各21真实来源通过。
+
+实际语义1659/有效1652、文档关联1770（48.10%）、处置800/E904、LOOP71、R7 368余2693；完整叶验收0、整体未通过。不编译、测试、运行或摘要；全部正常生产消费/寿命、完整父链与机器ABI/运行R8按原门禁继续。

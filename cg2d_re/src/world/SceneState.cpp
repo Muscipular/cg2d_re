@@ -8949,13 +8949,18 @@ login::YobiAction* Sub_51B080()
     for (auto& slot : gPetMapCharaSlots) {
         if (slot.flags != 0) {
             if (slot.objectIndex == gPlayerRuntime.objectIndex) {
-                if (slot.action != nullptr) {
-                    login::detail::ClearMapActorPathCount(slot.action);
+                login::YobiAction* const action = slot.action;
+                if (action != nullptr) {
+                    login::detail::ClearMapActorPathCount(action);
                 }
                 Sub_51A5F0();
             } else {
-                if ((gPlayerRuntime.flags18A & 0x100u) != 0 && slot.action != nullptr) {
-                    login::detail::ClearMapActorPathCount(slot.action);
+                const std::uint32_t flags = ReadPlayerFlags18A();
+                if ((flags & 0x100u) != 0) {
+                    login::YobiAction* const action = slot.action;
+                    if (action != nullptr) {
+                        login::detail::ClearMapActorPathCount(action);
+                    }
                 }
                 Sub_442C70(slot.action);
             }

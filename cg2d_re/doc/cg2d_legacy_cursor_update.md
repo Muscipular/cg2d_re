@@ -128,3 +128,18 @@ ResetLegacyMouseTail_506DD0()
 `MainLoop.cpp` 现在通过公开 `LegacyCursor.hpp` 调用唯一实现，旧内部未实现声明
 已移除。CMake 只把该实现加入既有 x64 启动静态库；本步不运行客户端，不实现
 窗口消息生产者，也不补 `InitLoading` 的第二调用点。
+
+## 光标计时/脉冲取样与额外策略撤销（BUW01，2026-10-08）
+
+[本步数值原证](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline)与[纠正裁决](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision)记录逐帧/请求/尾清/鼠标清理四完整根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份，原11标量88B及四28B NN_NOP用途。原数值地址held D68D98、edge D68D9C、pulse D68DA0已核，不按IDA名称猜字段。
+
+入口先保存leftDownTick再清edge；左tick后fresh down做差/发布或保存旧elapsed，右tick后fresh down做差、重新保存左elapsed再发布右elapsed，否则保存旧右值；两保存elapsed左右传入pulse。各清锚/首脉冲分支先保存pulse后写anchor/flag，右已有anchor还须在100判断前保存pulse；helper已恢复这些阶段，不合并两tick或重读两elapsed替代保存值。
+
+撤本文早期state0..10拒绝/canDraw与AddSigned16Wrapping，正常offset改普通S32加法；读图号→Y后独立state/offset→X后独立state/offset、原88B可写/共享表、描述符与RNG次数保。系统分支撤状态域拒绝，原矩形条件/API顺序和POINT/RECT已批零初始化适配、fresh状态缓存及公共尾保，bit_cast位型不属算术wrapper，继续保。
+当前LoadingScreen也有真实UpdateCursor调用、ClientInitialization已调用鼠标清理，旧“未接入”仅历史；本步不重新验完整父。三正确请求/尾/状态清理根保持仅S，额外异常策略不保留、不模拟或记等价，完整ABI/像素/owner寿命/输入运行与R8继续。
+
+### BUW01 当前修复限定静态结果
+
+四完整原根193条708B/六页、六数值旗位36条214B编码/地址双证、原11标量88B/四28B用途、两cpp仅十三片段/正确配对与tick-tracker尾链保、光标原计时-pulse-请求-Y-X-API/公共尾阶段、完整机器/派生差异模型、十五文件编码/四锚点及七新限定证据各25来源均通过。文本汇总与Check均退出0。
+四旧BUU01过宽I/S已明确fail，previous pass/独立正确坐标事实和更正引用保留，当前修复七新限定证据pass；这是旧snapshot判断失效的历史记录，不是当前代码故障遗留，未删除失败或用新修复改写旧通过。
+实际语义1745/有效1738、文档1856（50.43%）、F886/E1039、R7已审448/余2613、LOOP158/INPUT51/RENDER59/STARTUP118；其他域/原分母/差队列/pending18与ECX pending7/closed11和完整门禁保持。未编译、链接、运行或证明完整原父/别名/ABI/显示验收，整体目标继续active。

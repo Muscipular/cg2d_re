@@ -70,3 +70,17 @@
 
 八完整原根307条1279B/八页、十四Ctor/十四Dtor、四间接tick/两追踪尾链、十四引用与八65B用途，七配对原读写矩阵/同一临时量X先Y后/目标token保、整个cpp仅七片段差异、完整机器及派生差异模型、十三文件编码/四锚点和四限定I-S各25来源已通过。文本汇总与Check均退出0。
 实际语义1731/有效1724、文档1842（50.05%）、F872/E1026、R7已审437/余2624、LOOP144/INPUT38；其他域/分母/差队列/pending18及ECX pending7/closed11与全门禁保。源码一cpp七配对实修，滚轮正确保持不计I；未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。
+
+## BUU01旗位通过断言失效与纠正（BUW01，2026-10-08）
+
+[本步数值原证](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline)与[纠正裁决](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision)明确撤销本文“六旗位原采样/发布正确保”的断言及其四个过宽E-MOUSE-COORDINATE-PUBLICATION限定I/S通过。原D68D98 held/D68D9C edge/D68DA0 pulse直接操作数，与IDA名称直觉不同；旧snapshot六源旗位读写阶段有误。本次已修六块；登记簿四旧result改fail并保存previous_result=pass/错误范围/新更正引用，不删除原记录/tag或把旧snapshot修成通过。
+
+原七配对坐标的十四Ctor/十四Dtor、各分支三字段先读齐后发布矩阵仍有独立完整原指令证据，继续保留；其它正常位运算、tick/追踪/返回正文和标准owner布局不动。八旧语义/F都追加本更正，旧组合flags断言置false，新数值阶段恢复事实另记。本文先前实际静态通过是当时模型结论，旗位部分现明确失效，不能作为当前有效验收。
+
+当前BUW01另立六数值旗位和光标取样修复证据；完整门禁/原功能分母和运行限制保持，不以纠正或源码存在宣称所有别名/ABI/输入运行验收。
+
+### BUW01 当前修复限定静态结果
+
+四完整原根193条708B/六页、六数值旗位36条214B编码/地址双证、原11标量88B/四28B用途、两cpp仅十三片段/正确配对与tick-tracker尾链保、光标原计时-pulse-请求-Y-X-API/公共尾阶段、完整机器/派生差异模型、十五文件编码/四锚点及七新限定证据各25来源均通过。文本汇总与Check均退出0。
+四旧BUU01过宽I/S已明确fail，previous pass/独立正确坐标事实和更正引用保留，当前修复七新限定证据pass；这是旧snapshot判断失效的历史记录，不是当前代码故障遗留，未删除失败或用新修复改写旧通过。
+实际语义1745/有效1738、文档1856（50.43%）、F886/E1039、R7已审448/余2613、LOOP158/INPUT51/RENDER59/STARTUP118；其他域/原分母/差队列/pending18与ECX pending7/closed11和完整门禁保持。未编译、链接、运行或证明完整原父/别名/ABI/显示验收，整体目标继续active。

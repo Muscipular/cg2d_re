@@ -1,0 +1,3619 @@
+{
+  "spec_id": "BUW01",
+  "recorded_on": "2026-10-08",
+  "original_provider": "既有cg2d.exe只读IDA MCP ida-17524/a1def68e临时路由",
+  "original_functions": [
+    {
+      "start": "0x506e00",
+      "end_exclusive": "0x507083",
+      "count": 174,
+      "chunks": [
+        [
+          "0x506e00",
+          "0x507083"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457020",
+          "text": "call    World__CursorUpdate",
+          "from": "0x457124"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457b10",
+          "text": "call    World__CursorUpdate",
+          "from": "0x45819d"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x506e00",
+          "size": 5,
+          "bytes": "a1a48dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, MouseEvent__lastDt1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e05",
+          "size": 3,
+          "bytes": "83ec20",
+          "mnemonic": "sub",
+          "text": "sub     esp, 20h",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e08",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e09",
+          "size": 6,
+          "bytes": "8b35f8d15400",
+          "mnemonic": "mov",
+          "text": "mov     esi, ds:GetTickCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e0f",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e10",
+          "size": 2,
+          "bytes": "33ff",
+          "mnemonic": "xor",
+          "text": "xor     edi, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e12",
+          "size": 2,
+          "bytes": "3bc7",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e14",
+          "size": 6,
+          "bytes": "893d9c8dd600",
+          "mnemonic": "mov",
+          "text": "mov     gMouseClickState, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e1a",
+          "size": 2,
+          "bytes": "760f",
+          "mnemonic": "jbe",
+          "text": "jbe     short loc_506E2B",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e1c",
+          "size": 2,
+          "bytes": "ffd6",
+          "mnemonic": "call",
+          "text": "call    esi ; GetTickCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e1e",
+          "size": 6,
+          "bytes": "2b05a48dd600",
+          "mnemonic": "sub",
+          "text": "sub     eax, MouseEvent__lastDt1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e24",
+          "size": 5,
+          "bytes": "a3a88dd600",
+          "mnemonic": "mov",
+          "text": "mov     MouseEvent__deltaDt1, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e29",
+          "size": 2,
+          "bytes": "eb05",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_506E30",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e2b",
+          "size": 5,
+          "bytes": "a1a88dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, MouseEvent__deltaDt1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e30",
+          "size": 6,
+          "bytes": "393dac8dd600",
+          "mnemonic": "cmp",
+          "text": "cmp     MouseEvent__lastDt2, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e36",
+          "size": 2,
+          "bytes": "7618",
+          "mnemonic": "jbe",
+          "text": "jbe     short loc_506E50",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e38",
+          "size": 2,
+          "bytes": "ffd6",
+          "mnemonic": "call",
+          "text": "call    esi ; GetTickCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e3a",
+          "size": 2,
+          "bytes": "8bc8",
+          "mnemonic": "mov",
+          "text": "mov     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e3c",
+          "size": 5,
+          "bytes": "a1ac8dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, MouseEvent__lastDt2",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e41",
+          "size": 2,
+          "bytes": "2bc8",
+          "mnemonic": "sub",
+          "text": "sub     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e43",
+          "size": 5,
+          "bytes": "a1a88dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, MouseEvent__deltaDt1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e48",
+          "size": 6,
+          "bytes": "890db08dd600",
+          "mnemonic": "mov",
+          "text": "mov     MouseEvent__deltaDt2, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e4e",
+          "size": 2,
+          "bytes": "eb06",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_506E56",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e50",
+          "size": 6,
+          "bytes": "8b0db08dd600",
+          "mnemonic": "mov",
+          "text": "mov     ecx, MouseEvent__deltaDt2",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e56",
+          "size": 5,
+          "bytes": "3df4010000",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 1F4h",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e5b",
+          "size": 2,
+          "bytes": "764d",
+          "mnemonic": "jbe",
+          "text": "jbe     short loc_506EAA",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e5d",
+          "size": 6,
+          "bytes": "8b15c88dd600",
+          "mnemonic": "mov",
+          "text": "mov     edx, dword_D68DC8",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e63",
+          "size": 2,
+          "bytes": "3bd7",
+          "mnemonic": "cmp",
+          "text": "cmp     edx, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e65",
+          "size": 2,
+          "bytes": "7516",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506E7D",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e67",
+          "size": 6,
+          "bytes": "8b15a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     edx, gMouseBtnDown",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e6d",
+          "size": 5,
+          "bytes": "a3c88dd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68DC8, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e72",
+          "size": 3,
+          "bytes": "83ca01",
+          "mnemonic": "or",
+          "text": "or      edx, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e75",
+          "size": 6,
+          "bytes": "8915a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     gMouseBtnDown, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e7b",
+          "size": 2,
+          "bytes": "eb3f",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_506EBC",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e7d",
+          "size": 2,
+          "bytes": "8bf0",
+          "mnemonic": "mov",
+          "text": "mov     esi, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e7f",
+          "size": 2,
+          "bytes": "2bf2",
+          "mnemonic": "sub",
+          "text": "sub     esi, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e81",
+          "size": 3,
+          "bytes": "83fe64",
+          "mnemonic": "cmp",
+          "text": "cmp     esi, 64h ; 'd'",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e84",
+          "size": 2,
+          "bytes": "7216",
+          "mnemonic": "jb",
+          "text": "jb      short loc_506E9C",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e86",
+          "size": 6,
+          "bytes": "8b15a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     edx, gMouseBtnDown",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e8c",
+          "size": 5,
+          "bytes": "a3c88dd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68DC8, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e91",
+          "size": 3,
+          "bytes": "83ca01",
+          "mnemonic": "or",
+          "text": "or      edx, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e94",
+          "size": 6,
+          "bytes": "8915a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     gMouseBtnDown, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e9a",
+          "size": 2,
+          "bytes": "eb20",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_506EBC",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e9c",
+          "size": 5,
+          "bytes": "a1a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, gMouseBtnDown",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ea1",
+          "size": 2,
+          "bytes": "24fe",
+          "mnemonic": "and",
+          "text": "and     al, 0FEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ea3",
+          "size": 5,
+          "bytes": "a3a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     gMouseBtnDown, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ea8",
+          "size": 2,
+          "bytes": "eb12",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_506EBC",
+          "call_target": null
+        },
+        {
+          "ea": "0x506eaa",
+          "size": 5,
+          "bytes": "a1a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, gMouseBtnDown",
+          "call_target": null
+        },
+        {
+          "ea": "0x506eaf",
+          "size": 6,
+          "bytes": "893dc88dd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68DC8, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506eb5",
+          "size": 2,
+          "bytes": "24fe",
+          "mnemonic": "and",
+          "text": "and     al, 0FEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x506eb7",
+          "size": 5,
+          "bytes": "a3a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     gMouseBtnDown, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ebc",
+          "size": 6,
+          "bytes": "81f9f4010000",
+          "mnemonic": "cmp",
+          "text": "cmp     ecx, 1F4h",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ec2",
+          "size": 2,
+          "bytes": "7643",
+          "mnemonic": "jbe",
+          "text": "jbe     short loc_506F07",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ec4",
+          "size": 5,
+          "bytes": "a1f08bd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D68BF0",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ec9",
+          "size": 2,
+          "bytes": "3bc7",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ecb",
+          "size": 2,
+          "bytes": "7514",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506EE1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ecd",
+          "size": 5,
+          "bytes": "a1a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, gMouseBtnDown",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ed2",
+          "size": 6,
+          "bytes": "890df08bd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68BF0, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ed8",
+          "size": 2,
+          "bytes": "0c02",
+          "mnemonic": "or",
+          "text": "or      al, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x506eda",
+          "size": 5,
+          "bytes": "a3a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     gMouseBtnDown, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506edf",
+          "size": 2,
+          "bytes": "eb38",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_506F19",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ee1",
+          "size": 2,
+          "bytes": "8bd1",
+          "mnemonic": "mov",
+          "text": "mov     edx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ee3",
+          "size": 2,
+          "bytes": "2bd0",
+          "mnemonic": "sub",
+          "text": "sub     edx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ee5",
+          "size": 5,
+          "bytes": "a1a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, gMouseBtnDown",
+          "call_target": null
+        },
+        {
+          "ea": "0x506eea",
+          "size": 3,
+          "bytes": "83fa64",
+          "mnemonic": "cmp",
+          "text": "cmp     edx, 64h ; 'd'",
+          "call_target": null
+        },
+        {
+          "ea": "0x506eed",
+          "size": 2,
+          "bytes": "720f",
+          "mnemonic": "jb",
+          "text": "jb      short loc_506EFE",
+          "call_target": null
+        },
+        {
+          "ea": "0x506eef",
+          "size": 2,
+          "bytes": "0c02",
+          "mnemonic": "or",
+          "text": "or      al, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ef1",
+          "size": 6,
+          "bytes": "890df08bd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68BF0, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ef7",
+          "size": 5,
+          "bytes": "a3a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     gMouseBtnDown, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506efc",
+          "size": 2,
+          "bytes": "eb1b",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_506F19",
+          "call_target": null
+        },
+        {
+          "ea": "0x506efe",
+          "size": 2,
+          "bytes": "24fd",
+          "mnemonic": "and",
+          "text": "and     al, 0FDh",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f00",
+          "size": 5,
+          "bytes": "a3a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     gMouseBtnDown, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f05",
+          "size": 2,
+          "bytes": "eb12",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_506F19",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f07",
+          "size": 5,
+          "bytes": "a1a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, gMouseBtnDown",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f0c",
+          "size": 6,
+          "bytes": "893df08bd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68BF0, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f12",
+          "size": 2,
+          "bytes": "24fd",
+          "mnemonic": "and",
+          "text": "and     al, 0FDh",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f14",
+          "size": 5,
+          "bytes": "a3a08dd600",
+          "mnemonic": "mov",
+          "text": "mov     gMouseBtnDown, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f19",
+          "size": 6,
+          "bytes": "393de47ad600",
+          "mnemonic": "cmp",
+          "text": "cmp     bShow, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f1f",
+          "size": 6,
+          "bytes": "0f8593000000",
+          "mnemonic": "jnz",
+          "text": "jnz     loc_506FB8",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f25",
+          "size": 6,
+          "bytes": "393dbc8dd600",
+          "mnemonic": "cmp",
+          "text": "cmp     dword_D68DBC, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f2b",
+          "size": 6,
+          "bytes": "0f8535010000",
+          "mnemonic": "jnz",
+          "text": "jnz     loc_507066",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f31",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f33",
+          "size": 4,
+          "bytes": "8d4c2408",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+28h+Point]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f37",
+          "size": 4,
+          "bytes": "8944240a",
+          "mnemonic": "mov",
+          "text": "mov     [esp+28h+Point.x+2], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f3b",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f3c",
+          "size": 4,
+          "bytes": "89442412",
+          "mnemonic": "mov",
+          "text": "mov     [esp+2Ch+Point.y+2], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f40",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f41",
+          "size": 4,
+          "bytes": "8944241a",
+          "mnemonic": "mov",
+          "text": "mov     [esp+30h+var_16], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f45",
+          "size": 5,
+          "bytes": "b9088dd600",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset mouseY",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f4a",
+          "size": 5,
+          "bytes": "668944241e",
+          "mnemonic": "mov",
+          "text": "mov     [esp+30h+var_12], ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f4f",
+          "size": 5,
+          "bytes": "a1c48dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D68DC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f54",
+          "size": 5,
+          "bytes": "66897c2410",
+          "mnemonic": "mov",
+          "text": "mov     word ptr [esp+30h+Point.x], di",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f59",
+          "size": 8,
+          "bytes": "c7442418ffffffff",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [esp+18h], 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f61",
+          "size": 3,
+          "bytes": "8d1440",
+          "mnemonic": "lea",
+          "text": "lea     edx, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f64",
+          "size": 5,
+          "bytes": "c644241d04",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [esp+30h+var_16+3], 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f69",
+          "size": 7,
+          "bytes": "8b049580ce5500",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_55CE80[edx*4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f70",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f71",
+          "size": 5,
+          "bytes": "68e7000000",
+          "mnemonic": "push",
+          "text": "push    0E7h",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f76",
+          "size": 2,
+          "bytes": "6a10",
+          "mnemonic": "push",
+          "text": "push    10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f78",
+          "size": 5,
+          "bytes": "e893aeefff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x506f7d",
+          "size": 2,
+          "bytes": "8bc8",
+          "mnemonic": "mov",
+          "text": "mov     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f7f",
+          "size": 5,
+          "bytes": "a1c48dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D68DC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f84",
+          "size": 3,
+          "bytes": "8d1440",
+          "mnemonic": "lea",
+          "text": "lea     edx, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f87",
+          "size": 8,
+          "bytes": "0fbf049586ce5500",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, word_55CE86[edx*4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f8f",
+          "size": 2,
+          "bytes": "03c8",
+          "mnemonic": "add",
+          "text": "add     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f91",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f92",
+          "size": 2,
+          "bytes": "6a10",
+          "mnemonic": "push",
+          "text": "push    10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f94",
+          "size": 5,
+          "bytes": "b9f88cd600",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset mouseX",
+          "call_target": null
+        },
+        {
+          "ea": "0x506f99",
+          "size": 5,
+          "bytes": "e872aeefff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x506f9e",
+          "size": 2,
+          "bytes": "8bc8",
+          "mnemonic": "mov",
+          "text": "mov     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fa0",
+          "size": 5,
+          "bytes": "a1c48dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D68DC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fa5",
+          "size": 3,
+          "bytes": "8d1440",
+          "mnemonic": "lea",
+          "text": "lea     edx, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fa8",
+          "size": 8,
+          "bytes": "0fbf049584ce5500",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, word_55CE84[edx*4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fb0",
+          "size": 2,
+          "bytes": "03c8",
+          "mnemonic": "add",
+          "text": "add     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fb2",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fb3",
+          "size": 5,
+          "bytes": "e9a6000000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_50705E",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fb8",
+          "size": 6,
+          "bytes": "8b0dc48dd600",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_D68DC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fbe",
+          "size": 5,
+          "bytes": "a1e88bd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D68BE8",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fc3",
+          "size": 2,
+          "bytes": "3bc8",
+          "mnemonic": "cmp",
+          "text": "cmp     ecx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fc5",
+          "size": 2,
+          "bytes": "745e",
+          "mnemonic": "jz",
+          "text": "jz      short loc_507025",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fc7",
+          "size": 4,
+          "bytes": "8d542408",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+28h+Point]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fcb",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; lpPoint",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fcc",
+          "size": 6,
+          "bytes": "ff153cd25400",
+          "mnemonic": "call",
+          "text": "call    ds:GetCursorPos",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fd2",
+          "size": 6,
+          "bytes": "8b0d346f9a00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, hWnd",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fd8",
+          "size": 4,
+          "bytes": "8d442408",
+          "mnemonic": "lea",
+          "text": "lea     eax, [esp+28h+Point]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fdc",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; lpPoint",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fdd",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; hWnd",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fde",
+          "size": 6,
+          "bytes": "ff1538d25400",
+          "mnemonic": "call",
+          "text": "call    ds:ScreenToClient",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fe4",
+          "size": 5,
+          "bytes": "a1346f9a00",
+          "mnemonic": "mov",
+          "text": "mov     eax, hWnd",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fe9",
+          "size": 4,
+          "bytes": "8d542418",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+28h+Rect]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fed",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; lpRect",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fee",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; hWnd",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fef",
+          "size": 6,
+          "bytes": "ff1500d35400",
+          "mnemonic": "call",
+          "text": "call    ds:GetClientRect",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ff5",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+28h+Point.x]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ff9",
+          "size": 2,
+          "bytes": "3bc7",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ffb",
+          "size": 2,
+          "bytes": "7c28",
+          "mnemonic": "jl",
+          "text": "jl      short loc_507025",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ffd",
+          "size": 4,
+          "bytes": "3b442420",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, [esp+28h+Rect.right]",
+          "call_target": null
+        },
+        {
+          "ea": "0x507001",
+          "size": 2,
+          "bytes": "7d22",
+          "mnemonic": "jge",
+          "text": "jge     short loc_507025",
+          "call_target": null
+        },
+        {
+          "ea": "0x507003",
+          "size": 4,
+          "bytes": "8b44240c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x507007",
+          "size": 2,
+          "bytes": "3bc7",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x507009",
+          "size": 2,
+          "bytes": "7c1a",
+          "mnemonic": "jl",
+          "text": "jl      short loc_507025",
+          "call_target": null
+        },
+        {
+          "ea": "0x50700b",
+          "size": 4,
+          "bytes": "3b442424",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, [esp+28h+Rect.bottom]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50700f",
+          "size": 2,
+          "bytes": "7d14",
+          "mnemonic": "jge",
+          "text": "jge     short loc_507025",
+          "call_target": null
+        },
+        {
+          "ea": "0x507011",
+          "size": 6,
+          "bytes": "8b0dc48dd600",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_D68DC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x507017",
+          "size": 7,
+          "bytes": "8b148df86e9a00",
+          "mnemonic": "mov",
+          "text": "mov     edx, hCursor[ecx*4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50701e",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; hCursor",
+          "call_target": null
+        },
+        {
+          "ea": "0x50701f",
+          "size": 6,
+          "bytes": "ff15a4d25400",
+          "mnemonic": "call",
+          "text": "call    ds:SetCursor",
+          "call_target": null
+        },
+        {
+          "ea": "0x507025",
+          "size": 5,
+          "bytes": "a1c48dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D68DC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x50702a",
+          "size": 5,
+          "bytes": "a3e88bd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68BE8, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50702f",
+          "size": 5,
+          "bytes": "a1bc8dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D68DBC",
+          "call_target": null
+        },
+        {
+          "ea": "0x507034",
+          "size": 2,
+          "bytes": "3bc7",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x507036",
+          "size": 2,
+          "bytes": "752e",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_507066",
+          "call_target": null
+        },
+        {
+          "ea": "0x507038",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x507039",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50703a",
+          "size": 5,
+          "bytes": "68f0550000",
+          "mnemonic": "push",
+          "text": "push    55F0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x50703f",
+          "size": 5,
+          "bytes": "68e7000000",
+          "mnemonic": "push",
+          "text": "push    0E7h",
+          "call_target": null
+        },
+        {
+          "ea": "0x507044",
+          "size": 2,
+          "bytes": "6a10",
+          "mnemonic": "push",
+          "text": "push    10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x507046",
+          "size": 5,
+          "bytes": "b9088dd600",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset mouseY",
+          "call_target": null
+        },
+        {
+          "ea": "0x50704b",
+          "size": 5,
+          "bytes": "e8c0adefff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x507050",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x507051",
+          "size": 2,
+          "bytes": "6a10",
+          "mnemonic": "push",
+          "text": "push    10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x507053",
+          "size": 5,
+          "bytes": "b9f88cd600",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset mouseX",
+          "call_target": null
+        },
+        {
+          "ea": "0x507058",
+          "size": 5,
+          "bytes": "e8b3adefff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x50705d",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50705e",
+          "size": 5,
+          "bytes": "e8adaa0100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        },
+        {
+          "ea": "0x507063",
+          "size": 3,
+          "bytes": "83c418",
+          "mnemonic": "add",
+          "text": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x507066",
+          "size": 6,
+          "bytes": "8b0dc48dd600",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_D68DC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x50706c",
+          "size": 6,
+          "bytes": "893dc48dd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68DC4, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x507072",
+          "size": 6,
+          "bytes": "890d446f9a00",
+          "mnemonic": "mov",
+          "text": "mov     dword_9A6F44, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x507078",
+          "size": 5,
+          "bytes": "e853fdffff",
+          "mnemonic": "call",
+          "text": "call    sub_506DD0",
+          "call_target": "0x506dd0"
+        },
+        {
+          "ea": "0x50707d",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50707e",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50707f",
+          "size": 3,
+          "bytes": "83c420",
+          "mnemonic": "add",
+          "text": "add     esp, 20h",
+          "call_target": null
+        },
+        {
+          "ea": "0x507082",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x506e00",
+          "0x507083"
+        ]
+      ],
+      "code_bytes": 643,
+      "page_count": 3,
+      "calls": [
+        {
+          "ea": "0x506f78",
+          "size": 5,
+          "bytes": "e893aeefff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x506f99",
+          "size": 5,
+          "bytes": "e872aeefff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x50704b",
+          "size": 5,
+          "bytes": "e8c0adefff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x507058",
+          "size": 5,
+          "bytes": "e8b3adefff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x50705e",
+          "size": 5,
+          "bytes": "e8adaa0100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        },
+        {
+          "ea": "0x507078",
+          "size": 5,
+          "bytes": "e853fdffff",
+          "mnemonic": "call",
+          "text": "call    sub_506DD0",
+          "call_target": "0x506dd0"
+        }
+      ],
+      "indirect_calls": [
+        {
+          "ea": "0x506e1c",
+          "size": 2,
+          "bytes": "ffd6",
+          "mnemonic": "call",
+          "text": "call    esi ; GetTickCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x506e38",
+          "size": 2,
+          "bytes": "ffd6",
+          "mnemonic": "call",
+          "text": "call    esi ; GetTickCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fcc",
+          "size": 6,
+          "bytes": "ff153cd25400",
+          "mnemonic": "call",
+          "text": "call    ds:GetCursorPos",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fde",
+          "size": 6,
+          "bytes": "ff1538d25400",
+          "mnemonic": "call",
+          "text": "call    ds:ScreenToClient",
+          "call_target": null
+        },
+        {
+          "ea": "0x506fef",
+          "size": 6,
+          "bytes": "ff1500d35400",
+          "mnemonic": "call",
+          "text": "call    ds:GetClientRect",
+          "call_target": null
+        },
+        {
+          "ea": "0x50701f",
+          "size": 6,
+          "bytes": "ff15a4d25400",
+          "mnemonic": "call",
+          "text": "call    ds:SetCursor",
+          "call_target": null
+        }
+      ],
+      "jump_count": 25,
+      "return_count": 1
+    },
+    {
+      "start": "0x506de0",
+      "end_exclusive": "0x506dfb",
+      "count": 9,
+      "chunks": [
+        [
+          "0x506de0",
+          "0x506dfb"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x469c90",
+          "text": "call    sub_506DE0",
+          "from": "0x469edf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x479700",
+          "text": "call    sub_506DE0",
+          "from": "0x47975b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x47de00",
+          "text": "call    sub_506DE0",
+          "from": "0x47dea0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x48bc90",
+          "text": "call    sub_506DE0",
+          "from": "0x48be4c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x48bf30",
+          "text": "call    sub_506DE0",
+          "from": "0x48c032"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x48f620",
+          "text": "call    sub_506DE0",
+          "from": "0x48f687"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x498520",
+          "text": "call    sub_506DE0",
+          "from": "0x498564"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4b25d0",
+          "text": "call    sub_506DE0",
+          "from": "0x4b26b7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4b2e00",
+          "text": "call    sub_506DE0",
+          "from": "0x4b2ee5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4b6c50",
+          "text": "call    sub_506DE0",
+          "from": "0x4b6d46"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x507140",
+          "text": "call    sub_506DE0",
+          "from": "0x5079d7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x507140",
+          "text": "call    sub_506DE0",
+          "from": "0x507a1f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x507140",
+          "text": "call    sub_506DE0",
+          "from": "0x507a49"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x507140",
+          "text": "call    sub_506DE0",
+          "from": "0x507a74"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x506de0",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506de4",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506de6",
+          "size": 2,
+          "bytes": "7509",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506DF1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506de8",
+          "size": 5,
+          "bytes": "a1c48dd600",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_D68DC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x506ded",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506def",
+          "size": 2,
+          "bytes": "7509",
+          "mnemonic": "jnz",
+          "text": "jnz     short locret_506DFA",
+          "call_target": null
+        },
+        {
+          "ea": "0x506df1",
+          "size": 4,
+          "bytes": "8b442404",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506df5",
+          "size": 5,
+          "bytes": "a3c48dd600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68DC4, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506dfa",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x506de0",
+          "0x506dfb"
+        ]
+      ],
+      "code_bytes": 27,
+      "page_count": 1,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 2,
+      "return_count": 1
+    },
+    {
+      "start": "0x506dd0",
+      "end_exclusive": "0x506ddb",
+      "count": 2,
+      "chunks": [
+        [
+          "0x506dd0",
+          "0x506ddb"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x506e00",
+          "text": "call    sub_506DD0",
+          "from": "0x507078"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x506dd0",
+          "size": 10,
+          "bytes": "c705c08dd60000000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68DC0, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x506dda",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x506dd0",
+          "0x506ddb"
+        ]
+      ],
+      "code_bytes": 11,
+      "page_count": 1,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1
+    },
+    {
+      "start": "0x506870",
+      "end_exclusive": "0x50688b",
+      "count": 8,
+      "chunks": [
+        [
+          "0x506870",
+          "0x50688b"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4576b0",
+          "text": "call    sub_506870",
+          "from": "0x4577f0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x506870",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506871",
+          "size": 5,
+          "bytes": "b934000000",
+          "mnemonic": "mov",
+          "text": "mov     ecx, 34h ; '4'",
+          "call_target": null
+        },
+        {
+          "ea": "0x506876",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506878",
+          "size": 5,
+          "bytes": "bff88cd600",
+          "mnemonic": "mov",
+          "text": "mov     edi, offset mouseX",
+          "call_target": null
+        },
+        {
+          "ea": "0x50687d",
+          "size": 2,
+          "bytes": "f3ab",
+          "mnemonic": "stosd",
+          "text": "rep stosd",
+          "call_target": null
+        },
+        {
+          "ea": "0x50687f",
+          "size": 10,
+          "bytes": "c705b88dd600ffffffff",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68DB8, 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x506889",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50688a",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x506870",
+          "0x50688b"
+        ]
+      ],
+      "code_bytes": 27,
+      "page_count": 1,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1
+    }
+  ],
+  "original_unassigned_ranges": [
+    {
+      "start": "0x50688b",
+      "end_exclusive": "0x506890",
+      "size": 5,
+      "loaded": true,
+      "bytes": "9090909090",
+      "decode": [
+        {
+          "ea": "0x50688b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50688c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50688d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50688e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50688f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x506890"
+    },
+    {
+      "start": "0x506ddb",
+      "end_exclusive": "0x506de0",
+      "size": 5,
+      "loaded": true,
+      "bytes": "9090909090",
+      "decode": [
+        {
+          "ea": "0x506ddb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506ddc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506ddd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dde",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506ddf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x506de0"
+    },
+    {
+      "start": "0x506dfb",
+      "end_exclusive": "0x506e00",
+      "size": 5,
+      "loaded": true,
+      "bytes": "9090909090",
+      "decode": [
+        {
+          "ea": "0x506dfb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dfc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dfd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dfe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dff",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x506e00"
+    },
+    {
+      "start": "0x507083",
+      "end_exclusive": "0x507090",
+      "size": 13,
+      "loaded": true,
+      "bytes": "90909090909090909090909090",
+      "decode": [
+        {
+          "ea": "0x507083",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507084",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507085",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507086",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507087",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507088",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507089",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x507090"
+    }
+  ],
+  "ranges_before": [
+    {
+      "id": "X:0010688B-00106890",
+      "start": "0x50688B",
+      "end_exclusive": "0x506890",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:00106DDB-00106DE0",
+      "start": "0x506DDB",
+      "end_exclusive": "0x506DE0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:00106DFB-00106E00",
+      "start": "0x506DFB",
+      "end_exclusive": "0x506E00",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:00107083-00107090",
+      "start": "0x507083",
+      "end_exclusive": "0x507090",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    }
+  ],
+  "original_flag_owner_facts": [
+    {
+      "ea": "0x506900",
+      "text": "mov     ecx, gMouseClickState",
+      "operand0": "0x1",
+      "operand1": "0xd68d9c"
+    },
+    {
+      "ea": "0x506906",
+      "text": "mov     edx, gMouseBtnDown2",
+      "operand0": "0x2",
+      "operand1": "0xd68d98"
+    },
+    {
+      "ea": "0x50690c",
+      "text": "mov     eax, gMouseBtnDown",
+      "operand0": "0x0",
+      "operand1": "0xd68da0"
+    },
+    {
+      "ea": "0x506e14",
+      "text": "mov     gMouseClickState, edi",
+      "operand0": "0xd68d9c",
+      "operand1": "0x7"
+    },
+    {
+      "ea": "0x506e67",
+      "text": "mov     edx, gMouseBtnDown",
+      "operand0": "0x2",
+      "operand1": "0xd68da0"
+    },
+    {
+      "ea": "0x506e75",
+      "text": "mov     gMouseBtnDown, edx",
+      "operand0": "0xd68da0",
+      "operand1": "0x2"
+    },
+    {
+      "ea": "0x506e9c",
+      "text": "mov     eax, gMouseBtnDown",
+      "operand0": "0x0",
+      "operand1": "0xd68da0"
+    },
+    {
+      "ea": "0x506ea3",
+      "text": "mov     gMouseBtnDown, eax",
+      "operand0": "0xd68da0",
+      "operand1": "0x0"
+    },
+    {
+      "ea": "0x506ecd",
+      "text": "mov     eax, gMouseBtnDown",
+      "operand0": "0x0",
+      "operand1": "0xd68da0"
+    },
+    {
+      "ea": "0x506ef7",
+      "text": "mov     gMouseBtnDown, eax",
+      "operand0": "0xd68da0",
+      "operand1": "0x0"
+    },
+    {
+      "ea": "0x506e00",
+      "text": "mov     eax, MouseEvent__lastDt1",
+      "operand0": "0x0",
+      "operand1": "0xd68da4"
+    },
+    {
+      "ea": "0x506e1e",
+      "text": "sub     eax, MouseEvent__lastDt1",
+      "operand0": "0x0",
+      "operand1": "0xd68da4"
+    },
+    {
+      "ea": "0x506e30",
+      "text": "cmp     MouseEvent__lastDt2, edi",
+      "operand0": "0xd68dac",
+      "operand1": "0x7"
+    },
+    {
+      "ea": "0x506e41",
+      "text": "sub     ecx, eax",
+      "operand0": "0x1",
+      "operand1": "0x0"
+    },
+    {
+      "ea": "0x506e43",
+      "text": "mov     eax, MouseEvent__deltaDt1",
+      "operand0": "0x0",
+      "operand1": "0xd68da8"
+    },
+    {
+      "ea": "0x506e48",
+      "text": "mov     MouseEvent__deltaDt2, ecx",
+      "operand0": "0xd68db0",
+      "operand1": "0x1"
+    }
+  ],
+  "original_flag_windows": [
+    [
+      {
+        "ea": "0x506900",
+        "size": 6,
+        "bytes": "8b0d9c8dd600",
+        "text": "mov     ecx, gMouseClickState",
+        "operand0": "0x1",
+        "operand1": "0xd68d9c"
+      },
+      {
+        "ea": "0x506906",
+        "size": 6,
+        "bytes": "8b15988dd600",
+        "text": "mov     edx, gMouseBtnDown2",
+        "operand0": "0x2",
+        "operand1": "0xd68d98"
+      },
+      {
+        "ea": "0x50690c",
+        "size": 5,
+        "bytes": "a1a08dd600",
+        "text": "mov     eax, gMouseBtnDown",
+        "operand0": "0x0",
+        "operand1": "0xd68da0"
+      },
+      {
+        "ea": "0x506920",
+        "size": 6,
+        "bytes": "890d9c8dd600",
+        "text": "mov     gMouseClickState, ecx",
+        "operand0": "0xd68d9c",
+        "operand1": "0x1"
+      },
+      {
+        "ea": "0x50692d",
+        "size": 6,
+        "bytes": "8915988dd600",
+        "text": "mov     gMouseBtnDown2, edx",
+        "operand0": "0xd68d98",
+        "operand1": "0x2"
+      },
+      {
+        "ea": "0x506933",
+        "size": 5,
+        "bytes": "a3a08dd600",
+        "text": "mov     gMouseBtnDown, eax",
+        "operand0": "0xd68da0",
+        "operand1": "0x0"
+      }
+    ],
+    [
+      {
+        "ea": "0x5069e0",
+        "size": 6,
+        "bytes": "8b15988dd600",
+        "text": "mov     edx, gMouseBtnDown2",
+        "operand0": "0x2",
+        "operand1": "0xd68d98"
+      },
+      {
+        "ea": "0x5069e6",
+        "size": 6,
+        "bytes": "8b0d9c8dd600",
+        "text": "mov     ecx, gMouseClickState",
+        "operand0": "0x1",
+        "operand1": "0xd68d9c"
+      },
+      {
+        "ea": "0x5069f9",
+        "size": 6,
+        "bytes": "8915988dd600",
+        "text": "mov     gMouseBtnDown2, edx",
+        "operand0": "0xd68d98",
+        "operand1": "0x2"
+      },
+      {
+        "ea": "0x5069ff",
+        "size": 6,
+        "bytes": "8b15a08dd600",
+        "text": "mov     edx, gMouseBtnDown",
+        "operand0": "0x2",
+        "operand1": "0xd68da0"
+      },
+      {
+        "ea": "0x506a0b",
+        "size": 6,
+        "bytes": "890d9c8dd600",
+        "text": "mov     gMouseClickState, ecx",
+        "operand0": "0xd68d9c",
+        "operand1": "0x1"
+      },
+      {
+        "ea": "0x506a16",
+        "size": 6,
+        "bytes": "8915a08dd600",
+        "text": "mov     gMouseBtnDown, edx",
+        "operand0": "0xd68da0",
+        "operand1": "0x2"
+      }
+    ],
+    [
+      {
+        "ea": "0x506a90",
+        "size": 6,
+        "bytes": "8b15988dd600",
+        "text": "mov     edx, gMouseBtnDown2",
+        "operand0": "0x2",
+        "operand1": "0xd68d98"
+      },
+      {
+        "ea": "0x506a96",
+        "size": 6,
+        "bytes": "8b0d9c8dd600",
+        "text": "mov     ecx, gMouseClickState",
+        "operand0": "0x1",
+        "operand1": "0xd68d9c"
+      },
+      {
+        "ea": "0x506aa9",
+        "size": 6,
+        "bytes": "8915988dd600",
+        "text": "mov     gMouseBtnDown2, edx",
+        "operand0": "0xd68d98",
+        "operand1": "0x2"
+      },
+      {
+        "ea": "0x506aaf",
+        "size": 6,
+        "bytes": "8b15a08dd600",
+        "text": "mov     edx, gMouseBtnDown",
+        "operand0": "0x2",
+        "operand1": "0xd68da0"
+      },
+      {
+        "ea": "0x506abb",
+        "size": 6,
+        "bytes": "890d9c8dd600",
+        "text": "mov     gMouseClickState, ecx",
+        "operand0": "0xd68d9c",
+        "operand1": "0x1"
+      },
+      {
+        "ea": "0x506ac6",
+        "size": 6,
+        "bytes": "8915a08dd600",
+        "text": "mov     gMouseBtnDown, edx",
+        "operand0": "0xd68da0",
+        "operand1": "0x2"
+      }
+    ],
+    [
+      {
+        "ea": "0x506b50",
+        "size": 6,
+        "bytes": "8b0da08dd600",
+        "text": "mov     ecx, gMouseBtnDown",
+        "operand0": "0x1",
+        "operand1": "0xd68da0"
+      },
+      {
+        "ea": "0x506b59",
+        "size": 6,
+        "bytes": "8b159c8dd600",
+        "text": "mov     edx, gMouseClickState",
+        "operand0": "0x2",
+        "operand1": "0xd68d9c"
+      },
+      {
+        "ea": "0x506b65",
+        "size": 6,
+        "bytes": "8b35988dd600",
+        "text": "mov     esi, gMouseBtnDown2",
+        "operand0": "0x6",
+        "operand1": "0xd68d98"
+      },
+      {
+        "ea": "0x506b6f",
+        "size": 6,
+        "bytes": "8935988dd600",
+        "text": "mov     gMouseBtnDown2, esi",
+        "operand0": "0xd68d98",
+        "operand1": "0x6"
+      },
+      {
+        "ea": "0x506b7c",
+        "size": 6,
+        "bytes": "890da08dd600",
+        "text": "mov     gMouseBtnDown, ecx",
+        "operand0": "0xd68da0",
+        "operand1": "0x1"
+      },
+      {
+        "ea": "0x506b87",
+        "size": 6,
+        "bytes": "89159c8dd600",
+        "text": "mov     gMouseClickState, edx",
+        "operand0": "0xd68d9c",
+        "operand1": "0x2"
+      }
+    ],
+    [
+      {
+        "ea": "0x506c40",
+        "size": 6,
+        "bytes": "8b15988dd600",
+        "text": "mov     edx, gMouseBtnDown2",
+        "operand0": "0x2",
+        "operand1": "0xd68d98"
+      },
+      {
+        "ea": "0x506c46",
+        "size": 6,
+        "bytes": "8b0d9c8dd600",
+        "text": "mov     ecx, gMouseClickState",
+        "operand0": "0x1",
+        "operand1": "0xd68d9c"
+      },
+      {
+        "ea": "0x506c59",
+        "size": 6,
+        "bytes": "8915988dd600",
+        "text": "mov     gMouseBtnDown2, edx",
+        "operand0": "0xd68d98",
+        "operand1": "0x2"
+      },
+      {
+        "ea": "0x506c5f",
+        "size": 6,
+        "bytes": "8b15a08dd600",
+        "text": "mov     edx, gMouseBtnDown",
+        "operand0": "0x2",
+        "operand1": "0xd68da0"
+      },
+      {
+        "ea": "0x506c6b",
+        "size": 6,
+        "bytes": "890d9c8dd600",
+        "text": "mov     gMouseClickState, ecx",
+        "operand0": "0xd68d9c",
+        "operand1": "0x1"
+      },
+      {
+        "ea": "0x506c76",
+        "size": 6,
+        "bytes": "8915a08dd600",
+        "text": "mov     gMouseBtnDown, edx",
+        "operand0": "0xd68da0",
+        "operand1": "0x2"
+      }
+    ],
+    [
+      {
+        "ea": "0x506cf0",
+        "size": 6,
+        "bytes": "8b15988dd600",
+        "text": "mov     edx, gMouseBtnDown2",
+        "operand0": "0x2",
+        "operand1": "0xd68d98"
+      },
+      {
+        "ea": "0x506cf6",
+        "size": 6,
+        "bytes": "8b0d9c8dd600",
+        "text": "mov     ecx, gMouseClickState",
+        "operand0": "0x1",
+        "operand1": "0xd68d9c"
+      },
+      {
+        "ea": "0x506d09",
+        "size": 6,
+        "bytes": "8915988dd600",
+        "text": "mov     gMouseBtnDown2, edx",
+        "operand0": "0xd68d98",
+        "operand1": "0x2"
+      },
+      {
+        "ea": "0x506d0f",
+        "size": 6,
+        "bytes": "8b15a08dd600",
+        "text": "mov     edx, gMouseBtnDown",
+        "operand0": "0x2",
+        "operand1": "0xd68da0"
+      },
+      {
+        "ea": "0x506d1b",
+        "size": 6,
+        "bytes": "890d9c8dd600",
+        "text": "mov     gMouseClickState, ecx",
+        "operand0": "0xd68d9c",
+        "operand1": "0x1"
+      },
+      {
+        "ea": "0x506d26",
+        "size": 6,
+        "bytes": "8915a08dd600",
+        "text": "mov     gMouseBtnDown, edx",
+        "operand0": "0xd68da0",
+        "operand1": "0x2"
+      }
+    ]
+  ],
+  "original_cursor_scalar_table": [
+    {
+      "state": 0,
+      "start": "0x55ce80",
+      "size": 8,
+      "loaded": true,
+      "bytes": "98be030000000000",
+      "image": 245400,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "state": 1,
+      "start": "0x55ce8c",
+      "size": 8,
+      "loaded": true,
+      "bytes": "9bbe0300ecffe2ff",
+      "image": 245403,
+      "x": -20,
+      "y": -30
+    },
+    {
+      "state": 2,
+      "start": "0x55ce98",
+      "size": 8,
+      "loaded": true,
+      "bytes": "9cbe030000000000",
+      "image": 245404,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "state": 3,
+      "start": "0x55cea4",
+      "size": 8,
+      "loaded": true,
+      "bytes": "a8c30300e9ffeaff",
+      "image": 246696,
+      "x": -23,
+      "y": -22
+    },
+    {
+      "state": 4,
+      "start": "0x55ceb0",
+      "size": 8,
+      "loaded": true,
+      "bytes": "a1c30300f0ffe7ff",
+      "image": 246689,
+      "x": -16,
+      "y": -25
+    },
+    {
+      "state": 5,
+      "start": "0x55cebc",
+      "size": 8,
+      "loaded": true,
+      "bytes": "a2c30300f7ffeaff",
+      "image": 246690,
+      "x": -9,
+      "y": -22
+    },
+    {
+      "state": 6,
+      "start": "0x55cec8",
+      "size": 8,
+      "loaded": true,
+      "bytes": "a3c30300f9fff0ff",
+      "image": 246691,
+      "x": -7,
+      "y": -16
+    },
+    {
+      "state": 7,
+      "start": "0x55ced4",
+      "size": 8,
+      "loaded": true,
+      "bytes": "a4c30300f7fff6ff",
+      "image": 246692,
+      "x": -9,
+      "y": -10
+    },
+    {
+      "state": 8,
+      "start": "0x55cee0",
+      "size": 8,
+      "loaded": true,
+      "bytes": "a5c30300f0fff9ff",
+      "image": 246693,
+      "x": -16,
+      "y": -7
+    },
+    {
+      "state": 9,
+      "start": "0x55ceec",
+      "size": 8,
+      "loaded": true,
+      "bytes": "a6c30300e9fff6ff",
+      "image": 246694,
+      "x": -23,
+      "y": -10
+    },
+    {
+      "state": 10,
+      "start": "0x55cef8",
+      "size": 8,
+      "loaded": true,
+      "bytes": "a7c30300e7fff0ff",
+      "image": 246695,
+      "x": -25,
+      "y": -16
+    }
+  ],
+  "flag_sequences": [
+    {
+      "symbol": "UpdateLegacyMouseLeftDown_506900",
+      "addresses": [
+        {
+          "ea": "0x506900",
+          "size": 6,
+          "bytes": "8b0d9c8dd600",
+          "text": "mov     ecx, gMouseClickState",
+          "operand0": "0x1",
+          "operand1": "0xd68d9c"
+        },
+        {
+          "ea": "0x506906",
+          "size": 6,
+          "bytes": "8b15988dd600",
+          "text": "mov     edx, gMouseBtnDown2",
+          "operand0": "0x2",
+          "operand1": "0xd68d98"
+        },
+        {
+          "ea": "0x50690c",
+          "size": 5,
+          "bytes": "a1a08dd600",
+          "text": "mov     eax, gMouseBtnDown",
+          "operand0": "0x0",
+          "operand1": "0xd68da0"
+        },
+        {
+          "ea": "0x506920",
+          "size": 6,
+          "bytes": "890d9c8dd600",
+          "text": "mov     gMouseClickState, ecx",
+          "operand0": "0xd68d9c",
+          "operand1": "0x1"
+        },
+        {
+          "ea": "0x50692d",
+          "size": 6,
+          "bytes": "8915988dd600",
+          "text": "mov     gMouseBtnDown2, edx",
+          "operand0": "0xd68d98",
+          "operand1": "0x2"
+        },
+        {
+          "ea": "0x506933",
+          "size": 5,
+          "bytes": "a3a08dd600",
+          "text": "mov     gMouseBtnDown, eax",
+          "operand0": "0xd68da0",
+          "operand1": "0x0"
+        }
+      ],
+      "read_publish_order": [
+        {
+          "access": "read",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "read",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "read",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        },
+        {
+          "access": "write",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "write",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "write",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        }
+      ]
+    },
+    {
+      "symbol": "UpdateLegacyMouseLeftUp_5069E0",
+      "addresses": [
+        {
+          "ea": "0x5069e0",
+          "size": 6,
+          "bytes": "8b15988dd600",
+          "text": "mov     edx, gMouseBtnDown2",
+          "operand0": "0x2",
+          "operand1": "0xd68d98"
+        },
+        {
+          "ea": "0x5069e6",
+          "size": 6,
+          "bytes": "8b0d9c8dd600",
+          "text": "mov     ecx, gMouseClickState",
+          "operand0": "0x1",
+          "operand1": "0xd68d9c"
+        },
+        {
+          "ea": "0x5069f9",
+          "size": 6,
+          "bytes": "8915988dd600",
+          "text": "mov     gMouseBtnDown2, edx",
+          "operand0": "0xd68d98",
+          "operand1": "0x2"
+        },
+        {
+          "ea": "0x5069ff",
+          "size": 6,
+          "bytes": "8b15a08dd600",
+          "text": "mov     edx, gMouseBtnDown",
+          "operand0": "0x2",
+          "operand1": "0xd68da0"
+        },
+        {
+          "ea": "0x506a0b",
+          "size": 6,
+          "bytes": "890d9c8dd600",
+          "text": "mov     gMouseClickState, ecx",
+          "operand0": "0xd68d9c",
+          "operand1": "0x1"
+        },
+        {
+          "ea": "0x506a16",
+          "size": 6,
+          "bytes": "8915a08dd600",
+          "text": "mov     gMouseBtnDown, edx",
+          "operand0": "0xd68da0",
+          "operand1": "0x2"
+        }
+      ],
+      "read_publish_order": [
+        {
+          "access": "read",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "read",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "write",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "read",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        },
+        {
+          "access": "write",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "write",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        }
+      ]
+    },
+    {
+      "symbol": "UpdateLegacyMouseLeftDoubleClick_506A90",
+      "addresses": [
+        {
+          "ea": "0x506a90",
+          "size": 6,
+          "bytes": "8b15988dd600",
+          "text": "mov     edx, gMouseBtnDown2",
+          "operand0": "0x2",
+          "operand1": "0xd68d98"
+        },
+        {
+          "ea": "0x506a96",
+          "size": 6,
+          "bytes": "8b0d9c8dd600",
+          "text": "mov     ecx, gMouseClickState",
+          "operand0": "0x1",
+          "operand1": "0xd68d9c"
+        },
+        {
+          "ea": "0x506aa9",
+          "size": 6,
+          "bytes": "8915988dd600",
+          "text": "mov     gMouseBtnDown2, edx",
+          "operand0": "0xd68d98",
+          "operand1": "0x2"
+        },
+        {
+          "ea": "0x506aaf",
+          "size": 6,
+          "bytes": "8b15a08dd600",
+          "text": "mov     edx, gMouseBtnDown",
+          "operand0": "0x2",
+          "operand1": "0xd68da0"
+        },
+        {
+          "ea": "0x506abb",
+          "size": 6,
+          "bytes": "890d9c8dd600",
+          "text": "mov     gMouseClickState, ecx",
+          "operand0": "0xd68d9c",
+          "operand1": "0x1"
+        },
+        {
+          "ea": "0x506ac6",
+          "size": 6,
+          "bytes": "8915a08dd600",
+          "text": "mov     gMouseBtnDown, edx",
+          "operand0": "0xd68da0",
+          "operand1": "0x2"
+        }
+      ],
+      "read_publish_order": [
+        {
+          "access": "read",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "read",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "write",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "read",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        },
+        {
+          "access": "write",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "write",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        }
+      ]
+    },
+    {
+      "symbol": "UpdateLegacyMouseRightDown_506B50",
+      "addresses": [
+        {
+          "ea": "0x506b50",
+          "size": 6,
+          "bytes": "8b0da08dd600",
+          "text": "mov     ecx, gMouseBtnDown",
+          "operand0": "0x1",
+          "operand1": "0xd68da0"
+        },
+        {
+          "ea": "0x506b59",
+          "size": 6,
+          "bytes": "8b159c8dd600",
+          "text": "mov     edx, gMouseClickState",
+          "operand0": "0x2",
+          "operand1": "0xd68d9c"
+        },
+        {
+          "ea": "0x506b65",
+          "size": 6,
+          "bytes": "8b35988dd600",
+          "text": "mov     esi, gMouseBtnDown2",
+          "operand0": "0x6",
+          "operand1": "0xd68d98"
+        },
+        {
+          "ea": "0x506b6f",
+          "size": 6,
+          "bytes": "8935988dd600",
+          "text": "mov     gMouseBtnDown2, esi",
+          "operand0": "0xd68d98",
+          "operand1": "0x6"
+        },
+        {
+          "ea": "0x506b7c",
+          "size": 6,
+          "bytes": "890da08dd600",
+          "text": "mov     gMouseBtnDown, ecx",
+          "operand0": "0xd68da0",
+          "operand1": "0x1"
+        },
+        {
+          "ea": "0x506b87",
+          "size": 6,
+          "bytes": "89159c8dd600",
+          "text": "mov     gMouseClickState, edx",
+          "operand0": "0xd68d9c",
+          "operand1": "0x2"
+        }
+      ],
+      "read_publish_order": [
+        {
+          "access": "read",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        },
+        {
+          "access": "read",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "read",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "write",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "write",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        },
+        {
+          "access": "write",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        }
+      ]
+    },
+    {
+      "symbol": "UpdateLegacyMouseRightUp_506C40",
+      "addresses": [
+        {
+          "ea": "0x506c40",
+          "size": 6,
+          "bytes": "8b15988dd600",
+          "text": "mov     edx, gMouseBtnDown2",
+          "operand0": "0x2",
+          "operand1": "0xd68d98"
+        },
+        {
+          "ea": "0x506c46",
+          "size": 6,
+          "bytes": "8b0d9c8dd600",
+          "text": "mov     ecx, gMouseClickState",
+          "operand0": "0x1",
+          "operand1": "0xd68d9c"
+        },
+        {
+          "ea": "0x506c59",
+          "size": 6,
+          "bytes": "8915988dd600",
+          "text": "mov     gMouseBtnDown2, edx",
+          "operand0": "0xd68d98",
+          "operand1": "0x2"
+        },
+        {
+          "ea": "0x506c5f",
+          "size": 6,
+          "bytes": "8b15a08dd600",
+          "text": "mov     edx, gMouseBtnDown",
+          "operand0": "0x2",
+          "operand1": "0xd68da0"
+        },
+        {
+          "ea": "0x506c6b",
+          "size": 6,
+          "bytes": "890d9c8dd600",
+          "text": "mov     gMouseClickState, ecx",
+          "operand0": "0xd68d9c",
+          "operand1": "0x1"
+        },
+        {
+          "ea": "0x506c76",
+          "size": 6,
+          "bytes": "8915a08dd600",
+          "text": "mov     gMouseBtnDown, edx",
+          "operand0": "0xd68da0",
+          "operand1": "0x2"
+        }
+      ],
+      "read_publish_order": [
+        {
+          "access": "read",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "read",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "write",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "read",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        },
+        {
+          "access": "write",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "write",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        }
+      ]
+    },
+    {
+      "symbol": "UpdateLegacyMouseRightDoubleClick_506CF0",
+      "addresses": [
+        {
+          "ea": "0x506cf0",
+          "size": 6,
+          "bytes": "8b15988dd600",
+          "text": "mov     edx, gMouseBtnDown2",
+          "operand0": "0x2",
+          "operand1": "0xd68d98"
+        },
+        {
+          "ea": "0x506cf6",
+          "size": 6,
+          "bytes": "8b0d9c8dd600",
+          "text": "mov     ecx, gMouseClickState",
+          "operand0": "0x1",
+          "operand1": "0xd68d9c"
+        },
+        {
+          "ea": "0x506d09",
+          "size": 6,
+          "bytes": "8915988dd600",
+          "text": "mov     gMouseBtnDown2, edx",
+          "operand0": "0xd68d98",
+          "operand1": "0x2"
+        },
+        {
+          "ea": "0x506d0f",
+          "size": 6,
+          "bytes": "8b15a08dd600",
+          "text": "mov     edx, gMouseBtnDown",
+          "operand0": "0x2",
+          "operand1": "0xd68da0"
+        },
+        {
+          "ea": "0x506d1b",
+          "size": 6,
+          "bytes": "890d9c8dd600",
+          "text": "mov     gMouseClickState, ecx",
+          "operand0": "0xd68d9c",
+          "operand1": "0x1"
+        },
+        {
+          "ea": "0x506d26",
+          "size": 6,
+          "bytes": "8915a08dd600",
+          "text": "mov     gMouseBtnDown, edx",
+          "operand0": "0xd68da0",
+          "operand1": "0x2"
+        }
+      ],
+      "read_publish_order": [
+        {
+          "access": "read",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "read",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "write",
+          "field": "heldButtons",
+          "address": "0xd68d98"
+        },
+        {
+          "access": "read",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        },
+        {
+          "access": "write",
+          "field": "edgeButtons",
+          "address": "0xd68d9c"
+        },
+        {
+          "access": "write",
+          "field": "pulseButtons",
+          "address": "0xd68da0"
+        }
+      ]
+    }
+  ],
+  "source_functions": [
+    {
+      "index": 1741,
+      "id": "F:00106E00",
+      "entry": "0x506E00",
+      "symbol": "UpdateCursor_506E00",
+      "original_index": 0,
+      "source_path": "src/platform/LegacyCursor.cpp",
+      "disposition": "adapted",
+      "body_changed": true,
+      "source_cpp_patch_count": 1,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT",
+        "FUNC-RENDER"
+      ],
+      "contract": "原逐帧左tick入口先取/右tick后左elapsed重读与右发布、两elapsed保存后左右pulse阶段、图号-Y-X独立请求采样/原表偏移正常S32及系统光标/公共清状态尾序恢复；原API局部适配和RNG/时钟次数保，异常不专项/不模拟，全父/SDK/像素/ABI/运行未验。"
+    },
+    {
+      "index": 1742,
+      "id": "F:00106DE0",
+      "entry": "0x506DE0",
+      "symbol": "RequestCursorState_506DE0",
+      "original_index": 1,
+      "source_path": "src/platform/LegacyCursor.cpp",
+      "disposition": "adapted",
+      "body_changed": false,
+      "source_cpp_patch_count": 0,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT",
+        "FUNC-RENDER"
+      ],
+      "contract": "原请求/尾字段清零/鼠标D0清理三正确根之一：RequestCursorState_506DE0，现完整源保持只补基线，不计I；现真实父/唯一owner与定宽载荷保，完整生命周期/ABI/运行未验。"
+    },
+    {
+      "index": 1743,
+      "id": "F:00106DD0",
+      "entry": "0x506DD0",
+      "symbol": "ResetLegacyMouseTail_506DD0",
+      "original_index": 2,
+      "source_path": "src/platform/LegacyCursor.cpp",
+      "disposition": "adapted",
+      "body_changed": false,
+      "source_cpp_patch_count": 0,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT"
+      ],
+      "contract": "原请求/尾字段清零/鼠标D0清理三正确根之一：ResetLegacyMouseTail_506DD0，现完整源保持只补基线，不计I；现真实父/唯一owner与定宽载荷保，完整生命周期/ABI/运行未验。"
+    },
+    {
+      "index": 1744,
+      "id": "F:00106870",
+      "entry": "0x506870",
+      "symbol": "ResetLegacyMouseState_506870",
+      "original_index": 3,
+      "source_path": "src/platform/LegacyMouse.cpp",
+      "disposition": "adapted",
+      "body_changed": false,
+      "source_cpp_patch_count": 0,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT",
+        "FUNC-STARTUP"
+      ],
+      "contract": "原请求/尾字段清零/鼠标D0清理三正确根之一：ResetLegacyMouseState_506870，现完整源保持只补基线，不计I；现真实父/唯一owner与定宽载荷保，完整生命周期/ABI/运行未验。"
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "src/platform/LegacyCursor.cpp",
+      "length": 6920
+    },
+    {
+      "path": "src/platform/LegacyMouse.cpp",
+      "length": 28284
+    }
+  ],
+  "source_bodies": {
+    "IsCursorStateValid": "bool IsCursorStateValid(const std::uint32_t state)\n{\n    return state <= kMaximumCursorState;\n}\n\n",
+    "AddSigned16Wrapping": "std::int32_t AddSigned16Wrapping(\n    const std::int32_t value,\n    const std::int16_t offset)\n{\n    const std::uint32_t result =\n        std::bit_cast<std::uint32_t>(value)\n        + static_cast<std::uint32_t>(static_cast<std::int32_t>(offset));\n    return std::bit_cast<std::int32_t>(result);\n}\n\n",
+    "UpdatePulse": "void UpdatePulse(\n    const std::uint32_t elapsed,\n    const std::uint32_t bit,\n    std::uint32_t& anchor)\n{\n    if (elapsed <= 500) {\n        anchor = 0;\n        gLegacyMouseState.pulseButtons &= ~bit;\n        return;\n    }\n\n    const std::uint32_t currentAnchor = anchor;\n    if (currentAnchor == 0) {\n        anchor = elapsed;\n        gLegacyMouseState.pulseButtons |= bit;\n        return;\n    }\n\n    if (elapsed - currentAnchor >= 100) {\n        anchor = elapsed;\n        gLegacyMouseState.pulseButtons |= bit;\n        return;\n    }\n\n    gLegacyMouseState.pulseButtons &= ~bit;\n}\n\n",
+    "DrawTableCursor": "void DrawTableCursor()\n{\n    const login::detail::GraphicDescriptor16 descriptor =\n        MakeCursorDescriptor();\n\n    bool canDraw = true;\n    const std::uint32_t imageState = gValueD68DC4;\n    std::int32_t image = 0;\n    if (IsCursorStateValid(imageState)) {\n        image = ReadCursorImage(imageState);\n    } else {\n        canDraw = false;\n    }\n\n    const std::int32_t mouseY = legacy_crypt_int::Add_401E10(\n        &gLegacyMouseState.mouseY, 16);\n    const std::uint32_t yState = gValueD68DC4;\n    std::int32_t y = mouseY;\n    if (IsCursorStateValid(yState)) {\n        y = AddSigned16Wrapping(mouseY, ReadCursorOffsetY(yState));\n    } else {\n        canDraw = false;\n    }\n\n    const std::int32_t mouseX = legacy_crypt_int::Add_401E10(\n        &gLegacyMouseState.mouseX, 16);\n    const std::uint32_t xState = gValueD68DC4;\n    std::int32_t x = mouseX;\n    if (IsCursorStateValid(xState)) {\n        x = AddSigned16Wrapping(mouseX, ReadCursorOffsetX(xState));\n    } else {\n        canDraw = false;\n    }\n\n    if (!canDraw) {\n        return;\n    }\n\n    login::detail::DrawGraphic(\n        x, y, kCursorLayer, image, 0, &descriptor);\n}\n\n",
+    "UpdateNativeCursor": "void UpdateNativeCursor()\n{\n    const std::uint32_t currentState = gValueD68DC4;\n    if (currentState != gValueD68BE8) {\n        // 原端未检查 API 结果且会继续读取未初始化局部；新端只将局部清零以避免 UB。\n        POINT point {};\n        RECT clientRect {};\n        GetCursorPos(&point);\n        ScreenToClient(reinterpret_cast<HWND>(gLegacyWindow), &point);\n        GetClientRect(reinterpret_cast<HWND>(gLegacyWindow), &clientRect);\n\n        if (point.x >= 0 && point.x < clientRect.right\n            && point.y >= 0 && point.y < clientRect.bottom) {\n            const std::uint32_t handleState = gValueD68DC4;\n            if (IsCursorStateValid(handleState)) {\n                SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[handleState]));\n            }\n        }\n    }\n\n    gValueD68BE8 = gValueD68DC4;\n\n    if (gLegacyMouseState.drawingSuppression == 0) {\n        const std::int32_t y = legacy_crypt_int::Add_401E10(\n            &gLegacyMouseState.mouseY, 16);\n        const std::int32_t x = legacy_crypt_int::Add_401E10(\n            &gLegacyMouseState.mouseX, 16);\n        login::detail::DrawGraphic(\n            x, y, kCursorLayer, kSystemCursorImage, 0, nullptr);\n    }\n}\n\n",
+    "UpdateCursor_506E00": "void UpdateCursor_506E00()\n{\n    gLegacyMouseState.edgeButtons = 0;\n\n    if (gLegacyMouseState.leftDownTick != 0) {\n        const std::uint32_t now = ReadTickCount32();\n        gLegacyMouseState.leftElapsed =\n            now - gLegacyMouseState.leftDownTick;\n    }\n    if (gLegacyMouseState.rightDownTick != 0) {\n        const std::uint32_t now = ReadTickCount32();\n        gLegacyMouseState.rightElapsed =\n            now - gLegacyMouseState.rightDownTick;\n    }\n\n    UpdatePulse(gLegacyMouseState.leftElapsed, 0x01u, gValueD68DC8);\n    UpdatePulse(gLegacyMouseState.rightElapsed, 0x02u, gValueD68BF0);\n\n    if (gValueD67AE4 == 0) {\n        if (gLegacyMouseState.drawingSuppression == 0) {\n            DrawTableCursor();\n        }\n    } else {\n        UpdateNativeCursor();\n    }\n\n    const std::uint32_t consumedState = gValueD68DC4;\n    gValueD68DC4 = 0;\n    gValue9A6F44 = consumedState;\n    ResetLegacyMouseTail_506DD0();\n}\n\n",
+    "RequestCursorState_506DE0": "std::int32_t RequestCursorState_506DE0(\n    const std::int32_t requestedState,\n    const std::int32_t force) noexcept\n{\n    if (force != 0) {\n        gValueD68DC4 = std::bit_cast<std::uint32_t>(requestedState);\n        return requestedState;\n    }\n\n    const std::uint32_t currentState = gValueD68DC4;\n    if (currentState != 0) {\n        return std::bit_cast<std::int32_t>(currentState);\n    }\n\n    gValueD68DC4 = std::bit_cast<std::uint32_t>(requestedState);\n    return requestedState;\n}\n\n",
+    "ResetLegacyMouseTail_506DD0": "void ResetLegacyMouseTail_506DD0()\n{\n    gLegacyMouseState.tailReset = 0;\n}\n\n",
+    "ReadCursorImage": "std::int32_t ReadCursorImage(const std::uint32_t state)\n{\n    if (state == 0) {\n        return std::bit_cast<std::int32_t>(gCursorState0.imageBits);\n    }\n    return std::bit_cast<std::int32_t>(\n        resource::gCursorPathStorage.cursor[state - 1].value04);\n}\n\n",
+    "ReadCursorOffsetX": "std::int16_t ReadCursorOffsetX(const std::uint32_t state)\n{\n    const std::uint32_t packed = state == 0\n        ? gCursorState0.packedOffsets\n        : resource::gCursorPathStorage.cursor[state - 1].value08;\n    return std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(packed));\n}\n\n",
+    "ReadCursorOffsetY": "std::int16_t ReadCursorOffsetY(const std::uint32_t state)\n{\n    const std::uint32_t packed = state == 0\n        ? gCursorState0.packedOffsets\n        : resource::gCursorPathStorage.cursor[state - 1].value08;\n    return std::bit_cast<std::int16_t>(\n        static_cast<std::uint16_t>(packed >> 16));\n}\n\n",
+    "MakeCursorDescriptor": "login::detail::GraphicDescriptor16 MakeCursorDescriptor()\n{\n    login::detail::GraphicDescriptor16 descriptor {};\n    descriptor.bytes[8] = 0xFF;\n    descriptor.bytes[9] = 0xFF;\n    descriptor.bytes[10] = 0xFF;\n    descriptor.bytes[11] = 0xFF;\n    descriptor.bytes[13] = 4;\n    return descriptor;\n}\n\n",
+    "UpdateLegacyMouseLeftDown_506900": "std::int32_t UpdateLegacyMouseLeftDown_506900(\n    const std::int32_t x,\n    const std::int32_t y)\n{\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 1u;\n    gLegacyMouseState.pulseButtons = pulseButtons | 1u;\n    gLegacyMouseState.heldButtons = heldButtons | 1u;\n\n    LegacyCryptInt temporary;\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);\n    const std::uint32_t xMask = temporary.mask;\n    const std::uint32_t xEncoded = temporary.encoded;\n    const std::uint8_t xReadCount = temporary.readCount;\n    gLegacyMouseState.buttonCoordinates[0].mask = xMask;\n    gLegacyMouseState.buttonCoordinates[0].encoded = xEncoded;\n    gLegacyMouseState.buttonCoordinates[0].readCount = xReadCount;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);\n    const std::uint32_t yMask = temporary.mask;\n    const std::uint32_t yEncoded = temporary.encoded;\n    const std::uint8_t yReadCount = temporary.readCount;\n    gLegacyMouseState.buttonCoordinates[1].mask = yMask;\n    gLegacyMouseState.buttonCoordinates[1].encoded = yEncoded;\n    gLegacyMouseState.buttonCoordinates[1].readCount = yReadCount;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    const std::uint32_t tick = ReadTickCount32();\n    gLegacyMouseState.leftDownTick = tick;\n    gLegacyMouseState.leftElapsed = 0;\n\n    const std::int32_t result = TrackLegacyMouseDown_5067F0(x, y, 0);\n    if (result < gLegacyMouseTrackerThreshold) {\n        return result;\n    }\n    static_cast<void>(Report_512CA0(gConnectionSocket, 1));\n    return ResetLegacyMouseTracker_506580();\n}\n\n",
+    "UpdateLegacyMouseLeftUp_5069E0": "std::int32_t UpdateLegacyMouseLeftUp_5069E0(\n    const std::int32_t x,\n    const std::int32_t y)\n{\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons & ~1u;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 4u;\n    gLegacyMouseState.heldButtons = heldButtons & ~1u;\n\n    LegacyCryptInt temporary;\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);\n    const std::uint32_t xEncoded = temporary.encoded;\n    const std::uint32_t xMask = temporary.mask;\n    const std::uint8_t xReadCount = temporary.readCount;\n    gLegacyMouseState.buttonCoordinates[2].encoded = xEncoded;\n    gLegacyMouseState.buttonCoordinates[2].mask = xMask;\n    gLegacyMouseState.buttonCoordinates[2].readCount = xReadCount;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);\n    const std::uint8_t yReadCount = temporary.readCount;\n    const std::uint32_t yEncoded = temporary.encoded;\n    const std::uint32_t yMask = temporary.mask;\n    gLegacyMouseState.buttonCoordinates[3].readCount = yReadCount;\n    gLegacyMouseState.buttonCoordinates[3].encoded = yEncoded;\n    gLegacyMouseState.buttonCoordinates[3].mask = yMask;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    gLegacyMouseState.leftDownTick = 0;\n    gLegacyMouseState.leftElapsed = 0;\n    return 0;\n}\n\n",
+    "UpdateLegacyMouseLeftDoubleClick_506A90": "std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(\n    const std::int32_t x,\n    const std::int32_t y)\n{\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons | 1u;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 0x11u;\n    gLegacyMouseState.heldButtons = heldButtons | 1u;\n\n    LegacyCryptInt temporary;\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);\n    const std::uint32_t xEncoded = temporary.encoded;\n    const std::uint32_t xMask = temporary.mask;\n    const std::uint8_t xReadCount = temporary.readCount;\n    gLegacyMouseState.buttonCoordinates[0].encoded = xEncoded;\n    gLegacyMouseState.buttonCoordinates[0].mask = xMask;\n    gLegacyMouseState.buttonCoordinates[0].readCount = xReadCount;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);\n    const std::uint8_t yReadCount = temporary.readCount;\n    const std::uint32_t yEncoded = temporary.encoded;\n    const std::uint32_t yMask = temporary.mask;\n    gLegacyMouseState.buttonCoordinates[1].readCount = yReadCount;\n    gLegacyMouseState.buttonCoordinates[1].encoded = yEncoded;\n    gLegacyMouseState.buttonCoordinates[1].mask = yMask;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    const std::uint32_t tick = ReadTickCount32();\n    gLegacyMouseState.leftDownTick = tick;\n    gLegacyMouseState.leftElapsed = 0;\n    return tick;\n}\n\n",
+    "UpdateLegacyMouseRightDown_506B50": "std::int32_t UpdateLegacyMouseRightDown_506B50(\n    const std::int32_t x,\n    const std::int32_t y)\n{\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons | 2u;\n    gLegacyMouseState.heldButtons = heldButtons | 2u;\n    gLegacyMouseState.edgeButtons = edgeButtons | 2u;\n\n    LegacyCryptInt temporary;\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);\n    const std::uint32_t xMask = temporary.mask;\n    const std::uint32_t xEncoded = temporary.encoded;\n    const std::uint8_t xReadCount = temporary.readCount;\n    gLegacyMouseState.buttonCoordinates[4].mask = xMask;\n    gLegacyMouseState.buttonCoordinates[4].encoded = xEncoded;\n    gLegacyMouseState.buttonCoordinates[4].readCount = xReadCount;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);\n    const std::uint32_t yMask = temporary.mask;\n    const std::uint32_t yEncoded = temporary.encoded;\n    const std::uint8_t yReadCount = temporary.readCount;\n    gLegacyMouseState.buttonCoordinates[5].mask = yMask;\n    gLegacyMouseState.buttonCoordinates[5].encoded = yEncoded;\n    gLegacyMouseState.buttonCoordinates[5].readCount = yReadCount;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    const std::uint32_t tick = ReadTickCount32();\n    gLegacyMouseState.rightDownTick = tick;\n    gLegacyMouseState.rightElapsed = 0;\n\n    const std::int32_t result = TrackLegacyMouseDown_5067F0(x, y, 1);\n    if (result < gLegacyMouseTrackerThreshold) {\n        return result;\n    }\n    static_cast<void>(Report_512CA0(gConnectionSocket, 1));\n    return ResetLegacyMouseTracker_506580();\n}\n\n",
+    "UpdateLegacyMouseRightUp_506C40": "std::int32_t UpdateLegacyMouseRightUp_506C40(\n    const std::int32_t x,\n    const std::int32_t y)\n{\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons & ~2u;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 8u;\n    gLegacyMouseState.heldButtons = heldButtons & ~2u;\n\n    LegacyCryptInt temporary;\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);\n    const std::uint32_t xEncoded = temporary.encoded;\n    const std::uint32_t xMask = temporary.mask;\n    const std::uint8_t xReadCount = temporary.readCount;\n    gLegacyMouseState.buttonCoordinates[6].encoded = xEncoded;\n    gLegacyMouseState.buttonCoordinates[6].mask = xMask;\n    gLegacyMouseState.buttonCoordinates[6].readCount = xReadCount;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);\n    const std::uint8_t yReadCount = temporary.readCount;\n    const std::uint32_t yEncoded = temporary.encoded;\n    const std::uint32_t yMask = temporary.mask;\n    gLegacyMouseState.buttonCoordinates[7].readCount = yReadCount;\n    gLegacyMouseState.buttonCoordinates[7].encoded = yEncoded;\n    gLegacyMouseState.buttonCoordinates[7].mask = yMask;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    gLegacyMouseState.rightDownTick = 0;\n    gLegacyMouseState.rightElapsed = 0;\n    return 0;\n}\n\n",
+    "UpdateLegacyMouseRightDoubleClick_506CF0": "std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(\n    const std::int32_t x,\n    const std::int32_t y)\n{\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons | 2u;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 0x22u;\n    gLegacyMouseState.heldButtons = heldButtons | 2u;\n\n    LegacyCryptInt temporary;\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);\n    const std::uint32_t xEncoded = temporary.encoded;\n    const std::uint32_t xMask = temporary.mask;\n    const std::uint8_t xReadCount = temporary.readCount;\n    gLegacyMouseState.buttonCoordinates[4].encoded = xEncoded;\n    gLegacyMouseState.buttonCoordinates[4].mask = xMask;\n    gLegacyMouseState.buttonCoordinates[4].readCount = xReadCount;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);\n    const std::uint8_t yReadCount = temporary.readCount;\n    const std::uint32_t yEncoded = temporary.encoded;\n    const std::uint32_t yMask = temporary.mask;\n    gLegacyMouseState.buttonCoordinates[5].readCount = yReadCount;\n    gLegacyMouseState.buttonCoordinates[5].encoded = yEncoded;\n    gLegacyMouseState.buttonCoordinates[5].mask = yMask;\n    legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    const std::uint32_t tick = ReadTickCount32();\n    gLegacyMouseState.rightDownTick = tick;\n    gLegacyMouseState.rightElapsed = 0;\n    return tick;\n}\n\n",
+    "ResetLegacyMouseState_506870": "std::int32_t ResetLegacyMouseState_506870()\n{\n    std::memset(&gLegacyMouseState, 0, sizeof(gLegacyMouseState));\n    gValueD68DC4 = 0;\n    gLegacyMouseState.valueD68DB8 = -1;\n    return 0;\n}\n\n"
+  },
+  "source_patches": [
+    {
+      "path": "cg2d_re/src/platform/LegacyCursor.cpp",
+      "region": "retired-state-limit",
+      "old": "inline constexpr std::uint32_t kMaximumCursorState = 10;\n",
+      "replacement": ""
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyCursor.cpp",
+      "symbol": "IsCursorStateValid",
+      "region": "retired-state-gate",
+      "old": "bool IsCursorStateValid(const std::uint32_t state)\n{\n    return state <= kMaximumCursorState;\n}\n\n",
+      "replacement": ""
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyCursor.cpp",
+      "symbol": "AddSigned16Wrapping",
+      "region": "retired-arithmetic-wrap",
+      "old": "std::int32_t AddSigned16Wrapping(\n    const std::int32_t value,\n    const std::int16_t offset)\n{\n    const std::uint32_t result =\n        std::bit_cast<std::uint32_t>(value)\n        + static_cast<std::uint32_t>(static_cast<std::int32_t>(offset));\n    return std::bit_cast<std::int32_t>(result);\n}\n\n",
+      "replacement": ""
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyCursor.cpp",
+      "symbol": "UpdatePulse",
+      "region": "UpdatePulse",
+      "old": "void UpdatePulse(\n    const std::uint32_t elapsed,\n    const std::uint32_t bit,\n    std::uint32_t& anchor)\n{\n    if (elapsed <= 500) {\n        anchor = 0;\n        gLegacyMouseState.pulseButtons &= ~bit;\n        return;\n    }\n\n    const std::uint32_t currentAnchor = anchor;\n    if (currentAnchor == 0) {\n        anchor = elapsed;\n        gLegacyMouseState.pulseButtons |= bit;\n        return;\n    }\n\n    if (elapsed - currentAnchor >= 100) {\n        anchor = elapsed;\n        gLegacyMouseState.pulseButtons |= bit;\n        return;\n    }\n\n    gLegacyMouseState.pulseButtons &= ~bit;\n}\n\n",
+      "replacement": "void UpdatePulse(\n    const std::uint32_t elapsed,\n    const std::uint32_t bit,\n    std::uint32_t& anchor)\n{\n    if (elapsed <= 500) {\n        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n        anchor = 0;\n        gLegacyMouseState.pulseButtons = pulseButtons & ~bit;\n        return;\n    }\n\n    const std::uint32_t currentAnchor = anchor;\n    if (currentAnchor == 0) {\n        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n        anchor = elapsed;\n        gLegacyMouseState.pulseButtons = pulseButtons | bit;\n        return;\n    }\n\n    const std::uint32_t repeatElapsed = elapsed - currentAnchor;\n    if (bit == 0x02u) {\n        // 原右侧 506EE5：先保存 pulse，再判断重复间隔并发布锚点。\n        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n        if (repeatElapsed >= 100) {\n            anchor = elapsed;\n            gLegacyMouseState.pulseButtons = pulseButtons | bit;\n        } else {\n            gLegacyMouseState.pulseButtons = pulseButtons & ~bit;\n        }\n        return;\n    }\n\n    if (repeatElapsed >= 100) {\n        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n        anchor = elapsed;\n        gLegacyMouseState.pulseButtons = pulseButtons | bit;\n        return;\n    }\n\n    gLegacyMouseState.pulseButtons &= ~bit;\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyCursor.cpp",
+      "symbol": "DrawTableCursor",
+      "region": "DrawTableCursor",
+      "old": "void DrawTableCursor()\n{\n    const login::detail::GraphicDescriptor16 descriptor =\n        MakeCursorDescriptor();\n\n    bool canDraw = true;\n    const std::uint32_t imageState = gValueD68DC4;\n    std::int32_t image = 0;\n    if (IsCursorStateValid(imageState)) {\n        image = ReadCursorImage(imageState);\n    } else {\n        canDraw = false;\n    }\n\n    const std::int32_t mouseY = legacy_crypt_int::Add_401E10(\n        &gLegacyMouseState.mouseY, 16);\n    const std::uint32_t yState = gValueD68DC4;\n    std::int32_t y = mouseY;\n    if (IsCursorStateValid(yState)) {\n        y = AddSigned16Wrapping(mouseY, ReadCursorOffsetY(yState));\n    } else {\n        canDraw = false;\n    }\n\n    const std::int32_t mouseX = legacy_crypt_int::Add_401E10(\n        &gLegacyMouseState.mouseX, 16);\n    const std::uint32_t xState = gValueD68DC4;\n    std::int32_t x = mouseX;\n    if (IsCursorStateValid(xState)) {\n        x = AddSigned16Wrapping(mouseX, ReadCursorOffsetX(xState));\n    } else {\n        canDraw = false;\n    }\n\n    if (!canDraw) {\n        return;\n    }\n\n    login::detail::DrawGraphic(\n        x, y, kCursorLayer, image, 0, &descriptor);\n}\n\n",
+      "replacement": "void DrawTableCursor()\n{\n    const login::detail::GraphicDescriptor16 descriptor =\n        MakeCursorDescriptor();\n\n    const std::uint32_t imageState = gValueD68DC4;\n    const std::int32_t image = ReadCursorImage(imageState);\n    const std::int32_t mouseY = legacy_crypt_int::Add_401E10(\n        &gLegacyMouseState.mouseY, 16);\n    const std::uint32_t yState = gValueD68DC4;\n    const std::int32_t y = mouseY + ReadCursorOffsetY(yState);\n    const std::int32_t mouseX = legacy_crypt_int::Add_401E10(\n        &gLegacyMouseState.mouseX, 16);\n    const std::uint32_t xState = gValueD68DC4;\n    const std::int32_t x = mouseX + ReadCursorOffsetX(xState);\n\n    login::detail::DrawGraphic(\n        x, y, kCursorLayer, image, 0, &descriptor);\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyCursor.cpp",
+      "symbol": "UpdateCursor_506E00",
+      "region": "UpdateCursor_506E00",
+      "old": "void UpdateCursor_506E00()\n{\n    gLegacyMouseState.edgeButtons = 0;\n\n    if (gLegacyMouseState.leftDownTick != 0) {\n        const std::uint32_t now = ReadTickCount32();\n        gLegacyMouseState.leftElapsed =\n            now - gLegacyMouseState.leftDownTick;\n    }\n    if (gLegacyMouseState.rightDownTick != 0) {\n        const std::uint32_t now = ReadTickCount32();\n        gLegacyMouseState.rightElapsed =\n            now - gLegacyMouseState.rightDownTick;\n    }\n\n    UpdatePulse(gLegacyMouseState.leftElapsed, 0x01u, gValueD68DC8);\n    UpdatePulse(gLegacyMouseState.rightElapsed, 0x02u, gValueD68BF0);\n\n    if (gValueD67AE4 == 0) {\n        if (gLegacyMouseState.drawingSuppression == 0) {\n            DrawTableCursor();\n        }\n    } else {\n        UpdateNativeCursor();\n    }\n\n    const std::uint32_t consumedState = gValueD68DC4;\n    gValueD68DC4 = 0;\n    gValue9A6F44 = consumedState;\n    ResetLegacyMouseTail_506DD0();\n}\n\n",
+      "replacement": "void UpdateCursor_506E00()\n{\n    const std::uint32_t leftDownTick = gLegacyMouseState.leftDownTick;\n    gLegacyMouseState.edgeButtons = 0;\n\n    std::uint32_t leftElapsed;\n    if (leftDownTick != 0) {\n        const std::uint32_t now = ReadTickCount32();\n        leftElapsed = now - gLegacyMouseState.leftDownTick;\n        gLegacyMouseState.leftElapsed = leftElapsed;\n    } else {\n        leftElapsed = gLegacyMouseState.leftElapsed;\n    }\n\n    std::uint32_t rightElapsed;\n    if (gLegacyMouseState.rightDownTick != 0) {\n        const std::uint32_t now = ReadTickCount32();\n        rightElapsed = now - gLegacyMouseState.rightDownTick;\n        // 原 506E43 在发布 rightElapsed 前重新保存左侧样本。\n        leftElapsed = gLegacyMouseState.leftElapsed;\n        gLegacyMouseState.rightElapsed = rightElapsed;\n    } else {\n        rightElapsed = gLegacyMouseState.rightElapsed;\n    }\n\n    UpdatePulse(leftElapsed, 0x01u, gValueD68DC8);\n    UpdatePulse(rightElapsed, 0x02u, gValueD68BF0);\n\n    if (gValueD67AE4 == 0) {\n        if (gLegacyMouseState.drawingSuppression == 0) {\n            DrawTableCursor();\n        }\n    } else {\n        UpdateNativeCursor();\n    }\n\n    const std::uint32_t consumedState = gValueD68DC4;\n    gValueD68DC4 = 0;\n    gValue9A6F44 = consumedState;\n    ResetLegacyMouseTail_506DD0();\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyCursor.cpp",
+      "symbol": "UpdateNativeCursor",
+      "region": "native-handle-gate",
+      "old": "            if (IsCursorStateValid(handleState)) {\n                SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[handleState]));\n            }\n",
+      "replacement": "            SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[handleState]));\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouse.cpp",
+      "symbol": "UpdateLegacyMouseLeftDown_506900",
+      "region": "numeric-flag-owner-order",
+      "old": "    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 1u;\n    gLegacyMouseState.pulseButtons = pulseButtons | 1u;\n    gLegacyMouseState.heldButtons = heldButtons | 1u;\n\n",
+      "replacement": "    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 1u;\n    gLegacyMouseState.heldButtons = heldButtons | 1u;\n    gLegacyMouseState.pulseButtons = pulseButtons | 1u;\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouse.cpp",
+      "symbol": "UpdateLegacyMouseLeftUp_5069E0",
+      "region": "numeric-flag-owner-order",
+      "old": "    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons & ~1u;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 4u;\n    gLegacyMouseState.heldButtons = heldButtons & ~1u;\n\n",
+      "replacement": "    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.heldButtons = heldButtons & ~1u;\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 4u;\n    gLegacyMouseState.pulseButtons = pulseButtons & ~1u;\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouse.cpp",
+      "symbol": "UpdateLegacyMouseLeftDoubleClick_506A90",
+      "region": "numeric-flag-owner-order",
+      "old": "    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons | 1u;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 0x11u;\n    gLegacyMouseState.heldButtons = heldButtons | 1u;\n\n",
+      "replacement": "    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.heldButtons = heldButtons | 1u;\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 0x11u;\n    gLegacyMouseState.pulseButtons = pulseButtons | 1u;\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouse.cpp",
+      "symbol": "UpdateLegacyMouseRightDown_506B50",
+      "region": "numeric-flag-owner-order",
+      "old": "    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons | 2u;\n    gLegacyMouseState.heldButtons = heldButtons | 2u;\n    gLegacyMouseState.edgeButtons = edgeButtons | 2u;\n\n",
+      "replacement": "    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.heldButtons = heldButtons | 2u;\n    gLegacyMouseState.pulseButtons = pulseButtons | 2u;\n    gLegacyMouseState.edgeButtons = edgeButtons | 2u;\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouse.cpp",
+      "symbol": "UpdateLegacyMouseRightUp_506C40",
+      "region": "numeric-flag-owner-order",
+      "old": "    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons & ~2u;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 8u;\n    gLegacyMouseState.heldButtons = heldButtons & ~2u;\n\n",
+      "replacement": "    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.heldButtons = heldButtons & ~2u;\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 8u;\n    gLegacyMouseState.pulseButtons = pulseButtons & ~2u;\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouse.cpp",
+      "symbol": "UpdateLegacyMouseRightDoubleClick_506CF0",
+      "region": "numeric-flag-owner-order",
+      "old": "    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.pulseButtons = pulseButtons | 2u;\n    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 0x22u;\n    gLegacyMouseState.heldButtons = heldButtons | 2u;\n\n",
+      "replacement": "    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;\n    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;\n    gLegacyMouseState.heldButtons = heldButtons | 2u;\n    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;\n    gLegacyMouseState.edgeButtons = edgeButtons | 0x22u;\n    gLegacyMouseState.pulseButtons = pulseButtons | 2u;\n\n"
+    }
+  ],
+  "snapshot_functions_before": [
+    {
+      "id": "F:00106E00",
+      "original_entry": "0x506E00",
+      "original_name": "World::CursorUpdate",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyCursor.cpp",
+          "symbol": "UpdateCursor_506E00",
+          "definition_line": 216,
+          "namespace": "cg::platform"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00106DE0",
+      "original_entry": "0x506DE0",
+      "original_name": "sub_506DE0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyCursor.cpp",
+          "symbol": "RequestCursorState_506DE0",
+          "definition_line": 193,
+          "namespace": "cg::platform"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00106DD0",
+      "original_entry": "0x506DD0",
+      "original_name": "sub_506DD0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyCursor.cpp",
+          "symbol": "ResetLegacyMouseTail_506DD0",
+          "definition_line": 211,
+          "namespace": "cg::platform"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00106870",
+      "original_entry": "0x506870",
+      "original_name": "sub_506870",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouse.cpp",
+          "symbol": "ResetLegacyMouseState_506870",
+          "definition_line": 394,
+          "namespace": "cg::platform"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "old_mouse_semantics_before": [
+    {
+      "index": 1723,
+      "id": "F:00106890",
+      "old_flags_asserted_kept": true,
+      "semantic_reference_count": 5,
+      "disposition_reference_count": 5
+    },
+    {
+      "index": 1724,
+      "id": "F:00106900",
+      "old_flags_asserted_kept": true,
+      "semantic_reference_count": 5,
+      "disposition_reference_count": 5
+    },
+    {
+      "index": 1725,
+      "id": "F:001069E0",
+      "old_flags_asserted_kept": true,
+      "semantic_reference_count": 5,
+      "disposition_reference_count": 5
+    },
+    {
+      "index": 1726,
+      "id": "F:00106A90",
+      "old_flags_asserted_kept": true,
+      "semantic_reference_count": 5,
+      "disposition_reference_count": 5
+    },
+    {
+      "index": 1727,
+      "id": "F:00106B50",
+      "old_flags_asserted_kept": true,
+      "semantic_reference_count": 5,
+      "disposition_reference_count": 5
+    },
+    {
+      "index": 1728,
+      "id": "F:00106C40",
+      "old_flags_asserted_kept": true,
+      "semantic_reference_count": 5,
+      "disposition_reference_count": 5
+    },
+    {
+      "index": 1729,
+      "id": "F:00106CF0",
+      "old_flags_asserted_kept": true,
+      "semantic_reference_count": 5,
+      "disposition_reference_count": 5
+    },
+    {
+      "index": 1730,
+      "id": "F:00106DB0",
+      "old_flags_asserted_kept": true,
+      "semantic_reference_count": 5,
+      "disposition_reference_count": 5
+    }
+  ],
+  "old_mouse_evidence_before": [
+    {
+      "id": "E-MOUSE-COORDINATE-PUBLICATION-FUNC-LOOP-I-20261008",
+      "result": "pass",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "observation_length": 327
+    },
+    {
+      "id": "E-MOUSE-COORDINATE-PUBLICATION-FUNC-LOOP-S-20261008",
+      "result": "pass",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "observation_length": 327
+    },
+    {
+      "id": "E-MOUSE-COORDINATE-PUBLICATION-FUNC-INPUT-I-20261008",
+      "result": "pass",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "observation_length": 327
+    },
+    {
+      "id": "E-MOUSE-COORDINATE-PUBLICATION-FUNC-INPUT-S-20261008",
+      "result": "pass",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "observation_length": 327
+    }
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "T02",
+      "state": "open",
+      "reference_count": 23
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 251
+    },
+    {
+      "task_id": "V04",
+      "state": "open",
+      "reference_count": 165
+    }
+  ],
+  "registry_counts_before": {
+    "sem": 1741,
+    "pending": 18,
+    "F": 882,
+    "E": 1032,
+    "X": 444
+  },
+  "artifacts": [
+    "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+    "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+    "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+    "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+    "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+    "src/platform/LegacyCursor.cpp#UpdateCursor_506E00",
+    "src/platform/LegacyCursor.cpp#RequestCursorState_506DE0",
+    "src/platform/LegacyCursor.cpp#ResetLegacyMouseTail_506DD0",
+    "src/platform/LegacyMouse.cpp#ResetLegacyMouseState_506870",
+    "src/platform/LegacyCursor.cpp#UpdatePulse",
+    "src/platform/LegacyCursor.cpp#DrawTableCursor",
+    "src/platform/LegacyCursor.cpp#UpdateNativeCursor",
+    "include/cg/platform/LegacyMouse.hpp",
+    "include/cg/platform/LegacyCursor.hpp",
+    "src/ResourcePaths.cpp",
+    "src/platform/MainLoop.cpp",
+    "src/platform/LoadingScreen.cpp",
+    "src/platform/ClientInitialization.cpp",
+    "src/platform/LegacyMouse.cpp",
+    "doc/cg2d_legacy_cursor_update.md",
+    "doc/cg2d_legacy_mouse_events.md",
+    "doc/cg2d_mouse_coordinate_publication_spec.md",
+    "doc/cg2d_semantic_function_mappings.md",
+    "doc/cg2d_traceability_acceptance_spec.md",
+    "plan/cg2d_full_reconstruction_progress.md"
+  ],
+  "evidence_refs": [
+    "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+    "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+    "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+    "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+    "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+  ],
+  "implementation_static_scope": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+  "retired_private_helpers": [
+    "IsCursorStateValid",
+    "AddSigned16Wrapping"
+  ],
+  "new_private_helper_count": 0,
+  "new_shared_owner_count": 0,
+  "verification_limits": {
+    "full_inbound_parents_verified": false,
+    "full_callees_verified": false,
+    "full_lifecycle_closed": false,
+    "full_machine_abi_verified": false,
+    "full_pixel_verified": false,
+    "runtime_verified": false,
+    "fault_equivalence_claimed": false
+  }
+}

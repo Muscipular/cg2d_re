@@ -547,11 +547,11 @@ std::int32_t UpdateLegacyMouseLeftDown_506900(
     const std::int32_t y)
 {
     const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
     gLegacyMouseState.edgeButtons = edgeButtons | 1u;
-    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
     gLegacyMouseState.heldButtons = heldButtons | 1u;
+    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
 
     LegacyCryptInt temporary;
     legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
@@ -588,12 +588,12 @@ std::int32_t UpdateLegacyMouseLeftUp_5069E0(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.pulseButtons = pulseButtons & ~1u;
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 4u;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
     gLegacyMouseState.heldButtons = heldButtons & ~1u;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    gLegacyMouseState.edgeButtons = edgeButtons | 4u;
+    gLegacyMouseState.pulseButtons = pulseButtons & ~1u;
 
     LegacyCryptInt temporary;
     legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
@@ -623,12 +623,12 @@ std::uint32_t UpdateLegacyMouseLeftDoubleClick_506A90(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 0x11u;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
     gLegacyMouseState.heldButtons = heldButtons | 1u;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    gLegacyMouseState.edgeButtons = edgeButtons | 0x11u;
+    gLegacyMouseState.pulseButtons = pulseButtons | 1u;
 
     LegacyCryptInt temporary;
     legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
@@ -659,11 +659,11 @@ std::int32_t UpdateLegacyMouseRightDown_506B50(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
     const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
+    const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
     gLegacyMouseState.heldButtons = heldButtons | 2u;
+    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
     gLegacyMouseState.edgeButtons = edgeButtons | 2u;
 
     LegacyCryptInt temporary;
@@ -701,12 +701,12 @@ std::int32_t UpdateLegacyMouseRightUp_506C40(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.pulseButtons = pulseButtons & ~2u;
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 8u;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
     gLegacyMouseState.heldButtons = heldButtons & ~2u;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    gLegacyMouseState.edgeButtons = edgeButtons | 8u;
+    gLegacyMouseState.pulseButtons = pulseButtons & ~2u;
 
     LegacyCryptInt temporary;
     legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
@@ -736,12 +736,12 @@ std::uint32_t UpdateLegacyMouseRightDoubleClick_506CF0(
     const std::int32_t x,
     const std::int32_t y)
 {
-    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
-    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
-    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
     const std::uint32_t heldButtons = gLegacyMouseState.heldButtons;
-    gLegacyMouseState.edgeButtons = edgeButtons | 0x22u;
+    const std::uint32_t edgeButtons = gLegacyMouseState.edgeButtons;
     gLegacyMouseState.heldButtons = heldButtons | 2u;
+    const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+    gLegacyMouseState.edgeButtons = edgeButtons | 0x22u;
+    gLegacyMouseState.pulseButtons = pulseButtons | 2u;
 
     LegacyCryptInt temporary;
     legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);

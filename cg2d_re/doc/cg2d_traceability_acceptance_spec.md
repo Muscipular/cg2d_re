@@ -1774,3 +1774,17 @@ LOOP136/INPUT30各限定I/S两证据、各25来源，E1022。文档关联和语�
 
 十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
 实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。
+
+## BUW01 原地址纠错、旧证据失效与当前限定验收（2026-10-08）
+
+[本步数值原证](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline)与[纠正裁决](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision)、[验收](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance)及[证据](cg2d_cursor_flag_sampling_restore_evidence.json)固定四完整根193条708B/六页、六旗位数值窗36条214B、原11标量88B和四28B用途。旧BUU旗位名称推断不成立，四过宽I/S改fail，保存previous pass/独立正确坐标矩阵与新更正引用；旧错误通过不冒充当前有效证据。
+
+实际两cpp十三片段：六旗位W32取样发布、左tick入口/右tick后左elapsed重取/两保存elapsed、两pulse采样阶段恢复，撤state域拒绝/canDraw与S32偏移回绕helper。原0/1/2次tick、三state/Y后X和RNG、表/描述符/API局部/尾序及六配对/后续调用保。四新原新身份/四R7、八旧身份更正、四域七新限定证据各25来源；三正确根不计I，完整门禁不改。
+
+LOOP158/INPUT51/RENDER59/STARTUP118，预期语义1745/有效1738、文档1856（50.43%）、F886/E1039、R7已审448余2613；四旧fail保记录/分母不删。T02/R04/V04只current/引用、各open/closed11保持，完整所有父/callee/owner-alias寿命、正常失败/焦点/IME/像素/ABI/链接/运行及R8继续，不以局部纠正降标准。
+
+### BUW01 当前修复限定静态结果
+
+四完整原根193条708B/六页、六数值旗位36条214B编码/地址双证、原11标量88B/四28B用途、两cpp仅十三片段/正确配对与tick-tracker尾链保、光标原计时-pulse-请求-Y-X-API/公共尾阶段、完整机器/派生差异模型、十五文件编码/四锚点及七新限定证据各25来源均通过。文本汇总与Check均退出0。
+四旧BUU01过宽I/S已明确fail，previous pass/独立正确坐标事实和更正引用保留，当前修复七新限定证据pass；这是旧snapshot判断失效的历史记录，不是当前代码故障遗留，未删除失败或用新修复改写旧通过。
+实际语义1745/有效1738、文档1856（50.43%）、F886/E1039、R7已审448/余2613、LOOP158/INPUT51/RENDER59/STARTUP118；其他域/原分母/差队列/pending18与ECX pending7/closed11和完整门禁保持。未编译、链接、运行或证明完整原父/别名/ABI/显示验收，整体目标继续active。

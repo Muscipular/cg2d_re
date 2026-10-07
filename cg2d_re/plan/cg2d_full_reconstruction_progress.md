@@ -4036,3 +4036,26 @@ Reset修复正常失败路径：保存旧pool后原free，再保存capacity只�
 实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。
 
 源码准备脚本首次用英文句号匹配原中文节点注释而未找到声明区间，尚未写源；改按已读注释前缀/完整声明区间定位后完成十二批准片段。静态、汇总与Check现全部通过，没有遗留失败或修改原验收标准。
+
+## BUW01 六鼠标旗位原地址纠正与光标取样实修（2026-10-08）
+
+BUV01原生追踪实修已固定，继续逐帧光标/鼠标生产。只读原IDA四完整根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父仅身份；原11图号/offset标量88B及四尾28B NN_NOP用途完整。六旧事件聚焦36条214B旗位数值窗口，不再整根重复取证。
+
+发现以前按IDA名称误认held/pulse阶段：gMouseBtnDown2实际D68D98 held，gMouseBtnDown实际D68DA0 pulse，edge D68D9C。BUU01“原旗位顺序正确保”不成立。先固定[子SPEC](../doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision)，六块已按原数值恢复：leftdown edge/held/pulse读齐并同序写；rightdown pulse/edge/held读齐后held/pulse/edge写；up/double held/edge读→held写→fresh pulse读→edge/pulse写。位运算和字段布局不改，十四Ctor-Dtor三字段配对矩阵/clock/tracker阈值/report-reset及返回全文保。
+
+光标七片段落源：入口leftDownTick先保存再清edge；左tick后fresh down做差/发布或保存旧左值，右tick后fresh down做差、506E43先重新保存左elapsed后才发布右elapsed，右为零保存旧右值，两个保存值按左右处理pulse。清anchor/首脉冲时先保存pulse再写anchor/flag；右已有anchor还须判断100前保存pulse。撤额外state0..10拒绝/canDraw和偏移回绕helper，保image→Y+16/独立state/offset→X+16/独立state/offset→Draw、11原表/描述符和RNG次数，正常S32 offset加法。系统API/矩形条件和既有POINT/RECT局部适配、freshstate缓存/公共尾序保。
+
+两cpp十三片段、无头文件/新helper/owner；两个旧helper退休。请求force/尾字段/D0状态清理三正确根全文保，MainLoop/LoadingScreen/ClientInitialization真实接线有据，不重新验这些完整父。
+八旧语义/F追加更正，旧flags组合assert=false，新数字地址恢复事实另记；四旧过宽E-MOUSE-COORDINATE-PUBLICATION I/S作fail、保previous pass标记/坐标正确范围/更正引用，不删除记录/tag。原BUU独立坐标矩阵保，旧名称推断通过不再是当前证据。
+
+[证据](../doc/cg2d_cursor_flag_sampling_restore_evidence.json)保存四原根/原88B/六36条214B数值窗、四用途、两源前态/十三片段、旧断言/旧pass前态和机器前态。四新1741..1744/adapted与四R7用途，LOOP154→158/INPUT47→51/RENDER57→59限定I-S、STARTUP117→118仅S，七新证据各25来源。预期语义1745/有效1738、文档1856（50.43%）、F886/E1039/R7已审448余2613；旧四fail保历史和分母，T02/R04/V04仅current/引用，open/closed11、pending18/ECX pending7/差队列及所有完整门禁保。集中静态后记实值。
+
+完整所有原父/callee/字段别名、焦点/IME/owner-alias寿命、正常业务失败、机器ABI/链接/显示像素/文件/明文互通和R8继续；RPLAN.24异常不专项处理/不模拟或记等价。网络原格式明文/两叶排除、音频暂停/单线程及不编译测试运行或摘要保，整体目标active。
+
+### BUW01 当前修复限定静态结果
+
+四完整原根193条708B/六页、六数值旗位36条214B编码/地址双证、原11标量88B/四28B用途、两cpp仅十三片段/正确配对与tick-tracker尾链保、光标原计时-pulse-请求-Y-X-API/公共尾阶段、完整机器/派生差异模型、十五文件编码/四锚点及七新限定证据各25来源均通过。文本汇总与Check均退出0。
+四旧BUU01过宽I/S已明确fail，previous pass/独立正确坐标事实和更正引用保留，当前修复七新限定证据pass；这是旧snapshot判断失效的历史记录，不是当前代码故障遗留，未删除失败或用新修复改写旧通过。
+实际语义1745/有效1738、文档1856（50.43%）、F886/E1039、R7已审448/余2613、LOOP158/INPUT51/RENDER59/STARTUP118；其他域/原分母/差队列/pending18与ECX pending7/closed11和完整门禁保持。未编译、链接、运行或证明完整原父/别名/ABI/显示验收，整体目标继续active。
+
+机器前态读取首次因把八旧完整记录/处置重复输出而超过工具输出上限，未修改文件；改仅输出稳定ID/索引/旧flags断言/旧pass及引用计数，完整原对象仍由HEAD差异模型核对，随后通过。原端证据及验收标准未改，没有遗留检查失败。

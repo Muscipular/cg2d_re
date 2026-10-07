@@ -3741,3 +3741,17 @@ LOOP135/RENDER57/MAP128/BATTLE263，NETWORK61保持；只四S各25来源、无I�
 
 十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
 实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。
+
+## BUW01 四光标/鼠标状态根与八旧身份更正（2026-10-08）
+
+[本步数值原证](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline)与[纠正裁决](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision)纳管1741/F:00106E00、1742/F:00106DE0、1743/F:00106DD0、1744/F:00106870四adapted；193条708B/六页、六direct/六indirect/27jump/四RET、18引用15父身份及四28B用途/原88B标量。三正确根保持无新增I，逐帧实际取样/额外策略修复。
+
+六旧事件只旗位块按36条214B数值地址纠正，八BUU01语义/F保稳定ID/符号/owner并追加更正，旧flags组合断言置false。四旧过宽I/S记录改fail并保旧pass/坐标正确范围，不将旧误判算当前通过。原六配对十四Ctor-Dtor和所有后续clock/tracker/report/reset/返回保。
+
+两cpp十三片段、零头文件/新helper/owner，两旧helper退休；LOOP158/INPUT51/RENDER59限定I-S、STARTUP118仅S共七新证据。预期语义1745/有效1738、文档1856（50.43%）、F886/E1039/R7已审448余2613，pending18/ECX未知、closed11/差队列与全门禁保；三个任务仍open，完整父/别名/ABI/运行未验。
+
+### BUW01 当前修复限定静态结果
+
+四完整原根193条708B/六页、六数值旗位36条214B编码/地址双证、原11标量88B/四28B用途、两cpp仅十三片段/正确配对与tick-tracker尾链保、光标原计时-pulse-请求-Y-X-API/公共尾阶段、完整机器/派生差异模型、十五文件编码/四锚点及七新限定证据各25来源均通过。文本汇总与Check均退出0。
+四旧BUU01过宽I/S已明确fail，previous pass/独立正确坐标事实和更正引用保留，当前修复七新限定证据pass；这是旧snapshot判断失效的历史记录，不是当前代码故障遗留，未删除失败或用新修复改写旧通过。
+实际语义1745/有效1738、文档1856（50.43%）、F886/E1039、R7已审448/余2613、LOOP158/INPUT51/RENDER59/STARTUP118；其他域/原分母/差队列/pending18与ECX pending7/closed11和完整门禁保持。未编译、链接、运行或证明完整原父/别名/ABI/显示验收，整体目标继续active。

@@ -103,3 +103,17 @@ handle 适配，不保存 x64 指针；六个事件没有新增指针布局或�
 
 十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
 实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。
+
+## held/pulse取样发布按原数值地址纠正（BUW01，2026-10-08）
+
+[本步数值原证](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline)与[纠正裁决](cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision)直接保存六事件36条214B数值指令窗。IDA名称gMouseBtnDown2实际D68D98 held，gMouseBtnDown实际D68DA0 pulse；原BUU01与本文关于两者读写序的名称推断错误，四过宽I/S改fail、旧pass标记和正确坐标三字段事实保留，不能继续按旧文认定旗位等价。
+
+现六块已修：leftdown R edge/held/pulse，W edge/held/pulse；rightdown R pulse/edge/held，W held/pulse/edge；up/double R held/edge→W held→R pulse→W edge/pulse。原OR/AND/edge bit、三个W32唯一字段/布局、十四Ctor-Dtor取样发布正文、tick/Track阈值/Report→Reset及返回全文保。仅六个旗位块，不调其他消费者/位义或改网络格式。
+
+新光标每帧计时/pulse取样也依同一D68DA0 owner修复，并撤额外state拒绝/偏移回绕helper；请求/尾及D0状态清理三正确根保。完整父/callee/字段所有别名消费者/焦点/owner寿命/机器ABI/显示运行未验，RPLAN.24异常不专项或记等价、网络明文/音频暂停保持。
+
+### BUW01 当前修复限定静态结果
+
+四完整原根193条708B/六页、六数值旗位36条214B编码/地址双证、原11标量88B/四28B用途、两cpp仅十三片段/正确配对与tick-tracker尾链保、光标原计时-pulse-请求-Y-X-API/公共尾阶段、完整机器/派生差异模型、十五文件编码/四锚点及七新限定证据各25来源均通过。文本汇总与Check均退出0。
+四旧BUU01过宽I/S已明确fail，previous pass/独立正确坐标事实和更正引用保留，当前修复七新限定证据pass；这是旧snapshot判断失效的历史记录，不是当前代码故障遗留，未删除失败或用新修复改写旧通过。
+实际语义1745/有效1738、文档1856（50.43%）、F886/E1039、R7已审448/余2613、LOOP158/INPUT51/RENDER59/STARTUP118；其他域/原分母/差队列/pending18与ECX pending7/closed11和完整门禁保持。未编译、链接、运行或证明完整原父/别名/ABI/显示验收，整体目标继续active。

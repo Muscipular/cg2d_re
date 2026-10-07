@@ -19,7 +19,6 @@
 namespace cg::platform {
 namespace {
 
-inline constexpr std::uint32_t kMaximumCursorState = 10;
 inline constexpr std::int32_t kSystemCursorImage = 0x000055F0;
 inline constexpr std::uint8_t kCursorLayer = 0xE7;
 
@@ -34,11 +33,6 @@ CursorState0Record gCursorState0 {0x0003BE98u, 0};
 
 // 原 dword_D68BE8：只在 World::CursorUpdate 内比较并更新。
 std::uint32_t gValueD68BE8 = 0;
-
-bool IsCursorStateValid(const std::uint32_t state)
-{
-    return state <= kMaximumCursorState;
-}
 
 std::int32_t ReadCursorImage(const std::uint32_t state)
 {
@@ -66,37 +60,43 @@ std::int16_t ReadCursorOffsetY(const std::uint32_t state)
         static_cast<std::uint16_t>(packed >> 16));
 }
 
-std::int32_t AddSigned16Wrapping(
-    const std::int32_t value,
-    const std::int16_t offset)
-{
-    const std::uint32_t result =
-        std::bit_cast<std::uint32_t>(value)
-        + static_cast<std::uint32_t>(static_cast<std::int32_t>(offset));
-    return std::bit_cast<std::int32_t>(result);
-}
-
 void UpdatePulse(
     const std::uint32_t elapsed,
     const std::uint32_t bit,
     std::uint32_t& anchor)
 {
     if (elapsed <= 500) {
+        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
         anchor = 0;
-        gLegacyMouseState.pulseButtons &= ~bit;
+        gLegacyMouseState.pulseButtons = pulseButtons & ~bit;
         return;
     }
 
     const std::uint32_t currentAnchor = anchor;
     if (currentAnchor == 0) {
+        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
         anchor = elapsed;
-        gLegacyMouseState.pulseButtons |= bit;
+        gLegacyMouseState.pulseButtons = pulseButtons | bit;
         return;
     }
 
-    if (elapsed - currentAnchor >= 100) {
+    const std::uint32_t repeatElapsed = elapsed - currentAnchor;
+    if (bit == 0x02u) {
+        // 原右侧 506EE5：先保存 pulse，再判断重复间隔并发布锚点。
+        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
+        if (repeatElapsed >= 100) {
+            anchor = elapsed;
+            gLegacyMouseState.pulseButtons = pulseButtons | bit;
+        } else {
+            gLegacyMouseState.pulseButtons = pulseButtons & ~bit;
+        }
+        return;
+    }
+
+    if (repeatElapsed >= 100) {
+        const std::uint32_t pulseButtons = gLegacyMouseState.pulseButtons;
         anchor = elapsed;
-        gLegacyMouseState.pulseButtons |= bit;
+        gLegacyMouseState.pulseButtons = pulseButtons | bit;
         return;
     }
 
@@ -119,38 +119,16 @@ void DrawTableCursor()
     const login::detail::GraphicDescriptor16 descriptor =
         MakeCursorDescriptor();
 
-    bool canDraw = true;
     const std::uint32_t imageState = gValueD68DC4;
-    std::int32_t image = 0;
-    if (IsCursorStateValid(imageState)) {
-        image = ReadCursorImage(imageState);
-    } else {
-        canDraw = false;
-    }
-
+    const std::int32_t image = ReadCursorImage(imageState);
     const std::int32_t mouseY = legacy_crypt_int::Add_401E10(
         &gLegacyMouseState.mouseY, 16);
     const std::uint32_t yState = gValueD68DC4;
-    std::int32_t y = mouseY;
-    if (IsCursorStateValid(yState)) {
-        y = AddSigned16Wrapping(mouseY, ReadCursorOffsetY(yState));
-    } else {
-        canDraw = false;
-    }
-
+    const std::int32_t y = mouseY + ReadCursorOffsetY(yState);
     const std::int32_t mouseX = legacy_crypt_int::Add_401E10(
         &gLegacyMouseState.mouseX, 16);
     const std::uint32_t xState = gValueD68DC4;
-    std::int32_t x = mouseX;
-    if (IsCursorStateValid(xState)) {
-        x = AddSigned16Wrapping(mouseX, ReadCursorOffsetX(xState));
-    } else {
-        canDraw = false;
-    }
-
-    if (!canDraw) {
-        return;
-    }
+    const std::int32_t x = mouseX + ReadCursorOffsetX(xState);
 
     login::detail::DrawGraphic(
         x, y, kCursorLayer, image, 0, &descriptor);
@@ -170,9 +148,7 @@ void UpdateNativeCursor()
         if (point.x >= 0 && point.x < clientRect.right
             && point.y >= 0 && point.y < clientRect.bottom) {
             const std::uint32_t handleState = gValueD68DC4;
-            if (IsCursorStateValid(handleState)) {
-                SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[handleState]));
-            }
+            SetCursor(reinterpret_cast<HCURSOR>(gCursorHandles[handleState]));
         }
     }
 
@@ -215,21 +191,31 @@ void ResetLegacyMouseTail_506DD0()
 
 void UpdateCursor_506E00()
 {
+    const std::uint32_t leftDownTick = gLegacyMouseState.leftDownTick;
     gLegacyMouseState.edgeButtons = 0;
 
-    if (gLegacyMouseState.leftDownTick != 0) {
+    std::uint32_t leftElapsed;
+    if (leftDownTick != 0) {
         const std::uint32_t now = ReadTickCount32();
-        gLegacyMouseState.leftElapsed =
-            now - gLegacyMouseState.leftDownTick;
-    }
-    if (gLegacyMouseState.rightDownTick != 0) {
-        const std::uint32_t now = ReadTickCount32();
-        gLegacyMouseState.rightElapsed =
-            now - gLegacyMouseState.rightDownTick;
+        leftElapsed = now - gLegacyMouseState.leftDownTick;
+        gLegacyMouseState.leftElapsed = leftElapsed;
+    } else {
+        leftElapsed = gLegacyMouseState.leftElapsed;
     }
 
-    UpdatePulse(gLegacyMouseState.leftElapsed, 0x01u, gValueD68DC8);
-    UpdatePulse(gLegacyMouseState.rightElapsed, 0x02u, gValueD68BF0);
+    std::uint32_t rightElapsed;
+    if (gLegacyMouseState.rightDownTick != 0) {
+        const std::uint32_t now = ReadTickCount32();
+        rightElapsed = now - gLegacyMouseState.rightDownTick;
+        // 原 506E43 在发布 rightElapsed 前重新保存左侧样本。
+        leftElapsed = gLegacyMouseState.leftElapsed;
+        gLegacyMouseState.rightElapsed = rightElapsed;
+    } else {
+        rightElapsed = gLegacyMouseState.rightElapsed;
+    }
+
+    UpdatePulse(leftElapsed, 0x01u, gValueD68DC8);
+    UpdatePulse(rightElapsed, 0x02u, gValueD68BF0);
 
     if (gValueD67AE4 == 0) {
         if (gLegacyMouseState.drawingSuppression == 0) {

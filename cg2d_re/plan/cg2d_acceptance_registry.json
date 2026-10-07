@@ -90,7 +90,8 @@
         "doc/cg2d_exit_table_heap_migration_spec.md",
         "doc/cg2d_standard_stream_exit_migration_spec.md",
         "doc/cg2d_standard_stream_controller_gates_spec.md",
-        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline"
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -209,7 +210,8 @@
         "F:001492F5",
         "F:00149368",
         "F:001482DD",
-        "F:00149397"
+        "F:00149397",
+        "F:00106870"
       ],
       "closure_task_ids": [
         "C02",
@@ -229,7 +231,8 @@
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
-        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision"
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -243,7 +246,8 @@
         "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭",
         "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭",
         "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭",
-        "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。"
+        "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。",
+        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -258,7 +262,8 @@
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-baseline",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-baseline",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-baseline",
-        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline"
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
       ]
     },
     {
@@ -639,7 +644,8 @@
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -795,7 +801,11 @@
         "F:00106780",
         "F:001067A0",
         "F:001067F0",
-        "F:00112CA0"
+        "F:00112CA0",
+        "F:00106E00",
+        "F:00106DE0",
+        "F:00106DD0",
+        "F:00106870"
       ],
       "closure_task_ids": [
         "U11",
@@ -864,7 +874,8 @@
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -924,7 +935,8 @@
         "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
         "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
         "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
+        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -985,7 +997,8 @@
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
       ]
     },
     {
@@ -1467,7 +1480,8 @@
         "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -1516,7 +1530,11 @@
         "F:00106760",
         "F:00106780",
         "F:001067A0",
-        "F:001067F0"
+        "F:001067F0",
+        "F:00106E00",
+        "F:00106DE0",
+        "F:00106DD0",
+        "F:00106870"
       ],
       "closure_task_ids": [
         "T01",
@@ -1550,7 +1568,8 @@
         "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1578,7 +1597,8 @@
         "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行",
         "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
         "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
+        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1607,7 +1627,8 @@
         "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
       ]
     },
     {
@@ -2343,7 +2364,8 @@
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -2402,7 +2424,9 @@
         "F:0011D640",
         "F:00056D30",
         "F:000512C0",
-        "F:00066B80"
+        "F:00066B80",
+        "F:00106E00",
+        "F:00106DE0"
       ],
       "closure_task_ids": [
         "C09",
@@ -2444,7 +2468,8 @@
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -2475,7 +2500,8 @@
         "BPC01真正角色521F20新机器1418/完整160条595B两页18点3父只纳盘；实际两游标/两计数/四W32及各U8颜色flags、mix-clip-image正常阶段实修。RENDER52/YOBI56枚举open，完整上游/原全部父-callee-正常alias/action-队列-图形-纹理-owner/场景失效退出/SDK-机器FP ABI与像素及R1/R7/R8待",
         "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待",
         "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待",
-        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
+        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2507,7 +2533,8 @@
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
       ]
     },
     {
@@ -45146,19 +45173,39 @@
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_legacy_mouse_events.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "plan/cg2d_full_reconstruction_progress.md"
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
       "differences": [
         {
           "description": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
           "decision_ref": "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision"
+        },
+        {
+          "description": "BUW01按原数值地址核实：BUU01按IDA名称把held/pulse原读写序反置，旧旗位组合通过无效；原三字段坐标发布矩阵独立证据保留。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
         }
       ],
-      "result": "pass",
+      "result": "fail",
       "recorded_on": "2026-10-08",
-      "observation": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-      "expected": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-      "actual": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。"
+      "observation": "BUW01按原数值地址核实：BUU01按IDA名称把held/pulse原读写序反置，旧旗位组合通过无效；原三字段坐标发布矩阵独立证据保留。",
+      "expected": "按原D68D98 held/D68D9C edge/D68DA0 pulse数值地址保存六事件读写序，不按IDA名称推断。",
+      "actual": "旧固定BUU01快照六旗位块的取样/发布序有误，本步已纠正；旧证据保fail，不把旧误判改成通过。",
+      "validation_correction": {
+        "spec_id": "BUW01",
+        "previous_result": "pass",
+        "invalidated_on": "2026-10-08",
+        "invalidated_scope": "BUU01原旗位取样发布保留断言",
+        "retained_scope": "十四Ctor-Dtor及原三字段取样发布矩阵独立事实",
+        "correction_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "id": "E-MOUSE-COORDINATE-PUBLICATION-FUNC-LOOP-S-20261008",
@@ -45193,19 +45240,39 @@
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_legacy_mouse_events.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "plan/cg2d_full_reconstruction_progress.md"
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
       "differences": [
         {
           "description": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
           "decision_ref": "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision"
+        },
+        {
+          "description": "BUW01按原数值地址核实：BUU01按IDA名称把held/pulse原读写序反置，旧旗位组合通过无效；原三字段坐标发布矩阵独立证据保留。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
         }
       ],
-      "result": "pass",
+      "result": "fail",
       "recorded_on": "2026-10-08",
-      "observation": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-      "expected": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-      "actual": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。"
+      "observation": "BUW01按原数值地址核实：BUU01按IDA名称把held/pulse原读写序反置，旧旗位组合通过无效；原三字段坐标发布矩阵独立证据保留。",
+      "expected": "按原D68D98 held/D68D9C edge/D68DA0 pulse数值地址保存六事件读写序，不按IDA名称推断。",
+      "actual": "旧固定BUU01快照六旗位块的取样/发布序有误，本步已纠正；旧证据保fail，不把旧误判改成通过。",
+      "validation_correction": {
+        "spec_id": "BUW01",
+        "previous_result": "pass",
+        "invalidated_on": "2026-10-08",
+        "invalidated_scope": "BUU01原旗位取样发布保留断言",
+        "retained_scope": "十四Ctor-Dtor及原三字段取样发布矩阵独立事实",
+        "correction_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "id": "E-MOUSE-COORDINATE-PUBLICATION-FUNC-INPUT-I-20261008",
@@ -45240,19 +45307,39 @@
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_legacy_mouse_events.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "plan/cg2d_full_reconstruction_progress.md"
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
       "differences": [
         {
           "description": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
           "decision_ref": "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision"
+        },
+        {
+          "description": "BUW01按原数值地址核实：BUU01按IDA名称把held/pulse原读写序反置，旧旗位组合通过无效；原三字段坐标发布矩阵独立证据保留。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
         }
       ],
-      "result": "pass",
+      "result": "fail",
       "recorded_on": "2026-10-08",
-      "observation": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-      "expected": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-      "actual": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。"
+      "observation": "BUW01按原数值地址核实：BUU01按IDA名称把held/pulse原读写序反置，旧旗位组合通过无效；原三字段坐标发布矩阵独立证据保留。",
+      "expected": "按原D68D98 held/D68D9C edge/D68DA0 pulse数值地址保存六事件读写序，不按IDA名称推断。",
+      "actual": "旧固定BUU01快照六旗位块的取样/发布序有误，本步已纠正；旧证据保fail，不把旧误判改成通过。",
+      "validation_correction": {
+        "spec_id": "BUW01",
+        "previous_result": "pass",
+        "invalidated_on": "2026-10-08",
+        "invalidated_scope": "BUU01原旗位取样发布保留断言",
+        "retained_scope": "十四Ctor-Dtor及原三字段取样发布矩阵独立事实",
+        "correction_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "id": "E-MOUSE-COORDINATE-PUBLICATION-FUNC-INPUT-S-20261008",
@@ -45287,19 +45374,39 @@
         "doc/cg2d_legacy_mouse.md",
         "doc/cg2d_legacy_mouse_events.md",
         "doc/cg2d_semantic_function_mappings.md",
-        "plan/cg2d_full_reconstruction_progress.md"
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
       "differences": [
         {
           "description": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
           "decision_ref": "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision"
+        },
+        {
+          "description": "BUW01按原数值地址核实：BUU01按IDA名称把held/pulse原读写序反置，旧旗位组合通过无效；原三字段坐标发布矩阵独立证据保留。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
         }
       ],
-      "result": "pass",
+      "result": "fail",
       "recorded_on": "2026-10-08",
-      "observation": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-      "expected": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
-      "actual": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。"
+      "observation": "BUW01按原数值地址核实：BUU01按IDA名称把held/pulse原读写序反置，旧旗位组合通过无效；原三字段坐标发布矩阵独立证据保留。",
+      "expected": "按原D68D98 held/D68D9C edge/D68DA0 pulse数值地址保存六事件读写序，不按IDA名称推断。",
+      "actual": "旧固定BUU01快照六旗位块的取样/发布序有误，本步已纠正；旧证据保fail，不把旧误判改成通过。",
+      "validation_correction": {
+        "spec_id": "BUW01",
+        "previous_result": "pass",
+        "invalidated_on": "2026-10-08",
+        "invalidated_scope": "BUU01原旗位取样发布保留断言",
+        "retained_scope": "十四Ctor-Dtor及原三字段取样发布矩阵独立事实",
+        "correction_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "id": "E-MOUSE-TRACKER-NATIVE-LINKS-FUNC-LOOP-I-20261008",
@@ -45582,6 +45689,335 @@
       "observation": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
       "expected": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
       "actual": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
+    },
+    {
+      "id": "E-CURSOR-FLAG-SAMPLING-RESTORE-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUW01四原根193条708B/六页、六旗位36条214B数值地址、原88B/四28B用途；旧四过宽I-S作fail，当前六旗位与光标取样修复，三正确根不计I。doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cursor-flag-sampling-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "src/platform/LegacyCursor.cpp#UpdateCursor_506E00",
+        "src/platform/LegacyCursor.cpp#RequestCursorState_506DE0",
+        "src/platform/LegacyCursor.cpp#ResetLegacyMouseTail_506DD0",
+        "src/platform/LegacyMouse.cpp#ResetLegacyMouseState_506870",
+        "src/platform/LegacyCursor.cpp#UpdatePulse",
+        "src/platform/LegacyCursor.cpp#DrawTableCursor",
+        "src/platform/LegacyCursor.cpp#UpdateNativeCursor",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/LegacyCursor.hpp",
+        "src/ResourcePaths.cpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/LoadingScreen.cpp",
+        "src/platform/ClientInitialization.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "doc/cg2d_legacy_cursor_update.md",
+        "doc/cg2d_legacy_mouse_events.md",
+        "doc/cg2d_mouse_coordinate_publication_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "expected": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "actual": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "E-CURSOR-FLAG-SAMPLING-RESTORE-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUW01四原根193条708B/六页、六旗位36条214B数值地址、原88B/四28B用途；旧四过宽I-S作fail，当前六旗位与光标取样修复，三正确根不计I。doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cursor-flag-sampling-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "src/platform/LegacyCursor.cpp#UpdateCursor_506E00",
+        "src/platform/LegacyCursor.cpp#RequestCursorState_506DE0",
+        "src/platform/LegacyCursor.cpp#ResetLegacyMouseTail_506DD0",
+        "src/platform/LegacyMouse.cpp#ResetLegacyMouseState_506870",
+        "src/platform/LegacyCursor.cpp#UpdatePulse",
+        "src/platform/LegacyCursor.cpp#DrawTableCursor",
+        "src/platform/LegacyCursor.cpp#UpdateNativeCursor",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/LegacyCursor.hpp",
+        "src/ResourcePaths.cpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/LoadingScreen.cpp",
+        "src/platform/ClientInitialization.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "doc/cg2d_legacy_cursor_update.md",
+        "doc/cg2d_legacy_mouse_events.md",
+        "doc/cg2d_mouse_coordinate_publication_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "expected": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "actual": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "E-CURSOR-FLAG-SAMPLING-RESTORE-FUNC-INPUT-I-20261008",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUW01四原根193条708B/六页、六旗位36条214B数值地址、原88B/四28B用途；旧四过宽I-S作fail，当前六旗位与光标取样修复，三正确根不计I。doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cursor-flag-sampling-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "src/platform/LegacyCursor.cpp#UpdateCursor_506E00",
+        "src/platform/LegacyCursor.cpp#RequestCursorState_506DE0",
+        "src/platform/LegacyCursor.cpp#ResetLegacyMouseTail_506DD0",
+        "src/platform/LegacyMouse.cpp#ResetLegacyMouseState_506870",
+        "src/platform/LegacyCursor.cpp#UpdatePulse",
+        "src/platform/LegacyCursor.cpp#DrawTableCursor",
+        "src/platform/LegacyCursor.cpp#UpdateNativeCursor",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/LegacyCursor.hpp",
+        "src/ResourcePaths.cpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/LoadingScreen.cpp",
+        "src/platform/ClientInitialization.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "doc/cg2d_legacy_cursor_update.md",
+        "doc/cg2d_legacy_mouse_events.md",
+        "doc/cg2d_mouse_coordinate_publication_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "expected": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "actual": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "E-CURSOR-FLAG-SAMPLING-RESTORE-FUNC-INPUT-S-20261008",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUW01四原根193条708B/六页、六旗位36条214B数值地址、原88B/四28B用途；旧四过宽I-S作fail，当前六旗位与光标取样修复，三正确根不计I。doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cursor-flag-sampling-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "src/platform/LegacyCursor.cpp#UpdateCursor_506E00",
+        "src/platform/LegacyCursor.cpp#RequestCursorState_506DE0",
+        "src/platform/LegacyCursor.cpp#ResetLegacyMouseTail_506DD0",
+        "src/platform/LegacyMouse.cpp#ResetLegacyMouseState_506870",
+        "src/platform/LegacyCursor.cpp#UpdatePulse",
+        "src/platform/LegacyCursor.cpp#DrawTableCursor",
+        "src/platform/LegacyCursor.cpp#UpdateNativeCursor",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/LegacyCursor.hpp",
+        "src/ResourcePaths.cpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/LoadingScreen.cpp",
+        "src/platform/ClientInitialization.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "doc/cg2d_legacy_cursor_update.md",
+        "doc/cg2d_legacy_mouse_events.md",
+        "doc/cg2d_mouse_coordinate_publication_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "expected": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "actual": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "E-CURSOR-FLAG-SAMPLING-RESTORE-FUNC-RENDER-I-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUW01四原根193条708B/六页、六旗位36条214B数值地址、原88B/四28B用途；旧四过宽I-S作fail，当前六旗位与光标取样修复，三正确根不计I。doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cursor-flag-sampling-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "src/platform/LegacyCursor.cpp#UpdateCursor_506E00",
+        "src/platform/LegacyCursor.cpp#RequestCursorState_506DE0",
+        "src/platform/LegacyCursor.cpp#ResetLegacyMouseTail_506DD0",
+        "src/platform/LegacyMouse.cpp#ResetLegacyMouseState_506870",
+        "src/platform/LegacyCursor.cpp#UpdatePulse",
+        "src/platform/LegacyCursor.cpp#DrawTableCursor",
+        "src/platform/LegacyCursor.cpp#UpdateNativeCursor",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/LegacyCursor.hpp",
+        "src/ResourcePaths.cpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/LoadingScreen.cpp",
+        "src/platform/ClientInitialization.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "doc/cg2d_legacy_cursor_update.md",
+        "doc/cg2d_legacy_mouse_events.md",
+        "doc/cg2d_mouse_coordinate_publication_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "expected": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "actual": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "E-CURSOR-FLAG-SAMPLING-RESTORE-FUNC-RENDER-S-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUW01四原根193条708B/六页、六旗位36条214B数值地址、原88B/四28B用途；旧四过宽I-S作fail，当前六旗位与光标取样修复，三正确根不计I。doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cursor-flag-sampling-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "src/platform/LegacyCursor.cpp#UpdateCursor_506E00",
+        "src/platform/LegacyCursor.cpp#RequestCursorState_506DE0",
+        "src/platform/LegacyCursor.cpp#ResetLegacyMouseTail_506DD0",
+        "src/platform/LegacyMouse.cpp#ResetLegacyMouseState_506870",
+        "src/platform/LegacyCursor.cpp#UpdatePulse",
+        "src/platform/LegacyCursor.cpp#DrawTableCursor",
+        "src/platform/LegacyCursor.cpp#UpdateNativeCursor",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/LegacyCursor.hpp",
+        "src/ResourcePaths.cpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/LoadingScreen.cpp",
+        "src/platform/ClientInitialization.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "doc/cg2d_legacy_cursor_update.md",
+        "doc/cg2d_legacy_mouse_events.md",
+        "doc/cg2d_mouse_coordinate_publication_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "expected": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "actual": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "E-CURSOR-FLAG-SAMPLING-RESTORE-FUNC-STARTUP-S-20261008",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUW01四原根193条708B/六页、六旗位36条214B数值地址、原88B/四28B用途；旧四过宽I-S作fail，当前六旗位与光标取样修复，三正确根不计I。doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-cursor-flag-sampling-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json",
+        "src/platform/LegacyCursor.cpp#UpdateCursor_506E00",
+        "src/platform/LegacyCursor.cpp#RequestCursorState_506DE0",
+        "src/platform/LegacyCursor.cpp#ResetLegacyMouseTail_506DD0",
+        "src/platform/LegacyMouse.cpp#ResetLegacyMouseState_506870",
+        "src/platform/LegacyCursor.cpp#UpdatePulse",
+        "src/platform/LegacyCursor.cpp#DrawTableCursor",
+        "src/platform/LegacyCursor.cpp#UpdateNativeCursor",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/LegacyCursor.hpp",
+        "src/ResourcePaths.cpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/LoadingScreen.cpp",
+        "src/platform/ClientInitialization.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "doc/cg2d_legacy_cursor_update.md",
+        "doc/cg2d_legacy_mouse_events.md",
+        "doc/cg2d_mouse_coordinate_publication_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+          "decision_ref": "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "expected": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+      "actual": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
     }
   ],
   "task_acceptance": [
@@ -45988,7 +46424,8 @@
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
       ]
     },
     {
@@ -46731,7 +47168,8 @@
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
       ]
     },
     {
@@ -46903,7 +47341,8 @@
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
       ]
     },
     {
@@ -57385,9 +57824,26 @@
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-acceptance",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_coordinate_publication_evidence.json"
+        "doc/cg2d_mouse_coordinate_publication_evidence.json",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
-      "boundary": "原八根组中ResetLegacyMousePosition_506890：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。"
+      "boundary": "原八根组中ResetLegacyMousePosition_506890：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
+      "flag_owner_address_correction": {
+        "spec_id": "BUW01",
+        "old_flag_scope_invalidated": true,
+        "current_numeric_flag_order_corrected": true,
+        "evidence_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "inventory_id": "F:00106900",
@@ -57398,9 +57854,26 @@
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-acceptance",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_coordinate_publication_evidence.json"
+        "doc/cg2d_mouse_coordinate_publication_evidence.json",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
-      "boundary": "原八根组中UpdateLegacyMouseLeftDown_506900：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。"
+      "boundary": "原八根组中UpdateLegacyMouseLeftDown_506900：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
+      "flag_owner_address_correction": {
+        "spec_id": "BUW01",
+        "old_flag_scope_invalidated": true,
+        "current_numeric_flag_order_corrected": true,
+        "evidence_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "inventory_id": "F:001069E0",
@@ -57411,9 +57884,26 @@
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-acceptance",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_coordinate_publication_evidence.json"
+        "doc/cg2d_mouse_coordinate_publication_evidence.json",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
-      "boundary": "原八根组中UpdateLegacyMouseLeftUp_5069E0：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。"
+      "boundary": "原八根组中UpdateLegacyMouseLeftUp_5069E0：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
+      "flag_owner_address_correction": {
+        "spec_id": "BUW01",
+        "old_flag_scope_invalidated": true,
+        "current_numeric_flag_order_corrected": true,
+        "evidence_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "inventory_id": "F:00106A90",
@@ -57424,9 +57914,26 @@
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-acceptance",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_coordinate_publication_evidence.json"
+        "doc/cg2d_mouse_coordinate_publication_evidence.json",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
-      "boundary": "原八根组中UpdateLegacyMouseLeftDoubleClick_506A90：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。"
+      "boundary": "原八根组中UpdateLegacyMouseLeftDoubleClick_506A90：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
+      "flag_owner_address_correction": {
+        "spec_id": "BUW01",
+        "old_flag_scope_invalidated": true,
+        "current_numeric_flag_order_corrected": true,
+        "evidence_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "inventory_id": "F:00106B50",
@@ -57437,9 +57944,26 @@
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-acceptance",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_coordinate_publication_evidence.json"
+        "doc/cg2d_mouse_coordinate_publication_evidence.json",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
-      "boundary": "原八根组中UpdateLegacyMouseRightDown_506B50：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。"
+      "boundary": "原八根组中UpdateLegacyMouseRightDown_506B50：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
+      "flag_owner_address_correction": {
+        "spec_id": "BUW01",
+        "old_flag_scope_invalidated": true,
+        "current_numeric_flag_order_corrected": true,
+        "evidence_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "inventory_id": "F:00106C40",
@@ -57450,9 +57974,26 @@
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-acceptance",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_coordinate_publication_evidence.json"
+        "doc/cg2d_mouse_coordinate_publication_evidence.json",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
-      "boundary": "原八根组中UpdateLegacyMouseRightUp_506C40：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。"
+      "boundary": "原八根组中UpdateLegacyMouseRightUp_506C40：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
+      "flag_owner_address_correction": {
+        "spec_id": "BUW01",
+        "old_flag_scope_invalidated": true,
+        "current_numeric_flag_order_corrected": true,
+        "evidence_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "inventory_id": "F:00106CF0",
@@ -57463,9 +58004,26 @@
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-acceptance",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_coordinate_publication_evidence.json"
+        "doc/cg2d_mouse_coordinate_publication_evidence.json",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
-      "boundary": "原八根组中UpdateLegacyMouseRightDoubleClick_506CF0：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。"
+      "boundary": "原八根组中UpdateLegacyMouseRightDoubleClick_506CF0：同一栈临时量先X后Y各Ctor/读齐三个payload/依原序pub/Dtor，保目标token与reserved；当前坐标发布次序实修，原W32旗位、tick、阈值/两尾链和返回保持，Windows父/CRT提供者/焦点/资源寿命及ABI运行未整体验收。",
+      "flag_owner_address_correction": {
+        "spec_id": "BUW01",
+        "old_flag_scope_invalidated": true,
+        "current_numeric_flag_order_corrected": true,
+        "evidence_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "inventory_id": "F:00106DB0",
@@ -57476,9 +58034,26 @@
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-acceptance",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
-        "doc/cg2d_mouse_coordinate_publication_evidence.json"
+        "doc/cg2d_mouse_coordinate_publication_evidence.json",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
-      "boundary": "原506DB0单W32尾槽读取/加delta/写回并返回原S32delta，现代码保持；无新增业务I，异常不专项模拟或记等价，本机ABI及完整运行未验。"
+      "boundary": "原506DB0单W32尾槽读取/加delta/写回并返回原S32delta，现代码保持；无新增业务I，异常不专项模拟或记等价，本机ABI及完整运行未验。",
+      "flag_owner_address_correction": {
+        "spec_id": "BUW01",
+        "old_flag_scope_invalidated": true,
+        "current_numeric_flag_order_corrected": true,
+        "evidence_refs": [
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+          "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+          "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+        ]
+      }
     },
     {
       "inventory_id": "F:00106580",
@@ -57609,6 +58184,58 @@
         "doc/cg2d_mouse_tracker_native_links_evidence.json"
       ],
       "boundary": "原PGXE命令/先保存长度后format token/三次fresh输出buffer与发送返回保持，原5B字串已载；不新增网络I或改变格式/加解密，不代所有父与明文互通验收。"
+    },
+    {
+      "inventory_id": "F:00106E00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+      ],
+      "boundary": "原逐帧左tick入口先取/右tick后左elapsed重读与右发布、两elapsed保存后左右pulse阶段、图号-Y-X独立请求采样/原表偏移正常S32及系统光标/公共清状态尾序恢复；原API局部适配和RNG/时钟次数保，异常不专项/不模拟，全父/SDK/像素/ABI/运行未验。"
+    },
+    {
+      "inventory_id": "F:00106DE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+      ],
+      "boundary": "原请求/尾字段清零/鼠标D0清理三正确根之一：RequestCursorState_506DE0，现完整源保持只补基线，不计I；现真实父/唯一owner与定宽载荷保，完整生命周期/ABI/运行未验。"
+    },
+    {
+      "inventory_id": "F:00106DD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+      ],
+      "boundary": "原请求/尾字段清零/鼠标D0清理三正确根之一：ResetLegacyMouseTail_506DD0，现完整源保持只补基线，不计I；现真实父/唯一owner与定宽载荷保，完整生命周期/ABI/运行未验。"
+    },
+    {
+      "inventory_id": "F:00106870",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+      ],
+      "boundary": "原请求/尾字段清零/鼠标D0清理三正确根之一：ResetLegacyMouseState_506870，现完整源保持只补基线，不计I；现真实父/唯一owner与定宽载荷保，完整生命周期/ABI/运行未验。"
     }
   ],
   "auxiliary_dispositions": [
@@ -80019,6 +80646,274 @@
         },
         {
           "ea": "0x50e7cf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0010688B-00106890",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+      ],
+      "reason": "BUW01四尾合28B实际NN_NOP/90，本区5B无入向/后真函数，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 5,
+      "original_bytes": "9090909090",
+      "original_decode": [
+        {
+          "ea": "0x50688b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50688c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50688d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50688e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50688f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:00106DDB-00106DE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+      ],
+      "reason": "BUW01四尾合28B实际NN_NOP/90，本区5B无入向/后真函数，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 5,
+      "original_bytes": "9090909090",
+      "original_decode": [
+        {
+          "ea": "0x506ddb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506ddc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506ddd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dde",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506ddf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:00106DFB-00106E00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+      ],
+      "reason": "BUW01四尾合28B实际NN_NOP/90，本区5B无入向/后真函数，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 5,
+      "original_bytes": "9090909090",
+      "original_decode": [
+        {
+          "ea": "0x506dfb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dfc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dfd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dfe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506dff",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:00107083-00107090",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-acceptance",
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
+      ],
+      "reason": "BUW01四尾合28B实际NN_NOP/90，本区13B无入向/后真函数，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 13,
+      "original_bytes": "90909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x507083",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507084",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507085",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507086",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507087",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507088",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x507089",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50708f",
           "size": 1,
           "bytes": "90",
           "is_nop": true,

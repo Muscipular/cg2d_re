@@ -2428,3 +2428,11 @@ needle分别为2000与814000，不转码、按token拆分或改成其他空白�
 轮询非零一次取非拥有action，非空才MarkDeath／清槽；绘制在ready之后先rows／算高／y／textY，再columns／当前缓冲strlen／(columns*8-length)*8，最后x／textX，两S16和六参数保。columns在绘制长度扫描前取样，不能照搬其他进度窗口顺序。Reset／入口快照／创建后重读、启动后现场W16++／阶段2非零早退、原字节与256B余部及其余整源保；请求回复／解析／dispatcher和人物父不改。
 
 原完整118条377B／两页、6直接／6目标、7跳转／2RET，唯一460FF0@461041；新真实F:0005DD60／映射1591纳管，邻接7B真实NOP仅原用途分类。单源四片段、一既有业务体的局部静态不代完整人物父、六依赖、消费／寿命、机器ABI或运行。
+
+## 删除进度动态几何更新（BSM01，2026-10-07）
+
+按[BSM01裁决](cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-decision)，删除进度撤固定10长度和280／232坐标，恢复两次同原只读文本扫描。初次U32长度×9后发布W16 stage1，再逻辑右移6／加2，普通S32按原阶段发布rows／columns／y／x，以本地x／192／width和常量96／4／1创建；补标准cstring声明，不引外部依赖或可变文本缓冲。
+
+ready后先取rows和y再算textY；扫描原静态文本后才取columns，算(columns*8-length)*8，最后取x／算textX，两最终S16保。该读序与列表进度先columns后strlen不同，保各自原算法。轮询非零一次取action，非空才MarkDeath／清槽；原11B字节／静态寿命、Reset／入口W16／创建后重读／启动后现场++与轮询早退、观察者及其它正文保持，删除请求／回复／dispatcher和人物父不改。
+
+原完整102条325B／两页、六直接／六目标、7跳转／两RET，唯一460FF0@46132A；新F:0005DC00／映射1592纳管，邻接11B真实NOP仅原对齐用途。原普通显示值正确，本步恢复真实算法，不声称运行故障，不代完整父／六依赖、消费寿命／机器ABI或运行。

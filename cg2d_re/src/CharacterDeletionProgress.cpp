@@ -5,6 +5,7 @@
 #include "CharacterSelectSceneDependencies.hpp"
 
 #include <cstdint>
+#include <cstring>
 
 namespace cg::character_select {
 namespace {
@@ -13,11 +14,8 @@ namespace {
 constexpr char kCharacterDeletionProgressText[] =
     "\xA8\xA4\xA6\xE2\xA7\x52\xB0\xA3\xA4\xA4";
 static_assert(sizeof(kCharacterDeletionProgressText) == 11);
-constexpr std::int32_t kLegacyTextBytes = 10;
 constexpr std::int32_t kColumnWidth = 64;
 constexpr std::int32_t kRowHeight = 48;
-constexpr std::int16_t kTextX = 280;
-constexpr std::int16_t kTextY = 232;
 
 // 下列原存储的全部引用都只在 sub_45DBF0/sub_45DC00 内。
 std::uint16_t gCharacterDeletionProgressStage = 0; // 原 0x9A6E54，R/W16。
@@ -40,18 +38,25 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
     std::int32_t result = 0;
 
     if (stage == 0) {
+        const std::uint32_t textLength =
+            static_cast<std::uint32_t>(std::strlen(kCharacterDeletionProgressText));
+        const std::uint32_t textWidth = textLength * 9U;
         gCharacterDeletionProgressStage = 1;
+        const std::int32_t columns =
+            static_cast<std::int32_t>((textWidth >> 6U) + 2U);
         gCharacterDeletionProgressRows = 2;
-        gCharacterDeletionProgressColumns =
-            ((9 * kLegacyTextBytes) >> 6) + 2;
+        const std::int32_t unscaledX = 10 - columns;
+        gCharacterDeletionProgressColumns = columns;
+        const std::int32_t centeredWidth = unscaledX * kColumnWidth;
         gCharacterDeletionProgressY = 192;
-        gCharacterDeletionProgressX =
-            ((10 - gCharacterDeletionProgressColumns) * kColumnWidth) / 2;
+        const std::int32_t width = columns * kColumnWidth;
+        const std::int32_t x = centeredWidth / 2;
+        gCharacterDeletionProgressX = x;
         gCharacterDeletionProgressAction = login::detail::Sub_5044E0(
-            gCharacterDeletionProgressX,
-            gCharacterDeletionProgressY,
-            gCharacterDeletionProgressColumns * kColumnWidth,
-            gCharacterDeletionProgressRows * kRowHeight,
+            x,
+            192,
+            width,
+            96,
             4,
             1);
         stage = gCharacterDeletionProgressStage;
@@ -66,17 +71,27 @@ std::int32_t UpdateCharacterDeletionProgress_45DC00()
             login::YobiAction* const action = gCharacterDeletionProgressAction;
             if (action != nullptr) {
                 login::detail::MarkDeath(action);
+                gCharacterDeletionProgressAction = nullptr;
             }
-            gCharacterDeletionProgressAction = nullptr;
             return result;
         }
     }
 
     login::YobiAction* const action = gCharacterDeletionProgressAction;
     if (action != nullptr && login::detail::IsYobiActionReady(action, 1)) {
+        const std::int32_t rows = gCharacterDeletionProgressRows;
+        const std::int32_t y = gCharacterDeletionProgressY;
+        const std::int32_t verticalHeight = rows * kRowHeight - 16;
+        const std::int32_t textY = verticalHeight / 2 + y;
+        const std::int32_t textLength =
+            static_cast<std::int32_t>(std::strlen(kCharacterDeletionProgressText));
+        const std::int32_t columns = gCharacterDeletionProgressColumns;
+        const std::int32_t horizontalWidth = (columns * 8 - textLength) * 8;
+        const std::int32_t x = gCharacterDeletionProgressX;
+        const std::int32_t textX = horizontalWidth / 2 + x;
         login::detail::DrawText3(
-            kTextX,
-            kTextY,
+            static_cast<std::int16_t>(textX),
+            static_cast<std::int16_t>(textY),
             2,
             0,
             kCharacterDeletionProgressText,

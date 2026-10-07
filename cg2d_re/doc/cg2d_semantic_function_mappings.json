@@ -185865,6 +185865,99 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45DC00",
+      "inventory_id": "F:0005DC00",
+      "original_role": "UpdateCharacterDeletionProgress_45DC00",
+      "original_end_exclusive": "0x45dd45",
+      "instruction_count": 102,
+      "status": "BSM01人物删除进度六片段撤固定长度/坐标、恢复两只读文本扫描/原创建绘制阶段与非空才清槽；单源一既有业务体，仅局部静态，完整父/六依赖/消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterDeletionProgress.cpp",
+          "symbols": [
+            "UpdateCharacterDeletionProgress_45DC00"
+          ],
+          "relationship": "BSM01人物删除进度45DC00完整102条325B/两页，6直接/6目标无间接、7jump/2RET，唯一460FF0@46132A；55ABE8只读10B正文+NUL共11B已原字节取证。单源六精确片段/一既有业务体：补标准cstring、撤固定10长度和280/232坐标；初次只读文本strlen取U32长度，×9后发布W16 stage1，再逻辑右移6+2，普通S32创建阶段借本地x/192/width/96/4/1；轮询非零一次取action，非空才MarkDeath/清槽；ready后rows与y先取再算textY、只读文本strlen后才取columns/算(columns*8-length)*8，最后x/textX，两S16保。不造可变文本缓冲/owner；原普通值正确，不称运行故障，11B字节/生命周期、Reset/入口阶段与创建后重读/启动后现场++/轮询早退、观察者及其余整源/删除请求回复与人物父保。新1592/单adapted F:0005DC00，CHARACTER7→8；语义1593有效1586/文档1704（46.30%）/处置728/E846；单X11B全90逐BYTE真实NOP/无入向/前RET后入口只原用途登记，R7 299余2762，不造Reset/布局/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/六依赖、真实删除回复/人物创建-主地图/图像输入消费、全部正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制/既定排除保，不构建测试运行或摘要。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-baseline",
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-decision",
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-acceptance",
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
+        "doc/cg2d_character_deletion_progress_geometry_evidence.json"
+      ],
+      "boundary": "BSM01人物删除进度45DC00完整102条325B/两页，6直接/6目标无间接、7jump/2RET，唯一460FF0@46132A；55ABE8只读10B正文+NUL共11B已原字节取证。单源六精确片段/一既有业务体：补标准cstring、撤固定10长度和280/232坐标；初次只读文本strlen取U32长度，×9后发布W16 stage1，再逻辑右移6+2，普通S32创建阶段借本地x/192/width/96/4/1；轮询非零一次取action，非空才MarkDeath/清槽；ready后rows与y先取再算textY、只读文本strlen后才取columns/算(columns*8-length)*8，最后x/textX，两S16保。不造可变文本缓冲/owner；原普通值正确，不称运行故障，11B字节/生命周期、Reset/入口阶段与创建后重读/启动后现场++/轮询早退、观察者及其余整源/删除请求回复与人物父保。新1592/单adapted F:0005DC00，CHARACTER7→8；语义1593有效1586/文档1704（46.30%）/处置728/E846；单X11B全90逐BYTE真实NOP/无入向/前RET后入口只原用途登记，R7 299余2762，不造Reset/布局/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/六依赖、真实删除回复/人物创建-主地图/图像输入消费、全部正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制/既定排除保，不构建测试运行或摘要。",
+      "verification_level": "BSM01人物删除进度45DC00完整102条325B/两页，6直接/6目标无间接、7jump/2RET，唯一460FF0@46132A；55ABE8只读10B正文+NUL共11B已原字节取证。单源六精确片段/一既有业务体：补标准cstring、撤固定10长度和280/232坐标；初次只读文本strlen取U32长度，×9后发布W16 stage1，再逻辑右移6+2，普通S32创建阶段借本地x/192/width/96/4/1；轮询非零一次取action，非空才MarkDeath/清槽；ready后rows与y先取再算textY、只读文本strlen后才取columns/算(columns*8-length)*8，最后x/textX，两S16保。不造可变文本缓冲/owner；原普通值正确，不称运行故障，11B字节/生命周期、Reset/入口阶段与创建后重读/启动后现场++/轮询早退、观察者及其余整源/删除请求回复与人物父保。新1592/单adapted F:0005DC00，CHARACTER7→8；语义1593有效1586/文档1704（46.30%）/处置728/E846；单X11B全90逐BYTE真实NOP/无入向/前RET后入口只原用途登记，R7 299余2762，不造Reset/布局/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/六依赖、真实删除回复/人物创建-主地图/图像输入消费、全部正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制/既定排除保，不构建测试运行或摘要。",
+      "character_deletion_progress_geometry": {
+        "spec_id": "BSM01",
+        "evidence_refs": [
+          "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-baseline",
+          "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-decision",
+          "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-acceptance",
+          "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
+          "doc/cg2d_character_deletion_progress_geometry_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 102,
+        "original_code_bytes": 325,
+        "original_page_count": 2,
+        "original_direct_call_count": 6,
+        "original_unique_callee_count": 6,
+        "original_indirect_call_count": 0,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 6,
+        "source_changed_existing_function_count": 1,
+        "source_standard_cstring_declared": true,
+        "source_live_length_sample_count": 2,
+        "source_live_length_source": "kCharacterDeletionProgressText",
+        "source_mutable_text_buffer_added": false,
+        "source_fixed_length_constant_removed": true,
+        "source_fixed_text_coordinates_removed": true,
+        "original_const_text": {
+          "address": "0x55abe8",
+          "bytes": "a8a4a6e2a752b0a3a4a400"
+        },
+        "initial_length_width_type": "unsigned W32",
+        "initial_text_width_formula": "textLength * 9U",
+        "initial_columns_formula": "(textWidth >> 6U) + 2U",
+        "initial_stage_publish_between_multiply_and_logical_shift": true,
+        "initial_geometry_stage_order": [
+          "rows=2",
+          "unscaledX=10-columns",
+          "columns publish",
+          "centeredWidth=unscaledX*64",
+          "y=192",
+          "width=columns*64",
+          "x=centeredWidth/2",
+          "x publish",
+          "create(x,192,width,96,4,1)"
+        ],
+        "nonzero_poll_action_sample_once_kept": true,
+        "nonnull_mark_and_clear_only": true,
+        "draw_geometry_stage_order": [
+          "rows",
+          "y",
+          "verticalHeight=rows*48-16",
+          "textY=verticalHeight/2+y",
+          "strlen(original const text)",
+          "columns",
+          "horizontalWidth=(columns*8-textLength)*8",
+          "x",
+          "textX=horizontalWidth/2+x"
+        ],
+        "draw_final_s16_arguments_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "new_true_function_count": 1,
+        "new_semantic_record_count": 1,
+        "new_range_classification_count": 1,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -1340,3 +1340,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-baseline)、[裁决](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-decision)、[验收](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-acceptance)与[源码状态](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-source-state)关联原118条377B和单源四片段：两当前缓冲扫描、初次U32×8右移6＋2在stage发布前算好、原S32创建字段与本地参数；非零轮询原非空才MarkDeath／清槽；绘制rows-y-columns-length-x取样及原算式阶段，两S16保。原普通值正确，不新异常／保护／限制。
 
 单adapted／CHARACTER一真实成员，两局部I-S各17真实来源，E842→844；单7B真实NOP仅对齐用途，不造未变Reset或布局F。U11／V03／R04只current／引用仍open，P05原closed、closed11／完整叶0／globalfalse及完整门禁保持。完整人物父／六依赖、真实请求回复／创建-主地图、输入图像生产消费、正常alias-owner寿命、CRT-SDK／机器ABI与链接、原格式明文往返／显示与运行仍待，局部不外推。
+
+## BSM01 删除进度动态坐标开发验收（2026-10-07）
+
+[基线](cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-baseline)、[裁决](cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-decision)、[验收](cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-acceptance)与[源码状态](cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state)关联原102条325B和单源六片段：两只读文本扫描、U32×9后stage发布再逻辑右移／原S32创建，以本地参数承接；绘制rows与y先取、strlen后columns、最后x，两S16保；轮询非空才MarkDeath／清槽。标准cstring声明和常量移除仅支持原算法，原字节／静态寿命、阶段请求／返回及其它源码保，不造可变缓冲或新异常门槛。
+
+单adapted／CHARACTER一真实成员，两局部I-S各17实际来源，E844→846；单11B真实NOP仅对齐用途。U11／V03／R04只current／引用仍open，P05原closed／closed11／完整叶0／globalfalse及全部完整门禁保持。完整人物父／六依赖、真实删除回复／人物创建-主地图、输入图像消费／正常alias-owner寿命、CRT-SDK／机器ABI与链接、原格式明文往返／显示和运行仍待，局部不外推。

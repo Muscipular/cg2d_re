@@ -3312,3 +3312,9 @@ LOGIN7→8／语义1591有效1584／文档1702／3680（46.25%）／724处置／
 新增1591对应真实F:0005DD60／UpdateCharacterListProgress_45DD60，保现S32接口，不为未变Reset／私有布局或共享块造身份。见[基线](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-baseline)：完整118条377B／两页、6直接／6目标，唯一460FF0@461041。四源片段恢复两次当前缓冲长度、初次U32×8逻辑移位／原创建与绘制字段阶段和非空才清槽；原普通值、文案与其它完整源码保持。
 
 CHARACTER6→7，语义1592有效1585／文档1703／3680（46.28%）／727处置／E844；单7B原对齐用途使R7 297→298余2763。冻结定位／pending18／差队列及所有完整门禁保，局部不代完整父、六依赖、正常消费寿命／机器ABI或运行。
+
+## BSM01 人物删除进度（2026-10-07）
+
+新增1592对应真实F:0005DC00／UpdateCharacterDeletionProgress_45DC00，保现S32接口，不造未变Reset／私有布局或块内F。见[基线](cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-baseline)：完整102条325B／两页、六直接／六目标，唯一460FF0@46132A；原55ABE8只读文本10B＋NUL已逐字节取证。六片段撤固定长度／坐标，恢复U32×9／stage发布／逻辑右移、原S32创建与rows-y-length-columns-x绘制阶段及非空才清槽。
+
+CHARACTER7→8，语义1593有效1586／文档1704／3680（46.30%）／728处置／E846；单11B原NOP用途使R7 298→299余2762。冻结定位／pending18／差队列及所有完整门禁保，局部不代完整人物父／依赖、正常消费寿命／机器ABI或运行。

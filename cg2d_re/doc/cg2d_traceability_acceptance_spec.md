@@ -1490,3 +1490,9 @@ source→共享BYTE/同输入NUL、未初始化FF不作原文本/现owner初值�
 [基线](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline)、[裁决](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision)、[验收](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance)与[证据](cg2d_actor_flag_leaf_returns_evidence.json)覆盖九完整叶及一cpp八正文/一头七声明。七真实地址与NULL、六W8/三原W16及两寄存器残值void观察合同有分别证据，未保留返回设计未决项。
 
 九实际原F语义/处置及LOOP57、两局部I-S各25来源与80B用途；三任务仅current/引用保open，原pending7/其它pending18、已closed任务及完整门禁保。现调用均弃返、未新增地址持有，不以局部静态代全正常producer-consumer/owner-alias寿命、SDK-ABI/链接/明文互通/运行R8。
+
+## BTP01 角色移动状态叶开发验收（2026-10-07）
+
+[基线](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline)、[裁决](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision)、[验收](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance)及[证据](cg2d_actor_movement_flag_sampling_evidence.json)对应十正文/六声明、十三完整根/18点五父，五BYTE与held W16、五原生地址及低W16结果、七void适配及BD0父链清0有分别证据。
+
+十三实际F/处置与LOOP70、两局部I-S各27来源及十一NOP区90B用途；三任务仅current/引用保open，原pending7/其它pending18/closed任务和全部完整门禁保。正确CC0/C00/C70及JJQj原模板保持，不误报缺线；全正常生产消费/owner-alias寿命、SDK-ABI/链接/明文互通/运行R8仍需整体推进。

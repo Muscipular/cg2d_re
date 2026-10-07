@@ -606,7 +606,8 @@
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-baseline",
         "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline",
-        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline"
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -665,7 +666,20 @@
         "F:0003DA70",
         "F:0003DAA0",
         "F:0003DAD0",
-        "F:0003DB00"
+        "F:0003DB00",
+        "F:00049C90",
+        "F:00049CC0",
+        "F:00042BD0",
+        "F:00042C00",
+        "F:00042C40",
+        "F:00042C70",
+        "F:00042CA0",
+        "F:00042CD0",
+        "F:00042D00",
+        "F:00042D30",
+        "F:00042D60",
+        "F:00042D90",
+        "F:0003DB30"
       ],
       "closure_task_ids": [
         "U11",
@@ -701,7 +715,8 @@
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-decision",
         "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision",
-        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision"
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -728,7 +743,8 @@
         "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
         "BTM01完整玩家动作分发51A840父630条1740B/九页单块、98实际直接CALL/27callee、无间接CALL、31jump（含一个表跳）/46RET，唯一50BCD0@50BE5C局部八参实用/弃返有据。两个cpp两个既有正文三唯一替换：case1先取同原生玩家action再发布walkSpeed→同指针field284→51A060(1)；case200非零仅flags18C[3] W8 OR10，零仅flags18C[2..3] W16 ANDEFFF用2B memcpy。外观60既有helper恢复三个子槽先取/三个创建返NULL条件先判后pub且沿同结果进分支、转换后fresh子槽写图号、第二pet原+38先取再普通S32++与三个旧子指针同NULL/MarkDeath/清槽。完整39有效case/默认路由、速度-1→100、原201项selector的39有效case与默认/动作70骑乘与80phase、两次原图号转换/gear-pet二次转换/四次Y→X原CryptInt调用及RNG/字段/普通失败/清序/value与原接口、唯一owner/正常布局保；不造helper/状态/保护/异常/回绕。40真实W32目标160B+201BYTE selector+11B逐90/NN_NOP共372B只用途（两同父data读，无code入向），不造x64 W32地址表。单既有F新语义1633与adapted处置/LOOP46→47/两局部I-S各21来源、R7 344→345；所有旧1633语义/冻结定位/其它成员/原pending18和任务/完整门禁保。完整入向父50BCD0、各27provider全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验；网络原格式明文/内部LegacyCryptInt、音频暂停保持。",
         "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
-        "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+        "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -756,7 +772,8 @@
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
         "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
-        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state"
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state"
       ]
     },
     {
@@ -38912,6 +38929,104 @@
       "observation": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
       "expected": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
       "actual": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-MOVEMENT-FLAG-SAMPLING-I-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTP01十三完整根164条550B/十三页、五W8/held W16和七取消/五地址、一低W16结果、七void观察与透传到上游清0链、18点五父及90B用途，doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-movement-flag-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_449C90",
+        "src/YobiRuntime.cpp#Sub_449CC0",
+        "src/YobiRuntime.cpp#Sub_442BD0",
+        "src/YobiRuntime.cpp#Sub_442C00",
+        "src/YobiRuntime.cpp#Sub_442C40",
+        "src/YobiRuntime.cpp#Sub_442C70",
+        "src/YobiRuntime.cpp#Sub_442CA0",
+        "src/YobiRuntime.cpp#Sub_442CD0",
+        "src/YobiRuntime.cpp#Sub_442D00",
+        "src/YobiRuntime.cpp#Sub_442D30",
+        "src/YobiRuntime.cpp#Sub_442D60",
+        "src/YobiRuntime.cpp#Sub_442D90",
+        "src/YobiRuntime.cpp#Sub_43DB30",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/WorldObjectState.hpp",
+        "src/world/SceneState.cpp#Sub_440B50",
+        "src/world/SceneState.cpp#Sub_50A3E0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。",
+          "decision_ref": "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。",
+      "expected": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。",
+      "actual": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "id": "E-ACTOR-MOVEMENT-FLAG-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTP01十三完整根164条550B/十三页、五W8/held W16和七取消/五地址、一低W16结果、七void观察与透传到上游清0链、18点五父及90B用途，doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-movement-flag-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_449C90",
+        "src/YobiRuntime.cpp#Sub_449CC0",
+        "src/YobiRuntime.cpp#Sub_442BD0",
+        "src/YobiRuntime.cpp#Sub_442C00",
+        "src/YobiRuntime.cpp#Sub_442C40",
+        "src/YobiRuntime.cpp#Sub_442C70",
+        "src/YobiRuntime.cpp#Sub_442CA0",
+        "src/YobiRuntime.cpp#Sub_442CD0",
+        "src/YobiRuntime.cpp#Sub_442D00",
+        "src/YobiRuntime.cpp#Sub_442D30",
+        "src/YobiRuntime.cpp#Sub_442D60",
+        "src/YobiRuntime.cpp#Sub_442D90",
+        "src/YobiRuntime.cpp#Sub_43DB30",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/WorldObjectState.hpp",
+        "src/world/SceneState.cpp#Sub_440B50",
+        "src/world/SceneState.cpp#Sub_50A3E0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。",
+          "decision_ref": "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。",
+      "expected": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。",
+      "actual": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
     }
   ],
   "task_acceptance": [
@@ -39383,7 +39498,8 @@
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
         "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
-        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state"
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state"
       ]
     },
     {
@@ -39437,7 +39553,8 @@
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
         "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
-        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state"
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state"
       ]
     },
     {
@@ -39966,7 +40083,8 @@
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
         "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
-        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state"
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state"
       ]
     },
     {
@@ -49579,6 +49697,175 @@
         "doc/cg2d_actor_flag_leaf_returns_evidence.json"
       ],
       "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:00049C90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00049CC0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042BD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042C00",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042C40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042C70",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042CA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042CD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042D00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042D30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042D60",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:00042D90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
+    },
+    {
+      "inventory_id": "F:0003DB30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "boundary": "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。"
     }
   ],
   "auxiliary_dispositions": [
@@ -64506,6 +64793,744 @@
         },
         {
           "ea": "0x43db2f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003DB57-0003DB60",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 9,
+      "original_bytes": "909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x43db57",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db58",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db59",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db5a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db5b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db5c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db5d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db5e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db5f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00042BF7-00042C00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 9,
+      "original_bytes": "909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x442bf7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442bf8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442bf9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442bfa",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442bfb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442bfc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442bfd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442bfe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442bff",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00042C34-00042C40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 12,
+      "original_bytes": "909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x442c34",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c35",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c36",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c37",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c38",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c39",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c3a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c3b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c3c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c3d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c3e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c3f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00042C65-00042C70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 11,
+      "original_bytes": "9090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x442c65",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c66",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c67",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c68",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c69",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c6a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c6b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c6c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c6d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c6e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442c6f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00042CCA-00042CD0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 6,
+      "original_bytes": "909090909090",
+      "original_decode": [
+        {
+          "ea": "0x442cca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442ccb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442ccc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442ccd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442cce",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442ccf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00042CF7-00042D00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 9,
+      "original_bytes": "909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x442cf7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442cf8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442cf9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442cfa",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442cfb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442cfc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442cfd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442cfe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442cff",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00042D2A-00042D30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 6,
+      "original_bytes": "909090909090",
+      "original_decode": [
+        {
+          "ea": "0x442d2a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d2b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d2c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d2d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d2e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d2f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00042D57-00042D60",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 9,
+      "original_bytes": "909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x442d57",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d58",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d59",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d5a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d5b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d5c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d5d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d5e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d5f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00042D8A-00042D90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 6,
+      "original_bytes": "909090909090",
+      "original_decode": [
+        {
+          "ea": "0x442d8a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d8b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d8c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d8d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d8e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442d8f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00042DB7-00042DC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 9,
+      "original_bytes": "909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x442db7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442db8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442db9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442dba",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442dbb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442dbc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442dbd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442dbe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x442dbf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:00049CEC-00049CF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-acceptance",
+        "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json"
+      ],
+      "reason": "BTP01十一相邻区90B逐BYTE真实90/NN_NOP/无入向、原RET后真入口，仅对齐用途；两个无间隙边界不造X/F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 4,
+      "original_bytes": "90909090",
+      "original_decode": [
+        {
+          "ea": "0x449cec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x449ced",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x449cee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x449cef",
           "size": 1,
           "bytes": "90",
           "is_nop": true

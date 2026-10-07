@@ -35764,17 +35764,19 @@ void Sub_442CA0(login::YobiAction* const action, const std::int32_t value)
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
     auto& record = gWorldObjects[payload->index];
-    record.flags42 |= 0x4000u;
+    reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 0x40u;
     record.value10C = value;
 }
 
-void Sub_442CD0(login::YobiAction* const action)
+std::uint16_t* Sub_442CD0(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags42 &= 0xBFFFu;
+    auto& flags = gWorldObjects[payload->index].flags42;
+    flags &= 0xBFFFu;
+    return &flags;
 }
 
 void Sub_442D00(login::YobiAction* const action, const std::int32_t value)
@@ -35784,17 +35786,19 @@ void Sub_442D00(login::YobiAction* const action, const std::int32_t value)
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
     auto& record = gWorldObjects[payload->index];
-    record.flags42 |= 0x8000u;
+    reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 0x80u;
     record.value10C = value;
 }
 
-void Sub_442D30(login::YobiAction* const action)
+std::uint16_t* Sub_442D30(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags42 &= 0x7FFFu;
+    auto& flags = gWorldObjects[payload->index].flags42;
+    flags &= 0x7FFFu;
+    return &flags;
 }
 
 void Sub_442D60(login::YobiAction* const action, const std::int32_t value)
@@ -35804,17 +35808,19 @@ void Sub_442D60(login::YobiAction* const action, const std::int32_t value)
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
     auto& record = gWorldObjects[payload->index];
-    record.flags42 |= 0x0400u;
+    reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 4u;
     record.value10C = value;
 }
 
-void Sub_442D90(login::YobiAction* const action)
+std::uint16_t* Sub_442D90(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags42 &= 0xEBFFu;
+    auto& flags = gWorldObjects[payload->index].flags42;
+    flags &= 0xEBFFu;
+    return &flags;
 }
 
 std::uint16_t* Sub_43D970(login::YobiAction* const action)
@@ -35919,13 +35925,15 @@ std::uint16_t* Sub_43DB00(login::YobiAction* const action)
     return &flags;
 }
 
-void Sub_43DB30(login::YobiAction* const action)
+std::uint16_t* Sub_43DB30(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags120 &= 0xFF7Fu;
+    auto& flags = gWorldObjects[payload->index].flags120;
+    flags &= 0xFF7Fu;
+    return &flags;
 }
 
 void Sub_444410(
@@ -36203,16 +36211,19 @@ void Sub_444410(
     }
 }
 
-void Sub_449C90(login::YobiAction* const action)
+std::uint16_t Sub_449C90(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return 0;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
     auto& flags = gWorldObjects[payload->index].flags42;
-    if ((flags & 0x200u) == 0) {
-        flags |= 0x100u;
+    std::uint16_t sampledFlags = flags;
+    if ((sampledFlags & 0x200u) == 0) {
+        sampledFlags |= 0x100u;
+        flags = sampledFlags;
     }
+    return sampledFlags;
 }
 
 void Sub_449CC0(login::YobiAction* const action)
@@ -36227,13 +36238,15 @@ void Sub_449CC0(login::YobiAction* const action)
     }
 }
 
-void Sub_442C40(login::YobiAction* const action)
+std::uint16_t* Sub_442C40(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags42 |= 0x200u;
+    auto& flags = gWorldObjects[payload->index].flags42;
+    reinterpret_cast<unsigned char*>(&flags)[1] |= 2u;
+    return &flags;
 }
 
 void Sub_442C70(login::YobiAction* const action)
@@ -36255,7 +36268,7 @@ void Sub_442BD0(login::YobiAction* const action)
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
     auto& record = gWorldObjects[payload->index];
-    record.flags42 |= 0x100u;
+    reinterpret_cast<unsigned char*>(&record.flags42)[1] |= 1u;
     record.marker44 = 1;
 }
 

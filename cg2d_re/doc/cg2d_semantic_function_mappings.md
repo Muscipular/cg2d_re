@@ -3462,3 +3462,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [基线与裁决](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision)纳九完整根112条368B/九页、1call/11jump/9RET和11点两父；八正文八片段/七声明七片段，六BYTE OR、三原W16 AND、七同字段native ptr与两个具名void观察适配分别记录，DA10正确正文保持。
 
 新1636-1644/八adapted一equivalent、LOOP57/两局部I-S各25来源，预期语义1645有效1638/文档1756（47.72%）/处置786/E900、R7 356余2705（九区80B只原用途）。全部旧1636语义/冻结定位/pending18/其它成员及完整门禁保持，不以恢复地址返回代跨slot回收/重用正常寿命或机器ABI/运行。
+
+## BTP01 十三移动状态叶原取样与返回边界（2026-10-07）
+
+[完整基线](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline)对应十三原根164条550B/十三页、1call/17jump/13RET、18点五父和90B NOP用途。新1645-1657/十adapted三equivalent、十正文/六声明，五W8/held W16、一低W16结果/五同字段地址与七void观察明确分开；BD0透传至上游清0链记真实路径。
+
+预期语义1658有效1651/文档1769（48.07%）/处置799/E902、LOOP70/R7 367余2694。全部旧1645语义/冻结定位/pending18/其它成员及完整门禁保，两个无间隙边界不造X/F；不以局部返回适配/纯文本静态代全状态生产消费、owner-alias寿命或机器ABI/运行。

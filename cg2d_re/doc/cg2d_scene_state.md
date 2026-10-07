@@ -7757,3 +7757,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [完整基线](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline)对应444410/440920实际11个弃返点及九状态叶。七真实标志地址返回随声明和定义恢复为非拥有原生W16字段指针，现所有调用仍弃返；无新持有/owner、无接口参数或原NI路由变化。
 
 D9D0范围provider仍原Sub_4410E0，NULL/负值短路及>=17普通归0、payload后取样/值发布保持；D9D0/DA10两个仅寄存器残值叶void合同已明确裁决，不编造数值或误作地址。九新语义1636-1644、LOOP48→57与两局部I-S各25来源、九区80B仅用途；其它域/原任务及完整门禁保，全观察/正常owner-alias寿命与ABI/运行继续。
+
+## 移动状态返回的局部父链观察（BTP01，2026-10-07）
+
+[原端基线](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline)核18点五父，不能将BD0@50A650称为直接弃返：50A3E0尾RET原透传数组偏移，唯一上游512E40@514C55调用后XOR EAX清0再RET，残值没有业务消费。现JJQj I/T模板接线和父void合同正确，正文/网络均保持，不把模板调用误判成缺接线。
+
+十三移动状态叶新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27来源，五地址和一低W16结果分别恢复；七void观察与混合门禁具名裁决。不新增地址持有/owner，局部父链不替代五完整父/正常寿命或机器ABI及运行。

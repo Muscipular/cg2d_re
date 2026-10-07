@@ -4415,3 +4415,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 按[裁决](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision)修一cpp八原正文/一头七声明：六置位仅flags120低BYTE OR1/2/24/8/50/80；三取消原W16 ANDFFFE/FFFD/FFF7保持。七真实LEA叶恢复同字段非拥有std::uint16_t*返回/NULL返nullptr，同一次flags引用保地址身份与index取样，不截W32、不造owner或额外NULL保护。
 
 D9D0仍NULL早返/负参数短路不取范围provider/非负>=17归0→现场payload/index→BYTE置2→W32 value124发布；DA10原W16清2→W32零全正文保。两原EAX偏移/未定义残值仅按全部实际调用弃返明确保void观察适配，不猜业务返回或模拟x86寄存器，不外推到七地址叶。九完整叶112条368B/九页、1call/11jump/9RET、11点两父和80B NOP用途有据；全生产消费/正常寿命、SDK-ABI/链接/运行未验。
+
+## 移动状态真实BYTE、held W16与地址返回（BTP01，2026-10-07）
+
+按[裁决](cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision)修十既有正文/六声明：五flags42高BYTE OR1/2/40/80/04保marker44/value10C发布序；449C90保一次W16取样，条件同held值写回并以std::uint16_t返有定义低W16/NULL0，原高W16残余不模拟。五纯地址C40/CD0/D30/D90/DB30以同flags引用返非拥有原生地址/NULL返nullptr，原七W16取消保。
+
+CC0/C00/C70正确正文不改，marker清→完整模式2与场景门禁→NULL顺序保。C70早返整数/正常地址混合保持void观察裁决，七偏移/混合叶不伪造统一返回。十三原根164条550B/十三页、1call/17jump/13RET、18点五父及十一NOP区90B有据；完整正常生产消费/owner-alias寿命、SDK-ABI与运行未验。

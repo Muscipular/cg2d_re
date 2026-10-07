@@ -184039,6 +184039,184 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x50d120",
+      "inventory_id": "F:0010D120",
+      "original_role": "Sub_50D120",
+      "original_end_exclusive": "0x50d3b0",
+      "instruction_count": 161,
+      "status": "BQX01完整战斗开始/退出与战果生产、正确W16消息叶正常源纳管；两体11片段/四载体先读齐后pub/类型谓词和field阶段/held解析返回值及一次跨W32桥与布局assert落实，原4-3-15数量/W16-W32与失败/负值零写/旧文本格式保；全分派/owner寿命/资源/CRT-SDK-ABI/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_50D120"
+          ],
+          "relationship": "50D120完整战斗入口/退出：禁用门禁、D67E78强制清理链/既有四数值载体construct-destroy及RNG消费、三次mask-encoded-W8 count读齐再pub与非正type count-encoded-mask独立序恢复；正type2/3/其它谓词先pub/真实W32-W16写序/背景参数读取、四1000H队列只首字节清零/pending1保，跨字段FDA88A通过现ReadPlayerFlags18A一次4B借读恢复；音频暂停/原fresh socket与明文回复保。"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ReadPlayerFlags18A"
+          ],
+          "relationship": "原50D28D FDA88A一次跨相邻W16的W32观察，以4B memcpy恢复；flags18A/W32 flags18C原共享存储不扩。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+        "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
+      ],
+      "boundary": "50D120完整战斗入口/退出：禁用门禁、D67E78强制清理链/既有四数值载体construct-destroy及RNG消费、三次mask-encoded-W8 count读齐再pub与非正type count-encoded-mask独立序恢复；正type2/3/其它谓词先pub/真实W32-W16写序/背景参数读取、四1000H队列只首字节清零/pending1保，跨字段FDA88A通过现ReadPlayerFlags18A一次4B借读恢复；音频暂停/原fresh socket与明文回复保。 三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
+      "verification_level": "三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
+      "battle_entry_result_producer_sampling": {
+        "spec_id": "BQX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+          "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 161,
+        "original_code_bytes": 656,
+        "original_page_count": 3,
+        "original_outgoing_call_count": 20,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 5,
+        "derived_player_flags_helper_changed": true,
+        "normal_previous_values_wrong": false,
+        "original_packet_delimiters_and_limits_kept": true,
+        "original_parse_returns_discarded_kept": true,
+        "original_numeric_carrier_rng_order_kept": true,
+        "original_normal_w16_w32_storage_kept": true,
+        "original_failure_and_clamp_branches_kept": true,
+        "dependency_r7_classification_count": 2,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x50d500",
+      "inventory_id": "F:0010D500",
+      "original_role": "Sub_50D500",
+      "original_end_exclusive": "0x50d6fd",
+      "instruction_count": 159,
+      "status": "BQX01完整战斗开始/退出与战果生产、正确W16消息叶正常源纳管；两体11片段/四载体先读齐后pub/类型谓词和field阶段/held解析返回值及一次跨W32桥与布局assert落实，原4-3-15数量/W16-W32与失败/负值零写/旧文本格式保；全分派/owner寿命/资源/CRT-SDK-ABI/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_50D500"
+          ],
+          "relationship": "50D500完整战果生产：禁用门禁/W16 ready1、四8B记录/第五列三组图号和29B姓名/第六至二十列十五8B技能结果、三2048B未清栈buffer与真实2047提取容量和comma-bar/Base62/两原Unescape链不改；两field增量移到首parser前、低S16与S32 pub后TEST持有解析返回值/原负值零写保、姓名长度<=28复制否则只清首BYTE及原解析返回弃置保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+        "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
+      ],
+      "boundary": "50D500完整战果生产：禁用门禁/W16 ready1、四8B记录/第五列三组图号和29B姓名/第六至二十列十五8B技能结果、三2048B未清栈buffer与真实2047提取容量和comma-bar/Base62/两原Unescape链不改；两field增量移到首parser前、低S16与S32 pub后TEST持有解析返回值/原负值零写保、姓名长度<=28复制否则只清首BYTE及原解析返回弃置保持。 三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
+      "verification_level": "三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
+      "battle_entry_result_producer_sampling": {
+        "spec_id": "BQX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+          "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 159,
+        "original_code_bytes": 509,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 14,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 6,
+        "derived_player_flags_helper_changed": true,
+        "normal_previous_values_wrong": false,
+        "original_packet_delimiters_and_limits_kept": true,
+        "original_parse_returns_discarded_kept": true,
+        "original_numeric_carrier_rng_order_kept": true,
+        "original_normal_w16_w32_storage_kept": true,
+        "original_failure_and_clamp_branches_kept": true,
+        "dependency_r7_classification_count": 2,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x50d3b0",
+      "inventory_id": "F:0010D3B0",
+      "original_role": "Sub_50D3B0",
+      "original_end_exclusive": "0x50d3bc",
+      "instruction_count": 3,
+      "status": "BQX01完整战斗开始/退出与战果生产、正确W16消息叶正常源纳管；两体11片段/四载体先读齐后pub/类型谓词和field阶段/held解析返回值及一次跨W32桥与布局assert落实，原4-3-15数量/W16-W32与失败/负值零写/旧文本格式保；全分派/owner寿命/资源/CRT-SDK-ABI/运行未验",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_50D3B0"
+          ],
+          "relationship": "50D3B0完整正确sZWu消息W16叶：原三指令12B真实函数身份、第二形参低W16→FF0D34共享W16→相同低W16返回；51513F ADD后515142 XOR EAX明确覆盖callee返回，原upperEAX不消费，现uint16_t正常承接正确；首参数不读取、邻接槽不借用，源码不改。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+        "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
+      ],
+      "boundary": "50D3B0完整正确sZWu消息W16叶：原三指令12B真实函数身份、第二形参低W16→FF0D34共享W16→相同低W16返回；51513F ADD后515142 XOR EAX明确覆盖callee返回，原upperEAX不消费，现uint16_t正常承接正确；首参数不读取、邻接槽不借用，源码不改。 三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
+      "verification_level": "三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。",
+      "battle_entry_result_producer_sampling": {
+        "spec_id": "BQX01",
+        "evidence_refs": [
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance",
+          "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+          "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 3,
+        "original_code_bytes": 12,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "derived_player_flags_helper_changed": true,
+        "normal_previous_values_wrong": false,
+        "original_packet_delimiters_and_limits_kept": true,
+        "original_parse_returns_discarded_kept": true,
+        "original_numeric_carrier_rng_order_kept": true,
+        "original_normal_w16_w32_storage_kept": true,
+        "original_failure_and_clamp_branches_kept": true,
+        "dependency_r7_classification_count": 2,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -285,7 +285,7 @@ struct PlayerRuntimeSlots {
     std::uint32_t objectIndex;
     std::int32_t direction; // 原 FDA884；其他消费者可读取低 S8。
     std::uint16_t value188; // 原 FDA888；519A80 符号扩展读取。
-    std::uint16_t flags18A; // 原 FDA88A W16；跨 W32 读取还须拼接 flags18C 的低 W16。
+    std::uint16_t flags18A; // 原FDA88A W16；与flags18C低W16组成跨字段W32观察。
     std::uint32_t flags18C; // 承载原 [FDA88C,FDA890)；18C 低 W8、18E 高 W16 共享字节。
     std::int32_t value190; // 原 FDA890；51BDD0/51BE50 写入的完整动作值。
     std::uint16_t options194; // 原FDA894低W16；选项切换/回复与聊天门禁共用。
@@ -296,6 +296,9 @@ struct PlayerRuntimeSlots {
     std::int32_t value15BCC; // 原FF02CC；509650尾字段。
     std::array<std::int32_t, 3> values15BD0; // 原FF02D0/FF02D4/FF02D8。
 };
+
+static_assert(offsetof(PlayerRuntimeSlots, flags18C)
+    == offsetof(PlayerRuntimeSlots, flags18A) + sizeof(std::uint16_t));
 
 PlayerRuntimeSlots gPlayerRuntime {};
 
@@ -5931,15 +5934,21 @@ void Sub_50D120(
 
         platform::LegacyCryptInt temporary;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
-        gValueC821D8.mask = temporary.mask;
-        gValueC821D8.encoded = temporary.encoded;
-        gValueC821D8.readCount = temporary.readCount;
+        const std::uint32_t zeroMask = temporary.mask;
+        const std::uint32_t zeroEncoded = temporary.encoded;
+        const std::uint8_t zeroReadCount = temporary.readCount;
+        gValueC821D8.mask = zeroMask;
+        gValueC821D8.encoded = zeroEncoded;
+        gValueC821D8.readCount = zeroReadCount;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 1);
-        gRippleGate.mask = temporary.mask;
-        gRippleGate.encoded = temporary.encoded;
-        gRippleGate.readCount = temporary.readCount;
+        const std::uint32_t enabledMask = temporary.mask;
+        const std::uint32_t enabledEncoded = temporary.encoded;
+        const std::uint8_t enabledReadCount = temporary.readCount;
+        gRippleGate.mask = enabledMask;
+        gRippleGate.encoded = enabledEncoded;
+        gRippleGate.readCount = enabledReadCount;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
         gValue9FB92E = 0;
@@ -5950,9 +5959,12 @@ void Sub_50D120(
         Sub_446610();
 
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
-        gRippleGate.mask = temporary.mask;
-        gRippleGate.encoded = temporary.encoded;
-        gRippleGate.readCount = temporary.readCount;
+        const std::uint32_t disabledMask = temporary.mask;
+        const std::uint32_t disabledEncoded = temporary.encoded;
+        const std::uint8_t disabledReadCount = temporary.readCount;
+        gRippleGate.mask = disabledMask;
+        gRippleGate.encoded = disabledEncoded;
+        gRippleGate.readCount = disabledReadCount;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
         static_cast<void>(network::Sub_5108F0(platform::gConnectionSocket, 0));
         return;
@@ -5962,11 +5974,24 @@ void Sub_50D120(
             && gValueCAFEA0 == 0) {
             gValueCAFEA0 = static_cast<std::uint32_t>(audio::Sub_504410(1));
         }
+        const bool modeTwo = type == 2;
         gValue5ABFC4 = 1;
         gBattleType5ABFC8 = type;
-        gBattleModeFlag5ABFCC = type == 2 ? 1u : 0u;
-        gValueC821D0 = type == 3 ? 1 : 0;
-        gValueB65A7C = type == 2 || type == 4 || type == 5 || type == 6 ? 1 : 0;
+        if (modeTwo) {
+            gBattleModeFlag5ABFCC = 1;
+            gValueC821D0 = 0;
+            gValueB65A7C = 1;
+        } else {
+            const bool modeThree = type == 3;
+            gBattleModeFlag5ABFCC = 0;
+            if (modeThree) {
+                gValueC821D0 = 1;
+                gValueB65A7C = 0;
+            } else {
+                gValueC821D0 = 0;
+                gValueB65A7C = type == 2 || type == 4 || type == 5 || type == 6 ? 1 : 0;
+            }
+        }
         gValue5ABB1C = 0;
         gBattleBackgroundImage59F9F8 = imageNo;
         gValue5ABB28 = 0;
@@ -5985,9 +6010,12 @@ void Sub_50D120(
     }
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, 0);
-    gValueC821D8.readCount = temporary.readCount;
-    gValueC821D8.encoded = temporary.encoded;
-    gValueC821D8.mask = temporary.mask;
+    const std::uint8_t exitReadCount = temporary.readCount;
+    const std::uint32_t exitEncoded = temporary.encoded;
+    const std::uint32_t exitMask = temporary.mask;
+    gValueC821D8.readCount = exitReadCount;
+    gValueC821D8.encoded = exitEncoded;
+    gValueC821D8.mask = exitMask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     gValueFF03D8 = 0;
     gValueF7CA04 = 0;
@@ -6083,12 +6111,12 @@ void Sub_50D500(const std::uintptr_t, const char* const payload)
     std::int32_t field = 1;
     for (BattleResultRecord& record : gBattleResultsFF0C14) {
         network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
+        ++field;
         record.value00 = static_cast<std::uint16_t>(
             network::ParseDelimitedInteger_52CFA0(row, '|', 1));
         record.value02 = static_cast<std::uint16_t>(
             network::ParseDelimitedInteger_52CFA0(row, '|', 2));
         record.value04 = network::ParseDelimitedBase62_52D0D0(row, '|', 3);
-        ++field;
     }
 
     network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
@@ -6109,17 +6137,19 @@ void Sub_50D500(const std::uintptr_t, const char* const payload)
 
     for (BattleSkillResultRecord& record : gBattleSkillResultsFF0C8C) {
         network::ExtractDelimitedField_52CED0(payload, ',', field, 2047, row);
+        ++field;
         const auto bits = static_cast<std::uint16_t>(
             network::ParseDelimitedInteger_52CFA0(row, '|', 1));
-        record.value00 = std::bit_cast<std::int16_t>(bits);
-        if (record.value00 < 0) {
+        const std::int16_t parsedValue = std::bit_cast<std::int16_t>(bits);
+        record.value00 = parsedValue;
+        if (parsedValue < 0) {
             record.value00 = 0;
         }
-        record.value04 = network::ParseDelimitedBase62_52D0D0(row, '|', 2);
-        if (record.value04 < 0) {
+        const std::int32_t parsedBase62 = network::ParseDelimitedBase62_52D0D0(row, '|', 2);
+        record.value04 = parsedBase62;
+        if (parsedBase62 < 0) {
             record.value04 = 0;
         }
-        ++field;
     }
 }
 
@@ -8478,8 +8508,11 @@ std::int32_t Sub_4410E0()
 
 std::uint32_t ReadPlayerFlags18A() noexcept
 {
-    return static_cast<std::uint32_t>(gPlayerRuntime.flags18A)
-        | (gPlayerRuntime.flags18C << 16);
+    // 原FDA88A一次跨字段W32读取，flags18A与flags18C低W16相邻。
+    const auto* const bytes = reinterpret_cast<const std::uint8_t*>(&gPlayerRuntime);
+    std::uint32_t flags;
+    std::memcpy(&flags, bytes + offsetof(PlayerRuntimeSlots, flags18A), sizeof(flags));
+    return flags;
 }
 
 std::int32_t ReadPlayerWalkSpeed() noexcept

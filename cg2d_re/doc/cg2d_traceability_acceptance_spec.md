@@ -1222,3 +1222,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQW01 初始化与消息生产局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-acceptance)/[四完整164条542B](cg2d_battle_command_init_packet_producer_sampling_evidence.json)，五页七call（六direct四callee+一IAT）/十六jump八RET；两体三片段/原W32/S32 SAR及C-M word-copy-next-tail-copy-CMP-pub、P-A旧格式/24B原字节和真实W32输出/partial失败后续/严格pending1、20槽四1000H槽及两正确体保。四18B NOP用途mapped，四处置/250open成员/两I-S各22真实来源不代全分派/生产/owner/运行；五任务open/60源码closed10/完整验收0/叶0/global=false，13精确文件及音频/执行限制保持。
+
+## BQX01 入口与战果局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance)/[三完整323条1177B](cg2d_battle_entry_result_producer_sampling_evidence.json)，六页34directcall十九callee/24jump五RET、三真实父局部入向；两主根11片段/四载体与类型谓词/结果field和held判负、一次跨W32桥/布局assert及原4-3-15、W16/W32/RNG/文本门禁/负值零写保。正确W16叶/原caller覆盖EAX及两X7B用途有据；三处置/253open成员/两I-S各21真实来源与五任务不代全分派/owner/CRT-SDK-ABI/运行，60源码closed10/完整验收0/叶0/global=false，12精确文件与音频/执行限制保。

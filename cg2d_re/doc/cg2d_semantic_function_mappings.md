@@ -3198,3 +3198,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQW01 四正常F及四填充用途（2026-10-07）
 
 [原基线](cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline)/[四定位/源前后与既有上游历史](cg2d_battle_command_init_packet_producer_sampling_evidence.json)：1564..1567四新正常语义/四equivalent与四BATTLE成员，语义1568/有效1561、文档1679/3680（45.62%，沿既有Round算法）、分类698/BATTLE250枚举open/E798；两体三片段/两正确体与原P-A格式/partial scan和写序可追。1349 BMF父完整历史/三域成员与既有判定保，不混为缺定位或新验收。四X18B全NOP/逐byte无入向/前RET后真入口用途mapped，R7 273余2788；无F/有效区间各7/差队列172及43待归属和全部其余对象保。
+
+## BQX01 三正常F与两真实填充（2026-10-07）
+
+[原基线](cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline)/[三冻结定位与源前后/派生桥](cg2d_battle_entry_result_producer_sampling_evidence.json)：1568..1570三正常语义/三equivalent/BATTLE253枚举open，语义1571/有效1564、文档1682/3680（45.71%）、分类701/E800。50D3B0是3条12B已有IDA F，不生成无父code_identity或扩大3680分母；仅50D3BC后4B和50D6FD后3B真实X共7B NOP mapped，R7 275余2786。两主根11片段/一次跨W32桥与相邻布局assert、正确W16叶的原失败/返回/写序可追；无F/有效区间各7、差队列172/43待归属及全部其余对象保。

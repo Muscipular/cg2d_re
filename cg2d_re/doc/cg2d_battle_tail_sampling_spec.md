@@ -231,3 +231,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQW01 命令初始化、结束位与消息生产（2026-10-07）
 
 [完整合同](cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state)/[四完整164条542B](cg2d_battle_command_init_packet_producer_sampling_evidence.json)补30秒初始化/20槽flags40清与发布←C-P-A-U-M真实消息生产；两体三片段恢复结束位fresh W32/S32 SAR低1、C/M word-copy→held next→tail-copy→CMP4谓词→pub/可选0。正常值/共享W32/四1000H槽与原格式明文保持，P/A原输出地址和partial scan后续、严格pending1/turn-snapshot、第二U优先M及全部返回保；正确初始化/clear体不改。既有BMF01场景父已完整正常源静态纳管，继承不重验；四X18B NOP用途收口，250成员open，全生产/512E40分派/owner及运行另验。
+
+## BQX01 战斗入口、战果及W16消息叶（2026-10-07）
+
+[完整合同](cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state)/[三完整323条1177B](cg2d_battle_entry_result_producer_sampling_evidence.json)补开始/退出与4记录-3图名-15技能战果生产；两主根11片段恢复四载体先读齐再pub/独立count-first序、type2及非2 type3谓词先pub、两field递增/低S16-S32 pub后held返回判负，原零写/姓名<=28或只清首BYTE保。既有flags18A跨字段桥一次4B和相邻布局assert落实，原W16/W32/RNG/未清2048B与2047提取/29B/原文本及明文保；正确sZWu W16叶/原caller覆盖EAX纳管不改，两真实X7B用途收口。253成员open，全部owner/其它result consumer/CRT-ABI/运行另验，音频暂停。

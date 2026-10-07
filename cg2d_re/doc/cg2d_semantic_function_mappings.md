@@ -3636,3 +3636,11 @@ BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四�
 LOOP110/MAP107各两局部I-S各25来源、一X7B仅用途；预期语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656。旧1697条/冻结定位/pending18与ECX pending7、三任务open及完整门禁保持。
 
 BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片段变化，CUT与普通X/Y按各自W8/W32顺序三载荷先取齐后发布；同一临时两读取/Construct/Destroy、RNG次数和三个helper及其它全源保持。704条2649B/十一页、三局部窗口/4B初值/7B用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656、LOOP110/MAP107。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持。未编译、测试或运行；完整正常寿命/数值/x87/机器ABI/全像素画面及R8继续。命名快照：cg2d-re-map-scene-snapshot-sampling-20261008。
+
+## BUL01 普通/CUT第四地图平面两身份（2026-10-08）
+
+[基线](cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline)381条1163B/七页对应新1698/F:000693F0与1699/F:0006D9C0，均adapted；一cpp两正文四片段只三BYTE读取和一obj-first短路变化，其它全源/头文件/owner保持。
+
+LOOP112/MAP109各局部I-S各25来源；71B混合区两目标表/十一BYTE case槽共63B，另LEA3B/NOP5B与CUT尾NOP14B仅用途，两R7。预期语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654。旧1698条/冻结定位/pending18与ECX pending7、三任务open和完整门禁保持。
+
+BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/CUT三hit BYTE取样和obj→tile→walk短路恢复，原共享WORD平面/5202B全清/两轮资源查询-flag及S16覆盖/模式转发/正常返回和全部其它源码/声明/owner保持。两原根381条1163B/七页、三个外部后窗、63B跳表及3B LEA/19B NOP用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654、LOOP112/MAP109。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行，完整正常生产消费/寿命/数值/x87/机器ABI/像素及R8继续。命名快照：cg2d-re-map-walkability-byte-sampling-20261008。

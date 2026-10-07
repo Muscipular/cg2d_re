@@ -7686,7 +7686,8 @@ std::int32_t __cdecl Sub_4693F0(
                 value = 2;
             } else if (code == 2 || code == 5 || code == 6 ||
                        code == 9 || code == 10 ||
-                       (code == 0 && (hit[index] & 0x4000u) != 0)) {
+                       (code == 0 &&
+                        (reinterpret_cast<const std::uint8_t*>(hit)[2 * index + 1] & 0x40u) != 0)) {
                 if (value != 2) {
                     value = 1;
                 }
@@ -7737,10 +7738,10 @@ std::int32_t __cdecl Sub_4693F0(
                     value = 1;
                 }
             }
-            if (tile[index] == 0 && obj[index] == 0 && value == 0) {
+            if (obj[index] == 0 && tile[index] == 0 && value == 0) {
                 value = 1;
             }
-            if (static_cast<std::uint8_t>(hit[index]) == 1) {
+            if (reinterpret_cast<const std::uint8_t*>(hit)[2 * index] == 1) {
                 value = 1;
             }
         }
@@ -7767,7 +7768,7 @@ std::int32_t __cdecl Sub_46D9C0(
     for (std::int32_t y = 0; y < remaining; ++y) {
         for (std::int32_t x = 0; x < width; ++x) {
             const std::int32_t index = y * width + x;
-            if ((hit[index] & 0x0100u) != 0) {
+            if ((reinterpret_cast<const std::uint8_t*>(hit)[2 * index + 1] & 1u) != 0) {
                 walk[index] = 1;
             }
         }

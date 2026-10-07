@@ -4567,3 +4567,11 @@ BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四�
 父原held cell index用于tile和object，marker对象音效分支按原fresh跨度另取raw word、外层步进fresh span保；动态对象created第一偏移与fresh槽第二偏移、既有FrameMove/图形消费保持。只局部静态，不代所有callee/父、owner-alias寿命/实际回收或全像素/机器ABI/运行。
 
 BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片段变化，CUT与普通X/Y按各自W8/W32顺序三载荷先取齐后发布；同一临时两读取/Construct/Destroy、RNG次数和三个helper及其它全源保持。704条2649B/十一页、三局部窗口/4B初值/7B用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656、LOOP110/MAP107。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持。未编译、测试或运行；完整正常寿命/数值/x87/机器ABI/全像素画面及R8继续。命名快照：cg2d-re-map-scene-snapshot-sampling-20261008。
+
+## 地图第四平面生产与动作依赖边界（BUL01，2026-10-08）
+
+[地图平面裁决](cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision)只在SceneState两既有根恢复三hit BYTE读取和obj-first空格短路，381条1163B/七页与跳表/局部后窗归档。公开WORD平面和原唯一gMapWalkabilityArray、八参数转发、两轮资源查询/覆盖及生产接线保持，Yobi全文保持。
+
+正常地图加载后第四平面生产已沿469030/MapSceneDrawing既有调用接线；本步只列原三个后窗及当前接线，不据此声明全部动作消费/owner-alias寿命、全父/callee/数值/机器ABI/像素运行闭合。两R7为表/对齐真实用途，非功能排除。
+
+BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/CUT三hit BYTE取样和obj→tile→walk短路恢复，原共享WORD平面/5202B全清/两轮资源查询-flag及S16覆盖/模式转发/正常返回和全部其它源码/声明/owner保持。两原根381条1163B/七页、三个外部后窗、63B跳表及3B LEA/19B NOP用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654、LOOP112/MAP109。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行，完整正常生产消费/寿命/数值/x87/机器ABI/像素及R8继续。命名快照：cg2d-re-map-walkability-byte-sampling-20261008。

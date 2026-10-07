@@ -628,7 +628,8 @@
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
         "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
-        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-baseline"
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -740,7 +741,9 @@
         "F:0006DD40",
         "F:0006DE50",
         "F:0006DD90",
-        "F:0006CF60"
+        "F:0006CF60",
+        "F:000693F0",
+        "F:0006D9C0"
       ],
       "closure_task_ids": [
         "U11",
@@ -798,7 +801,8 @@
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
         "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
-        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-decision"
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -847,7 +851,8 @@
         "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
         "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
         "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
-        "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。"
+        "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。",
+        "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -897,7 +902,8 @@
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
         "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
-        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state"
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state"
       ]
     },
     {
@@ -1658,7 +1664,8 @@
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
         "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
-        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-baseline"
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1767,7 +1774,9 @@
         "F:0006DD40",
         "F:0006DE50",
         "F:0006DD90",
-        "F:0006CF60"
+        "F:0006CF60",
+        "F:000693F0",
+        "F:0006D9C0"
       ],
       "closure_task_ids": [
         "U11",
@@ -1821,7 +1830,8 @@
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
         "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
-        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-decision"
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1866,7 +1876,8 @@
         "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
         "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
         "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
-        "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。"
+        "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。",
+        "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1912,7 +1923,8 @@
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
         "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
-        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state"
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state"
       ]
     },
     {
@@ -43116,6 +43128,194 @@
       "observation": "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。",
       "expected": "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。",
       "actual": "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。"
+    },
+    {
+      "id": "E-MAP-WALKABILITY-BYTE-SAMPLING-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUL01两根381条1163B/七页、11directcall/63jump/三RET/四入向，三BYTE与obj-first短路/全零平面-两轮tile/obj-flag/signed footprint/原返回转发，三外部窗口/63B跳表及85B用途，doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-walkability-byte-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-acceptance",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_4693F0",
+        "src/world/SceneState.cpp#Sub_46D9C0",
+        "src/world/SceneState.cpp#Sub_46CF00",
+        "src/world/SceneState.cpp#Sub_469030",
+        "src/world/SceneState.cpp#Sub_468C40",
+        "src/world/SceneState.cpp",
+        "src/world/MapSceneDrawing.cpp#Sub_46CF60",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/GraphicInfo.cpp#GetGraphicMapNoIndex",
+        "src/GraphicInfo.cpp#GetGraphicFlag1",
+        "src/GraphicInfo.cpp#GetGraphicSxSy",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md",
+        "include/cg/world/SceneState.hpp"
+      ],
+      "differences": [
+        {
+          "description": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+          "decision_ref": "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+      "expected": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+      "actual": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续"
+    },
+    {
+      "id": "E-MAP-WALKABILITY-BYTE-SAMPLING-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUL01两根381条1163B/七页、11directcall/63jump/三RET/四入向，三BYTE与obj-first短路/全零平面-两轮tile/obj-flag/signed footprint/原返回转发，三外部窗口/63B跳表及85B用途，doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-walkability-byte-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-acceptance",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_4693F0",
+        "src/world/SceneState.cpp#Sub_46D9C0",
+        "src/world/SceneState.cpp#Sub_46CF00",
+        "src/world/SceneState.cpp#Sub_469030",
+        "src/world/SceneState.cpp#Sub_468C40",
+        "src/world/SceneState.cpp",
+        "src/world/MapSceneDrawing.cpp#Sub_46CF60",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/GraphicInfo.cpp#GetGraphicMapNoIndex",
+        "src/GraphicInfo.cpp#GetGraphicFlag1",
+        "src/GraphicInfo.cpp#GetGraphicSxSy",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md",
+        "include/cg/world/SceneState.hpp"
+      ],
+      "differences": [
+        {
+          "description": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+          "decision_ref": "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+      "expected": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+      "actual": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续"
+    },
+    {
+      "id": "E-MAP-WALKABILITY-BYTE-SAMPLING-FUNC-MAP-I-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUL01两根381条1163B/七页、11directcall/63jump/三RET/四入向，三BYTE与obj-first短路/全零平面-两轮tile/obj-flag/signed footprint/原返回转发，三外部窗口/63B跳表及85B用途，doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-walkability-byte-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-acceptance",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_4693F0",
+        "src/world/SceneState.cpp#Sub_46D9C0",
+        "src/world/SceneState.cpp#Sub_46CF00",
+        "src/world/SceneState.cpp#Sub_469030",
+        "src/world/SceneState.cpp#Sub_468C40",
+        "src/world/SceneState.cpp",
+        "src/world/MapSceneDrawing.cpp#Sub_46CF60",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/GraphicInfo.cpp#GetGraphicMapNoIndex",
+        "src/GraphicInfo.cpp#GetGraphicFlag1",
+        "src/GraphicInfo.cpp#GetGraphicSxSy",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md",
+        "include/cg/world/SceneState.hpp"
+      ],
+      "differences": [
+        {
+          "description": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+          "decision_ref": "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+      "expected": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+      "actual": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续"
+    },
+    {
+      "id": "E-MAP-WALKABILITY-BYTE-SAMPLING-FUNC-MAP-S-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUL01两根381条1163B/七页、11directcall/63jump/三RET/四入向，三BYTE与obj-first短路/全零平面-两轮tile/obj-flag/signed footprint/原返回转发，三外部窗口/63B跳表及85B用途，doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-walkability-byte-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-acceptance",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_4693F0",
+        "src/world/SceneState.cpp#Sub_46D9C0",
+        "src/world/SceneState.cpp#Sub_46CF00",
+        "src/world/SceneState.cpp#Sub_469030",
+        "src/world/SceneState.cpp#Sub_468C40",
+        "src/world/SceneState.cpp",
+        "src/world/MapSceneDrawing.cpp#Sub_46CF60",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/GraphicInfo.cpp#GetGraphicMapNoIndex",
+        "src/GraphicInfo.cpp#GetGraphicFlag1",
+        "src/GraphicInfo.cpp#GetGraphicSxSy",
+        "include/cg/GraphicInfo.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md",
+        "include/cg/world/SceneState.hpp"
+      ],
+      "differences": [
+        {
+          "description": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+          "decision_ref": "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+      "expected": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续",
+      "actual": "BUL01仅普通/CUT地图第四平面两既有根四片段实修，三hit BYTE取样及obj→tile→walk短路恢复，完整原381条1163B/七页、两跳表/85B用途和三个外部父局部窗归档；局部静态/未编译测试运行，全正常生命周期/数值/机器ABI/像素与完整门禁继续"
     }
   ],
   "task_acceptance": [
@@ -43609,7 +43809,8 @@
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
         "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
-        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state"
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state"
       ]
     },
     {
@@ -43685,7 +43886,8 @@
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
         "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
-        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state"
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state"
       ]
     },
     {
@@ -44236,7 +44438,8 @@
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
         "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
         "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
-        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state"
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state"
       ]
     },
     {
@@ -54543,6 +54746,32 @@
         "doc/cg2d_map_scene_snapshot_sampling_evidence.json"
       ],
       "boundary": "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。"
+    },
+    {
+      "inventory_id": "F:000693F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-acceptance",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_evidence.json"
+      ],
+      "boundary": "BUL01普通/CUT第四地图平面两完整根381条1163B/七页两块，11directcall/63jump/三RET/四入向。仅SceneState两既有正文四片段：普通tile代码0按原hit高BYTE 0x40、对象轮最后按原低BYTE==1读取，空格按obj WORD→tile WORD→walk WORD短路；CUT mode1按原hit高BYTE bit0读取，均借用同一hit原生地址按2*index(+1)偏移，不建新平面/owner/helper。原W32模式==1、每根2601 WORD/5202B先清零、两普通tile→obj遍历、W16无符号原资源映射/flag0不覆盖2、flag2写2、S16 sx/sy向右向上覆盖及原两条件、低BYTE==1最后可覆盖2全部保持；原正常与非正跨度返回保持，CUT其他模式原八参数转普通并透传。原三个外部父局部窗/现接线保持，父CF60已BUK01归档，不据本步称全父/所有callee/机器ABI或像素运行。三已纳管Graphic查询每次都写输出，原失败清零已证，不扩为新失败保护；源初始化与普通数值表达式保持。原71B混合区含63B两目标表/十一BYTE case映射、3B实际NN_LEA ECX,[ECX]及5B NN_NOP；另14B NN_NOP，各用途和原引用归档，不把整个表区称NOP或新函数。源其余全部正文/声明/owner和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整正常生产消费/寿命/数值/x87/机器ABI/链接/画面及R8未验。"
+    },
+    {
+      "inventory_id": "F:0006D9C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-acceptance",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_evidence.json"
+      ],
+      "boundary": "BUL01普通/CUT第四地图平面两完整根381条1163B/七页两块，11directcall/63jump/三RET/四入向。仅SceneState两既有正文四片段：普通tile代码0按原hit高BYTE 0x40、对象轮最后按原低BYTE==1读取，空格按obj WORD→tile WORD→walk WORD短路；CUT mode1按原hit高BYTE bit0读取，均借用同一hit原生地址按2*index(+1)偏移，不建新平面/owner/helper。原W32模式==1、每根2601 WORD/5202B先清零、两普通tile→obj遍历、W16无符号原资源映射/flag0不覆盖2、flag2写2、S16 sx/sy向右向上覆盖及原两条件、低BYTE==1最后可覆盖2全部保持；原正常与非正跨度返回保持，CUT其他模式原八参数转普通并透传。原三个外部父局部窗/现接线保持，父CF60已BUK01归档，不据本步称全父/所有callee/机器ABI或像素运行。三已纳管Graphic查询每次都写输出，原失败清零已证，不扩为新失败保护；源初始化与普通数值表达式保持。原71B混合区含63B两目标表/十一BYTE case映射、3B实际NN_LEA ECX,[ECX]及5B NN_NOP；另14B NN_NOP，各用途和原引用归档，不把整个表区称NOP或新函数。源其余全部正文/声明/owner和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整正常生产消费/寿命/数值/x87/机器ABI/链接/画面及R8未验。"
     }
   ],
   "auxiliary_dispositions": [
@@ -73418,6 +73647,381 @@
           "decoded_itype": 129
         }
       ]
+    },
+    {
+      "id": "X:000697C9-00069810",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-acceptance",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_evidence.json"
+      ],
+      "reason": "BUL01普通根后71B混合区：四W32目标/十一BYTE case槽/九W32目标共63B原两个间接jump及一case读取引用；另3B实际NN_LEA ECX,[ECX]和5B实际NN_NOP仅对齐；三个padding无入向，后469810。不新F/不排除业务",
+      "classification": "switch_tables_and_alignment",
+      "original_size": 71,
+      "original_bytes": "8d4900979446009d944600e4944600e9944600000301030201010303010190029746002b9746002697460002974600029746002b9746002b974600029746000297460090909090",
+      "original_layout": {
+        "start": "0x4697c9",
+        "end_exclusive": "0x469810",
+        "size": 71,
+        "bytes": "8d4900979446009d944600e4944600e9944600000301030201010303010190029746002b9746002697460002974600029746002b9746002b974600029746000297460090909090",
+        "loaded": true,
+        "inbound": [
+          {
+            "to": "0x4697cc",
+            "type": 3,
+            "code": false,
+            "function": "0x4693f0",
+            "text": "jmp     ds:jpt_469490[ecx*4]; switch jump",
+            "from": "0x469490"
+          },
+          {
+            "to": "0x4697dc",
+            "type": 3,
+            "code": false,
+            "function": "0x4693f0",
+            "text": "mov     cl, ds:byte_4697DC[eax]",
+            "from": "0x46948a"
+          },
+          {
+            "to": "0x4697e8",
+            "type": 3,
+            "code": false,
+            "function": "0x4693f0",
+            "text": "jmp     ds:jpt_46971F[eax*4]; switch jump",
+            "from": "0x46971f"
+          }
+        ],
+        "following_function": "0x469810",
+        "table_blocks": [
+          {
+            "start": "0x4697cc",
+            "end_exclusive": "0x4697dc",
+            "size": 16,
+            "bytes": "979446009d944600e4944600e9944600",
+            "loaded": true,
+            "inbound": [
+              {
+                "to": "0x4697cc",
+                "type": 3,
+                "code": false,
+                "function": "0x4693f0",
+                "text": "jmp     ds:jpt_469490[ecx*4]; switch jump",
+                "from": "0x469490"
+              }
+            ],
+            "element_type": "u32_targets",
+            "values": [
+              "0x469497",
+              "0x46949d",
+              "0x4694e4",
+              "0x4694e9"
+            ]
+          },
+          {
+            "start": "0x4697dc",
+            "end_exclusive": "0x4697e7",
+            "size": 11,
+            "bytes": "0003010302010103030101",
+            "loaded": true,
+            "inbound": [
+              {
+                "to": "0x4697dc",
+                "type": 3,
+                "code": false,
+                "function": "0x4693f0",
+                "text": "mov     cl, ds:byte_4697DC[eax]",
+                "from": "0x46948a"
+              }
+            ],
+            "element_type": "u8_case_slots",
+            "values": [
+              0,
+              3,
+              1,
+              3,
+              2,
+              1,
+              1,
+              3,
+              3,
+              1,
+              1
+            ]
+          },
+          {
+            "start": "0x4697e8",
+            "end_exclusive": "0x46980c",
+            "size": 36,
+            "bytes": "029746002b9746002697460002974600029746002b9746002b9746000297460002974600",
+            "loaded": true,
+            "inbound": [
+              {
+                "to": "0x4697e8",
+                "type": 3,
+                "code": false,
+                "function": "0x4693f0",
+                "text": "jmp     ds:jpt_46971F[eax*4]; switch jump",
+                "from": "0x46971f"
+              }
+            ],
+            "element_type": "u32_targets",
+            "values": [
+              "0x469702",
+              "0x46972b",
+              "0x469726",
+              "0x469702",
+              "0x469702",
+              "0x46972b",
+              "0x46972b",
+              "0x469702",
+              "0x469702"
+            ]
+          }
+        ],
+        "padding_blocks": [
+          {
+            "start": "0x4697c9",
+            "end_exclusive": "0x4697cc",
+            "size": 3,
+            "bytes": "8d4900",
+            "loaded": true,
+            "inbound": [],
+            "decode": [
+              {
+                "ea": "0x4697c9",
+                "size": 3,
+                "bytes": "8d4900",
+                "mnemonic": "",
+                "text": "align 4",
+                "is_nop": false,
+                "itype": 92
+              }
+            ]
+          },
+          {
+            "start": "0x4697e7",
+            "end_exclusive": "0x4697e8",
+            "size": 1,
+            "bytes": "90",
+            "loaded": true,
+            "inbound": [],
+            "decode": [
+              {
+                "ea": "0x4697e7",
+                "size": 1,
+                "bytes": "90",
+                "mnemonic": "",
+                "text": "align 4",
+                "is_nop": true,
+                "itype": 129
+              }
+            ]
+          },
+          {
+            "start": "0x46980c",
+            "end_exclusive": "0x469810",
+            "size": 4,
+            "bytes": "90909090",
+            "loaded": true,
+            "inbound": [],
+            "decode": [
+              {
+                "ea": "0x46980c",
+                "size": 1,
+                "bytes": "90",
+                "mnemonic": "",
+                "text": "align 10h",
+                "is_nop": true,
+                "itype": 129
+              },
+              {
+                "ea": "0x46980d",
+                "size": 1,
+                "bytes": "90",
+                "mnemonic": "",
+                "text": "align 10h",
+                "is_nop": true,
+                "itype": 129
+              },
+              {
+                "ea": "0x46980e",
+                "size": 1,
+                "bytes": "90",
+                "mnemonic": "",
+                "text": "align 10h",
+                "is_nop": true,
+                "itype": 129
+              },
+              {
+                "ea": "0x46980f",
+                "size": 1,
+                "bytes": "90",
+                "mnemonic": "",
+                "text": "align 10h",
+                "is_nop": true,
+                "itype": 129
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "X:0006DA72-0006DA80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-acceptance",
+        "doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-source-state",
+        "doc/cg2d_map_walkability_byte_sampling_evidence.json"
+      ],
+      "reason": "BUL01 CUT根后14B实际NN_NOP/90、无入向/后46DA80，仅对齐用途，不新F/不排除业务",
+      "classification": "alignment_nop",
+      "original_size": 14,
+      "original_bytes": "9090909090909090909090909090",
+      "original_layout": {
+        "start": "0x46da72",
+        "end_exclusive": "0x46da80",
+        "size": 14,
+        "bytes": "9090909090909090909090909090",
+        "loaded": true,
+        "inbound": [],
+        "following_function": "0x46da80",
+        "decode": [
+          {
+            "ea": "0x46da72",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da73",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da74",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da75",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da76",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da77",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da78",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da79",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da7a",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da7b",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da7c",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da7d",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da7e",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          },
+          {
+            "ea": "0x46da7f",
+            "size": 1,
+            "bytes": "90",
+            "mnemonic": "",
+            "text": "align 10h",
+            "is_nop": true,
+            "itype": 129
+          }
+        ]
+      }
     }
   ]
 }

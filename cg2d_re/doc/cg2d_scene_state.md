@@ -7931,3 +7931,11 @@ BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四�
 已正确held模式/加载失败/回调后各自边界采样、两walkability分流、运动/dirty状态、投影/S32对角循环、同格tile→obj held index/fresh外层跨度、CUT描述符与动态指针消费、普通图层/低S16 clip与marker/音频调用保持全部源码。三个helper不造新原F或修改；原描述符五零写完整16B覆盖、10000已加载4B初值和7B用途有据，void局部动作观察不外推全ABI/全父弃返。完整正常生产消费/数值/x87/寿命/像素画面和运行继续。
 
 BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片段变化，CUT与普通X/Y按各自W8/W32顺序三载荷先取齐后发布；同一临时两读取/Construct/Destroy、RNG次数和三个helper及其它全源保持。704条2649B/十一页、三局部窗口/4B初值/7B用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656、LOOP110/MAP107。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持。未编译、测试或运行；完整正常寿命/数值/x87/机器ABI/全像素画面及R8继续。命名快照：cg2d-re-map-scene-snapshot-sampling-20261008。
+
+## 地图第四平面三BYTE读取与空格短路实修（BUL01，2026-10-08）
+
+[完整基线](cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline)归档4693F0/46D9C0两根381条1163B/七页、11directcall/63jump/三RET、四入向及三个外部父局部窗口。SceneState两既有正文四片段：普通tile代码0只取hit高BYTE 0x40、对象轮最后只取低BYTE==1，空格按obj WORD→tile WORD→walk WORD短路；CUT mode1只取hit高BYTE bit0，公开WORD平面/共享owner及原5202B全清/两轮遍历/资源flag和S16覆盖/原返回转发保持。
+
+§84的WORD掩码是旧值级表达，本步恢复实际读取宽度；其“调用者尚未接线”仅2026-09-25历史，当前469030与MapSceneDrawing已接线，父CF60已BUK01归档。两原跳表63B与case映射、3B LEA/19B NOP用途分清，不把71B混合区当全NOP。未复审完整父或所有callee，原正常寿命/数值/ABI/全像素与运行继续。
+
+BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/CUT三hit BYTE取样和obj→tile→walk短路恢复，原共享WORD平面/5202B全清/两轮资源查询-flag及S16覆盖/模式转发/正常返回和全部其它源码/声明/owner保持。两原根381条1163B/七页、三个外部后窗、63B跳表及3B LEA/19B NOP用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654、LOOP112/MAP109。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行，完整正常生产消费/寿命/数值/x87/机器ABI/像素及R8继续。命名快照：cg2d-re-map-walkability-byte-sampling-20261008。

@@ -1664,3 +1664,11 @@ BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四�
 LOOP109→110/MAP106→107各两局部I-S各25来源，三任务current/引用仍open；完整正常生产消费/全callee/父/数值/x87/owner-alias寿命/机器ABI/链接/全像素画面/明文互通与R8继续，差队列/closed11/完整门禁和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
 
 BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片段变化，CUT与普通X/Y按各自W8/W32顺序三载荷先取齐后发布；同一临时两读取/Construct/Destroy、RNG次数和三个helper及其它全源保持。704条2649B/十一页、三局部窗口/4B初值/7B用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656、LOOP110/MAP107。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持。未编译、测试或运行；完整正常寿命/数值/x87/机器ABI/全像素画面及R8继续。命名快照：cg2d-re-map-scene-snapshot-sampling-20261008。
+
+## BUL01 地图第四平面读取宽度开发验收（2026-10-08）
+
+[基线](cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-baseline)、[裁决](cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision)、[验收](cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-acceptance)与[证据](cg2d_map_walkability_byte_sampling_evidence.json)覆盖两根381条1163B/七页、三个外部窗口/85B用途。三hit BYTE与obj→tile→walk短路实修，原共享WORD平面/全清/两轮tile-obj/flag-S16覆盖/返回转发及正常接线保持，不代全callee/父/ABI/画面。
+
+LOOP110→112/MAP107→109各局部I-S各25来源，三任务current/引用仍open；原差队列/closed11/完整门禁及网络原格式明文、内部LegacyCryptInt/音频暂停/RPLAN.24保持。完整正常生产消费/数值/寿命/全像素与R8继续。
+
+BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/CUT三hit BYTE取样和obj→tile→walk短路恢复，原共享WORD平面/5202B全清/两轮资源查询-flag及S16覆盖/模式转发/正常返回和全部其它源码/声明/owner保持。两原根381条1163B/七页、三个外部后窗、63B跳表及3B LEA/19B NOP用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654、LOOP112/MAP109。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行，完整正常生产消费/寿命/数值/x87/机器ABI/像素及R8继续。命名快照：cg2d-re-map-walkability-byte-sampling-20261008。

@@ -3860,3 +3860,17 @@ BUJ01地图动作四坐标载荷已实修提交，本步进入真实父46CF60。
 三任务仍open，pending18/ECX pending7/closed11/差队列与完整门禁保持；原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，不编译、测试或运行。整体目标active，完整正常生产消费/owner-alias寿命/全callee/父/数值/x87/机器ABI/链接/全像素画面/明文互通及R8继续。
 
 BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片段变化，CUT与普通X/Y按各自W8/W32顺序三载荷先取齐后发布；同一临时两读取/Construct/Destroy、RNG次数和三个helper及其它全源保持。704条2649B/十一页、三局部窗口/4B初值/7B用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656、LOOP110/MAP107。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持。未编译、测试或运行；完整正常寿命/数值/x87/机器ABI/全像素画面及R8继续。命名快照：cg2d-re-map-scene-snapshot-sampling-20261008。
+
+## BUL01 地图第四平面三BYTE与空格短路实修（2026-10-08）
+
+BUK01地图父四尾预取已提交，本步沿真实依赖4693F0/46D9C0第四平面生产推进。既有IDA只读MCP归档两完整根381条1163B/七页两块、11directcall/63jump/三RET及四入向；三个外部后窗补局部返回消费，父CF60已有704条基线不重复复核。原两个跳表及十一BYTE case映射63B、3B NN_LEA ECX,[ECX]/5B NN_NOP与CUT尾14B NN_NOP全部分清，85B两R7只用途。
+
+确认普通tile代码0原只取hit高BYTE 0x40、对象轮最后只取低BYTE==1，当前整WORD掩码/截低BYTE；CUT mode1原只取hit高BYTE bit0，当前整WORD掩码。原空格obj WORD→tile WORD→walk WORD短路，当前tile先于obj。先落[子SPEC](../doc/cg2d_map_walkability_byte_sampling_spec.md#map-walkability-byte-decision)，只改SceneState两既有正文四片段：原生hit地址BYTE视图2*index(+1)，两WORD比较换回原序；无新helper/lambda/header/owner/平面/业务。
+
+两根5202B先清零、原W32 mode==1与八参普通转发、普通tile→obj两轮/零扩展原WORD资源映射、flag0不覆盖2/flag2写2、S16 sx/sy向右向上覆盖且只原两边界、最终低BYTE==1可覆盖2和普通2*width/CUT原Y跨度或0返回保持。已纳管Graphic三查询每次输出/失败清零合同有据，现初始化/查询/数值及原正常失败分支正确保持；不猜未初始化默认问题，不新造保护/限长/异常模拟。原表引用和case目标对应当前分支。
+
+§84旧未接线及WORD掩码按历史保留，此处记当前已接469030/MapSceneDrawing及真实BYTE宽度；Yobi/GraphicInfo/MapSceneDrawing/声明和全部其它正文保持。IDA初次辅助表查询因工具Python的函数定义/执行作用域出现NameError，已显式绑定只读依赖后重新取得全部85B/表/后窗，后续使用成功结果，不保留失败替代证据或改数据库。
+
+新1698/1699均adapted，LOOP110→112/MAP107→109各局部I-S各25来源、两R7。预期语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654；必要静态/文本汇总后记实值。三任务open/pending18及ECX pending7/closed11/差队列和完整门禁保持，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，不编译、测试或运行，整体目标active。
+
+BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/CUT三hit BYTE取样和obj→tile→walk短路恢复，原共享WORD平面/5202B全清/两轮资源查询-flag及S16覆盖/模式转发/正常返回和全部其它源码/声明/owner保持。两原根381条1163B/七页、三个外部后窗、63B跳表及3B LEA/19B NOP用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654、LOOP112/MAP109。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行，完整正常生产消费/寿命/数值/x87/机器ABI/像素及R8继续。命名快照：cg2d-re-map-walkability-byte-sampling-20261008。

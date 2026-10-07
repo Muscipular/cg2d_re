@@ -3444,3 +3444,19 @@ source BYTE先取shared BYTE后取，相等后同source样本NUL/失配短路，
 2026-10-07：整SceneState.cpp仅一既有接收业务体一比较片段，source→共享BYTE/同输入NUL、原容量/非NUL快照/动态长度与名单/日志和对象尾、共享owner初值及全部关联源头保持；278条801B/四页、唯一51483C/zdr五参数/原掩码消费、单15B逐BYTE用途、未初始化共享区无有效FF文本/正确发送上下文、整个机器增量、四文档和三任务六列，四组静态全部通过。measure/-Check同会话终态0，完整派生快照通过；12文件UTF-8无BOM/LF、四锚点及两I-S各21真实来源/文本差异通过。
 
 本步确认的BYTE读取差异已修，共享区FF疑问按原is_loaded/has_value事实解决，未误改初始化或恒空化；语义1614有效1607/文档1725（46.88%）保、NETWORK55/处置755/E882/R7 325余2736。809全部旧字段/五域/冻结定位/pending18/差队列/原任务与完整门禁保持。提交清单12文件，排除并保护六项用户既有改动；整体SPEC目标继续active、聚焦真实缺口。全接收父/provider/全部正常owner-alias寿命、ABI/链接/画面/明文互通及运行R8继续；未编译/测试/运行/算法样例或计算摘要，不以局部静态代完整验收。
+
+## BTI01 玩家/非玩家头顶聊天文本标记及指针取样实修（2026-10-07）
+
+上一BTH01已修聊天接收BYTE比较并同步12文件提交。本轮继续真实接收→玩家/非玩家文本生产链：两现正文和两个共有helper有原高BYTE访问、旧free样本、分配W32参数/native返回、短复制目标地址读序差异。先落[子SPEC](../doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-decision)，实施YobiRuntime.cpp五片段/SceneState.cpp既有MarkPlayerChatActive一片段；两原业务体、两个已有helper，无新接口/helper/业务规则。
+
+两同W16 owner只高BYTE OR0x20，不读写低BYTE；旧text1C取样一次供NULL/free后原清槽。普通S32 remaining+3后按实际U32 API参数再拓宿主size_t，分配返回地址先pub后同native样本判NULL；短复制每轮新目标槽地址→source BYTE→写BYTE，循环及末NUL重取保。原action/payload/玩家末次现场action名、非玩家43D860、Tick/deadline、三前缀/两真实strncmp、原malloc NULL失败/三字段发布/40阈/AL2与40-39两布局/+41/未写gap/三NUL、全部其他源头保持，不加异常回绕/保护/拒绝/钳制/补零/限长或编码。
+
+原非玩家156条429B/三页70+70+16，玩家148条405B/三页70+70+8，合304条834B/六页两块、11direct五目标/两Tick导入/30jump六RET；各唯一50CAE0@50CDEE/50CDBD及同参数/void弃返保持。两个X区3B+11B逐BYTE90/NN_NOP/无入向/前RET后入口，仅原对齐。补两既有真F语义1614/1615、TEXT25→27、语义1616有效1609/文档1727（46.93%）/处置757/E884两局部I-S各23来源/R7 327余2734。
+
+原旧1614语义与全部INPUT29/NETWORK55/CHARACTER23/LOGIN13/LOOP38/MAP69、冻结定位/pending18/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse及全部完整门禁保。原格式明文/内部CryptInt/音频暂停不变。全接收父/provider与正常owner-alias文本生产/绘制/过期释放域、ABI/链接/画面/明文互通/运行R8继续；集中静态/派生终态后追加真实结果。
+
+### BTI01 集中静态与派生结果
+
+2026-10-07：两cpp六唯一片段、原两文本业务体和两个已有helper，高BYTE只改/旧free指针复用/分配实际U32参数及native返回发布判NULL/短复制每轮目标地址→source BYTE落实；原三字段发布/玩家名字重取/两40-39布局/未写gap/三NUL与所有其它关联源头保持。两完整原根304条834B/六页、11direct五目标/两Tick/30jump六RET、两个唯一接收消费、两真实W8标记/三前缀/单组14B逐BYTE用途，完整机器增量、四文档和三任务六列，四组静态全部通过。measure/-Check同会话终态0，完整派生快照通过；13文件UTF-8无BOM/LF、四锚点与两I-S各23真实来源/差异文本通过。
+
+已修本步全部确认的标记、指针及API参数取样差异，普通S32保持，不新增异常回绕/保护/钳制/补零/拒绝/限长或helper。语义1616有效1609/文档1727（46.93%）/处置757/E884、TEXT27/R7 327余2734；旧1614语义/六其它域/冻结定位/pending18/差队列/原任务与全部完整门禁保。提交清单13文件，排除保护六项用户既有改动，整体SPEC目标继续active。全接收父/provider与正常owner-alias文本生产/绘制/过期释放域、ABI/链接/画面/明文互通/运行R8继续；未编译/测试/运行/算法样例或计算摘要，不以局部静态代完整验收。

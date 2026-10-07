@@ -1448,3 +1448,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline)、[裁决](cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision)、[验收](cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-acceptance)和[原证据](cg2d_chat_receive_byte_sampling_evidence.json)对应一业务体一片段/809旧字段后追加、NETWORK单实际成员/处置、两局部I-S各21来源及15B用途。三任务仅current/引用保open，P05-P08原closed与原ECX未知pending7保。
 
 source→共享BYTE/同输入NUL、未初始化FF不作原文本/现owner初值保持落实；原容量/非NUL快照/动态长度与名称过滤/全部日志和对象尾保持。完整278原指令与唯一真实消费只证本步边界，不以正确发送上下文取证替发送或全网络验收；全父/provider/全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续。
+
+## BTI01 头顶聊天文本开发验收（2026-10-07）
+
+[基线](cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-baseline)、[裁决](cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-decision)、[验收](cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-acceptance)及[证据](cg2d_actor_chat_text_sampling_evidence.json)对应两原业务体和两个既有helper的两cpp六片段、两新语义/实际TEXT成员/处置、两局部I-S各23来源及两NOP区14B用途。三任务仅current/引用保open，原P05-P08 closed/pending7与全部完整门禁保。
+
+高BYTE只改、旧free样本/分配U32参数与同native return判定、短复制目标地址先读已落实，原失败/字段写序/普通S32/40-39布局/未写gap与当前接收消费保持；不把局部生产证据代全字体/provider/所有正常owner-alias分配释放域与绘制过期寿命、SDK-ABI/链接/画面/明文互通及运行R8。

@@ -3012,7 +3012,8 @@ std::int32_t Sub_50C940(
 
 void MarkPlayerChatActive() noexcept
 {
-    gPlayerRuntime.flags18A |= 0x2000u;
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A);
+    flagBytes[1] |= 0x20u;
 }
 
 void Sub_50CAE0(

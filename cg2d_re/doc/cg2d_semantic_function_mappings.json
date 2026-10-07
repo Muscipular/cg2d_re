@@ -187562,6 +187562,153 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x442DC0",
+      "inventory_id": "F:00042DC0",
+      "original_role": "非玩家头顶聊天文本分配与标记",
+      "original_end_exclusive": "0x442f6d",
+      "original_chunks": [
+        {
+          "start": "0x442dc0",
+          "end_exclusive": "0x442f6d",
+          "count": 156,
+          "bytes": "5355568b74241085f6570f84980100008b6e0c8b45008d0c80c1e1042bc8800c8d03c55a00208d048d02c55a00ff15f8d154008b5c24185603c3894514e85eaaffff8b451c83c40485c0741050e897920f0083c404c7451c000000008dbec400000083c9ff33c0f2ae8b7c241cf7d18a07498bf183c6023c5b7517807f01477511807f0250750b807f035d750583c604eb306a05688845550057e861910f0083c40c85c0750583c605eb176a06688045550057e848910f0083c40c85c0750383c6068b5c24282bde8d530352e81b950f0083c40489451c85c00f84c90000008b4424208b4c242483fb28894520895d24894d280f8e9200000003f76a28568974241ce8a986000083c4083c02753c8b7d1c8b442414b90a000000f3a58b551c8d4bd88d7028c64228008b7d1c8bd183c729c1e902f3a58bca83e10343f3a48b451c5f5e5dc60418005bc38b7d1cb909000000f3a566a58b5424148d4bd9a48b451c8d7227c64027008b7d1c8bc183c729c1e902f3a58bc883e10383c302f3a48b451c5f5e5dc60418005bc333c085db7e1003f78b4d1c8a1406881401403bc37cf28b451cc60418005f5e5d5bc3",
+          "code_bytes": 429
+        }
+      ],
+      "instruction_count": 156,
+      "status": "BTI01两完整原根与高BYTE/旧释放指针/mallocW32/native return/短复制取样实修；原分行/失败与正常字段保，全接收父/provider/正常寿命/ABI和运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_442DC0",
+            "AllocateActorChatText"
+          ],
+          "relationship": "BTI01玩家51A6A0与非玩家442DC0头顶文本两完整原根304条834B/六页两chunk，11direct五目标/两Tick导入/30jump六RET，唯一接收50CAE0@50CDBD/50CDEE且原参数/void返回弃保。YobiRuntime.cpp五片段与SceneState.cpp既有MarkPlayerChatActive一片段，两原正文和既有共享分配helper/标记helper共六片段，无新helper。两标记恢复同W16 owner高BYTE的bit20，不读写低BYTE；两旧text槽取样一次供NULL判定/free/原清槽；malloc数量普通S32 remaining+3后按实际U32 API参数再拓宿主size_t，返回地址发布后复用同native return判NULL，不回读槽；短复制每轮现场取text1C地址→source BYTE→写目标BYTE，不缓存全轮。原payload一次/玩家末次重取action名/非玩家43D860、Tick与deadline、三前缀/两真实strncmp/普通S32 offset与remaining/原malloc失败及color→length→font/40阈/44B570 AL2/40-39两布局/+41第二行与未写gap/三尾NUL、其它源头和文字绘制/过期清理现接线保。非地址算术不扩宽，不做异常回绕/补零/钳制/保护/拒绝/限长，CRT宿主职责只原D02/正常失败分支，不混网络加解密。两既有真F新语义1614/1615、TEXT25→27/两adapted/两局部I-S及两个NOP区14B仅用途；完整接收父/其他字体provider/全部正常owner-alias分配释放域与绘制过期寿命、ABI/链接/画面/明文互通/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-baseline",
+        "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-decision",
+        "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-acceptance",
+        "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-source-state",
+        "doc/cg2d_actor_chat_text_sampling_evidence.json"
+      ],
+      "boundary": "BTI01玩家51A6A0与非玩家442DC0头顶文本两完整原根304条834B/六页两chunk，11direct五目标/两Tick导入/30jump六RET，唯一接收50CAE0@50CDBD/50CDEE且原参数/void返回弃保。YobiRuntime.cpp五片段与SceneState.cpp既有MarkPlayerChatActive一片段，两原正文和既有共享分配helper/标记helper共六片段，无新helper。两标记恢复同W16 owner高BYTE的bit20，不读写低BYTE；两旧text槽取样一次供NULL判定/free/原清槽；malloc数量普通S32 remaining+3后按实际U32 API参数再拓宿主size_t，返回地址发布后复用同native return判NULL，不回读槽；短复制每轮现场取text1C地址→source BYTE→写目标BYTE，不缓存全轮。原payload一次/玩家末次重取action名/非玩家43D860、Tick与deadline、三前缀/两真实strncmp/普通S32 offset与remaining/原malloc失败及color→length→font/40阈/44B570 AL2/40-39两布局/+41第二行与未写gap/三尾NUL、其它源头和文字绘制/过期清理现接线保。非地址算术不扩宽，不做异常回绕/补零/钳制/保护/拒绝/限长，CRT宿主职责只原D02/正常失败分支，不混网络加解密。两既有真F新语义1614/1615、TEXT25→27/两adapted/两局部I-S及两个NOP区14B仅用途；完整接收父/其他字体provider/全部正常owner-alias分配释放域与绘制过期寿命、ABI/链接/画面/明文互通/运行未验",
+      "verification_level": "BTI01玩家51A6A0与非玩家442DC0头顶文本两完整原根304条834B/六页两chunk，11direct五目标/两Tick导入/30jump六RET，唯一接收50CAE0@50CDBD/50CDEE且原参数/void返回弃保。YobiRuntime.cpp五片段与SceneState.cpp既有MarkPlayerChatActive一片段，两原正文和既有共享分配helper/标记helper共六片段，无新helper。两标记恢复同W16 owner高BYTE的bit20，不读写低BYTE；两旧text槽取样一次供NULL判定/free/原清槽；malloc数量普通S32 remaining+3后按实际U32 API参数再拓宿主size_t，返回地址发布后复用同native return判NULL，不回读槽；短复制每轮现场取text1C地址→source BYTE→写目标BYTE，不缓存全轮。原payload一次/玩家末次重取action名/非玩家43D860、Tick与deadline、三前缀/两真实strncmp/普通S32 offset与remaining/原malloc失败及color→length→font/40阈/44B570 AL2/40-39两布局/+41第二行与未写gap/三尾NUL、其它源头和文字绘制/过期清理现接线保。非地址算术不扩宽，不做异常回绕/补零/钳制/保护/拒绝/限长，CRT宿主职责只原D02/正常失败分支，不混网络加解密。两既有真F新语义1614/1615、TEXT25→27/两adapted/两局部I-S及两个NOP区14B仅用途；完整接收父/其他字体provider/全部正常owner-alias分配释放域与绘制过期寿命、ABI/链接/画面/明文互通/运行未验",
+      "actor_chat_text_sampling": {
+        "spec_id": "BTI01",
+        "evidence_refs": [
+          "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-baseline",
+          "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-decision",
+          "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-acceptance",
+          "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-source-state",
+          "doc/cg2d_actor_chat_text_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 156,
+        "original_code_bytes": 429,
+        "original_page_count": 3,
+        "original_direct_call_count": 6,
+        "original_unique_callee_count": 5,
+        "original_tick_import_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "batch_source_patch_count": 6,
+        "source_original_function_direct_patch_count": 2,
+        "source_existing_helper_change_count": 1,
+        "source_high_byte_only_marker_restored": true,
+        "source_previous_free_address_sample_restored": true,
+        "source_malloc_api_w32_before_host_size_restored": true,
+        "source_published_native_return_null_sample_restored": true,
+        "source_each_short_copy_destination_before_source_byte_restored": true,
+        "original_split_layout_gap_and_normal_arithmetic_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51A6A0",
+      "inventory_id": "F:0011A6A0",
+      "original_role": "玩家头顶聊天文本分配与标记",
+      "original_end_exclusive": "0x51a835",
+      "original_chunks": [
+        {
+          "start": "0x51a6a0",
+          "end_exclusive": "0x51a835",
+          "count": 148,
+          "bytes": "a1b402ff0053555685c0570f847f010000800d8ba8fd00208b680cff15f8d15400034424148945148b451c85c0741050e8d419020083c404c7451c00000000a1b402ff0083c9ff8db8c400000033c0f2ae8b7c2418f7d18a07498bf183c6023c5b7517807f01477511807f0250750b807f035d750583c604eb306a05688845550057e89918020083c40c85c0750583c605eb176a06688045550057e88018020083c40c85c0750383c6068b5c24242bde8d4b0351e8531c020083c40489451c85c00f84c90000008b54241c8b44242083fb28895520895d248945280f8e9200000003f76a28568974241ce8e10df3ff83c4083c02753c8b7d1cb90a0000008b542414f3a58b4d1c8d7228c64128008b7d1c8d4bd883c7298bc1c1e902f3a58bc883e10343f3a48b451c5f5e5dc60403005bc38b7d1cb909000000f3a566a58b542414a48b4d1c8d7227c64127008b7d1c8d4bd983c7298bc1c1e902f3a58bc883e10383c302f3a48b451c5f5e5dc60403005bc333c085db7e1003f78b4d1c8a1406881408403bc37cf28b451cc60403005f5e5d5bc3",
+          "code_bytes": 405
+        }
+      ],
+      "instruction_count": 148,
+      "status": "BTI01两完整原根与高BYTE/旧释放指针/mallocW32/native return/短复制取样实修；原分行/失败与正常字段保，全接收父/provider/正常寿命/ABI和运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_51A6A0",
+            "AllocateActorChatText"
+          ],
+          "relationship": "BTI01玩家51A6A0与非玩家442DC0头顶文本两完整原根304条834B/六页两chunk，11direct五目标/两Tick导入/30jump六RET，唯一接收50CAE0@50CDBD/50CDEE且原参数/void返回弃保。YobiRuntime.cpp五片段与SceneState.cpp既有MarkPlayerChatActive一片段，两原正文和既有共享分配helper/标记helper共六片段，无新helper。两标记恢复同W16 owner高BYTE的bit20，不读写低BYTE；两旧text槽取样一次供NULL判定/free/原清槽；malloc数量普通S32 remaining+3后按实际U32 API参数再拓宿主size_t，返回地址发布后复用同native return判NULL，不回读槽；短复制每轮现场取text1C地址→source BYTE→写目标BYTE，不缓存全轮。原payload一次/玩家末次重取action名/非玩家43D860、Tick与deadline、三前缀/两真实strncmp/普通S32 offset与remaining/原malloc失败及color→length→font/40阈/44B570 AL2/40-39两布局/+41第二行与未写gap/三尾NUL、其它源头和文字绘制/过期清理现接线保。非地址算术不扩宽，不做异常回绕/补零/钳制/保护/拒绝/限长，CRT宿主职责只原D02/正常失败分支，不混网络加解密。两既有真F新语义1614/1615、TEXT25→27/两adapted/两局部I-S及两个NOP区14B仅用途；完整接收父/其他字体provider/全部正常owner-alias分配释放域与绘制过期寿命、ABI/链接/画面/明文互通/运行未验"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "MarkPlayerChatActive"
+          ],
+          "relationship": "原51A6B1高BYTE标记真实唯一owner helper；已有接口只改W8视图，不造原F"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-baseline",
+        "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-decision",
+        "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-acceptance",
+        "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-source-state",
+        "doc/cg2d_actor_chat_text_sampling_evidence.json"
+      ],
+      "boundary": "BTI01玩家51A6A0与非玩家442DC0头顶文本两完整原根304条834B/六页两chunk，11direct五目标/两Tick导入/30jump六RET，唯一接收50CAE0@50CDBD/50CDEE且原参数/void返回弃保。YobiRuntime.cpp五片段与SceneState.cpp既有MarkPlayerChatActive一片段，两原正文和既有共享分配helper/标记helper共六片段，无新helper。两标记恢复同W16 owner高BYTE的bit20，不读写低BYTE；两旧text槽取样一次供NULL判定/free/原清槽；malloc数量普通S32 remaining+3后按实际U32 API参数再拓宿主size_t，返回地址发布后复用同native return判NULL，不回读槽；短复制每轮现场取text1C地址→source BYTE→写目标BYTE，不缓存全轮。原payload一次/玩家末次重取action名/非玩家43D860、Tick与deadline、三前缀/两真实strncmp/普通S32 offset与remaining/原malloc失败及color→length→font/40阈/44B570 AL2/40-39两布局/+41第二行与未写gap/三尾NUL、其它源头和文字绘制/过期清理现接线保。非地址算术不扩宽，不做异常回绕/补零/钳制/保护/拒绝/限长，CRT宿主职责只原D02/正常失败分支，不混网络加解密。两既有真F新语义1614/1615、TEXT25→27/两adapted/两局部I-S及两个NOP区14B仅用途；完整接收父/其他字体provider/全部正常owner-alias分配释放域与绘制过期寿命、ABI/链接/画面/明文互通/运行未验",
+      "verification_level": "BTI01玩家51A6A0与非玩家442DC0头顶文本两完整原根304条834B/六页两chunk，11direct五目标/两Tick导入/30jump六RET，唯一接收50CAE0@50CDBD/50CDEE且原参数/void返回弃保。YobiRuntime.cpp五片段与SceneState.cpp既有MarkPlayerChatActive一片段，两原正文和既有共享分配helper/标记helper共六片段，无新helper。两标记恢复同W16 owner高BYTE的bit20，不读写低BYTE；两旧text槽取样一次供NULL判定/free/原清槽；malloc数量普通S32 remaining+3后按实际U32 API参数再拓宿主size_t，返回地址发布后复用同native return判NULL，不回读槽；短复制每轮现场取text1C地址→source BYTE→写目标BYTE，不缓存全轮。原payload一次/玩家末次重取action名/非玩家43D860、Tick与deadline、三前缀/两真实strncmp/普通S32 offset与remaining/原malloc失败及color→length→font/40阈/44B570 AL2/40-39两布局/+41第二行与未写gap/三尾NUL、其它源头和文字绘制/过期清理现接线保。非地址算术不扩宽，不做异常回绕/补零/钳制/保护/拒绝/限长，CRT宿主职责只原D02/正常失败分支，不混网络加解密。两既有真F新语义1614/1615、TEXT25→27/两adapted/两局部I-S及两个NOP区14B仅用途；完整接收父/其他字体provider/全部正常owner-alias分配释放域与绘制过期寿命、ABI/链接/画面/明文互通/运行未验",
+      "actor_chat_text_sampling": {
+        "spec_id": "BTI01",
+        "evidence_refs": [
+          "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-baseline",
+          "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-decision",
+          "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-acceptance",
+          "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-source-state",
+          "doc/cg2d_actor_chat_text_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 148,
+        "original_code_bytes": 405,
+        "original_page_count": 3,
+        "original_direct_call_count": 5,
+        "original_unique_callee_count": 4,
+        "original_tick_import_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "batch_source_patch_count": 6,
+        "source_original_function_direct_patch_count": 1,
+        "source_existing_helper_change_count": 2,
+        "source_high_byte_only_marker_restored": true,
+        "source_previous_free_address_sample_restored": true,
+        "source_malloc_api_w32_before_host_size_restored": true,
+        "source_published_native_return_null_sample_restored": true,
+        "source_each_short_copy_destination_before_source_byte_restored": true,
+        "original_split_layout_gap_and_normal_arithmetic_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

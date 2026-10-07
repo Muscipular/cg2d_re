@@ -35549,8 +35549,11 @@ void AllocateActorChatText(
         offset += 6;
     }
     const std::int32_t remaining = length - offset;
-    payload->text1C = static_cast<char*>(std::malloc(static_cast<std::size_t>(remaining + 3)));
-    if (payload->text1C == nullptr) {
+    const std::uint32_t allocationSize = static_cast<std::uint32_t>(remaining + 3);
+    char* const allocation =
+        static_cast<char*>(std::malloc(static_cast<std::size_t>(allocationSize)));
+    payload->text1C = allocation;
+    if (allocation == nullptr) {
         return;
     }
     payload->color20 = color;
@@ -35558,7 +35561,9 @@ void AllocateActorChatText(
     payload->font28 = font;
     if (remaining <= 40) {
         for (std::int32_t index = 0; index < remaining; ++index) {
-            payload->text1C[index] = text[offset + index];
+            char* const destination = payload->text1C;
+            const char sourceByte = text[offset + index];
+            destination[index] = sourceByte;
         }
         payload->text1C[remaining] = '\0';
         return;
@@ -35674,12 +35679,15 @@ void Sub_442DC0(
         return;
     }
     auto* const payload = static_cast<login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags42 |= 0x2000u;
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(
+        &gWorldObjects[payload->index].flags42);
+    flagBytes[1] |= 0x20u;
     const std::uint32_t tick = platform::ReadTickCount32();
     payload->chatDeadline14 = tick + static_cast<std::uint32_t>(duration);
     Sub_43D860(action);
-    if (payload->text1C != nullptr) {
-        std::free(payload->text1C);
+    char* const previousText = payload->text1C;
+    if (previousText != nullptr) {
+        std::free(previousText);
         payload->text1C = nullptr;
     }
     AllocateActorChatText(payload, action->nameC4.data(), text, color, font, length);
@@ -35697,8 +35705,9 @@ void Sub_51A6A0(
     auto* const payload = static_cast<login::detail::MapActorPayload*>(action->payload);
     const std::uint32_t tick = platform::ReadTickCount32();
     payload->chatDeadline14 = tick + static_cast<std::uint32_t>(duration);
-    if (payload->text1C != nullptr) {
-        std::free(payload->text1C);
+    char* const previousText = payload->text1C;
+    if (previousText != nullptr) {
+        std::free(previousText);
         payload->text1C = nullptr;
     }
     AllocateActorChatText(payload, ReadPlayerAction()->nameC4.data(), text, color, font, length);

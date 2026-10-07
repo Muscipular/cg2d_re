@@ -4381,3 +4381,11 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 新机器1418对应已有角色原根；语义1418→1419/有效ID1413→1414、关联1531→1532（41.60%→41.63%）、分类539→540、RENDER51→52/YOBI55→56均枚举open，两域独立正常局部I/S共4条E685→689。冻定位1不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061及其它门禁保持；八open含G04只进展/引用，60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
 
 只YobiRuntime.cpp一个完整RenderChara正文，所有其它实现/存储/头/公开或私有声明、action-队列布局、实际父/名称及排序-命中-绘制provider与owner保持，不新增helper/影子状态/原入口。原有效内嵌空名也调用、parity只cache=-2、图号-1/death严格1/低flags2和S16容量原门槛保；正常PC53/S64低S32边界保，不做FP环境/异常回绕模拟或新增拒绝/保护/补零/钳制。全部上游-18点之父/callee/正常alias与action-队列-图形-纹理-owner及场景-失效-退出、SDK-机器FP ABI和像素运行未验。未构建/测试/运行/hash，网络原格式只明文、内存CryptInt保、音频暂停，整体SPEC继续。
+
+## 头顶聊天文本标记与取样更新（BTI01，2026-10-07）
+
+按[BTI01裁决](cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-decision)实修两原文本入口及既有AllocateActorChatText/MarkPlayerChatActive，共两cpp六片段。两标记只OR同W16 owner高BYTE的0x20；两旧text地址一次取样供NULL/free/原清槽。分配量普通S32 remaining+3后先按实际U32 API参数再拓size_t；native返回先pub后用同样本判NULL。短复制每轮现场目标地址→source BYTE→写BYTE，末NUL重取目标槽。
+
+原payload/玩家末次action名与非玩家43D860、Tick/deadline、三前缀/两strncmp、原NULL失败及三字段写序、40阈/AL2与40-39布局/+41/未写gap/三NUL和所有其它源头保持，无新helper/规则/异常模拟。两完整根304条834B/六页两块，11direct五目标/两Tick/30jump六RET；唯一50CAE0@50CDBD/50CDEE已接，void返回弃保。
+
+补两既有真F语义1614/1615、TEXT25→27/两adapted/两局部I-S各23来源，两NOP区14B只用途；全部接收父/provider/正常分配释放域与绘制过期寿命、SDK-ABI/链接/画面/明文互通/运行未验，音频暂停与网络原格式明文保持。

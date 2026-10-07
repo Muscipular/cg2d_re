@@ -3420,3 +3420,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [基线](cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline)对应既有809/F:0010CAE0：原278条801B/四页，13direct十一目标/31jump两RET、唯一512E40@51483C及现zdr参数保持；一片段恢复source→共享BYTE/同source NUL，旧限长复制/两strncmp/入向全部字段保持后追加。未初始化593850的FF无有效内容，不改现owner初值。
 
 无新语义/F：1614有效1607/文档1725（46.88%）保持；NETWORK54→55/处置755/E882两局部I-S各21来源/R7 324→325余2736，15B只原用途。INPUT29/CHARACTER23/LOGIN13/LOOP38/MAP69、冻结定位/pending18/差队列及任务和完整门禁保；不代全接收父/provider、原格式明文互通、正常寿命/ABI/运行。
+
+## BTI01 玩家/非玩家聊天文本生产合同（2026-10-07）
+
+[完整基线](cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-baseline)对应F:00042DC0/1614和F:0011A6A0/1615：两原根304条834B/六页、11direct五目标/两Tick/30jump六RET、两个唯一接收消费。两cpp六片段恢复高BYTE、旧释放指针、分配U32数量/native return、短复制每轮目标地址先取；原两正文/两个已有helper及布局/失败/正常算术保，无新原F/helper。
+
+语义1616有效1609/文档1727（46.93%）/处置757/E884、TEXT27两局部I-S各23来源/R7 325→327余2734；INPUT29/NETWORK55/CHARACTER23/LOGIN13/LOOP38/MAP69、全部旧1614语义/冻结定位/pending18/差队列和原任务/完整门禁保。完整正常文本分配/借用/绘制/过期释放域及ABI、链接/明文互通/运行仍待。

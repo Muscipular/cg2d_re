@@ -10632,9 +10632,10 @@ std::int32_t Sub_45EEE0()
 std::int32_t Sub_51D790(
     const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
+    const std::uint32_t trigger = gValue58B6D0;
     std::int32_t completed = 0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
-    if (gValue58B6D0 == 1) {
+    if (trigger == 1) {
         completed = -1;
         gValue58B6D0 = 0;
         gTransitionXFF48E8 = 0.0f;
@@ -10919,9 +10920,10 @@ std::int32_t Sub_51D790(
 std::int32_t Sub_51E0D0(
     const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)
 {
+    const std::uint32_t trigger = gValue58B6D0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};
     std::int32_t phase;
-    if (gValue58B6D0 == 1) {
+    if (trigger == 1) {
         phase = -1;
         gValue58B6D0 = 0;
         gReverseTransitionPhase58B6D4 = -1;

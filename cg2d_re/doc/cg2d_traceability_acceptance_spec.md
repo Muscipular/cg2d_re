@@ -1870,3 +1870,15 @@ G02/R04/V04仅current/引用仍open，完整机器/派生只具名差集，原�
 集中静态通过：四完整根979条3326B/17页、21局部累计293条953B/九准确复用与末窗真实13条，四区间178B的两表40项160B/15B NN_NOP及3B同ECX零位移LEA按实际解码/索引入向区分；五相关源/五完整正文与HEAD一致、真实36分派与各原生产/采样/native失败及发布保持。源码0改动/无新I，两完整机器与完整派生只有具名差集；十四文件UTF8无BOM/LF、四锚点/两限定S各25真实来源通过。
 
 文本汇总与Check均退出0；实际语义1759/有效1752、合同1870（50.82%）、F900/E1062、R7已审462余2599、LOOP172/RENDER73。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有旧记录与完整闭包保持；完整51D790/51E0D0及其余父/callee、owner-alias寿命、机器ABI/链接/像素/正常失败/运行及R8未验，整体目标继续。
+
+## BVE01两FXprefix实修的限定验收（2026-10-08）
+
+[完整原基线](cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline)、[取样裁决](cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision)及[原证](cg2d_fx_trigger_sampling_evidence.json)承接BVD两大FX：两完整根1252条5152B/19页，完整控制父285条752B/18局部252条707B准确复用，两9项表72B/24B实际NN_NOP与两X96B用途。[验收](cg2d_fx_trigger_sampling_spec.md#fx-trigger-acceptance)与[源态](cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state)限定两根W32触发持样早于RECT/同持样判定一cpp两个prefix、现声明/18实际消费和两用途。四I-S各25真实来源，明确完整数值分支/FPU精度、像素/owner-alias寿命/ABI链接运行未验，不把原完整取证代这些门禁。
+
+G02/R04/V04仅current/引用仍open，完整机器/派生只具名差集、成员/叶/域/全局门禁保；不构建/测试/运行、产物或摘要，异常不专项处理/模拟/记等价，R8标准保持。
+
+### BVE01 当前触发取样实修限定静态结果
+
+集中静态通过：两完整原根1252条5152B/19页，BVD完整285条752B父及18局部252条707B准确复用、两9项表72B/24B NN_NOP与两X96B用途；整cpp仅两根各一个prefix，W32触发先持样后RECT/按同持样判定，完整余体/四其它源/声明与实际mode/value/payload消费保持。两完整机器和完整派生只具名差集；十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1761/有效1754、合同1872（50.87%）、F902/E1066、R7已审464余2597、LOOP174/RENDER75。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/1758与所有旧记录/完整闭包保持。仅取样prefix/接口及用途局部通过，完整数值分支/FPU精度、像素/其他callee/owner-alias寿命、机器ABI/链接/正常失败/运行与R8仍未验；完整原证不代这些门禁，整体目标继续。

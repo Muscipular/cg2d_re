@@ -67,3 +67,11 @@
 [BPE01 SPEC](cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision)/[原证据](cg2d_protocol_integer_normal_arithmetic_evidence.json)：只恢复5176B0正常S32累计/首位sign/最终乘符号，保原base62字节表、首位负号、非法0和正确517190包装。解析不更改原帧/组包/协议字段/文本转义，不恢复两加解密叶。不能借用52D050任意位置负号算法。
 
 两原根57条132B及158普通点独立纳盘；六上批具名证据拆回独立文件引用不增原验收，四新正常局部I/S不代真实互通。语义1422条/1417原ID、合同关联1535/3680（41.71%）、分类543、NETWORK50枚举未闭均保持；E695→699只增加两个既有根各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及完整门禁保持。
+
+## 地图窗口请求的上游参数基线（BUN01，2026-10-08）
+
+[地图请求基线](cg2d_map_window_search_baseline_spec.md#map-window-search-baseline)完整核46AF30：搜索成功后每轮按原endY/endX/startY/startX S16、floor/mapId W32、native socket取样，交当前510710的socket/mapId/floor/startX/startY/endX/endY；调用后fresh窗口数，尾等待标志/方向/坐标/tick原序保。与窗口生产/原索引表共388条1302B/八页，正确源码、协议与共享网络缓冲保持，代码0改动。
+
+510710当前已有UUN六整数构造/发送源码，本步只证明上游原调用点/字段序和现接线；该叶完整原端基线仍缺，不能称其原体/完整格式互通或网络运行已验，留为下一项取证缺口。不改消息名/字段/顺序/帧或编码，不引入加解密，网络原格式明文合同及401960/401AB0排除保持。FUNC-NETWORK成员/原任务状态与全网络门禁不因本上游记录变更。
+
+BUN01必要静态已通过：四既有正确根及SceneState/相关CPP/声明/owner/网络源全文保持，源码0改动、仅新增两域S/新增I为0。四原根388条1302B/八页、五局部后窗/四尾26B用途与完整证据/机器及文档模型一致。汇总及 -Check 通过，派生实值：语义1708/有效1701、合同1819（49.43%）、处置849/E994、R7已审415/余2646、LOOP120/MAP117。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保；FUNC-NETWORK原57成员/既有门禁保持，510710原体不由本步外推。未编译、测试或运行，完整正常寿命/数值/x87/全父/callee/ABI/像素/明文互通及R8继续。命名快照：cg2d-re-map-window-search-baseline-20261008。

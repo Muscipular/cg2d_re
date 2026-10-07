@@ -1680,3 +1680,11 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 LOOP112→116/MAP109→113各局部I-S各25来源；U11/G02/R04/V04只current/引用，四任务open。完整正常生产消费/全父/callee/数值/x87/owner-alias寿命/机器ABI/链接/全像素/明文互通及R8继续，原差队列/closed11和完整门禁及原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
 
 BUM01必要静态已通过：完整MapDrawCache仅一个私有CopyMapDrawRecord插入及合并正文六片段变化，前44B十一W32每对读写后before/after native非拥有地址，bulk前向逐记录；原各pub时点/正常分支、另三正确根/布局/owner/四生产/两比较/父及队列声明全保持。四原根324条980B/七页、六rep/两局部后窗/四尾28B用途与证据及机器/文档模型一致。汇总及 -Check 通过，派生实值：语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650、LOOP116/MAP113。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行；完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/像素及R8继续。命名快照：cg2d-re-map-draw-merge-word-sampling-20261008。
+
+## BUN01 正确地图依赖的基线验收（2026-10-08）
+
+[基线](cg2d_map_window_search_baseline_spec.md#map-window-search-baseline)、[裁决](cg2d_map_window_search_baseline_spec.md#map-window-search-decision)、[验收](cg2d_map_window_search_baseline_spec.md#map-window-search-acceptance)及[证据](cg2d_map_window_search_baseline_evidence.json)覆盖388条1302B/八页、五局部后窗/26B用途。四正确窗口/请求/查表填表及原字段/取样/返回/接线源码保持，代码0改动，只补两域S，不加I成果或将新增身份当新增实现。
+
+LOOP116→120/MAP113→117、U10/G02/R04/V03只current/引用，四任务open。全部父/callee、510710完整原体/正常寿命/数值/x87/机器ABI/链接/像素/明文互通与R8继续；差队列/closed11/完整门禁及网络原格式明文、内部LegacyCryptInt/音频暂停/RPLAN.24保持。
+
+BUN01必要静态已通过：四既有正确根及SceneState/相关CPP/声明/owner/网络源全文保持，源码0改动、仅新增两域S/新增I为0。四原根388条1302B/八页、五局部后窗/四尾26B用途与完整证据/机器及文档模型一致。汇总及 -Check 通过，派生实值：语义1708/有效1701、合同1819（49.43%）、处置849/E994、R7已审415/余2646、LOOP120/MAP117。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保；FUNC-NETWORK原57成员/既有门禁保持，510710原体不由本步外推。未编译、测试或运行，完整正常寿命/数值/x87/全父/callee/ABI/像素/明文互通及R8继续。命名快照：cg2d-re-map-window-search-baseline-20261008。

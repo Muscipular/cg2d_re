@@ -194052,6 +194052,322 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x469870",
+      "inventory_id": "F:00069870",
+      "original_role": "四方向地图窗口搜索与共享边界生产",
+      "original_end_exclusive": "0x469c87",
+      "original_chunks": [
+        {
+          "start": "0x469870",
+          "end_exclusive": "0x469c87"
+        }
+      ],
+      "instruction_count": 318,
+      "status": "BUN01四地图依赖388条1302B/八页完整基线纳管；四现有正确体与字段/请求参数/查表填表/返回及接线保持，源0改动，仅S、不加I成果，完整510710原体/正常寿命/数值/画面运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_469870"
+          ],
+          "relationship": "BUN01地图四方向窗口搜索469870、窗口请求46AF30、原图号查表46CF00/填表46CF20四完整根388条1302B/八页四块、24directcall/一GetTickCount间接call/55jump/九RET/十入向（六父）。现四既有正文及全部CPP正确全文保持，源码新增/改动0，不制造修复或新增I成果。搜索原S16跨度>=51、四条件内未消费的-11/+11/IntMinus读取/RNG消费仍保，清W16窗口数后按W/N/E/S四方向组各23格搜索；每组held span与第一组fresh XBound/后组held XBound及每轮fresh YBound、原hit WORD零判定、四不同W16窗口pub/四地址裁剪后W16inc、两次S16窗口数>=2截断与原found0/1返回保。请求原首S16 pending direction→同搜索，失败0；每轮S16窗口数/索引，endY/endX/startY/startX S16依序取样再floor/mapId W32/native socket传给既有510710，回调后fresh count，尾W32等待标志→W16方向→PlayerX读pub→Y读pub→GetTickCount W32pub/返。510710现源码UUN六整数字段及明文/原格式合同保持，仅本步AF30参数/调用点证明，不称该叶原体/网络互通已验，不发明或更改协议。查表首U32>=65536直接返入参原位型，负S32因首门禁原样返回，不改为拒绝/0；后原负门禁保持，正常由唯一W32表当前值读取，不以公式代查表。填表前20000项W32 identity、后45536项index+200000，返原生非拥有one-past表指针；父已1577实现，旧文§11/查表段未实现caller只历史，现已接线。四原尾26B NN_NOP无入向/后真入口仅用途，五局部后窗与旧父基线引用不代所有父/ABI/寿命。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/数值/x87/全父/callee/机器ABI/链接/像素/明文互通及R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-acceptance",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
+        "doc/cg2d_map_window_search_baseline_evidence.json"
+      ],
+      "boundary": "BUN01地图四方向窗口搜索469870、窗口请求46AF30、原图号查表46CF00/填表46CF20四完整根388条1302B/八页四块、24directcall/一GetTickCount间接call/55jump/九RET/十入向（六父）。现四既有正文及全部CPP正确全文保持，源码新增/改动0，不制造修复或新增I成果。搜索原S16跨度>=51、四条件内未消费的-11/+11/IntMinus读取/RNG消费仍保，清W16窗口数后按W/N/E/S四方向组各23格搜索；每组held span与第一组fresh XBound/后组held XBound及每轮fresh YBound、原hit WORD零判定、四不同W16窗口pub/四地址裁剪后W16inc、两次S16窗口数>=2截断与原found0/1返回保。请求原首S16 pending direction→同搜索，失败0；每轮S16窗口数/索引，endY/endX/startY/startX S16依序取样再floor/mapId W32/native socket传给既有510710，回调后fresh count，尾W32等待标志→W16方向→PlayerX读pub→Y读pub→GetTickCount W32pub/返。510710现源码UUN六整数字段及明文/原格式合同保持，仅本步AF30参数/调用点证明，不称该叶原体/网络互通已验，不发明或更改协议。查表首U32>=65536直接返入参原位型，负S32因首门禁原样返回，不改为拒绝/0；后原负门禁保持，正常由唯一W32表当前值读取，不以公式代查表。填表前20000项W32 identity、后45536项index+200000，返原生非拥有one-past表指针；父已1577实现，旧文§11/查表段未实现caller只历史，现已接线。四原尾26B NN_NOP无入向/后真入口仅用途，五局部后窗与旧父基线引用不代所有父/ABI/寿命。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/数值/x87/全父/callee/机器ABI/链接/像素/明文互通及R8未验。",
+      "verification_level": "BUN01地图窗口搜索→窗口请求与查表/填表四根388条1302B/八页真实基线纳管，当前四正确体及原正常读写/返回/窗口owner/请求参数与已有接线全保；代码新增/改动0，仅新增两域S，不新增I成果；五局部窗口/四26B用途不代所有父/510710原体/数值/ABI/生命周期/像素或明文运行",
+      "map_window_search_baseline": {
+        "spec_id": "BUN01",
+        "evidence_refs": [
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-acceptance",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
+          "doc/cg2d_map_window_search_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 318,
+        "original_code_bytes": 1047,
+        "original_page_count": 5,
+        "original_direct_call_count": 20,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 47,
+        "original_return_count": 5,
+        "original_inbound_reference_count": 3,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_gate_evidence_count": 0,
+        "new_static_gate_evidence_count": 2,
+        "original_all_four_correct_existing_bodies_kept": true,
+        "original_search_unused_arithmetic_reads_RNG_and_direction_group_sampling_kept": true,
+        "original_four_window_W16_write_orders_clip_addresses_and_live_count_kept": true,
+        "original_request_window_parameter_order_fresh_count_and_state_clock_return_kept": true,
+        "original_unsigned_lookup_threshold_negative_passthrough_and_live_table_read_kept": true,
+        "original_table_20000_identity_45536_bias_native_onepast_return_kept": true,
+        "original_unique_table_and_window_owner_and_current_parent_wiring_kept": true,
+        "original_source_network_format_plaintext_and_audio_pause_kept": true,
+        "original_nop_tail_bytes": 26,
+        "original_local_caller_window_count": 5,
+        "network_510710_original_root_captured_in_this_step": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46AF30",
+      "inventory_id": "F:0006AF30",
+      "original_role": "共享窗口消费和原地图请求参数生产/状态时钟发布",
+      "original_end_exclusive": "0x46afde",
+      "original_chunks": [
+        {
+          "start": "0x46af30",
+          "end_exclusive": "0x46afde"
+        }
+      ],
+      "instruction_count": 44,
+      "status": "BUN01四地图依赖388条1302B/八页完整基线纳管；四现有正确体与字段/请求参数/查表填表/返回及接线保持，源0改动，仅S、不加I成果，完整510710原体/正常寿命/数值/画面运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46AF30"
+          ],
+          "relationship": "BUN01地图四方向窗口搜索469870、窗口请求46AF30、原图号查表46CF00/填表46CF20四完整根388条1302B/八页四块、24directcall/一GetTickCount间接call/55jump/九RET/十入向（六父）。现四既有正文及全部CPP正确全文保持，源码新增/改动0，不制造修复或新增I成果。搜索原S16跨度>=51、四条件内未消费的-11/+11/IntMinus读取/RNG消费仍保，清W16窗口数后按W/N/E/S四方向组各23格搜索；每组held span与第一组fresh XBound/后组held XBound及每轮fresh YBound、原hit WORD零判定、四不同W16窗口pub/四地址裁剪后W16inc、两次S16窗口数>=2截断与原found0/1返回保。请求原首S16 pending direction→同搜索，失败0；每轮S16窗口数/索引，endY/endX/startY/startX S16依序取样再floor/mapId W32/native socket传给既有510710，回调后fresh count，尾W32等待标志→W16方向→PlayerX读pub→Y读pub→GetTickCount W32pub/返。510710现源码UUN六整数字段及明文/原格式合同保持，仅本步AF30参数/调用点证明，不称该叶原体/网络互通已验，不发明或更改协议。查表首U32>=65536直接返入参原位型，负S32因首门禁原样返回，不改为拒绝/0；后原负门禁保持，正常由唯一W32表当前值读取，不以公式代查表。填表前20000项W32 identity、后45536项index+200000，返原生非拥有one-past表指针；父已1577实现，旧文§11/查表段未实现caller只历史，现已接线。四原尾26B NN_NOP无入向/后真入口仅用途，五局部后窗与旧父基线引用不代所有父/ABI/寿命。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/数值/x87/全父/callee/机器ABI/链接/像素/明文互通及R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-acceptance",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
+        "doc/cg2d_map_window_search_baseline_evidence.json"
+      ],
+      "boundary": "BUN01地图四方向窗口搜索469870、窗口请求46AF30、原图号查表46CF00/填表46CF20四完整根388条1302B/八页四块、24directcall/一GetTickCount间接call/55jump/九RET/十入向（六父）。现四既有正文及全部CPP正确全文保持，源码新增/改动0，不制造修复或新增I成果。搜索原S16跨度>=51、四条件内未消费的-11/+11/IntMinus读取/RNG消费仍保，清W16窗口数后按W/N/E/S四方向组各23格搜索；每组held span与第一组fresh XBound/后组held XBound及每轮fresh YBound、原hit WORD零判定、四不同W16窗口pub/四地址裁剪后W16inc、两次S16窗口数>=2截断与原found0/1返回保。请求原首S16 pending direction→同搜索，失败0；每轮S16窗口数/索引，endY/endX/startY/startX S16依序取样再floor/mapId W32/native socket传给既有510710，回调后fresh count，尾W32等待标志→W16方向→PlayerX读pub→Y读pub→GetTickCount W32pub/返。510710现源码UUN六整数字段及明文/原格式合同保持，仅本步AF30参数/调用点证明，不称该叶原体/网络互通已验，不发明或更改协议。查表首U32>=65536直接返入参原位型，负S32因首门禁原样返回，不改为拒绝/0；后原负门禁保持，正常由唯一W32表当前值读取，不以公式代查表。填表前20000项W32 identity、后45536项index+200000，返原生非拥有one-past表指针；父已1577实现，旧文§11/查表段未实现caller只历史，现已接线。四原尾26B NN_NOP无入向/后真入口仅用途，五局部后窗与旧父基线引用不代所有父/ABI/寿命。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/数值/x87/全父/callee/机器ABI/链接/像素/明文互通及R8未验。",
+      "verification_level": "BUN01地图窗口搜索→窗口请求与查表/填表四根388条1302B/八页真实基线纳管，当前四正确体及原正常读写/返回/窗口owner/请求参数与已有接线全保；代码新增/改动0，仅新增两域S，不新增I成果；五局部窗口/四26B用途不代所有父/510710原体/数值/ABI/生命周期/像素或明文运行",
+      "map_window_search_baseline": {
+        "spec_id": "BUN01",
+        "evidence_refs": [
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-acceptance",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
+          "doc/cg2d_map_window_search_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 44,
+        "original_code_bytes": 174,
+        "original_page_count": 1,
+        "original_direct_call_count": 4,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 3,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_gate_evidence_count": 0,
+        "new_static_gate_evidence_count": 2,
+        "original_all_four_correct_existing_bodies_kept": true,
+        "original_search_unused_arithmetic_reads_RNG_and_direction_group_sampling_kept": true,
+        "original_four_window_W16_write_orders_clip_addresses_and_live_count_kept": true,
+        "original_request_window_parameter_order_fresh_count_and_state_clock_return_kept": true,
+        "original_unsigned_lookup_threshold_negative_passthrough_and_live_table_read_kept": true,
+        "original_table_20000_identity_45536_bias_native_onepast_return_kept": true,
+        "original_unique_table_and_window_owner_and_current_parent_wiring_kept": true,
+        "original_source_network_format_plaintext_and_audio_pause_kept": true,
+        "original_nop_tail_bytes": 26,
+        "original_local_caller_window_count": 5,
+        "network_510710_original_root_captured_in_this_step": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46CF00",
+      "inventory_id": "F:0006CF00",
+      "original_role": "原图号当前共享W32表读取与原U32门禁",
+      "original_end_exclusive": "0x46cf1a",
+      "original_chunks": [
+        {
+          "start": "0x46cf00",
+          "end_exclusive": "0x46cf1a"
+        }
+      ],
+      "instruction_count": 9,
+      "status": "BUN01四地图依赖388条1302B/八页完整基线纳管；四现有正确体与字段/请求参数/查表填表/返回及接线保持，源0改动，仅S、不加I成果，完整510710原体/正常寿命/数值/画面运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46CF00"
+          ],
+          "relationship": "BUN01地图四方向窗口搜索469870、窗口请求46AF30、原图号查表46CF00/填表46CF20四完整根388条1302B/八页四块、24directcall/一GetTickCount间接call/55jump/九RET/十入向（六父）。现四既有正文及全部CPP正确全文保持，源码新增/改动0，不制造修复或新增I成果。搜索原S16跨度>=51、四条件内未消费的-11/+11/IntMinus读取/RNG消费仍保，清W16窗口数后按W/N/E/S四方向组各23格搜索；每组held span与第一组fresh XBound/后组held XBound及每轮fresh YBound、原hit WORD零判定、四不同W16窗口pub/四地址裁剪后W16inc、两次S16窗口数>=2截断与原found0/1返回保。请求原首S16 pending direction→同搜索，失败0；每轮S16窗口数/索引，endY/endX/startY/startX S16依序取样再floor/mapId W32/native socket传给既有510710，回调后fresh count，尾W32等待标志→W16方向→PlayerX读pub→Y读pub→GetTickCount W32pub/返。510710现源码UUN六整数字段及明文/原格式合同保持，仅本步AF30参数/调用点证明，不称该叶原体/网络互通已验，不发明或更改协议。查表首U32>=65536直接返入参原位型，负S32因首门禁原样返回，不改为拒绝/0；后原负门禁保持，正常由唯一W32表当前值读取，不以公式代查表。填表前20000项W32 identity、后45536项index+200000，返原生非拥有one-past表指针；父已1577实现，旧文§11/查表段未实现caller只历史，现已接线。四原尾26B NN_NOP无入向/后真入口仅用途，五局部后窗与旧父基线引用不代所有父/ABI/寿命。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/数值/x87/全父/callee/机器ABI/链接/像素/明文互通及R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-acceptance",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
+        "doc/cg2d_map_window_search_baseline_evidence.json"
+      ],
+      "boundary": "BUN01地图四方向窗口搜索469870、窗口请求46AF30、原图号查表46CF00/填表46CF20四完整根388条1302B/八页四块、24directcall/一GetTickCount间接call/55jump/九RET/十入向（六父）。现四既有正文及全部CPP正确全文保持，源码新增/改动0，不制造修复或新增I成果。搜索原S16跨度>=51、四条件内未消费的-11/+11/IntMinus读取/RNG消费仍保，清W16窗口数后按W/N/E/S四方向组各23格搜索；每组held span与第一组fresh XBound/后组held XBound及每轮fresh YBound、原hit WORD零判定、四不同W16窗口pub/四地址裁剪后W16inc、两次S16窗口数>=2截断与原found0/1返回保。请求原首S16 pending direction→同搜索，失败0；每轮S16窗口数/索引，endY/endX/startY/startX S16依序取样再floor/mapId W32/native socket传给既有510710，回调后fresh count，尾W32等待标志→W16方向→PlayerX读pub→Y读pub→GetTickCount W32pub/返。510710现源码UUN六整数字段及明文/原格式合同保持，仅本步AF30参数/调用点证明，不称该叶原体/网络互通已验，不发明或更改协议。查表首U32>=65536直接返入参原位型，负S32因首门禁原样返回，不改为拒绝/0；后原负门禁保持，正常由唯一W32表当前值读取，不以公式代查表。填表前20000项W32 identity、后45536项index+200000，返原生非拥有one-past表指针；父已1577实现，旧文§11/查表段未实现caller只历史，现已接线。四原尾26B NN_NOP无入向/后真入口仅用途，五局部后窗与旧父基线引用不代所有父/ABI/寿命。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/数值/x87/全父/callee/机器ABI/链接/像素/明文互通及R8未验。",
+      "verification_level": "BUN01地图窗口搜索→窗口请求与查表/填表四根388条1302B/八页真实基线纳管，当前四正确体及原正常读写/返回/窗口owner/请求参数与已有接线全保；代码新增/改动0，仅新增两域S，不新增I成果；五局部窗口/四26B用途不代所有父/510710原体/数值/ABI/生命周期/像素或明文运行",
+      "map_window_search_baseline": {
+        "spec_id": "BUN01",
+        "evidence_refs": [
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-acceptance",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
+          "doc/cg2d_map_window_search_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 9,
+        "original_code_bytes": 26,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 5,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_gate_evidence_count": 0,
+        "new_static_gate_evidence_count": 2,
+        "original_all_four_correct_existing_bodies_kept": true,
+        "original_search_unused_arithmetic_reads_RNG_and_direction_group_sampling_kept": true,
+        "original_four_window_W16_write_orders_clip_addresses_and_live_count_kept": true,
+        "original_request_window_parameter_order_fresh_count_and_state_clock_return_kept": true,
+        "original_unsigned_lookup_threshold_negative_passthrough_and_live_table_read_kept": true,
+        "original_table_20000_identity_45536_bias_native_onepast_return_kept": true,
+        "original_unique_table_and_window_owner_and_current_parent_wiring_kept": true,
+        "original_source_network_format_plaintext_and_audio_pause_kept": true,
+        "original_nop_tail_bytes": 26,
+        "original_local_caller_window_count": 5,
+        "network_510710_original_root_captured_in_this_step": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46CF20",
+      "inventory_id": "F:0006CF20",
+      "original_role": "65536项W32索引表生产与native一过尾借用返回",
+      "original_end_exclusive": "0x46cf57",
+      "original_chunks": [
+        {
+          "start": "0x46cf20",
+          "end_exclusive": "0x46cf57"
+        }
+      ],
+      "instruction_count": 17,
+      "status": "BUN01四地图依赖388条1302B/八页完整基线纳管；四现有正确体与字段/请求参数/查表填表/返回及接线保持，源0改动，仅S、不加I成果，完整510710原体/正常寿命/数值/画面运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46CF20"
+          ],
+          "relationship": "BUN01地图四方向窗口搜索469870、窗口请求46AF30、原图号查表46CF00/填表46CF20四完整根388条1302B/八页四块、24directcall/一GetTickCount间接call/55jump/九RET/十入向（六父）。现四既有正文及全部CPP正确全文保持，源码新增/改动0，不制造修复或新增I成果。搜索原S16跨度>=51、四条件内未消费的-11/+11/IntMinus读取/RNG消费仍保，清W16窗口数后按W/N/E/S四方向组各23格搜索；每组held span与第一组fresh XBound/后组held XBound及每轮fresh YBound、原hit WORD零判定、四不同W16窗口pub/四地址裁剪后W16inc、两次S16窗口数>=2截断与原found0/1返回保。请求原首S16 pending direction→同搜索，失败0；每轮S16窗口数/索引，endY/endX/startY/startX S16依序取样再floor/mapId W32/native socket传给既有510710，回调后fresh count，尾W32等待标志→W16方向→PlayerX读pub→Y读pub→GetTickCount W32pub/返。510710现源码UUN六整数字段及明文/原格式合同保持，仅本步AF30参数/调用点证明，不称该叶原体/网络互通已验，不发明或更改协议。查表首U32>=65536直接返入参原位型，负S32因首门禁原样返回，不改为拒绝/0；后原负门禁保持，正常由唯一W32表当前值读取，不以公式代查表。填表前20000项W32 identity、后45536项index+200000，返原生非拥有one-past表指针；父已1577实现，旧文§11/查表段未实现caller只历史，现已接线。四原尾26B NN_NOP无入向/后真入口仅用途，五局部后窗与旧父基线引用不代所有父/ABI/寿命。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/数值/x87/全父/callee/机器ABI/链接/像素/明文互通及R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-acceptance",
+        "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
+        "doc/cg2d_map_window_search_baseline_evidence.json"
+      ],
+      "boundary": "BUN01地图四方向窗口搜索469870、窗口请求46AF30、原图号查表46CF00/填表46CF20四完整根388条1302B/八页四块、24directcall/一GetTickCount间接call/55jump/九RET/十入向（六父）。现四既有正文及全部CPP正确全文保持，源码新增/改动0，不制造修复或新增I成果。搜索原S16跨度>=51、四条件内未消费的-11/+11/IntMinus读取/RNG消费仍保，清W16窗口数后按W/N/E/S四方向组各23格搜索；每组held span与第一组fresh XBound/后组held XBound及每轮fresh YBound、原hit WORD零判定、四不同W16窗口pub/四地址裁剪后W16inc、两次S16窗口数>=2截断与原found0/1返回保。请求原首S16 pending direction→同搜索，失败0；每轮S16窗口数/索引，endY/endX/startY/startX S16依序取样再floor/mapId W32/native socket传给既有510710，回调后fresh count，尾W32等待标志→W16方向→PlayerX读pub→Y读pub→GetTickCount W32pub/返。510710现源码UUN六整数字段及明文/原格式合同保持，仅本步AF30参数/调用点证明，不称该叶原体/网络互通已验，不发明或更改协议。查表首U32>=65536直接返入参原位型，负S32因首门禁原样返回，不改为拒绝/0；后原负门禁保持，正常由唯一W32表当前值读取，不以公式代查表。填表前20000项W32 identity、后45536项index+200000，返原生非拥有one-past表指针；父已1577实现，旧文§11/查表段未实现caller只历史，现已接线。四原尾26B NN_NOP无入向/后真入口仅用途，五局部后窗与旧父基线引用不代所有父/ABI/寿命。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/数值/x87/全父/callee/机器ABI/链接/像素/明文互通及R8未验。",
+      "verification_level": "BUN01地图窗口搜索→窗口请求与查表/填表四根388条1302B/八页真实基线纳管，当前四正确体及原正常读写/返回/窗口owner/请求参数与已有接线全保；代码新增/改动0，仅新增两域S，不新增I成果；五局部窗口/四26B用途不代所有父/510710原体/数值/ABI/生命周期/像素或明文运行",
+      "map_window_search_baseline": {
+        "spec_id": "BUN01",
+        "evidence_refs": [
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-acceptance",
+          "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
+          "doc/cg2d_map_window_search_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 17,
+        "original_code_bytes": 55,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_gate_evidence_count": 0,
+        "new_static_gate_evidence_count": 2,
+        "original_all_four_correct_existing_bodies_kept": true,
+        "original_search_unused_arithmetic_reads_RNG_and_direction_group_sampling_kept": true,
+        "original_four_window_W16_write_orders_clip_addresses_and_live_count_kept": true,
+        "original_request_window_parameter_order_fresh_count_and_state_clock_return_kept": true,
+        "original_unsigned_lookup_threshold_negative_passthrough_and_live_table_read_kept": true,
+        "original_table_20000_identity_45536_bias_native_onepast_return_kept": true,
+        "original_unique_table_and_window_owner_and_current_parent_wiring_kept": true,
+        "original_source_network_format_plaintext_and_audio_pause_kept": true,
+        "original_nop_tail_bytes": 26,
+        "original_local_caller_window_count": 5,
+        "network_510710_original_root_captured_in_this_step": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

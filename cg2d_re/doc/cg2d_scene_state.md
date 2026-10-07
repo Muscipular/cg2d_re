@@ -7947,3 +7947,11 @@ BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/C
 正确提交before→主→after及每次fresh主clip/记录参数、链next后取和fresh mergedCount返回，排序封装/已决专用原qsort与比较器保持；已纳管BYTE提交接口只消费原batch低BYTE，不为movsx高位制造接口修改。父原C2F0→C1C0→PlayerX调用序正确保，当前接线保持；四28B NOP仅用途，不代全父/callee/机器ABI、正常寿命或画面运行。
 
 BUM01必要静态已通过：完整MapDrawCache仅一个私有CopyMapDrawRecord插入及合并正文六片段变化，前44B十一W32每对读写后before/after native非拥有地址，bulk前向逐记录；原各pub时点/正常分支、另三正确根/布局/owner/四生产/两比较/父及队列声明全保持。四原根324条980B/七页、六rep/两局部后窗/四尾28B用途与证据及机器/文档模型一致。汇总及 -Check 通过，派生实值：语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650、LOOP116/MAP113。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行；完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/像素及R8继续。命名快照：cg2d-re-map-draw-merge-word-sampling-20261008。
+
+## 四方向窗口请求与原索引表基线纳管（BUN01，2026-10-08）
+
+[完整基线](cg2d_map_window_search_baseline_spec.md#map-window-search-baseline)388条1302B/八页覆盖469870/46AF30/46CF00/46CF20，四现有正文正确全文保持。搜索四组23格/W16窗口pub与计数/四原地址裁剪、held span及各XBound/fresh YBound、未消费算术的读取/RNG保；请求按原边界参数序/native socket消费窗口，调用后fresh数、原方向/坐标/tick发布及返回保。
+
+查表首原jnb按U32>=65536返入参位型，负S32不改返0；正常从唯一当前W32表取值，填表20000 identity/45536加200000及native one-past返回保。§11“467F30未实现”及旧查表段“父/三个caller未落位”是历史，当前已有1577/CF60/4693F0及469030接线。五局部后窗/四26B NOP用途归档，现510710网络叶的完整原体与明文互通未由本步核定。代码0变更，只补两域S，不新增I成果/不外推全父、数值、寿命、ABI或像素运行。
+
+BUN01必要静态已通过：四既有正确根及SceneState/相关CPP/声明/owner/网络源全文保持，源码0改动、仅新增两域S/新增I为0。四原根388条1302B/八页、五局部后窗/四尾26B用途与完整证据/机器及文档模型一致。汇总及 -Check 通过，派生实值：语义1708/有效1701、合同1819（49.43%）、处置849/E994、R7已审415/余2646、LOOP120/MAP117。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保；FUNC-NETWORK原57成员/既有门禁保持，510710原体不由本步外推。未编译、测试或运行，完整正常寿命/数值/x87/全父/callee/ABI/像素/明文互通及R8继续。命名快照：cg2d-re-map-window-search-baseline-20261008。

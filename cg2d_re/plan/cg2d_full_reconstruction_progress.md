@@ -3888,3 +3888,17 @@ BUL01第四平面三BYTE/空格短路已提交，本步沿地图父C2F0→C420/C
 新1700..1703四adapted，LOOP112→116/MAP109→113各局部I-S各25来源、四R7。预期语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650；必要静态/纯文本汇总后记实值。U11/G02/R04/V04只current/引用，四任务仍open，pending18/ECX pending7/closed11/差队列与完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，不编译、测试或运行，整体目标active。
 
 BUM01必要静态已通过：完整MapDrawCache仅一个私有CopyMapDrawRecord插入及合并正文六片段变化，前44B十一W32每对读写后before/after native非拥有地址，bulk前向逐记录；原各pub时点/正常分支、另三正确根/布局/owner/四生产/两比较/父及队列声明全保持。四原根324条980B/七页、六rep/两局部后窗/四尾28B用途与证据及机器/文档模型一致。汇总及 -Check 通过，派生实值：语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650、LOOP116/MAP113。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行；完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/像素及R8继续。命名快照：cg2d-re-map-draw-merge-word-sampling-20261008。
+
+## BUN01 四方向窗口→请求与索引表基线补齐（2026-10-08）
+
+BUM01六合并复制已实修提交，本步沿地图父当前尚无正式基线的469870和46CF00、唯一填表46CF20，继而补完整窗口消费46AF30。既有IDA只读MCP四原根388条1302B/八页四块、24directcall/一GetTickCount间接call/55jump/九RET、十入向/六父；五局部窗证实父对搜索返回的处理、查表结果分支、builder one-past沿467F30返回及AF30之后父覆盖返回。四尾9+2+6+9=26B实际NN_NOP/90无入向/后真入口，仅用途。
+
+搜索现四方向组23步、W16窗口数清0/两次>=2截断、原held span与第一组fresh XBound/后三组held XBound和fresh YBound、hit WORD零判定/四W16 pub及四地址裁剪后inc正确。入口未消费的-11/+11仍调用，保读取/RNG；请求当前先S16方向交搜索，失败0，成功每轮原endY/endX/startY/startX、floor/mapId/socket取样和请求参数序，回调后fresh数，尾W32等待/W16方向/PlayerX读pub→Y读pub→tick pub与原W32返正确。查表首jnb实际U32门禁，负S32原样返回；填表20000 identity/45536加200000与native one-past正确，保持源，不凭怀疑制造修改。
+
+先记[子SPEC](../doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision)，四正确正文/CPP/声明/owner及全部其它源保持，新增/修改源码0，只新增两域S，不新增I成果。当前467F30已1577，旧§11/查表caller未实现说明仅历史，本步补当前接线状态；既有CF60/4693F0/467F30/469FC0全根证据引用，不重复复核。
+
+发现510710虽然已有UUN六整数发送源码，原库存仍无正式语义/基线；本步仅证明上游AF30原参数和现接线，不把它错记已纳管或网络互通通过。已在SPEC/网络合同明确该叶完整原端仍缺，作为下一项具体缺口，不用假体/推测协议或更改原格式解决。网络原格式明文、加解密排除/内部LegacyCryptInt/音频暂停和RPLAN.24保持。
+
+新1704..1707四adapted，LOOP116→120/MAP113→117、两S各25来源/四R7；预期语义1708/有效1701、合同1819（49.43%）、处置849/E994、R7已审415/余2646，必要静态/汇总后记实值。U10/G02/R04/V03只current/引用，四任务仍open，pending18/ECX pending7/closed11/差队列及完整门禁保持，不编译、测试或运行，整体目标active。
+
+BUN01必要静态已通过：四既有正确根及SceneState/相关CPP/声明/owner/网络源全文保持，源码0改动、仅新增两域S/新增I为0。四原根388条1302B/八页、五局部后窗/四尾26B用途与完整证据/机器及文档模型一致。汇总及 -Check 通过，派生实值：语义1708/有效1701、合同1819（49.43%）、处置849/E994、R7已审415/余2646、LOOP120/MAP117。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保；FUNC-NETWORK原57成员/既有门禁保持，510710原体不由本步外推。未编译、测试或运行，完整正常寿命/数值/x87/全父/callee/ABI/像素/明文互通及R8继续。命名快照：cg2d-re-map-window-search-baseline-20261008。

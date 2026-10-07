@@ -4455,3 +4455,13 @@ AreMapActorTargetsAdjacent四对独立current→previous显式取样、符号条
 ### BTV01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：完整YobiRuntime仅一正文两预取/pub片段变化，正确442460/两构造两销毁/原运动与其它源保持；完整原根四归档段及10调用窗口、全部证据字段、机器台账/五文档/三任务、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1668/有效1661、文档1779（48.34%）、处置809/E924、R7已审377/余2684、LOOP80/MAP77；原pending18/pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保持。未编译、测试、运行或计算摘要，完整父/正常寿命/数值/机器ABI与运行R8继续。
+
+## 两移动变体各自三预取（BTW01，2026-10-07）
+
+按[裁决](cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision)，442730两轴各readCount W8→encoded W32→mask W32先取齐再同序pub/Destroy；4428F0两轴各mask W32→encoded W32→readCount W8先取齐再同序pub/Destroy。一cpp两正文四片段、无新lambda/helper/声明/owner，所有其它运动语句保持。
+
+目标两F32、步X/Y短路/idle W16、distance前持有步和worldY/X、倍率两读与原浮点落点、普通fresh步加而倍率持有步加、到格pub/清步/动画、ftol承接和各两构造两销毁/RNG/X先完后fresh Y保。210条888B/两局部调用窗口有据，现void局部观察具名适配；64/0/1/64证据复用，不猜动态倍率初值。普通8B NN_NOP只用途，倍率紧邻下一根无尾区。
+
+### BTW01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：完整YobiRuntime仅两正文四预取/pub片段变化，各自普通count-first/倍率mask-first顺序、各两构造/两销毁和所有其它语句保持；两根四归档段210条888B、两调用窗口、全部证据字段、完整机器/文档/任务模型及十三文件UTF8无BOM/LF、四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1670/有效1663、文档1781（48.40%）、处置811/E928、R7已审378/余2683、LOOP82/MAP79；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整两父与上游、全部正常寿命/数值/机器ABI及运行R8继续。

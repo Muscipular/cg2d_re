@@ -5413,16 +5413,22 @@ void Sub_442730(YobiAction* const action)
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldX) * 0.015625F));
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
-    action->mapX1E0.readCount = temporary.readCount;
-    action->mapX1E0.encoded = temporary.encoded;
-    action->mapX1E0.mask = temporary.mask;
+    const std::uint8_t readCountX = temporary.readCount;
+    const std::uint32_t encodedX = temporary.encoded;
+    const std::uint32_t maskX = temporary.mask;
+    action->mapX1E0.readCount = readCountX;
+    action->mapX1E0.encoded = encodedX;
+    action->mapX1E0.mask = maskX;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldY) * 0.015625F));
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
-    action->mapY1F0.readCount = temporary.readCount;
-    action->mapY1F0.encoded = temporary.encoded;
-    action->mapY1F0.mask = temporary.mask;
+    const std::uint8_t readCountY = temporary.readCount;
+    const std::uint32_t encodedY = temporary.encoded;
+    const std::uint32_t maskY = temporary.mask;
+    action->mapY1F0.readCount = readCountY;
+    action->mapY1F0.encoded = encodedY;
+    action->mapY1F0.mask = maskY;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 }
 
@@ -5480,16 +5486,22 @@ void Sub_4428F0(YobiAction* const action)
     const auto mapX = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldX) * 0.015625F));
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapX);
-    action->mapX1E0.mask = temporary.mask;
-    action->mapX1E0.encoded = temporary.encoded;
-    action->mapX1E0.readCount = temporary.readCount;
+    const std::uint32_t maskX = temporary.mask;
+    const std::uint32_t encodedX = temporary.encoded;
+    const std::uint8_t readCountX = temporary.readCount;
+    action->mapX1E0.mask = maskX;
+    action->mapX1E0.encoded = encodedX;
+    action->mapX1E0.readCount = readCountX;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     const auto mapY = static_cast<std::int32_t>(static_cast<std::int64_t>(
         static_cast<double>(action->worldY) * 0.015625F));
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, mapY);
-    action->mapY1F0.mask = temporary.mask;
-    action->mapY1F0.encoded = temporary.encoded;
-    action->mapY1F0.readCount = temporary.readCount;
+    const std::uint32_t maskY = temporary.mask;
+    const std::uint32_t encodedY = temporary.encoded;
+    const std::uint8_t readCountY = temporary.readCount;
+    action->mapY1F0.mask = maskY;
+    action->mapY1F0.encoded = encodedY;
+    action->mapY1F0.readCount = readCountY;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 }
 

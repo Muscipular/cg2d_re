@@ -613,7 +613,8 @@
         "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline",
-        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline"
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -695,7 +696,9 @@
         "F:00042110",
         "F:000422F0",
         "F:00042460",
-        "F:000424B0"
+        "F:000424B0",
+        "F:00042730",
+        "F:000428F0"
       ],
       "closure_task_ids": [
         "U11",
@@ -738,7 +741,8 @@
         "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
-        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision"
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -772,7 +776,8 @@
         "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
         "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
         "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
-        "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。"
+        "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
+        "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -807,7 +812,8 @@
         "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
-        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state"
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
       ]
     },
     {
@@ -1553,7 +1559,8 @@
         "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline",
-        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline"
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1632,7 +1639,9 @@
         "F:00042110",
         "F:000422F0",
         "F:00042460",
-        "F:000424B0"
+        "F:000424B0",
+        "F:00042730",
+        "F:000428F0"
       ],
       "closure_task_ids": [
         "U11",
@@ -1671,7 +1680,8 @@
         "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
-        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision"
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1701,7 +1711,8 @@
         "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
         "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
         "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
-        "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。"
+        "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
+        "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1732,7 +1743,8 @@
         "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
-        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state"
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
       ]
     },
     {
@@ -40116,6 +40128,194 @@
       "observation": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
       "expected": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
       "actual": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-MOTION-VARIANTS-SAMPLING-FUNC-LOOP-I-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTW01两完整根210条888B/四归档页、22call/14jump/2RET/2两父局部路径、普通count-first/倍率mask-first预取与动态倍率两读及8B用途，doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-motion-variants-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_442730",
+        "src/YobiRuntime.cpp#Sub_4428F0",
+        "src/platform/MapEffectMath.asm",
+        "src/platform/MapEffectMath.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_4424B0",
+        "src/YobiRuntime.cpp#Sub_43EFC0",
+        "src/YobiRuntime.cpp#Sub_46A190",
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+      "expected": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+      "actual": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-MOTION-VARIANTS-SAMPLING-FUNC-LOOP-S-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTW01两完整根210条888B/四归档页、22call/14jump/2RET/2两父局部路径、普通count-first/倍率mask-first预取与动态倍率两读及8B用途，doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-motion-variants-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_442730",
+        "src/YobiRuntime.cpp#Sub_4428F0",
+        "src/platform/MapEffectMath.asm",
+        "src/platform/MapEffectMath.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_4424B0",
+        "src/YobiRuntime.cpp#Sub_43EFC0",
+        "src/YobiRuntime.cpp#Sub_46A190",
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+      "expected": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+      "actual": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-MOTION-VARIANTS-SAMPLING-FUNC-MAP-I-20261007",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTW01两完整根210条888B/四归档页、22call/14jump/2RET/2两父局部路径、普通count-first/倍率mask-first预取与动态倍率两读及8B用途，doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-motion-variants-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_442730",
+        "src/YobiRuntime.cpp#Sub_4428F0",
+        "src/platform/MapEffectMath.asm",
+        "src/platform/MapEffectMath.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_4424B0",
+        "src/YobiRuntime.cpp#Sub_43EFC0",
+        "src/YobiRuntime.cpp#Sub_46A190",
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+      "expected": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+      "actual": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-MOTION-VARIANTS-SAMPLING-FUNC-MAP-S-20261007",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTW01两完整根210条888B/四归档页、22call/14jump/2RET/2两父局部路径、普通count-first/倍率mask-first预取与动态倍率两读及8B用途，doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-motion-variants-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_442730",
+        "src/YobiRuntime.cpp#Sub_4428F0",
+        "src/platform/MapEffectMath.asm",
+        "src/platform/MapEffectMath.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_4424B0",
+        "src/YobiRuntime.cpp#Sub_43EFC0",
+        "src/YobiRuntime.cpp#Sub_46A190",
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+      "expected": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+      "actual": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
     }
   ],
   "task_acceptance": [
@@ -40594,7 +40794,8 @@
         "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
-        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state"
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
       ]
     },
     {
@@ -40655,7 +40856,8 @@
         "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
-        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state"
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
       ]
     },
     {
@@ -41191,7 +41393,8 @@
         "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
-        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state"
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
       ]
     },
     {
@@ -51103,6 +51306,32 @@
         "doc/cg2d_actor_motion_update_sampling_evidence.json"
       ],
       "boundary": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。"
+    },
+    {
+      "inventory_id": "F:00042730",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json"
+      ],
+      "boundary": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
+    },
+    {
+      "inventory_id": "F:000428F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json"
+      ],
+      "boundary": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
     }
   ],
   "auxiliary_dispositions": [
@@ -67610,6 +67839,88 @@
         },
         {
           "ea": "0x44272f",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:000428E8-000428F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance",
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json"
+      ],
+      "reason": "BTW01普通根唯一尾区8B逐地址90/NN_NOP、无入向/后真入口，仅对齐用途；倍率根紧邻下一真函数无尾区，不造第二X/函数/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x4428e8",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x4428e9",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x4428ea",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x4428eb",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x4428ec",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x4428ed",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x4428ee",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x4428ef",
           "size": 1,
           "bytes": "90",
           "mnemonic": "",

@@ -1536,3 +1536,13 @@ BTP01十三元数据只改为真实观察描述，不修改其证据/代码/分�
 ### BTV01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：完整YobiRuntime仅一正文两预取/pub片段变化，正确442460/两构造两销毁/原运动与其它源保持；完整原根四归档段及10调用窗口、全部证据字段、机器台账/五文档/三任务、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1668/有效1661、文档1779（48.34%）、处置809/E924、R7已审377/余2684、LOOP80/MAP77；原pending18/pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保持。未编译、测试、运行或计算摘要，完整父/正常寿命/数值/机器ABI与运行R8继续。
+
+## BTW01 两移动变体开发验收（2026-10-07）
+
+[基线](cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline)、[裁决](cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision)、[验收](cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-acceptance)和[完整证据](cg2d_actor_motion_variants_sampling_evidence.json)对应210条888B/2局部路径、两正文四片段/不同三预取序，原倍率双读/浮点落点/两种加法取样差异保持。LOOP80→82/MAP77→79各两局部I-S各25真实来源，仅本步静态；唯一8B尾区用途，倍率无尾区。
+
+U10/V03/R04 current/引用保持open，原pending18/pending7/closed11与完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整父与上游、正常生产消费/owner-alias寿命、数值/机器ABI/链接/画面/明文互通及运行R8继续。
+
+### BTW01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：完整YobiRuntime仅两正文四预取/pub片段变化，各自普通count-first/倍率mask-first顺序、各两构造/两销毁和所有其它语句保持；两根四归档段210条888B、两调用窗口、全部证据字段、完整机器/文档/任务模型及十三文件UTF8无BOM/LF、四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1670/有效1663、文档1781（48.40%）、处置811/E928、R7已审378/余2683、LOOP82/MAP79；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整两父与上游、全部正常寿命/数值/机器ABI及运行R8继续。

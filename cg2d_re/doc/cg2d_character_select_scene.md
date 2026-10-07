@@ -2476,3 +2476,9 @@ ready后文字y→x取样，依次加20／140并保持两S16；文字提交后�
 按[BST01裁决](cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision)，462870在YobiClearUp后普通S32 ++scene；462880只在reset非零取Puk U8，原9A57E0先0、unsigned>=5再1、后两BYTE清零。两个New(2,0)各将返回样本保共享槽发布，判空和+30=517借返回值；+34=243／396和+2B8=5确有原共享槽重读，四次均保持，不能把三个字段都缓存。
 
 两非拥有slots／三W8及三动作S32、两次创建失败后继续第二对象／最终InputSet(NULL)、所有头／字段helper与其它整源保。原两根41条178B／两页、4直接／三目标、四jump／两RET；controller三个实际调用点与双4／10B对齐用途归档，新1600／1601两F。controller130条464B仅上下文，完整分派未改，D01固定1与原未知事实、pending7／P08原closed保持；完整父／owner寿命／输入显示／创建-主地图未验。
+
+## 创建编辑页分隔符文本扫描依赖更新（BSX01，2026-10-07）
+
+沿4631D0@4638EA实际调用，按[BSX01裁决](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision)实修Input.cpp内45E770一片段，NUL门禁和类别复用同U8样本，每轮下一BYTE先取再增指针；原81规则、尾部跳过、7C／5C判断和完整0／1返回、姓名业务保持。
+
+原55C9BC=20 00及55CE30=81 40 00逐字节证实，现空白判定正确；不根据字符／编码猜测换成A1 40。本次未修改选择／编辑／输入初始化或矩形原语，不给正确源码造差异或全验身份。原25条57B／一页、十CALL七父与单7B用途纳管，新1602单F在INPUT／CHARACTER两实际消费域绑定；完整创建-主地图／所有alias-owner与原协议互通仍待。

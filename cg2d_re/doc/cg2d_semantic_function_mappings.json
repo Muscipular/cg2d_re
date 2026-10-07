@@ -186558,6 +186558,64 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45E770",
+      "inventory_id": "F:0005E770",
+      "original_role": "Sub_45E770",
+      "original_end_exclusive": "0x45e7a9",
+      "instruction_count": 25,
+      "status": "BSX01旧分隔符扫描复用每当前位置U8样本供NUL/分类，下一BYTE先取再++指针；原两字节/分隔符/返回与其它整源保。单源一片段仅局部静态，全部父/消费/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/Input.cpp",
+          "symbols": [
+            "Sub_45E770"
+          ],
+          "relationship": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_evidence.json"
+      ],
+      "boundary": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "verification_level": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "legacy_separator_byte_sampling": {
+        "spec_id": "BSX01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+          "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
+          "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance",
+          "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
+          "doc/cg2d_legacy_separator_byte_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 25,
+        "original_code_bytes": 57,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 10,
+        "original_unique_parent_count": 7,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_changed_existing_function_count_in_batch": 1,
+        "source_one_u8_sample_reused_for_nul_and_classification": true,
+        "source_next_byte_sample_precedes_cursor_increment": true,
+        "original_unsigned_81_threshold_and_trailing_skip_kept": true,
+        "original_full_s32_returns_and_empty_or_terminal_lead_kept": true,
+        "original_nonowning_text_and_no_writes_kept": true,
+        "original_creation_name_constants_and_rules_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

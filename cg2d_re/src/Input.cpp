@@ -663,8 +663,9 @@ std::int32_t Sub_476740(const char* const text)
 std::int32_t Sub_45E770(const char* const text)
 {
     bool trailingByte = false;
-    for (const char* cursor = text; *cursor != '\0'; ++cursor) {
-        const auto current = static_cast<std::uint8_t>(*cursor);
+    const char* cursor = text;
+    auto current = static_cast<std::uint8_t>(*cursor);
+    while (current != 0) {
         if (trailingByte) {
             trailingByte = false;
         } else if (current >= 0x81u) {
@@ -672,6 +673,8 @@ std::int32_t Sub_45E770(const char* const text)
         } else if (current == '|' || current == '\\') {
             return 1;
         }
+        current = static_cast<std::uint8_t>(cursor[1]);
+        ++cursor;
     }
     return 0;
 }

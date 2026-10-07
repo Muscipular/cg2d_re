@@ -3354,3 +3354,9 @@ CHARACTER14→15，语义1600有效1593／文档1711／3680（46.49%）／735处
 新增1600／1601对应F:00062870／F:00062880，主符号Sub_462870／Sub_462880，来源CharacterSelectScene.cpp，见[基线](cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline)。两根41条178B／两页、4直接／三目标、三个实际controller调用点。四片段恢复清理后普通递增、版本先零／条件一、factory返回样本判空／第一字段；原后四共享槽读取、失败与输入尾保，不造未变controller／helper／局部块F。
 
 CHARACTER15→17，语义1602有效1595／文档1713／3680（46.55%）／737处置／E858；双4／10B用途使R7 306→308余2753。pending7／pending18、D01／P08原closed、冻结定位／差队列与全完整门禁保，局部不代完整父／三个callee／全部正常alias-owner寿命／机器ABI或运行。
+
+## BSX01 旧分隔符文本扫描（2026-10-07）
+
+新增1602对应F:0005E770／Sub_45E770，来源Input.cpp，见[基线](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline)。25条57B／一页、无call／八jump／两RET、十实际CALL七父。单片段恢复每当前位置U8一次样本、NUL／类别复用、下一BYTE先取再递增，原文本和所有0／1规则保。
+
+INPUT26→27、CHARACTER17→18实际成员，语义1603有效1596／文档1714／3680（46.58%）／738处置／E862（两域各I-S）；7B用途使R7 308→309余2752。未变三父／矩形不造新F，冻结定位／pending18／差队列和所有完整门禁保。局部不代全部七父／姓名输入／所有正常alias-owner寿命／机器ABI或运行。

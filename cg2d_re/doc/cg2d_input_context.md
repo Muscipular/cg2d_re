@@ -136,3 +136,9 @@ context分别等于D66CA8/CB03F0/CC46E0/CC2080/D2D828/CA0180之一，
 [BPH01 SPEC](cg2d_key_index_preset_source_spec.md#key-index-preset-decision)/[原证据](cg2d_key_index_preset_source_evidence.json)。44B340只将0x70+index直接交完整S32查询，原Shift优先/否则Ctrl、F1..F8全扫/最后非零覆盖、未选返回最后查询保持。选中仍借同一24项15CH上下文文本，先44A160装载再52C450并透传；现有现代473F80唯一调用保持，不能当旧99路由已补。
 
 原音效caller压51/320/240，164条551B支持体仅入口参数+4/+8读取，额外第三值未消费，现有两参调用保持。支持只参数消费，独立于三根87条分母、不纳音频验收或恢复播放。旧373全文映射归档后续记，正常旧输入结果不变。语义1422→1424条/有效ID1417→1419、关联1535→1537/3680（41.71%→41.77%）、分类543→546，INPUT14→17/TEXT22→23枚举未闭；E707→715仅8条正常局部I/S。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及全部完整门禁保持。 所有其它输入正文/焦点/生命周期、SDK/ABI与实际输入画面运行未验。
+
+## 旧分隔符扫描单BYTE取样更新（BSX01，2026-10-07）
+
+按[BSX01裁决](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision)，45E770首BYTE一次取current、同样本供NUL和分类，末尾cursor[1]先取再++cursor。撤for门禁／循环体重复读取，不改0x81 unsigned两字节状态／尾字节跳过、非尾7C或5C返回完整1、空串／末lead遇NUL完整0，const文本不写且不建owner／新规则。
+
+原25条57B／一页、无call／八jump／两RET，十实际CALL在七父；新增1602单真F、INPUT26→27及CHARACTER17→18真实消费绑定，两域各局部I-S。7B相邻NOP只用途。其它整个Input、所有消费者及接口保持；原姓名20 00／81 40 00字节正确保，不据编码猜测合并字节规则。全部原父／输入文本生产消费／正常alias-owner寿命与运行未验。

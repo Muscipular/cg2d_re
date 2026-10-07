@@ -802,7 +802,8 @@
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline",
-        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline"
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -821,7 +822,8 @@
         "F:00062090",
         "F:0005E7D0",
         "F:00062870",
-        "F:00062880"
+        "F:00062880",
+        "F:0005E770"
       ],
       "closure_task_ids": [
         "P08",
@@ -846,7 +848,8 @@
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision",
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision",
-        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision"
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -861,7 +864,8 @@
         "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
         "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
         "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
-        "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+        "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+        "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -876,7 +880,8 @@
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
-        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state"
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state"
       ]
     },
     {
@@ -1102,7 +1107,8 @@
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline",
         "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline",
         "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-baseline",
-        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-baseline"
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-baseline",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -1130,7 +1136,8 @@
         "F:00001DB0",
         "F:001036F0",
         "F:00103780",
-        "F:0005FA70"
+        "F:0005FA70",
+        "F:0005E770"
       ],
       "closure_task_ids": [
         "T01",
@@ -1159,7 +1166,8 @@
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
         "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision",
         "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-decision",
-        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-decision"
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-decision",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1182,7 +1190,8 @@
         "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
         "BSD01登录控件查询55条142B/一页与绘制121条297B/两页，合176条439B/三页、5directcall/三唯一callee、20jump/三RET；原45CA20四真实入向保持。单源五精确片段恢复普通S32矩形与覆盖±2算式、两命中width延后及基础图drawY→drawX/覆盖top→left→height→width取样原序，最终覆盖低W16边界保；原正常算术值正确，不称已观察运行故障。NULL/未命中返回、edge-held-pulse低BYTE各一次与edge复用/九位结果、descriptor16和模式/状态/图号/layer/step/两独立命中及借用记录保持，不新异常/保护/限制或共享owner。新两F1585/1586 adapted局部纳管，INPUT23→25、语义1587有效1580/文档1698（46.14%）/处置720/E828；两真X2+7B canonical nop/无入向前RET后入口仅用途mapped，R7 292余2769。无F/code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和全部完整门禁保持；U10/R04只current/refs仍open。完整调用父/命中或绘制依赖、未知alias-owner寿命、SDK-机器ABI/链接与像素运行仍待，原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
         "BSE01能力3输入完整301条1068B/五页、23原directcall/12callee、39jump/一RET，唯一45F190@45F699；原完整体保留已排除屏幕键盘路径的四原调用证据，不恢复该路径或将其记已实现。单源四精确片段：两私有Add/Sub回绕bitcast改普通S32，两普通按钮/Enter成功路径先各一次读齐账号/密码+12C totalByteLength再写result1/账号NUL/密码NUL，不误用+128 caret或预先窄化/新保护。原正常数值正确，不称运行故障；LowW16/真实位型、模式返回、strlen/校验/键盘短路、两次当前上下文读取及Y-X-font/度量到绘制、两密码账号S16矩形/焦点owner-latch与尾部图号版本/原其它整源保持。新增F:0005FA70映射1587和单adapted/INPUT25→26/语义1588有效1581/文档1699（46.17%）/处置721/E830；单真X4B全90逐BYTE canonical nop/无入向前RET后入口，只用途mapped/R7 293余2768。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和完整门禁保；U10/R04只current/refs仍open。完整45F190父/命中绘制输入依赖、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通与运行R8仍待；原网络明文/音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
-        "BSG01既有语义1582/F:00064E30仅补能力4两普通提交取样；沿BSC01既有原根350条1262B/五页、31directcall/15callee/42jump一RET、唯一464840@464ADF，不重复IDA整根取证。单源两精确片段：按钮先密码+12C再账号+12C，Enter先账号+12C再密码+12C，各一次取齐S32后result1，再按各自同序写两NUL；两路径顺序不同不统一，不误用+128 caret或新增长度门槛。原正常值正确、不称运行故障，BSC普通S32/原上下界与低W8-W16、模式/键序/strlen和校验短路/焦点-latch/计时声音及保存槽和ProcessLoginInput_45CA20全既有正文保持，屏幕键盘排除不恢复。只补1582当前source/证据与原adapted处置引用，INPUT26成员及枚举/完整门禁保持；两局部I-S使E832→834，语义1589有效1582/文档1700（46.20%）/处置722/R7 294余2767均不增，无新F/私有身份/X处置。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse保，U10/R04只current/refs仍open。完整464840父/全部输入依赖及正常alias-owner寿命、CRT-SDK-机器ABI/链接、原格式明文互通与运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
+        "BSG01既有语义1582/F:00064E30仅补能力4两普通提交取样；沿BSC01既有原根350条1262B/五页、31directcall/15callee/42jump一RET、唯一464840@464ADF，不重复IDA整根取证。单源两精确片段：按钮先密码+12C再账号+12C，Enter先账号+12C再密码+12C，各一次取齐S32后result1，再按各自同序写两NUL；两路径顺序不同不统一，不误用+128 caret或新增长度门槛。原正常值正确、不称运行故障，BSC普通S32/原上下界与低W8-W16、模式/键序/strlen和校验短路/焦点-latch/计时声音及保存槽和ProcessLoginInput_45CA20全既有正文保持，屏幕键盘排除不恢复。只补1582当前source/证据与原adapted处置引用，INPUT26成员及枚举/完整门禁保持；两局部I-S使E832→834，语义1589有效1582/文档1700（46.20%）/处置722/R7 294余2767均不增，无新F/私有身份/X处置。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse保，U10/R04只current/refs仍open。完整464840父/全部输入依赖及正常alias-owner寿命、CRT-SDK-机器ABI/链接、原格式明文互通与运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+        "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1206,7 +1215,8 @@
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
         "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
         "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
-        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state"
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state"
       ]
     },
     {
@@ -36903,6 +36913,154 @@
       "observation": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 清理后只取当前场景并普通递增。 BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。",
       "expected": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 清理后只取当前场景并普通递增。 BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。",
       "actual": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LEGACY-SEPARATOR-BYTE-SAMPLING-CHARACTER-I-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSX01二十五条57B/一页、无call/八jump/两RET，十CALL七父、人物4631D0@4638EA；原首/下BYTE共享NUL门禁与类别，doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-separator-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_evidence.json",
+        "src/Input.cpp#Sub_45E770",
+        "include/cg/Input.hpp",
+        "src/CharacterSelectScene.cpp#Sub_4631D0",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源一片段/一原语，先U8取样、同BYTE供NUL与类别，末尾下一BYTE先读再++cursor；原81 unsigned规则/尾字节跳过/7C-5C完整1与空串/末lead完整0、接口/不写文本/所有其它源和父保。两姓名常量原字节保持，不猜编码或改规则；单F/双域消费/7B用途只局部，全部父/寿命/机器ABI与运行未验",
+          "decision_ref": "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "expected": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "actual": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LEGACY-SEPARATOR-BYTE-SAMPLING-CHARACTER-S-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSX01二十五条57B/一页、无call/八jump/两RET，十CALL七父、人物4631D0@4638EA；原首/下BYTE共享NUL门禁与类别，doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-separator-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_evidence.json",
+        "src/Input.cpp#Sub_45E770",
+        "include/cg/Input.hpp",
+        "src/CharacterSelectScene.cpp#Sub_4631D0",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源一片段/一原语，先U8取样、同BYTE供NUL与类别，末尾下一BYTE先读再++cursor；原81 unsigned规则/尾字节跳过/7C-5C完整1与空串/末lead完整0、接口/不写文本/所有其它源和父保。两姓名常量原字节保持，不猜编码或改规则；单F/双域消费/7B用途只局部，全部父/寿命/机器ABI与运行未验",
+          "decision_ref": "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "expected": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "actual": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LEGACY-SEPARATOR-BYTE-SAMPLING-INPUT-I-20261007",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSX01二十五条57B/一页、无call/八jump/两RET，十CALL七父、人物4631D0@4638EA；原首/下BYTE共享NUL门禁与类别，doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-separator-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_evidence.json",
+        "src/Input.cpp#Sub_45E770",
+        "include/cg/Input.hpp",
+        "src/CharacterSelectScene.cpp#Sub_4631D0",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源一片段/一原语，先U8取样、同BYTE供NUL与类别，末尾下一BYTE先读再++cursor；原81 unsigned规则/尾字节跳过/7C-5C完整1与空串/末lead完整0、接口/不写文本/所有其它源和父保。两姓名常量原字节保持，不猜编码或改规则；单F/双域消费/7B用途只局部，全部父/寿命/机器ABI与运行未验",
+          "decision_ref": "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "expected": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "actual": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LEGACY-SEPARATOR-BYTE-SAMPLING-INPUT-S-20261007",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSX01二十五条57B/一页、无call/八jump/两RET，十CALL七父、人物4631D0@4638EA；原首/下BYTE共享NUL门禁与类别，doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-legacy-separator-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_evidence.json",
+        "src/Input.cpp#Sub_45E770",
+        "include/cg/Input.hpp",
+        "src/CharacterSelectScene.cpp#Sub_4631D0",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "doc/cg2d_input_context.md",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源一片段/一原语，先U8取样、同BYTE供NUL与类别，末尾下一BYTE先读再++cursor；原81 unsigned规则/尾字节跳过/7C-5C完整1与空串/末lead完整0、接口/不写文本/所有其它源和父保。两姓名常量原字节保持，不猜编码或改规则；单F/双域消费/7B用途只局部，全部父/寿命/机器ABI与运行未验",
+          "decision_ref": "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "expected": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
+      "actual": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。"
     }
   ],
   "task_acceptance": [
@@ -37399,7 +37557,8 @@
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
-        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state"
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state"
       ]
     },
     {
@@ -37675,7 +37834,8 @@
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
-        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state"
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state"
       ]
     },
     {
@@ -37903,7 +38063,8 @@
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
         "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
-        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state"
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state"
       ]
     },
     {
@@ -46874,6 +47035,19 @@
         "doc/cg2d_creation_initialization_sampling_evidence.json"
       ],
       "boundary": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。"
+    },
+    {
+      "inventory_id": "F:0005E770",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_evidence.json"
+      ],
+      "boundary": "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。"
     }
   ],
   "auxiliary_dispositions": [
@@ -55141,6 +55315,28 @@
           "end_exclusive": "0x462930",
           "kind": "nop_padding",
           "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0005E7A9-0005E7B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance",
+        "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
+        "doc/cg2d_legacy_separator_byte_sampling_evidence.json"
+      ],
+      "reason": "BSX01七字节全90逐BYTE真NOP、无入向前RET后真入口，仅原对齐用途，不造其它父/helper/F或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x45e7a9",
+          "end_exclusive": "0x45e7b0",
+          "kind": "nop_padding",
+          "bytes": 7
         }
       ]
     }

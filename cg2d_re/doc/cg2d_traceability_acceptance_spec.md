@@ -1382,3 +1382,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline)、[裁决](cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision)、[验收](cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance)及[原证据](cg2d_creation_initialization_sampling_evidence.json)对应两个真F、四片段整源增量、两局部I-S各19实际来源、双14B用途及U11／V03／R04引用仍open。四集中静态、measure／-Check终态、完整派生快照／编码／引用／差异后记结果，P05／P08原closed、pending7整个原记录及全部完整门禁保。
 
 两根41条178B／两页与三个实际入向；controller130条464B／两页仅上下文不混计。清理后++、Puk样本先0／条件1、创建返回判空／+30与原后两字段各共享槽重读分别关联原点。两个slots／原三W8和S32字段、失败／输入尾保持；完整controller／三callee、全部owner寿命与输入／图像消费、CRT-SDK／机器ABI／链接、创建-主地图／明文往返／画面／运行R8仍待。
+
+## BSX01 旧分隔符扫描与人物实际消费开发验收（2026-10-07）
+
+[基线](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline)、[裁决](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision)、[验收](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance)及[原证据](cg2d_legacy_separator_byte_sampling_evidence.json)对应单真F／单片段整个Input源增量、INPUT及CHARACTER各真实成员／各局部I-S共四项、每项15实际来源、7B用途及U11／V03／R04引用仍open。四集中静态、measure／-Check终态、完整派生快照／编码／引用／差异记录；P05／P08原closed及全部完整门禁保持。
+
+25条57B／一页、十CALL七父为原语及消费证据；同U8供NUL与类别、下一BYTE先取后推进，原规则／文本和返回保持。原姓名常量2000／814000只证保持项，不伪报字符／编码修复；完整所有父／输入与输出数据／全部owner寿命、CRT-SDK／机器ABI／链接、人物创建-主地图／原格式明文／画面／运行R8未验。

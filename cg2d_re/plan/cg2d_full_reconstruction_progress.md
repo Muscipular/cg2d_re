@@ -3676,3 +3676,17 @@ BTW01已提交，沿运动/动画真实消费链核43EFC0后继续其状态父43
 ### BTX01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：完整YobiRuntime仅既有DrawActorPhaseEffect一片段变化，创建→发布→同created清callback覆盖两实际路径；两原入口及所有其它语句、后续fresh字段/原分配播放清理与音频旧调用保持。两根十五归档段976条3244B、21局部窗口、两混合区15表项/实际3B LEA与5B NN_NOP、全部证据字段及完整机器/文档/任务模型、十三文件UTF8无BOM/LF和四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813/E932、R7已审380/余2681、LOOP84/MAP81；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整六父与上游/54callee/正常owner-alias寿命/数值/机器ABI及运行R8继续。
+
+## BTY01 主角色更新三处BYTE读取实修（2026-10-07）
+
+BTX01已提交，本步沿4417E0既有1297身份的未覆盖读宽缺口推进。复用AAS01完整原根466条1483B/七段及441DEA唯一type1绑定，不重验已过附件/BSB01左比或正确441DB0。首次正文提取同时匹配前置声明与定义，唯一性检查停止且未写文件，已限定参数不含分号/紧接函数体解决；旧证据schema没有instruction_count字段，按真实instructions长度466复用完整原证据，不伪造字段或重复完整取证。
+
+确认441822原FDA88E单BYTE，而现W16 reader实现从flags18C整W32右移；441839 flags120低BYTE和441879 flags42高BYTE被扩大W16。先落[子SPEC](../doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision)，三源五片段实修：Yobi回调改三处BYTE读取；Scene新ReadPlayerActionFlagsByte从私有flags18C[2]单读，WorldDeps补声明。新边界getter1，无新owner/布局/源码文件；既有Word接口及其全部其他消费者完整保持，不向Yobi暴露玩家私有槽或误用另一FDA88A字段。
+
+原category W16与flags114完整W32取样后两掩码、主flags完整MOV EAX/TEST AH4以及AND/OR AL后完整EAX发布均正确保持，不误窄。所有其他早退/玩家与payload取样/阶段与移动/动画/附件borrow/±16删除/泡泡/数值与RNG保持。唯一尾5B逐地址90/NN_NOP无入向/后已纳管441DB0，只对齐用途。
+
+既有1297追加基线/三源关系/局部元数据及原F处置引用，旧AAS01/BSB01所有信息保，不为新helper造原F或增加语义/成员。语义1672/有效1665、文档1783（48.45%）、处置813、LOOP84/MAP81保持；预期E936/R7 381余2680，四局部I-S各25来源，集中静态/汇总后追加实值。三任务仅current/引用继续open，原pending18/ECX pending7/closed11/差队列与完整门禁保；网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，全回调/父/callee与正常寿命/数值/机器ABI/链接/画面/明文互通及运行R8继续。
+
+### BTY01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：YobiRuntime/SceneState/WorldDeps三完整源仅五片段变化，三BYTE取样与一新Byte定义/声明、私有玩家owner边界、既有Word及正确category W16/flags114和主flags W32、所有其它正文保持。复用466条1483B原档七段逐字段与AAS01冻结来源一致，十三宽度锚、唯一callback绑定、实际5B NN_NOP用途、所有证据前态/完整机器/五文档/三任务模型、十五文件UTF8无BOM/LF和四局部I-S各25引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813、LOOP84/MAP81均保持，E936、R7已审381/余2680；既有1297完善，无新语义/F。原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要，整回调/父/callee/正常owner-alias寿命/数值/机器ABI与运行R8继续。

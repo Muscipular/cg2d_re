@@ -5029,11 +5029,12 @@ void Sub_4417E0(YobiAction* const action)
     }
     YobiAction* player = world::detail::ReadPlayerAction();
     if ((player != nullptr && player == action) || index == -1) {
-        if ((world::detail::ReadPlayerActionFlags() & 0x80u) != 0) {
+        if ((world::detail::ReadPlayerActionFlagsByte() & 0x80u) != 0) {
             return;
         }
-    } else if ((world::detail::gWorldObjects[
-                    static_cast<std::size_t>(index)].flags120 & 0x80u) != 0) {
+    } else if ((reinterpret_cast<const unsigned char*>(
+                    &world::detail::gWorldObjects[
+                        static_cast<std::size_t>(index)].flags120)[0] & 0x80u) != 0) {
         return;
     }
     if (Sub_43E490(action) != 0) {
@@ -5042,8 +5043,9 @@ void Sub_4417E0(YobiAction* const action)
     if (world::detail::ReadPlayerAction() != action) {
         payload = static_cast<MapActorPayload*>(action->payload);
         index = payload->index;
-        if ((world::detail::gWorldObjects[
-                 static_cast<std::size_t>(index)].flags42 & 0x200u) == 0) {
+        if ((reinterpret_cast<const unsigned char*>(
+                    &world::detail::gWorldObjects[
+                        static_cast<std::size_t>(index)].flags42)[1] & 2u) == 0) {
             Sub_4424B0(action);
             useSharedRate = false;
         } else {

@@ -8788,6 +8788,11 @@ std::int32_t ReadPlayerValue15BD0(const std::int32_t index) noexcept
     return gPlayerRuntime.values15BD0[index];
 }
 
+std::uint8_t ReadPlayerActionFlagsByte() noexcept
+{
+    return reinterpret_cast<const unsigned char*>(&gPlayerRuntime.flags18C)[2];
+}
+
 std::uint16_t ReadPlayerActionFlags() noexcept
 {
     return static_cast<std::uint16_t>(gPlayerRuntime.flags18C >> 16);

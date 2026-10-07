@@ -7823,3 +7823,13 @@ Yobi两入口按各自encoded-first/mask-first取齐W32/W32/W8再pub，原27C→
 ### BTX01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：完整YobiRuntime仅既有DrawActorPhaseEffect一片段变化，创建→发布→同created清callback覆盖两实际路径；两原入口及所有其它语句、后续fresh字段/原分配播放清理与音频旧调用保持。两根十五归档段976条3244B、21局部窗口、两混合区15表项/实际3B LEA与5B NN_NOP、全部证据字段及完整机器/文档/任务模型、十三文件UTF8无BOM/LF和四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813/E932、R7已审380/余2681、LOOP84/MAP81；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整六父与上游/54callee/正常owner-alias寿命/数值/机器ABI及运行R8继续。
+
+## 主角色BYTE读取边界（BTY01，2026-10-07）
+
+[基线](cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-baseline)复用AAS01完整4417E0 466条1483B/唯一callback绑定。主角色三点原W8已实修：FDA88E由新ReadPlayerActionFlagsByte从私有flags18C第2字节单读；world flags120低BYTE和flags42高BYTE在同字段按原掩码读取。旧ReadPlayerActionFlags W16接口与实现完整保持。
+
+category W16、flags114与主flags完整W32读/发布保持，不能因AH/AL运算误窄。两cpp/一hpp五片段，新边界helper1、无新owner/布局；旧1297扩充/成员84-81不增、四局部I-S，5B尾区只用途，完整回调/寿命/运行未验。
+
+### BTY01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：YobiRuntime/SceneState/WorldDeps三完整源仅五片段变化，三BYTE取样与一新Byte定义/声明、私有玩家owner边界、既有Word及正确category W16/flags114和主flags W32、所有其它正文保持。复用466条1483B原档七段逐字段与AAS01冻结来源一致，十三宽度锚、唯一callback绑定、实际5B NN_NOP用途、所有证据前态/完整机器/五文档/三任务模型、十五文件UTF8无BOM/LF和四局部I-S各25引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813、LOOP84/MAP81均保持，E936、R7已审381/余2680；既有1297完善，无新语义/F。原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要，整回调/父/callee/正常owner-alias寿命/数值/机器ABI与运行R8继续。

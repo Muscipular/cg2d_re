@@ -165981,7 +165981,7 @@
     {
       "original_entry": "0x4417e0",
       "inventory_id": "F:000417E0",
-      "status": "AAS01普通骑乘附件取样实修与真实回调身份纳管；完整实体/父/callee及运行未验；BSB01仅两个整数左侧比较原点接具名401FA0，回调其它正文保持",
+      "status": "AAS01普通骑乘附件取样实修与真实回调身份纳管；完整实体/父/callee及运行未验；BSB01仅两个整数左侧比较原点接具名401FA0，回调其它正文保持；BTY01恢复三BYTE读取，新Byte getter承接私有玩家槽，Word/其他W16-W32合同保持，整回调/寿命/运行未验",
       "original_end_exclusive": "0x441dab",
       "instruction_count": 466,
       "original_direct_reference_count": 1,
@@ -165994,7 +165994,21 @@
             "DrawActorPhaseAttachment",
             "Sub_442F70"
           ],
-          "relationship": "既有实体回调/真实441DB0绑定和末端附加绘制，AAS01仅普通骑乘选择BeforeXAddition，完整其它正文不改"
+          "relationship": "既有实体回调/真实441DB0绑定和末端附加绘制，AAS01仅普通骑乘选择BeforeXAddition，完整其它正文不改；BTY01仅三BYTE调用/字段取样实修，其他语句保持"
+        },
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ReadPlayerActionFlagsByte"
+          ],
+          "relationship": "BTY01新增一次W8读取flags18C第2字节/原FDA88E，不暴露owner；原W16读取完整保"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "ReadPlayerActionFlagsByte"
+          ],
+          "relationship": "BTY01仅补Byte接口声明；既有W16声明和全部其他接口保持"
         }
       ],
       "inbound_evidence": [
@@ -166014,10 +166028,15 @@
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-acceptance",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
-        "doc/cg2d_integer_left_compare_dispatch_evidence.json"
+        "doc/cg2d_integer_left_compare_dispatch_evidence.json",
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-baseline",
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision",
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-acceptance",
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state",
+        "doc/cg2d_actor_update_byte_reads_evidence.json"
       ],
-      "verification_level": "原466条1483B/唯一type1 callback绑定完整保存；仅附件五路径与共同读取点、两局部入口及源码十片段静态，完整其它语义/父/callee/owner寿命/运行未验",
-      "boundary": "既有真实实体回调，在普通骑乘路径恢复Y相加后取X查询子槽、X相加前取图形子槽，初descriptor与最后graphicIndex分别借用，原Y→X查询/before0/batch0及窄化保持。共用选择不套用阶段1/2其它三种顺序；本轮不重验原466条的其它语义/父与callee/生产/ABI/SDK/PC53/RNG/场景画面及owner重进退出/borrow失效，异常不增加保护/模拟或称等价。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "verification_level": "原466条1483B/唯一type1 callback绑定完整保存；仅附件五路径与共同读取点、两局部入口及源码十片段静态，完整其它语义/父/callee/owner寿命/运行未验；BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。",
+      "boundary": "既有真实实体回调，在普通骑乘路径恢复Y相加后取X查询子槽、X相加前取图形子槽，初descriptor与最后graphicIndex分别借用，原Y→X查询/before0/batch0及窄化保持。共用选择不套用阶段1/2其它三种顺序；本轮不重验原466条的其它语义/父与callee/生产/ABI/SDK/PC53/RNG/场景画面及owner重进退出/borrow失效，异常不增加保护/模拟或称等价。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。 BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。",
       "integer_left_compare_dispatch": {
         "spec_id": "BSB01",
         "evidence_refs": [
@@ -166034,6 +166053,39 @@
         "source_body_otherwise_unchanged": true,
         "parent_full_original_or_source_newly_verified": false,
         "runtime_verified": false
+      },
+      "actor_update_byte_reads": {
+        "spec_id": "BTY01",
+        "evidence_refs": [
+          "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-baseline",
+          "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision",
+          "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-acceptance",
+          "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state",
+          "doc/cg2d_actor_update_byte_reads_evidence.json"
+        ],
+        "reused_full_original_evidence": "doc/cg2d_actor_attachment_sampling_evidence.json",
+        "original_instruction_count": 466,
+        "original_code_bytes": 1483,
+        "original_page_count": 7,
+        "original_callback_binding_count": 1,
+        "source_body_changed": true,
+        "source_cpp_count": 2,
+        "source_cpp_patch_count": 4,
+        "source_header_patch_count": 1,
+        "new_named_global_helper_count": 1,
+        "new_shared_owner_count": 0,
+        "original_three_byte_reads_restored": true,
+        "original_player_fda88e_slot_byte_index": 2,
+        "original_world_flags120_byte_index": 0,
+        "original_world_flags42_byte_index": 1,
+        "existing_word_interface_and_all_other_w16_w32_contracts_kept": true,
+        "original_actual_w32_read_and_publication_not_narrowed": true,
+        "original_existing_identity_symbols_frozen_locations_and_other_bodies_kept": true,
+        "full_callback_or_parents_or_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
       }
     },
     {

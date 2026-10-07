@@ -1556,3 +1556,13 @@ U10/V03/R04 current/引用保持open，原pending18/pending7/closed11与完整�
 ### BTX01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：完整YobiRuntime仅既有DrawActorPhaseEffect一片段变化，创建→发布→同created清callback覆盖两实际路径；两原入口及所有其它语句、后续fresh字段/原分配播放清理与音频旧调用保持。两根十五归档段976条3244B、21局部窗口、两混合区15表项/实际3B LEA与5B NN_NOP、全部证据字段及完整机器/文档/任务模型、十三文件UTF8无BOM/LF和四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813/E932、R7已审380/余2681、LOOP84/MAP81；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整六父与上游/54callee/正常owner-alias寿命/数值/机器ABI及运行R8继续。
+
+## BTY01 三处BYTE读宽开发验收（2026-10-07）
+
+[基线](cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-baseline)、[裁决](cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision)、[验收](cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-acceptance)及[证据](cg2d_actor_update_byte_reads_evidence.json)对应复用466条1483B/唯一绑定、13宽度锚、三BYTE实修和单Byte边界接口；其余W16/W32读写保持。既有1297扩充、语义/F/LOOP84-MAP81成员不增，四局部I-S各25来源/一R7只用途。
+
+三任务current/引用保持open，不新增/伪闭完整叶与运行门禁；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。全部回调/父/callee、正常生产消费/owner-alias寿命、数值/机器ABI/链接/画面/明文互通及运行R8未验。
+
+### BTY01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：YobiRuntime/SceneState/WorldDeps三完整源仅五片段变化，三BYTE取样与一新Byte定义/声明、私有玩家owner边界、既有Word及正确category W16/flags114和主flags W32、所有其它正文保持。复用466条1483B原档七段逐字段与AAS01冻结来源一致，十三宽度锚、唯一callback绑定、实际5B NN_NOP用途、所有证据前态/完整机器/五文档/三任务模型、十五文件UTF8无BOM/LF和四局部I-S各25引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813、LOOP84/MAP81均保持，E936、R7已审381/余2680；既有1297完善，无新语义/F。原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要，整回调/父/callee/正常owner-alias寿命/数值/机器ABI与运行R8继续。

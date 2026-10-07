@@ -1142,6 +1142,7 @@ void Sub_46A410(
 void Sub_46A700(); // 原完整玩家移动推进、到达计数及MIS动作请求。
 // YobiRuntime借用同一SceneState状态，不公开玩家首块或五槽记录布局。
 std::uint32_t ReadPlayerFlags18A() noexcept; // 原FDA88A跨W32读取。
+std::uint8_t ReadPlayerActionFlagsByte() noexcept; // 原FDA88E单次W8；读取flags18C第2字节，保留既有W16接口。
 std::uint16_t ReadPlayerActionFlags() noexcept; // 原FDA88E，与flags18C高W16同源。
 std::int32_t ReadPlayerActionValue190() noexcept;
 void ClearPlayerActionFlags(std::uint16_t mask) noexcept; // 只清FDA88E，不改FDA88C低W16。

@@ -4475,3 +4475,13 @@ AreMapActorTargetsAdjacent四对独立current→previous显式取样、符号条
 ### BTX01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：完整YobiRuntime仅既有DrawActorPhaseEffect一片段变化，创建→发布→同created清callback覆盖两实际路径；两原入口及所有其它语句、后续fresh字段/原分配播放清理与音频旧调用保持。两根十五归档段976条3244B、21局部窗口、两混合区15表项/实际3B LEA与5B NN_NOP、全部证据字段及完整机器/文档/任务模型、十三文件UTF8无BOM/LF和四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813/E932、R7已审380/余2681、LOOP84/MAP81；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整六父与上游/54callee/正常owner-alias寿命/数值/机器ABI及运行R8继续。
+
+## 4417E0三处W8读宽恢复（BTY01，2026-10-07）
+
+按[裁决](cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision)，既有回调三处只恢复BYTE：441822单读FDA88E，441839同flags120[0]&80，441879同flags42[1]&2；Scene私有玩家owner以新Byte getter承接第一点，不修改旧W16读取或公开内部槽。三源五片段/一新helper，已有语义1297/F身份保，原441DB0/附件/左比不重复验或造代码变化。
+
+原category MOV AX、flags114 MOV EAX后两掩码使用同值，以及主flags MOV EAX/TEST AH4、改AL低位后仍W32发布正确，均保。其余早退/玩家和payload取样/动画倍率/借用绘制/删除/末端泡泡/数值与RNG保持；复用完整466条1483B不代全部原语义/父/callee或正常寿命通过。唯一尾5B NN_NOP只用途。
+
+### BTY01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：YobiRuntime/SceneState/WorldDeps三完整源仅五片段变化，三BYTE取样与一新Byte定义/声明、私有玩家owner边界、既有Word及正确category W16/flags114和主flags W32、所有其它正文保持。复用466条1483B原档七段逐字段与AAS01冻结来源一致，十三宽度锚、唯一callback绑定、实际5B NN_NOP用途、所有证据前态/完整机器/五文档/三任务模型、十五文件UTF8无BOM/LF和四局部I-S各25引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813、LOOP84/MAP81均保持，E936、R7已审381/余2680；既有1297完善，无新语义/F。原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要，整回调/父/callee/正常owner-alias寿命/数值/机器ABI与运行R8继续。

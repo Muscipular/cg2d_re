@@ -7883,3 +7883,11 @@ BUD01集中静态已通过：两完整源码/三既有正文与HEAD一致，源�
 所有投影/实际F64 0.5/ftol/S32格子计算/目标Y-X发布、四W32事件清序、16B描述符全零后+8 color/+13 BYTE4及drawY-X/既有绘制保持。held先读W32基线后pub，tick之后fresh重读该基线作差保持；右事件条件和U8正常2/早退Less局部视图保。完整数值/正常寿命/机器ABI/像素画面及运行未验，5B尾区仅用途。
 
 BUE01集中静态已通过：完整Scene仅一既有正文六BYTE片段变化，原独立门禁/取样、三W32所有者与目标/16B描述符/事件/tick后fresh基线保持；三原页167条619B/元数据/窗口、8B实际F64/5B用途、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1684/有效1677、合同1795（48.78%）、处置825/E960、R7已审393/余2668、LOOP96/MAP93。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87/正常寿命/机器ABI/编译/链接/像素画面/运行。命名快照：cg2d-re-cursor-grid-byte-sampling-20261008。
+
+## 双向投影取样、指针返回及W32别名输出（BUF01，2026-10-08）
+
+[完整基线](cg2d_projection_sampling_return_spec.md#projection-sampling-return-baseline)覆盖46CE30/46CE80两根35条136B/两页，36入向及三相关局部窗口。正向原EAX沿outX至RET，现void差异修为float*，公开声明同步；先refX/u后refY/v恢复。两根四处输出改为局部F32加四BYTE memcpy，正向两参考先于首输出，反向仍写X后fresh读refY，原X→Y/借用outX返回保。
+
+六数据24B确认中心由FIADD/FILD消费为S32 320/240、四缩放为F32位值。中心位于可写.data且各仅两直接读，无直接写/取地址；按[裁决](cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision)保正常中心现有承接，不造动态viewport或影子owner，不据直接引用排除全间接别名。所有数值表达式/调用者保持，468F70局部F32/ftol及最终Y的S64返回正确，不改源码。两尾3+5B仅用途；完整数值/x87/全父/数据别名寿命及运行未验。
+
+BUF01必要静态已通过：完整Scene/公开声明仅五片段变化，两原根35条136B、三窗口/24B数据/8B用途与台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1686/有效1679、合同1797（48.83%）、处置827/E964、R7已审395/余2666、LOOP98/MAP95。原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-projection-sampling-return-20261008。

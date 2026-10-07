@@ -192516,6 +192516,154 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x46CE30",
+      "inventory_id": "F:0006CE30",
+      "original_role": "世界到屏幕投影的原outX指针返回与参考取样/W32别名输出",
+      "original_end_exclusive": "0x46ce7d",
+      "original_chunks": [
+        [
+          "0x46ce30",
+          "0x46ce7d"
+        ]
+      ],
+      "instruction_count": 19,
+      "status": "BUF01双投影两完整根35条136B/两页，正向原outX指针返回与refX/u后refY/v恢复；两正文四片段及一声明片段，四处四BYTE memcpy承接W32参考槽别名，反向X写后fresh Y读保持。正常中心320/240具名保，算式/调用者保持；全父/数据寿命/数值/x87/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ProjectWorldToScreen_46CE30"
+          ],
+          "relationship": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-baseline",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-acceptance",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
+        "doc/cg2d_projection_sampling_return_evidence.json"
+      ],
+      "boundary": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "verification_level": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "projection_sampling_return": {
+        "spec_id": "BUF01",
+        "evidence_refs": [
+          "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-baseline",
+          "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision",
+          "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-acceptance",
+          "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
+          "doc/cg2d_projection_sampling_return_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 19,
+        "original_code_bytes": 77,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 35,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_header_patch_count": 1,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_forward_outX_borrowed_pointer_return_restored": true,
+        "original_forward_referenceX_u_before_referenceY_v_restored": true,
+        "original_four_W32_output_writes_as_byte_copy": true,
+        "original_inverse_outputX_before_fresh_referenceY_kept": true,
+        "original_formula_and_F32_output_narrowing_kept": true,
+        "original_loaded_data_count": 6,
+        "original_loaded_data_bytes": 24,
+        "original_center_S32_writable_data_and_direct_references_recorded": true,
+        "normal_center_320_240_existing_adaptation_decided": true,
+        "all_indirect_center_aliases_excluded": false,
+        "original_source_other_bodies_callers_and_network_plaintext_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46CE80",
+      "inventory_id": "F:0006CE80",
+      "original_role": "屏幕到世界投影的X输出后fresh Y参考位槽取样与W32别名写序",
+      "original_end_exclusive": "0x46cebb",
+      "original_chunks": [
+        [
+          "0x46ce80",
+          "0x46cebb"
+        ]
+      ],
+      "instruction_count": 16,
+      "status": "BUF01双投影两完整根35条136B/两页，正向原outX指针返回与refX/u后refY/v恢复；两正文四片段及一声明片段，四处四BYTE memcpy承接W32参考槽别名，反向X写后fresh Y读保持。正常中心320/240具名保，算式/调用者保持；全父/数据寿命/数值/x87/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "ProjectScreenToWorld_46CE80"
+          ],
+          "relationship": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-baseline",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-acceptance",
+        "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
+        "doc/cg2d_projection_sampling_return_evidence.json"
+      ],
+      "boundary": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "verification_level": "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "projection_sampling_return": {
+        "spec_id": "BUF01",
+        "evidence_refs": [
+          "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-baseline",
+          "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision",
+          "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-acceptance",
+          "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
+          "doc/cg2d_projection_sampling_return_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 16,
+        "original_code_bytes": 59,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_forward_outX_borrowed_pointer_return_restored": true,
+        "original_forward_referenceX_u_before_referenceY_v_restored": true,
+        "original_four_W32_output_writes_as_byte_copy": true,
+        "original_inverse_outputX_before_fresh_referenceY_kept": true,
+        "original_formula_and_F32_output_narrowing_kept": true,
+        "original_loaded_data_count": 6,
+        "original_loaded_data_bytes": 24,
+        "original_center_S32_writable_data_and_direct_references_recorded": true,
+        "normal_center_320_240_existing_adaptation_decided": true,
+        "all_indirect_center_aliases_excluded": false,
+        "original_source_other_bodies_callers_and_network_plaintext_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

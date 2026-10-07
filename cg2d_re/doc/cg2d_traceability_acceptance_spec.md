@@ -1616,3 +1616,11 @@ BUD01集中静态已通过：两完整源码/三既有正文与HEAD一致，源�
 三任务current/引用仍open，pending/差队列/closed11与完整门禁保。完整正常生产消费/owner-alias寿命、数值/x87/上游callee/机器ABI/链接/像素画面/明文互通及R8继续；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
 
 BUE01集中静态已通过：完整Scene仅一既有正文六BYTE片段变化，原独立门禁/取样、三W32所有者与目标/16B描述符/事件/tick后fresh基线保持；三原页167条619B/元数据/窗口、8B实际F64/5B用途、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1684/有效1677、合同1795（48.78%）、处置825/E960、R7已审393/余2668、LOOP96/MAP93。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87/正常寿命/机器ABI/编译/链接/像素画面/运行。命名快照：cg2d-re-cursor-grid-byte-sampling-20261008。
+
+## BUF01 双向投影开发验收（2026-10-08）
+
+[基线](cg2d_projection_sampling_return_spec.md#projection-sampling-return-baseline)、[裁决](cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision)、[验收](cg2d_projection_sampling_return_spec.md#projection-sampling-return-acceptance)及[证据](cg2d_projection_sampling_return_evidence.json)覆盖两完整根35条136B/两页、三局部窗口/六数据24B/两尾8B。实修两正文四片段及一声明片段，恢复正向原借用outX、参考取样和四BYTE别名输出，反向X写后fresh Y读保持；所有算式/调用者保持。
+
+LOOP96→98/MAP93→95各两局部I-S各25来源，仅本步静态；三任务current/引用仍open，差队列/closed11及完整门禁保持。完整正常生产消费/全部数据别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通与R8继续，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
+
+BUF01必要静态已通过：完整Scene/公开声明仅五片段变化，两原根35条136B、三窗口/24B数据/8B用途与台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1686/有效1679、合同1797（48.83%）、处置827/E964、R7已审395/余2666、LOOP98/MAP95。原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-projection-sampling-return-20261008。

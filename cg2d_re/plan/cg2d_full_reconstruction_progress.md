@@ -3772,3 +3772,17 @@ BUD01基线收口已提交，本步继续实际生产入口46F680。既有IDA只
 三任务current/引用仍open、pending18/ECX pending7/closed11/差队列和完整门禁保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整正常生产消费/寿命/数值/x87/上游callee/机器ABI/链接/像素画面/明文互通及R8继续。
 
 BUE01集中静态已通过：完整Scene仅一既有正文六BYTE片段变化，原独立门禁/取样、三W32所有者与目标/16B描述符/事件/tick后fresh基线保持；三原页167条619B/元数据/窗口、8B实际F64/5B用途、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1684/有效1677、合同1795（48.78%）、处置825/E960、R7已审393/余2668、LOOP96/MAP93。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87/正常寿命/机器ABI/编译/链接/像素画面/运行。命名快照：cg2d-re-cursor-grid-byte-sampling-20261008。
+
+## BUF01 双投影返回、取样与W32别名实修（2026-10-08）
+
+BUE01目标格生产六BYTE修复已提交。本步聚焦其双投影46CE30/46CE80；既有IDA只读MCP完整两根35条136B/两页两块，无call/jump/两RET，36入向来自33父，补三相关局部窗口、六数据24B及两尾3+5B，不复核全父。
+
+确认正向EAX沿原outX直至RET，现void丢失指针合同；现参考X/Y提前预取不同于原refX/u后refY/v。先落[子SPEC](../doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision)，将正向定义/既有声明同步float*并返回原借用outX，调整参考取样序。两根四处FSTP dword承接四BYTE位写，现float左值写uint32参考槽存在别名合同差异，改为局部F32加memcpy；正向两参考先于首输出，反向仍写X后fresh读refY，保持X→Y发布。仅Scene两既有正文四片段和一头文件一片段，共五，无新helper/lambda/共享owner/依赖。
+
+中心FIADD/FILD证明S32而非名字flt所示F32，55DA80/84处于可写.data，初值320/240，各仅两个直接读无直接写/取地址；四缩放为.rdata F32。具名保既有正常中心承接，不造未证动态视口/影子状态，不以直接引用清单排除所有间接别名。所有算式/double承载/F32收窄和调用者保持，468F70正确局部F32/ftol消费与Y的S64返回不改，不误作投影指针透传。
+
+新1684/1685与两F均adapted；两尾实际NN_NOP/90无入向/后真入口仅用途。LOOP96→98/MAP93→95各两局部I-S各25来源、两R7；预期语义1686/有效1679、合同1797（48.83%）、处置827/E964、R7已审395/余2666。集中必要静态/纯文本汇总后记录实值，不编译/测试/运行。
+
+三任务仍open，pending18/ECX pending7、closed11/差队列/完整门禁保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active；完整正常生产消费/全部数据别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通及R8继续。
+
+BUF01必要静态已通过：完整Scene/公开声明仅五片段变化，两原根35条136B、三窗口/24B数据/8B用途与台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1686/有效1679、合同1797（48.83%）、处置827/E964、R7已审395/余2666、LOOP98/MAP95。原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-projection-sampling-return-20261008。

@@ -100,8 +100,8 @@ std::int32_t IsMapFloorAllowed_448240() noexcept;
 // 原 sub_4493C0@0x4493C0；只采样一次 gMapFloor，判定闭区间及四项表，返回 0/1。
 std::int32_t Sub_4493C0() noexcept;
 
-// 原 sub_46CE30@0x46CE30；X 先写、Y 后写，不检查输出指针。
-void ProjectWorldToScreen_46CE30(
+// 原 sub_46CE30@0x46CE30；X/Y 各写四字节，返回借用的 outX，不检查输出指针。
+float* ProjectWorldToScreen_46CE30(
     float worldX,
     float worldY,
     float* outX,

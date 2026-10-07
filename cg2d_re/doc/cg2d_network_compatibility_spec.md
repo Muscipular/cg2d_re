@@ -103,3 +103,14 @@ BUO01必要静态已通过：完整Scene只两数据初始化改原768B/512常�
 ### BUQ01 本步实际结果
 
 本步必要静态通过：完整原根197条/三页、aBS局部85条/字串/七段布局/10B用途，源码全文仅四片段、两机器台账及五文档/四任务完整模型均核定；四锚点/25来源和UTF-8无BOM/LF通过。文本汇总与-Check通过，完整派生快照其余对象保持：语义1715/有效1708、文档1826（49.62%）、处置856/E1010、R7已审421/余2640，LOOP127/MAP122/NETWORK61。三I三S均仅此根实际开发/静态，四任务open、完整叶验收0、整体未验收。旧异常-1/额外WORD已撤，既有帧零初始化适配保留并披露，不记故障等价PASS。未编译、测试或运行，不代完整寿命/文件运行/互通及R8。命名快照cg2d-re-map-incremental-reply-sampling-20261008，整体目标active。
+
+## 鼠标追踪配置与PGXE上报基线（BUV01，2026-10-08）
+
+[新原生链接基线](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline)与[裁决](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision)含50E7B0五条24B配置、512CA0完整22条72B PGXE Report，两根正确正文保，仅新增本域限定S，不称新网络I。配置忽略首参，原容量→阈值→Reset调用保持；下游只已证地址拓宽为原生借用链接/修复原malloc失败发布和取样，不改网络两S32字段或协议分派。
+
+原PGXE5B已载且源码同原文字，Report先Build→保存W32 bufferLength→Format整数→fresh同源buffer追加→fresh同源buffer发送并返回；ProtocolOutputAccess::data不缓存指针。取证十根组262条799B/十一页、25引用13父只身份与七65B用途，不证明其全部父或所有帧消费。NETWORK61→63、六总局部证据中本域仅S，V03仍open；格式兼容/仅明文、两加解密叶排除及完整互通运行门禁保持。
+
+### BUV01 实际限定静态结果
+
+十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
+实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。

@@ -1,0 +1,3830 @@
+{
+  "spec_id": "BUV01",
+  "recorded_on": "2026-10-08",
+  "original_provider": "既有cg2d.exe只读IDA MCP ida-17524/a1def68e临时路由",
+  "original_functions": [
+    {
+      "start": "0x506580",
+      "end_exclusive": "0x5066c1",
+      "count": 91,
+      "chunks": [
+        [
+          "0x506580",
+          "0x5066c1"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4576b0",
+          "text": "call    sub_506580",
+          "from": "0x4576bd"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": "0x5066d0",
+          "text": "jmp     sub_506580",
+          "from": "0x5066e4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x506900",
+          "text": "call    sub_506580",
+          "from": "0x5069d4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x506b50",
+          "text": "call    sub_506580",
+          "from": "0x506c29"
+        },
+        {
+          "type": 19,
+          "code": true,
+          "function": "0x50e7b0",
+          "text": "jmp     sub_506580",
+          "from": "0x50e7c3"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x506580",
+          "size": 5,
+          "bytes": "a1c4ac5800",
+          "mnemonic": "mov",
+          "text": "mov     eax, off_58ACC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x506585",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506586",
+          "size": 2,
+          "bytes": "33db",
+          "mnemonic": "xor",
+          "text": "xor     ebx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506588",
+          "size": 5,
+          "bytes": "3dd08dd600",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, offset byte_D68DD0",
+          "call_target": null
+        },
+        {
+          "ea": "0x50658d",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50658e",
+          "size": 2,
+          "bytes": "740d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_50659D",
+          "call_target": null
+        },
+        {
+          "ea": "0x506590",
+          "size": 2,
+          "bytes": "3bc3",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506592",
+          "size": 2,
+          "bytes": "7409",
+          "mnemonic": "jz",
+          "text": "jz      short loc_50659D",
+          "call_target": null
+        },
+        {
+          "ea": "0x506594",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; lpMem",
+          "call_target": null
+        },
+        {
+          "ea": "0x506595",
+          "size": 5,
+          "bytes": "e80f5b0300",
+          "mnemonic": "call",
+          "text": "call    free",
+          "call_target": "0x53c0a9"
+        },
+        {
+          "ea": "0x50659a",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x50659d",
+          "size": 5,
+          "bytes": "a1c0ac5800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58ACC0",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065a2",
+          "size": 3,
+          "bytes": "83f864",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 64h ; 'd'",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065a5",
+          "size": 2,
+          "bytes": "7427",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5065CE",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065a7",
+          "size": 3,
+          "bytes": "83f80a",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 0Ah",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065aa",
+          "size": 2,
+          "bytes": "7c22",
+          "mnemonic": "jl",
+          "text": "jl      short loc_5065CE",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065ac",
+          "size": 5,
+          "bytes": "3d88130000",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 1388h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065b1",
+          "size": 2,
+          "bytes": "7d1b",
+          "mnemonic": "jge",
+          "text": "jge     short loc_5065CE",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065b3",
+          "size": 3,
+          "bytes": "8d0440",
+          "mnemonic": "lea",
+          "text": "lea     eax, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065b6",
+          "size": 3,
+          "bytes": "c1e003",
+          "mnemonic": "shl",
+          "text": "shl     eax, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065b9",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Size",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065ba",
+          "size": 5,
+          "bytes": "e8ed5d0300",
+          "mnemonic": "call",
+          "text": "call    _malloc",
+          "call_target": "0x53c3ac"
+        },
+        {
+          "ea": "0x5065bf",
+          "size": 2,
+          "bytes": "8bf8",
+          "mnemonic": "mov",
+          "text": "mov     edi, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065c1",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065c4",
+          "size": 2,
+          "bytes": "3bfb",
+          "mnemonic": "cmp",
+          "text": "cmp     edi, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065c6",
+          "size": 6,
+          "bytes": "893dc4ac5800",
+          "mnemonic": "mov",
+          "text": "mov     off_58ACC4, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065cc",
+          "size": 2,
+          "bytes": "7517",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5065E5",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065ce",
+          "size": 5,
+          "bytes": "bfd08dd600",
+          "mnemonic": "mov",
+          "text": "mov     edi, offset byte_D68DD0",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065d3",
+          "size": 5,
+          "bytes": "b864000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 64h ; 'd'",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065d8",
+          "size": 6,
+          "bytes": "893dc4ac5800",
+          "mnemonic": "mov",
+          "text": "mov     off_58ACC4, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065de",
+          "size": 5,
+          "bytes": "a3c0ac5800",
+          "mnemonic": "mov",
+          "text": "mov     dword_58ACC0, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065e3",
+          "size": 2,
+          "bytes": "eb05",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_5065EA",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065e5",
+          "size": 5,
+          "bytes": "a1c0ac5800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58ACC0",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065ea",
+          "size": 3,
+          "bytes": "8d0c40",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065ed",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065ef",
+          "size": 3,
+          "bytes": "c1e103",
+          "mnemonic": "shl",
+          "text": "shl     ecx, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065f2",
+          "size": 2,
+          "bytes": "8bd1",
+          "mnemonic": "mov",
+          "text": "mov     edx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065f4",
+          "size": 3,
+          "bytes": "c1e902",
+          "mnemonic": "shr",
+          "text": "shr     ecx, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065f7",
+          "size": 2,
+          "bytes": "f3ab",
+          "mnemonic": "stosd",
+          "text": "rep stosd",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065f9",
+          "size": 2,
+          "bytes": "8bca",
+          "mnemonic": "mov",
+          "text": "mov     ecx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065fb",
+          "size": 3,
+          "bytes": "83e103",
+          "mnemonic": "and",
+          "text": "and     ecx, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x5065fe",
+          "size": 2,
+          "bytes": "f3aa",
+          "mnemonic": "stosb",
+          "text": "rep stosb",
+          "call_target": null
+        },
+        {
+          "ea": "0x506600",
+          "size": 7,
+          "bytes": "833dbcac580005",
+          "mnemonic": "cmp",
+          "text": "cmp     dword_58ACBC, 5",
+          "call_target": null
+        },
+        {
+          "ea": "0x506607",
+          "size": 2,
+          "bytes": "7d0a",
+          "mnemonic": "jge",
+          "text": "jge     short loc_506613",
+          "call_target": null
+        },
+        {
+          "ea": "0x506609",
+          "size": 10,
+          "bytes": "c705bcac580032000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_58ACBC, 32h ; '2'",
+          "call_target": null
+        },
+        {
+          "ea": "0x506613",
+          "size": 6,
+          "bytes": "8b3dc0ac5800",
+          "mnemonic": "mov",
+          "text": "mov     edi, dword_58ACC0",
+          "call_target": null
+        },
+        {
+          "ea": "0x506619",
+          "size": 6,
+          "bytes": "8b0dc4ac5800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, off_58ACC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x50661f",
+          "size": 5,
+          "bytes": "bad08ad600",
+          "mnemonic": "mov",
+          "text": "mov     edx, offset unk_D68AD0",
+          "call_target": null
+        },
+        {
+          "ea": "0x506624",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506626",
+          "size": 2,
+          "bytes": "3bfb",
+          "mnemonic": "cmp",
+          "text": "cmp     edi, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506628",
+          "size": 6,
+          "bytes": "891d6497d600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D69764, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50662e",
+          "size": 10,
+          "bytes": "c7056097d6007097d600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D69760, offset unk_D69770",
+          "call_target": null
+        },
+        {
+          "ea": "0x506638",
+          "size": 6,
+          "bytes": "891d8097d600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D69780, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50663e",
+          "size": 10,
+          "bytes": "c7058497d6005097d600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D69784, offset unk_D69750",
+          "call_target": null
+        },
+        {
+          "ea": "0x506648",
+          "size": 6,
+          "bytes": "891de48ad600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68AE4, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50664e",
+          "size": 6,
+          "bytes": "891d4097d600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D69740, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506654",
+          "size": 6,
+          "bytes": "89154497d600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D69744, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50665a",
+          "size": 6,
+          "bytes": "890de08ad600",
+          "mnemonic": "mov",
+          "text": "mov     dword_D68AE0, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506660",
+          "size": 2,
+          "bytes": "7e5c",
+          "mnemonic": "jle",
+          "text": "jle     short loc_5066BE",
+          "call_target": null
+        },
+        {
+          "ea": "0x506662",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x506663",
+          "size": 2,
+          "bytes": "eb06",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_50666B",
+          "call_target": null
+        },
+        {
+          "ea": "0x506665",
+          "size": 6,
+          "bytes": "8b0dc4ac5800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, off_58ACC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x50666b",
+          "size": 2,
+          "bytes": "3bc3",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50666d",
+          "size": 2,
+          "bytes": "7505",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506674",
+          "call_target": null
+        },
+        {
+          "ea": "0x50666f",
+          "size": 3,
+          "bytes": "895114",
+          "mnemonic": "mov",
+          "text": "mov     [ecx+14h], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506672",
+          "size": 2,
+          "bytes": "eb0c",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_506680",
+          "call_target": null
+        },
+        {
+          "ea": "0x506674",
+          "size": 3,
+          "bytes": "8d3c40",
+          "mnemonic": "lea",
+          "text": "lea     edi, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506677",
+          "size": 3,
+          "bytes": "8d0cf9",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [ecx+edi*8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50667a",
+          "size": 3,
+          "bytes": "8d79e8",
+          "mnemonic": "lea",
+          "text": "lea     edi, [ecx-18h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50667d",
+          "size": 3,
+          "bytes": "897914",
+          "mnemonic": "mov",
+          "text": "mov     [ecx+14h], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506680",
+          "size": 6,
+          "bytes": "8b0dc0ac5800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_58ACC0",
+          "call_target": null
+        },
+        {
+          "ea": "0x506686",
+          "size": 1,
+          "bytes": "49",
+          "mnemonic": "dec",
+          "text": "dec     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506687",
+          "size": 2,
+          "bytes": "3bc1",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506689",
+          "size": 2,
+          "bytes": "7513",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_50669E",
+          "call_target": null
+        },
+        {
+          "ea": "0x50668b",
+          "size": 6,
+          "bytes": "8b3dc4ac5800",
+          "mnemonic": "mov",
+          "text": "mov     edi, off_58ACC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x506691",
+          "size": 3,
+          "bytes": "8d0c40",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506694",
+          "size": 8,
+          "bytes": "c744cf103097d600",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [edi+ecx*8+10h], offset unk_D69730",
+          "call_target": null
+        },
+        {
+          "ea": "0x50669c",
+          "size": 2,
+          "bytes": "eb14",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_5066B2",
+          "call_target": null
+        },
+        {
+          "ea": "0x50669e",
+          "size": 6,
+          "bytes": "8b0dc4ac5800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, off_58ACC4",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066a4",
+          "size": 4,
+          "bytes": "8d7c4003",
+          "mnemonic": "lea",
+          "text": "lea     edi, [eax+eax*2+3]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066a8",
+          "size": 3,
+          "bytes": "8d2c40",
+          "mnemonic": "lea",
+          "text": "lea     ebp, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066ab",
+          "size": 3,
+          "bytes": "8d3cf9",
+          "mnemonic": "lea",
+          "text": "lea     edi, [ecx+edi*8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066ae",
+          "size": 4,
+          "bytes": "897ce910",
+          "mnemonic": "mov",
+          "text": "mov     [ecx+ebp*8+10h], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066b2",
+          "size": 6,
+          "bytes": "8b0dc0ac5800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_58ACC0",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066b8",
+          "size": 1,
+          "bytes": "40",
+          "mnemonic": "inc",
+          "text": "inc     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066b9",
+          "size": 2,
+          "bytes": "3bc1",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066bb",
+          "size": 2,
+          "bytes": "7ca8",
+          "mnemonic": "jl",
+          "text": "jl      short loc_506665",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066bd",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066be",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066bf",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066c0",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x506580",
+          "0x5066c1"
+        ]
+      ],
+      "code_bytes": 321,
+      "page_count": 2,
+      "calls": [
+        {
+          "ea": "0x506595",
+          "size": 5,
+          "bytes": "e80f5b0300",
+          "mnemonic": "call",
+          "text": "call    free",
+          "call_target": "0x53c0a9"
+        },
+        {
+          "ea": "0x5065ba",
+          "size": 5,
+          "bytes": "e8ed5d0300",
+          "mnemonic": "call",
+          "text": "call    _malloc",
+          "call_target": "0x53c3ac"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 15,
+      "return_count": 1
+    },
+    {
+      "start": "0x5066d0",
+      "end_exclusive": "0x5066e9",
+      "count": 3,
+      "chunks": [
+        [
+          "0x5066d0",
+          "0x5066e9"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457a40",
+          "text": "call    sub_5066D0",
+          "from": "0x457a8b"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x5066d0",
+          "size": 10,
+          "bytes": "c705bcac580032000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_58ACBC, 32h ; '2'",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066da",
+          "size": 10,
+          "bytes": "c705c0ac580064000000",
+          "mnemonic": "mov",
+          "text": "mov     dword_58ACC0, 64h ; 'd'",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066e4",
+          "size": 5,
+          "bytes": "e997feffff",
+          "mnemonic": "jmp",
+          "text": "jmp     sub_506580",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x5066d0",
+          "0x5066e9"
+        ]
+      ],
+      "code_bytes": 25,
+      "page_count": 1,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 1,
+      "return_count": 0
+    },
+    {
+      "start": "0x50e7b0",
+      "end_exclusive": "0x50e7c8",
+      "count": 5,
+      "chunks": [
+        [
+          "0x50e7b0",
+          "0x50e7c8"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x512e40",
+          "text": "call    sub_50E7B0",
+          "from": "0x516772"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x50e7b0",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50e7b4",
+          "size": 4,
+          "bytes": "8b4c240c",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50e7b8",
+          "size": 5,
+          "bytes": "a3c0ac5800",
+          "mnemonic": "mov",
+          "text": "mov     dword_58ACC0, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50e7bd",
+          "size": 6,
+          "bytes": "890dbcac5800",
+          "mnemonic": "mov",
+          "text": "mov     dword_58ACBC, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50e7c3",
+          "size": 5,
+          "bytes": "e9b87dffff",
+          "mnemonic": "jmp",
+          "text": "jmp     sub_506580",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x50e7b0",
+          "0x50e7c8"
+        ]
+      ],
+      "code_bytes": 24,
+      "page_count": 1,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 1,
+      "return_count": 0
+    },
+    {
+      "start": "0x5066f0",
+      "end_exclusive": "0x506720",
+      "count": 20,
+      "chunks": [
+        [
+          "0x5066f0",
+          "0x506720"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5067a0",
+          "text": "call    sub_5066F0",
+          "from": "0x5067d4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5067f0",
+          "text": "call    sub_5066F0",
+          "from": "0x50685d"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x5066f0",
+          "size": 4,
+          "bytes": "8b542404",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066f4",
+          "size": 2,
+          "bytes": "85d2",
+          "mnemonic": "test",
+          "text": "test    edx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066f6",
+          "size": 2,
+          "bytes": "7503",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5066FB",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066f8",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066fa",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066fb",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5066ff",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506701",
+          "size": 2,
+          "bytes": "7501",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506704",
+          "call_target": null
+        },
+        {
+          "ea": "0x506703",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x506704",
+          "size": 3,
+          "bytes": "8b4a10",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [edx+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506707",
+          "size": 2,
+          "bytes": "85c9",
+          "mnemonic": "test",
+          "text": "test    ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506709",
+          "size": 2,
+          "bytes": "7503",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_50670E",
+          "call_target": null
+        },
+        {
+          "ea": "0x50670b",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50670d",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x50670e",
+          "size": 3,
+          "bytes": "894114",
+          "mnemonic": "mov",
+          "text": "mov     [ecx+14h], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506711",
+          "size": 3,
+          "bytes": "894210",
+          "mnemonic": "mov",
+          "text": "mov     [edx+10h], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506714",
+          "size": 3,
+          "bytes": "895014",
+          "mnemonic": "mov",
+          "text": "mov     [eax+14h], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506717",
+          "size": 3,
+          "bytes": "894810",
+          "mnemonic": "mov",
+          "text": "mov     [eax+10h], ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50671a",
+          "size": 5,
+          "bytes": "b801000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x50671f",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x5066f0",
+          "0x506720"
+        ]
+      ],
+      "code_bytes": 48,
+      "page_count": 1,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 3,
+      "return_count": 4
+    },
+    {
+      "start": "0x506720",
+      "end_exclusive": "0x506757",
+      "count": 20,
+      "chunks": [
+        [
+          "0x506720",
+          "0x506757"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x506760",
+          "text": "call    sub_506720",
+          "from": "0x506774"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x506780",
+          "text": "call    sub_506720",
+          "from": "0x506794"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5067f0",
+          "text": "call    sub_506720",
+          "from": "0x506852"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x506720",
+          "size": 4,
+          "bytes": "8b442404",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506724",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506726",
+          "size": 2,
+          "bytes": "7501",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506729",
+          "call_target": null
+        },
+        {
+          "ea": "0x506728",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x506729",
+          "size": 3,
+          "bytes": "8b5010",
+          "mnemonic": "mov",
+          "text": "mov     edx, [eax+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50672c",
+          "size": 2,
+          "bytes": "85d2",
+          "mnemonic": "test",
+          "text": "test    edx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50672e",
+          "size": 2,
+          "bytes": "7503",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506733",
+          "call_target": null
+        },
+        {
+          "ea": "0x506730",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506732",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x506733",
+          "size": 3,
+          "bytes": "8b4814",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [eax+14h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506736",
+          "size": 2,
+          "bytes": "85c9",
+          "mnemonic": "test",
+          "text": "test    ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506738",
+          "size": 2,
+          "bytes": "7503",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_50673D",
+          "call_target": null
+        },
+        {
+          "ea": "0x50673a",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50673c",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x50673d",
+          "size": 3,
+          "bytes": "894a14",
+          "mnemonic": "mov",
+          "text": "mov     [edx+14h], ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506740",
+          "size": 3,
+          "bytes": "895110",
+          "mnemonic": "mov",
+          "text": "mov     [ecx+10h], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506743",
+          "size": 7,
+          "bytes": "c7401400000000",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [eax+14h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x50674a",
+          "size": 7,
+          "bytes": "c7401000000000",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [eax+10h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x506751",
+          "size": 5,
+          "bytes": "b801000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506756",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x506720",
+          "0x506757"
+        ]
+      ],
+      "code_bytes": 55,
+      "page_count": 1,
+      "calls": [],
+      "indirect_calls": [],
+      "jump_count": 3,
+      "return_count": 4
+    },
+    {
+      "start": "0x506760",
+      "end_exclusive": "0x506780",
+      "count": 13,
+      "chunks": [
+        [
+          "0x506760",
+          "0x506780"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5067a0",
+          "text": "call    sub_506760",
+          "from": "0x5067a0"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x506760",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506761",
+          "size": 6,
+          "bytes": "8b35e08ad600",
+          "mnemonic": "mov",
+          "text": "mov     esi, dword_D68AE0",
+          "call_target": null
+        },
+        {
+          "ea": "0x506767",
+          "size": 6,
+          "bytes": "81fe3097d600",
+          "mnemonic": "cmp",
+          "text": "cmp     esi, offset unk_D69730",
+          "call_target": null
+        },
+        {
+          "ea": "0x50676d",
+          "size": 2,
+          "bytes": "7504",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506773",
+          "call_target": null
+        },
+        {
+          "ea": "0x50676f",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506771",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506772",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x506773",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506774",
+          "size": 5,
+          "bytes": "e8a7ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_506720",
+          "call_target": "0x506720"
+        },
+        {
+          "ea": "0x506779",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x50677c",
+          "size": 2,
+          "bytes": "8bc6",
+          "mnemonic": "mov",
+          "text": "mov     eax, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50677e",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50677f",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x506760",
+          "0x506780"
+        ]
+      ],
+      "code_bytes": 32,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x506774",
+          "size": 5,
+          "bytes": "e8a7ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_506720",
+          "call_target": "0x506720"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 1,
+      "return_count": 2
+    },
+    {
+      "start": "0x506780",
+      "end_exclusive": "0x5067a0",
+      "count": 13,
+      "chunks": [
+        [
+          "0x506780",
+          "0x5067a0"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5067a0",
+          "text": "call    sub_506780",
+          "from": "0x5067a9"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x506780",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506781",
+          "size": 6,
+          "bytes": "8b358497d600",
+          "mnemonic": "mov",
+          "text": "mov     esi, dword_D69784",
+          "call_target": null
+        },
+        {
+          "ea": "0x506787",
+          "size": 6,
+          "bytes": "81fe5097d600",
+          "mnemonic": "cmp",
+          "text": "cmp     esi, offset unk_D69750",
+          "call_target": null
+        },
+        {
+          "ea": "0x50678d",
+          "size": 2,
+          "bytes": "7504",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506793",
+          "call_target": null
+        },
+        {
+          "ea": "0x50678f",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506791",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506792",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x506793",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506794",
+          "size": 5,
+          "bytes": "e887ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_506720",
+          "call_target": "0x506720"
+        },
+        {
+          "ea": "0x506799",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x50679c",
+          "size": 2,
+          "bytes": "8bc6",
+          "mnemonic": "mov",
+          "text": "mov     eax, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50679e",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50679f",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x506780",
+          "0x5067a0"
+        ]
+      ],
+      "code_bytes": 32,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x506794",
+          "size": 5,
+          "bytes": "e887ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_506720",
+          "call_target": "0x506720"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 1,
+      "return_count": 2
+    },
+    {
+      "start": "0x5067a0",
+      "end_exclusive": "0x5067e2",
+      "count": 20,
+      "chunks": [
+        [
+          "0x5067a0",
+          "0x5067e2"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5067f0",
+          "text": "call    sub_5067A0",
+          "from": "0x506839"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x5067a0",
+          "size": 5,
+          "bytes": "e8bbffffff",
+          "mnemonic": "call",
+          "text": "call    sub_506760",
+          "call_target": "0x506760"
+        },
+        {
+          "ea": "0x5067a5",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067a7",
+          "size": 2,
+          "bytes": "750a",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5067B3",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067a9",
+          "size": 5,
+          "bytes": "e8d2ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_506780",
+          "call_target": "0x506780"
+        },
+        {
+          "ea": "0x5067ae",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067b0",
+          "size": 2,
+          "bytes": "7501",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5067B3",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067b2",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067b3",
+          "size": 4,
+          "bytes": "8b4c2404",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067b7",
+          "size": 4,
+          "bytes": "8b542408",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067bb",
+          "size": 2,
+          "bytes": "8908",
+          "mnemonic": "mov",
+          "text": "mov     [eax], ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067bd",
+          "size": 4,
+          "bytes": "8b4c240c",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067c1",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067c2",
+          "size": 5,
+          "bytes": "685097d600",
+          "mnemonic": "push",
+          "text": "push    offset unk_D69750",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067c7",
+          "size": 3,
+          "bytes": "895004",
+          "mnemonic": "mov",
+          "text": "mov     [eax+4], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067ca",
+          "size": 3,
+          "bytes": "894808",
+          "mnemonic": "mov",
+          "text": "mov     [eax+8], ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067cd",
+          "size": 7,
+          "bytes": "c7400c01000000",
+          "mnemonic": "mov",
+          "text": "mov     dword ptr [eax+0Ch], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067d4",
+          "size": 5,
+          "bytes": "e817ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_5066F0",
+          "call_target": "0x5066f0"
+        },
+        {
+          "ea": "0x5067d9",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067dc",
+          "size": 5,
+          "bytes": "b801000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067e1",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x5067a0",
+          "0x5067e2"
+        ]
+      ],
+      "code_bytes": 66,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x5067a0",
+          "size": 5,
+          "bytes": "e8bbffffff",
+          "mnemonic": "call",
+          "text": "call    sub_506760",
+          "call_target": "0x506760"
+        },
+        {
+          "ea": "0x5067a9",
+          "size": 5,
+          "bytes": "e8d2ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_506780",
+          "call_target": "0x506780"
+        },
+        {
+          "ea": "0x5067d4",
+          "size": 5,
+          "bytes": "e817ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_5066F0",
+          "call_target": "0x5066f0"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 2,
+      "return_count": 2
+    },
+    {
+      "start": "0x5067f0",
+      "end_exclusive": "0x50686c",
+      "count": 55,
+      "chunks": [
+        [
+          "0x5067f0",
+          "0x50686c"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x506900",
+          "text": "call    sub_5067F0",
+          "from": "0x5069b0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x506b50",
+          "text": "call    sub_5067F0",
+          "from": "0x506c05"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x5067f0",
+          "size": 4,
+          "bytes": "8b54240c",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067f4",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067f5",
+          "size": 2,
+          "bytes": "33c9",
+          "mnemonic": "xor",
+          "text": "xor     ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067f7",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067f8",
+          "size": 6,
+          "bytes": "8b356097d600",
+          "mnemonic": "mov",
+          "text": "mov     esi, dword_D69760",
+          "call_target": null
+        },
+        {
+          "ea": "0x5067fe",
+          "size": 2,
+          "bytes": "85d2",
+          "mnemonic": "test",
+          "text": "test    edx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506800",
+          "size": 3,
+          "bytes": "0f94c1",
+          "mnemonic": "setz",
+          "text": "setz    cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x506803",
+          "size": 2,
+          "bytes": "85f6",
+          "mnemonic": "test",
+          "text": "test    esi, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506805",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506806",
+          "size": 2,
+          "bytes": "7506",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_50680E",
+          "call_target": null
+        },
+        {
+          "ea": "0x506808",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506809",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50680a",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50680c",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50680d",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x50680e",
+          "size": 3,
+          "bytes": "8b4610",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506811",
+          "size": 4,
+          "bytes": "8b7c2414",
+          "mnemonic": "mov",
+          "text": "mov     edi, [esp+0Ch+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506815",
+          "size": 4,
+          "bytes": "8b5c2410",
+          "mnemonic": "mov",
+          "text": "mov     ebx, [esp+0Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506819",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50681b",
+          "size": 2,
+          "bytes": "7419",
+          "mnemonic": "jz",
+          "text": "jz      short loc_506836",
+          "call_target": null
+        },
+        {
+          "ea": "0x50681d",
+          "size": 2,
+          "bytes": "391e",
+          "mnemonic": "cmp",
+          "text": "cmp     [esi], ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50681f",
+          "size": 2,
+          "bytes": "750a",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_50682B",
+          "call_target": null
+        },
+        {
+          "ea": "0x506821",
+          "size": 3,
+          "bytes": "397e04",
+          "mnemonic": "cmp",
+          "text": "cmp     [esi+4], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506824",
+          "size": 2,
+          "bytes": "7505",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_50682B",
+          "call_target": null
+        },
+        {
+          "ea": "0x506826",
+          "size": 3,
+          "bytes": "395608",
+          "mnemonic": "cmp",
+          "text": "cmp     [esi+8], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506829",
+          "size": 2,
+          "bytes": "741f",
+          "mnemonic": "jz",
+          "text": "jz      short loc_50684A",
+          "call_target": null
+        },
+        {
+          "ea": "0x50682b",
+          "size": 2,
+          "bytes": "8bf0",
+          "mnemonic": "mov",
+          "text": "mov     esi, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50682d",
+          "size": 2,
+          "bytes": "33c9",
+          "mnemonic": "xor",
+          "text": "xor     ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50682f",
+          "size": 3,
+          "bytes": "8b4610",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506832",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x506834",
+          "size": 2,
+          "bytes": "75e7",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_50681D",
+          "call_target": null
+        },
+        {
+          "ea": "0x506836",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506837",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506838",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506839",
+          "size": 5,
+          "bytes": "e862ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_5067A0",
+          "call_target": "0x5067a0"
+        },
+        {
+          "ea": "0x50683e",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x506841",
+          "size": 5,
+          "bytes": "b801000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x506846",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506847",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506848",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x506849",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x50684a",
+          "size": 2,
+          "bytes": "85c9",
+          "mnemonic": "test",
+          "text": "test    ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50684c",
+          "size": 2,
+          "bytes": "7503",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_506851",
+          "call_target": null
+        },
+        {
+          "ea": "0x50684e",
+          "size": 3,
+          "bytes": "ff460c",
+          "mnemonic": "inc",
+          "text": "inc     dword ptr [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506851",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506852",
+          "size": 5,
+          "bytes": "e8c9feffff",
+          "mnemonic": "call",
+          "text": "call    sub_506720",
+          "call_target": "0x506720"
+        },
+        {
+          "ea": "0x506857",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506858",
+          "size": 5,
+          "bytes": "685097d600",
+          "mnemonic": "push",
+          "text": "push    offset unk_D69750",
+          "call_target": null
+        },
+        {
+          "ea": "0x50685d",
+          "size": 5,
+          "bytes": "e88efeffff",
+          "mnemonic": "call",
+          "text": "call    sub_5066F0",
+          "call_target": "0x5066f0"
+        },
+        {
+          "ea": "0x506862",
+          "size": 3,
+          "bytes": "8b460c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x506865",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x506868",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x506869",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50686a",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50686b",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x5067f0",
+          "0x50686c"
+        ]
+      ],
+      "code_bytes": 124,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x506839",
+          "size": 5,
+          "bytes": "e862ffffff",
+          "mnemonic": "call",
+          "text": "call    sub_5067A0",
+          "call_target": "0x5067a0"
+        },
+        {
+          "ea": "0x506852",
+          "size": 5,
+          "bytes": "e8c9feffff",
+          "mnemonic": "call",
+          "text": "call    sub_506720",
+          "call_target": "0x506720"
+        },
+        {
+          "ea": "0x50685d",
+          "size": 5,
+          "bytes": "e88efeffff",
+          "mnemonic": "call",
+          "text": "call    sub_5066F0",
+          "call_target": "0x5066f0"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 7,
+      "return_count": 3
+    },
+    {
+      "start": "0x512ca0",
+      "end_exclusive": "0x512ce8",
+      "count": 22,
+      "chunks": [
+        [
+          "0x512ca0",
+          "0x512ce8"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4043b0",
+          "text": "call    sub_512CA0",
+          "from": "0x404416"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4043b0",
+          "text": "call    sub_512CA0",
+          "from": "0x4045e5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457020",
+          "text": "call    sub_512CA0",
+          "from": "0x457269"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457020",
+          "text": "call    sub_512CA0",
+          "from": "0x45728c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457020",
+          "text": "call    sub_512CA0",
+          "from": "0x4573e7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x457020",
+          "text": "call    sub_512CA0",
+          "from": "0x4574a6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x506900",
+          "text": "call    sub_512CA0",
+          "from": "0x5069cc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x506b50",
+          "text": "call    sub_512CA0",
+          "from": "0x506c21"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x512ca0",
+          "size": 5,
+          "bytes": "a1f0b55800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ca5",
+          "size": 5,
+          "bytes": "688cb35800",
+          "mnemonic": "push",
+          "text": "push    offset aPgxe; \"PGXE\"",
+          "call_target": null
+        },
+        {
+          "ea": "0x512caa",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; Buffer",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cab",
+          "size": 5,
+          "bytes": "e860480000",
+          "mnemonic": "call",
+          "text": "call    sub_517510",
+          "call_target": "0x517510"
+        },
+        {
+          "ea": "0x512cb0",
+          "size": 6,
+          "bytes": "8b0decb55800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, outBufferLen",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cb6",
+          "size": 4,
+          "bytes": "8b542410",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+8+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cba",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cbd",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cbe",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cbf",
+          "size": 5,
+          "bytes": "e85c440000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512cc4",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cc7",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cc8",
+          "size": 5,
+          "bytes": "a1f0b55800",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ccd",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cce",
+          "size": 5,
+          "bytes": "e8fd430000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512cd3",
+          "size": 6,
+          "bytes": "8b0df0b55800",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword_58B5F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cd9",
+          "size": 4,
+          "bytes": "8b542410",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+0Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cdd",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cde",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x512cdf",
+          "size": 5,
+          "bytes": "e89c470000",
+          "mnemonic": "call",
+          "text": "call    sub_517480",
+          "call_target": "0x517480"
+        },
+        {
+          "ea": "0x512ce4",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x512ce7",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x512ca0",
+          "0x512ce8"
+        ]
+      ],
+      "code_bytes": 72,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x512cab",
+          "size": 5,
+          "bytes": "e860480000",
+          "mnemonic": "call",
+          "text": "call    sub_517510",
+          "call_target": "0x517510"
+        },
+        {
+          "ea": "0x512cbf",
+          "size": 5,
+          "bytes": "e85c440000",
+          "mnemonic": "call",
+          "text": "call    sub_517120",
+          "call_target": "0x517120"
+        },
+        {
+          "ea": "0x512cce",
+          "size": 5,
+          "bytes": "e8fd430000",
+          "mnemonic": "call",
+          "text": "call    sub_5170D0",
+          "call_target": "0x5170d0"
+        },
+        {
+          "ea": "0x512cdf",
+          "size": 5,
+          "bytes": "e89c470000",
+          "mnemonic": "call",
+          "text": "call    sub_517480",
+          "call_target": "0x517480"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1
+    }
+  ],
+  "original_unassigned_ranges": [
+    {
+      "start": "0x5066c1",
+      "end_exclusive": "0x5066d0",
+      "size": 15,
+      "loaded": true,
+      "bytes": "909090909090909090909090909090",
+      "decode": [
+        {
+          "ea": "0x5066c1",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c2",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c3",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066cb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066cc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066cd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ce",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066cf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x5066d0"
+    },
+    {
+      "start": "0x5066e9",
+      "end_exclusive": "0x5066f0",
+      "size": 7,
+      "loaded": true,
+      "bytes": "90909090909090",
+      "decode": [
+        {
+          "ea": "0x5066e9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066eb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ed",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x5066f0"
+    },
+    {
+      "start": "0x506757",
+      "end_exclusive": "0x506760",
+      "size": 9,
+      "loaded": true,
+      "bytes": "909090909090909090",
+      "decode": [
+        {
+          "ea": "0x506757",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506758",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506759",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x506760"
+    },
+    {
+      "start": "0x5067e2",
+      "end_exclusive": "0x5067f0",
+      "size": 14,
+      "loaded": true,
+      "bytes": "9090909090909090909090909090",
+      "decode": [
+        {
+          "ea": "0x5067e2",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e3",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067eb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ed",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x5067f0"
+    },
+    {
+      "start": "0x50686c",
+      "end_exclusive": "0x506870",
+      "size": 4,
+      "loaded": true,
+      "bytes": "90909090",
+      "decode": [
+        {
+          "ea": "0x50686c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50686d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50686e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50686f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x506870"
+    },
+    {
+      "start": "0x512ce8",
+      "end_exclusive": "0x512cf0",
+      "size": 8,
+      "loaded": true,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x512ce8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512ce9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512cea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512ceb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512cec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512ced",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512cee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512cef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x512cf0"
+    },
+    {
+      "start": "0x50e7c8",
+      "end_exclusive": "0x50e7d0",
+      "size": 8,
+      "loaded": true,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x50e7c8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7c9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7ca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7cb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7cc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7cd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7ce",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7cf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x50e7d0"
+    }
+  ],
+  "original_literals": [
+    {
+      "start": "0x58b38c",
+      "size": 5,
+      "loaded": true,
+      "bytes": "5047584500"
+    },
+    {
+      "start": "0x58acbc",
+      "size": 12,
+      "loaded": true,
+      "bytes": "3200000064000000d08dd600"
+    }
+  ],
+  "ranges_before": [
+    {
+      "id": "X:001066C1-001066D0",
+      "start": "0x5066C1",
+      "end_exclusive": "0x5066D0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:001066E9-001066F0",
+      "start": "0x5066E9",
+      "end_exclusive": "0x5066F0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:00106757-00106760",
+      "start": "0x506757",
+      "end_exclusive": "0x506760",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:001067E2-001067F0",
+      "start": "0x5067E2",
+      "end_exclusive": "0x5067F0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0010686C-00106870",
+      "start": "0x50686C",
+      "end_exclusive": "0x506870",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:00112CE8-00112CF0",
+      "start": "0x512CE8",
+      "end_exclusive": "0x512CF0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0010E7C8-0010E7D0",
+      "start": "0x50E7C8",
+      "end_exclusive": "0x50E7D0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    }
+  ],
+  "source_functions": [
+    {
+      "index": 1731,
+      "id": "F:00106580",
+      "entry": "0x506580",
+      "symbol": "ResetLegacyMouseTracker_506580",
+      "original_index": 0,
+      "source_path": "src/platform/LegacyMouseTracker.cpp",
+      "disposition": "adapted",
+      "body_changed": true,
+      "source_cpp_patch_count": 1,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT"
+      ],
+      "contract": "原ResetLegacyMouseTracker_506580定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "index": 1732,
+      "id": "F:001066D0",
+      "entry": "0x5066D0",
+      "symbol": "ResetLegacyMouseTrackerDefaults_5066D0",
+      "original_index": 1,
+      "source_path": "src/platform/LegacyMouseTracker.cpp",
+      "disposition": "adapted",
+      "body_changed": false,
+      "source_cpp_patch_count": 0,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT"
+      ],
+      "contract": "原ResetLegacyMouseTrackerDefaults_5066D0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "index": 1733,
+      "id": "F:0010E7B0",
+      "entry": "0x50E7B0",
+      "symbol": "ConfigureLegacyMouseTracker_50E7B0",
+      "original_index": 2,
+      "source_path": "src/platform/LegacyMouseTracker.cpp",
+      "disposition": "adapted",
+      "body_changed": false,
+      "source_cpp_patch_count": 0,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT",
+        "FUNC-NETWORK"
+      ],
+      "contract": "原ConfigureLegacyMouseTracker_50E7B0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "index": 1734,
+      "id": "F:001066F0",
+      "entry": "0x5066F0",
+      "symbol": "InsertAfter_5066F0",
+      "original_index": 3,
+      "source_path": "src/platform/LegacyMouseTracker.cpp",
+      "disposition": "adapted",
+      "body_changed": true,
+      "source_cpp_patch_count": 1,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT"
+      ],
+      "contract": "原InsertAfter_5066F0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "index": 1735,
+      "id": "F:00106720",
+      "entry": "0x506720",
+      "symbol": "Detach_506720",
+      "original_index": 4,
+      "source_path": "src/platform/LegacyMouseTracker.cpp",
+      "disposition": "adapted",
+      "body_changed": true,
+      "source_cpp_patch_count": 1,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT"
+      ],
+      "contract": "原Detach_506720定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "index": 1736,
+      "id": "F:00106760",
+      "entry": "0x506760",
+      "symbol": "TakeFreeHead_506760",
+      "original_index": 5,
+      "source_path": "src/platform/LegacyMouseTracker.cpp",
+      "disposition": "adapted",
+      "body_changed": true,
+      "source_cpp_patch_count": 1,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT"
+      ],
+      "contract": "原TakeFreeHead_506760定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "index": 1737,
+      "id": "F:00106780",
+      "entry": "0x506780",
+      "symbol": "EvictActiveTail_506780",
+      "original_index": 6,
+      "source_path": "src/platform/LegacyMouseTracker.cpp",
+      "disposition": "adapted",
+      "body_changed": true,
+      "source_cpp_patch_count": 1,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT"
+      ],
+      "contract": "原EvictActiveTail_506780定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "index": 1738,
+      "id": "F:001067A0",
+      "entry": "0x5067A0",
+      "symbol": "AllocateAndActivate_5067A0",
+      "original_index": 7,
+      "source_path": "src/platform/LegacyMouseTracker.cpp",
+      "disposition": "adapted",
+      "body_changed": true,
+      "source_cpp_patch_count": 1,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT"
+      ],
+      "contract": "原AllocateAndActivate_5067A0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "index": 1739,
+      "id": "F:001067F0",
+      "entry": "0x5067F0",
+      "symbol": "TrackLegacyMouseDown_5067F0",
+      "original_index": 8,
+      "source_path": "src/platform/LegacyMouseTracker.cpp",
+      "disposition": "adapted",
+      "body_changed": true,
+      "source_cpp_patch_count": 1,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-INPUT"
+      ],
+      "contract": "原TrackLegacyMouseDown_5067F0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "index": 1740,
+      "id": "F:00112CA0",
+      "entry": "0x512CA0",
+      "symbol": "Report_512CA0",
+      "original_index": 9,
+      "source_path": "src/network/NetworkRuntime.cpp",
+      "disposition": "adapted",
+      "body_changed": false,
+      "source_cpp_patch_count": 0,
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-NETWORK"
+      ],
+      "contract": "原PGXE命令/先保存长度后format token/三次fresh输出buffer与发送返回保持，原5B字串已载；不新增网络I或改变格式/加解密，不代所有父与明文互通验收。"
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "src/platform/LegacyMouseTracker.cpp",
+      "length": 9668
+    },
+    {
+      "path": "include/cg/platform/LegacyMouseTracker.hpp",
+      "length": 1819
+    }
+  ],
+  "source_bodies": {
+    "ResetLegacyMouseTracker_506580": "std::int32_t ResetLegacyMouseTracker_506580()\n{\n    if (gTracker.nativePool != gTracker.fixedPool.data()\n        && gTracker.nativePool != nullptr) {\n        std::free(gTracker.nativePool);\n    }\n\n    Node* allocatedPool = nullptr;\n    if (gLegacyMouseTrackerCapacity != kDefaultCapacity\n        && gLegacyMouseTrackerCapacity >= kMinimumDynamicCapacity\n        && gLegacyMouseTrackerCapacity < kMaximumDynamicCapacity) {\n        const std::size_t byteCount =\n            sizeof(Node)\n            * static_cast<std::size_t>(gLegacyMouseTrackerCapacity);\n        allocatedPool = static_cast<Node*>(std::malloc(byteCount));\n    }\n\n    if (allocatedPool != nullptr) {\n        gTracker.nativePool = allocatedPool;\n        gTracker.nativePoolNodeCount =\n            static_cast<std::uint32_t>(gLegacyMouseTrackerCapacity);\n    } else {\n        gTracker.nativePool = gTracker.fixedPool.data();\n        gTracker.nativePoolNodeCount =\n            static_cast<std::uint32_t>(kDefaultCapacity);\n        gLegacyMouseTrackerCapacity = kDefaultCapacity;\n    }\n\n    const std::size_t byteCount =\n        sizeof(Node)\n        * static_cast<std::size_t>(gLegacyMouseTrackerCapacity);\n    std::memset(gTracker.nativePool, 0, byteCount);\n\n    if (gLegacyMouseTrackerThreshold < 5) {\n        gLegacyMouseTrackerThreshold = kDefaultThreshold;\n    }\n\n    gTracker.activeHead.prev = kNullHandle;\n    gTracker.activeHead.next = kActiveTailHandle;\n    gTracker.activeTail.next = kNullHandle;\n    gTracker.activeTail.prev = kActiveHeadHandle;\n    gTracker.freeHead.prev = kNullHandle;\n    gTracker.freeTail.next = kNullHandle;\n    gTracker.freeTail.prev = kFreeHeadHandle;\n    gTracker.freeHead.next = NodeHandleAt(0);\n\n    for (std::int32_t index = 0;\n         index < gLegacyMouseTrackerCapacity;\n         ++index) {\n        Node& node = gTracker.nativePool[index];\n        node.prev = index == 0 ? kFreeHeadHandle : NodeHandleAt(index - 1);\n        node.next = index == gLegacyMouseTrackerCapacity - 1\n            ? kFreeTailHandle\n            : NodeHandleAt(index + 1);\n    }\n\n    return gLegacyMouseTrackerCapacity;\n}\n\n",
+    "ResetLegacyMouseTrackerDefaults_5066D0": "std::int32_t ResetLegacyMouseTrackerDefaults_5066D0()\n{\n    gLegacyMouseTrackerThreshold = kDefaultThreshold;\n    gLegacyMouseTrackerCapacity = kDefaultCapacity;\n    return ResetLegacyMouseTracker_506580();\n}\n\n",
+    "ConfigureLegacyMouseTracker_50E7B0": "std::int32_t ConfigureLegacyMouseTracker_50E7B0(\n    std::uintptr_t,\n    const std::int32_t capacity,\n    const std::int32_t threshold)\n{\n    gLegacyMouseTrackerCapacity = capacity;\n    gLegacyMouseTrackerThreshold = threshold;\n    return ResetLegacyMouseTracker_506580();\n}\n\n",
+    "InsertAfter_5066F0": "std::int32_t InsertAfter_5066F0(\n    const NodeHandle anchorHandle,\n    const NodeHandle insertedHandle)\n{\n    Node* const anchor = ResolveNode(anchorHandle);\n    Node* const inserted = ResolveNode(insertedHandle);\n    if (anchor == nullptr || inserted == nullptr) {\n        return 0;\n    }\n\n    const NodeHandle nextHandle = anchor->next;\n    Node* const next = ResolveNode(nextHandle);\n    if (next == nullptr) {\n        return 0;\n    }\n\n    next->prev = insertedHandle;\n    anchor->next = insertedHandle;\n    inserted->prev = anchorHandle;\n    inserted->next = nextHandle;\n    return 1;\n}\n\n",
+    "Detach_506720": "std::int32_t Detach_506720(const NodeHandle handle)\n{\n    Node* const node = ResolveNode(handle);\n    if (node == nullptr) {\n        return 0;\n    }\n\n    const NodeHandle nextHandle = node->next;\n    Node* const next = ResolveNode(nextHandle);\n    if (next == nullptr) {\n        return 0;\n    }\n\n    const NodeHandle prevHandle = node->prev;\n    Node* const prev = ResolveNode(prevHandle);\n    if (prev == nullptr) {\n        return 0;\n    }\n\n    next->prev = prevHandle;\n    prev->next = nextHandle;\n    node->prev = kNullHandle;\n    node->next = kNullHandle;\n    return 1;\n}\n\n",
+    "TakeFreeHead_506760": "NodeHandle TakeFreeHead_506760()\n{\n    const NodeHandle handle = gTracker.freeHead.next;\n    if (handle == kFreeTailHandle || ResolveNode(handle) == nullptr) {\n        return kNullHandle;\n    }\n    static_cast<void>(Detach_506720(handle));\n    return handle;\n}\n\n",
+    "EvictActiveTail_506780": "NodeHandle EvictActiveTail_506780()\n{\n    const NodeHandle handle = gTracker.activeTail.prev;\n    if (handle == kActiveHeadHandle || ResolveNode(handle) == nullptr) {\n        return kNullHandle;\n    }\n    static_cast<void>(Detach_506720(handle));\n    return handle;\n}\n\n",
+    "AllocateAndActivate_5067A0": "std::int32_t AllocateAndActivate_5067A0(\n    const std::int32_t x,\n    const std::int32_t y,\n    const std::int32_t tag)\n{\n    NodeHandle handle = TakeFreeHead_506760();\n    if (handle == kNullHandle) {\n        handle = EvictActiveTail_506780();\n    }\n\n    Node* const node = ResolveNode(handle);\n    if (node == nullptr) {\n        return 0;\n    }\n\n    node->x = x;\n    node->y = y;\n    node->tag = tag;\n    node->count = 1;\n    static_cast<void>(InsertAfter_5066F0(kActiveHeadHandle, handle));\n    return 1;\n}\n\n",
+    "TrackLegacyMouseDown_5067F0": "std::int32_t TrackLegacyMouseDown_5067F0(\n    const std::int32_t x,\n    const std::int32_t y,\n    const std::int32_t tag)\n{\n    NodeHandle currentHandle = gTracker.activeHead.next;\n    bool suppressIncrement = tag == 0;\n    if (currentHandle == kNullHandle) {\n        return 0;\n    }\n\n    Node* current = ResolveNode(currentHandle);\n    if (current == nullptr) {\n        return 0;\n    }\n\n    NodeHandle nextHandle = current->next;\n    while (nextHandle != kNullHandle) {\n        if (current->x == x && current->y == y && current->tag == tag) {\n            if (!suppressIncrement) {\n                IncrementCount(*current);\n            }\n            static_cast<void>(Detach_506720(currentHandle));\n            static_cast<void>(InsertAfter_5066F0(\n                kActiveHeadHandle, currentHandle));\n            return current->count;\n        }\n\n        currentHandle = nextHandle;\n        suppressIncrement = false;\n        current = ResolveNode(currentHandle);\n        if (current == nullptr) {\n            return 0;\n        }\n        nextHandle = current->next;\n    }\n\n    static_cast<void>(AllocateAndActivate_5067A0(x, y, tag));\n    return 1;\n}\n\n",
+    "ReadLegacyMouseTrackerFixedByte": "std::uint8_t ReadLegacyMouseTrackerFixedByte(const std::size_t byteOffset)\n{\n    const Node& node = gTracker.fixedPool[byteOffset / sizeof(Node)];\n    const std::size_t fieldOffset = byteOffset % sizeof(Node);\n    if (fieldOffset < offsetof(Node, next)) {\n        return reinterpret_cast<const std::uint8_t*>(&node)[fieldOffset];\n    }\n\n    // 仅投影原固定池/哨兵身份的观察字节，绝不是本机可解引用地址。\n    const NodeHandle handle = fieldOffset < offsetof(Node, prev)\n        ? node.next : node.prev;\n    std::uint32_t originalLink;\n    switch (handle) {\n    case kNullHandle: originalLink = 0; break;\n    case kFreeHeadHandle: originalLink = 0xD68AD0u; break;\n    case kFreeTailHandle: originalLink = 0xD69730u; break;\n    case kActiveHeadHandle: originalLink = 0xD69750u; break;\n    case kActiveTailHandle: originalLink = 0xD69770u; break;\n    default:\n        originalLink = 0xD68DD0u\n            + (handle - 1u) * static_cast<std::uint32_t>(sizeof(Node));\n        break;\n    }\n    const std::size_t linkByte =\n        (fieldOffset - offsetof(Node, next)) % sizeof(std::uint32_t);\n    return static_cast<std::uint8_t>(originalLink >> (linkByte * 8));\n}\n\n",
+    "NodeHandleAt": "NodeHandle NodeHandleAt(const std::int32_t index)\n{\n    return static_cast<NodeHandle>(index) + 1u;\n}\n\n",
+    "ResolveNode": "Node* ResolveNode(const NodeHandle handle)\n{\n    switch (handle) {\n    case kFreeHeadHandle:\n        return &gTracker.freeHead;\n    case kFreeTailHandle:\n        return &gTracker.freeTail;\n    case kActiveHeadHandle:\n        return &gTracker.activeHead;\n    case kActiveTailHandle:\n        return &gTracker.activeTail;\n    default:\n        break;\n    }\n\n    if (handle == kNullHandle || gTracker.nativePool == nullptr\n        || handle > gTracker.nativePoolNodeCount) {\n        return nullptr;\n    }\n    return &gTracker.nativePool[handle - 1u];\n}\n\n",
+    "IncrementCount": "void IncrementCount(Node& node)\n{\n    const std::uint32_t bits = std::bit_cast<std::uint32_t>(node.count);\n    node.count = std::bit_cast<std::int32_t>(bits + 1u);\n}\n\n",
+    "Report_512CA0": "std::int32_t Report_512CA0(\n    const std::uintptr_t socket,\n    const std::int32_t value)\n{\n    const ProtocolOutputAccess output;\n    static_cast<void>(BuildProtocolCommand_517510(\n        output.data(), \"PGXE\"));\n    const std::uint32_t bufferLength =\n        gNetworkRuntimeState.bufferLength;\n    std::uint8_t* const token = FormatProtocolIntegerToken_517120(value);\n    static_cast<void>(AppendProtocolText_5170D0(\n        output.data(),\n        reinterpret_cast<const char*>(token),\n        std::bit_cast<std::int32_t>(bufferLength)));\n    return SendProtocolBuffer_517480(socket, output.data());\n}\n\n"
+  },
+  "source_patches": [
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "region": "include",
+      "old": "#include <bit>\n",
+      "replacement": ""
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "region": "tracker-storage",
+      "old": "using Node = LegacyMouseTrackerNode32;\nusing NodeHandle = std::uint32_t;\n\nconstexpr std::int32_t kDefaultThreshold = 50;\nconstexpr std::int32_t kDefaultCapacity = 100;\nconstexpr std::int32_t kMinimumDynamicCapacity = 10;\nconstexpr std::int32_t kMaximumDynamicCapacity = 5000;\n\nconstexpr NodeHandle kNullHandle = 0;\nconstexpr NodeHandle kFreeHeadHandle = 0xFFFFFFFCu;\nconstexpr NodeHandle kFreeTailHandle = 0xFFFFFFFDu;\nconstexpr NodeHandle kActiveHeadHandle = 0xFFFFFFFEu;\nconstexpr NodeHandle kActiveTailHandle = 0xFFFFFFFFu;\n\nstruct LegacyMouseTrackerStorage {\n    std::array<Node, kDefaultCapacity> fixedPool {};\n    Node* nativePool {fixedPool.data()};\n    // 仅用于校验 W32 handle 的当前本机分配范围，不是第二份 legacy capacity。\n    std::uint32_t nativePoolNodeCount {\n        static_cast<std::uint32_t>(kDefaultCapacity)\n    };\n    Node freeHead {};\n    Node freeTail {};\n    Node activeHead {};\n    Node activeTail {};\n\n    LegacyMouseTrackerStorage() = default;\n    LegacyMouseTrackerStorage(const LegacyMouseTrackerStorage&) = delete;\n    LegacyMouseTrackerStorage& operator=(const LegacyMouseTrackerStorage&) = delete;\n};\n\nstatic_assert(sizeof(std::array<Node, kDefaultCapacity>) == 0x960);\n\nLegacyMouseTrackerStorage gTracker;\n\nNodeHandle NodeHandleAt(const std::int32_t index)\n{\n    return static_cast<NodeHandle>(index) + 1u;\n}\n\nNode* ResolveNode(const NodeHandle handle)\n{\n    switch (handle) {\n    case kFreeHeadHandle:\n        return &gTracker.freeHead;\n    case kFreeTailHandle:\n        return &gTracker.freeTail;\n    case kActiveHeadHandle:\n        return &gTracker.activeHead;\n    case kActiveTailHandle:\n        return &gTracker.activeTail;\n    default:\n        break;\n    }\n\n    if (handle == kNullHandle || gTracker.nativePool == nullptr\n        || handle > gTracker.nativePoolNodeCount) {\n        return nullptr;\n    }\n    return &gTracker.nativePool[handle - 1u];\n}\n\n",
+      "replacement": "using Node = LegacyMouseTrackerNode;\n\nconstexpr std::int32_t kDefaultThreshold = 50;\nconstexpr std::int32_t kDefaultCapacity = 100;\nconstexpr std::int32_t kMinimumDynamicCapacity = 10;\nconstexpr std::int32_t kMaximumDynamicCapacity = 5000;\n\n// 原固定池字节观察采用 x86 步长，不能使用本机指针拓宽后的 sizeof(Node)。\nconstexpr std::size_t kOriginalNodeSize = 0x18;\nconstexpr std::size_t kOriginalNextOffset = 0x10;\nconstexpr std::size_t kOriginalPrevOffset = 0x14;\nstatic_assert(kOriginalNodeSize * kDefaultCapacity == 0x960);\n\nstruct LegacyMouseTrackerStorage {\n    std::array<Node, kDefaultCapacity> fixedPool {};\n    Node* nativePool {fixedPool.data()};\n    Node freeHead {};\n    Node freeTail {};\n    Node activeHead {};\n    Node activeTail {};\n\n    LegacyMouseTrackerStorage() = default;\n    LegacyMouseTrackerStorage(const LegacyMouseTrackerStorage&) = delete;\n    LegacyMouseTrackerStorage& operator=(const LegacyMouseTrackerStorage&) = delete;\n};\n\nLegacyMouseTrackerStorage gTracker;\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "symbol": "InsertAfter_5066F0",
+      "region": "InsertAfter_5066F0",
+      "old": "std::int32_t InsertAfter_5066F0(\n    const NodeHandle anchorHandle,\n    const NodeHandle insertedHandle)\n{\n    Node* const anchor = ResolveNode(anchorHandle);\n    Node* const inserted = ResolveNode(insertedHandle);\n    if (anchor == nullptr || inserted == nullptr) {\n        return 0;\n    }\n\n    const NodeHandle nextHandle = anchor->next;\n    Node* const next = ResolveNode(nextHandle);\n    if (next == nullptr) {\n        return 0;\n    }\n\n    next->prev = insertedHandle;\n    anchor->next = insertedHandle;\n    inserted->prev = anchorHandle;\n    inserted->next = nextHandle;\n    return 1;\n}\n\n",
+      "replacement": "std::int32_t InsertAfter_5066F0(Node* const anchor, Node* const inserted)\n{\n    if (anchor == nullptr || inserted == nullptr) {\n        return 0;\n    }\n\n    Node* const next = anchor->next;\n    if (next == nullptr) {\n        return 0;\n    }\n\n    next->prev = inserted;\n    anchor->next = inserted;\n    inserted->prev = anchor;\n    inserted->next = next;\n    return 1;\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "symbol": "Detach_506720",
+      "region": "Detach_506720",
+      "old": "std::int32_t Detach_506720(const NodeHandle handle)\n{\n    Node* const node = ResolveNode(handle);\n    if (node == nullptr) {\n        return 0;\n    }\n\n    const NodeHandle nextHandle = node->next;\n    Node* const next = ResolveNode(nextHandle);\n    if (next == nullptr) {\n        return 0;\n    }\n\n    const NodeHandle prevHandle = node->prev;\n    Node* const prev = ResolveNode(prevHandle);\n    if (prev == nullptr) {\n        return 0;\n    }\n\n    next->prev = prevHandle;\n    prev->next = nextHandle;\n    node->prev = kNullHandle;\n    node->next = kNullHandle;\n    return 1;\n}\n\n",
+      "replacement": "std::int32_t Detach_506720(Node* const node)\n{\n    if (node == nullptr) {\n        return 0;\n    }\n\n    Node* const next = node->next;\n    if (next == nullptr) {\n        return 0;\n    }\n\n    Node* const prev = node->prev;\n    if (prev == nullptr) {\n        return 0;\n    }\n\n    next->prev = prev;\n    prev->next = next;\n    node->prev = nullptr;\n    node->next = nullptr;\n    return 1;\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "symbol": "TakeFreeHead_506760",
+      "region": "TakeFreeHead_506760",
+      "old": "NodeHandle TakeFreeHead_506760()\n{\n    const NodeHandle handle = gTracker.freeHead.next;\n    if (handle == kFreeTailHandle || ResolveNode(handle) == nullptr) {\n        return kNullHandle;\n    }\n    static_cast<void>(Detach_506720(handle));\n    return handle;\n}\n\n",
+      "replacement": "Node* TakeFreeHead_506760()\n{\n    Node* const node = gTracker.freeHead.next;\n    if (node == &gTracker.freeTail) {\n        return nullptr;\n    }\n    static_cast<void>(Detach_506720(node));\n    return node;\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "symbol": "EvictActiveTail_506780",
+      "region": "EvictActiveTail_506780",
+      "old": "NodeHandle EvictActiveTail_506780()\n{\n    const NodeHandle handle = gTracker.activeTail.prev;\n    if (handle == kActiveHeadHandle || ResolveNode(handle) == nullptr) {\n        return kNullHandle;\n    }\n    static_cast<void>(Detach_506720(handle));\n    return handle;\n}\n\n",
+      "replacement": "Node* EvictActiveTail_506780()\n{\n    Node* const node = gTracker.activeTail.prev;\n    if (node == &gTracker.activeHead) {\n        return nullptr;\n    }\n    static_cast<void>(Detach_506720(node));\n    return node;\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "symbol": "AllocateAndActivate_5067A0",
+      "region": "AllocateAndActivate_5067A0",
+      "old": "std::int32_t AllocateAndActivate_5067A0(\n    const std::int32_t x,\n    const std::int32_t y,\n    const std::int32_t tag)\n{\n    NodeHandle handle = TakeFreeHead_506760();\n    if (handle == kNullHandle) {\n        handle = EvictActiveTail_506780();\n    }\n\n    Node* const node = ResolveNode(handle);\n    if (node == nullptr) {\n        return 0;\n    }\n\n    node->x = x;\n    node->y = y;\n    node->tag = tag;\n    node->count = 1;\n    static_cast<void>(InsertAfter_5066F0(kActiveHeadHandle, handle));\n    return 1;\n}\n\n",
+      "replacement": "std::int32_t AllocateAndActivate_5067A0(\n    const std::int32_t x,\n    const std::int32_t y,\n    const std::int32_t tag)\n{\n    Node* node = TakeFreeHead_506760();\n    if (node == nullptr) {\n        node = EvictActiveTail_506780();\n    }\n    if (node == nullptr) {\n        return 0;\n    }\n\n    node->x = x;\n    node->y = y;\n    node->tag = tag;\n    node->count = 1;\n    static_cast<void>(InsertAfter_5066F0(&gTracker.activeHead, node));\n    return 1;\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "symbol": "TrackLegacyMouseDown_5067F0",
+      "region": "TrackLegacyMouseDown_5067F0",
+      "old": "std::int32_t TrackLegacyMouseDown_5067F0(\n    const std::int32_t x,\n    const std::int32_t y,\n    const std::int32_t tag)\n{\n    NodeHandle currentHandle = gTracker.activeHead.next;\n    bool suppressIncrement = tag == 0;\n    if (currentHandle == kNullHandle) {\n        return 0;\n    }\n\n    Node* current = ResolveNode(currentHandle);\n    if (current == nullptr) {\n        return 0;\n    }\n\n    NodeHandle nextHandle = current->next;\n    while (nextHandle != kNullHandle) {\n        if (current->x == x && current->y == y && current->tag == tag) {\n            if (!suppressIncrement) {\n                IncrementCount(*current);\n            }\n            static_cast<void>(Detach_506720(currentHandle));\n            static_cast<void>(InsertAfter_5066F0(\n                kActiveHeadHandle, currentHandle));\n            return current->count;\n        }\n\n        currentHandle = nextHandle;\n        suppressIncrement = false;\n        current = ResolveNode(currentHandle);\n        if (current == nullptr) {\n            return 0;\n        }\n        nextHandle = current->next;\n    }\n\n    static_cast<void>(AllocateAndActivate_5067A0(x, y, tag));\n    return 1;\n}\n\n",
+      "replacement": "std::int32_t TrackLegacyMouseDown_5067F0(\n    const std::int32_t x,\n    const std::int32_t y,\n    const std::int32_t tag)\n{\n    Node* current = gTracker.activeHead.next;\n    bool suppressIncrement = tag == 0;\n    if (current == nullptr) {\n        return 0;\n    }\n\n    Node* next = current->next;\n    while (next != nullptr) {\n        if (current->x == x && current->y == y && current->tag == tag) {\n            if (!suppressIncrement) {\n                ++current->count;\n            }\n            static_cast<void>(Detach_506720(current));\n            static_cast<void>(InsertAfter_5066F0(\n                &gTracker.activeHead, current));\n            return current->count;\n        }\n\n        current = next;\n        suppressIncrement = false;\n        next = current->next;\n    }\n\n    static_cast<void>(AllocateAndActivate_5067A0(x, y, tag));\n    return 1;\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "symbol": "ReadLegacyMouseTrackerFixedByte",
+      "region": "ReadLegacyMouseTrackerFixedByte",
+      "old": "std::uint8_t ReadLegacyMouseTrackerFixedByte(const std::size_t byteOffset)\n{\n    const Node& node = gTracker.fixedPool[byteOffset / sizeof(Node)];\n    const std::size_t fieldOffset = byteOffset % sizeof(Node);\n    if (fieldOffset < offsetof(Node, next)) {\n        return reinterpret_cast<const std::uint8_t*>(&node)[fieldOffset];\n    }\n\n    // 仅投影原固定池/哨兵身份的观察字节，绝不是本机可解引用地址。\n    const NodeHandle handle = fieldOffset < offsetof(Node, prev)\n        ? node.next : node.prev;\n    std::uint32_t originalLink;\n    switch (handle) {\n    case kNullHandle: originalLink = 0; break;\n    case kFreeHeadHandle: originalLink = 0xD68AD0u; break;\n    case kFreeTailHandle: originalLink = 0xD69730u; break;\n    case kActiveHeadHandle: originalLink = 0xD69750u; break;\n    case kActiveTailHandle: originalLink = 0xD69770u; break;\n    default:\n        originalLink = 0xD68DD0u\n            + (handle - 1u) * static_cast<std::uint32_t>(sizeof(Node));\n        break;\n    }\n    const std::size_t linkByte =\n        (fieldOffset - offsetof(Node, next)) % sizeof(std::uint32_t);\n    return static_cast<std::uint8_t>(originalLink >> (linkByte * 8));\n}\n\n",
+      "replacement": "std::uint8_t ReadLegacyMouseTrackerFixedByte(const std::size_t byteOffset)\n{\n    const Node& node = gTracker.fixedPool[byteOffset / kOriginalNodeSize];\n    const std::size_t fieldOffset = byteOffset % kOriginalNodeSize;\n    if (fieldOffset < kOriginalNextOffset) {\n        return reinterpret_cast<const std::uint8_t*>(&node)[fieldOffset];\n    }\n\n    // 原 24B 观察视图只投影固定池/哨兵身份，不截断或写回本机链接。\n    const Node* const link = fieldOffset < kOriginalPrevOffset\n        ? node.next : node.prev;\n    std::uint32_t originalLink;\n    if (link == nullptr) {\n        originalLink = 0;\n    } else if (link == &gTracker.freeHead) {\n        originalLink = 0xD68AD0u;\n    } else if (link == &gTracker.freeTail) {\n        originalLink = 0xD69730u;\n    } else if (link == &gTracker.activeHead) {\n        originalLink = 0xD69750u;\n    } else if (link == &gTracker.activeTail) {\n        originalLink = 0xD69770u;\n    } else {\n        const std::uint32_t fixedIndex = static_cast<std::uint32_t>(\n            link - gTracker.fixedPool.data());\n        originalLink = 0xD68DD0u\n            + fixedIndex * static_cast<std::uint32_t>(kOriginalNodeSize);\n    }\n    const std::size_t linkByte =\n        (fieldOffset - kOriginalNextOffset) % sizeof(std::uint32_t);\n    return static_cast<std::uint8_t>(originalLink >> (linkByte * 8));\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "symbol": "ResetLegacyMouseTracker_506580",
+      "region": "ResetLegacyMouseTracker_506580",
+      "old": "std::int32_t ResetLegacyMouseTracker_506580()\n{\n    if (gTracker.nativePool != gTracker.fixedPool.data()\n        && gTracker.nativePool != nullptr) {\n        std::free(gTracker.nativePool);\n    }\n\n    Node* allocatedPool = nullptr;\n    if (gLegacyMouseTrackerCapacity != kDefaultCapacity\n        && gLegacyMouseTrackerCapacity >= kMinimumDynamicCapacity\n        && gLegacyMouseTrackerCapacity < kMaximumDynamicCapacity) {\n        const std::size_t byteCount =\n            sizeof(Node)\n            * static_cast<std::size_t>(gLegacyMouseTrackerCapacity);\n        allocatedPool = static_cast<Node*>(std::malloc(byteCount));\n    }\n\n    if (allocatedPool != nullptr) {\n        gTracker.nativePool = allocatedPool;\n        gTracker.nativePoolNodeCount =\n            static_cast<std::uint32_t>(gLegacyMouseTrackerCapacity);\n    } else {\n        gTracker.nativePool = gTracker.fixedPool.data();\n        gTracker.nativePoolNodeCount =\n            static_cast<std::uint32_t>(kDefaultCapacity);\n        gLegacyMouseTrackerCapacity = kDefaultCapacity;\n    }\n\n    const std::size_t byteCount =\n        sizeof(Node)\n        * static_cast<std::size_t>(gLegacyMouseTrackerCapacity);\n    std::memset(gTracker.nativePool, 0, byteCount);\n\n    if (gLegacyMouseTrackerThreshold < 5) {\n        gLegacyMouseTrackerThreshold = kDefaultThreshold;\n    }\n\n    gTracker.activeHead.prev = kNullHandle;\n    gTracker.activeHead.next = kActiveTailHandle;\n    gTracker.activeTail.next = kNullHandle;\n    gTracker.activeTail.prev = kActiveHeadHandle;\n    gTracker.freeHead.prev = kNullHandle;\n    gTracker.freeTail.next = kNullHandle;\n    gTracker.freeTail.prev = kFreeHeadHandle;\n    gTracker.freeHead.next = NodeHandleAt(0);\n\n    for (std::int32_t index = 0;\n         index < gLegacyMouseTrackerCapacity;\n         ++index) {\n        Node& node = gTracker.nativePool[index];\n        node.prev = index == 0 ? kFreeHeadHandle : NodeHandleAt(index - 1);\n        node.next = index == gLegacyMouseTrackerCapacity - 1\n            ? kFreeTailHandle\n            : NodeHandleAt(index + 1);\n    }\n\n    return gLegacyMouseTrackerCapacity;\n}\n\n",
+      "replacement": "std::int32_t ResetLegacyMouseTracker_506580()\n{\n    Node* const oldPool = gTracker.nativePool;\n    if (oldPool != gTracker.fixedPool.data() && oldPool != nullptr) {\n        std::free(oldPool);\n    }\n\n    const std::int32_t capacity = gLegacyMouseTrackerCapacity;\n    Node* selectedPool = nullptr;\n    if (capacity != kDefaultCapacity\n        && capacity >= kMinimumDynamicCapacity\n        && capacity < kMaximumDynamicCapacity) {\n        const std::size_t byteCount =\n            sizeof(Node) * static_cast<std::size_t>(capacity);\n        selectedPool = static_cast<Node*>(std::malloc(byteCount));\n        // 原 5065C6 在判定分配结果前发布，失败后才回退固定池。\n        gTracker.nativePool = selectedPool;\n    }\n\n    std::int32_t clearingCapacity;\n    if (selectedPool == nullptr) {\n        selectedPool = gTracker.fixedPool.data();\n        clearingCapacity = kDefaultCapacity;\n        gTracker.nativePool = selectedPool;\n        gLegacyMouseTrackerCapacity = clearingCapacity;\n    } else {\n        clearingCapacity = gLegacyMouseTrackerCapacity;\n    }\n\n    std::memset(selectedPool, 0,\n        sizeof(Node) * static_cast<std::size_t>(clearingCapacity));\n\n    if (gLegacyMouseTrackerThreshold < 5) {\n        gLegacyMouseTrackerThreshold = kDefaultThreshold;\n    }\n\n    const std::int32_t initialCapacity = gLegacyMouseTrackerCapacity;\n    Node* sampledPool = gTracker.nativePool;\n    gTracker.activeHead.prev = nullptr;\n    gTracker.activeHead.next = &gTracker.activeTail;\n    gTracker.activeTail.next = nullptr;\n    gTracker.activeTail.prev = &gTracker.activeHead;\n    gTracker.freeHead.prev = nullptr;\n    gTracker.freeTail.next = nullptr;\n    gTracker.freeTail.prev = &gTracker.freeHead;\n    gTracker.freeHead.next = sampledPool;\n\n    std::int32_t index = 0;\n    if (initialCapacity > 0) {\n        do {\n            Node* const node = sampledPool + index;\n            node->prev = index == 0 ? &gTracker.freeHead : node - 1;\n            const std::int32_t lastIndex = gLegacyMouseTrackerCapacity - 1;\n            if (index == lastIndex) {\n                gTracker.nativePool[index].next = &gTracker.freeTail;\n            } else {\n                Node* const nextPool = gTracker.nativePool;\n                nextPool[index].next = nextPool + index + 1;\n            }\n            const std::int32_t nextCapacity = gLegacyMouseTrackerCapacity;\n            ++index;\n            if (index >= nextCapacity) {\n                break;\n            }\n            sampledPool = gTracker.nativePool;\n        } while (true);\n    }\n    return index;\n}\n\n"
+    },
+    {
+      "path": "cg2d_re/src/platform/LegacyMouseTracker.cpp",
+      "symbol": "IncrementCount",
+      "region": "retired-counter-helper",
+      "old": "void IncrementCount(Node& node)\n{\n    const std::uint32_t bits = std::bit_cast<std::uint32_t>(node.count);\n    node.count = std::bit_cast<std::int32_t>(bits + 1u);\n}\n\n",
+      "replacement": ""
+    },
+    {
+      "path": "cg2d_re/include/cg/platform/LegacyMouseTracker.hpp",
+      "region": "native-node-layout",
+      "old": "// 原 x86 鼠标按下追踪节点。next/prev 是原 W32 链接槽，不承载 x64 指针。\nstruct LegacyMouseTrackerNode32 {\n    std::int32_t x;\n    std::int32_t y;\n    std::int32_t tag;\n    std::int32_t count;\n    std::uint32_t next;\n    std::uint32_t prev;\n};\n\nstatic_assert(std::is_standard_layout_v<LegacyMouseTrackerNode32>);\nstatic_assert(std::is_trivially_copyable_v<LegacyMouseTrackerNode32>);\nstatic_assert(sizeof(LegacyMouseTrackerNode32) == 0x18);\nstatic_assert(offsetof(LegacyMouseTrackerNode32, x) == 0x00);\nstatic_assert(offsetof(LegacyMouseTrackerNode32, y) == 0x04);\nstatic_assert(offsetof(LegacyMouseTrackerNode32, tag) == 0x08);\nstatic_assert(offsetof(LegacyMouseTrackerNode32, count) == 0x0C);\nstatic_assert(offsetof(LegacyMouseTrackerNode32, next) == 0x10);\nstatic_assert(offsetof(LegacyMouseTrackerNode32, prev) == 0x14);\n\n",
+      "replacement": "// 原 x86 节点 +0x10/+0x14 是非拥有地址；x64 只拓宽链接，前四个 S32 保持。\nstruct LegacyMouseTrackerNode {\n    std::int32_t x;\n    std::int32_t y;\n    std::int32_t tag;\n    std::int32_t count;\n    LegacyMouseTrackerNode* next;\n    LegacyMouseTrackerNode* prev;\n};\n\nstatic_assert(std::is_standard_layout_v<LegacyMouseTrackerNode>);\nstatic_assert(std::is_trivially_copyable_v<LegacyMouseTrackerNode>);\nstatic_assert(sizeof(LegacyMouseTrackerNode)\n    == 0x10 + 2 * sizeof(LegacyMouseTrackerNode*));\nstatic_assert(offsetof(LegacyMouseTrackerNode, x) == 0x00);\nstatic_assert(offsetof(LegacyMouseTrackerNode, y) == 0x04);\nstatic_assert(offsetof(LegacyMouseTrackerNode, tag) == 0x08);\nstatic_assert(offsetof(LegacyMouseTrackerNode, count) == 0x0C);\nstatic_assert(offsetof(LegacyMouseTrackerNode, next) == 0x10);\nstatic_assert(offsetof(LegacyMouseTrackerNode, prev)\n    == 0x10 + sizeof(LegacyMouseTrackerNode*));\n\n"
+    }
+  ],
+  "snapshot_functions_before": [
+    {
+      "id": "F:00106580",
+      "original_entry": "0x506580",
+      "original_name": "sub_506580",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbol": "ResetLegacyMouseTracker_506580",
+          "definition_line": 182,
+          "namespace": "cg::platform"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:001066D0",
+      "original_entry": "0x5066D0",
+      "original_name": "sub_5066D0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbol": "ResetLegacyMouseTrackerDefaults_5066D0",
+          "definition_line": 241,
+          "namespace": "cg::platform"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0010E7B0",
+      "original_entry": "0x50E7B0",
+      "original_name": "sub_50E7B0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbol": "ConfigureLegacyMouseTracker_50E7B0",
+          "definition_line": 248,
+          "namespace": "cg::platform"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:001066F0",
+      "original_entry": "0x5066F0",
+      "original_name": "sub_5066F0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbol": "InsertAfter_5066F0",
+          "definition_line": 78,
+          "namespace": "cg::platform::(匿名)"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00106720",
+      "original_entry": "0x506720",
+      "original_name": "sub_506720",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbol": "Detach_506720",
+          "definition_line": 102,
+          "namespace": "cg::platform::(匿名)"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00106760",
+      "original_entry": "0x506760",
+      "original_name": "sub_506760",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbol": "TakeFreeHead_506760",
+          "definition_line": 129,
+          "namespace": "cg::platform::(匿名)"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00106780",
+      "original_entry": "0x506780",
+      "original_name": "sub_506780",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbol": "EvictActiveTail_506780",
+          "definition_line": 140,
+          "namespace": "cg::platform::(匿名)"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:001067A0",
+      "original_entry": "0x5067A0",
+      "original_name": "sub_5067A0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbol": "AllocateAndActivate_5067A0",
+          "definition_line": 151,
+          "namespace": "cg::platform::(匿名)"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:001067F0",
+      "original_entry": "0x5067F0",
+      "original_name": "sub_5067F0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbol": "TrackLegacyMouseDown_5067F0",
+          "definition_line": 258,
+          "namespace": "cg::platform"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00112CA0",
+      "original_entry": "0x512CA0",
+      "original_name": "sub_512CA0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbol": "Report_512CA0",
+          "definition_line": 1691,
+          "namespace": "cg::network"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "T02",
+      "state": "open",
+      "reference_count": 22
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 250
+    },
+    {
+      "task_id": "V04",
+      "state": "open",
+      "reference_count": 164
+    },
+    {
+      "task_id": "V03",
+      "state": "open",
+      "reference_count": 75
+    }
+  ],
+  "registry_counts_before": {
+    "sem": 1731,
+    "pending": 18,
+    "F": 872,
+    "E": 1026,
+    "X": 437
+  },
+  "artifacts": [
+    "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+    "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+    "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+    "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+    "doc/cg2d_mouse_tracker_native_links_evidence.json",
+    "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTracker_506580",
+    "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTrackerDefaults_5066D0",
+    "src/platform/LegacyMouseTracker.cpp#ConfigureLegacyMouseTracker_50E7B0",
+    "src/platform/LegacyMouseTracker.cpp#InsertAfter_5066F0",
+    "src/platform/LegacyMouseTracker.cpp#Detach_506720",
+    "src/platform/LegacyMouseTracker.cpp#TakeFreeHead_506760",
+    "src/platform/LegacyMouseTracker.cpp#EvictActiveTail_506780",
+    "src/platform/LegacyMouseTracker.cpp#AllocateAndActivate_5067A0",
+    "src/platform/LegacyMouseTracker.cpp#TrackLegacyMouseDown_5067F0",
+    "src/network/NetworkRuntime.cpp#Report_512CA0",
+    "include/cg/platform/LegacyMouseTracker.hpp",
+    "src/platform/LegacyMouseTracker.cpp#ReadLegacyMouseTrackerFixedByte",
+    "src/LegacyUiRecord.cpp",
+    "src/platform/LegacyMouse.cpp",
+    "src/network/NetworkRuntime.cpp",
+    "doc/cg2d_legacy_mouse_tracker.md",
+    "doc/cg2d_login_negative_selection_byte_owner_spec.md",
+    "doc/cg2d_network_compatibility_spec.md",
+    "doc/cg2d_semantic_function_mappings.md",
+    "plan/cg2d_full_reconstruction_progress.md"
+  ],
+  "evidence_refs": [
+    "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+    "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+    "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+    "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+    "doc/cg2d_mouse_tracker_native_links_evidence.json"
+  ],
+  "implementation_static_scope": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+  "new_private_helper_count": 0,
+  "retired_private_helpers": [
+    "NodeHandleAt",
+    "ResolveNode",
+    "IncrementCount"
+  ],
+  "new_shared_owner_count": 0,
+  "changed_original_functions": 7,
+  "changed_existing_byte_bridge": true,
+  "original_all_inbound_reference_count": 25,
+  "original_inbound_parent_count": 13,
+  "verification_limits": {
+    "full_inbound_parents_verified": false,
+    "full_callees_verified": false,
+    "full_lifecycle_closed": false,
+    "full_machine_abi_verified": false,
+    "full_login_verified": false,
+    "runtime_verified": false,
+    "fault_equivalence_claimed": false
+  }
+}

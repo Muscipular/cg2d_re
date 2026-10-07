@@ -3730,3 +3730,14 @@ LOOP135/RENDER57/MAP128/BATTLE263，NETWORK61保持；只四S各25来源、无I�
 
 八完整原根307条1279B/八页、十四Ctor/十四Dtor、四间接tick/两追踪尾链、十四引用与八65B用途，七配对原读写矩阵/同一临时量X先Y后/目标token保、整个cpp仅七片段差异、完整机器及派生差异模型、十三文件编码/四锚点和四限定I-S各25来源已通过。文本汇总与Check均退出0。
 实际语义1731/有效1724、文档1842（50.05%）、F872/E1026、R7已审437/余2624、LOOP144/INPUT38；其他域/分母/差队列/pending18及ECX pending7/closed11与全门禁保。源码一cpp七配对实修，滚轮正确保持不计I；未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。
+
+## BUV01 追踪/配置/PGXE十原新身份（2026-10-08）
+
+[新原生链接基线](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline)与[裁决](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision)对应1731..1740十adapted：Reset506580、默认5066D0、配置50E7B0、五链helper5066F0/506720/506760/506780/5067A0、Track5067F0及Report512CA0。262条799B/十一页、14directcall/34jump/19RET、25引用13父身份，原17B/七65B用途具名。
+
+新基线不是新实现；七原根及BYTE桥在一cpp十一片段/一hpp一节点布局片段中实修，默认/网络配置/Report三正确根保。原生T*仅地址两字段拓宽、四S32/owner/原24B固定只读视图保；原malloc空返回先发布再回退、池容量采样/最终index/LRU/返回恢复，三旧helper退休无新helper/owner/异常策略。LOOP154/INPUT47限定I-S、NETWORK63/LOGIN13仅S共六证据，预期语义1741/有效1734、文档1852（50.33%）、F882/E1032/R7已审444余2617。四任务open/closed11、pending18/ECX未知/全门禁与差队列保。
+
+### BUV01 实际限定静态结果
+
+十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
+实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。

@@ -62,3 +62,16 @@ D68AC6：未装载/文件偏移-1；389569条代码操作数目标区D68AC0..C8�
 ## 当前源码结果与边界
 
 本步补齐缺定义后，登录负分类尾部不再依赖悬空声明。两页20点、C6加载生产、固定池切换后的存储归属与链接身份对应已落实；没有统一固定返回或补可用服务器。整体登录连接/人物/主地图、全部资源/生命周期、原格式互通及V03仍待推进。保持音频暂停、RPLAN.24和不配置/构建/测试/运行/摘要限制。
+
+## 固定池原字节视图与原生链接迁移（BUV01，2026-10-08）
+
+[新原生链接基线](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline)与[裁决](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision)覆盖本文§裁决2–4“24B物理节点/保持W32 handle及Resolve”的旧承载说明：追踪器已证链接是地址，现仅next/prev改非拥有Node*，四S32及唯一owner保。ReadLegacyMouseTrackerFixedByte仍原接口，显式原步长24、next16/prev20，不能按拓宽后的sizeof(Node)/offsetof(prev)解析旧观察偏移。
+
+前16B仍现场读fixedPool节点的四S32；链接从该节点实际T*取，null/四原哨兵/固定节点索引映成原W32身份BYTE，不截本机地址、不反算当前动态pool、不写回或新增影子池/反查表。LegacyUiRecord现十二偏移187..2310及全部生产/原BYTE消费全文保持，本步不再取证整个20点/原父。
+
+旧“追踪器和边界保护全文保持”描述BRU01历史，本次真实追踪源另经BUV01原生化/正常失败时序与取样实修，不外推BRU其他业务。LOGIN13成员保，仅限定S原视图移交/真实消费，V03仍open；全登录/间接别名/资源寿命/ABI/链接与运行未验，原网络明文/RPLAN.24/音频暂停保。
+
+### BUV01 实际限定静态结果
+
+十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
+实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。

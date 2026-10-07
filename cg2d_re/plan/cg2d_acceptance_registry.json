@@ -638,7 +638,8 @@
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
-        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline"
+        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -784,7 +785,17 @@
         "F:00106B50",
         "F:00106C40",
         "F:00106CF0",
-        "F:00106DB0"
+        "F:00106DB0",
+        "F:00106580",
+        "F:001066D0",
+        "F:0010E7B0",
+        "F:001066F0",
+        "F:00106720",
+        "F:00106760",
+        "F:00106780",
+        "F:001067A0",
+        "F:001067F0",
+        "F:00112CA0"
       ],
       "closure_task_ids": [
         "U11",
@@ -852,7 +863,8 @@
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
-        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision"
+        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -911,7 +923,8 @@
         "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
         "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
         "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
-        "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。"
+        "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
+        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -971,7 +984,8 @@
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
-        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state"
+        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
       ]
     },
     {
@@ -995,7 +1009,8 @@
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
         "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
         "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
-        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline"
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -1033,7 +1048,8 @@
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision",
         "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision",
         "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision",
-        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision"
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1045,7 +1061,8 @@
         "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
         "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
         "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
-        "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+        "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
+        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1057,7 +1074,8 @@
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
         "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
         "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
-        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state"
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
       ]
     },
     {
@@ -1217,7 +1235,8 @@
         "doc/cg2d_team_reply_sampling_spec.md#team-reply-baseline",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -1280,7 +1299,9 @@
         "F:00110710",
         "F:00117120",
         "F:00109090",
-        "F:00109100"
+        "F:00109100",
+        "F:0010E7B0",
+        "F:00112CA0"
       ],
       "closure_task_ids": [
         "P09",
@@ -1314,7 +1335,8 @@
         "doc/cg2d_team_reply_sampling_spec.md#team-reply-decision",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -1340,7 +1362,8 @@
         "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。",
         "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
         "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
-        "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验"
+        "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
+        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1366,7 +1389,8 @@
         "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
       ]
     },
     {
@@ -1442,7 +1466,8 @@
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
         "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
-        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline"
+        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -1482,7 +1507,16 @@
         "F:00106B50",
         "F:00106C40",
         "F:00106CF0",
-        "F:00106DB0"
+        "F:00106DB0",
+        "F:00106580",
+        "F:001066D0",
+        "F:0010E7B0",
+        "F:001066F0",
+        "F:00106720",
+        "F:00106760",
+        "F:00106780",
+        "F:001067A0",
+        "F:001067F0"
       ],
       "closure_task_ids": [
         "T01",
@@ -1515,7 +1549,8 @@
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
         "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
-        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision"
+        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1542,7 +1577,8 @@
         "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
         "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行",
         "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
-        "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。"
+        "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
+        "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1570,7 +1606,8 @@
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
         "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
-        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state"
+        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
       ]
     },
     {
@@ -45263,6 +45300,288 @@
       "observation": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
       "expected": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
       "actual": "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。"
+    },
+    {
+      "id": "E-MOUSE-TRACKER-NATIVE-LINKS-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUV01十完整原根262条799B/十一页、原17B/七65B用途；I仅原生链/失败发布/取样与BYTE桥，NETWORK/LOGIN仅S，三正确根不计I。doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mouse-tracker-native-links-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTracker_506580",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTrackerDefaults_5066D0",
+        "src/platform/LegacyMouseTracker.cpp#ConfigureLegacyMouseTracker_50E7B0",
+        "src/platform/LegacyMouseTracker.cpp#InsertAfter_5066F0",
+        "src/platform/LegacyMouseTracker.cpp#Detach_506720",
+        "src/platform/LegacyMouseTracker.cpp#TakeFreeHead_506760",
+        "src/platform/LegacyMouseTracker.cpp#EvictActiveTail_506780",
+        "src/platform/LegacyMouseTracker.cpp#AllocateAndActivate_5067A0",
+        "src/platform/LegacyMouseTracker.cpp#TrackLegacyMouseDown_5067F0",
+        "src/network/NetworkRuntime.cpp#Report_512CA0",
+        "include/cg/platform/LegacyMouseTracker.hpp",
+        "src/platform/LegacyMouseTracker.cpp#ReadLegacyMouseTrackerFixedByte",
+        "src/LegacyUiRecord.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "doc/cg2d_legacy_mouse_tracker.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+          "decision_ref": "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "expected": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "actual": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
+    },
+    {
+      "id": "E-MOUSE-TRACKER-NATIVE-LINKS-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUV01十完整原根262条799B/十一页、原17B/七65B用途；I仅原生链/失败发布/取样与BYTE桥，NETWORK/LOGIN仅S，三正确根不计I。doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mouse-tracker-native-links-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTracker_506580",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTrackerDefaults_5066D0",
+        "src/platform/LegacyMouseTracker.cpp#ConfigureLegacyMouseTracker_50E7B0",
+        "src/platform/LegacyMouseTracker.cpp#InsertAfter_5066F0",
+        "src/platform/LegacyMouseTracker.cpp#Detach_506720",
+        "src/platform/LegacyMouseTracker.cpp#TakeFreeHead_506760",
+        "src/platform/LegacyMouseTracker.cpp#EvictActiveTail_506780",
+        "src/platform/LegacyMouseTracker.cpp#AllocateAndActivate_5067A0",
+        "src/platform/LegacyMouseTracker.cpp#TrackLegacyMouseDown_5067F0",
+        "src/network/NetworkRuntime.cpp#Report_512CA0",
+        "include/cg/platform/LegacyMouseTracker.hpp",
+        "src/platform/LegacyMouseTracker.cpp#ReadLegacyMouseTrackerFixedByte",
+        "src/LegacyUiRecord.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "doc/cg2d_legacy_mouse_tracker.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+          "decision_ref": "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "expected": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "actual": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
+    },
+    {
+      "id": "E-MOUSE-TRACKER-NATIVE-LINKS-FUNC-INPUT-I-20261008",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUV01十完整原根262条799B/十一页、原17B/七65B用途；I仅原生链/失败发布/取样与BYTE桥，NETWORK/LOGIN仅S，三正确根不计I。doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mouse-tracker-native-links-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTracker_506580",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTrackerDefaults_5066D0",
+        "src/platform/LegacyMouseTracker.cpp#ConfigureLegacyMouseTracker_50E7B0",
+        "src/platform/LegacyMouseTracker.cpp#InsertAfter_5066F0",
+        "src/platform/LegacyMouseTracker.cpp#Detach_506720",
+        "src/platform/LegacyMouseTracker.cpp#TakeFreeHead_506760",
+        "src/platform/LegacyMouseTracker.cpp#EvictActiveTail_506780",
+        "src/platform/LegacyMouseTracker.cpp#AllocateAndActivate_5067A0",
+        "src/platform/LegacyMouseTracker.cpp#TrackLegacyMouseDown_5067F0",
+        "src/network/NetworkRuntime.cpp#Report_512CA0",
+        "include/cg/platform/LegacyMouseTracker.hpp",
+        "src/platform/LegacyMouseTracker.cpp#ReadLegacyMouseTrackerFixedByte",
+        "src/LegacyUiRecord.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "doc/cg2d_legacy_mouse_tracker.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+          "decision_ref": "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "expected": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "actual": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
+    },
+    {
+      "id": "E-MOUSE-TRACKER-NATIVE-LINKS-FUNC-INPUT-S-20261008",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUV01十完整原根262条799B/十一页、原17B/七65B用途；I仅原生链/失败发布/取样与BYTE桥，NETWORK/LOGIN仅S，三正确根不计I。doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mouse-tracker-native-links-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTracker_506580",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTrackerDefaults_5066D0",
+        "src/platform/LegacyMouseTracker.cpp#ConfigureLegacyMouseTracker_50E7B0",
+        "src/platform/LegacyMouseTracker.cpp#InsertAfter_5066F0",
+        "src/platform/LegacyMouseTracker.cpp#Detach_506720",
+        "src/platform/LegacyMouseTracker.cpp#TakeFreeHead_506760",
+        "src/platform/LegacyMouseTracker.cpp#EvictActiveTail_506780",
+        "src/platform/LegacyMouseTracker.cpp#AllocateAndActivate_5067A0",
+        "src/platform/LegacyMouseTracker.cpp#TrackLegacyMouseDown_5067F0",
+        "src/network/NetworkRuntime.cpp#Report_512CA0",
+        "include/cg/platform/LegacyMouseTracker.hpp",
+        "src/platform/LegacyMouseTracker.cpp#ReadLegacyMouseTrackerFixedByte",
+        "src/LegacyUiRecord.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "doc/cg2d_legacy_mouse_tracker.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+          "decision_ref": "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "expected": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "actual": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
+    },
+    {
+      "id": "E-MOUSE-TRACKER-NATIVE-LINKS-FUNC-NETWORK-S-20261008",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUV01十完整原根262条799B/十一页、原17B/七65B用途；I仅原生链/失败发布/取样与BYTE桥，NETWORK/LOGIN仅S，三正确根不计I。doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mouse-tracker-native-links-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTracker_506580",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTrackerDefaults_5066D0",
+        "src/platform/LegacyMouseTracker.cpp#ConfigureLegacyMouseTracker_50E7B0",
+        "src/platform/LegacyMouseTracker.cpp#InsertAfter_5066F0",
+        "src/platform/LegacyMouseTracker.cpp#Detach_506720",
+        "src/platform/LegacyMouseTracker.cpp#TakeFreeHead_506760",
+        "src/platform/LegacyMouseTracker.cpp#EvictActiveTail_506780",
+        "src/platform/LegacyMouseTracker.cpp#AllocateAndActivate_5067A0",
+        "src/platform/LegacyMouseTracker.cpp#TrackLegacyMouseDown_5067F0",
+        "src/network/NetworkRuntime.cpp#Report_512CA0",
+        "include/cg/platform/LegacyMouseTracker.hpp",
+        "src/platform/LegacyMouseTracker.cpp#ReadLegacyMouseTrackerFixedByte",
+        "src/LegacyUiRecord.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "doc/cg2d_legacy_mouse_tracker.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+          "decision_ref": "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "expected": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "actual": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
+    },
+    {
+      "id": "E-MOUSE-TRACKER-NATIVE-LINKS-FUNC-LOGIN-S-20261008",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUV01十完整原根262条799B/十一页、原17B/七65B用途；I仅原生链/失败发布/取样与BYTE桥，NETWORK/LOGIN仅S，三正确根不计I。doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-mouse-tracker-native-links-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTracker_506580",
+        "src/platform/LegacyMouseTracker.cpp#ResetLegacyMouseTrackerDefaults_5066D0",
+        "src/platform/LegacyMouseTracker.cpp#ConfigureLegacyMouseTracker_50E7B0",
+        "src/platform/LegacyMouseTracker.cpp#InsertAfter_5066F0",
+        "src/platform/LegacyMouseTracker.cpp#Detach_506720",
+        "src/platform/LegacyMouseTracker.cpp#TakeFreeHead_506760",
+        "src/platform/LegacyMouseTracker.cpp#EvictActiveTail_506780",
+        "src/platform/LegacyMouseTracker.cpp#AllocateAndActivate_5067A0",
+        "src/platform/LegacyMouseTracker.cpp#TrackLegacyMouseDown_5067F0",
+        "src/network/NetworkRuntime.cpp#Report_512CA0",
+        "include/cg/platform/LegacyMouseTracker.hpp",
+        "src/platform/LegacyMouseTracker.cpp#ReadLegacyMouseTrackerFixedByte",
+        "src/LegacyUiRecord.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "doc/cg2d_legacy_mouse_tracker.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+          "decision_ref": "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "expected": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "actual": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。"
     }
   ],
   "task_acceptance": [
@@ -45668,7 +45987,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
-        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state"
+        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
       ]
     },
     {
@@ -45847,7 +46167,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
       ]
     },
     {
@@ -46409,7 +46730,8 @@
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
-        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state"
+        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
       ]
     },
     {
@@ -46580,7 +46902,8 @@
         "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
-        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state"
+        "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state"
       ]
     },
     {
@@ -57156,6 +57479,136 @@
         "doc/cg2d_mouse_coordinate_publication_evidence.json"
       ],
       "boundary": "原506DB0单W32尾槽读取/加delta/写回并返回原S32delta，现代码保持；无新增业务I，异常不专项模拟或记等价，本机ABI及完整运行未验。"
+    },
+    {
+      "inventory_id": "F:00106580",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原ResetLegacyMouseTracker_506580定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "inventory_id": "F:001066D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原ResetLegacyMouseTrackerDefaults_5066D0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "inventory_id": "F:0010E7B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原ConfigureLegacyMouseTracker_50E7B0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "inventory_id": "F:001066F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原InsertAfter_5066F0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "inventory_id": "F:00106720",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原Detach_506720定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "inventory_id": "F:00106760",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原TakeFreeHead_506760定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "inventory_id": "F:00106780",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原EvictActiveTail_506780定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "inventory_id": "F:001067A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原AllocateAndActivate_5067A0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "inventory_id": "F:001067F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原TrackLegacyMouseDown_5067F0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+    },
+    {
+      "inventory_id": "F:00112CA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原PGXE命令/先保存长度后format token/三次fresh输出buffer与发送返回保持，原5B字串已载；不新增网络I或改变格式/加解密，不代所有父与明文互通验收。"
     }
   ],
   "auxiliary_dispositions": [
@@ -78985,6 +79438,587 @@
         },
         {
           "ea": "0x506dcf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:001066C1-001066D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "reason": "BUV01十根相关七尾合65B实际NN_NOP/90，此区15B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 15,
+      "original_bytes": "909090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x5066c1",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c2",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c3",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066c9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066cb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066cc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066cd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ce",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066cf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:001066E9-001066F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "reason": "BUV01十根相关七尾合65B实际NN_NOP/90，此区7B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 7,
+      "original_bytes": "90909090909090",
+      "original_decode": [
+        {
+          "ea": "0x5066e9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066eb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ed",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5066ef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:00106757-00106760",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "reason": "BUV01十根相关七尾合65B实际NN_NOP/90，此区9B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 9,
+      "original_bytes": "909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x506757",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506758",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x506759",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50675f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:001067E2-001067F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "reason": "BUV01十根相关七尾合65B实际NN_NOP/90，此区14B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 14,
+      "original_bytes": "9090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x5067e2",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e3",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067e9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067eb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ed",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x5067ef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0010686C-00106870",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "reason": "BUV01十根相关七尾合65B实际NN_NOP/90，此区4B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 4,
+      "original_bytes": "90909090",
+      "original_decode": [
+        {
+          "ea": "0x50686c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50686d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50686e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50686f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:00112CE8-00112CF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "reason": "BUV01十根相关七尾合65B实际NN_NOP/90，此区8B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x512ce8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512ce9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512cea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512ceb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512cec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512ced",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512cee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x512cef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0010E7C8-0010E7D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "reason": "BUV01十根相关七尾合65B实际NN_NOP/90，此区8B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 8,
+      "original_bytes": "9090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x50e7c8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7c9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7ca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7cb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7cc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7cd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7ce",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x50e7cf",
           "size": 1,
           "bytes": "90",
           "is_nop": true,

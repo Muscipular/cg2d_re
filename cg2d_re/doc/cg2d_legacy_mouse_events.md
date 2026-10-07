@@ -92,3 +92,14 @@ handle 适配，不保存 x64 指针；六个事件没有新增指针布局或�
 
 八完整原根307条1279B/八页、十四Ctor/十四Dtor、四间接tick/两追踪尾链、十四引用与八65B用途，七配对原读写矩阵/同一临时量X先Y后/目标token保、整个cpp仅七片段差异、完整机器及派生差异模型、十三文件编码/四锚点和四限定I-S各25来源已通过。文本汇总与Check均退出0。
 实际语义1731/有效1724、文档1842（50.05%）、F872/E1026、R7已审437/余2624、LOOP144/INPUT38；其他域/分母/差队列/pending18及ECX pending7/closed11与全门禁保。源码一cpp七配对实修，滚轮正确保持不计I；未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。
+
+## 按下追踪尾链的原生链接承接（BUV01，2026-10-08）
+
+[新原生链接基线](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline)与[裁决](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision)沿BUU01正确鼠标生产后的Track/Report/Reset展开十根262条799B/十一页。LegacyMouse.cpp七配对坐标与所有旗位/时钟/阈值和Report→Reset尾链全文保，不重复BUU01实现；Report现原PGXE字串5B/长度保存/token前后fresh buffer/发送返回正确。
+
+追踪Node32的W32 handle与解析保护已改原生非拥有T*，只拓宽已证next/prev，四S32和唯一owner不变；恢复malloc返回先发布含null再回退、pool/容量原采样/最终index。原null/哨兵分支和LRU链写序仍保，计数普通S32增一不专设回绕。本文早期“W32链接继续handle”仅历史，当前原24B固定字节观察保，x64物理节点随指针拓宽。完整所有父/提供者/焦点/owner-alias寿命/ABI/明文运行及R8继续。
+
+### BUV01 实际限定静态结果
+
+十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
+实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。

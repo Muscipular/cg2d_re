@@ -196258,6 +196258,846 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x506580",
+      "inventory_id": "F:00106580",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：ResetLegacyMouseTracker_506580",
+      "original_end_exclusive": "0x5066c1",
+      "original_chunks": [
+        [
+          "0x506580",
+          "0x5066c1"
+        ]
+      ],
+      "instruction_count": 91,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbols": [
+            "ResetLegacyMouseTracker_506580"
+          ],
+          "relationship": "原ResetLegacyMouseTracker_506580定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原ResetLegacyMouseTracker_506580定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 91,
+        "original_code_bytes": 321,
+        "original_page_count": 2,
+        "original_direct_call_count": 2,
+        "original_jump_count": 15,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 5,
+        "source_body_changed": true,
+        "source_root_cpp_patch_count": 1,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5066D0",
+      "inventory_id": "F:001066D0",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：ResetLegacyMouseTrackerDefaults_5066D0",
+      "original_end_exclusive": "0x5066e9",
+      "original_chunks": [
+        [
+          "0x5066d0",
+          "0x5066e9"
+        ]
+      ],
+      "instruction_count": 3,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbols": [
+            "ResetLegacyMouseTrackerDefaults_5066D0"
+          ],
+          "relationship": "原ResetLegacyMouseTrackerDefaults_5066D0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原ResetLegacyMouseTrackerDefaults_5066D0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 3,
+        "original_code_bytes": 25,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 0,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": false,
+        "source_root_cpp_patch_count": 0,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x50E7B0",
+      "inventory_id": "F:0010E7B0",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：ConfigureLegacyMouseTracker_50E7B0",
+      "original_end_exclusive": "0x50e7c8",
+      "original_chunks": [
+        [
+          "0x50e7b0",
+          "0x50e7c8"
+        ]
+      ],
+      "instruction_count": 5,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbols": [
+            "ConfigureLegacyMouseTracker_50E7B0"
+          ],
+          "relationship": "原ConfigureLegacyMouseTracker_50E7B0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原ConfigureLegacyMouseTracker_50E7B0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 5,
+        "original_code_bytes": 24,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 0,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": false,
+        "source_root_cpp_patch_count": 0,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5066F0",
+      "inventory_id": "F:001066F0",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：InsertAfter_5066F0",
+      "original_end_exclusive": "0x506720",
+      "original_chunks": [
+        [
+          "0x5066f0",
+          "0x506720"
+        ]
+      ],
+      "instruction_count": 20,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbols": [
+            "InsertAfter_5066F0"
+          ],
+          "relationship": "原InsertAfter_5066F0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原InsertAfter_5066F0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 20,
+        "original_code_bytes": 48,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 4,
+        "original_inbound_reference_count": 2,
+        "source_body_changed": true,
+        "source_root_cpp_patch_count": 1,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x506720",
+      "inventory_id": "F:00106720",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：Detach_506720",
+      "original_end_exclusive": "0x506757",
+      "original_chunks": [
+        [
+          "0x506720",
+          "0x506757"
+        ]
+      ],
+      "instruction_count": 20,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbols": [
+            "Detach_506720"
+          ],
+          "relationship": "原Detach_506720定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原Detach_506720定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 20,
+        "original_code_bytes": 55,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 4,
+        "original_inbound_reference_count": 3,
+        "source_body_changed": true,
+        "source_root_cpp_patch_count": 1,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x506760",
+      "inventory_id": "F:00106760",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：TakeFreeHead_506760",
+      "original_end_exclusive": "0x506780",
+      "original_chunks": [
+        [
+          "0x506760",
+          "0x506780"
+        ]
+      ],
+      "instruction_count": 13,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbols": [
+            "TakeFreeHead_506760"
+          ],
+          "relationship": "原TakeFreeHead_506760定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原TakeFreeHead_506760定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 13,
+        "original_code_bytes": 32,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_jump_count": 1,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": true,
+        "source_root_cpp_patch_count": 1,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x506780",
+      "inventory_id": "F:00106780",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：EvictActiveTail_506780",
+      "original_end_exclusive": "0x5067a0",
+      "original_chunks": [
+        [
+          "0x506780",
+          "0x5067a0"
+        ]
+      ],
+      "instruction_count": 13,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbols": [
+            "EvictActiveTail_506780"
+          ],
+          "relationship": "原EvictActiveTail_506780定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原EvictActiveTail_506780定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 13,
+        "original_code_bytes": 32,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_jump_count": 1,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": true,
+        "source_root_cpp_patch_count": 1,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5067A0",
+      "inventory_id": "F:001067A0",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：AllocateAndActivate_5067A0",
+      "original_end_exclusive": "0x5067e2",
+      "original_chunks": [
+        [
+          "0x5067a0",
+          "0x5067e2"
+        ]
+      ],
+      "instruction_count": 20,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbols": [
+            "AllocateAndActivate_5067A0"
+          ],
+          "relationship": "原AllocateAndActivate_5067A0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原AllocateAndActivate_5067A0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 20,
+        "original_code_bytes": 66,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_jump_count": 2,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": true,
+        "source_root_cpp_patch_count": 1,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5067F0",
+      "inventory_id": "F:001067F0",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：TrackLegacyMouseDown_5067F0",
+      "original_end_exclusive": "0x50686c",
+      "original_chunks": [
+        [
+          "0x5067f0",
+          "0x50686c"
+        ]
+      ],
+      "instruction_count": 55,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/platform/LegacyMouseTracker.cpp",
+          "symbols": [
+            "TrackLegacyMouseDown_5067F0"
+          ],
+          "relationship": "原TrackLegacyMouseDown_5067F0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原TrackLegacyMouseDown_5067F0定宽标量/真实nullptr和哨兵分支、池清理/分配失败、链写序及返回保；已证节点地址改非拥有T*，既有owner/native allocator/原24B只读固定池身份视图承接，不新建handle/影子状态、异常策略或回绕模拟，完整ABI/别名寿命/运行未验。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 55,
+        "original_code_bytes": 124,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_jump_count": 7,
+        "original_return_count": 3,
+        "original_inbound_reference_count": 2,
+        "source_body_changed": true,
+        "source_root_cpp_patch_count": 1,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x512CA0",
+      "inventory_id": "F:00112CA0",
+      "original_role": "原鼠标追踪/配置/PGXE链十根之一：Report_512CA0",
+      "original_end_exclusive": "0x512ce8",
+      "original_chunks": [
+        [
+          "0x512ca0",
+          "0x512ce8"
+        ]
+      ],
+      "instruction_count": 22,
+      "status": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Report_512CA0"
+          ],
+          "relationship": "原PGXE命令/先保存长度后format token/三次fresh输出buffer与发送返回保持，原5B字串已载；不新增网络I或改变格式/加解密，不代所有父与明文互通验收。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+        "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+        "doc/cg2d_mouse_tracker_native_links_evidence.json"
+      ],
+      "boundary": "原PGXE命令/先保存长度后format token/三次fresh输出buffer与发送返回保持，原5B字串已载；不新增网络I或改变格式/加解密，不代所有父与明文互通验收。",
+      "verification_level": "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
+      "mouse_tracker_native_links": {
+        "spec_id": "BUV01",
+        "evidence_refs": [
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-acceptance",
+          "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
+          "doc/cg2d_mouse_tracker_native_links_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 22,
+        "original_code_bytes": 72,
+        "original_page_count": 1,
+        "original_direct_call_count": 4,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 8,
+        "source_body_changed": false,
+        "source_root_cpp_patch_count": 0,
+        "source_group_cpp_patch_count": 11,
+        "source_group_header_patch_count": 1,
+        "source_group_existing_original_roots_changed": 7,
+        "source_group_existing_byte_bridge_changed": true,
+        "source_group_retired_private_helpers": [
+          "NodeHandleAt",
+          "ResolveNode",
+          "IncrementCount"
+        ],
+        "new_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_next_prev_address_fields_nonowning_native_pointers_restored": true,
+        "four_S32_node_fields_and_capacity_threshold_kept": true,
+        "original_real_nullptr_sentinel_failures_chain_writes_LRU_and_returns_kept": true,
+        "original_malloc_result_published_before_failure_fallback_restored": true,
+        "original_reset_pool_capacity_sampling_and_index_return_restored": true,
+        "count_plain_S32_increment_without_special_wrap_restored": true,
+        "original_24_byte_readonly_fixed_pool_view_and_12_consumers_kept": true,
+        "target_no_pointer_truncation_handle_table_or_shadow_pool": true,
+        "default_config_network_config_report_three_correct_bodies_kept": true,
+        "original_PGXE_and_default_values_bytes": 17,
+        "original_nop_tail_bytes": 65,
+        "original_all_inbound_reference_count": 25,
+        "original_inbound_parent_count": 13,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_login_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

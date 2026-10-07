@@ -6,25 +6,27 @@
 
 namespace cg::platform {
 
-// 原 x86 鼠标按下追踪节点。next/prev 是原 W32 链接槽，不承载 x64 指针。
-struct LegacyMouseTrackerNode32 {
+// 原 x86 节点 +0x10/+0x14 是非拥有地址；x64 只拓宽链接，前四个 S32 保持。
+struct LegacyMouseTrackerNode {
     std::int32_t x;
     std::int32_t y;
     std::int32_t tag;
     std::int32_t count;
-    std::uint32_t next;
-    std::uint32_t prev;
+    LegacyMouseTrackerNode* next;
+    LegacyMouseTrackerNode* prev;
 };
 
-static_assert(std::is_standard_layout_v<LegacyMouseTrackerNode32>);
-static_assert(std::is_trivially_copyable_v<LegacyMouseTrackerNode32>);
-static_assert(sizeof(LegacyMouseTrackerNode32) == 0x18);
-static_assert(offsetof(LegacyMouseTrackerNode32, x) == 0x00);
-static_assert(offsetof(LegacyMouseTrackerNode32, y) == 0x04);
-static_assert(offsetof(LegacyMouseTrackerNode32, tag) == 0x08);
-static_assert(offsetof(LegacyMouseTrackerNode32, count) == 0x0C);
-static_assert(offsetof(LegacyMouseTrackerNode32, next) == 0x10);
-static_assert(offsetof(LegacyMouseTrackerNode32, prev) == 0x14);
+static_assert(std::is_standard_layout_v<LegacyMouseTrackerNode>);
+static_assert(std::is_trivially_copyable_v<LegacyMouseTrackerNode>);
+static_assert(sizeof(LegacyMouseTrackerNode)
+    == 0x10 + 2 * sizeof(LegacyMouseTrackerNode*));
+static_assert(offsetof(LegacyMouseTrackerNode, x) == 0x00);
+static_assert(offsetof(LegacyMouseTrackerNode, y) == 0x04);
+static_assert(offsetof(LegacyMouseTrackerNode, tag) == 0x08);
+static_assert(offsetof(LegacyMouseTrackerNode, count) == 0x0C);
+static_assert(offsetof(LegacyMouseTrackerNode, next) == 0x10);
+static_assert(offsetof(LegacyMouseTrackerNode, prev)
+    == 0x10 + sizeof(LegacyMouseTrackerNode*));
 
 // 原 0x58ACBC、0x58ACC0 的唯一 signed32 配置存储。修改 capacity 后须调用重置。
 extern std::int32_t gLegacyMouseTrackerThreshold;

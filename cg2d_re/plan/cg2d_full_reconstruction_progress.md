@@ -4014,3 +4014,25 @@ BUT01窗口四处源修复已固定，沿其真实八个鼠标提供者继续开
 实际语义1731/有效1724、文档1842（50.05%）、F872/E1026、R7已审437/余2624、LOOP144/INPUT38；其他域/分母/差队列/pending18及ECX pending7/closed11与全门禁保。源码一cpp七配对实修，滚轮正确保持不计I；未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。
 
 静态流程自身两处问题已解决：首次原矩阵脚本的PowerShell switch表达式语法不成立，改为具名字段字典后完整原新顺序检查通过；派生模型复用时先替换SPEC名导致旧manifest无法匹配，改为先匹配完整manifest后检查通过。两者均只改静态模型，原证据/源码/验收标准保持，没有遗留失败。
+
+## BUV01 鼠标追踪原生链接与失败时序实修（2026-10-08）
+
+BUU01七鼠标配对发布已固定，沿真实down的Track→Report→Reset推进。既有cg2d.exe只读MCP十完整原根262条799B/十一页、14directcall/34jump/19RET、25引用13父仅身份；PGXE5B/默认阈值50容量100及固定池指针12B实际已载，七尾65B实际NN_NOP无入向/后真函数，仅用途。
+
+先固定[子SPEC](../doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision)，源一cpp十一片段/一hpp一类型布局片段已落。原next/prev是地址，旧W32 handle/nativePoolNodeCount/Resolve的额外拒绝改原生非拥有Node*，四S32、同一gTracker/唯一阈值容量保；NodeHandleAt/ResolveNode/IncrementCount三个旧helper退休，不新建helper或owner。Insert/Detach原nullptr失败与四写序保，Take/Evict只原哨兵比较、其他保存候选调用Detach返原候选；Allocate原空闲优先/淘汰/仍空失败、Track首项tag0抑制/x-y-tag短路/普通++count/摘后插/返回fresh count原序保，RPLAN.24异常不专项策略或模拟。
+
+Reset修复正常失败路径：保存旧pool后原free，再保存capacity只用于原100/10/5000门禁和申请；malloc返回先发布含null，失败再回固定池/100。清理用保存选中pool及成功fresh容量/回退保存100，阈值<5原门禁保。首轮保存pool/容量与头尾发布顺序、后轮fresh pool、prev后fresh容量/next用fresh pool、保存循环容量后增index/续行再取pool恢复，尾部返index不另读容量。
+
+固定BYTE桥接口和LegacyUiRecord十二偏移全文保。源桥显式原步长24/next16/prev20，前16B现场四S32；借用T*只按固定节点索引/四哨兵投影原身份W32字节，不截本机地址/写回/造影子池/反查表，切动态池后仍观察fixedPool旧内容。旧BRU/追踪/事件handle/24B物理布局及保护描述由新SPEC当前裁决覆盖，原字节合同保。
+
+默认/网络配置/Report三正确根全文保，不为纳管造修改/新增I。Report原PGXE Build→保存长度→format→fresh buffer追加→fresh buffer发送及返回有据，网络格式/明文不变，不复核全部13父或证明互通运行。
+[证据](../doc/cg2d_mouse_tracker_native_links_evidence.json)保存十原根/原17B/七用途、两源前态/十二批准片段和机器前态。十新1731..1740/adapted、LOOP144→154/INPUT38→47各限定I/S、NETWORK61→63/LOGIN13仅S共六证据/各25来源，七R7用途。预期语义1741/有效1734、文档1852（50.33%）、F882/E1032/R7已审444余2617，集中静态汇总后记实值。T02/R04/V03/V04只current/引用，open/closed11/pending18/ECX pending7/差队列和完整门禁保。
+
+完整所有原父/callee、owner-alias寿命、正常业务失败、登录/窗口/配置及ABI/链接/画面/文件/明文互通/R8继续；网络原格式明文/两叶排除、内部LegacyCryptInt/音频暂停/单线程及不编译测试运行或摘要保，整体目标active。
+
+### BUV01 实际限定静态结果
+
+十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
+实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。
+
+源码准备脚本首次用英文句号匹配原中文节点注释而未找到声明区间，尚未写源；改按已读注释前缀/完整声明区间定位后完成十二批准片段。静态、汇总与Check现全部通过，没有遗留失败或修改原验收标准。

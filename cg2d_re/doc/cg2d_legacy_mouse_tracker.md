@@ -158,3 +158,18 @@ callee，不计 `ShutdownClient_457A40` 的其他未落位清理、完整链接�
 ## 登录负分类的固定池BYTE观察（BRU01，2026-10-07）
 
 既有模块新增ReadLegacyMouseTrackerFixedByte只读桥，见[局部裁决](cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision)。前16B坐标等值字段从fixedPool现场取BYTE；next/prev保持原W32 handle，仅在观察边界按原固定节点D68DD0+(index×24)及四哨兵身份提取原BYTE。投影是不可解引用的原标量身份，不是新端地址，不截断native指针，不写回链接或增加影子池/反查表。固定池切入动态nativePool后仍观察其原存储，不能反算当前池地址。已有24B布局、配置、重置、申请释放、链逻辑/原边界检查与RNG全文保持；本步没有新异常保护或故障/回绕模型。仅登录12点现场读取和身份字节源码合同，不代完整运行验收。
+
+## 原生节点链接、正常失败与取样修复（BUV01，2026-10-08）
+
+[新原生链接基线](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline)与[裁决](cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision)固定追踪/配置/PGXE十完整根262条799B/十一页、14directcall/34jump/19RET、25引用13父身份、原字串/默认值17B和七65B NN_NOP用途。原next/prev通过pool+index×24和四哨兵地址实际解引用，现旧W32 handle及nativePoolNodeCount解析保护由已证地址优先T*裁决覆盖。
+
+现LegacyMouseTrackerNode仅两链接为非拥有T*，四S32/唯一阈值容量和同一gTracker owner保，物理大小随本机地址拓宽；原24B只有只读字节视图，不再等于x64物理sizeof。Insert/Detach的原nullptr失败及四写序保；Take/Evict只原哨兵比较，保存候选调用Detach后返候选；Allocate保空闲/淘汰/仍空失败，Track保首项tag0抑制、x-y-tag短路/先摘后插/读count返，普通++count替代回绕helper。三个handle/解析/计数helper退休，不造新helper/owner或异常模型。
+
+Reset恢复保存旧pool、capacity一次门禁/申请，malloc先发布返回含null再回固定池/100；保存清理指针和对应容量，阈值<5原业务门禁保。原头尾发布序/首轮保存pool、后轮fresh pool、prev后fresh容量/next用fresh pool、保存循环容量后增index、最后返index保。默认/网络配置三句/五句及PGXE Report正确全保，不计I。
+
+固定BYTE桥仍原步长24/字段16与20，前16B同源S32现场读；链接T*只按固定池索引/四哨兵投影原W32身份，不截native地址/写回或造影子池，动态pool切换后仍观察fixedPool旧内容。旧handle/24B物理布局/损坏解析和计数回绕段仅历史；RPLAN.24异常不专项，真实null/分配失败不豁免。完整父-callee/owner-alias寿命/ABI/运行和R8继续。
+
+### BUV01 实际限定静态结果
+
+十完整原根262条799B/十一页、14directcall/34jump/19RET及25引用13父身份、原17B/七65B用途、两源码仅十二批准片段、原T*字段/原nullptr-哨兵/链写序及失败发布和pool-capacity采样/index返回、固定24B只读视图移交、完整机器及派生差异模型、十六文件UTF8/LF/四锚点及六限定证据各25来源已通过。文本汇总与Check均退出0。
+实际语义1741/有效1734、文档1852（50.33%）、F882/E1032、R7已审444/余2617、LOOP154/INPUT47/NETWORK63/LOGIN13；原分母/其他域/差队列/pending18与ECX pending7/closed11和完整门禁保。七原根和BYTE桥实修/三旧helper退休，默认/网络配置/Report三正确正文保持不计新增I；未编译、链接、运行或证明完整窗口/登录/配置/明文互通验收，整体目标继续active。

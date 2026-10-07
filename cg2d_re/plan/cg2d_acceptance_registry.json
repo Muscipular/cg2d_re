@@ -89,7 +89,8 @@
         "doc/cg2d_active_initializer_order_spec.md",
         "doc/cg2d_exit_table_heap_migration_spec.md",
         "doc/cg2d_standard_stream_exit_migration_spec.md",
-        "doc/cg2d_standard_stream_controller_gates_spec.md"
+        "doc/cg2d_standard_stream_controller_gates_spec.md",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -227,7 +228,8 @@
         "doc/cg2d_active_initializer_order_spec.md#active-initializer-order-decision",
         "doc/cg2d_exit_table_heap_migration_spec.md#exit-table-heap-decision",
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
-        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision"
+        "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -240,7 +242,8 @@
         "AIS01六图形/资源调用已统一至当前LegacyMouse原相对位置且旧三模块删除，多字节前置；当前68槽/29仅绑定补登记不代全90/17流locale活动归属、全CRT/快速退出/SDK和运行，音频继续暂停",
         "ETH01兼容退出表块成组宿主承接仅局部静态，真实容量/扩容/初分配同域；原callback表/包装/正常快速退出与业务算法保持，不新增活动启动/登记/整表free，17初始化项/62完整父/alias/SDK/运行未闭",
         "SSX01仅18标准流即时登记成组std::atexit，构造/回调和当前66+2投影保持；宿主失败/非零返回按D03，17活动项/registry完整容量/codecvt生产、原正常快速callable退出、SDK及运行仍未闭",
-        "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭"
+        "SCG01两控制器14原固定目标门禁恢复，仅源码分支对齐；原状态/计数/FILE/共享缓冲/tie/format和18登记保持，17活动项/全registry/facet、全应用normal/quick/callable退出、SDK及运行未闭",
+        "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -34463,6 +34466,78 @@
       "observation": "50D120完整战斗入口/退出：禁用门禁、D67E78强制清理链/既有四数值载体construct-destroy及RNG消费、三次mask-encoded-W8 count读齐再pub与非正type count-encoded-mask独立序恢复；正type2/3/其它谓词先pub/真实W32-W16写序/背景参数读取、四1000H队列只首字节清零/pending1保，跨字段FDA88A通过现ReadPlayerFlags18A一次4B借读恢复；音频暂停/原fresh socket与明文回复保。 50D500完整战果生产：禁用门禁/W16 ready1、四8B记录/第五列三组图号和29B姓名/第六至二十列十五8B技能结果、三2048B未清栈buffer与真实2047提取容量和comma-bar/Base62/两原Unescape链不改；两field增量移到首parser前、低S16与S32 pub后TEST持有解析返回值/原负值零写保、姓名长度<=28复制否则只清首BYTE及原解析返回弃置保持。 50D3B0完整正确sZWu消息W16叶：原三指令12B真实函数身份、第二形参低W16→FF0D34共享W16→相同低W16返回；51513F ADD后515142 XOR EAX明确覆盖callee返回，原upperEAX不消费，现uint16_t正常承接正确；首参数不读取、邻接槽不借用，源码不改。",
       "expected": "50D120完整战斗入口/退出：禁用门禁、D67E78强制清理链/既有四数值载体construct-destroy及RNG消费、三次mask-encoded-W8 count读齐再pub与非正type count-encoded-mask独立序恢复；正type2/3/其它谓词先pub/真实W32-W16写序/背景参数读取、四1000H队列只首字节清零/pending1保，跨字段FDA88A通过现ReadPlayerFlags18A一次4B借读恢复；音频暂停/原fresh socket与明文回复保。 50D500完整战果生产：禁用门禁/W16 ready1、四8B记录/第五列三组图号和29B姓名/第六至二十列十五8B技能结果、三2048B未清栈buffer与真实2047提取容量和comma-bar/Base62/两原Unescape链不改；两field增量移到首parser前、低S16与S32 pub后TEST持有解析返回值/原负值零写保、姓名长度<=28复制否则只清首BYTE及原解析返回弃置保持。 50D3B0完整正确sZWu消息W16叶：原三指令12B真实函数身份、第二形参低W16→FF0D34共享W16→相同低W16返回；51513F ADD后515142 XOR EAX明确覆盖callee返回，原upperEAX不消费，现uint16_t正常承接正确；首参数不读取、邻接槽不借用，源码不改。",
       "actual": "三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。"
+    },
+    {
+      "id": "E-HOSTED-CLIENT-TARGET-I-20261007",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-client-executable-target-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-acceptance",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state",
+        "doc/cg2d_hosted_client_executable_target_evidence.json",
+        "CMakeLists.txt",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/render/SdlPresenter.cpp",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md",
+        "doc/cg2d_hosted_stdio_init_spec.md",
+        "CMakePresets.json"
+      ],
+      "differences": [
+        {
+          "description": "入口归属startup到真实WIN32客户端目标，三库和既有宿主生命周期保持",
+          "decision_ref": "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "原仅三STATIC，真实WinMain已存在，无可执行目标",
+      "expected": "唯一WIN32客户端目标/ClientEntry归属及startup-render依赖，无私有入口或重复初始化",
+      "actual": "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。"
+    },
+    {
+      "id": "E-HOSTED-CLIENT-TARGET-S-20261007",
+      "feature_id": "FUNC-STARTUP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-hosted-client-executable-target-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-baseline",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-acceptance",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state",
+        "doc/cg2d_hosted_client_executable_target_evidence.json",
+        "CMakeLists.txt",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/platform/LegacyRuntimeExit.cpp",
+        "src/render/SdlPresenter.cpp",
+        "doc/cg2d_crt_startup_lifecycle_spec.md",
+        "doc/cg2d_active_initializer_order_spec.md",
+        "doc/cg2d_hosted_stdio_init_spec.md",
+        "CMakePresets.json"
+      ],
+      "differences": [
+        {
+          "description": "入口归属startup到真实WIN32客户端目标，三库和既有宿主生命周期保持",
+          "decision_ref": "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "原仅三STATIC，真实WinMain已存在，无可执行目标",
+      "expected": "唯一WIN32客户端目标/ClientEntry归属及startup-render依赖，无私有入口或重复初始化",
+      "actual": "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。"
     }
   ],
   "task_acceptance": [
@@ -34578,7 +34653,8 @@
         "doc/cg2d_sdk_late_narrow_init_spec.md#sdk-late-narrow-init-source-closure",
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
-        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure"
+        "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state"
       ]
     },
     {
@@ -34600,7 +34676,8 @@
         "doc/cg2d_sdk_standard_stream_owners_spec.md#sdk-standard-owners-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
-        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state"
       ]
     },
     {
@@ -35149,7 +35226,8 @@
         "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
         "doc/cg2d_hosted_runtime_prefix_spec.md#hosted-prefix-source-closure",
         "doc/cg2d_hosted_stdio_init_spec.md#hosted-stdio-source-closure",
-        "doc/cg2d_array_counter_spec.md#array-counter-source-closure"
+        "doc/cg2d_array_counter_spec.md#array-counter-source-closure",
+        "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state"
       ]
     },
     {

@@ -1987,3 +1987,8 @@ native9槽是已证前缀，不是原完整容量证明；原入口>=8不增加�
 [具名host边界](cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state)取代旧509/517将5402AB/5407BC列为尚待实现、宿主提案尚待确认的当前说明。两原完整核315条875B与两唯一call父邻窗独立保留；当前实际compiler/VCRuntime由NCE01六本机类型/显式copy及既有throw/重抛服务，原旧数组/六记录不是本机元数据。
 
 这是两个私有职责已批准承接的归属，不是旧引擎逐指令等价或完整捕获通过。八throw/一重抛、业务字段/消息/copy/单owner析构与HFI01顶层filter保持，实际typed捕获/清理、全部成员/硬件SEH、SDK生成ABI/链接/展开和退出运行仍按C06/C07原门禁推进。
+
+<a id="hosted-client-target-current"></a>
+## 宿主客户端目标接线（BRS01，2026-10-07）
+
+本线新增唯一 cg2d_re_client WIN32目标，已有ClientEntry.cpp从startup迁至该目标；显式接startup/render，core沿startup公共依赖。宿主标准Windows CRT进入已有WinMain，没有新增入口函数、/ENTRY、旧整表调用或占位依赖，现有活动初始化保持。见[局部SPEC](cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state)。目标缺口在源码层已补；未配置、编译、链接或运行，完整生命周期与登录负分类、版本正文、资源依赖继续推进。上文早期“仅静态库／入口未启用”沿原时点保留，现目标状态以本节及唯一进度为准。

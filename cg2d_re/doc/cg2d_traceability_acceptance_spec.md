@@ -1226,3 +1226,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQX01 入口与战果局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-acceptance)/[三完整323条1177B](cg2d_battle_entry_result_producer_sampling_evidence.json)，六页34directcall十九callee/24jump五RET、三真实父局部入向；两主根11片段/四载体与类型谓词/结果field和held判负、一次跨W32桥/布局assert及原4-3-15、W16/W32/RNG/文本门禁/负值零写保。正确W16叶/原caller覆盖EAX及两X7B用途有据；三处置/253open成员/两I-S各21真实来源与五任务不代全分派/owner/CRT-SDK-ABI/运行，60源码closed10/完整验收0/叶0/global=false，12精确文件与音频/执行限制保。
+
+## BRS01 宿主客户端可执行目标（2026-10-07）
+
+[目标SPEC](cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state)纳入FUNC-STARTUP基线，新增局部I/S两条E-HOSTED-CLIENT-TARGET，证据800→802。唯一真实WIN32目标/ClientEntry归属与startup-render依赖已接，原三库、WinMain本体及宿主活动初始化保持；没有私有入口、整表重调或占位函数。C02/C04/V02只加本批引用且仍open。函数/语义/处置/成员/R7及完整feature gates不改；源码目标存在不代替链接、运行或整体启动退出验收。源变更和完整前态见[证据](cg2d_hosted_client_executable_target_evidence.json)。

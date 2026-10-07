@@ -51,9 +51,8 @@ target_compile_options(cg2d_re_core PRIVATE /GR- /utf-8 /W4)
 target_compile_definitions(cg2d_re_core PRIVATE _CRT_SECURE_NO_WARNINGS)
 target_link_libraries(cg2d_re_core PRIVATE SDL3::SDL3 user32 shell32 gdi32)
 
-# 编译真实入口链，但不以空实现填补尚未还原的依赖或提前链接演示客户端。
+# 真实业务链由客户端目标承接；缺失依赖按原合同实现，不以占位体消除链接缺口。
 add_library(cg2d_re_startup STATIC
-    src/platform/ClientEntry.cpp
     src/platform/ClientInitialization.cpp
     src/platform/LoadingScreen.cpp
     src/platform/RendererRebuild.cpp
@@ -173,3 +172,13 @@ set_target_properties(cg2d_re_render PROPERTIES CXX_EXTENSIONS OFF)
 target_compile_options(cg2d_re_render PRIVATE /GR- /utf-8 /W4)
 target_compile_definitions(cg2d_re_render PRIVATE _CRT_SECURE_NO_WARNINGS)
 target_link_libraries(cg2d_re_render PRIVATE SDL3::SDL3 user32 gdi32)
+
+# BRS01/D03：由宿主 Windows CRT 进入唯一真实 WinMain，不设置私有 /ENTRY。
+add_executable(cg2d_re_client WIN32
+    src/platform/ClientEntry.cpp
+)
+
+set_target_properties(cg2d_re_client PROPERTIES CXX_EXTENSIONS OFF)
+target_compile_options(cg2d_re_client PRIVATE /GR- /utf-8 /W4 /fp:strict)
+target_compile_definitions(cg2d_re_client PRIVATE _CRT_SECURE_NO_WARNINGS)
+target_link_libraries(cg2d_re_client PRIVATE cg2d_re_startup cg2d_re_render)

@@ -1,0 +1,2213 @@
+{
+  "schema_version": 1,
+  "spec_id": "BVG01",
+  "recorded_on": "2026-10-08",
+  "ida_instance": "ida-17524 / a1def68e",
+  "ida_root_file": "cg2d.exe",
+  "implementation_static_scope": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+  "evidence_refs": [
+    "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+    "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+    "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
+    "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+    "doc/cg2d_fx_strip_rectangle_publication_evidence.json"
+  ],
+  "artifacts": [
+    "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+    "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+    "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
+    "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+    "doc/cg2d_fx_strip_rectangle_publication_evidence.json",
+    "src/world/SceneState.cpp",
+    "src/world/WorldUpdate.cpp",
+    "src/world/WorldUpdateDependencies.hpp",
+    "src/render/SurfaceState.cpp",
+    "include/cg/render/SurfaceState.hpp",
+    "doc/cg2d_fx_trigger_sampling_spec.md",
+    "doc/cg2d_quadrant_transition_blit_baseline_spec.md",
+    "doc/cg2d_sdl_presenter.md",
+    "doc/cg2d_texture_rendering.md",
+    "doc/cg2d_scene_state.md",
+    "doc/cg2d_main_loop.md",
+    "doc/cg2d_semantic_function_mappings.md",
+    "doc/cg2d_traceability_acceptance_spec.md",
+    "doc/cg2d_ida_inventory.json",
+    "doc/cg2d_semantic_function_mappings.json",
+    "plan/cg2d_spec_closure_checklist.md",
+    "plan/cg2d_full_reconstruction_progress.md",
+    "plan/cg2d_acceptance_registry.json",
+    "plan/cg2d_traceability_snapshot.json",
+    "plan/cg2d_measurement_dashboard.md"
+  ],
+  "reused_original_functions": [
+    {
+      "start": "0x51d790",
+      "end_exclusive": "0x51e0a0",
+      "original_chunks": [
+        {
+          "start": "0x51d790",
+          "end_exclusive": "0x51e0a0"
+        }
+      ],
+      "instruction_count": 570,
+      "code_bytes": 2320,
+      "page_count": 9,
+      "direct_call_count": 18,
+      "indirect_call_count": 0,
+      "jump_count": 83,
+      "return_count": 3,
+      "inbound_reference_count": 9,
+      "evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json",
+      "json_pointer": "/original_functions/0",
+      "spec_id": "BVE01",
+      "scope": "既有完整原根及表/用途保持，仅八目标窗口重新只读核；不重计F/页/完整数值验收"
+    },
+    {
+      "start": "0x51e0d0",
+      "end_exclusive": "0x51ebe0",
+      "original_chunks": [
+        {
+          "start": "0x51e0d0",
+          "end_exclusive": "0x51ebe0"
+        }
+      ],
+      "instruction_count": 682,
+      "code_bytes": 2832,
+      "page_count": 10,
+      "direct_call_count": 17,
+      "indirect_call_count": 0,
+      "jump_count": 125,
+      "return_count": 2,
+      "inbound_reference_count": 9,
+      "evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json",
+      "json_pointer": "/original_functions/1",
+      "spec_id": "BVE01",
+      "scope": "既有完整原根及表/用途保持，仅八目标窗口重新只读核；不重计F/页/完整数值验收"
+    }
+  ],
+  "original_strip_production_windows": [
+    {
+      "start": "0x51dcdf",
+      "end_exclusive": "0x51dd12",
+      "root": "0x51d790",
+      "instruction_count": 14,
+      "code_bytes": 51,
+      "instructions": [
+        {
+          "ea": "0x51dcdf",
+          "size": 6,
+          "bytes": "8b0d14cf0301",
+          "mnemonic": "mov",
+          "text": "mov     ecx, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dce5",
+          "size": 4,
+          "bytes": "8d542414",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+34h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dce9",
+          "size": 3,
+          "bytes": "8d7001",
+          "mnemonic": "lea",
+          "text": "lea     esi, [eax+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dcec",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dced",
+          "size": 2,
+          "bytes": "a801",
+          "mnemonic": "test",
+          "text": "test    al, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dcef",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dcf0",
+          "size": 4,
+          "bytes": "89442420",
+          "mnemonic": "mov",
+          "text": "mov     [esp+3Ch+var_1C], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dcf4",
+          "size": 4,
+          "bytes": "89742428",
+          "mnemonic": "mov",
+          "text": "mov     [esp+3Ch+var_14], esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dcf8",
+          "size": 4,
+          "bytes": "896c241c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+3Ch+var_20], ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dcfc",
+          "size": 4,
+          "bytes": "897c2424",
+          "mnemonic": "mov",
+          "text": "mov     [esp+3Ch+var_18], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dd00",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dd01",
+          "size": 6,
+          "bytes": "0f845d010000",
+          "mnemonic": "jz",
+          "text": "jz      loc_51DE64",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dd07",
+          "size": 6,
+          "bytes": "d905e848ff00",
+          "mnemonic": "fld",
+          "text": "fld     flt_FF48E8",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dd0d",
+          "size": 5,
+          "bytes": "e958010000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_51DE6A",
+          "call_target": null
+        }
+      ],
+      "mode": "4",
+      "rectangle_publication_order": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "publication_sites": [
+        "0x51dcf0",
+        "0x51dcf4",
+        "0x51dcf8",
+        "0x51dcfc"
+      ]
+    },
+    {
+      "start": "0x51de96",
+      "end_exclusive": "0x51def7",
+      "root": "0x51d790",
+      "instruction_count": 29,
+      "code_bytes": 97,
+      "instructions": [
+        {
+          "ea": "0x51de96",
+          "size": 3,
+          "bytes": "8d7301",
+          "mnemonic": "lea",
+          "text": "lea     esi, [ebx+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51de99",
+          "size": 4,
+          "bytes": "895c2418",
+          "mnemonic": "mov",
+          "text": "mov     [esp+34h+var_1C], ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51de9d",
+          "size": 3,
+          "bytes": "f6c301",
+          "mnemonic": "test",
+          "text": "test    bl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dea0",
+          "size": 4,
+          "bytes": "89742420",
+          "mnemonic": "mov",
+          "text": "mov     [esp+34h+var_14], esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dea4",
+          "size": 4,
+          "bytes": "896c2414",
+          "mnemonic": "mov",
+          "text": "mov     [esp+34h+var_20], ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dea8",
+          "size": 4,
+          "bytes": "897c241c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+34h+var_18], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51deac",
+          "size": 2,
+          "bytes": "7413",
+          "mnemonic": "jz",
+          "text": "jz      short loc_51DEC1",
+          "call_target": null
+        },
+        {
+          "ea": "0x51deae",
+          "size": 5,
+          "bytes": "a114cf0301",
+          "mnemonic": "mov",
+          "text": "mov     eax, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51deb3",
+          "size": 4,
+          "bytes": "8d4c2414",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+34h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51deb7",
+          "size": 6,
+          "bytes": "d905f048ff00",
+          "mnemonic": "fld",
+          "text": "fld     flt_FF48F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x51debd",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51debe",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51debf",
+          "size": 2,
+          "bytes": "eb12",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_51DED3",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dec1",
+          "size": 6,
+          "bytes": "8b1514cf0301",
+          "mnemonic": "mov",
+          "text": "mov     edx, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dec7",
+          "size": 4,
+          "bytes": "8d442414",
+          "mnemonic": "lea",
+          "text": "lea     eax, [esp+34h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51decb",
+          "size": 6,
+          "bytes": "d905f448ff00",
+          "mnemonic": "fld",
+          "text": "fld     flt_FF48F4",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ded1",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ded2",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ded3",
+          "size": 5,
+          "bytes": "e8c0d50100",
+          "mnemonic": "call",
+          "text": "call    __ftol",
+          "call_target": "0x53b498"
+        },
+        {
+          "ea": "0x51ded8",
+          "size": 2,
+          "bytes": "03c3",
+          "mnemonic": "add",
+          "text": "add     eax, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51deda",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dedb",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dedc",
+          "size": 5,
+          "bytes": "e8cf56f3ff",
+          "mnemonic": "call",
+          "text": "call    sub_4535B0",
+          "call_target": "0x4535b0"
+        },
+        {
+          "ea": "0x51dee1",
+          "size": 2,
+          "bytes": "8bde",
+          "mnemonic": "mov",
+          "text": "mov     ebx, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dee3",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dee6",
+          "size": 6,
+          "bytes": "81fbe0010000",
+          "mnemonic": "cmp",
+          "text": "cmp     ebx, 1E0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51deec",
+          "size": 2,
+          "bytes": "7ca8",
+          "mnemonic": "jl",
+          "text": "jl      short loc_51DE96",
+          "call_target": null
+        },
+        {
+          "ea": "0x51deee",
+          "size": 4,
+          "bytes": "8b5c2410",
+          "mnemonic": "mov",
+          "text": "mov     ebx, [esp+34h+var_24]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51def2",
+          "size": 5,
+          "bytes": "e9d2000000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_51DFC9",
+          "call_target": null
+        }
+      ],
+      "mode": "5",
+      "rectangle_publication_order": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "publication_sites": [
+        "0x51de99",
+        "0x51dea0",
+        "0x51dea4",
+        "0x51dea8"
+      ]
+    },
+    {
+      "start": "0x51df03",
+      "end_exclusive": "0x51df44",
+      "root": "0x51d790",
+      "instruction_count": 19,
+      "code_bytes": 65,
+      "instructions": [
+        {
+          "ea": "0x51df03",
+          "size": 6,
+          "bytes": "8b0d14cf0301",
+          "mnemonic": "mov",
+          "text": "mov     ecx, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df09",
+          "size": 4,
+          "bytes": "8d542414",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+34h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df0d",
+          "size": 2,
+          "bytes": "d906",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df0f",
+          "size": 3,
+          "bytes": "8d7801",
+          "mnemonic": "lea",
+          "text": "lea     edi, [eax+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df12",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df13",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df14",
+          "size": 4,
+          "bytes": "89442420",
+          "mnemonic": "mov",
+          "text": "mov     [esp+3Ch+var_1C], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df18",
+          "size": 4,
+          "bytes": "897c2428",
+          "mnemonic": "mov",
+          "text": "mov     [esp+3Ch+var_14], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df1c",
+          "size": 4,
+          "bytes": "896c241c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+3Ch+var_20], ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df20",
+          "size": 8,
+          "bytes": "c744242480020000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+3Ch+var_18], 280h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df28",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df29",
+          "size": 5,
+          "bytes": "e86ad50100",
+          "mnemonic": "call",
+          "text": "call    __ftol",
+          "call_target": "0x53b498"
+        },
+        {
+          "ea": "0x51df2e",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df2f",
+          "size": 5,
+          "bytes": "e87c56f3ff",
+          "mnemonic": "call",
+          "text": "call    sub_4535B0",
+          "call_target": "0x4535b0"
+        },
+        {
+          "ea": "0x51df34",
+          "size": 3,
+          "bytes": "83c604",
+          "mnemonic": "add",
+          "text": "add     esi, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df37",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df3a",
+          "size": 6,
+          "bytes": "81feac1eff00",
+          "mnemonic": "cmp",
+          "text": "cmp     esi, offset flt_FF1EAC",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df40",
+          "size": 2,
+          "bytes": "8bc7",
+          "mnemonic": "mov",
+          "text": "mov     eax, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df42",
+          "size": 2,
+          "bytes": "7cbf",
+          "mnemonic": "jl",
+          "text": "jl      short loc_51DF03",
+          "call_target": null
+        }
+      ],
+      "mode": "6",
+      "rectangle_publication_order": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "publication_sites": [
+        "0x51df14",
+        "0x51df18",
+        "0x51df1c",
+        "0x51df20"
+      ]
+    },
+    {
+      "start": "0x51df8a",
+      "end_exclusive": "0x51dfc9",
+      "root": "0x51d790",
+      "instruction_count": 19,
+      "code_bytes": 63,
+      "instructions": [
+        {
+          "ea": "0x51df8a",
+          "size": 5,
+          "bytes": "a114cf0301",
+          "mnemonic": "mov",
+          "text": "mov     eax, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df8f",
+          "size": 3,
+          "bytes": "8d5601",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esi+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df92",
+          "size": 2,
+          "bytes": "d907",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [edi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df94",
+          "size": 4,
+          "bytes": "8d4c2414",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+34h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df98",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df99",
+          "size": 4,
+          "bytes": "8974241c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_1C], esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51df9d",
+          "size": 4,
+          "bytes": "89542424",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_14], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfa1",
+          "size": 4,
+          "bytes": "896c2418",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_20], ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfa5",
+          "size": 8,
+          "bytes": "c744242080020000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_18], 280h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfad",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfae",
+          "size": 5,
+          "bytes": "e8e5d40100",
+          "mnemonic": "call",
+          "text": "call    __ftol",
+          "call_target": "0x53b498"
+        },
+        {
+          "ea": "0x51dfb3",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfb4",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfb5",
+          "size": 5,
+          "bytes": "e8f655f3ff",
+          "mnemonic": "call",
+          "text": "call    sub_4535B0",
+          "call_target": "0x4535b0"
+        },
+        {
+          "ea": "0x51dfba",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfbd",
+          "size": 3,
+          "bytes": "83ef04",
+          "mnemonic": "sub",
+          "text": "sub     edi, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfc0",
+          "size": 1,
+          "bytes": "4e",
+          "mnemonic": "dec",
+          "text": "dec     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfc1",
+          "size": 6,
+          "bytes": "81ffb01eff00",
+          "mnemonic": "cmp",
+          "text": "cmp     edi, offset flt_FF1EB0",
+          "call_target": null
+        },
+        {
+          "ea": "0x51dfc7",
+          "size": 2,
+          "bytes": "7fc1",
+          "mnemonic": "jg",
+          "text": "jg      short loc_51DF8A",
+          "call_target": null
+        }
+      ],
+      "mode": "7/8",
+      "rectangle_publication_order": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "publication_sites": [
+        "0x51df99",
+        "0x51df9d",
+        "0x51dfa1",
+        "0x51dfa5"
+      ]
+    },
+    {
+      "start": "0x51e9b1",
+      "end_exclusive": "0x51e9fa",
+      "root": "0x51e0d0",
+      "instruction_count": 22,
+      "code_bytes": 73,
+      "instructions": [
+        {
+          "ea": "0x51e9b1",
+          "size": 6,
+          "bytes": "8b1514cf0301",
+          "mnemonic": "mov",
+          "text": "mov     edx, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9b7",
+          "size": 4,
+          "bytes": "8d4c2410",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+30h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9bb",
+          "size": 3,
+          "bytes": "8d7001",
+          "mnemonic": "lea",
+          "text": "lea     esi, [eax+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9be",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9bf",
+          "size": 2,
+          "bytes": "a801",
+          "mnemonic": "test",
+          "text": "test    al, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9c1",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9c2",
+          "size": 4,
+          "bytes": "8944241c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_1C], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9c6",
+          "size": 4,
+          "bytes": "89742424",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_14], esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9ca",
+          "size": 4,
+          "bytes": "896c2418",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_20], ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9ce",
+          "size": 4,
+          "bytes": "897c2420",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_18], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9d2",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9d3",
+          "size": 2,
+          "bytes": "7408",
+          "mnemonic": "jz",
+          "text": "jz      short loc_51E9DD",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9d5",
+          "size": 6,
+          "bytes": "d9050049ff00",
+          "mnemonic": "fld",
+          "text": "fld     dword_FF4900",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9db",
+          "size": 2,
+          "bytes": "eb06",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_51E9E3",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9dd",
+          "size": 6,
+          "bytes": "d9050449ff00",
+          "mnemonic": "fld",
+          "text": "fld     dword_FF4904",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9e3",
+          "size": 5,
+          "bytes": "e8b0ca0100",
+          "mnemonic": "call",
+          "text": "call    __ftol",
+          "call_target": "0x53b498"
+        },
+        {
+          "ea": "0x51e9e8",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9e9",
+          "size": 5,
+          "bytes": "e8c24bf3ff",
+          "mnemonic": "call",
+          "text": "call    sub_4535B0",
+          "call_target": "0x4535b0"
+        },
+        {
+          "ea": "0x51e9ee",
+          "size": 2,
+          "bytes": "8bc6",
+          "mnemonic": "mov",
+          "text": "mov     eax, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9f0",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9f3",
+          "size": 5,
+          "bytes": "3de0010000",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 1E0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9f8",
+          "size": 2,
+          "bytes": "7cb7",
+          "mnemonic": "jl",
+          "text": "jl      short loc_51E9B1",
+          "call_target": null
+        }
+      ],
+      "mode": "4",
+      "rectangle_publication_order": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "publication_sites": [
+        "0x51e9c2",
+        "0x51e9c6",
+        "0x51e9ca",
+        "0x51e9ce"
+      ]
+    },
+    {
+      "start": "0x51ea0b",
+      "end_exclusive": "0x51ea69",
+      "root": "0x51e0d0",
+      "instruction_count": 28,
+      "code_bytes": 94,
+      "instructions": [
+        {
+          "ea": "0x51ea0b",
+          "size": 3,
+          "bytes": "8d7301",
+          "mnemonic": "lea",
+          "text": "lea     esi, [ebx+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea0e",
+          "size": 4,
+          "bytes": "895c2414",
+          "mnemonic": "mov",
+          "text": "mov     [esp+30h+var_1C], ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea12",
+          "size": 3,
+          "bytes": "f6c301",
+          "mnemonic": "test",
+          "text": "test    bl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea15",
+          "size": 4,
+          "bytes": "8974241c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+30h+var_14], esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea19",
+          "size": 4,
+          "bytes": "896c2410",
+          "mnemonic": "mov",
+          "text": "mov     [esp+30h+var_20], ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea1d",
+          "size": 4,
+          "bytes": "897c2418",
+          "mnemonic": "mov",
+          "text": "mov     [esp+30h+var_18], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea21",
+          "size": 2,
+          "bytes": "7414",
+          "mnemonic": "jz",
+          "text": "jz      short loc_51EA37",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea23",
+          "size": 6,
+          "bytes": "8b1514cf0301",
+          "mnemonic": "mov",
+          "text": "mov     edx, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea29",
+          "size": 4,
+          "bytes": "8d442410",
+          "mnemonic": "lea",
+          "text": "lea     eax, [esp+30h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea2d",
+          "size": 6,
+          "bytes": "d9050849ff00",
+          "mnemonic": "fld",
+          "text": "fld     flt_FF4908",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea33",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea34",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea35",
+          "size": 2,
+          "bytes": "eb12",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_51EA49",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea37",
+          "size": 6,
+          "bytes": "8b0d14cf0301",
+          "mnemonic": "mov",
+          "text": "mov     ecx, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea3d",
+          "size": 4,
+          "bytes": "8d542410",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+30h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea41",
+          "size": 6,
+          "bytes": "d9050c49ff00",
+          "mnemonic": "fld",
+          "text": "fld     dword_FF490C",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea47",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea48",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea49",
+          "size": 5,
+          "bytes": "e84aca0100",
+          "mnemonic": "call",
+          "text": "call    __ftol",
+          "call_target": "0x53b498"
+        },
+        {
+          "ea": "0x51ea4e",
+          "size": 2,
+          "bytes": "03c3",
+          "mnemonic": "add",
+          "text": "add     eax, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea50",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea51",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea52",
+          "size": 5,
+          "bytes": "e8594bf3ff",
+          "mnemonic": "call",
+          "text": "call    sub_4535B0",
+          "call_target": "0x4535b0"
+        },
+        {
+          "ea": "0x51ea57",
+          "size": 2,
+          "bytes": "8bde",
+          "mnemonic": "mov",
+          "text": "mov     ebx, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea59",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea5c",
+          "size": 6,
+          "bytes": "81fbe0010000",
+          "mnemonic": "cmp",
+          "text": "cmp     ebx, 1E0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea62",
+          "size": 2,
+          "bytes": "7ca7",
+          "mnemonic": "jl",
+          "text": "jl      short loc_51EA0B",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea64",
+          "size": 5,
+          "bytes": "e9cf000000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_51EB38",
+          "call_target": null
+        }
+      ],
+      "mode": "5",
+      "rectangle_publication_order": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "publication_sites": [
+        "0x51ea0e",
+        "0x51ea15",
+        "0x51ea19",
+        "0x51ea1d"
+      ]
+    },
+    {
+      "start": "0x51ea7a",
+      "end_exclusive": "0x51eab9",
+      "root": "0x51e0d0",
+      "instruction_count": 20,
+      "code_bytes": 63,
+      "instructions": [
+        {
+          "ea": "0x51ea7a",
+          "size": 6,
+          "bytes": "8b0d14cf0301",
+          "mnemonic": "mov",
+          "text": "mov     ecx, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea80",
+          "size": 4,
+          "bytes": "8d542410",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+30h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea84",
+          "size": 2,
+          "bytes": "d906",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea86",
+          "size": 3,
+          "bytes": "8d7801",
+          "mnemonic": "lea",
+          "text": "lea     edi, [eax+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea89",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea8a",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea8b",
+          "size": 4,
+          "bytes": "8944241c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_1C], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea8f",
+          "size": 4,
+          "bytes": "897c2424",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_14], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea93",
+          "size": 4,
+          "bytes": "896c2418",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_20], ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea97",
+          "size": 4,
+          "bytes": "895c2420",
+          "mnemonic": "mov",
+          "text": "mov     [esp+38h+var_18], ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea9b",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea9c",
+          "size": 5,
+          "bytes": "e8f7c90100",
+          "mnemonic": "call",
+          "text": "call    __ftol",
+          "call_target": "0x53b498"
+        },
+        {
+          "ea": "0x51eaa1",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eaa2",
+          "size": 5,
+          "bytes": "e8094bf3ff",
+          "mnemonic": "call",
+          "text": "call    sub_4535B0",
+          "call_target": "0x4535b0"
+        },
+        {
+          "ea": "0x51eaa7",
+          "size": 3,
+          "bytes": "83c604",
+          "mnemonic": "add",
+          "text": "add     esi, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eaaa",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eaad",
+          "size": 6,
+          "bytes": "81feac1eff00",
+          "mnemonic": "cmp",
+          "text": "cmp     esi, offset flt_FF1EAC",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eab3",
+          "size": 2,
+          "bytes": "8bc7",
+          "mnemonic": "mov",
+          "text": "mov     eax, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eab5",
+          "size": 2,
+          "bytes": "7cc3",
+          "mnemonic": "jl",
+          "text": "jl      short loc_51EA7A",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eab7",
+          "size": 2,
+          "bytes": "eb7f",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_51EB38",
+          "call_target": null
+        }
+      ],
+      "mode": "6",
+      "rectangle_publication_order": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "publication_sites": [
+        "0x51ea8b",
+        "0x51ea8f",
+        "0x51ea93",
+        "0x51ea97"
+      ]
+    },
+    {
+      "start": "0x51eaf7",
+      "end_exclusive": "0x51eb38",
+      "root": "0x51e0d0",
+      "instruction_count": 19,
+      "code_bytes": 65,
+      "instructions": [
+        {
+          "ea": "0x51eaf7",
+          "size": 6,
+          "bytes": "8b1514cf0301",
+          "mnemonic": "mov",
+          "text": "mov     edx, gTempSurface",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eafd",
+          "size": 4,
+          "bytes": "89442414",
+          "mnemonic": "mov",
+          "text": "mov     [esp+30h+var_1C], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb01",
+          "size": 2,
+          "bytes": "d906",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb03",
+          "size": 3,
+          "bytes": "8d7801",
+          "mnemonic": "lea",
+          "text": "lea     edi, [eax+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb06",
+          "size": 4,
+          "bytes": "8d442410",
+          "mnemonic": "lea",
+          "text": "lea     eax, [esp+30h+var_20]",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb0a",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb0b",
+          "size": 4,
+          "bytes": "897c2420",
+          "mnemonic": "mov",
+          "text": "mov     [esp+34h+var_14], edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb0f",
+          "size": 4,
+          "bytes": "896c2414",
+          "mnemonic": "mov",
+          "text": "mov     [esp+34h+var_20], ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb13",
+          "size": 8,
+          "bytes": "c744241c80020000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+34h+var_18], 280h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb1b",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb1c",
+          "size": 5,
+          "bytes": "e877c90100",
+          "mnemonic": "call",
+          "text": "call    __ftol",
+          "call_target": "0x53b498"
+        },
+        {
+          "ea": "0x51eb21",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb22",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb23",
+          "size": 5,
+          "bytes": "e8884af3ff",
+          "mnemonic": "call",
+          "text": "call    sub_4535B0",
+          "call_target": "0x4535b0"
+        },
+        {
+          "ea": "0x51eb28",
+          "size": 3,
+          "bytes": "83c604",
+          "mnemonic": "add",
+          "text": "add     esi, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb2b",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb2e",
+          "size": 6,
+          "bytes": "81fe3026ff00",
+          "mnemonic": "cmp",
+          "text": "cmp     esi, offset flt_FF2630",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb34",
+          "size": 2,
+          "bytes": "8bc7",
+          "mnemonic": "mov",
+          "text": "mov     eax, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x51eb36",
+          "size": 2,
+          "bytes": "7cbf",
+          "mnemonic": "jl",
+          "text": "jl      short loc_51EAF7",
+          "call_target": null
+        }
+      ],
+      "mode": "7/8-kept",
+      "rectangle_publication_order": [
+        "top",
+        "bottom",
+        "left",
+        "right"
+      ],
+      "publication_sites": [
+        "0x51eafd",
+        "0x51eb0b",
+        "0x51eb0f",
+        "0x51eb13"
+      ]
+    }
+  ],
+  "source_functions": [
+    {
+      "symbol": "Sub_51D790",
+      "index": 1759,
+      "id": "F:0011D790",
+      "entry": "0x51D790",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "fragment_count": 4,
+      "old": "std::int32_t Sub_51D790(\n    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)\n{\n    const std::uint32_t trigger = gValue58B6D0;\n    std::int32_t completed = 0;\n    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};\n    if (trigger == 1) {\n        completed = -1;\n        gValue58B6D0 = 0;\n        gTransitionXFF48E8 = 0.0f;\n        gTransitionAlternateXFF48EC = 0.0f;\n        gTransitionYFF48F0 = 0.0f;\n        gTransitionVelocityFF48F8 = 0.0f;\n    }\n    const float acceleration = std::bit_cast<float>(payloadBits);\n    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));\n    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);\n    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);\n    // 原FCOMP的C3选择默认值；零及unordered均走默认。\n    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;\n    auto& speeds = gTransitionLines.speedFF0FA8;\n    auto& offsetsX = gTransitionLines.xFF172C;\n    auto& offsetsY = gTransitionLines.yFF1EB0;\n    switch (mode) {\n    case 0: {\n        const double position = static_cast<double>(gTransitionYFF48F0)\n            - static_cast<double>(gTransitionVelocityFF48F8);\n        gTransitionYFF48F0 = static_cast<float>(position);\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultY));\n        if (!(position > -480.0)) {\n            completed = 1;\n        }\n        break;\n    }\n    case 1:\n    case 5: {\n        const double position = static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(gTransitionYFF48F0);\n        gTransitionYFF48F0 = static_cast<float>(position);\n        if (mode == 5) {\n            gTransitionAlternateYFF48F4 = static_cast<float>(\n                static_cast<double>(gTransitionAlternateYFF48F4)\n                - static_cast<double>(gTransitionVelocityFF48F8));\n        }\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultY));\n        if (position >= 480.0) {\n            completed = 1;\n        }\n        break;\n    }\n    case 2: {\n        const double position = static_cast<double>(gTransitionXFF48E8)\n            - static_cast<double>(gTransitionVelocityFF48F8);\n        gTransitionXFF48E8 = static_cast<float>(position);\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultX));\n        if (!(position > -640.0)) {\n            completed = 1;\n        }\n        break;\n    }\n    case 3:\n    case 4: {\n        const double position = static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(gTransitionXFF48E8);\n        gTransitionXFF48E8 = static_cast<float>(position);\n        if (mode == 4) {\n            gTransitionAlternateXFF48EC = static_cast<float>(\n                static_cast<double>(gTransitionAlternateXFF48EC)\n                - static_cast<double>(gTransitionVelocityFF48F8));\n        }\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultX));\n        if (position >= 640.0) {\n            completed = 1;\n        }\n        break;\n    }\n    case 6: {\n        double active;\n        if (completed == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            std::fill_n(offsetsX.begin(), 480, 0.0f);\n            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;\n            completed = 0;\n            active = 0.0;\n        } else {\n            active = static_cast<double>(gTransitionActiveLinesFF48FC);\n        }\n        for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {\n            if ((index & 1) != 0) {\n                const double speed = static_cast<double>(gTransitionVelocityFF48F8)\n                    + static_cast<double>(speeds[index]);\n                speeds[index] = static_cast<float>(speed);\n                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));\n                const std::int32_t reverse = 480 - index;\n                const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)\n                    + static_cast<double>(speeds[reverse]);\n                speeds[reverse] = static_cast<float>(reverseSpeed);\n                offsetsX[reverse] = static_cast<float>(\n                    reverseSpeed + static_cast<double>(offsetsX[reverse]));\n            } else {\n                const double speed = static_cast<double>(speeds[index])\n                    - static_cast<double>(gTransitionVelocityFF48F8);\n                speeds[index] = static_cast<float>(speed);\n                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));\n                const std::int32_t reverse = 478 - index;\n                const double reverseSpeed = static_cast<double>(speeds[reverse])\n                    - static_cast<double>(gTransitionVelocityFF48F8);\n                speeds[reverse] = static_cast<float>(reverseSpeed);\n                offsetsX[reverse] = static_cast<float>(\n                    reverseSpeed + static_cast<double>(offsetsX[reverse]));\n            }\n        }\n        gTransitionActiveLinesFF48FC = static_cast<float>(\n            active + (step != 0 ? static_cast<double>(step) : 4.0));\n        if (gTransitionActiveLinesFF48FC > 241.0f) {\n            gTransitionActiveLinesFF48FC = 241.0f;\n        }\n        if (!(offsetsX[241] >= -640.0f)) {\n            completed = 1;\n        }\n        if (offsetsX[241] > 640.0f) {\n            completed = 1;\n        }\n        break;\n    }\n    case 7:\n    case 8: {\n        double active;\n        if (completed == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            for (std::int32_t index = 0; index < 480; ++index) {\n                offsetsY[index] = static_cast<float>(index);\n            }\n            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;\n            completed = 0;\n            active = 0.0;\n        } else {\n            active = static_cast<double>(gTransitionActiveLinesFF48FC);\n        }\n        if (mode == 7) {\n            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {\n                const std::int32_t reverse = 480 - index;\n                if (reverse >= 240) {\n                    const double speed = static_cast<double>(speeds[index])\n                        - static_cast<double>(gTransitionVelocityFF48F8);\n                    speeds[index] = static_cast<float>(speed);\n                    offsetsY[index] = static_cast<float>(\n                        speed + static_cast<double>(offsetsY[index]));\n                    if (reverse > 240) {\n                        const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)\n                            + static_cast<double>(speeds[reverse]);\n                        speeds[reverse] = static_cast<float>(reverseSpeed);\n                        offsetsY[reverse] = static_cast<float>(\n                            reverseSpeed + static_cast<double>(offsetsY[reverse]));\n                    }\n                }\n            }\n            gTransitionActiveLinesFF48FC = static_cast<float>(\n                active + (step != 0 ? static_cast<double>(step) : 4.0));\n            if (gTransitionActiveLinesFF48FC > 241.0f) {\n                gTransitionActiveLinesFF48FC = 241.0f;\n            }\n            if (!(offsetsY[241] >= -640.0f)) {\n                completed = 1;\n            }\n            if (offsetsY[241] > 640.0f) {\n                completed = 1;\n            }\n        } else {\n            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {\n                const float speed = static_cast<float>(\n                    static_cast<double>(gTransitionVelocityFF48F8)\n                    + static_cast<double>(speeds[index]));\n                speeds[index] = speed;\n                // 原局部F32重读，不复用上方未舍入的和。\n                if (!(speed >= 100.0f)) {\n                    offsetsY[index] = static_cast<float>(\n                        static_cast<double>(speed) + static_cast<double>(offsetsY[index]));\n                } else {\n                    offsetsY[index] = static_cast<float>(\n                        static_cast<double>(offsetsY[index]) + 100.0);\n                }\n            }\n            gTransitionActiveLinesFF48FC = static_cast<float>(\n                active + (step != 0 ? static_cast<double>(step) : 16.0));\n            if (gTransitionActiveLinesFF48FC > 480.0f) {\n                gTransitionActiveLinesFF48FC = 480.0f;\n            }\n            if (offsetsY[479] > 600.0f) {\n                completed = 1;\n            }\n        }\n        break;\n    }\n    default:\n        break;\n    }\n\n    static_cast<void>(render::ClearSurface_4512C0());\n    switch (mode) {\n    case 4:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t x = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gTransitionXFF48E8 : gTransitionAlternateXFF48EC);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 5:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            rectangle = {0, row, 640, row + 1};\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const std::int32_t y = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gTransitionYFF48F0 : gTransitionAlternateYFF48F4);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(row + y), rectangle, source));\n        }\n        break;\n    case 6:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const double position = static_cast<double>(offsetsX[row]);\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t x = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 7:\n    case 8:\n        for (std::int32_t row = 479; row > 0; --row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const double position = static_cast<double>(offsetsY[row]);\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t y = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(y), rectangle, source));\n        }\n        break;\n    default: {\n        render::TextureSurface* const source = render::BorrowCpuTempSurface();\n        const std::int32_t y = TruncateTransitionCoordinate(gTransitionYFF48F0);\n        const std::int32_t x = TruncateTransitionCoordinate(gTransitionXFF48E8);\n        static_cast<void>(render::BlitSurfaceToBack_4535B0(\n            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));\n        break;\n    }\n    }\n    if (completed != 1) {\n        return 0;\n    }\n    gTransitionXFF48E8 = 0.0f;\n    gTransitionAlternateXFF48EC = 0.0f;\n    gTransitionYFF48F0 = 0.0f;\n    gTransitionAlternateYFF48F4 = 0.0f;\n    gTransitionVelocityFF48F8 = 0.0f;\n\n    std::int32_t nextState;\n    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {\n        nextState = 3;\n    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {\n        nextState = 4;\n    } else {\n        return 1;\n    }\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);\n    const std::uint8_t readCount = temporary.readCount;\n    const std::uint32_t encoded = temporary.encoded;\n    const std::uint32_t mask = temporary.mask;\n    gValue73ECD0.readCount = readCount;\n    gValue73ECD0.encoded = encoded;\n    gValue73ECD0.mask = mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    return 1;\n}\n\n",
+      "new": "std::int32_t Sub_51D790(\n    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)\n{\n    const std::uint32_t trigger = gValue58B6D0;\n    std::int32_t completed = 0;\n    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};\n    if (trigger == 1) {\n        completed = -1;\n        gValue58B6D0 = 0;\n        gTransitionXFF48E8 = 0.0f;\n        gTransitionAlternateXFF48EC = 0.0f;\n        gTransitionYFF48F0 = 0.0f;\n        gTransitionVelocityFF48F8 = 0.0f;\n    }\n    const float acceleration = std::bit_cast<float>(payloadBits);\n    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));\n    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);\n    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);\n    // 原FCOMP的C3选择默认值；零及unordered均走默认。\n    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;\n    auto& speeds = gTransitionLines.speedFF0FA8;\n    auto& offsetsX = gTransitionLines.xFF172C;\n    auto& offsetsY = gTransitionLines.yFF1EB0;\n    switch (mode) {\n    case 0: {\n        const double position = static_cast<double>(gTransitionYFF48F0)\n            - static_cast<double>(gTransitionVelocityFF48F8);\n        gTransitionYFF48F0 = static_cast<float>(position);\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultY));\n        if (!(position > -480.0)) {\n            completed = 1;\n        }\n        break;\n    }\n    case 1:\n    case 5: {\n        const double position = static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(gTransitionYFF48F0);\n        gTransitionYFF48F0 = static_cast<float>(position);\n        if (mode == 5) {\n            gTransitionAlternateYFF48F4 = static_cast<float>(\n                static_cast<double>(gTransitionAlternateYFF48F4)\n                - static_cast<double>(gTransitionVelocityFF48F8));\n        }\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultY));\n        if (position >= 480.0) {\n            completed = 1;\n        }\n        break;\n    }\n    case 2: {\n        const double position = static_cast<double>(gTransitionXFF48E8)\n            - static_cast<double>(gTransitionVelocityFF48F8);\n        gTransitionXFF48E8 = static_cast<float>(position);\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultX));\n        if (!(position > -640.0)) {\n            completed = 1;\n        }\n        break;\n    }\n    case 3:\n    case 4: {\n        const double position = static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(gTransitionXFF48E8);\n        gTransitionXFF48E8 = static_cast<float>(position);\n        if (mode == 4) {\n            gTransitionAlternateXFF48EC = static_cast<float>(\n                static_cast<double>(gTransitionAlternateXFF48EC)\n                - static_cast<double>(gTransitionVelocityFF48F8));\n        }\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultX));\n        if (position >= 640.0) {\n            completed = 1;\n        }\n        break;\n    }\n    case 6: {\n        double active;\n        if (completed == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            std::fill_n(offsetsX.begin(), 480, 0.0f);\n            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;\n            completed = 0;\n            active = 0.0;\n        } else {\n            active = static_cast<double>(gTransitionActiveLinesFF48FC);\n        }\n        for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {\n            if ((index & 1) != 0) {\n                const double speed = static_cast<double>(gTransitionVelocityFF48F8)\n                    + static_cast<double>(speeds[index]);\n                speeds[index] = static_cast<float>(speed);\n                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));\n                const std::int32_t reverse = 480 - index;\n                const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)\n                    + static_cast<double>(speeds[reverse]);\n                speeds[reverse] = static_cast<float>(reverseSpeed);\n                offsetsX[reverse] = static_cast<float>(\n                    reverseSpeed + static_cast<double>(offsetsX[reverse]));\n            } else {\n                const double speed = static_cast<double>(speeds[index])\n                    - static_cast<double>(gTransitionVelocityFF48F8);\n                speeds[index] = static_cast<float>(speed);\n                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));\n                const std::int32_t reverse = 478 - index;\n                const double reverseSpeed = static_cast<double>(speeds[reverse])\n                    - static_cast<double>(gTransitionVelocityFF48F8);\n                speeds[reverse] = static_cast<float>(reverseSpeed);\n                offsetsX[reverse] = static_cast<float>(\n                    reverseSpeed + static_cast<double>(offsetsX[reverse]));\n            }\n        }\n        gTransitionActiveLinesFF48FC = static_cast<float>(\n            active + (step != 0 ? static_cast<double>(step) : 4.0));\n        if (gTransitionActiveLinesFF48FC > 241.0f) {\n            gTransitionActiveLinesFF48FC = 241.0f;\n        }\n        if (!(offsetsX[241] >= -640.0f)) {\n            completed = 1;\n        }\n        if (offsetsX[241] > 640.0f) {\n            completed = 1;\n        }\n        break;\n    }\n    case 7:\n    case 8: {\n        double active;\n        if (completed == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            for (std::int32_t index = 0; index < 480; ++index) {\n                offsetsY[index] = static_cast<float>(index);\n            }\n            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;\n            completed = 0;\n            active = 0.0;\n        } else {\n            active = static_cast<double>(gTransitionActiveLinesFF48FC);\n        }\n        if (mode == 7) {\n            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {\n                const std::int32_t reverse = 480 - index;\n                if (reverse >= 240) {\n                    const double speed = static_cast<double>(speeds[index])\n                        - static_cast<double>(gTransitionVelocityFF48F8);\n                    speeds[index] = static_cast<float>(speed);\n                    offsetsY[index] = static_cast<float>(\n                        speed + static_cast<double>(offsetsY[index]));\n                    if (reverse > 240) {\n                        const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)\n                            + static_cast<double>(speeds[reverse]);\n                        speeds[reverse] = static_cast<float>(reverseSpeed);\n                        offsetsY[reverse] = static_cast<float>(\n                            reverseSpeed + static_cast<double>(offsetsY[reverse]));\n                    }\n                }\n            }\n            gTransitionActiveLinesFF48FC = static_cast<float>(\n                active + (step != 0 ? static_cast<double>(step) : 4.0));\n            if (gTransitionActiveLinesFF48FC > 241.0f) {\n                gTransitionActiveLinesFF48FC = 241.0f;\n            }\n            if (!(offsetsY[241] >= -640.0f)) {\n                completed = 1;\n            }\n            if (offsetsY[241] > 640.0f) {\n                completed = 1;\n            }\n        } else {\n            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {\n                const float speed = static_cast<float>(\n                    static_cast<double>(gTransitionVelocityFF48F8)\n                    + static_cast<double>(speeds[index]));\n                speeds[index] = speed;\n                // 原局部F32重读，不复用上方未舍入的和。\n                if (!(speed >= 100.0f)) {\n                    offsetsY[index] = static_cast<float>(\n                        static_cast<double>(speed) + static_cast<double>(offsetsY[index]));\n                } else {\n                    offsetsY[index] = static_cast<float>(\n                        static_cast<double>(offsetsY[index]) + 100.0);\n                }\n            }\n            gTransitionActiveLinesFF48FC = static_cast<float>(\n                active + (step != 0 ? static_cast<double>(step) : 16.0));\n            if (gTransitionActiveLinesFF48FC > 480.0f) {\n                gTransitionActiveLinesFF48FC = 480.0f;\n            }\n            if (offsetsY[479] > 600.0f) {\n                completed = 1;\n            }\n        }\n        break;\n    }\n    default:\n        break;\n    }\n\n    static_cast<void>(render::ClearSurface_4512C0());\n    switch (mode) {\n    case 4:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            rectangle[1] = row;\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            const std::int32_t x = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gTransitionXFF48E8 : gTransitionAlternateXFF48EC);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 5:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            rectangle[1] = row;\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const std::int32_t y = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gTransitionYFF48F0 : gTransitionAlternateYFF48F4);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(row + y), rectangle, source));\n        }\n        break;\n    case 6:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const double position = static_cast<double>(offsetsX[row]);\n            rectangle[1] = row;\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            const std::int32_t x = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 7:\n    case 8:\n        for (std::int32_t row = 479; row > 0; --row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const double position = static_cast<double>(offsetsY[row]);\n            rectangle[1] = row;\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            const std::int32_t y = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(y), rectangle, source));\n        }\n        break;\n    default: {\n        render::TextureSurface* const source = render::BorrowCpuTempSurface();\n        const std::int32_t y = TruncateTransitionCoordinate(gTransitionYFF48F0);\n        const std::int32_t x = TruncateTransitionCoordinate(gTransitionXFF48E8);\n        static_cast<void>(render::BlitSurfaceToBack_4535B0(\n            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));\n        break;\n    }\n    }\n    if (completed != 1) {\n        return 0;\n    }\n    gTransitionXFF48E8 = 0.0f;\n    gTransitionAlternateXFF48EC = 0.0f;\n    gTransitionYFF48F0 = 0.0f;\n    gTransitionAlternateYFF48F4 = 0.0f;\n    gTransitionVelocityFF48F8 = 0.0f;\n\n    std::int32_t nextState;\n    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {\n        nextState = 3;\n    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {\n        nextState = 4;\n    } else {\n        return 1;\n    }\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);\n    const std::uint8_t readCount = temporary.readCount;\n    const std::uint32_t encoded = temporary.encoded;\n    const std::uint32_t mask = temporary.mask;\n    gValue73ECD0.readCount = readCount;\n    gValue73ECD0.encoded = encoded;\n    gValue73ECD0.mask = mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    return 1;\n}\n\n",
+      "contract": "Sub_51D790原条带RECT在数值/转换各原阶段按top、bottom、left、right发布四S32；现4聚合赋值改成原字段序，原数组/数值/坐标持样/低S16和行循环/原完成发布保持，仅RECT生产消费阶段I-S，不外推完整数值/精度/像素/寿命/ABI运行"
+    },
+    {
+      "symbol": "Sub_51E0D0",
+      "index": 1760,
+      "id": "F:0011E0D0",
+      "entry": "0x51E0D0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "fragment_count": 3,
+      "old": "std::int32_t Sub_51E0D0(\n    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)\n{\n    const std::uint32_t trigger = gValue58B6D0;\n    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};\n    std::int32_t phase;\n    if (trigger == 1) {\n        phase = -1;\n        gValue58B6D0 = 0;\n        gReverseTransitionPhase58B6D4 = -1;\n    } else {\n        phase = gReverseTransitionPhase58B6D4;\n    }\n    const float acceleration = std::bit_cast<float>(payloadBits);\n    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;\n    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));\n    constexpr float initialSpeedY = std::bit_cast<float>(0x418B3333U);\n    constexpr float initialSpeedX = std::bit_cast<float>(0x41B66666U);\n    constexpr float initialY = std::bit_cast<float>(0x44004CCDU);\n    constexpr float initialNegativeY = std::bit_cast<float>(0xC4004CCDU);\n    constexpr float initialX = std::bit_cast<float>(0x44254000U);\n    constexpr float initialNegativeX = std::bit_cast<float>(0xC4254000U);\n    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);\n    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);\n    auto& speeds = gTransitionLines.speedFF0FA8;\n    auto& offsetsX = gTransitionLines.xFF172C;\n    auto& offsetsY = gTransitionLines.yFF1EB0;\n    switch (mode) {\n    case 0: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialY);\n            gReverseTransitionVelocityFF47C4 = initialSpeedY;\n            gReverseTransitionXFF4900 = 0.0f;\n            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionYFF4908)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4);\n        }\n        gReverseTransitionYFF4908 = static_cast<float>(position);\n        break;\n    }\n    case 1:\n    case 5: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialNegativeY);\n            gReverseTransitionXFF4900 = 0.0f;\n            if (mode == 5) {\n                gReverseTransitionAlternateYFF490C = initialY;\n            }\n            gReverseTransitionVelocityFF47C4 = initialSpeedY;\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionYFF4908);\n        }\n        gReverseTransitionYFF4908 = static_cast<float>(\n            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);\n        if (mode == 5) {\n            gReverseTransitionAlternateYFF490C = static_cast<float>(\n                static_cast<double>(gReverseTransitionAlternateYFF490C)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4));\n        }\n        break;\n    }\n    case 2: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialX);\n            gReverseTransitionVelocityFF47C4 = initialSpeedX;\n            gReverseTransitionYFF4908 = 0.0f;\n            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionXFF4900)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4);\n        }\n        gReverseTransitionXFF4900 = static_cast<float>(position);\n        break;\n    }\n    case 3:\n    case 4: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialNegativeX);\n            if (mode == 4) {\n                gReverseTransitionAlternateXFF4904 = initialX;\n            }\n            gReverseTransitionYFF4908 = 0.0f;\n            gReverseTransitionVelocityFF47C4 = initialSpeedX;\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionXFF4900);\n        }\n        gReverseTransitionXFF4900 = static_cast<float>(\n            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);\n        if (mode == 4) {\n            gReverseTransitionAlternateXFF4904 = static_cast<float>(\n                static_cast<double>(gReverseTransitionAlternateXFF4904)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4));\n        }\n        break;\n    }\n    case 6: {\n        std::int32_t active;\n        if (phase == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            std::fill_n(offsetsX.begin(), 480, 0.0f);\n            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;\n            active = 0;\n            gReverseTransitionPhase58B6D4 = 0;\n            for (;;) {\n                for (std::int32_t index = 0; index < active; ++index) {\n                    if ((index & 1) != 0) {\n                        const double speed = static_cast<double>(gReverseTransitionVelocityFF47C4)\n                            + static_cast<double>(speeds[index]);\n                        speeds[index] = static_cast<float>(speed);\n                        offsetsX[index] = static_cast<float>(\n                            speed + static_cast<double>(offsetsX[index]));\n                        const std::int32_t reverse = 480 - index;\n                        const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)\n                            + static_cast<double>(speeds[reverse]);\n                        speeds[reverse] = static_cast<float>(reverseSpeed);\n                        offsetsX[reverse] = static_cast<float>(\n                            reverseSpeed + static_cast<double>(offsetsX[reverse]));\n                    } else {\n                        const double speed = static_cast<double>(speeds[index])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4);\n                        speeds[index] = static_cast<float>(speed);\n                        offsetsX[index] = static_cast<float>(\n                            speed + static_cast<double>(offsetsX[index]));\n                        const std::int32_t reverse = 478 - index;\n                        const double reverseSpeed = static_cast<double>(speeds[reverse])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4);\n                        speeds[reverse] = static_cast<float>(reverseSpeed);\n                        offsetsX[reverse] = static_cast<float>(\n                            reverseSpeed + static_cast<double>(offsetsX[reverse]));\n                    }\n                }\n                active += step != 0 ? step : 4;\n                if (active > 240) {\n                    active = 240;\n                }\n                if (!(offsetsX[241] >= -640.0f)) {\n                    break;\n                }\n                if (offsetsX[241] > 640.0f) {\n                    break;\n                }\n            }\n        } else {\n            active = gReverseTransitionActiveLinesFF276C;\n        }\n        // 原恢复固定240对，与局部active无关；到阈值只清位移，不清速度。\n        for (std::int32_t index = 0; index < 240; ++index) {\n            if ((index & 1) != 0) {\n                if (offsetsX[index] > 1.0f) {\n                    offsetsX[index] = static_cast<float>(\n                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));\n                    speeds[index] = static_cast<float>(\n                        static_cast<double>(speeds[index])\n                        - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                } else {\n                    offsetsX[index] = 0.0f;\n                }\n                const std::int32_t reverse = 480 - index;\n                if (offsetsX[reverse] > 1.0f) {\n                    offsetsX[reverse] = static_cast<float>(\n                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));\n                    speeds[reverse] = static_cast<float>(\n                        static_cast<double>(speeds[reverse])\n                        - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                } else {\n                    offsetsX[reverse] = 0.0f;\n                }\n            } else {\n                if (!(offsetsX[index] >= -1.0f)) {\n                    offsetsX[index] = static_cast<float>(\n                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));\n                    speeds[index] = static_cast<float>(\n                        static_cast<double>(gReverseTransitionVelocityFF47C4)\n                        + static_cast<double>(speeds[index]));\n                } else {\n                    offsetsX[index] = 0.0f;\n                }\n                const std::int32_t reverse = 478 - index;\n                if (!(offsetsX[reverse] >= -1.0f)) {\n                    offsetsX[reverse] = static_cast<float>(\n                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));\n                    speeds[reverse] = static_cast<float>(\n                        static_cast<double>(gReverseTransitionVelocityFF47C4)\n                        + static_cast<double>(speeds[reverse]));\n                } else {\n                    offsetsX[reverse] = 0.0f;\n                }\n            }\n        }\n        active += step != 0 ? step : 1;\n        gReverseTransitionActiveLinesFF276C = active;\n        if (active > 240) {\n            gReverseTransitionActiveLinesFF276C = 240;\n        }\n        const float leadingOffset = offsetsX[0];\n        if (!(leadingOffset < 0.0f || leadingOffset > 0.0f)) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n        break;\n    }\n    case 7: {\n        std::int32_t active;\n        if (phase == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            for (std::int32_t index = 0; index < 480; ++index) {\n                offsetsY[index] = static_cast<float>(index);\n            }\n            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;\n            active = 0;\n            gReverseTransitionPhase58B6D4 = 0;\n            gReverseTransitionActiveLinesFF276C = 0;\n            for (;;) {\n                for (std::int32_t index = 0; index < active; ++index) {\n                    const std::int32_t reverse = 480 - index;\n                    if (reverse >= 240) {\n                        const double speed = static_cast<double>(speeds[index])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4);\n                        speeds[index] = static_cast<float>(speed);\n                        offsetsY[index] = static_cast<float>(\n                            speed + static_cast<double>(offsetsY[index]));\n                        if (reverse > 240) {\n                            const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)\n                                + static_cast<double>(speeds[reverse]);\n                            speeds[reverse] = static_cast<float>(reverseSpeed);\n                            offsetsY[reverse] = static_cast<float>(\n                                reverseSpeed + static_cast<double>(offsetsY[reverse]));\n                        }\n                    }\n                }\n                if (active < 241) {\n                    active += step != 0 ? step : 4;\n                }\n                if (!(offsetsY[241] >= -640.0f)) {\n                    break;\n                }\n                if (offsetsY[241] > 640.0f) {\n                    break;\n                }\n            }\n            gReverseTransitionActiveLinesFF276C = active;\n        } else {\n            active = gReverseTransitionActiveLinesFF276C;\n        }\n        for (std::int32_t index = 0; index < active; ++index) {\n            const std::int32_t reverse = 480 - index;\n            if (reverse >= 240) {\n                offsetsY[index] = static_cast<float>(\n                    static_cast<double>(offsetsY[index]) - static_cast<double>(speeds[index]));\n                speeds[index] = static_cast<float>(\n                    static_cast<double>(gReverseTransitionVelocityFF47C4)\n                    + static_cast<double>(speeds[index]));\n                if (reverse > 240) {\n                    offsetsY[reverse] = static_cast<float>(\n                        static_cast<double>(offsetsY[reverse]) - static_cast<double>(speeds[reverse]));\n                    speeds[reverse] = static_cast<float>(\n                        static_cast<double>(speeds[reverse])\n                        - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                }\n            }\n        }\n        if (offsetsY[240] >= 240.0f) {\n            active -= step != 0 ? step : 4;\n            gReverseTransitionActiveLinesFF276C = active;\n            if (active < 0) {\n                gReverseTransitionActiveLinesFF276C = 0;\n            }\n        }\n        if (offsetsY[0] >= 0.0f) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n        break;\n    }\n    case 8: {\n        std::int32_t active;\n        if (phase == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            for (std::int32_t index = 0; index < 480; ++index) {\n                offsetsY[index] = static_cast<float>(index);\n            }\n            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;\n            active = 0;\n            gReverseTransitionPhase58B6D4 = 0;\n            do {\n                const std::int32_t first = 479 - active;\n                for (std::int32_t index = 479; index >= first; --index) {\n                    if (index >= 0) {\n                        const float speed = static_cast<float>(\n                            static_cast<double>(speeds[index])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                        speeds[index] = speed;\n                        if (speed > -100.0f) {\n                            offsetsY[index] = static_cast<float>(\n                                static_cast<double>(speed) + static_cast<double>(offsetsY[index]));\n                        } else {\n                            offsetsY[index] = static_cast<float>(\n                                static_cast<double>(offsetsY[index]) - 100.0);\n                        }\n                    }\n                }\n                active += step != 0 ? step : 16;\n                if (active > 480) {\n                    active = 480;\n                }\n            } while (offsetsY[0] >= 0.0f);\n            gReverseTransitionActiveLinesFF276C = active;\n        } else {\n            active = gReverseTransitionActiveLinesFF276C;\n        }\n        const std::int32_t first = 479 - active;\n        for (std::int32_t index = 479; index >= first; --index) {\n            if (index >= 0) {\n                const float oldSpeed = speeds[index];\n                const double position = static_cast<double>(offsetsY[index]);\n                if (oldSpeed > -100.0f) {\n                    offsetsY[index] = static_cast<float>(\n                        position - static_cast<double>(speeds[index]));\n                } else {\n                    offsetsY[index] = static_cast<float>(position + 100.0);\n                }\n                speeds[index] = static_cast<float>(\n                    static_cast<double>(gReverseTransitionVelocityFF47C4)\n                    + static_cast<double>(speeds[index]));\n            }\n        }\n        if (offsetsY[0] >= 0.0f) {\n            active -= step != 0 ? step : 16;\n            gReverseTransitionActiveLinesFF276C = active;\n            if (active < 0) {\n                gReverseTransitionActiveLinesFF276C = 0;\n            }\n        }\n        if (offsetsY[479] >= 479.0f) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n        break;\n    }\n    default:\n        break;\n    }\n    // 原0..5共用51E33C；完成比较使用FST之前的未舍入新速度。\n    if (mode >= 0 && mode <= 5) {\n        const float decrement = customAcceleration ? acceleration\n            : (mode >= 2 && mode <= 4 ? defaultX : defaultY);\n        const double velocity = static_cast<double>(gReverseTransitionVelocityFF47C4)\n            - static_cast<double>(decrement);\n        gReverseTransitionVelocityFF47C4 = static_cast<float>(velocity);\n        if (!(velocity > 0.0)) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n    }\n\n    static_cast<void>(render::ClearSurface_4512C0());\n    switch (mode) {\n    case 4:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t x = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gReverseTransitionXFF4900 : gReverseTransitionAlternateXFF4904);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 5:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            rectangle = {0, row, 640, row + 1};\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const std::int32_t y = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gReverseTransitionYFF4908 : gReverseTransitionAlternateYFF490C);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(row + y), rectangle, source));\n        }\n        break;\n    case 6:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const double position = static_cast<double>(offsetsX[row]);\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t x = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 7:\n    case 8:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            rectangle[1] = row;\n            const double position = static_cast<double>(offsetsY[row]);\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            const std::int32_t y = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(y), rectangle, source));\n        }\n        break;\n    default: {\n        render::TextureSurface* const source = render::BorrowCpuTempSurface();\n        const std::int32_t y = TruncateTransitionCoordinate(gReverseTransitionYFF4908);\n        const std::int32_t x = TruncateTransitionCoordinate(gReverseTransitionXFF4900);\n        static_cast<void>(render::BlitSurfaceToBack_4535B0(\n            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));\n        break;\n    }\n    }\n    if (gReverseTransitionPhase58B6D4 != 1) {\n        return 0;\n    }\n    std::int32_t nextState;\n    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {\n        nextState = 3;\n    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {\n        nextState = 4;\n    } else {\n        gReverseTransitionPhase58B6D4 = -1;\n        return 1;\n    }\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);\n    const std::uint32_t encoded = temporary.encoded;\n    const std::uint32_t mask = temporary.mask;\n    const std::uint8_t readCount = temporary.readCount;\n    gValue73ECD0.encoded = encoded;\n    gValue73ECD0.mask = mask;\n    gValue73ECD0.readCount = readCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    gReverseTransitionPhase58B6D4 = -1;\n    return 1;\n}\n\n",
+      "new": "std::int32_t Sub_51E0D0(\n    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)\n{\n    const std::uint32_t trigger = gValue58B6D0;\n    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};\n    std::int32_t phase;\n    if (trigger == 1) {\n        phase = -1;\n        gValue58B6D0 = 0;\n        gReverseTransitionPhase58B6D4 = -1;\n    } else {\n        phase = gReverseTransitionPhase58B6D4;\n    }\n    const float acceleration = std::bit_cast<float>(payloadBits);\n    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;\n    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));\n    constexpr float initialSpeedY = std::bit_cast<float>(0x418B3333U);\n    constexpr float initialSpeedX = std::bit_cast<float>(0x41B66666U);\n    constexpr float initialY = std::bit_cast<float>(0x44004CCDU);\n    constexpr float initialNegativeY = std::bit_cast<float>(0xC4004CCDU);\n    constexpr float initialX = std::bit_cast<float>(0x44254000U);\n    constexpr float initialNegativeX = std::bit_cast<float>(0xC4254000U);\n    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);\n    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);\n    auto& speeds = gTransitionLines.speedFF0FA8;\n    auto& offsetsX = gTransitionLines.xFF172C;\n    auto& offsetsY = gTransitionLines.yFF1EB0;\n    switch (mode) {\n    case 0: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialY);\n            gReverseTransitionVelocityFF47C4 = initialSpeedY;\n            gReverseTransitionXFF4900 = 0.0f;\n            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionYFF4908)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4);\n        }\n        gReverseTransitionYFF4908 = static_cast<float>(position);\n        break;\n    }\n    case 1:\n    case 5: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialNegativeY);\n            gReverseTransitionXFF4900 = 0.0f;\n            if (mode == 5) {\n                gReverseTransitionAlternateYFF490C = initialY;\n            }\n            gReverseTransitionVelocityFF47C4 = initialSpeedY;\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionYFF4908);\n        }\n        gReverseTransitionYFF4908 = static_cast<float>(\n            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);\n        if (mode == 5) {\n            gReverseTransitionAlternateYFF490C = static_cast<float>(\n                static_cast<double>(gReverseTransitionAlternateYFF490C)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4));\n        }\n        break;\n    }\n    case 2: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialX);\n            gReverseTransitionVelocityFF47C4 = initialSpeedX;\n            gReverseTransitionYFF4908 = 0.0f;\n            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionXFF4900)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4);\n        }\n        gReverseTransitionXFF4900 = static_cast<float>(position);\n        break;\n    }\n    case 3:\n    case 4: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialNegativeX);\n            if (mode == 4) {\n                gReverseTransitionAlternateXFF4904 = initialX;\n            }\n            gReverseTransitionYFF4908 = 0.0f;\n            gReverseTransitionVelocityFF47C4 = initialSpeedX;\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionXFF4900);\n        }\n        gReverseTransitionXFF4900 = static_cast<float>(\n            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);\n        if (mode == 4) {\n            gReverseTransitionAlternateXFF4904 = static_cast<float>(\n                static_cast<double>(gReverseTransitionAlternateXFF4904)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4));\n        }\n        break;\n    }\n    case 6: {\n        std::int32_t active;\n        if (phase == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            std::fill_n(offsetsX.begin(), 480, 0.0f);\n            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;\n            active = 0;\n            gReverseTransitionPhase58B6D4 = 0;\n            for (;;) {\n                for (std::int32_t index = 0; index < active; ++index) {\n                    if ((index & 1) != 0) {\n                        const double speed = static_cast<double>(gReverseTransitionVelocityFF47C4)\n                            + static_cast<double>(speeds[index]);\n                        speeds[index] = static_cast<float>(speed);\n                        offsetsX[index] = static_cast<float>(\n                            speed + static_cast<double>(offsetsX[index]));\n                        const std::int32_t reverse = 480 - index;\n                        const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)\n                            + static_cast<double>(speeds[reverse]);\n                        speeds[reverse] = static_cast<float>(reverseSpeed);\n                        offsetsX[reverse] = static_cast<float>(\n                            reverseSpeed + static_cast<double>(offsetsX[reverse]));\n                    } else {\n                        const double speed = static_cast<double>(speeds[index])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4);\n                        speeds[index] = static_cast<float>(speed);\n                        offsetsX[index] = static_cast<float>(\n                            speed + static_cast<double>(offsetsX[index]));\n                        const std::int32_t reverse = 478 - index;\n                        const double reverseSpeed = static_cast<double>(speeds[reverse])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4);\n                        speeds[reverse] = static_cast<float>(reverseSpeed);\n                        offsetsX[reverse] = static_cast<float>(\n                            reverseSpeed + static_cast<double>(offsetsX[reverse]));\n                    }\n                }\n                active += step != 0 ? step : 4;\n                if (active > 240) {\n                    active = 240;\n                }\n                if (!(offsetsX[241] >= -640.0f)) {\n                    break;\n                }\n                if (offsetsX[241] > 640.0f) {\n                    break;\n                }\n            }\n        } else {\n            active = gReverseTransitionActiveLinesFF276C;\n        }\n        // 原恢复固定240对，与局部active无关；到阈值只清位移，不清速度。\n        for (std::int32_t index = 0; index < 240; ++index) {\n            if ((index & 1) != 0) {\n                if (offsetsX[index] > 1.0f) {\n                    offsetsX[index] = static_cast<float>(\n                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));\n                    speeds[index] = static_cast<float>(\n                        static_cast<double>(speeds[index])\n                        - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                } else {\n                    offsetsX[index] = 0.0f;\n                }\n                const std::int32_t reverse = 480 - index;\n                if (offsetsX[reverse] > 1.0f) {\n                    offsetsX[reverse] = static_cast<float>(\n                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));\n                    speeds[reverse] = static_cast<float>(\n                        static_cast<double>(speeds[reverse])\n                        - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                } else {\n                    offsetsX[reverse] = 0.0f;\n                }\n            } else {\n                if (!(offsetsX[index] >= -1.0f)) {\n                    offsetsX[index] = static_cast<float>(\n                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));\n                    speeds[index] = static_cast<float>(\n                        static_cast<double>(gReverseTransitionVelocityFF47C4)\n                        + static_cast<double>(speeds[index]));\n                } else {\n                    offsetsX[index] = 0.0f;\n                }\n                const std::int32_t reverse = 478 - index;\n                if (!(offsetsX[reverse] >= -1.0f)) {\n                    offsetsX[reverse] = static_cast<float>(\n                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));\n                    speeds[reverse] = static_cast<float>(\n                        static_cast<double>(gReverseTransitionVelocityFF47C4)\n                        + static_cast<double>(speeds[reverse]));\n                } else {\n                    offsetsX[reverse] = 0.0f;\n                }\n            }\n        }\n        active += step != 0 ? step : 1;\n        gReverseTransitionActiveLinesFF276C = active;\n        if (active > 240) {\n            gReverseTransitionActiveLinesFF276C = 240;\n        }\n        const float leadingOffset = offsetsX[0];\n        if (!(leadingOffset < 0.0f || leadingOffset > 0.0f)) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n        break;\n    }\n    case 7: {\n        std::int32_t active;\n        if (phase == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            for (std::int32_t index = 0; index < 480; ++index) {\n                offsetsY[index] = static_cast<float>(index);\n            }\n            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;\n            active = 0;\n            gReverseTransitionPhase58B6D4 = 0;\n            gReverseTransitionActiveLinesFF276C = 0;\n            for (;;) {\n                for (std::int32_t index = 0; index < active; ++index) {\n                    const std::int32_t reverse = 480 - index;\n                    if (reverse >= 240) {\n                        const double speed = static_cast<double>(speeds[index])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4);\n                        speeds[index] = static_cast<float>(speed);\n                        offsetsY[index] = static_cast<float>(\n                            speed + static_cast<double>(offsetsY[index]));\n                        if (reverse > 240) {\n                            const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)\n                                + static_cast<double>(speeds[reverse]);\n                            speeds[reverse] = static_cast<float>(reverseSpeed);\n                            offsetsY[reverse] = static_cast<float>(\n                                reverseSpeed + static_cast<double>(offsetsY[reverse]));\n                        }\n                    }\n                }\n                if (active < 241) {\n                    active += step != 0 ? step : 4;\n                }\n                if (!(offsetsY[241] >= -640.0f)) {\n                    break;\n                }\n                if (offsetsY[241] > 640.0f) {\n                    break;\n                }\n            }\n            gReverseTransitionActiveLinesFF276C = active;\n        } else {\n            active = gReverseTransitionActiveLinesFF276C;\n        }\n        for (std::int32_t index = 0; index < active; ++index) {\n            const std::int32_t reverse = 480 - index;\n            if (reverse >= 240) {\n                offsetsY[index] = static_cast<float>(\n                    static_cast<double>(offsetsY[index]) - static_cast<double>(speeds[index]));\n                speeds[index] = static_cast<float>(\n                    static_cast<double>(gReverseTransitionVelocityFF47C4)\n                    + static_cast<double>(speeds[index]));\n                if (reverse > 240) {\n                    offsetsY[reverse] = static_cast<float>(\n                        static_cast<double>(offsetsY[reverse]) - static_cast<double>(speeds[reverse]));\n                    speeds[reverse] = static_cast<float>(\n                        static_cast<double>(speeds[reverse])\n                        - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                }\n            }\n        }\n        if (offsetsY[240] >= 240.0f) {\n            active -= step != 0 ? step : 4;\n            gReverseTransitionActiveLinesFF276C = active;\n            if (active < 0) {\n                gReverseTransitionActiveLinesFF276C = 0;\n            }\n        }\n        if (offsetsY[0] >= 0.0f) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n        break;\n    }\n    case 8: {\n        std::int32_t active;\n        if (phase == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            for (std::int32_t index = 0; index < 480; ++index) {\n                offsetsY[index] = static_cast<float>(index);\n            }\n            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;\n            active = 0;\n            gReverseTransitionPhase58B6D4 = 0;\n            do {\n                const std::int32_t first = 479 - active;\n                for (std::int32_t index = 479; index >= first; --index) {\n                    if (index >= 0) {\n                        const float speed = static_cast<float>(\n                            static_cast<double>(speeds[index])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                        speeds[index] = speed;\n                        if (speed > -100.0f) {\n                            offsetsY[index] = static_cast<float>(\n                                static_cast<double>(speed) + static_cast<double>(offsetsY[index]));\n                        } else {\n                            offsetsY[index] = static_cast<float>(\n                                static_cast<double>(offsetsY[index]) - 100.0);\n                        }\n                    }\n                }\n                active += step != 0 ? step : 16;\n                if (active > 480) {\n                    active = 480;\n                }\n            } while (offsetsY[0] >= 0.0f);\n            gReverseTransitionActiveLinesFF276C = active;\n        } else {\n            active = gReverseTransitionActiveLinesFF276C;\n        }\n        const std::int32_t first = 479 - active;\n        for (std::int32_t index = 479; index >= first; --index) {\n            if (index >= 0) {\n                const float oldSpeed = speeds[index];\n                const double position = static_cast<double>(offsetsY[index]);\n                if (oldSpeed > -100.0f) {\n                    offsetsY[index] = static_cast<float>(\n                        position - static_cast<double>(speeds[index]));\n                } else {\n                    offsetsY[index] = static_cast<float>(position + 100.0);\n                }\n                speeds[index] = static_cast<float>(\n                    static_cast<double>(gReverseTransitionVelocityFF47C4)\n                    + static_cast<double>(speeds[index]));\n            }\n        }\n        if (offsetsY[0] >= 0.0f) {\n            active -= step != 0 ? step : 16;\n            gReverseTransitionActiveLinesFF276C = active;\n            if (active < 0) {\n                gReverseTransitionActiveLinesFF276C = 0;\n            }\n        }\n        if (offsetsY[479] >= 479.0f) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n        break;\n    }\n    default:\n        break;\n    }\n    // 原0..5共用51E33C；完成比较使用FST之前的未舍入新速度。\n    if (mode >= 0 && mode <= 5) {\n        const float decrement = customAcceleration ? acceleration\n            : (mode >= 2 && mode <= 4 ? defaultX : defaultY);\n        const double velocity = static_cast<double>(gReverseTransitionVelocityFF47C4)\n            - static_cast<double>(decrement);\n        gReverseTransitionVelocityFF47C4 = static_cast<float>(velocity);\n        if (!(velocity > 0.0)) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n    }\n\n    static_cast<void>(render::ClearSurface_4512C0());\n    switch (mode) {\n    case 4:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            rectangle[1] = row;\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            const std::int32_t x = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gReverseTransitionXFF4900 : gReverseTransitionAlternateXFF4904);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 5:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            rectangle[1] = row;\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const std::int32_t y = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gReverseTransitionYFF4908 : gReverseTransitionAlternateYFF490C);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(row + y), rectangle, source));\n        }\n        break;\n    case 6:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const double position = static_cast<double>(offsetsX[row]);\n            rectangle[1] = row;\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            const std::int32_t x = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 7:\n    case 8:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            rectangle[1] = row;\n            const double position = static_cast<double>(offsetsY[row]);\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            const std::int32_t y = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(y), rectangle, source));\n        }\n        break;\n    default: {\n        render::TextureSurface* const source = render::BorrowCpuTempSurface();\n        const std::int32_t y = TruncateTransitionCoordinate(gReverseTransitionYFF4908);\n        const std::int32_t x = TruncateTransitionCoordinate(gReverseTransitionXFF4900);\n        static_cast<void>(render::BlitSurfaceToBack_4535B0(\n            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));\n        break;\n    }\n    }\n    if (gReverseTransitionPhase58B6D4 != 1) {\n        return 0;\n    }\n    std::int32_t nextState;\n    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {\n        nextState = 3;\n    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {\n        nextState = 4;\n    } else {\n        gReverseTransitionPhase58B6D4 = -1;\n        return 1;\n    }\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);\n    const std::uint32_t encoded = temporary.encoded;\n    const std::uint32_t mask = temporary.mask;\n    const std::uint8_t readCount = temporary.readCount;\n    gValue73ECD0.encoded = encoded;\n    gValue73ECD0.mask = mask;\n    gValue73ECD0.readCount = readCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    gReverseTransitionPhase58B6D4 = -1;\n    return 1;\n}\n\n",
+      "contract": "Sub_51E0D0原条带RECT在数值/转换各原阶段按top、bottom、left、right发布四S32；现3聚合赋值改成原字段序，原数组/数值/坐标持样/低S16和行循环/原完成发布保持，仅RECT生产消费阶段I-S，不外推完整数值/精度/像素/寿命/ABI运行"
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "src/world/SceneState.cpp",
+      "length": 460330
+    },
+    {
+      "path": "src/world/WorldUpdate.cpp",
+      "length": 14561
+    },
+    {
+      "path": "src/world/WorldUpdateDependencies.hpp",
+      "length": 67763
+    },
+    {
+      "path": "src/render/SurfaceState.cpp",
+      "length": 28661
+    },
+    {
+      "path": "include/cg/render/SurfaceState.hpp",
+      "length": 3636
+    }
+  ],
+  "source_bodies_before": {
+    "Sub_51D790": "std::int32_t Sub_51D790(\n    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)\n{\n    const std::uint32_t trigger = gValue58B6D0;\n    std::int32_t completed = 0;\n    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};\n    if (trigger == 1) {\n        completed = -1;\n        gValue58B6D0 = 0;\n        gTransitionXFF48E8 = 0.0f;\n        gTransitionAlternateXFF48EC = 0.0f;\n        gTransitionYFF48F0 = 0.0f;\n        gTransitionVelocityFF48F8 = 0.0f;\n    }\n    const float acceleration = std::bit_cast<float>(payloadBits);\n    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));\n    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);\n    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);\n    // 原FCOMP的C3选择默认值；零及unordered均走默认。\n    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;\n    auto& speeds = gTransitionLines.speedFF0FA8;\n    auto& offsetsX = gTransitionLines.xFF172C;\n    auto& offsetsY = gTransitionLines.yFF1EB0;\n    switch (mode) {\n    case 0: {\n        const double position = static_cast<double>(gTransitionYFF48F0)\n            - static_cast<double>(gTransitionVelocityFF48F8);\n        gTransitionYFF48F0 = static_cast<float>(position);\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultY));\n        if (!(position > -480.0)) {\n            completed = 1;\n        }\n        break;\n    }\n    case 1:\n    case 5: {\n        const double position = static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(gTransitionYFF48F0);\n        gTransitionYFF48F0 = static_cast<float>(position);\n        if (mode == 5) {\n            gTransitionAlternateYFF48F4 = static_cast<float>(\n                static_cast<double>(gTransitionAlternateYFF48F4)\n                - static_cast<double>(gTransitionVelocityFF48F8));\n        }\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultY));\n        if (position >= 480.0) {\n            completed = 1;\n        }\n        break;\n    }\n    case 2: {\n        const double position = static_cast<double>(gTransitionXFF48E8)\n            - static_cast<double>(gTransitionVelocityFF48F8);\n        gTransitionXFF48E8 = static_cast<float>(position);\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultX));\n        if (!(position > -640.0)) {\n            completed = 1;\n        }\n        break;\n    }\n    case 3:\n    case 4: {\n        const double position = static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(gTransitionXFF48E8);\n        gTransitionXFF48E8 = static_cast<float>(position);\n        if (mode == 4) {\n            gTransitionAlternateXFF48EC = static_cast<float>(\n                static_cast<double>(gTransitionAlternateXFF48EC)\n                - static_cast<double>(gTransitionVelocityFF48F8));\n        }\n        gTransitionVelocityFF48F8 = static_cast<float>(\n            static_cast<double>(gTransitionVelocityFF48F8)\n            + static_cast<double>(customAcceleration ? acceleration : defaultX));\n        if (position >= 640.0) {\n            completed = 1;\n        }\n        break;\n    }\n    case 6: {\n        double active;\n        if (completed == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            std::fill_n(offsetsX.begin(), 480, 0.0f);\n            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;\n            completed = 0;\n            active = 0.0;\n        } else {\n            active = static_cast<double>(gTransitionActiveLinesFF48FC);\n        }\n        for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {\n            if ((index & 1) != 0) {\n                const double speed = static_cast<double>(gTransitionVelocityFF48F8)\n                    + static_cast<double>(speeds[index]);\n                speeds[index] = static_cast<float>(speed);\n                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));\n                const std::int32_t reverse = 480 - index;\n                const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)\n                    + static_cast<double>(speeds[reverse]);\n                speeds[reverse] = static_cast<float>(reverseSpeed);\n                offsetsX[reverse] = static_cast<float>(\n                    reverseSpeed + static_cast<double>(offsetsX[reverse]));\n            } else {\n                const double speed = static_cast<double>(speeds[index])\n                    - static_cast<double>(gTransitionVelocityFF48F8);\n                speeds[index] = static_cast<float>(speed);\n                offsetsX[index] = static_cast<float>(speed + static_cast<double>(offsetsX[index]));\n                const std::int32_t reverse = 478 - index;\n                const double reverseSpeed = static_cast<double>(speeds[reverse])\n                    - static_cast<double>(gTransitionVelocityFF48F8);\n                speeds[reverse] = static_cast<float>(reverseSpeed);\n                offsetsX[reverse] = static_cast<float>(\n                    reverseSpeed + static_cast<double>(offsetsX[reverse]));\n            }\n        }\n        gTransitionActiveLinesFF48FC = static_cast<float>(\n            active + (step != 0 ? static_cast<double>(step) : 4.0));\n        if (gTransitionActiveLinesFF48FC > 241.0f) {\n            gTransitionActiveLinesFF48FC = 241.0f;\n        }\n        if (!(offsetsX[241] >= -640.0f)) {\n            completed = 1;\n        }\n        if (offsetsX[241] > 640.0f) {\n            completed = 1;\n        }\n        break;\n    }\n    case 7:\n    case 8: {\n        double active;\n        if (completed == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            for (std::int32_t index = 0; index < 480; ++index) {\n                offsetsY[index] = static_cast<float>(index);\n            }\n            gTransitionVelocityFF48F8 = customAcceleration ? acceleration : 1.0f;\n            completed = 0;\n            active = 0.0;\n        } else {\n            active = static_cast<double>(gTransitionActiveLinesFF48FC);\n        }\n        if (mode == 7) {\n            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {\n                const std::int32_t reverse = 480 - index;\n                if (reverse >= 240) {\n                    const double speed = static_cast<double>(speeds[index])\n                        - static_cast<double>(gTransitionVelocityFF48F8);\n                    speeds[index] = static_cast<float>(speed);\n                    offsetsY[index] = static_cast<float>(\n                        speed + static_cast<double>(offsetsY[index]));\n                    if (reverse > 240) {\n                        const double reverseSpeed = static_cast<double>(gTransitionVelocityFF48F8)\n                            + static_cast<double>(speeds[reverse]);\n                        speeds[reverse] = static_cast<float>(reverseSpeed);\n                        offsetsY[reverse] = static_cast<float>(\n                            reverseSpeed + static_cast<double>(offsetsY[reverse]));\n                    }\n                }\n            }\n            gTransitionActiveLinesFF48FC = static_cast<float>(\n                active + (step != 0 ? static_cast<double>(step) : 4.0));\n            if (gTransitionActiveLinesFF48FC > 241.0f) {\n                gTransitionActiveLinesFF48FC = 241.0f;\n            }\n            if (!(offsetsY[241] >= -640.0f)) {\n                completed = 1;\n            }\n            if (offsetsY[241] > 640.0f) {\n                completed = 1;\n            }\n        } else {\n            for (std::int32_t index = 0; static_cast<double>(index) < active; ++index) {\n                const float speed = static_cast<float>(\n                    static_cast<double>(gTransitionVelocityFF48F8)\n                    + static_cast<double>(speeds[index]));\n                speeds[index] = speed;\n                // 原局部F32重读，不复用上方未舍入的和。\n                if (!(speed >= 100.0f)) {\n                    offsetsY[index] = static_cast<float>(\n                        static_cast<double>(speed) + static_cast<double>(offsetsY[index]));\n                } else {\n                    offsetsY[index] = static_cast<float>(\n                        static_cast<double>(offsetsY[index]) + 100.0);\n                }\n            }\n            gTransitionActiveLinesFF48FC = static_cast<float>(\n                active + (step != 0 ? static_cast<double>(step) : 16.0));\n            if (gTransitionActiveLinesFF48FC > 480.0f) {\n                gTransitionActiveLinesFF48FC = 480.0f;\n            }\n            if (offsetsY[479] > 600.0f) {\n                completed = 1;\n            }\n        }\n        break;\n    }\n    default:\n        break;\n    }\n\n    static_cast<void>(render::ClearSurface_4512C0());\n    switch (mode) {\n    case 4:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t x = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gTransitionXFF48E8 : gTransitionAlternateXFF48EC);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 5:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            rectangle = {0, row, 640, row + 1};\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const std::int32_t y = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gTransitionYFF48F0 : gTransitionAlternateYFF48F4);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(row + y), rectangle, source));\n        }\n        break;\n    case 6:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const double position = static_cast<double>(offsetsX[row]);\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t x = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 7:\n    case 8:\n        for (std::int32_t row = 479; row > 0; --row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const double position = static_cast<double>(offsetsY[row]);\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t y = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(y), rectangle, source));\n        }\n        break;\n    default: {\n        render::TextureSurface* const source = render::BorrowCpuTempSurface();\n        const std::int32_t y = TruncateTransitionCoordinate(gTransitionYFF48F0);\n        const std::int32_t x = TruncateTransitionCoordinate(gTransitionXFF48E8);\n        static_cast<void>(render::BlitSurfaceToBack_4535B0(\n            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));\n        break;\n    }\n    }\n    if (completed != 1) {\n        return 0;\n    }\n    gTransitionXFF48E8 = 0.0f;\n    gTransitionAlternateXFF48EC = 0.0f;\n    gTransitionYFF48F0 = 0.0f;\n    gTransitionAlternateYFF48F4 = 0.0f;\n    gTransitionVelocityFF48F8 = 0.0f;\n\n    std::int32_t nextState;\n    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {\n        nextState = 3;\n    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {\n        nextState = 4;\n    } else {\n        return 1;\n    }\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);\n    const std::uint8_t readCount = temporary.readCount;\n    const std::uint32_t encoded = temporary.encoded;\n    const std::uint32_t mask = temporary.mask;\n    gValue73ECD0.readCount = readCount;\n    gValue73ECD0.encoded = encoded;\n    gValue73ECD0.mask = mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    return 1;\n}\n\n",
+    "Sub_51E0D0": "std::int32_t Sub_51E0D0(\n    const std::int32_t mode, const std::int32_t value, const std::uint32_t payloadBits)\n{\n    const std::uint32_t trigger = gValue58B6D0;\n    std::array<std::int32_t, 4> rectangle {0, 0, 640, 480};\n    std::int32_t phase;\n    if (trigger == 1) {\n        phase = -1;\n        gValue58B6D0 = 0;\n        gReverseTransitionPhase58B6D4 = -1;\n    } else {\n        phase = gReverseTransitionPhase58B6D4;\n    }\n    const float acceleration = std::bit_cast<float>(payloadBits);\n    const bool customAcceleration = acceleration < 0.0f || acceleration > 0.0f;\n    const std::int8_t step = std::bit_cast<std::int8_t>(static_cast<std::uint8_t>(value));\n    constexpr float initialSpeedY = std::bit_cast<float>(0x418B3333U);\n    constexpr float initialSpeedX = std::bit_cast<float>(0x41B66666U);\n    constexpr float initialY = std::bit_cast<float>(0x44004CCDU);\n    constexpr float initialNegativeY = std::bit_cast<float>(0xC4004CCDU);\n    constexpr float initialX = std::bit_cast<float>(0x44254000U);\n    constexpr float initialNegativeX = std::bit_cast<float>(0xC4254000U);\n    constexpr float defaultX = std::bit_cast<float>(0x3ECCCCCDU);\n    constexpr float defaultY = std::bit_cast<float>(0x3E99999AU);\n    auto& speeds = gTransitionLines.speedFF0FA8;\n    auto& offsetsX = gTransitionLines.xFF172C;\n    auto& offsetsY = gTransitionLines.yFF1EB0;\n    switch (mode) {\n    case 0: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialY);\n            gReverseTransitionVelocityFF47C4 = initialSpeedY;\n            gReverseTransitionXFF4900 = 0.0f;\n            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionYFF4908)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4);\n        }\n        gReverseTransitionYFF4908 = static_cast<float>(position);\n        break;\n    }\n    case 1:\n    case 5: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialNegativeY);\n            gReverseTransitionXFF4900 = 0.0f;\n            if (mode == 5) {\n                gReverseTransitionAlternateYFF490C = initialY;\n            }\n            gReverseTransitionVelocityFF47C4 = initialSpeedY;\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionYFF4908);\n        }\n        gReverseTransitionYFF4908 = static_cast<float>(\n            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);\n        if (mode == 5) {\n            gReverseTransitionAlternateYFF490C = static_cast<float>(\n                static_cast<double>(gReverseTransitionAlternateYFF490C)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4));\n        }\n        break;\n    }\n    case 2: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialX);\n            gReverseTransitionVelocityFF47C4 = initialSpeedX;\n            gReverseTransitionYFF4908 = 0.0f;\n            position -= static_cast<double>(gReverseTransitionVelocityFF47C4);\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionXFF4900)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4);\n        }\n        gReverseTransitionXFF4900 = static_cast<float>(position);\n        break;\n    }\n    case 3:\n    case 4: {\n        double position;\n        if (phase == -1) {\n            position = static_cast<double>(initialNegativeX);\n            if (mode == 4) {\n                gReverseTransitionAlternateXFF4904 = initialX;\n            }\n            gReverseTransitionYFF4908 = 0.0f;\n            gReverseTransitionVelocityFF47C4 = initialSpeedX;\n            gReverseTransitionPhase58B6D4 = 0;\n        } else {\n            position = static_cast<double>(gReverseTransitionXFF4900);\n        }\n        gReverseTransitionXFF4900 = static_cast<float>(\n            static_cast<double>(gReverseTransitionVelocityFF47C4) + position);\n        if (mode == 4) {\n            gReverseTransitionAlternateXFF4904 = static_cast<float>(\n                static_cast<double>(gReverseTransitionAlternateXFF4904)\n                - static_cast<double>(gReverseTransitionVelocityFF47C4));\n        }\n        break;\n    }\n    case 6: {\n        std::int32_t active;\n        if (phase == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            std::fill_n(offsetsX.begin(), 480, 0.0f);\n            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;\n            active = 0;\n            gReverseTransitionPhase58B6D4 = 0;\n            for (;;) {\n                for (std::int32_t index = 0; index < active; ++index) {\n                    if ((index & 1) != 0) {\n                        const double speed = static_cast<double>(gReverseTransitionVelocityFF47C4)\n                            + static_cast<double>(speeds[index]);\n                        speeds[index] = static_cast<float>(speed);\n                        offsetsX[index] = static_cast<float>(\n                            speed + static_cast<double>(offsetsX[index]));\n                        const std::int32_t reverse = 480 - index;\n                        const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)\n                            + static_cast<double>(speeds[reverse]);\n                        speeds[reverse] = static_cast<float>(reverseSpeed);\n                        offsetsX[reverse] = static_cast<float>(\n                            reverseSpeed + static_cast<double>(offsetsX[reverse]));\n                    } else {\n                        const double speed = static_cast<double>(speeds[index])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4);\n                        speeds[index] = static_cast<float>(speed);\n                        offsetsX[index] = static_cast<float>(\n                            speed + static_cast<double>(offsetsX[index]));\n                        const std::int32_t reverse = 478 - index;\n                        const double reverseSpeed = static_cast<double>(speeds[reverse])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4);\n                        speeds[reverse] = static_cast<float>(reverseSpeed);\n                        offsetsX[reverse] = static_cast<float>(\n                            reverseSpeed + static_cast<double>(offsetsX[reverse]));\n                    }\n                }\n                active += step != 0 ? step : 4;\n                if (active > 240) {\n                    active = 240;\n                }\n                if (!(offsetsX[241] >= -640.0f)) {\n                    break;\n                }\n                if (offsetsX[241] > 640.0f) {\n                    break;\n                }\n            }\n        } else {\n            active = gReverseTransitionActiveLinesFF276C;\n        }\n        // 原恢复固定240对，与局部active无关；到阈值只清位移，不清速度。\n        for (std::int32_t index = 0; index < 240; ++index) {\n            if ((index & 1) != 0) {\n                if (offsetsX[index] > 1.0f) {\n                    offsetsX[index] = static_cast<float>(\n                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));\n                    speeds[index] = static_cast<float>(\n                        static_cast<double>(speeds[index])\n                        - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                } else {\n                    offsetsX[index] = 0.0f;\n                }\n                const std::int32_t reverse = 480 - index;\n                if (offsetsX[reverse] > 1.0f) {\n                    offsetsX[reverse] = static_cast<float>(\n                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));\n                    speeds[reverse] = static_cast<float>(\n                        static_cast<double>(speeds[reverse])\n                        - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                } else {\n                    offsetsX[reverse] = 0.0f;\n                }\n            } else {\n                if (!(offsetsX[index] >= -1.0f)) {\n                    offsetsX[index] = static_cast<float>(\n                        static_cast<double>(offsetsX[index]) - static_cast<double>(speeds[index]));\n                    speeds[index] = static_cast<float>(\n                        static_cast<double>(gReverseTransitionVelocityFF47C4)\n                        + static_cast<double>(speeds[index]));\n                } else {\n                    offsetsX[index] = 0.0f;\n                }\n                const std::int32_t reverse = 478 - index;\n                if (!(offsetsX[reverse] >= -1.0f)) {\n                    offsetsX[reverse] = static_cast<float>(\n                        static_cast<double>(offsetsX[reverse]) - static_cast<double>(speeds[reverse]));\n                    speeds[reverse] = static_cast<float>(\n                        static_cast<double>(gReverseTransitionVelocityFF47C4)\n                        + static_cast<double>(speeds[reverse]));\n                } else {\n                    offsetsX[reverse] = 0.0f;\n                }\n            }\n        }\n        active += step != 0 ? step : 1;\n        gReverseTransitionActiveLinesFF276C = active;\n        if (active > 240) {\n            gReverseTransitionActiveLinesFF276C = 240;\n        }\n        const float leadingOffset = offsetsX[0];\n        if (!(leadingOffset < 0.0f || leadingOffset > 0.0f)) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n        break;\n    }\n    case 7: {\n        std::int32_t active;\n        if (phase == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            for (std::int32_t index = 0; index < 480; ++index) {\n                offsetsY[index] = static_cast<float>(index);\n            }\n            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;\n            active = 0;\n            gReverseTransitionPhase58B6D4 = 0;\n            gReverseTransitionActiveLinesFF276C = 0;\n            for (;;) {\n                for (std::int32_t index = 0; index < active; ++index) {\n                    const std::int32_t reverse = 480 - index;\n                    if (reverse >= 240) {\n                        const double speed = static_cast<double>(speeds[index])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4);\n                        speeds[index] = static_cast<float>(speed);\n                        offsetsY[index] = static_cast<float>(\n                            speed + static_cast<double>(offsetsY[index]));\n                        if (reverse > 240) {\n                            const double reverseSpeed = static_cast<double>(gReverseTransitionVelocityFF47C4)\n                                + static_cast<double>(speeds[reverse]);\n                            speeds[reverse] = static_cast<float>(reverseSpeed);\n                            offsetsY[reverse] = static_cast<float>(\n                                reverseSpeed + static_cast<double>(offsetsY[reverse]));\n                        }\n                    }\n                }\n                if (active < 241) {\n                    active += step != 0 ? step : 4;\n                }\n                if (!(offsetsY[241] >= -640.0f)) {\n                    break;\n                }\n                if (offsetsY[241] > 640.0f) {\n                    break;\n                }\n            }\n            gReverseTransitionActiveLinesFF276C = active;\n        } else {\n            active = gReverseTransitionActiveLinesFF276C;\n        }\n        for (std::int32_t index = 0; index < active; ++index) {\n            const std::int32_t reverse = 480 - index;\n            if (reverse >= 240) {\n                offsetsY[index] = static_cast<float>(\n                    static_cast<double>(offsetsY[index]) - static_cast<double>(speeds[index]));\n                speeds[index] = static_cast<float>(\n                    static_cast<double>(gReverseTransitionVelocityFF47C4)\n                    + static_cast<double>(speeds[index]));\n                if (reverse > 240) {\n                    offsetsY[reverse] = static_cast<float>(\n                        static_cast<double>(offsetsY[reverse]) - static_cast<double>(speeds[reverse]));\n                    speeds[reverse] = static_cast<float>(\n                        static_cast<double>(speeds[reverse])\n                        - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                }\n            }\n        }\n        if (offsetsY[240] >= 240.0f) {\n            active -= step != 0 ? step : 4;\n            gReverseTransitionActiveLinesFF276C = active;\n            if (active < 0) {\n                gReverseTransitionActiveLinesFF276C = 0;\n            }\n        }\n        if (offsetsY[0] >= 0.0f) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n        break;\n    }\n    case 8: {\n        std::int32_t active;\n        if (phase == -1) {\n            std::fill_n(speeds.begin(), 480, 0.0f);\n            for (std::int32_t index = 0; index < 480; ++index) {\n                offsetsY[index] = static_cast<float>(index);\n            }\n            gReverseTransitionVelocityFF47C4 = customAcceleration ? acceleration : 1.0f;\n            active = 0;\n            gReverseTransitionPhase58B6D4 = 0;\n            do {\n                const std::int32_t first = 479 - active;\n                for (std::int32_t index = 479; index >= first; --index) {\n                    if (index >= 0) {\n                        const float speed = static_cast<float>(\n                            static_cast<double>(speeds[index])\n                            - static_cast<double>(gReverseTransitionVelocityFF47C4));\n                        speeds[index] = speed;\n                        if (speed > -100.0f) {\n                            offsetsY[index] = static_cast<float>(\n                                static_cast<double>(speed) + static_cast<double>(offsetsY[index]));\n                        } else {\n                            offsetsY[index] = static_cast<float>(\n                                static_cast<double>(offsetsY[index]) - 100.0);\n                        }\n                    }\n                }\n                active += step != 0 ? step : 16;\n                if (active > 480) {\n                    active = 480;\n                }\n            } while (offsetsY[0] >= 0.0f);\n            gReverseTransitionActiveLinesFF276C = active;\n        } else {\n            active = gReverseTransitionActiveLinesFF276C;\n        }\n        const std::int32_t first = 479 - active;\n        for (std::int32_t index = 479; index >= first; --index) {\n            if (index >= 0) {\n                const float oldSpeed = speeds[index];\n                const double position = static_cast<double>(offsetsY[index]);\n                if (oldSpeed > -100.0f) {\n                    offsetsY[index] = static_cast<float>(\n                        position - static_cast<double>(speeds[index]));\n                } else {\n                    offsetsY[index] = static_cast<float>(position + 100.0);\n                }\n                speeds[index] = static_cast<float>(\n                    static_cast<double>(gReverseTransitionVelocityFF47C4)\n                    + static_cast<double>(speeds[index]));\n            }\n        }\n        if (offsetsY[0] >= 0.0f) {\n            active -= step != 0 ? step : 16;\n            gReverseTransitionActiveLinesFF276C = active;\n            if (active < 0) {\n                gReverseTransitionActiveLinesFF276C = 0;\n            }\n        }\n        if (offsetsY[479] >= 479.0f) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n        break;\n    }\n    default:\n        break;\n    }\n    // 原0..5共用51E33C；完成比较使用FST之前的未舍入新速度。\n    if (mode >= 0 && mode <= 5) {\n        const float decrement = customAcceleration ? acceleration\n            : (mode >= 2 && mode <= 4 ? defaultX : defaultY);\n        const double velocity = static_cast<double>(gReverseTransitionVelocityFF47C4)\n            - static_cast<double>(decrement);\n        gReverseTransitionVelocityFF47C4 = static_cast<float>(velocity);\n        if (!(velocity > 0.0)) {\n            gReverseTransitionPhase58B6D4 = 1;\n        }\n    }\n\n    static_cast<void>(render::ClearSurface_4512C0());\n    switch (mode) {\n    case 4:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t x = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gReverseTransitionXFF4900 : gReverseTransitionAlternateXFF4904);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 5:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            rectangle = {0, row, 640, row + 1};\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const std::int32_t y = TruncateTransitionCoordinate(\n                (row & 1) != 0 ? gReverseTransitionYFF4908 : gReverseTransitionAlternateYFF490C);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(row + y), rectangle, source));\n        }\n        break;\n    case 6:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            const double position = static_cast<double>(offsetsX[row]);\n            rectangle = {0, row, 640, row + 1};\n            const std::int32_t x = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));\n        }\n        break;\n    case 7:\n    case 8:\n        for (std::int32_t row = 0; row < 480; ++row) {\n            render::TextureSurface* const source = render::BorrowCpuTempSurface();\n            rectangle[1] = row;\n            const double position = static_cast<double>(offsetsY[row]);\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;\n            const std::int32_t y = TruncateTransitionCoordinate(position);\n            static_cast<void>(render::BlitSurfaceToBack_4535B0(\n                0, static_cast<std::int16_t>(y), rectangle, source));\n        }\n        break;\n    default: {\n        render::TextureSurface* const source = render::BorrowCpuTempSurface();\n        const std::int32_t y = TruncateTransitionCoordinate(gReverseTransitionYFF4908);\n        const std::int32_t x = TruncateTransitionCoordinate(gReverseTransitionXFF4900);\n        static_cast<void>(render::BlitSurfaceToBack_4535B0(\n            static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), rectangle, source));\n        break;\n    }\n    }\n    if (gReverseTransitionPhase58B6D4 != 1) {\n        return 0;\n    }\n    std::int32_t nextState;\n    if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 2)) {\n        nextState = 3;\n    } else if (platform::legacy_crypt_int::Equal_401D00(&gValue73ECD0, 3)) {\n        nextState = 4;\n    } else {\n        gReverseTransitionPhase58B6D4 = -1;\n        return 1;\n    }\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, nextState);\n    const std::uint32_t encoded = temporary.encoded;\n    const std::uint32_t mask = temporary.mask;\n    const std::uint8_t readCount = temporary.readCount;\n    gValue73ECD0.encoded = encoded;\n    gValue73ECD0.mask = mask;\n    gValue73ECD0.readCount = readCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    gReverseTransitionPhase58B6D4 = -1;\n    return 1;\n}\n\n"
+  },
+  "snapshot_functions_before": [
+    {
+      "id": "F:0011D790",
+      "original_entry": "0x51D790",
+      "original_name": "sub_51D790",
+      "semantic_indices": [
+        1759
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51D790",
+          "definition_line": 9995,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [
+        "doc/cg2d_fx_trigger_sampling_evidence.json",
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-acceptance",
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state"
+      ],
+      "classification_refs": [],
+      "disposition": {
+        "inventory_id": "F:0011D790",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
+          "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
+          "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-acceptance",
+          "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
+          "doc/cg2d_fx_trigger_sampling_evidence.json"
+        ],
+        "boundary": "原570条2320B/九页；51D793完整W32触发持样早于四S32 RECT。已有根一个prefix恢复先持样/后矩形及同持样判定，原完成状态/四槽清零与完整余体、现九模式/数组owner/借用低S16复制/完成发布及正常返回保持；控制父九实际mode0–8/value/payload/结果透传保。I-S只取样实修/接口及用途，完整数值分支/精度/像素/其余callee/alias寿命/ABI运行未验"
+      },
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-RENDER"
+      ],
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51D790"
+          ],
+          "relationship": "原570条2320B/九页；51D793完整W32触发持样早于四S32 RECT。已有根一个prefix恢复先持样/后矩形及同持样判定，原完成状态/四槽清零与完整余体、现九模式/数组owner/借用低S16复制/完成发布及正常返回保持；控制父九实际mode0–8/value/payload/结果透传保。I-S只取样实修/接口及用途，完整数值分支/精度/像素/其余callee/alias寿命/ABI运行未验"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51D790"
+          ],
+          "relationship": "既有私有声明与实际消费保持；只省原完整根不消费的额外零实参，不添占位接口"
+        }
+      ]
+    },
+    {
+      "id": "F:0011E0D0",
+      "original_entry": "0x51E0D0",
+      "original_name": "sub_51E0D0",
+      "semantic_indices": [
+        1760
+      ],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51E0D0",
+          "definition_line": 10282,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [
+        "doc/cg2d_fx_trigger_sampling_evidence.json",
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-acceptance",
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state"
+      ],
+      "classification_refs": [],
+      "disposition": {
+        "inventory_id": "F:0011E0D0",
+        "disposition": "adapted",
+        "epoch": "2026-10-04.1",
+        "evidence_refs": [
+          "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
+          "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
+          "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-acceptance",
+          "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
+          "doc/cg2d_fx_trigger_sampling_evidence.json"
+        ],
+        "boundary": "原682条2832B/十页；51E0D3完整W32触发持样早于四S32 RECT。已有根同一个prefix模式恢复先持样/后矩形及同持样判定，原零写回/phase=-1及另一分支fresh phase、完整余体/九模式/owner和低S16复制/完成发布/正常返回保持；控制父九实际mode0–8/value/payload与结果透传保。I-S仅取样实修/接口及用途，完整数值/精度/像素/其余callee/alias寿命/ABI运行未验"
+      },
+      "feature_memberships": [
+        "FUNC-LOOP",
+        "FUNC-RENDER"
+      ],
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51E0D0"
+          ],
+          "relationship": "原682条2832B/十页；51E0D3完整W32触发持样早于四S32 RECT。已有根同一个prefix模式恢复先持样/后矩形及同持样判定，原零写回/phase=-1及另一分支fresh phase、完整余体/九模式/owner和低S16复制/完成发布/正常返回保持；控制父九实际mode0–8/value/payload与结果透传保。I-S仅取样实修/接口及用途，完整数值/精度/像素/其余callee/alias寿命/ABI运行未验"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51E0D0"
+          ],
+          "relationship": "既有私有声明与实际消费保持；只省原完整根不消费的额外零实参，不添占位接口"
+        }
+      ]
+    }
+  ],
+  "metrics_before": {
+    "inventory_functions": 3680,
+    "functions_with_document_links": 1873,
+    "document_link_percent": 50.9,
+    "historical_direct_location_ids": 2762,
+    "semantic_records": 1762,
+    "semantic_inventory_ids": 1755,
+    "semantic_without_inventory_id": 7,
+    "semantic_code_range_records": 7,
+    "pending_records": 18,
+    "functions_with_classification_refs": 120,
+    "reviewed_function_dispositions": 903,
+    "imports": 218,
+    "unassigned_ranges": 3061,
+    "reviewed_imports": 16,
+    "reviewed_ranges": 465,
+    "registered_features": 183,
+    "registered_leaf_features": 182,
+    "paused_features": 1,
+    "accepted_leaf_features": 0,
+    "tasks": 60,
+    "tasks_closed": 11,
+    "global_accepted": false
+  },
+  "task_acceptance_before": [
+    {
+      "task_id": "G02",
+      "state": "open",
+      "reference_count": 124
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 261
+    },
+    {
+      "task_id": "V04",
+      "state": "open",
+      "reference_count": 175
+    }
+  ],
+  "feature_briefs_before": [
+    {
+      "id": "FUNC-LOOP",
+      "count": 175,
+      "member_inventory_closed": false,
+      "gates": {}
+    },
+    {
+      "id": "FUNC-RENDER",
+      "count": 76,
+      "member_inventory_closed": false,
+      "gates": {}
+    }
+  ],
+  "source_fragment": {
+    "old": "            rectangle = {0, row, 640, row + 1};",
+    "new": "            rectangle[1] = row;\n            rectangle[3] = row + 1;\n            rectangle[0] = 0;\n            rectangle[2] = 640;",
+    "publication_field_indices": [
+      1,
+      3,
+      0,
+      2
+    ],
+    "publication_field_names": [
+      "top",
+      "bottom",
+      "left",
+      "right"
+    ],
+    "values": [
+      "row",
+      "row+1",
+      "0",
+      "640"
+    ]
+  },
+  "source_cpp_file_count": 1,
+  "source_header_file_count": 0,
+  "source_patch_count": 7,
+  "full_body_replacement_count": 2,
+  "new_function_count": 0,
+  "new_inventory_function_count": 0,
+  "new_range_count": 0,
+  "new_helper_count": 0,
+  "new_owner_count": 0,
+  "kept_reverse_7_8_publication": {
+    "window_index": 7,
+    "instruction_count": 19,
+    "code_bytes": 65,
+    "source": "rectangle[1]=row→持样offsetsY[row]→rectangle[3]=row+1→rectangle[0]=0→rectangle[2]=640",
+    "body_fragment_kept": true
+  },
+  "numeric_scope": {
+    "observed_correct": "平移0–5现F32位型/PC53中间值表达及原完成边界保；本步不改数值算法",
+    "complete_numeric_branches_accepted": false,
+    "complete_float_precision_accepted": false,
+    "compiled_machine_fp_verified": false
+  },
+  "retained_boundaries": [
+    "两触发先持样、所有数值/原480项清零与第480项独立/各行范围、坐标S64截断→低S32→低S16及CryptInt发布保持",
+    "公开/私有声明和四其它源全文保持；既有实际Back整源复制及正常native失败保；原所有旧F/X/分类/成员/完整门禁不改",
+    "七实际条带发布片段修复，不新增调用/算法/owner/helper；不以原根完整取证代全部数值/FP/像素/ABI运行",
+    "网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24与单线程、不构建/测试/运行/产物或摘要保持"
+  ],
+  "original_strip_conversion_connections": [
+    {
+      "window_index": 0,
+      "root": "0x51d790",
+      "stage": "四字段后取奇偶X",
+      "samples": [
+        {
+          "ea": "0x51dd07",
+          "size": 6,
+          "bytes": "d905e848ff00",
+          "mnemonic": "fld",
+          "text": "fld     flt_FF48E8",
+          "call_target": null
+        },
+        {
+          "ea": "0x51de64",
+          "size": 6,
+          "bytes": "d905ec48ff00",
+          "mnemonic": "fld",
+          "text": "fld     flt_FF48EC",
+          "call_target": null
+        }
+      ],
+      "conversion": {
+        "ea": "0x51de6a",
+        "size": 5,
+        "bytes": "e829d60100",
+        "mnemonic": "call",
+        "text": "call    __ftol",
+        "call_target": "0x53b498"
+      },
+      "blit": {
+        "ea": "0x51de70",
+        "size": 5,
+        "bytes": "e83b57f3ff",
+        "mnemonic": "call",
+        "text": "call    sub_4535B0",
+        "call_target": "0x4535b0"
+      },
+      "integer_add": null,
+      "reused_evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json"
+    },
+    {
+      "window_index": 1,
+      "root": "0x51d790",
+      "stage": "四字段后取奇偶Y；截断后加row",
+      "samples": [
+        {
+          "ea": "0x51deb7",
+          "size": 6,
+          "bytes": "d905f048ff00",
+          "mnemonic": "fld",
+          "text": "fld     flt_FF48F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x51decb",
+          "size": 6,
+          "bytes": "d905f448ff00",
+          "mnemonic": "fld",
+          "text": "fld     flt_FF48F4",
+          "call_target": null
+        }
+      ],
+      "conversion": {
+        "ea": "0x51ded3",
+        "size": 5,
+        "bytes": "e8c0d50100",
+        "mnemonic": "call",
+        "text": "call    __ftol",
+        "call_target": "0x53b498"
+      },
+      "blit": {
+        "ea": "0x51dedc",
+        "size": 5,
+        "bytes": "e8cf56f3ff",
+        "mnemonic": "call",
+        "text": "call    sub_4535B0",
+        "call_target": "0x4535b0"
+      },
+      "integer_add": {
+        "ea": "0x51ded8",
+        "size": 2,
+        "bytes": "03c3",
+        "mnemonic": "add",
+        "text": "add     eax, ebx",
+        "call_target": null
+      },
+      "reused_evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json"
+    },
+    {
+      "window_index": 2,
+      "root": "0x51d790",
+      "stage": "借用Temp/持样数组X后四字段",
+      "samples": [
+        {
+          "ea": "0x51df0d",
+          "size": 2,
+          "bytes": "d906",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [esi]",
+          "call_target": null
+        }
+      ],
+      "conversion": {
+        "ea": "0x51df29",
+        "size": 5,
+        "bytes": "e86ad50100",
+        "mnemonic": "call",
+        "text": "call    __ftol",
+        "call_target": "0x53b498"
+      },
+      "blit": {
+        "ea": "0x51df2f",
+        "size": 5,
+        "bytes": "e87c56f3ff",
+        "mnemonic": "call",
+        "text": "call    sub_4535B0",
+        "call_target": "0x4535b0"
+      },
+      "integer_add": null,
+      "reused_evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json"
+    },
+    {
+      "window_index": 3,
+      "root": "0x51d790",
+      "stage": "借用Temp/持样数组Y后四字段；行479..1",
+      "samples": [
+        {
+          "ea": "0x51df92",
+          "size": 2,
+          "bytes": "d907",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [edi]",
+          "call_target": null
+        }
+      ],
+      "conversion": {
+        "ea": "0x51dfae",
+        "size": 5,
+        "bytes": "e8e5d40100",
+        "mnemonic": "call",
+        "text": "call    __ftol",
+        "call_target": "0x53b498"
+      },
+      "blit": {
+        "ea": "0x51dfb5",
+        "size": 5,
+        "bytes": "e8f655f3ff",
+        "mnemonic": "call",
+        "text": "call    sub_4535B0",
+        "call_target": "0x4535b0"
+      },
+      "integer_add": null,
+      "reused_evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json"
+    },
+    {
+      "window_index": 4,
+      "root": "0x51e0d0",
+      "stage": "四字段后取奇偶X",
+      "samples": [
+        {
+          "ea": "0x51e9d5",
+          "size": 6,
+          "bytes": "d9050049ff00",
+          "mnemonic": "fld",
+          "text": "fld     dword_FF4900",
+          "call_target": null
+        },
+        {
+          "ea": "0x51e9dd",
+          "size": 6,
+          "bytes": "d9050449ff00",
+          "mnemonic": "fld",
+          "text": "fld     dword_FF4904",
+          "call_target": null
+        }
+      ],
+      "conversion": {
+        "ea": "0x51e9e3",
+        "size": 5,
+        "bytes": "e8b0ca0100",
+        "mnemonic": "call",
+        "text": "call    __ftol",
+        "call_target": "0x53b498"
+      },
+      "blit": {
+        "ea": "0x51e9e9",
+        "size": 5,
+        "bytes": "e8c24bf3ff",
+        "mnemonic": "call",
+        "text": "call    sub_4535B0",
+        "call_target": "0x4535b0"
+      },
+      "integer_add": null,
+      "reused_evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json"
+    },
+    {
+      "window_index": 5,
+      "root": "0x51e0d0",
+      "stage": "四字段后取奇偶Y；截断后加row",
+      "samples": [
+        {
+          "ea": "0x51ea2d",
+          "size": 6,
+          "bytes": "d9050849ff00",
+          "mnemonic": "fld",
+          "text": "fld     flt_FF4908",
+          "call_target": null
+        },
+        {
+          "ea": "0x51ea41",
+          "size": 6,
+          "bytes": "d9050c49ff00",
+          "mnemonic": "fld",
+          "text": "fld     dword_FF490C",
+          "call_target": null
+        }
+      ],
+      "conversion": {
+        "ea": "0x51ea49",
+        "size": 5,
+        "bytes": "e84aca0100",
+        "mnemonic": "call",
+        "text": "call    __ftol",
+        "call_target": "0x53b498"
+      },
+      "blit": {
+        "ea": "0x51ea52",
+        "size": 5,
+        "bytes": "e8594bf3ff",
+        "mnemonic": "call",
+        "text": "call    sub_4535B0",
+        "call_target": "0x4535b0"
+      },
+      "integer_add": {
+        "ea": "0x51ea4e",
+        "size": 2,
+        "bytes": "03c3",
+        "mnemonic": "add",
+        "text": "add     eax, ebx",
+        "call_target": null
+      },
+      "reused_evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json"
+    },
+    {
+      "window_index": 6,
+      "root": "0x51e0d0",
+      "stage": "借用Temp/持样数组X后四字段",
+      "samples": [
+        {
+          "ea": "0x51ea84",
+          "size": 2,
+          "bytes": "d906",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [esi]",
+          "call_target": null
+        }
+      ],
+      "conversion": {
+        "ea": "0x51ea9c",
+        "size": 5,
+        "bytes": "e8f7c90100",
+        "mnemonic": "call",
+        "text": "call    __ftol",
+        "call_target": "0x53b498"
+      },
+      "blit": {
+        "ea": "0x51eaa2",
+        "size": 5,
+        "bytes": "e8094bf3ff",
+        "mnemonic": "call",
+        "text": "call    sub_4535B0",
+        "call_target": "0x4535b0"
+      },
+      "integer_add": null,
+      "reused_evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json"
+    },
+    {
+      "window_index": 7,
+      "root": "0x51e0d0",
+      "stage": "top后持样数组Y、再bottom/left/right；正确保持",
+      "samples": [
+        {
+          "ea": "0x51eb01",
+          "size": 2,
+          "bytes": "d906",
+          "mnemonic": "fld",
+          "text": "fld     dword ptr [esi]",
+          "call_target": null
+        }
+      ],
+      "conversion": {
+        "ea": "0x51eb1c",
+        "size": 5,
+        "bytes": "e877c90100",
+        "mnemonic": "call",
+        "text": "call    __ftol",
+        "call_target": "0x53b498"
+      },
+      "blit": {
+        "ea": "0x51eb23",
+        "size": 5,
+        "bytes": "e8884af3ff",
+        "mnemonic": "call",
+        "text": "call    sub_4535B0",
+        "call_target": "0x4535b0"
+      },
+      "integer_add": null,
+      "reused_evidence_reference": "doc/cg2d_fx_trigger_sampling_evidence.json"
+    }
+  ]
+}

@@ -654,7 +654,8 @@
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
-        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline"
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -910,7 +911,8 @@
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
-        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -980,7 +982,8 @@
         "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
         "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
-        "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+        "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+        "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1051,7 +1054,8 @@
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
-        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
       ]
     },
     {
@@ -2438,7 +2442,8 @@
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
-        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline"
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -2568,7 +2573,8 @@
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
-        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -2609,7 +2615,8 @@
         "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
         "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
-        "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+        "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+        "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2651,7 +2658,8 @@
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
-        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
       ]
     },
     {
@@ -47809,6 +47817,194 @@
       "observation": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
       "expected": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
       "actual": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+    },
+    {
+      "id": "E-FX-STRIP-RECTANGLE-PUBLICATION-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVG01精确复用BVE两完整根1252条5152B/19页；八生产窗口170条571B，七实修151条506B/一正确19条65B。一cpp七RECT片段恢复top-bottom-left-right，坐标持样/转换/行范围及完整余体保；I/S只RECT生产消费，数值/精度/像素等完整门禁不外推。doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fx-strip-rectangle-publication-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdate.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "doc/cg2d_fx_trigger_sampling_spec.md",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md"
+      ],
+      "differences": [
+        {
+          "description": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+          "decision_ref": "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+      "expected": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+      "actual": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验"
+    },
+    {
+      "id": "E-FX-STRIP-RECTANGLE-PUBLICATION-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVG01精确复用BVE两完整根1252条5152B/19页；八生产窗口170条571B，七实修151条506B/一正确19条65B。一cpp七RECT片段恢复top-bottom-left-right，坐标持样/转换/行范围及完整余体保；I/S只RECT生产消费，数值/精度/像素等完整门禁不外推。doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fx-strip-rectangle-publication-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdate.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "doc/cg2d_fx_trigger_sampling_spec.md",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md"
+      ],
+      "differences": [
+        {
+          "description": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+          "decision_ref": "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+      "expected": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+      "actual": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验"
+    },
+    {
+      "id": "E-FX-STRIP-RECTANGLE-PUBLICATION-FUNC-RENDER-I-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVG01精确复用BVE两完整根1252条5152B/19页；八生产窗口170条571B，七实修151条506B/一正确19条65B。一cpp七RECT片段恢复top-bottom-left-right，坐标持样/转换/行范围及完整余体保；I/S只RECT生产消费，数值/精度/像素等完整门禁不外推。doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fx-strip-rectangle-publication-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdate.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "doc/cg2d_fx_trigger_sampling_spec.md",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md"
+      ],
+      "differences": [
+        {
+          "description": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+          "decision_ref": "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+      "expected": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+      "actual": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验"
+    },
+    {
+      "id": "E-FX-STRIP-RECTANGLE-PUBLICATION-FUNC-RENDER-S-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVG01精确复用BVE两完整根1252条5152B/19页；八生产窗口170条571B，七实修151条506B/一正确19条65B。一cpp七RECT片段恢复top-bottom-left-right，坐标持样/转换/行范围及完整余体保；I/S只RECT生产消费，数值/精度/像素等完整门禁不外推。doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-fx-strip-rectangle-publication-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdate.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "doc/cg2d_fx_trigger_sampling_spec.md",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md"
+      ],
+      "differences": [
+        {
+          "description": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+          "decision_ref": "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+      "expected": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+      "actual": "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验"
     }
   ],
   "task_acceptance": [
@@ -48971,7 +49167,8 @@
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
-        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
       ]
     },
     {
@@ -49153,7 +49350,8 @@
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
-        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
       ]
     },
     {
@@ -49539,7 +49737,8 @@
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
-        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
       ]
     },
     {
@@ -60260,9 +60459,14 @@
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-acceptance",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
-        "doc/cg2d_fx_trigger_sampling_evidence.json"
+        "doc/cg2d_fx_trigger_sampling_evidence.json",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_evidence.json"
       ],
-      "boundary": "原570条2320B/九页；51D793完整W32触发持样早于四S32 RECT。已有根一个prefix恢复先持样/后矩形及同持样判定，原完成状态/四槽清零与完整余体、现九模式/数组owner/借用低S16复制/完成发布及正常返回保持；控制父九实际mode0–8/value/payload/结果透传保。I-S只取样实修/接口及用途，完整数值分支/精度/像素/其余callee/alias寿命/ABI运行未验"
+      "boundary": "原570条2320B/九页；51D793完整W32触发持样早于四S32 RECT。已有根一个prefix恢复先持样/后矩形及同持样判定，原完成状态/四槽清零与完整余体、现九模式/数组owner/借用低S16复制/完成发布及正常返回保持；控制父九实际mode0–8/value/payload/结果透传保。I-S只取样实修/接口及用途，完整数值分支/精度/像素/其余callee/alias寿命/ABI运行未验；Sub_51D790原条带RECT在数值/转换各原阶段按top、bottom、left、right发布四S32；现4聚合赋值改成原字段序，原数组/数值/坐标持样/低S16和行循环/原完成发布保持，仅RECT生产消费阶段I-S，不外推完整数值/精度/像素/寿命/ABI运行"
     },
     {
       "inventory_id": "F:0011E0D0",
@@ -60273,9 +60477,14 @@
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-acceptance",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
-        "doc/cg2d_fx_trigger_sampling_evidence.json"
+        "doc/cg2d_fx_trigger_sampling_evidence.json",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-acceptance",
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_fx_strip_rectangle_publication_evidence.json"
       ],
-      "boundary": "原682条2832B/十页；51E0D3完整W32触发持样早于四S32 RECT。已有根同一个prefix模式恢复先持样/后矩形及同持样判定，原零写回/phase=-1及另一分支fresh phase、完整余体/九模式/owner和低S16复制/完成发布/正常返回保持；控制父九实际mode0–8/value/payload与结果透传保。I-S仅取样实修/接口及用途，完整数值/精度/像素/其余callee/alias寿命/ABI运行未验"
+      "boundary": "原682条2832B/十页；51E0D3完整W32触发持样早于四S32 RECT。已有根同一个prefix模式恢复先持样/后矩形及同持样判定，原零写回/phase=-1及另一分支fresh phase、完整余体/九模式/owner和低S16复制/完成发布/正常返回保持；控制父九实际mode0–8/value/payload与结果透传保。I-S仅取样实修/接口及用途，完整数值/精度/像素/其余callee/alias寿命/ABI运行未验；Sub_51E0D0原条带RECT在数值/转换各原阶段按top、bottom、left、right发布四S32；现3聚合赋值改成原字段序，原数组/数值/坐标持样/低S16和行循环/原完成发布保持，仅RECT生产消费阶段I-S，不外推完整数值/精度/像素/寿命/ABI运行"
     },
     {
       "inventory_id": "F:0011D750",

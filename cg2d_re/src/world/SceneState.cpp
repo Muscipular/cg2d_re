@@ -10841,7 +10841,10 @@ std::int32_t Sub_51D790(
     case 4:
         for (std::int32_t row = 0; row < 480; ++row) {
             render::TextureSurface* const source = render::BorrowCpuTempSurface();
-            rectangle = {0, row, 640, row + 1};
+            rectangle[1] = row;
+            rectangle[3] = row + 1;
+            rectangle[0] = 0;
+            rectangle[2] = 640;
             const std::int32_t x = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gTransitionXFF48E8 : gTransitionAlternateXFF48EC);
             static_cast<void>(render::BlitSurfaceToBack_4535B0(
@@ -10850,7 +10853,10 @@ std::int32_t Sub_51D790(
         break;
     case 5:
         for (std::int32_t row = 0; row < 480; ++row) {
-            rectangle = {0, row, 640, row + 1};
+            rectangle[1] = row;
+            rectangle[3] = row + 1;
+            rectangle[0] = 0;
+            rectangle[2] = 640;
             render::TextureSurface* const source = render::BorrowCpuTempSurface();
             const std::int32_t y = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gTransitionYFF48F0 : gTransitionAlternateYFF48F4);
@@ -10862,7 +10868,10 @@ std::int32_t Sub_51D790(
         for (std::int32_t row = 0; row < 480; ++row) {
             render::TextureSurface* const source = render::BorrowCpuTempSurface();
             const double position = static_cast<double>(offsetsX[row]);
-            rectangle = {0, row, 640, row + 1};
+            rectangle[1] = row;
+            rectangle[3] = row + 1;
+            rectangle[0] = 0;
+            rectangle[2] = 640;
             const std::int32_t x = TruncateTransitionCoordinate(position);
             static_cast<void>(render::BlitSurfaceToBack_4535B0(
                 static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));
@@ -10873,7 +10882,10 @@ std::int32_t Sub_51D790(
         for (std::int32_t row = 479; row > 0; --row) {
             render::TextureSurface* const source = render::BorrowCpuTempSurface();
             const double position = static_cast<double>(offsetsY[row]);
-            rectangle = {0, row, 640, row + 1};
+            rectangle[1] = row;
+            rectangle[3] = row + 1;
+            rectangle[0] = 0;
+            rectangle[2] = 640;
             const std::int32_t y = TruncateTransitionCoordinate(position);
             static_cast<void>(render::BlitSurfaceToBack_4535B0(
                 0, static_cast<std::int16_t>(y), rectangle, source));
@@ -11283,7 +11295,10 @@ std::int32_t Sub_51E0D0(
     case 4:
         for (std::int32_t row = 0; row < 480; ++row) {
             render::TextureSurface* const source = render::BorrowCpuTempSurface();
-            rectangle = {0, row, 640, row + 1};
+            rectangle[1] = row;
+            rectangle[3] = row + 1;
+            rectangle[0] = 0;
+            rectangle[2] = 640;
             const std::int32_t x = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gReverseTransitionXFF4900 : gReverseTransitionAlternateXFF4904);
             static_cast<void>(render::BlitSurfaceToBack_4535B0(
@@ -11292,7 +11307,10 @@ std::int32_t Sub_51E0D0(
         break;
     case 5:
         for (std::int32_t row = 0; row < 480; ++row) {
-            rectangle = {0, row, 640, row + 1};
+            rectangle[1] = row;
+            rectangle[3] = row + 1;
+            rectangle[0] = 0;
+            rectangle[2] = 640;
             render::TextureSurface* const source = render::BorrowCpuTempSurface();
             const std::int32_t y = TruncateTransitionCoordinate(
                 (row & 1) != 0 ? gReverseTransitionYFF4908 : gReverseTransitionAlternateYFF490C);
@@ -11304,7 +11322,10 @@ std::int32_t Sub_51E0D0(
         for (std::int32_t row = 0; row < 480; ++row) {
             render::TextureSurface* const source = render::BorrowCpuTempSurface();
             const double position = static_cast<double>(offsetsX[row]);
-            rectangle = {0, row, 640, row + 1};
+            rectangle[1] = row;
+            rectangle[3] = row + 1;
+            rectangle[0] = 0;
+            rectangle[2] = 640;
             const std::int32_t x = TruncateTransitionCoordinate(position);
             static_cast<void>(render::BlitSurfaceToBack_4535B0(
                 static_cast<std::int16_t>(x), static_cast<std::int16_t>(row), rectangle, source));

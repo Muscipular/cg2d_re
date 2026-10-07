@@ -651,7 +651,8 @@
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
-        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline"
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -821,7 +822,11 @@
         "F:000535B0",
         "F:0011EC10",
         "F:0011F860",
-        "F:0011FA70"
+        "F:0011FA70",
+        "F:0011EF80",
+        "F:0011F610",
+        "F:0011FC90",
+        "F:0011FDE0"
       ],
       "closure_task_ids": [
         "U11",
@@ -897,7 +902,8 @@
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
-        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision"
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -964,7 +970,8 @@
         "BUZ01填充根完整162条625B/三页、两direct/六indirect call/15跳转/两返回、一入向一父；caller19条57B原证准确复用BOZ01，一15B NN_NOP用途。原逻辑宽高保存/条件fresh低W16发布阶段恢复，一cpp一个具名片段、零头/新helper/owner；四S16坐标/两接口检查/原混合-共享stage解绑null-Draw/完整W32与busy消费保。新F adapted，LOOP/RENDER各限定I-S，完整所有父/callee/owner-alias/机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
         "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
-        "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。"
+        "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+        "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1032,7 +1039,8 @@
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
-        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state"
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state"
       ]
     },
     {
@@ -2411,7 +2419,8 @@
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
-        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline"
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -2482,7 +2491,11 @@
         "F:000535B0",
         "F:0011EC10",
         "F:0011F860",
-        "F:0011FA70"
+        "F:0011FA70",
+        "F:0011EF80",
+        "F:0011F610",
+        "F:0011FC90",
+        "F:0011FDE0"
       ],
       "closure_task_ids": [
         "C09",
@@ -2531,7 +2544,8 @@
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
-        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision"
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -2569,7 +2583,8 @@
         "BUZ01填充根完整162条625B/三页、两direct/六indirect call/15跳转/两返回、一入向一父；caller19条57B原证准确复用BOZ01，一15B NN_NOP用途。原逻辑宽高保存/条件fresh低W16发布阶段恢复，一cpp一个具名片段、零头/新helper/owner；四S16坐标/两接口检查/原混合-共享stage解绑null-Draw/完整W32与busy消费保。新F adapted，LOOP/RENDER各限定I-S，完整所有父/callee/owner-alias/机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
         "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
-        "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。"
+        "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+        "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2608,7 +2623,8 @@
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
-        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state"
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state"
       ]
     },
     {
@@ -47079,6 +47095,100 @@
       "observation": "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
       "expected": "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
       "actual": "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。"
+    },
+    {
+      "id": "E-TRANSITION-DISPATCH-GRID-BASELINE-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVD01四已有正确根979条3326B/17页、21局部累计293条953B含重叠邻指令及四178B用途；两表40项160B/15B NN_NOP/3B LEA按实际解码，S仅四根正确生产/分派/native消费与状态发布，源码0改动/无新I。doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-transition-dispatch-grid-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdate.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md",
+        "doc/cg2d_scanline_trigger_sampling_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md"
+      ],
+      "differences": [
+        {
+          "description": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+          "decision_ref": "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "expected": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "actual": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。"
+    },
+    {
+      "id": "E-TRANSITION-DISPATCH-GRID-BASELINE-FUNC-RENDER-S-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVD01四已有正确根979条3326B/17页、21局部累计293条953B含重叠邻指令及四178B用途；两表40项160B/15B NN_NOP/3B LEA按实际解码，S仅四根正确生产/分派/native消费与状态发布，源码0改动/无新I。doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-transition-dispatch-grid-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdate.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "doc/cg2d_quadrant_transition_blit_baseline_spec.md",
+        "doc/cg2d_scanline_trigger_sampling_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "doc/cg2d_semantic_function_mappings.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md"
+      ],
+      "differences": [
+        {
+          "description": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+          "decision_ref": "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "expected": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "actual": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。"
     }
   ],
   "task_acceptance": [
@@ -48238,7 +48348,8 @@
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
-        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state"
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state"
       ]
     },
     {
@@ -48417,7 +48528,8 @@
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
-        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state"
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state"
       ]
     },
     {
@@ -48800,7 +48912,8 @@
         "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
         "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
-        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state"
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state"
       ]
     },
     {
@@ -59459,6 +59572,58 @@
         "doc/cg2d_scanline_trigger_sampling_evidence.json"
       ],
       "boundary": "原155条538B/三页；Bottom根wrapper保持，共享助手同一prefix恢复触发持样早于RECT；原480-采样/480-row源和目的边界native正常失败保，不额外裁剪；原复制后fresh比例/低S8零取8/方向更新及方向三字段齐采发布/析构/初始化零和0/1保持。完整控制父/callee/alias/ABI/像素运行未验"
+    },
+    {
+      "inventory_id": "F:0011EF80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "boundary": "原425条1653B/七页；先一次RAND再float位解释/ftol低S32与原<1取1、低S8零取1、共享触发/四状态初始化；候选仅原拒绝路径重抽，计数/速度/Y读写阶段与两遍状态2→1的不同RECT生产/低S16坐标/native消费、完成CryptInt count/encoded/mask齐采同序发布/析构/phase和0/1正确保。既有初始化助手和64元素同owner，完整父/callee/alias寿命/ABI像素运行未验"
+    },
+    {
+      "inventory_id": "F:0011F610",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "boundary": "原168条591B/三页；共享触发/初始化、960个x→y偏移同owner、逆序源620→0/464→0和每块fresh比例、两个有符号乘积/向零除64/232与310偏移直接全S32 native提交，绘后fresh比例加value/方向阈值、CryptInt mask/encoded/count齐采同序发布/析构/复位与0/1正确保。controller先低S8零取-1或1，原多余零实参不消费，新端一个S32参数保；完整父/callee/alias/ABI像素运行未验"
+    },
+    {
+      "inventory_id": "F:0011FC90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "boundary": "原101条330B/两页；低S8零取8、共享触发、原AND只CL的mode非零初始0/零初始240；清屏后同owner比例、上半每行持样除法/直接复制、下半独立fresh除法及第二Temp借用和RECT后生产、复制后fresh循环比；绘后mode0减/其余加和原严格阈值0/240、0/1正确保。原额外零实参未消费，native正常失败边界保；完整父/callee/alias/ABI像素运行未验"
+    },
+    {
+      "inventory_id": "F:0011FDE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "boundary": "原285条752B/五页；W32 selector的36表项/27与33同地址、七直接callee的参数模式、opaque W32 payload原位透传/20-21明确零/24-25低S8及零默认-1或1、五个目标不消费的额外零实参不扩接口；各真实返回直透、default1正确保。已有BVB/BVC完整原证沿独立记录保；51D790/51E0D0完整本体仍独立缺口，不把完整本分派当全转场功能或所有12引用父闭合"
     }
   ],
   "auxiliary_dispositions": [
@@ -82974,6 +83139,639 @@
           "text": "align 10h"
         }
       ]
+    },
+    {
+      "id": "X:0011F5F5-0011F610",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "reason": "BVD01四实际区间合178B：两表40项160B、15B NN_NOP与3B同寄存器零位移LEA；本区27B仅switch_table_and_alignment用途，不新增函数/排除，LEA不记NN_NOP",
+      "classification": "switch_table_and_alignment",
+      "original_size": 27,
+      "original_bytes": "8d4900fbef5100e5f05100d5f151002af351009090909090909090",
+      "original_tables": [
+        {
+          "start": "0x51f5f8",
+          "end_exclusive": "0x51f608",
+          "entry_count": 4,
+          "bytes": "fbef5100e5f05100d5f151002af35100",
+          "indexed_jump_site": "0x51eff4",
+          "indexed_jump_text": "jmp     ds:jpt_51EFF4[ecx*4]; switch jump",
+          "cells": [
+            {
+              "index": 0,
+              "address": "0x51f5f8",
+              "bytes": "fbef5100",
+              "target": "0x51effb",
+              "target_function": "0x51ef80",
+              "target_is_code": true,
+              "target_text": "cmp     eax, 0FFFFFFFFh; jumptable 0051EFF4 case 0"
+            },
+            {
+              "index": 1,
+              "address": "0x51f5fc",
+              "bytes": "e5f05100",
+              "target": "0x51f0e5",
+              "target_function": "0x51ef80",
+              "target_is_code": true,
+              "target_text": "cmp     eax, 0FFFFFFFFh; jumptable 0051EFF4 case 1"
+            },
+            {
+              "index": 2,
+              "address": "0x51f600",
+              "bytes": "d5f15100",
+              "target": "0x51f1d5",
+              "target_function": "0x51ef80",
+              "target_is_code": true,
+              "target_text": "cmp     eax, 0FFFFFFFFh; jumptable 0051EFF4 case 2"
+            },
+            {
+              "index": 3,
+              "address": "0x51f604",
+              "bytes": "2af35100",
+              "target": "0x51f32a",
+              "target_function": "0x51ef80",
+              "target_is_code": true,
+              "target_text": "cmp     eax, 0FFFFFFFFh; jumptable 0051EFF4 case 3"
+            }
+          ]
+        }
+      ],
+      "original_alignment_decode": [
+        {
+          "ea": "0x51f5f5",
+          "size": 3,
+          "bytes": "8d4900",
+          "is_nop": false,
+          "is_identity_lea": true,
+          "destination_register": 1,
+          "source_register": 1,
+          "source_displacement": 0,
+          "text": "align 4"
+        },
+        {
+          "ea": "0x51f608",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51f609",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51f60a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51f60b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51f60c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51f60d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51f60e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51f60f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011F85F-0011F860",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "reason": "BVD01四实际区间合178B：两表40项160B、15B NN_NOP与3B同寄存器零位移LEA；本区1B仅alignment_nop用途，不新增函数/排除，LEA不记NN_NOP",
+      "classification": "alignment_nop",
+      "original_size": 1,
+      "original_bytes": "90",
+      "original_tables": [],
+      "original_alignment_decode": [
+        {
+          "ea": "0x51f85f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011FDDA-0011FDE0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "reason": "BVD01四实际区间合178B：两表40项160B、15B NN_NOP与3B同寄存器零位移LEA；本区6B仅alignment_nop用途，不新增函数/排除，LEA不记NN_NOP",
+      "classification": "alignment_nop",
+      "original_size": 6,
+      "original_bytes": "909090909090",
+      "original_tables": [],
+      "original_alignment_decode": [
+        {
+          "ea": "0x51fdda",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51fddb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51fddc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51fddd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51fdde",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51fddf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "is_identity_lea": false,
+          "destination_register": 0,
+          "source_register": 0,
+          "source_displacement": 0,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:001200D0-00120160",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "reason": "BVD01四实际区间合178B：两表40项160B、15B NN_NOP与3B同寄存器零位移LEA；本区144B仅switch_table用途，不新增函数/排除，LEA不记NN_NOP",
+      "classification": "switch_table",
+      "original_size": 144,
+      "original_bytes": "f4fd5100b1fe510009fe5100c6fe51001efe5100dbfe510033fe5100f0fe510048fe510005ff51005dfe51001aff510072fe51002fff510087fe510044ff51009cfe510059ff51006eff510080ff510092ff5100a4ff5100b6ff5100cbff5100e0ff51000a00520028005200940052003a0052004c0052005e005200700052008200520094005200a6005200b8005200",
+      "original_tables": [
+        {
+          "start": "0x5200d0",
+          "end_exclusive": "0x520160",
+          "entry_count": 36,
+          "bytes": "f4fd5100b1fe510009fe5100c6fe51001efe5100dbfe510033fe5100f0fe510048fe510005ff51005dfe51001aff510072fe51002fff510087fe510044ff51009cfe510059ff51006eff510080ff510092ff5100a4ff5100b6ff5100cbff5100e0ff51000a00520028005200940052003a0052004c0052005e005200700052008200520094005200a6005200b8005200",
+          "indexed_jump_site": "0x51fded",
+          "indexed_jump_text": "jmp     ds:jpt_51FDED[eax*4]; switch jump",
+          "cells": [
+            {
+              "index": 0,
+              "address": "0x5200d0",
+              "bytes": "f4fd5100",
+              "target": "0x51fdf4",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_8]; jumptable 0051FDED case 0"
+            },
+            {
+              "index": 1,
+              "address": "0x5200d4",
+              "bytes": "b1fe5100",
+              "target": "0x51feb1",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_8]; jumptable 0051FDED case 1"
+            },
+            {
+              "index": 2,
+              "address": "0x5200d8",
+              "bytes": "09fe5100",
+              "target": "0x51fe09",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_8]; jumptable 0051FDED case 2"
+            },
+            {
+              "index": 3,
+              "address": "0x5200dc",
+              "bytes": "c6fe5100",
+              "target": "0x51fec6",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_8]; jumptable 0051FDED case 3"
+            },
+            {
+              "index": 4,
+              "address": "0x5200e0",
+              "bytes": "1efe5100",
+              "target": "0x51fe1e",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_8]; jumptable 0051FDED case 4"
+            },
+            {
+              "index": 5,
+              "address": "0x5200e4",
+              "bytes": "dbfe5100",
+              "target": "0x51fedb",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_8]; jumptable 0051FDED case 5"
+            },
+            {
+              "index": 6,
+              "address": "0x5200e8",
+              "bytes": "33fe5100",
+              "target": "0x51fe33",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_8]; jumptable 0051FDED case 6"
+            },
+            {
+              "index": 7,
+              "address": "0x5200ec",
+              "bytes": "f0fe5100",
+              "target": "0x51fef0",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_8]; jumptable 0051FDED case 7"
+            },
+            {
+              "index": 8,
+              "address": "0x5200f0",
+              "bytes": "48fe5100",
+              "target": "0x51fe48",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_8]; jumptable 0051FDED case 8"
+            },
+            {
+              "index": 9,
+              "address": "0x5200f4",
+              "bytes": "05ff5100",
+              "target": "0x51ff05",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_8]; jumptable 0051FDED case 9"
+            },
+            {
+              "index": 10,
+              "address": "0x5200f8",
+              "bytes": "5dfe5100",
+              "target": "0x51fe5d",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_8]; jumptable 0051FDED case 10"
+            },
+            {
+              "index": 11,
+              "address": "0x5200fc",
+              "bytes": "1aff5100",
+              "target": "0x51ff1a",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_8]; jumptable 0051FDED case 11"
+            },
+            {
+              "index": 12,
+              "address": "0x520100",
+              "bytes": "72fe5100",
+              "target": "0x51fe72",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_8]; jumptable 0051FDED case 12"
+            },
+            {
+              "index": 13,
+              "address": "0x520104",
+              "bytes": "2fff5100",
+              "target": "0x51ff2f",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_8]; jumptable 0051FDED case 13"
+            },
+            {
+              "index": 14,
+              "address": "0x520108",
+              "bytes": "87fe5100",
+              "target": "0x51fe87",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_8]; jumptable 0051FDED case 14"
+            },
+            {
+              "index": 15,
+              "address": "0x52010c",
+              "bytes": "44ff5100",
+              "target": "0x51ff44",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_8]; jumptable 0051FDED case 15"
+            },
+            {
+              "index": 16,
+              "address": "0x520110",
+              "bytes": "9cfe5100",
+              "target": "0x51fe9c",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_8]; jumptable 0051FDED case 16"
+            },
+            {
+              "index": 17,
+              "address": "0x520114",
+              "bytes": "59ff5100",
+              "target": "0x51ff59",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_8]; jumptable 0051FDED case 17"
+            },
+            {
+              "index": 18,
+              "address": "0x520118",
+              "bytes": "6eff5100",
+              "target": "0x51ff6e",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_4]; jumptable 0051FDED case 18"
+            },
+            {
+              "index": 19,
+              "address": "0x52011c",
+              "bytes": "80ff5100",
+              "target": "0x51ff80",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_4]; jumptable 0051FDED case 19"
+            },
+            {
+              "index": 20,
+              "address": "0x520120",
+              "bytes": "92ff5100",
+              "target": "0x51ff92",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_4]; jumptable 0051FDED case 20"
+            },
+            {
+              "index": 21,
+              "address": "0x520124",
+              "bytes": "a4ff5100",
+              "target": "0x51ffa4",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_4]; jumptable 0051FDED case 21"
+            },
+            {
+              "index": 22,
+              "address": "0x520128",
+              "bytes": "b6ff5100",
+              "target": "0x51ffb6",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_8]; jumptable 0051FDED case 22"
+            },
+            {
+              "index": 23,
+              "address": "0x52012c",
+              "bytes": "cbff5100",
+              "target": "0x51ffcb",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_8]; jumptable 0051FDED case 23"
+            },
+            {
+              "index": 24,
+              "address": "0x520130",
+              "bytes": "e0ff5100",
+              "target": "0x51ffe0",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     al, byte ptr [esp+arg_4]; jumptable 0051FDED case 24"
+            },
+            {
+              "index": 25,
+              "address": "0x520134",
+              "bytes": "0a005200",
+              "target": "0x52000a",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     al, byte ptr [esp+arg_4]; jumptable 0051FDED case 25"
+            },
+            {
+              "index": 26,
+              "address": "0x520138",
+              "bytes": "28005200",
+              "target": "0x520028",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_4]; jumptable 0051FDED case 26"
+            },
+            {
+              "index": 27,
+              "address": "0x52013c",
+              "bytes": "94005200",
+              "target": "0x520094",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_4]; jumptable 0051FDED cases 27,33"
+            },
+            {
+              "index": 28,
+              "address": "0x520140",
+              "bytes": "3a005200",
+              "target": "0x52003a",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_4]; jumptable 0051FDED case 28"
+            },
+            {
+              "index": 29,
+              "address": "0x520144",
+              "bytes": "4c005200",
+              "target": "0x52004c",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_4]; jumptable 0051FDED case 29"
+            },
+            {
+              "index": 30,
+              "address": "0x520148",
+              "bytes": "5e005200",
+              "target": "0x52005e",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_4]; jumptable 0051FDED case 30"
+            },
+            {
+              "index": 31,
+              "address": "0x52014c",
+              "bytes": "70005200",
+              "target": "0x520070",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_4]; jumptable 0051FDED case 31"
+            },
+            {
+              "index": 32,
+              "address": "0x520150",
+              "bytes": "82005200",
+              "target": "0x520082",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_4]; jumptable 0051FDED case 32"
+            },
+            {
+              "index": 33,
+              "address": "0x520154",
+              "bytes": "94005200",
+              "target": "0x520094",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     eax, [esp+arg_4]; jumptable 0051FDED cases 27,33"
+            },
+            {
+              "index": 34,
+              "address": "0x520158",
+              "bytes": "a6005200",
+              "target": "0x5200a6",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     ecx, [esp+arg_4]; jumptable 0051FDED case 34"
+            },
+            {
+              "index": 35,
+              "address": "0x52015c",
+              "bytes": "b8005200",
+              "target": "0x5200b8",
+              "target_function": "0x51fde0",
+              "target_is_code": true,
+              "target_text": "mov     edx, [esp+arg_4]; jumptable 0051FDED case 35"
+            }
+          ]
+        }
+      ],
+      "original_alignment_decode": []
     }
   ]
 }

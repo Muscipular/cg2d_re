@@ -198489,6 +198489,379 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x51EF80",
+      "inventory_id": "F:0011EF80",
+      "original_role": "原64块/960块/双半幅/控制分派根：Sub_51EF80",
+      "original_end_exclusive": "0x51f5f5",
+      "original_chunks": [
+        {
+          "start": "0x51ef80",
+          "end_exclusive": "0x51f5f5"
+        }
+      ],
+      "instruction_count": 425,
+      "status": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51EF80",
+            "InitializeTileTransitionGrid"
+          ],
+          "relationship": "原425条1653B/七页；先一次RAND再float位解释/ftol低S32与原<1取1、低S8零取1、共享触发/四状态初始化；候选仅原拒绝路径重抽，计数/速度/Y读写阶段与两遍状态2→1的不同RECT生产/低S16坐标/native消费、完成CryptInt count/encoded/mask齐采同序发布/析构/phase和0/1正确保。既有初始化助手和64元素同owner，完整父/callee/alias寿命/ABI像素运行未验"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51EF80"
+          ],
+          "relationship": "既有私有声明与实际消费保持；只省原完整根不消费的额外零实参，不添占位接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "boundary": "原425条1653B/七页；先一次RAND再float位解释/ftol低S32与原<1取1、低S8零取1、共享触发/四状态初始化；候选仅原拒绝路径重抽，计数/速度/Y读写阶段与两遍状态2→1的不同RECT生产/低S16坐标/native消费、完成CryptInt count/encoded/mask齐采同序发布/析构/phase和0/1正确保。既有初始化助手和64元素同owner，完整父/callee/alias寿命/ABI像素运行未验",
+      "verification_level": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "transition_dispatch_grid_baseline": {
+        "spec_id": "BVD01",
+        "evidence_refs": [
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+          "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 425,
+        "original_code_bytes": 1653,
+        "original_page_count": 7,
+        "original_direct_call_count": 14,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 58,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 4,
+        "already_existing_body_kept": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": false,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 979,
+        "original_root_total_code_bytes": 3326,
+        "original_total_page_count": 17,
+        "original_caller_window_count": 21,
+        "original_caller_window_instruction_count": 293,
+        "original_caller_window_code_bytes": 953,
+        "caller_window_totals_include_overlap": true,
+        "original_unassigned_range_count": 4,
+        "original_unassigned_total_bytes": 178,
+        "original_switch_table_count": 2,
+        "original_switch_table_entry_count": 40,
+        "original_switch_table_bytes": 160,
+        "original_NN_NOP_bytes": 15,
+        "original_identity_lea_bytes": 3,
+        "original_native_resource_failure_scope_retained": true,
+        "existing_source_specific_argument_widths_and_sample_order_retained": true,
+        "original_table_27_and_33_share_target": true,
+        "identity_lea_not_classified_as_NN_NOP": true,
+        "crypt_int_fields_sampled_before_publication": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51F610",
+      "inventory_id": "F:0011F610",
+      "original_role": "原64块/960块/双半幅/控制分派根：Sub_51F610",
+      "original_end_exclusive": "0x51f85f",
+      "original_chunks": [
+        {
+          "start": "0x51f610",
+          "end_exclusive": "0x51f85f"
+        }
+      ],
+      "instruction_count": 168,
+      "status": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51F610"
+          ],
+          "relationship": "原168条591B/三页；共享触发/初始化、960个x→y偏移同owner、逆序源620→0/464→0和每块fresh比例、两个有符号乘积/向零除64/232与310偏移直接全S32 native提交，绘后fresh比例加value/方向阈值、CryptInt mask/encoded/count齐采同序发布/析构/复位与0/1正确保。controller先低S8零取-1或1，原多余零实参不消费，新端一个S32参数保；完整父/callee/alias/ABI像素运行未验"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51F610"
+          ],
+          "relationship": "既有私有声明与实际消费保持；只省原完整根不消费的额外零实参，不添占位接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "boundary": "原168条591B/三页；共享触发/初始化、960个x→y偏移同owner、逆序源620→0/464→0和每块fresh比例、两个有符号乘积/向零除64/232与310偏移直接全S32 native提交，绘后fresh比例加value/方向阈值、CryptInt mask/encoded/count齐采同序发布/析构/复位与0/1正确保。controller先低S8零取-1或1，原多余零实参不消费，新端一个S32参数保；完整父/callee/alias/ABI像素运行未验",
+      "verification_level": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "transition_dispatch_grid_baseline": {
+        "spec_id": "BVD01",
+        "evidence_refs": [
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+          "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 168,
+        "original_code_bytes": 591,
+        "original_page_count": 3,
+        "original_direct_call_count": 10,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 17,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 3,
+        "already_existing_body_kept": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": false,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 979,
+        "original_root_total_code_bytes": 3326,
+        "original_total_page_count": 17,
+        "original_caller_window_count": 21,
+        "original_caller_window_instruction_count": 293,
+        "original_caller_window_code_bytes": 953,
+        "caller_window_totals_include_overlap": true,
+        "original_unassigned_range_count": 4,
+        "original_unassigned_total_bytes": 178,
+        "original_switch_table_count": 2,
+        "original_switch_table_entry_count": 40,
+        "original_switch_table_bytes": 160,
+        "original_NN_NOP_bytes": 15,
+        "original_identity_lea_bytes": 3,
+        "original_native_resource_failure_scope_retained": true,
+        "existing_source_specific_argument_widths_and_sample_order_retained": true,
+        "original_table_27_and_33_share_target": true,
+        "identity_lea_not_classified_as_NN_NOP": true,
+        "crypt_int_fields_sampled_before_publication": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51FC90",
+      "inventory_id": "F:0011FC90",
+      "original_role": "原64块/960块/双半幅/控制分派根：Sub_51FC90",
+      "original_end_exclusive": "0x51fdda",
+      "original_chunks": [
+        {
+          "start": "0x51fc90",
+          "end_exclusive": "0x51fdda"
+        }
+      ],
+      "instruction_count": 101,
+      "status": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51FC90"
+          ],
+          "relationship": "原101条330B/两页；低S8零取8、共享触发、原AND只CL的mode非零初始0/零初始240；清屏后同owner比例、上半每行持样除法/直接复制、下半独立fresh除法及第二Temp借用和RECT后生产、复制后fresh循环比；绘后mode0减/其余加和原严格阈值0/240、0/1正确保。原额外零实参未消费，native正常失败边界保；完整父/callee/alias/ABI像素运行未验"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51FC90"
+          ],
+          "relationship": "既有私有声明与实际消费保持；只省原完整根不消费的额外零实参，不添占位接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "boundary": "原101条330B/两页；低S8零取8、共享触发、原AND只CL的mode非零初始0/零初始240；清屏后同owner比例、上半每行持样除法/直接复制、下半独立fresh除法及第二Temp借用和RECT后生产、复制后fresh循环比；绘后mode0减/其余加和原严格阈值0/240、0/1正确保。原额外零实参未消费，native正常失败边界保；完整父/callee/alias/ABI像素运行未验",
+      "verification_level": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "transition_dispatch_grid_baseline": {
+        "spec_id": "BVD01",
+        "evidence_refs": [
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+          "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 101,
+        "original_code_bytes": 330,
+        "original_page_count": 2,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 8,
+        "original_return_count": 3,
+        "original_inbound_reference_count": 2,
+        "already_existing_body_kept": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": false,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 979,
+        "original_root_total_code_bytes": 3326,
+        "original_total_page_count": 17,
+        "original_caller_window_count": 21,
+        "original_caller_window_instruction_count": 293,
+        "original_caller_window_code_bytes": 953,
+        "caller_window_totals_include_overlap": true,
+        "original_unassigned_range_count": 4,
+        "original_unassigned_total_bytes": 178,
+        "original_switch_table_count": 2,
+        "original_switch_table_entry_count": 40,
+        "original_switch_table_bytes": 160,
+        "original_NN_NOP_bytes": 15,
+        "original_identity_lea_bytes": 3,
+        "original_native_resource_failure_scope_retained": true,
+        "existing_source_specific_argument_widths_and_sample_order_retained": true,
+        "original_table_27_and_33_share_target": true,
+        "identity_lea_not_classified_as_NN_NOP": true,
+        "crypt_int_fields_sampled_before_publication": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51FDE0",
+      "inventory_id": "F:0011FDE0",
+      "original_role": "原64块/960块/双半幅/控制分派根：Sub_51FDE0",
+      "original_end_exclusive": "0x5200d0",
+      "original_chunks": [
+        {
+          "start": "0x51fde0",
+          "end_exclusive": "0x5200d0"
+        }
+      ],
+      "instruction_count": 285,
+      "status": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/world/WorldUpdate.cpp",
+          "symbols": [
+            "Sub_51FDE0"
+          ],
+          "relationship": "原285条752B/五页；W32 selector的36表项/27与33同地址、七直接callee的参数模式、opaque W32 payload原位透传/20-21明确零/24-25低S8及零默认-1或1、五个目标不消费的额外零实参不扩接口；各真实返回直透、default1正确保。已有BVB/BVC完整原证沿独立记录保；51D790/51E0D0完整本体仍独立缺口，不把完整本分派当全转场功能或所有12引用父闭合"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51FDE0"
+          ],
+          "relationship": "既有私有声明与实际消费保持；只省原完整根不消费的额外零实参，不添占位接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+        "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+        "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+      ],
+      "boundary": "原285条752B/五页；W32 selector的36表项/27与33同地址、七直接callee的参数模式、opaque W32 payload原位透传/20-21明确零/24-25低S8及零默认-1或1、五个目标不消费的额外零实参不扩接口；各真实返回直透、default1正确保。已有BVB/BVC完整原证沿独立记录保；51D790/51E0D0完整本体仍独立缺口，不把完整本分派当全转场功能或所有12引用父闭合",
+      "verification_level": "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
+      "transition_dispatch_grid_baseline": {
+        "spec_id": "BVD01",
+        "evidence_refs": [
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-acceptance",
+          "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
+          "doc/cg2d_transition_dispatch_grid_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 285,
+        "original_code_bytes": 752,
+        "original_page_count": 5,
+        "original_direct_call_count": 36,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 37,
+        "original_inbound_reference_count": 12,
+        "already_existing_body_kept": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": false,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 979,
+        "original_root_total_code_bytes": 3326,
+        "original_total_page_count": 17,
+        "original_caller_window_count": 21,
+        "original_caller_window_instruction_count": 293,
+        "original_caller_window_code_bytes": 953,
+        "caller_window_totals_include_overlap": true,
+        "original_unassigned_range_count": 4,
+        "original_unassigned_total_bytes": 178,
+        "original_switch_table_count": 2,
+        "original_switch_table_entry_count": 40,
+        "original_switch_table_bytes": 160,
+        "original_NN_NOP_bytes": 15,
+        "original_identity_lea_bytes": 3,
+        "original_native_resource_failure_scope_retained": true,
+        "existing_source_specific_argument_widths_and_sample_order_retained": true,
+        "original_table_27_and_33_share_target": true,
+        "identity_lea_not_classified_as_NN_NOP": true,
+        "crypt_int_fields_sampled_before_publication": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

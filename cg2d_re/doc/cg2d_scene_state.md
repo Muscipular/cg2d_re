@@ -8029,3 +8029,15 @@ BUO01必要静态已通过：完整Scene只两数据初始化改原768B/512常�
 集中静态通过：两完整根306条1062B/六页、七局部累计98条251B含重叠邻指令、两10B实际NN_NOP；整cpp仅既有助手一个prefix，完整W32触发先持样后RECT/按持样判定，两wrapper与其余四相关源全文保持，原采样/方向三字段齐采发布/native正常失败保。两完整机器及完整派生快照只有具名差异，十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
 
 文本汇总与Check均退出0；实际语义1755/有效1748、合同1866（50.71%）、F896/E1060、R7已审458余2603、LOOP168/RENDER69。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有旧记录和全部闭包保持；完整控制父/其他callee、owner-alias寿命、机器ABI/链接/像素/正常失败/运行及R8未验，整体目标继续。
+
+## BVD01三转场根与控制父的正确基线（2026-10-08）
+
+[完整基线](cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline)、[保留裁决](cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision)及[原证](cg2d_transition_dispatch_grid_baseline_evidence.json)补四正确根979条3326B/17页、21局部累计293条953B含重叠邻指令；九窗准确复用本轮完整控制父，末窗13条不补邻函数。四根/初始化助手共五正文保持：64块四状态初始化/原RNG消费、两遍RECT/完成count-encoded-mask齐采发布；960块原采样/完成mask-encoded-count齐采发布与复位；半幅原低S8零取8、AND只CL的非零mode初值0及两独立分母/native正常失败。控制父36表项/七目标/27-33共享、payload/default/value与结果透传正确保。
+
+四X178B由两表40项160B、15B NN_NOP/3B同寄存器零位移LEA组成，LEA按实际解码独立记录。代码0改动/无新I，51D790/51E0D0完整根、其余父/callee/alias寿命/ABI像素运行仍独立未闭。
+
+### BVD01 当前正确基线限定静态结果
+
+集中静态通过：四完整根979条3326B/17页、21局部累计293条953B/九准确复用与末窗真实13条，四区间178B的两表40项160B/15B NN_NOP及3B同ECX零位移LEA按实际解码/索引入向区分；五相关源/五完整正文与HEAD一致、真实36分派与各原生产/采样/native失败及发布保持。源码0改动/无新I，两完整机器与完整派生只有具名差集；十四文件UTF8无BOM/LF、四锚点/两限定S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1759/有效1752、合同1870（50.82%）、F900/E1062、R7已审462余2599、LOOP172/RENDER73。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有旧记录与完整闭包保持；完整51D790/51E0D0及其余父/callee、owner-alias寿命、机器ABI/链接/像素/正常失败/运行及R8未验，整体目标继续。

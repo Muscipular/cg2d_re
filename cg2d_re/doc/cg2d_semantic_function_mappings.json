@@ -192892,6 +192892,231 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x4681B0",
+      "inventory_id": "F:000681B0",
+      "original_role": "按Y/X快照回退玩家坐标、更新边界后清W16/W32移动状态并返完整0",
+      "original_end_exclusive": "0x4681f6",
+      "original_chunks": [
+        [
+          "0x4681b0",
+          "0x4681f6"
+        ]
+      ],
+      "instruction_count": 17,
+      "status": "BUH01回退/地图跨度/原业务裁剪三完整根67条282B/三页；只一跨度正文一片段恢复先XEnd/YEnd后XStart/YStart的W16取样，两正确正文、四Add与W16/W32共享owner、原裁剪/清序/借用指针及U16观察保持，完整正常寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4681B0"
+          ],
+          "relationship": "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-acceptance",
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
+        "doc/cg2d_map_boundary_span_sampling_evidence.json"
+      ],
+      "boundary": "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "verification_level": "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "map_boundary_span_sampling": {
+        "spec_id": "BUH01",
+        "evidence_refs": [
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-acceptance",
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
+          "doc/cg2d_map_boundary_span_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 17,
+        "original_code_bytes": 70,
+        "original_page_count": 1,
+        "original_direct_call_count": 4,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 12,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_end_X_Y_then_start_X_Y_W16_sampling_restored": true,
+        "original_four_Add_args_and_W16_boundary_publication_kept": true,
+        "original_clip_and_X_Y_W16_span_publication_kept": true,
+        "original_U16_spanX_view_and_parent_tail_forwarding_adaptation_kept": true,
+        "full_original_EAX_recreated": false,
+        "original_rollback_Y_X_reads_and_two_W16_four_W32_zero_sequence_kept": true,
+        "original_rollback_full_S32_zero_return_kept": true,
+        "original_clip_signed_S16_comparisons_and_W32_bound_sampling_kept": true,
+        "original_clip_held_bound_low_word_write_and_borrowed_yEnd_return_kept": true,
+        "original_existing_business_clipping_not_expanded": true,
+        "existing_GetVal_tail_wrapper_evidence_ref": "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "existing_U16_parent_return_adaptation_evidence_ref": "doc/cg2d_player_move_control_sampling_evidence.json",
+        "original_source_other_bodies_callers_owners_and_network_plaintext_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x468200",
+      "inventory_id": "F:00068200",
+      "original_role": "四次玩家Add生产S16边界，经裁剪后按原四读序发布W16地图跨度",
+      "original_end_exclusive": "0x46828d",
+      "original_chunks": [
+        [
+          "0x468200",
+          "0x46828d"
+        ]
+      ],
+      "instruction_count": 29,
+      "status": "BUH01回退/地图跨度/原业务裁剪三完整根67条282B/三页；只一跨度正文一片段恢复先XEnd/YEnd后XStart/YStart的W16取样，两正确正文、四Add与W16/W32共享owner、原裁剪/清序/借用指针及U16观察保持，完整正常寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468200"
+          ],
+          "relationship": "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-acceptance",
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
+        "doc/cg2d_map_boundary_span_sampling_evidence.json"
+      ],
+      "boundary": "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "verification_level": "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "map_boundary_span_sampling": {
+        "spec_id": "BUH01",
+        "evidence_refs": [
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-acceptance",
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
+          "doc/cg2d_map_boundary_span_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 29,
+        "original_code_bytes": 141,
+        "original_page_count": 1,
+        "original_direct_call_count": 5,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 7,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_end_X_Y_then_start_X_Y_W16_sampling_restored": true,
+        "original_four_Add_args_and_W16_boundary_publication_kept": true,
+        "original_clip_and_X_Y_W16_span_publication_kept": true,
+        "original_U16_spanX_view_and_parent_tail_forwarding_adaptation_kept": true,
+        "full_original_EAX_recreated": false,
+        "original_rollback_Y_X_reads_and_two_W16_four_W32_zero_sequence_kept": true,
+        "original_rollback_full_S32_zero_return_kept": true,
+        "original_clip_signed_S16_comparisons_and_W32_bound_sampling_kept": true,
+        "original_clip_held_bound_low_word_write_and_borrowed_yEnd_return_kept": true,
+        "original_existing_business_clipping_not_expanded": true,
+        "existing_GetVal_tail_wrapper_evidence_ref": "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "existing_U16_parent_return_adaptation_evidence_ref": "doc/cg2d_player_move_control_sampling_evidence.json",
+        "original_source_other_bodies_callers_owners_and_network_plaintext_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x468290",
+      "inventory_id": "F:00068290",
+      "original_role": "四指针S16原业务裁剪，保持W32上限取样及借用原yEnd返回",
+      "original_end_exclusive": "0x4682d7",
+      "original_chunks": [
+        [
+          "0x468290",
+          "0x4682d7"
+        ]
+      ],
+      "instruction_count": 21,
+      "status": "BUH01回退/地图跨度/原业务裁剪三完整根67条282B/三页；只一跨度正文一片段恢复先XEnd/YEnd后XStart/YStart的W16取样，两正确正文、四Add与W16/W32共享owner、原裁剪/清序/借用指针及U16观察保持，完整正常寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468290"
+          ],
+          "relationship": "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-acceptance",
+        "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
+        "doc/cg2d_map_boundary_span_sampling_evidence.json"
+      ],
+      "boundary": "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "verification_level": "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "map_boundary_span_sampling": {
+        "spec_id": "BUH01",
+        "evidence_refs": [
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-acceptance",
+          "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
+          "doc/cg2d_map_boundary_span_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 21,
+        "original_code_bytes": 71,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 1,
+        "original_inbound_call_count": 5,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_end_X_Y_then_start_X_Y_W16_sampling_restored": true,
+        "original_four_Add_args_and_W16_boundary_publication_kept": true,
+        "original_clip_and_X_Y_W16_span_publication_kept": true,
+        "original_U16_spanX_view_and_parent_tail_forwarding_adaptation_kept": true,
+        "full_original_EAX_recreated": false,
+        "original_rollback_Y_X_reads_and_two_W16_four_W32_zero_sequence_kept": true,
+        "original_rollback_full_S32_zero_return_kept": true,
+        "original_clip_signed_S16_comparisons_and_W32_bound_sampling_kept": true,
+        "original_clip_held_bound_low_word_write_and_borrowed_yEnd_return_kept": true,
+        "original_existing_business_clipping_not_expanded": true,
+        "existing_GetVal_tail_wrapper_evidence_ref": "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "existing_U16_parent_return_adaptation_evidence_ref": "doc/cg2d_player_move_control_sampling_evidence.json",
+        "original_source_other_bodies_callers_owners_and_network_plaintext_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

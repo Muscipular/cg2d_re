@@ -272,3 +272,11 @@ R01/U11与完整CRT/owner/alias/实际ABI/运行未闭；不构建、测试、�
 两个求和helper正确源码保持，玩家每轴旧helper、新helper、浮点转换三次读取的计数/mask/唯一RNG副作用保持。内部LegacyCryptInt与明文网络范围相互独立，不能删内部载体或恢复网络cipher。只局部静态，不代全部owner-alias寿命/数值/机器ABI/运行。
 
 BUG01必要静态已通过：完整Scene仅一正文七片段变化，两正确helper保持；三原根113条530B、四窗口/4B数据/三尾30B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1689/有效1682、合同1800（48.91%）、处置830/E968、R7已审398/余2663、LOOP101/MAP98。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-coordinate-reset-sampling-20261008。
+
+## 地图回退与边界四次读取消费（BUH01，2026-10-08）
+
+[地图边界SPEC](cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision)复用原Read/Add接口，库正文保持。4681B0先Y snapshot后X snapshot各一次GetVal等效Read，再468330/468200，原计数/mask/唯一RNG副作用保持；468200四次独立Add沿X-30/Y-20/X+21/Y+31生产四S16边界，不合并读取或按初始化全零特化。
+
+只Scene跨度终点预取一片段变化，所有原业务裁剪、W16/W32共享owner、两正确回退/裁剪正文及caller保持。内部LegacyCryptInt不属于网络算法，网络仍原格式明文；仅本步静态，不代完整数据/寿命/机器ABI和运行。
+
+BUH01必要静态已通过：完整Scene仅一跨度正文一片段变化，正确回退/裁剪两正文保持；原67条282B/三页、四窗口/三尾22B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1692/有效1685、合同1803（48.99%）、处置833/E972、R7已审401/余2660、LOOP104/MAP101。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/机器ABI及R8继续。命名快照：cg2d-re-map-boundary-span-sampling-20261008。

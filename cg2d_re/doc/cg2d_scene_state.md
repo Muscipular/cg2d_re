@@ -7899,3 +7899,11 @@ BUF01必要静态已通过：完整Scene/公开声明仅五片段变化，两原
 按[裁决](cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision)，两helper现Y Read→X Add、完整S32返回/AF10C0发布正确保持；401EA0尾跳401EC0已证，不能误改为无副作用读。两根沿既有Read/Add宿主接口承接，按adapted登记，不代原thiscall/完整机器ABI。每轴旧/新/浮点各三次读取，六Construct/Destroy、唯一RNG消费、所有算式/F32收窄、末当前X/Y预取→参考X/Y发布及finalYBits完整W32返回保持。四局部后窗中519EC0收栈后RET透传，不能外推全部上游弃返。4B F32 64与三尾30B仅位值/用途；完整正常寿命/数值/x87/机器ABI和运行继续。
 
 BUG01必要静态已通过：完整Scene仅一正文七片段变化，两正确helper保持；三原根113条530B、四窗口/4B数据/三尾30B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1689/有效1682、合同1800（48.91%）、处置830/E968、R7已审398/余2663、LOOP101/MAP98。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-coordinate-reset-sampling-20261008。
+
+## 地图边界跨度终点取样实修（BUH01，2026-10-08）
+
+[完整基线](cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline)覆盖4681B0/468200/468290三根67条282B/三页、9directcall/四业务jump/三RET及24入向。只改468200一既有正文一片段：原裁剪后先W16取XEnd、YEnd，再分别取XStart、YStart作差；现先算X差再读YEnd改为两终点局部预取。四Add参数-30/-20/+21/+31/读取与四S16边界写、裁剪后X/Y跨度W16发布保持。
+
+按[裁决](cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision)，4681B0先Y/X快照读取、回退/更新边界、两W16四W32清序和S32返回0正确保持；468290两个start下限零、各W32上限先读后S16终点比较并写真分支held低W16、借用原yEnd返回正确保持，不猜分支fresh读或造保护。U16 spanX沿既有局部AX观察，469FC0尾沿返回，不宣称完整EAX或全父弃返。四相关窗口/三尾22B仅局部事实与用途，完整正常生产消费/owner-alias寿命/机器ABI和运行继续。
+
+BUH01必要静态已通过：完整Scene仅一跨度正文一片段变化，正确回退/裁剪两正文保持；原67条282B/三页、四窗口/三尾22B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1692/有效1685、合同1803（48.99%）、处置833/E972、R7已审401/余2660、LOOP104/MAP101。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/机器ABI及R8继续。命名快照：cg2d-re-map-boundary-span-sampling-20261008。

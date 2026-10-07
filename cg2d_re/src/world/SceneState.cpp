@@ -5525,12 +5525,12 @@ std::uint16_t __cdecl Sub_468200()
             platform::legacy_crypt_int::Add_401E10(&gPlayerY, 31)));
 
     Sub_468290(&gMapXStart, &gMapYStart, &gMapXEnd, &gMapYEnd);
+    const std::uint16_t xEnd = static_cast<std::uint16_t>(gMapXEnd);
+    const std::uint16_t yEnd = static_cast<std::uint16_t>(gMapYEnd);
     const std::uint16_t spanX =
-        static_cast<std::uint16_t>(gMapXEnd)
-        - static_cast<std::uint16_t>(gMapXStart);
+        xEnd - static_cast<std::uint16_t>(gMapXStart);
     const std::uint16_t spanY =
-        static_cast<std::uint16_t>(gMapYEnd)
-        - static_cast<std::uint16_t>(gMapYStart);
+        yEnd - static_cast<std::uint16_t>(gMapYStart);
     gMapSpanX = std::bit_cast<std::int16_t>(spanX);
     gMapSpanY = std::bit_cast<std::int16_t>(spanY);
     return spanX;

@@ -1632,3 +1632,11 @@ BUF01必要静态已通过：完整Scene/公开声明仅五片段变化，两原
 LOOP98→101/MAP95→98各两局部I-S各25来源，仅本步静态；三任务current/引用仍open，差队列/closed11及完整门禁保持。完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通与R8继续；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。
 
 BUG01必要静态已通过：完整Scene仅一正文七片段变化，两正确helper保持；三原根113条530B、四窗口/4B数据/三尾30B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1689/有效1682、合同1800（48.91%）、处置830/E968、R7已审398/余2663、LOOP101/MAP98。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-coordinate-reset-sampling-20261008。
+
+## BUH01 地图边界跨度开发验收（2026-10-08）
+
+[基线](cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline)、[裁决](cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision)、[验收](cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-acceptance)及[证据](cg2d_map_boundary_span_sampling_evidence.json)覆盖三完整根67条282B/三页、四局部窗口及三尾22B。一正文一片段实修终点X/Y先读，保持起点读/原W16发布，正确回退及四业务裁剪正文、四Add副作用/W16-W32清序和局部返回视图保持。
+
+LOOP101→104/MAP98→101各两局部I-S各25来源，仅本步静态；三任务current/引用仍open，差队列/closed11及完整门禁保持。完整正常生产消费/全部owner-alias寿命/全父/机器ABI/链接/像素画面/明文互通与R8继续；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。
+
+BUH01必要静态已通过：完整Scene仅一跨度正文一片段变化，正确回退/裁剪两正文保持；原67条282B/三页、四窗口/三尾22B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1692/有效1685、合同1803（48.99%）、处置833/E972、R7已审401/余2660、LOOP104/MAP101。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/机器ABI及R8继续。命名快照：cg2d-re-map-boundary-span-sampling-20261008。

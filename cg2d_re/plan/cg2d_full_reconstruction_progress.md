@@ -3218,3 +3218,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 新映射1592／adapted F:0005DC00／CHARACTER7→8，语义1593有效1586／文档1704（46.30%）／728处置／E846；R7 298→299余2762，不造Reset／布局／块内F。冻结定位／无F代码区各7／pending18／差队列172与171缺定位43待归属、P05原closed／closed11／完整叶0／globalfalse及完整门禁保；U11／V03／R04只current／引用仍open。完整人物父／六依赖、真实删除回复／人物创建-主地图及消费／正常alias-owner寿命、CRT-SDK-机器ABI与链接、原格式明文往返／显示和运行R8继续；音频暂停、RPLAN.24与不构建／测试／运行／摘要限制保。集中静态及派生终态确认后追加实际结果，不预记整体验收。
 
 静态验收结果：源码／原证据／完整机器／文档四集中检查通过；measure与-Check同一进程句柄正常结束，终态0。完整派生快照仅单真F／CHARACTER一成员及候选、三任务current／引用、单11B区间与六指标增量，全部其它对象／冻结定位及完整门禁保持。12文件UTF-8无BOM-LF、四SPEC锚点、两I-S各17真实来源与定向差异通过；现原只读提示正文／NUL也逐字节一致。台账模板的后态R7计数和原根描述替换问题已在写入前纠正，最终完整机器静态通过。未构建／测试／运行或计算摘要，不将局部实修外推为人物、显示或整体验收；整体SPEC目标继续。
+
+## BSN01 认证失败提示命中／对象／文字图像取样实修（2026-10-07）
+
+先落[子SPEC](../doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-decision)，实修CharacterAuthenticationFailure.cpp六精确片段／一既有业务体。初次5044E0借原64／168／512／144／4／1常量，原字段发布保；命中width→x→减66→y单读→left→bottom→top→right；Play51后action一次非拥有取样供非空判断／MarkDeath／清槽；ready后文字y→x、加20／140两S16，文字调用后图像独立width→y→图号→x，再原SAR1／y+123／halfWidth+x。正常原值正确，不称运行故障，不新增保护／模型／owner。
+
+原提示55C5E8正文14B＋NUL15B逐字节取证，保原字节／静态寿命，撤未证CP950标签及陈旧“地址未交接”注释，来源编码不猜。原16B descriptor、低W8 DF／两图号、hover／鼠标低bit1、结果1早退／非空清槽、后续独立ready与Reset及其它整源保持，人物父／所有依赖正文不改。完整113条413B／两页，7直接／7目标无间接、6跳转／两RET，唯一460FF0@46140C；单X:0005D97D-0005D980三字节全90逐BYTE真实NOP、无入向、前RET后真入口，只原对齐用途。
+
+新1593／adapted F:0005D7E0／CHARACTER8→9，语义1594有效1587／文档1705（46.33%）／729处置／E848；R7 299→300余2761，不造Reset／descriptor或内部块F。冻结定位／无F代码区各7／pending18／差队列172与171缺定位43待归属、P05原closed／closed11／完整叶0／globalfalse及全部完整门禁保，U11／V03／R04只current／引用仍open。完整人物父／七依赖及事件输入／渲染消费、正常alias-owner寿命／CRT-SDK-机器ABI与链接、人物创建-主地图／原格式明文往返／实际画面与运行R8继续；音频暂停、RPLAN.24与不构建／测试／运行／摘要限制保。集中静态和派生终态通过后追加结果，不预记整体验收。
+
+静态验收结果：源码／原证据／完整机器／文档四集中检查通过；measure与-Check同一进程句柄正常结束，终态0。完整派生快照仅单真F／CHARACTER一成员及候选、三任务current／引用、单3B区间与六指标增量，全部其它对象／冻结定位及完整门禁保。12文件UTF-8无BOM-LF、四SPEC锚点、两I-S各17真实来源与定向差异通过；现原15B文案与16B descriptor逐值一致。未构建／测试／运行或计算摘要，局部不代完整人物、事件输入、显示或整体验收，整体SPEC目标继续。

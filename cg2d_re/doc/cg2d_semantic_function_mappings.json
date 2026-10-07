@@ -185958,6 +185958,107 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45D7E0",
+      "inventory_id": "F:0005D7E0",
+      "original_role": "UpdateAuthenticationFailure_45D7E0",
+      "original_end_exclusive": "0x45d97d",
+      "instruction_count": 113,
+      "status": "BSN01认证失败提示六片段恢复原常量创建/矩形/单对象/文字图像取样和SAR，纠正提示字节地址/未证编码名称；单源一体，仅局部静态，完整父/七依赖/消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterAuthenticationFailure.cpp",
+          "symbols": [
+            "UpdateAuthenticationFailure_45D7E0"
+          ],
+          "relationship": "BSN01认证失败提示45D7E0完整113条413B/两页，7直接/7目标无间接、6jump/2RET，唯一460FF0@46140C；原55C5E8正文14B+NUL15B逐字节取证，撤未证编码名/陈旧未交接注释。单源六片段/一既有业务体：初次5044E0用64/168/512/144/4/1原常量，所有原字段发布保；命中width→x→减66→y单取→left→bottom→top→right；Play51后一次native非拥有action，复用判断与MarkDeath/清槽；ready后文字y→x取样与加20/140，两S16；文字调用后图像独立width→y→图号→x，再原S32 SAR1/y+123/halfWidth+x。原普通值正确，不称运行故障；低W8鼠标/DF与两图号、同16B descriptor/借用、原15B静态寿命、Reset/发布/hover/结果1早退与独立ready/其它整源、人物父/依赖正文保持，不造新owner。新1593/单adapted F:0005D7E0，CHARACTER8→9；语义1594有效1587/文档1705（46.33%）/处置729/E848；单X3B全90逐BYTE真实NOP/无入向/前RET后入口只用途，R7 300余2761，不造Reset/descriptor/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/七依赖、事件输入与渲染消费/全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-baseline",
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-decision",
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-acceptance",
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
+        "doc/cg2d_authentication_failure_sampling_evidence.json"
+      ],
+      "boundary": "BSN01认证失败提示45D7E0完整113条413B/两页，7直接/7目标无间接、6jump/2RET，唯一460FF0@46140C；原55C5E8正文14B+NUL15B逐字节取证，撤未证编码名/陈旧未交接注释。单源六片段/一既有业务体：初次5044E0用64/168/512/144/4/1原常量，所有原字段发布保；命中width→x→减66→y单取→left→bottom→top→right；Play51后一次native非拥有action，复用判断与MarkDeath/清槽；ready后文字y→x取样与加20/140，两S16；文字调用后图像独立width→y→图号→x，再原S32 SAR1/y+123/halfWidth+x。原普通值正确，不称运行故障；低W8鼠标/DF与两图号、同16B descriptor/借用、原15B静态寿命、Reset/发布/hover/结果1早退与独立ready/其它整源、人物父/依赖正文保持，不造新owner。新1593/单adapted F:0005D7E0，CHARACTER8→9；语义1594有效1587/文档1705（46.33%）/处置729/E848；单X3B全90逐BYTE真实NOP/无入向/前RET后入口只用途，R7 300余2761，不造Reset/descriptor/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/七依赖、事件输入与渲染消费/全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "verification_level": "BSN01认证失败提示45D7E0完整113条413B/两页，7直接/7目标无间接、6jump/2RET，唯一460FF0@46140C；原55C5E8正文14B+NUL15B逐字节取证，撤未证编码名/陈旧未交接注释。单源六片段/一既有业务体：初次5044E0用64/168/512/144/4/1原常量，所有原字段发布保；命中width→x→减66→y单取→left→bottom→top→right；Play51后一次native非拥有action，复用判断与MarkDeath/清槽；ready后文字y→x取样与加20/140，两S16；文字调用后图像独立width→y→图号→x，再原S32 SAR1/y+123/halfWidth+x。原普通值正确，不称运行故障；低W8鼠标/DF与两图号、同16B descriptor/借用、原15B静态寿命、Reset/发布/hover/结果1早退与独立ready/其它整源、人物父/依赖正文保持，不造新owner。新1593/单adapted F:0005D7E0，CHARACTER8→9；语义1594有效1587/文档1705（46.33%）/处置729/E848；单X3B全90逐BYTE真实NOP/无入向/前RET后入口只用途，R7 300余2761，不造Reset/descriptor/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/七依赖、事件输入与渲染消费/全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "authentication_failure_sampling": {
+        "spec_id": "BSN01",
+        "evidence_refs": [
+          "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-baseline",
+          "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-decision",
+          "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-acceptance",
+          "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
+          "doc/cg2d_authentication_failure_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 113,
+        "original_code_bytes": 413,
+        "original_page_count": 2,
+        "original_direct_call_count": 7,
+        "original_unique_callee_count": 7,
+        "original_indirect_call_count": 0,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 6,
+        "source_changed_existing_function_count": 1,
+        "unsupported_encoding_label_removed": true,
+        "original_text_address_documented": true,
+        "original_const_text": {
+          "address": "0x55c5e8",
+          "bytes": "b56ea44abb7bc3d2a5a2b1d1a14300"
+        },
+        "original_descriptor_bytes": "0000000000000000ffffffff00040000",
+        "creation_uses_original_constants": true,
+        "creation_arguments": [
+          64,
+          168,
+          512,
+          144,
+          4,
+          1
+        ],
+        "hit_geometry_stage_order": [
+          "width",
+          "x",
+          "width-66",
+          "y",
+          "left=((width-66)>>1)+x",
+          "bottom=y+132",
+          "top=y+115",
+          "right=left+66"
+        ],
+        "hit_y_sample_count": 1,
+        "click_action_single_nonowning_sample_after_sound": true,
+        "text_geometry_stage_order": [
+          "y",
+          "x",
+          "textY=y+20",
+          "textX=x+140"
+        ],
+        "graphic_geometry_stage_order": [
+          "after DrawText3",
+          "width",
+          "y",
+          "imageNo",
+          "x",
+          "halfWidth=width>>1",
+          "graphicY=y+123",
+          "graphicX=halfWidth+x"
+        ],
+        "graphic_signed_arithmetic_shift_restored": true,
+        "draw_final_s16_text_arguments_kept": true,
+        "descriptor_and_low_w8_layer_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "new_true_function_count": 1,
+        "new_semantic_record_count": 1,
+        "new_range_classification_count": 1,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -7,7 +7,7 @@
 namespace cg::character_select {
 namespace {
 
-// 原 UpdateAuthenticationFailure_45D7E0 使用的 CP950 字节；常量独立地址未交接。
+// 原 0x55C5E8：正文 14 字节，含唯一 NUL 共 15 字节；来源编码名称不猜。
 constexpr char kAuthenticationFailedText[] =
     "\xB5\x6E\xA4\x4A\xBB\x7B\xC3\xD2\xA5\xA2\xB1\xD1\xA1\x43";
 static_assert(sizeof(kAuthenticationFailedText) == 15);
@@ -47,21 +47,27 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
         gAuthenticationFailureX = 64;
         gAuthenticationFailureY = 168;
         gAuthenticationFailureAction = login::detail::Sub_5044E0(
-            gAuthenticationFailureX,
-            gAuthenticationFailureY,
-            gAuthenticationFailureWidth,
-            gAuthenticationFailureHeight,
+            64,
+            168,
+            512,
+            144,
             4,
             1);
     }
 
-    const std::int32_t buttonLeft = gAuthenticationFailureX
-        + ((gAuthenticationFailureWidth - 66) >> 1);
+    const std::int32_t buttonWidth = gAuthenticationFailureWidth;
+    const std::int32_t buttonX = gAuthenticationFailureX;
+    const std::int32_t centeredButtonWidth = buttonWidth - 66;
+    const std::int32_t buttonY = gAuthenticationFailureY;
+    const std::int32_t buttonLeft = (centeredButtonWidth >> 1) + buttonX;
+    const std::int32_t buttonBottom = buttonY + 132;
+    const std::int32_t buttonTop = buttonY + 115;
+    const std::int32_t buttonRight = buttonLeft + 66;
     if (login::detail::Sub_5049A0(
             buttonLeft,
-            gAuthenticationFailureY + 115,
-            buttonLeft + 66,
-            gAuthenticationFailureY + 132,
+            buttonTop,
+            buttonRight,
+            buttonBottom,
             -1)
         != 0) {
         hovered = true;
@@ -70,8 +76,9 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
         if ((mouseClickState & 1U) != 0) {
             result = 1;
             login::detail::PlaySe(51, 320, 240);
-            if (gAuthenticationFailureAction != nullptr) {
-                login::detail::MarkDeath(gAuthenticationFailureAction);
+            login::YobiAction* const action = gAuthenticationFailureAction;
+            if (action != nullptr) {
+                login::detail::MarkDeath(action);
                 gAuthenticationFailureAction = nullptr;
             }
             return result;
@@ -84,18 +91,29 @@ std::int32_t UpdateAuthenticationFailure_45D7E0()
         return result;
     }
 
+    const std::int32_t textYOrigin = gAuthenticationFailureY;
+    const std::int32_t textXOrigin = gAuthenticationFailureX;
+    const std::int32_t textY = textYOrigin + 20;
+    const std::int32_t textX = textXOrigin + 140;
     login::detail::DrawText3(
-        static_cast<std::int16_t>(gAuthenticationFailureX + 140),
-        static_cast<std::int16_t>(gAuthenticationFailureY + 20),
+        static_cast<std::int16_t>(textX),
+        static_cast<std::int16_t>(textY),
         2,
         6,
         kAuthenticationFailedText,
         0);
+    const std::int32_t graphicWidth = gAuthenticationFailureWidth;
+    const std::int32_t graphicYOrigin = gAuthenticationFailureY;
+    const std::int32_t imageNo = hovered ? 243050 : 243048;
+    const std::int32_t graphicXOrigin = gAuthenticationFailureX;
+    const std::int32_t graphicHalfWidth = graphicWidth >> 1;
+    const std::int32_t graphicY = graphicYOrigin + 123;
+    const std::int32_t graphicX = graphicHalfWidth + graphicXOrigin;
     login::detail::DrawGraphic(
-        gAuthenticationFailureX + gAuthenticationFailureWidth / 2,
-        gAuthenticationFailureY + 123,
+        graphicX,
+        graphicY,
         std::uint8_t{0xDF},
-        hovered ? 243050 : 243048,
+        imageNo,
         0,
         &graphicDescriptor);
     return result;

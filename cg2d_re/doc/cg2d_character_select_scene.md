@@ -2436,3 +2436,11 @@ needle分别为2000与814000，不转码、按token拆分或改成其他空白�
 ready后先取rows和y再算textY；扫描原静态文本后才取columns，算(columns*8-length)*8，最后取x／算textX，两最终S16保。该读序与列表进度先columns后strlen不同，保各自原算法。轮询非零一次取action，非空才MarkDeath／清槽；原11B字节／静态寿命、Reset／入口W16／创建后重读／启动后现场++与轮询早退、观察者及其它正文保持，删除请求／回复／dispatcher和人物父不改。
 
 原完整102条325B／两页、六直接／六目标、7跳转／两RET，唯一460FF0@46132A；新F:0005DC00／映射1592纳管，邻接11B真实NOP仅原对齐用途。原普通显示值正确，本步恢复真实算法，不声称运行故障，不代完整父／六依赖、消费寿命／机器ABI或运行。
+
+## 认证失败提示取样更新（BSN01，2026-10-07）
+
+按[BSN01裁决](cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-decision)，初次创建用原64／168／512／144／4／1参数，所有原字段发布保；命中按width→x→减66→y一次取样→left→bottom→top→right，不在实参中重复取y。Play51后单取非拥有action，复用非空判断／MarkDeath／清槽，空指针仍结果1早退。
+
+ready后文字y→x取样，依次加20／140并保持两S16；文字提交后图像重新取width→y→图号→x，再原SAR1／y+123／halfWidth+x。原hover、243048／243050、低W8 DF和同16B descriptor保持，不合并跨调用样本。提示55C5E8原正文14B＋NUL15B已逐字节对齐，撤未证CP950名称和陈旧地址注释，不猜来源编码；Reset、15B静态寿命／其他正文及父依赖不改。
+
+原完整113条413B／两页、7直接／7目标、6跳转／两RET，唯一460FF0@46140C；新F:0005D7E0／映射1593纳管，邻接3B真实NOP仅对齐用途。原普通值正确，不称运行故障；局部不代完整人物父／七依赖、输入渲染消费／寿命、机器ABI或运行。

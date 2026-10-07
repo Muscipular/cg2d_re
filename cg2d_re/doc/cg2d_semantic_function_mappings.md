@@ -3318,3 +3318,9 @@ CHARACTER6→7，语义1592有效1585／文档1703／3680（46.28%）／727处�
 新增1592对应真实F:0005DC00／UpdateCharacterDeletionProgress_45DC00，保现S32接口，不造未变Reset／私有布局或块内F。见[基线](cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-baseline)：完整102条325B／两页、六直接／六目标，唯一460FF0@46132A；原55ABE8只读文本10B＋NUL已逐字节取证。六片段撤固定长度／坐标，恢复U32×9／stage发布／逻辑右移、原S32创建与rows-y-length-columns-x绘制阶段及非空才清槽。
 
 CHARACTER7→8，语义1593有效1586／文档1704／3680（46.30%）／728处置／E846；单11B原NOP用途使R7 298→299余2762。冻结定位／pending18／差队列及所有完整门禁保，局部不代完整人物父／依赖、正常消费寿命／机器ABI或运行。
+
+## BSN01 认证失败提示（2026-10-07）
+
+新增1593对应真实F:0005D7E0／UpdateAuthenticationFailure_45D7E0，保现S32接口，不造Reset／descriptor／内部块F。见[基线](cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-baseline)：完整113条413B／两页、7直接／7目标，唯一460FF0@46140C；原55C5E8十五字节和descriptor初始化已核。六片段恢复原常量创建、命中／声音后单对象／文字图像独立字段阶段及SAR，撤未证编码标签，原普通值和其它整源保持。
+
+CHARACTER8→9，语义1594有效1587／文档1705／3680（46.33%）／729处置／E848；单3B原对齐用途使R7 299→300余2761。冻结定位／pending18／差队列与全部完整门禁保，局部不代完整父、七依赖、正常消费寿命／机器ABI或运行。

@@ -1566,3 +1566,13 @@ U10/V03/R04 current/引用保持open，原pending18/pending7/closed11与完整�
 ### BTY01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：YobiRuntime/SceneState/WorldDeps三完整源仅五片段变化，三BYTE取样与一新Byte定义/声明、私有玩家owner边界、既有Word及正确category W16/flags114和主flags W32、所有其它正文保持。复用466条1483B原档七段逐字段与AAS01冻结来源一致，十三宽度锚、唯一callback绑定、实际5B NN_NOP用途、所有证据前态/完整机器/五文档/三任务模型、十五文件UTF8无BOM/LF和四局部I-S各25引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813、LOOP84/MAP81均保持，E936、R7已审381/余2680；既有1297完善，无新语义/F。原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要，整回调/父/callee/正常owner-alias寿命/数值/机器ABI与运行R8继续。
+
+## BTZ01 玩家坐标生产消费开发验收（2026-10-08）
+
+[基线](cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline)、[裁决](cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision)、[验收](cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance)及[证据](cg2d_player_move_coordinate_sampling_evidence.json)覆盖235条969B/三局部窗口、两正文四片段、原各轴三预取/pub与到格/计数/MIS合同及7B用途。LOOP84→86/MAP81→83各两局部I-S各25真实来源，仅本步静态。
+
+三任务current/引用继续open，原pending/差队列/closed11/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；全部父/callee/正常owner-alias寿命/数值/机器ABI/画面/明文互通及运行R8未验，不以两根原指令归档代完整链验收。
+
+### BTZ01 集中静态与汇总实值（2026-10-08）
+
+集中静态通过：完整SceneState仅两正文四预取/pub片段变化，snapshotX encoded-first/snapshotY count-first及到格两轴mask-first次序、各两构造/两销毁、RNG和X完整寿命后fresh Y保；全部其它数值/字段/方向/计数/原MIS70与明文接口语句保持。两根四归档段235条969B/三局部窗口/两实际尾区7B、证据全部字段与跨日记录、完整机器/五文档/三任务模型、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1674/有效1667、文档1785（48.51%）、处置815/E940、R7已审383/余2678、LOOP86/MAP83；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整父/callee/全部正常owner-alias寿命/数值/机器ABI/明文互通及运行R8继续。

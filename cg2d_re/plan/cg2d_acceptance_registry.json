@@ -616,7 +616,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
         "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
-        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-baseline"
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -702,7 +703,9 @@
         "F:00042730",
         "F:000428F0",
         "F:0003E490",
-        "F:0003EFC0"
+        "F:0003EFC0",
+        "F:0006A410",
+        "F:0006A700"
       ],
       "closure_task_ids": [
         "U11",
@@ -748,7 +751,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
         "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
-        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision"
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -785,7 +789,8 @@
         "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
         "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
         "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
-        "BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。"
+        "BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。",
+        "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -823,7 +828,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
         "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
-        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state"
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state"
       ]
     },
     {
@@ -1572,7 +1578,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
         "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
-        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-baseline"
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1655,7 +1662,9 @@
         "F:00042730",
         "F:000428F0",
         "F:0003E490",
-        "F:0003EFC0"
+        "F:0003EFC0",
+        "F:0006A410",
+        "F:0006A700"
       ],
       "closure_task_ids": [
         "U11",
@@ -1697,7 +1706,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
         "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
-        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision"
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1730,7 +1740,8 @@
         "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
         "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
         "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
-        "BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。"
+        "BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。",
+        "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1764,7 +1775,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
         "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
-        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state"
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state"
       ]
     },
     {
@@ -40712,6 +40724,194 @@
       "observation": "BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。",
       "expected": "BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。",
       "actual": "BTY01复用AAS01冻结完整4417E0回调466条1483B/七归档段及唯一441DEA type1真实绑定，只推进三处W8读取缺口，不重验已过附件/整数左比或正确441DB0。三源五片段：Yobi既有回调恢复原FDA88E单BYTE/flags120低BYTE/flags42高BYTE，Scene新增ReadPlayerActionFlagsByte从现flags18C第2字节单读，既有W16接口完整保持，WorldDeps补声明。新增具名边界helper1/新owner0，不虚构原F或新语义，既有1297扩充来源/基线/局部元数据。原category W16、flags114完整W32单读及主flags完整W32读取/TEST AH4/读改写低位后完整W32发布保持，不能因AH/AL操作窄化整个载荷；玩家指针取样、早退/阶段与移动/短路/倍率动画/借用附件/删除/末端泡泡序及所有其它源保。唯一实际X5B NN_NOP只用途。LOOP84/MAP81成员不增/完整叶门禁保，四局部I-S各25真实来源；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保。全部回调/父/callee/正常owner-alias寿命/数值/机器ABI/画面与运行R8仍未验。"
+    },
+    {
+      "id": "E-PLAYER-MOVE-COORDINATE-SAMPLING-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTZ01两完整根235条969B/四归档页、32call/15jump/3RET/3两父局部窗口，玩家目标各轴不同预取与到格mask-first/原MIS70及7B用途，doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-move-coordinate-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_46A410",
+        "src/world/SceneState.cpp#Sub_46A700",
+        "src/platform/MapEffectMath.asm",
+        "src/platform/MapEffectMath.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/YobiRuntime.cpp#Sub_46A190",
+        "src/YobiRuntime.cpp#Sub_46A5F0",
+        "src/YobiRuntime.cpp#BeginMapActorPhase2",
+        "src/network/NetworkRuntime.cpp#Sub_511DD0",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+          "decision_ref": "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "expected": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "actual": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
+    },
+    {
+      "id": "E-PLAYER-MOVE-COORDINATE-SAMPLING-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTZ01两完整根235条969B/四归档页、32call/15jump/3RET/3两父局部窗口，玩家目标各轴不同预取与到格mask-first/原MIS70及7B用途，doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-move-coordinate-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_46A410",
+        "src/world/SceneState.cpp#Sub_46A700",
+        "src/platform/MapEffectMath.asm",
+        "src/platform/MapEffectMath.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/YobiRuntime.cpp#Sub_46A190",
+        "src/YobiRuntime.cpp#Sub_46A5F0",
+        "src/YobiRuntime.cpp#BeginMapActorPhase2",
+        "src/network/NetworkRuntime.cpp#Sub_511DD0",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+          "decision_ref": "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "expected": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "actual": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
+    },
+    {
+      "id": "E-PLAYER-MOVE-COORDINATE-SAMPLING-FUNC-MAP-I-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTZ01两完整根235条969B/四归档页、32call/15jump/3RET/3两父局部窗口，玩家目标各轴不同预取与到格mask-first/原MIS70及7B用途，doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-move-coordinate-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_46A410",
+        "src/world/SceneState.cpp#Sub_46A700",
+        "src/platform/MapEffectMath.asm",
+        "src/platform/MapEffectMath.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/YobiRuntime.cpp#Sub_46A190",
+        "src/YobiRuntime.cpp#Sub_46A5F0",
+        "src/YobiRuntime.cpp#BeginMapActorPhase2",
+        "src/network/NetworkRuntime.cpp#Sub_511DD0",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+          "decision_ref": "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "expected": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "actual": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
+    },
+    {
+      "id": "E-PLAYER-MOVE-COORDINATE-SAMPLING-FUNC-MAP-S-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTZ01两完整根235条969B/四归档页、32call/15jump/3RET/3两父局部窗口，玩家目标各轴不同预取与到格mask-first/原MIS70及7B用途，doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-move-coordinate-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_46A410",
+        "src/world/SceneState.cpp#Sub_46A700",
+        "src/platform/MapEffectMath.asm",
+        "src/platform/MapEffectMath.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/YobiRuntime.cpp#Sub_46A190",
+        "src/YobiRuntime.cpp#Sub_46A5F0",
+        "src/YobiRuntime.cpp#BeginMapActorPhase2",
+        "src/network/NetworkRuntime.cpp#Sub_511DD0",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+          "decision_ref": "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "expected": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "actual": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
     }
   ],
   "task_acceptance": [
@@ -41193,7 +41393,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
         "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
-        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state"
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state"
       ]
     },
     {
@@ -41257,7 +41458,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
         "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
-        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state"
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state"
       ]
     },
     {
@@ -41796,7 +41998,8 @@
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
         "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
         "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
-        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state"
+        "doc/cg2d_actor_update_byte_reads_spec.md#actor-update-byte-reads-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state"
       ]
     },
     {
@@ -51765,6 +51968,32 @@
         "doc/cg2d_actor_phase_effect_creation_evidence.json"
       ],
       "boundary": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0006A410",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+      ],
+      "boundary": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
+    },
+    {
+      "inventory_id": "F:0006A700",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+      ],
+      "boundary": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
     }
   ],
   "auxiliary_dispositions": [
@@ -68740,6 +68969,98 @@
         },
         {
           "ea": "0x441daf",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0006A59B-0006A5A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+      ],
+      "reason": "BTZ01两玩家移动根尾区5/2共7B逐地址90/NN_NOP、无入向/后真入口，仅对齐用途，不新F或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 5,
+      "original_bytes": "9090909090",
+      "original_decode": [
+        {
+          "ea": "0x46a59b",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46a59c",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46a59d",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46a59e",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46a59f",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0006A93E-0006A940",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+      ],
+      "reason": "BTZ01两玩家移动根尾区5/2共7B逐地址90/NN_NOP、无入向/后真入口，仅对齐用途，不新F或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 2,
+      "original_bytes": "9090",
+      "original_decode": [
+        {
+          "ea": "0x46a93e",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46a93f",
           "size": 1,
           "bytes": "90",
           "mnemonic": "",

@@ -3690,3 +3690,17 @@ BTX01已提交，本步沿4417E0既有1297身份的未覆盖读宽缺口推进�
 ### BTY01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：YobiRuntime/SceneState/WorldDeps三完整源仅五片段变化，三BYTE取样与一新Byte定义/声明、私有玩家owner边界、既有Word及正确category W16/flags114和主flags W32、所有其它正文保持。复用466条1483B原档七段逐字段与AAS01冻结来源一致，十三宽度锚、唯一callback绑定、实际5B NN_NOP用途、所有证据前态/完整机器/五文档/三任务模型、十五文件UTF8无BOM/LF和四局部I-S各25引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813、LOOP84/MAP81均保持，E936、R7已审381/余2680；既有1297完善，无新语义/F。原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要，整回调/父/callee/正常owner-alias寿命/数值/机器ABI与运行R8继续。
+
+## BTZ01 玩家目标快照/到格回写四处预取实修（2026-10-08）
+
+BTY01已提交，本步沿移动调度的真实玩家生产消费链核46A410/46A700两完整根235条969B/四归档页两块、32call/15jump/3RET及3入向两父局部窗口。原端取证/初稿于7日，跨日实施和验收记8日，最终命名快照用20261008。两调度根已有末项前视未消费读省略裁决，正文保持，不改五槽/造第六槽或异常模拟；本步不把父或全链视为已验。
+
+确认两根四处临时取样差异：原首pub前已取齐三值，现逐项边读边pub。先落[子SPEC](../doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision)，只修Scene两既有正文四片段：46A410 snapshotX encoded W32→mask W32→count W8，snapshotY count W8→encoded W32→mask W32；46A700 arrivalX/Y mask W32→encoded W32→count W8，先三const预取再同序pub/Destroy。无新lambda/helper/声明/owner/布局，原各两构造/两销毁/RNG和X完整寿命后才fresh Y保。
+
+所有数值叶/表达式/target-world浮点落点、两次动态倍率/持有scaled步及fresh世界坐标加法、idle与移动动画/投影/方向W16保持。到格先gridX求值再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/Construct；Y从fresh已发布worldY求值。value174普通S32>0才减，减到0同玩家非空后phase2→payload counter48=0→snapshotY-X→socket→原MIS70保持，网络原格式/明文接口不改。原64/0/4/0.01/1/64 F32证据复用，不猜初值或称数值运行通过。两现void局部观察具名适配，3窗口后下一call/循环尾，不外推全上游弃返。
+
+两尾区5/2共7B逐地址90/NN_NOP、无入向/后真入口只用途。新1672-1673/adapted/两真实F、LOOP84→86/MAP81→83各两局部I-S各25来源/两R7；预期语义1674/有效1667、文档1785（48.51%）、处置815/E940、R7 383余2678，集中静态/汇总后追加实值。三任务仅current/引用仍open、原pending18/ECX pending7/closed11/差队列及完整门禁保；网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，全正常生产消费与寿命、完整父/callee/数值/机器ABI/链接/画面/明文互通及运行R8继续。
+
+### BTZ01 集中静态与汇总实值（2026-10-08）
+
+集中静态通过：完整SceneState仅两正文四预取/pub片段变化，snapshotX encoded-first/snapshotY count-first及到格两轴mask-first次序、各两构造/两销毁、RNG和X完整寿命后fresh Y保；全部其它数值/字段/方向/计数/原MIS70与明文接口语句保持。两根四归档段235条969B/三局部窗口/两实际尾区7B、证据全部字段与跨日记录、完整机器/五文档/三任务模型、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1674/有效1667、文档1785（48.51%）、处置815/E940、R7已审383/余2678、LOOP86/MAP83；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整父/callee/全部正常owner-alias寿命/数值/机器ABI/明文互通及运行R8继续。

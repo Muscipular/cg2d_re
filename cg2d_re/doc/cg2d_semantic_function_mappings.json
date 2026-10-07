@@ -191616,6 +191616,156 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x46A410",
+      "inventory_id": "F:0006A410",
+      "original_role": "按X/Y各自原临时取样次序发布玩家目标快照，再计算移动步与方向/同步",
+      "original_end_exclusive": "0x46a59b",
+      "original_chunks": [
+        [
+          "0x46a410",
+          "0x46a59b"
+        ]
+      ],
+      "instruction_count": 99,
+      "status": "BTZ01两完整玩家移动根235条969B，两正文四片段恢复snapshotX encoded-first/snapshotY count-first及到格两轴mask-first三预取/pub；原数值/字段/MIS/RNG序及现void局部观察保，完整父/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46A410"
+          ],
+          "relationship": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+      ],
+      "boundary": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "verification_level": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "player_move_coordinate_sampling": {
+        "spec_id": "BTZ01",
+        "evidence_refs": [
+          "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+          "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+          "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+          "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+          "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 99,
+        "original_code_bytes": 395,
+        "original_page_count": 2,
+        "original_direct_call_count": 10,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 6,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "original_axis_specific_coordinate_orders": {
+          "X": "encoded-mask-readCount",
+          "Y": "readCount-encoded-mask"
+        },
+        "original_three_preloads_before_publication_restored": true,
+        "original_ctor_dtor_rng_count_and_x_lifetime_before_fresh_y_kept": true,
+        "original_numeric_leafs_expressions_float_landings_and_world_sequence_kept": true,
+        "original_arrival_publish_clear_word_marker_before_ftol_and_counter_phase2_snapshot_socket_mis70_kept": true,
+        "original_network_format_and_plaintext_interface_kept": true,
+        "original_idle_animation_projection_and_direction_word_sample_kept": true,
+        "original_void_local_caller_observation_adaptation_decided": true,
+        "original_caller_observation_decision_ref": "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46A700",
+      "inventory_id": "F:0006A700",
+      "original_role": "原玩家移动/到格/计数与MIS70消费，到格两轴mask-first临时预取后发布格坐标",
+      "original_end_exclusive": "0x46a93e",
+      "original_chunks": [
+        [
+          "0x46a700",
+          "0x46a93e"
+        ]
+      ],
+      "instruction_count": 136,
+      "status": "BTZ01两完整玩家移动根235条969B，两正文四片段恢复snapshotX encoded-first/snapshotY count-first及到格两轴mask-first三预取/pub；原数值/字段/MIS/RNG序及现void局部观察保，完整父/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46A700"
+          ],
+          "relationship": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+        "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+        "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+      ],
+      "boundary": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "verification_level": "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
+      "player_move_coordinate_sampling": {
+        "spec_id": "BTZ01",
+        "evidence_refs": [
+          "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
+          "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+          "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-acceptance",
+          "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
+          "doc/cg2d_player_move_coordinate_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 136,
+        "original_code_bytes": 574,
+        "original_page_count": 2,
+        "original_direct_call_count": 22,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 9,
+        "original_return_count": 2,
+        "original_inbound_call_count": 2,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "original_axis_specific_coordinate_orders": {
+          "X": "mask-encoded-readCount",
+          "Y": "mask-encoded-readCount"
+        },
+        "original_three_preloads_before_publication_restored": true,
+        "original_ctor_dtor_rng_count_and_x_lifetime_before_fresh_y_kept": true,
+        "original_numeric_leafs_expressions_float_landings_and_world_sequence_kept": true,
+        "original_arrival_publish_clear_word_marker_before_ftol_and_counter_phase2_snapshot_socket_mis70_kept": true,
+        "original_network_format_and_plaintext_interface_kept": true,
+        "original_idle_animation_projection_and_direction_word_sample_kept": true,
+        "original_void_local_caller_observation_adaptation_decided": true,
+        "original_caller_observation_decision_ref": "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

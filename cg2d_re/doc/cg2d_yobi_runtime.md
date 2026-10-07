@@ -4485,3 +4485,13 @@ AreMapActorTargetsAdjacent四对独立current→previous显式取样、符号条
 ### BTY01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：YobiRuntime/SceneState/WorldDeps三完整源仅五片段变化，三BYTE取样与一新Byte定义/声明、私有玩家owner边界、既有Word及正确category W16/flags114和主flags W32、所有其它正文保持。复用466条1483B原档七段逐字段与AAS01冻结来源一致，十三宽度锚、唯一callback绑定、实际5B NN_NOP用途、所有证据前态/完整机器/五文档/三任务模型、十五文件UTF8无BOM/LF和四局部I-S各25引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813、LOOP84/MAP81均保持，E936、R7已审381/余2680；既有1297完善，无新语义/F。原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要，整回调/父/callee/正常owner-alias寿命/数值/机器ABI与运行R8继续。
+
+## 玩家移动生产消费接线（BTZ01，2026-10-08）
+
+按[裁决](cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision)，Scene两玩家入口四片段恢复各轴原三预取/同序pub，实际235条969B/3局部窗口有据。46A190分支到46A410后首点移除，后轮46A700；469FC0到46A700后下一46A940。本步只登记两玩家根、Yobi两调度正文保持，既有末项前视丢弃裁决不扩成第六槽或异常模拟。
+
+原玩家target/world/动态倍率浮点落点、方向/同步、到格pub/清步/W16标志/ftol、同玩家phase2→counter48→snapshotY-X→socket→MIS70和末方向W16保持；原调用网络格式与明文接口不改。两现void局部观察具名适配，完整父/数值/生命周期/机器ABI及运行未验；四I-S只本步静态。
+
+### BTZ01 集中静态与汇总实值（2026-10-08）
+
+集中静态通过：完整SceneState仅两正文四预取/pub片段变化，snapshotX encoded-first/snapshotY count-first及到格两轴mask-first次序、各两构造/两销毁、RNG和X完整寿命后fresh Y保；全部其它数值/字段/方向/计数/原MIS70与明文接口语句保持。两根四归档段235条969B/三局部窗口/两实际尾区7B、证据全部字段与跨日记录、完整机器/五文档/三任务模型、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1674/有效1667、文档1785（48.51%）、处置815/E940、R7已审383/余2678、LOOP86/MAP83；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整父/callee/全部正常owner-alias寿命/数值/机器ABI/明文互通及运行R8继续。

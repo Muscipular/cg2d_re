@@ -9669,14 +9669,20 @@ void Sub_46A410(
 {
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
-    gPlayerSnapshotX.encoded = temporary.encoded;
-    gPlayerSnapshotX.mask = temporary.mask;
-    gPlayerSnapshotX.readCount = temporary.readCount;
+    const std::uint32_t encodedX = temporary.encoded;
+    const std::uint32_t maskX = temporary.mask;
+    const std::uint8_t readCountX = temporary.readCount;
+    gPlayerSnapshotX.encoded = encodedX;
+    gPlayerSnapshotX.mask = maskX;
+    gPlayerSnapshotX.readCount = readCountX;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
-    gPlayerSnapshotY.readCount = temporary.readCount;
-    gPlayerSnapshotY.encoded = temporary.encoded;
-    gPlayerSnapshotY.mask = temporary.mask;
+    const std::uint8_t readCountY = temporary.readCount;
+    const std::uint32_t encodedY = temporary.encoded;
+    const std::uint32_t maskY = temporary.mask;
+    gPlayerSnapshotY.readCount = readCountY;
+    gPlayerSnapshotY.encoded = encodedY;
+    gPlayerSnapshotY.mask = maskY;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
     const std::int32_t pixelX =
@@ -9774,18 +9780,24 @@ void Sub_46A700()
         platform::LegacyCryptInt temporary;
         const auto x = static_cast<std::int32_t>(static_cast<std::int64_t>(gridX));
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
-        gPlayerX.mask = temporary.mask;
-        gPlayerX.encoded = temporary.encoded;
-        gPlayerX.readCount = temporary.readCount;
+        const std::uint32_t maskX = temporary.mask;
+        const std::uint32_t encodedX = temporary.encoded;
+        const std::uint8_t readCountX = temporary.readCount;
+        gPlayerX.mask = maskX;
+        gPlayerX.encoded = encodedX;
+        gPlayerX.readCount = readCountX;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
         const std::uint32_t currentYBits = gWorldCurrentYBits;
         const auto y = static_cast<std::int32_t>(static_cast<std::int64_t>(
             static_cast<double>(std::bit_cast<float>(currentYBits)) * 0.015625F));
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
-        gPlayerY.mask = temporary.mask;
-        gPlayerY.encoded = temporary.encoded;
-        gPlayerY.readCount = temporary.readCount;
+        const std::uint32_t maskY = temporary.mask;
+        const std::uint32_t encodedY = temporary.encoded;
+        const std::uint8_t readCountY = temporary.readCount;
+        gPlayerY.mask = maskY;
+        gPlayerY.encoded = encodedY;
+        gPlayerY.readCount = readCountY;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
         const std::int32_t count = gPlayerRuntime.value174;

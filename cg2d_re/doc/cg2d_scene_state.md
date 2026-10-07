@@ -7715,3 +7715,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 按[BTC01裁决](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision)实修WorldUpdate.cpp内Sub_455C90八片段：入口或创建返回一次native非拥有action供NULL/GE1；命中height/width/y/x取样与真SAR1；三次测宽后新鲜宽/y/x、复用原错误分支样本及两路算术顺序；图像y/width/图号/算y/x及真SAR1。点击保现场另取槽、无附加保护、标死/清槽后继续画；row一次、文本半宽向零/2保。
 
 完整248条815B／四页、18direct十目标／八jump两RET，WorldUpdate51C6C4唯一消费；六存储32直接引用、四原正文/NUL、原%d未清256B及完整16B描述符保持。原默认布局此前正确，不称实测画面错误。1076全部格式字段/入向/role/source保后追加，LOOP33→34、两局部I-S各25来源，单1B真NOP只记原对齐用途；完整父/十依赖/间接别名和正常寿命/ABI/运行未验。
+
+## 场景7退出请求取样与完整消费链（BTD01，2026-10-07）
+
+按[BTD01裁决](cg2d_logout_progress_sampling_spec.md#logout-progress-decision)实修SceneState.cpp的Sub_45ED90三片段：原U32长度九倍后发布阶段1/再列数及四布局原交错运算写序；非零轮询后一次native action供NULL与标死并保清槽；横宽先算再取x、向零半宽/W16坐标。ready另现场action/GE1、W16 reply2、同帧启动而下帧轮询、所有非零含-1/-2和两次字节strlen、可写8B六字节正文保。
+
+父45EBB0/过渡45EEE0/重置45ED80整体现有正文保持；原0/1/2及100-101/200-201保存/清理/三提示/明文断网与返回，U32 tick→F64/窗口与音频调用原序保。四完整根267条961B/六页、32direct二十三目标+一Tick导入/29jump六RET，World51C62D→父→三叶；六槽17引用/文本3引用支持现owner但不代间接别名/全部正常寿命。四X合15B真实NOP只记对齐，LOOP34→38及两局部I-S各29来源，全部完整父/依赖/ABI/运行未验。

@@ -1418,3 +1418,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline)、[裁决](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision)、[验收](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-acceptance)及[原证据](cg2d_disconnect_dialog_sampling_evidence.json)对应既有1076完整根追加／无新语义、一源八片段／一业务体、LOOP一个真实成员与adapted处置、两局部I-S各25实际来源及单1B对齐用途。U11／V03／R04仅推进当前进展及引用，保open；P05/P08原closed、原ECX未知/pending7与所有完整门禁保。
 
 入口同action样本供NULL/GE1、点击另取槽、命中和图像真实SAR、三文字测宽后现场样本及原两分支运算序均落实；四正文/%d/未清256B/row一次/文本向零半宽/16B descriptor与音频调用保持。完整248条、唯一World消费与32存储直接引用只证本步边界；完整父/十依赖/间接别名与正常寿命/ABI/链接/画面/明文互通及运行R8继续。集中静态和派生结果随唯一进度追加。
+
+## BTD01 场景7退出请求开发验收（2026-10-07）
+
+[基线](cg2d_logout_progress_sampling_spec.md#logout-progress-baseline)、[裁决](cg2d_logout_progress_sampling_spec.md#logout-progress-decision)、[验收](cg2d_logout_progress_sampling_spec.md#logout-progress-acceptance)及[原证据](cg2d_logout_progress_sampling_evidence.json)对应一源三片段／一实修业务体，四原根完整基线/四语义/LOOP四成员和四处置（进度adapted，其余equivalent），两局部I-S各29实际来源以及四范围15B原NOP用途。U11/V03/R04只进展与引用，保open；P05/P08原closed及原ECX未知/pending7保。
+
+原初始化阶段发布/布局运算写序、轮询后单对象样本和横宽算术→现场x落实；原两次字节长度/六正文8B区、三15/15/97B提示、六槽17与文案3引用、GE1/负返回/普通阶段/同帧启动、父保存/失败维护消息及清理/明文断网、过渡tick/音频调用保。267完整指令及真实消费只证本步范围，不代全部父/二十三provider/间接别名/正常资源寿命/ABI/链接/画面/主地图-退出往返及运行R8；集中静态和派生结果随唯一进度追加。

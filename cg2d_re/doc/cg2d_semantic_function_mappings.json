@@ -186924,6 +186924,250 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45EBB0",
+      "inventory_id": "F:0005EBB0",
+      "original_role": "场景7退出控制器",
+      "original_end_exclusive": "0x45ed7e",
+      "instruction_count": 123,
+      "status": "BTD01四完整场景7根/真实World父消费；仅请求进度三片段实修，其它三体保持。正常源码局部静态，所有provider/寿命/ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_45EBB0"
+          ],
+          "relationship": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-baseline",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-decision",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-acceptance",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+        "doc/cg2d_logout_progress_sampling_evidence.json"
+      ],
+      "boundary": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
+      "verification_level": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
+      "logout_progress_sampling": {
+        "spec_id": "BTD01",
+        "evidence_refs": [
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-baseline",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-decision",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-acceptance",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+          "doc/cg2d_logout_progress_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 123,
+        "original_code_bytes": 462,
+        "original_page_count": 2,
+        "original_direct_call_count": 20,
+        "original_unique_callee_count": 11,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_changed_existing_original_function_count": 0,
+        "source_initial_width_phase_publication_and_layout_write_order_restored": false,
+        "source_nonzero_poll_one_action_sample_for_null_and_mark_death_restored": false,
+        "source_horizontal_width_before_fresh_x_sample_restored": false,
+        "original_parent_reset_and_transition_bodies_kept": true,
+        "original_stage_w32_and_same_frame_start_but_later_poll_kept": true,
+        "original_two_byte_lengths_mutable_eight_byte_text_and_six_native_stores_kept": true,
+        "original_four_texts_and_parent_failure_maintenance_message_routes_kept": true,
+        "original_ge1_poll_signed_returns_and_clear_order_kept": true,
+        "original_audio_callers_and_plain_protocol_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x45ED90",
+      "inventory_id": "F:0005ED90",
+      "original_role": "场景7退出请求进度窗口",
+      "original_end_exclusive": "0x45eeda",
+      "instruction_count": 104,
+      "status": "BTD01四完整场景7根/真实World父消费；仅请求进度三片段实修，其它三体保持。正常源码局部静态，所有provider/寿命/ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_45ED90"
+          ],
+          "relationship": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-baseline",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-decision",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-acceptance",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+        "doc/cg2d_logout_progress_sampling_evidence.json"
+      ],
+      "boundary": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
+      "verification_level": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
+      "logout_progress_sampling": {
+        "spec_id": "BTD01",
+        "evidence_refs": [
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-baseline",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-decision",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-acceptance",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+          "doc/cg2d_logout_progress_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 104,
+        "original_code_bytes": 330,
+        "original_page_count": 2,
+        "original_direct_call_count": 6,
+        "original_unique_callee_count": 6,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_changed_existing_original_function_count": 1,
+        "source_initial_width_phase_publication_and_layout_write_order_restored": true,
+        "source_nonzero_poll_one_action_sample_for_null_and_mark_death_restored": true,
+        "source_horizontal_width_before_fresh_x_sample_restored": true,
+        "original_parent_reset_and_transition_bodies_kept": true,
+        "original_stage_w32_and_same_frame_start_but_later_poll_kept": true,
+        "original_two_byte_lengths_mutable_eight_byte_text_and_six_native_stores_kept": true,
+        "original_four_texts_and_parent_failure_maintenance_message_routes_kept": true,
+        "original_ge1_poll_signed_returns_and_clear_order_kept": true,
+        "original_audio_callers_and_plain_protocol_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x45EEE0",
+      "inventory_id": "F:0005EEE0",
+      "original_role": "场景7退出过渡初始化与完成判断",
+      "original_end_exclusive": "0x45ef7e",
+      "instruction_count": 38,
+      "status": "BTD01四完整场景7根/真实World父消费；仅请求进度三片段实修，其它三体保持。正常源码局部静态，所有provider/寿命/ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_45EEE0"
+          ],
+          "relationship": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-baseline",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-decision",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-acceptance",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+        "doc/cg2d_logout_progress_sampling_evidence.json"
+      ],
+      "boundary": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
+      "verification_level": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
+      "logout_progress_sampling": {
+        "spec_id": "BTD01",
+        "evidence_refs": [
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-baseline",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-decision",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-acceptance",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+          "doc/cg2d_logout_progress_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 38,
+        "original_code_bytes": 158,
+        "original_page_count": 1,
+        "original_direct_call_count": 6,
+        "original_unique_callee_count": 6,
+        "original_indirect_call_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_changed_existing_original_function_count": 0,
+        "source_initial_width_phase_publication_and_layout_write_order_restored": false,
+        "source_nonzero_poll_one_action_sample_for_null_and_mark_death_restored": false,
+        "source_horizontal_width_before_fresh_x_sample_restored": false,
+        "original_parent_reset_and_transition_bodies_kept": true,
+        "original_stage_w32_and_same_frame_start_but_later_poll_kept": true,
+        "original_two_byte_lengths_mutable_eight_byte_text_and_six_native_stores_kept": true,
+        "original_four_texts_and_parent_failure_maintenance_message_routes_kept": true,
+        "original_ge1_poll_signed_returns_and_clear_order_kept": true,
+        "original_audio_callers_and_plain_protocol_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x45ED80",
+      "inventory_id": "F:0005ED80",
+      "original_role": "场景7退出请求阶段重置",
+      "original_end_exclusive": "0x45ed8b",
+      "instruction_count": 2,
+      "status": "BTD01四完整场景7根/真实World父消费；仅请求进度三片段实修，其它三体保持。正常源码局部静态，所有provider/寿命/ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_45ED80"
+          ],
+          "relationship": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-baseline",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-decision",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-acceptance",
+        "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+        "doc/cg2d_logout_progress_sampling_evidence.json"
+      ],
+      "boundary": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
+      "verification_level": "BTD01场景7父/退出请求进度/过渡/重置四完整根267条961B/六页，32direct二十三目标及一GetTick导入、29jump六RET；WorldUpdate51C62D→父45EBB0→三叶真实消费。SceneState.cpp一业务体三片段恢复初始化长度九倍→阶段发布→列数/四布局原运算写序、轮询非零后一次native action供NULL与MarkDeath及清槽、横宽先算再现场x/向零半宽。原两次strlen/可写8B原正文、普通U32阶段与S32几何、ready现场样本/GE1、同帧启动而不轮询、W16 reply2/全部非零含负返回/父100-101与200-201提示和保存/清理/明文断网/正常状态及音频调用保持。四原文本/六状态布局与action直接引用、四X共15B真NOP仅原用途；完整所有父/二十三依赖/间接别名与正常寿命/ABI/链接/运行未验",
+      "logout_progress_sampling": {
+        "spec_id": "BTD01",
+        "evidence_refs": [
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-baseline",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-decision",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-acceptance",
+          "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
+          "doc/cg2d_logout_progress_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 11,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_changed_existing_original_function_count": 0,
+        "source_initial_width_phase_publication_and_layout_write_order_restored": false,
+        "source_nonzero_poll_one_action_sample_for_null_and_mark_death_restored": false,
+        "source_horizontal_width_before_fresh_x_sample_restored": false,
+        "original_parent_reset_and_transition_bodies_kept": true,
+        "original_stage_w32_and_same_frame_start_but_later_poll_kept": true,
+        "original_two_byte_lengths_mutable_eight_byte_text_and_six_native_stores_kept": true,
+        "original_four_texts_and_parent_failure_maintenance_message_routes_kept": true,
+        "original_ge1_poll_signed_returns_and_clear_order_kept": true,
+        "original_audio_callers_and_plain_protocol_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

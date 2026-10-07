@@ -11863,16 +11863,20 @@ std::int32_t Sub_45ED90()
     if (gValue9A6204 == 0) {
         const std::uint32_t textLength =
             static_cast<std::uint32_t>(std::strlen(gText55BAE0));
-        const std::int32_t columns = static_cast<std::int32_t>(
-            ((textLength * 9U) >> 6) + 2U);
+        const std::uint32_t initialTextWidth = textLength * 9U;
         gValue9A6204 = 1;
+        const std::int32_t columns =
+            static_cast<std::int32_t>((initialTextWidth >> 6) + 2U);
         gValue9A5674 = 2;
+        const std::int32_t columnDelta = 10 - columns;
         gValue9A594C = columns;
-        const std::int32_t left = ((10 - columns) * 64) / 2;
+        const std::int32_t initialXWidth = columnDelta * 64;
         gValue9A61F8 = 192;
+        const std::int32_t actionWidth = columns * 64;
+        const std::int32_t left = initialXWidth / 2;
         gValue9A5AC0 = left;
         gAction9A6E98 = login::detail::Sub_5044E0(
-            left, 192, columns * 64, 96, 4, 1);
+            left, 192, actionWidth, 96, 4, 1);
     }
 
     const std::uint32_t phase = gValue9A6204;
@@ -11884,8 +11888,9 @@ std::int32_t Sub_45ED90()
     } else if (phase == 2) {
         result = login::detail::Sub_508C90();
         if (result != 0) {
-            if (gAction9A6E98 != nullptr) {
-                login::detail::MarkDeath(gAction9A6E98);
+            login::YobiAction* const action = gAction9A6E98;
+            if (action != nullptr) {
+                login::detail::MarkDeath(action);
                 gAction9A6E98 = nullptr;
             }
             return result;
@@ -11900,9 +11905,9 @@ std::int32_t Sub_45ED90()
         const std::int32_t textLength =
             static_cast<std::int32_t>(std::strlen(gText55BAE0));
         const std::int32_t columns = gValue9A594C;
+        const std::int32_t horizontalWidth = (columns * 8 - textLength) * 8;
         const std::int32_t left = gValue9A5AC0;
-        const std::int32_t drawX =
-            left + (8 * (8 * columns - textLength)) / 2;
+        const std::int32_t drawX = horizontalWidth / 2 + left;
         static_cast<void>(render::DrawText3_456560(
             static_cast<std::int16_t>(drawX),
             static_cast<std::int16_t>(drawY),

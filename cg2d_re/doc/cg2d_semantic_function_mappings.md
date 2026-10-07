@@ -3390,3 +3390,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 既有1076／F:00055C90／Sub_455C90追加[完整基线](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline)：248条815B／四页70+70+70+38、18直接CALL十目标／八jump两RET，唯一WorldUpdate51C6C4、六存储32直接引用及四正文。八片段恢复入口样本/命中取样SAR/三文字现场布局与两错误分支运算序/图像取样SAR；点击新槽、row一次、文本向零/2、原%d生产消费及16B描述符保。
 
 无新语义或F，原1076字段及格式登记全部保持。语义1606有效1599／文档1717（46.66%）保；LOOP33→34、处置744、E872两局部I-S各25来源，单1B原用途使R7 314→315余2746。INPUT27／CHARACTER22／MAP69、冻结定位/pending18/差队列与完整门禁保；局部不代全部World父/十依赖/正常alias-owner寿命/ABI或运行。
+
+## BTD01 场景7退出父与请求进度合同（2026-10-07）
+
+[完整基线](cg2d_logout_progress_sampling_spec.md#logout-progress-baseline)补四已有真F：1606父45EBB0、1607请求进度45ED90、1608过渡45EEE0、1609重置45ED80。267条961B/六页、32直接CALL二十三目标+一GetTick导入、29jump六RET与World→父→三叶真实消费。仅进度体三片段恢复初始化发布/布局原序、非零轮询单action、横宽先算后x；父/过渡/重置及原四文本/六槽/GE1/W16 reply和普通阶段/失败/维护清理与返回保持。
+
+语义1610有效1603／文档1721（46.77%）／处置748，LOOP34→38，E874两局部I-S各29来源；四X15B真NOP原用途使R7 315→319余2742。LOGIN10/INPUT27/CHARACTER22/MAP69、冻结定位/pending18/差队列与完整门禁保。不造四个新原函数或称完整退出互通通过，局部不代所有World父/二十三provider/正常alias-owner寿命/ABI/链接或运行。

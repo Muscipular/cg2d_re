@@ -10159,13 +10159,15 @@ std::int8_t Sub_519D50()
 
 void Sub_51A5A0()
 {
-    gPlayerRuntime.flags18A |= 0x0100u;
-    gPlayerRuntime.flags18C = (gPlayerRuntime.flags18C & 0xFFFFFF00u) | 1u;
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A);
+    flagBytes[1] |= 1u;
+    *reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) = 1u;
 }
 
 void Sub_51A5E0()
 {
-    gPlayerRuntime.flags18A |= 0x200u;
+    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A);
+    flagBytes[1] |= 2u;
 }
 
 void Sub_51A5F0()
@@ -10231,7 +10233,7 @@ void Sub_51BEE0()
 login::YobiAction* Sub_51A5B0()
 {
     login::YobiAction* const action = gPlayerRuntime.action;
-    gPlayerRuntime.flags18C &= 0xFFFFFF00u;
+    *reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) = 0;
     if (action == nullptr || login::detail::GetYobiActionField2E4(action) != 2) {
         gPlayerRuntime.flags18A &= 0xFEFFu;
     }

@@ -3476,3 +3476,15 @@ source BYTE先取shared BYTE后取，相等后同source样本NUL/失配短路，
 2026-10-07：整YobiRuntime.cpp仅既有1073业务体六唯一片段，旧free与谓词text/指标font样本复用、真实W8色/font及W16文本X/原读序和九宫格另读全W32落实，原length/stateIndex别名/负数路径/动态指标/全部其它正文和Font.cpp provider保持；聊天窗口134条412B/三页、8direct六目标/一Tick/11jump无RET、原真实宽度及父1220元数据/唯一caller，完整机器增量、四文档和三任务六列，四组静态全部通过。measure/-Check同会话终态0，完整派生快照通过；12文件UTF-8无BOM/LF、四锚点及两I-S各21真实来源/差异文本通过。
 
 本步确认的消费/释放读取差异已修，无新helper/规则/异常模型。TEXT28/E886；语义1616有效1609/文档1727（46.93%）/处置757/R7 327余2734保，1073十格式/AAS01/原LOOP-MAP与adapted处置、全部其它旧字段/冻结定位/pending18/差队列/任务和完整门禁保。提交清单12文件，排除保护六项用户既有改动，整体SPEC目标继续active。其它1086条未复验，全父/provider与全部正常文本生产绘制过期释放域、ABI/链接/画面/明文互通/运行R8继续；未编译/测试/运行/算法样例或计算摘要，不以局部静态代完整验收。
+
+## BTK01 玩家状态0100/0200字段BYTE发布实修（2026-10-07）
+
+上一BTJ01已修聊天消费窗口一cpp六片段并同步12文件提交。本步沿文本生命周期依赖继续：现TextMeasure24条/60B采样及普通S32正确，八子槽与文本清理及4462E0/4464D0/519D50三父的原清序/新parent样本也正确，保正文，不把单文件缺调用误判接线缺失。新缺口在三玩家状态叶的宽度扩展：先落[子SPEC](../doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision)，实施SceneState.cpp三个已有正文三唯一片段。
+
+A0原高BYTE OR1→18C低BYTE1；E0原高BYTE OR2；B0先取一次action再18C低BYTE0。现分别扩成W16/W32 RMW，改实际BYTE视图仅相应字节。B0原NULL或field2E4完整W32!=2才真实W16 AND FEFF/等2不清0100、同原生action返回保，F0原无门禁真实W16 AND FDFF正文正确保持，不将两取消也盲目改BYTE。flags18A W16/flags18C W32唯一owner/跨字段观察与高24/其它低BYTE部分保，无helper/私有影子/新规则或异常模型；网络原格式明文/音频暂停不变。
+
+四完整根共15条68B/四页四块、无CALL两jump四RET，11点六父。四X区1/13/8/6B逐BYTE真实90/NN_NOP/无入向/前RET后入口，共28B只用途。补四既有真F语义1616-1619、LOOP38→42/三adapted一equivalent、语义1620有效1613/文档1731（47.04%）/处置761/E888两局部I-S各21来源/R7 331余2730，无新原F/范围排除。
+
+全部旧1616语义与TEXT28/INPUT29/NETWORK55/CHARACTER23/LOGIN13/MAP69/冻结定位/pending18/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse及全部完整门禁保。全六父/玩家资料生产消费与全部正常owner-alias寿命、ABI/链接/画面/明文互通及运行R8继续；集中静态/派生终态后追加真实结果。
+
+BTK01完成结果：三个原正文三处实际BYTE发布已修，两处原W16取消和同action返回保持。完整源/原指令与28B用途/机器/文档四组静态通过；measure及-Check同次顺序执行均终态0，完整派生快照逐对象与十二文件UTF-8无BOM/LF、真实四锚点和两I-S各21来源、文本差异检查通过。实际语义1620有效1613/文档1731（47.04%）/处置761/E888、LOOP42、R7 331余2730；pending18/原ECX pending7/差队列及三任务open/完整叶0与globalfalse保持，不声称完整父/寿命或运行验收。精确十二文件提交并固定本步命名快照，用户六项既有改动保持；整体SPEC目标继续推进。

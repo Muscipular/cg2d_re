@@ -7727,3 +7727,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 按[BTH01裁决](cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision)实修Sub_50CAE0一片段：解码source BYTE先取、共享LegacyText593850 BYTE后取，相等后同source样本判NUL，失配短路，仅全等谓词。相同只跳日志，公共音效/对象文本尾仍走。共享8B前缀/相邻context与借用getter保持；原地址未初始化，FF不是有效文本，不改变现初值或固定为空。
 
 原容量/非NUL快照、626C14两路径、64B预清/动态长度与U32 cursor、两真实strncmp、32B剥前缀/清序、MIC gate/名单AL/颜色字体分支和全部尾保持。完整278条801B/四页13direct十一目标31jump两RET、唯一51483C及现zdr五参数/0x4保；809旧字段保后追加、NETWORK55/单处置/两I-S各21来源和15B用途。正确发送106条只作上下文取证，不造修改/完整验收。全父/provider/正常寿命/ABI/链接/原格式明文互通/运行未验，音频继续暂停。
+
+## 玩家0100/0200状态字段真实BYTE发布（BTK01，2026-10-07）
+
+按[BTK01裁决](cg2d_player_state_byte_publication_spec.md#player-state-byte-decision)实修A0/B0/E0三个既有正文三片段：A0只flags18A高BYTE OR1，再flags18C低BYTE1；E0只高BYTE OR2；B0先取同action，再直接低BYTE0。B0原NULL/field2E4!=2才真实W16 AND FEFF并返回同原生action，F0原无门禁真实W16 AND FDFF，均保持，不能把取消也统一改BYTE。
+
+四完整叶15条68B/四页四块、无CALL两jump四RET，11入向六父。flags18A W16/flags18C W32唯一owner及跨字段观察/其它部分保，不造影子状态/helper。补四原F语义1616-1619、LOOP38→42/三adapted一equivalent、两局部I-S各21来源及四NOP区28B用途；测宽/三条清理父正确保正文，不纳新身份。全六父/资料生产消费/正常寿命、ABI/链接/明文互通/运行未验。

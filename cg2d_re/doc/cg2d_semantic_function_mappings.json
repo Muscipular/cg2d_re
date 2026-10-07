@@ -187751,6 +187751,266 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x51A5A0",
+      "inventory_id": "F:0011A5A0",
+      "original_role": "玩家0100与18C低BYTE设置",
+      "original_end_exclusive": "0x51a5af",
+      "original_chunks": [
+        {
+          "start": "0x51a5a0",
+          "end_exclusive": "0x51a5af",
+          "count": 3,
+          "code_bytes": 15,
+          "bytes": "800d8ba8fd0001c6058ca8fd0001c3"
+        }
+      ],
+      "instruction_count": 3,
+      "status": "BTK01四完整状态叶与三个BYTE发布正文实修，原两取消W16/同action条件与返回保，全部父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A5A0"
+          ],
+          "relationship": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-acceptance",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+        "doc/cg2d_player_state_byte_publication_evidence.json"
+      ],
+      "boundary": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+      "verification_level": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+      "player_state_byte_publication": {
+        "spec_id": "BTK01",
+        "evidence_refs": [
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-acceptance",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+          "doc/cg2d_player_state_byte_publication_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 3,
+        "original_code_bytes": 15,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 3,
+        "original_inbound_parent_count": 3,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_flags_actual_w8_publication_restored": true,
+        "original_conditional_or_unconditional_real_w16_clear_kept": true,
+        "original_action_sample_and_native_pointer_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51A5B0",
+      "inventory_id": "F:0011A5B0",
+      "original_role": "玩家18C低BYTE清除与条件0100取消",
+      "original_end_exclusive": "0x51a5d3",
+      "original_chunks": [
+        {
+          "start": "0x51a5b0",
+          "end_exclusive": "0x51a5d3",
+          "count": 8,
+          "code_bytes": 35,
+          "bytes": "a1b402ff00c6058ca8fd000085c0740983b8e40200000274096681258aa8fd00fffec3"
+        }
+      ],
+      "instruction_count": 8,
+      "status": "BTK01四完整状态叶与三个BYTE发布正文实修，原两取消W16/同action条件与返回保，全部父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A5B0"
+          ],
+          "relationship": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-acceptance",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+        "doc/cg2d_player_state_byte_publication_evidence.json"
+      ],
+      "boundary": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+      "verification_level": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+      "player_state_byte_publication": {
+        "spec_id": "BTK01",
+        "evidence_refs": [
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-acceptance",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+          "doc/cg2d_player_state_byte_publication_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 35,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 3,
+        "original_inbound_parent_count": 3,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_flags_actual_w8_publication_restored": true,
+        "original_conditional_or_unconditional_real_w16_clear_kept": true,
+        "original_action_sample_and_native_pointer_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51A5E0",
+      "inventory_id": "F:0011A5E0",
+      "original_role": "玩家0200高BYTE设置",
+      "original_end_exclusive": "0x51a5e8",
+      "original_chunks": [
+        {
+          "start": "0x51a5e0",
+          "end_exclusive": "0x51a5e8",
+          "count": 2,
+          "code_bytes": 8,
+          "bytes": "800d8ba8fd0002c3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTK01四完整状态叶与三个BYTE发布正文实修，原两取消W16/同action条件与返回保，全部父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A5E0"
+          ],
+          "relationship": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-acceptance",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+        "doc/cg2d_player_state_byte_publication_evidence.json"
+      ],
+      "boundary": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+      "verification_level": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+      "player_state_byte_publication": {
+        "spec_id": "BTK01",
+        "evidence_refs": [
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-acceptance",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+          "doc/cg2d_player_state_byte_publication_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 8,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 3,
+        "original_inbound_parent_count": 3,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_flags_actual_w8_publication_restored": true,
+        "original_conditional_or_unconditional_real_w16_clear_kept": true,
+        "original_action_sample_and_native_pointer_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51A5F0",
+      "inventory_id": "F:0011A5F0",
+      "original_role": "玩家0200原W16取消",
+      "original_end_exclusive": "0x51a5fa",
+      "original_chunks": [
+        {
+          "start": "0x51a5f0",
+          "end_exclusive": "0x51a5fa",
+          "count": 2,
+          "code_bytes": 10,
+          "bytes": "6681258aa8fd00fffdc3"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BTK01四完整状态叶与三个BYTE发布正文实修，原两取消W16/同action条件与返回保，全部父/资料生产消费/寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A5F0"
+          ],
+          "relationship": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-acceptance",
+        "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+        "doc/cg2d_player_state_byte_publication_evidence.json"
+      ],
+      "boundary": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+      "verification_level": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+      "player_state_byte_publication": {
+        "spec_id": "BTK01",
+        "evidence_refs": [
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-acceptance",
+          "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
+          "doc/cg2d_player_state_byte_publication_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 10,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 2,
+        "original_inbound_parent_count": 2,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_flags_actual_w8_publication_restored": false,
+        "original_conditional_or_unconditional_real_w16_clear_kept": true,
+        "original_action_sample_and_native_pointer_return_kept": true,
+        "original_owner_layout_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

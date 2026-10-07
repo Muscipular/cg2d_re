@@ -3432,3 +3432,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [局部完整基线](cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-baseline)追加到1073/F:00042F70，原role/source/end/count/十名称格式点和AAS01全部字段、LOOP/MAP两成员及adapted处置保持。聊天134条412B/三页只覆盖过期释放和气泡绘制，父1220元数据/唯一caller保持，其它1086条不代验；一源六片段落实样本复用、真实W8/W16及九宫格另读全W32。
 
 语义1616有效1609/文档1727（46.93%）/处置757/R7 327余2734保持，TEXT28/E886两局部I-S各21来源。原六域及LOOP38/MAP69成员/冻结定位/pending18/差队列/旧处置/任务与完整门禁保；不把局部消费/过期静态当全实体绘制、正常寿命/SDK或运行。
+
+## BTK01 玩家状态BYTE发布与原W16取消合同（2026-10-07）
+
+[完整基线](cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline)对应F:0011A5A0/B0/E0/F0及新1616-1619：四完整叶15条68B/四页、无CALL两jump四RET、11点六父；三个正文仅恢复实际BYTE发布，B0同action取样/原生指针返回/条件W16取消及F0原正确W16取消保持。
+
+语义1620有效1613/文档1731（47.04%）/处置761/E888、LOOP42两局部I-S各21来源/R7 327→331余2730，四区28B仅原用途。TEXT28/INPUT29/NETWORK55/CHARACTER23/LOGIN13/MAP69及全部旧1616语义/冻结定位/pending18/差队列/原任务和完整门禁保；不以字段叶覆盖代完整世界/玩家状态或父/provider/正常寿命、ABI及运行。

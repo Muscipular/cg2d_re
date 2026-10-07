@@ -1,0 +1,806 @@
+{
+  "schema_version": 1,
+  "batch_id": "BTK01",
+  "date": "2026-10-07",
+  "instance_id": "ida-17524",
+  "binary_name": "cg2d.exe",
+  "source_functions": [
+    {
+      "id": "F:0011A5A0",
+      "entry": "0x51A5A0",
+      "index": 1616,
+      "symbol": "Sub_51A5A0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 0,
+      "role": "玩家0100与18C低BYTE设置",
+      "contract": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+    },
+    {
+      "id": "F:0011A5B0",
+      "entry": "0x51A5B0",
+      "index": 1617,
+      "symbol": "Sub_51A5B0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 1,
+      "role": "玩家18C低BYTE清除与条件0100取消",
+      "contract": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+    },
+    {
+      "id": "F:0011A5E0",
+      "entry": "0x51A5E0",
+      "index": 1618,
+      "symbol": "Sub_51A5E0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": true,
+      "disposition": "adapted",
+      "existing": false,
+      "original_index": 2,
+      "role": "玩家0200高BYTE设置",
+      "contract": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+    },
+    {
+      "id": "F:0011A5F0",
+      "entry": "0x51A5F0",
+      "index": 1619,
+      "symbol": "Sub_51A5F0",
+      "source_path": "src/world/SceneState.cpp",
+      "body_changed": false,
+      "disposition": "equivalent",
+      "existing": false,
+      "original_index": 3,
+      "role": "玩家0200原W16取消",
+      "contract": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验"
+    }
+  ],
+  "original_functions": [
+    {
+      "start": "0x51a5a0",
+      "end_exclusive": "0x51a5af",
+      "count": 3,
+      "chunks": [
+        [
+          "0x51a5a0",
+          "0x51a5af"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x50a3e0",
+          "text": "call    sub_51A5A0",
+          "from": "0x50a694"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x50b380",
+          "text": "call    sub_51A5A0",
+          "from": "0x50b84b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51A5A0",
+          "from": "0x51aa83"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51a5a0",
+          "size": 7,
+          "bytes": "800d8ba8fd0001",
+          "mnemonic": "or",
+          "text": "or      byte ptr gPlayerDataVal.field_18A+1, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5a7",
+          "size": 7,
+          "bytes": "c6058ca8fd0001",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerDataVal.field_18C, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5ae",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "pages": [
+        {
+          "first": 0,
+          "last": 2,
+          "count": 3
+        }
+      ],
+      "code_bytes": 15,
+      "calls": [],
+      "indirect_calls": [],
+      "original_chunks": [
+        {
+          "start": "0x51a5a0",
+          "end_exclusive": "0x51a5af",
+          "count": 3,
+          "code_bytes": 15,
+          "bytes": "800d8ba8fd0001c6058ca8fd0001c3"
+        }
+      ]
+    },
+    {
+      "start": "0x51a5b0",
+      "end_exclusive": "0x51a5d3",
+      "count": 8,
+      "chunks": [
+        [
+          "0x51a5b0",
+          "0x51a5d3"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x519d50",
+          "text": "call    sub_51A5B0",
+          "from": "0x519e2c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51a840",
+          "text": "call    sub_51A5B0",
+          "from": "0x51aa8c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51b080",
+          "text": "call    sub_51A5B0",
+          "from": "0x51b0e6"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51a5b0",
+          "size": 5,
+          "bytes": "a1b402ff00",
+          "mnemonic": "mov",
+          "text": "mov     eax, gPlayerDataVal.playerYobiAction",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5b5",
+          "size": 7,
+          "bytes": "c6058ca8fd0000",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerDataVal.field_18C, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5bc",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5be",
+          "size": 2,
+          "bytes": "7409",
+          "mnemonic": "jz",
+          "text": "jz      short loc_51A5C9",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5c0",
+          "size": 7,
+          "bytes": "83b8e402000002",
+          "mnemonic": "cmp",
+          "text": "cmp     dword ptr [eax+2E4h], 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5c7",
+          "size": 2,
+          "bytes": "7409",
+          "mnemonic": "jz",
+          "text": "jz      short locret_51A5D2",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5c9",
+          "size": 9,
+          "bytes": "6681258aa8fd00fffe",
+          "mnemonic": "and",
+          "text": "and     gPlayerDataVal.field_18A, 0FEFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5d2",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "pages": [
+        {
+          "first": 0,
+          "last": 7,
+          "count": 8
+        }
+      ],
+      "code_bytes": 35,
+      "calls": [],
+      "indirect_calls": [],
+      "original_chunks": [
+        {
+          "start": "0x51a5b0",
+          "end_exclusive": "0x51a5d3",
+          "count": 8,
+          "code_bytes": 35,
+          "bytes": "a1b402ff00c6058ca8fd000085c0740983b8e40200000274096681258aa8fd00fffec3"
+        }
+      ]
+    },
+    {
+      "start": "0x51a5e0",
+      "end_exclusive": "0x51a5e8",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51a5e0",
+          "0x51a5e8"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x50a3e0",
+          "text": "call    sub_51A5E0",
+          "from": "0x50a684"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x50b380",
+          "text": "call    sub_51A5E0",
+          "from": "0x50b83e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x50d000",
+          "text": "call    sub_51A5E0",
+          "from": "0x50d01c"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51a5e0",
+          "size": 7,
+          "bytes": "800d8ba8fd0002",
+          "mnemonic": "or",
+          "text": "or      byte ptr gPlayerDataVal.field_18A+1, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5e7",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "pages": [
+        {
+          "first": 0,
+          "last": 1,
+          "count": 2
+        }
+      ],
+      "code_bytes": 8,
+      "calls": [],
+      "indirect_calls": [],
+      "original_chunks": [
+        {
+          "start": "0x51a5e0",
+          "end_exclusive": "0x51a5e8",
+          "count": 2,
+          "code_bytes": 8,
+          "bytes": "800d8ba8fd0002c3"
+        }
+      ]
+    },
+    {
+      "start": "0x51a5f0",
+      "end_exclusive": "0x51a5fa",
+      "count": 2,
+      "chunks": [
+        [
+          "0x51a5f0",
+          "0x51a5fa"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x50d000",
+          "text": "call    sub_51A5F0",
+          "from": "0x50d035"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51b080",
+          "text": "call    sub_51A5F0",
+          "from": "0x51b0a9"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x51a5f0",
+          "size": 9,
+          "bytes": "6681258aa8fd00fffd",
+          "mnemonic": "and",
+          "text": "and     gPlayerDataVal.field_18A, 0FDFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x51a5f9",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "pages": [
+        {
+          "first": 0,
+          "last": 1,
+          "count": 2
+        }
+      ],
+      "code_bytes": 10,
+      "calls": [],
+      "indirect_calls": [],
+      "original_chunks": [
+        {
+          "start": "0x51a5f0",
+          "end_exclusive": "0x51a5fa",
+          "count": 2,
+          "code_bytes": 10,
+          "bytes": "6681258aa8fd00fffdc3"
+        }
+      ]
+    }
+  ],
+  "original_unassigned_ranges": [
+    {
+      "start": "0x51a5af",
+      "end_exclusive": "0x51a5b0",
+      "size": 1,
+      "bytes": "90",
+      "decode": [
+        {
+          "ea": "0x51a5af",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ],
+      "inbound": [],
+      "previous_instruction": {
+        "ea": "0x51a5ae",
+        "text": "retn"
+      },
+      "next_function_start": "0x51a5b0"
+    },
+    {
+      "start": "0x51a5d3",
+      "end_exclusive": "0x51a5e0",
+      "size": 13,
+      "bytes": "90909090909090909090909090",
+      "decode": [
+        {
+          "ea": "0x51a5d3",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5d4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5d5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5d6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5d7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5d8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5d9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5da",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5db",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5dc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5dd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5de",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5df",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ],
+      "inbound": [],
+      "previous_instruction": {
+        "ea": "0x51a5d2",
+        "text": "retn"
+      },
+      "next_function_start": "0x51a5e0"
+    },
+    {
+      "start": "0x51a5e8",
+      "end_exclusive": "0x51a5f0",
+      "size": 8,
+      "bytes": "9090909090909090",
+      "decode": [
+        {
+          "ea": "0x51a5e8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5e9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5ea",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5eb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5ec",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5ed",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5ee",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5ef",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ],
+      "inbound": [],
+      "previous_instruction": {
+        "ea": "0x51a5e7",
+        "text": "retn"
+      },
+      "next_function_start": "0x51a5f0"
+    },
+    {
+      "start": "0x51a5fa",
+      "end_exclusive": "0x51a600",
+      "size": 6,
+      "bytes": "909090909090",
+      "decode": [
+        {
+          "ea": "0x51a5fa",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5fb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5fc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5fd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5fe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51a5ff",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ],
+      "inbound": [],
+      "previous_instruction": {
+        "ea": "0x51a5f9",
+        "text": "retn"
+      },
+      "next_function_start": "0x51a600"
+    }
+  ],
+  "source_patches": [
+    {
+      "ordinal": 1,
+      "path": "cg2d_re/src/world/SceneState.cpp",
+      "kind": "flags100_high_byte_and_state18c_low_byte_publication",
+      "from": "void Sub_51A5A0()\n{\n    gPlayerRuntime.flags18A |= 0x0100u;\n    gPlayerRuntime.flags18C = (gPlayerRuntime.flags18C & 0xFFFFFF00u) | 1u;\n}",
+      "to": "void Sub_51A5A0()\n{\n    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A);\n    flagBytes[1] |= 1u;\n    *reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) = 1u;\n}"
+    },
+    {
+      "ordinal": 2,
+      "path": "cg2d_re/src/world/SceneState.cpp",
+      "kind": "flags200_high_byte_only_publication",
+      "from": "void Sub_51A5E0()\n{\n    gPlayerRuntime.flags18A |= 0x200u;\n}",
+      "to": "void Sub_51A5E0()\n{\n    auto* const flagBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18A);\n    flagBytes[1] |= 2u;\n}"
+    },
+    {
+      "ordinal": 3,
+      "path": "cg2d_re/src/world/SceneState.cpp",
+      "kind": "state18c_low_byte_clear_after_same_action_sample",
+      "from": "login::YobiAction* Sub_51A5B0()\n{\n    login::YobiAction* const action = gPlayerRuntime.action;\n    gPlayerRuntime.flags18C &= 0xFFFFFF00u;",
+      "to": "login::YobiAction* Sub_51A5B0()\n{\n    login::YobiAction* const action = gPlayerRuntime.action;\n    *reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) = 0;"
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "src/world/SceneState.cpp",
+      "whole_length": 449871
+    }
+  ],
+  "source_snapshot_before": "HEAD（紧邻BTJ01提交）",
+  "implementation_snapshot": "Git固定命名快照 cg2d-re-player-state-byte-publication-20261007",
+  "snapshot_functions_before": [
+    {
+      "id": "F:0011A5A0",
+      "original_entry": "0x51A5A0",
+      "original_name": "sub_51A5A0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51A5A0",
+          "definition_line": 9663,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011A5B0",
+      "original_entry": "0x51A5B0",
+      "original_name": "sub_51A5B0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51A5B0",
+          "definition_line": 9734,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011A5E0",
+      "original_entry": "0x51A5E0",
+      "original_name": "sub_51A5E0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51A5E0",
+          "definition_line": 9669,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0011A5F0",
+      "original_entry": "0x51A5F0",
+      "original_name": "sub_51A5F0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_51A5F0",
+          "definition_line": 9674,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "ranges_before": [
+    {
+      "id": "X:0011A5AF-0011A5B0",
+      "start": "0x51A5AF",
+      "end_exclusive": "0x51A5B0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011A5D3-0011A5E0",
+      "start": "0x51A5D3",
+      "end_exclusive": "0x51A5E0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011A5E8-0011A5F0",
+      "start": "0x51A5E8",
+      "end_exclusive": "0x51A5F0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0011A5FA-0011A600",
+      "start": "0x51A5FA",
+      "end_exclusive": "0x51A600",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    }
+  ],
+  "feature_member_count_before": 38,
+  "task_acceptance_before": [
+    {
+      "task_id": "U10",
+      "state": "open",
+      "reference_count": 35
+    },
+    {
+      "task_id": "V03",
+      "state": "open",
+      "reference_count": 42
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 213
+    }
+  ],
+  "implementation_static_scope": "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
+  "source_changed_file_count": 1,
+  "source_changed_existing_original_function_count": 3,
+  "source_patch_count": 3,
+  "source_flags100_and_flags200_high_byte_or_restored": true,
+  "source_flags18c_low_byte_stores_and_sampling_order_restored": true,
+  "original_flags100_conditional_real_word_and_action_pointer_return_kept": true,
+  "original_flags200_real_word_clear_correct_body_kept": true,
+  "original_w16_w32_owner_layout_and_other_body_kept": true,
+  "new_helper_count": 0,
+  "new_true_function_count": 0,
+  "new_semantic_record_count": 4,
+  "new_function_disposition_count": 4,
+  "new_range_classification_count": 4,
+  "new_excluded_function_count": 0,
+  "source_closed_task_delta": 0,
+  "full_original_parent_or_machine_abi_verified": false,
+  "runtime_verified": false,
+  "fault_equivalence_claimed": false
+}

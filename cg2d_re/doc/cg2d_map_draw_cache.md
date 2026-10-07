@@ -112,3 +112,11 @@ stable_sort 或不同 CRT 的 qsort 而仍保留原比较/交换序列。
 [正式追踪合同](cg2d_map_record_identity_spec.md#map-record-identity-contract)补46BD60/46BE50/46C060/46DFF0四生产和46C300/46C440两比较的六语义、adapted处置及FUNC-MAP成员关联。六体492条1730B、33直接引用身份可追；既有源码/四1024项源数组/3072项合并数组/SceneState计数与非拥有链接保持。
 
 本步消除仅有历史直接源码位置、缺正式基线/来源/处置的追踪缺口，未新开发六函数。成员17→23仍不完整，局部S不代33个完整父、其余排序合并、所有alias/owner/寿命或机器PC53/画面/运行；不新增I或关闭整地图门禁，数学异常不专项保护/模拟或称故障等价。
+
+## 六段复制宽度收口（BUM01，2026-10-08）
+
+[新裁决](cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision)基于四完整根324条980B/七页及六rep movsd。原合并单项13W32、bulk剩余项×13前向复制，现五整记录赋值/一个std::copy_n未在源码保证该粒度。本步一个私有CopyMapDrawRecord按前44B十一W32先读再写，含未解释W32/未写三BYTE/描述符原位型，再before读写→after读写；链接仍native非拥有，不截W32，不动64B布局，本机padding不当原数据。
+
+只改一合并正文六片段，bulk前向逐记录、各原先pub或后pub时点及所有fresh计数/held记录/比较与相同位置组/3072门禁保持。正确C1C0提交、C2F0排序尾转与C420专用原算法及四生产/两比较全文保持。新helper只本文件复用，不造原F/owner/保护或统一append。原四尾28B NN_NOP、两个CF60局部后窗归档；全父/callee/通用CRT/数值/x87/寿命/链接/像素与运行仍待。
+
+BUM01必要静态已通过：完整MapDrawCache仅一个私有CopyMapDrawRecord插入及合并正文六片段变化，前44B十一W32每对读写后before/after native非拥有地址，bulk前向逐记录；原各pub时点/正常分支、另三正确根/布局/owner/四生产/两比较/父及队列声明全保持。四原根324条980B/七页、六rep/两局部后窗/四尾28B用途与证据及机器/文档模型一致。汇总及 -Check 通过，派生实值：语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650、LOOP116/MAP113。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行；完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/像素及R8继续。命名快照：cg2d-re-map-draw-merge-word-sampling-20261008。

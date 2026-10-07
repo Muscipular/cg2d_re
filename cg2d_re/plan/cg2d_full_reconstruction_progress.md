@@ -3874,3 +3874,17 @@ BUK01地图父四尾预取已提交，本步沿真实依赖4693F0/46D9C0第四�
 新1698/1699均adapted，LOOP110→112/MAP107→109各局部I-S各25来源、两R7。预期语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654；必要静态/文本汇总后记实值。三任务open/pending18及ECX pending7/closed11/差队列和完整门禁保持，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，不编译、测试或运行，整体目标active。
 
 BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/CUT三hit BYTE取样和obj→tile→walk短路恢复，原共享WORD平面/5202B全清/两轮资源查询-flag及S16覆盖/模式转发/正常返回和全部其它源码/声明/owner保持。两原根381条1163B/七页、三个外部后窗、63B跳表及3B LEA/19B NOP用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654、LOOP112/MAP109。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行，完整正常生产消费/寿命/数值/x87/机器ABI/像素及R8继续。命名快照：cg2d-re-map-walkability-byte-sampling-20261008。
+
+## BUM01 地图缓存六复制段逐W32实修（2026-10-08）
+
+BUL01第四平面三BYTE/空格短路已提交，本步沿地图父C2F0→C420/C4D0→C1C0正常生产消费。既有IDA只读MCP四完整根324条980B/七页四块，12directcall/38jump/三RET、六入向/两父；原CF60已有BUK01完整基线，本步两局部窗覆盖排序封装→提交→PlayerX，四尾10+6+5+7=28B实际NN_NOP/90无入向/后真入口仅用途，不复审父全部或通用CRT。
+
+正确C1C0 before→主→after、每次fresh主clip/自己的image W32/屏幕S16 Y-X/描述符和layer10/零参数、链调用后next及每主项后fresh mergedCount/返回均保持。原batch四movsx BYTE经已纳管U8 Draw2/3只消费低BYTE，当前边界有效，保接口不制造符号扩展修改；正确C2F0排序后尾转和C420专用原qsort及已证同址门禁保持。
+
+差异在C4D0六rep movsd对应当前五整记录赋值/一个std::copy_n，源码未表达每W32读取发布粒度。先落[子SPEC](../doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision)，只在MapDrawCache新增一个私有CopyMapDrawRecord，前44B十一W32每次先读再写，含未解释W32/未写三BYTE/描述符原位型，再before→after native非拥有指针逐读写；六复制段调用，bulk前向逐记录。原52B前44B/两地址拓64B合同和静态布局保持，本机padding非原字段，不新增owner/释放/保护或数据副本。
+
+首轮主项/首对象/剩余主项先pub count再拷；后续对象先拷再pub；bulk局部索引/数量先增，复制完pub；特表整段后pub。原held源/fresh数量、两比较/同坐标组/mapNo过滤/特表3072门禁/数值与六不同pub时点均保持。其它三正文、四生产/两比较/声明和队列/父代码全保持。仅恢复源码采样，不宣称当前画面曾错误或全机器ABI/完整正常寿命已验。
+
+新1700..1703四adapted，LOOP112→116/MAP109→113各局部I-S各25来源、四R7。预期语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650；必要静态/纯文本汇总后记实值。U11/G02/R04/V04只current/引用，四任务仍open，pending18/ECX pending7/closed11/差队列与完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，不编译、测试或运行，整体目标active。
+
+BUM01必要静态已通过：完整MapDrawCache仅一个私有CopyMapDrawRecord插入及合并正文六片段变化，前44B十一W32每对读写后before/after native非拥有地址，bulk前向逐记录；原各pub时点/正常分支、另三正确根/布局/owner/四生产/两比较/父及队列声明全保持。四原根324条980B/七页、六rep/两局部后窗/四尾28B用途与证据及机器/文档模型一致。汇总及 -Check 通过，派生实值：语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650、LOOP116/MAP113。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行；完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/像素及R8继续。命名快照：cg2d-re-map-draw-merge-word-sampling-20261008。

@@ -7939,3 +7939,11 @@ BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片
 §84的WORD掩码是旧值级表达，本步恢复实际读取宽度；其“调用者尚未接线”仅2026-09-25历史，当前469030与MapSceneDrawing已接线，父CF60已BUK01归档。两原跳表63B与case映射、3B LEA/19B NOP用途分清，不把71B混合区当全NOP。未复审完整父或所有callee，原正常寿命/数值/ABI/全像素与运行继续。
 
 BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/CUT三hit BYTE取样和obj→tile→walk短路恢复，原共享WORD平面/5202B全清/两轮资源查询-flag及S16覆盖/模式转发/正常返回和全部其它源码/声明/owner保持。两原根381条1163B/七页、三个外部后窗、63B跳表及3B LEA/19B NOP用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654、LOOP112/MAP109。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行，完整正常生产消费/寿命/数值/x87/机器ABI/像素及R8继续。命名快照：cg2d-re-map-walkability-byte-sampling-20261008。
+
+## 地图缓存六段逐W32合并与正常提交依赖（BUM01，2026-10-08）
+
+[完整基线](cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline)覆盖C1C0/C2F0/C420/C4D0四根324条980B/七页、12directcall/38jump/三RET/六入向及CF60两局部窗。只MapDrawCache一既有合并正文六片段和一个私有CopyMapDrawRecord：前44B十一W32每对读写，再before/after两native非拥有链接，bulk前向逐记录；六段各自计数pub/held记录与fresh计数/全部分支保持。
+
+正确提交before→主→after及每次fresh主clip/记录参数、链next后取和fresh mergedCount返回，排序封装/已决专用原qsort与比较器保持；已纳管BYTE提交接口只消费原batch低BYTE，不为movsx高位制造接口修改。父原C2F0→C1C0→PlayerX调用序正确保，当前接线保持；四28B NOP仅用途，不代全父/callee/机器ABI、正常寿命或画面运行。
+
+BUM01必要静态已通过：完整MapDrawCache仅一个私有CopyMapDrawRecord插入及合并正文六片段变化，前44B十一W32每对读写后before/after native非拥有地址，bulk前向逐记录；原各pub时点/正常分支、另三正确根/布局/owner/四生产/两比较/父及队列声明全保持。四原根324条980B/七页、六rep/两局部后窗/四尾28B用途与证据及机器/文档模型一致。汇总及 -Check 通过，派生实值：语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650、LOOP116/MAP113。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行；完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/像素及R8继续。命名快照：cg2d-re-map-draw-merge-word-sampling-20261008。

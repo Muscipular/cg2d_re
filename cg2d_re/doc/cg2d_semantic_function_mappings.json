@@ -193723,6 +193723,335 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x46C1C0",
+      "inventory_id": "F:0006C1C0",
+      "original_role": "地图合并记录before/主/after提交与动态计数返回",
+      "original_end_exclusive": "0x46c2e6",
+      "original_chunks": [
+        {
+          "start": "0x46c1c0",
+          "end_exclusive": "0x46c2e6"
+        }
+      ],
+      "instruction_count": 122,
+      "status": "BUM01地图四根324条980B/七页完整基线：只有合并一正文六复制片段及一个私有helper实修，前44B十一W32每对读写再两native链接；另三正确提交/封装/专用原排序代码保持，局部静态/完整寿命与画面运行未验",
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "Sub_46C1C0"
+          ],
+          "relationship": "BUM01地图缓存提交/排序封装/合并四完整根324条980B/七页四块、12directcall/38jump/三RET/六入向（两个父），合并六原rep movsd段。只MapDrawCache新增一个私有CopyMapDrawRecord并替换合并六段：前44B十一W32每对读写，含未解释W32/未写三BYTE及16B描述符原位型，然后按before/after顺序复制原生非拥有MapDrawRecord*；现64B本机padding非原字段，不当作原数据拷。bulk剩余对象前向逐记录/字序，当前六段原不同计数pub时点、fresh计数与held记录、比较与相同世界坐标组/特表容量门禁保持。正确C1C0 before链→主→after链、每项fresh主clip BYTE分流、挂件batch只低BYTE已由既有U8提交接口消费，image W32/屏幕S16 Y-X/自己的descriptor/三处layer10与零参数/每条链调用后fresh下一链接、每主项后fresh mergedCount/返回count保持；不为movsx batch高位恢复制造接口变化。C2F0排序后尾转merge，当前void动作适配；C420当前专用53C112/53C266原算法和比较器/同址交换门禁保，完整CRT不重复核证。父CF60两局部窗先C2F0→C1C0再PlayerX读取，现接线保持；不造fixed返/全机器ABI声明。原52B/x64前44B及两个已证地址拓为64B合同与四1024源/3072合并唯一owner保，原四个生产/两比较/队列提交全文保。四尾28B NN_NOP无入向/后真入口仅用途。网络原格式明文、内部LegacyCryptInt、音频暂停/RPLAN.24持续，完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/链接/像素与R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-acceptance",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+        "doc/cg2d_map_draw_merge_word_sampling_evidence.json"
+      ],
+      "boundary": "BUM01地图缓存提交/排序封装/合并四完整根324条980B/七页四块、12directcall/38jump/三RET/六入向（两个父），合并六原rep movsd段。只MapDrawCache新增一个私有CopyMapDrawRecord并替换合并六段：前44B十一W32每对读写，含未解释W32/未写三BYTE及16B描述符原位型，然后按before/after顺序复制原生非拥有MapDrawRecord*；现64B本机padding非原字段，不当作原数据拷。bulk剩余对象前向逐记录/字序，当前六段原不同计数pub时点、fresh计数与held记录、比较与相同世界坐标组/特表容量门禁保持。正确C1C0 before链→主→after链、每项fresh主clip BYTE分流、挂件batch只低BYTE已由既有U8提交接口消费，image W32/屏幕S16 Y-X/自己的descriptor/三处layer10与零参数/每条链调用后fresh下一链接、每主项后fresh mergedCount/返回count保持；不为movsx batch高位恢复制造接口变化。C2F0排序后尾转merge，当前void动作适配；C420当前专用53C112/53C266原算法和比较器/同址交换门禁保，完整CRT不重复核证。父CF60两局部窗先C2F0→C1C0再PlayerX读取，现接线保持；不造fixed返/全机器ABI声明。原52B/x64前44B及两个已证地址拓为64B合同与四1024源/3072合并唯一owner保，原四个生产/两比较/队列提交全文保。四尾28B NN_NOP无入向/后真入口仅用途。网络原格式明文、内部LegacyCryptInt、音频暂停/RPLAN.24持续，完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/链接/像素与R8未验。",
+      "verification_level": "BUM01四地图缓存根324条980B/七页四块完整基线，一既有合并根六片段加一个私有复制helper恢复前44B十一W32逐读写及before/after原生非拥有地址，原六段计数pub/所有正常状态与正确提交封装/排序保持；两父窗口/四尾28B用途归档；局部静态，未编译测试运行，完整正常寿命/数值/机器ABI/像素及门禁继续",
+      "map_draw_merge_word_sampling": {
+        "spec_id": "BUM01",
+        "evidence_refs": [
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-acceptance",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+          "doc/cg2d_map_draw_merge_word_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 122,
+        "original_code_bytes": 294,
+        "original_page_count": 2,
+        "original_direct_call_count": 6,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 12,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 2,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_six_merge_segments_eleven_value_W32_pairs_restored": true,
+        "original_native_nonowning_before_then_after_copy_kept": true,
+        "original_native_padding_not_legacy_field": true,
+        "original_forward_remaining_records_and_distinct_count_publications_kept": true,
+        "original_held_source_and_fresh_counts_comparisons_equal_groups_and_capacity_gate_kept": true,
+        "original_before_primary_after_per_item_primary_clip_and_low_batch_queue_view_kept": true,
+        "original_three_correct_submit_wrapper_sort_bodies_and_known_qsort_adapter_kept": true,
+        "original_current_owner_producers_comparators_callers_and_queue_sources_kept": true,
+        "original_six_rep_movsd_sites_captured": true,
+        "original_record_size": 52,
+        "native_record_size": 64,
+        "original_nonaddress_prefix_bytes": 44,
+        "native_nonowning_link_count": 2,
+        "original_merge_copy_segment_count": 6,
+        "original_nop_tail_bytes": 28,
+        "original_parent_window_count": 2,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_general_CRT_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46C2F0",
+      "inventory_id": "F:0006C2F0",
+      "original_role": "地图缓存先排序后尾转合并封装",
+      "original_end_exclusive": "0x46c2fa",
+      "original_chunks": [
+        {
+          "start": "0x46c2f0",
+          "end_exclusive": "0x46c2fa"
+        }
+      ],
+      "instruction_count": 2,
+      "status": "BUM01地图四根324条980B/七页完整基线：只有合并一正文六复制片段及一个私有helper实修，前44B十一W32每对读写再两native链接；另三正确提交/封装/专用原排序代码保持，局部静态/完整寿命与画面运行未验",
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "Sub_46C2F0"
+          ],
+          "relationship": "BUM01地图缓存提交/排序封装/合并四完整根324条980B/七页四块、12directcall/38jump/三RET/六入向（两个父），合并六原rep movsd段。只MapDrawCache新增一个私有CopyMapDrawRecord并替换合并六段：前44B十一W32每对读写，含未解释W32/未写三BYTE及16B描述符原位型，然后按before/after顺序复制原生非拥有MapDrawRecord*；现64B本机padding非原字段，不当作原数据拷。bulk剩余对象前向逐记录/字序，当前六段原不同计数pub时点、fresh计数与held记录、比较与相同世界坐标组/特表容量门禁保持。正确C1C0 before链→主→after链、每项fresh主clip BYTE分流、挂件batch只低BYTE已由既有U8提交接口消费，image W32/屏幕S16 Y-X/自己的descriptor/三处layer10与零参数/每条链调用后fresh下一链接、每主项后fresh mergedCount/返回count保持；不为movsx batch高位恢复制造接口变化。C2F0排序后尾转merge，当前void动作适配；C420当前专用53C112/53C266原算法和比较器/同址交换门禁保，完整CRT不重复核证。父CF60两局部窗先C2F0→C1C0再PlayerX读取，现接线保持；不造fixed返/全机器ABI声明。原52B/x64前44B及两个已证地址拓为64B合同与四1024源/3072合并唯一owner保，原四个生产/两比较/队列提交全文保。四尾28B NN_NOP无入向/后真入口仅用途。网络原格式明文、内部LegacyCryptInt、音频暂停/RPLAN.24持续，完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/链接/像素与R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-acceptance",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+        "doc/cg2d_map_draw_merge_word_sampling_evidence.json"
+      ],
+      "boundary": "BUM01地图缓存提交/排序封装/合并四完整根324条980B/七页四块、12directcall/38jump/三RET/六入向（两个父），合并六原rep movsd段。只MapDrawCache新增一个私有CopyMapDrawRecord并替换合并六段：前44B十一W32每对读写，含未解释W32/未写三BYTE及16B描述符原位型，然后按before/after顺序复制原生非拥有MapDrawRecord*；现64B本机padding非原字段，不当作原数据拷。bulk剩余对象前向逐记录/字序，当前六段原不同计数pub时点、fresh计数与held记录、比较与相同世界坐标组/特表容量门禁保持。正确C1C0 before链→主→after链、每项fresh主clip BYTE分流、挂件batch只低BYTE已由既有U8提交接口消费，image W32/屏幕S16 Y-X/自己的descriptor/三处layer10与零参数/每条链调用后fresh下一链接、每主项后fresh mergedCount/返回count保持；不为movsx batch高位恢复制造接口变化。C2F0排序后尾转merge，当前void动作适配；C420当前专用53C112/53C266原算法和比较器/同址交换门禁保，完整CRT不重复核证。父CF60两局部窗先C2F0→C1C0再PlayerX读取，现接线保持；不造fixed返/全机器ABI声明。原52B/x64前44B及两个已证地址拓为64B合同与四1024源/3072合并唯一owner保，原四个生产/两比较/队列提交全文保。四尾28B NN_NOP无入向/后真入口仅用途。网络原格式明文、内部LegacyCryptInt、音频暂停/RPLAN.24持续，完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/链接/像素与R8未验。",
+      "verification_level": "BUM01四地图缓存根324条980B/七页四块完整基线，一既有合并根六片段加一个私有复制helper恢复前44B十一W32逐读写及before/after原生非拥有地址，原六段计数pub/所有正常状态与正确提交封装/排序保持；两父窗口/四尾28B用途归档；局部静态，未编译测试运行，完整正常寿命/数值/机器ABI/像素及门禁继续",
+      "map_draw_merge_word_sampling": {
+        "spec_id": "BUM01",
+        "evidence_refs": [
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-acceptance",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+          "doc/cg2d_map_draw_merge_word_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 10,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 0,
+        "original_inbound_reference_count": 2,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_six_merge_segments_eleven_value_W32_pairs_restored": true,
+        "original_native_nonowning_before_then_after_copy_kept": true,
+        "original_native_padding_not_legacy_field": true,
+        "original_forward_remaining_records_and_distinct_count_publications_kept": true,
+        "original_held_source_and_fresh_counts_comparisons_equal_groups_and_capacity_gate_kept": true,
+        "original_before_primary_after_per_item_primary_clip_and_low_batch_queue_view_kept": true,
+        "original_three_correct_submit_wrapper_sort_bodies_and_known_qsort_adapter_kept": true,
+        "original_current_owner_producers_comparators_callers_and_queue_sources_kept": true,
+        "original_six_rep_movsd_sites_captured": true,
+        "original_record_size": 52,
+        "native_record_size": 64,
+        "original_nonaddress_prefix_bytes": 44,
+        "native_nonowning_link_count": 2,
+        "original_merge_copy_segment_count": 6,
+        "original_nop_tail_bytes": 28,
+        "original_parent_window_count": 2,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_general_CRT_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46C420",
+      "inventory_id": "F:0006C420",
+      "original_role": "原map records qsort wrapper的现专用原序算法承接",
+      "original_end_exclusive": "0x46c43b",
+      "original_chunks": [
+        {
+          "start": "0x46c420",
+          "end_exclusive": "0x46c43b"
+        }
+      ],
+      "instruction_count": 8,
+      "status": "BUM01地图四根324条980B/七页完整基线：只有合并一正文六复制片段及一个私有helper实修，前44B十一W32每对读写再两native链接；另三正确提交/封装/专用原排序代码保持，局部静态/完整寿命与画面运行未验",
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "SortMapPrimary_46C420"
+          ],
+          "relationship": "BUM01地图缓存提交/排序封装/合并四完整根324条980B/七页四块、12directcall/38jump/三RET/六入向（两个父），合并六原rep movsd段。只MapDrawCache新增一个私有CopyMapDrawRecord并替换合并六段：前44B十一W32每对读写，含未解释W32/未写三BYTE及16B描述符原位型，然后按before/after顺序复制原生非拥有MapDrawRecord*；现64B本机padding非原字段，不当作原数据拷。bulk剩余对象前向逐记录/字序，当前六段原不同计数pub时点、fresh计数与held记录、比较与相同世界坐标组/特表容量门禁保持。正确C1C0 before链→主→after链、每项fresh主clip BYTE分流、挂件batch只低BYTE已由既有U8提交接口消费，image W32/屏幕S16 Y-X/自己的descriptor/三处layer10与零参数/每条链调用后fresh下一链接、每主项后fresh mergedCount/返回count保持；不为movsx batch高位恢复制造接口变化。C2F0排序后尾转merge，当前void动作适配；C420当前专用53C112/53C266原算法和比较器/同址交换门禁保，完整CRT不重复核证。父CF60两局部窗先C2F0→C1C0再PlayerX读取，现接线保持；不造fixed返/全机器ABI声明。原52B/x64前44B及两个已证地址拓为64B合同与四1024源/3072合并唯一owner保，原四个生产/两比较/队列提交全文保。四尾28B NN_NOP无入向/后真入口仅用途。网络原格式明文、内部LegacyCryptInt、音频暂停/RPLAN.24持续，完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/链接/像素与R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-acceptance",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+        "doc/cg2d_map_draw_merge_word_sampling_evidence.json"
+      ],
+      "boundary": "BUM01地图缓存提交/排序封装/合并四完整根324条980B/七页四块、12directcall/38jump/三RET/六入向（两个父），合并六原rep movsd段。只MapDrawCache新增一个私有CopyMapDrawRecord并替换合并六段：前44B十一W32每对读写，含未解释W32/未写三BYTE及16B描述符原位型，然后按before/after顺序复制原生非拥有MapDrawRecord*；现64B本机padding非原字段，不当作原数据拷。bulk剩余对象前向逐记录/字序，当前六段原不同计数pub时点、fresh计数与held记录、比较与相同世界坐标组/特表容量门禁保持。正确C1C0 before链→主→after链、每项fresh主clip BYTE分流、挂件batch只低BYTE已由既有U8提交接口消费，image W32/屏幕S16 Y-X/自己的descriptor/三处layer10与零参数/每条链调用后fresh下一链接、每主项后fresh mergedCount/返回count保持；不为movsx batch高位恢复制造接口变化。C2F0排序后尾转merge，当前void动作适配；C420当前专用53C112/53C266原算法和比较器/同址交换门禁保，完整CRT不重复核证。父CF60两局部窗先C2F0→C1C0再PlayerX读取，现接线保持；不造fixed返/全机器ABI声明。原52B/x64前44B及两个已证地址拓为64B合同与四1024源/3072合并唯一owner保，原四个生产/两比较/队列提交全文保。四尾28B NN_NOP无入向/后真入口仅用途。网络原格式明文、内部LegacyCryptInt、音频暂停/RPLAN.24持续，完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/链接/像素与R8未验。",
+      "verification_level": "BUM01四地图缓存根324条980B/七页四块完整基线，一既有合并根六片段加一个私有复制helper恢复前44B十一W32逐读写及before/after原生非拥有地址，原六段计数pub/所有正常状态与正确提交封装/排序保持；两父窗口/四尾28B用途归档；局部静态，未编译测试运行，完整正常寿命/数值/机器ABI/像素及门禁继续",
+      "map_draw_merge_word_sampling": {
+        "spec_id": "BUM01",
+        "evidence_refs": [
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-acceptance",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+          "doc/cg2d_map_draw_merge_word_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 8,
+        "original_code_bytes": 27,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_private_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_six_merge_segments_eleven_value_W32_pairs_restored": true,
+        "original_native_nonowning_before_then_after_copy_kept": true,
+        "original_native_padding_not_legacy_field": true,
+        "original_forward_remaining_records_and_distinct_count_publications_kept": true,
+        "original_held_source_and_fresh_counts_comparisons_equal_groups_and_capacity_gate_kept": true,
+        "original_before_primary_after_per_item_primary_clip_and_low_batch_queue_view_kept": true,
+        "original_three_correct_submit_wrapper_sort_bodies_and_known_qsort_adapter_kept": true,
+        "original_current_owner_producers_comparators_callers_and_queue_sources_kept": true,
+        "original_six_rep_movsd_sites_captured": true,
+        "original_record_size": 52,
+        "native_record_size": 64,
+        "original_nonaddress_prefix_bytes": 44,
+        "native_nonowning_link_count": 2,
+        "original_merge_copy_segment_count": 6,
+        "original_nop_tail_bytes": 28,
+        "original_parent_window_count": 2,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_general_CRT_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46C4D0",
+      "inventory_id": "F:0006C4D0",
+      "original_role": "四组地图记录六段W32/非拥有地址合并生产",
+      "original_end_exclusive": "0x46c759",
+      "original_chunks": [
+        {
+          "start": "0x46c4d0",
+          "end_exclusive": "0x46c759"
+        }
+      ],
+      "instruction_count": 192,
+      "status": "BUM01地图四根324条980B/七页完整基线：只有合并一正文六复制片段及一个私有helper实修，前44B十一W32每对读写再两native链接；另三正确提交/封装/专用原排序代码保持，局部静态/完整寿命与画面运行未验",
+      "sources": [
+        {
+          "path": "src/world/MapDrawCache.cpp",
+          "symbols": [
+            "MergeMapDrawCache_46C4D0",
+            "CopyMapDrawRecord"
+          ],
+          "relationship": "BUM01地图缓存提交/排序封装/合并四完整根324条980B/七页四块、12directcall/38jump/三RET/六入向（两个父），合并六原rep movsd段。只MapDrawCache新增一个私有CopyMapDrawRecord并替换合并六段：前44B十一W32每对读写，含未解释W32/未写三BYTE及16B描述符原位型，然后按before/after顺序复制原生非拥有MapDrawRecord*；现64B本机padding非原字段，不当作原数据拷。bulk剩余对象前向逐记录/字序，当前六段原不同计数pub时点、fresh计数与held记录、比较与相同世界坐标组/特表容量门禁保持。正确C1C0 before链→主→after链、每项fresh主clip BYTE分流、挂件batch只低BYTE已由既有U8提交接口消费，image W32/屏幕S16 Y-X/自己的descriptor/三处layer10与零参数/每条链调用后fresh下一链接、每主项后fresh mergedCount/返回count保持；不为movsx batch高位恢复制造接口变化。C2F0排序后尾转merge，当前void动作适配；C420当前专用53C112/53C266原算法和比较器/同址交换门禁保，完整CRT不重复核证。父CF60两局部窗先C2F0→C1C0再PlayerX读取，现接线保持；不造fixed返/全机器ABI声明。原52B/x64前44B及两个已证地址拓为64B合同与四1024源/3072合并唯一owner保，原四个生产/两比较/队列提交全文保。四尾28B NN_NOP无入向/后真入口仅用途。网络原格式明文、内部LegacyCryptInt、音频暂停/RPLAN.24持续，完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/链接/像素与R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-acceptance",
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+        "doc/cg2d_map_draw_merge_word_sampling_evidence.json"
+      ],
+      "boundary": "BUM01地图缓存提交/排序封装/合并四完整根324条980B/七页四块、12directcall/38jump/三RET/六入向（两个父），合并六原rep movsd段。只MapDrawCache新增一个私有CopyMapDrawRecord并替换合并六段：前44B十一W32每对读写，含未解释W32/未写三BYTE及16B描述符原位型，然后按before/after顺序复制原生非拥有MapDrawRecord*；现64B本机padding非原字段，不当作原数据拷。bulk剩余对象前向逐记录/字序，当前六段原不同计数pub时点、fresh计数与held记录、比较与相同世界坐标组/特表容量门禁保持。正确C1C0 before链→主→after链、每项fresh主clip BYTE分流、挂件batch只低BYTE已由既有U8提交接口消费，image W32/屏幕S16 Y-X/自己的descriptor/三处layer10与零参数/每条链调用后fresh下一链接、每主项后fresh mergedCount/返回count保持；不为movsx batch高位恢复制造接口变化。C2F0排序后尾转merge，当前void动作适配；C420当前专用53C112/53C266原算法和比较器/同址交换门禁保，完整CRT不重复核证。父CF60两局部窗先C2F0→C1C0再PlayerX读取，现接线保持；不造fixed返/全机器ABI声明。原52B/x64前44B及两个已证地址拓为64B合同与四1024源/3072合并唯一owner保，原四个生产/两比较/队列提交全文保。四尾28B NN_NOP无入向/后真入口仅用途。网络原格式明文、内部LegacyCryptInt、音频暂停/RPLAN.24持续，完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/链接/像素与R8未验。",
+      "verification_level": "BUM01四地图缓存根324条980B/七页四块完整基线，一既有合并根六片段加一个私有复制helper恢复前44B十一W32逐读写及before/after原生非拥有地址，原六段计数pub/所有正常状态与正确提交封装/排序保持；两父窗口/四尾28B用途归档；局部静态，未编译测试运行，完整正常寿命/数值/机器ABI/像素及门禁继续",
+      "map_draw_merge_word_sampling": {
+        "spec_id": "BUM01",
+        "evidence_refs": [
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-decision",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-acceptance",
+          "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+          "doc/cg2d_map_draw_merge_word_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 192,
+        "original_code_bytes": 649,
+        "original_page_count": 3,
+        "original_direct_call_count": 4,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 25,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 6,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_private_helper_count": 1,
+        "new_shared_owner_count": 0,
+        "original_six_merge_segments_eleven_value_W32_pairs_restored": true,
+        "original_native_nonowning_before_then_after_copy_kept": true,
+        "original_native_padding_not_legacy_field": true,
+        "original_forward_remaining_records_and_distinct_count_publications_kept": true,
+        "original_held_source_and_fresh_counts_comparisons_equal_groups_and_capacity_gate_kept": true,
+        "original_before_primary_after_per_item_primary_clip_and_low_batch_queue_view_kept": true,
+        "original_three_correct_submit_wrapper_sort_bodies_and_known_qsort_adapter_kept": true,
+        "original_current_owner_producers_comparators_callers_and_queue_sources_kept": true,
+        "original_six_rep_movsd_sites_captured": true,
+        "original_record_size": 52,
+        "native_record_size": 64,
+        "original_nonaddress_prefix_bytes": 44,
+        "native_nonowning_link_count": 2,
+        "original_merge_copy_segment_count": 6,
+        "original_nop_tail_bytes": 28,
+        "original_parent_window_count": 2,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_general_CRT_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

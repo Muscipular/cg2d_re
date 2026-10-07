@@ -3644,3 +3644,11 @@ BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片
 LOOP112/MAP109各局部I-S各25来源；71B混合区两目标表/十一BYTE case槽共63B，另LEA3B/NOP5B与CUT尾NOP14B仅用途，两R7。预期语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654。旧1698条/冻结定位/pending18与ECX pending7、三任务open和完整门禁保持。
 
 BUL01必要静态已通过：完整SceneState仅两既有根四片段，普通/CUT三hit BYTE取样和obj→tile→walk短路恢复，原共享WORD平面/5202B全清/两轮资源查询-flag及S16覆盖/模式转发/正常返回和全部其它源码/声明/owner保持。两原根381条1163B/七页、三个外部后窗、63B跳表及3B LEA/19B NOP用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1700/有效1693、合同1811（49.21%）、处置841/E988、R7已审407/余2654、LOOP112/MAP109。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行，完整正常生产消费/寿命/数值/x87/机器ABI/像素及R8继续。命名快照：cg2d-re-map-walkability-byte-sampling-20261008。
+
+## BUM01 地图缓存四根身份及六段复制实修（2026-10-08）
+
+[基线](cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-baseline)324条980B/七页对应新1700/C1C0、1701/C2F0、1702/C420、1703/C4D0，四adapted。只有合并一既有正文六片段/一个私有helper新增，前44B十一W32及before-after native链接原读写序恢复；另三正确体、四生产/两比较和现父及队列全源保持，不把四新身份称四个新增实现。
+
+LOOP116/MAP113各局部I-S各25来源，四R7/28B NOP只用途；预期语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650。旧1700条/冻结定位/pending18与ECX pending7、四任务open及完整门禁保持。
+
+BUM01必要静态已通过：完整MapDrawCache仅一个私有CopyMapDrawRecord插入及合并正文六片段变化，前44B十一W32每对读写后before/after native非拥有地址，bulk前向逐记录；原各pub时点/正常分支、另三正确根/布局/owner/四生产/两比较/父及队列声明全保持。四原根324条980B/七页、六rep/两局部后窗/四尾28B用途与证据及机器/文档模型一致。汇总及 -Check 通过，派生实值：语义1704/有效1697、合同1815（49.32%）、处置845/E992、R7已审411/余2650、LOOP116/MAP113。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持。未编译、测试或运行；完整正常生产消费/寿命/数值/x87/全父/callee/机器ABI/像素及R8继续。命名快照：cg2d-re-map-draw-merge-word-sampling-20261008。

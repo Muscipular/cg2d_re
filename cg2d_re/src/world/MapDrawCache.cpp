@@ -80,6 +80,22 @@ void WriteMapDrawDescriptor(
     std::memcpy(destination.bytes.data() + 14, &zero, sizeof(zero));
 }
 
+// 原46C4D0六段复制：前44B逐W32读写，再按原序复制两条非拥有链接。
+void CopyMapDrawRecord(MapDrawRecord* const destination, const MapDrawRecord* const source)
+{
+    auto* const destinationBytes = reinterpret_cast<std::byte*>(destination);
+    const auto* const sourceBytes = reinterpret_cast<const std::byte*>(source);
+    for (std::size_t offset = 0; offset < 0x2C; offset += sizeof(std::uint32_t)) {
+        std::uint32_t value;
+        std::memcpy(&value, sourceBytes + offset, sizeof(value));
+        std::memcpy(destinationBytes + offset, &value, sizeof(value));
+    }
+    MapDrawRecord* const before = source->before;
+    destination->before = before;
+    MapDrawRecord* const after = source->after;
+    destination->after = after;
+}
+
 // 原 46C300：两项深度落 F32；图形查询之后按原 x87 门禁及 S16 屏幕阈值比较。
 std::int32_t CompareMapObject_46C300(
     const MapDrawRecord* const primary, const MapDrawRecord* const object)
@@ -268,7 +284,7 @@ void MergeMapDrawCache_46C4D0()
                         if (mapNo != 1) {
                             MapDrawRecord* const destination = gMapDrawMerged9A86E8.data() + merged;
                             gMapDrawMergedCount9EE914 = ++merged;
-                            *destination = *primary;
+                            CopyMapDrawRecord(destination, primary);
                         }
                         const float currentX = std::bit_cast<float>(primary->worldXBits);
                         const float nextX = std::bit_cast<float>((primary + 1)->worldXBits);
@@ -303,7 +319,7 @@ void MergeMapDrawCache_46C4D0()
                 ++merged;
                 ++objectIndex;
                 gMapDrawMergedCount9EE914 = merged;
-                *destination = *object;
+                CopyMapDrawRecord(destination, object);
                 if (objectIndex < objectLimit) {
                     const MapDrawRecord* const primary =
                         gMapDrawPrimary9EE918.data() + primaryIndex;
@@ -320,7 +336,7 @@ void MergeMapDrawCache_46C4D0()
                         ++merged;
                         ++objectIndex;
                         objectLimit = std::bit_cast<std::int32_t>(gValue9FB928);
-                        *nextDestination = *nextObject;
+                        CopyMapDrawRecord(nextDestination, nextObject);
                         gMapDrawMergedCount9EE914 = merged;
                         ++nextObject;
                         if (objectIndex >= objectLimit) {
@@ -338,7 +354,9 @@ void MergeMapDrawCache_46C4D0()
                 const MapDrawRecord* const source = gMapDrawObjectsC751D0.data() + objectIndex;
                 objectIndex += remaining;
                 merged += remaining;
-                std::copy_n(source, remaining, destination);
+                for (std::int32_t recordIndex = 0; recordIndex < remaining; ++recordIndex) {
+                    CopyMapDrawRecord(destination + recordIndex, source + recordIndex);
+                }
                 gMapDrawMergedCount9EE914 = merged;
             }
         }
@@ -353,7 +371,7 @@ void MergeMapDrawCache_46C4D0()
             if (mapNo != 1) {
                 MapDrawRecord* const destination = gMapDrawMerged9A86E8.data() + merged;
                 gMapDrawMergedCount9EE914 = ++merged;
-                *destination = *primary;
+                CopyMapDrawRecord(destination, primary);
             }
             const std::int32_t limit = std::bit_cast<std::int32_t>(gValue9FB934);
             ++primaryIndex;
@@ -377,7 +395,7 @@ void MergeMapDrawCache_46C4D0()
             ++destination;
             ++specialIndex;
             ++source;
-            *currentDestination = *currentSource;
+            CopyMapDrawRecord(currentDestination, currentSource);
         } while (destination < gMapDrawMerged9A86E8.data() + kMergedCapacity);
         gMapDrawMergedCount9EE914 = merged;
     }

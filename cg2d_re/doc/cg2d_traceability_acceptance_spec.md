@@ -1824,3 +1824,15 @@ LOOP158/INPUT51/RENDER59/STARTUP118，预期语义1745/有效1738、文档1856�
 集中静态已通过：完整162条625B/三页、BOZ01既有19条57B原caller准确复用和15B NN_NOP用途；整cpp仅一个具名片段，正确caller整源/四其他函数及原混合解绑/返回尾保持。完整语义/登记簿与派生快照只有具名模型差异，七对应文档/三任务与十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
 
 文本汇总与Check均退出0；实际语义1750/有效1743、合同1861（50.57%）、F891/E1050、R7已审453余2608、LOOP163/RENDER64。既有1412/BOZ证据及四旧BUU错误证据fail保持，pending18/未知ECX、closed11/原差队列与全部闭包保持；只有本步尺寸取样修复/静态对照通过，完整父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。
+
+## BVA01共同裁剪实修与混合色深限定验收（2026-10-08）
+
+[完整原基线](cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline)、[裁决](cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision)与[证据](cg2d_outline_rectangle_dimension_sampling_evidence.json)固定完整783条2600B/12页、BOZ53条131B父证据复用、3B RGB及8B用途。一cpp一个prefix恢复四+94/+98取样，原RECT/S32、mode门禁/三32位像素/physical pitch/SDK失败门禁与正确caller保持；已批仅32位范围的R1一mixed增量，不外推整体排除或像素通过。
+
+1750新语义/F mixed、一X用途，R1清单12/mixed3/完整入口排除113、具名分类120；LOOP164/RENDER65四限定I-S各25来源，G02/R01/R04/V04 current/引用仍open。预期语义1751/有效1744、合同1862/50.60%、F892/E1054/R7已审454余2607；原1411/BOZ记录及旧四BUU fail保持，全叶/任务分母和门禁不变。完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/正常失败/运行与R8继续。
+
+### BVA01 当前修复与混合范围限定静态结果
+
+集中静态已通过：完整783条2600B/12页、BOZ53条131B准确复用、3B RGB与8B实际NN_NOP；整cpp只有一个prefix，原三32位像素/模式拒绝/physical pitch与正确caller整源/私有声明保持。三完整机器只有具名差异，R1原11记录和1411/旧证据保持；完整派生快照只新mixed身份、两域/候选、四任务/一X、R1分类来源和对应指标变化，八对应文档/十七文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1751/有效1744、合同1862（50.60%）、F892/E1054、R7已审454余2607、LOOP164/RENDER65。R1清单12/mixed3、具名分类120、原完整入口排除113；不扣整个混合F或计低色深为实现。pending18/未知ECX、closed11/原差队列和全闭包、旧四BUU错误证据fail保持；只有本步尺寸取样/适用32位局部静态通过，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

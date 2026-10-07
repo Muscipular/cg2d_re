@@ -17,7 +17,7 @@
     {
       "path": "doc/cg2d_render_depth_scope.json",
       "evidence_document": "doc/cg2d_render_depth_scope.md",
-      "scope": "九个完整低色深入口排除及两个混合色深入口；以该文件逐项状态为准，不把混合入口整体排除。"
+      "scope": "九个完整低色深入口排除及三个混合色深入口；以该文件逐项状态为准，不把混合入口整体排除。"
     },
     {
       "path": "doc/cg2d_function_boundary_classifications.json",
@@ -198057,6 +198057,83 @@
         "original_caller_four_W16_and_busy_dirty_contract_kept": true,
         "existing_helpers_texture_roots_Back_owner_and_native_SDK_kept": true,
         "original_nop_tail_bytes": 15,
+        "full_inbound_parent_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x451350",
+      "inventory_id": "F:00051350",
+      "original_role": "原矩形描边/整域填色/单行混合色深入口",
+      "original_end_exclusive": "0x451d78",
+      "original_chunks": [
+        {
+          "start": "0x451350",
+          "end_exclusive": "0x451d78"
+        }
+      ],
+      "instruction_count": 783,
+      "status": "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/render/SurfaceState.cpp",
+          "symbols": [
+            "Sub_451350"
+          ],
+          "relationship": "原783条2600B/12页、零direct/两indirect/84跳转/两返回，三caller同522210；RECT四S32回写边界，初始left/top与负值裁剪后right/bottom分别按原+94/+98读点取样恢复。原mode非2宽高<=2拒绝/mode2宽0拒绝、三个32位模式的left+1起笔/边角行列/低W16颜色与AutoMap或256扩展RGB、physical pitch和native Back失败门禁/返回保持；已批仅32位，混合入口不整体排除，低色深分支未实现不计债务；原caller BOZ53条131B正确保持，完整父/alias/像素/ABI/运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline",
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision",
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-acceptance",
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
+        "doc/cg2d_outline_rectangle_dimension_sampling_evidence.json"
+      ],
+      "boundary": "原783条2600B/12页、零direct/两indirect/84跳转/两返回，三caller同522210；RECT四S32回写边界，初始left/top与负值裁剪后right/bottom分别按原+94/+98读点取样恢复。原mode非2宽高<=2拒绝/mode2宽0拒绝、三个32位模式的left+1起笔/边角行列/低W16颜色与AutoMap或256扩展RGB、physical pitch和native Back失败门禁/返回保持；已批仅32位，混合入口不整体排除，低色深分支未实现不计债务；原caller BOZ53条131B正确保持，完整父/alias/像素/ABI/运行未验",
+      "verification_level": "BVA01描边/填色完整原783条2600B/12页及正确BOZ原caller53条131B复用、扩展RGB3B和8B NN_NOP用途；一cpp一个prefix恢复四逻辑尺寸读点，原三个32位像素算法/物理pitch/原模式拒绝和正确caller保，零头/新helper/owner。R1一mixed增量只排除既有低色深分支，LOOP/RENDER限定I-S；完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
+      "outline_rectangle_dimension_sampling": {
+        "spec_id": "BVA01",
+        "evidence_refs": [
+          "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline",
+          "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision",
+          "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-acceptance",
+          "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-source-state",
+          "doc/cg2d_outline_rectangle_dimension_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 783,
+        "original_code_bytes": 2600,
+        "original_page_count": 12,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 84,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 3,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_cpp_patch_count": 1,
+        "source_header_file_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_initial_left_top_and_later_right_bottom_four_logical_dimension_reads_restored": true,
+        "original_RECT_four_S32_publication_and_comparisons_kept": true,
+        "original_mode_guards_and_three_32_bit_pixel_algorithms_kept": true,
+        "original_left_plus_one_physical_pitch_Color_AutoMap_and_3B_RGB_kept": true,
+        "original_caller_reused_from_BOZ01": true,
+        "original_caller_instruction_count": 53,
+        "original_caller_code_bytes": 131,
+        "original_caller_mode_priority_and_private_declaration_kept": true,
+        "original_RGB_byte_count": 3,
+        "original_nop_tail_bytes": 8,
+        "existing_native_SDK_Back_owner_and_pitch_kept": true,
+        "R1_existing_32_bit_scope_retained": true,
+        "whole_function_excluded": false,
         "full_inbound_parent_verified": false,
         "full_callees_verified": false,
         "full_machine_abi_verified": false,

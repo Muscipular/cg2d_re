@@ -54,3 +54,15 @@ U08/U09/G01/G02/R01/R04/V04仅进展和引用，仍open；总分发及所有父/
 集中静态已通过：完整162条625B/三页、BOZ01既有19条57B原caller准确复用和15B NN_NOP用途；整cpp仅一个具名片段，正确caller整源/四其他函数及原混合解绑/返回尾保持。完整语义/登记簿与派生快照只有具名模型差异，七对应文档/三任务与十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
 
 文本汇总与Check均退出0；实际语义1750/有效1743、合同1861（50.57%）、F891/E1050、R7已审453余2608、LOOP163/RENDER64。既有1412/BOZ证据及四旧BUU错误证据fail保持，pending18/未知ECX、closed11/原差队列与全部闭包保持；只有本步尺寸取样修复/静态对照通过，完整父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。
+
+## BOZ01正确case2消费与BVA01下游边界实修（2026-10-08）
+
+[完整原基线](cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline)、[裁决](cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision)与[证据](cg2d_outline_rectangle_dimension_sampling_evidence.json)仅在Sub451350一cpp一个prefix恢复初始left/top及负值裁剪后right/bottom的四逻辑宽高读点，RECT四S32回写/原比较方向保持。原mode门禁、三个32位像素/边角行列、低W16颜色及physical pitch保持；既有SDK失败边界不改。
+
+BOZ01原522210的53条131B/三调用、W32 x后y取样与right-bottom-left-top字段发布/高位标志优先已正确，准确复用原证并保整源/私有声明和1411/E。新原783条2600B/12页纳管1750/mixed，原低色深分支沿已批范围登记，不把原共同部分或32位一起排除；完整父/alias寿命/像素/ABI/运行未验。
+
+### BVA01 当前修复与混合范围限定静态结果
+
+集中静态已通过：完整783条2600B/12页、BOZ53条131B准确复用、3B RGB与8B实际NN_NOP；整cpp只有一个prefix，原三32位像素/模式拒绝/physical pitch与正确caller整源/私有声明保持。三完整机器只有具名差异，R1原11记录和1411/旧证据保持；完整派生快照只新mixed身份、两域/候选、四任务/一X、R1分类来源和对应指标变化，八对应文档/十七文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1751/有效1744、合同1862（50.60%）、F892/E1054、R7已审454余2607、LOOP164/RENDER65。R1清单12/mixed3、具名分类120、原完整入口排除113；不扣整个混合F或计低色深为实现。pending18/未知ECX、closed11/原差队列和全闭包、旧四BUU错误证据fail保持；只有本步尺寸取样/适用32位局部静态通过，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

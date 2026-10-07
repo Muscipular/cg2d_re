@@ -2449,3 +2449,15 @@ AutoMap原叶45014F和父450468各Unlock一次，显式叶32位段只由父45043
 集中静态已通过：两完整根526条1769B/八页、四局部72条252B（两绘制窗准确复用BUX01）/两23B用途，两正确正文及六相关生产/构析源与HEAD保持；完整语义/登记簿和派生快照只有具名模型差异，七对应文档/四任务和十四文件UTF8无BOM/LF、四锚点/三限定S各25真实来源通过。源码/头文件改动0、无新I。
 
 文本汇总与Check均退出0；实际语义1749/有效1742、合同1860（50.54%）、F890/E1046、R7已审452余2609、LOOP162/RENDER63/RESOURCE43。旧未接线误述已纠正；pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU错误通过仍fail。完整所有父/callee、owner/alias寿命、机器ABI/链接/像素/运行与R8未验，整体目标继续。
+
+## BVA01队列描边/填色的实际差异收口（2026-10-08）
+
+[完整原基线](cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline)、[裁决](cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision)与[证据](cg2d_outline_rectangle_dimension_sampling_evidence.json)从真实522210三次原模式调用进入451350，原783条2600B/12页与BOZ53条131B复用。仅修固定640/480与原+94/+98四阶段取样差异，保持RECT四S32更新、模式拒绝和三个32位像素算法；已有Back物理pitch/owner和扩展RGB3B保持。
+
+一个新1750/F:00051350 mixed、一8B NN_NOP用途与R1分类增量；不把混合入口整体排除，原低色深授权不变。零头/新helper/owner，正确1411消费和私有声明不改，完整所有父/callee、像素/alias寿命/机器ABI/运行未验。
+
+### BVA01 当前修复与混合范围限定静态结果
+
+集中静态已通过：完整783条2600B/12页、BOZ53条131B准确复用、3B RGB与8B实际NN_NOP；整cpp只有一个prefix，原三32位像素/模式拒绝/physical pitch与正确caller整源/私有声明保持。三完整机器只有具名差异，R1原11记录和1411/旧证据保持；完整派生快照只新mixed身份、两域/候选、四任务/一X、R1分类来源和对应指标变化，八对应文档/十七文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1751/有效1744、合同1862（50.60%）、F892/E1054、R7已审454余2607、LOOP164/RENDER65。R1清单12/mixed3、具名分类120、原完整入口排除113；不扣整个混合F或计低色深为实现。pending18/未知ECX、closed11/原差队列和全闭包、旧四BUU错误证据fail保持；只有本步尺寸取样/适用32位局部静态通过，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

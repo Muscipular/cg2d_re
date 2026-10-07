@@ -190,6 +190,36 @@
         "condition": "BITSPIXEL == 24"
       },
       "boundary": "写62A32C的256组三字节BGR目标表及透明项；不同于资源源调色板读取，后者保持实现范围。32位451220及现有RebuildPalette32保留。"
+    },
+    {
+      "original_entry": "0x451350",
+      "original_end": "0x451D78",
+      "inventory_id": "F:00051350",
+      "name": "矩形描边/填色/单行的混合色深入口",
+      "status": "混合范围：保留32位，排除低色深分支",
+      "excluded_bits_per_pixel": [
+        8,
+        16,
+        24
+      ],
+      "retained_bits_per_pixel": [
+        32
+      ],
+      "retained_branch": "0x45145B",
+      "retained_mode_branches": [
+        "0x451531",
+        "0x451A04",
+        "0x451C97"
+      ],
+      "source": {
+        "path": "src/render/SurfaceState.cpp",
+        "symbol": "Sub_451350"
+      },
+      "evidence_documents": [
+        "doc/cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline",
+        "doc/cg2d_outline_rectangle_dimension_sampling_evidence.json"
+      ],
+      "boundary": "原783条2600B/12页、零direct/两indirect/84跳转/两返回，三caller同522210；RECT四S32回写边界，初始left/top与负值裁剪后right/bottom分别按原+94/+98读点取样恢复。原mode非2宽高<=2拒绝/mode2宽0拒绝、三个32位模式的left+1起笔/边角行列/低W16颜色与AutoMap或256扩展RGB、physical pitch和native Back失败门禁/返回保持；已批仅32位，混合入口不整体排除，低色深分支未实现不计债务；原caller BOZ53条131B正确保持，完整父/alias/像素/ABI/运行未验"
     }
   ]
 }

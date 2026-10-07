@@ -538,21 +538,23 @@ std::int32_t ClearSurface_4512C0() noexcept
 
 void Sub_451350(RECT* const rect, const std::uint16_t colorIndex, const std::int32_t mode)
 {
-    if (rect->left >= kCpuSurfaceWidth || rect->right < 0
-        || rect->top >= kCpuSurfaceHeight || rect->bottom < 0) {
+    if (rect->left >= GetRendererLogicalWidth() || rect->right < 0
+        || rect->top >= GetRendererLogicalHeight() || rect->bottom < 0) {
         return;
     }
     if (rect->left < 0) {
         rect->left = 0;
     }
-    if (rect->right >= kCpuSurfaceWidth) {
-        rect->right = kCpuSurfaceWidth;
+    const std::int32_t logicalWidth = GetRendererLogicalWidth();
+    if (rect->right >= logicalWidth) {
+        rect->right = logicalWidth;
     }
     if (rect->top < 0) {
         rect->top = 0;
     }
-    if (rect->bottom >= kCpuSurfaceHeight) {
-        rect->bottom = kCpuSurfaceHeight;
+    const std::int32_t logicalHeight = GetRendererLogicalHeight();
+    if (rect->bottom >= logicalHeight) {
+        rect->bottom = logicalHeight;
     }
     const std::int32_t width = rect->right - rect->left;
     const std::int32_t height = rect->bottom - rect->top;

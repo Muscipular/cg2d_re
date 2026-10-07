@@ -32,3 +32,15 @@
 - 中间451004比较BITSPIXEL与32，45100D调用既有451220。现有Palette.cpp保留RebuildPalette32及共享调色板过渡，不把源索引资源、调色板读取或整条450BB0过渡逻辑排除。
 
 两叶按已批准色深范围加入清单，明确标“用户范围排除”，不新增空实现、不计为已实现。此增量不改变前九项结论，也不重新验证未变的32位算法。
+
+## 描边/填色混合入口的R1增量（BVA01，2026-10-08）
+
+[完整原基线](cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-baseline)、[裁决](cg2d_outline_rectangle_dimension_sampling_spec.md#outline-rectangle-dimension-decision)与[证据](cg2d_outline_rectangle_dimension_sampling_evidence.json)完整核451350–451D78的783条2600B/12页，原32位起笔45145B以及mode0/1/2像素段451531/451A04/451C97已证，非32位分支沿原BITSPIXEL分流。依据原只复刻32位授权追加一mixed记录，低色深8/16/24目标分支排除，共同裁剪/模式分流及32位像素保；不整体排除，不增加新范围决定。
+
+R1清单11→12，其中完整低色深入口仍9、mixed2→3；全库存具名完整入口排除113保持，新F:00051350不得扣出分母。既有两mixed/九排除全部记录保持，语义顶层分类说明同步三个，具名分类119→120。source中原模式门禁/三32位算法正确保，只一cpp一个prefix恢复四逻辑尺寸取样；BOZ53条131B父证据复用，3B RGB与8B用途有原证，完整像素/寿命/ABI/运行和R1全量仍未闭。
+
+### BVA01 当前修复与混合范围限定静态结果
+
+集中静态已通过：完整783条2600B/12页、BOZ53条131B准确复用、3B RGB与8B实际NN_NOP；整cpp只有一个prefix，原三32位像素/模式拒绝/physical pitch与正确caller整源/私有声明保持。三完整机器只有具名差异，R1原11记录和1411/旧证据保持；完整派生快照只新mixed身份、两域/候选、四任务/一X、R1分类来源和对应指标变化，八对应文档/十七文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1751/有效1744、合同1862（50.60%）、F892/E1054、R7已审454余2607、LOOP164/RENDER65。R1清单12/mixed3、具名分类120、原完整入口排除113；不扣整个混合F或计低色深为实现。pending18/未知ECX、closed11/原差队列和全闭包、旧四BUU错误证据fail保持；只有本步尺寸取样/适用32位局部静态通过，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

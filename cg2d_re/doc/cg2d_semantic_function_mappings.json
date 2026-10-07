@@ -190693,6 +190693,91 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x46AFE0",
+      "inventory_id": "F:0006AFE0",
+      "original_role": "原团队坐标从被移除槽传递到跟随槽，按首对象到格/前一目标邻接门禁消费并逐槽迁移目标",
+      "original_end_exclusive": "0x46b1a3",
+      "original_chunks": [
+        [
+          "0x46afe0",
+          "0x46b1a3"
+        ]
+      ],
+      "instruction_count": 128,
+      "status": "BTS01完整跟随传播父128条451B/两页，两cpp四片段恢复同NULL/X/移动指针、双world单读和邻接四对明确取样；完整正常寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46AFE0"
+          ],
+          "relationship": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "IsMapActorIdleAtTarget",
+            "AreMapActorTargetsAdjacent",
+            "ReadMapActorTarget"
+          ],
+          "relationship": "两world F32按轴各一次、四对current→previous独立取样；复用已有held X/fresh Y重载，移动仍传同held action，无新helper/声明/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
+        "doc/cg2d_actor_follow_target_sampling_evidence.json"
+      ],
+      "boundary": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "verification_level": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "actor_follow_target_sampling": {
+        "spec_id": "BTS01",
+        "evidence_refs": [
+          "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+          "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
+          "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance",
+          "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
+          "doc/cg2d_actor_follow_target_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 128,
+        "original_code_bytes": 451,
+        "original_page_count": 2,
+        "original_direct_call_count": 11,
+        "original_unique_direct_callee_count": 4,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 19,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 4,
+        "source_header_patch_count": 0,
+        "existing_source_body_count": 3,
+        "original_same_action_null_first_x_and_movement_restored_or_kept": true,
+        "original_independent_fresh_y_pointer_kept": true,
+        "existing_explicit_first_x_fresh_y_overload_reused": true,
+        "original_two_world_f32_once_per_axis_restored": true,
+        "original_four_current_previous_pointer_pairs_restored": true,
+        "original_sign_before_fresh_magnitude_and_x_short_circuit_kept": true,
+        "original_signed_path_normal_s32_difference_negation_and_threshold_two_kept": true,
+        "original_float_scale_64_actual_loaded_constant_verified": true,
+        "original_first_held_pointer_reverse_search_global_and_five_slot_update_order_kept": true,
+        "original_internal_read_difference_and_rng_call_order_kept": true,
+        "original_unconsumed_mixed_return_void_observation_adaptation": true,
+        "original_return_clear_decision_ref": "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_helper_overload_count": 0,
+        "new_shared_owner_count": 0,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

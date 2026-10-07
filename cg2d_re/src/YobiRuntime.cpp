@@ -4037,31 +4037,43 @@ bool IsMapActorIdleAtTarget(YobiAction* const action)
     }
     const double x = static_cast<double>(
         platform::legacy_crypt_int::Read_401EC0(&action->mapX200)) * 64.0F;
-    if (x < action->worldX || x > action->worldX) {
+    const float worldX = action->worldX;
+    if (x < worldX || x > worldX) {
         return false;
     }
     const double y = static_cast<double>(
         platform::legacy_crypt_int::Read_401EC0(&action->mapY210)) * 64.0F;
-    return !(y < action->worldY || y > action->worldY);
+    const float worldY = action->worldY;
+    return !(y < worldY || y > worldY);
 }
 
 bool AreMapActorTargetsAdjacent(YobiAction*& previous, YobiAction*& current)
 {
+    YobiAction* const currentSignX = current;
+    YobiAction* const previousSignX = previous;
     const std::int32_t signX = platform::legacy_crypt_int::Difference_401E70(
-        &previous->mapX200, &current->mapX200);
+        &previousSignX->mapX200, &currentSignX->mapX200);
+    const bool negativeX = signX < 0;
+    YobiAction* const currentMagnitudeX = current;
+    YobiAction* const previousMagnitudeX = previous;
     std::int32_t distanceX = platform::legacy_crypt_int::Difference_401E70(
-        &previous->mapX200, &current->mapX200);
-    if (signX < 0) {
+        &previousMagnitudeX->mapX200, &currentMagnitudeX->mapX200);
+    if (negativeX) {
         distanceX = -distanceX;
     }
     if (distanceX >= 2) {
         return false;
     }
+    YobiAction* const currentSignY = current;
+    YobiAction* const previousSignY = previous;
     const std::int32_t signY = platform::legacy_crypt_int::Difference_401E70(
-        &previous->mapY210, &current->mapY210);
+        &previousSignY->mapY210, &currentSignY->mapY210);
+    const bool negativeY = signY < 0;
+    YobiAction* const currentMagnitudeY = current;
+    YobiAction* const previousMagnitudeY = previous;
     std::int32_t distanceY = platform::legacy_crypt_int::Difference_401E70(
-        &previous->mapY210, &current->mapY210);
-    if (signY < 0) {
+        &previousMagnitudeY->mapY210, &currentMagnitudeY->mapY210);
+    if (negativeY) {
         distanceY = -distanceY;
     }
     return distanceY < 2;

@@ -3584,3 +3584,19 @@ BTQ01已提交，本步沿真实上游50A3E0完整228条708B/四归档页一块�
 完整三源头五片段、原根228条708B四归档页全部原MCP字段/19直接call与唯一原模板入向/复用上游清0、十二BYTE NN_NOP用途、完整机器台账两域具名增量及五文档/三任务定向静态通过。纯文本measure/-Check终态0；完整派生快照仅一新语义/两域成员和候选/一X/三任务与六指标，十五文件UTF-8无BOM/LF和四局部I-S各25真实来源通过。百分比依既有汇总器中点舍入为48.12%，已对齐文档，不手改生成结果。
 
 实际语义1660/有效1653、文档关联1771（48.12%）、处置801/E908、LOOP72/NETWORK57、R7 369余2692；完整叶验收0、整体未通过。未编译、测试、运行或摘要；全callee/全部正常生产消费及owner-alias寿命、SDK-ABI/链接/明文互通和运行R8按原门禁继续。
+
+## BTS01 跟随传播同指针/world单读与邻接顺序实修（2026-10-07）
+
+BTR01已提交，本步沿真实46AFE0下游完整128条451B/70+58两页一块、11直接call/4目标/19jump/1RET及唯一50A3E0@50A4EF入向。发现NULL后重复取action与首X、两world F32重复读取、邻接四对指针次序依赖C++参数求值。原EDI贯穿NULL/X和441F60，Y在X后另取槽，movement不能错误fresh；首对象两world字段各只读一次；邻接current→previous四对各独立取样，符号条件后再求幅值，X>=2不读Y。
+
+先落[子SPEC](../doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision)，实修Scene46AFE0循环一片段同NULL/X/movement、Y独立fresh，复用BTR01现有四参数重载；YobiIdle两world片段在各轴CryptInt单读/Double乘64后各sampled F32；Adjacent一完整helper段四对明确current→previous、符号条件后fresh两T*、保普通S32差值/取负和阈2。共两cpp四唯一片段/三既有正文，全部头/其它源、旧callee及first held/反向找槽/9DAD78发布和原五槽循环/双轴推进保持，无新helper/声明/owner/保护或回绕模型。
+
+64.0原常数54DD30真实四字节00008042已逐地址loaded及get_full_flags has_value证明。最初仅get_flags的值位guard不通过，停止据其推断；改用完整flags并核实已加载字节后解决，不填空值或猜常数。唯一父尾透传和512E40清0复用BTR01/BTP01既有完整原窗，无差别重取证；父混合残值void观察具名保。尾13B逐BYTE90/NN_NOP无入向/后真入口，仅对齐用途。
+
+新1660语义/adapted/实际F处置、LOOP72→73/MAP69→70各两局部I-S各25真实来源及一R7用途；预期语义1661/有效1654、文档1772（48.15%）、处置802/E912、R7 370余2691，集中静态/汇总后追加实值。三任务仅current/引用保open、全部旧对象/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；全callee/全部正常生产消费及owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行R8继续，局部指令/静态不代整体完成。
+
+## 本步静态终态（2026-10-07）
+
+完整两cpp四片段、原根128条451B两页所有原MCP字段/11直接call/19jump/1RET及两级原返回窗、已加载64.0常数与13B NN_NOP用途、完整机器台账两域具名增量及五文档/三任务定向静态通过。纯文本measure/-Check终态0；完整派生快照仅一新语义/两域成员和候选/一X/三任务与六指标，十四文件UTF-8无BOM/LF、四局部I-S各25真实来源通过。
+
+实际语义1661/有效1654、文档关联1772（48.15%）、处置802/E912、LOOP73/MAP70、R7 370余2691；完整叶验收0、整体未通过。不编译、测试、运行或摘要；全callee/全部正常生产消费及owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行R8仍按原门禁推进。

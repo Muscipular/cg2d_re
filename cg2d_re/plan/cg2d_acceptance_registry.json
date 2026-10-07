@@ -609,7 +609,8 @@
         "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
         "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-baseline",
         "doc/cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-baseline",
-        "doc/cg2d_team_reply_sampling_spec.md#team-reply-baseline"
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-baseline",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -683,7 +684,8 @@
         "F:00042D90",
         "F:0003DB30",
         "F:0011B080",
-        "F:0010A3E0"
+        "F:0010A3E0",
+        "F:0006AFE0"
       ],
       "closure_task_ids": [
         "U11",
@@ -722,7 +724,8 @@
         "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
         "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-decision",
         "doc/cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-decision",
-        "doc/cg2d_team_reply_sampling_spec.md#team-reply-decision"
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-decision",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -752,7 +755,8 @@
         "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
         "BTP01十三完整移动/跟随/观察清除叶164条550B/十三页十三块，唯一call442C70→440B50、17jump/13RET、18direct点五父50B380/444410/50A3E0/51B080/440440。实修一cpp十既有正文十片段及一头六声明，共16唯一片段：五flags42高BYTE OR1/2/40/80/04依原序发布marker44 BYTE或value10C W32；449C90原一次W16取样→TEST AH2→仅未设时同held W16 OR100写回，恢复有定义低W16结果/NULL0，以std::uint16_t承接，原EAX高W16旧index残余不扩作业务值/不模拟；七原W16取消及marker清→完整field2E4模式2短路/门禁优先顺序保。五纯LEA地址叶C40/CD0/D30/D90/DB30恢复同flags42或flags120非拥有std::uint16_t*返回/原NULL返nullptr。七void偏移/混合寄存器叶观察适配具名批准，C70原门禁非零EAX或flag ptr混合不冒充纯指针；BD0@50A650残余偏移透传50A3E0父RET、最终512E40@514C5D XOR EAX清0已证，不误称18点全部直接弃返，父JJQj模板接线正确保持。其余所有源码/接口输入/owner/值与清序保持，无新helper/状态/保护/范围扩大。十三既有F新语义1645-1657/十adapted三equivalent、LOOP57→70/两局部I-S各27真实来源、十一NOP区90B只用途；原无间隙两个边界不造X。全部旧1645语义/其它成员/冻结定位/原pending18和任务/完整门禁保，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。五完整父/状态生产消费及正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验，局部返回裁决不外推机器ABI。",
         "BTQ01完整51B080五槽退组父37条110B/一页、3直接callee/7跳转/1RET/2入向，实修一正文两片段：两分支同一次原生非拥有action取样作NULL判断与field270 W16清0；非玩家原FDA88A跨字段W32读取复用既有ReadPlayerFlags18A后TEST AH1等值条件，短路后才取action；442C70独立重新取槽action及其门禁保、三字段逐槽清序/五槽及尾51A5B0原生地址透传保。不新增owner/helper/保护/业务；两调用点分别透传到上游清0或覆盖，局部静态不代完整父/全部正常生产消费/寿命或机器ABI/运行；BTP01十三机器描述改为真实局部观察及上游清0，不误称全部直接弃返。",
-        "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。"
+        "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。",
+        "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -783,7 +787,8 @@
         "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
         "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
         "doc/cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-source-state",
-        "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state"
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state"
       ]
     },
     {
@@ -1525,7 +1530,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
         "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-baseline",
-        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline"
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1596,7 +1602,8 @@
         "F:001199A0",
         "F:0011C7D0",
         "F:00119A80",
-        "F:00001FA0"
+        "F:00001FA0",
+        "F:0006AFE0"
       ],
       "closure_task_ids": [
         "U11",
@@ -1631,7 +1638,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
         "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-decision",
-        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision"
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1657,7 +1665,8 @@
         "YAS01共用动作分配四取样片段恢复载荷返回/原描述符五W16一W32两W8、首尾先取与新链接写后前驱复读；原两失败/无符号同值FIFO和未插链返回保持。原118条354B/113call/86已知父+1未归属调用点，一旧语义追加/一ID同LOOP，不称所有父/载荷和owner寿命/ABI/SDK/PC53/RNG/画面运行已验，异常不保护或模拟",
         "BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。",
         "BSA01两完整主地图根924条3782B/十四页，226CALL含214direct/66callee与十二indirect（九Tick三原表面），61jump/十五RET；父唯一WorldUpdate51C63C、初始化两父51C820/51CF84。源SceneState控制器八片段恢复205/251/252三点及3共六空509080，沿既有RET空叶不造业务；两数值tuple mask-encoded-W8先读齐再pub，两独立zero/one原2construct2destroy和RNG/目的vft-padding保。其余22状态/253值23目标/default、同帧/5-30阈值/地图输入窗口/队列表面计时/非拥有引用/音频全文保持；初始化原dir→Y→X→image/三文本两分隔/HP-maxHP与五petmap首匹配/五W16清已有正确正文保，只補完整基线。两真实X362B为目标表92/值表253和17真NOP，五连续part、两本父data引用/无code入向、前RET后真入口，只mapped用途。两F1580/1581 normal equivalent/MAP66→68/语义1582有效1575/文档1693/3680（46.01%）/分类714/E820/R7 288余2773。无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和所有完整门禁保，U09/U11仅current/refs仍open。原正常值正确不称运行故障；所有callee/正常owner-alias寿命/资源像素/主地图/SDK-ABI与互通运行R8未验；原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
-        "BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
+        "BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+        "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1684,7 +1693,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
         "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state",
-        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state"
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state"
       ]
     },
     {
@@ -39316,6 +39326,194 @@
       "observation": "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。",
       "expected": "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。",
       "actual": "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。"
+    },
+    {
+      "id": "E-ACTOR-FOLLOW-TARGET-SAMPLING-FUNC-LOOP-I-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTS01完整128条451B/两页、11call/4目标/19jump/1RET及两级返回窗、同NULL-X-movement/fresh Y与双world和四对邻接/64.0原数据、13B用途，doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-follow-target-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
+        "doc/cg2d_actor_follow_target_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_46AFE0",
+        "src/YobiRuntime.cpp#IsMapActorIdleAtTarget",
+        "src/YobiRuntime.cpp#AreMapActorTargetsAdjacent",
+        "src/YobiRuntime.cpp#ReadMapActorTarget",
+        "src/YobiRuntime.cpp#Sub_441F60",
+        "src/world/SceneState.cpp#Sub_50A3E0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/platform/LegacyCryptInt.cpp#Difference_401E70",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_team_reply_sampling_evidence.json",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "expected": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "actual": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-FOLLOW-TARGET-SAMPLING-FUNC-LOOP-S-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTS01完整128条451B/两页、11call/4目标/19jump/1RET及两级返回窗、同NULL-X-movement/fresh Y与双world和四对邻接/64.0原数据、13B用途，doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-follow-target-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
+        "doc/cg2d_actor_follow_target_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_46AFE0",
+        "src/YobiRuntime.cpp#IsMapActorIdleAtTarget",
+        "src/YobiRuntime.cpp#AreMapActorTargetsAdjacent",
+        "src/YobiRuntime.cpp#ReadMapActorTarget",
+        "src/YobiRuntime.cpp#Sub_441F60",
+        "src/world/SceneState.cpp#Sub_50A3E0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/platform/LegacyCryptInt.cpp#Difference_401E70",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_team_reply_sampling_evidence.json",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "expected": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "actual": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-FOLLOW-TARGET-SAMPLING-FUNC-MAP-I-20261007",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTS01完整128条451B/两页、11call/4目标/19jump/1RET及两级返回窗、同NULL-X-movement/fresh Y与双world和四对邻接/64.0原数据、13B用途，doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-follow-target-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
+        "doc/cg2d_actor_follow_target_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_46AFE0",
+        "src/YobiRuntime.cpp#IsMapActorIdleAtTarget",
+        "src/YobiRuntime.cpp#AreMapActorTargetsAdjacent",
+        "src/YobiRuntime.cpp#ReadMapActorTarget",
+        "src/YobiRuntime.cpp#Sub_441F60",
+        "src/world/SceneState.cpp#Sub_50A3E0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/platform/LegacyCryptInt.cpp#Difference_401E70",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_team_reply_sampling_evidence.json",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "expected": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "actual": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-FOLLOW-TARGET-SAMPLING-FUNC-MAP-S-20261007",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTS01完整128条451B/两页、11call/4目标/19jump/1RET及两级返回窗、同NULL-X-movement/fresh Y与双world和四对邻接/64.0原数据、13B用途，doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-follow-target-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
+        "doc/cg2d_actor_follow_target_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_46AFE0",
+        "src/YobiRuntime.cpp#IsMapActorIdleAtTarget",
+        "src/YobiRuntime.cpp#AreMapActorTargetsAdjacent",
+        "src/YobiRuntime.cpp#ReadMapActorTarget",
+        "src/YobiRuntime.cpp#Sub_441F60",
+        "src/world/SceneState.cpp#Sub_50A3E0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/platform/LegacyCryptInt.cpp#Difference_401E70",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "doc/cg2d_legacy_cryptint.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_team_reply_sampling_evidence.json",
+        "doc/cg2d_actor_movement_flag_sampling_evidence.json",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "expected": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。",
+      "actual": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。"
     }
   ],
   "task_acceptance": [
@@ -39790,7 +39988,8 @@
         "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
         "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
         "doc/cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-source-state",
-        "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state"
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state"
       ]
     },
     {
@@ -39847,7 +40046,8 @@
         "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
         "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
         "doc/cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-source-state",
-        "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state"
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state"
       ]
     },
     {
@@ -40379,7 +40579,8 @@
         "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
         "doc/cg2d_actor_movement_flag_sampling_spec.md#actor-movement-flag-source-state",
         "doc/cg2d_pet_slot_shutdown_sampling_spec.md#pet-slot-shutdown-source-state",
-        "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state"
+        "doc/cg2d_team_reply_sampling_spec.md#team-reply-source-state",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state"
       ]
     },
     {
@@ -50187,6 +50388,19 @@
         "doc/cg2d_team_reply_sampling_evidence.json"
       ],
       "boundary": "BTR01完整50A3E0团队JJQj I/T回复228条708B/四页一块、19直接callee/13不同目标、26跳转/5RET/唯一512E40入向；实修SceneState三片段两索引同取样供比较/查找、原NULL检查同targetAction供X而Y独立fresh共享槽。既有ReadMapActorTarget增同名原生T*+T&重载一项，旧签名保并按旧取样代理，无新命名helper/owner/布局/保护。三文件五片段/两既有正文与一新增重载；原掩码/字段/value10先0C/名称16字节门槛及旧文本、清槽和五槽计数/选next/坐标短路、全19原callee相对序/非玩家同查找结果发布NULL与两标志/玩家action再两标志保持。原混合EAX偏移/指针/索引残值在唯一上游XOR EAX0，具名void观察适配，不模拟寄存器。12B实际对齐只用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整原根静态不等于全部callee/正常寿命、SDK-ABI或运行R8验收。"
+    },
+    {
+      "inventory_id": "F:0006AFE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
+        "doc/cg2d_actor_follow_target_sampling_evidence.json"
+      ],
+      "boundary": "BTS01完整46AFE0跟随目标传播128条451B/70+58两页一块、11直接调用点/4目标、19跳转/1RET及唯一50A3E0入向；两文件四片段/三既有正文实修：同一次循环action取样用于NULL/首X/441F60，Y独立fresh共享槽，复用BTR01已有重载无新helper/声明；首对象两world F32在对应CryptInt单次S32读取/Double乘64后各取一次，原S16路径/逐轴门禁保持；四对邻接指针按current→previous依原位置明确取样、先符号条件再重新取两T*求幅值，X距离>=2不读Y，普通S32差值/取负及阈2保。原first held对象、前一活动槽反向找、9DAD78 W32发布及index到第5槽的循环/原W16flags与双轴赋值序、内部LegacyCryptInt调用/RNG消费次数保持；父混合EAX残值透传50A3E0尾到512E40清0，具名void观察不模拟寄存器。原54DD30四加载字节00008042/F32 64.0实证、尾13B NN_NOP只用途。无owner/范围保护/故障回绕模型、网络原格式明文/音频暂停/RPLAN.24保；全部callee/正常owner-alias寿命/机器ABI及运行R8未验。"
     }
   ],
   "auxiliary_dispositions": [
@@ -65998,6 +66212,128 @@
         },
         {
           "ea": "0x50a6af",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0006B1A3-0006B1B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance",
+        "doc/cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-source-state",
+        "doc/cg2d_actor_follow_target_sampling_evidence.json"
+      ],
+      "reason": "BTS01尾后十三BYTE逐地址90/NN_NOP、无入向/后真入口，仅对齐用途，不新增F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 13,
+      "original_bytes": "90909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x46b1a3",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1a4",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1a5",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1a6",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1a7",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1a8",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1a9",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1aa",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1ab",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1ac",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1ad",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1ae",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true
+        },
+        {
+          "ea": "0x46b1af",
           "size": 1,
           "bytes": "90",
           "mnemonic": "",

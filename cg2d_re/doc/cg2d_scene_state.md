@@ -7775,3 +7775,9 @@ D9D0范围provider仍原Sub_4410E0，NULL/负值短路及>=17普通归0、payloa
 按[裁决](cg2d_team_reply_sampling_spec.md#team-reply-decision)实修50A3E0三片段：离组/入组各同objectIndex供玩家比较和查找、离组原NULL同targetAction供首X，Y仍独立重读共享槽。Yobi既有读取工具增加同名T*+T&重载，旧签名代理并保持旧取样；三文件五片段，无新命名helper/owner/保护或布局改变。
 
 完整228条708B按70条归档四页、19直接call/13目标/26jump/5RET/唯一512E40原JJQj I/T入向。原掩码/字段/value10先0C/名称16门槛、两绑定与两状态发布、清槽计数及next/坐标短路正确保持。混合残值唯一上游清0，父void观察具名保；全callee/全部正常寿命与机器ABI/运行未验。
+
+## 跟随目标同NULL/X/移动指针（BTS01，2026-10-07）
+
+按[子SPEC](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision)，46AFE0活动检查后只取一次action供NULL、首X及441F60，Y独立fresh槽；复用BTR01四参数目标读取重载，无新helper/声明或owner。first held、反向活动槽查找、9DAD78 W32发布/index到五槽边界及移动后x→y推进正确保持，不把movement错误改为fresh。
+
+完整128条451B/70+58两页、11直接call/4目标/19jump/1RET、唯一50A3E0尾透传至512E40清0两窗复用；13B真实NN_NOP只用途。LOOP73/MAP70各两局部I-S，全部callee/正常owner-alias寿命及机器ABI/运行R8未验。

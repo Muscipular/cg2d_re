@@ -1508,3 +1508,9 @@ BTP01十三元数据只改为真实观察描述，不修改其证据/代码/分�
 [基线](cg2d_team_reply_sampling_spec.md#team-reply-baseline)、[裁决](cg2d_team_reply_sampling_spec.md#team-reply-decision)、[验收](cg2d_team_reply_sampling_spec.md#team-reply-acceptance)及[证据](cg2d_team_reply_sampling_evidence.json)对应完整228条708B/19call及唯一原模板/上游清0、三真实取样差异实修/同名重载与12B用途。LOOP71→72/NETWORK56→57、各两局部I-S各25来源，均仅适用本步静态。
 
 三任务仅current/引用保open；原pending18/ECX pending7/closed11/其它成员及完整门禁保。原协议字段、掩码、明文与内部LegacyCryptInt保持；全callee/全部正常owner-alias寿命、SDK-ABI/链接/明文互通及运行R8继续，不据局部返回裁决声明全通过。
+
+## BTS01 跟随目标父局部开发验收（2026-10-07）
+
+[基线](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline)、[裁决](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision)、[验收](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance)及[证据](cg2d_actor_follow_target_sampling_evidence.json)对应完整128条451B及原双轴/指针/CryptInt合同、两级返回窗、已加载64.0常数与13B用途；两cpp四片段/三既有正文实修，无新接口或owner。LOOP72→73/MAP69→70各两局部I-S各25来源，仅本步静态。
+
+三任务current/引用保open，原pending18/pending7/closed11及完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持；全callee/全部正常生产消费及owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续，不外推全通过。

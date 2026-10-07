@@ -8930,14 +8930,16 @@ void Sub_46AFE0(const std::int32_t index, std::int32_t x, std::int32_t y)
     gValue9DAD78 = 0x3F800000u;
     for (std::int32_t i = index; i < 5; ++i) {
         auto& slot = gPetMapCharaSlots[static_cast<std::size_t>(i)];
-        if (slot.flags != 0 && slot.action != nullptr) {
+        if (slot.flags != 0) {
             login::YobiAction* const action = slot.action;
-            std::int32_t nextX;
-            std::int32_t nextY;
-            login::detail::ReadMapActorTarget(slot.action, &nextX, &nextY);
-            login::detail::Sub_441F60(action, x, y);
-            x = nextX;
-            y = nextY;
+            if (action != nullptr) {
+                std::int32_t nextX;
+                std::int32_t nextY;
+                login::detail::ReadMapActorTarget(action, slot.action, &nextX, &nextY);
+                login::detail::Sub_441F60(action, x, y);
+                x = nextX;
+                y = nextY;
+            }
         }
     }
 }

@@ -4427,3 +4427,9 @@ CC0/C00/C70正确正文不改，marker清→完整模式2与场景门禁→NULL�
 [原基线](cg2d_team_reply_sampling_spec.md#team-reply-baseline)50A453取action并作NULL检查，50A469同指针+200读取X，50A46E再取槽后50A47C读Y。既有ReadMapActorTarget新增四参数重载(action,slot,x,y)，按同held X/fresh Y执行；旧三参数入口先取slot为action，再代理重载，原46AFE0调用及取样保持。头声明及非拥有、不公开布局/SDK类型边界一致，不新增检查或持有。
 
 完整源仅既有helper段替换为一新同名重载与旧入口代理；原内部LegacyCryptInt保留。原root228条708B/19call与全部字段/掩码/次序在子SPEC，LOOP72/NETWORK57各两局部I-S；全callee/正常owner-alias寿命、SDK-ABI及运行R8仍未验。
+
+## 首对象world单读及邻接指针顺序（BTS01，2026-10-07）
+
+[原端基线](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline)对应46AFE0内联到格/邻接逻辑。IsMapActorIdleAtTarget每轴在单次S32读取/Double乘64后，各一次F32 world取样供原比较；原S16路径与X短路、既有比较表达式保，不插F32中间落点或异常门槛。原54DD30四字节已加载00008042、完整flags值位证明64.0。
+
+AreMapActorTargetsAdjacent四对独立current→previous显式取样、符号条件后再取两T*求幅值、X>=2不读Y、普通S32差值与取负/阈2保持；不依赖参数求值次序或将两槽统一持有整个helper。父复用已存在held X/fresh Y重载、movement仍传同held action。两cpp四片段/三既有正文，无新helper/owner；全callee/正常寿命/机器ABI及运行未验。

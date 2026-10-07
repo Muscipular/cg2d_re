@@ -3480,3 +3480,9 @@ BTP01旧1645-1657仅将错误的全部调用者弃返字段名更正为局部观
 [完整基线](cg2d_team_reply_sampling_spec.md#team-reply-baseline)对应50A3E0完整228条708B/四归档页、19直接call/13目标/26jump/5RET/唯一原JJQj I/T模板调用及上游清0；新语义1659/adapted，三文件五片段/两既有正文与一个同名重载，三重复取样实修，原字段/掩码/门槛/全部callee相对序保持。尾12B真实NN_NOP仅用途。
 
 预期语义1660/有效1653、文档1771（48.12%）、处置801/E908、LOOP72/NETWORK57/各两局部I-S各25真实来源、R7 369余2692。旧1659语义含BTQ01真实描述更正保，三任务open/全部旧对象及完整门禁保；局部void承载不代机器ABI或全部正常生产消费/寿命。
+
+## BTS01 跟随坐标传播完整父取样（2026-10-07）
+
+[完整基线](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline)对应46AFE0原128条451B/两页、11call/4目标/19jump/1RET/唯一父及两级返回清0。新1660语义/adapted、两cpp四片段/三既有正文，NULL/X/movement同指针、Y fresh、两world单读与四对邻接顺序实修；原S16/普通S32/阈2/实际64.0/原循环与callee消费保。13B逐BYTE NN_NOP只用途。
+
+预期语义1661/有效1654、文档1772（48.15%）、处置802/E912、LOOP73/MAP70各两局部I-S各25真实来源、R7 370余2691。旧1660语义/全部旧对象及完整门禁保；不以局部void适配/完整原指令代全callee、正常owner-alias寿命/机器ABI或运行。

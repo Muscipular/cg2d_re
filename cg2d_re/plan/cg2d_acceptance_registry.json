@@ -717,14 +717,16 @@
         "doc/cg2d_login_request.md",
         "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline",
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
-        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline"
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline"
       ],
       "original_inventory_ids": [
         "F:001202E0",
         "F:00108BC0",
         "F:0005E960",
         "F:0005EA50",
-        "F:0005EA60"
+        "F:0005EA60",
+        "F:0005F190"
       ],
       "closure_task_ids": [
         "P18",
@@ -741,19 +743,22 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision",
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
-        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision"
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "BRU01仅既有登录负分类provider/20正常BYTE与固定池读取适配：LegacyUiRecord唯一定义直接借底部两W32字节/hover正文与标题/mouseY真实token/左锚和服务器伴随值，D68AC6原未装载独立1B加载零内容有目标地址形成/无加载别名及邻近20B标记、独立计时/伴随值边界证据，私有const零BYTE不补业务。12固定池点始终读唯一fixedPool，七坐标BYTE现场读/五链接BYTE由实际handle还原原固定节点与四哨兵身份再提取，0映射0，不把handle或本机指针低字节冒充原BYTE；不造可解引用地址、影子池/链接状态或反查表，动态nativePool不借。原登录父、所有tracker逻辑/布局和mutable生产/RNG/申请释放/初始化/网络全保，只加现缺provider和只读桥/声明/注释；两原尾先读后判调用位置保持。E804→806仅LOGIN局部I/S，V03仍open、源码closed11与所有语义/F/R7/枚举/完整门禁保持；不配置构建测试运行摘要，原格式明文/音频暂停/RPLAN.24保持。",
         "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。",
-        "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
+        "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+        "BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
-        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state"
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state"
       ]
     },
     {
@@ -35743,6 +35748,84 @@
       "observation": "完整301条1068B/五页/23原directcall12callee/39jump/一RET，唯一45F190@45F699。两私有工具普通S32、两普通成功路径账号/密码+12C各一次先读齐，再result1/两NUL发布；按键与strlen/校验短路、两次当前输入取样Y-X-font、低W16/两S16焦点矩形及latch/尾部绘制与版本保持，屏幕键盘原四点证据保持既有排除。三既有源函数局部变更，不称完整父/全部依赖和ABI/寿命/运行完成。",
       "expected": "完整301条1068B/五页/23原directcall12callee/39jump/一RET，唯一45F190@45F699。两私有工具普通S32、两普通成功路径账号/密码+12C各一次先读齐，再result1/两NUL发布；按键与strlen/校验短路、两次当前输入取样Y-X-font、低W16/两S16焦点矩形及latch/尾部绘制与版本保持，屏幕键盘原四点证据保持既有排除。三既有源函数局部变更，不称完整父/全部依赖和ABI/寿命/运行完成。",
       "actual": "BSE01能力3输入完整301条1068B/五页、23原directcall/12callee、39jump/一RET，唯一45F190@45F699；原完整体保留已排除屏幕键盘路径的四原调用证据，不恢复该路径或将其记已实现。单源四精确片段：两私有Add/Sub回绕bitcast改普通S32，两普通按钮/Enter成功路径先各一次读齐账号/密码+12C totalByteLength再写result1/账号NUL/密码NUL，不误用+128 caret或预先窄化/新保护。原正常数值正确，不称运行故障；LowW16/真实位型、模式返回、strlen/校验/键盘短路、两次当前上下文读取及Y-X-font/度量到绘制、两密码账号S16矩形/焦点owner-latch与尾部图号版本/原其它整源保持。新增F:0005FA70映射1587和单adapted/INPUT25→26/语义1588有效1581/文档1699（46.17%）/处置721/E830；单真X4B全90逐BYTE canonical nop/无入向前RET后入口，只用途mapped/R7 293余2768。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和完整门禁保；U10/R04只current/refs仍open。完整45F190父/命中绘制输入依赖、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通与运行R8仍待；原网络明文/音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-CAPABILITY3-SCENE-NORMAL-SAMPLING-I-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSF01原494条1965B/八页、48directcall19callee及一PostMessageA间接/43jump一RET，唯一51C430@51C4A1，三普通S32工具与状态3两owner先取齐再复制W8；doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-capability3-scene-normal-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-acceptance",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_evidence.json",
+        "src/LoginCapability3Scene.cpp#Sub_45F190",
+        "src/LoginCapability3Scene.cpp#AddW32",
+        "src/LoginCapability3Scene.cpp#SubW32",
+        "src/LoginCapability3Scene.cpp#ShiftLeftW32",
+        "src/LoginCapability3Scene.cpp#ComposeWhiteAlpha",
+        "src/YobiRuntime.cpp#GetYobiActionField30F",
+        "src/YobiRuntime.cpp#SetYobiActionField30F",
+        "include/cg/world/SceneState.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "doc/cg2d_capability3_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源四片段：三私有Add/Sub/ShiftLeft恢复普通S32加减与相位移位，状态3透明度复制先左/右非拥有owner取齐，再左+30F W8读/右W8写；原颜色位型和低24位保持。原0..10及unsigned默认/公共分发、初值门槛和两action失败路径/FrameMove/MarkDeath清观察者、焦点持久输入和四独立alpha绘制/返回及其它整源保持。正常值原正确，不新异常/保护/限制，32bpp裁决/音频暂停保；完整父/依赖/ABI/寿命/运行未验",
+          "decision_ref": "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整494条1965B/八页，48direct19callee和一PostMessageA间接、43jump一RET；唯一51C430@51C4A1。三私有普通S32工具与状态3复制高BYTE时左/右非拥有owner先取齐，再读左W8写右；真实颜色位型/状态分支/门槛和全部其它正文保持。命中/持久槽/输入/图像/FrameMove及MarkDeath生命闭包不由局部外推，完整父/全部alias-owner与机器ABI/运行未验；音频暂停/固定32bpp适配保持。",
+      "expected": "完整494条1965B/八页，48direct19callee和一PostMessageA间接、43jump一RET；唯一51C430@51C4A1。三私有普通S32工具与状态3复制高BYTE时左/右非拥有owner先取齐，再读左W8写右；真实颜色位型/状态分支/门槛和全部其它正文保持。命中/持久槽/输入/图像/FrameMove及MarkDeath生命闭包不由局部外推，完整父/全部alias-owner与机器ABI/运行未验；音频暂停/固定32bpp适配保持。",
+      "actual": "BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-CAPABILITY3-SCENE-NORMAL-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSF01原494条1965B/八页、48directcall19callee及一PostMessageA间接/43jump一RET，唯一51C430@51C4A1，三普通S32工具与状态3两owner先取齐再复制W8；doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-capability3-scene-normal-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-acceptance",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_evidence.json",
+        "src/LoginCapability3Scene.cpp#Sub_45F190",
+        "src/LoginCapability3Scene.cpp#AddW32",
+        "src/LoginCapability3Scene.cpp#SubW32",
+        "src/LoginCapability3Scene.cpp#ShiftLeftW32",
+        "src/LoginCapability3Scene.cpp#ComposeWhiteAlpha",
+        "src/YobiRuntime.cpp#GetYobiActionField30F",
+        "src/YobiRuntime.cpp#SetYobiActionField30F",
+        "include/cg/world/SceneState.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "doc/cg2d_capability3_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源四片段：三私有Add/Sub/ShiftLeft恢复普通S32加减与相位移位，状态3透明度复制先左/右非拥有owner取齐，再左+30F W8读/右W8写；原颜色位型和低24位保持。原0..10及unsigned默认/公共分发、初值门槛和两action失败路径/FrameMove/MarkDeath清观察者、焦点持久输入和四独立alpha绘制/返回及其它整源保持。正常值原正确，不新异常/保护/限制，32bpp裁决/音频暂停保；完整父/依赖/ABI/寿命/运行未验",
+          "decision_ref": "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整494条1965B/八页，48direct19callee和一PostMessageA间接、43jump一RET；唯一51C430@51C4A1。三私有普通S32工具与状态3复制高BYTE时左/右非拥有owner先取齐，再读左W8写右；真实颜色位型/状态分支/门槛和全部其它正文保持。命中/持久槽/输入/图像/FrameMove及MarkDeath生命闭包不由局部外推，完整父/全部alias-owner与机器ABI/运行未验；音频暂停/固定32bpp适配保持。",
+      "expected": "完整494条1965B/八页，48direct19callee和一PostMessageA间接、43jump一RET；唯一51C430@51C4A1。三私有普通S32工具与状态3复制高BYTE时左/右非拥有owner先取齐，再读左W8写右；真实颜色位型/状态分支/门槛和全部其它正文保持。命中/持久槽/输入/图像/FrameMove及MarkDeath生命闭包不由局部外推，完整父/全部alias-owner与机器ABI/运行未验；音频暂停/固定32bpp适配保持。",
+      "actual": "BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。"
     }
   ],
   "task_acceptance": [
@@ -36197,7 +36280,8 @@
         "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
         "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
-        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state"
+        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state"
       ]
     },
     {
@@ -36706,7 +36790,8 @@
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
         "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
-        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state"
+        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state"
       ]
     },
     {
@@ -45464,6 +45549,19 @@
         "doc/cg2d_capability3_input_normal_sampling_evidence.json"
       ],
       "boundary": "完整301条1068B/五页/23原directcall12callee/39jump/一RET，唯一45F190@45F699。两私有工具普通S32、两普通成功路径账号/密码+12C各一次先读齐，再result1/两NUL发布；按键与strlen/校验短路、两次当前输入取样Y-X-font、低W16/两S16焦点矩形及latch/尾部绘制与版本保持，屏幕键盘原四点证据保持既有排除。三既有源函数局部变更，不称完整父/全部依赖和ABI/寿命/运行完成。 BSE01能力3输入完整301条1068B/五页、23原directcall/12callee、39jump/一RET，唯一45F190@45F699；原完整体保留已排除屏幕键盘路径的四原调用证据，不恢复该路径或将其记已实现。单源四精确片段：两私有Add/Sub回绕bitcast改普通S32，两普通按钮/Enter成功路径先各一次读齐账号/密码+12C totalByteLength再写result1/账号NUL/密码NUL，不误用+128 caret或预先窄化/新保护。原正常数值正确，不称运行故障；LowW16/真实位型、模式返回、strlen/校验/键盘短路、两次当前上下文读取及Y-X-font/度量到绘制、两密码账号S16矩形/焦点owner-latch与尾部图号版本/原其它整源保持。新增F:0005FA70映射1587和单adapted/INPUT25→26/语义1588有效1581/文档1699（46.17%）/处置721/E830；单真X4B全90逐BYTE canonical nop/无入向前RET后入口，只用途mapped/R7 293余2768。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和完整门禁保；U10/R04只current/refs仍open。完整45F190父/命中绘制输入依赖、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通与运行R8仍待；原网络明文/音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:0005F190",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-acceptance",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_evidence.json"
+      ],
+      "boundary": "完整494条1965B/八页，48direct19callee和一PostMessageA间接、43jump一RET；唯一51C430@51C4A1。三私有普通S32工具与状态3复制高BYTE时左/右非拥有owner先取齐，再读左W8写右；真实颜色位型/状态分支/门槛和全部其它正文保持。命中/持久槽/输入/图像/FrameMove及MarkDeath生命闭包不由局部外推，完整父/全部alias-owner与机器ABI/运行未验；音频暂停/固定32bpp适配保持。 BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。"
     }
   ],
   "auxiliary_dispositions": [
@@ -52809,6 +52907,154 @@
           "end_exclusive": "0x45fea0",
           "kind": "nop_padding",
           "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:0005F93D-0005F970",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-acceptance",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_evidence.json"
+      ],
+      "reason": "BSF01完整51B分3B身份LEA对齐/44B十一W32原switch目标/4B逐BYTE canonical nop，原父45F1AE唯一数据引用/无code入向，前RET后真入口，仅用途，不新增F/排除或运行验收",
+      "classification": "switch_table_with_alignment",
+      "parts": [
+        {
+          "start": "0x45f93d",
+          "end_exclusive": "0x45f940",
+          "size": 3,
+          "kind": "alignment_lea",
+          "bytes": "8d4900",
+          "decode": [
+            {
+              "ea": "0x45f93d",
+              "size": 3,
+              "mnemonic": "lea",
+              "operand0_type": 1,
+              "operand0_register": 1,
+              "operand1_type": 4,
+              "operand1_base": 1,
+              "operand1_displacement": 0
+            }
+          ]
+        },
+        {
+          "start": "0x45f940",
+          "end_exclusive": "0x45f96c",
+          "size": 44,
+          "kind": "switch_target_table",
+          "bytes": "b5f145006af245008cf34500e7f44500dcf54500f5f64500e8f7450052f745007ff74500adf74500d3f74500",
+          "targets": [
+            {
+              "index": 0,
+              "ea": "0x45f940",
+              "target": "0x45f1b5"
+            },
+            {
+              "index": 1,
+              "ea": "0x45f944",
+              "target": "0x45f26a"
+            },
+            {
+              "index": 2,
+              "ea": "0x45f948",
+              "target": "0x45f38c"
+            },
+            {
+              "index": 3,
+              "ea": "0x45f94c",
+              "target": "0x45f4e7"
+            },
+            {
+              "index": 4,
+              "ea": "0x45f950",
+              "target": "0x45f5dc"
+            },
+            {
+              "index": 5,
+              "ea": "0x45f954",
+              "target": "0x45f6f5"
+            },
+            {
+              "index": 6,
+              "ea": "0x45f958",
+              "target": "0x45f7e8"
+            },
+            {
+              "index": 7,
+              "ea": "0x45f95c",
+              "target": "0x45f752"
+            },
+            {
+              "index": 8,
+              "ea": "0x45f960",
+              "target": "0x45f77f"
+            },
+            {
+              "index": 9,
+              "ea": "0x45f964",
+              "target": "0x45f7ad"
+            },
+            {
+              "index": 10,
+              "ea": "0x45f968",
+              "target": "0x45f7d3"
+            }
+          ]
+        },
+        {
+          "start": "0x45f96c",
+          "end_exclusive": "0x45f970",
+          "size": 4,
+          "kind": "nop_padding",
+          "bytes": "90909090",
+          "decode": [
+            {
+              "ea": "0x45f96c",
+              "size": 1,
+              "mnemonic": "nop",
+              "operand0_type": 0,
+              "operand0_register": 0,
+              "operand1_type": 0,
+              "operand1_base": 0,
+              "operand1_displacement": 0
+            },
+            {
+              "ea": "0x45f96d",
+              "size": 1,
+              "mnemonic": "nop",
+              "operand0_type": 0,
+              "operand0_register": 0,
+              "operand1_type": 0,
+              "operand1_base": 0,
+              "operand1_displacement": 0
+            },
+            {
+              "ea": "0x45f96e",
+              "size": 1,
+              "mnemonic": "nop",
+              "operand0_type": 0,
+              "operand0_register": 0,
+              "operand1_type": 0,
+              "operand1_base": 0,
+              "operand1_displacement": 0
+            },
+            {
+              "ea": "0x45f96f",
+              "size": 1,
+              "mnemonic": "nop",
+              "operand0_type": 0,
+              "operand0_register": 0,
+              "operand1_type": 0,
+              "operand1_base": 0,
+              "operand1_displacement": 0
+            }
+          ]
         }
       ]
     }

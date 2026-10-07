@@ -3128,3 +3128,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 新映射1587／单adapted F:0005FA70／INPUT25→26，语义1588有效1581／文档1699／3680（46.17%）／721处置／E830／R7 293余2768。冻结定位／无F-code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整叶0／globalfalse及完整门禁保；U10／R04只current/引用仍open。完整45F190父／命中输入绘制依赖、全部正常alias-owner寿命／CRT-SDK-机器ABI与链接、明文互通和运行R8继续推进；音频暂停、RPLAN.24与不构建测试运行或摘要保。
 
 静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照仅单F／INPUT一成员与候选、两任务／单R7／六指标增量，12文件UTF-8无BOM-LF／实际引用与定向diff通过。未构建、测试或运行；P05原closed和完整门禁保持，整体SPEC目标继续。
+
+## BSF01 能力3场景正常运算与透明度取样（2026-10-07）
+
+先落[子SPEC](../doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision)，实修LoginCapability3Scene.cpp四精确片段：三个私有AddW32／SubW32／ShiftLeftW32恢复普通S32 +／-／<<；状态3复制透明度先依次取齐左／右非拥有YobiAction*，再读左+30F W8、写右W8。保原高BYTE边界与低24位／既有访问器，不新增owner或延长寿命；原正常值正确、不声称运行故障，不新异常、保护或业务。
+
+原完整494条1965B／八页，49原call为48直接／19唯一目标和1个PostMessageA间接，43跳转含switch／一RET，唯一World::Update 51C430@51C4A1。真颜色位型／32bpp灰度与unsigned默认、状态0..10/公共分发、初值／原阈值与255处理、两个Action失败路径／FrameMove、MarkDeath和清观察者、焦点／持久输入／提示原字节与尾部四alpha独立取样／返回及其它整源保持。单真X51B为3B 8D4900身份LEA对齐、44B十一原W32目标、4B canonical nop；45F1AE单父data引用/无code入向，前RET后真实入口，仅用途，不误作全NOP或函数。
+
+新映射1588／adapted F:0005F190／LOGIN5→6，语义1589有效1582／文档1700／3680（46.20%）／722处置／E832／R7 294余2767。冻结定位／无F-code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整叶0／globalfalse及所有完整门禁保；U10／R04只current/引用仍open。完整World::Update父／19依赖与全部正常alias-owner寿命、图像输入消费／CRT-SDK-机器ABI和链接、明文互通与运行R8继续推进；32bpp既有裁决、音频暂停／屏幕键盘排除、RPLAN.24与执行限制保。
+
+静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照仅单F／LOGIN一成员与候选、两任务／单R7／六指标增量，12文件UTF-8无BOM-LF、实际引用／定向diff通过。未构建、测试或运行；P05原closed和完整门禁保，整体SPEC目标继续。

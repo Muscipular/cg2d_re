@@ -42,26 +42,21 @@ std::int32_t AddW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        + std::bit_cast<std::uint32_t>(right));
+    return left + right;
 }
 
 std::int32_t SubW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        - std::bit_cast<std::uint32_t>(right));
+    return left - right;
 }
 
 std::int32_t ShiftLeftW32(
     const std::int32_t value,
     const unsigned int count) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(value) << count);
+    return value << count;
 }
 
 std::int32_t ComposeWhiteAlpha(const std::int32_t alpha) noexcept
@@ -340,10 +335,12 @@ std::int32_t Sub_45F190()
             login::detail::SetYobiActionField30F(
                 gLeftAction9A50C0,
                 static_cast<std::uint8_t>(alpha));
+            login::YobiAction* const leftForAlphaCopy = gLeftAction9A50C0;
+            login::YobiAction* const rightForAlphaCopy = gRightAction9A50C4;
             const std::uint8_t copiedAlpha =
-                login::detail::GetYobiActionField30F(gLeftAction9A50C0);
+                login::detail::GetYobiActionField30F(leftForAlphaCopy);
             login::detail::SetYobiActionField30F(
-                gRightAction9A50C4,
+                rightForAlphaCopy,
                 copiedAlpha);
         }
 

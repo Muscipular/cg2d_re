@@ -3270,3 +3270,9 @@ LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布
 新增1587对应真实F:0005FA70／ProcessCapability3Input_45FA70，私有AddW32／SubtractW32／LowW16仅附加来源，不造F。见[基线](cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-baseline)：完整301条1068B／五页、23原直接调用／12目标、39跳转／一RET，唯一45F190@45F699；四原屏幕键盘分支调用只证据／保持既有排除。
 
 单源四片段恢复两正常S32工具、按钮与普通Enter先读齐两个+12C长度后按result1／账号NUL／密码NUL发布，低W16／焦点／其它整源保。单X4B仅用途；语义1588／有效1581、文档1699／3680（46.17%）、721处置／INPUT26／E830／R7 293余2768。冻结定位／pending18／缺口队列与完整门禁保持，局部不代全部父／依赖、ABI与寿命／运行。
+
+## BSF01 能力3登录场景（2026-10-07）
+
+新增1588对应真实F:0005F190／Sub_45F190，三个私有正常S32工具及现有分发/绘制私有符号只作来源，不造F。见[基线](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline)：完整494条1965B／八页，48直接调用／19目标和1个PostMessageA间接、43跳转／一RET，唯一51C430@51C4A1。单源四片段实修三工具及状态3两owner先取齐再复制高BYTE，颜色位型／状态门槛／所有其它整源保持。
+
+单X51B分3B身份LEA／44B十一原目标／4B NOP，单父数据入向、无code进入，仅原用途。LOGIN5→6／语义1589有效1582／文档1700／3680（46.20%）／722处置／E832／R7 294余2767。冻结定位／pending18／缺口队列和完整门禁保，局部不代完整父、19依赖及全部alias-owner寿命／ABI或运行。

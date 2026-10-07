@@ -1298,3 +1298,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-baseline)、[裁决](cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-decision)、[验收](cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-acceptance)与[源码状态](cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state)关联原301条1068B与单源四片段：两私有普通S32工具、两普通提交先读齐账号／密码+12C后发布result1／两NUL，保低W16／键盘短路与原focus-owner/latch、现屏幕键盘排除和其它整源。
 
 单adapted原F／INPUT一成员、单X4B仅用途，两局部I-S各15实际来源，E828→830；U10／R04只current／引用仍open，源码closed11／P05原closed／完整叶0和所有完整门禁保持。正常值原正确、不新异常或保护，完整45F190父／全部输入绘制消费、alias-owner寿命及SDK-机器ABI／链接、原格式明文互通与运行R8继续原标准。
+
+## BSF01 能力3场景运算与取样验收（2026-10-07）
+
+[基线](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline)、[裁决](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision)、[验收](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-acceptance)与[源码状态](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state)关联原494条1965B和单源四片段：三私有普通S32工具、状态3先左／右owner再读写透明度W8，保原颜色位型和状态／门槛／失败与寿命顺序及其它整源。
+
+单adapted原F／LOGIN一成员、单X51B三实际部分只用途，两局部I-S各17来源，E830→832。U10／R04只current／引用仍open；源码closed11（P05原closed）／完整叶0／globalfalse与所有完整门禁保。正常值原正确，不新异常／保护或业务；完整World::Update父／依赖消费、全部alias-owner寿命、SDK-机器ABI／链接／画面与明文互通R8继续原标准。

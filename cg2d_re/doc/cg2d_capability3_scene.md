@@ -84,3 +84,9 @@ value | ((value | (value << 8)) << 8)
 观察者；`MarkDeath` 后按原顺序清槽。`Yobi::FrameMove@[0x517880,0x517D9D)`
 继续只使用 `cg::login::detail::Sub_517880` 的唯一真实未解析声明；本项没有用
 245150 静态图特例伪造该共享函数，动画图形调用链仍待独立闭合。
+
+## 正常运算与透明度owner取样更新（BSF01，2026-10-07）
+
+按[BSF01裁决](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision)，三私有AddW32／SubW32／ShiftLeftW32恢复普通S32加减与相位移位，替代旧文中的专项回绕模型；真实ComposeWhiteAlpha、32bpp灰度和unsigned状态分发位型保持。状态3透明度复制先左／右非拥有指针取齐，再从本次左指针取+30F W8并写本次右指针；原低24位、同一访问器与全部其余整源保持。
+
+原完整494条1965B／八页，48直接调用／19目标及1个PostMessageA间接、43跳转／一RET，唯一51C430@51C4A1；正常值原正确，不宣称运行故障。单源四片段／四既有函数变更，原状态门槛与两Action失败路径、FrameMove／MarkDeath清观察者、焦点输入／提示原字节和尾部独立alpha/返回保持。邻接X51B为3B身份LEA对齐、44B十一跳表目标及4B canonical nop，不将全区称NOP；单F／LOGIN成员与该X用途纳管。本步仅局部静态，完整父／所有依赖、别名寿命、SDK-机器ABI／链接和画面运行仍待；32bpp裁决／音频暂停保。

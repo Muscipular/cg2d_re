@@ -3078,3 +3078,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 本步聚焦真实源码缺口，父与Reset正确正文仅补基线。无F／code区各7、pending18、差队列172／171缺定位／43待归属、源码closed11／完整功能叶0／globalfalse及全部完整门禁保持；U10／V03仅current／refs、仍open。所有正常数据生产消费／alias-owner寿命、全部流程依赖／主地图资源／CRT-SDK ABI与原格式明文互通、运行R8继续推进。音频暂停、RPLAN.24与不构建测试运行／摘要限制保持。
 
 静态验收结果：整源仅四授权片段、三完整原根／三填充范围、完整语义与登记簿增量、对应文档与两任务记录均通过；文本汇总及-Check均完成，完整派生快照／12文件编码与18项来源核对通过。仅正常源码与文本静态验收，未构建、测试或运行，整体SPEC目标继续。
+
+## BSA01 主地图正常控制器调用与字段发布（2026-10-07）
+
+沿登录成功→scene9，先落[子SPEC](../doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-decision)，再改SceneState.cpp一个控制器八片段：205／251／252三处与3共六原空509080调用恢复，沿既有RET空叶；状态3两独立zero／one mask／encoded／W8 count先读齐再原序发布，两次原显式构造／两次销毁顺序及RNG不增，目的vft-padding和前组已暂存载体保持。其余22状态／同帧fallthrough-goto／5与30帧等待／地图-输入-窗口／队列与Back-Temp／计时、非拥有引用和音频全文保持。
+
+完整两原根924条3782B／十四页，父736条3191B／十一页，初始化519A80 188条591B／三页全文保持，仅补基线：direction→Y→X→图号，低W8 flags与三文本两分隔、signedW16与S32、HP-MaxHP当时action／五petmap首匹配现场action、五W16清。合226CALL／214direct66callee与十二indirect（九Tick、三原表面）／61jump十五RET、父唯一WorldUpdate@51C63C与初始化两原入向。原253BYTE压缩值／23W32目标／22具名状态、两真实X362B五part／两本父data引用和17B NOP用途纳管，不新F或范围排除。
+
+两F1580／1581、MAP66→68／语义1582有效1575／文档1693／3680（46.01%）／714处置／E820／R7 288余2773。无F／code区各7、pending18、差队列172／171缺定位／43待归属、源码closed11／完整功能叶0／globalfalse与整体门禁保持；U09／U11只current／refs仍open。控制器实修与初始化正确本体补基线分别记录，原正常值正确，不称已观察运行故障；全部正常owner-alias寿命、传递依赖／资源像素／主地图退出重进、SDK-ABI与原格式明文互通、运行R8仍继续。音频暂停、RPLAN.24与不构建测试运行／摘要限制保持。
+
+静态验收结果：整源仅控制器八授权片段／六原空回调与两先读发布、两完整原根／全部253值23目标与两X用途、完整机器及文档增量均通过；文本汇总及-Check均完成，完整派生快照／13文件UTF-8无BOM-LF与十九实际来源核对通过。只验正常源码与文本，不构建、测试或运行；完整主地图及整体SPEC目标继续。

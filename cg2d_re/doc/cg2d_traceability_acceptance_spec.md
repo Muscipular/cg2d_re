@@ -1268,3 +1268,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline)、[裁决](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision)、[验收](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance)与[源码状态](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state)对应三根176条565B和四源片段。原字节长度与两种原公式、rows／y再长度／columns／x现场消费、非零轮询一次对象／死亡后清槽恢复；W16阶段与父成功失败／原字节消息和现网络格式保持。
 
 新父F与两个已有F补全分开计量，正常处置加三、LOGIN加三；三X27B仅原填充用途，两局部I-S各18个真实来源，E816→818。成员枚举与完整门禁、源码closed11／完整功能叶0保持，U10／V03仅current与引用同步、仍open。局部正常源码验收不代资源与对象寿命、全部callee、真实明文互通或运行／R8；当前执行限制继续适用。
+
+## BSA01 主地图控制器局部开发验收（2026-10-07）
+
+[基线](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-baseline)、[裁决](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-decision)、[验收](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-acceptance)与[源码状态](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state)关联两个完整924条3782B原根与控制器八片段。六原空叶位置恢复／两个mask-encoded-W8先读齐发布，原状态／调用、2construct-destroy／RNG及目的vft-padding保；直接初始化正确正文保持，实际数据生产消费局部可追。
+
+两个正常F／MAP两成员，两X362B仅原目标表／值表及填充用途，局部I-S各19项真实来源、E818→820。完整gates与枚举、源码closed11／完整功能叶0保持，U09／U11仅current／refs仍open；全部正常alias-owner寿命／资源像素／地图重进与所有传递provider、SDK-ABI及明文互通／运行R8继续逐项推进，音频暂停和RPLAN.24保持。

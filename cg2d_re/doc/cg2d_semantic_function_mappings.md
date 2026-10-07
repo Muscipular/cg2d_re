@@ -3240,3 +3240,9 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 [合同](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline)登记F:0005E960为新增1579，已有192／193仍分别归F:0005EA50／F:0005EA60，保原身份与来源，不重复计数。三根176条565B／五页、14directcall／13callee、17jump／四RET及三实际入向、六字段引用与三原字节文本全部可对照。
 
 LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布局现场消费及一次死亡对象取样，其余整源保持。当前文案正常几何值相同；父与Reset仅补／完善基线。三X27B只填充用途，语义1580／有效1573、文档1691／3680（45.95%）、正常处置712、LOGIN5、E818／R7 286余2775；冻结定义行、pending与缺口队列及所有完整门禁保持。
+
+## BSA01 正常地图控制器与直接初始化（2026-10-07）
+
+新增1580／1581对应真实F:0011C7D0／F:00119A80，SceneState.cpp的DrawNormalScene_51C7D0／Sub_519A80；见[完整基线](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-baseline)。两根924条3782B／十四页、226call（214direct／66callee与十二indirect）、61jump／十五RET与三个真实caller；控制器22具名状态、253BYTE索引和23W32目标完整纳管。
+
+控制器八片段落实六原空回调／两先读tuple，2构2销与正常状态及其余整源保持，初始化仅补基线。两个X362B为五连续part／两本父data引用、无code进入、17B真NOP与两表，只mapped用途；语义1582／有效1575、文档1693／3680（46.01%）、714处置、MAP68／E820／R7 288余2773。冻结原定义行、pending／开发缺口队列、源码closed11／完整功能叶0和所有完整门禁保持。

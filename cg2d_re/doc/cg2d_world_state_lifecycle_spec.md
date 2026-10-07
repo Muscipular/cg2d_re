@@ -73,3 +73,9 @@ WorldObjectState.cpp与SceneState.cpp的17个Init已改为完成既有构造后�
 [BRY01 SPEC](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state)恢复467F30末原var1C独立第三LegacyCryptInt局部，原16B平凡结构无自动C++构析；一次显式Construct／一次Destroy沿原第八阶段，不追加RNG消费。七组先读齐三字段／C821E8先两字段pub再count，原字段宽度、目的vft-padding及八原构销顺序保，其它状态／调用与返回保持。现三对象保真实身份，不以新增全局镜像或生命周期框架承接。
 
 5199A0六清区的typed-x64存储、三现场S16恢复／两个S32取样发布、5-6-15状态数组和末direction=-1已有正文保持，仅正常基线纳管。根467F30真实EH第二chunk归属记录，不为原三跳另造函数、移植旧EH或称异常／SDK验收；全部owner寿命／alias／运行仍按原C类与U09／U11标准推进。两个相邻X7B仅原填充用途，不算生命周期闭合。
+
+## 正常地图切换的两个数值临时对象（BSA01，2026-10-07）
+
+[BSA01 SPEC](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state)恢复控制器状态3两个独立zero／one载体先mask／encoded／W8 count取齐再发布，原2次显式构造／2次销毁顺序及RNG不增；前一组已经暂存的9FB918→C821E8保持，目标vft／padding不写。六原空调用仍交既有NullSub_509080，不增加资源或业务寿命。
+
+初始化519A80全文保持，HP／MaxHP各按原当时action复制，五petmap按持有编号首匹配现场重取action，非拥有引用和五W16清保持。完整原父及直接初始化根924条3782B，局部基线与源取样可追；不据此提升正常owner-alias、地图退出／重进、全部资源或运行门禁。原表与填充仅X用途，音频暂停保持。

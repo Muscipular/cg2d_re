@@ -7697,3 +7697,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 两完整原体211条883B／四页，467F30主635B加实际EH尾26B，152条；5199A0 59条222B全文保持，六清区按既有typed-x64指针owner、三S16选槽／设置与BGM目标恢复、两S32先读齐后pub、五petmap／六title／十五recipe和direction=-1可追。EH尾只原归属元信息，不另造F／异常模型或验SDK-EH。两唯一WorldUpdate@51C572／51C577入向、25directcall／十一callee、六jump／两RET及两X5／2B填充用途纳管。
 
 两个normal F／MAP成员64→66、局部I-S，主地图全部生产消费／owner-alias与资源寿命／SDK-ABI／明文互通／运行仍未验；原正常值正确，不称已跑出故障。音频目标恢复与播放分开，既有暂停不解除；U09／U10／U11保持open。
+
+## 主地图控制器六原空调用与两数值发布（BSA01，2026-10-07）
+
+按[BSA01 SPEC](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state)，DrawNormalScene_51C7D0恢复状态205、251、252三点和3共六次原509080调用，沿既有空叶；状态3的zero／one两组mask／encoded／W8 count先取齐再发布，原两个独立对象／2构2销与RNG、目的vft-padding保持。其余22状态、同帧转移／5与30帧等待、地图／输入／窗口／队列渲染与计时、音频全文保持。
+
+父736条3191B／十一页、直接初始化519A80 188条591B／三页全文保持并补基线；后者direction→Y→X→图号／三文本两分隔／HP-maxHP／五petmap首匹配和五W16清保持。原253值经23目标、226call中214direct／66callee和12indirect、三个实际入向可追；原两X362B五part包含92B目标／253B值表及17B NOP，仅用途纳管，不造功能或排除。两个正常F及MAP两成员、局部I-S不代完整所有provider、owner寿命、资源像素、SDK-ABI、明文互通或运行；U09／U11仍open，音频暂停。

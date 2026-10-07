@@ -6593,6 +6593,7 @@ void DrawNormalScene_51C7D0()
         RenderChara_521F20();
         Sub_4691D0();
         Sub_469020();
+        cg::NullSub_509080();
         if ((gMapCharaSceneSlots.valueC8A73E == 0 && gMapCharaSceneSlots.valueC8A740 != 0)
             || (static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744) == 0
                 && static_cast<std::uint16_t>(gMapCharaSceneSlots.valueC8A744 >> 16) != 0)) {
@@ -6682,6 +6683,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(NextRotationValue_455C70());
         static_cast<void>(login::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
+        cg::NullSub_509080();
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::RenderWindows_504120());
@@ -6690,6 +6692,7 @@ void DrawNormalScene_51C7D0()
         Sub_458F00();
         return;
     case 252: {
+        cg::NullSub_509080();
         gValueFF0D74 = 0;
         ui::ProcessSceneWindows_503E80();
         gValue62B5B0 = platform::ReadTickCount32();
@@ -6705,6 +6708,7 @@ void DrawNormalScene_51C7D0()
         RenderChara_521F20();
         Sub_4691D0();
         Sub_469020();
+        cg::NullSub_509080();
         static_cast<void>(ui::RenderWindows_504120());
         render::gRenderQueueMode103CF10 = 0;
         render::DrawAllQueued_520DD0();
@@ -6718,6 +6722,7 @@ void DrawNormalScene_51C7D0()
         static_cast<void>(login::detail::YobiUpdateAll_404C50());
         RenderChara_521F20();
         Sub_469020();
+        cg::NullSub_509080();
         static_cast<void>(ui::RenderWindows_504120());
         const std::uint32_t changeBgm = gValueFF0D58;
         gValueD67E78 = 0;
@@ -6861,6 +6866,7 @@ void DrawNormalScene_51C7D0()
         RenderChara_521F20();
         Sub_46E4A0();
         Sub_469020();
+        cg::NullSub_509080();
         input::ProcessKeyInput_4596D0();
         input::BrowseChatHistory_44A1B0();
         static_cast<void>(ui::RenderWindows_504120());
@@ -6888,15 +6894,21 @@ void DrawNormalScene_51C7D0()
         gValueC821E8.readCount = readCount;
         platform::LegacyCryptInt zero;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&zero, 0);
-        gValueC821D8.mask = zero.mask;
-        gValueC821D8.encoded = zero.encoded;
-        gValueC821D8.readCount = zero.readCount;
+        const std::uint32_t zeroMask = zero.mask;
+        const std::uint32_t zeroEncoded = zero.encoded;
+        const std::uint8_t zeroReadCount = zero.readCount;
+        gValueC821D8.mask = zeroMask;
+        gValueC821D8.encoded = zeroEncoded;
+        gValueC821D8.readCount = zeroReadCount;
         platform::legacy_crypt_int::Destroy_401CF0(&zero);
         platform::LegacyCryptInt one;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&one, 1);
-        gRippleGate.mask = one.mask;
-        gRippleGate.encoded = one.encoded;
-        gRippleGate.readCount = one.readCount;
+        const std::uint32_t oneMask = one.mask;
+        const std::uint32_t oneEncoded = one.encoded;
+        const std::uint8_t oneReadCount = one.readCount;
+        gRippleGate.mask = oneMask;
+        gRippleGate.encoded = oneEncoded;
+        gRippleGate.readCount = oneReadCount;
         platform::legacy_crypt_int::Destroy_401CF0(&one);
         gValue9FB92E = 0;
         gValueFF03D8 = 0;

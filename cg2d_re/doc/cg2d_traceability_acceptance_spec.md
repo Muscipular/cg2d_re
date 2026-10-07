@@ -1520,3 +1520,9 @@ BTP01十三元数据只改为真实观察描述，不修改其证据/代码/分�
 [基线](cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline)、[裁决](cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision)、[验收](cg2d_actor_path_append_sampling_spec.md#actor-path-append-acceptance)及[证据](cg2d_actor_path_append_sampling_evidence.json)覆盖三完整根203条698B/13局部路径、原容量/索引/插值与RNG/三字段生产消费、Destroy叶及22B用途。复位一lambda片段实修、两正确追加全文保持；LOOP73→76/MAP70→73各两局部I-S各25来源，仅本步静态。
 
 三任务current/引用保open，原pending18/pending7/closed11与完整门禁保。部分RET透传明确保，不将局部void承接冒充全上游ABI；全正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续。网络原格式明文、内部LegacyCryptInt/音频暂停/RPLAN.24保持。
+
+## BTU01 速度入口原三字段顺序开发验收（2026-10-07）
+
+[基线](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline)、[裁决](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision)、[验收](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-acceptance)及[证据](cg2d_actor_velocity_coordinate_sampling_evidence.json)对应两完整根218条823B/5局部路径、不同三预取/pub次序/真实速率消费、七已加载常数及25B用途。两正文三片段、局部lambda1/全局helper0，数值叶/声明/通用工具保；LOOP76→78/MAP73→75各两局部I-S各25来源，仅本步静态。
+
+三任务current/引用保open，原pending18/pending7/closed11及完整门禁保；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。全正常生产消费及owner-alias寿命、完整四父/数值/SDK-ABI/链接/画面/明文互通与运行R8继续。

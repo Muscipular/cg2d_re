@@ -4439,3 +4439,9 @@ AreMapActorTargetsAdjacent四对独立current→previous显式取样、符号条
 按[裁决](cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision)，442AB0既有lambda仅一片段，Construct后先读W32 mask/encoded和W8 readCount，再按原同序发布/Destroy。四次X1E0/Y1F0/X200/Y210构造与RNG次数，27C→280→worldX→worldY及原64.0保；无新helper/owner/布局/保护。
 
 441F60/441FC0正确全文不改：原U16>=10/S16末点和双轴索引、普通S32差/除2、原U32合计>10、fallback先清W16与正常逐点W16增长保持。三完整根203条698B/12call、13局部路径及Destroy两指令无EAX写有据。当前三void适配不伪造纯地址或业务整数/NULL值，也不代全上游机器ABI；全正常寿命/运行未验。
+
+## 速度入口不同三值取样/发布顺序（BTU01，2026-10-07）
+
+按[裁决](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision)，442110以本入口局部lambda在Construct后先encoded W32→mask W32→readCount W8取齐，再同序pub/Destroy，X后Y；4422F0两轴各先mask→encoded→readCount取齐再同序pub/Destroy。共两正文三片段、局部lambda1/全局helper0；通用AssignFromInt/CopyPayload、ASM/数值头和所有其它源保持。
+
+原S16路径数/override/1、2、1.6、1.2和0.01、4实际F32常数、现PC53数值叶/表达式及原Double承接F32 rate结果/NULL0、两构造/两销毁/RNG和步进→坐标→方向/标志保持；七原常数28B已实际loaded/完整flags核实。218条823B/10call与5局部路径有据，全正常寿命/数值运行/SDK-ABI未验，不据本步未改数值叶外推数值等价。

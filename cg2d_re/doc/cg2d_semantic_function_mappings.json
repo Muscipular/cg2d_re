@@ -190985,6 +190985,152 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x442110",
+      "inventory_id": "F:00042110",
+      "original_role": "按原override与S16路径数选择速率/方向和双轴步进，先encoded次序发布两坐标，再更新方向并返回原F32速率",
+      "original_end_exclusive": "0x4422e2",
+      "original_chunks": [
+        [
+          "0x442110",
+          "0x4422e2"
+        ]
+      ],
+      "instruction_count": 126,
+      "status": "BTU01两完整速度/移动根218条823B，实修两正文三片段、各自三临时值先取齐再按原不同次序pub；原数值叶/速率与字段/方向/RNG序保，全部父/寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_442110"
+          ],
+          "relationship": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline",
+        "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
+        "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-acceptance",
+        "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json"
+      ],
+      "boundary": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
+      "verification_level": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
+      "actor_velocity_coordinate_sampling": {
+        "spec_id": "BTU01",
+        "evidence_refs": [
+          "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline",
+          "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
+          "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-acceptance",
+          "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
+          "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 126,
+        "original_code_bytes": 466,
+        "original_page_count": 2,
+        "original_direct_call_count": 5,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 12,
+        "original_return_count": 2,
+        "original_inbound_call_count": 4,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 1,
+        "new_named_global_helper_count": 0,
+        "original_entry_specific_coordinate_order": "encoded-mask-readCount",
+        "original_three_preloads_before_publication_restored": true,
+        "original_two_construct_publish_destroy_and_rng_order_kept": true,
+        "original_step_coordinates_direction_and_word_marker_order_kept": true,
+        "original_numeric_leafs_expressions_s16_count_and_float_landings_kept": true,
+        "original_seven_loaded_f32_constants_verified": true,
+        "original_fp_rate_and_null_zero_return_kept": true,
+        "original_real_rate_one_f32_consumer_three_pop_observations_recorded": true,
+        "original_move_void_observation_adaptation_decided": false,
+        "original_caller_observation_decision_ref": "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4422F0",
+      "inventory_id": "F:000422F0",
+      "original_role": "按原移动向量/速率发布双轴步进，mask次序发布两坐标后条件更新方向与W16标志",
+      "original_end_exclusive": "0x442455",
+      "original_chunks": [
+        [
+          "0x4422f0",
+          "0x442455"
+        ]
+      ],
+      "instruction_count": 92,
+      "status": "BTU01两完整速度/移动根218条823B，实修两正文三片段、各自三临时值先取齐再按原不同次序pub；原数值叶/速率与字段/方向/RNG序保，全部父/寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4422F0"
+          ],
+          "relationship": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline",
+        "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
+        "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-acceptance",
+        "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
+        "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json"
+      ],
+      "boundary": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
+      "verification_level": "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
+      "actor_velocity_coordinate_sampling": {
+        "spec_id": "BTU01",
+        "evidence_refs": [
+          "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline",
+          "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
+          "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-acceptance",
+          "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
+          "doc/cg2d_actor_velocity_coordinate_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 92,
+        "original_code_bytes": 357,
+        "original_page_count": 2,
+        "original_direct_call_count": 5,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 5,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "original_entry_specific_coordinate_order": "mask-encoded-readCount",
+        "original_three_preloads_before_publication_restored": true,
+        "original_two_construct_publish_destroy_and_rng_order_kept": true,
+        "original_step_coordinates_direction_and_word_marker_order_kept": true,
+        "original_numeric_leafs_expressions_s16_count_and_float_landings_kept": true,
+        "original_seven_loaded_f32_constants_verified": true,
+        "original_fp_rate_and_null_zero_return_kept": false,
+        "original_real_rate_one_f32_consumer_three_pop_observations_recorded": false,
+        "original_move_void_observation_adaptation_decided": true,
+        "original_caller_observation_decision_ref": "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

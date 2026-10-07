@@ -4400,8 +4400,21 @@ double Sub_442110(
     platform::detail::Cg2dMapActorVelocity(&input, &velocity);
     action->field27C = std::bit_cast<std::uint32_t>(velocity.stepX);
     action->field280 = std::bit_cast<std::uint32_t>(velocity.stepY);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapX200, targetX);
-    platform::legacy_crypt_int::AssignFromInt(&action->mapY210, targetY);
+    // 本入口先取齐encoded/mask/readCount，再按该顺序发布；不同于4422F0。
+    const auto assignCoordinate = [](
+        platform::LegacyCryptInt& target, const std::int32_t value) {
+        platform::LegacyCryptInt temporary;
+        platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        target.encoded = encoded;
+        target.mask = mask;
+        target.readCount = readCount;
+        platform::legacy_crypt_int::Destroy_401CF0(&temporary);
+    };
+    assignCoordinate(action->mapX200, targetX);
+    assignCoordinate(action->mapY210, targetY);
     if (velocity.directionX < 0.0F || velocity.directionX > 0.0F
         || velocity.directionY < 0.0F || velocity.directionY > 0.0F) {
         action->direction = static_cast<std::int32_t>(
@@ -4435,14 +4448,20 @@ void Sub_4422F0(
 
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, targetX);
-    action->mapX200.mask = temporary.mask;
-    action->mapX200.encoded = temporary.encoded;
-    action->mapX200.readCount = temporary.readCount;
+    const std::uint32_t maskX = temporary.mask;
+    const std::uint32_t encodedX = temporary.encoded;
+    const std::uint8_t readCountX = temporary.readCount;
+    action->mapX200.mask = maskX;
+    action->mapX200.encoded = encodedX;
+    action->mapX200.readCount = readCountX;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, targetY);
-    action->mapY210.mask = temporary.mask;
-    action->mapY210.encoded = temporary.encoded;
-    action->mapY210.readCount = temporary.readCount;
+    const std::uint32_t maskY = temporary.mask;
+    const std::uint32_t encodedY = temporary.encoded;
+    const std::uint8_t readCountY = temporary.readCount;
+    action->mapY210.mask = maskY;
+    action->mapY210.encoded = encodedY;
+    action->mapY210.readCount = readCountY;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     if (direction.x < 0.0F || direction.x > 0.0F
         || direction.y < 0.0F || direction.y > 0.0F) {

@@ -7787,3 +7787,9 @@ D9D0范围provider仍原Sub_4410E0，NULL/负值短路及>=17普通归0、payloa
 [子SPEC](cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline)覆盖441F60/441FC0/442AB0三完整根203条698B/四归档页、12call/19jump/5RET、13七父局部路径。BTS01传播调用的两追加本体正确保持，原独立S16双轴索引、W16计数、原容量10/插值与fallback门槛保；仅复位lambda恢复三临时值先取齐再发布，四坐标构造/销毁和后续世界坐标原序保。
 
 返回局部有覆盖/下一call或RET透传，不称全部直接弃返，三现void观察具名保；46AFE0那条返回清0链有据，其它全上游/机器ABI未验。LOOP76/MAP73各两局部I-S、22B真实对齐用途；全生产消费/正常寿命及运行继续。
+
+## 速度结果消费与两坐标发布（BTU01，2026-10-07）
+
+[原端基线](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline)覆盖442110/4422F0两完整根218条823B/四页、10call/17jump/3RET、5四父局部路径。442110四点中442549真实FSTP F32消费速率，其余三点弹栈，Double结果承接原F32 rate/NULL0保持；4422F0单点后下一call、现void局部观察保，不概括全点弃返。
+
+Yobi两入口按各自encoded-first/mask-first取齐W32/W32/W8再pub，原27C→280→两坐标→条件方向/W16标志和RNG/数值接口保持。LOOP78/MAP75各两局部I-S、25B真实对齐用途，全四父/正常寿命/数值和机器ABI/运行仍未验。

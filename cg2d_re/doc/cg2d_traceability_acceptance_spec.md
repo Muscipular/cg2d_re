@@ -1600,3 +1600,11 @@ BUB01集中静态已通过：完整Scene仅两既有正文八限定片段、两�
 三任务current/引用仍open，原pending/差队列/closed11与完整门禁保。全部正常owner-alias寿命/生产消费/callee/数值/x87舍入/机器ABI/链接/画面/明文互通及R8继续；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
 
 BUC01集中静态已通过：完整Yobi仅一既有正文两片段，X/Y各原三预取/pub、正确player/payload/child段、全部数值源码及两Ctor/Destroy保持；两原页119条444B/元数据、唯一调用窗口/父证据复用、12B实际F32/4B用途、证据/台账/文档与三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1680/有效1673、合同1791（48.67%）、处置821/E952、R7已审389/余2672、LOOP92/MAP89。全部旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87舍入/正常寿命/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-single-step-sampling-20261008。
+
+## BUD01 转向/路径既有实现的基线追踪（2026-10-08）
+
+[基线](cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline)、[裁决](cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision)、[验收](cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance)及[证据](cg2d_player_turn_path_baseline_evidence.json)覆盖三原根576条1958B/十页、三窗口/两父复用、三现有正文和10B用途。LOOP92→95/MAP89→92各两局部I-S各25来源，源码修改/新增实现0，只纳管当前实现和正常合同的静态基线。
+
+三任务current/引用仍open，pending/差队列/closed11及完整门禁保。旧未实现状态更新为当前定义/调用已存在；完整数值/x87/正常owner-alias寿命/生产消费/上游callee/机器ABI/链接/画面/明文互通与R8继续。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
+
+BUD01集中静态已通过：两完整源码/三既有正文与HEAD一致，源码修改及新增实现0；十原页576条1958B/元数据/三窗口/两父复用/10B用途与证据/台账/对应文档和三任务模型一致，当前目标生产/移动调用状态已纠正。汇总及 -Check 已通过，完整派生快照实值为语义1683/有效1676、合同1794（48.75%）、处置824/E956、R7已审392/余2669、LOOP95/MAP92。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；只本步基线静态归档，不代完整正常寿命/数值/x87/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-turn-path-baseline-20261008。

@@ -620,7 +620,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
         "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-baseline",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-baseline",
-        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-baseline"
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -714,7 +715,10 @@
         "F:0006A990",
         "F:00069C90",
         "F:00069FC0",
-        "F:0006B1B0"
+        "F:0006B1B0",
+        "F:0006B370",
+        "F:0006B4B0",
+        "F:0006B6F0"
       ],
       "closure_task_ids": [
         "U11",
@@ -764,7 +768,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
         "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision",
-        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-decision"
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -805,7 +810,8 @@
         "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
         "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。",
         "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。",
-        "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。"
+        "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。",
+        "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -847,7 +853,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
         "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
-        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state"
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state"
       ]
     },
     {
@@ -1600,7 +1607,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-baseline",
         "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-baseline",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-baseline",
-        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-baseline"
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1691,7 +1699,10 @@
         "F:0006A990",
         "F:00069C90",
         "F:00069FC0",
-        "F:0006B1B0"
+        "F:0006B1B0",
+        "F:0006B370",
+        "F:0006B4B0",
+        "F:0006B6F0"
       ],
       "closure_task_ids": [
         "U11",
@@ -1737,7 +1748,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-decision",
         "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-decision",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-decision",
-        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-decision"
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1774,7 +1786,8 @@
         "BTZ01玩家移动生产46A410/消费46A700两完整根235条969B/四归档页两块、32直接call/15jump/3RET、3入向两父局部窗口。只实修SceneState两既有正文四片段：46A410 snapshotX先encoded W32→mask W32→readCount W8取齐再同序pub/Destroy，snapshotY先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；46A700到格两轴各mask W32→encoded W32→readCount W8取齐再同序pub/Destroy。原各两构造两销毁/RNG、X完整寿命后fresh Y、数值叶/方向/速度/原浮点落点和world/snapshot读取序保。到格先算gridX再pub世界X/Y、清两步、W16 C8222E=1，随后ftol/构造；Y从fresh已发布worldY求值，普通S32 value174>0才减，减到0时同玩家指针/phase2→payload counter48=0→snapshotY/X→socket→原MIS70序保，不改协议或明文接口。idle W16方向槽FFFF/动画与投影同步、moving held scaled步/距离调用与fresh world加法、末方向W16取样保持。两现void局部寄存器观察具名适配，不误称全上游弃返；全部父/数值/机器ABI未验。两实际X5/2共7B NN_NOP只用途；无新lambda/helper/声明/owner/布局/业务，全部其它源/原网络格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。两调度根既有末项前视省略裁决保，不扩大或改造五槽，不将原证据归档当整链闭合。全正常owner-alias寿命/完整callees/数值/画面及运行R8继续。",
         "BUA01跟随入队46A5A0/移动46A940/顺序表构建46A990三完整根62条208B/三归档页三块、2直接call/11jump/3RET、3入向两父局部窗口与469C90公共尾转调469FC0。只实修SceneState两既有门禁正文两片段：gate W16非零后复用既有ReadPlayerFlags18A一次跨4B取样，再按原0x100判定，不用分别W16 flags18A/W32 flags18C读取拼接；既有reader及邻接断言/所有其它源保持，无新helper/声明/owner/布局。正确46A990正文保持：gate0不清表，非零才W32前对/W32后对/W16末项全1，五槽逐W16 flags非零后才读同slot原生action指针，顺序发布S16索引，不能提前设-1或扩为六槽。46A5A0只第二项S16非负后同借用action/原x-y入队，46A940从第二项到第5项/首负终止，原NULL被调用方处理而本入口不添检查。三现void局部寄存器观察具名适配，原469FAD公共尾CALL469FC0→ADD ESP,14h→RET，不在本尾另写AL/EAX；记录转调事实，不猜469FC0返回合同或全上游弃返。三尾区14/9/9共32B NN_NOP只用途。所有旧数值/下游/RNG及网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，完整两父与上游/全部正常owner-alias寿命/机器ABI/运行R8未验。",
         "BUB01玩家移动控制469C90/469FC0两完整根298条1262B/五页两块、48直接call/4GetTickCount间接call/42jump/3RET、2入向两父局部窗口。只实修SceneState两既有正文八片段：469C90复用既有FDA88E W8 reader并直接读鼠标edgeButtons低BYTE；elapsed W32>=500发布W16模式1后直接进入连续分支、不再重读该W16；四目标临时量按连续X mask-encoded-count/Y encoded-mask-count、单次X encoded-mask-count/Y count-encoded-mask原序先全三预取再同序pub。469FC0一局部无捕获lambda保持C82200 W16、两处非零C82202 W16分支复用原比较值，B4B0后fresh pathCount/方向哨兵写序、ABD0后AA门禁与UI-AC后fresh队列重取保。各路径原S16比较、原四构造/四销毁RNG和X先完后fresh Y、tick调用数与tick-X不同写序保；队列后AF30/方向持有/BCF0/速度/原Y-X W16 Add/46B1B0/回读Y-X入队/跟随/停门禁/清W16/两移动/468200及双W32投影同预取/pub保。现U8/U16返回只按具名局部观察承接，原FC0尾EAX沿468200、仅ECX/EDX投影，不造worldX或AL1返回，不外推上游全弃返/完整ABI。原叶/所有其它源与两个既有reader/邻接断言保，无新全局helper/声明/owner/布局；18B尾区逐地址NN_NOP仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整MainLoop与上游/callee/正常owner-alias寿命/数值/机器ABI/链接/运行R8未验。",
-        "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。"
+        "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。",
+        "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1812,7 +1825,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
         "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
-        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state"
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state"
       ]
     },
     {
@@ -41512,6 +41526,194 @@
       "observation": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。",
       "expected": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。",
       "actual": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。"
+    },
+    {
+      "id": "E-PLAYER-TURN-PATH-BASELINE-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUD01三现有正文保持、原576条1958B/十页/3窗口/两父完整原证据复用，目标转向/方向发送/路径生成正常合同与10B用途；新增实现0，doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-turn-path-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json",
+        "src/world/SceneState.cpp#Sub_46B370",
+        "src/YobiRuntime.cpp#Sub_46B4B0",
+        "src/world/SceneState.cpp#Sub_46B6F0",
+        "src/world/SceneState.cpp#Sub_469C90",
+        "src/world/SceneState.cpp#Sub_469FC0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/platform/LegacyCryptInt.cpp#Equal_401D00",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/platform/LegacyCryptInt.cpp#IntMinusCrypt_401FE0",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/SceneState.cpp#Sub_469810",
+        "src/world/SceneState.cpp#Sub_46B5C0",
+        "src/world/SceneState.cpp#Sub_46B580",
+        "src/world/SceneState.cpp#Sub_46F680",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_player_move_control_sampling_evidence.json",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/measure_cg2d.ps1"
+      ],
+      "differences": [
+        {
+          "description": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+          "decision_ref": "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+      "expected": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+      "actual": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。"
+    },
+    {
+      "id": "E-PLAYER-TURN-PATH-BASELINE-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUD01三现有正文保持、原576条1958B/十页/3窗口/两父完整原证据复用，目标转向/方向发送/路径生成正常合同与10B用途；新增实现0，doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-turn-path-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json",
+        "src/world/SceneState.cpp#Sub_46B370",
+        "src/YobiRuntime.cpp#Sub_46B4B0",
+        "src/world/SceneState.cpp#Sub_46B6F0",
+        "src/world/SceneState.cpp#Sub_469C90",
+        "src/world/SceneState.cpp#Sub_469FC0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/platform/LegacyCryptInt.cpp#Equal_401D00",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/platform/LegacyCryptInt.cpp#IntMinusCrypt_401FE0",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/SceneState.cpp#Sub_469810",
+        "src/world/SceneState.cpp#Sub_46B5C0",
+        "src/world/SceneState.cpp#Sub_46B580",
+        "src/world/SceneState.cpp#Sub_46F680",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_player_move_control_sampling_evidence.json",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/measure_cg2d.ps1"
+      ],
+      "differences": [
+        {
+          "description": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+          "decision_ref": "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+      "expected": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+      "actual": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。"
+    },
+    {
+      "id": "E-PLAYER-TURN-PATH-BASELINE-FUNC-MAP-I-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUD01三现有正文保持、原576条1958B/十页/3窗口/两父完整原证据复用，目标转向/方向发送/路径生成正常合同与10B用途；新增实现0，doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-turn-path-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json",
+        "src/world/SceneState.cpp#Sub_46B370",
+        "src/YobiRuntime.cpp#Sub_46B4B0",
+        "src/world/SceneState.cpp#Sub_46B6F0",
+        "src/world/SceneState.cpp#Sub_469C90",
+        "src/world/SceneState.cpp#Sub_469FC0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/platform/LegacyCryptInt.cpp#Equal_401D00",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/platform/LegacyCryptInt.cpp#IntMinusCrypt_401FE0",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/SceneState.cpp#Sub_469810",
+        "src/world/SceneState.cpp#Sub_46B5C0",
+        "src/world/SceneState.cpp#Sub_46B580",
+        "src/world/SceneState.cpp#Sub_46F680",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_player_move_control_sampling_evidence.json",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/measure_cg2d.ps1"
+      ],
+      "differences": [
+        {
+          "description": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+          "decision_ref": "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+      "expected": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+      "actual": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。"
+    },
+    {
+      "id": "E-PLAYER-TURN-PATH-BASELINE-FUNC-MAP-S-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUD01三现有正文保持、原576条1958B/十页/3窗口/两父完整原证据复用，目标转向/方向发送/路径生成正常合同与10B用途；新增实现0，doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-player-turn-path-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json",
+        "src/world/SceneState.cpp#Sub_46B370",
+        "src/YobiRuntime.cpp#Sub_46B4B0",
+        "src/world/SceneState.cpp#Sub_46B6F0",
+        "src/world/SceneState.cpp#Sub_469C90",
+        "src/world/SceneState.cpp#Sub_469FC0",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/platform/LegacyCryptInt.cpp#Equal_401D00",
+        "src/platform/LegacyCryptInt.cpp#Read_401EC0",
+        "src/platform/LegacyCryptInt.cpp#IntMinusCrypt_401FE0",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/world/SceneState.cpp#Sub_469810",
+        "src/world/SceneState.cpp#Sub_46B5C0",
+        "src/world/SceneState.cpp#Sub_46B580",
+        "src/world/SceneState.cpp#Sub_46F680",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_player_move_control_sampling_evidence.json",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/measure_cg2d.ps1"
+      ],
+      "differences": [
+        {
+          "description": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+          "decision_ref": "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+      "expected": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。",
+      "actual": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。"
     }
   ],
   "task_acceptance": [
@@ -41997,7 +42199,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
         "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
-        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state"
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state"
       ]
     },
     {
@@ -42065,7 +42268,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
         "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
-        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state"
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state"
       ]
     },
     {
@@ -42608,7 +42812,8 @@
         "doc/cg2d_player_move_coordinate_sampling_spec.md#player-move-coordinate-source-state",
         "doc/cg2d_follow_gate_word_sampling_spec.md#follow-gate-word-source-state",
         "doc/cg2d_player_move_control_sampling_spec.md#player-move-control-source-state",
-        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state"
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state"
       ]
     },
     {
@@ -52681,6 +52886,45 @@
         "doc/cg2d_player_single_step_sampling_evidence.json"
       ],
       "boundary": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0006B370",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json"
+      ],
+      "boundary": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0006B4B0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json"
+      ],
+      "boundary": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0006B6F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json"
+      ],
+      "boundary": "BUD01目标转向46B370/方向发送46B4B0/路径生成46B6F0三完整根576条1958B/十页三块、36直接call/4GetTickCount间接call/63jump/4RET、3入向两父局部窗口；两父完整200/98条806/456B复用BUB01，不重复取根。三既有正文保持，新增实现/源码修改/片段/lambda/helper/声明/owner均0；此步补真实身份、正常字段/调用/返回基线与追踪，不把纳管算新增实现。46B370目标X短路相等后才Y，差X重取→采targetY→差X落F32→差Y，方向后才tick/C82238严格500ms门禁；46B4B0原S32方向0..7→持有player→X/Y F32零条件→两W16门禁→持有方向W32比较→独立C8223C严格500ms门禁。两发送均方向发布/编码AL-NUL/玩家Y-X/原50C8D0明文→再次tick发布，原四tick与RNG序保，现void仅局部未消费窗口具名适配。46B6F0原目标X-Y→玩家X-Y、先W16失败方向FFFF/同格0不清计数，初方向后才清计数、每轮S16>=100清0返回目标Y、0/1/-1候选与初向±1约束、候选Y-X和侧+Y-X/-X-Y、双探测不短路、三合并/三种发布序、两轴先probe后到达且额外probe/先重读INC W16再三表pub、末direction低S32/低W16或targetY/0保持。按既有RPLAN.24使用三100项W16和可写方向表，不追加异常/溢出/邻槽模拟或保护，不称故障等价。当前46F680目标Y/X发布及51C7D0生产/469C90调用已存在，纠正旧SPEC历史未实现状态，只认定义/调用存在，不代正常生产消费寿命或画面互通。三尾2/6/2共10B实际NN_NOP仅用途。原网络格式明文/内部LegacyCryptInt/音频暂停/所有其它源保持；完整数值/x87/上游callee/机器ABI/正常owner-alias寿命/链接/画面/明文互通及运行R8未验。"
     }
   ],
   "auxiliary_dispositions": [
@@ -70309,6 +70553,150 @@
         },
         {
           "ea": "0x46b36f",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:0006B4AE-0006B4B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json"
+      ],
+      "reason": "BUD01三根尾2/6/2共10B原显示align，实际逐insn_t.itype为NN_NOP/单BYTE90，无入向/后真入口，仅用途，不新F或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 2,
+      "original_bytes": "9090",
+      "original_decode": [
+        {
+          "ea": "0x46b4ae",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46b4af",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:0006B57A-0006B580",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json"
+      ],
+      "reason": "BUD01三根尾2/6/2共10B原显示align，实际逐insn_t.itype为NN_NOP/单BYTE90，无入向/后真入口，仅用途，不新F或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 6,
+      "original_bytes": "909090909090",
+      "original_decode": [
+        {
+          "ea": "0x46b57a",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46b57b",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46b57c",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46b57d",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46b57e",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46b57f",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:0006BC8E-0006BC90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-baseline",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-decision",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-acceptance",
+        "doc/cg2d_player_turn_path_baseline_spec.md#player-turn-path-source-state",
+        "doc/cg2d_player_turn_path_baseline_evidence.json"
+      ],
+      "reason": "BUD01三根尾2/6/2共10B原显示align，实际逐insn_t.itype为NN_NOP/单BYTE90，无入向/后真入口，仅用途，不新F或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 2,
+      "original_bytes": "9090",
+      "original_decode": [
+        {
+          "ea": "0x46bc8e",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46bc8f",
           "size": 1,
           "bytes": "90",
           "mnemonic": "",

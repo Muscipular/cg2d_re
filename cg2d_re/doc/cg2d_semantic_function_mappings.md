@@ -3190,3 +3190,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQU01 一新提示F、两旧格式记录完整续记及一R7（2026-10-07）
 
 [原基线](cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline)/[两旧记录与冻结定位](cg2d_battle_command_state_dispatch_sampling_evidence.json)：1559新正常提示F，899/922既有格式记录保全部business_*、原边界/指令数/历史，当前状态/关系与完整子基线/五引用同步；1558按钮当前名称和剩余更新，原BQT历史保。三equivalent/三成员，语义1560/有效1553、文档关联1671/3680（45.41%）、分类690/BATTLE242枚举open/E794。62B X=2B MOV EDI,EDI对齐+24/20/16B三W32表，十五目标及三个入向用途mapped，R7 265/3061余2796，不造新F。无F/有效区间各7、差队列172/缺定位171/43待归属和完整门禁保持。
+
+## BQV01 四正常F与四NOP区间用途（2026-10-07）
+
+[原基线](cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline)/[四冻结定义/完整源及桥](cg2d_battle_target_hover_sampling_evidence.json)：1560..1563四新正常语义，目标/高亮两体四片段、共用真实低BYTE桥一处及三调用期同表DX桥，正确Reset9/五宠严格W16体保持；附属桥不造原身份、原共享W32/W16和row/返回/绘制序保。四equivalent/四BATTLE成员，语义1564/有效1557、文档关联1675/3680（45.52%）、分类694/BATTLE246枚举open/E796；四X共40B全NOP/逐byte无入向/前RET后真入口用途mapped，R7 269余2792，无F/有效区间各7/差队列172与43待归属及全部其余对象保持。

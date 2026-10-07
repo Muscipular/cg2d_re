@@ -183555,6 +183555,262 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x43c120",
+      "inventory_id": "F:0003C120",
+      "original_role": "GetSelectedBattleEntry_43C120",
+      "original_end_exclusive": "0x43c3d2",
+      "instruction_count": 226,
+      "status": "BQV01完整目标/高亮与两数据叶正常源纳管；两consumer真实BYTE桥及同held DX表/height-width阶段实修，共用BYTE桥和三render承载桥补齐，正确Reset9/五宠严格W16体与目标返回绘制序保；全生产/其它父/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "GetSelectedBattleEntry_43C120"
+          ],
+          "relationship": "43C120完整目标选择：held targetFlags W32/hover、原20槽首匹配action/cacheIndex/flags实际低W8，按40/80/100/200优先返回位置/位置+20/40-41/42，否则继续扫描/末-1；原四排20 W32槽、配对排后右邻再左邻、十位/全体排除自身的绘制序和返回保持，两真实498520目标后发包调用对应。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "GetYobiActionFlagsLowByte"
+          ],
+          "relationship": "原+24实际BYTE消费共用桥改真实低字节观察，保flags共享W32。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "boundary": "43C120完整目标选择：held targetFlags W32/hover、原20槽首匹配action/cacheIndex/flags实际低W8，按40/80/100/200优先返回位置/位置+20/40-41/42，否则继续扫描/末-1；原四排20 W32槽、配对排后右邻再左邻、十位/全体排除自身的绘制序和返回保持，两真实498520目标后发包调用对应。 四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。",
+      "verification_level": "四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。",
+      "battle_target_hover_sampling": {
+        "spec_id": "BQV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+          "doc/cg2d_battle_target_hover_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 226,
+        "original_code_bytes": 690,
+        "original_page_count": 3,
+        "original_outgoing_call_count": 15,
+        "original_inbound_count": 2,
+        "source_body_changed": true,
+        "source_body_patch_count": 1,
+        "normal_previous_values_wrong": false,
+        "original_target_return_and_draw_order_kept": true,
+        "original_row_mapping_kept": true,
+        "original_normal_w8_w16_w32_storage_kept": true,
+        "derived_byte_helper_changed": true,
+        "derived_dx_bridge_count": 3,
+        "dependency_r7_classification_count": 4,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43c0a0",
+      "inventory_id": "F:0003C0A0",
+      "original_role": "DrawBattleEntryHover_43C0A0",
+      "original_end_exclusive": "0x43c112",
+      "instruction_count": 39,
+      "status": "BQV01完整目标/高亮与两数据叶正常源纳管；两consumer真实BYTE桥及同held DX表/height-width阶段实修，共用BYTE桥和三render承载桥补齐，正确Reset9/五宠严格W16体与目标返回绘制序保；全生产/其它父/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "DrawBattleEntryHover_43C0A0"
+          ],
+          "relationship": "43C0A0完整目标高亮：slot action非空/实际flags低W8 bit8，图号W32→同调用期DX表T*→hoverImage W32→action Y/offsetX/offsetY/X W32→同表低S16 height再width，原加减2矩形四低W16/层206/held hoverImage/0传既有522180绘制接口；不重借表或资源加载，不改变owner。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "GetYobiActionFlagsLowByte"
+          ],
+          "relationship": "原+24实际BYTE消费共用桥改真实低字节观察，保flags共享W32。"
+        },
+        {
+          "path": "include/cg/render/GraphicDxCache.hpp",
+          "symbols": [
+            "BorrowGraphicDxCacheEntries",
+            "ReadGraphicDxHeightFromEntries",
+            "ReadGraphicDxWidthFromEntries"
+          ],
+          "relationship": "不暴露SDK，已证DX调用期非拥有表T*及W16维度桥声明。"
+        },
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "BorrowGraphicDxCacheEntries",
+            "ReadGraphicDxHeightFromEntries",
+            "ReadGraphicDxWidthFromEntries"
+          ],
+          "relationship": "只借现有表、不检查/加载；同held表高度后宽度低S16。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "boundary": "43C0A0完整目标高亮：slot action非空/实际flags低W8 bit8，图号W32→同调用期DX表T*→hoverImage W32→action Y/offsetX/offsetY/X W32→同表低S16 height再width，原加减2矩形四低W16/层206/held hoverImage/0传既有522180绘制接口；不重借表或资源加载，不改变owner。 四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。",
+      "verification_level": "四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。",
+      "battle_target_hover_sampling": {
+        "spec_id": "BQV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+          "doc/cg2d_battle_target_hover_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 39,
+        "original_code_bytes": 114,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 1,
+        "original_inbound_count": 15,
+        "source_body_changed": true,
+        "source_body_patch_count": 3,
+        "normal_previous_values_wrong": false,
+        "original_target_return_and_draw_order_kept": true,
+        "original_row_mapping_kept": true,
+        "original_normal_w8_w16_w32_storage_kept": true,
+        "derived_byte_helper_changed": true,
+        "derived_dx_bridge_count": 3,
+        "dependency_r7_classification_count": 4,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43c490",
+      "inventory_id": "F:0003C490",
+      "original_role": "Sub_43C490",
+      "original_end_exclusive": "0x43c4a6",
+      "instruction_count": 9,
+      "status": "BQV01完整目标/高亮与两数据叶正常源纳管；两consumer真实BYTE桥及同held DX表/height-width阶段实修，共用BYTE桥和三render承载桥补齐，正确Reset9/五宠严格W16体与目标返回绘制序保；全生产/其它父/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_43C490"
+          ],
+          "relationship": "43C490完整正确源保持：count S32<=0直接返，其余仅写count项W32 -2、原借用values T*；498520原Reset9调用保持，void不造返回。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "boundary": "43C490完整正确源保持：count S32<=0直接返，其余仅写count项W32 -2、原借用values T*；498520原Reset9调用保持，void不造返回。 四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。",
+      "verification_level": "四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。",
+      "battle_target_hover_sampling": {
+        "spec_id": "BQV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+          "doc/cg2d_battle_target_hover_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 9,
+        "original_code_bytes": 22,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_target_return_and_draw_order_kept": true,
+        "original_row_mapping_kept": true,
+        "original_normal_w8_w16_w32_storage_kept": true,
+        "derived_byte_helper_changed": true,
+        "derived_dx_bridge_count": 3,
+        "dependency_r7_classification_count": 4,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43c4b0",
+      "inventory_id": "F:0003C4B0",
+      "original_role": "Sub_43C4B0",
+      "original_end_exclusive": "0x43c4de",
+      "instruction_count": 13,
+      "status": "BQV01完整目标/高亮与两数据叶正常源纳管；两consumer真实BYTE桥及同held DX表/height-width阶段实修，共用BYTE桥和三render承载桥补齐，正确Reset9/五宠严格W16体与目标返回绘制序保；全生产/其它父/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_43C4B0"
+          ],
+          "relationship": "43C4B0完整正确源保持：从原五宠槽逐项先used W16严格==1再flags6AA W16严格==2，首命中index，未命中-1；原记录5110步长/两字段W16保持，28实际调用/15父仅入向登记不推全部父验收。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "boundary": "43C4B0完整正确源保持：从原五宠槽逐项先used W16严格==1再flags6AA W16严格==2，首命中index，未命中-1；原记录5110步长/两字段W16保持，28实际调用/15父仅入向登记不推全部父验收。 四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。",
+      "verification_level": "四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。",
+      "battle_target_hover_sampling": {
+        "spec_id": "BQV01",
+        "evidence_refs": [
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+          "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+          "doc/cg2d_battle_target_hover_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 13,
+        "original_code_bytes": 46,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 0,
+        "original_inbound_count": 28,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_target_return_and_draw_order_kept": true,
+        "original_row_mapping_kept": true,
+        "original_normal_w8_w16_w32_storage_kept": true,
+        "derived_byte_helper_changed": true,
+        "derived_dx_bridge_count": 3,
+        "dependency_r7_classification_count": 4,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

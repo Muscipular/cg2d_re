@@ -17,6 +17,15 @@ std::int32_t LoadGraphic_522570(std::int32_t imageNo);
 // 原播放/绘制消费者按阶段读取 DX 宽、高的低 S16；不检查图号，不触发加载。
 std::int16_t ReadGraphicDxWidth(std::int32_t imageNo) noexcept;
 std::int16_t ReadGraphicDxHeight(std::int32_t imageNo) noexcept;
+// 原43C0B8先借DX表，43C0E6/43C0EA随后从同表取高度/宽度低S16。
+// 仅调用期非拥有T*；不检查图号、不加载、不扩宽原W16字段。
+struct DxGraphicEntry;
+const DxGraphicEntry* BorrowGraphicDxCacheEntries() noexcept;
+std::int16_t ReadGraphicDxHeightFromEntries(
+    const DxGraphicEntry* entries, std::int32_t imageNo) noexcept;
+std::int16_t ReadGraphicDxWidthFromEntries(
+    const DxGraphicEntry* entries, std::int32_t imageNo) noexcept;
+
 // 原42A324先取DX表，再读取调用期借用的W32图号字段；不检查图号或触发加载。
 std::int16_t ReadGraphicDxHeightFromField(const std::int32_t& imageNo) noexcept;
 

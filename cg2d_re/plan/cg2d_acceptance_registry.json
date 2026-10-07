@@ -2293,7 +2293,8 @@
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
         "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
-        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline"
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2537,7 +2538,11 @@
         "F:00097FF0",
         "F:00098520",
         "F:0003C3E0",
-        "F:000982C0"
+        "F:000982C0",
+        "F:0003C120",
+        "F:0003C0A0",
+        "F:0003C490",
+        "F:0003C4B0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2656,7 +2661,8 @@
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
         "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
-        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision"
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2764,7 +2770,8 @@
         "BQR02十一完整112条361B/十一页、七call五callee/十jump十一ret；九正确体保持，两动作状态体三片段恢复FDA88E入口W8读×2、发送后W8 OR2及held value0的fresh W16 ANDFFFD/2B memcpy，普通值一致且共享W32存储保持。原入口低S8去重返回/负参数短路和真实4410E0常量11h、Y-X单Read/计数RNG、fresh socket与原fS/klF格式及返回、发送后flag与最后value190发布序保；五清增计数/技能回复held真假/两宠物selector原生callback发布与W32关闭位/原结果透传正确。71入向25父仅登记，两无父CALL来自已过BQQ01；CC4D14两写四读三consumer仅定位，原格式两前缀不是完整封包验收。230成员枚举open，不新R7；全部数据生产/consumer/其它父/窗口/owner寿命及SDK/机器ABI/运行/R8未验",
         "BQS01六完整654条2060B/十一页、39物理call（36直接13callee/三间接）、40jump/九ret；五体13片段恢复skip初尾界先row++/held hover、两选择四实际点击W8/各尾一次W8 cache、八坐标W16按elementY-X/windowY-X及2B memcpy、三个cost-first父。普通值/每次FP单Read及计数RNG同旧源，原普通fresh callback与骑宠held callback、null也关闭/声51/返回1、mask禁用声55/FP不足无声、W32状态/S32/费用%3d与20B/数字-图/34B旧tooltip/三图表保；正确>=叶及既有桥纳管。元素8原32B真实561C94与两列表17..26十槽实际store有据，mode5/6可见入口和其他原未写position不新fallback/故障模型。28入向25代码/三数据20父只登记，原operand0/2/slot不是F；983/984业务/历史保，当前source状态同步。236枚举open，不新R7；全部技能/pet/FP生产/其它父/consumer/窗口与owner寿命、SDK/机器ABI/运行/R8未验",
         "BQT01三完整304条1152B/六页、34直接call十callee/24jump六ret，一按钮体两片段恢复state W32→window T*→hover、关闭提示→一次pendingAction→打开提示/点击gate、global鼠标与动作两个W8观察及phase1→held riding→index-1/真selector返回存槽。普通值一致，W32共享存储/关闭与图先fresh window/slot尾清保；两正确命令体保负/正/Check非0/target S16/阈值200600和映射差别、原256B未清buffer/W|FF-W|%X|%X/freshsocket明文/弃返、重复声57/不同count-command-lastPet/Close及两非负末声51/phase2。原元素8完整32B/真实56B82C、30B提示/13B唯一旧packet和八PUSH指令/九数据入向有据；另父keyboard只定位761/2882B/74CALL，不据此验完整本体。990/991原业务与历史保当前status/source关系同步，一新原F/三equivalent及239成员枚举open；R7保，完整keyboard/目标后发送/数据生产/父/窗口/owner寿命/SDK/机器ABI/运行/R8未验",
-        "BQU01三完整988条3638B/14页，92CALL=91direct/24callee+1GetTickCount IAT、137普通jump/三switch/四RET；两体18位置恢复15真实W8/两cost-first既有桥和W32 held谓词先count pub，正常值/FP单Read与RNG一致。主state0..5/模式0..4/phase0..3/20槽/三提示取样/原256B H-S-I-W和目标后freshsocket发送/弃返、名称费用W32坐标→S16与图尾、各种count-command-lastPet/Close保；正确目标提示体不改。倒计时完整到期门禁/多次N和W|FF每次fresh socket/flag重读/finish/MarkDeath清槽/十秒声与16B显示保。62B X=2B同寄存器MOV对齐+60B三W32表/十五目标及三入向仅用途mapped，R7 265余2796。899/922旧业务/历史保完整续记、1559一新正常F，242成员open。纠正BQT keyboard泛称，本根完整静态已补，上游43CBB0/全技能-pet生产/其它窗口/owner寿命/SDK/机器ABI/运行/R8未验；原旧阶段描述不代表当前仍缺该主根，不增键盘事实"
+        "BQU01三完整988条3638B/14页，92CALL=91direct/24callee+1GetTickCount IAT、137普通jump/三switch/四RET；两体18位置恢复15真实W8/两cost-first既有桥和W32 held谓词先count pub，正常值/FP单Read与RNG一致。主state0..5/模式0..4/phase0..3/20槽/三提示取样/原256B H-S-I-W和目标后freshsocket发送/弃返、名称费用W32坐标→S16与图尾、各种count-command-lastPet/Close保；正确目标提示体不改。倒计时完整到期门禁/多次N和W|FF每次fresh socket/flag重读/finish/MarkDeath清槽/十秒声与16B显示保。62B X=2B同寄存器MOV对齐+60B三W32表/十五目标及三入向仅用途mapped，R7 265余2796。899/922旧业务/历史保完整续记、1559一新正常F，242成员open。纠正BQT keyboard泛称，本根完整静态已补，上游43CBB0/全技能-pet生产/其它窗口/owner寿命/SDK/机器ABI/运行/R8未验；原旧阶段描述不代表当前仍缺该主根，不增键盘事实",
+        "BQV01四完整287条872B/六页，16directcall两callee/36jump十二RET、46真实代码入向/16父只登记；两consumer体四片段恢复两个BYTE桥调用与图号W32→DX表T*→hoverImage/动作字段→同表height/width低S16，共用低BYTE桥一处实修、render三小桥/opaque声明仅已证非拥有T*不造新原F，原flags/坐标W32/尺寸W16及旧DX接口保。原四排20项/40-80-100-200优先/配对纵邻-右邻-左邻、两十位或全体排除自身与position/+20/40-41/42/-1、矩形lowW16/层206/heldimage/0保持；两正确Reset9/五宠used严格1且flags6AA严格2体纳管不改。四X共40B全90/NOPdecode/逐byte无入向、前RET后函数填充用途mapped，R7 269余2792；246成员open，完整targetFlags/技能-pet生产、43CBB0等上游/其它父/全部owner及窗口寿命/SDK/机器ABI/运行/R8未验，原协议明文与音频/执行限制保"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2872,7 +2879,8 @@
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
         "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
-        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state"
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state"
       ]
     },
     {
@@ -34178,6 +34186,94 @@
       "observation": "498520完整命令状态0..5、选择模式0..4与phase0..3鼠标分发；主游标20槽/目标提示/骑宠与普通初始化、H/S/I/W原格式256B/fresh socket、状态计数/关闭/三阶段提示/名称费用/图尾/倒计时门禁；13实际W8观察、两个cost-first既有桥及held skipPlayer谓词先发布恢复，原W32共享存储/寄存器AL测试、S16 target/坐标和原重读/弃创建返回保持。 43C3E0完整正确源保持：CommandValue非0早退，前20槽首非空动作flags低W8 bit8；command4 y88否则91、58B1图/低S16目标提示文本和原19B hover复制，不添加无目标fallback。 4982C0完整tick/deadline/active门禁与到期源：Flush/Close后fresh player骑宠谓词或flags实际W8/计数采样，原W|FF/N/N多次fresh socket发送、finish门禁/声55→held action→scene5→MarkDeath→清槽；最后十秒声202/秒发布、未清16B原%2d两S8数字图与原11B回合格式/DrawText3保持，两实际W8读恢复。",
       "expected": "498520完整命令状态0..5、选择模式0..4与phase0..3鼠标分发；主游标20槽/目标提示/骑宠与普通初始化、H/S/I/W原格式256B/fresh socket、状态计数/关闭/三阶段提示/名称费用/图尾/倒计时门禁；13实际W8观察、两个cost-first既有桥及held skipPlayer谓词先发布恢复，原W32共享存储/寄存器AL测试、S16 target/坐标和原重读/弃创建返回保持。 43C3E0完整正确源保持：CommandValue非0早退，前20槽首非空动作flags低W8 bit8；command4 y88否则91、58B1图/低S16目标提示文本和原19B hover复制，不添加无目标fallback。 4982C0完整tick/deadline/active门禁与到期源：Flush/Close后fresh player骑宠谓词或flags实际W8/计数采样，原W|FF/N/N多次fresh socket发送、finish门禁/声55→held action→scene5→MarkDeath→清槽；最后十秒声202/秒发布、未清16B原%2d两S8数字图与原11B回合格式/DrawText3保持，两实际W8读恢复。",
       "actual": "三完整原根988条3638B/14页、92物理CALL（91直接/24callee+1 GetTickCount IAT）、137普通jump/三个W32switch/四RET。两体18处恢复15实际W8内存观察（主13/计时2）、两cost-first既有桥及一个held W32 flags谓词先于count发布；普通值与FP单Read/RNG不变。主命令state0..5/模式0..4/phase0..3、20槽/三提示复制阶段/target后H-S-I-W原256B和socket取样/弃返、名称费用W32坐标→低S16、图尾/不同计数-command-lastPet与Close保持。完整正确目标提示体不改；倒计时tick/deadline/active/原W|FF-N-N发送门禁/重读/finish/MarkDeath清槽/末十秒声与两S8数字/16B显示格式保。62B X含2B同寄存器MOV对齐及三W32表60B，仅用途mapped，R7 265/3061余2796。899/922旧业务与原字段/历史全文保，当前status/source关系和完整子基线同步，1559一新正常F/三equivalent/BATTLE242枚举open；语义1560/有效1553、关联1671/3680（45.41%）、分类690/E794。纠正此前498520 keyboard泛称为命令状态/鼠标分发，不增加键盘事实；已证本根完整正常源，43CBB0上游/全数据生产/全部窗口-owner寿命/SDK/机器ABI/画面运行/R8未验，无F/有效区间各7/差队列172/43待归属及完整门禁保，音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保。"
+    },
+    {
+      "id": "E-BATTLE-TARGET-HOVER-SAMPLING-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQV01四完整287条872B/六页，16call/36jump十二RET、两实际BYTE原点/同held表与S16维度、四排20项/46入向与四X40B逐byteNOP/无入向；doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-target-hover-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json",
+        "src/YobiRuntime.cpp#GetSelectedBattleEntry_43C120",
+        "src/YobiRuntime.cpp#DrawBattleEntryHover_43C0A0",
+        "src/ui/WindowRuntime.cpp#Sub_43C490",
+        "src/world/SceneState.cpp#Sub_43C4B0",
+        "src/ui/WindowRuntimeState.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/render/GraphicDxCache.hpp",
+        "src/render/GraphicDxCache.cpp",
+        "src/render/GraphicDxCacheState.hpp",
+        "src/DrawGraphicHover.cpp",
+        "src/LoginMessageDependencies.hpp",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "src/ui/WindowRuntime.cpp#Sub_498520",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "src/YobiRuntime.cpp#GetYobiActionFlagsLowByte"
+      ],
+      "differences": [
+        {
+          "description": "两体四片段与共用真实BYTE桥一处/三同表承载桥：图号W32→DX表T*→hoverImage和动作字段→held表高后宽S16，原W32共享字段/目标20项表及bit优先/邻位绘制/各返回码/lowW16矩形保，两个正确Reset9/五宠严格W16叶不改",
+          "decision_ref": "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "43C120完整目标选择：held targetFlags W32/hover、原20槽首匹配action/cacheIndex/flags实际低W8，按40/80/100/200优先返回位置/位置+20/40-41/42，否则继续扫描/末-1；原四排20 W32槽、配对排后右邻再左邻、十位/全体排除自身的绘制序和返回保持，两真实498520目标后发包调用对应。 43C0A0完整目标高亮：slot action非空/实际flags低W8 bit8，图号W32→同调用期DX表T*→hoverImage W32→action Y/offsetX/offsetY/X W32→同表低S16 height再width，原加减2矩形四低W16/层206/held hoverImage/0传既有522180绘制接口；不重借表或资源加载，不改变owner。 43C490完整正确源保持：count S32<=0直接返，其余仅写count项W32 -2、原借用values T*；498520原Reset9调用保持，void不造返回。 43C4B0完整正确源保持：从原五宠槽逐项先used W16严格==1再flags6AA W16严格==2，首命中index，未命中-1；原记录5110步长/两字段W16保持，28实际调用/15父仅入向登记不推全部父验收。",
+      "expected": "43C120完整目标选择：held targetFlags W32/hover、原20槽首匹配action/cacheIndex/flags实际低W8，按40/80/100/200优先返回位置/位置+20/40-41/42，否则继续扫描/末-1；原四排20 W32槽、配对排后右邻再左邻、十位/全体排除自身的绘制序和返回保持，两真实498520目标后发包调用对应。 43C0A0完整目标高亮：slot action非空/实际flags低W8 bit8，图号W32→同调用期DX表T*→hoverImage W32→action Y/offsetX/offsetY/X W32→同表低S16 height再width，原加减2矩形四低W16/层206/held hoverImage/0传既有522180绘制接口；不重借表或资源加载，不改变owner。 43C490完整正确源保持：count S32<=0直接返，其余仅写count项W32 -2、原借用values T*；498520原Reset9调用保持，void不造返回。 43C4B0完整正确源保持：从原五宠槽逐项先used W16严格==1再flags6AA W16严格==2，首命中index，未命中-1；原记录5110步长/两字段W16保持，28实际调用/15父仅入向登记不推全部父验收。",
+      "actual": "四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。"
+    },
+    {
+      "id": "E-BATTLE-TARGET-HOVER-SAMPLING-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQV01四完整287条872B/六页，16call/36jump十二RET、两实际BYTE原点/同held表与S16维度、四排20项/46入向与四X40B逐byteNOP/无入向；doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-target-hover-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json",
+        "src/YobiRuntime.cpp#GetSelectedBattleEntry_43C120",
+        "src/YobiRuntime.cpp#DrawBattleEntryHover_43C0A0",
+        "src/ui/WindowRuntime.cpp#Sub_43C490",
+        "src/world/SceneState.cpp#Sub_43C4B0",
+        "src/ui/WindowRuntimeState.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/render/GraphicDxCache.hpp",
+        "src/render/GraphicDxCache.cpp",
+        "src/render/GraphicDxCacheState.hpp",
+        "src/DrawGraphicHover.cpp",
+        "src/LoginMessageDependencies.hpp",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "src/ui/WindowRuntime.cpp#Sub_498520",
+        "doc/cg2d_graphic_dx_cache_x64_spec.md",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "src/YobiRuntime.cpp#GetYobiActionFlagsLowByte"
+      ],
+      "differences": [
+        {
+          "description": "两体四片段与共用真实BYTE桥一处/三同表承载桥：图号W32→DX表T*→hoverImage和动作字段→held表高后宽S16，原W32共享字段/目标20项表及bit优先/邻位绘制/各返回码/lowW16矩形保，两个正确Reset9/五宠严格W16叶不改",
+          "decision_ref": "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "43C120完整目标选择：held targetFlags W32/hover、原20槽首匹配action/cacheIndex/flags实际低W8，按40/80/100/200优先返回位置/位置+20/40-41/42，否则继续扫描/末-1；原四排20 W32槽、配对排后右邻再左邻、十位/全体排除自身的绘制序和返回保持，两真实498520目标后发包调用对应。 43C0A0完整目标高亮：slot action非空/实际flags低W8 bit8，图号W32→同调用期DX表T*→hoverImage W32→action Y/offsetX/offsetY/X W32→同表低S16 height再width，原加减2矩形四低W16/层206/held hoverImage/0传既有522180绘制接口；不重借表或资源加载，不改变owner。 43C490完整正确源保持：count S32<=0直接返，其余仅写count项W32 -2、原借用values T*；498520原Reset9调用保持，void不造返回。 43C4B0完整正确源保持：从原五宠槽逐项先used W16严格==1再flags6AA W16严格==2，首命中index，未命中-1；原记录5110步长/两字段W16保持，28实际调用/15父仅入向登记不推全部父验收。",
+      "expected": "43C120完整目标选择：held targetFlags W32/hover、原20槽首匹配action/cacheIndex/flags实际低W8，按40/80/100/200优先返回位置/位置+20/40-41/42，否则继续扫描/末-1；原四排20 W32槽、配对排后右邻再左邻、十位/全体排除自身的绘制序和返回保持，两真实498520目标后发包调用对应。 43C0A0完整目标高亮：slot action非空/实际flags低W8 bit8，图号W32→同调用期DX表T*→hoverImage W32→action Y/offsetX/offsetY/X W32→同表低S16 height再width，原加减2矩形四低W16/层206/held hoverImage/0传既有522180绘制接口；不重借表或资源加载，不改变owner。 43C490完整正确源保持：count S32<=0直接返，其余仅写count项W32 -2、原借用values T*；498520原Reset9调用保持，void不造返回。 43C4B0完整正确源保持：从原五宠槽逐项先used W16严格==1再flags6AA W16严格==2，首命中index，未命中-1；原记录5110步长/两字段W16保持，28实际调用/15父仅入向登记不推全部父验收。",
+      "actual": "四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。"
     }
   ],
   "task_acceptance": [
@@ -34831,7 +34927,8 @@
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
         "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
-        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state"
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state"
       ]
     },
     {
@@ -34919,7 +35016,8 @@
         "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
         "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
         "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
-        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state"
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state"
       ]
     },
     {
@@ -35105,7 +35203,8 @@
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
         "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
-        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state"
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state"
       ]
     },
     {
@@ -35269,7 +35368,8 @@
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
         "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
-        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state"
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state"
       ]
     },
     {
@@ -35765,7 +35865,8 @@
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
         "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
         "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
-        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state"
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state"
       ]
     },
     {
@@ -43452,6 +43553,58 @@
         "doc/cg2d_battle_command_state_dispatch_sampling_evidence.json"
       ],
       "boundary": "4982C0完整tick/deadline/active门禁与到期源：Flush/Close后fresh player骑宠谓词或flags实际W8/计数采样，原W|FF/N/N多次fresh socket发送、finish门禁/声55→held action→scene5→MarkDeath→清槽；最后十秒声202/秒发布、未清16B原%2d两S8数字图与原11B回合格式/DrawText3保持，两实际W8读恢复。 三完整原根988条3638B/14页、92物理CALL（91直接/24callee+1 GetTickCount IAT）、137普通jump/三个W32switch/四RET。两体18处恢复15实际W8内存观察（主13/计时2）、两cost-first既有桥及一个held W32 flags谓词先于count发布；普通值与FP单Read/RNG不变。主命令state0..5/模式0..4/phase0..3、20槽/三提示复制阶段/target后H-S-I-W原256B和socket取样/弃返、名称费用W32坐标→低S16、图尾/不同计数-command-lastPet与Close保持。完整正确目标提示体不改；倒计时tick/deadline/active/原W|FF-N-N发送门禁/重读/finish/MarkDeath清槽/末十秒声与两S8数字/16B显示格式保。62B X含2B同寄存器MOV对齐及三W32表60B，仅用途mapped，R7 265/3061余2796。899/922旧业务与原字段/历史全文保，当前status/source关系和完整子基线同步，1559一新正常F/三equivalent/BATTLE242枚举open；语义1560/有效1553、关联1671/3680（45.41%）、分类690/E794。纠正此前498520 keyboard泛称为命令状态/鼠标分发，不增加键盘事实；已证本根完整正常源，43CBB0上游/全数据生产/全部窗口-owner寿命/SDK/机器ABI/画面运行/R8未验，无F/有效区间各7/差队列172/43待归属及完整门禁保，音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保。"
+    },
+    {
+      "inventory_id": "F:0003C120",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "boundary": "43C120完整目标选择：held targetFlags W32/hover、原20槽首匹配action/cacheIndex/flags实际低W8，按40/80/100/200优先返回位置/位置+20/40-41/42，否则继续扫描/末-1；原四排20 W32槽、配对排后右邻再左邻、十位/全体排除自身的绘制序和返回保持，两真实498520目标后发包调用对应。 四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。"
+    },
+    {
+      "inventory_id": "F:0003C0A0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "boundary": "43C0A0完整目标高亮：slot action非空/实际flags低W8 bit8，图号W32→同调用期DX表T*→hoverImage W32→action Y/offsetX/offsetY/X W32→同表低S16 height再width，原加减2矩形四低W16/层206/held hoverImage/0传既有522180绘制接口；不重借表或资源加载，不改变owner。 四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。"
+    },
+    {
+      "inventory_id": "F:0003C490",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "boundary": "43C490完整正确源保持：count S32<=0直接返，其余仅写count项W32 -2、原借用values T*；498520原Reset9调用保持，void不造返回。 四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。"
+    },
+    {
+      "inventory_id": "F:0003C4B0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "boundary": "43C4B0完整正确源保持：从原五宠槽逐项先used W16严格==1再flags6AA W16严格==2，首命中index，未命中-1；原记录5110步长/两字段W16保持，28实际调用/15父仅入向登记不推全部父验收。 四完整287条872B/六页、16直接CALL/两callee、36普通jump/十二RET无switch，46实际代码入向/16父只登记；两消费体四片段恢复两实际BYTE桥调用及graphic W32→DX表T*→hoverImage/动作坐标→同表height/width低S16阶段。共用GetYobiActionFlagsLowByte改真实低BYTE；既有render文件加三个小桥/opaque typed DX表非拥有T*，不是新原函数/句柄/SDL外露，旧尺寸接口不改、W32 flags/coords及W16尺寸保持。目标四排20项/bit40-80-100-200优先、配对纵邻-右邻-左邻/两十位-全体排除自身、位置/位置+20/40-41/42/末-1原返回保；高亮加减2四lowW16/206/held hoverImage/0和既有原DrawGraphicHover接口保。Reset9和五宠严格W16两谓词两正确体纳管不改，跨父/RNG/owner不虚推。四相关X共40B逐byte90/连续只读NOP decode/各字节无入向，mapped仅填充用途；R7 269/3061余2792。一至四新正常F 1560..1563，语义1564/有效1557、文档1675/3680（45.52%）、分类694/BATTLE246枚举open/E796。无F/有效区间各7、差队列172/缺定位171/43待归属、60源码closed10/完整验收0/叶0/globalfalse及全部完整门禁保持；全目标flags/技能-pet数据生产、43CBB0等上游/其它父与全部窗口/owner寿命/SDK/机器ABI/画面运行/R8未验；音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保持。"
     }
   ],
   "auxiliary_dispositions": [
@@ -49764,6 +49917,94 @@
           "end_exclusive": "0x4990a0",
           "kind": "jump_table",
           "bytes": 16
+        }
+      ]
+    },
+    {
+      "id": "X:0003C112-0003C120",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "reason": "BQV01依完整四根前RET/后真实函数入口，14B全部90、逐byte NOP只读decode/每byte无代码和数据入向，mapped仅填充用途，不造F/范围排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x43c112",
+          "end_exclusive": "0x43c120",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:0003C3D2-0003C3E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "reason": "BQV01依完整四根前RET/后真实函数入口，14B全部90、逐byte NOP只读decode/每byte无代码和数据入向，mapped仅填充用途，不造F/范围排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x43c3d2",
+          "end_exclusive": "0x43c3e0",
+          "kind": "nop_padding",
+          "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:0003C4A6-0003C4B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "reason": "BQV01依完整四根前RET/后真实函数入口，10B全部90、逐byte NOP只读decode/每byte无代码和数据入向，mapped仅填充用途，不造F/范围排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x43c4a6",
+          "end_exclusive": "0x43c4b0",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0003C4DE-0003C4E0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-acceptance",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_evidence.json"
+      ],
+      "reason": "BQV01依完整四根前RET/后真实函数入口，2B全部90、逐byte NOP只读decode/每byte无代码和数据入向，mapped仅填充用途，不造F/范围排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x43c4de",
+          "end_exclusive": "0x43c4e0",
+          "kind": "nop_padding",
+          "bytes": 2
         }
       ]
     }

@@ -399,6 +399,23 @@ std::int16_t ReadGraphicDxHeight(const std::int32_t imageNo) noexcept
     return static_cast<std::int16_t>(gGraphicDxCache103CFA4[imageNo].height);
 }
 
+const DxGraphicEntry* BorrowGraphicDxCacheEntries() noexcept
+{
+    return gGraphicDxCache103CFA4;
+}
+
+std::int16_t ReadGraphicDxHeightFromEntries(
+    const DxGraphicEntry* const entries, const std::int32_t imageNo) noexcept
+{
+    return static_cast<std::int16_t>(entries[imageNo].height);
+}
+
+std::int16_t ReadGraphicDxWidthFromEntries(
+    const DxGraphicEntry* const entries, const std::int32_t imageNo) noexcept
+{
+    return static_cast<std::int16_t>(entries[imageNo].width);
+}
+
 std::int16_t ReadGraphicDxHeightFromField(const std::int32_t& imageNo) noexcept
 {
     DxGraphicEntry* const entries = gGraphicDxCache103CFA4;

@@ -223,3 +223,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQU01 完整命令状态/鼠标分发与倒计时、目标提示（2026-10-07）
 
 [完整合同](cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state)/[三完整988条3638B](cg2d_battle_command_state_dispatch_sampling_evidence.json)沿真实498520主根与两依赖，修两体18位置：15实际W8、两cost-first桥与held W32 flags谓词先count pub；正常值/FP单Read/RNG保持。state0..5/模式0..4/phase0..3、原目标后H/S/I/W与256B/fresh socket、三提示复制中间取样/图尾与计数/关闭序、到期多次N/W|FF/finish/MarkDeath清槽/16B显示保持；正确目标提示体纳管不改。62B X三W32表/2B对齐用途收口；899/922旧业务历史保、一新F/242成员open，纠正keyboard泛称。当前主根正常静态完整，上游43CBB0/全生产/其它窗口与owner/运行另验。
+
+## BQV01 目标选择、高亮与两数据依赖（2026-10-07）
+
+[完整合同](cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state)/[四完整287条872B](cg2d_battle_target_hover_sampling_evidence.json)沿已过主分发两真实目标调用、Reset9和活宠索引：两consumer体四片段改实际BYTE桥/图号W32→借DX表T*→hoverImage/动作字段→同表height-width低S16；共用BYTE桥一处和三个render小桥落实，不新原F/SDK外露或加载。原四排20项/bit40-80-100-200优先、纵邻-右邻-左邻/两十位和全体排除自身、各返回码/矩形lowW16/206层保持；两正确数据体纳管不改。四NOP X共40B用途收口，246成员open，全生产/其它父和owner/运行另验。

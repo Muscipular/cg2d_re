@@ -22651,17 +22651,18 @@ void Sub_43C040()
 void DrawBattleEntryHover_43C0A0(const std::int32_t index)
 {
     YobiAction* const action = world::detail::gBattleEntries59E980[index];
-    if (action == nullptr || (static_cast<std::uint8_t>(action->flags) & 8u) == 0) {
+    if (action == nullptr || (GetYobiActionFlagsLowByte(action) & 8u) == 0) {
         return;
     }
     const std::int32_t graphic = action->graphicIndex;
+    const render::DxGraphicEntry* const entries = render::BorrowGraphicDxCacheEntries();
     const std::uint32_t hoverImage = gValueD69768;
     const std::int32_t y = action->y;
     const std::int32_t offsetX = action->graphicOffsetX;
     const std::int32_t offsetY = action->graphicOffsetY;
     const std::int32_t x = action->x;
-    const std::int32_t height = render::ReadGraphicDxHeight(graphic);
-    const std::int32_t width = render::ReadGraphicDxWidth(graphic);
+    const std::int32_t height = render::ReadGraphicDxHeightFromEntries(entries, graphic);
+    const std::int32_t width = render::ReadGraphicDxWidthFromEntries(entries, graphic);
     DrawGraphicHover(
         static_cast<std::uint16_t>(x + offsetX - 2),
         static_cast<std::uint16_t>(y + offsetY - 2),
@@ -22683,7 +22684,7 @@ std::int32_t GetSelectedBattleEntry_43C120()
     for (std::int32_t position = 0; position < 20; ++position) {
         const YobiAction* const action = world::detail::gBattleEntries59E980[position];
         if (action == nullptr || action->cacheIndex != hitIndex
-            || (static_cast<std::uint8_t>(action->flags) & 8u) == 0) {
+            || (GetYobiActionFlagsLowByte(action) & 8u) == 0) {
             continue;
         }
         if ((target & 0x40u) != 0) {
@@ -34886,7 +34887,7 @@ const char* BorrowYobiTitleE1(const YobiAction* const action) noexcept
 
 std::uint8_t GetYobiActionFlagsLowByte(const YobiAction* const action) noexcept
 {
-    return static_cast<std::uint8_t>(action->flags);
+    return reinterpret_cast<const std::uint8_t*>(&action->flags)[0];
 }
 
 std::int32_t GetYobiActionCacheIndex(const YobiAction* const action) noexcept

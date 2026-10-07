@@ -3662,3 +3662,17 @@ BTV01已提交，沿相邻442730/4428F0两完整根210条888B/四归档页两块
 ### BTW01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：完整YobiRuntime仅两正文四预取/pub片段变化，各自普通count-first/倍率mask-first顺序、各两构造/两销毁和所有其它语句保持；两根四归档段210条888B、两调用窗口、全部证据字段、完整机器/文档/任务模型及十三文件UTF8无BOM/LF、四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1670/有效1663、文档1781（48.40%）、处置811/E928、R7已审378/余2683、LOOP82/MAP79；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整两父与上游、全部正常寿命/数值/机器ABI及运行R8继续。
+
+## BTX01 骑乘/下坐骑效果同创建指针首写实修（2026-10-07）
+
+BTW01已提交，沿运动/动画真实消费链核43EFC0后继续其状态父43E490。完整两根976条3244B/十五归档页两块、54call/129jump/14RET及21入向六父局部窗口。正确动作映射/图号分类/default槽复读、主→44→34→38重播标志保持原样；状态0/1返回有据，不据整根归档外推54callee/全父/数值/渲染/寿命。
+
+确认共享DrawActorPhaseEffect首写指针差异：原两创建点43E6BE/43EBF2发布action08后仍同EAX创建对象清callback；现首写重读槽。先落[子SPEC](../doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision)，只修一既有helper正文一片段，先const原生created持有创建返回，发布槽后created.callback=nullptr。后续imageNo/characterAction/W8优先级/W32 flags仍逐次fresh槽读，两分配路径/次数、原不判空首写/附件借用/播放清理与音频旧调用保；无新函数/lambda/声明/owner/布局。两原入口及其它所有源不改。
+
+两真实X共68B，15实际W32表项60B逐项loaded/完整flags/原根内目标及各一入向有据；另3B LEA ECX,[ECX+0]身份对齐与5B真正NN_NOP。初次分段将3B按逐字节NOP列出，实际不是NN_NOP；已补核完整3B指令/寄存器/零位移并正确单列alignment_bytes，未落错误用途记录。表字节不伪逐字节解码、不称有引用表区无入向或整区NOP。原动作寄存器可透传到回复/51A060尾RET，保具名void局部观察，不称全上游弃返。
+
+新增1670-1671/adapted/两真实F，LOOP82→84/MAP79→81各两局部I-S各25来源/两R7用途；预期语义1672/有效1665、文档1783（48.45%）、处置813/E932、R7 380余2681。命名快照引用与子SPEC统一为最终新名；集中静态/汇总后追加实值。三任务仅current/引用继续open，原pending18/ECX pending7/closed11/差队列与完整门禁保。网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；整体目标active，全正常生产消费/寿命、全部父/callee、数值/机器ABI/链接/画面/明文互通及运行R8继续。
+
+### BTX01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：完整YobiRuntime仅既有DrawActorPhaseEffect一片段变化，创建→发布→同created清callback覆盖两实际路径；两原入口及所有其它语句、后续fresh字段/原分配播放清理与音频旧调用保持。两根十五归档段976条3244B、21局部窗口、两混合区15表项/实际3B LEA与5B NN_NOP、全部证据字段及完整机器/文档/任务模型、十三文件UTF8无BOM/LF和四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813/E932、R7已审380/余2681、LOOP84/MAP81；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整六父与上游/54callee/正常owner-alias寿命/数值/机器ABI及运行R8继续。

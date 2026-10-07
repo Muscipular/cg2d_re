@@ -4596,8 +4596,9 @@ void DrawActorPhaseEffect(
     const ActorAttachmentReadOrder readOrder)
 {
     if (payload->action08 == nullptr) {
-        payload->action08 = NewYobiAction_404AE0(2, 0);
-        payload->action08->callback = nullptr;
+        YobiAction* const created = NewYobiAction_404AE0(2, 0);
+        payload->action08 = created;
+        created->callback = nullptr;
         payload->action08->imageNo = imageNo;
         payload->action08->characterAction = 0;
         payload->action08->displayPriority = 10;

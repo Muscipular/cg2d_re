@@ -1546,3 +1546,13 @@ U10/V03/R04 current/引用保持open，原pending18/pending7/closed11与完整�
 ### BTW01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：完整YobiRuntime仅两正文四预取/pub片段变化，各自普通count-first/倍率mask-first顺序、各两构造/两销毁和所有其它语句保持；两根四归档段210条888B、两调用窗口、全部证据字段、完整机器/文档/任务模型及十三文件UTF8无BOM/LF、四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1670/有效1663、文档1781（48.40%）、处置811/E928、R7已审378/余2683、LOOP82/MAP79；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整两父与上游、全部正常寿命/数值/机器ABI及运行R8继续。
+
+## BTX01 两创建路径开发验收（2026-10-07）
+
+[基线](cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline)、[裁决](cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision)、[验收](cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-acceptance)及[证据](cg2d_actor_phase_effect_creation_evidence.json)覆盖976条3244B/21局部窗口、共享helper一片段同创建指针首写/后续fresh槽取样、两表15项与68B用途。LOOP82→84/MAP79→81各两局部I-S各25来源，只本步静态；正确动作正文和状态分发保，不以纳管造代码变化。
+
+三任务current/引用继续open，原pending/闭合/完整门禁保。完整六父与上游/54callee/正常owner-alias寿命/数值/机器ABI/链接/渲染/明文互通及运行R8未验；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。
+
+### BTX01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：完整YobiRuntime仅既有DrawActorPhaseEffect一片段变化，创建→发布→同created清callback覆盖两实际路径；两原入口及所有其它语句、后续fresh字段/原分配播放清理与音频旧调用保持。两根十五归档段976条3244B、21局部窗口、两混合区15表项/实际3B LEA与5B NN_NOP、全部证据字段及完整机器/文档/任务模型、十三文件UTF8无BOM/LF和四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813/E932、R7已审380/余2681、LOOP84/MAP81；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整六父与上游/54callee/正常owner-alias寿命/数值/机器ABI及运行R8继续。

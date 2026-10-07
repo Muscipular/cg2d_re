@@ -614,7 +614,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
-        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline"
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -698,7 +699,9 @@
         "F:00042460",
         "F:000424B0",
         "F:00042730",
-        "F:000428F0"
+        "F:000428F0",
+        "F:0003E490",
+        "F:0003EFC0"
       ],
       "closure_task_ids": [
         "U11",
@@ -742,7 +745,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
-        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision"
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -777,7 +781,8 @@
         "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
         "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
         "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
-        "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
+        "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+        "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -813,7 +818,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
-        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state"
       ]
     },
     {
@@ -1560,7 +1566,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
-        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline"
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1641,7 +1648,9 @@
         "F:00042460",
         "F:000424B0",
         "F:00042730",
-        "F:000428F0"
+        "F:000428F0",
+        "F:0003E490",
+        "F:0003EFC0"
       ],
       "closure_task_ids": [
         "U11",
@@ -1681,7 +1690,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
-        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision"
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1712,7 +1722,8 @@
         "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
         "BTU01两完整速度/移动入口442110/4422F0共218条823B/四归档页两块、10直接call/17jump/3RET、5入向四父局部路径；YobiRuntime两正文三片段实修：442110以本入口局部lambda在每次Construct后先encoded W32→mask W32→readCount W8全部取齐再同序pub/Destroy；4422F0两轴各先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能套通用读取/发布交错或另一入口顺序。新局部lambda1/全局helper0、两原Construct/两Destroy/RNG消费次数及27C→280→X200→Y210→条件方向2B8/W16 field272序保持。原override/仅零或无序才S16 pathCount选择>5/4/2阶梯、world单读和现PC53数值叶/表达式、原W32/S32坐标放大及规范化/F32落点不改、不添故障/回绕模型；442110原F32 rate返回以Double承接/NULL0及真实一处F32消费三处pop保持，4422F0当前void寄存器观察适配。原七F32常数已加载28B/完整flags及25B NN_NOP只用途。ASM/头/通用LegacyCryptInt/其它源码保持，无新owner/布局/上层SDK/业务或边界保护；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，完整四父/全部正常寿命/机器ABI/数值运行R8未验。",
         "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
-        "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
+        "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
+        "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1744,7 +1755,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
-        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state"
       ]
     },
     {
@@ -40316,6 +40328,194 @@
       "observation": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
       "expected": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。",
       "actual": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-PHASE-EFFECT-CREATION-FUNC-LOOP-I-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTX01两完整根976条3244B/十五归档页、54call/129jump/14RET/21六父局部路径、两实际效果创建同created首写与15真实表项/68B用途，doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-phase-effect-creation-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-acceptance",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
+        "doc/cg2d_actor_phase_effect_creation_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43E490",
+        "src/YobiRuntime.cpp#Sub_43EFC0",
+        "src/YobiRuntime.cpp#DrawActorPhaseEffect",
+        "src/YobiRuntime.cpp#UpdateActorMountPhase",
+        "src/YobiRuntime.cpp#UpdateActorDismountPhase",
+        "src/YobiRuntime.cpp#DrawActorPhaseAttachment",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_4424B0",
+        "src/YobiRuntime.cpp#Sub_442730",
+        "src/YobiRuntime.cpp#Sub_4428F0",
+        "src/YobiRuntime.cpp#Sub_444410",
+        "src/world/SceneState.cpp#Sub_51A060",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+      "expected": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+      "actual": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-PHASE-EFFECT-CREATION-FUNC-LOOP-S-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTX01两完整根976条3244B/十五归档页、54call/129jump/14RET/21六父局部路径、两实际效果创建同created首写与15真实表项/68B用途，doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-phase-effect-creation-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-acceptance",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
+        "doc/cg2d_actor_phase_effect_creation_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43E490",
+        "src/YobiRuntime.cpp#Sub_43EFC0",
+        "src/YobiRuntime.cpp#DrawActorPhaseEffect",
+        "src/YobiRuntime.cpp#UpdateActorMountPhase",
+        "src/YobiRuntime.cpp#UpdateActorDismountPhase",
+        "src/YobiRuntime.cpp#DrawActorPhaseAttachment",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_4424B0",
+        "src/YobiRuntime.cpp#Sub_442730",
+        "src/YobiRuntime.cpp#Sub_4428F0",
+        "src/YobiRuntime.cpp#Sub_444410",
+        "src/world/SceneState.cpp#Sub_51A060",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+      "expected": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+      "actual": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-PHASE-EFFECT-CREATION-FUNC-MAP-I-20261007",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTX01两完整根976条3244B/十五归档页、54call/129jump/14RET/21六父局部路径、两实际效果创建同created首写与15真实表项/68B用途，doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-phase-effect-creation-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-acceptance",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
+        "doc/cg2d_actor_phase_effect_creation_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43E490",
+        "src/YobiRuntime.cpp#Sub_43EFC0",
+        "src/YobiRuntime.cpp#DrawActorPhaseEffect",
+        "src/YobiRuntime.cpp#UpdateActorMountPhase",
+        "src/YobiRuntime.cpp#UpdateActorDismountPhase",
+        "src/YobiRuntime.cpp#DrawActorPhaseAttachment",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_4424B0",
+        "src/YobiRuntime.cpp#Sub_442730",
+        "src/YobiRuntime.cpp#Sub_4428F0",
+        "src/YobiRuntime.cpp#Sub_444410",
+        "src/world/SceneState.cpp#Sub_51A060",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+      "expected": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+      "actual": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-PHASE-EFFECT-CREATION-FUNC-MAP-S-20261007",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTX01两完整根976条3244B/十五归档页、54call/129jump/14RET/21六父局部路径、两实际效果创建同created首写与15真实表项/68B用途，doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-phase-effect-creation-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-acceptance",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
+        "doc/cg2d_actor_phase_effect_creation_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43E490",
+        "src/YobiRuntime.cpp#Sub_43EFC0",
+        "src/YobiRuntime.cpp#DrawActorPhaseEffect",
+        "src/YobiRuntime.cpp#UpdateActorMountPhase",
+        "src/YobiRuntime.cpp#UpdateActorDismountPhase",
+        "src/YobiRuntime.cpp#DrawActorPhaseAttachment",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "include/cg/YobiRuntime.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_4424B0",
+        "src/YobiRuntime.cpp#Sub_442730",
+        "src/YobiRuntime.cpp#Sub_4428F0",
+        "src/YobiRuntime.cpp#Sub_444410",
+        "src/world/SceneState.cpp#Sub_51A060",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json",
+        "doc/cg2d_actor_motion_variants_sampling_evidence.json",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+      "expected": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。",
+      "actual": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。"
     }
   ],
   "task_acceptance": [
@@ -40795,7 +40995,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
-        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state"
       ]
     },
     {
@@ -40857,7 +41058,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
-        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state"
       ]
     },
     {
@@ -41394,7 +41596,8 @@
         "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
         "doc/cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-source-state",
         "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
-        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state"
+        "doc/cg2d_actor_motion_variants_sampling_spec.md#actor-motion-variants-source-state",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state"
       ]
     },
     {
@@ -51332,6 +51535,32 @@
         "doc/cg2d_actor_motion_variants_sampling_evidence.json"
       ],
       "boundary": "BTW01普通移动442730/倍率移动4428F0两完整根210条888B/四归档页两块、22直接call/14jump/2RET、2入向两父局部路径。只实修YobiRuntime两既有正文四片段：442730每轴先readCount W8→encoded W32→mask W32取齐再同序pub/Destroy；4428F0每轴先mask W32→encoded W32→readCount W8取齐再同序pub/Destroy，不能混套入口顺序。各根目标X/Y均F32、步X零才步Y/idle W16动画与清0、距离call前持有步和worldY/X、持有步平方和/到格目标pub后清步、未到分支/动画序保持。普通入口未到时fresh stepX/worldX再pub、fresh stepY/worldY再pub；倍率入口原动态9DAD78两次取样，X乘积先保Double、worldY/X后才X落F32，Y乘积再落F32，距离call后未到时使用已持有scaled X/Y与fresh世界坐标，不能换成新rate读取。各根两构造两销毁/RNG及X完整寿命后才fresh worldY/ftol承接保持；64/0/1/64复用已有真实数据证据，动态倍率不猜初值或当常数。现void局部寄存器观察具名适配，不假造纯业务返回，不推全父。442730尾8B NN_NOP只用途；4428F0紧邻下一真函数无尾区，不造第二X。无新lambda/helper/声明/owner/布局/业务，所有其它源/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整两父与上游/正常寿命/数值/机器ABI及运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003E490",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-acceptance",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
+        "doc/cg2d_actor_phase_effect_creation_evidence.json"
+      ],
+      "boundary": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003EFC0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-acceptance",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
+        "doc/cg2d_actor_phase_effect_creation_evidence.json"
+      ],
+      "boundary": "BTX01状态更新43E490/动作映射43EFC0两完整根976条3244B/十五归档页两块、54直接call/129jump/14RET、21入向六父局部窗口。只实修YobiRuntime既有DrawActorPhaseEffect一正文一片段，覆盖骑乘43E6BE与下坐骑43EBF2两实际创建路径：先持有NewYobiAction(2,0)返回的原生created指针，发布action08，再用同created清callback；后续imageNo/characterAction/W8 displayPriority/W32 flags仍逐次fresh槽取样，不增加NULL保护。两原入口正文/阶段1-2共享效果路径调用与原分配次数、附件借用/清理和音频旧调用保持，无新lambda/helper/声明/owner/布局。43E490原0/1业务返回有据，正确43EFC0首坐骑同指针写/单次imageNo分类/四区段与11项动作跳表/default复读槽以及restart主→44→34→38逐项NULL/同指针写保持，现void路径寄存器观察具名适配，不误称全上游弃返。两真实X共68B含4/11项表15个实际W32目标60B、3B LEA ECX,[ECX+0]对齐及5B真实NN_NOP；表有原各一入向，不称无入向或全NOP，只字节用途。所有其它源/数值叶/网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整六父与上游/全部54callee/正常owner-alias寿命/数值/机器ABI/渲染与运行R8未验。"
     }
   ],
   "auxiliary_dispositions": [
@@ -67926,6 +68155,334 @@
           "mnemonic": "",
           "text": "align 10h",
           "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003EFA9-0003EFC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-acceptance",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
+        "doc/cg2d_actor_phase_effect_creation_evidence.json"
+      ],
+      "reason": "BTX01两个真实X共68B：两表15实际W32项60B、3B LEA身份对齐与5B NN_NOP，实际各一表引用；只用途，不造F/helper或范围排除，不将整区称无入向/全NOP",
+      "classification": "switch_table_with_alignment",
+      "original_size": 23,
+      "original_bytes": "8d49009fef4300f7e4430002ea4300a2ed430090909090",
+      "parts": [
+        {
+          "start": "0x43efa9",
+          "end_exclusive": "0x43efac",
+          "kind": "alignment_bytes",
+          "bytes": 3,
+          "original_bytes": "8d4900",
+          "decode": [
+            {
+              "ea": "0x43efa9",
+              "size": 3,
+              "bytes": "8d4900",
+              "mnemonic": "",
+              "text": "align 4",
+              "is_nop": false,
+              "is_lea": true,
+              "operand0": {
+                "type": 1,
+                "reg": 1,
+                "reg_name": "ecx"
+              },
+              "operand1": {
+                "type": 4,
+                "reg": 1,
+                "base_name": "ecx",
+                "addr": 0
+              },
+              "expected_reg_type": 1,
+              "expected_displacement_type": 4
+            }
+          ]
+        },
+        {
+          "start": "0x43efac",
+          "end_exclusive": "0x43efbc",
+          "kind": "switch_target_table",
+          "bytes": 16,
+          "original_bytes": "9fef4300f7e4430002ea4300a2ed4300",
+          "entries": [
+            {
+              "selector": 0,
+              "ea": "0x43efac",
+              "size": 4,
+              "bytes": "9fef4300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43ef9f",
+              "target_function": "0x43e490",
+              "target_text": "pop     edi; jumptable 0043E4F0 case 0"
+            },
+            {
+              "selector": 1,
+              "ea": "0x43efb0",
+              "size": 4,
+              "bytes": "f7e44300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43e4f7",
+              "target_function": "0x43e490",
+              "target_text": "push    esi; jumptable 0043E4F0 case 1"
+            },
+            {
+              "selector": 2,
+              "ea": "0x43efb4",
+              "size": 4,
+              "bytes": "02ea4300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43ea02",
+              "target_function": "0x43e490",
+              "target_text": "push    esi; jumptable 0043E4F0 case 2"
+            },
+            {
+              "selector": 3,
+              "ea": "0x43efb8",
+              "size": 4,
+              "bytes": "a2ed4300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43eda2",
+              "target_function": "0x43e490",
+              "target_text": "mov     edx, [esi+278h]; jumptable 0043E4F0 case 3"
+            }
+          ]
+        },
+        {
+          "start": "0x43efbc",
+          "end_exclusive": "0x43efc0",
+          "kind": "nop_padding",
+          "bytes": 4,
+          "original_bytes": "90909090",
+          "decode": [
+            {
+              "ea": "0x43efbc",
+              "size": 1,
+              "bytes": "90",
+              "mnemonic": "",
+              "text": "align 10h",
+              "is_nop": true
+            },
+            {
+              "ea": "0x43efbd",
+              "size": 1,
+              "bytes": "90",
+              "mnemonic": "",
+              "text": "align 10h",
+              "is_nop": true
+            },
+            {
+              "ea": "0x43efbe",
+              "size": 1,
+              "bytes": "90",
+              "mnemonic": "",
+              "text": "align 10h",
+              "is_nop": true
+            },
+            {
+              "ea": "0x43efbf",
+              "size": 1,
+              "bytes": "90",
+              "mnemonic": "",
+              "text": "align 10h",
+              "is_nop": true
+            }
+          ]
+        }
+      ],
+      "original_inbound": [
+        {
+          "to": "0x43efac",
+          "type": 3,
+          "code": false,
+          "function": "0x43e490",
+          "text": "jmp     ds:jpt_43E4F0[eax*4]; switch jump",
+          "from": "0x43e4f0"
+        }
+      ]
+    },
+    {
+      "id": "X:0003F153-0003F180",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-decision",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-acceptance",
+        "doc/cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-source-state",
+        "doc/cg2d_actor_phase_effect_creation_evidence.json"
+      ],
+      "reason": "BTX01两个真实X共68B：两表15实际W32项60B、3B LEA身份对齐与5B NN_NOP，实际各一表引用；只用途，不造F/helper或范围排除，不将整区称无入向/全NOP",
+      "classification": "switch_table_with_alignment",
+      "original_size": 45,
+      "original_bytes": "9008f143006ff0430042f0430042f0430042f0430033f0430033f043007ef0430051f0430060f0430051f04300",
+      "parts": [
+        {
+          "start": "0x43f153",
+          "end_exclusive": "0x43f154",
+          "kind": "nop_padding",
+          "bytes": 1,
+          "original_bytes": "90",
+          "decode": [
+            {
+              "ea": "0x43f153",
+              "size": 1,
+              "bytes": "90",
+              "mnemonic": "",
+              "text": "align 4",
+              "is_nop": true
+            }
+          ]
+        },
+        {
+          "start": "0x43f154",
+          "end_exclusive": "0x43f180",
+          "kind": "switch_target_table",
+          "bytes": 44,
+          "original_bytes": "08f143006ff0430042f0430042f0430042f0430033f0430033f043007ef0430051f0430060f0430051f04300",
+          "entries": [
+            {
+              "selector": 0,
+              "ea": "0x43f154",
+              "size": 4,
+              "bytes": "08f14300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f108",
+              "target_function": "0x43efc0",
+              "target_text": "mov     [ecx+2B0h], edi; jumptable 0043F02C case 0"
+            },
+            {
+              "selector": 1,
+              "ea": "0x43f158",
+              "size": 4,
+              "bytes": "6ff04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f06f",
+              "target_function": "0x43efc0",
+              "target_text": "mov     dword ptr [ecx+2B0h], 1; jumptable 0043F02C case 1"
+            },
+            {
+              "selector": 2,
+              "ea": "0x43f15c",
+              "size": 4,
+              "bytes": "42f04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f042",
+              "target_function": "0x43efc0",
+              "target_text": "mov     dword ptr [ecx+2B0h], 3; jumptable 0043F02C cases 2-4"
+            },
+            {
+              "selector": 3,
+              "ea": "0x43f160",
+              "size": 4,
+              "bytes": "42f04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f042",
+              "target_function": "0x43efc0",
+              "target_text": "mov     dword ptr [ecx+2B0h], 3; jumptable 0043F02C cases 2-4"
+            },
+            {
+              "selector": 4,
+              "ea": "0x43f164",
+              "size": 4,
+              "bytes": "42f04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f042",
+              "target_function": "0x43efc0",
+              "target_text": "mov     dword ptr [ecx+2B0h], 3; jumptable 0043F02C cases 2-4"
+            },
+            {
+              "selector": 5,
+              "ea": "0x43f168",
+              "size": 4,
+              "bytes": "33f04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f033",
+              "target_function": "0x43efc0",
+              "target_text": "mov     dword ptr [ecx+2B0h], 5; jumptable 0043F02C cases 5,6"
+            },
+            {
+              "selector": 6,
+              "ea": "0x43f16c",
+              "size": 4,
+              "bytes": "33f04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f033",
+              "target_function": "0x43efc0",
+              "target_text": "mov     dword ptr [ecx+2B0h], 5; jumptable 0043F02C cases 5,6"
+            },
+            {
+              "selector": 7,
+              "ea": "0x43f170",
+              "size": 4,
+              "bytes": "7ef04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f07e",
+              "target_function": "0x43efc0",
+              "target_text": "mov     [ecx+2B0h], edi; jumptable 0043F02C default case, case 7"
+            },
+            {
+              "selector": 8,
+              "ea": "0x43f174",
+              "size": 4,
+              "bytes": "51f04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f051",
+              "target_function": "0x43efc0",
+              "target_text": "mov     dword ptr [ecx+2B0h], 8; jumptable 0043F02C cases 8,10"
+            },
+            {
+              "selector": 9,
+              "ea": "0x43f178",
+              "size": 4,
+              "bytes": "60f04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f060",
+              "target_function": "0x43efc0",
+              "target_text": "mov     dword ptr [ecx+2B0h], 9; jumptable 0043F02C case 9"
+            },
+            {
+              "selector": 10,
+              "ea": "0x43f17c",
+              "size": 4,
+              "bytes": "51f04300",
+              "all_bytes_loaded": true,
+              "has_value_full_flags": true,
+              "target": "0x43f051",
+              "target_function": "0x43efc0",
+              "target_text": "mov     dword ptr [ecx+2B0h], 8; jumptable 0043F02C cases 8,10"
+            }
+          ]
+        }
+      ],
+      "original_inbound": [
+        {
+          "to": "0x43f154",
+          "type": 3,
+          "code": false,
+          "function": "0x43efc0",
+          "text": "jmp     ds:jpt_43F02C[eax*4]; switch jump",
+          "from": "0x43f02c"
         }
       ]
     }

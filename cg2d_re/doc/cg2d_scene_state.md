@@ -7813,3 +7813,13 @@ Yobi两入口按各自encoded-first/mask-first取齐W32/W32/W8再pub，原27C→
 ### BTW01 集中静态与汇总实值（2026-10-07）
 
 集中静态通过：完整YobiRuntime仅两正文四预取/pub片段变化，各自普通count-first/倍率mask-first顺序、各两构造/两销毁和所有其它语句保持；两根四归档段210条888B、两调用窗口、全部证据字段、完整机器/文档/任务模型及十三文件UTF8无BOM/LF、四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1670/有效1663、文档1781（48.40%）、处置811/E928、R7已审378/余2683、LOOP82/MAP79；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整两父与上游、全部正常寿命/数值/机器ABI及运行R8继续。
+
+## 骑乘/下坐骑效果首写（BTX01，2026-10-07）
+
+[完整基线](cg2d_actor_phase_effect_creation_spec.md#actor-phase-effect-baseline)覆盖43E490/43EFC0两根976条3244B、54call/129jump/14RET、21六父局部窗口。共享DrawActorPhaseEffect一片段实修两实际创建路径：创建指针先持有，发布action08后同created清callback；后续图号/动作/W8优先级/W32 flags仍fresh槽取样。原分配/附件借用、播放/清理与音频旧调用保。
+
+正确动作映射/重播与状态两原入口正文不改；阶段0/1业务返回有据，动作void局部观察具名适配，不称全上游弃返。LOOP84/MAP81各两局部I-S、两表15项及68B用途；全部父/54callee/正常寿命/渲染/机器ABI与运行未验。
+
+### BTX01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：完整YobiRuntime仅既有DrawActorPhaseEffect一片段变化，创建→发布→同created清callback覆盖两实际路径；两原入口及所有其它语句、后续fresh字段/原分配播放清理与音频旧调用保持。两根十五归档段976条3244B、21局部窗口、两混合区15表项/实际3B LEA与5B NN_NOP、全部证据字段及完整机器/文档/任务模型、十三文件UTF8无BOM/LF和四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1672/有效1665、文档1783（48.45%）、处置813/E932、R7已审380/余2681、LOOP84/MAP81；原pending18/ECX pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保。未编译、测试、运行或计算摘要；完整六父与上游/54callee/正常owner-alias寿命/数值/机器ABI及运行R8继续。

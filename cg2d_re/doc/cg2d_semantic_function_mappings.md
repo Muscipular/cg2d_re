@@ -3414,3 +3414,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [完整基线](cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline)对应新1613／F:000596D0双chunk分派及既有766／F:0004AB60全部格式/生产消费字段保持后追加。两根229条785B/四页三chunk、21direct二十目标/无间接/44jump四RET，十九code入向三父/Enter唯一45974B。仅Enter两BYTE比较实修，所有原字段、字节、分支与父正文保持。
 
 语义1614有效1607/文档1725（46.88%）/处置754、INPUT29/E880两局部I-S各26来源、R7 322→324余2737，仅两个新1B。尾13B RPA01原对象/引用保，不能重复加R7或造401920新F。LOGIN13/CHARACTER23/NETWORK54/LOOP38/MAP69、冻结定位/pending18/差队列和原任务及全部完整门禁保持；局部不代全部输入/聊天/名单文件/SDK-ABI或运行。
+
+## BTH01 聊天P接收全等读取合同（2026-10-07）
+
+[基线](cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline)对应既有809/F:0010CAE0：原278条801B/四页，13direct十一目标/31jump两RET、唯一512E40@51483C及现zdr参数保持；一片段恢复source→共享BYTE/同source NUL，旧限长复制/两strncmp/入向全部字段保持后追加。未初始化593850的FF无有效内容，不改现owner初值。
+
+无新语义/F：1614有效1607/文档1725（46.88%）保持；NETWORK54→55/处置755/E882两局部I-S各21来源/R7 324→325余2736，15B只原用途。INPUT29/CHARACTER23/LOGIN13/LOOP38/MAP69、冻结定位/pending18/差队列及任务和完整门禁保；不代全接收父/provider、原格式明文互通、正常寿命/ABI/运行。

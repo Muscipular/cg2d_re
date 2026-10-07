@@ -957,7 +957,8 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
         "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
-        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline"
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -1013,7 +1014,8 @@
         "F:001089B0",
         "F:00108BC0",
         "F:00108EE0",
-        "F:00109020"
+        "F:00109020",
+        "F:0010CAE0"
       ],
       "closure_task_ids": [
         "P09",
@@ -1041,7 +1043,8 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
         "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
-        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision"
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -1061,7 +1064,8 @@
         "BPD01三分段数值解析新1419-1421、完整104条286B/26点分根父1-6-9纳盘；base62正常S32/原下一字节取样实修、两正确体保持，NETWORK50枚举open。原格式明文不变，完整108回复/所有调用父与字段/正常alias-缓冲和输出owner/SDK-ABI与互通、R1/R7/R8仍待",
         "BPE01两既有整数根1217/1219续记，57条132B/158普通点两父纳盘；5176B0正常S32算式实修，首位负号和原格式明文保，六BPD引用修复。NETWORK50枚举仍open；完整157点之父/108回复和正常owner/alias/寿命、SDK-ABI与真实互通、R1/R7/R8仍待",
         "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。",
-        "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
+        "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。",
+        "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1081,7 +1085,8 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
         "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
-        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state"
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state"
       ]
     },
     {
@@ -37931,6 +37936,92 @@
       "observation": "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行",
       "expected": "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行",
       "actual": "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行"
+    },
+    {
+      "id": "E-CHAT-RECEIVE-BYTE-SAMPLING-I-20261007",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTH01接收P文本278条801B/四页13direct十一目标31jump两RET、唯一51483C/zdr五参数与掩码保、source→共享BYTE/同输入NUL、原容量/名单及公共尾，doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-chat-receive-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-acceptance",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state",
+        "doc/cg2d_chat_receive_byte_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_50CAE0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/network/NetworkDispatchDependencies.hpp",
+        "src/Input.cpp#LegacyText593850",
+        "include/cg/Input.hpp",
+        "src/Input.cpp#UnescapeLegacyTextAndNotify_52D2F0",
+        "src/Blacklist.cpp#ContainsBlacklistRecord_4013D0",
+        "include/cg/LegacyAudio.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_network_dispatch.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验",
+          "decision_ref": "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验",
+      "expected": "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验",
+      "actual": "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验"
+    },
+    {
+      "id": "E-CHAT-RECEIVE-BYTE-SAMPLING-S-20261007",
+      "feature_id": "FUNC-NETWORK",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTH01接收P文本278条801B/四页13direct十一目标31jump两RET、唯一51483C/zdr五参数与掩码保、source→共享BYTE/同输入NUL、原容量/名单及公共尾，doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-chat-receive-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-acceptance",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state",
+        "doc/cg2d_chat_receive_byte_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_50CAE0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/network/NetworkDispatchDependencies.hpp",
+        "src/Input.cpp#LegacyText593850",
+        "include/cg/Input.hpp",
+        "src/Input.cpp#UnescapeLegacyTextAndNotify_52D2F0",
+        "src/Blacklist.cpp#ContainsBlacklistRecord_4013D0",
+        "include/cg/LegacyAudio.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_network_dispatch.md",
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验",
+          "decision_ref": "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验",
+      "expected": "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验",
+      "actual": "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验"
     }
   ],
   "task_acceptance": [
@@ -38394,7 +38485,8 @@
         "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
         "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
-        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state"
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state"
       ]
     },
     {
@@ -38440,7 +38532,8 @@
         "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
         "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
-        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state"
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state"
       ]
     },
     {
@@ -38961,7 +39054,8 @@
         "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
         "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
-        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state"
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state"
       ]
     },
     {
@@ -48153,6 +48247,19 @@
         "doc/cg2d_enter_text_byte_sampling_evidence.json"
       ],
       "boundary": "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行"
+    },
+    {
+      "inventory_id": "F:0010CAE0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-acceptance",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state",
+        "doc/cg2d_chat_receive_byte_sampling_evidence.json"
+      ],
+      "boundary": "BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验"
     }
   ],
   "auxiliary_dispositions": [
@@ -58088,6 +58195,114 @@
       "original_decode": [
         {
           "ea": "0x45975f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0010CE01-0010CE10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-acceptance",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state",
+        "doc/cg2d_chat_receive_byte_sampling_evidence.json"
+      ],
+      "reason": "BTH01单15B逐BYTE实际NN_NOP/90、无入向、前RET后真入口，仅原对齐用途，不造F/helper/范围排除或业务运行门禁",
+      "classification": "alignment_nop",
+      "original_size": 15,
+      "original_bytes": "909090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x50ce01",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce02",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce03",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce04",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce05",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce06",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce07",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce08",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce09",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce0a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce0b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce0c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce0d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce0e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x50ce0f",
           "size": 1,
           "bytes": "90",
           "is_nop": true

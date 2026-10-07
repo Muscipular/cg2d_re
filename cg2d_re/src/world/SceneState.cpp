@@ -3082,7 +3082,23 @@ void Sub_50CAE0(
             drawColor = 0;
             drawFont = 1;
         }
-        if (std::strcmp(source, input::LegacyText593850()) != 0) {
+        const char* const sharedText = input::LegacyText593850();
+        bool sameAsSharedText = false;
+        std::size_t comparisonIndex = 0;
+        for (;;) {
+            const auto sourceByte = static_cast<unsigned char>(source[comparisonIndex]);
+            const auto sharedByte =
+                static_cast<unsigned char>(sharedText[comparisonIndex]);
+            if (sourceByte != sharedByte) {
+                break;
+            }
+            if (sourceByte == 0) {
+                sameAsSharedText = true;
+                break;
+            }
+            ++comparisonIndex;
+        }
+        if (!sameAsSharedText) {
             Sub_44B050(source, drawColor, drawFont);
         }
     }

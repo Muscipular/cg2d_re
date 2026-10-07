@@ -7721,3 +7721,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 按[BTD01裁决](cg2d_logout_progress_sampling_spec.md#logout-progress-decision)实修SceneState.cpp的Sub_45ED90三片段：原U32长度九倍后发布阶段1/再列数及四布局原交错运算写序；非零轮询后一次native action供NULL与标死并保清槽；横宽先算再取x、向零半宽/W16坐标。ready另现场action/GE1、W16 reply2、同帧启动而下帧轮询、所有非零含-1/-2和两次字节strlen、可写8B六字节正文保。
 
 父45EBB0/过渡45EEE0/重置45ED80整体现有正文保持；原0/1/2及100-101/200-201保存/清理/三提示/明文断网与返回，U32 tick→F64/窗口与音频调用原序保。四完整根267条961B/六页、32direct二十三目标+一Tick导入/29jump六RET，World51C62D→父→三叶；六槽17引用/文本3引用支持现owner但不代间接别名/全部正常寿命。四X合15B真实NOP只记对齐，LOOP34→38及两局部I-S各29来源，全部完整父/依赖/ABI/运行未验。
+
+## 聊天接收P文本比较字节取样更新（BTH01，2026-10-07）
+
+按[BTH01裁决](cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision)实修Sub_50CAE0一片段：解码source BYTE先取、共享LegacyText593850 BYTE后取，相等后同source样本判NUL，失配短路，仅全等谓词。相同只跳日志，公共音效/对象文本尾仍走。共享8B前缀/相邻context与借用getter保持；原地址未初始化，FF不是有效文本，不改变现初值或固定为空。
+
+原容量/非NUL快照、626C14两路径、64B预清/动态长度与U32 cursor、两真实strncmp、32B剥前缀/清序、MIC gate/名单AL/颜色字体分支和全部尾保持。完整278条801B/四页13direct十一目标31jump两RET、唯一51483C及现zdr五参数/0x4保；809旧字段保后追加、NETWORK55/单处置/两I-S各21来源和15B用途。正确发送106条只作上下文取证，不造修改/完整验收。全父/provider/正常寿命/ABI/链接/原格式明文互通/运行未验，音频继续暂停。

@@ -101471,7 +101471,7 @@
     {
       "original_entry": "0x50CAE0",
       "inventory_id": "F:0010CAE0",
-      "status": "网络P文本名称限长复制及两有界比较原点已接真实核心；其它依赖和完整运行未验",
+      "status": "网络P文本名称限长复制及两有界比较原点已接真实核心；其它依赖和完整运行未验；BTH01完整278条801B与内联全等BYTE取样实修，原格式容量/动态长度/名单及公共尾保，完整父/provider/正常寿命/ABI和运行未验",
       "original_end_exclusive": "0x50CE01",
       "instruction_count": 278,
       "original_direct_reference_count": 1,
@@ -101509,10 +101509,15 @@
       "evidence_documents": [
         "doc/cg2d_legacy_string_compare.md",
         "doc/cg2d_network_dispatch.md",
-        "doc/cg2d_legacy_string_compare.md"
+        "doc/cg2d_legacy_string_compare.md",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-acceptance",
+        "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state",
+        "doc/cg2d_chat_receive_byte_sampling_evidence.json"
       ],
-      "verification_level": "父278条统计、名称复制/清零/末NUL相邻58条和单一原caller；原U32动态计数及整份限定源码/两合同追加/JSON两新父与三共享项静态核对，不重验其余220条，未构建或执行；本步仅新增有界比较接线参数及差异静态核对，未构建/测试/运行",
-      "boundary": "仅50CBE1按U32 cursor复制到64B name并由caller写NUL，原清零/每轮source长度重读/MIC与GP剥前缀/黑名单/2048B非NUL快照及S32长度/对象气泡/普通窗口与音效正文保持；标准比较尚未迁，不新增容量保护、转码或解除其他待决。完整数据生产/网络/输入/渲染/跨板块运行仍待，音频/加解密不恢复。；2026-10-04本入口原53BFC0调用提升为StrNCmp_53BFC0真实本体，原count/两文本/零非零门禁和后续重读不变，其他本体不复检。",
+      "verification_level": "父278条统计、名称复制/清零/末NUL相邻58条和单一原caller；原U32动态计数及整份限定源码/两合同追加/JSON两新父与三共享项静态核对，不重验其余220条，未构建或执行；本步仅新增有界比较接线参数及差异静态核对，未构建/测试/运行；BTH01追加完整278条及单片段输入→共享BYTE/同输入NUL、原未初始化FF无效内容与唯一owner保持有限静态；不执行，不代完整父/provider/运行。",
+      "boundary": "仅50CBE1按U32 cursor复制到64B name并由caller写NUL，原清零/每轮source长度重读/MIC与GP剥前缀/黑名单/2048B非NUL快照及S32长度/对象气泡/普通窗口与音效正文保持；标准比较尚未迁，不新增容量保护、转码或解除其他待决。完整数据生产/网络/输入/渲染/跨板块运行仍待，音频/加解密不恢复。；2026-10-04本入口原53BFC0调用提升为StrNCmp_53BFC0真实本体，原count/两文本/零非零门禁和后续重读不变，其他本体不复检。 BTH01接收P文本50CAE0完整278条801B/四页，13direct十一目标含原栈探针、无间接/31jump两RET，512E40@51483C唯一caller；现zdr/I-T-I-I/0x4掩码原参数与返回弃保持，只核实际消费点不代5779条父。SceneState.cpp一既有业务体一片段恢复source BYTE→当前LegacyText593850共享BYTE、相等后同source样本NUL/失配短路，仅全等谓词。原共享8B前缀/相邻context唯一owner与getter保；IDA未初始化区FF无有效值，不作原文本，不改初值或恒空化。原9A6E0C/类型P门禁、2024B源/2048B只按S32正长度复制且不补NUL、626C14短路、64B name预清和冒号空格动态长度、原U32 cursor/两有界比较/32B剥前缀每次重测长度与清序、MIC gate/黑名单AL早返、分支原颜色负数改0/font1、日志/SE74旧调用与音频暂停、对象负数早返/同源action-index/玩家及非玩家文本尾全部保持。809全部原复制/strncmp/入向字段保后追加，无新语义/F，NETWORK54→55/单adapted/两局部I-S及15B真实NOP只用途。正确发送50C940完整106条406B仅上下文取证/不改不增验收；原格式明文、内部CryptInt和所有其它源头保持。全部接收父/provider/正常owner-alias寿命、ABI/链接/画面/明文互通/运行仍未验；本步已替本段原内联全等比较，旧标准比较尚未迁的历史表述不构成本步新缺口，两真实StrNCmp全部既有字段保。",
       "strncmp_call_connections": [
         {
           "parent_entry": "0x50CAE0",
@@ -101530,7 +101535,42 @@
           "target_symbol": "StrNCmp_53BFC0",
           "relationship": "原零/非零消费与参数/后续分支保持"
         }
-      ]
+      ],
+      "chat_receive_byte_sampling": {
+        "spec_id": "BTH01",
+        "evidence_refs": [
+          "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-baseline",
+          "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-decision",
+          "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-acceptance",
+          "doc/cg2d_chat_receive_byte_sampling_spec.md#chat-receive-byte-source-state",
+          "doc/cg2d_chat_receive_byte_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 278,
+        "original_code_bytes": 801,
+        "original_page_count": 4,
+        "original_direct_call_count": 13,
+        "original_unique_callee_count": 11,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "original_caller_entry": "0x512E40",
+        "original_call_site": "0x51483C",
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_input_before_shared_byte_restored": true,
+        "source_nul_uses_same_input_byte_restored": true,
+        "source_only_equality_predicate_kept": true,
+        "source_shared_owner_and_initialization_kept": true,
+        "observed_uninitialized_ff_treated_as_text": false,
+        "source_legacy_capacities_snapshot_prefix_filter_and_common_tail_kept": true,
+        "context_only_sender_changed": false,
+        "new_helper_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x50CE10",

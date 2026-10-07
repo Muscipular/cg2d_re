@@ -30,6 +30,10 @@ static_assert(offsetof(LegacyMouseTrackerNode32, prev) == 0x14);
 extern std::int32_t gLegacyMouseTrackerThreshold;
 extern std::int32_t gLegacyMouseTrackerCapacity;
 
+// BRU01：只读原固定池映像偏移[0,2400)；链接BYTE按原节点/哨兵身份投影。
+// 不跟随动态nativePool、不消费RNG或返回可解引用地址；正常调用点见登录负分类SPEC。
+std::uint8_t ReadLegacyMouseTrackerFixedByte(std::size_t byteOffset);
+
 // 原 sub_506580@[0x506580,0x5066C1)：重建节点池和空闲/活动链。
 std::int32_t ResetLegacyMouseTracker_506580();
 

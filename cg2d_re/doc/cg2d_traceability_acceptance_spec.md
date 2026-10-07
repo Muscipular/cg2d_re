@@ -1234,3 +1234,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BRT01 版本正文正常零足迹owner（2026-10-07）
 
 [局部SPEC](cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-source-state)纳入FUNC-CHARACTER，E802→804仅两局部I/S，各12真实来源。原未装载零值／全部两次只读外传／真实首BYTE零分支对应唯一const char[1]静态owner，新端容量裁决与未知原未使用预留长度分开；不增语义F/处置/成员或R7，不改网络本体和原两个父。U03源码closed，60任务源码closed10→11，完整功能／叶验收0和global=false保持；V03与完整角色门禁未验。见[证据](cg2d_version_payload_zero_prefix_owner_evidence.json)。
+
+## BRU01 登录负分类BYTE owner（2026-10-07）
+
+[局部SPEC](cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state)纳入FUNC-LOGIN，E804→806两局部I/S各17来源。已有缺provider唯一定义与固定池只读桥已接，20点直接真实owner／C6加载生产／七坐标BYTE与五原链接身份BYTE承接，原handle、所有父和生产者/布局/RNG保持。V03仅加当前实现引用且仍open，源码closed11、语义1571/有效1564、R7 275、所有原成员/处置/完整feature门禁/global结论保持；不把派生桥造为原F，完整登录/互通/生命周期未验。见[证据](cg2d_login_negative_selection_byte_owner_evidence.json)。

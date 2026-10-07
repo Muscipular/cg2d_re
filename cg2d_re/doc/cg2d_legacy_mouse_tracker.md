@@ -153,3 +153,8 @@ callee，不计 `ShutdownClient_457A40` 的其他未落位清理、完整链接�
 的旧状态中仅本体缺失部分；原网络分派仍未
 落位，也没有本函数的新端调用点，不计
 网络配置链、完整链接或运行通过。
+
+<a id="fixed-pool-byte-observer-current"></a>
+## 登录负分类的固定池BYTE观察（BRU01，2026-10-07）
+
+既有模块新增ReadLegacyMouseTrackerFixedByte只读桥，见[局部裁决](cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision)。前16B坐标等值字段从fixedPool现场取BYTE；next/prev保持原W32 handle，仅在观察边界按原固定节点D68DD0+(index×24)及四哨兵身份提取原BYTE。投影是不可解引用的原标量身份，不是新端地址，不截断native指针，不写回链接或增加影子池/反查表。固定池切入动态nativePool后仍观察其原存储，不能反算当前池地址。已有24B布局、配置、重置、申请释放、链逻辑/原边界检查与RNG全文保持；本步没有新异常保护或故障/回绕模型。仅登录12点现场读取和身份字节源码合同，不代完整运行验收。

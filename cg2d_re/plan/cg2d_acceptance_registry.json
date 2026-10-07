@@ -714,7 +714,8 @@
         "doc/cg2d_login_mode_scene.md",
         "doc/cg2d_login_state_controller.md",
         "doc/cg2d_login_input_controller.md",
-        "doc/cg2d_login_request.md"
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline"
       ],
       "original_inventory_ids": [
         "F:001202E0"
@@ -731,10 +732,12 @@
       ],
       "acceptance_focus": "输入、提交、回复和状态转换及失败副作用",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "BRU01仅既有登录负分类provider/20正常BYTE与固定池读取适配：LegacyUiRecord唯一定义直接借底部两W32字节/hover正文与标题/mouseY真实token/左锚和服务器伴随值，D68AC6原未装载独立1B加载零内容有目标地址形成/无加载别名及邻近20B标记、独立计时/伴随值边界证据，私有const零BYTE不补业务。12固定池点始终读唯一fixedPool，七坐标BYTE现场读/五链接BYTE由实际handle还原原固定节点与四哨兵身份再提取，0映射0，不把handle或本机指针低字节冒充原BYTE；不造可解引用地址、影子池/链接状态或反查表，动态nativePool不借。原登录父、所有tracker逻辑/布局和mutable生产/RNG/申请释放/初始化/网络全保，只加现缺provider和只读桥/声明/注释；两原尾先读后判调用位置保持。E804→806仅LOGIN局部I/S，V03仍open、源码closed11与所有语义/F/R7/枚举/完整门禁保持；不配置构建测试运行摘要，原格式明文/音频暂停/RPLAN.24保持。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -34609,6 +34612,84 @@
       "observation": "U03缺定义；原未装载零起点只有两只读发送外传，实际消费者首零BYTE即返回独立输出",
       "expected": "唯一1B静态只读owner、extern与sizeof一致，两原mode5发送共享同对象，原网络格式及父行为保持",
       "actual": "BRT01仅U03正常只读正文数据合同：9A5C10未装载/文件偏移-1，389569条目标操作数检索仅两版本起点PUSH，无非代码加载W32地址别名；两指针外传经512D30/517160到5171F0，原首BYTE零分支不读+1/不写输入，正常内容由原静态零初始化生产。新端唯一const char[1]静态owner与定长extern/sizeof=1，两原consumer/整个网络和其父全文保，原mode5/Xoee/空格/失败/返回和明文格式不改。1B为正常读取足迹对应工程容量，不冒称未知原未使用预留长度，不造默认版本或容错补空；U03源码closed，完整CHARACTER枚举/门禁、V03/互通/生命周期/资源未验。无新增F/语义处置/R7，不配置构建测试运行摘要，负分类另继续开发。"
+    },
+    {
+      "id": "E-LOGIN-NEGATIVE-BYTE-OWNER-I-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-negative-selection-byte-owner-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-acceptance",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state",
+        "doc/cg2d_login_negative_selection_byte_owner_evidence.json",
+        "src/LegacyUiRecord.cpp",
+        "src/LoginSceneDependencies.hpp",
+        "src/LoginScene.cpp",
+        "src/platform/LegacyMouseTracker.cpp",
+        "include/cg/platform/LegacyMouseTracker.hpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowRuntime.cpp",
+        "include/cg/LoginScene.hpp",
+        "doc/cg2d_legacy_mouse_tracker.md",
+        "doc/cg2d_login_scene.md"
+      ],
+      "differences": [
+        {
+          "description": "补现缺provider/固定池原身份BYTE读取桥；保原handle/24B/全部生产与父，独立未装载BYTE加载生产有证",
+          "decision_ref": "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "现缺ReadNegativeSelectionAvailability定义，20宿主BYTE/五链接身份与C6未承接",
+      "expected": "两页20点直接借真实owner，固定池七坐标/五原链接身份字节正确、原先读后判和RNG保持，无副本或固定可用",
+      "actual": "BRU01仅既有登录负分类provider/20正常BYTE与固定池读取适配：LegacyUiRecord唯一定义直接借底部两W32字节/hover正文与标题/mouseY真实token/左锚和服务器伴随值，D68AC6原未装载独立1B加载零内容有目标地址形成/无加载别名及邻近20B标记、独立计时/伴随值边界证据，私有const零BYTE不补业务。12固定池点始终读唯一fixedPool，七坐标BYTE现场读/五链接BYTE由实际handle还原原固定节点与四哨兵身份再提取，0映射0，不把handle或本机指针低字节冒充原BYTE；不造可解引用地址、影子池/链接状态或反查表，动态nativePool不借。原登录父、所有tracker逻辑/布局和mutable生产/RNG/申请释放/初始化/网络全保，只加现缺provider和只读桥/声明/注释；两原尾先读后判调用位置保持。E804→806仅LOGIN局部I/S，V03仍open、源码closed11与所有语义/F/R7/枚举/完整门禁保持；不配置构建测试运行摘要，原格式明文/音频暂停/RPLAN.24保持。"
+    },
+    {
+      "id": "E-LOGIN-NEGATIVE-BYTE-OWNER-S-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-negative-selection-byte-owner-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-acceptance",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state",
+        "doc/cg2d_login_negative_selection_byte_owner_evidence.json",
+        "src/LegacyUiRecord.cpp",
+        "src/LoginSceneDependencies.hpp",
+        "src/LoginScene.cpp",
+        "src/platform/LegacyMouseTracker.cpp",
+        "include/cg/platform/LegacyMouseTracker.hpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowRuntime.cpp",
+        "include/cg/LoginScene.hpp",
+        "doc/cg2d_legacy_mouse_tracker.md",
+        "doc/cg2d_login_scene.md"
+      ],
+      "differences": [
+        {
+          "description": "补现缺provider/固定池原身份BYTE读取桥；保原handle/24B/全部生产与父，独立未装载BYTE加载生产有证",
+          "decision_ref": "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "现缺ReadNegativeSelectionAvailability定义，20宿主BYTE/五链接身份与C6未承接",
+      "expected": "两页20点直接借真实owner，固定池七坐标/五原链接身份字节正确、原先读后判和RNG保持，无副本或固定可用",
+      "actual": "BRU01仅既有登录负分类provider/20正常BYTE与固定池读取适配：LegacyUiRecord唯一定义直接借底部两W32字节/hover正文与标题/mouseY真实token/左锚和服务器伴随值，D68AC6原未装载独立1B加载零内容有目标地址形成/无加载别名及邻近20B标记、独立计时/伴随值边界证据，私有const零BYTE不补业务。12固定池点始终读唯一fixedPool，七坐标BYTE现场读/五链接BYTE由实际handle还原原固定节点与四哨兵身份再提取，0映射0，不把handle或本机指针低字节冒充原BYTE；不造可解引用地址、影子池/链接状态或反查表，动态nativePool不借。原登录父、所有tracker逻辑/布局和mutable生产/RNG/申请释放/初始化/网络全保，只加现缺provider和只读桥/声明/注释；两原尾先读后判调用位置保持。E804→806仅LOGIN局部I/S，V03仍open、源码closed11与所有语义/F/R7/枚举/完整门禁保持；不配置构建测试运行摘要，原格式明文/音频暂停/RPLAN.24保持。"
     }
   ],
   "task_acceptance": [
@@ -35077,7 +35158,8 @@
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
-        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state"
       ]
     },
     {

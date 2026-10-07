@@ -179,6 +179,34 @@ void IncrementCount(Node& node)
 
 } // namespace
 
+std::uint8_t ReadLegacyMouseTrackerFixedByte(const std::size_t byteOffset)
+{
+    const Node& node = gTracker.fixedPool[byteOffset / sizeof(Node)];
+    const std::size_t fieldOffset = byteOffset % sizeof(Node);
+    if (fieldOffset < offsetof(Node, next)) {
+        return reinterpret_cast<const std::uint8_t*>(&node)[fieldOffset];
+    }
+
+    // 仅投影原固定池/哨兵身份的观察字节，绝不是本机可解引用地址。
+    const NodeHandle handle = fieldOffset < offsetof(Node, prev)
+        ? node.next : node.prev;
+    std::uint32_t originalLink;
+    switch (handle) {
+    case kNullHandle: originalLink = 0; break;
+    case kFreeHeadHandle: originalLink = 0xD68AD0u; break;
+    case kFreeTailHandle: originalLink = 0xD69730u; break;
+    case kActiveHeadHandle: originalLink = 0xD69750u; break;
+    case kActiveTailHandle: originalLink = 0xD69770u; break;
+    default:
+        originalLink = 0xD68DD0u
+            + (handle - 1u) * static_cast<std::uint32_t>(sizeof(Node));
+        break;
+    }
+    const std::size_t linkByte =
+        (fieldOffset - offsetof(Node, next)) % sizeof(std::uint32_t);
+    return static_cast<std::uint8_t>(originalLink >> (linkByte * 8));
+}
+
 std::int32_t ResetLegacyMouseTracker_506580()
 {
     if (gTracker.nativePool != gTracker.fixedPool.data()

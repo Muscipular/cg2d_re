@@ -8,6 +8,7 @@
 #include "world/WorldUpdateDependencies.hpp"
 
 #include "cg/LoginState.hpp"
+#include "cg/LoginScene.hpp"
 #include "cg/LoginInput.hpp"
 #include "cg/LoginRequest.hpp"
 #include "cg/DisplaySettings.hpp"
@@ -21,6 +22,7 @@
 #include "cg/platform/KeyState.hpp"
 #include "cg/platform/LegacyCryptInt.hpp"
 #include "cg/platform/LegacyMouse.hpp"
+#include "cg/platform/LegacyMouseTracker.hpp"
 #include "cg/platform/LegacyTime.hpp"
 #include "cg/platform/MainLoop.hpp"
 #include "cg/platform/Startup.hpp"
@@ -1599,6 +1601,8 @@ std::int32_t gLegacyBottomHeightCA0014 = 0;
 std::int32_t gLegacyBottomHeightD2DAB4 = 0;
 // 仅承接九个已证W32初始化值；不是原40B结构，未知+24H尾部及指针语义不定型。
 std::array<std::array<std::int32_t, 9>, 8> gLegacyBottomInitWordsD68938 {};
+// BRU01：原D68AC6正常加载零字节，无新增运行写者；不猜相邻未用区容量。
+const std::uint8_t gLoginUnloadedByteD68AC6 {};
 constexpr char kLegacyButton58A914[] = "\xAB\xF6\xB6\x73\xB3\x5D\xA9\x77";
 constexpr char kLegacyButton58A4BC[] = "\xA6\x5E\xA4\x57\xA4\x40\xAD\xB6";
 constexpr char kLegacyButton58A904[] = "\xA6\x5E\xA8\xEC\xA8\x74\xB2\xCE\xBF\xEF\xB3\xE6\xA1\x43";
@@ -1757,6 +1761,42 @@ std::uint32_t Sub_501F60()
 }
 
 } // namespace
+
+std::uint8_t ReadNegativeSelectionAvailability(
+    const std::int32_t page, const std::int32_t slot)
+{
+    const std::int32_t index = page * 10 + slot;
+    switch (index) {
+    case 0:
+        return reinterpret_cast<const std::uint8_t*>(
+            &gLegacyBottomInitWordsD68938[0][3])[0];
+    case 1:
+        return reinterpret_cast<const std::uint8_t*>(
+            &gLegacyBottomInitWordsD68938[5][1])[1];
+    case 2:
+        return gLoginUnloadedByteD68AC6;
+    case 3:
+        return static_cast<std::uint8_t>(ui::detail::gHoverTextD68AE8[159]);
+    case 4:
+        return static_cast<std::uint8_t>(ui::detail::gHoverTitleD68BF4[84]);
+    case 5:
+        return reinterpret_cast<const std::uint8_t*>(
+            &platform::gLegacyMouseState.mouseY.legacyVftToken)[1];
+    case 6:
+        return reinterpret_cast<const std::uint8_t*>(
+            &platform::gValueD68DC8)[2];
+    case 19:
+        return reinterpret_cast<const std::uint8_t*>(&gValueD69794)[3];
+    default: {
+        // 正常剩余项仅7..18；始终读原固定池，不跟随动态nativePool。
+        static constexpr std::size_t kFixedPoolOffsets[] {
+            187, 380, 573, 766, 959, 1152, 1345, 1538, 1731, 1924, 2117, 2310,
+        };
+        return platform::ReadLegacyMouseTrackerFixedByte(
+            kFixedPoolOffsets[static_cast<std::size_t>(index - 7)]);
+    }
+    }
+}
 
 LegacyPanelRecord gLegacyProfilePanel5857D0 {
     0, 0, 272, 438, 2, {22501, 22515, 22980, 0, 0},

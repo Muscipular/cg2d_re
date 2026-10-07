@@ -20,9 +20,9 @@ void Sub_45EFD0(
     std::int32_t style);
 using cg::render::Sub_45F090;
 
-// x64 安全兼容边界：原尾部在分类选择为 -1 时，以服务器表基址做负索引，
-// 实际采样落在 20 个其他宿主对象的字节中。适配器只映射 page 0/1、slot 0..9
-// 的这些真实宿主字节，不固定返回，也不建立副本；精确地址见证据文档。
+// BRU01：原负分类尾部的20个真实宿主BYTE，正常page0/1、slot0..9。
+// 直接借现owner；固定池链接只读原身份字节投影，不读节点编号代替原地址BYTE。
+// 不复制状态、不消费RNG，不改变原先读取后判断分类的调用位置；见登录负分类SPEC。
 std::uint8_t ReadNegativeSelectionAvailability(
     std::int32_t page,
     std::int32_t slot);

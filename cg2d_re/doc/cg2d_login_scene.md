@@ -791,3 +791,10 @@ NUL/长度/LF、25项顺序、实际使用位置和源码限定差异；不执�
 窗口名559384旧8B正文及NUL、版本55C5BC的7.1.00及NUL沿现原字节常量；category按serverIndex/20、server按page*10+slot借现表，不重建或加界限。未清256B同一title、原状态写序/窗口文本边界/选服发布/错误文案、音效调用和newest排除均保持；模块摘要相关正文不改、不执行任何摘要算法。
 
 原[45FEA0,460C98)1135条仅读140五格式邻指令，余995条/原51C430 caller和其它状态不重验。三新含NUL格式/两个原参数常量、五真实call和slot9双格式/现三次Base helper调用与源局部变更静态核对。未构建、测试、运行或hash，不把标题恢复算完整登录/窗口容量全链/CRT或总PLAN通过。
+
+<a id="login-negative-byte-current"></a>
+## 负分类读取定义与20个owner（BRU01，2026-10-07）
+
+[20BYTE SPEC](cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state)已落实已有ReadNegativeSelectionAvailability声明：LegacyUiRecord.cpp直接借现底部栏/hover/mouseY原token/左锚/服务器伴随值，独立D68AC6加载零BYTE有目标代码地址形成/无加载静态别名及邻近正常对象边界证据；固定池12点由既有tracker只读桥提供，七坐标直接读BYTE、五链接按实际handle投影原固定节点/哨兵身份BYTE。整体adapter不是固定可用，不建影子状态，不调用CryptInt::Read额外消费RNG。
+
+原handle布局/解析/全部重置与追踪体保持；动态nativePool切换不改变固定池观察归属，不把当前节点编号或本机指针低字节当原BYTE。两个尾先读后判原位置和整个LoginScene.cpp保持。此当前裁决覆盖此前“仍未实现／暂不添加”的历史定位；完整登录／网络／人物／主地图与V03仍未验，运行限制保持。

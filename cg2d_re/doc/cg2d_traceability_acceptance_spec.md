@@ -1400,3 +1400,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline)、[裁决](cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision)、[验收](cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-acceptance)及[原证据](cg2d_character_slot_normal_mode_evidence.json)对应767既有完整根追加／无新语义、一原业务体／一私有helper删除／三片段、CHARACTER单成员及单equivalent正常处置、两局部I-S各20来源、单1B用途及三任务引用仍open。P05／P08原closed和全部完整门禁保持。
 
 空槽普通S32 mode+1落实RPLAN.24，不删原+14局部业务阈值，不增回绕故障门禁。完整343条／两真实父调用及原字段、格式／绘制／preview保持只作局部静态；全部父／callee／正常alias-owner寿命、ABI／链接／原格式明文互通、画面和运行R8继续。集中静态与派生结果追加唯一进度。
+
+## BTA01 版本升级场景开发验收（2026-10-07）
+
+[基线](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline)、[裁决](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision)、[验收](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-acceptance)及[原证据](cg2d_version_upgrade_action_sampling_evidence.json)对应两真F／一源六片段／两个原业务体、CHARACTER两实际成员、两局部I-S各24真实来源、两510B用途与三任务引用仍open。原P05／P08 closed及全部完整门禁保。
+
+六分支恢复判断与EQ1／MarkDeath共用同取样，原单Read/RNG、状态写序、两观察槽／原清理差异、测宽／几何／下限、五文本及原版本明文发送不改。313完整指令、两实际消费点和96B目标／408B值表／2B自MOV＋4B真NOP只证本步边界；全部父／依赖／正常alias-owner寿命、CRT-SDK／ABI／链接、原格式互通／画面与运行R8继续。集中静态与派生终态结果随唯一进度追加。

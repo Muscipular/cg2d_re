@@ -2494,3 +2494,9 @@ ready后文字y→x取样，依次加20／140并保持两S16；文字提交后�
 按[BSZ01裁决](cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision)实修CharacterSelectSlot.cpp三片段：删私有IncrementWrapping及其唯一bit头，空槽style改为普通S32 mode+1。原461DFC INC按RPLAN.24承接；普通值原正确，不称溢出／运行故障修复。七按钮／七坐标、空槽独立命中、原+14局部10000→9999、三格式／256B、PUK／toggle门禁、两预览取槽及所有其它整源／父保持。
 
 原343条1375B／五页、20direct九目标、26jump一RET，两父460FF0@4614F8和462330@46257B。既有767完整生产消费字段保，仅追加根基线／合同，不造重复语义；CHARACTER19→20，两局部I-S各20来源。单1B真NOP只用途，完整所有父／依赖／正常alias-owner寿命／机器ABI与运行未验。
+
+## 两版本升级场景对象取样更新（BTA01，2026-10-07）
+
+按[BTA01裁决](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision)实修CharacterVersionUpgrade.cpp六case片段／两个既有业务体：case4、100、200各一次native非拥有action，复用于非空判断和原EQ1／MarkDeath；case局部块隔离变量。原两观察槽、401D00单Read/RNG、100先状态101再Reset／200先Reset再状态201／不额外清槽，文本／测宽／居中／列数下限和全部其它源保。
+
+普通场景的三版本mode2/4/5／首NUL与旧场景abcdefg明文正文保持；普通成功清Yobi／两preview、末队列[3]及双slot mode1消费，旧成功／尾背景的差异保持。313条1154B／五页、34direct十三目标、54jump两RET及WorldUpdate两实际CALL；五原正文17/15/15/15/8B已证相等。两510B原用途精确96B目标／408B值表／2B8BFF自MOV与4B真NOP，不造x64地址表。新1604／1605两F、CHARACTER20→22；所有父／依赖／正常alias-owner寿命、互通／机器ABI和运行未验。

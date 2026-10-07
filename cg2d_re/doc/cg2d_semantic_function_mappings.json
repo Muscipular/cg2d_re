@@ -186715,6 +186715,126 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45E3D0",
+      "inventory_id": "F:0005E3D0",
+      "original_role": "ProcessLegacyVersionScene_45E3D0",
+      "original_end_exclusive": "0x45e5e2",
+      "instruction_count": 138,
+      "status": "BTA01两版本升级场景各case4/100/200单取native action复用于判断/EQ1/标死，case块隔离；原测宽/发送/清理差异与其它源保。完整根和正常取样仅局部静态，完整父/依赖/消费寿命/ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterVersionUpgrade.cpp",
+          "symbols": [
+            "ProcessLegacyVersionScene_45E3D0"
+          ],
+          "relationship": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行；旧场景保mode1窗口、abcdefg及无预览清场"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline",
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision",
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-acceptance",
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
+        "doc/cg2d_version_upgrade_action_sampling_evidence.json"
+      ],
+      "boundary": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行；旧场景保mode1窗口、abcdefg及无预览清场",
+      "verification_level": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行",
+      "version_upgrade_action_sampling": {
+        "spec_id": "BTA01",
+        "evidence_refs": [
+          "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline",
+          "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision",
+          "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-acceptance",
+          "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
+          "doc/cg2d_version_upgrade_action_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 138,
+        "original_code_bytes": 530,
+        "original_page_count": 2,
+        "original_direct_call_count": 16,
+        "original_unique_callee_count": 10,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_case_patch_count": 3,
+        "source_cpp_patch_count_in_batch": 6,
+        "source_changed_existing_original_function_count_in_batch": 2,
+        "source_six_branch_native_action_samples_restored": true,
+        "source_case_scopes_isolated": true,
+        "original_eq_one_single_crypt_read_and_rng_kept": true,
+        "original_stage_publication_and_no_extra_observer_clear_kept": true,
+        "original_two_distinct_observers_and_success_cleanup_difference_kept": true,
+        "original_width_geometry_and_two_measure_calls_per_root_kept": true,
+        "original_version_payload_and_plain_format_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x462330",
+      "inventory_id": "F:00062330",
+      "original_role": "ProcessScene_462330",
+      "original_end_exclusive": "0x4625a0",
+      "instruction_count": 175,
+      "status": "BTA01两版本升级场景各case4/100/200单取native action复用于判断/EQ1/标死，case块隔离；原测宽/发送/清理差异与其它源保。完整根和正常取样仅局部静态，完整父/依赖/消费寿命/ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterVersionUpgrade.cpp",
+          "symbols": [
+            "ProcessScene_462330"
+          ],
+          "relationship": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行；普通场景保mode4窗口、三发送路径／清预览与双slot mode1消费"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline",
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision",
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-acceptance",
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
+        "doc/cg2d_version_upgrade_action_sampling_evidence.json"
+      ],
+      "boundary": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行；普通场景保mode4窗口、三发送路径／清预览与双slot mode1消费",
+      "verification_level": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行",
+      "version_upgrade_action_sampling": {
+        "spec_id": "BTA01",
+        "evidence_refs": [
+          "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline",
+          "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision",
+          "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-acceptance",
+          "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
+          "doc/cg2d_version_upgrade_action_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 175,
+        "original_code_bytes": 624,
+        "original_page_count": 3,
+        "original_direct_call_count": 18,
+        "original_unique_callee_count": 12,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_case_patch_count": 3,
+        "source_cpp_patch_count_in_batch": 6,
+        "source_changed_existing_original_function_count_in_batch": 2,
+        "source_six_branch_native_action_samples_restored": true,
+        "source_case_scopes_isolated": true,
+        "original_eq_one_single_crypt_read_and_rng_kept": true,
+        "original_stage_publication_and_no_extra_observer_clear_kept": true,
+        "original_two_distinct_observers_and_success_cleanup_difference_kept": true,
+        "original_width_geometry_and_two_measure_calls_per_root_kept": true,
+        "original_version_payload_and_plain_format_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

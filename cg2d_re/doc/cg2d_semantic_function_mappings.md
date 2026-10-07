@@ -3372,3 +3372,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 既有767／F:00061B30／ProcessCharacterSlot_461B30追加[完整基线](cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline)：343条1375B／五页、20CALL九目标、26jump一RET和两实际父调用。单源三片段将空槽style按原INC及RPLAN.24改为普通mode+1，移除私有回绕helper／bit头；原字段、格式三生产消费、全部布局／门禁／预览及返回保持。
 
 不新增语义记录／原F：1604有效1597／文档1715（46.60%）保；CHARACTER19→20／处置740／E866，单1B用途使R7 310→311余2750。冻结定位、pending18、差队列及全部完整门禁保；局部不代两完整父／九依赖／所有正常寿命／机器ABI或运行。
+
+## BTA01 版本升级对象取样（2026-10-07）
+
+新增1604／F:0005E3D0／ProcessLegacyVersionScene_45E3D0与1605／F:00062330／ProcessScene_462330，来源同一CharacterVersionUpgrade.cpp，见[基线](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline)。两根313条1154B／五页、34CALL十三目标、54jump两RET，WorldUpdate两实际CALL；六case恢复一次对象样本／作用域隔离，原EQ1及所有文字／发送／成功清理差异保持。
+
+语义1606有效1599／文档1717／3680（46.66%）／742处置／CHARACTER22／E868两局部I-S各24来源；两区间510B全用途使R7 311→313余2748。旧2B自MOV与普通4B真NOP有据区分；冻结定位／pending18／差队列和全部完整门禁保。局部不代全部WorldUpdate／十三callee／正常寿命／ABI或运行。

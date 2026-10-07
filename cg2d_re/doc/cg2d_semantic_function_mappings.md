@@ -3360,3 +3360,9 @@ CHARACTER15→17，语义1602有效1595／文档1713／3680（46.55%）／737处
 新增1602对应F:0005E770／Sub_45E770，来源Input.cpp，见[基线](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline)。25条57B／一页、无call／八jump／两RET、十实际CALL七父。单片段恢复每当前位置U8一次样本、NUL／类别复用、下一BYTE先取再递增，原文本和所有0／1规则保。
 
 INPUT26→27、CHARACTER17→18实际成员，语义1603有效1596／文档1714／3680（46.58%）／738处置／E862（两域各I-S）；7B用途使R7 308→309余2752。未变三父／矩形不造新F，冻结定位／pending18／差队列和所有完整门禁保。局部不代全部七父／姓名输入／所有正常alias-owner寿命／机器ABI或运行。
+
+## BSY01 人物预览共享槽（2026-10-07）
+
+新增1603对应F:00060D00／ProcessCharacterPreview_460D00，来源CharacterSelectPreview.cpp，见[基线](cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-baseline)。187条728B／三页、六CALL六目标、36jump一RET、460FF0三个CALL。两片段恢复变体和五字段共享槽取样；初次图号借创建返回、原四表／失败及末FrameMove取槽保持。
+
+CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处置／E864；单24B用途使R7 309→310余2751。冻结定位／pending18／差队列与全部完整门禁保；局部不代完整父／依赖／所有正常alias-owner寿命／机器ABI或运行。

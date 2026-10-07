@@ -531,20 +531,23 @@ void ProcessCharacterPreview_460D00(std::uint32_t slot)
         login::detail::SetYobiActionField2A8(
             action,
             graphics[static_cast<std::size_t>(graphicIndex)]);
+        const std::int32_t remainder = converted % 100;
+        login::YobiAction* const actionForVariant =
+            state::gPreviewActions[slotIndex];
+        const std::int32_t variant = remainder / 25;
         const std::int32_t baseGraphic =
-            login::detail::GetYobiActionField2A8(action);
+            login::detail::GetYobiActionField2A8(actionForVariant);
         login::detail::SetYobiActionField2A8(
-            action,
-            baseGraphic + 6 * ((converted % 100) / 25));
+            actionForVariant,
+            baseGraphic + 6 * variant);
     }
 
-    login::detail::SetYobiActionField2B0(action, 0);
-    login::detail::SetYobiActionField15(action, 10);
-    login::detail::SetYobiActionField30(
-        action,
-        315 * static_cast<std::int32_t>(slot) + 163);
-    login::detail::SetYobiActionField34(action, 292);
-    login::detail::SetYobiActionField2B8(action, 5);
+    login::detail::SetYobiActionField2B0(state::gPreviewActions[slotIndex], 0);
+    login::detail::SetYobiActionField15(state::gPreviewActions[slotIndex], 10);
+    const std::int32_t x = 315 * static_cast<std::int32_t>(slot) + 163;
+    login::detail::SetYobiActionField30(state::gPreviewActions[slotIndex], x);
+    login::detail::SetYobiActionField34(state::gPreviewActions[slotIndex], 292);
+    login::detail::SetYobiActionField2B8(state::gPreviewActions[slotIndex], 5);
 
     login::YobiAction* const actionForFrameMove =
         state::gPreviewActions[slotIndex];

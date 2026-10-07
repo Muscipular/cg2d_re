@@ -186616,6 +186616,65 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x460D00",
+      "inventory_id": "F:00060D00",
+      "original_role": "ProcessCharacterPreview_460D00",
+      "original_end_exclusive": "0x460fd8",
+      "instruction_count": 187,
+      "status": "BSY01人物预览变体与五字段恢复原共享槽取样，初次图号借创建返回及末FrameMove取槽保持。单源两片段仅局部静态，完整父/依赖/消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterSelectPreview.cpp",
+          "symbols": [
+            "ProcessCharacterPreview_460D00"
+          ],
+          "relationship": "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-baseline",
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision",
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-acceptance",
+        "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
+        "doc/cg2d_character_preview_slot_sampling_evidence.json"
+      ],
+      "boundary": "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验",
+      "verification_level": "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验",
+      "character_preview_slot_sampling": {
+        "spec_id": "BSY01",
+        "evidence_refs": [
+          "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-baseline",
+          "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision",
+          "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-acceptance",
+          "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
+          "doc/cg2d_character_preview_slot_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 187,
+        "original_code_bytes": 728,
+        "original_page_count": 3,
+        "original_direct_call_count": 6,
+        "original_unique_callee_count": 6,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 3,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_changed_existing_function_count_in_batch": 1,
+        "source_variant_remainder_slot_quotient_image_sample_order_restored": true,
+        "source_five_independent_slot_samples_restored": true,
+        "source_x_computation_after_priority_write_restored": true,
+        "original_initial_graphic_uses_created_return_kept": true,
+        "original_last_frame_move_slot_sample_kept": true,
+        "original_four_graphic_tables_kept": true,
+        "original_failure_and_nonowning_observer_lifetime_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

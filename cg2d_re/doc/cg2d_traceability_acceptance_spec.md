@@ -1388,3 +1388,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline)、[裁决](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision)、[验收](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-acceptance)及[原证据](cg2d_legacy_separator_byte_sampling_evidence.json)对应单真F／单片段整个Input源增量、INPUT及CHARACTER各真实成员／各局部I-S共四项、每项15实际来源、7B用途及U11／V03／R04引用仍open。四集中静态、measure／-Check终态、完整派生快照／编码／引用／差异记录；P05／P08原closed及全部完整门禁保持。
 
 25条57B／一页、十CALL七父为原语及消费证据；同U8供NUL与类别、下一BYTE先取后推进，原规则／文本和返回保持。原姓名常量2000／814000只证保持项，不伪报字符／编码修复；完整所有父／输入与输出数据／全部owner寿命、CRT-SDK／机器ABI／链接、人物创建-主地图／原格式明文／画面／运行R8未验。
+
+## BSY01 人物预览共享槽开发验收（2026-10-07）
+
+[基线](cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-baseline)、[裁决](cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision)、[验收](cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-acceptance)及[原证据](cg2d_character_preview_slot_sampling_evidence.json)对应单真F／一既有体／两片段、CHARACTER单成员、两局部I-S各23实际来源、单24B原用途及U11／V03／R04引用仍open。原P05／P08 closed及全部完整门禁保持。
+
+变体余数／共享槽／商／图号次序及五字段独立读槽恢复，优先级写后计算x；原局部New返回仍供初次图号，不把全部action一律改为读槽。187条完整728B、四图号表和三个实际CALL只证本步生产消费；所有父／依赖、正常alias-owner寿命、机器ABI／链接、原格式明文互通与运行R8仍待。集中静态及派生终态结果随唯一进度追加。

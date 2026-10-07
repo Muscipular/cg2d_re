@@ -2482,3 +2482,9 @@ ready后文字y→x取样，依次加20／140并保持两S16；文字提交后�
 沿4631D0@4638EA实际调用，按[BSX01裁决](cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision)实修Input.cpp内45E770一片段，NUL门禁和类别复用同U8样本，每轮下一BYTE先取再增指针；原81规则、尾部跳过、7C／5C判断和完整0／1返回、姓名业务保持。
 
 原55C9BC=20 00及55CE30=81 40 00逐字节证实，现空白判定正确；不根据字符／编码猜测换成A1 40。本次未修改选择／编辑／输入初始化或矩形原语，不给正确源码造差异或全验身份。原25条57B／一页、十CALL七父与单7B用途纳管，新1602单F在INPUT／CHARACTER两实际消费域绑定；完整创建-主地图／所有alias-owner与原协议互通仍待。
+
+## 人物预览共享槽取样更新（BSY01，2026-10-07）
+
+按[BSY01裁决](cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision)实修CharacterSelectPreview.cpp内460D00两片段：变体余数→取共享槽→商→读图号／追加偏移；+2B0／+15／+30／+34／+2B8五字段各自重读gPreviewActions，优先级写后才算x，再取槽写入。初次图号和33100／33101特例仍借创建返回，最终FrameMove取槽原正确保留。
+
+原187条728B／三页、六direct六目标、36jump一RET，460FF0三个真实CALL绑定消费。四原14项图号表／默认2及记录生产消费／失败和非拥有槽保持；单24B区间精确16B四目标跳表＋8B真NOP，只记原用途。新1603单F／CHARACTER18→19，两局部I-S；完整选择／创建-主地图、全部alias-owner寿命与运行未验。资料备份／恢复、清理及已落位过渡动作没有本步源码修改，不把历史“待实施”记录当作当前缺口。

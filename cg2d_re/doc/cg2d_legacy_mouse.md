@@ -62,3 +62,18 @@
 复用本结构和既有按下追踪器，但仍未接入 `WIN_PROC`；窗口激活门禁、坐标缩放与
 拖拽状态继续留在后续入口还原范围。逐帧光标更新已经直接复用本结构的计时、
 脉冲、抑制和尾字段，没有建立第二份鼠标状态。
+
+## 鼠标位置临时量与七配对发布修复（BUU01，2026-10-08）
+
+[完整八根基线](cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline)固定位置/六按键/滚轮307条1279B/八页，34directcall/四间接tick/两jump/八RET，十四窗口引用及八尾65B实际NN_NOP用途。原位置506890的X先读encoded/mask/count再同序发布，Y先读count/encoded/mask再同序发布；每轴读齐再写，目标token/reserved保。
+
+[本步裁决](cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision)覆盖本文“统一AssignFromInt保留顺序”的旧说明：每根同一LegacyCryptInt临时量，先X Ctor→按本分支三字段取样/发布→Dtor，再Y；普通down两轴mask先，位置/up/double的X encoded先、Y count先。一cpp七配对片段已修，十四Ctor/十四Dtor与RNG次数/阶段保；滚轮正确W32尾槽累加/返delta保，不计新增I。
+
+本文“未接入WIN_PROC”只是历史：ClientEntry已有回调登记、WindowProcedure已调用本八提供者，位置一/六事件各两/滚轮一原点有据；原坐标和活动态门禁留在窗口，BUT01已修本层四处差异，不再次计量。鼠标初始化/退出、十槽构造、共享owner和别名全文保，不新建状态/helper/指针。
+
+八新语义1723..1730/adapted与八R7用途、LOOP144/INPUT38两域限定I/S记录；原RPLAN.24异常不专项/不模拟，旧回绕词仅位宽事实。完整窗口/焦点/IME/资源及alias寿命、原ABI/链接/运行与R8继续，原格式明文和音频暂停保。
+
+### BUU01 实际限定静态结果
+
+八完整原根307条1279B/八页、十四Ctor/十四Dtor、四间接tick/两追踪尾链、十四引用与八65B用途，七配对原读写矩阵/同一临时量X先Y后/目标token保、整个cpp仅七片段差异、完整机器及派生差异模型、十三文件编码/四锚点和四限定I-S各25来源已通过。文本汇总与Check均退出0。
+实际语义1731/有效1724、文档1842（50.05%）、F872/E1026、R7已审437/余2624、LOOP144/INPUT38；其他域/分母/差队列/pending18及ECX pending7/closed11与全门禁保。源码一cpp七配对实修，滚轮正确保持不计I；未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。

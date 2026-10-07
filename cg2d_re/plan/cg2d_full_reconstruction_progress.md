@@ -3993,3 +3993,24 @@ BUS01重建四正确根已固定，本步沿真实窗口回调466DC0/既有语�
 实际LOOP136/INPUT30、E1022；语义1723/有效1716、文档1834（49.84%）、F864/R7已审429余2632、pending18/ECX pending7、closed11/全门禁保持。此结论只限本SPEC局部开发静态，未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。
 
 首次局部静态模型误把x87隐含栈操作数视为显式内存操作数，导致Y/X地址检查不通过；对照十个已存原窗口，内存地址确在operand1，修正模型后该项完整通过。未改原证据/源码结论或降低验收条件，失败没有遗留。
+
+## BUU01 鼠标位置与六事件七配对发布实修（2026-10-08）
+
+BUT01窗口四处源修复已固定，沿其真实八个鼠标提供者继续开发。既有cg2d.exe只读MCP八完整根307条1279B/八页/八块、34directcall/四GetTick间接call/两jump/八RET，十四入向全部来自窗口，仅调用身份；八尾1+3+5+12+14+5+12+13=65B实际NN_NOP/90无入向/后真函数，仅对齐用途。
+
+先落[子SPEC](../doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision)后实施一cpp七配对片段：位置/六按键均同一LegacyCryptInt临时量先X Ctor→读齐三字段→按原序pub→Dtor，再Y独立同序。位置/up/double X encoded→mask→count、Y count→encoded→mask；两个普通down两轴mask→encoded→count，十四Ctor/十四Dtor/RNG次数与阶段保，不合并复制、不写目标token/reserved、不造新helper/owner。原统一AssignFromInt取样/发布次序差异已解决。正确滚轮完整正文保，不为纳管改代码或新增I。
+
+六旗位原采样/发布正确保：leftdown edge/pulse/held读齐后同序pub，rightdown held/edge/pulse读齐后pulse/held/edge pub，up/double先pulse/edge→pulse pub→fresh held→edge/held pub。四独立tick/elapsed清、两个down的Track/fresh S32 threshold、可选当前socket/真实Report然后Reset和返回不改；up零返回/double返同tick、位置void仅已证唯一父弃返回保。整个LegacyMouse.cpp其他内容，包括原初始化/退出和十槽构造、头文件/窗口/提供者保持。
+
+[证据](../doc/cg2d_mouse_coordinate_publication_evidence.json)保存八原完整页/十四引用、八用途、七源前态/补丁及机器前态。原鼠标文档统一赋值/窗口未接入/Report缺实现只是历史，当前窗口真实调用与network::Report在NetworkRuntime.cpp本体有据，不复核或声称整条网络运行；本步原格式明文/两加解密叶排除和内部LegacyCryptInt保。
+
+八新语义1723..1730/adapted，LOOP136→144/INPUT30→38，I仅七发布实修、S含滚轮正确保持，两域各I/S两证据/各25来源，E1022→1026；八R7用途。预期语义1731/有效1724、文档1842（50.05%）、F872/R7已审437余2624，集中静态和文本汇总后记实值。T02/R04/V04只current和引用，open/closed11、pending18/ECX pending7/差队列/所有完整门禁保。
+
+仅正常局部开发静态，完整原窗口/所有父-callee、焦点/IME、owner-alias寿命、业务失败、原ABI/链接/画面/文件/明文互通及R8继续；RPLAN.24越界/数学异常不专项策略、不故障或回绕模拟、不计等价。网络原格式明文、音频暂停及单线程/不编译测试运行或摘要保持，整体目标active。
+
+### BUU01 实际限定静态结果
+
+八完整原根307条1279B/八页、十四Ctor/十四Dtor、四间接tick/两追踪尾链、十四引用与八65B用途，七配对原读写矩阵/同一临时量X先Y后/目标token保、整个cpp仅七片段差异、完整机器及派生差异模型、十三文件编码/四锚点和四限定I-S各25来源已通过。文本汇总与Check均退出0。
+实际语义1731/有效1724、文档1842（50.05%）、F872/E1026、R7已审437/余2624、LOOP144/INPUT38；其他域/分母/差队列/pending18及ECX pending7/closed11与全门禁保。源码一cpp七配对实修，滚轮正确保持不计I；未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。
+
+静态流程自身两处问题已解决：首次原矩阵脚本的PowerShell switch表达式语法不成立，改为具名字段字典后完整原新顺序检查通过；派生模型复用时先替换SPEC名导致旧manifest无法匹配，改为先匹配完整manifest后检查通过。两者均只改静态模型，原证据/源码/验收标准保持，没有遗留失败。

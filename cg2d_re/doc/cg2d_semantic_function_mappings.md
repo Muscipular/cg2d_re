@@ -3719,3 +3719,14 @@ LOOP135/RENDER57/MAP128/BATTLE263，NETWORK61保持；只四S各25来源、无I�
 
 四处源码修复、整个cpp仅四片段差异、十原局部376条1307B/十四ftol/两常量8B、原写序与七调用/回调注册、完整机器与派生差异模型、十三文件编码/四锚点及四限定I-S各25来源已通过。文本汇总和Check均退出0。
 实际LOOP136/INPUT30、E1022；语义1723/有效1716、文档1834（49.84%）、F864/R7已审429余2632、pending18/ECX pending7、closed11/全门禁保持。此结论只限本SPEC局部开发静态，未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。
+
+## BUU01 鼠标八提供者正式原新基线（2026-10-08）
+
+[原基线](cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline)登记1723..1730：位置F:00106890、六按键F:00106900/69E0/6A90/6B50/6C40/6CF0、滚轮F:00106DB0，八adapted。307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET，十四原窗口引用和八65B NN_NOP用途具名。新语义不是新实现：前七既有配对发布实修，滚轮完整正确源保留不计I。
+
+同一临时量十四Ctor/十四Dtor、X完成后Y、每轴三字段读齐再按各自次序pub恢复；down两轴mask先，位置/up/double X encoded先-Y count先。原token/reserved、旗位/时钟/追踪fresh阈值/Report和Reset/返回及其他正文/头文件/初始化退出保。LOOP136→144/INPUT30→38，各限定I/S、E1022→1026。预期语义1731/有效1724、文档1842（50.05%）、F872/R7已审437余2624，pending18/ECX pending7/差队列/closed11保持，T02/R04/V04仍open，完整门禁不关闭。
+
+### BUU01 实际限定静态结果
+
+八完整原根307条1279B/八页、十四Ctor/十四Dtor、四间接tick/两追踪尾链、十四引用与八65B用途，七配对原读写矩阵/同一临时量X先Y后/目标token保、整个cpp仅七片段差异、完整机器及派生差异模型、十三文件编码/四锚点和四限定I-S各25来源已通过。文本汇总与Check均退出0。
+实际语义1731/有效1724、文档1842（50.05%）、F872/E1026、R7已审437/余2624、LOOP144/INPUT38；其他域/分母/差队列/pending18及ECX pending7/closed11与全门禁保。源码一cpp七配对实修，滚轮正确保持不计I；未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。

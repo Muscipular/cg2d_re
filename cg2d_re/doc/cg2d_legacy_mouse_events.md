@@ -77,3 +77,18 @@ handle 适配，不保存 x64 指针；六个事件没有新增指针布局或�
 
 本项只做人工静态自查，未编译、测试、lint、格式化、生成代码、运行客户端或读取
 任何 `.obj`、静态库及其他编译产物。
+
+## 六事件配对坐标发布顺序恢复（BUU01，2026-10-08）
+
+[八根基线](cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline)合307条1279B/八页，其中本文六事件原完整基线全部纳入；另有位置506890和正确滚轮506DB0。十四原窗口引用仅局部调用身份，不称全窗口复核。八尾65B实际NN_NOP/90无入向/后真函数，只用途。
+
+现有六旗位读写阶段、tick/elapsed、返回与普通down的Track→fresh S32 threshold→可选Report→Reset正确全保；leftdown/普通rightdown各轴mask→encoded→count，其他事件X encoded→mask→count、Y count→encoded→mask。每轴在构造后按原序读齐三字段，再按原序发布，保目标token/reserved并析构，然后下一轴。原先通用AssignFromInt合并读写顺序，按[裁决](cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision)改为同一临时量显式十四Ctor/十四Dtor，不增RNG/共享helper/owner。六事件与位置合一cpp七片段，滚轮正确全保不计I。
+
+本文“WIN_PROC未接入、Report只有未实现声明”保历史：当前WindowProcedure有实际六事件调用，MainLoopDependencies通过using接network::Report_512CA0，NetworkRuntime.cpp已有本体；本步保这条真实调用及socket，不复核或声称明文互通运行。源旗位/时钟/追踪/阈值/sockets/返回及所有初始化退出不改，窗口裁决仍BUT01。
+
+八语义/F与八R7用途补齐，LOOP144/INPUT38限定I/S各25来源，E1026；完整焦点/IME/原父-callee/owner-alias寿命、正常业务失败、ABI/链接和运行未验，异常不专项策略或模拟，网络原格式明文/音频暂停保持。
+
+### BUU01 实际限定静态结果
+
+八完整原根307条1279B/八页、十四Ctor/十四Dtor、四间接tick/两追踪尾链、十四引用与八65B用途，七配对原读写矩阵/同一临时量X先Y后/目标token保、整个cpp仅七片段差异、完整机器及派生差异模型、十三文件编码/四锚点和四限定I-S各25来源已通过。文本汇总与Check均退出0。
+实际语义1731/有效1724、文档1842（50.05%）、F872/E1026、R7已审437/余2624、LOOP144/INPUT38；其他域/分母/差队列/pending18及ECX pending7/closed11与全门禁保。源码一cpp七配对实修，滚轮正确保持不计I；未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。

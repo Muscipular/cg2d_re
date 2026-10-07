@@ -1238,3 +1238,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BRU01 登录负分类BYTE owner（2026-10-07）
 
 [局部SPEC](cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state)纳入FUNC-LOGIN，E804→806两局部I/S各17来源。已有缺provider唯一定义与固定池只读桥已接，20点直接真实owner／C6加载生产／七坐标BYTE与五原链接身份BYTE承接，原handle、所有父和生产者/布局/RNG保持。V03仅加当前实现引用且仍open，源码closed11、语义1571/有效1564、R7 275、所有原成员/处置/完整feature门禁/global结论保持；不把派生桥造为原F，完整登录/互通/生命周期未验。见[证据](cg2d_login_negative_selection_byte_owner_evidence.json)。
+
+## BRV01 角色列表原语与共享种子局部开发验收（2026-10-07）
+
+[基线](cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline)、[裁决](cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision)、[验收](cg2d_character_list_record_production_callees_spec.md#character-list-callees-acceptance)及[源码状态](cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state)关联两完整原根与真实源修复。五私有副本删除，恢复四次现场593850种子前缀复制、result谓词取样及原52D2F0／17个52CFA0／外4×1023和末1×63的52CED0；两组／记录布局／全部写序、原失败／返回／Daj明文格式保持。
+
+两个normal F／两CHARACTER成员、NETWORK仅回复父绑定；两真实X共21B仅原nop_padding用途。新增CHARACTER局部I／S各十九真实来源，E806→808；原功能gates空、member_inventory_closed=false保持。U10／U11／V03只补当前状态与引用、仍open，源码closed仍11，不代完整原语／数据owner／所有人物与网络状态／生命周期／资源／SDK-ABI／互通及运行验收。名义通知尾真实空RET，不制造业务效果；依RPLAN.24不新增故障／回绕模型或保护。

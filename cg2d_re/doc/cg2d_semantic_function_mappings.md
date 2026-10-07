@@ -3202,3 +3202,11 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQX01 三正常F与两真实填充（2026-10-07）
 
 [原基线](cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline)/[三冻结定位与源前后/派生桥](cg2d_battle_entry_result_producer_sampling_evidence.json)：1568..1570三正常语义/三equivalent/BATTLE253枚举open，语义1571/有效1564、文档1682/3680（45.71%）、分类701/E800。50D3B0是3条12B已有IDA F，不生成无父code_identity或扩大3680分母；仅50D3BC后4B和50D6FD后3B真实X共7B NOP mapped，R7 275余2786。两主根11片段/一次跨W32桥与相邻布局assert、正确W16叶的原失败/返回/写序可追；无F/有效区间各7、差队列172/43待归属及全部其余对象保。
+
+## BRV01 角色列表两完整生产根（2026-10-07）
+
+新增1571／1572对应真实F:001089B0／F:0011B1B0，源码为CharacterListRequest.cpp的HandleCharacterListResponse_5089B0／WriteCharacterRecord_51B1B0；原完整107／174条、313／498B、两／三页，共281条811B，22个直接call／四callee、12jump／四RET及两真实code入向。合同与源码裁决见[BRV01 SPEC](cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state)及相邻证据JSON。
+
+实修每组两次共享593850前缀复制／result谓词取样，接一次真实解码、17整数与外4／末1字段核心，删五私有副本；原两148B、固定两组、低W16／signed除10、失败／返回与原Daj明文格式保持。真实通知尾为空RET，无新增业务。两F作normal equivalent，继承已登记primitive，不刷新原冻结定位行或新验整个分派／CRT／SDK-ABI。
+
+两相邻原X7／14B共21B逐byte canonical nop、无入向、前RET后入口，仅mapped填充用途。语义1573／有效F1566、文档1684／3680（45.76%）、分类703、R7 277／3061余2784；CHARACTER成员3、NETWORK成员51，局部证据E808。无身份／code区各7、源码closed11、完整验收0、全部门禁及未知范围保持。

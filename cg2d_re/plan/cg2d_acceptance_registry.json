@@ -753,10 +753,13 @@
       "baseline_documents": [
         "doc/cg2d_character_select_scene.md",
         "doc/cg2d_creation_gate_adaptation_spec.md",
-        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-baseline"
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-baseline",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline"
       ],
       "original_inventory_ids": [
-        "F:000626A0"
+        "F:000626A0",
+        "F:001089B0",
+        "F:0011B1B0"
       ],
       "closure_task_ids": [
         "P08",
@@ -770,15 +773,19 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_character_select_scene.md#character-message-storage-decision",
-        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-decision"
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-decision",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "BRT01仅U03正常只读正文数据合同：9A5C10未装载/文件偏移-1，389569条目标操作数检索仅两版本起点PUSH，无非代码加载W32地址别名；两指针外传经512D30/517160到5171F0，原首BYTE零分支不读+1/不写输入，正常内容由原静态零初始化生产。新端唯一const char[1]静态owner与定长extern/sizeof=1，两原consumer/整个网络和其父全文保，原mode5/Xoee/空格/失败/返回和明文格式不改。1B为正常读取足迹对应工程容量，不冒称未知原未使用预留长度，不造默认版本或容错补空；U03源码closed，完整CHARACTER枚举/门禁、V03/互通/生命周期/资源未验。无新增F/语义处置/R7，不配置构建测试运行摘要，负分类另继续开发。"
+        "BRT01仅U03正常只读正文数据合同：9A5C10未装载/文件偏移-1，389569条目标操作数检索仅两版本起点PUSH，无非代码加载W32地址别名；两指针外传经512D30/517160到5171F0，原首BYTE零分支不读+1/不写输入，正常内容由原静态零初始化生产。新端唯一const char[1]静态owner与定长extern/sizeof=1，两原consumer/整个网络和其父全文保，原mode5/Xoee/空格/失败/返回和明文格式不改。1B为正常读取足迹对应工程容量，不冒称未知原未使用预留长度，不造默认版本或容错补空；U03源码closed，完整CHARACTER枚举/门禁、V03/互通/生命周期/资源未验。无新增F/语义处置/R7，不配置构建测试运行摘要，负分类另继续开发。",
+        "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state"
+      ]
     },
     {
       "id": "FUNC-NETWORK",
@@ -805,7 +812,8 @@
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-baseline",
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
-        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline"
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -857,7 +865,8 @@
         "F:00108280",
         "F:0012CFF0",
         "F:0012D050",
-        "F:0012D0D0"
+        "F:0012D0D0",
+        "F:001089B0"
       ],
       "closure_task_ids": [
         "P09",
@@ -883,7 +892,8 @@
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-decision",
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
-        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision"
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -901,7 +911,8 @@
         "NQA01五处正常S32长度算术已修，三个队列叶原身份/门禁/发布序可追；完整父/命令/owner/间接alias/寿命、半包/部分发送/ABI/SDK和原格式明文互通仍未验",
         "RPA01仅两原跳转表/边界字节与既有父来源关联，无源码/网络格式或加解密接线改动；八原目标/局部窗口不代整父/未知alias/全部owner/SDK/ABI或明文互通运行",
         "BPD01三分段数值解析新1419-1421、完整104条286B/26点分根父1-6-9纳盘；base62正常S32/原下一字节取样实修、两正确体保持，NETWORK50枚举open。原格式明文不变，完整108回复/所有调用父与字段/正常alias-缓冲和输出owner/SDK-ABI与互通、R1/R7/R8仍待",
-        "BPE01两既有整数根1217/1219续记，57条132B/158普通点两父纳盘；5176B0正常S32算式实修，首位负号和原格式明文保，六BPD引用修复。NETWORK50枚举仍open；完整157点之父/108回复和正常owner/alias/寿命、SDK-ABI与真实互通、R1/R7/R8仍待"
+        "BPE01两既有整数根1217/1219续记，57条132B/158普通点两父纳盘；5176B0正常S32算式实修，首位负号和原格式明文保，六BPD引用修复。NETWORK50枚举仍open；完整157点之父/108回复和正常owner/alias/寿命、SDK-ABI与真实互通、R1/R7/R8仍待",
+        "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -919,7 +930,8 @@
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
-        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state"
       ]
     },
     {
@@ -34690,6 +34702,88 @@
       "observation": "现缺ReadNegativeSelectionAvailability定义，20宿主BYTE/五链接身份与C6未承接",
       "expected": "两页20点直接借真实owner，固定池七坐标/五原链接身份字节正确、原先读后判和RNG保持，无副本或固定可用",
       "actual": "BRU01仅既有登录负分类provider/20正常BYTE与固定池读取适配：LegacyUiRecord唯一定义直接借底部两W32字节/hover正文与标题/mouseY真实token/左锚和服务器伴随值，D68AC6原未装载独立1B加载零内容有目标地址形成/无加载别名及邻近20B标记、独立计时/伴随值边界证据，私有const零BYTE不补业务。12固定池点始终读唯一fixedPool，七坐标BYTE现场读/五链接BYTE由实际handle还原原固定节点与四哨兵身份再提取，0映射0，不把handle或本机指针低字节冒充原BYTE；不造可解引用地址、影子池/链接状态或反查表，动态nativePool不借。原登录父、所有tracker逻辑/布局和mutable生产/RNG/申请释放/初始化/网络全保，只加现缺provider和只读桥/声明/注释；两原尾先读后判调用位置保持。E804→806仅LOGIN局部I/S，V03仍open、源码closed11与所有语义/F/R7/枚举/完整门禁保持；不配置构建测试运行摘要，原格式明文/音频暂停/RPLAN.24保持。"
+    },
+    {
+      "id": "E-CHARACTER-LIST-RECORD-PRODUCTION-CALLEES-I-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRV01两完整281条811B/五页22call四callee/12jump四RET，固定两组每组两共享种子复制/两148B与17数值及末文本、两X21B；doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-list-record-production-callees-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-acceptance",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_character_list_record_production_callees_evidence.json",
+        "src/CharacterListRequest.cpp#HandleCharacterListResponse_5089B0",
+        "src/CharacterListRequest.cpp#WriteCharacterRecord_51B1B0",
+        "include/cg/Input.hpp",
+        "src/Input.cpp#LegacyText593850",
+        "src/Input.cpp#UnescapeLegacyTextAndNotify_52D2F0",
+        "src/network/NetworkRuntime.cpp#ExtractDelimitedField_52CED0",
+        "src/network/NetworkRuntime.cpp#ParseDelimitedInteger_52CFA0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "include/cg/LoginRequest.hpp",
+        "src/CharacterSelectSlot.cpp",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "每组两次现场593850前缀复制与result谓词先取后发布恢复；一次真实52D2F0、17个原ordinal的52CFA0、外4次最大1023/末一次最大63的52CED0接既有核心，删除五私有副本及bit/numeric常量；原两组/148B整清/name阈值/低W16/四signed除10/写序、失败/返回和原Daj明文格式保持，原通知尾仅空RET不加业务",
+          "decision_ref": "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整107条313B/两页。状态非1返回1无写；result谓词先取后PUB共享状态2，非0按原unsigned归一化OUTOFSERVICE比较、匹配W16回复2/返0否则只返±1。成功先W16回复1，每组先两次现场593850 NUL前缀复制至同两1024B buffer，再最大1023的52CED0外字段(1,2)/(3,4)，返回弃，固定两Write调用/第一失败不短路不回滚，最终第二完整S32返回；原Daj caller覆盖EAX不外推全分派。 完整174条498B/三页。先原52D2F0解码（52D150/原空509080尾/原text返弃）后52CFA0 slot1，原0/1 guard/无效返-1不动记录；有效37DWORD完整148B清零，name byte长度<=16含NUL复制否则原???，17整数ordinal含slot按原顺序，t3仅低W16、四正常signed/10及全部目标offset保；t14不取，末t16以最大63提取至+54/弃返、返0。复用真实公共原语/Atoi与同两record owner，不引严格parser/UTF-8/额外限制/回绕模型，不验所有原语或ABI。",
+      "expected": "完整107条313B/两页。状态非1返回1无写；result谓词先取后PUB共享状态2，非0按原unsigned归一化OUTOFSERVICE比较、匹配W16回复2/返0否则只返±1。成功先W16回复1，每组先两次现场593850 NUL前缀复制至同两1024B buffer，再最大1023的52CED0外字段(1,2)/(3,4)，返回弃，固定两Write调用/第一失败不短路不回滚，最终第二完整S32返回；原Daj caller覆盖EAX不外推全分派。 完整174条498B/三页。先原52D2F0解码（52D150/原空509080尾/原text返弃）后52CFA0 slot1，原0/1 guard/无效返-1不动记录；有效37DWORD完整148B清零，name byte长度<=16含NUL复制否则原???，17整数ordinal含slot按原顺序，t3仅低W16、四正常signed/10及全部目标offset保；t14不取，末t16以最大63提取至+54/弃返、返0。复用真实公共原语/Atoi与同两record owner，不引严格parser/UTF-8/额外限制/回绕模型，不验所有原语或ABI。",
+      "actual": "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
+    },
+    {
+      "id": "E-CHARACTER-LIST-RECORD-PRODUCTION-CALLEES-S-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRV01两完整281条811B/五页22call四callee/12jump四RET，固定两组每组两共享种子复制/两148B与17数值及末文本、两X21B；doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-list-record-production-callees-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-acceptance",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_character_list_record_production_callees_evidence.json",
+        "src/CharacterListRequest.cpp#HandleCharacterListResponse_5089B0",
+        "src/CharacterListRequest.cpp#WriteCharacterRecord_51B1B0",
+        "include/cg/Input.hpp",
+        "src/Input.cpp#LegacyText593850",
+        "src/Input.cpp#UnescapeLegacyTextAndNotify_52D2F0",
+        "src/network/NetworkRuntime.cpp#ExtractDelimitedField_52CED0",
+        "src/network/NetworkRuntime.cpp#ParseDelimitedInteger_52CFA0",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "include/cg/LoginRequest.hpp",
+        "src/CharacterSelectSlot.cpp",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "每组两次现场593850前缀复制与result谓词先取后发布恢复；一次真实52D2F0、17个原ordinal的52CFA0、外4次最大1023/末一次最大63的52CED0接既有核心，删除五私有副本及bit/numeric常量；原两组/148B整清/name阈值/低W16/四signed除10/写序、失败/返回和原Daj明文格式保持，原通知尾仅空RET不加业务",
+          "decision_ref": "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整107条313B/两页。状态非1返回1无写；result谓词先取后PUB共享状态2，非0按原unsigned归一化OUTOFSERVICE比较、匹配W16回复2/返0否则只返±1。成功先W16回复1，每组先两次现场593850 NUL前缀复制至同两1024B buffer，再最大1023的52CED0外字段(1,2)/(3,4)，返回弃，固定两Write调用/第一失败不短路不回滚，最终第二完整S32返回；原Daj caller覆盖EAX不外推全分派。 完整174条498B/三页。先原52D2F0解码（52D150/原空509080尾/原text返弃）后52CFA0 slot1，原0/1 guard/无效返-1不动记录；有效37DWORD完整148B清零，name byte长度<=16含NUL复制否则原???，17整数ordinal含slot按原顺序，t3仅低W16、四正常signed/10及全部目标offset保；t14不取，末t16以最大63提取至+54/弃返、返0。复用真实公共原语/Atoi与同两record owner，不引严格parser/UTF-8/额外限制/回绕模型，不验所有原语或ABI。",
+      "expected": "完整107条313B/两页。状态非1返回1无写；result谓词先取后PUB共享状态2，非0按原unsigned归一化OUTOFSERVICE比较、匹配W16回复2/返0否则只返±1。成功先W16回复1，每组先两次现场593850 NUL前缀复制至同两1024B buffer，再最大1023的52CED0外字段(1,2)/(3,4)，返回弃，固定两Write调用/第一失败不短路不回滚，最终第二完整S32返回；原Daj caller覆盖EAX不外推全分派。 完整174条498B/三页。先原52D2F0解码（52D150/原空509080尾/原text返弃）后52CFA0 slot1，原0/1 guard/无效返-1不动记录；有效37DWORD完整148B清零，name byte长度<=16含NUL复制否则原???，17整数ordinal含slot按原顺序，t3仅低W16、四正常signed/10及全部目标offset保；t14不取，末t16以最大63提取至+54/弃返、返0。复用真实公共原语/Atoi与同两record owner，不引严格parser/UTF-8/额外限制/回绕模型，不验所有原语或ABI。",
+      "actual": "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
     }
   ],
   "task_acceptance": [
@@ -35136,7 +35230,8 @@
         "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
-        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state"
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state"
       ]
     },
     {
@@ -35159,7 +35254,8 @@
         "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
-        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state"
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state"
       ]
     },
     {
@@ -35421,7 +35517,8 @@
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
-        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state"
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state"
       ]
     },
     {
@@ -44127,6 +44224,32 @@
         "doc/cg2d_battle_entry_result_producer_sampling_evidence.json"
       ],
       "boundary": "50D3B0完整正确sZWu消息W16叶：原三指令12B真实函数身份、第二形参低W16→FF0D34共享W16→相同低W16返回；51513F ADD后515142 XOR EAX明确覆盖callee返回，原upperEAX不消费，现uint16_t正常承接正确；首参数不读取、邻接槽不借用，源码不改。 三完整323条1177B/六页、34directCALL/19callee、24普通jump/五RET无switch，三真实入向均512E40仅登记；其中53BDC0栈探测callee只元信息，C++三2048B自动未清buffer承接，不据此处理/验栈故障或整个CRT/机器ABI。两主consumer体11片段（入口5/结果6）、既有跨字段W32桥一处及相邻布局assert/注释恢复：四数值载体read-all-before-publish/独立count-first序、type2与非2 type3谓词先pub、两结果field递增阶段/低S16与S32 pub后持有返回值TEST，普通旧值/construct-destroy四次RNG及原W16/W32/失败/重读/清理/明文保持。四记录/三图名/十五技能、comma-bar/2047提取与三2048B buffer、姓名<=28否则只首BYTE清、两个原Unescape和原负值清零是既有原业务保，不新增异常保护；正确sZWu三指令叶/uint16返回及原caller覆盖EAX纳管不改。两真实X仅4/3B共7B NOP无入向/前RET后入口mapped，R7 275/3061余2786，50D3B0已IDA函数不是无父区间。三新正常F1568..1570，语义1571/有效1564、文档1682/3680（45.71%）、分类701/BATTLE253枚举open/E800。无F/有效区间各7、差队列172/缺定位171/43待归属/60源码closed10/完整验收0/叶0/globalfalse与全部完整门禁保；全512E40分派/整个CRT/全部owner-窗口寿命/资源和战果其它consumer/全技能-pet生产/SDK/机器ABI/画面运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24/原协议明文保。"
+    },
+    {
+      "inventory_id": "F:001089B0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-acceptance",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_character_list_record_production_callees_evidence.json"
+      ],
+      "boundary": "完整107条313B/两页。状态非1返回1无写；result谓词先取后PUB共享状态2，非0按原unsigned归一化OUTOFSERVICE比较、匹配W16回复2/返0否则只返±1。成功先W16回复1，每组先两次现场593850 NUL前缀复制至同两1024B buffer，再最大1023的52CED0外字段(1,2)/(3,4)，返回弃，固定两Write调用/第一失败不短路不回滚，最终第二完整S32返回；原Daj caller覆盖EAX不外推全分派。 BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:0011B1B0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-acceptance",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_character_list_record_production_callees_evidence.json"
+      ],
+      "boundary": "完整174条498B/三页。先原52D2F0解码（52D150/原空509080尾/原text返弃）后52CFA0 slot1，原0/1 guard/无效返-1不动记录；有效37DWORD完整148B清零，name byte长度<=16含NUL复制否则原???，17整数ordinal含slot按原顺序，t3仅低W16、四正常signed/10及全部目标offset保；t14不取，末t16以最大63提取至+54/弃返、返0。复用真实公共原语/Atoi与同两record owner，不引严格parser/UTF-8/额外限制/回绕模型，不验所有原语或ABI。 BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
     }
   ],
   "auxiliary_dispositions": [
@@ -50659,6 +50782,50 @@
           "end_exclusive": "0x50d700",
           "kind": "nop_padding",
           "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:00108AE9-00108AF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-acceptance",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_character_list_record_production_callees_evidence.json"
+      ],
+      "reason": "BRV01 7B全90/逐BYTE canonical nop，无任何入向，前本批完整根RET/后真函数入口；仅填充用途，不造代码身份或范围排除，不计业务或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x508ae9",
+          "end_exclusive": "0x508af0",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:0011B3A2-0011B3B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-acceptance",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_character_list_record_production_callees_evidence.json"
+      ],
+      "reason": "BRV01 14B全90/逐BYTE canonical nop，无任何入向，前本批完整根RET/后真函数入口；仅填充用途，不造代码身份或范围排除，不计业务或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x51b3a2",
+          "end_exclusive": "0x51b3b0",
+          "kind": "nop_padding",
+          "bytes": 14
         }
       ]
     }

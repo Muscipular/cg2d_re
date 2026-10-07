@@ -3028,3 +3028,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 - **边界**：现缺provider及20正常owner读取源码已闭，不声明全登录/人物/主地图、完整资源/生命周期或原格式互通完成。继续不配置构建测试运行摘要、音频暂停/RPLAN.24和原格式明文；用户六项保持。
 
 - **验证与交付**：整四文件只加两include/独立加载BYTE/现缺provider、只读tracker桥和声明注释，全部旧父/布局/真实生产/初始化及已接目标规则保持；唯一定义/正常20原地址和12偏移、五原链接与四哨兵身份、C6加载/无目标地址形成或加载别名及原BYTE先于分类TEST有据；完整登记簿仅LOGIN局部引用/两I-S/V03引用，局部基线和唯一进度/任务差异、完整派生快照以及十四文件UTF8无BOM/LF/17来源/差异静态均通过。measure与-Check沿同一会话退出0，原函数定位/语义/处置/R7/任务闭合数11及所有完整门禁保。十四文件精确提交/固定命名快照 cg2d-re-login-negative-selection-byte-owner-20261007，用户六项保持。未配置、构建、测试、运行或计算摘要，不把派生BYTE桥或身份投影称为原函数／全客户端／机器ABI运行通过。
+
+## BRV01 角色列表公共原语与共享文本种子（2026-10-07）
+
+沿启动→服务器→登录→人物→主地图，只处理真实角色列表生产缺口。先落[子SPEC](../doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision)，只改CharacterListRequest.cpp：删除五私有解析副本及bit／numeric常量，接原52D2F0一次／52CFA0十七次／52CED0外四次最大1023、末一次最大63；每组字段前两次借同一593850原共享owner复制NUL前缀，固定两组共四次，不清栈后缀或创建空串替身。result谓词先取再pub状态2，所有两148B／name<=16或???／低W16／四signed除10／写序／原失败和第二返回保持。
+
+两原完整根281条811B／五页，22directCALL／四callee、12jump／四RET、两实际code入向；Daj本已绑定，原caller覆盖返回。本步接线恢复真实原语，509080通知尾实际空RET，未丢实质通知、不加业务。两相邻原X7／14B共21B全90／逐BYTE nop、无入向／前RET后真入口，仅填充用途mapped。
+
+两F1571／1572、两角色成员及一个网络回复父绑定；语义1573／有效1566、文档1684／3680（45.76%）、分类703、CHARACTER3／NETWORK51、E808、R7 277余2784。无F／code区各7、172差队列／171缺定位／43待归属、源码closed11／完整功能和叶0／globalfalse保持，U10／U11／V03仅当前和引用open。Start／Poll／两record owner、Input／公共原语／Daj dispatcher与显示正文保持；后续人物、创建、入主地图／正常owner与资源／完整分派／SDK-ABI／明文互通／运行及R8继续实际推进。原格式明文、音频暂停与RPLAN.24保持，不配置构建测试运行或计算摘要。
+
+验收记录：源码／完整原证据／机器台账／文档四组集中静态检查通过；measure_cg2d.ps1及-Check在同一会话退出0。完整派生快照逐对象核对，仅两F／三成员及来源候选、三任务、两R7和六指标变化，其余全部对象和原冻结定位保持；十三文件UTF-8无BOM／LF、四真实锚点、两局部I-S各十九实际来源及定向diff通过。仅文本／源码静态验收，不构建测试执行或计算摘要。命名快照cg2d-re-character-list-record-production-callees-20261007，精确十三文件提交，用户六项另有变更保持。

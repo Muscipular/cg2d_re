@@ -6,17 +6,7 @@
 namespace cg::character_select::detail {
 namespace {
 
-std::uint32_t ToBits(std::int32_t value)
-{
-    return std::bit_cast<std::uint32_t>(value);
-}
-
-std::int32_t AddWrapped(std::int32_t left, std::int32_t right)
-{
-    return std::bit_cast<std::int32_t>(ToBits(left) + ToBits(right));
-}
-
-std::int16_t LowInt16(std::uint32_t value)
+std::int16_t LowInt16(std::int32_t value)
 {
     return std::bit_cast<std::int16_t>(static_cast<std::uint16_t>(value));
 }
@@ -25,11 +15,15 @@ std::int16_t LowInt16(std::uint32_t value)
 
 std::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord)
 {
-    const std::int32_t right = AddWrapped(uiRecord->left, uiRecord->width);
-    const std::int32_t bottom = AddWrapped(uiRecord->top, uiRecord->height);
+    const std::int32_t top = uiRecord->top;
+    const std::int32_t left = uiRecord->left;
+    const std::int32_t height = uiRecord->height;
+    const std::int32_t width = uiRecord->width;
+    const std::int32_t bottom = height + top;
+    const std::int32_t right = width + left;
     if (login::detail::Sub_5049A0(
-            uiRecord->left,
-            uiRecord->top,
+            left,
+            top,
             right,
             bottom,
             -1)
@@ -82,43 +76,49 @@ std::int32_t Sub_503A20(
     std::uint8_t layer)
 {
     if (hoverMode != 0) {
-        const std::int32_t right =
-            AddWrapped(uiRecord->left, uiRecord->width);
-        const std::int32_t bottom =
-            AddWrapped(uiRecord->top, uiRecord->height);
+        const std::int32_t hitTop = uiRecord->top;
+        const std::int32_t hitHeight = uiRecord->height;
+        const std::int32_t hitLeft = uiRecord->left;
+        const std::int32_t hitWidth = uiRecord->width;
+        const std::int32_t hitBottom = hitHeight + hitTop;
+        const std::int32_t hitRight = hitLeft + hitWidth;
         if (login::detail::Sub_5049A0(
-                uiRecord->left,
-                uiRecord->top,
-                right,
-                bottom,
+                hitLeft,
+                hitTop,
+                hitRight,
+                hitBottom,
                 -1)
             != 0) {
-            const std::uint32_t leftBits = ToBits(uiRecord->left);
-            const std::uint32_t topBits = ToBits(uiRecord->top);
-            const std::uint32_t rightBits =
-                leftBits + ToBits(uiRecord->width) + 2U;
-            const std::uint32_t bottomBits =
-                topBits + ToBits(uiRecord->height) + 1U;
-            const std::int32_t step = std::bit_cast<std::int32_t>(
-                ToBits(hoverMode) - 1U);
+            const std::int32_t hoverTop = uiRecord->top;
+            const std::int32_t step = hoverMode - 1;
+            const std::int32_t hoverLeft = uiRecord->left;
+            const std::int32_t hoverHeight = uiRecord->height;
+            const std::int32_t bottom = hoverHeight + hoverTop + 1;
+            const std::int32_t top = hoverTop - 3;
+            const std::int32_t hoverWidth = uiRecord->width;
+            const std::int32_t right = hoverLeft + hoverWidth + 2;
+            const std::int32_t left = hoverLeft - 2;
             login::detail::DrawGraphicHover(
-                static_cast<std::uint16_t>(leftBits - 2U),
-                static_cast<std::uint16_t>(topBits - 3U),
-                static_cast<std::uint16_t>(rightBits),
-                static_cast<std::uint16_t>(bottomBits),
+                static_cast<std::uint16_t>(left),
+                static_cast<std::uint16_t>(top),
+                static_cast<std::uint16_t>(right),
+                static_cast<std::uint16_t>(bottom),
                 layer,
                 hoverImageSequence,
                 step);
         }
     }
 
+    const char* const text = uiRecord->text;
+    const std::int16_t textY = LowInt16(uiRecord->textY);
+    const std::int16_t textX = LowInt16(uiRecord->textX);
     return login::detail::DrawText(
-        LowInt16(ToBits(uiRecord->textX)),
-        LowInt16(ToBits(uiRecord->textY)),
+        textX,
+        textY,
         renderMode,
         0,
         color,
-        uiRecord->text,
+        text,
         0,
         0);
 }

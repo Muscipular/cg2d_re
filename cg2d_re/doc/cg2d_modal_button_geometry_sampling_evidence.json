@@ -1,0 +1,4807 @@
+{
+  "schema_version": 1,
+  "batch_id": "BSP01",
+  "date": "2026-10-07",
+  "instance_id": "ida-17524",
+  "binary_name": "cg2d.exe",
+  "source_functions": [
+    {
+      "index": 1596,
+      "id": "F:00103990",
+      "entry": "0x503990",
+      "source_path": "src/CharacterModalButton.cpp",
+      "symbol": "Sub_503990",
+      "body_changed": true,
+      "source_patch_count": 1,
+      "additional_symbols": [],
+      "contract": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 命中：top/left/height/width取样、bottom/right计算，鼠标结果原文保持。"
+    },
+    {
+      "index": 1597,
+      "id": "F:00103A20",
+      "entry": "0x503A20",
+      "source_path": "src/CharacterModalButton.cpp",
+      "symbol": "Sub_503A20",
+      "body_changed": true,
+      "source_patch_count": 2,
+      "additional_symbols": [],
+      "contract": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 绘制：命中前top/height/left/width、命中后独立记录和step，hover后text/Y/X取样，四U16与两S16保持。"
+    }
+  ],
+  "original_functions": [
+    {
+      "start": "0x503990",
+      "end_exclusive": "0x503a15",
+      "count": 54,
+      "chunks": [
+        [
+          "0x503990",
+          "0x503a15"
+        ]
+      ],
+      "inbound_count": 472,
+      "instructions": [
+        {
+          "ea": "0x503990",
+          "size": 4,
+          "bytes": "8b442404",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503994",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503995",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503996",
+          "size": 2,
+          "bytes": "6aff",
+          "mnemonic": "push",
+          "text": "push    0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x503998",
+          "size": 3,
+          "bytes": "8b480c",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [eax+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50399b",
+          "size": 3,
+          "bytes": "8b5008",
+          "mnemonic": "mov",
+          "text": "mov     edx, [eax+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50399e",
+          "size": 3,
+          "bytes": "8b7814",
+          "mnemonic": "mov",
+          "text": "mov     edi, [eax+14h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039a1",
+          "size": 3,
+          "bytes": "8b4010",
+          "mnemonic": "mov",
+          "text": "mov     eax, [eax+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039a4",
+          "size": 2,
+          "bytes": "03f9",
+          "mnemonic": "add",
+          "text": "add     edi, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039a6",
+          "size": 2,
+          "bytes": "03c2",
+          "mnemonic": "add",
+          "text": "add     eax, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039a8",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039a9",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039aa",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039ab",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039ac",
+          "size": 2,
+          "bytes": "33f6",
+          "mnemonic": "xor",
+          "text": "xor     esi, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039ae",
+          "size": 5,
+          "bytes": "e8ed0f0000",
+          "mnemonic": "call",
+          "text": "call    sub_5049A0",
+          "call_target": "0x5049a0"
+        },
+        {
+          "ea": "0x5039b3",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039b6",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039b8",
+          "size": 2,
+          "bytes": "7456",
+          "mnemonic": "jz",
+          "text": "jz      short loc_503A10",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039ba",
+          "size": 6,
+          "bytes": "8a159c8dd600",
+          "mnemonic": "mov",
+          "text": "mov     dl, byte ptr gMouseClickState",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039c0",
+          "size": 5,
+          "bytes": "b840000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 40h ; '@'",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039c5",
+          "size": 3,
+          "bytes": "f6c201",
+          "mnemonic": "test",
+          "text": "test    dl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039c8",
+          "size": 2,
+          "bytes": "7405",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5039CF",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039ca",
+          "size": 5,
+          "bytes": "b841000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 41h ; 'A'",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039cf",
+          "size": 3,
+          "bytes": "f6c202",
+          "mnemonic": "test",
+          "text": "test    dl, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039d2",
+          "size": 2,
+          "bytes": "7402",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5039D6",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039d4",
+          "size": 2,
+          "bytes": "0c04",
+          "mnemonic": "or",
+          "text": "or      al, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039d6",
+          "size": 6,
+          "bytes": "8a0d988dd600",
+          "mnemonic": "mov",
+          "text": "mov     cl, byte ptr gMouseBtnDown2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039dc",
+          "size": 3,
+          "bytes": "f6c101",
+          "mnemonic": "test",
+          "text": "test    cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039df",
+          "size": 2,
+          "bytes": "7402",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5039E3",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039e1",
+          "size": 2,
+          "bytes": "0c02",
+          "mnemonic": "or",
+          "text": "or      al, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039e3",
+          "size": 3,
+          "bytes": "f6c102",
+          "mnemonic": "test",
+          "text": "test    cl, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039e6",
+          "size": 2,
+          "bytes": "7402",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5039EA",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039e8",
+          "size": 2,
+          "bytes": "0c08",
+          "mnemonic": "or",
+          "text": "or      al, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039ea",
+          "size": 6,
+          "bytes": "8a0da08dd600",
+          "mnemonic": "mov",
+          "text": "mov     cl, byte ptr gMouseBtnDown",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039f0",
+          "size": 3,
+          "bytes": "f6c101",
+          "mnemonic": "test",
+          "text": "test    cl, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039f3",
+          "size": 2,
+          "bytes": "7402",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5039F7",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039f5",
+          "size": 2,
+          "bytes": "0c10",
+          "mnemonic": "or",
+          "text": "or      al, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039f7",
+          "size": 3,
+          "bytes": "f6c102",
+          "mnemonic": "test",
+          "text": "test    cl, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039fa",
+          "size": 2,
+          "bytes": "7402",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5039FE",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039fc",
+          "size": 2,
+          "bytes": "0c20",
+          "mnemonic": "or",
+          "text": "or      al, 20h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5039fe",
+          "size": 3,
+          "bytes": "f6c210",
+          "mnemonic": "test",
+          "text": "test    dl, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a01",
+          "size": 2,
+          "bytes": "7402",
+          "mnemonic": "jz",
+          "text": "jz      short loc_503A05",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a03",
+          "size": 2,
+          "bytes": "0c80",
+          "mnemonic": "or",
+          "text": "or      al, 80h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a05",
+          "size": 3,
+          "bytes": "f6c220",
+          "mnemonic": "test",
+          "text": "test    dl, 20h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a08",
+          "size": 2,
+          "bytes": "7408",
+          "mnemonic": "jz",
+          "text": "jz      short loc_503A12",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a0a",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a0b",
+          "size": 3,
+          "bytes": "80cc01",
+          "mnemonic": "or",
+          "text": "or      ah, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a0e",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a0f",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a10",
+          "size": 2,
+          "bytes": "8bc6",
+          "mnemonic": "mov",
+          "text": "mov     eax, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a12",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a13",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a14",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4014b0",
+          "from": "0x401775"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4014b0",
+          "from": "0x40178f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x40266c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x40268b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x4026d1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x4026f6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x402736"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x4028d0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x402934"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x402a43"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x402a5e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x402a79"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x402a91"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x402aa9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x402ac1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "from": "0x402adc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x45e0c0",
+          "from": "0x45e1a2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x45e0c0",
+          "from": "0x45e1bd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x462090",
+          "from": "0x462147"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d31c0",
+          "from": "0x4d31d8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d4041"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d40a5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d40d6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d411d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d41c5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d41df"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d41f0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d4795"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d482f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d4840"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d485b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "from": "0x4d4894"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4a50",
+          "from": "0x4d4b4f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4a50",
+          "from": "0x4d4ca2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4a50",
+          "from": "0x4d4e69"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4a50",
+          "from": "0x4d4e82"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4f00",
+          "from": "0x4d4ffa"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4f00",
+          "from": "0x4d50a1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4f00",
+          "from": "0x4d51bc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4f00",
+          "from": "0x4d51d4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d5250",
+          "from": "0x4d535f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d5250",
+          "from": "0x4d54d9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d5250",
+          "from": "0x4d553a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d591c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d5949"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d59a6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d5b2a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d5fa2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d5fba"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d5fcf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d6011"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d6078"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "from": "0x4d6158"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d62a0",
+          "from": "0x4d63b9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d62a0",
+          "from": "0x4d645c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d62a0",
+          "from": "0x4d6582"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d62a0",
+          "from": "0x4d65c5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6710",
+          "from": "0x4d6848"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6710",
+          "from": "0x4d69b0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6710",
+          "from": "0x4d69c8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6710",
+          "from": "0x4d69e0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6a60",
+          "from": "0x4d6b65"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6a60",
+          "from": "0x4d6e09"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6a60",
+          "from": "0x4d6e21"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6ea0",
+          "from": "0x4d6f7b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6ea0",
+          "from": "0x4d73b9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "from": "0x4d764b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "from": "0x4d7766"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "from": "0x4d7793"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "from": "0x4d7b35"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "from": "0x4d7b68"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "from": "0x4d7b79"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7c20",
+          "from": "0x4d7d89"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7c20",
+          "from": "0x4d8190"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8230",
+          "from": "0x4d839a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8230",
+          "from": "0x4d8848"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d88c0",
+          "from": "0x4d89b6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d88c0",
+          "from": "0x4d8a36"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d88c0",
+          "from": "0x4d8d00"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d88c0",
+          "from": "0x4d8d18"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "from": "0x4d8f46"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "from": "0x4d90d5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "from": "0x4d90f0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "from": "0x4d910b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "from": "0x4d9150"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "from": "0x4d9171"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "from": "0x4d918e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4d9b5a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4d9bbd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4d9c4c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4d9c93"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4d9d38"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4d9d52"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4d9d63"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4d9d8b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4da2a2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4da2ba"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4da2cf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "from": "0x4da305"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4da580",
+          "from": "0x4da67f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4da580",
+          "from": "0x4da7d2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4da580",
+          "from": "0x4da97b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4da580",
+          "from": "0x4da9af"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4db361"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4db3c3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4db3f4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4db43b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4db4de"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4db4f8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4db517"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4db583"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4dbad1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4dbae9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4dbafe"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "from": "0x4dbb1c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dbd30",
+          "from": "0x4dbe2e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dbd30",
+          "from": "0x4dbf76"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dbd30",
+          "from": "0x4dc22b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dbd30",
+          "from": "0x4dc245"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc290",
+          "from": "0x4dc3a6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd0f6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd130"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd193"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd1e0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd26e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd288"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd299"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd2bb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd7e7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd7ff"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd814"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "from": "0x4dd832"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddb20",
+          "from": "0x4ddc1c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddb20",
+          "from": "0x4ddd4c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddb20",
+          "from": "0x4ddef9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddb20",
+          "from": "0x4ddf2c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4de8d3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4de910"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4de973"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4de9c0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4dea4e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4dea68"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4dea79"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4dea9b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4defc7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4defdf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4deff4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "from": "0x4df012"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df300",
+          "from": "0x4df3fd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df300",
+          "from": "0x4df52b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df300",
+          "from": "0x4df6a9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df300",
+          "from": "0x4df6dd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4dfaa3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4dfb52"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4dfb90"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4dfbbe"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4dfc2e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4dfc3f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4dffb8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4e0006"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4e0045"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "from": "0x4e0081"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e0380",
+          "from": "0x4e0627"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e0380",
+          "from": "0x4e0731"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e0380",
+          "from": "0x4e0b5c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e0380",
+          "from": "0x4e0b74"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "from": "0x4e1517"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "from": "0x4e1573"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "from": "0x4e15b8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "from": "0x4e15d2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "from": "0x4e15eb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "from": "0x4e1624"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e323a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e329a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e32b9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e32d2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e3301"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e3312"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e362d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e368f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e36aa"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "from": "0x4e36c2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3ba0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3bcc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3beb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3c04"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3c39"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3c4a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3f27"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3f68"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3f83"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "from": "0x4e3f9b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4460",
+          "from": "0x4e4588"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4460",
+          "from": "0x4e4594"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4a50",
+          "from": "0x4e4c09"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4a50",
+          "from": "0x4e4c2e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4ea0",
+          "from": "0x4e501b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4ea0",
+          "from": "0x4e503e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "from": "0x4e6272"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "from": "0x4e6531"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "from": "0x4e6631"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "from": "0x4e6afa"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "from": "0x4e6b57"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "from": "0x4e6c12"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "from": "0x4e7c97"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "from": "0x4e7cf3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "from": "0x4e7d38"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "from": "0x4e7d52"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "from": "0x4e7d6b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "from": "0x4e7da4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "from": "0x4e8ea1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "from": "0x4e8ec3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "from": "0x4e8ef4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "from": "0x4e8f59"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "from": "0x4e912a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "from": "0x4e9160"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "from": "0x4e9196"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "from": "0x4e91ce"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea1b0",
+          "from": "0x4ea2ae"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea1b0",
+          "from": "0x4ea3d8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea1b0",
+          "from": "0x4ea606"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea1b0",
+          "from": "0x4ea61e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea690",
+          "from": "0x4ea7ed"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea690",
+          "from": "0x4ea9da"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "from": "0x4eac23"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "from": "0x4eac64"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "from": "0x4eaca1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "from": "0x4eacb6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "from": "0x4eb070"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "from": "0x4eb081"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "from": "0x4eb092"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "from": "0x4eb0aa"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "from": "0x4eb387"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "from": "0x4eb520"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "from": "0x4eb53d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "from": "0x4eb567"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "from": "0x4eb76a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "from": "0x4eb77f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "from": "0x4eb794"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "from": "0x4eb7d7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "from": "0x4eb97a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "from": "0x4eb98f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "from": "0x4eb9a4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "from": "0x4eba24"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "from": "0x4eba3c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "from": "0x4eba54"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ebaa0",
+          "from": "0x4ebb44"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ebaa0",
+          "from": "0x4ebb50"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ebd20",
+          "from": "0x4ebde1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec7f1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec80f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec82d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec842"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec856"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec86a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec918"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec929"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec939"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "from": "0x4ec94a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ece00",
+          "from": "0x4ecef4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ed020",
+          "from": "0x4ed11c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4edb20",
+          "from": "0x4edd15"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4edb20",
+          "from": "0x4ee094"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ef0f0",
+          "from": "0x4ef2d0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ef0f0",
+          "from": "0x4ef58b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4efb70",
+          "from": "0x4efcef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4efb70",
+          "from": "0x4efcff"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0460",
+          "from": "0x4f0663"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0460",
+          "from": "0x4f0686"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0b40",
+          "from": "0x4f0bf6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0cd0",
+          "from": "0x4f0d48"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0e20",
+          "from": "0x4f0e98"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f13e8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f1445"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f1468"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f1481"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f149a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f14c9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f16c7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f1712"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f1730"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f1748"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f1760"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "from": "0x4f177b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f1c40",
+          "from": "0x4f1e26"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f1c40",
+          "from": "0x4f20de"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2130",
+          "from": "0x4f2263"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2130",
+          "from": "0x4f2364"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2130",
+          "from": "0x4f2437"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2a30",
+          "from": "0x4f2dd5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2a30",
+          "from": "0x4f3567"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f3ed0",
+          "from": "0x4f40cd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f3ed0",
+          "from": "0x4f43a7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f4790",
+          "from": "0x4f49df"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f4790",
+          "from": "0x4f4f0c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f51d0",
+          "from": "0x4f5442"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f51d0",
+          "from": "0x4f55ce"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f51d0",
+          "from": "0x4f59d0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f51d0",
+          "from": "0x4f5a13"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "from": "0x4f5c9c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "from": "0x4f5ce8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "from": "0x4f5d35"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "from": "0x4f60ec"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "from": "0x4f60fd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "from": "0x4f610e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f63f8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f6425"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f6456"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f647f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f649a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f6b35"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f6b46"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f6b57"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f6b68"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "from": "0x4f6b79"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6ca0",
+          "from": "0x4f6de7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6ca0",
+          "from": "0x4f6e37"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6ca0",
+          "from": "0x4f70b5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6ca0",
+          "from": "0x4f70c6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7150",
+          "from": "0x4f7329"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7150",
+          "from": "0x4f733a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7870",
+          "from": "0x4f7dbe"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7870",
+          "from": "0x4f7e27"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7870",
+          "from": "0x4f7e7b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7870",
+          "from": "0x4f7e94"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7870",
+          "from": "0x4f80f1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7870",
+          "from": "0x4f8132"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "from": "0x4f86ef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "from": "0x4f871a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "from": "0x4f8766"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "from": "0x4f87b3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "from": "0x4f8dc0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "from": "0x4f8dd8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "from": "0x4f8df0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "from": "0x4f8e01"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "from": "0x4f9108"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "from": "0x4f9133"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "from": "0x4f917b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "from": "0x4f91e5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "from": "0x4f91f6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "from": "0x4f9988"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "from": "0x4f99c9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "from": "0x4f99de"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f9b10",
+          "from": "0x4f9c7f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f9b10",
+          "from": "0x4f9cab"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f9b10",
+          "from": "0x4f9cf5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f9b10",
+          "from": "0x4f9f89"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f9b10",
+          "from": "0x4f9fa1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f9b10",
+          "from": "0x4f9fb2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fa050",
+          "from": "0x4fa1e3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fa050",
+          "from": "0x4fa29a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fa350",
+          "from": "0x4fa848"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4faef0",
+          "from": "0x4fb114"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4faef0",
+          "from": "0x4fb89f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fbfad"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fbff7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc01a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc037"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc050"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc07f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc26d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc2b8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc2f1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc327"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc35d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "from": "0x4fc393"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "from": "0x4fc9b5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "from": "0x4fca14"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "from": "0x4fca68"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "from": "0x4fcb12"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "from": "0x4fcb2a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "from": "0x4fcb42"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd1a0",
+          "from": "0x4fd32a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd1a0",
+          "from": "0x4fd376"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd1a0",
+          "from": "0x4fd3bf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd1a0",
+          "from": "0x4fd408"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd1a0",
+          "from": "0x4fd44b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd6a0",
+          "from": "0x4fd879"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd6a0",
+          "from": "0x4fd961"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fdbd0",
+          "from": "0x4fdcab"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fdbd0",
+          "from": "0x4fdcee"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fe0e0",
+          "from": "0x4fe212"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fe0e0",
+          "from": "0x4fe25b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fe0e0",
+          "from": "0x4fe29e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fe860",
+          "from": "0x4fe9fd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fe860",
+          "from": "0x4fea40"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff1a0",
+          "from": "0x4ff290"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff4c0",
+          "from": "0x4ff5a3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "from": "0x4ff9b8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "from": "0x4ffc18"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "from": "0x4ffc6a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "from": "0x4ffcac"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "from": "0x500239"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "from": "0x50026f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "from": "0x500284"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "from": "0x50029c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5008c0",
+          "from": "0x5009ac"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5008c0",
+          "from": "0x501419"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5014a0",
+          "from": "0x501679"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5014a0",
+          "from": "0x50169e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x501fd0",
+          "from": "0x502250"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x501fd0",
+          "from": "0x5022a6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x501fd0",
+          "from": "0x5022ff"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x501fd0",
+          "from": "0x5023ee"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x501fd0",
+          "from": "0x50244c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5030a0",
+          "from": "0x5030b9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x503160",
+          "from": "0x5033e3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x503160",
+          "from": "0x503408"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x503590",
+          "from": "0x5035c1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505170",
+          "from": "0x50542b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505170",
+          "from": "0x505990"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505c20",
+          "from": "0x505e0f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505c20",
+          "from": "0x505f99"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505c20",
+          "from": "0x506211"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505c20",
+          "from": "0x506254"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52dce0",
+          "from": "0x52ddde"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52dce0",
+          "from": "0x52df03"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52dce0",
+          "from": "0x52e11e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52dce0",
+          "from": "0x52e136"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e240",
+          "from": "0x52e39d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e240",
+          "from": "0x52e58a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "from": "0x52e7d3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "from": "0x52e7fa"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "from": "0x52e819"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "from": "0x52e839"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "from": "0x52ebec"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "from": "0x52ebfd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "from": "0x52ec0e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "from": "0x52ec41"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "from": "0x52ef19"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "from": "0x52f0af"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "from": "0x52f0cf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "from": "0x52f0ee"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "from": "0x52f329"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "from": "0x52f33e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "from": "0x52f353"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "from": "0x52f399"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "from": "0x52f54a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "from": "0x52f55f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "from": "0x52f574"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "from": "0x52f5f4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "from": "0x52f60c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "from": "0x52f624"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f670",
+          "from": "0x52f714"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f670",
+          "from": "0x52f720"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f910",
+          "from": "0x52f9d1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x53049b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x5304b9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x5304d7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x5304f5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x53050a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x53051e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x530536"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x53054e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x53060d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x53061e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x53062e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x53063f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "from": "0x530650"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "from": "0x5317f7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "from": "0x53181a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "from": "0x531981"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "from": "0x531a2d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "from": "0x531af9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "from": "0x531d11"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "from": "0x531e14"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "from": "0x5320ca"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "from": "0x532871"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "from": "0x53289f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "from": "0x53296d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "from": "0x5329e4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "from": "0x532a1c"
+        }
+      ],
+      "pages": [
+        {
+          "start": 0,
+          "count": 54
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x503990",
+          "end_exclusive": "0x503a15",
+          "size": 133,
+          "bytes": "8b44240456576aff8b480c8b50088b78148b401003f903c25750515233f6e8ed0f000083c41485c074568a159c8dd600b840000000f6c2017405b841000000f6c20274020c048a0d988dd600f6c10174020c02f6c10274020c088a0da08dd600f6c10174020c10f6c10274020c20f6c21074020c80f6c22074085f80cc015ec38bc65f5ec3"
+        }
+      ],
+      "unique_direct_targets": [
+        "0x5049a0"
+      ],
+      "jump_count": 9,
+      "ret_count": 2,
+      "code_bytes": 133,
+      "calls": [
+        {
+          "ea": "0x5039ae",
+          "target": "0x5049a0",
+          "text": "call    sub_5049A0"
+        }
+      ],
+      "indirect_calls": [],
+      "inbound_pages": [
+        {
+          "start": 0,
+          "count": 80
+        },
+        {
+          "start": 80,
+          "count": 80
+        },
+        {
+          "start": 160,
+          "count": 80
+        },
+        {
+          "start": 240,
+          "count": 80
+        },
+        {
+          "start": 320,
+          "count": 80
+        },
+        {
+          "start": 400,
+          "count": 72
+        }
+      ]
+    },
+    {
+      "start": "0x503a20",
+      "end_exclusive": "0x503aae",
+      "count": 62,
+      "chunks": [
+        [
+          "0x503a20",
+          "0x503aae"
+        ]
+      ],
+      "inbound_count": 48,
+      "instructions": [
+        {
+          "ea": "0x503a20",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a21",
+          "size": 4,
+          "bytes": "8b742408",
+          "mnemonic": "mov",
+          "text": "mov     esi, [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a25",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a26",
+          "size": 4,
+          "bytes": "8b7c2418",
+          "mnemonic": "mov",
+          "text": "mov     edi, [esp+8+arg_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a2a",
+          "size": 2,
+          "bytes": "85ff",
+          "mnemonic": "test",
+          "text": "test    edi, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a2c",
+          "size": 2,
+          "bytes": "7458",
+          "mnemonic": "jz",
+          "text": "jz      short loc_503A86",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a2e",
+          "size": 3,
+          "bytes": "8b460c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a31",
+          "size": 3,
+          "bytes": "8b5614",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+14h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a34",
+          "size": 3,
+          "bytes": "8b4e08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a37",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a38",
+          "size": 3,
+          "bytes": "8b5e10",
+          "mnemonic": "mov",
+          "text": "mov     ebx, [esi+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a3b",
+          "size": 2,
+          "bytes": "03d0",
+          "mnemonic": "add",
+          "text": "add     edx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a3d",
+          "size": 2,
+          "bytes": "6aff",
+          "mnemonic": "push",
+          "text": "push    0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a3f",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a40",
+          "size": 2,
+          "bytes": "8bd1",
+          "mnemonic": "mov",
+          "text": "mov     edx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a42",
+          "size": 2,
+          "bytes": "03d3",
+          "mnemonic": "add",
+          "text": "add     edx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a44",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a45",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a46",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a47",
+          "size": 5,
+          "bytes": "e8540f0000",
+          "mnemonic": "call",
+          "text": "call    sub_5049A0",
+          "call_target": "0x5049a0"
+        },
+        {
+          "ea": "0x503a4c",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a4f",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a51",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a52",
+          "size": 2,
+          "bytes": "7432",
+          "mnemonic": "jz",
+          "text": "jz      short loc_503A86",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a54",
+          "size": 4,
+          "bytes": "8b54241c",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+8+a6]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a58",
+          "size": 3,
+          "bytes": "8b460c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a5b",
+          "size": 1,
+          "bytes": "4f",
+          "mnemonic": "dec",
+          "text": "dec     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a5c",
+          "size": 3,
+          "bytes": "8b4e08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a5f",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi; a7",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a60",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a6",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a61",
+          "size": 4,
+          "bytes": "8b542428",
+          "mnemonic": "mov",
+          "text": "mov     edx, dword ptr [esp+10h+arg_14]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a65",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a5",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a66",
+          "size": 3,
+          "bytes": "8b5614",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+14h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a69",
+          "size": 4,
+          "bytes": "8d540201",
+          "mnemonic": "lea",
+          "text": "lea     edx, [edx+eax+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a6d",
+          "size": 3,
+          "bytes": "83c0fd",
+          "mnemonic": "add",
+          "text": "add     eax, 0FFFFFFFDh",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a70",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a4",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a71",
+          "size": 3,
+          "bytes": "8b5610",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a74",
+          "size": 4,
+          "bytes": "8d541102",
+          "mnemonic": "lea",
+          "text": "lea     edx, [ecx+edx+2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a78",
+          "size": 3,
+          "bytes": "83c1fe",
+          "mnemonic": "add",
+          "text": "add     ecx, 0FFFFFFFEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a7b",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a3",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a7c",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; a2",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a7d",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; a1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a7e",
+          "size": 5,
+          "bytes": "e8fde60100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "call_target": "0x522180"
+        },
+        {
+          "ea": "0x503a83",
+          "size": 3,
+          "bytes": "83c41c",
+          "mnemonic": "add",
+          "text": "add     esp, 1Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a86",
+          "size": 3,
+          "bytes": "8b4618",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+18h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a89",
+          "size": 4,
+          "bytes": "8b4c2414",
+          "mnemonic": "mov",
+          "text": "mov     ecx, dword ptr [esp+8+a5]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a8d",
+          "size": 4,
+          "bytes": "8b542410",
+          "mnemonic": "mov",
+          "text": "mov     edx, dword ptr [esp+8+a3]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a91",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; a8",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a93",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; a7",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a95",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; a6",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a96",
+          "size": 4,
+          "bytes": "668b4604",
+          "mnemonic": "mov",
+          "text": "mov     ax, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a9a",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; a5",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a9b",
+          "size": 3,
+          "bytes": "668b0e",
+          "mnemonic": "mov",
+          "text": "mov     cx, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503a9e",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; a4",
+          "call_target": null
+        },
+        {
+          "ea": "0x503aa0",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a3",
+          "call_target": null
+        },
+        {
+          "ea": "0x503aa1",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; a2",
+          "call_target": null
+        },
+        {
+          "ea": "0x503aa2",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; a1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503aa3",
+          "size": 5,
+          "bytes": "e8d82cf5ff",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawText",
+          "call_target": "0x456780"
+        },
+        {
+          "ea": "0x503aa8",
+          "size": 3,
+          "bytes": "83c420",
+          "mnemonic": "add",
+          "text": "add     esp, 20h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503aab",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503aac",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503aad",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x45e0c0",
+          "from": "0x45e214"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x45e0c0",
+          "from": "0x45e22f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x462090",
+          "from": "0x46219e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d3180",
+          "from": "0x4d31a6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4a50",
+          "from": "0x4d4e43"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4a50",
+          "from": "0x4d4e5f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4f00",
+          "from": "0x4d5163"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4f00",
+          "from": "0x4d517f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d5250",
+          "from": "0x4d5490"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d62a0",
+          "from": "0x4d655c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d62a0",
+          "from": "0x4d6578"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6710",
+          "from": "0x4d6985"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6a60",
+          "from": "0x4d6cde"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6ea0",
+          "from": "0x4d7394"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d88c0",
+          "from": "0x4d8cda"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d88c0",
+          "from": "0x4d8cf6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "from": "0x4d9086"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4da580",
+          "from": "0x4da956"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4da580",
+          "from": "0x4da971"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dbd30",
+          "from": "0x4dc205"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dbd30",
+          "from": "0x4dc221"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc290",
+          "from": "0x4dc696"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddb20",
+          "from": "0x4dded4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddb20",
+          "from": "0x4ddeef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df300",
+          "from": "0x4df684"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df300",
+          "from": "0x4df69f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4460",
+          "from": "0x4e47d9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4460",
+          "from": "0x4e47f5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4a50",
+          "from": "0x4e4dc8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4a50",
+          "from": "0x4e4df9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4ea0",
+          "from": "0x4e51cc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4ea0",
+          "from": "0x4e51fd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ebaa0",
+          "from": "0x4ebc85"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ebaa0",
+          "from": "0x4ebca1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4efb70",
+          "from": "0x4effd6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4efb70",
+          "from": "0x4efff1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0460",
+          "from": "0x4f08b5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0460",
+          "from": "0x4f08e7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0b40",
+          "from": "0x4f0cae"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0cd0",
+          "from": "0x4f0e01"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0e20",
+          "from": "0x4f0f51"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fa350",
+          "from": "0x4fa88c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "from": "0x4fca95"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "from": "0x4fcab0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "from": "0x4fcacf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x503120",
+          "from": "0x503144"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f670",
+          "from": "0x52f883"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f670",
+          "from": "0x52f89e"
+        }
+      ],
+      "pages": [
+        {
+          "start": 0,
+          "count": 62
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x503a20",
+          "end_exclusive": "0x503aae",
+          "size": 142,
+          "bytes": "568b742408578b7c241885ff74588b460c8b56148b4e08538b5e1003d06aff528bd103d3525051e8540f000083c41485c05b74328b54241c8b460c4f8b4e0857528b542428528b56148d54020183c0fd528b56108d54110283c1fe525051e8fde6010083c41c8b46188b4c24148b5424106a006a0050668b460451668b0e6a00525051e8d82cf5ff83c4205f5ec3"
+        }
+      ],
+      "unique_direct_targets": [
+        "0x5049a0",
+        "0x522180",
+        "0x456780"
+      ],
+      "jump_count": 2,
+      "ret_count": 1,
+      "code_bytes": 142,
+      "calls": [
+        {
+          "ea": "0x503a47",
+          "target": "0x5049a0",
+          "text": "call    sub_5049A0"
+        },
+        {
+          "ea": "0x503a7e",
+          "target": "0x522180",
+          "text": "call    Renderer__DrawGraphic_Hover"
+        },
+        {
+          "ea": "0x503aa3",
+          "target": "0x456780",
+          "text": "call    Renderer__DrawText"
+        }
+      ],
+      "indirect_calls": [],
+      "inbound_pages": [
+        {
+          "start": 0,
+          "count": 48
+        }
+      ]
+    }
+  ],
+  "original_unassigned_ranges": [
+    {
+      "start": "0x503a15",
+      "end_exclusive": "0x503a20",
+      "size": 11,
+      "bytes": "9090909090909090909090",
+      "decode": [
+        {
+          "ea": "0x503a15",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a16",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a17",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a18",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a19",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a1a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a1b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a1c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a1d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a1e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503a1f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ],
+      "inbound": [],
+      "previous_instruction": {
+        "ea": "0x503a14",
+        "text": "retn"
+      },
+      "next_function_start": "0x503a20"
+    },
+    {
+      "start": "0x503aae",
+      "end_exclusive": "0x503ab0",
+      "size": 2,
+      "bytes": "9090",
+      "decode": [
+        {
+          "ea": "0x503aae",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x503aaf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ],
+      "inbound": [],
+      "previous_instruction": {
+        "ea": "0x503aad",
+        "text": "retn"
+      },
+      "next_function_start": "0x503ab0"
+    }
+  ],
+  "source_patches": [
+    {
+      "ordinal": 1,
+      "path": "cg2d_re/src/CharacterModalButton.cpp",
+      "kind": "remove_unneeded_geometry_wrap_helpers",
+      "from": "std::uint32_t ToBits(std::int32_t value)\n{\n    return std::bit_cast<std::uint32_t>(value);\n}\n\nstd::int32_t AddWrapped(std::int32_t left, std::int32_t right)\n{\n    return std::bit_cast<std::int32_t>(ToBits(left) + ToBits(right));\n}\n\n",
+      "to": ""
+    },
+    {
+      "ordinal": 2,
+      "path": "cg2d_re/src/CharacterModalButton.cpp",
+      "kind": "keep_actual_low_word_text_boundary",
+      "from": "std::int16_t LowInt16(std::uint32_t value)",
+      "to": "std::int16_t LowInt16(std::int32_t value)"
+    },
+    {
+      "ordinal": 3,
+      "path": "cg2d_re/src/CharacterModalButton.cpp",
+      "kind": "hit_samples_top_left_height_width_before_geometry",
+      "from": "    const std::int32_t right = AddWrapped(uiRecord->left, uiRecord->width);\n    const std::int32_t bottom = AddWrapped(uiRecord->top, uiRecord->height);\n    if (login::detail::Sub_5049A0(\n            uiRecord->left,\n            uiRecord->top,\n            right,\n            bottom,\n            -1)",
+      "to": "    const std::int32_t top = uiRecord->top;\n    const std::int32_t left = uiRecord->left;\n    const std::int32_t height = uiRecord->height;\n    const std::int32_t width = uiRecord->width;\n    const std::int32_t bottom = height + top;\n    const std::int32_t right = width + left;\n    if (login::detail::Sub_5049A0(\n            left,\n            top,\n            right,\n            bottom,\n            -1)"
+    },
+    {
+      "ordinal": 4,
+      "path": "cg2d_re/src/CharacterModalButton.cpp",
+      "kind": "draw_hit_and_post_hit_hover_have_independent_original_samples",
+      "from": "    if (hoverMode != 0) {\n        const std::int32_t right =\n            AddWrapped(uiRecord->left, uiRecord->width);\n        const std::int32_t bottom =\n            AddWrapped(uiRecord->top, uiRecord->height);\n        if (login::detail::Sub_5049A0(\n                uiRecord->left,\n                uiRecord->top,\n                right,\n                bottom,\n                -1)\n            != 0) {\n            const std::uint32_t leftBits = ToBits(uiRecord->left);\n            const std::uint32_t topBits = ToBits(uiRecord->top);\n            const std::uint32_t rightBits =\n                leftBits + ToBits(uiRecord->width) + 2U;\n            const std::uint32_t bottomBits =\n                topBits + ToBits(uiRecord->height) + 1U;\n            const std::int32_t step = std::bit_cast<std::int32_t>(\n                ToBits(hoverMode) - 1U);\n            login::detail::DrawGraphicHover(\n                static_cast<std::uint16_t>(leftBits - 2U),\n                static_cast<std::uint16_t>(topBits - 3U),\n                static_cast<std::uint16_t>(rightBits),\n                static_cast<std::uint16_t>(bottomBits),\n                layer,\n                hoverImageSequence,\n                step);\n        }\n    }",
+      "to": "    if (hoverMode != 0) {\n        const std::int32_t hitTop = uiRecord->top;\n        const std::int32_t hitHeight = uiRecord->height;\n        const std::int32_t hitLeft = uiRecord->left;\n        const std::int32_t hitWidth = uiRecord->width;\n        const std::int32_t hitBottom = hitHeight + hitTop;\n        const std::int32_t hitRight = hitLeft + hitWidth;\n        if (login::detail::Sub_5049A0(\n                hitLeft,\n                hitTop,\n                hitRight,\n                hitBottom,\n                -1)\n            != 0) {\n            const std::int32_t hoverTop = uiRecord->top;\n            const std::int32_t step = hoverMode - 1;\n            const std::int32_t hoverLeft = uiRecord->left;\n            const std::int32_t hoverHeight = uiRecord->height;\n            const std::int32_t bottom = hoverHeight + hoverTop + 1;\n            const std::int32_t top = hoverTop - 3;\n            const std::int32_t hoverWidth = uiRecord->width;\n            const std::int32_t right = hoverLeft + hoverWidth + 2;\n            const std::int32_t left = hoverLeft - 2;\n            login::detail::DrawGraphicHover(\n                static_cast<std::uint16_t>(left),\n                static_cast<std::uint16_t>(top),\n                static_cast<std::uint16_t>(right),\n                static_cast<std::uint16_t>(bottom),\n                layer,\n                hoverImageSequence,\n                step);\n        }\n    }"
+    },
+    {
+      "ordinal": 5,
+      "path": "cg2d_re/src/CharacterModalButton.cpp",
+      "kind": "text_pointer_then_low_word_y_then_x_after_optional_hover",
+      "from": "    return login::detail::DrawText(\n        LowInt16(ToBits(uiRecord->textX)),\n        LowInt16(ToBits(uiRecord->textY)),\n        renderMode,\n        0,\n        color,\n        uiRecord->text,\n        0,\n        0);",
+      "to": "    const char* const text = uiRecord->text;\n    const std::int16_t textY = LowInt16(uiRecord->textY);\n    const std::int16_t textX = LowInt16(uiRecord->textX);\n    return login::detail::DrawText(\n        textX,\n        textY,\n        renderMode,\n        0,\n        color,\n        text,\n        0,\n        0);"
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "cg2d_re/src/CharacterModalButton.cpp",
+      "whole_length": 3543
+    }
+  ],
+  "source_snapshot_before": "Git命名快照 cg2d-re-confirmation-modal-action-sampling-20261007",
+  "implementation_snapshot": "cg2d-re-modal-button-geometry-sampling-20261007",
+  "snapshot_functions_before": [
+    {
+      "id": "F:00103990",
+      "original_entry": "0x503990",
+      "original_name": "sub_503990",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/CharacterModalButton.cpp",
+          "symbol": "Sub_503990",
+          "definition_line": 26,
+          "namespace": "cg::character_select::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00103A20",
+      "original_entry": "0x503A20",
+      "original_name": "sub_503A20",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/CharacterModalButton.cpp",
+          "symbol": "Sub_503A20",
+          "definition_line": 76,
+          "namespace": "cg::character_select::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "ranges_before": [
+    {
+      "id": "X:00103A15-00103A20",
+      "start": "0x503A15",
+      "end_exclusive": "0x503A20",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:00103AAE-00103AB0",
+      "start": "0x503AAE",
+      "end_exclusive": "0x503AB0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    }
+  ],
+  "features_before": [
+    {
+      "id": "FUNC-CHARACTER",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "角色选择与创建",
+      "domain": "CHARACTER",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_creation_gate_adaptation_spec.md",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-baseline",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-baseline",
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-baseline",
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-baseline",
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-baseline",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline"
+      ],
+      "original_inventory_ids": [
+        "F:000626A0",
+        "F:001089B0",
+        "F:0011B1B0",
+        "F:00108EE0",
+        "F:00109020",
+        "F:00060FF0",
+        "F:0005DD60",
+        "F:0005DC00",
+        "F:0005D7E0",
+        "F:0005DEE0",
+        "F:0005E0C0"
+      ],
+      "closure_task_ids": [
+        "P08",
+        "U03",
+        "V03"
+      ],
+      "dependencies": [
+        "FUNC-LOGIN"
+      ],
+      "acceptance_focus": "角色记录、创建gate、version正文和请求往返",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_character_select_scene.md#character-message-storage-decision",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-decision",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-decision",
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-decision",
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-decision",
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-decision",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-decision"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档",
+        "BRT01仅U03正常只读正文数据合同：9A5C10未装载/文件偏移-1，389569条目标操作数检索仅两版本起点PUSH，无非代码加载W32地址别名；两指针外传经512D30/517160到5171F0，原首BYTE零分支不读+1/不写输入，正常内容由原静态零初始化生产。新端唯一const char[1]静态owner与定长extern/sizeof=1，两原consumer/整个网络和其父全文保，原mode5/Xoee/空格/失败/返回和明文格式不改。1B为正常读取足迹对应工程容量，不冒称未知原未使用预留长度，不造默认版本或容错补空；U03源码closed，完整CHARACTER枚举/门禁、V03/互通/生命周期/资源未验。无新增F/语义处置/R7，不配置构建测试运行摘要，负分类另继续开发。",
+        "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。",
+        "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。",
+        "BRX01完整角色选择母体721条2695B/十一页、78directCALL/41callee/155jump/两RET、四switch与唯一51C430@51C4E6入向纳管；已有本体不冒充新增业务。源一文件六精确补丁：图号读在Puk>=7或5-6门禁后、<5不先读，九源码mapper实参新鲜读+18（原八mem取样点/十mapper call，shared尾及已合并分支保持）；正常S32 selector替代wrap模拟，删除成功清record后第二S16读取与入地图复制名后S16重取/指向原同两record，版本尾同持有S32标志判定/一次读取，case1新局部值作用域隔离。其余主22状态/失败/次级门禁/两slot七动作/preview与clear/helper/NULL空叶/8版本mode2-4-5与正文和正常返回/调用-读写-构析RNG保持；继承公共原语，不新验全部41callee/异常/SDK。末版本W32&FF只低W8有效值，沿现W8 owner不猜邻三byte或自造wide镜像；原只读常量文本的当前显示核心立即复制且不借存新状态，本步不重写它。一个185B真X分八实际块：四W32目标表156B/一21B值表/五90 NOP和三8D4900 LEA alignment，五data入向均本parent/no code进入；用途mapped不造新功能身份/范围排除。语义1577/有效1570、文档1688/3680（45.87%）、分类707/CHARACTER6/E814/R7 281余2780；无F/code区各7、pending18、差队列172/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与所有完整门禁保；U10/U11/V03只current/refs仍open。所有人物-主地图/正常owner-资源寿命/全网络与SDK-ABI/画面互通、运行/R8未验，原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+        "BSL01人物列表进度45DD60完整118条377B/两页，6直接调用/6目标无间接、7jump/2RET，唯一460FF0@461041。单源四精确片段/一既有业务体：移除固定20长度，复制原21B后现场取256B缓冲长度，原U32×8/逻辑右移6+2先算后W16 stage1发布；列数/x/width与rows/x/y按原阶段，创建借本地x/192/width；轮询非零一次取action，非空才MarkDeath/清槽；ready后rows/算高/y/textY、columns先取再现场strlen/算(columns*8-length)*8、x/textX，两S16和六参数保。原普通文案/几何值正确，不称运行故障；Reset/入口W16/创建后重读/阶段1启动后现场++与阶段2非零早退、原21B/256B余部/同非拥有观察者/其余整源与所有请求回复/公共解析和dispatcher保持。新映射1591/单adapted F:0005DD60，CHARACTER6→7；语义1592有效1585/文档1703（46.28%）/处置727/E844。单X7B全90逐BYTE真实NOP/无入向/前RET后入口只用途登记，R7 298余2763，不造Reset/布局/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与所有门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/六依赖、真实请求回复/人物创建-主地图与图像输入消费、全部正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24/执行与既定排除保，不构建测试运行或摘要。",
+        "BSM01人物删除进度45DC00完整102条325B/两页，6直接/6目标无间接、7jump/2RET，唯一460FF0@46132A；55ABE8只读10B正文+NUL共11B已原字节取证。单源六精确片段/一既有业务体：补标准cstring、撤固定10长度和280/232坐标；初次只读文本strlen取U32长度，×9后发布W16 stage1，再逻辑右移6+2，普通S32创建阶段借本地x/192/width/96/4/1；轮询非零一次取action，非空才MarkDeath/清槽；ready后rows与y先取再算textY、只读文本strlen后才取columns/算(columns*8-length)*8，最后x/textX，两S16保。不造可变文本缓冲/owner；原普通值正确，不称运行故障，11B字节/生命周期、Reset/入口阶段与创建后重读/启动后现场++/轮询早退、观察者及其余整源/删除请求回复与人物父保。新1592/单adapted F:0005DC00，CHARACTER7→8；语义1593有效1586/文档1704（46.30%）/处置728/E846；单X11B全90逐BYTE真实NOP/无入向/前RET后入口只原用途登记，R7 299余2762，不造Reset/布局/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/六依赖、真实删除回复/人物创建-主地图/图像输入消费、全部正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制/既定排除保，不构建测试运行或摘要。",
+        "BSN01认证失败提示45D7E0完整113条413B/两页，7直接/7目标无间接、6jump/2RET，唯一460FF0@46140C；原55C5E8正文14B+NUL15B逐字节取证，撤未证编码名/陈旧未交接注释。单源六片段/一既有业务体：初次5044E0用64/168/512/144/4/1原常量，所有原字段发布保；命中width→x→减66→y单取→left→bottom→top→right；Play51后一次native非拥有action，复用判断与MarkDeath/清槽；ready后文字y→x取样与加20/140，两S16；文字调用后图像独立width→y→图号→x，再原S32 SAR1/y+123/halfWidth+x。原普通值正确，不称运行故障；低W8鼠标/DF与两图号、同16B descriptor/借用、原15B静态寿命、Reset/发布/hover/结果1早退与独立ready/其它整源、人物父/依赖正文保持，不造新owner。新1593/单adapted F:0005D7E0，CHARACTER8→9；语义1594有效1587/文档1705（46.33%）/处置729/E848；单X3B全90逐BYTE真实NOP/无入向/前RET后入口只用途，R7 300余2761，不造Reset/descriptor/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/七依赖、事件输入与渲染消费/全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+        "BSO01两确认父完整433条1194B/七页，26直接/合计10唯一目标无间接、19jump/6RET：45DEE0 165条425B三页/10call八目标/两caller（45E090@45E0A8、460FF0@461483），45E0C0 268条769B四页/16call八目标/唯一460FF0@461193。单源四片段/两既有业务体：创建/LTE各借入口modalAction，创建后发布唯一共享槽，失败门禁/LTE继续借同返回样本；各Play79后独立clickedAction一次取共享槽，复用非空判断/MarkDeath清槽，不跨声音复用入口对象。原普通分支正确，不称运行故障；既有宽高非正默认192/96、两相同right=left+158及第二hover覆盖、警告确认优先短路、两local记录/各draw现场hoverSeq、同256B四复制/测宽/文字参数与S16、图号/低W8/返回/其余整源和默认wrapper/父/依赖正文保，无新owner。新1594/1595两adapted F:0005DEE0/F:0005E0C0，CHARACTER9→11；语义1596有效1589/文档1707（46.39%）/处置731/E850；两X7/15B共22全90逐BYTE真实NOP/无入向/各前RET后入口仅原对齐用途，R7 302余2759，不造wrapper/记录/内部块F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整两父/合计10依赖、全部共享弹窗正常alias-owner寿命/事件输入/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-source-state",
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state"
+      ]
+    }
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "V03",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
+        "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_header_single_read_spec.md#header-single-read-source-closure",
+        "doc/cg2d_protocol_copy_capacity_spec.md#protocol-copy-source-closure",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-source-state",
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state"
+      ]
+    },
+    {
+      "task_id": "U11",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_cryptint_arithmetic_spec.md#cryptint-arithmetic-source-state",
+        "doc/cg2d_window_mouse_byte_spec.md#window-mouse-byte-source-state",
+        "doc/cg2d_mouse_input_chain_spec.md#mouse-input-chain-source-state",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-source-state",
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state"
+      ]
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
+        "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+        "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+        "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state",
+        "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state",
+        "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-source-state",
+        "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-source-state",
+        "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-source-state",
+        "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-source-state",
+        "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state",
+        "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-source-state",
+        "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-source-state",
+        "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-source-state",
+        "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-source-state",
+        "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-source-state",
+        "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-source-state",
+        "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-source-state",
+        "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-source-state",
+        "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-source-state",
+        "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-source-state",
+        "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-source-state",
+        "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-source-state",
+        "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-source-state",
+        "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-source-state",
+        "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-source-state",
+        "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-source-state",
+        "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-source-state",
+        "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
+        "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
+        "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+        "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state",
+        "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+        "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+        "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
+        "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
+        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
+        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-source-state",
+        "doc/cg2d_character_deletion_progress_geometry_spec.md#character-deletion-progress-geometry-source-state",
+        "doc/cg2d_authentication_failure_sampling_spec.md#authentication-failure-sampling-source-state",
+        "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state"
+      ]
+    }
+  ],
+  "implementation_static_scope": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+  "normal_previous_values_wrong": false,
+  "source_changed_file_count": 1,
+  "source_changed_existing_function_count": 2,
+  "source_patch_count": 5,
+  "source_geometry_wrap_helpers_removed": true,
+  "source_hit_geometry_original_samples_once": true,
+  "source_draw_hit_and_hover_samples_independent": true,
+  "source_hover_mode_normal_decrement": true,
+  "source_text_pointer_then_low_word_y_then_x": true,
+  "original_three_mouse_byte_samples_and_all_result_bits_kept": true,
+  "original_u16_hover_and_s16_text_boundaries_kept": true,
+  "original_nonowning_record_and_text_pointer_kept": true,
+  "original_hover_and_text_gates_return_params_kept": true,
+  "original_source_rest_unchanged": true,
+  "original_reference_pagination_complete": true,
+  "new_true_function_count": 2,
+  "new_semantic_record_count": 2,
+  "new_function_disposition_count": 2,
+  "new_range_classification_count": 2,
+  "new_excluded_function_count": 0,
+  "source_closed_task_delta": 0,
+  "full_original_parent_or_machine_abi_verified": false,
+  "runtime_verified": false,
+  "fault_equivalence_claimed": false
+}

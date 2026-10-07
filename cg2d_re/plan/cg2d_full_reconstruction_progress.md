@@ -3240,3 +3240,15 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 新1594／1595两adapted F／CHARACTER9→11，语义1596有效1589／文档1707（46.39%）／731处置／E850，R7 300→302余2759；冻结定位／无F代码区各7／pending18／差队列172及171缺定位43待归属、P05原closed／closed11／完整叶0／globalfalse及所有完整门禁保。U11／V03／R04只current／引用仍open。完整两父／十依赖及共享弹窗全部正常alias-owner寿命、事件输入／文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图／原格式明文／实际画面和运行R8继续；音频暂停、RPLAN.24及不构建／测试／运行／摘要限制保。集中静态和派生终态后追加结果，不预记整体验收。
 
 静态验收结果：源码／原证据／完整机器／文档四集中检查通过；measure与-Check同一进程句柄正常结束，终态0。完整派生快照仅两真F／CHARACTER两成员及候选、三任务current／引用、双22B原区间与六指标增量，全部其它对象和冻结定位／完整门禁保。12文件UTF-8无BOM-LF、四SPEC锚点、两I-S各18真实来源与定向差异通过。未构建／测试／运行或计算摘要，局部对象取样不代完整交互、人物或全部共享owner寿命／运行验收；整体SPEC目标继续。
+
+## BSP01 公共模态按钮几何与分阶段取样实修（2026-10-07）
+
+先落[子SPEC](../doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision)，实修CharacterModalButton.cpp五唯一片段／两个已有原语。503990按top／left／height／width单取，先bottom后right；503A20查询前按top／height／left／width，命中后再按原阶段读记录和step，普通S32算边缘；可选hover完成后text T*→textY低WORD→textX低WORD取齐再DrawText。撤ToBits／AddWrapped几何回绕，LowInt16只保真实文字W16转换，无新owner／保护／接口／业务。
+
+原鼠标三个同源alias低W8及八位结果、hover门禁／文字必画与返回／参数、四U16边与两S16字坐标、六S32和原生非拥有text@18布局／记录、所有头／父／callee和其它整源保持。普通坐标原正确，不称运行故障。原取证大输出截断已通过指令／引用分开分页解决，未下载MCP结果或改变会话配置。
+
+503990完整54条133B／一页、1direct、9jump／2RET，472个CALL／102父；503A20完整62条142B／一页、3direct、2jump／1RET，48个CALL／30父。合116条275B／两指令页、4direct／三目标、11jump／3RET，520实际CALL入向七页读全；45E0C0两命中／两绘制、462090各一真实消费点归档，不外推其它父。双X:00103A15-00103A20十一字节／X:00103AAE-00103AB0两字节共13B全90逐BYTE真NOP，无入向前RET后真入口，只原用途分类。
+
+新1596／1597两adapted、CHARACTER11→13，语义1598有效1591／文档1709（46.44%）／733处置／E852，R7 302→304余2757；冻结定位／无F代码区各7／pending18／差队列172及171缺定位43待归属、P05原closed／closed11／完整叶0／globalfalse和全部门禁保。U11／V03／R04只current／引用仍open。完整所有父／三依赖、全部正常alias-owner寿命与事件／文字图像生产消费、CRT-SDK／机器ABI／链接、人物创建-主地图／原格式明文／画面／运行R8继续；音频暂停、RPLAN.24及执行限制保。下一真实父聚焦462090的创建／点击对象数据流，不全面复检。集中静态／派生终态后追加实际结果。
+
+BSP01实际收口：五片段／两原语开发和原116条275B／520CALL分页取证已完成。四集中静态、measure与-Check同一句柄终态0、完整派生快照、12文件UTF-8无BOM-LF／四锚点与两局部I-S各16实际来源／差异均通过；固定命名快照cg2d-re-modal-button-geometry-sampling-20261007。语义1598有效1591、1709文档（46.44%）／733处置／E852／R7 304余2757；用户既有六项不纳入本批。U11／V03／R04仍open及全部完整门禁保持，不把局部开发／文档覆盖计为整体完成；后续聚焦人物模态462090已见取样线索，按原证据继续实施。

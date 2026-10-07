@@ -2452,3 +2452,9 @@ ready后文字y→x取样，依次加20／140并保持两S16；文字提交后�
 通用宽高非正回退192／96及两个命中右界left+158均有原指令证据，保持两个查询／第二hover覆盖。删除警告确认优先短路、两本地记录／原文字T*与坐标、两个draw各现场hoverImageSeq、同未清256B四次原字符串／测宽／绘制全保。普通分支原正确，不称运行故障；无新owner、接口、保护或业务，默认wrapper和其它完整源码不变。
 
 两原根共433条1194B／七页、26直接／合计10目标、19跳转／六RET；45DEE0两实际caller为45E090@45E0A8和460FF0@461483，45E0C0唯一460FF0@461193。新1594／1595对应两真F，双相邻7／15B NOP仅原对齐用途。局部对象取样不代完整交互、人物父／依赖、全部alias-owner寿命、机器ABI或运行。
+
+## 公共模态按钮几何与取样更新（BSP01，2026-10-07）
+
+按[BSP01裁决](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision)，503990按top／left／height／width取齐，先bottom后right；503A20命中前按top／height／left／width，命中后另读top／left／height／width与原step，再普通S32算四边。删除ToBits／AddWrapped几何回绕模型，最终U16四边不删；可选hover后先text T*、再textY低W16／textX低W16，最后DrawText。
+
+原三鼠标BYTE样本／八位结果、hoverMode门禁与文字必画／返回／全部参数、同非拥有记录与文字及布局、头和所有父／callee保持。两原根116条275B／两页、4直接／三目标、11跳转／3RET；入向520个CALL以七独立引用页完整捕获。人物45E0C0两命中／两绘制和462090各一有实际证据，其它102／30调用父不借本步记验收。原11／2B相邻NOP只用途；两个原语新增1596／1597，不造helper或调用父身份。完整输入事件／渲染消费／全部alias-owner寿命与人物流程仍待。

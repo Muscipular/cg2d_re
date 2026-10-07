@@ -1358,3 +1358,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline)、[裁决](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-decision)、[验收](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-acceptance)与[源码状态](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state)关联两原根433条1194B和单源四片段／两体：各创建／失败／LTE借同modalAction与返回值、保共享槽发布；各Play79后独立clickedAction单读供非空判断／死亡清槽。原门槛／命中／hover、警告短路、局部记录／各绘制序号、四文字同缓冲与测宽／绘制、返回及其余正文保持。
 
 两单adapted／CHARACTER两真实成员，两局部I-S各18真实来源，E848→850；双7／15B只原对齐用途，不造wrapper或记录F。U11／V03／R04只current／引用仍open，P05原closed／closed11／完整叶0／globalfalse与完整门禁保持。完整两父／合计十依赖、全部共享弹窗正常alias-owner寿命、事件输入／文本图像消费、CRT-SDK／机器ABI／链接及人物创建-主地图／明文互通／实际画面／运行仍待，局部不外推。
+
+## BSP01 公共按钮几何与字段取样开发验收（2026-10-07）
+
+[基线](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline)、[裁决](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision)、[验收](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-acceptance)及[原证据](cg2d_modal_button_geometry_sampling_evidence.json)对应两个真F、五片段整源增量、两个局部I-S／各16实际来源、双13B用途分类及U11／V03／R04引用仍open。核四集中静态、汇总器／-Check终态、完整派生快照与编码／引用；完整门禁、P05原closed和其它对象保。
+
+116条275B／两页、4直接／三目标、520CALL／七引用页不等于全部父验收。命中与绘制取样次序分别恢复，hover后重新取记录／text-Y-X，普通S32与实际窄边界、三鼠标BYTE及结果位保持。完整父／三依赖、真实事件／文字图像生产消费、全部owner寿命、CRT-SDK／机器ABI／链接、人物创建-主地图／明文互通／实际画面／运行R8仍待。

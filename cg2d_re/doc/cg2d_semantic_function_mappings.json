@@ -186185,6 +186185,134 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x503990",
+      "inventory_id": "F:00103990",
+      "original_role": "Sub_503990",
+      "original_end_exclusive": "0x503a15",
+      "instruction_count": 54,
+      "status": "BSP01公共模态命中/绘制恢复普通几何与各阶段原取样；真实窄边界和鼠标结果保。单源五片段只局部静态，完整父/依赖/消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterModalButton.cpp",
+          "symbols": [
+            "Sub_503990"
+          ],
+          "relationship": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 命中：top/left/height/width取样、bottom/right计算，鼠标结果原文保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline",
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision",
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-acceptance",
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
+        "doc/cg2d_modal_button_geometry_sampling_evidence.json"
+      ],
+      "boundary": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 命中：top/left/height/width取样、bottom/right计算，鼠标结果原文保持。",
+      "verification_level": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "modal_button_geometry_sampling": {
+        "spec_id": "BSP01",
+        "evidence_refs": [
+          "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline",
+          "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision",
+          "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-acceptance",
+          "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
+          "doc/cg2d_modal_button_geometry_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 54,
+        "original_code_bytes": 133,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_unique_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 472,
+        "original_inbound_page_count": 6,
+        "original_reference_pagination_complete": true,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_cpp_patch_count_in_batch": 5,
+        "source_changed_existing_function_count_in_batch": 2,
+        "source_geometry_wrap_helpers_removed": true,
+        "source_hit_geometry_original_samples_once": true,
+        "source_draw_hit_and_hover_samples_independent": true,
+        "source_hover_mode_normal_decrement": true,
+        "source_text_pointer_then_low_word_y_then_x": true,
+        "original_three_mouse_byte_samples_and_all_result_bits_kept": true,
+        "original_u16_hover_and_s16_text_boundaries_kept": true,
+        "original_nonowning_record_and_text_pointer_kept": true,
+        "original_hover_and_text_gates_return_params_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x503A20",
+      "inventory_id": "F:00103A20",
+      "original_role": "Sub_503A20",
+      "original_end_exclusive": "0x503aae",
+      "instruction_count": 62,
+      "status": "BSP01公共模态命中/绘制恢复普通几何与各阶段原取样；真实窄边界和鼠标结果保。单源五片段只局部静态，完整父/依赖/消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterModalButton.cpp",
+          "symbols": [
+            "Sub_503A20"
+          ],
+          "relationship": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 绘制：命中前top/height/left/width、命中后独立记录和step，hover后text/Y/X取样，四U16与两S16保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline",
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision",
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-acceptance",
+        "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
+        "doc/cg2d_modal_button_geometry_sampling_evidence.json"
+      ],
+      "boundary": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 绘制：命中前top/height/left/width、命中后独立记录和step，hover后text/Y/X取样，四U16与两S16保持。",
+      "verification_level": "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "modal_button_geometry_sampling": {
+        "spec_id": "BSP01",
+        "evidence_refs": [
+          "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline",
+          "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision",
+          "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-acceptance",
+          "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
+          "doc/cg2d_modal_button_geometry_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 62,
+        "original_code_bytes": 142,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_unique_callee_count": 3,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 48,
+        "original_inbound_page_count": 1,
+        "original_reference_pagination_complete": true,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_cpp_patch_count_in_batch": 5,
+        "source_changed_existing_function_count_in_batch": 2,
+        "source_geometry_wrap_helpers_removed": true,
+        "source_hit_geometry_original_samples_once": true,
+        "source_draw_hit_and_hover_samples_independent": true,
+        "source_hover_mode_normal_decrement": true,
+        "source_text_pointer_then_low_word_y_then_x": true,
+        "original_three_mouse_byte_samples_and_all_result_bits_kept": true,
+        "original_u16_hover_and_s16_text_boundaries_kept": true,
+        "original_nonowning_record_and_text_pointer_kept": true,
+        "original_hover_and_text_gates_return_params_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

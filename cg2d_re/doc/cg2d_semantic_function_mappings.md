@@ -3330,3 +3330,9 @@ CHARACTER8→9，语义1594有效1587／文档1705／3680（46.33%）／729处�
 新增1594／1595对应F:0005DEE0／F:0005E0C0，两个主符号分别ProcessConfirmationDialog_45DEE0／ProcessCharacterDeletionWarning_45E0C0，保S32接口，不造未变默认wrapper／本地记录／内部块F。见[基线](cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline)：433条1194B／七页、26直接／合计10目标，各真实caller独立保。单源四片段各复用原创建返回／入口样本进失败和LTE门禁，声音后独立单对象清理。
 
 CHARACTER9→11，语义1596有效1589／文档1707／3680（46.39%）／731处置／E850；两原7／15B对齐用途使R7 300→302余2759。冻结定位／pending18／差队列和全完整门禁保，局部不代完整两父、依赖、消费／全部正常alias-owner寿命、机器ABI或运行。
+
+## BSP01 公共模态按钮原语（2026-10-07）
+
+新增1596／1597对应F:00103990／F:00103A20，主符号Sub_503990／Sub_503A20，同源CharacterModalButton.cpp。见[基线](cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline)：116条275B／两指令页、4直接／三目标，520实际CALL入向七页；仅两个既有原语本体／五精确片段，撤普通几何回绕、原字段分阶段取样，真实W16与鼠标结果保。
+
+CHARACTER11→13，语义1598有效1591／文档1709／3680（46.44%）／733处置／E852；双11／2B对齐用途使R7 302→304余2757。无新helper／调用父F或排除，冻结定位／pending18／差队列和完整门禁保；局部不代所有调用父／三依赖／正常alias-owner寿命／机器ABI或运行。

@@ -590,3 +590,15 @@ GraphicPendingQueue 删除旧局部候选声明并包含该头。
 集中静态已通过：两完整根812条2960B/13页、三caller134条415B/原12B/两16B用途，三个源仅四具名片段；完整语义/登记簿及派生快照只有具名模型差异，七对应文档/三个任务变更和十七文件UTF8无BOM/LF、四限定证据各25真实来源均通过。检查脚本中的比较参数空格和旧字段层级已纠正后通过，不留下失败模型。
 
 文本汇总与Check均退出0；实际语义1747/有效1740、合同1858（50.49%）、F888/E1043/R7已审450余2611、LOOP160/RENDER61。pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU过宽通过仍fail；仅本步开发修复/静态证据通过，完整所有父/callee/COM/owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。
+
+## 回退变换缓存的下游基线（BUY01，2026-10-08）
+
+[本步完整基线](cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline)、[保留裁决](cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision)与[结构化证据](cg2d_surface_transform_cache_baseline_evidence.json)将44CD80与44D490两已有正确入口纳管。两绘制回退原局部50条159B沿BUX01证据和已提交源码，不重取完整父；场景10以目标RECT为键，其余以源RECT，surface地址/图号/S16调色板与两翻转低W8传递、返回面继续Blt保持。
+
+原两根526条1769B/八页与两场景新窗22条93B，源空/创建失败返原面、像素生成/尾fresh键场景及清理release→清值→erase正确保持。源码0改动、无新I，两23B用途；既有native SDK与host树仅原批准范围，不替代上层像素/寿命/完整父和运行验收。
+
+### BUY01 当前基线限定静态结果
+
+集中静态已通过：两完整根526条1769B/八页、四局部72条252B（两绘制窗准确复用BUX01）/两23B用途，两正确正文及六相关生产/构析源与HEAD保持；完整语义/登记簿和派生快照只有具名模型差异，七对应文档/四任务和十四文件UTF8无BOM/LF、四锚点/三限定S各25真实来源通过。源码/头文件改动0、无新I。
+
+文本汇总与Check均退出0；实际语义1749/有效1742、合同1860（50.54%）、F890/E1046、R7已审452余2609、LOOP162/RENDER63/RESOURCE43。旧未接线误述已纠正；pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU错误通过仍fail。完整所有父/callee、owner/alias寿命、机器ABI/链接/像素/运行与R8未验，整体目标继续。

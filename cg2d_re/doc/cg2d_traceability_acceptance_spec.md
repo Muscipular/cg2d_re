@@ -1800,3 +1800,15 @@ LOOP158/INPUT51/RENDER59/STARTUP118，预期语义1745/有效1738、文档1856�
 集中静态已通过：两完整根812条2960B/13页、三caller134条415B/原12B/两16B用途，三个源仅四具名片段；完整语义/登记簿及派生快照只有具名模型差异，七对应文档/三个任务变更和十七文件UTF8无BOM/LF、四限定证据各25真实来源均通过。检查脚本中的比较参数空格和旧字段层级已纠正后通过，不留下失败模型。
 
 文本汇总与Check均退出0；实际语义1747/有效1740、合同1858（50.49%）、F888/E1043/R7已审450余2611、LOOP160/RENDER61。pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU过宽通过仍fail；仅本步开发修复/静态证据通过，完整所有父/callee/COM/owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。
+
+## BUY01 正确已有实现的基线验收归档（2026-10-08）
+
+[本步完整基线](cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline)、[保留裁决](cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision)与[结构化证据](cg2d_surface_transform_cache_baseline_evidence.json)记录原两根526条1769B/八页，四局部72条252B含复用BUX01两绘制窗，两个新23B用途。当前两完整C++正文/六相关生产构析源保持，沿原空/正常失败、取样/键/像素与单树release→清值→erase逐段对照；不以纳管计新增代码或I。
+
+仅两新F adapted与两X alignment_nop、LOOP162/RENDER63/RESOURCE43三限定S各25来源，G01/G02/R04/V04 current/引用仍open。语义预期1749/有效1742、合同1860/50.54%、F890/E1046/R7已审452余2609；旧四BUU错误通过仍fail，全叶/任务分母与完整B/I/W/S/R门禁不变。完整所有父/callee、owner/alias寿命、normal failure、SDK之外像素语义/机器ABI/链接/运行及R8继续。
+
+### BUY01 当前基线限定静态结果
+
+集中静态已通过：两完整根526条1769B/八页、四局部72条252B（两绘制窗准确复用BUX01）/两23B用途，两正确正文及六相关生产/构析源与HEAD保持；完整语义/登记簿和派生快照只有具名模型差异，七对应文档/四任务和十四文件UTF8无BOM/LF、四锚点/三限定S各25真实来源通过。源码/头文件改动0、无新I。
+
+文本汇总与Check均退出0；实际语义1749/有效1742、合同1860（50.54%）、F890/E1046、R7已审452余2609、LOOP162/RENDER63/RESOURCE43。旧未接线误述已纠正；pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU错误通过仍fail。完整所有父/callee、owner/alias寿命、机器ABI/链接/像素/运行与R8未验，整体目标继续。

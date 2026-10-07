@@ -65,3 +65,15 @@ C09 当前仍 open，累计关闭的源码任务保持 10 项，叶功能验收�
 [当前原序投影](cg2d_active_initializer_order_spec.md#active-initializer-order-source-closure)已移除GraphicDxCache.cpp的SurfaceTransformCacheStartup对象/类型，并将同一六行调用适配迁入LegacyMouse.cpp，位于世界表初始化后、SDK窄宽流配置前，对应553018/55301C。两个真实provider/被动map存储、构析/即时atexit、节点不拥有surface及业务清理正文不改，旧模块无第二调用。
 
 当前应用投影的相对序已具源码证据，完整90/活动标准流/快速退出及全部surface生命周期仍未闭。TextureSurfaceOwner的独立自动清理保持；不得以本组模块迁移证明全退出面已释放，C09继续open。
+
+## BUY01 查询、发布与业务清理的真实生产基线（2026-10-08）
+
+[本步完整基线](cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline)、[保留裁决](cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision)与[结构化证据](cg2d_surface_transform_cache_baseline_evidence.json)纳管查询/生成44CD80和场景清理44D490两根，合526条1769B/八页。两map被动存储/唯一construct-destroy/即时宿主登记及当前活动初始化顺序不改，既有六构析和host私有节点合同不重取；查询、fresh发布、单场景清理沿同一真实owner。
+
+四直接父局部72条252B：两绘制窗复用BUX01、两场景新取；真实C++四caller已连接，但完整四父/所有间接别名/失败传播/资源寿命/机器ABI/运行仍未验。清理只release变换结果→清值→erase，退出节点析构不承担面释放，source键面不被本清理释放；原T*地址排序/host树差异边界保持。源码改动0/无新I，LOOP162/RENDER63/RESOURCE43三限定S，G01/G02仍open。
+
+### BUY01 当前基线限定静态结果
+
+集中静态已通过：两完整根526条1769B/八页、四局部72条252B（两绘制窗准确复用BUX01）/两23B用途，两正确正文及六相关生产/构析源与HEAD保持；完整语义/登记簿和派生快照只有具名模型差异，七对应文档/四任务和十四文件UTF8无BOM/LF、四锚点/三限定S各25真实来源通过。源码/头文件改动0、无新I。
+
+文本汇总与Check均退出0；实际语义1749/有效1742、合同1860（50.54%）、F890/E1046、R7已审452余2609、LOOP162/RENDER63/RESOURCE43。旧未接线误述已纠正；pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU错误通过仍fail。完整所有父/callee、owner/alias寿命、机器ABI/链接/像素/运行与R8未验，整体目标继续。

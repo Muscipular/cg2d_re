@@ -197815,6 +197815,174 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x44CD80",
+      "inventory_id": "F:0004CD80",
+      "original_role": "原变换生成/场景清理根：TransformTextureSurface_44CD80",
+      "original_end_exclusive": "0x44d3e7",
+      "original_chunks": [
+        {
+          "start": "0x44cd80",
+          "end_exclusive": "0x44d3e7"
+        }
+      ],
+      "instruction_count": 479,
+      "status": "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "TransformTextureSurface_44CD80"
+          ],
+          "relationship": "原完整479条1639B/七页；源空返回空、按完整非拥有面地址/S32图号/S16调色板/矩形键复用，场景10独立第二树；命中非空返回、空值清槽后生成、无命中不预插空；原right/bottom循环尺寸、仅负left改0、top不参与行偏移、低W8翻转及水平加left条件保持；原创建失败返source，尾fresh键矩形/场景再写读同树；既有host私有树/32位native像素与SDK边界沿已批承接，无新I或完整运行等价"
+        },
+        {
+          "path": "src/render/GraphicDxCacheState.hpp",
+          "symbols": [
+            "TransformTextureSurface_44CD80"
+          ],
+          "relationship": "既有私有T*返回/借用与S32/S16/W8/四S32矩形声明保持，无新类型/owner"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline",
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-acceptance",
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
+        "doc/cg2d_surface_transform_cache_baseline_evidence.json"
+      ],
+      "boundary": "原完整479条1639B/七页；源空返回空、按完整非拥有面地址/S32图号/S16调色板/矩形键复用，场景10独立第二树；命中非空返回、空值清槽后生成、无命中不预插空；原right/bottom循环尺寸、仅负left改0、top不参与行偏移、低W8翻转及水平加left条件保持；原创建失败返source，尾fresh键矩形/场景再写读同树；既有host私有树/32位native像素与SDK边界沿已批承接，无新I或完整运行等价",
+      "verification_level": "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
+      "surface_transform_cache_baseline": {
+        "spec_id": "BUY01",
+        "evidence_refs": [
+          "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline",
+          "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
+          "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-acceptance",
+          "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
+          "doc/cg2d_surface_transform_cache_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 479,
+        "original_code_bytes": 1639,
+        "original_page_count": 7,
+        "original_direct_call_count": 20,
+        "original_indirect_call_count": 6,
+        "original_jump_count": 25,
+        "original_return_count": 9,
+        "original_inbound_reference_count": 2,
+        "already_existing_body_kept": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": false,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 526,
+        "original_root_total_code_bytes": 1769,
+        "original_total_page_count": 8,
+        "original_four_caller_window_instruction_count": 72,
+        "original_four_caller_window_code_bytes": 252,
+        "original_texture_windows_reused_from_BUX01": true,
+        "original_scene_caller_windows_newly_captured": true,
+        "original_total_nop_tail_bytes": 23,
+        "existing_host_tree_native_SDK_and_T_pointer_owners_kept": true,
+        "stale_unconnected_parent_document_corrected": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x44D490",
+      "inventory_id": "F:0004D490",
+      "original_role": "原变换生成/场景清理根：ClearSurfaceTransformCache_44D490",
+      "original_end_exclusive": "0x44d512",
+      "original_chunks": [
+        {
+          "start": "0x44d490",
+          "end_exclusive": "0x44d512"
+        }
+      ],
+      "instruction_count": 47,
+      "status": "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/render/GraphicDxCache.cpp",
+          "symbols": [
+            "ClearSurfaceTransformCache_44D490"
+          ],
+          "relationship": "原完整47条130B/一页；入口场景只选择一树，按键序先实际面释放、清值、摘除并前进；无面空拒绝、无另一树清空或退出面清理混用；两caller不消费残留EAX，原生void保持；完整地址排序/私有树形和原COM机制沿已批边界，不保证旧x86树形/地址与释放序，完整所有父/alias寿命/运行未验"
+        },
+        {
+          "path": "include/cg/render/GraphicDxCache.hpp",
+          "symbols": [
+            "ClearSurfaceTransformCache_44D490"
+          ],
+          "relationship": "既有void清理声明保持；两原caller不消费残留EAX，不暴露旧树哨兵"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline",
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-acceptance",
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
+        "doc/cg2d_surface_transform_cache_baseline_evidence.json"
+      ],
+      "boundary": "原完整47条130B/一页；入口场景只选择一树，按键序先实际面释放、清值、摘除并前进；无面空拒绝、无另一树清空或退出面清理混用；两caller不消费残留EAX，原生void保持；完整地址排序/私有树形和原COM机制沿已批边界，不保证旧x86树形/地址与释放序，完整所有父/alias寿命/运行未验",
+      "verification_level": "BUY01两已有变换/清理根526条1769B/八页、22direct/八indirect/30跳转/11返回、四引用四父；两原已取绘制窗50条159B复用BUX01证据，两新场景窗22条93B和两23B NN_NOP用途。既有代码正确保、源码改动0，无新增I；两F adapted与LOOP/RENDER/RESOURCE各限定S，旧未接线描述纠正。原host私有树/T*键/SDK仅获批边界，完整所有父/callee/COM语义之外业务、owner/alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理、模拟或记等价。",
+      "surface_transform_cache_baseline": {
+        "spec_id": "BUY01",
+        "evidence_refs": [
+          "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline",
+          "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
+          "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-acceptance",
+          "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-source-state",
+          "doc/cg2d_surface_transform_cache_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 47,
+        "original_code_bytes": 130,
+        "original_page_count": 1,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 5,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 2,
+        "already_existing_body_kept": true,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": false,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 526,
+        "original_root_total_code_bytes": 1769,
+        "original_total_page_count": 8,
+        "original_four_caller_window_instruction_count": 72,
+        "original_four_caller_window_code_bytes": 252,
+        "original_texture_windows_reused_from_BUX01": true,
+        "original_scene_caller_windows_newly_captured": true,
+        "original_total_nop_tail_bytes": 23,
+        "existing_host_tree_native_SDK_and_T_pointer_owners_kept": true,
+        "stale_unconnected_parent_document_corrected": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

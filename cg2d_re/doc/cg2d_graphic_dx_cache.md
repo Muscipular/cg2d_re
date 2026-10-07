@@ -2238,9 +2238,11 @@ CPU 面直接取已创建尺寸和像素。分配失败的上层回退仍保留�
 仅有的直接 caller `DrawBattleScene@43D425`、
 `DrawNormalScene@51CB0A` 均不消费残留 EAX（原为树哨兵地址），
 新端清理接口返回 void，不向上层暴露 STL 哨兵。
-`44CD80` 的两个父 caller `44DA23/44E043` 属于尚未实现的
-`RenderTextureToSurface/RenderTexture`；DrawAllQueued 和两个场景
-清理 caller 尚未接本步函数，不能把此提交记为真实绘制或清理时序已贯通。
+2026-10-08当前接线：`44DA23/44E043` 对应的两纹理绘制已有真实
+回退调用，BUX01已修逻辑尺寸/整数实参；DrawAllQueued三纹理消费已落位。
+`43D425/51CB0A`对应的SceneState两场景也已调用本清理入口，局部原序已核。
+[BUY01基线](cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline)
+纳管两个已有根，不以四局部连接宣称完整父或全业务寿命/运行闭合。
 
 两树私有存于既有渲染实现，构造/析构由标准容器承接，未新增 Renderer
 初始化或退出时主动清树。原根直接引用中的构造、析构及场景父流程仍须
@@ -2435,3 +2437,15 @@ AutoMap原叶45014F和父450468各Unlock一次，显式叶32位段只由父45043
 [BPF01具体SPEC](cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision)/[完整原证据](cg2d_palette_age_normal_counter_evidence.json)：只Age44E230一个计数表达式恢复正常S32 count+1，撤U32模回绕/双bit_cast并退休仅此用途bit头。原104项扫描、负图号跳过、计数>=1回收、清DX palette/图号-1/当前池计数与尾重读阶段保持，正常可计算值不变，不增加清表、释放或保护。
 
 原根21条86B/一页3内跳1ret、唯一普通点521428/父520DD0和11条40B公共尾窗口纳盘；窗口COM+18H不当绝对callee。既有1204/原equivalent处置与两域成员续记不重造。语义1422条/1417原ID、关联1535/3680（41.71%）、分类543、RENDER52/RESOURCE41枚举未闭保持；E699→703仅两域各I/S四条正常局部证据。60任务源码closed10/完整验收0、叶验收0/global_accepted=false及所有完整门禁保持。 全部其它源头与获批CPU机制边界保持，正常alias-owner/寿命、完整父/上游与SDK-ABI/链接/像素运行仍待；未构建/测试/运行/摘要。
+
+## BUY01 变换与场景清理的当前可追踪基线（2026-10-08）
+
+[本步完整基线](cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-baseline)、[保留裁决](cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision)与[结构化证据](cg2d_surface_transform_cache_baseline_evidence.json)纳管1747/F:0004CD80、1748/F:0004D490两已有正确根/adapted。原526条1769B/八页、22direct/八indirect/30跳转/11返回，四引用四父；两绘制原窗50条159B复用BUX01，两场景新窗22条93B，尾两23B实际NN_NOP用途。
+
+正确原空源/命中空值/失败回退、right/bottom循环/负left/top不参与行偏移/低W8翻转及水平条件、fresh键和场景写读返回保持；清理只当前一树，release→清值→erase，void残留不消费已有局部证据。源码改动0，无新I，三域仅S；既有T*完整地址/host私有树/SDK边界保，完整所有父/callee、alias寿命与像素/ABI/运行未验。
+
+### BUY01 当前基线限定静态结果
+
+集中静态已通过：两完整根526条1769B/八页、四局部72条252B（两绘制窗准确复用BUX01）/两23B用途，两正确正文及六相关生产/构析源与HEAD保持；完整语义/登记簿和派生快照只有具名模型差异，七对应文档/四任务和十四文件UTF8无BOM/LF、四锚点/三限定S各25真实来源通过。源码/头文件改动0、无新I。
+
+文本汇总与Check均退出0；实际语义1749/有效1742、合同1860（50.54%）、F890/E1046、R7已审452余2609、LOOP162/RENDER63/RESOURCE43。旧未接线误述已纠正；pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU错误通过仍fail。完整所有父/callee、owner/alias寿命、机器ABI/链接/像素/运行与R8未验，整体目标继续。

@@ -195255,6 +195255,334 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x51D640",
+      "inventory_id": "F:0011D640",
+      "original_role": "原场景9投影/地图重绘与Back-Temp快照父",
+      "original_end_exclusive": "0x51d6e3",
+      "original_chunks": [
+        {
+          "start": "0x51d640",
+          "end_exclusive": "0x51d6e3"
+        }
+      ],
+      "instruction_count": 40,
+      "status": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51D640"
+          ],
+          "relationship": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "boundary": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。",
+      "verification_level": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "renderer_rebuild_baseline": {
+        "spec_id": "BUS01",
+        "evidence_refs": [
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+          "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 40,
+        "original_code_bytes": 163,
+        "original_page_count": 1,
+        "original_direct_call_count": 7,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 2,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_count": 0,
+        "original_all_four_correct_bodies_kept": true,
+        "original_six_W32_cache_clear_and_zero_return_kept": true,
+        "original_current_W32_background_back_fill_in_approved_DX_boundary_kept": true,
+        "original_two_counter_widths_byte_restore_mode_and_independent_tick_kept": true,
+        "original_low_S8_initial_cases_retry_low_BYTE_failure_and_continue_kept": true,
+        "original_scene10_saved_mode_scene9_fixed_mode_and_common_cleanup_kept": true,
+        "original_two_loaded_message_literals_kept": true,
+        "seven_rebuild_local_call_sites_do_not_consume_tick_return": true,
+        "source_all_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 28,
+        "original_nop_tail_bytes": 53,
+        "original_local_caller_window_count": 9,
+        "original_all_inbound_reference_count": 50,
+        "original_all_inbound_parent_count": 18,
+        "all_50_inbound_parents_verified": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x456D30",
+      "inventory_id": "F:00056D30",
+      "original_role": "原六连续W32图形尾槽归零与零返回",
+      "original_end_exclusive": "0x456d41",
+      "original_chunks": [
+        {
+          "start": "0x456d30",
+          "end_exclusive": "0x456d41"
+        }
+      ],
+      "instruction_count": 7,
+      "status": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "sources": [
+        {
+          "path": "src/render/GraphicCacheState.cpp",
+          "symbols": [
+            "ResetGraphicCache_456D30"
+          ],
+          "relationship": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "boundary": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。",
+      "verification_level": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "renderer_rebuild_baseline": {
+        "spec_id": "BUS01",
+        "evidence_refs": [
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+          "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 7,
+        "original_code_bytes": 17,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 18,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_count": 0,
+        "original_all_four_correct_bodies_kept": true,
+        "original_six_W32_cache_clear_and_zero_return_kept": true,
+        "original_current_W32_background_back_fill_in_approved_DX_boundary_kept": true,
+        "original_two_counter_widths_byte_restore_mode_and_independent_tick_kept": true,
+        "original_low_S8_initial_cases_retry_low_BYTE_failure_and_continue_kept": true,
+        "original_scene10_saved_mode_scene9_fixed_mode_and_common_cleanup_kept": true,
+        "original_two_loaded_message_literals_kept": true,
+        "seven_rebuild_local_call_sites_do_not_consume_tick_return": true,
+        "source_all_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 28,
+        "original_nop_tail_bytes": 53,
+        "original_local_caller_window_count": 9,
+        "original_all_inbound_reference_count": 50,
+        "original_all_inbound_parent_count": 18,
+        "all_50_inbound_parents_verified": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4512C0",
+      "inventory_id": "F:000512C0",
+      "original_role": "原当前背景色W32填Back整面的获批CPU承接",
+      "original_end_exclusive": "0x451306",
+      "original_chunks": [
+        {
+          "start": "0x4512c0",
+          "end_exclusive": "0x451306"
+        }
+      ],
+      "instruction_count": 23,
+      "status": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "sources": [
+        {
+          "path": "src/render/SurfaceState.cpp",
+          "symbols": [
+            "ClearSurface_4512C0"
+          ],
+          "relationship": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "boundary": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。",
+      "verification_level": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "renderer_rebuild_baseline": {
+        "spec_id": "BUS01",
+        "evidence_refs": [
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+          "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 23,
+        "original_code_bytes": 70,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 23,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_count": 0,
+        "original_all_four_correct_bodies_kept": true,
+        "original_six_W32_cache_clear_and_zero_return_kept": true,
+        "original_current_W32_background_back_fill_in_approved_DX_boundary_kept": true,
+        "original_two_counter_widths_byte_restore_mode_and_independent_tick_kept": true,
+        "original_low_S8_initial_cases_retry_low_BYTE_failure_and_continue_kept": true,
+        "original_scene10_saved_mode_scene9_fixed_mode_and_common_cleanup_kept": true,
+        "original_two_loaded_message_literals_kept": true,
+        "seven_rebuild_local_call_sites_do_not_consume_tick_return": true,
+        "source_all_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 28,
+        "original_nop_tail_bytes": 53,
+        "original_local_caller_window_count": 9,
+        "original_all_inbound_reference_count": 50,
+        "original_all_inbound_parent_count": 18,
+        "all_50_inbound_parents_verified": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x466B80",
+      "inventory_id": "F:00066B80",
+      "original_role": "真实渲染重建/低字节重试/场景9与10重绘和公共清理父",
+      "original_end_exclusive": "0x466d41",
+      "original_chunks": [
+        {
+          "start": "0x466b80",
+          "end_exclusive": "0x466d41"
+        }
+      ],
+      "instruction_count": 130,
+      "status": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "sources": [
+        {
+          "path": "src/platform/RendererRebuild.cpp",
+          "symbols": [
+            "RebuildRenderer_466B80"
+          ],
+          "relationship": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "boundary": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。",
+      "verification_level": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "renderer_rebuild_baseline": {
+        "spec_id": "BUS01",
+        "evidence_refs": [
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+          "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+          "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 130,
+        "original_code_bytes": 449,
+        "original_page_count": 2,
+        "original_direct_call_count": 16,
+        "original_indirect_call_count": 8,
+        "original_jump_count": 10,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 7,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_count": 0,
+        "original_all_four_correct_bodies_kept": true,
+        "original_six_W32_cache_clear_and_zero_return_kept": true,
+        "original_current_W32_background_back_fill_in_approved_DX_boundary_kept": true,
+        "original_two_counter_widths_byte_restore_mode_and_independent_tick_kept": true,
+        "original_low_S8_initial_cases_retry_low_BYTE_failure_and_continue_kept": true,
+        "original_scene10_saved_mode_scene9_fixed_mode_and_common_cleanup_kept": true,
+        "original_two_loaded_message_literals_kept": true,
+        "seven_rebuild_local_call_sites_do_not_consume_tick_return": true,
+        "source_all_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 28,
+        "original_nop_tail_bytes": 53,
+        "original_local_caller_window_count": 9,
+        "original_all_inbound_reference_count": 50,
+        "original_all_inbound_parent_count": 18,
+        "all_50_inbound_parents_verified": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

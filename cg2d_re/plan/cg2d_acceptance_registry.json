@@ -635,7 +635,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -768,7 +769,11 @@
         "F:00068C00",
         "F:00068F70",
         "F:00068FF0",
-        "F:00069030"
+        "F:00069030",
+        "F:0011D640",
+        "F:00056D30",
+        "F:000512C0",
+        "F:00066B80"
       ],
       "closure_task_ids": [
         "U11",
@@ -833,7 +838,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -889,7 +895,8 @@
         "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
         "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
         "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
-        "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验"
+        "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -946,7 +953,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
       ]
     },
     {
@@ -1730,7 +1738,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1858,7 +1867,9 @@
         "F:00068C00",
         "F:00068F70",
         "F:00068FF0",
-        "F:00069030"
+        "F:00069030",
+        "F:0011D640",
+        "F:00066B80"
       ],
       "closure_task_ids": [
         "U11",
@@ -1919,7 +1930,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1971,7 +1983,8 @@
         "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
         "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
         "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
-        "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验"
+        "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2024,7 +2037,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
       ]
     },
     {
@@ -2257,7 +2271,8 @@
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-baseline",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-baseline",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
-        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline"
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -2312,7 +2327,11 @@
         "F:00120930",
         "F:001219C0",
         "F:00121F20",
-        "F:00107140"
+        "F:00107140",
+        "F:0011D640",
+        "F:00056D30",
+        "F:000512C0",
+        "F:00066B80"
       ],
       "closure_task_ids": [
         "C09",
@@ -2353,7 +2372,8 @@
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-decision",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
-        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision"
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -2383,7 +2403,8 @@
         "BPB01五真实波纹根160条537B六页/旧6续记与四新1414-1417；原完整8行提交/矩形-相位发布与正常S32实修，四正确依赖/既有CPU复制provider保持，五成员RENDER51枚举open。完整父-callee/正常alias/Back-Temp及其它资源-owner/场景失效退出/SDK-机器浮点ABI与像素、R1/R7/R8仍待",
         "BPC01真正角色521F20新机器1418/完整160条595B两页18点3父只纳盘；实际两游标/两计数/四W32及各U8颜色flags、mix-clip-image正常阶段实修。RENDER52/YOBI56枚举open，完整上游/原全部父-callee-正常alias/action-队列-图形-纹理-owner/场景失效退出/SDK-机器FP ABI与像素及R1/R7/R8待",
         "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待",
-        "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待"
+        "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待",
+        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2414,7 +2435,8 @@
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
         "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
-        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
       ]
     },
     {
@@ -2955,7 +2977,8 @@
         "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-baseline",
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
-        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline"
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -3219,7 +3242,8 @@
         "F:0011BE20",
         "F:0011BE30",
         "F:0011BE40",
-        "F:0011BEE0"
+        "F:0011BEE0",
+        "F:00066B80"
       ],
       "closure_task_ids": [
         "P01",
@@ -3342,7 +3366,8 @@
         "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-decision",
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
-        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision"
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -3454,7 +3479,8 @@
         "BQV01四完整287条872B/六页，16directcall两callee/36jump十二RET、46真实代码入向/16父只登记；两consumer体四片段恢复两个BYTE桥调用与图号W32→DX表T*→hoverImage/动作字段→同表height/width低S16，共用低BYTE桥一处实修、render三小桥/opaque声明仅已证非拥有T*不造新原F，原flags/坐标W32/尺寸W16及旧DX接口保。原四排20项/40-80-100-200优先/配对纵邻-右邻-左邻、两十位或全体排除自身与position/+20/40-41/42/-1、矩形lowW16/层206/heldimage/0保持；两正确Reset9/五宠used严格1且flags6AA严格2体纳管不改。四X共40B全90/NOPdecode/逐byte无入向、前RET后函数填充用途mapped，R7 269余2792；246成员open，完整targetFlags/技能-pet生产、43CBB0等上游/其它父/全部owner及窗口寿命/SDK/机器ABI/运行/R8未验，原协议明文与音频/执行限制保",
         "BQW01四完整164条542B/五页，7CALL=6direct四callee+1GetTickCount IAT/16jump八RET、五入向四父；两体三片段恢复live endBits W32→S32 SAR低1和C/M各word-copy→held next→tail-copy→CMP4谓词→pub/可选0，正常结果/共享W32及原20槽四1000H槽保。正确初始化30秒/计数/clear-发布/显示/活宠-last门禁与clear W32 AND~40体不改，P六%X/A双%X原text+2/24B格式和真实输出地址、scan返回弃置及partial失败后续、pending严格1的held turn→pending0→snapshot→结束位发布、C-P-A优先于第二BYTE U且U优先M/原首参未使用和全部return保。四X18B NOP全字节/逐byte无入向/前RET后真入口用途mapped，R7 273余2788；250成员open，BMF01既有43CBB0完整十状态正常源静态与三域局部I-S继承不复检，完整512E40分派/全技能-pet生产/全部owner及窗口寿命/SDK/ABI/画面运行/R8未验，原协议明文及音频/执行限制保",
         "BQX01三完整323条1177B/六页、34directcall十九callee/24jump五RET无switch，三真实入向同512E40只局部绑定。两主根11片段恢复四数值载体mask-encoded-W8 count读齐再pub/非正type count先独立序，四construct-destroy/RNG保；type2及非2 type3谓词先pub、两field首parser前递增/低S16-S32 pub后判持有返回值，原负值零写/姓名<=28或只首BYTE清保。既有ReadPlayerFlags18A改同private owner一次4B跨字段观察、offsetof adjacency assert与注释，原W16 flags18A/W32 flags18C不扩/旧caller不改。原4结果/3图名/15技能与8B/29B、三2048B未清buffer/2047容量/comma-bar/Base62/两Unescape链和解析返弃、旧格式明文/各种失败及清理保持。正确W16 sZWu三指令叶及caller覆盖EAX有据，原53BDC0栈探测只元信息，音频暂停，不据本步验callee或ABI。真实两X4/3B共7B全NOP无入向/前RET后入口用途mapped，R7 275余2786；253成员open，全部owner/窗口寿命/全生产/其它resultconsumer/完整512E40分派/CRT-SDK-ABI/画面运行/R8未验",
-        "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。"
+        "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
+        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3566,7 +3592,8 @@
         "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
-        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state"
+        "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
       ]
     },
     {
@@ -44638,6 +44665,194 @@
       "observation": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
       "expected": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
       "actual": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验"
+    },
+    {
+      "id": "E-RENDERER-REBUILD-BASELINE-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUS01四正确原根200条699B/五页，23directcall/11indirectcall/十jump/四RET，低S8重试/场景10-9分发/两计数/标记模式时钟及原28B消息/九后窗/四53B用途，代码保持仅本域S，doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-renderer-rebuild-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json",
+        "src/world/SceneState.cpp#Sub_51D640",
+        "src/platform/RendererRebuild.cpp#RebuildRenderer_466B80",
+        "src/render/GraphicCacheState.cpp#ResetGraphicCache_456D30",
+        "src/render/SurfaceState.cpp#ClearSurface_4512C0",
+        "src/render/SurfaceState.cpp#CopyBackToTemp",
+        "src/render/GraphicPendingQueue.cpp#SortTextures_520790",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "src/render/RendererResources.cpp#GetRendererPalette",
+        "src/render/RendererResources.cpp#SetPaletteEntries",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoopDependencies.hpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/WindowProcedure.cpp",
+        "src/render/GraphicCacheState.cpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+          "decision_ref": "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "expected": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "actual": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
+    },
+    {
+      "id": "E-RENDERER-REBUILD-BASELINE-FUNC-MAP-S-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUS01四正确原根200条699B/五页，23directcall/11indirectcall/十jump/四RET，低S8重试/场景10-9分发/两计数/标记模式时钟及原28B消息/九后窗/四53B用途，代码保持仅本域S，doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-renderer-rebuild-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json",
+        "src/world/SceneState.cpp#Sub_51D640",
+        "src/platform/RendererRebuild.cpp#RebuildRenderer_466B80",
+        "src/render/GraphicCacheState.cpp#ResetGraphicCache_456D30",
+        "src/render/SurfaceState.cpp#ClearSurface_4512C0",
+        "src/render/SurfaceState.cpp#CopyBackToTemp",
+        "src/render/GraphicPendingQueue.cpp#SortTextures_520790",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "src/render/RendererResources.cpp#GetRendererPalette",
+        "src/render/RendererResources.cpp#SetPaletteEntries",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoopDependencies.hpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/WindowProcedure.cpp",
+        "src/render/GraphicCacheState.cpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+          "decision_ref": "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "expected": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "actual": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
+    },
+    {
+      "id": "E-RENDERER-REBUILD-BASELINE-FUNC-RENDER-S-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUS01四正确原根200条699B/五页，23directcall/11indirectcall/十jump/四RET，低S8重试/场景10-9分发/两计数/标记模式时钟及原28B消息/九后窗/四53B用途，代码保持仅本域S，doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-renderer-rebuild-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json",
+        "src/world/SceneState.cpp#Sub_51D640",
+        "src/platform/RendererRebuild.cpp#RebuildRenderer_466B80",
+        "src/render/GraphicCacheState.cpp#ResetGraphicCache_456D30",
+        "src/render/SurfaceState.cpp#ClearSurface_4512C0",
+        "src/render/SurfaceState.cpp#CopyBackToTemp",
+        "src/render/GraphicPendingQueue.cpp#SortTextures_520790",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "src/render/RendererResources.cpp#GetRendererPalette",
+        "src/render/RendererResources.cpp#SetPaletteEntries",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoopDependencies.hpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/WindowProcedure.cpp",
+        "src/render/GraphicCacheState.cpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+          "decision_ref": "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "expected": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "actual": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
+    },
+    {
+      "id": "E-RENDERER-REBUILD-BASELINE-FUNC-BATTLE-S-20261008",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUS01四正确原根200条699B/五页，23directcall/11indirectcall/十jump/四RET，低S8重试/场景10-9分发/两计数/标记模式时钟及原28B消息/九后窗/四53B用途，代码保持仅本域S，doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-renderer-rebuild-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json",
+        "src/world/SceneState.cpp#Sub_51D640",
+        "src/platform/RendererRebuild.cpp#RebuildRenderer_466B80",
+        "src/render/GraphicCacheState.cpp#ResetGraphicCache_456D30",
+        "src/render/SurfaceState.cpp#ClearSurface_4512C0",
+        "src/render/SurfaceState.cpp#CopyBackToTemp",
+        "src/render/GraphicPendingQueue.cpp#SortTextures_520790",
+        "src/render/DrawAllQueued.cpp#DrawAllQueued_520DD0",
+        "src/render/RendererResources.cpp#GetRendererPalette",
+        "src/render/RendererResources.cpp#SetPaletteEntries",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoopDependencies.hpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/WindowProcedure.cpp",
+        "src/render/GraphicCacheState.cpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+          "decision_ref": "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "expected": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+      "actual": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
     }
   ],
   "task_acceptance": [
@@ -45137,7 +45352,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
       ]
     },
     {
@@ -45778,7 +45994,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
       ]
     },
     {
@@ -45946,7 +46163,8 @@
         "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
-        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state"
+        "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
       ]
     },
     {
@@ -46322,7 +46540,8 @@
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
-        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
       ]
     },
     {
@@ -56365,6 +56584,58 @@
         "doc/cg2d_map_projection_cache_sampling_evidence.json"
       ],
       "boundary": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:0011D640",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "boundary": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。"
+    },
+    {
+      "inventory_id": "F:00056D30",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "boundary": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。"
+    },
+    {
+      "inventory_id": "F:000512C0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "boundary": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。"
+    },
+    {
+      "inventory_id": "F:00066B80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "boundary": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验。51D640投影→两计数清→CacheReset→地图重绘→排序→清屏，BYTE局部取清/queueMode0/DrawQueue/恢复BYTE后CopyBackToTemp，固定queueMode1再两计数清/CacheReset/独立U32 tick零扩为double并返同样本，正确保持；原Temp/renderer/vtable取样属已批准DX替换内部，CPU owner与Back到Temp方向/整面无色键拷贝/高层标记时点保持，不暴露SDK类型或造新资源。456D30六连续W32归零/返0、4512C0原当前背景W32与Back整面填色保持，不重建DD原HRESULT/COM结构。466B80低S8初始1/2/其他，2翻windowMode为旧值!=1后重试，低BYTE非零仅原消息和WM_CLOSE并继续；InitPalette为0单独Post(104,0D,0)。场景10恢复入口模式并独立tick、9调用51D640/其固定1，末fresh palette/当前mode门禁、独立palette释放→初始化、两鼠标W32清及另取tick；七原重建局部点弃用返回，void动作视图不扩全窗口父/外部ABI。50入向来自18父只身份/九局部；原message/title各23/5B，不猜编码/改文本。LOOP四/RENDER四/MAP两/BATTLE重建一成员，仅四S各25来源，正确代码不为纳管造修改。网络原格式明文/两加解密叶排除、音频暂停/RPLAN.24及未运行范围持续。"
     }
   ],
   "auxiliary_dispositions": [
@@ -77098,6 +77369,502 @@
         },
         {
           "ea": "0x4691cf",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:00051306-00051310",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "reason": "BUS01四完整原根尾合53B实际NN_NOP/90，此区10B无入向/后真入口，仅对齐用途，不新增函数或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 10,
+      "original_bytes": "90909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x451306",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x451307",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x451308",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x451309",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x45130a",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x45130b",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x45130c",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x45130d",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x45130e",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x45130f",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:00056D41-00056D50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "reason": "BUS01四完整原根尾合53B实际NN_NOP/90，此区15B无入向/后真入口，仅对齐用途，不新增函数或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 15,
+      "original_bytes": "909090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x456d41",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d42",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d43",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d44",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d45",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d46",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d47",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d48",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d49",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d4a",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d4b",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d4c",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d4d",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d4e",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x456d4f",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:00066D41-00066D50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "reason": "BUS01四完整原根尾合53B实际NN_NOP/90，此区15B无入向/后真入口，仅对齐用途，不新增函数或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 15,
+      "original_bytes": "909090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x466d41",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d42",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d43",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d44",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d45",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d46",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d47",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d48",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d49",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d4a",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d4b",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d4c",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d4d",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d4e",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x466d4f",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:0011D6E3-0011D6F0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance",
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_renderer_rebuild_baseline_evidence.json"
+      ],
+      "reason": "BUS01四完整原根尾合53B实际NN_NOP/90，此区13B无入向/后真入口，仅对齐用途，不新增函数或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 13,
+      "original_bytes": "90909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51d6e3",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6e4",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6e5",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6e6",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6e7",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6e8",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6e9",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6ea",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6eb",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6ec",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6ed",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6ee",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x51d6ef",
           "size": 1,
           "bytes": "90",
           "text": "align 10h",

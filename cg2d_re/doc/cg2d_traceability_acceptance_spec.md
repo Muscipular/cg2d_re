@@ -1726,3 +1726,13 @@ LOOP127→131/MAP122→126，两I两S各25来源，网络成员61/源码和明�
 ### BUR01 本步实际结果
 
 必要静态通过：四完整原根178条620B/五页、六局部后窗/半值8B/hit父局部/四尾36B，源码全文仅重绘初始坐标一片段、两机器台账和五文档/四任务完整模型核定；四锚点/25来源及UTF-8无BOM/LF通过。文本汇总与-Check通过，完整派生快照其余对象保持：语义1719/有效1712、文档1830（49.73%）、处置860/E1014、R7已审425/余2636，LOOP131/MAP126、NETWORK61保持。两I两S仅本片段开发/静态，四任务open、完整叶验收0、整体未验收；三个正确叶和既有I/O/渲染/网络全文保，未编译、测试或运行，不代全部父/callee、x87/ABI、寿命/文件/像素/明文互通及R8。命名快照cg2d-re-map-projection-cache-sampling-20261008，整体目标active。
+
+## BUS01 正确渲染重建链基线与分类验收（2026-10-08）
+
+[基线](cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline)、[边界](cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision)、[验收](cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-acceptance)与[证据](cg2d_renderer_rebuild_baseline_evidence.json)固定四完整正确根200条699B/五页、原消息28B/九局部窗/四尾53B。代码/声明改动0，四源码全文保留，不把原函数本已实现的事实或本步基线补齐登记成新增I成果。
+
+LOOP131→135/RENDER53→57/MAP126→128/BATTLE262→263，各S一个/25来源；两父实际场景9地图职责与重建场景10战斗职责有据，其他原成员和完整门禁不改。U10/G02/R04/V04只current/引用、各open；原closed11/差队列及完整B-I-W-S-R门禁保持，正常生产消费/全父-callee/资源寿命/业务失败/ABI/链接/像素/文件/明文互通与R8仍未验，不扩DX已批豁免。
+
+### BUS01 本步实际结果
+
+必要静态通过：四完整原根200条699B/五页、九局部后窗/28B原消息/四尾53B，四正确正文与四cpp/声明/提供者完整保持，两机器台账及五文档/四任务完整模型核定；四锚点/25来源及UTF-8无BOM/LF通过。派生核对模型按汇总器既有成员排序规范对齐，成员集合和数量未改，完整快照其余对象保持。文本汇总与-Check通过：语义1723/有效1716、文档1834（49.84%）、处置864/E1018、R7已审429/余2632，LOOP135/MAP128/RENDER57/BATTLE263，NETWORK61保持。代码改动/新增实现0，四域只S、无I；四任务open、完整叶验收0、整体未验收。未编译、测试或运行，不代全父/callee、资源寿命/业务失败/机器ABI、链接/像素/文件/明文互通及R8。命名快照cg2d-re-renderer-rebuild-baseline-20261008，整体目标active。

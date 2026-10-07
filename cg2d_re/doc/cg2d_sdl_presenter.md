@@ -2000,3 +2000,15 @@ FadeIn还有最终直接调用。上述是源码/指定接线静态，完整父/
 旧机器6全文档案保留续记，四新1414–1417对应已存在原身份；语义1414→1418/有效ID1409→1413、关联1527→1531（41.49%→41.60%）、分类534→539、RENDER46→51枚举open，十独立正常局部static I/S E675→685。前四冻定位各1/私有差分helper0不刷新；RESOURCE41/AUDIO32暂停、pending18、队列175/需核46/暂停25、R7区间67/3061与其它门禁保持，八open含G04只进展/引用；60源码closed10/完整验收0、accepted_leaf_features=0/global_accepted=false保。
 
 源码仅一个521870完整正文、algorithm include退休与头单注释，四正确helper/表/其他正文和SurfaceState所有provider、真实父/公开接口/布局/owner保持。无预裁剪/部分条带、continue或新拒绝/补零/保护/钳制，旧BlitTempToBack接受限制不扩大；不做异常回绕/故障等价或浮点环境专项模拟。完整父/所有callee-正常alias/Back-Temp及其它资源-owner/场景-失效-退出、SDK-机器浮点ABI与全模式像素未验，未构建/测试/运行/hash。网络原格式只明文、内存CryptInt保持、音频暂停，整体SPEC继续。
+
+## 渲染重建与场景快照正式追踪基线（BUS01，2026-10-08）
+
+[本步基线](cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline)与[裁决](cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision)固定466B80完整130条449B/两页及51D640完整40条163B、六槽复位7条17B、清屏23条70B，合200条699B/五页。四正确正文/四cpp与所有调用声明保持，代码改动/新增实现0，不新增I成果。50原引用来自18父，仅身份/九局部后窗与原消息28B、四尾53B用途。
+
+低S8初次1/2/其他、翻模式重试低BYTE非零/原提示及继续执行，调色板失败单独Post(104,0D,0)，场景10保存模式恢复/9固定1，以及公共palette重建/鼠标W32清/独立tick顺序正确。七原重建局部点不消费最后tick，现void动作视图保；场景9 U32 tick返回继续原值。源PaletteBinding/CPU Back-Temp和32位整面填色沿既有DX原生替换，不为原SDK vtable/HRESULT/内部句柄取样造新上层接口；高层字段、方向/颜色/像素、调用与owner寿命仍适用。
+
+本页旧“后者所属绘制父未实现/DrawAllQueued与地图依赖缺”保历史：当前正常场景1580/投影1716/重绘1718、排序1197和队列1201有真实源码，本步只核此调用链，不重新计量或证明所有背景写者/资源来源。LOOP/RENDER/MAP/BATTLE仅四S；完整SDK外业务失败、所有提供者/资源寿命、像素/链接/运行继续，网络及音频限制保持。
+
+### BUS01 本步实际结果
+
+必要静态通过：四完整原根200条699B/五页、九局部后窗/28B原消息/四尾53B，四正确正文与四cpp/声明/提供者完整保持，两机器台账及五文档/四任务完整模型核定；四锚点/25来源及UTF-8无BOM/LF通过。派生核对模型按汇总器既有成员排序规范对齐，成员集合和数量未改，完整快照其余对象保持。文本汇总与-Check通过：语义1723/有效1716、文档1834（49.84%）、处置864/E1018、R7已审429/余2632，LOOP135/MAP128/RENDER57/BATTLE263，NETWORK61保持。代码改动/新增实现0，四域只S、无I；四任务open、完整叶验收0、整体未验收。未编译、测试或运行，不代全父/callee、资源寿命/业务失败/机器ABI、链接/像素/文件/明文互通及R8。命名快照cg2d-re-renderer-rebuild-baseline-20261008，整体目标active。

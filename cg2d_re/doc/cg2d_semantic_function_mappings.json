@@ -194856,6 +194856,89 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x509100",
+      "inventory_id": "F:00109100",
+      "original_role": "原aBS地图增量三平面载荷解析/共享帧消费/地图状态更新",
+      "original_end_exclusive": "0x5093b6",
+      "original_chunks": [
+        {
+          "start": "0x509100",
+          "end_exclusive": "0x5093b6"
+        }
+      ],
+      "instruction_count": 197,
+      "status": "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_509100"
+          ],
+          "relationship": "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验。原52CED0九调用与52D050六调用分别按三段初取、首项/续项解析消费；不新增字段、容量、编码、计数上限或业务保护，首socket原未消费。整帧外异常按RPLAN.24不专项处理，不称宿主越界或x86故障已解决/等价；正常帧内相邻区覆盖与原WORD位型继续承接。早期Scene第111节具名整帧零初始化只定义未写局部，仍披露差异；其旧异常返-1/额外WORD和未接线时态由本步覆盖。当前NetworkDispatch512E40/模板1216真实绑定六I一T，第七字段反转义后capacity→workspace基址→slot读取/复制，原八实参交509100后xor EAX0返回；全文网络/声明/提供者不改。LOOP/MAP/NETWORK各增一成员与一I一S，不关闭完整功能门禁，网络原格式仅明文/两加解密叶排除、内部LegacyCryptInt与音频暂停保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-acceptance",
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
+        "doc/cg2d_map_incremental_reply_sampling_evidence.json"
+      ],
+      "boundary": "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验。原52CED0九调用与52D050六调用分别按三段初取、首项/续项解析消费；不新增字段、容量、编码、计数上限或业务保护，首socket原未消费。整帧外异常按RPLAN.24不专项处理，不称宿主越界或x86故障已解决/等价；正常帧内相邻区覆盖与原WORD位型继续承接。早期Scene第111节具名整帧零初始化只定义未写局部，仍披露差异；其旧异常返-1/额外WORD和未接线时态由本步覆盖。当前NetworkDispatch512E40/模板1216真实绑定六I一T，第七字段反转义后capacity→workspace基址→slot读取/复制，原八实参交509100后xor EAX0返回；全文网络/声明/提供者不改。LOOP/MAP/NETWORK各增一成员与一I一S，不关闭完整功能门禁，网络原格式仅明文/两加解密叶排除、内部LegacyCryptInt与音频暂停保持。",
+      "verification_level": "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
+      "map_incremental_reply_sampling": {
+        "spec_id": "BUQ01",
+        "evidence_refs": [
+          "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
+          "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
+          "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-acceptance",
+          "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
+          "doc/cg2d_map_incremental_reply_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 197,
+        "original_code_bytes": 694,
+        "original_page_count": 3,
+        "original_direct_call_count": 22,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 14,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 4,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_gate_one_read_and_held_W32_return_restored": true,
+        "original_byte_flags_then_map_id_sampling_and_byte_publish_restored": true,
+        "old_whole_frame_rejection_and_extra_zero_WORD_removed": true,
+        "existing_continuous_seven_segments_and_zero_initialization_adaptation_kept": true,
+        "original_plane_parse_and_terminal_round_WORD_writes_kept": true,
+        "original_file_update_reset_coordinate_reads_state_returns_kept": true,
+        "source_original_aBS_template_six_integers_one_text_and_slot_read_order_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 4,
+        "original_nop_tail_bytes": 10,
+        "original_local_caller_window_count": 0,
+        "original_dispatch_local_instruction_count": 85,
+        "original_frame_size": 66964,
+        "source_frame_size": 66964,
+        "source_extra_zero_WORD_count": 0,
+        "existing_frame_zero_initialization_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -1706,3 +1706,13 @@ LOOP124→126/MAP119→121/NETWORK59→60，两I仅LOOP/MAP实修，S三域各25
 ### BUP01 本步实际结果
 
 本步必要静态通过：源码全文仅两取样片段、原两完整根/jmb局部接线/六后窗/两尾、两机器台账及五文档/四任务完整模型均核定；25来源/四锚点和UTF-8无BOM/LF通过。文本汇总与-Check通过，完整派生快照保持其余对象：语义1714/有效1707、文档1825（49.59%）、处置855/E1004、R7已审420/余2641，LOOP126/MAP121/NETWORK60。两I三S均仅本步静态范围，四任务仍open，完整叶验收0、整体未验收；未编译、测试或运行，不以静态替代完整互通、寿命及R8。提交固定命名快照cg2d-re-map-reply-reset-sampling-20261008，整体目标active。
+
+## BUQ01 原增量载荷消费开发验收（2026-10-08）
+
+[基线](cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline)、[裁决](cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision)、[验收](cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-acceptance)与[证据](cg2d_map_incremental_reply_sampling_evidence.json)覆盖完整原根197条694B/三页、aBS85条分发局部/4B字串及10B尾用途。仅一cpp四片段实修，既有正常帧初始化差异保持，旧异常-1/额外WORD按现RPLAN.24撤销；不记故障等价或代正常布局/失败/生命周期验收。
+
+LOOP126→127/MAP121→122/NETWORK60→61，三I三S各25来源，全部仅此根正常源码/静态范围。U10/G02/R04/V03只current/引用、各open；成员全集、完整正常生产消费/owner-alias寿命/全父-callee/ABI/数值/文件运行/像素/链接/明文互通与R8未验，原差队列/closed11/完整门禁和用户执行限制保持。
+
+### BUQ01 本步实际结果
+
+本步必要静态通过：完整原根197条/三页、aBS局部85条/字串/七段布局/10B用途，源码全文仅四片段、两机器台账及五文档/四任务完整模型均核定；四锚点/25来源和UTF-8无BOM/LF通过。文本汇总与-Check通过，完整派生快照其余对象保持：语义1715/有效1708、文档1826（49.62%）、处置856/E1010、R7已审421/余2640，LOOP127/MAP122/NETWORK61。三I三S均仅此根实际开发/静态，四任务open、完整叶验收0、整体未验收。旧异常-1/额外WORD已撤，既有帧零初始化适配保留并披露，不记故障等价PASS。未编译、测试或运行，不代完整寿命/文件运行/互通及R8。命名快照cg2d-re-map-incremental-reply-sampling-20261008，整体目标active。

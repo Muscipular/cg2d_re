@@ -6342,8 +6342,10 @@ std::int32_t __cdecl Sub_509100(
     const std::int32_t yStart, const std::int32_t xEnd,
     const std::int32_t yEnd, const char* const payload)
 {
-    if (gValue9A6E0C != 0) {
-        return std::bit_cast<std::int32_t>(gValue9A6E0C);
+    // 原入口只采一次 W32 门禁，非零时透传该样本。
+    const std::uint32_t gate = gValue9A6E0C;
+    if (gate != 0) {
+        return std::bit_cast<std::int32_t>(gate);
     }
 
     constexpr std::size_t frameBytes = 0x10594;
@@ -6354,8 +6356,8 @@ std::int32_t __cdecl Sub_509100(
     constexpr std::size_t hitOffset = 0xAE84;
     constexpr std::size_t hitTextOffset = 0xBE84;
     static_assert(std::endian::native == std::endian::little);
-    // 末尾的零 WORD 只为越帧的异常文本扫描提供终止字节。
-    std::array<std::uint16_t, frameBytes / 2 + 1> frame {};
+    // 原连续帧七段共用存储；仅保留既有整帧零初始化适配。
+    std::array<std::uint16_t, frameBytes / 2> frame {};
     char* const bytes = reinterpret_cast<char*>(frame.data());
     std::uint16_t* const tile = frame.data() + tileOffset / 2;
     std::uint16_t* const obj = frame.data() + objOffset / 2;
@@ -6387,10 +6389,6 @@ std::int32_t __cdecl Sub_509100(
         std::int32_t ordinal = 2;
         std::int32_t status;
         do {
-            // 第三段的末尾是整帧边界；越过它不模拟原 x86 栈外写。
-            if (item >= (frameBytes - hitOffset) / 2) {
-                return -1;
-            }
             status = network::ExtractDelimitedField_52CED0(
                 tileText, ',', ordinal, 99, field);
             tile[item] = static_cast<std::uint16_t>(
@@ -6415,9 +6413,12 @@ std::int32_t __cdecl Sub_509100(
         Sub_4691D0();
         gValueC82208 = 0;
     }
-    gValue9A4B94 &= 0xFEu;
+    // 原先取 BYTE 标记和当前地图号，再发布清位后的同一样本。
+    const std::uint8_t replyFlags = gValue9A4B94;
+    const std::int32_t currentMapId = std::bit_cast<std::int32_t>(gValue9A86DC);
+    gValue9A4B94 = static_cast<std::uint8_t>(replyFlags & 0xFEu);
 
-    if (std::bit_cast<std::int32_t>(gValue9A86DC) == mapId
+    if (currentMapId == mapId
         && gMapFloor == floor
         && platform::legacy_crypt_int::Subtract_401E60(&gPlayerX, 10) <= xStart
         && xEnd <= platform::legacy_crypt_int::Add_401E10(&gPlayerX, 10)

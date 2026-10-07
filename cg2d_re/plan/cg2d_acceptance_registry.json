@@ -801,7 +801,8 @@
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-baseline",
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-baseline",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline",
-        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline"
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -818,7 +819,9 @@
         "F:00103990",
         "F:00103A20",
         "F:00062090",
-        "F:0005E7D0"
+        "F:0005E7D0",
+        "F:00062870",
+        "F:00062880"
       ],
       "closure_task_ids": [
         "P08",
@@ -842,7 +845,8 @@
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-decision",
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-decision",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision",
-        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision"
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -856,7 +860,8 @@
         "BSO01两确认父完整433条1194B/七页，26直接/合计10唯一目标无间接、19jump/6RET：45DEE0 165条425B三页/10call八目标/两caller（45E090@45E0A8、460FF0@461483），45E0C0 268条769B四页/16call八目标/唯一460FF0@461193。单源四片段/两既有业务体：创建/LTE各借入口modalAction，创建后发布唯一共享槽，失败门禁/LTE继续借同返回样本；各Play79后独立clickedAction一次取共享槽，复用非空判断/MarkDeath清槽，不跨声音复用入口对象。原普通分支正确，不称运行故障；既有宽高非正默认192/96、两相同right=left+158及第二hover覆盖、警告确认优先短路、两local记录/各draw现场hoverSeq、同256B四复制/测宽/文字参数与S16、图号/低W8/返回/其余整源和默认wrapper/父/依赖正文保，无新owner。新1594/1595两adapted F:0005DEE0/F:0005E0C0，CHARACTER9→11；语义1596有效1589/文档1707（46.39%）/处置731/E850；两X7/15B共22全90逐BYTE真实NOP/无入向/各前RET后入口仅原对齐用途，R7 302余2759，不造wrapper/记录/内部块F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及全部门禁保，U11/V03/R04只current/refs仍open。完整两父/合计10依赖、全部共享弹窗正常alias-owner寿命/事件输入/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
         "BSP01两公共按钮原语503990/503A20完整116条275B/两指令页，4直接/合计3目标无间接、11jump/3RET；命中原472个CALL分布102父，绘制48个CALL分布30父，入向单独7页完整读取。人物本链45E0C0两命中/两绘制、462090各一对应原实际地址，不把其它调用父记全验。单源五精确片段/两既有本体：撤ToBits/AddWrapped普通几何回绕模型；命中按top/left/height/width一次取样、先bottom后right；绘制查询按top/height/left/width取样，命中后独立重读top/left/height/width、普通S32边缘偏移和hoverMode-1；可选hover之后text T*→textY低W16→textX低W16取齐再DrawText。实际U16四边/文字S16、非拥有记录与文本/唯一三个鼠标alias低W8三次取样/八位结果映射/原未命中0及40基值、hoverMode0跳过查询/绘制后总画文字/原返回与所有参数/其它整源和头/父/依赖保。原正常坐标正确，不称运行故障，不加保护或owner。新1596/1597两adapted F:00103990/F:00103A20，CHARACTER11→13；语义1598有效1591/文档1709（46.44%）/处置733/E852；两X11/2B共13全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 304余2757。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/refs仍open。所有实际父/三依赖完整数据生产消费/全部正常alias-owner与寿命、人物创建-主地图/CRT-SDK-机器ABI与链接/原格式明文和画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
         "BSQ01人物模态462090完整238条663B/四页，14直接/八目标无间接、五jump/三RET，唯一460FF0@461390。单源两片段/一既有父：一次native非拥有modalAction入口样本，创建5044E0后保唯一槽发布，失败门禁和原LTE0复用返回样本；撤发布后重读与Ready>=1替代，接既有IsYobiActionStateLessOrEqual→401DA0原入口。声音后actionToDestroy单读已正确保，MarkDeath和清槽按原只在非空分支，不跨声音复用入口。原正常比较真假与值正确，不称运行故障；原返回1后继续共用命中/绘制、同未清256B四次复制/测宽/绘制与原5/21/15/21/13B五字符串、原局部记录/x-y布局/S16/W8图号参数/所有其它整源、头和全部父/依赖保持，无新owner/保护/业务。新1598单adapted F:00062090，CHARACTER13→14；语义1599有效1592/文档1710（46.47%）/处置734/E854；单X9B全90逐BYTE真实NOP/无入向/前RET后入口仅用途，R7 305余2756。不造文本/helper/局部块F或排除；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整460FF0父/八依赖与事件/文本图像生产消费、全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
-        "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+        "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+        "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -870,7 +875,8 @@
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
-        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state"
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state"
       ]
     },
     {
@@ -36815,6 +36821,88 @@
       "observation": "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
       "expected": "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
       "actual": "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-CREATION-INITIALIZATION-SAMPLING-I-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BST01创建初始化两原语41条178B/两页、4direct/三目标、四jump/两RET，三个实际controller调用点；清理后INC、版本先0条件1、返回样本/+30与后两字段共享槽重读，doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-creation-initialization-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_creation_initialization_sampling_evidence.json",
+        "src/CharacterSelectScene.cpp#Sub_462870",
+        "src/CharacterSelectScene.cpp#Sub_462880",
+        "src/CharacterSelectScene.cpp#ProcessCreationScene_4626A0",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/YobiRuntime.cpp#SetYobiActionField30",
+        "src/YobiRuntime.cpp#SetYobiActionField34",
+        "src/YobiRuntime.cpp#SetYobiActionField2B8",
+        "include/cg/world/SceneState.hpp",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_creation_gate_adaptation_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源四片段/两既有体：清理后普通S32 ++scene；reset非零单Puk样本、先零/条件一再清两BYTE；两个factory返回保共享槽发布、判空/+30复用，后+34/+2B8仍各现场读槽。原两个失败/两次New(2,0)/最终InputSet(NULL)、同非拥有slots和W8/S32、整个controller/D01/原pending7及其余整源/头/依赖保持。两真F/双14B用途仅局部，不代完整父/全部寿命/三callee/机器ABI或运行",
+          "decision_ref": "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 清理后只取当前场景并普通递增。 BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。",
+      "expected": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 清理后只取当前场景并普通递增。 BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。",
+      "actual": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-CREATION-INITIALIZATION-SAMPLING-S-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BST01创建初始化两原语41条178B/两页、4direct/三目标、四jump/两RET，三个实际controller调用点；清理后INC、版本先0条件1、返回样本/+30与后两字段共享槽重读，doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-creation-initialization-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_creation_initialization_sampling_evidence.json",
+        "src/CharacterSelectScene.cpp#Sub_462870",
+        "src/CharacterSelectScene.cpp#Sub_462880",
+        "src/CharacterSelectScene.cpp#ProcessCreationScene_4626A0",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/YobiRuntime.cpp#SetYobiActionField30",
+        "src/YobiRuntime.cpp#SetYobiActionField34",
+        "src/YobiRuntime.cpp#SetYobiActionField2B8",
+        "include/cg/world/SceneState.hpp",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_creation_gate_adaptation_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源四片段/两既有体：清理后普通S32 ++scene；reset非零单Puk样本、先零/条件一再清两BYTE；两个factory返回保共享槽发布、判空/+30复用，后+34/+2B8仍各现场读槽。原两个失败/两次New(2,0)/最终InputSet(NULL)、同非拥有slots和W8/S32、整个controller/D01/原pending7及其余整源/头/依赖保持。两真F/双14B用途仅局部，不代完整父/全部寿命/三callee/机器ABI或运行",
+          "decision_ref": "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 清理后只取当前场景并普通递增。 BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。",
+      "expected": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 清理后只取当前场景并普通递增。 BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。",
+      "actual": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
     }
   ],
   "task_acceptance": [
@@ -37310,7 +37398,8 @@
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
-        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state"
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state"
       ]
     },
     {
@@ -37585,7 +37674,8 @@
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
-        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state"
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state"
       ]
     },
     {
@@ -37812,7 +37902,8 @@
         "doc/cg2d_confirmation_modal_action_sampling_spec.md#confirmation-modal-action-source-state",
         "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
         "doc/cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-source-state",
-        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state"
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state"
       ]
     },
     {
@@ -46757,6 +46848,32 @@
         "doc/cg2d_creation_progress_layout_sampling_evidence.json"
       ],
       "boundary": "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:00062870",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_creation_initialization_sampling_evidence.json"
+      ],
+      "boundary": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 清理后只取当前场景并普通递增。"
+    },
+    {
+      "inventory_id": "F:00062880",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_creation_initialization_sampling_evidence.json"
+      ],
+      "boundary": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。"
     }
   ],
   "auxiliary_dispositions": [
@@ -54980,6 +55097,50 @@
           "end_exclusive": "0x45e960",
           "kind": "nop_padding",
           "bytes": 1
+        }
+      ]
+    },
+    {
+      "id": "X:0006287C-00062880",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_creation_initialization_sampling_evidence.json"
+      ],
+      "reason": "BST01 4B全90逐BYTE真实NOP，无入向、前RET后真入口，仅原对齐用途，不造helper/块/调用父F或范围排除/运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x46287c",
+          "end_exclusive": "0x462880",
+          "kind": "nop_padding",
+          "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:00062926-00062930",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_creation_initialization_sampling_evidence.json"
+      ],
+      "reason": "BST01 10B全90逐BYTE真实NOP，无入向、前RET后真入口，仅原对齐用途，不造helper/块/调用父F或范围排除/运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x462926",
+          "end_exclusive": "0x462930",
+          "kind": "nop_padding",
+          "bytes": 10
         }
       ]
     }

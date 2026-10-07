@@ -1376,3 +1376,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline)、[裁决](cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision)、[验收](cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-acceptance)和[原证据](cg2d_creation_progress_layout_sampling_evidence.json)对应单真F／三片段整源增量、两局部I-S各18来源、单字节用途和U11／V03／R04引用仍open。四集中静态、measure／-Check终态、完整派生快照／编码／引用／差异后记结果，P05原closed与所有完整门禁保。
 
 创建几何先算后发布，显示rows／算高／y与strlen／columns／units／算宽／x按原阶段；正确的GE1、五S32、11B文案与动态长度、请求轮询／正常分支保持。原123条399B／两页／六callee及唯一实际caller不代完整controller、正常owner寿命、网络／CRT-SDK／机器ABI／显示／运行R8。
+
+## BST01 创建初始化对象与BYTE发布开发验收（2026-10-07）
+
+[基线](cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline)、[裁决](cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision)、[验收](cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance)及[原证据](cg2d_creation_initialization_sampling_evidence.json)对应两个真F、四片段整源增量、两局部I-S各19实际来源、双14B用途及U11／V03／R04引用仍open。四集中静态、measure／-Check终态、完整派生快照／编码／引用／差异后记结果，P05／P08原closed、pending7整个原记录及全部完整门禁保。
+
+两根41条178B／两页与三个实际入向；controller130条464B／两页仅上下文不混计。清理后++、Puk样本先0／条件1、创建返回判空／+30与原后两字段各共享槽重读分别关联原点。两个slots／原三W8和S32字段、失败／输入尾保持；完整controller／三callee、全部owner寿命与输入／图像消费、CRT-SDK／机器ABI／链接、创建-主地图／明文往返／画面／运行R8仍待。

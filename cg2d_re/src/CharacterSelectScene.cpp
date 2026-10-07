@@ -389,28 +389,35 @@ void ProcessCreationScene_4626A0(const std::int32_t entryGate)
 void Sub_462870()
 {
     login::detail::YobiClearUp_404D30();
-    world::gCurrentSceneState = std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(world::gCurrentSceneState) + 1U);
+    ++world::gCurrentSceneState;
 }
 
 void Sub_462880(const std::uint8_t resetSelection)
 {
     if (resetSelection != 0) {
-        state::gValue9A57E0 = state::gPukVersion >= 5 ? 1 : 0;
+        const std::uint8_t pukVersion = state::gPukVersion;
+        state::gValue9A57E0 = 0;
+        if (pukVersion >= 5) {
+            state::gValue9A57E0 = 1;
+        }
         state::gValue9A4CFC = 0;
         state::gValue9A5B00 = 0;
     }
 
-    state::gCreateActions[0] = login::detail::NewYobiAction_404AE0(2, 0);
-    if (state::gCreateActions[0] != nullptr) {
-        login::detail::SetYobiActionField30(state::gCreateActions[0], 517);
+    login::YobiAction* const firstAction =
+        login::detail::NewYobiAction_404AE0(2, 0);
+    state::gCreateActions[0] = firstAction;
+    if (firstAction != nullptr) {
+        login::detail::SetYobiActionField30(firstAction, 517);
         login::detail::SetYobiActionField34(state::gCreateActions[0], 243);
         login::detail::SetYobiActionField2B8(state::gCreateActions[0], 5);
     }
 
-    state::gCreateActions[1] = login::detail::NewYobiAction_404AE0(2, 0);
-    if (state::gCreateActions[1] != nullptr) {
-        login::detail::SetYobiActionField30(state::gCreateActions[1], 517);
+    login::YobiAction* const secondAction =
+        login::detail::NewYobiAction_404AE0(2, 0);
+    state::gCreateActions[1] = secondAction;
+    if (secondAction != nullptr) {
+        login::detail::SetYobiActionField30(secondAction, 517);
         login::detail::SetYobiActionField34(state::gCreateActions[1], 396);
         login::detail::SetYobiActionField2B8(state::gCreateActions[1], 5);
     }

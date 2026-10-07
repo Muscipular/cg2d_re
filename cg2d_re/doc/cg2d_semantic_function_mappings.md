@@ -3348,3 +3348,9 @@ CHARACTER13→14，语义1599有效1592／文档1710／3680（46.47%）／734处
 新增1599对应F:0005E7D0／Sub_45E7D0，来源CharacterSelectScene.cpp，见[基线](cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline)。123条399B／两页、6直接／六目标、唯一4626A0@4627DF。三精确片段恢复创建宽度与x计算先于布局发布、显示rows和长度／列／坐标原取样；11B文本、S32阶段及GE1／请求／返回保，Reset和其它完整源码不变。
 
 CHARACTER14→15，语义1600有效1593／文档1711／3680（46.49%）／735处置／E856；单字节对齐用途使R7 305→306余2755。冻结定位／pending18／差队列及全完整门禁保持，不造布局／Reset／局部块F。局部不代完整创建父／六依赖／请求回复／全部正常alias-owner寿命／机器ABI或运行。
+
+## BST01 创建初始化两公共原语（2026-10-07）
+
+新增1600／1601对应F:00062870／F:00062880，主符号Sub_462870／Sub_462880，来源CharacterSelectScene.cpp，见[基线](cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline)。两根41条178B／两页、4直接／三目标、三个实际controller调用点。四片段恢复清理后普通递增、版本先零／条件一、factory返回样本判空／第一字段；原后四共享槽读取、失败与输入尾保，不造未变controller／helper／局部块F。
+
+CHARACTER15→17，语义1602有效1595／文档1713／3680（46.55%）／737处置／E858；双4／10B用途使R7 306→308余2753。pending7／pending18、D01／P08原closed、冻结定位／差队列与全完整门禁保，局部不代完整父／三个callee／全部正常alias-owner寿命／机器ABI或运行。

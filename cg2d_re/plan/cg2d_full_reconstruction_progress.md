@@ -3276,3 +3276,15 @@ BSQ01实际收口：两片段／一人物模态父开发完成，原入口LTE0�
 完整创建controller父／六依赖与请求回复／文本图像生产消费及全部正常alias-owner寿命、CRT-SDK／机器ABI／链接、人物创建-主地图／原格式明文／画面／运行R8继续；音频暂停、RPLAN.24及不构建／测试／运行／摘要限制保。集中静态和派生终态后追加实际结果。
 
 BSR01实际收口：三片段／一创建请求进度体开发完成，原GE1与请求生命周期分支保持；补齐六存储19直接引用仅Reset／本体的原证据，未知间接alias／全正常owner寿命不冒验收。四集中静态、measure与-Check同句柄终态0、完整派生快照及12文件UTF-8无BOM-LF／四锚点／两局部I-S各18真实来源／差异均通过；固定命名快照cg2d-re-creation-progress-layout-sampling-20261007。语义1600有效1593、1711文档（46.49%）／735处置／E856／R7 306余2755，用户既有六项保持。U11／V03／R04仍open及全部完整门禁保，继续沿创建controller的真实缺口推进，不全面核对或复查未变模块。
+
+## BST01 创建初始化普通递增／BYTE发布与对象取样实修（2026-10-07）
+
+沿创建controller真实依赖，先落[子SPEC](../doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision)，实修CharacterSelectScene.cpp四唯一片段／两个既有原语。462870在YobiClearUp之后普通S32 ++scene撤回绕；462880在reset非零才取Puk U8、9A57E0先0／unsigned>=5时1、再清9A4CFC／9A5B00。各factory返回firstAction／secondAction保共享槽发布、判空与+30=517借返回样本；原+34=243／396及+2B8=5确实重读共享槽，四次保持，不过度缓存。
+
+两次New(2,0)、两个失败后仍继续第二创建／InputSet(NULL)、同两非拥有slots／三W8／动作S32、原共享槽发布顺序、所有头／helper／其它整源保。先完整下查controller130条464B／两页，未修改它的分派／门禁或D01固定1接线；原入口ECX未知仍保，pending7／P08原closed不随子原语改成完整验收。普通值原正确，不称运行故障，无新owner／保护／业务。
+
+原462870三条12B／一页唯一4626A0@4626AA；462880三十八条166B／一页、两实际caller4626A0@4626C1／4626DC。合41条178B／两页、4直接／三目标无间接、四jump／两RET。双X:0006287C-00062880四字节／X:00062926-00062930十字节共14B全90逐BYTE真NOP，无入向、各前RET后真入口，只对齐用途，不造controller／helper／局部块F。
+
+新1600／1601两adapted／CHARACTER15→17，语义1602有效1595／文档1713（46.55%）／737处置／E858／R7 308余2753；冻结定位／无F代码区各7／pending18／差队列172及171缺定位43待归属、P05／P08原closed／closed11／完整叶0／globalfalse与全部完整门禁保持。U11／V03／R04只current／引用仍open。完整controller／三callee及字段／输入接线、全部正常alias-owner寿命／请求回复／文字图像消费、CRT-SDK／机器ABI／链接、人物创建-主地图／原格式明文／画面／运行R8继续；音频暂停、RPLAN.24及执行限制保。集中静态／派生终态后追加实际结果。
+
+BST01实际收口：两个初始化原语／四片段开发完成，原写序／返回样本与后续共享槽重读分别落实。四集中静态、measure与-Check同句柄终态0、完整派生快照、12文件UTF-8无BOM-LF／四锚点／两局部I-S各19实来源引用／差异均通过；固定命名快照cg2d-re-creation-initialization-sampling-20261007。语义1602有效1595、1713文档（46.55%）／737处置／E858／R7 308余2753；用户既有六项保持。pending7／D01／P08原closed、U11／V03／R04仍open和全部完整门禁保，继续沿创建页选择与编辑实际缺口开发，不全面复核或借局部数量宣整体完成。

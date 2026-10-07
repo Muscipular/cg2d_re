@@ -186436,6 +186436,128 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x462870",
+      "inventory_id": "F:00062870",
+      "original_role": "Sub_462870",
+      "original_end_exclusive": "0x46287c",
+      "instruction_count": 3,
+      "status": "BST01创建初始化清理后普通递增、版本先零/条件一、两个创建返回样本判空/+30；原后四共享槽重读、失败/输入尾与controller/D01/pending7保。单源四片段仅局部静态，完整父/全部寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterSelectScene.cpp",
+          "symbols": [
+            "Sub_462870"
+          ],
+          "relationship": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 清理后只取当前场景并普通递增。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_creation_initialization_sampling_evidence.json"
+      ],
+      "boundary": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 清理后只取当前场景并普通递增。",
+      "verification_level": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "creation_initialization_sampling": {
+        "spec_id": "BST01",
+        "evidence_refs": [
+          "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+          "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+          "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+          "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+          "doc/cg2d_creation_initialization_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 3,
+        "original_code_bytes": 12,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_unique_callee_count": 1,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_cpp_patch_count_in_batch": 4,
+        "source_changed_existing_function_count_in_batch": 2,
+        "source_cleanup_then_normal_s32_scene_increment": true,
+        "source_reset_guarded_puk_sample_then_initial_zero_and_conditional_one": true,
+        "source_factory_return_samples_reused_for_failure_gate_and_field30": true,
+        "original_field34_and_2b8_resample_shared_slots_kept": true,
+        "original_shared_slot_publication_before_gate_kept": true,
+        "original_two_failures_and_unconditional_second_create_and_input_clear_kept": true,
+        "original_nonowning_slots_and_three_w8_and_s32_fields_kept": true,
+        "original_controller_body_and_d01_and_pending7_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x462880",
+      "inventory_id": "F:00062880",
+      "original_role": "Sub_462880",
+      "original_end_exclusive": "0x462926",
+      "instruction_count": 38,
+      "status": "BST01创建初始化清理后普通递增、版本先零/条件一、两个创建返回样本判空/+30；原后四共享槽重读、失败/输入尾与controller/D01/pending7保。单源四片段仅局部静态，完整父/全部寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterSelectScene.cpp",
+          "symbols": [
+            "Sub_462880"
+          ],
+          "relationship": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+        "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+        "doc/cg2d_creation_initialization_sampling_evidence.json"
+      ],
+      "boundary": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。 两创建返回复用，原+34/+2B8分别重读槽保，版本先0/条件1原写序恢复。",
+      "verification_level": "BST01创建初始化两原语462870/462880完整41条178B/两页，4直接/合计3目标无间接、四jump/两RET；创建controller4626A0分别@4626AA及@4626C1/4626DC为实际caller。单源四片段/两既有体：YobiClearUp后正常S32 ++scene撤回绕；reset非零才取Puk U8，9A57E0先0再按unsigned>=5原门槛发布1、后清9A4CFC/9A5B00；各factory返回native非拥有first/secondAction保槽发布，判空和+30=517复用返回样本；+34=243/396与+2B8=5各重读原共享槽，禁止跨字段过度缓存。两次New(2,0)与创建失败继续第二次/最后InputSet(NULL)、同两非拥有slots/三W8、其它整源/头/所有父和实际field helpers保；普通值正确，不称运行故障、不新增owner/保护/业务。controller130条464B/两页仅上下文归档，原门禁ECX未知的D01固定1/唯一WorldUpdate入口、P08原closed和pending7及原CHARACTER成员保持，不制造未变父F。新1600/1601两adapted F:00062870/F:00062880，CHARACTER15→17；语义1602有效1595/文档1713（46.55%）/处置737/E858；双X4/10B共14全90逐BYTE真NOP/无入向前RET后入口只用途，R7 308余2753。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller/三个callee及field写入/输入接线、全部正常alias-owner寿命/请求回复/文本图像消费、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "creation_initialization_sampling": {
+        "spec_id": "BST01",
+        "evidence_refs": [
+          "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-baseline",
+          "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-decision",
+          "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-acceptance",
+          "doc/cg2d_creation_initialization_sampling_spec.md#creation-initialization-source-state",
+          "doc/cg2d_creation_initialization_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 38,
+        "original_code_bytes": 166,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_unique_callee_count": 2,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 2,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_cpp_patch_count_in_batch": 4,
+        "source_changed_existing_function_count_in_batch": 2,
+        "source_cleanup_then_normal_s32_scene_increment": true,
+        "source_reset_guarded_puk_sample_then_initial_zero_and_conditional_one": true,
+        "source_factory_return_samples_reused_for_failure_gate_and_field30": true,
+        "original_field34_and_2b8_resample_shared_slots_kept": true,
+        "original_shared_slot_publication_before_gate_kept": true,
+        "original_two_failures_and_unconditional_second_create_and_input_clear_kept": true,
+        "original_nonowning_slots_and_three_w8_and_s32_fields_kept": true,
+        "original_controller_body_and_d01_and_pending7_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

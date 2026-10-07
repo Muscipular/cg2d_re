@@ -185514,6 +185514,74 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x464840",
+      "inventory_id": "F:00064840",
+      "original_role": "Sub_464840",
+      "original_end_exclusive": "0x464ddd",
+      "instruction_count": 385,
+      "status": "BSH01能力4场景普通S32/入口一次状态样本、计数-phase原序与四分支alpha现场取样实修；单源八片段，真实颜色位型/状态/保存和其它正文保，仅局部静态，完整父/依赖/机器ABI/寿命及运行未验",
+      "sources": [
+        {
+          "path": "src/LoginCapability4Scene.cpp",
+          "symbols": [
+            "Sub_464840",
+            "AddW32",
+            "DrawCapability4Base",
+            "ProcessCapability4CommonTail"
+          ],
+          "relationship": "完整385条1437B/六页、45direct24callee/两Win32间接、28jump八RET；唯一51C430@51C4A8。两既有源函数八片段恢复普通S32、入口样本默认返回、计数→phase读算序和四分支alpha现场取样（阶段1/2/3在前层绘制后）；真实颜色位型/状态与保存槽/消息和返回及其它正文保。单F及三跳表用途仅本步局部，不代完整父/24依赖、保存输入/图像消费与全部寿命/ABI或运行。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline",
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision",
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-acceptance",
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
+        "doc/cg2d_capability4_scene_sampling_evidence.json"
+      ],
+      "boundary": "完整385条1437B/六页、45direct24callee/两Win32间接、28jump八RET；唯一51C430@51C4A8。两既有源函数八片段恢复普通S32、入口样本默认返回、计数→phase读算序和四分支alpha现场取样（阶段1/2/3在前层绘制后）；真实颜色位型/状态与保存槽/消息和返回及其它正文保。单F及三跳表用途仅本步局部，不代完整父/24依赖、保存输入/图像消费与全部寿命/ABI或运行。 BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "verification_level": "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "capability4_scene_sampling": {
+        "spec_id": "BSH01",
+        "evidence_refs": [
+          "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline",
+          "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision",
+          "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-acceptance",
+          "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
+          "doc/cg2d_capability4_scene_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 385,
+        "original_code_bytes": 1437,
+        "original_page_count": 6,
+        "original_direct_call_count": 45,
+        "original_unique_callee_count": 24,
+        "original_indirect_call_count": 2,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 8,
+        "normal_s32_helper_count": 1,
+        "entry_state_sample_count": 1,
+        "source_local_fade_sample_count": 4,
+        "opaque_call_counts_before_fade": [
+          0,
+          1,
+          2,
+          3
+        ],
+        "source_changed_existing_function_count": 2,
+        "original_unsigned_state_dispatch_and_return_kept": true,
+        "original_color_high_byte_bit_format_kept": true,
+        "original_counter_phase_sampling_order_restored": true,
+        "original_saved_input_message_and_callees_kept": true,
+        "original_source_rest_unchanged": true,
+        "normal_previous_values_wrong": false,
+        "dependency_r7_classification_count": 1,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

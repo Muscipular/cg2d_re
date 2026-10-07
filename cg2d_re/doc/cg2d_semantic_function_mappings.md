@@ -3282,3 +3282,9 @@ LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布
 只补已有1582／F:00064E30与原adapted处置的[当前来源](cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state)：按钮先密码→账号，Enter先账号→密码+12C S32，取齐后result1和两NUL按同序发布；单源两片段，其它整源保。原完整350条1262B／五页由BSC01复用，不重复取证或新增F／私有身份／X。
 
 语义1589／有效1582、文档1700／3680（46.20%）、722处置／INPUT26／R7 294余2767保持，E832→834两局部I-S。冻结定位／pending18／缺口队列、P05旧closed及所有完整门禁保持；局部来源更新不代完整父／依赖、ABI与寿命／运行。
+
+## BSH01 能力4登录场景（2026-10-07）
+
+新增1589对应真实F:00064840／Sub_464840，AddW32／基础绘制／公共尾只附加来源，不造F。见[基线](cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline)：完整385条1437B／六页，45直接调用／24目标与两Win32间接、28跳转／八RET，唯一51C430@51C4A8。单源八片段实修普通S32、入口一次状态与计数-phase原序、四分支现场alpha，真实颜色位型／状态保存与其余整源保持。
+
+单X83B为3B身份LEA／44B十一状态／16B四phase／20B五结果目标，三同父data引用／无code进入，只原用途。LOGIN6→7／语义1590有效1583／文档1701／3680（46.22%）／723处置／E836／R7 295余2766。冻结定位／pending18／缺口队列和所有完整门禁保，局部不代全部父、依赖／消费／寿命／ABI或运行。

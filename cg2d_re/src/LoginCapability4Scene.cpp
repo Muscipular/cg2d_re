@@ -45,9 +45,7 @@ std::int32_t AddW32(
     const std::int32_t left,
     const std::int32_t right) noexcept
 {
-    return std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(left)
-        + std::bit_cast<std::uint32_t>(right));
+    return left + right;
 }
 
 std::int32_t DrawCapability4Base()
@@ -69,10 +67,11 @@ namespace cg::world::detail {
 
 std::int32_t Sub_464840()
 {
+    const std::int32_t sampledState = world::gCurrentSceneState;
     const std::uint32_t state =
-        std::bit_cast<std::uint32_t>(world::gCurrentSceneState);
+        std::bit_cast<std::uint32_t>(sampledState);
     if (state > 10U) {
-        return world::gCurrentSceneState;
+        return sampledState;
     }
 
     switch (state) {
@@ -85,25 +84,30 @@ std::int32_t Sub_464840()
         return login::detail::LoadAndPlayBGM(42);
 
     case 1: {
+        const std::int32_t frameCounter = gValue9A4F2C;
         const std::int32_t phase = gValue9A4B7C;
-        gValue9A4F2C = AddW32(gValue9A4F2C, 1);
+        gValue9A4F2C = AddW32(frameCounter, 1);
 
         std::int32_t result = phase;
         const std::uint32_t phaseBits =
             std::bit_cast<std::uint32_t>(phase);
         if (phaseBits <= 3U) {
-            const std::uint32_t fadeBits =
-                (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
-                + 0x00FFFFFFU;
-            const std::int32_t fade =
-                std::bit_cast<std::int32_t>(fadeBits);
-
             if (phaseBits == 0U) {
+                const std::uint32_t fadeBits =
+                    (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
+                    + 0x00FFFFFFU;
+                const std::int32_t fade =
+                    std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
                     render::Sub_45F090(0, 0, 3, 99653, 0, fade));
             } else if (phaseBits == 1U) {
                 static_cast<void>(
                     render::Sub_45F090(0, 0, 3, 99653, 0, -1));
+                const std::uint32_t fadeBits =
+                    (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
+                    + 0x00FFFFFFU;
+                const std::int32_t fade =
+                    std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
                     render::Sub_45F090(0, 0, 4, 99654, 0, fade));
             } else if (phaseBits == 2U) {
@@ -111,6 +115,11 @@ std::int32_t Sub_464840()
                     render::Sub_45F090(0, 0, 3, 99653, 0, -1));
                 static_cast<void>(
                     render::Sub_45F090(0, 0, 4, 99654, 0, -1));
+                const std::uint32_t fadeBits =
+                    (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
+                    + 0x00FFFFFFU;
+                const std::int32_t fade =
+                    std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
                     render::Sub_45F090(0, 0, 5, 99655, 0, fade));
             } else {
@@ -120,6 +129,11 @@ std::int32_t Sub_464840()
                     render::Sub_45F090(0, 0, 4, 99654, 0, -1));
                 static_cast<void>(
                     render::Sub_45F090(0, 0, 5, 99655, 0, -1));
+                const std::uint32_t fadeBits =
+                    (std::bit_cast<std::uint32_t>(gValue9A4D00) << 24U)
+                    + 0x00FFFFFFU;
+                const std::int32_t fade =
+                    std::bit_cast<std::int32_t>(fadeBits);
                 static_cast<void>(
                     render::Sub_45F090(0, 0, 6, 99656, 0, fade));
             }
@@ -278,7 +292,7 @@ std::int32_t Sub_464840()
         return ProcessCapability4CommonTail();
     }
 
-    return world::gCurrentSceneState;
+    return sampledState;
 }
 
 } // namespace cg::world::detail

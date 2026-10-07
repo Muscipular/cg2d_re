@@ -3148,3 +3148,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 只补旧1582/F:00064E30当前来源与原adapted处置引用，INPUT26／语义1589有效1582／文档1700／3680（46.20%）／处置722／R7 294余2767不增，E832→834两局部I-S。冻结定位／无F-code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整叶0/globalfalse及所有完整门禁保；U10／R04只current/引用仍open。完整464840父／所有输入依赖和正常alias-owner寿命、CRT-SDK-机器ABI／链接、原格式明文互通与运行R8继续；音频暂停、RPLAN.24与执行限制保。
 
 静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照只旧1582当前来源／原处置引用、INPUT来源和两任务增量，全部指标／成员／R7及冻结定位保持。12文件UTF-8无BOM-LF、实际引用／定向diff通过；未构建、测试或运行，P05原closed及完整门禁保，整体SPEC目标继续。
+
+## BSH01 能力4场景状态与现场透明度取样（2026-10-07）
+
+先落[子SPEC](../doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision)，实修LoginCapability4Scene.cpp八精确片段：一个私有AddW32恢复普通S32、入口一次S32状态用于unsigned分发／默认和末尾返回，状态1计数先读／phase后读再发布+1；四fade分支各临近淡入层现场读alpha，阶段1/2/3在1/2/3个前不透明层调用后读。两个既有源函数变更，高BYTE拼接真实位型／状态0..10与所有其它整源保持；原正常值正确、不声称运行故障，不新异常／保护／限制、owner或业务。
+
+原完整385条1437B／六页，47原call为45直接／24目标和PostMessageA、ShowCursor两间接，28跳转含三switch／八RET，唯一World::Update 51C430@51C4A8。保原phase推进／alpha+6与255／计数256阈值、保存槽三独立选中取样／负分支／bShow前后样本、原提示字节／模态删除与公共尾返回。单真X83B分3B 8D4900身份LEA、44B十一状态／16B四phase／20B五输入结果目标，464850／4648B3／464AF0三同父data引用、无code入向，前RET后入口，仅原用途，不造表内函数或新端W32指针表。
+
+新映射1589／adapted F:00064840／LOGIN6→7，语义1590有效1583／文档1701／3680（46.22%）／723处置／E836／R7 295余2766。冻结定位／无F-code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整叶0/globalfalse及完整门禁保；U10／R04只current/引用仍open。完整World::Update父／24依赖、保存输入和图像消费、全部正常alias-owner寿命／CRT-SDK-机器ABI与链接、原格式明文互通与运行R8继续；音频暂停、RPLAN.24及执行限制保。
+
+静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照仅单F／LOGIN一成员与候选、两任务／单R7／六指标增量，12文件UTF-8无BOM-LF、实际引用与定向diff通过。未构建、测试或运行；P05原closed及完整门禁保，整体SPEC目标继续。

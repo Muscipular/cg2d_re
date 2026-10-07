@@ -1266,7 +1266,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-baseline",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-baseline",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1332,7 +1333,9 @@
         "F:00004A40",
         "F:00004D30",
         "F:00004D60",
-        "F:00004AE0"
+        "F:00004AE0",
+        "F:00067F30",
+        "F:001199A0"
       ],
       "closure_task_ids": [
         "U11",
@@ -1364,7 +1367,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-decision",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-decision",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1387,7 +1391,8 @@
         "ACP01实体/挂件两个真实创建者四组临时载体各先三字段取齐/再原序发布已实修；两完整212条829B/12call8父，通用赋值/其它入口和AAS01保持，两ID同LOOP纳管。完整父实参/所有callee/上游与间接别名和owner寿命/ABI/SDK/PC53/RNG/画面运行未闭，异常不保护或模拟",
         "YLC01UpdateAll摘链/计数与Delete载荷单次取样三片段已实修，原四相/回调后next/释放后保存next保持；519D50已有八槽/文本/玩家复读/尾链未改补身份。三完整160条444B/31call10父、一新/二既有语义追加/三ID同LOOP。全部父/callback/callee/所有资源生产/链表别名与owner重进退出/借用失效/SDK/ABI/PC53/RNG/画面运行未闭",
         "YSS01初始化四取样片段恢复第二分配后start先取/end发布、两链接读序与尾返回快照；已正确清场/终止不改，三原59条225B/22call13父、三旧语义追加与三ID同LOOP。原生sizeof/应用calloc/free、四相及共享槽保持。完整父/callback/callee/应用初终和资源/链别名及owner寿命/ABI/SDK/PC53/RNG/画面运行未闭",
-        "YAS01共用动作分配四取样片段恢复载荷返回/原描述符五W16一W32两W8、首尾先取与新链接写后前驱复读；原两失败/无符号同值FIFO和未插链返回保持。原118条354B/113call/86已知父+1未归属调用点，一旧语义追加/一ID同LOOP，不称所有父/载荷和owner寿命/ABI/SDK/PC53/RNG/画面运行已验，异常不保护或模拟"
+        "YAS01共用动作分配四取样片段恢复载荷返回/原描述符五W16一W32两W8、首尾先取与新链接写后前驱复读；原两失败/无符号同值FIFO和未插链返回保持。原118条354B/113call/86已知父+1未归属调用点，一旧语义追加/一ID同LOOP，不称所有父/载荷和owner寿命/ABI/SDK/PC53/RNG/画面运行已验，异常不保护或模拟",
+        "BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1411,7 +1416,8 @@
         "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
         "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
-        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state"
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state"
       ]
     },
     {
@@ -35058,6 +35064,92 @@
       "observation": "完整721条2695B/十一页，78directcall/41callee、155jump/两RET、四真实switch及唯一WorldUpdate51C4E6入向；22主状态/21状态值到两目标的压缩次级门禁、两148B角色的7动作和8版本表有据。本步六精确补丁：图号依原版本门禁分两路径读/九源码mapper实参现场取样、selector正常S32 class+2*action-7替代无符号回绕；删除清record后第二次S16选槽读取/进入主地图姓名复制后再S16选槽取图号；版本尾标志仅一次取样作判定，两新局部值以case1花括号隔离。原状态/成功失败/返回、两slot/frame调用清理及构析RNG、私有唯一状态/预览owner/文本与图号分类区间/中间结果pub顺序保，三传输mode2-4-5/原正文与明文保持；原末Puk W32&FF只用低W8有效值，沿现单W8 owner不猜相邻三byte、不造宽读取影子。完整parent业务基线/正常源局部映射不代全部41callee/owner-资源寿命/SDK-ABI/最终画面或互通，音频暂停。",
       "expected": "完整721条2695B/十一页，78directcall/41callee、155jump/两RET、四真实switch及唯一WorldUpdate51C4E6入向；22主状态/21状态值到两目标的压缩次级门禁、两148B角色的7动作和8版本表有据。本步六精确补丁：图号依原版本门禁分两路径读/九源码mapper实参现场取样、selector正常S32 class+2*action-7替代无符号回绕；删除清record后第二次S16选槽读取/进入主地图姓名复制后再S16选槽取图号；版本尾标志仅一次取样作判定，两新局部值以case1花括号隔离。原状态/成功失败/返回、两slot/frame调用清理及构析RNG、私有唯一状态/预览owner/文本与图号分类区间/中间结果pub顺序保，三传输mode2-4-5/原正文与明文保持；原末Puk W32&FF只用低W8有效值，沿现单W8 owner不猜相邻三byte、不造宽读取影子。完整parent业务基线/正常源局部映射不代全部41callee/owner-资源寿命/SDK-ABI/最终画面或互通，音频暂停。",
       "actual": "BRX01完整角色选择母体721条2695B/十一页、78directCALL/41callee/155jump/两RET、四switch与唯一51C430@51C4E6入向纳管；已有本体不冒充新增业务。源一文件六精确补丁：图号读在Puk>=7或5-6门禁后、<5不先读，九源码mapper实参新鲜读+18（原八mem取样点/十mapper call，shared尾及已合并分支保持）；正常S32 selector替代wrap模拟，删除成功清record后第二S16读取与入地图复制名后S16重取/指向原同两record，版本尾同持有S32标志判定/一次读取，case1新局部值作用域隔离。其余主22状态/失败/次级门禁/两slot七动作/preview与clear/helper/NULL空叶/8版本mode2-4-5与正文和正常返回/调用-读写-构析RNG保持；继承公共原语，不新验全部41callee/异常/SDK。末版本W32&FF只低W8有效值，沿现W8 owner不猜邻三byte或自造wide镜像；原只读常量文本的当前显示核心立即复制且不借存新状态，本步不重写它。一个185B真X分八实际块：四W32目标表156B/一21B值表/五90 NOP和三8D4900 LEA alignment，五data入向均本parent/no code进入；用途mapped不造新功能身份/范围排除。语义1577/有效1570、文档1688/3680（45.87%）、分类707/CHARACTER6/E814/R7 281余2780；无F/code区各7、pending18、差队列172/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与所有完整门禁保；U10/U11/V03只current/refs仍open。所有人物-主地图/正常owner-资源寿命/全网络与SDK-ABI/画面互通、运行/R8未验，原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-MAIN-ENTRY-STATE-CARRIER-SAMPLING-I-20261007",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRY01两完整211条883B/四页/三实际chunk、25call十一callee与两真实caller；七tuple先读齐/一pair后count、三个临时对象/八构八销、六区和3S16/5-6-15原布局及两X7B；doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-main-entry-state-carrier-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_467F30",
+        "src/world/SceneState.cpp#Sub_5199A0",
+        "src/world/WorldUpdate.cpp#Update",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/platform/LegacyCryptInt.cpp",
+        "src/LoginSavedState.cpp#Sub_520550",
+        "src/LoginSavedState.cpp#Sub_520770",
+        "src/CharacterSelectState.hpp",
+        "src/LoginRequest.cpp#gSelectedCharacterIndex",
+        "include/cg/world/SceneState.hpp",
+        "src/world/SceneState.cpp#Sub_519950",
+        "src/world/SceneState.cpp#Sub_46CF20",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_world_state_lifecycle_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "第一体八片段：七mask-encoded-W8 count先读齐再pub，C821E8 encoded-mask先读齐/两pub后count；独立第三ripple恢复，原八显式construct-destroy/RNG顺序、状态/vft-padding/末native返回保。第二正确reset体全文保持、三选槽/两S32及六清区与5-6-15正常基线纳管，EH仅原块元信息不新模型/SDK验收，不改原格式明文",
+          "decision_ref": "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。",
+      "expected": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。",
+      "actual": "BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。"
+    },
+    {
+      "id": "E-MAIN-ENTRY-STATE-CARRIER-SAMPLING-S-20261007",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRY01两完整211条883B/四页/三实际chunk、25call十一callee与两真实caller；七tuple先读齐/一pair后count、三个临时对象/八构八销、六区和3S16/5-6-15原布局及两X7B；doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-main-entry-state-carrier-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_467F30",
+        "src/world/SceneState.cpp#Sub_5199A0",
+        "src/world/WorldUpdate.cpp#Update",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "src/platform/LegacyCryptInt.cpp",
+        "src/LoginSavedState.cpp#Sub_520550",
+        "src/LoginSavedState.cpp#Sub_520770",
+        "src/CharacterSelectState.hpp",
+        "src/LoginRequest.cpp#gSelectedCharacterIndex",
+        "include/cg/world/SceneState.hpp",
+        "src/world/SceneState.cpp#Sub_519950",
+        "src/world/SceneState.cpp#Sub_46CF20",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_world_state_lifecycle_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "第一体八片段：七mask-encoded-W8 count先读齐再pub，C821E8 encoded-mask先读齐/两pub后count；独立第三ripple恢复，原八显式construct-destroy/RNG顺序、状态/vft-padding/末native返回保。第二正确reset体全文保持、三选槽/两S32及六清区与5-6-15正常基线纳管，EH仅原块元信息不新模型/SDK验收，不改原格式明文",
+          "decision_ref": "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。",
+      "expected": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。",
+      "actual": "BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。"
     }
   ],
   "task_acceptance": [
@@ -35507,7 +35599,8 @@
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
         "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
-        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state"
+        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state"
       ]
     },
     {
@@ -35797,7 +35890,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
-        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state"
+        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state"
       ]
     },
     {
@@ -36273,7 +36367,8 @@
         "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
         "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
         "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state"
       ]
     },
     {
@@ -44581,6 +44676,32 @@
         "doc/cg2d_character_select_dispatch_sampling_evidence.json"
       ],
       "boundary": "完整721条2695B/十一页，78directcall/41callee、155jump/两RET、四真实switch及唯一WorldUpdate51C4E6入向；22主状态/21状态值到两目标的压缩次级门禁、两148B角色的7动作和8版本表有据。本步六精确补丁：图号依原版本门禁分两路径读/九源码mapper实参现场取样、selector正常S32 class+2*action-7替代无符号回绕；删除清record后第二次S16选槽读取/进入主地图姓名复制后再S16选槽取图号；版本尾标志仅一次取样作判定，两新局部值以case1花括号隔离。原状态/成功失败/返回、两slot/frame调用清理及构析RNG、私有唯一状态/预览owner/文本与图号分类区间/中间结果pub顺序保，三传输mode2-4-5/原正文与明文保持；原末Puk W32&FF只用低W8有效值，沿现单W8 owner不猜相邻三byte、不造宽读取影子。完整parent业务基线/正常源局部映射不代全部41callee/owner-资源寿命/SDK-ABI/最终画面或互通，音频暂停。 BRX01完整角色选择母体721条2695B/十一页、78directCALL/41callee/155jump/两RET、四switch与唯一51C430@51C4E6入向纳管；已有本体不冒充新增业务。源一文件六精确补丁：图号读在Puk>=7或5-6门禁后、<5不先读，九源码mapper实参新鲜读+18（原八mem取样点/十mapper call，shared尾及已合并分支保持）；正常S32 selector替代wrap模拟，删除成功清record后第二S16读取与入地图复制名后S16重取/指向原同两record，版本尾同持有S32标志判定/一次读取，case1新局部值作用域隔离。其余主22状态/失败/次级门禁/两slot七动作/preview与clear/helper/NULL空叶/8版本mode2-4-5与正文和正常返回/调用-读写-构析RNG保持；继承公共原语，不新验全部41callee/异常/SDK。末版本W32&FF只低W8有效值，沿现W8 owner不猜邻三byte或自造wide镜像；原只读常量文本的当前显示核心立即复制且不借存新状态，本步不重写它。一个185B真X分八实际块：四W32目标表156B/一21B值表/五90 NOP和三8D4900 LEA alignment，五data入向均本parent/no code进入；用途mapped不造新功能身份/范围排除。语义1577/有效1570、文档1688/3680（45.87%）、分类707/CHARACTER6/E814/R7 281余2780；无F/code区各7、pending18、差队列172/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与所有完整门禁保；U10/U11/V03只current/refs仍open。所有人物-主地图/正常owner-资源寿命/全网络与SDK-ABI/画面互通、运行/R8未验，原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:00067F30",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+      ],
+      "boundary": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。"
+    },
+    {
+      "inventory_id": "F:001199A0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+      ],
+      "boundary": "完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。 BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。"
     }
   ],
   "auxiliary_dispositions": [
@@ -51362,6 +51483,50 @@
           "end_exclusive": "0x461b30",
           "kind": "nop_padding",
           "bytes": 4
+        }
+      ]
+    },
+    {
+      "id": "X:000681AB-000681B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+      ],
+      "reason": "BRY01 5B全90/逐BYTE canonical nop，无入向，前本批主根RET/后真函数入口，仅原填充用途；467F30真实第二chunk归原F，只EH元信息，不新叶/代码范围/排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x4681ab",
+          "end_exclusive": "0x4681b0",
+          "kind": "nop_padding",
+          "bytes": 5
+        }
+      ]
+    },
+    {
+      "id": "X:00119A7E-00119A80",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+      ],
+      "reason": "BRY01 2B全90/逐BYTE canonical nop，无入向，前本批主根RET/后真函数入口，仅原填充用途；467F30真实第二chunk归原F，只EH元信息，不新叶/代码范围/排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x519a7e",
+          "end_exclusive": "0x519a80",
+          "kind": "nop_padding",
+          "bytes": 2
         }
       ]
     }

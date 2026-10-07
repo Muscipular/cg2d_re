@@ -1256,3 +1256,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-baseline)、[裁决](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-decision)、[验收](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-acceptance)及[源码状态](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state)关联完整721条2695B／四真实switch及一源六补丁。图号原门禁／mapper取样、正常S32 selector、删除／入地图S16与版本尾一次标志、case作用域落实，原正常有效值／成功失败／状态／返回和共享owner保。末PUK低W8与物理足迹边界明确，不夸称新验所有41callee或ABI。
 
 一个normal F／一个CHARACTER成员、一185B混合X分八块仅原表／填充用途；两局部I-S各二十一实际来源，E812→814。原成员枚举／完整gates空、源码closed11与完整0保持，U10／U11／V03只current／refs仍open；正常alias／资源寿命／其它场景／SDK-ABI／原格式明文互通／画面运行仍逐项推进。音频暂停、RPLAN.24及执行限制保持。
+
+## BRY01 主地图数值初始化局部开发验收（2026-10-07）
+
+[基线](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline)、[裁决](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision)、[验收](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance)及[源码状态](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state)关联两完整211条883B、真实三chunk与一体八源片段。七tuple先读齐／C821E8两pub后count／末独立第三对象，原构析RNG与状态／vft-padding／返回保；第二体正确正文保持，六清区／选槽／恢复／数组和数据owner可追。原EH尾仅归属元信息，不扩故障门禁或称SDK-EH运行通过。
+
+两个normal F／MAP两成员，两X7B原填充用途，局部I-S各二十一真实来源，E814→816。完整gates／成员枚举、源码closed11与完整0保持；U09／U10／U11只current／引用仍open，全部正常alias／owner寿命、生产消费／资源／所有callee／主地图流程／SDK-ABI／明文互通／运行继续逐项开发验收，音频暂停和RPLAN.24保。

@@ -5604,27 +5604,39 @@ std::int32_t* Sub_467F30()
 
     platform::LegacyCryptInt first;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
-    gValue9EE8D0.mask = first.mask;
-    gValue9EE8D0.encoded = first.encoded;
-    gValue9EE8D0.readCount = first.readCount;
+    const std::uint32_t firstMask = first.mask;
+    const std::uint32_t firstEncoded = first.encoded;
+    const std::uint8_t firstReadCount = first.readCount;
+    gValue9EE8D0.mask = firstMask;
+    gValue9EE8D0.encoded = firstEncoded;
+    gValue9EE8D0.readCount = firstReadCount;
 
     platform::LegacyCryptInt second;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&second, 0);
-    gValue9EE8E0.mask = second.mask;
-    gValue9EE8E0.encoded = second.encoded;
-    gValue9EE8E0.readCount = second.readCount;
+    const std::uint32_t secondMask = second.mask;
+    const std::uint32_t secondEncoded = second.encoded;
+    const std::uint8_t secondReadCount = second.readCount;
+    gValue9EE8E0.mask = secondMask;
+    gValue9EE8E0.encoded = secondEncoded;
+    gValue9EE8E0.readCount = secondReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&second);
     platform::legacy_crypt_int::Destroy_401CF0(&first);
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&second, 0);
-    gValueC27FF8.mask = second.mask;
-    gValueC27FF8.encoded = second.encoded;
-    gValueC27FF8.readCount = second.readCount;
+    const std::uint32_t thirdMask = second.mask;
+    const std::uint32_t thirdEncoded = second.encoded;
+    const std::uint8_t thirdReadCount = second.readCount;
+    gValueC27FF8.mask = thirdMask;
+    gValueC27FF8.encoded = thirdEncoded;
+    gValueC27FF8.readCount = thirdReadCount;
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
-    gValueC27FE8.mask = first.mask;
-    gValueC27FE8.encoded = first.encoded;
-    gValueC27FE8.readCount = first.readCount;
+    const std::uint32_t fourthMask = first.mask;
+    const std::uint32_t fourthEncoded = first.encoded;
+    const std::uint8_t fourthReadCount = first.readCount;
+    gValueC27FE8.mask = fourthMask;
+    gValueC27FE8.encoded = fourthEncoded;
+    gValueC27FE8.readCount = fourthReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&first);
     platform::legacy_crypt_int::Destroy_401CF0(&second);
 
@@ -5637,28 +5649,41 @@ std::int32_t* Sub_467F30()
     gValueC8A79C = 0;
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
-    gValueC821E8.encoded = first.encoded;
-    gValueC821E8.mask = first.mask;
+    const std::uint32_t fifthEncoded = first.encoded;
+    const std::uint32_t fifthMask = first.mask;
+    gValueC821E8.encoded = fifthEncoded;
+    gValueC821E8.mask = fifthMask;
     gValueC821E8.readCount = first.readCount;
     platform::legacy_crypt_int::Destroy_401CF0(&first);
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
-    gValue9E03C0.mask = first.mask;
-    gValue9E03C0.encoded = first.encoded;
-    gValue9E03C0.readCount = first.readCount;
+    const std::uint32_t sixthMask = first.mask;
+    const std::uint32_t sixthEncoded = first.encoded;
+    const std::uint8_t sixthReadCount = first.readCount;
+    gValue9E03C0.mask = sixthMask;
+    gValue9E03C0.encoded = sixthEncoded;
+    gValue9E03C0.readCount = sixthReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&first);
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
-    gValueC821D8.mask = first.mask;
-    gValueC821D8.encoded = first.encoded;
-    gValueC821D8.readCount = first.readCount;
+    const std::uint32_t seventhMask = first.mask;
+    const std::uint32_t seventhEncoded = first.encoded;
+    const std::uint8_t seventhReadCount = first.readCount;
+    gValueC821D8.mask = seventhMask;
+    gValueC821D8.encoded = seventhEncoded;
+    gValueC821D8.readCount = seventhReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&first);
 
-    platform::legacy_crypt_int::ConstructFromInt_401CC0(&first, 0);
-    gRippleGate.mask = first.mask;
-    gRippleGate.encoded = first.encoded;
-    gRippleGate.readCount = first.readCount;
-    platform::legacy_crypt_int::Destroy_401CF0(&first);
+    // 原末次改用独立var_1C，保留第三临时对象。
+    platform::LegacyCryptInt ripple;
+    platform::legacy_crypt_int::ConstructFromInt_401CC0(&ripple, 0);
+    const std::uint32_t eighthMask = ripple.mask;
+    const std::uint32_t eighthEncoded = ripple.encoded;
+    const std::uint8_t eighthReadCount = ripple.readCount;
+    gRippleGate.mask = eighthMask;
+    gRippleGate.encoded = eighthEncoded;
+    gRippleGate.readCount = eighthReadCount;
+    platform::legacy_crypt_int::Destroy_401CF0(&ripple);
 
     gValue9A86D8 = 0;
     gValue9FB92E = 0;

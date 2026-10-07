@@ -7689,3 +7689,11 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [BRX01 SPEC](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state)完善当前场景3已接的ProcessScene_460FF0，WorldUpdate调用和其它scene正文保持。完整原母体721条／四switch绑定22主状态、压缩次级门禁、两槽7动作与8版本；列表回复→记录→预览、删除成功清record／计数、创建转场4与选择入地图转场5的现真实生产消费可对照。源恢复图号门禁和mapper实参取样、正常S32分类算式／S16选槽重取、版本尾一次标志读取及case作用域，原状态／失败／清理／返回保。
 
 只纳管本母体正常源码与185B实际表／填充用途；不重写WorldUpdate、创建gate或其它场景，不代全部传递依赖／owner与资源寿命／地图加载或运行。U11仍open，已有主流程目标与验收标准保持。
+
+## 主地图入口两初始化与数值载体发布（BRY01，2026-10-07）
+
+按[BRY01 SPEC](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state)，场景5现真实467F30／5199A0顺序保持，第一体八精确片段恢复七tuple mask／encoded／W8 count先读齐再pub，C821E8只encoded／mask先读齐、两pub后才count；最后独立第三ripple对象恢复。原八显式构／八销顺序与RNG、所有W16／W32／FFFF／vft-padding和末46CF20非拥有一过尾返回保持，不新helper／状态／算法或网络机制。
+
+两完整原体211条883B／四页，467F30主635B加实际EH尾26B，152条；5199A0 59条222B全文保持，六清区按既有typed-x64指针owner、三S16选槽／设置与BGM目标恢复、两S32先读齐后pub、五petmap／六title／十五recipe和direction=-1可追。EH尾只原归属元信息，不另造F／异常模型或验SDK-EH。两唯一WorldUpdate@51C572／51C577入向、25directcall／十一callee、六jump／两RET及两X5／2B填充用途纳管。
+
+两个normal F／MAP成员64→66、局部I-S，主地图全部生产消费／owner-alias与资源寿命／SDK-ABI／明文互通／运行仍未验；原正常值正确，不称已跑出故障。音频目标恢复与播放分开，既有暂停不解除；U09／U10／U11保持open。

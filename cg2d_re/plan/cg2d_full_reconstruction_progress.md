@@ -3058,3 +3058,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 一个真实185B X四目标表156B／值表21B／五90 NOP／三8D4900整体LEA对齐分八块，五data入向均本parent／无code进入、前RET后真入口，仅用途mapped；不把对齐中间byte解成叶函数。一个F1576／CHARACTER6、语义1577／有效1570、文档1688／3680（45.87%）／分类707／E814／R7 281余2780。无F／code区各7、pending18／172差队列／171缺定位／43待归属、源码closed11／完整功能叶0／globalfalse与整体门禁保，U10／U11／V03只current／refs仍open。所有41callee、正常owner-alias与资源寿命、完整人物／创建入地图／SDK-ABI／画面和原格式明文互通、运行／R8未验，音频暂停与RPLAN.24保，不构建测试运行摘要。
 
 验收记录：源码／完整原体与四表-185B混合范围／机器台账／文档四组集中静态通过；measure_cg2d.ps1及-Check同一会话退出0。来源symbol检查发现WorldUpdate地址化名称不对应当前CPP定义，已更正为真实Update、两I-S引用及完整机器校验／-Check再次通过，没有留下错误引用。完整派生快照仅一个母体F／成员与候选、三任务、一混合R7及六指标变化，其余全部对象与冻结定义保持；十三文件UTF-8无BOM／LF、四真实锚点、两局部I-S各二十一来源文件及CPP符号、定向diff通过。正常源／文本静态不代编译链接或运行，未构建测试执行或摘要。命名快照cg2d-re-character-select-dispatch-sampling-20261007，精确十三文件提交，用户六项既有改动保持。
+
+## BRY01 主地图入口数值载体与三临时对象（2026-10-07）
+
+沿人物→主地图场景5，先落[子SPEC](../doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision)，实际只改SceneState.cpp内467F30八片段：七组mask／encoded／W8 count先读齐再原序pub，C821E8仅encoded／mask先读齐／两pub后仍现场count；最后原var1C独立第三ripple局部恢复。平凡LegacyCryptInt无自动C++构析，八显式构／八销与顺序及RNG不增，原第一／第二复用和销毁、W16-W32／FFFF／vft-padding／全部调用及46CF20末native一过尾返回保，内部整数载体非网络算法。
+
+两完整原根211条883B／四页：467F30主635B＋实际EH26B、152条，5199A0 59条222B；25directCALL／十一callee、六jump（含EH三jmp仅归属元信息）／两RET、两唯一51C430@51C572／51C577入向。第二正确初始化全文保持，六原清区按既有typed-x64指针owner、三S16选槽／设置-BGM目标恢复、两S32先读齐后pub／五petmap-六title-十五recipe／direction=-1正常基线可追，不新播放或验SDK-EH。两个X5／2B全90 canonical nop、无入向前RET后真入口，仅填充用途，尾chunk不造新F或code_range。
+
+两F1577／1578、MAP64→66／语义1579有效1572／文档1690／3680（45.92%）／分类709／E816／R7 283余2778。无F／code区各7、pending18、172差队列／171缺定位／43待归属、源码closed11／完整功能叶0／globalfalse与整体门禁保，U09／U10／U11只current／refs仍open。第一体开发与第二补基线分记，原正常值正确、不称观察到运行故障；所有正常owner-alias寿命／完整生产消费与callee／主地图-资源／SDK-ABI／明文互通／运行R8继续推进，音频暂停、RPLAN.24／原格式明文和执行限制保，不构建测试运行摘要。
+
+验收记录：整源八片段／构析及三对象、两完整原根所有三chunk与两X、完整机器台账和文档四组集中静态检查通过；measure_cg2d.ps1／-Check同一会话退出0。完整派生快照仅两正常初始化F／MAP成员与候选、三任务、两R7与六指标变化，其余所有对象和冻结定义保持；第二体不适用的载体细项明确null。十三文件UTF-8无BOM／LF、四有效锚点／两局部I-S各二十一来源及实际CPP符号、定向diff通过。只有正常源／文本静态，未构建测试执行或摘要，未验原EH／SDK／运行。命名快照cg2d-re-main-entry-state-carrier-sampling-20261007，精确十三文件提交，用户六项既有变更保持。

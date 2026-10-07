@@ -67,3 +67,9 @@ WorldObjectState.cpp与SceneState.cpp的17个Init已改为完成既有构造后�
 17根记录、玩家登记块载体5183E0及53C8CD关联共19已有记录更新，语义仍1152条/1149有效ID、18pending/4分类引用。17入口adapted使已审51→68/3680，七聚合原身份仅作本组布局/归属证据，不以其原指令数或名称自动重分状态。
 
 归档E-WORLD-STATE-LIFECYCLE-I/W/S-20261004三条限定局部证据，累计24条；实现固定至Git命名快照cg2d-re-world-state-lifecycle-source-20261004。C02/C04仍open，已关闭源码任务10项、叶验收0/182及完整功能门禁保持。全应用原序、其他owner、快速退出/完整成员EH/数组SEH/SDK和运行继续待，不构建/查产物/新增或执行测试/运行/文件摘要，音频继续暂停。
+
+## 主地图入口基础状态的独立临时对象（BRY01，2026-10-07）
+
+[BRY01 SPEC](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state)恢复467F30末原var1C独立第三LegacyCryptInt局部，原16B平凡结构无自动C++构析；一次显式Construct／一次Destroy沿原第八阶段，不追加RNG消费。七组先读齐三字段／C821E8先两字段pub再count，原字段宽度、目的vft-padding及八原构销顺序保，其它状态／调用与返回保持。现三对象保真实身份，不以新增全局镜像或生命周期框架承接。
+
+5199A0六清区的typed-x64存储、三现场S16恢复／两个S32取样发布、5-6-15状态数组和末direction=-1已有正文保持，仅正常基线纳管。根467F30真实EH第二chunk归属记录，不为原三跳另造函数、移植旧EH或称异常／SDK验收；全部owner寿命／alias／运行仍按原C类与U09／U11标准推进。两个相邻X7B仅原填充用途，不算生命周期闭合。

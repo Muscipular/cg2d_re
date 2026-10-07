@@ -184582,6 +184582,130 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x467F30",
+      "inventory_id": "F:00067F30",
+      "original_role": "Sub_467F30",
+      "original_end_exclusive": "0x4681ab",
+      "instruction_count": 152,
+      "status": "BRY01主地图入口两完整正常基线纳管；第一体八片段恢复七早读一迟读/第三临时对象，第二已有正文保持；原正常值和构析RNG/唯一数据owner保，完整alias/寿命/所有callee/SDK-EH-ABI/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_467F30"
+          ],
+          "relationship": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+      ],
+      "boundary": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。",
+      "verification_level": "BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。",
+      "main_entry_state_carrier_sampling": {
+        "spec_id": "BRY01",
+        "evidence_refs": [
+          "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+          "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+          "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+          "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+          "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 152,
+        "original_code_bytes": 661,
+        "original_chunk_count": 2,
+        "original_page_count": 3,
+        "original_direct_call_count": 21,
+        "original_unique_callee_count": 7,
+        "original_code_inbound_count": 1,
+        "source_body_changed": true,
+        "source_patch_count": 8,
+        "normal_previous_values_wrong": false,
+        "original_direct_construct_count": 8,
+        "original_direct_destroy_count": 8,
+        "early_three_field_group_count": 7,
+        "late_count_after_two_publications_kept": true,
+        "three_temporary_object_identities_kept": true,
+        "original_state_widths_vft_padding_and_return_kept": true,
+        "original_numeric_carrier_rng_order_kept": true,
+        "no_network_algorithm_changed": true,
+        "dependency_r7_classification_count": 2,
+        "original_seh_tail_metadata_only": true,
+        "full_normal_source_static_mapped": true,
+        "full_seh_or_sdk_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5199A0",
+      "inventory_id": "F:001199A0",
+      "original_role": "Sub_5199A0",
+      "original_end_exclusive": "0x519a7e",
+      "instruction_count": 59,
+      "status": "BRY01主地图入口两完整正常基线纳管；第一体八片段恢复七早读一迟读/第三临时对象，第二已有正文保持；原正常值和构析RNG/唯一数据owner保，完整alias/寿命/所有callee/SDK-EH-ABI/运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_5199A0"
+          ],
+          "relationship": "完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+      ],
+      "boundary": "完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。 BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。",
+      "verification_level": "BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。",
+      "main_entry_state_carrier_sampling": {
+        "spec_id": "BRY01",
+        "evidence_refs": [
+          "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline",
+          "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision",
+          "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance",
+          "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+          "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 59,
+        "original_code_bytes": 222,
+        "original_chunk_count": 1,
+        "original_page_count": 1,
+        "original_direct_call_count": 4,
+        "original_unique_callee_count": 4,
+        "original_code_inbound_count": 1,
+        "source_body_changed": false,
+        "source_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_direct_construct_count": 0,
+        "original_direct_destroy_count": 0,
+        "early_three_field_group_count": 0,
+        "late_count_after_two_publications_kept": null,
+        "three_temporary_object_identities_kept": null,
+        "original_state_widths_vft_padding_and_return_kept": true,
+        "original_numeric_carrier_rng_order_kept": true,
+        "no_network_algorithm_changed": true,
+        "dependency_r7_classification_count": 2,
+        "original_seh_tail_metadata_only": false,
+        "full_normal_source_static_mapped": true,
+        "full_seh_or_sdk_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

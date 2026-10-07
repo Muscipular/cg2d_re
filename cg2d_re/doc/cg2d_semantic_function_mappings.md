@@ -3226,3 +3226,11 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 一个真实X:[461A77,461B30)185B分八实际块，四W32目标表156B／21B值表／五90 NOP／三8D4900整体LEA对齐，五本父data入向及无code进入，仅原用途；不把对齐中间byte另当代码或造叶身份／范围排除。母体normal equivalent，末PUK只低W8有效值承接明确、不冒称完整物理足迹或全部callee／SDK-ABI；冻结定义行保持。
 
 语义1577／有效F1570、文档1688／3680（45.87%）、分类707／CHARACTER6／E814、R7 281余2780。无F与code区各7、pending18、源码closed11／完整功能和叶0／globalfalse及完整枚举／门禁保持；局部数量不作整体功能完成率。
+
+## BRY01 主地图两完整初始化根（2026-10-07）
+
+新增1577／1578为真实F:00067F30／F:001199A0，SceneState.cpp的Sub_467F30／Sub_5199A0；合同见[BRY01 SPEC](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state)及相邻证据JSON。第一主块635B＋实际EH尾26B共152条661B，第二59条222B，共211条883B／四页／三实际chunk、25directcall／十一callee、六jump／两RET、两真实WorldUpdate入向。尾chunk不截断、不新造叶身份，EH只元信息／不新验异常或SDK。
+
+第一体八补丁落实七早读tuple／一个两pub后count、独立第三临时对象，八显式构销／RNG及原状态／宽度／vft-padding和native返回保；第二已有六清区／三选槽／恢复／两S32及5-6-15布局全文保持。正常值旧正确，源码开发与补基线分别标记，不把第二体说成新增业务。
+
+两个原X5／2B全90／canonical nop、无入向前RET后入口，仅mapped用途；MAP66／语义1579有效1572／文档1690／3680（45.92%）／分类709／E816／R7 283余2778。冻结原定义行、无F与code区各7、pending18／差队列与源码closed11／完整功能叶0／globalfalse及完整门禁保持。

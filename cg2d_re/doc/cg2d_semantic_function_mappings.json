@@ -193117,6 +193117,237 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x4682E0",
+      "inventory_id": "F:000682E0",
+      "original_role": "六W32地图参数发布及a1/a2/a8/a7交模式入口",
+      "original_end_exclusive": "0x468330",
+      "original_chunks": [
+        [
+          "0x4682e0",
+          "0x468330"
+        ]
+      ],
+      "instruction_count": 21,
+      "status": "BUI01地图参数/模式分发/399平方注册清理三完整根81条263B/三页归档；三正确正文及全源/声明保持，补当前CUT/AUT真实装载接线及三原身份。代码修改0、新增实现0，mixed原尾返回及既有void动作观察保；完整生产消费/寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4682E0"
+          ],
+          "relationship": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-acceptance",
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+        "doc/cg2d_map_switch_registry_baseline_evidence.json"
+      ],
+      "boundary": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
+      "verification_level": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
+      "map_switch_registry_baseline": {
+        "spec_id": "BUI01",
+        "evidence_refs": [
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-acceptance",
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+          "doc/cg2d_map_switch_registry_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 21,
+        "original_code_bytes": 80,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "all_source_files_and_declarations_kept": true,
+        "existing_parameter_publication_and_mode_branches_correctly_kept": true,
+        "existing_CUT_AUT_cleanup_call_order_kept": true,
+        "registry_row_count": 399,
+        "registry_column_count": 399,
+        "registry_entry_count": 159201,
+        "original_action_slot_bytes": 4,
+        "existing_byte_flag_and_native_borrowed_action_owners_kept": true,
+        "existing_flag_clear_before_fresh_action_and_markdeath_kept": true,
+        "existing_action_slots_not_cleared_or_true_release_added": true,
+        "original_mixed_tail_returns_recorded_and_existing_void_action_view_adaptation_kept": true,
+        "current_cut_and_aut_implemented_wired_state_corrected": true,
+        "existing_cut_semantic_index": 733,
+        "existing_aut_semantic_index": 734,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46DA80",
+      "inventory_id": "F:0006DA80",
+      "original_role": "地图模式分发与CUT/AUT装载和注册清理的有序接线",
+      "original_end_exclusive": "0x46daf5",
+      "original_chunks": [
+        [
+          "0x46da80",
+          "0x46daf5"
+        ]
+      ],
+      "instruction_count": 36,
+      "status": "BUI01地图参数/模式分发/399平方注册清理三完整根81条263B/三页归档；三正确正文及全源/声明保持，补当前CUT/AUT真实装载接线及三原身份。代码修改0、新增实现0，mixed原尾返回及既有void动作观察保；完整生产消费/寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46DA80"
+          ],
+          "relationship": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-acceptance",
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+        "doc/cg2d_map_switch_registry_baseline_evidence.json"
+      ],
+      "boundary": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
+      "verification_level": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
+      "map_switch_registry_baseline": {
+        "spec_id": "BUI01",
+        "evidence_refs": [
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-acceptance",
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+          "doc/cg2d_map_switch_registry_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 36,
+        "original_code_bytes": 117,
+        "original_page_count": 1,
+        "original_direct_call_count": 7,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 2,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "all_source_files_and_declarations_kept": true,
+        "existing_parameter_publication_and_mode_branches_correctly_kept": true,
+        "existing_CUT_AUT_cleanup_call_order_kept": true,
+        "registry_row_count": 399,
+        "registry_column_count": 399,
+        "registry_entry_count": 159201,
+        "original_action_slot_bytes": 4,
+        "existing_byte_flag_and_native_borrowed_action_owners_kept": true,
+        "existing_flag_clear_before_fresh_action_and_markdeath_kept": true,
+        "existing_action_slots_not_cleared_or_true_release_added": true,
+        "original_mixed_tail_returns_recorded_and_existing_void_action_view_adaptation_kept": true,
+        "current_cut_and_aut_implemented_wired_state_corrected": true,
+        "existing_cut_semantic_index": 733,
+        "existing_aut_semantic_index": 734,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46DD40",
+      "inventory_id": "F:0006DD40",
+      "original_role": "399x399 BYTE旗表及借用action表逐槽清旗后标死",
+      "original_end_exclusive": "0x46dd82",
+      "original_chunks": [
+        [
+          "0x46dd40",
+          "0x46dd82"
+        ]
+      ],
+      "instruction_count": 24,
+      "status": "BUI01地图参数/模式分发/399平方注册清理三完整根81条263B/三页归档；三正确正文及全源/声明保持，补当前CUT/AUT真实装载接线及三原身份。代码修改0、新增实现0，mixed原尾返回及既有void动作观察保；完整生产消费/寿命/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_46DD40"
+          ],
+          "relationship": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-acceptance",
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+        "doc/cg2d_map_switch_registry_baseline_evidence.json"
+      ],
+      "boundary": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
+      "verification_level": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
+      "map_switch_registry_baseline": {
+        "spec_id": "BUI01",
+        "evidence_refs": [
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-acceptance",
+          "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+          "doc/cg2d_map_switch_registry_baseline_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 24,
+        "original_code_bytes": 66,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "all_source_files_and_declarations_kept": true,
+        "existing_parameter_publication_and_mode_branches_correctly_kept": true,
+        "existing_CUT_AUT_cleanup_call_order_kept": true,
+        "registry_row_count": 399,
+        "registry_column_count": 399,
+        "registry_entry_count": 159201,
+        "original_action_slot_bytes": 4,
+        "existing_byte_flag_and_native_borrowed_action_owners_kept": true,
+        "existing_flag_clear_before_fresh_action_and_markdeath_kept": true,
+        "existing_action_slots_not_cleared_or_true_release_added": true,
+        "original_mixed_tail_returns_recorded_and_existing_void_action_view_adaptation_kept": true,
+        "current_cut_and_aut_implemented_wired_state_corrected": true,
+        "existing_cut_semantic_index": 733,
+        "existing_aut_semantic_index": 734,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

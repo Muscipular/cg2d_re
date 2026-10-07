@@ -7739,3 +7739,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 按[BTL01裁决](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision)实修SceneState.cpp十一既有正文十一片段：八置位只改原BYTE，三动作取消只改flags18C高W16，以2B memcpy保储存别名；两玩家BFFF/7FFF取消原W16正确保。BDD0仍先取同完整参数→BYTE OR2→value190 W32发布→同值返回，BDF0 W16 ANDFFFD→value190 W32零；现BEC0/BE50、两父与所有接口/唯一owner保。
 
 十三完整叶29条133B/十三页、无CALL无jump十三RET，15点两父。十三新语义1620-1632/十一adapted两equivalent、LOOP42→46/BATTLE253→262，四局部I-S各29来源/十三区107B仅NOP用途；全父/资料生产消费/正常寿命及ABI、链接、明文互通和运行仍需整体验收。
+
+## 玩家动作父字段取样与分发表（BTM01，2026-10-07）
+
+[BTM01裁决](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-decision)实修两个cpp两个既有正文三替换：case1先取同action再发布速度/写原field284；case200原W8 OR10与高W16 ANDEFFF；外观case60原三个创建结果/子槽及三个删除指针取样。原39有效case/默认、速度-1→100、其它调用/输入/值发布与owner保持，骑乘及phase3正文不改。
+
+完整51A840父630条1740B/九页、98直接call/27callee、31jump/46RET，唯一50BCD0局部八参弃返有据，入向父未全验。372B为160B目标/201BYTE selector/11B填充及两data读，不能统称NOP。单新语义1633/adapted与LOOP46→47/两局部I-S各21来源；全provider生产消费/正常寿命、ABI/链接/明文互通及运行仍按整体SPEC推进。

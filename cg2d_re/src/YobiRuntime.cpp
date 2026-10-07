@@ -4075,55 +4075,70 @@ void ApplyPlayerAppearanceReply(
     world::detail::ReadPlayerAction()->imageNo = mappedImage;
     if (gearImage != 0) {
         const std::int32_t mappedGear = character_select::detail::Sub_51B740(gearImage);
-        if (payload->action30 == nullptr) {
-            payload->action30 = NewYobiGear_4410F0(mappedGear);
+        bool hasGear = payload->action30 != nullptr;
+        if (!hasGear) {
+            YobiAction* const gear = NewYobiGear_4410F0(mappedGear);
+            hasGear = gear != nullptr;
+            payload->action30 = gear;
         }
-        if (payload->action30 != nullptr) {
+        if (hasGear) {
             const std::int32_t converted =
                 character_select::detail::Sub_51B740(mappedGear);
             payload->action30->imageNo = converted;
         }
-    } else if (payload->action30 != nullptr) {
-        MarkDeath(payload->action30);
-        payload->action30 = nullptr;
+    } else {
+        YobiAction* const gear = payload->action30;
+        if (gear != nullptr) {
+            MarkDeath(gear);
+            payload->action30 = nullptr;
+        }
     }
 
     if (petImage != 0) {
         std::int32_t mappedPet = character_select::detail::Sub_51B740(petImage);
-        if (payload->action34 == nullptr) {
+        bool hasPet = payload->action34 != nullptr;
+        if (!hasPet) {
             const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(
                 &world::detail::ReadPlayerAction()->mapY1F0);
             const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(
                 &world::detail::ReadPlayerAction()->mapX1E0);
-            payload->action34 = NewYobiGearPet_441130(mappedPet, x, y);
+            YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
+            hasPet = pet != nullptr;
+            payload->action34 = pet;
         }
-        if (payload->action34 != nullptr) {
+        if (hasPet) {
             const std::int32_t converted =
                 character_select::detail::Sub_51B740(mappedPet);
             payload->action34->imageNo = converted;
         }
         if (kind == 6) {
+            YobiAction* const previousSecondPet = payload->action38;
             ++mappedPet;
-            if (payload->action38 == nullptr) {
+            bool hasSecondPet = previousSecondPet != nullptr;
+            if (!hasSecondPet) {
                 const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(
                     &world::detail::ReadPlayerAction()->mapY1F0);
                 const std::int32_t x = platform::legacy_crypt_int::Read_401EC0(
                     &world::detail::ReadPlayerAction()->mapX1E0);
-                payload->action38 = NewYobiGearPet_441130(mappedPet, x, y);
+                YobiAction* const pet = NewYobiGearPet_441130(mappedPet, x, y);
+                hasSecondPet = pet != nullptr;
+                payload->action38 = pet;
             }
-            if (payload->action38 != nullptr) {
+            if (hasSecondPet) {
                 const std::int32_t converted =
                     character_select::detail::Sub_51B740(mappedPet);
                 payload->action38->imageNo = converted;
             }
         }
     } else {
-        if (payload->action34 != nullptr) {
-            MarkDeath(payload->action34);
+        YobiAction* const firstPet = payload->action34;
+        if (firstPet != nullptr) {
+            MarkDeath(firstPet);
             payload->action34 = nullptr;
         }
-        if (payload->action38 != nullptr) {
-            MarkDeath(payload->action38);
+        YobiAction* const secondPet = payload->action38;
+        if (secondPet != nullptr) {
+            MarkDeath(secondPet);
             payload->action38 = nullptr;
         }
     }

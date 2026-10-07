@@ -188817,6 +188817,87 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x51A840",
+      "inventory_id": "F:0011A840",
+      "original_role": "玩家动作39有效case/默认分发与字段/子槽取样",
+      "original_end_exclusive": "0x51AF0C",
+      "original_chunks": [
+        {
+          "start": "0x51a840",
+          "end_exclusive": "0x51af0c",
+          "bytes": "8b44241053563dc8000000570f87b606000033c98a88acaf5100ff248d0caf51006a00e8f8f7ffff83c4045f5e5bc38b44242083f8ff7505b8640000008b15b402ff00a370a8fd006a01898284020000e8cbf7ffff83c4045f5e5bc36a02e8bdf7ffff83c4045f5e5bc36a03e8aff7ffff83c4045f5e5bc36a04e8a1f7ffff83c4045f5e5bc38b44241850e870f7ffff6a05e889f7ffff83c4085f5e5bc36a06e87bf7ffff83c4045f5e5bc38b4c241851e84af7ffff6a07e863f7ffff83c4085f5e5bc38b54241852e832f7ffff6a08e84bf7ffff83c4085f5e5bc38b44241850e81af7ffff6a09e833f7ffff83c4085f5e5bc38b4c241851e802f7ffff6a0ae81bf7ffff83c4085f5e5bc38b54241852e8eaf6ffff6a0be803f7ffff83c4085f5e5bc38b44241850e8d2f6ffff6a0ce8ebf6ffff83c4085f5e5bc38b4c241851e8baf6ffff6a0de8d3f6ffff83c4085f5e5bc38b54241852e8a2f6ffff6a0ee8bbf6ffff83c4085f5e5bc38b44241850e88af6ffff6a0fe8a3f6ffff83c4085f5e5bc38b4c241851e872f6ffff6a10e88bf6ffff83c4085f5e5bc36a11e87df6ffff83c4045f5e5bc36a12e86ff6ffff83c4045f5e5bc36a13e861f6ffff83c4045f5e5bc38b54241852e830f6ffff6a01e849f6ffff83c4085f5e5bc38b44241850e818f6ffff6a00e831f6ffff83c4085f5e5bc38b4c24148b5424105152e87bf4ffff8b44242050e8f1f5ffff83c40ce859d7f4ff5f5e5bc38b4c24148b5424105152e856f4ffff8b44242050e8ccf5ffff83c40ce834d7f4ff837c2420017509e818fbffff5f5e5bc3e81ffbffff5f5e5bc38b4c24148b5424105152e81cf4ffff8b44242050e892f5ffff83c40ce8fad6f4ff837c2420017509e83efbffff5f5e5bc3e845fbffff5f5e5bc38b4c24148b5424105152e8e2f3ffff8b44242050e858f5ffff83c40ce8c0d6f4ff837c2420017509e824fbffff5f5e5bc3e82bfbffff5f5e5bc3837c2420017516e89b1200008b4c241851e821f5ffff83c4045f5e5bc3e8951200008b4c241851e80bf5ffff83c4045f5e5bc38b44242085c00f844e02000050e8821200008b54241c83c40452e8e5f4ffff83c4045f5e5bc3e8a91200008b44241850e8cff4ffff83c4045f5e5bc3837c2420017516e89c1200008b4c241851e8b2f4ffff83c4045f5e5bc3e8961200008b4c241851e89cf4ffff83c4045f5e5bc3e8901200008b54241852e886f4ffff83c4045f5e5bc38b7424148b7c24105657e840ecf4ff83c40885c0750a5657e8e2f2ffff83c408e8faf2ffff8b4c241851e850f4ffff6a00e869f4ffff83c408e8b1d5f4ff5f5e5bc38b15b402ff0033db8b720c3bf30f84f20200008b7c242057e8200b000057a378a8fd00e8150b00008b0db402ff0083c4088981a80200008b4424243bc3743650e8f80a00008bf88b463083c4043bc3751057e89664f2ff83c4043bc3894630742757e8d60a00008b563083c4048982a8020000eb138b46303bc3740c50e87ba0eeff83c404895e308b442428558b6c24303bc30f84b100000050e89e0a00008bf88b463483c4043bc37533a1b402ff008d88f0010000e8e271eeff8b0db402ff005081c1e0010000e8d071eeff5057e85964f2ff83c40c3bc3894634741257e8590a00008b563483c4048982a802000083fd06757b8b4638473bc37533a1b402ff008d88f0010000e89071eeff8b0db402ff005081c1e0010000e87e71eeff5057e80764f2ff83c40c3bc3894638744057e8070a00008b563883c4048982a8020000896e3c5d5f5e5bc38b46343bc3740c50e8a69feeff83c404895e348b46383bc3740c50e8939feeff83c404895e38896e3c5d5f5e5bc38b44242050e84b1000008b4c241c51e8b1f2ffff83c4085f5e5bc3e8551000008b54241852e89bf2ffff83c4045f5e5bc38b7c242033db3bfb0f8caf000000a1b402ff008b700c395e447537536a02e8119deeff8946448958088b4e4483c4088999b00200008b5644c642150a8b4644c74024340000008b46448b482480cd0289482457e83c0900008b4e448981a80200008b1578a8fd0052e8b71200008b0db402ff0083c4088981a80200008b15b402ff008b442424b901000000894a2c895e48a374a8fd008b5644899ab0020000a1b402ff003988b00200000f85ac0000008b56445f5e5b898ab0020000c38b0db402ff00ba0200000039512c0f848b0000008b410c89512c8b48448958483bcb74228999b00200008b15b402ff00b901000000398ab002000075098b40448988b00200005f891d74a8fd005e5bc3a1b402ff008b4c2420518b700cc7402c03000000e86e0800008b15b402ff0083c4048982a8020000c74648000000005f5e5bc38b44242085c0740b800d8fa8fd00105f5e5bc36681258ea8fd00ffef5f5e5bc3"
+        }
+      ],
+      "instruction_count": 630,
+      "status": "BTM01完整玩家动作父及既有外观helper两正文三片段实修；原39有效case/默认与全部接口保，完整入向父/27provider、正常寿命和运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51A840"
+          ],
+          "relationship": "BTM01完整玩家动作分发51A840父630条1740B/九页单块、98实际直接CALL/27callee、无间接CALL、31jump（含一个表跳）/46RET，唯一50BCD0@50BE5C局部八参实用/弃返有据。两个cpp两个既有正文三唯一替换：case1先取同原生玩家action再发布walkSpeed→同指针field284→51A060(1)；case200非零仅flags18C[3] W8 OR10，零仅flags18C[2..3] W16 ANDEFFF用2B memcpy。外观60既有helper恢复三个子槽先取/三个创建返NULL条件先判后pub且沿同结果进分支、转换后fresh子槽写图号、第二pet原+38先取再普通S32++与三个旧子指针同NULL/MarkDeath/清槽。完整39有效case/默认路由、速度-1→100、原201项selector的39有效case与默认/动作70骑乘与80phase、两次原图号转换/gear-pet二次转换/四次Y→X原CryptInt调用及RNG/字段/普通失败/清序/value与原接口、唯一owner/正常布局保；不造helper/状态/保护/异常/回绕。40真实W32目标160B+201BYTE selector+11B逐90/NN_NOP共372B只用途（两同父data读，无code入向），不造x64 W32地址表。单既有F新语义1633与adapted处置/LOOP46→47/两局部I-S各21来源、R7 344→345；所有旧1633语义/冻结定位/其它成员/原pending18和任务/完整门禁保。完整入向父50BCD0、各27provider全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验；网络原格式明文/内部LegacyCryptInt、音频暂停保持。"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "ApplyPlayerAppearanceReply",
+            "SetYobiWalkSpeed",
+            "ApplyPlayerRideReply",
+            "ApplyPlayerPhase3Reply"
+          ],
+          "relationship": "原case1直写及60/70/80内联块由四既有helper承接，仅外观取样正文变更，三其它helper正确保；无新原F/helper/额外字段或正常NULL保护。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-baseline",
+        "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-decision",
+        "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-acceptance",
+        "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
+        "doc/cg2d_player_action_dispatch_sampling_evidence.json"
+      ],
+      "boundary": "BTM01完整玩家动作分发51A840父630条1740B/九页单块、98实际直接CALL/27callee、无间接CALL、31jump（含一个表跳）/46RET，唯一50BCD0@50BE5C局部八参实用/弃返有据。两个cpp两个既有正文三唯一替换：case1先取同原生玩家action再发布walkSpeed→同指针field284→51A060(1)；case200非零仅flags18C[3] W8 OR10，零仅flags18C[2..3] W16 ANDEFFF用2B memcpy。外观60既有helper恢复三个子槽先取/三个创建返NULL条件先判后pub且沿同结果进分支、转换后fresh子槽写图号、第二pet原+38先取再普通S32++与三个旧子指针同NULL/MarkDeath/清槽。完整39有效case/默认路由、速度-1→100、原201项selector的39有效case与默认/动作70骑乘与80phase、两次原图号转换/gear-pet二次转换/四次Y→X原CryptInt调用及RNG/字段/普通失败/清序/value与原接口、唯一owner/正常布局保；不造helper/状态/保护/异常/回绕。40真实W32目标160B+201BYTE selector+11B逐90/NN_NOP共372B只用途（两同父data读，无code入向），不造x64 W32地址表。单既有F新语义1633与adapted处置/LOOP46→47/两局部I-S各21来源、R7 344→345；所有旧1633语义/冻结定位/其它成员/原pending18和任务/完整门禁保。完整入向父50BCD0、各27provider全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验；网络原格式明文/内部LegacyCryptInt、音频暂停保持。",
+      "verification_level": "BTM01完整玩家动作分发51A840父630条1740B/九页单块、98实际直接CALL/27callee、无间接CALL、31jump（含一个表跳）/46RET，唯一50BCD0@50BE5C局部八参实用/弃返有据。两个cpp两个既有正文三唯一替换：case1先取同原生玩家action再发布walkSpeed→同指针field284→51A060(1)；case200非零仅flags18C[3] W8 OR10，零仅flags18C[2..3] W16 ANDEFFF用2B memcpy。外观60既有helper恢复三个子槽先取/三个创建返NULL条件先判后pub且沿同结果进分支、转换后fresh子槽写图号、第二pet原+38先取再普通S32++与三个旧子指针同NULL/MarkDeath/清槽。完整39有效case/默认路由、速度-1→100、原201项selector的39有效case与默认/动作70骑乘与80phase、两次原图号转换/gear-pet二次转换/四次Y→X原CryptInt调用及RNG/字段/普通失败/清序/value与原接口、唯一owner/正常布局保；不造helper/状态/保护/异常/回绕。40真实W32目标160B+201BYTE selector+11B逐90/NN_NOP共372B只用途（两同父data读，无code入向），不造x64 W32地址表。单既有F新语义1633与adapted处置/LOOP46→47/两局部I-S各21来源、R7 344→345；所有旧1633语义/冻结定位/其它成员/原pending18和任务/完整门禁保。完整入向父50BCD0、各27provider全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验；网络原格式明文/内部LegacyCryptInt、音频暂停保持。",
+      "player_action_dispatch_sampling": {
+        "spec_id": "BTM01",
+        "evidence_refs": [
+          "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-baseline",
+          "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-decision",
+          "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-acceptance",
+          "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
+          "doc/cg2d_player_action_dispatch_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 630,
+        "original_code_bytes": 1740,
+        "original_page_count": 9,
+        "original_direct_call_count": 98,
+        "original_callee_count": 27,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 31,
+        "original_return_count": 46,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_count": 2,
+        "source_body_count": 2,
+        "source_patch_count": 3,
+        "case1_original_player_sample_before_speed_publication_restored": true,
+        "case200_actual_w8_or_w16_and_restored": true,
+        "appearance_three_new_returns_and_three_old_pointer_samples_restored": true,
+        "appearance_second_pet_slot_read_before_s32_increment_restored": true,
+        "original_valid_case_count": 39,
+        "original_default_selector_count": 162,
+        "original_value_publication_callbacks_cryptint_rng_and_other_bodies_kept": true,
+        "original_owner_layout_crossfield_observations_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_inbound_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

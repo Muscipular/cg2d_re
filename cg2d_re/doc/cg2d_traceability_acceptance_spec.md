@@ -1472,3 +1472,9 @@ source→共享BYTE/同输入NUL、未初始化FF不作原文本/现owner初值�
 [基线](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline)、[裁决](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision)、[验收](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-acceptance)和[证据](cg2d_player_action_flag_widths_evidence.json)覆盖一源十一正文十一片段：八BYTE置位、三原W16动作取消，另两正确W16取消及值取样/发布/返回保持。十三完整根29条133B/15点两父与107B用途有据，未验全父。
 
 十三实际原F新增语义/处置及两域成员，LOOP46/BATTLE262；四局部I-S各29真实来源，三任务仅current/引用保open。原pending7/其它pending18、已closed任务及全部完整门禁保；全正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续，不以局部pass替代。
+
+## BTM01 玩家动作分发父开发验收（2026-10-07）
+
+[基线](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-baseline)、[裁决](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-decision)、[验收](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-acceptance)及[证据](cg2d_player_action_dispatch_sampling_evidence.json)对应两个cpp两个正文三替换：速度先取action、动作200原W8/W16、外观创建/删除与第二pet取样。完整父630条1740B/九页、39有效case与默认有据，372B两表与填充仅用途。
+
+单原F与LOOP47/单adapted、两局部I-S各21来源；三任务仅current/引用保open，旧pending7/其它pending18、已closed任务及全部完整门禁保。不能把源码静态、27callee定位及入向父局部弃返当全producer-consumer、正常寿命或运行R8通过。

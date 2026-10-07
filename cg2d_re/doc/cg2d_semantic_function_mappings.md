@@ -3444,3 +3444,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [完整基线](cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline)对应十三原F与新1620-1632，29条133B/十三页、15点两父，无CALL无jump十三RET。八W8 OR/三W16清位已实修，另两正确W16取消保持，参数/值发布及返回、唯一owner/跨字段观察保。
 
 汇总预期语义1633有效1626/文档1744（47.39%）/处置774/E892、LOOP46/BATTLE262/四局部I-S各29来源；十三NOP区107B只用途，R7 331→344余2717。全部旧1620语义与其它成员/冻结定位/pending18/差队列/任务及完整门禁保，不以叶访问纳管代完整父、资料生产消费、正常寿命、SDK-ABI或运行。
+
+## BTM01 玩家动作分发父与已有外观拆分正文（2026-10-07）
+
+[BTM01基线](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-baseline)覆盖完整630条1740B/九页、98call/27callee、31jump/46RET、39有效case/默认和372B两表填充。F:0011A840单新语义1633/两个来源，父及外观helper两个既有正文三替换；不把已有拆分helper造为原F。
+
+预期语义1634有效1627/文档1745（47.42%）/处置775/E894、LOOP47/两局部I-S各21来源、R7 345余2716；全部旧1633语义/冻结定位/pending18/其它成员和完整门禁保持。原入口父50BCD0局部八参弃返不代全父，27provider与完整正常生产消费/寿命、SDK-ABI/链接/明文互通及运行待整体推进。

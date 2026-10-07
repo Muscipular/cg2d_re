@@ -9985,8 +9985,9 @@ void Sub_51A840(
         return;
     case 1: {
         const std::int32_t speed = option1 == -1 ? 100 : option1;
+        login::YobiAction* const action = gPlayerRuntime.action;
         gPlayerRuntime.walkSpeed = speed;
-        login::detail::SetYobiWalkSpeed(gPlayerRuntime.action, speed);
+        login::detail::SetYobiWalkSpeed(action, speed);
         Sub_51A060(1);
         return;
     }
@@ -10087,9 +10088,13 @@ void Sub_51A840(
         return;
     case 200:
         if (option1 != 0) {
-            gPlayerRuntime.flags18C |= 0x10000000u;
+            reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C)[3] |= 0x10u;
         } else {
-            gPlayerRuntime.flags18C &= 0xEFFFFFFFu;
+            auto* const actionBytes = reinterpret_cast<unsigned char*>(&gPlayerRuntime.flags18C) + 2;
+            std::uint16_t actionFlags;
+            std::memcpy(&actionFlags, actionBytes, sizeof(actionFlags));
+            actionFlags &= 0xEFFFu;
+            std::memcpy(actionBytes, &actionFlags, sizeof(actionFlags));
         }
         return;
     default:

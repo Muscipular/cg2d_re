@@ -4397,3 +4397,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 只完整取聊天窗口[4433C6,443562)134条412B/三页，8direct六目标/一Tick/11jump无RET，父1220元数据/唯一441D9B保；其它1086条不由本步代验。原零length/stateIndex别名/负数路径、首测宽→图高/现场Y、两行max/第二Draw后新font指标扣Y/四callee/九宫格与fallback及全部其他正文保持。
 
 1073全部十名称格式点/AAS01字段、原LOOP/MAP成员和adapted处置保后追加，无新语义/F/处置/R7；TEXT27→28/两局部I-S各21实际来源，字体测宽实际提供者Font.cpp引用已对齐。全父/provider/全部正常文本分配—绘制—过期寿命、SDK-ABI/链接/画面/明文互通/运行仍未验。
+
+## 玩家外观回复子槽与创建结果取样（BTM01，2026-10-07）
+
+按[完整父基线](cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-baseline)修既有ApplyPlayerAppearanceReply：三创建依同返回值NULL结果先判后pub，不另读共享槽决定成功；映射图号后fresh槽写图号保。第二pet先取action38再普通S32++；三个删除分支同原生子指针NULL/MarkDeath/清槽，保payload/两次原图号映射、gear-pet二次映射、两处Y→X读取、失败及kind3C尾。
+
+原SetYobiWalkSpeed/ApplyPlayerRideReply/ApplyPlayerPhase3Reply正文和所有接口保，无新helper或独立原F。只以F:0011A840新语义1633关联本case60已有拆分正文，不造helper身份；完整owner-alias寿命/提供者与SDK-ABI、链接和运行未验。

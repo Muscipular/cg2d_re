@@ -3500,3 +3500,15 @@ BDD0同完整入参取样、置位→value190 W32发布→原同值返回与BDF0
 全部旧1620语义及其它成员/冻结定位/pending18与原ECX pending7/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse及完整门禁保持。全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续；不以叶宽度纳管代整体验收。
 
 BTL01完成结果：十一正文八BYTE置位/三真实W16清位已修，两正确W16清位与值发布/返回/唯一owner和其它源头保持。四组集中静态全部通过；原区间检查的IDA align显示误判已解决，107B每条真实NN_NOP/90/size1及边界/无入向证据保留，失败组重跑通过。measure及-Check同次顺序执行均终态0；完整快照逐对象与十二UTF-8无BOM/LF、四锚点、四I-S各29真实来源及文本差异检查通过。实际语义1633有效1626/文档1744（47.39%）/处置774/E892、LOOP46/BATTLE262/R7 344余2717；pending18及pending7、差队列和任务状态/完整门禁保。精确十二文件提交及本步命名快照，用户六项既有改动保持；整体目标继续，未编译测试运行，不替代全父/寿命或运行验收。
+
+## BTM01 玩家动作父与外观子槽取样实修（2026-10-07）
+
+上一BTL01十一状态正文原宽度已提交。本步沿唯一调用父51A840，取完整630条1740B/九页、98直接CALL/27callee、无间接CALL、31jump（含表跳）/46RET、唯一50BCD0@50BE5C局部八参实用/弃返。39有效case与默认完整表核：40个目标160B/201BYTE selector/11B逐90填充，共372B，两同父data读/无code入向，不统称NOP。
+
+先落[子SPEC](../doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-decision)，实修两个cpp两个既有正文三唯一替换。SceneState case1原先取action→发布walkSpeed→同指针field284→51A060(1)，恢复此前速度写后另取action；case200非零只flags18C[3]原W8 OR10，零只[2..3]真实W16 ANDEFFF，以2B memcpy代宽指针别名。YobiRuntime现外观helper三创建结果先依同指针比较NULL再pub、转换后fresh槽写图号保，三个删除用同一次原子指针NULL/MarkDeath/清槽；第二pet先取+38子指针再普通S32++图号。不造helper/owner/新F或业务规则。
+
+原39有效case/默认/速度-1→100、两次原图号与gear-pet二次转换/四次Y→X CryptInt调用及RNG、普通失败/字段及清序/值发布、骑乘70与phase3 80/所有其它源和声明保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。单原F新语义1633/adapted与LOOP46→47、两局部I-S各21来源；预期语义1634有效1627/文档1745（47.42%）/处置775/E894、R7 345余2716，集中静态及汇总完成后追加实际结果。
+
+所有旧1633语义与其它成员/冻结定位/pending18和原ECX pending7/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse及全部完整门禁保。全入向父50BCD0/27provider全部正常生产消费与owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行R8继续，不以静态父映射代全寿命/运行。
+
+BTM01完成结果：两个cpp两个正文三替换已修，完整两源/外观七子片段/全部39有效case与默认、原根与372B两表填充、机器及文档任务四组集中静态通过；九页全部630原MCP字段逐项通过。measure及-Check同次顺序执行均终态0；完整派生快照逐对象、十四文件UTF-8无BOM/LF、四锚点/两I-S各21真实来源与文本差异检查通过。实际语义1634有效1627/文档1745（47.42%）/处置775/E894、LOOP47、R7 345余2716，全部旧对象/队列/pending18及pending7/任务与完整门禁保持。十四文件精确提交并固定本步命名快照，用户六项既有改动保持；整体目标继续，未编译测试运行，不代全入向父、27provider生产消费与正常寿命或运行R8。

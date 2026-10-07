@@ -1736,3 +1736,16 @@ LOOP131→135/RENDER53→57/MAP126→128/BATTLE262→263，各S一个/25来源�
 ### BUS01 本步实际结果
 
 必要静态通过：四完整原根200条699B/五页、九局部后窗/28B原消息/四尾53B，四正确正文与四cpp/声明/提供者完整保持，两机器台账及五文档/四任务完整模型核定；四锚点/25来源及UTF-8无BOM/LF通过。派生核对模型按汇总器既有成员排序规范对齐，成员集合和数量未改，完整快照其余对象保持。文本汇总与-Check通过：语义1723/有效1716、文档1834（49.84%）、处置864/E1018、R7已审429/余2632，LOOP135/MAP128/RENDER57/BATTLE263，NETWORK61保持。代码改动/新增实现0，四域只S、无I；四任务open、完整叶验收0、整体未验收。未编译、测试或运行，不代全父/callee、资源寿命/业务失败/机器ABI、链接/像素/文件/明文互通及R8。命名快照cg2d-re-renderer-rebuild-baseline-20261008，整体目标active。
+
+## BUT01 窗口真实输入局部开发与验收（2026-10-08）
+
+[基线](cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline)、[裁决](cg2d_window_input_gate_restore_spec.md#window-input-gate-decision)、[验收](cg2d_window_input_gate_restore_spec.md#window-input-gate-acceptance)与[证据](cg2d_window_input_gate_restore_evidence.json)固定十局部376条1307B/十页、十四ftol与原F32常量8B；原892条只身份/旧合同，不作本次全根重验。
+
+实际四片段实修：两个键索引拒绝删除、坐标两零轴回原值删除、F10局部更新后一次W8发布。普通按下保存值判bit8/末次重读及多写、抬起单写、七鼠标先Y后X/门禁/真实callee、默认参数/返回、RECT和IME已修顺序保持。只更新原语义181，source符号/原稳定身份保；不新增语义、F分类或R7。
+
+LOOP136/INPUT30各限定I/S两证据、各25来源，E1022。文档关联和语义/F/R7计数保，T02/R04/V04只current/引用，各open、原closed11和完整功能门禁不变。正常生产消费、所有上游/callee、焦点/IME/owner/alias寿命、业务失败、机器ABI/链接、画面/文件及明文运行与R8继续；RPLAN.24异常不专项处理或记等价通过。
+
+### BUT01 实际限定静态结果
+
+四处源码修复、整个cpp仅四片段差异、十原局部376条1307B/十四ftol/两常量8B、原写序与七调用/回调注册、完整机器与派生差异模型、十三文件编码/四锚点及四限定I-S各25来源已通过。文本汇总和Check均退出0。
+实际LOOP136/INPUT30、E1022；语义1723/有效1716、文档1834（49.84%）、F864/R7已审429余2632、pending18/ECX pending7、closed11/全门禁保持。此结论只限本SPEC局部开发静态，未编译、链接、运行或证明完整窗口/输入验收，整体目标继续active。

@@ -95,11 +95,6 @@ void RebuildRendererIfGraphicDirty()
 
 void UpdateKeyDownState(const std::uint32_t key)
 {
-    // Win32 虚拟键有效域为 0..255；仅拦截域外索引，避免访问唯一键表之外。
-    if (key >= LegacyKeyStateCount) {
-        return;
-    }
-
     const std::uint8_t pressed = static_cast<std::uint8_t>(
         gKeyStates[key] | 2u);
     gKeyStates[key] = pressed;
@@ -112,10 +107,6 @@ void UpdateKeyDownState(const std::uint32_t key)
 
 void UpdateKeyUpState(const std::uint32_t key)
 {
-    // 与按下路径相同，仅保护有效 Win32 虚拟键域之外的消息载荷。
-    if (key >= LegacyKeyStateCount) {
-        return;
-    }
     gKeyStates[key] = static_cast<std::uint8_t>(
         (gKeyStates[key] & 0xF5u) | 1u);
 }
@@ -128,18 +119,11 @@ MouseCoordinates MapMouseCoordinates(const std::uint32_t packedCoordinates)
         return MouseCoordinates {x, y};
     }
 
-    // 原指令严格先换算 Y、后换算 X。零尺寸只保护除零域，非零域保持原公式。
-    std::int32_t mappedY = y;
-    if (gCurrentClientHeight != 0u) {
-        mappedY = static_cast<std::int32_t>(
-            (static_cast<std::uint32_t>(y) * 480u) / gCurrentClientHeight);
-    }
-
-    std::int32_t mappedX = x;
-    if (gCurrentClientWidth != 0u) {
-        mappedX = static_cast<std::int32_t>(
-            (static_cast<std::uint32_t>(x) * 640u) / gCurrentClientWidth);
-    }
+    // 原非 640×480 路径先换算 Y、后换算 X，分别读取当前客户区尺寸。
+    const std::int32_t mappedY = static_cast<std::int32_t>(
+        (static_cast<std::uint32_t>(y) * 480u) / gCurrentClientHeight);
+    const std::int32_t mappedX = static_cast<std::int32_t>(
+        (static_cast<std::uint32_t>(x) * 640u) / gCurrentClientWidth);
     return MouseCoordinates {mappedX, mappedY};
 }
 
@@ -297,7 +281,12 @@ LRESULT CALLBACK WindowProcedure(
             return 0;
         }
         if (wParam32 == VK_F10) {
-            UpdateKeyDownState(VK_F10);
+            // 原 4671C3..4671D4 仅在按位更新完成后写一次键状态。
+            std::uint8_t pressed = static_cast<std::uint8_t>(gKeyStates[VK_F10] | 2u);
+            if ((pressed & 8u) == 0) {
+                pressed = static_cast<std::uint8_t>(pressed | 0x0Cu);
+            }
+            gKeyStates[VK_F10] = static_cast<std::uint8_t>(pressed | 0x10u);
             return 0;
         }
         return DefWindowProcA(window, message, wParam, lParam);

@@ -15781,7 +15781,7 @@
     {
       "original_entry": "0x466DC0",
       "inventory_id": "F:00066DC0",
-      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "status": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
       "original_role": "原窗口过程",
       "sources": [
         {
@@ -15793,9 +15793,60 @@
       ],
       "evidence_documents": [
         "doc/cg2d_window_procedure.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-acceptance",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
+        "doc/cg2d_window_input_gate_restore_evidence.json"
       ],
-      "boundary": "已有消息分支本体，ClientEntry的gWindowClass.lpfnWndProc接此函数；保留原生窗口/消息参数边界，不据此判定平台事件、渲染或完整依赖已验收。"
+      "boundary": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "verification_level": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "window_input_gate_restore": {
+        "spec_id": "BUT01",
+        "evidence_refs": [
+          "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+          "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
+          "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-acceptance",
+          "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
+          "doc/cg2d_window_input_gate_restore_evidence.json"
+        ],
+        "original_full_window_proc_captured_in_this_step": false,
+        "original_window_proc_identity_instruction_count": 892,
+        "original_local_window_count": 10,
+        "original_local_instruction_count": 376,
+        "original_local_code_bytes": 1307,
+        "original_local_page_count": 10,
+        "original_ftol_call_count": 14,
+        "original_constant_bytes": 8,
+        "source_cpp_patch_count": 4,
+        "source_cpp_file_count": 1,
+        "source_header_patch_count": 0,
+        "existing_private_helpers_changed": 3,
+        "new_private_helper_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_semantic_record_count": 0,
+        "new_function_disposition_count": 0,
+        "new_range_disposition_count": 0,
+        "ordinary_keydown_multi_writes_and_fresh_final_read_kept": true,
+        "keyup_single_write_kept": true,
+        "F10_single_write_restored": true,
+        "key_domain_reject_removed": true,
+        "mouse_zero_axis_raw_passthrough_removed": true,
+        "mouse_y_before_x_current_size_sampling_kept": true,
+        "seven_mouse_callees_and_active_gates_kept": true,
+        "other_messages_IME_RECT_native_default_parameters_registration_headers_kept": true,
+        "full_window_proc_verified": false,
+        "full_upstream_callees_verified": false,
+        "full_focus_IME_verified": false,
+        "full_lifecycle_closed": false,
+        "full_machine_abi_verified": false,
+        "full_x87_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x532E70",

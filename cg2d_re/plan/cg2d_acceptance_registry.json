@@ -636,7 +636,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -773,7 +774,8 @@
         "F:0011D640",
         "F:00056D30",
         "F:000512C0",
-        "F:00066B80"
+        "F:00066B80",
+        "F:00066DC0"
       ],
       "closure_task_ids": [
         "U11",
@@ -839,7 +841,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -896,7 +899,8 @@
         "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
         "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
         "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
-        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
+        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+        "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -954,7 +958,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state"
       ]
     },
     {
@@ -1423,7 +1428,8 @@
         "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-baseline",
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-baseline",
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
-        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline"
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-baseline",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -1454,7 +1460,8 @@
         "F:0005FA70",
         "F:0005E770",
         "F:000596D0",
-        "F:0004AB60"
+        "F:0004AB60",
+        "F:00066DC0"
       ],
       "closure_task_ids": [
         "T01",
@@ -1485,7 +1492,8 @@
         "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-decision",
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-decision",
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
-        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision"
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-decision",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1510,7 +1518,8 @@
         "BSE01能力3输入完整301条1068B/五页、23原directcall/12callee、39jump/一RET，唯一45F190@45F699；原完整体保留已排除屏幕键盘路径的四原调用证据，不恢复该路径或将其记已实现。单源四精确片段：两私有Add/Sub回绕bitcast改普通S32，两普通按钮/Enter成功路径先各一次读齐账号/密码+12C totalByteLength再写result1/账号NUL/密码NUL，不误用+128 caret或预先窄化/新保护。原正常数值正确，不称运行故障；LowW16/真实位型、模式返回、strlen/校验/键盘短路、两次当前上下文读取及Y-X-font/度量到绘制、两密码账号S16矩形/焦点owner-latch与尾部图号版本/原其它整源保持。新增F:0005FA70映射1587和单adapted/INPUT25→26/语义1588有效1581/文档1699（46.17%）/处置721/E830；单真X4B全90逐BYTE canonical nop/无入向前RET后入口，只用途mapped/R7 293余2768。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和完整门禁保；U10/R04只current/refs仍open。完整45F190父/命中绘制输入依赖、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通与运行R8仍待；原网络明文/音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
         "BSG01既有语义1582/F:00064E30仅补能力4两普通提交取样；沿BSC01既有原根350条1262B/五页、31directcall/15callee/42jump一RET、唯一464840@464ADF，不重复IDA整根取证。单源两精确片段：按钮先密码+12C再账号+12C，Enter先账号+12C再密码+12C，各一次取齐S32后result1，再按各自同序写两NUL；两路径顺序不同不统一，不误用+128 caret或新增长度门槛。原正常值正确、不称运行故障，BSC普通S32/原上下界与低W8-W16、模式/键序/strlen和校验短路/焦点-latch/计时声音及保存槽和ProcessLoginInput_45CA20全既有正文保持，屏幕键盘排除不恢复。只补1582当前source/证据与原adapted处置引用，INPUT26成员及枚举/完整门禁保持；两局部I-S使E832→834，语义1589有效1582/文档1700（46.20%）/处置722/R7 294余2767均不增，无新F/私有身份/X处置。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse保，U10/R04只current/refs仍open。完整464840父/全部输入依赖及正常alias-owner寿命、CRT-SDK-机器ABI/链接、原格式明文互通与运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
         "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
-        "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行"
+        "BTG01按键分发/Enter两完整原根229条785B/四页三chunk，21direct二十目标/44jump四RET；分派19点三父、Enter唯一45974B消费。Input.cpp一已有业务体两片段恢复历史去重输入→旧记录BYTE与黑名单输入→玩家名BYTE、相等后同输入样本判NUL、失配短路，仅相等谓词。原IME非空/聊天空早返、tail真实低W8/S8与普通S32++/64环及两次pub、去重/复制和449FA0后新取context、颜色先读/游标-1/50C940及三次新取context清length/caret/text与末再次取样、六context CR和黑名单四原格式/未清256B/清序/提示切换与phase20保。按键Ctrl/Shift/八编辑目标现场原序、Tab真实空509080和两chunk音频原调用保持且暂停。766全部格式/生产消费字段保后追加，一新语义/INPUT27→29/两处置与两局部I-S；两个新X2B用途，既有尾13B原RPA01处置整对象保，不造尾F或撤加解密叶排除。仅局部静态，不代全父/二十provider/全部正常owner-alias寿命、ABI/链接/明文互通/运行",
+        "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1536,7 +1545,8 @@
         "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
-        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state"
+        "doc/cg2d_enter_text_byte_sampling_spec.md#enter-text-byte-source-state",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state"
       ]
     },
     {
@@ -44853,6 +44863,194 @@
       "observation": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
       "expected": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
       "actual": "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
+    },
+    {
+      "id": "E-WINDOW-INPUT-GATE-RESTORE-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUT01十局部376条1307B/十页、14ftol和原常量8B；普通按下重读/多写、抬起和F10单写、七鼠标Y-X/原门禁/callee局部，非完整WIN_PROC。doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-input-gate-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-acceptance",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
+        "doc/cg2d_window_input_gate_restore_evidence.json",
+        "src/platform/WindowProcedure.cpp#WindowProcedure",
+        "src/platform/WindowProcedure.cpp#UpdateKeyDownState",
+        "src/platform/WindowProcedure.cpp#UpdateKeyUpState",
+        "src/platform/WindowProcedure.cpp#MapMouseCoordinates",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/WindowProcedureState.hpp",
+        "src/platform/WindowProcedureDependencies.hpp",
+        "include/cg/platform/KeyState.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/RendererRebuild.cpp#RebuildRenderer_466B80",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_mouse_input_chain_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_spec_closure_checklist.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+          "decision_ref": "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "expected": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "actual": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。"
+    },
+    {
+      "id": "E-WINDOW-INPUT-GATE-RESTORE-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUT01十局部376条1307B/十页、14ftol和原常量8B；普通按下重读/多写、抬起和F10单写、七鼠标Y-X/原门禁/callee局部，非完整WIN_PROC。doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-input-gate-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-acceptance",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
+        "doc/cg2d_window_input_gate_restore_evidence.json",
+        "src/platform/WindowProcedure.cpp#WindowProcedure",
+        "src/platform/WindowProcedure.cpp#UpdateKeyDownState",
+        "src/platform/WindowProcedure.cpp#UpdateKeyUpState",
+        "src/platform/WindowProcedure.cpp#MapMouseCoordinates",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/WindowProcedureState.hpp",
+        "src/platform/WindowProcedureDependencies.hpp",
+        "include/cg/platform/KeyState.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/RendererRebuild.cpp#RebuildRenderer_466B80",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_mouse_input_chain_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_spec_closure_checklist.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+          "decision_ref": "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "expected": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "actual": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。"
+    },
+    {
+      "id": "E-WINDOW-INPUT-GATE-RESTORE-FUNC-INPUT-I-20261008",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUT01十局部376条1307B/十页、14ftol和原常量8B；普通按下重读/多写、抬起和F10单写、七鼠标Y-X/原门禁/callee局部，非完整WIN_PROC。doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-input-gate-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-acceptance",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
+        "doc/cg2d_window_input_gate_restore_evidence.json",
+        "src/platform/WindowProcedure.cpp#WindowProcedure",
+        "src/platform/WindowProcedure.cpp#UpdateKeyDownState",
+        "src/platform/WindowProcedure.cpp#UpdateKeyUpState",
+        "src/platform/WindowProcedure.cpp#MapMouseCoordinates",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/WindowProcedureState.hpp",
+        "src/platform/WindowProcedureDependencies.hpp",
+        "include/cg/platform/KeyState.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/RendererRebuild.cpp#RebuildRenderer_466B80",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_mouse_input_chain_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_spec_closure_checklist.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+          "decision_ref": "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "expected": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "actual": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。"
+    },
+    {
+      "id": "E-WINDOW-INPUT-GATE-RESTORE-FUNC-INPUT-S-20261008",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUT01十局部376条1307B/十页、14ftol和原常量8B；普通按下重读/多写、抬起和F10单写、七鼠标Y-X/原门禁/callee局部，非完整WIN_PROC。doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-window-input-gate-restore-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-acceptance",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
+        "doc/cg2d_window_input_gate_restore_evidence.json",
+        "src/platform/WindowProcedure.cpp#WindowProcedure",
+        "src/platform/WindowProcedure.cpp#UpdateKeyDownState",
+        "src/platform/WindowProcedure.cpp#UpdateKeyUpState",
+        "src/platform/WindowProcedure.cpp#MapMouseCoordinates",
+        "src/platform/ClientEntry.cpp",
+        "src/platform/WindowProcedureState.hpp",
+        "src/platform/WindowProcedureDependencies.hpp",
+        "include/cg/platform/KeyState.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "include/cg/platform/MainLoop.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/platform/RendererRebuild.cpp#RebuildRenderer_466B80",
+        "doc/cg2d_window_procedure.md",
+        "doc/cg2d_mouse_input_chain_spec.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_spec_closure_checklist.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+          "decision_ref": "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "expected": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
+      "actual": "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。"
     }
   ],
   "task_acceptance": [
@@ -45256,7 +45454,8 @@
         "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
         "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
         "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
-        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state"
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state"
       ]
     },
     {
@@ -45995,7 +46194,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state"
       ]
     },
     {
@@ -46164,7 +46364,8 @@
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
         "doc/cg2d_map_draw_merge_word_sampling_spec.md#map-draw-merge-word-source-state",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state"
       ]
     },
     {

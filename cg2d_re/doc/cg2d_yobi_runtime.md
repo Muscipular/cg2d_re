@@ -4433,3 +4433,9 @@ CC0/C00/C70正确正文不改，marker清→完整模式2与场景门禁→NULL�
 [原端基线](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline)对应46AFE0内联到格/邻接逻辑。IsMapActorIdleAtTarget每轴在单次S32读取/Double乘64后，各一次F32 world取样供原比较；原S16路径与X短路、既有比较表达式保，不插F32中间落点或异常门槛。原54DD30四字节已加载00008042、完整flags值位证明64.0。
 
 AreMapActorTargetsAdjacent四对独立current→previous显式取样、符号条件后再取两T*求幅值、X>=2不读Y、普通S32差值与取负/阈2保持；不依赖参数求值次序或将两槽统一持有整个helper。父复用已存在held X/fresh Y重载、movement仍传同held action。两cpp四片段/三既有正文，无新helper/owner；全callee/正常寿命/机器ABI及运行未验。
+
+## 坐标临时三字段预取后发布（BTT01，2026-10-07）
+
+按[裁决](cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision)，442AB0既有lambda仅一片段，Construct后先读W32 mask/encoded和W8 readCount，再按原同序发布/Destroy。四次X1E0/Y1F0/X200/Y210构造与RNG次数，27C→280→worldX→worldY及原64.0保；无新helper/owner/布局/保护。
+
+441F60/441FC0正确全文不改：原U16>=10/S16末点和双轴索引、普通S32差/除2、原U32合计>10、fallback先清W16与正常逐点W16增长保持。三完整根203条698B/12call、13局部路径及Destroy两指令无EAX写有据。当前三void适配不伪造纯地址或业务整数/NULL值，也不代全上游机器ABI；全正常寿命/运行未验。

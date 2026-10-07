@@ -1514,3 +1514,9 @@ BTP01十三元数据只改为真实观察描述，不修改其证据/代码/分�
 [基线](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline)、[裁决](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision)、[验收](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-acceptance)及[证据](cg2d_actor_follow_target_sampling_evidence.json)对应完整128条451B及原双轴/指针/CryptInt合同、两级返回窗、已加载64.0常数与13B用途；两cpp四片段/三既有正文实修，无新接口或owner。LOOP72→73/MAP69→70各两局部I-S各25来源，仅本步静态。
 
 三任务current/引用保open，原pending18/pending7/closed11及完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持；全callee/全部正常生产消费及owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续，不外推全通过。
+
+## BTT01 路径追加和坐标复位局部开发验收（2026-10-07）
+
+[基线](cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline)、[裁决](cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision)、[验收](cg2d_actor_path_append_sampling_spec.md#actor-path-append-acceptance)及[证据](cg2d_actor_path_append_sampling_evidence.json)覆盖三完整根203条698B/13局部路径、原容量/索引/插值与RNG/三字段生产消费、Destroy叶及22B用途。复位一lambda片段实修、两正确追加全文保持；LOOP73→76/MAP70→73各两局部I-S各25来源，仅本步静态。
+
+三任务current/引用保open，原pending18/pending7/closed11与完整门禁保。部分RET透传明确保，不将局部void承接冒充全上游ABI；全正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续。网络原格式明文、内部LegacyCryptInt/音频暂停/RPLAN.24保持。

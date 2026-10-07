@@ -7781,3 +7781,9 @@ D9D0范围provider仍原Sub_4410E0，NULL/负值短路及>=17普通归0、payloa
 按[子SPEC](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-decision)，46AFE0活动检查后只取一次action供NULL、首X及441F60，Y独立fresh槽；复用BTR01四参数目标读取重载，无新helper/声明或owner。first held、反向活动槽查找、9DAD78 W32发布/index到五槽边界及移动后x→y推进正确保持，不把movement错误改为fresh。
 
 完整128条451B/70+58两页、11直接call/4目标/19jump/1RET、唯一50A3E0尾透传至512E40清0两窗复用；13B真实NN_NOP只用途。LOOP73/MAP70各两局部I-S，全部callee/正常owner-alias寿命及机器ABI/运行R8未验。
+
+## 路径追加与复位的生产消费边界（BTT01，2026-10-07）
+
+[子SPEC](cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline)覆盖441F60/441FC0/442AB0三完整根203条698B/四归档页、12call/19jump/5RET、13七父局部路径。BTS01传播调用的两追加本体正确保持，原独立S16双轴索引、W16计数、原容量10/插值与fallback门槛保；仅复位lambda恢复三临时值先取齐再发布，四坐标构造/销毁和后续世界坐标原序保。
+
+返回局部有覆盖/下一call或RET透传，不称全部直接弃返，三现void观察具名保；46AFE0那条返回清0链有据，其它全上游/机器ABI未验。LOOP76/MAP73各两局部I-S、22B真实对齐用途；全生产消费/正常寿命及运行继续。

@@ -190778,6 +190778,213 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x441F60",
+      "inventory_id": "F:00041F60",
+      "original_role": "按原U16计数门槛单点追加，X和Y各原S16索引/W16计数增长，满10先清计数再复位",
+      "original_end_exclusive": "0x441fba",
+      "original_chunks": [
+        [
+          "0x441f60",
+          "0x441fba"
+        ]
+      ],
+      "instruction_count": 23,
+      "status": "BTT01三完整路径根203条698B，只修坐标复位lambda三临时值预取后按原序发布，两个正确追加全文保；现void局部观察具名，不等于全上游/寿命/机器ABI或运行",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_441F60"
+          ],
+          "relationship": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-acceptance",
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
+        "doc/cg2d_actor_path_append_sampling_evidence.json"
+      ],
+      "boundary": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
+      "verification_level": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
+      "actor_path_append_sampling": {
+        "spec_id": "BTT01",
+        "evidence_refs": [
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-acceptance",
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
+          "doc/cg2d_actor_path_append_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 23,
+        "original_code_bytes": 90,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 2,
+        "original_inbound_call_count": 6,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "original_three_temporary_w32_w32_w8_samples_before_publication_restored": false,
+        "original_correct_append_body_kept": true,
+        "original_four_coordinate_construct_publish_destroy_and_rng_order_kept": true,
+        "original_word_count_signed_axis_indices_normal_s32_and_original_thresholds_kept": true,
+        "original_local_caller_overwrite_call_or_return_paths_recorded": true,
+        "original_mixed_register_void_observation_adaptation_decided": true,
+        "original_return_observation_decision_ref": "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "all_inbound_parents_return_closure_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x441FC0",
+      "inventory_id": "F:00041FC0",
+      "original_role": "按原S16末点/单次坐标取得起点，距离2才插值/最后目标，原U32合计>10先清计数复位，正常逐轴追加",
+      "original_end_exclusive": "0x442107",
+      "original_chunks": [
+        [
+          "0x441fc0",
+          "0x442107"
+        ]
+      ],
+      "instruction_count": 114,
+      "status": "BTT01三完整路径根203条698B，只修坐标复位lambda三临时值预取后按原序发布，两个正确追加全文保；现void局部观察具名，不等于全上游/寿命/机器ABI或运行",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_441FC0"
+          ],
+          "relationship": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-acceptance",
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
+        "doc/cg2d_actor_path_append_sampling_evidence.json"
+      ],
+      "boundary": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
+      "verification_level": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
+      "actor_path_append_sampling": {
+        "spec_id": "BTT01",
+        "evidence_refs": [
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-acceptance",
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
+          "doc/cg2d_actor_path_append_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 114,
+        "original_code_bytes": 327,
+        "original_page_count": 2,
+        "original_direct_call_count": 3,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 16,
+        "original_return_count": 2,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "original_three_temporary_w32_w32_w8_samples_before_publication_restored": false,
+        "original_correct_append_body_kept": true,
+        "original_four_coordinate_construct_publish_destroy_and_rng_order_kept": true,
+        "original_word_count_signed_axis_indices_normal_s32_and_original_thresholds_kept": true,
+        "original_local_caller_overwrite_call_or_return_paths_recorded": true,
+        "original_mixed_register_void_observation_adaptation_decided": true,
+        "original_return_observation_decision_ref": "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "all_inbound_parents_return_closure_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x442AB0",
+      "inventory_id": "F:00042AB0",
+      "original_role": "四次内部LegacyCryptInt临时构造、三值取齐后逐字段发布与销毁，复位坐标/运动与世界坐标",
+      "original_end_exclusive": "0x442bc9",
+      "original_chunks": [
+        [
+          "0x442ab0",
+          "0x442bc9"
+        ]
+      ],
+      "instruction_count": 66,
+      "status": "BTT01三完整路径根203条698B，只修坐标复位lambda三临时值预取后按原序发布，两个正确追加全文保；现void局部观察具名，不等于全上游/寿命/机器ABI或运行",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_442AB0"
+          ],
+          "relationship": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-acceptance",
+        "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
+        "doc/cg2d_actor_path_append_sampling_evidence.json"
+      ],
+      "boundary": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
+      "verification_level": "BTT01三完整路径追加/插值/复位根441F60/441FC0/442AB0共203条698B/四归档页三块、12直接call/19jump/5RET及13入向七父局部路径；只修YobiRuntime 442AB0既有lambda一片段：每次Construct后按原先预取全部W32 mask/W32 encoded/W8 readCount再按同序发布，四个坐标Construct/publish/Destroy及字段27C→280→worldX→worldY/乘64和RNG消费次数保。两正确追加全文保持、原U16>=10/S16末点及中间点/普通S32差值和除2/原U32>10门槛、两轴独立S16索引/W16计数更新与fallback先清计数保，不添边界限制/回绕模型。原F60正常action指针/NULL0或fallback编码值、FC0正常点数/NULL未定义或fallback值、AB0最后encoded/NULL未定义是局部寄存器观察，不伪造纯指针/统一业务整数；当前void观察具名保持，直接父有覆盖/下一call/RET透传，不能记全部直接弃返，完整上游机器ABI未验。Destroy原只写vptr/RET不写EAX两条原证据及既有host承接保。三NOP区22B仅用途，原64.0复用BTS01已加载数据；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持，无新helper/owner/布局/保护。全部正常生产消费/owner-alias寿命、全父/机器ABI/运行R8未验。",
+      "actor_path_append_sampling": {
+        "spec_id": "BTT01",
+        "evidence_refs": [
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline",
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-acceptance",
+          "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-source-state",
+          "doc/cg2d_actor_path_append_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 66,
+        "original_code_bytes": 281,
+        "original_page_count": 1,
+        "original_direct_call_count": 8,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 6,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_header_patch_count": 0,
+        "original_three_temporary_w32_w32_w8_samples_before_publication_restored": true,
+        "original_correct_append_body_kept": false,
+        "original_four_coordinate_construct_publish_destroy_and_rng_order_kept": true,
+        "original_word_count_signed_axis_indices_normal_s32_and_original_thresholds_kept": true,
+        "original_local_caller_overwrite_call_or_return_paths_recorded": true,
+        "original_mixed_register_void_observation_adaptation_decided": true,
+        "original_return_observation_decision_ref": "doc/cg2d_actor_path_append_sampling_spec.md#actor-path-append-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "all_inbound_parents_return_closure_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

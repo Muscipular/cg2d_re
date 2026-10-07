@@ -3486,3 +3486,9 @@ BTP01旧1645-1657仅将错误的全部调用者弃返字段名更正为局部观
 [完整基线](cg2d_actor_follow_target_sampling_spec.md#actor-follow-target-baseline)对应46AFE0原128条451B/两页、11call/4目标/19jump/1RET/唯一父及两级返回清0。新1660语义/adapted、两cpp四片段/三既有正文，NULL/X/movement同指针、Y fresh、两world单读与四对邻接顺序实修；原S16/普通S32/阈2/实际64.0/原循环与callee消费保。13B逐BYTE NN_NOP只用途。
 
 预期语义1661/有效1654、文档1772（48.15%）、处置802/E912、LOOP73/MAP70各两局部I-S各25真实来源、R7 370余2691。旧1660语义/全部旧对象及完整门禁保；不以局部void适配/完整原指令代全callee、正常owner-alias寿命/机器ABI或运行。
+
+## BTT01 三路径根真实门槛/索引及复位发布（2026-10-07）
+
+[完整基线](cg2d_actor_path_append_sampling_spec.md#actor-path-append-baseline)对应三根203条698B/四页、12call/19jump/5RET/13七父局部路径；新1661-1663/adapted，只实修442AB0一lambda片段，两个正确追加/全部其它代码保持。三个实际F/LOOP76-MAP73各两局部I-S各25真实来源，三尾区22B逐BYTE NN_NOP只用途。
+
+预期语义1664/有效1657、文档1775（48.23%）、处置805/E916、R7 373余2688。全部旧1661语义/冻结定位/其它成员与完整门禁保；void局部观察不称全调用者直接弃返或全上游闭合，全正常生产消费/寿命、机器ABI及运行仍未验。

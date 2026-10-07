@@ -4275,9 +4275,12 @@ void Sub_442AB0(
         platform::LegacyCryptInt& target, const std::int32_t value) {
         platform::LegacyCryptInt temporary;
         platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, value);
-        target.mask = temporary.mask;
-        target.encoded = temporary.encoded;
-        target.readCount = temporary.readCount;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint8_t readCount = temporary.readCount;
+        target.mask = mask;
+        target.encoded = encoded;
+        target.readCount = readCount;
         platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     };
     assignCoordinate(action->mapX1E0, targetX);

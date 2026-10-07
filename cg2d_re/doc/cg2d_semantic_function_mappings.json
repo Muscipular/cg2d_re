@@ -186375,6 +186375,67 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45E7D0",
+      "inventory_id": "F:0005E7D0",
+      "original_role": "Sub_45E7D0",
+      "original_end_exclusive": "0x45e95f",
+      "instruction_count": 123,
+      "status": "BSR01创建请求进度三阶段几何/字段取样恢复，原11B文本/两strlen、GE1入口与阶段/请求/返回保。单源三片段仅局部静态，完整创建父/依赖/消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterSelectScene.cpp",
+          "symbols": [
+            "Sub_45E7D0"
+          ],
+          "relationship": "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline",
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision",
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-acceptance",
+        "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
+        "doc/cg2d_creation_progress_layout_sampling_evidence.json"
+      ],
+      "boundary": "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "verification_level": "BSR01创建请求进度45E7D0完整123条399B/两页，6直接/6目标无间接、10jump/两RET，唯一4626A0@4627DF。单源三片段/一既有体：创建先unscaledX/width/x普通S32计算，再原rows2/x/y192发布，5044E0借本地width不延后计算；ready后rows/算unscaledY/y样本/最终textY，第二现场strlen后先读columns，再原逻辑SHR1得到文字units与unscaledX，随后读x/最终textX。原正常值正确，不称运行故障；独立S32 phase/cols/rows/x/y与native非拥有9A6E88、原11B逐字节本地复制/两次strlen，phase1先pub再首strlen/原U32*(len+7)*9逻辑SHR6和真实columns<2再pub门槛，create后现场phase/启动后++/请求轮询状态1和负数分类/非空标死清槽与原GE1(401D70)入口保；绘制六码参数/两S16和其它整源/Reset与所有父/依赖保，不套LTE0、不扩大text容量/owner或新保护。新1599单adapted F:0005E7D0，CHARACTER14→15；语义1600有效1593/文档1711（46.49%）/处置735/E856；单X1B原90 decode NOP/无入向前RET后入口只用途，R7 306余2755。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U11/V03/R04只current/引用仍open。完整创建controller父/六依赖与请求回复/文本图像生产消费及全部正常alias-owner寿命、CRT-SDK-机器ABI与链接、人物创建-主地图/原格式明文与画面/运行R8仍待；音频暂停/RPLAN.24/执行限制与既定排除保，不构建测试运行或摘要。",
+      "creation_progress_layout_sampling": {
+        "spec_id": "BSR01",
+        "evidence_refs": [
+          "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline",
+          "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision",
+          "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-acceptance",
+          "doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-source-state",
+          "doc/cg2d_creation_progress_layout_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 123,
+        "original_code_bytes": 399,
+        "original_page_count": 2,
+        "original_direct_call_count": 6,
+        "original_unique_callee_count": 6,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_changed_existing_function_count_in_batch": 1,
+        "source_creation_width_and_x_before_layout_publication": true,
+        "source_draw_rows_geometry_before_y_sample": true,
+        "source_draw_length_then_columns_then_units_geometry_then_x": true,
+        "original_phase_s32_and_initial_length_publication_kept": true,
+        "original_creation_progress_observer_owner_kept": true,
+        "original_ge_one_ready_entry_kept": true,
+        "original_start_and_poll_and_nonnull_cleanup_kept": true,
+        "original_text_eleven_bytes_and_two_strlen_kept": true,
+        "original_draw_type3_parameters_and_narrow_boundaries_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

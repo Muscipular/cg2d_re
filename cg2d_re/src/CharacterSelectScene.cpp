@@ -224,12 +224,14 @@ std::int32_t Sub_45E7D0()
             columns = 2;
             gCreationRequestProgress.columns = 2;
         }
-        const std::int32_t x = ((10 - columns) * 64) / 2;
+        const std::int32_t unscaledX = (10 - columns) * 64;
+        const std::int32_t width = columns * 64;
+        const std::int32_t x = unscaledX / 2;
         gCreationRequestProgress.rows = 2;
         gCreationRequestProgress.x = x;
         gCreationRequestProgress.y = 192;
         gCreationRequestProgress.action = login::detail::Sub_5044E0(
-            x, 192, columns * 64, 96, 4, 1);
+            x, 192, width, 96, 4, 1);
     }
     if (gCreationRequestProgress.phase == 1) {
         login::StartCharacterCreationRequest();
@@ -250,12 +252,15 @@ std::int32_t Sub_45E7D0()
     login::YobiAction* const action = gCreationRequestProgress.action;
     if (action != nullptr && login::detail::IsYobiActionReady(action, 1)) {
         const std::int32_t rows = gCreationRequestProgress.rows;
+        const std::int32_t unscaledY = 48 * rows - 16;
         const std::int32_t top = gCreationRequestProgress.y;
-        const std::int32_t y = (48 * rows - 16) / 2 + top;
-        const auto textUnits = static_cast<std::int32_t>(std::strlen(text) >> 1);
+        const std::int32_t y = unscaledY / 2 + top;
+        const auto length = static_cast<std::uint32_t>(std::strlen(text));
         const std::int32_t columns = gCreationRequestProgress.columns;
+        const auto textUnits = static_cast<std::int32_t>(length >> 1);
+        const std::int32_t unscaledX = 64 * columns - 17 * textUnits;
         const std::int32_t left = gCreationRequestProgress.x;
-        const std::int32_t x = (64 * columns - 17 * textUnits) / 2 + left;
+        const std::int32_t x = unscaledX / 2 + left;
         login::detail::DrawText3(
             static_cast<std::int16_t>(x), static_cast<std::int16_t>(y), 2, 0, text, 0);
     }

@@ -1370,3 +1370,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline)、[裁决](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision)、[验收](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-acceptance)及[原证据](cg2d_character_modal_action_gate_evidence.json)对应单真F、两片段整源增量、两局部I-S／各18实际来源、九字节用途分类和U11／V03／R04引用仍open。四集中静态、measure／-Check终态、完整派生快照／编码／引用／差异记录，P05原closed与全部完整门禁保持。
 
 238条663B／四页、14直接／八目标、唯一实际caller、五字符串原字节及创建返回／LTE0／声音后独立对象／非空标死清槽点为局部证据；Ready>=1普通真假虽等价，恢复原401DA0，不外推比较异常。完整事件／文字图像消费、人物父／八依赖／全部正常owner寿命、CRT-SDK／机器ABI／链接、创建-主地图／原格式明文互通／画面／运行R8仍待。
+
+## BSR01 创建请求进度三个布局阶段开发验收（2026-10-07）
+
+[基线](cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline)、[裁决](cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision)、[验收](cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-acceptance)和[原证据](cg2d_creation_progress_layout_sampling_evidence.json)对应单真F／三片段整源增量、两局部I-S各18来源、单字节用途和U11／V03／R04引用仍open。四集中静态、measure／-Check终态、完整派生快照／编码／引用／差异后记结果，P05原closed与所有完整门禁保。
+
+创建几何先算后发布，显示rows／算高／y与strlen／columns／units／算宽／x按原阶段；正确的GE1、五S32、11B文案与动态长度、请求轮询／正常分支保持。原123条399B／两页／六callee及唯一实际caller不代完整controller、正常owner寿命、网络／CRT-SDK／机器ABI／显示／运行R8。

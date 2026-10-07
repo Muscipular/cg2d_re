@@ -3342,3 +3342,9 @@ CHARACTER11→13，语义1598有效1591／文档1709／3680（46.44%）／733处
 新增1598对应F:00062090／ProcessCharacterModal_462090，同源CharacterSelectModal.cpp。见[基线](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-baseline)：238条663B／四页、14直接／八目标、唯一460FF0@461390。两片段沿入口／创建返回取样进入原LTE0，原声音后单对象保、清槽归非空分支；五字符串与四共享缓冲绘制保持，不新增helper／文案F。
 
 CHARACTER13→14，语义1599有效1592／文档1710／3680（46.47%）／734处置／E854；九字节对齐用途使R7 304→305余2756。冻结定位／pending18／差队列与全完整门禁保持，局部不代完整人物父／八依赖／全部正常alias-owner寿命／机器ABI或运行。
+
+## BSR01 创建请求进度几何与取样（2026-10-07）
+
+新增1599对应F:0005E7D0／Sub_45E7D0，来源CharacterSelectScene.cpp，见[基线](cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-baseline)。123条399B／两页、6直接／六目标、唯一4626A0@4627DF。三精确片段恢复创建宽度与x计算先于布局发布、显示rows和长度／列／坐标原取样；11B文本、S32阶段及GE1／请求／返回保，Reset和其它完整源码不变。
+
+CHARACTER14→15，语义1600有效1593／文档1711／3680（46.49%）／735处置／E856；单字节对齐用途使R7 305→306余2755。冻结定位／pending18／差队列及全完整门禁保持，不造布局／Reset／局部块F。局部不代完整创建父／六依赖／请求回复／全部正常alias-owner寿命／机器ABI或运行。

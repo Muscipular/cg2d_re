@@ -3264,3 +3264,15 @@ BSP01实际收口：五片段／两原语开发和原116条275B／520CALL分页�
 新1598单adapted／CHARACTER13→14，语义1599有效1592／文档1710（46.47%）／734处置／E854／R7 305余2756；冻结定位／无F代码区各7／pending18／差队列172及171缺定位43待归属、P05原closed／closed11／完整叶0／globalfalse与全部完整门禁保持。U11／V03／R04只current／引用仍open。完整人物父／八依赖、真实输入／文字图像生产消费及全部正常alias-owner寿命、CRT-SDK／机器ABI／链接、人物创建-主地图／原格式明文／画面／运行R8继续；音频暂停、RPLAN.24和不构建／测试／运行／摘要限制保持。集中静态／派生终态后追加结果。
 
 BSQ01实际收口：两片段／一人物模态父开发完成，原入口LTE0／创建返回复用与非空清槽落实。四集中静态、measure与-Check同句柄终态0、完整派生快照及12文件UTF-8无BOM-LF／四锚点／两局部I-S各18实来源／差异均通过；固定命名快照cg2d-re-character-modal-action-gate-20261007。语义1599有效1592、1710文档（46.47%）／734处置／E854／R7 305余2756，用户既有六项保持。U11／V03／R04仍open及全部完整门禁保；本轮连同BSP01已实修三个原根／两源码／七片段，两批分别提交，继续沿人物选择／创建到主地图的真实依赖缺口开发，不全面核对或回查未变模块。
+
+## BSR01 创建请求进度框布局阶段取样实修（2026-10-07）
+
+沿人物创建controller真实依赖，先落[子SPEC](../doc/cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision)，实修CharacterSelectScene.cpp三精确片段／一既有45E7D0本体。创建先算unscaledX／width／x，再按原发布rows2／x／y192，5044E0借本地width；显示先rows／unscaledY再y样本／textY，第二现场strlen后columns，再原SHR1文字units／横向几何，最后x样本／textX。普通S32和最终两S16保，不新增保护／owner／业务。
+
+原9A50E0及四布局为S32、9A6E88非拥有观察槽；55C9C0正文10B+NUL11B逐字节保，本地11B复制与两次现场strlen不扩容量，原12B栈分配余1B未使用不冒文本owner。原phase1先发布再初次长度计算／U32(len+7)*9逻辑SHR6／columns<2再发布真实门槛、create后现场阶段／启动后++、轮询成功1和负数失败／非空标死清槽、原GE1 401D70及DrawText3六码参数全保，不能套上一人物模态LTE0或列表的W16阶段。普通值原正确，不称运行故障；Reset／整个其它75K源码、头／父／请求回复／全部callee不变。
+
+原45E7D0完整123条399B／两页、6直接／六目标、10jump／两RET，唯一4626A0@4627DF；原11B字符串归档，X:0005E95F-0005E960一字节90真实NOP／无入向前RET后真入口，仅对齐用途，不造布局／Reset／局部块F。新1599单adapted／CHARACTER14→15，语义1600有效1593／文档1711（46.49%）／735处置／E856／R7 306余2755；冻结定位／无F代码区各7／pending18／差队列172及171缺定位43待归属、P05原closed／closed11／完整叶0／globalfalse与全部完整门禁保持。U11／V03／R04只current／引用仍open。
+
+完整创建controller父／六依赖与请求回复／文本图像生产消费及全部正常alias-owner寿命、CRT-SDK／机器ABI／链接、人物创建-主地图／原格式明文／画面／运行R8继续；音频暂停、RPLAN.24及不构建／测试／运行／摘要限制保。集中静态和派生终态后追加实际结果。
+
+BSR01实际收口：三片段／一创建请求进度体开发完成，原GE1与请求生命周期分支保持；补齐六存储19直接引用仅Reset／本体的原证据，未知间接alias／全正常owner寿命不冒验收。四集中静态、measure与-Check同句柄终态0、完整派生快照及12文件UTF-8无BOM-LF／四锚点／两局部I-S各18真实来源／差异均通过；固定命名快照cg2d-re-creation-progress-layout-sampling-20261007。语义1600有效1593、1711文档（46.49%）／735处置／E856／R7 306余2755，用户既有六项保持。U11／V03／R04仍open及全部完整门禁保，继续沿创建controller的真实缺口推进，不全面核对或复查未变模块。

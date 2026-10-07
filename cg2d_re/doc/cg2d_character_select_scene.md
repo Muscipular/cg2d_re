@@ -2464,3 +2464,9 @@ ready后文字y→x取样，依次加20／140并保持两S16；文字提交后�
 按[BSQ01裁决](cg2d_character_modal_action_gate_spec.md#character-modal-action-gate-decision)，462090入口一次native非拥有modalAction，空时创建返回保共享槽发布，失败与原LTE0继续借该样本；接既有IsYobiActionStateLessOrEqual→401DA0，撤发布后重读与Ready>=1替代。Play79后的actionToDestroy独立单读已正确保持，清槽移回原非空MarkDeath分支，结果1后继续按钮及四提示绘制。
 
 原五字符串5／21／15／21／13B逐字节、同未清256B四复制／测宽／绘制、原按钮记录／普通S32布局和最终S16、原门禁／返回／参数及其它完整源／头／父／依赖保持。原238条663B／四页、14直接／八目标、五跳转／三RET，唯一460FF0@461390，单9B相邻NOP只用途；新1598单F，不造文本／helper身份。普通比较真假原正确，本步恢复原入口和对象读写分支，不称运行故障；完整人物／事件／显示／全部owner寿命与依赖验收继续。
+
+## 创建请求进度框布局取样更新（BSR01，2026-10-07）
+
+按[BSR01裁决](cg2d_creation_progress_layout_sampling_spec.md#creation-progress-layout-decision)，45E7D0先算unscaledX／width／x再发布rows2／x／y192，创建借本地width；显示先rows／unscaledY再y，第二现场strlen后先columns，再SHR1文字units／横向几何，最后x取样，两S16和DrawText3参数保。
+
+原phase及四布局均S32、9A6E88是native非拥有观察槽；11B文本与两次动态strlen、phase1先发布／原U32长度算法／真实columns<2门槛、create后现场阶段／启动后++、轮询1和负值／非空标死清槽／原401D70 GE1入口均正确保持，不套LTE0或列表W16、不给11B文案扩容量／owner。原123条399B／两页、6直接／六目标、10跳转／两RET，唯一4626A0@4627DF，1B相邻NOP只用途；新1599单F。完整创建controller／六依赖／请求回复、全部owner寿命和显示／主地图仍待。

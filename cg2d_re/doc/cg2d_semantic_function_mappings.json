@@ -192126,6 +192126,102 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x46B1B0",
+      "inventory_id": "F:0006B1B0",
+      "original_role": "原玩家子对象推进及单步快照取样/运动方向同步",
+      "original_end_exclusive": "0x46b36c",
+      "original_chunks": [
+        [
+          "0x46b1b0",
+          "0x46b36c"
+        ]
+      ],
+      "instruction_count": 119,
+      "status": "BUC01完整玩家单步根119条444B/两页，一既有正文两片段恢复X mask-first/Y encoded-first三预取后pub；原正确player/payload/child取样、数值表达式与两Ctor/Destroy/RNG序保持，现void局部观察适配；完整数值/正常寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "MovePlayerOneStep_46B1B0"
+          ],
+          "relationship": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-baseline",
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-decision",
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-acceptance",
+        "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state",
+        "doc/cg2d_player_single_step_sampling_evidence.json"
+      ],
+      "boundary": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。",
+      "verification_level": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。",
+      "player_single_step_sampling": {
+        "spec_id": "BUC01",
+        "evidence_refs": [
+          "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-baseline",
+          "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-decision",
+          "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-acceptance",
+          "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-source-state",
+          "doc/cg2d_player_single_step_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 119,
+        "original_code_bytes": 444,
+        "original_page_count": 2,
+        "original_direct_call_count": 13,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 7,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_axis_specific_preload_orders": [
+          {
+            "axis": "X",
+            "field": "gPlayerSnapshotX",
+            "order": [
+              "mask",
+              "encoded",
+              "readCount"
+            ],
+            "original_site": "0x46B21E-0x46B239"
+          },
+          {
+            "axis": "Y",
+            "field": "gPlayerSnapshotY",
+            "order": [
+              "encoded",
+              "mask",
+              "readCount"
+            ],
+            "original_site": "0x46B252-0x46B26E"
+          }
+        ],
+        "original_three_preloads_before_publication_restored": true,
+        "original_two_ctor_dtor_rng_and_x_before_fresh_y_kept": true,
+        "original_held_player_payload_then_fresh_player_x_and_payload_child_kept": true,
+        "original_float_rate_landings_direction_backend_and_unchanged_numeric_source_kept": true,
+        "original_loaded_constant_count": 3,
+        "original_loaded_constant_bytes": 12,
+        "original_void_local_caller_observation_adaptation_decided": true,
+        "original_return_observation_decision_ref": "doc/cg2d_player_single_step_sampling_spec.md#player-single-step-decision",
+        "reused_original_parent_ref": "doc/cg2d_player_move_control_sampling_evidence.json",
+        "reused_original_parent_entry": "0x469FC0",
+        "original_other_source_bodies_fields_pointer_and_network_plaintext_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

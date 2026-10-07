@@ -3730,3 +3730,17 @@ BUA01已提交；先复用已取得46A190/46A5F0完整原指令，确认两调�
 新增1677-1678/adapted、LOOP89→91/MAP86→88各两局部I-S各25来源/两R7；预期语义1679/有效1672、合同1790（48.64%）、处置820/E948、R7已审388/余2673，静态/汇总后记实值。三任务current/引用仍open、pending18/ECX pending7/closed11/差队列与完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整生产消费/正常寿命/数值/机器ABI/链接/画面/明文互通及R8继续。
 
 BUB01集中静态已通过：完整Scene仅两既有正文八限定片段、两个BYTE/模式短路/四处三预取及两队列W16比较复用，一局部lambda保回调后fresh取样；五原页298条1262B/元数据/18B用途、两窗口、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1679/有效1672、合同1790（48.64%）、处置820/E948、R7已审388/余2673、LOOP91/MAP88。全部原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅局部静态，不代完整寿命/数值/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-move-control-sampling-20261008。
+
+## BUC01 玩家单步两轴快照预取实修（2026-10-08）
+
+BUB01已提交，本步沿真实469FC0→46B1B0推进。原单步完整119条444B/两页一块、13直接call/7jump/1RET与唯一入向窗口经既有IDA只读MCP取得；原父完整98条456B复用BUB01，不重复取根或扫描正确下游。
+
+确认快照X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8在首pub前原均已取齐，现边读边pub。先落[子SPEC](../doc/cg2d_player_single_step_sampling_spec.md#player-single-step-decision)，只修Yobi一个既有正文两片段，三const预取后同序pub/Destroy。原两Ctor/两Destroy/RNG、X完整寿命后Y、所有其它语句和全部其它源保持，无新lambda/helper/声明/owner/布局。
+
+正确初player/payload持有→rate F32→payload/child空门禁→previousY用持有player→previousX重读player→child从持有payload重读→442110并丢弃ST0保持。原Multiply X64/世界X/差X F32、Multiply Y64/世界Y/差Y较高精度、已有方向ASM与数值表达式、步长pub/方向/51A040/51A640/末519EE0保持源码；三个实际已加载F32 0.01/0/4共12B只证明位值，不宣称数值/x87舍入运行等价。
+
+原末EAX沿519EE0，唯一局部调用后收栈→玩家Y GetVal，不消费此返回；现void具名局部观察适配，不外推全上游弃返或完整ABI。尾4B实际逐insn_t.itype为NN_NOP/单BYTE90，无入向/后46B370，仅用途。
+
+新1679/F:0006B1B0/adapted、LOOP91→92/MAP88→89各两局部I-S各25来源/一R7；预期语义1680/有效1673、合同1791（48.67%）、处置821/E952、R7已审389/余2672，集中静态/汇总后追加实值。三任务current/引用仍open、pending18/ECX pending7/closed11/差队列及完整门禁保；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整生产消费/正常寿命/数值/机器ABI/链接/画面/明文互通及R8继续。
+
+BUC01集中静态已通过：完整Yobi仅一既有正文两片段，X/Y各原三预取/pub、正确player/payload/child段、全部数值源码及两Ctor/Destroy保持；两原页119条444B/元数据、唯一调用窗口/父证据复用、12B实际F32/4B用途、证据/台账/文档与三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1680/有效1673、合同1791（48.67%）、处置821/E952、R7已审389/余2672、LOOP92/MAP89。全部旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87舍入/正常寿命/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-single-step-sampling-20261008。

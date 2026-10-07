@@ -1,0 +1,1369 @@
+{
+  "spec_id": "BUC01",
+  "recorded_on": "2026-10-08",
+  "instruction_page_size": 70,
+  "instruction_page_policy": "原单根70/49两页完整取证，仅既有cg2d.exe IDA会话只读MCP；唯一入向窗口最多12条遇call/ret停，原父98条456B复用已固定BUB01，不重取完整父或其他正确根。",
+  "implementation_static_scope": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。",
+  "source_functions": [
+    {
+      "index": 1679,
+      "original_index": 0,
+      "id": "F:0006B1B0",
+      "entry": "0x46B1B0",
+      "symbol": "MovePlayerOneStep_46B1B0",
+      "role": "原玩家子对象推进及单步快照取样/运动方向同步",
+      "source_cpp_patch_count": 2,
+      "new_local_lambda_count": 0,
+      "body_changed": true,
+      "source_path": "src/YobiRuntime.cpp",
+      "disposition": "adapted",
+      "contract": "BUC01玩家单步46B1B0完整119条444B/两归档页一块、13直接call/7jump/1RET/1入向469FC0局部窗口；原唯一父完整98条456B复用BUB01证据，不重复取根。只实修Yobi一既有正文两片段，X mask W32→encoded W32→count W8、Y encoded W32→mask W32→count W8各先三const取齐再同序pub/Destroy；两Ctor/两Destroy/RNG与X完整寿命后才fresh Y保持，无新lambda/helper/声明/owner/布局。原初player持有→payload持有，rate=speed乘已加载F32 0.01落F32；payload与child原空门禁，previousY用持有player、previousX重新读player、child在两读取后从持有payload重新读再442110、ST0丢弃保持。原快照Multiply X64→世界X W32→差X落F32、Multiply Y64→世界Y W32→差Y保更高精度、原既有方向ASM承接/速率两次4倍率→步长pubX/Y、方向/51A040/51A640/末519EE0保持源码；三个F32实际加载值0.01/0/4共12B归档，不称数值/x87舍入运行等价。原尾EAX来自519EE0，现void按唯一局部调用后收栈→ECX改指向玩家Y→GetVal的未消费观察具名适配，不外推上游全弃返/完整机器ABI。4B真实NN_NOP只用途，无入向/后46B370。全部其它源/字段/指针/下游原数值与RNG和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持；完整正常owner-alias寿命/生产消费/callee/上游数值/机器ABI/链接/画面/明文互通及运行R8未验。"
+    }
+  ],
+  "original_functions": [
+    {
+      "start": "0x46b1b0",
+      "end_exclusive": "0x46b36c",
+      "count": 119,
+      "chunks": [
+        [
+          "0x46b1b0",
+          "0x46b36c"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x469fc0",
+          "text": "call    Player__MoveOneStep",
+          "from": "0x46a122"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x46b1b0",
+          "size": 5,
+          "bytes": "a1b402ff00",
+          "mnemonic": "mov",
+          "text": "mov     eax, gPlayerDataVal.playerYobiAction",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1b5",
+          "size": 3,
+          "bytes": "83ec14",
+          "mnemonic": "sub",
+          "text": "sub     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1b8",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1b9",
+          "size": 2,
+          "bytes": "33f6",
+          "mnemonic": "xor",
+          "text": "xor     esi, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1bb",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1bd",
+          "size": 2,
+          "bytes": "7403",
+          "mnemonic": "jz",
+          "text": "jz      short loc_46B1C2",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1bf",
+          "size": 3,
+          "bytes": "8b700c",
+          "mnemonic": "mov",
+          "text": "mov     esi, [eax+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1c2",
+          "size": 4,
+          "bytes": "db442424",
+          "mnemonic": "fild",
+          "text": "fild    [esp+18h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1c6",
+          "size": 2,
+          "bytes": "85f6",
+          "mnemonic": "test",
+          "text": "test    esi, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1c8",
+          "size": 6,
+          "bytes": "d80de4d45400",
+          "mnemonic": "fmul",
+          "text": "fmul    ds:flt_54D4E4",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1ce",
+          "size": 4,
+          "bytes": "d95c2404",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+18h+var_14]; int",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1d2",
+          "size": 2,
+          "bytes": "743c",
+          "mnemonic": "jz",
+          "text": "jz      short loc_46B210",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1d4",
+          "size": 3,
+          "bytes": "8b4e2c",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi+2Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1d7",
+          "size": 2,
+          "bytes": "85c9",
+          "mnemonic": "test",
+          "text": "test    ecx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1d9",
+          "size": 2,
+          "bytes": "7435",
+          "mnemonic": "jz",
+          "text": "jz      short loc_46B210",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1db",
+          "size": 4,
+          "bytes": "8b4c2404",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+18h+var_14]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1df",
+          "size": 4,
+          "bytes": "8b542424",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+18h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1e3",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; float",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1e4",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; int",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1e5",
+          "size": 6,
+          "bytes": "8d88f0010000",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [eax+1F0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1eb",
+          "size": 5,
+          "bytes": "e8b06cf9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__GetVal",
+          "call_target": "0x401ea0"
+        },
+        {
+          "ea": "0x46b1f0",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; int",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1f1",
+          "size": 5,
+          "bytes": "a1b402ff00",
+          "mnemonic": "mov",
+          "text": "mov     eax, gPlayerDataVal.playerYobiAction",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1f6",
+          "size": 6,
+          "bytes": "8d88e0010000",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [eax+1E0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b1fc",
+          "size": 5,
+          "bytes": "e89f6cf9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__GetVal",
+          "call_target": "0x401ea0"
+        },
+        {
+          "ea": "0x46b201",
+          "size": 3,
+          "bytes": "8b4e2c",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi+2Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b204",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; int",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b205",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; float",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b206",
+          "size": 5,
+          "bytes": "e8056ffdff",
+          "mnemonic": "call",
+          "text": "call    sub_442110",
+          "call_target": "0x442110"
+        },
+        {
+          "ea": "0x46b20b",
+          "size": 2,
+          "bytes": "ddd8",
+          "mnemonic": "fstp",
+          "text": "fstp    st",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b20d",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b210",
+          "size": 4,
+          "bytes": "8b54241c",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+18h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b214",
+          "size": 4,
+          "bytes": "8d4c2408",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+18h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b218",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b219",
+          "size": 5,
+          "bytes": "e8a26af9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x46b21e",
+          "size": 4,
+          "bytes": "8b4c2410",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+18h+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b222",
+          "size": 4,
+          "bytes": "8b44240c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+18h+var_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b226",
+          "size": 4,
+          "bytes": "8a542414",
+          "mnemonic": "mov",
+          "text": "mov     dl, [esp+18h+var_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b22a",
+          "size": 6,
+          "bytes": "890dc851c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751C0.rndVal, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b230",
+          "size": 4,
+          "bytes": "8d4c2408",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+18h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b234",
+          "size": 5,
+          "bytes": "a3c451c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751C0.NorVal, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b239",
+          "size": 6,
+          "bytes": "8815cc51c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751C0.getCount, dl",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b23f",
+          "size": 5,
+          "bytes": "e8ac6af9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x46b244",
+          "size": 4,
+          "bytes": "8b442420",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+18h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b248",
+          "size": 4,
+          "bytes": "8d4c2408",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+18h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b24c",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b24d",
+          "size": 5,
+          "bytes": "e86e6af9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x46b252",
+          "size": 4,
+          "bytes": "8b4c240c",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+18h+var_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b256",
+          "size": 4,
+          "bytes": "8b542410",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+18h+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b25a",
+          "size": 4,
+          "bytes": "8a442414",
+          "mnemonic": "mov",
+          "text": "mov     al, [esp+18h+var_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b25e",
+          "size": 6,
+          "bytes": "890db451c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751B0.NorVal, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b264",
+          "size": 4,
+          "bytes": "8d4c2408",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+18h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b268",
+          "size": 6,
+          "bytes": "8915b851c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751B0.rndVal, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b26e",
+          "size": 5,
+          "bytes": "a2bc51c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751B0.getCount, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b273",
+          "size": 5,
+          "bytes": "e8786af9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x46b278",
+          "size": 2,
+          "bytes": "6a40",
+          "mnemonic": "push",
+          "text": "push    40h ; '@'",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b27a",
+          "size": 5,
+          "bytes": "b9c051c700",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset stru_C751C0",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b27f",
+          "size": 5,
+          "bytes": "e80c6cf9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__mul",
+          "call_target": "0x401e90"
+        },
+        {
+          "ea": "0x46b284",
+          "size": 4,
+          "bytes": "89442424",
+          "mnemonic": "mov",
+          "text": "mov     [esp+18h+arg_8], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b288",
+          "size": 2,
+          "bytes": "6a40",
+          "mnemonic": "push",
+          "text": "push    40h ; '@'",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b28a",
+          "size": 4,
+          "bytes": "db442428",
+          "mnemonic": "fild",
+          "text": "fild    [esp+1Ch+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b28e",
+          "size": 5,
+          "bytes": "b9b051c700",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset stru_C751B0",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b293",
+          "size": 6,
+          "bytes": "d8254cad9d00",
+          "mnemonic": "fsub",
+          "text": "fsub    flt_9DAD4C",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b299",
+          "size": 4,
+          "bytes": "d95c2420",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+1Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b29d",
+          "size": 5,
+          "bytes": "e8ee6bf9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__mul",
+          "call_target": "0x401e90"
+        },
+        {
+          "ea": "0x46b2a2",
+          "size": 4,
+          "bytes": "89442424",
+          "mnemonic": "mov",
+          "text": "mov     [esp+18h+arg_8], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2a6",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2a7",
+          "size": 4,
+          "bytes": "db442420",
+          "mnemonic": "fild",
+          "text": "fild    [esp+14h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2ab",
+          "size": 6,
+          "bytes": "d82550ad9d00",
+          "mnemonic": "fsub",
+          "text": "fsub    flt_9DAD50",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2b1",
+          "size": 4,
+          "bytes": "d9542420",
+          "mnemonic": "fst",
+          "text": "fst     [esp+14h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2b5",
+          "size": 4,
+          "bytes": "d84c2420",
+          "mnemonic": "fmul",
+          "text": "fmul    [esp+14h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2b9",
+          "size": 4,
+          "bytes": "d9442418",
+          "mnemonic": "fld",
+          "text": "fld     [esp+14h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2bd",
+          "size": 4,
+          "bytes": "d84c2418",
+          "mnemonic": "fmul",
+          "text": "fmul    [esp+14h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2c1",
+          "size": 2,
+          "bytes": "dec1",
+          "mnemonic": "faddp",
+          "text": "faddp   st(1), st",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2c3",
+          "size": 2,
+          "bytes": "d9fa",
+          "mnemonic": "fsqrt",
+          "text": "fsqrt",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2c5",
+          "size": 4,
+          "bytes": "d954241c",
+          "mnemonic": "fst",
+          "text": "fst     [esp+14h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2c9",
+          "size": 6,
+          "bytes": "d81d20d45400",
+          "mnemonic": "fcomp",
+          "text": "fcomp   ds:flt_54D420",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2cf",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2d1",
+          "size": 3,
+          "bytes": "f6c441",
+          "mnemonic": "test",
+          "text": "test    ah, 41h",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2d4",
+          "size": 2,
+          "bytes": "751a",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_46B2F0",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2d6",
+          "size": 4,
+          "bytes": "d9442418",
+          "mnemonic": "fld",
+          "text": "fld     [esp+14h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2da",
+          "size": 4,
+          "bytes": "d874241c",
+          "mnemonic": "fdiv",
+          "text": "fdiv    [esp+14h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2de",
+          "size": 4,
+          "bytes": "d9542418",
+          "mnemonic": "fst",
+          "text": "fst     [esp+14h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2e2",
+          "size": 4,
+          "bytes": "d9442420",
+          "mnemonic": "fld",
+          "text": "fld     [esp+14h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2e6",
+          "size": 4,
+          "bytes": "d874241c",
+          "mnemonic": "fdiv",
+          "text": "fdiv    [esp+14h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2ea",
+          "size": 4,
+          "bytes": "d95c2420",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+14h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2ee",
+          "size": 2,
+          "bytes": "eb12",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_46B302",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2f0",
+          "size": 6,
+          "bytes": "d90520d45400",
+          "mnemonic": "fld",
+          "text": "fld     ds:flt_54D420",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2f6",
+          "size": 8,
+          "bytes": "c744242000000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+14h+arg_8], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b2fe",
+          "size": 4,
+          "bytes": "d9542418",
+          "mnemonic": "fst",
+          "text": "fst     [esp+14h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b302",
+          "size": 2,
+          "bytes": "d9c0",
+          "mnemonic": "fld",
+          "text": "fld     st",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b304",
+          "size": 4,
+          "bytes": "d84c2400",
+          "mnemonic": "fmul",
+          "text": "fmul    [esp+14h+var_14]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b308",
+          "size": 6,
+          "bytes": "d80d44dd5400",
+          "mnemonic": "fmul",
+          "text": "fmul    ds:flt_54DD44",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b30e",
+          "size": 6,
+          "bytes": "d91dfce89e00",
+          "mnemonic": "fstp",
+          "text": "fstp    flt_9EE8FC",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b314",
+          "size": 4,
+          "bytes": "d9442420",
+          "mnemonic": "fld",
+          "text": "fld     [esp+14h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b318",
+          "size": 4,
+          "bytes": "d84c2400",
+          "mnemonic": "fmul",
+          "text": "fmul    [esp+14h+var_14]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b31c",
+          "size": 6,
+          "bytes": "d80d44dd5400",
+          "mnemonic": "fmul",
+          "text": "fmul    ds:flt_54DD44",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b322",
+          "size": 6,
+          "bytes": "d91d00e99e00",
+          "mnemonic": "fstp",
+          "text": "fstp    flt_9EE900",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b328",
+          "size": 6,
+          "bytes": "d81d20d45400",
+          "mnemonic": "fcomp",
+          "text": "fcomp   ds:flt_54D420",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b32e",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b330",
+          "size": 3,
+          "bytes": "f6c440",
+          "mnemonic": "test",
+          "text": "test    ah, 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b333",
+          "size": 2,
+          "bytes": "7411",
+          "mnemonic": "jz",
+          "text": "jz      short loc_46B346",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b335",
+          "size": 4,
+          "bytes": "d9442420",
+          "mnemonic": "fld",
+          "text": "fld     [esp+14h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b339",
+          "size": 6,
+          "bytes": "d81d20d45400",
+          "mnemonic": "fcomp",
+          "text": "fcomp   ds:flt_54D420",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b33f",
+          "size": 2,
+          "bytes": "dfe0",
+          "mnemonic": "fnstsw",
+          "text": "fnstsw  ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b341",
+          "size": 3,
+          "bytes": "f6c440",
+          "mnemonic": "test",
+          "text": "test    ah, 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b344",
+          "size": 2,
+          "bytes": "751d",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_46B363",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b346",
+          "size": 4,
+          "bytes": "8b4c2420",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+14h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b34a",
+          "size": 4,
+          "bytes": "8b542418",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+14h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b34e",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; float",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b34f",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; float",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b350",
+          "size": 5,
+          "bytes": "e89b1a0000",
+          "mnemonic": "call",
+          "text": "call    sub_46CDF0",
+          "call_target": "0x46cdf0"
+        },
+        {
+          "ea": "0x46b355",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b356",
+          "size": 5,
+          "bytes": "e8e5ec0a00",
+          "mnemonic": "call",
+          "text": "call    sub_51A040",
+          "call_target": "0x51a040"
+        },
+        {
+          "ea": "0x46b35b",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b35e",
+          "size": 5,
+          "bytes": "e8ddf20a00",
+          "mnemonic": "call",
+          "text": "call    sub_51A640",
+          "call_target": "0x51a640"
+        },
+        {
+          "ea": "0x46b363",
+          "size": 5,
+          "bytes": "e878eb0a00",
+          "mnemonic": "call",
+          "text": "call    sub_519EE0",
+          "call_target": "0x519ee0"
+        },
+        {
+          "ea": "0x46b368",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x46b36b",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x46b1b0",
+          "0x46b36c"
+        ]
+      ],
+      "code_bytes": 444,
+      "calls": [
+        {
+          "ea": "0x46b1eb",
+          "size": 5,
+          "bytes": "e8b06cf9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__GetVal",
+          "call_target": "0x401ea0"
+        },
+        {
+          "ea": "0x46b1fc",
+          "size": 5,
+          "bytes": "e89f6cf9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__GetVal",
+          "call_target": "0x401ea0"
+        },
+        {
+          "ea": "0x46b206",
+          "size": 5,
+          "bytes": "e8056ffdff",
+          "mnemonic": "call",
+          "text": "call    sub_442110",
+          "call_target": "0x442110"
+        },
+        {
+          "ea": "0x46b219",
+          "size": 5,
+          "bytes": "e8a26af9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x46b23f",
+          "size": 5,
+          "bytes": "e8ac6af9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x46b24d",
+          "size": 5,
+          "bytes": "e86e6af9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x46b273",
+          "size": 5,
+          "bytes": "e8786af9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x46b27f",
+          "size": 5,
+          "bytes": "e80c6cf9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__mul",
+          "call_target": "0x401e90"
+        },
+        {
+          "ea": "0x46b29d",
+          "size": 5,
+          "bytes": "e8ee6bf9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__mul",
+          "call_target": "0x401e90"
+        },
+        {
+          "ea": "0x46b350",
+          "size": 5,
+          "bytes": "e89b1a0000",
+          "mnemonic": "call",
+          "text": "call    sub_46CDF0",
+          "call_target": "0x46cdf0"
+        },
+        {
+          "ea": "0x46b356",
+          "size": 5,
+          "bytes": "e8e5ec0a00",
+          "mnemonic": "call",
+          "text": "call    sub_51A040",
+          "call_target": "0x51a040"
+        },
+        {
+          "ea": "0x46b35e",
+          "size": 5,
+          "bytes": "e8ddf20a00",
+          "mnemonic": "call",
+          "text": "call    sub_51A640",
+          "call_target": "0x51a640"
+        },
+        {
+          "ea": "0x46b363",
+          "size": 5,
+          "bytes": "e878eb0a00",
+          "mnemonic": "call",
+          "text": "call    sub_519EE0",
+          "call_target": "0x519ee0"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 7,
+      "return_count": 1,
+      "page_count": 2
+    }
+  ],
+  "original_unassigned_ranges": [
+    {
+      "start": "0x46b36c",
+      "end_exclusive": "0x46b370",
+      "size": 4,
+      "bytes": "90909090",
+      "decode": [
+        {
+          "ea": "0x46b36c",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46b36d",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46b36e",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46b36f",
+          "size": 1,
+          "bytes": "90",
+          "mnemonic": "",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x46b370"
+    }
+  ],
+  "original_caller_flows": [
+    {
+      "call_site": "0x46a122",
+      "parent": "0x469fc0",
+      "parent_end_exclusive": "0x46a188",
+      "instructions": [
+        {
+          "ea": "0x46a127",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "target": null
+        },
+        {
+          "ea": "0x46a12a",
+          "size": 5,
+          "bytes": "b9c0e89e00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset gPlayerY",
+          "target": null
+        },
+        {
+          "ea": "0x46a12f",
+          "size": 5,
+          "bytes": "e86c7df9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__GetVal",
+          "target": "0x401ea0"
+        }
+      ]
+    }
+  ],
+  "original_loaded_constants": [
+    {
+      "ea": "0x54d4e4",
+      "width_bytes": 4,
+      "bytes": "0ad7233c",
+      "bits_u32": "0x3c23d70a",
+      "all_bytes_loaded": true,
+      "operand_kind": "F32"
+    },
+    {
+      "ea": "0x54d420",
+      "width_bytes": 4,
+      "bytes": "00000000",
+      "bits_u32": "0x0",
+      "all_bytes_loaded": true,
+      "operand_kind": "F32"
+    },
+    {
+      "ea": "0x54dd44",
+      "width_bytes": 4,
+      "bytes": "00008040",
+      "bits_u32": "0x40800000",
+      "all_bytes_loaded": true,
+      "operand_kind": "F32"
+    }
+  ],
+  "reused_original_parent_ref": "doc/cg2d_player_move_control_sampling_evidence.json",
+  "reused_original_parent_entry": "0x469FC0",
+  "reused_original_parent_instruction_count": 98,
+  "reused_original_parent_code_bytes": 456,
+  "source_patches": [
+    {
+      "symbol": "MovePlayerOneStep_46B1B0",
+      "old": "    gPlayerSnapshotX.mask = temporary.mask;\n    gPlayerSnapshotX.encoded = temporary.encoded;\n    gPlayerSnapshotX.readCount = temporary.readCount;\n",
+      "replacement": "    const std::uint32_t maskX = temporary.mask;\n    const std::uint32_t encodedX = temporary.encoded;\n    const std::uint8_t readCountX = temporary.readCount;\n    gPlayerSnapshotX.mask = maskX;\n    gPlayerSnapshotX.encoded = encodedX;\n    gPlayerSnapshotX.readCount = readCountX;\n",
+      "axis": "X",
+      "field": "gPlayerSnapshotX",
+      "order": [
+        "mask",
+        "encoded",
+        "readCount"
+      ],
+      "original_site": "0x46B21E-0x46B239"
+    },
+    {
+      "symbol": "MovePlayerOneStep_46B1B0",
+      "old": "    gPlayerSnapshotY.encoded = temporary.encoded;\n    gPlayerSnapshotY.mask = temporary.mask;\n    gPlayerSnapshotY.readCount = temporary.readCount;\n",
+      "replacement": "    const std::uint32_t encodedY = temporary.encoded;\n    const std::uint32_t maskY = temporary.mask;\n    const std::uint8_t readCountY = temporary.readCount;\n    gPlayerSnapshotY.encoded = encodedY;\n    gPlayerSnapshotY.mask = maskY;\n    gPlayerSnapshotY.readCount = readCountY;\n",
+      "axis": "Y",
+      "field": "gPlayerSnapshotY",
+      "order": [
+        "encoded",
+        "mask",
+        "readCount"
+      ],
+      "original_site": "0x46B252-0x46B26E"
+    }
+  ],
+  "source_bodies": {
+    "MovePlayerOneStep_46B1B0": "void MovePlayerOneStep_46B1B0(\n    const std::int32_t x, const std::int32_t y, const std::int32_t speed)\n{\n    login::YobiAction* const player = ReadPlayerAction();\n    auto* const payload = player == nullptr\n        ? nullptr : static_cast<login::detail::MapActorPayload*>(player->payload);\n    const float rate = static_cast<float>(\n        static_cast<double>(speed) * std::bit_cast<float>(0x3C23D70Au));\n    if (payload != nullptr && payload->action2C != nullptr) {\n        const std::int32_t previousY =\n            platform::legacy_crypt_int::Read_401EC0(&player->mapY1F0);\n        const std::int32_t previousX =\n            platform::legacy_crypt_int::Read_401EC0(&ReadPlayerAction()->mapX1E0);\n        static_cast<void>(login::detail::Sub_442110(\n            payload->action2C, previousX, previousY, speed, rate));\n    }\n\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);\n    gPlayerSnapshotX.mask = temporary.mask;\n    gPlayerSnapshotX.encoded = temporary.encoded;\n    gPlayerSnapshotX.readCount = temporary.readCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);\n    gPlayerSnapshotY.encoded = temporary.encoded;\n    gPlayerSnapshotY.mask = temporary.mask;\n    gPlayerSnapshotY.readCount = temporary.readCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    const std::int32_t pixelX =\n        platform::legacy_crypt_int::Multiply_401E90(&gPlayerSnapshotX, 64);\n    const std::uint32_t worldXBits = gWorldCurrentXBits;\n    const float differenceX = static_cast<float>(\n        static_cast<double>(pixelX) - std::bit_cast<float>(worldXBits));\n    const std::int32_t pixelY =\n        platform::legacy_crypt_int::Multiply_401E90(&gPlayerSnapshotY, 64);\n    const std::uint32_t worldYBits = gWorldCurrentYBits;\n    const platform::detail::MapMoveDifference difference {\n        static_cast<double>(differenceX),\n        static_cast<double>(pixelY) - std::bit_cast<float>(worldYBits),\n    };\n    platform::detail::MapMoveDirection direction;\n    platform::detail::Cg2dMapMoveDirection(&difference, &direction);\n    gValue9EE8FC = std::bit_cast<std::uint32_t>(\n        static_cast<float>(direction.unroundedX * static_cast<double>(rate) * 4.0F));\n    gValue9EE900 = std::bit_cast<std::uint32_t>(\n        static_cast<float>(static_cast<double>(direction.y) * static_cast<double>(rate) * 4.0F));\n    if (direction.unroundedX < 0.0 || direction.unroundedX > 0.0\n        || direction.y < 0.0F || direction.y > 0.0F) {\n        const auto value = static_cast<std::int32_t>(\n            Sub_46CDF0(direction.x, direction.y));\n        static_cast<void>(Sub_51A040(value));\n        static_cast<void>(Sub_51A640());\n    }\n    Sub_519EE0();\n}\n\n"
+  },
+  "snapshot_functions_before": [
+    {
+      "id": "F:0006B1B0",
+      "original_entry": "0x46B1B0",
+      "original_name": "Player::MoveOneStep",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbol": "MovePlayerOneStep_46B1B0",
+          "definition_line": 33762,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "ranges_before": [
+    {
+      "id": "X:0006B36C-0006B370",
+      "start": "0x46B36C",
+      "end_exclusive": "0x46B370",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    }
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "U10",
+      "state": "open",
+      "reference_count": 53
+    },
+    {
+      "task_id": "V03",
+      "state": "open",
+      "reference_count": 60
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 231
+    }
+  ],
+  "feature_member_counts_before": [
+    {
+      "id": "FUNC-LOOP",
+      "count": 91
+    },
+    {
+      "id": "FUNC-MAP",
+      "count": 88
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "cg2d_re/src/YobiRuntime.cpp",
+      "length": 1735462
+    }
+  ],
+  "predicted_document_link_percent": 48.67,
+  "new_semantic_count": 1,
+  "new_function_disposition_count": 1,
+  "new_range_disposition_count": 1,
+  "source_cpp_count": 1,
+  "existing_source_body_count": 1,
+  "source_patch_count": 2,
+  "source_header_count": 0,
+  "new_local_lambda_count": 0,
+  "new_named_global_helper_count": 0,
+  "new_shared_owner_count": 0,
+  "coordinate_preload_orders": [
+    {
+      "axis": "X",
+      "field": "gPlayerSnapshotX",
+      "order": [
+        "mask",
+        "encoded",
+        "readCount"
+      ],
+      "original_site": "0x46B21E-0x46B239"
+    },
+    {
+      "axis": "Y",
+      "field": "gPlayerSnapshotY",
+      "order": [
+        "encoded",
+        "mask",
+        "readCount"
+      ],
+      "original_site": "0x46B252-0x46B26E"
+    }
+  ],
+  "original_axis_specific_three_preloads_before_publication_restored": true,
+  "original_two_ctor_dtor_rng_and_x_before_fresh_y_kept": true,
+  "original_held_player_payload_then_fresh_player_x_and_payload_child_kept": true,
+  "original_float_rate_landings_direction_backend_and_unchanged_numeric_source_kept": true,
+  "original_void_local_caller_observation_adaptation_decided": true,
+  "original_other_source_bodies_fields_pointer_and_network_plaintext_kept": true,
+  "runtime_verified": false,
+  "full_machine_abi_verified": false,
+  "full_lifecycle_closed": false,
+  "full_callees_verified": false,
+  "full_inbound_parents_verified": false,
+  "full_numeric_or_x87_rounding_verified": false,
+  "fault_equivalence_claimed": false
+}

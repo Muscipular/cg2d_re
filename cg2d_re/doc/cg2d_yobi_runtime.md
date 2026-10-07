@@ -4511,3 +4511,11 @@ BUA01集中静态已通过：完整源码仅两限定片段/三根原指令与�
 FC0原AF30→持有方向S16→BCF0→速度→Y-X W16加法→46B1B0→回读Y-X→46A5A0，以及跟随→停止/清W16→46A700/46A940→468200→双投影预取/pub保持。FC0尾EAX沿468200，C90后MainLoop局部下一46BD40；现低位返回适配不外推全上游弃返/完整机器ABI。生命周期/数值/协议生产消费与运行仍需后续完整验收。
 
 BUB01集中静态已通过：完整Scene仅两既有正文八限定片段、两个BYTE/模式短路/四处三预取及两队列W16比较复用，一局部lambda保回调后fresh取样；五原页298条1262B/元数据/18B用途、两窗口、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1679/有效1672、合同1790（48.64%）、处置820/E948、R7已审388/余2673、LOOP91/MAP88。全部原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅局部静态，不代完整寿命/数值/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-move-control-sampling-20261008。
+
+## 玩家单步两轴三预取实修（BUC01，2026-10-08）
+
+按[裁决](cg2d_player_single_step_sampling_spec.md#player-single-step-decision)，MovePlayerOneStep_46B1B0一既有正文两片段：原X mask W32→encoded W32→count W8，原Y encoded W32→mask W32→count W8，先全取齐再同序pub/Destroy，替代逐项边读边pub。完整119条444B/两页与唯一入向窗口已归档，正确初player/payload持有、previousY持有player、previousX重读player、child在两读取后从持有payload重读的顺序保。
+
+两Ctor/两Destroy/RNG及X完整寿命后Y保持；rate F32/差X F32与差Y较高精度、既有方向ASM/原数值表达式、步长pub/方向同步/末519EE0源码保持。三个F32实际已加载0.01/0/4共12B证明位值，不证明完整数值/x87舍入或运行等价。无新lambda/helper/声明/owner，现void局部观察适配不外推机器ABI。
+
+BUC01集中静态已通过：完整Yobi仅一既有正文两片段，X/Y各原三预取/pub、正确player/payload/child段、全部数值源码及两Ctor/Destroy保持；两原页119条444B/元数据、唯一调用窗口/父证据复用、12B实际F32/4B用途、证据/台账/文档与三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1680/有效1673、合同1791（48.67%）、处置821/E952、R7已审389/余2672、LOOP92/MAP89。全部旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87舍入/正常寿命/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-single-step-sampling-20261008。

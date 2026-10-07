@@ -1592,3 +1592,11 @@ BUA01集中静态已通过：完整源码仅两限定片段/三根原指令与�
 三任务仅current/引用仍open，原pending/差队列/closed11保。完整MainLoop/上游/callee、正常owner-alias寿命/数值/机器ABI/链接/画面/明文互通和R8继续；网络原格式明文、内部LegacyCryptInt、音频暂停与RPLAN.24保持。
 
 BUB01集中静态已通过：完整Scene仅两既有正文八限定片段、两个BYTE/模式短路/四处三预取及两队列W16比较复用，一局部lambda保回调后fresh取样；五原页298条1262B/元数据/18B用途、两窗口、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1679/有效1672、合同1790（48.64%）、处置820/E948、R7已审388/余2673、LOOP91/MAP88。全部原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅局部静态，不代完整寿命/数值/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-move-control-sampling-20261008。
+
+## BUC01 玩家单步快照开发验收（2026-10-08）
+
+[基线](cg2d_player_single_step_sampling_spec.md#player-single-step-baseline)、[裁决](cg2d_player_single_step_sampling_spec.md#player-single-step-decision)、[验收](cg2d_player_single_step_sampling_spec.md#player-single-step-acceptance)及[证据](cg2d_player_single_step_sampling_evidence.json)覆盖119条444B/两页、两取样片段、唯一入向窗口/父证据复用与12B实际常量/4B用途。LOOP91→92/MAP88→89各两局部I-S各25真实来源，只本步静态。
+
+三任务current/引用仍open，原pending/差队列/closed11与完整门禁保。全部正常owner-alias寿命/生产消费/callee/数值/x87舍入/机器ABI/链接/画面/明文互通及R8继续；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
+
+BUC01集中静态已通过：完整Yobi仅一既有正文两片段，X/Y各原三预取/pub、正确player/payload/child段、全部数值源码及两Ctor/Destroy保持；两原页119条444B/元数据、唯一调用窗口/父证据复用、12B实际F32/4B用途、证据/台账/文档与三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1680/有效1673、合同1791（48.67%）、处置821/E952、R7已审389/余2672、LOOP92/MAP89。全部旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87舍入/正常寿命/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-single-step-sampling-20261008。

@@ -36978,14 +36978,20 @@ void MovePlayerOneStep_46B1B0(
 
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
-    gPlayerSnapshotX.mask = temporary.mask;
-    gPlayerSnapshotX.encoded = temporary.encoded;
-    gPlayerSnapshotX.readCount = temporary.readCount;
+    const std::uint32_t maskX = temporary.mask;
+    const std::uint32_t encodedX = temporary.encoded;
+    const std::uint8_t readCountX = temporary.readCount;
+    gPlayerSnapshotX.mask = maskX;
+    gPlayerSnapshotX.encoded = encodedX;
+    gPlayerSnapshotX.readCount = readCountX;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
-    gPlayerSnapshotY.encoded = temporary.encoded;
-    gPlayerSnapshotY.mask = temporary.mask;
-    gPlayerSnapshotY.readCount = temporary.readCount;
+    const std::uint32_t encodedY = temporary.encoded;
+    const std::uint32_t maskY = temporary.mask;
+    const std::uint8_t readCountY = temporary.readCount;
+    gPlayerSnapshotY.encoded = encodedY;
+    gPlayerSnapshotY.mask = maskY;
+    gPlayerSnapshotY.readCount = readCountY;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
     const std::int32_t pixelX =

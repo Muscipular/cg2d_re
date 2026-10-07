@@ -7859,3 +7859,11 @@ BUA01集中静态已通过：完整源码仅两限定片段/三根原指令与�
 原回调后fresh读取、tick调用/target与tick写序、四Ctor/四Destroy/RNG/X完后fresh Y保；全部其余源码/既有两reader及邻接断言保持。原FC0尾EAX沿468200，ECX/EDX承担双投影，不造worldX/AL1返回；现U8/U16局部观察具名适配，完整上游/寿命/数值/机器ABI与运行继续。18B实际NN_NOP只用途。
 
 BUB01集中静态已通过：完整Scene仅两既有正文八限定片段、两个BYTE/模式短路/四处三预取及两队列W16比较复用，一局部lambda保回调后fresh取样；五原页298条1262B/元数据/18B用途、两窗口、证据/台账/文档和三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1679/有效1672、合同1790（48.64%）、处置820/E948、R7已审388/余2673、LOOP91/MAP88。全部原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅局部静态，不代完整寿命/数值/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-move-control-sampling-20261008。
+
+## 玩家单步调用与快照取样（BUC01，2026-10-08）
+
+[完整基线](cg2d_player_single_step_sampling_spec.md#player-single-step-baseline)覆盖46B1B0单根119条444B/两页、13直接call/7jump/1RET及469FC0@46A122唯一入向。父完整98条456B复用BUB01，Scene父正文保持。只修Yobi单步快照X mask-encoded-count、Y encoded-mask-count各先三预取再同序pub/Destroy，原两Ctor/Destroy/RNG/X先完再Y保持。
+
+现void按调用后收栈→玩家Y GetVal局部未消费观察具名适配，原尾EAX沿519EE0，不造固定返回。12B实际F32/4B NN_NOP用途有据，完整生产消费/正常寿命/数值/机器ABI和运行继续。
+
+BUC01集中静态已通过：完整Yobi仅一既有正文两片段，X/Y各原三预取/pub、正确player/payload/child段、全部数值源码及两Ctor/Destroy保持；两原页119条444B/元数据、唯一调用窗口/父证据复用、12B实际F32/4B用途、证据/台账/文档与三任务模型一致。汇总及 -Check 已通过，完整派生快照实值为语义1680/有效1673、合同1791（48.67%）、处置821/E952、R7已审389/余2672、LOOP92/MAP89。全部旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；只局部静态，不代完整数值/x87舍入/正常寿命/机器ABI/编译/链接/运行。命名快照：cg2d-re-player-single-step-sampling-20261008。

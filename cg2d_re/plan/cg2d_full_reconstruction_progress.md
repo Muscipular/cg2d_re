@@ -3830,3 +3830,17 @@ LOOP104→107/MAP101→104各两局部I-S各25来源、两R7；预期语义1695/
 三任务仍open，pending18/ECX pending7、closed11/差队列与完整门禁保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与R8继续。
 
 BUI01必要静态已通过：Scene/Yobi完整源及私有声明零改动，三正确正文/399平方矩阵与当前CUT-AUT接线、81条263B/三页及三窗口/25B用途与台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1695/有效1688、合同1806（49.08%）、处置836/E976、R7已审403/余2658、LOOP107/MAP104。旧对象/733-734/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/全callee/机器ABI及R8继续。命名快照：cg2d-re-map-switch-registry-baseline-20261008。
+
+## BUJ01 地图动作四坐标临时预取实修（2026-10-08）
+
+BUI01地图设置/清理基线已提交，本步沿46CF60实际动作创建46DE50→更新46DD90→已有46DFF0绘制依赖推进。既有IDA只读MCP两完整根166条599B/三页两块，19directcall/一jump/三RET及同一父两个唯一入向；两局部后窗证实创建结果发布、offsetX沿created指针、offsetY按原fresh取槽，更新后收栈jmp，不复核父全CFG或重复既有1257绘制根。
+
+确认创建四AssignFromInt经通用CopyPayload逐字段取即pub，与原四Construct后encoded W32/mask W32/count W8先读齐再pub不同。先落[子SPEC](../doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision)，只改Yobi一既有创建正文四片段：复用同一局部临时，各三载荷具名预取再原序发布，四Construct/Destroy及X/Y/X/Y实参/唯一RNG次数保持；不改通用工具或其他caller合同，无新helper/lambda/header/owner/依赖。
+
+New(2,0)/原NULL失败、同一created action的callback/图像/action/direction/W8优先10/W32 flags30/W16 field270/两W32零写、原scaled64/F32世界坐标、投影/.5两ftol/X→Y屏幕发布及原指针返回保。更新46DD90先worldY/X投影、Y biased先算后X pub/后Y pub、两Multiply64和FrameMove100后的held offsetY/X及screenY/X读/低W16坐标、graphicIndex/16B描述符消费正确全保。父和MapDrawCache1257源码保持，不加父NULL保护/统一偏移取槽或造fixed返回；现更新void沿局部动作观察适配，完整ABI未验。
+
+新1695/1696均adapted，已加载F32 64四B/F64 .5八B只位值；创建尾9B NN_NOP/90无入向/后46DFF0仅用途，绘制紧接创建无额外X。LOOP107→109/MAP104→106各两局部I-S各25来源、一R7；预期语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657，必要静态/纯文本汇总后记实值。
+
+三任务仍open，pending18/ECX pending7/closed11/差队列和完整门禁保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，不编译、测试或运行。整体目标active，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通及R8继续。
+
+BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四组W32/W32/W8预取、同一临时四Construct/Destroy及原创建/返回/数值保持；正确更新绘制、父/通用工具/1257全源保持。两原根166条599B/三页、两窗口/12B常量/9B用途与证据/台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657、LOOP109/MAP106。旧对象/1257/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-map-action-coordinate-sampling-20261008。

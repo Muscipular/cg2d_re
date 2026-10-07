@@ -4551,3 +4551,11 @@ BUF01必要静态已通过：完整Scene/公开声明仅五片段变化，两原
 逐行逐列只有flag==1时先清旗0，再现场取同槽action并MarkDeath；不清指针槽、不批量清旗、其他旗值保持，不把标死当释放。原最后命中尾沿MarkDeath借用action返回，无命中沿入向EAX，当前void局部动作观察保，不制造固定返回或声称全父/机器ABI。两地图入口及CUT/AUT已实现接线的当前状态补证，完整实际回收/owner-alias寿命/链接/画面/运行未闭。
 
 BUI01必要静态已通过：Scene/Yobi完整源及私有声明零改动，三正确正文/399平方矩阵与当前CUT-AUT接线、81条263B/三页及三窗口/25B用途与台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1695/有效1688、合同1806（49.08%）、处置836/E976、R7已审403/余2658、LOOP107/MAP104。旧对象/733-734/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/全callee/机器ABI及R8继续。命名快照：cg2d-re-map-switch-registry-baseline-20261008。
+
+## 地图动作四坐标载荷预取实修（BUJ01，2026-10-08）
+
+按[裁决](cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision)，Sub_46DE50的mapX200/mapY210/mapX1E0/mapY1F0四组恢复原encoded→mask→W8 count先取齐后pub；复用同一局部LegacyCryptInt，四Construct/Destroy和X/Y/X/Y实参保持，不改通用AssignFromInt/CopyPayload。
+
+New(2,0)原NULL失败、同一created指针callback/字段/priority BYTE10/flags W32 30/W16 field270/两W32零写、原scaled64与F32/投影/.5两ftol/X→Y屏幕pub及借用指针返回保。更新46DD90正确源码全保，Multiply64各单读、FrameMove100/偏移/已有DrawCache交原16B描述符保。父原创建发布/第一偏移held created/第二偏移fresh取槽正确保，不称完整父/owner-alias寿命或数值/ABI/运行已闭。
+
+BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四组W32/W32/W8预取、同一临时四Construct/Destroy及原创建/返回/数值保持；正确更新绘制、父/通用工具/1257全源保持。两原根166条599B/三页、两窗口/12B常量/9B用途与证据/台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657、LOOP109/MAP106。旧对象/1257/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-map-action-coordinate-sampling-20261008。

@@ -1648,3 +1648,11 @@ BUH01必要静态已通过：完整Scene仅一跨度正文一片段变化，正�
 LOOP104→107/MAP101→104各两局部I-S各25来源，三任务current/引用仍open；完整正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通及R8继续，差队列/closed11/完整门禁和网络原格式明文/音频暂停/RPLAN.24保持。
 
 BUI01必要静态已通过：Scene/Yobi完整源及私有声明零改动，三正确正文/399平方矩阵与当前CUT-AUT接线、81条263B/三页及三窗口/25B用途与台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1695/有效1688、合同1806（49.08%）、处置836/E976、R7已审403/余2658、LOOP107/MAP104。旧对象/733-734/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/全callee/机器ABI及R8继续。命名快照：cg2d-re-map-switch-registry-baseline-20261008。
+
+## BUJ01 地图动作坐标载荷开发验收（2026-10-08）
+
+[基线](cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline)、[裁决](cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision)、[验收](cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-acceptance)及[证据](cg2d_map_action_coordinate_sampling_evidence.json)覆盖两根166条599B/三页、两局部窗口/12B常量/9B用途。一创建正文四片段恢复四组W32/W32/W8预取与原四Construct/Destroy，正确绘制/父/工具保持，不代完整数值/x87/owner-alias寿命/机器ABI。
+
+LOOP107→109/MAP104→106各两局部I-S各25来源，三任务current/引用仍open；完整正常生产消费/全父/callee/数值/寿命/机器ABI/链接/像素画面/明文互通与R8继续，差队列/closed11/完整门禁与网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
+
+BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四组W32/W32/W8预取、同一临时四Construct/Destroy及原创建/返回/数值保持；正确更新绘制、父/通用工具/1257全源保持。两原根166条599B/三页、两窗口/12B常量/9B用途与证据/台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657、LOOP109/MAP106。旧对象/1257/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-map-action-coordinate-sampling-20261008。

@@ -626,7 +626,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-baseline",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline",
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
-        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline"
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -735,7 +736,9 @@
         "F:00068290",
         "F:000682E0",
         "F:0006DA80",
-        "F:0006DD40"
+        "F:0006DD40",
+        "F:0006DE50",
+        "F:0006DD90"
       ],
       "closure_task_ids": [
         "U11",
@@ -791,7 +794,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision",
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
-        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision"
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -838,7 +842,8 @@
         "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
         "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
         "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
-        "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。"
+        "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
+        "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -886,7 +891,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
-        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state"
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state"
       ]
     },
     {
@@ -1645,7 +1651,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-baseline",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline",
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-baseline",
-        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline"
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-baseline",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1751,7 +1758,9 @@
         "F:00068290",
         "F:000682E0",
         "F:0006DA80",
-        "F:0006DD40"
+        "F:0006DD40",
+        "F:0006DE50",
+        "F:0006DD90"
       ],
       "closure_task_ids": [
         "U11",
@@ -1803,7 +1812,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision",
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-decision",
-        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision"
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-decision",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1846,7 +1856,8 @@
         "BUF01投影46CE30/46CE80两完整根35条136B/两页两块，无call/jump、两RET、36入向来自33父；只复用三相关局部调用窗口，不代全父。Scene两既有正文四片段和既有头文件一片段：正向void恢复原生非拥有float*原outX返回，按原先refX/u后refY/v取样；两根每个F32输出以四BYTE memcpy写X再写Y，承接现有W32参考位槽的合法别名。正向两参考在首输出前取得，反向仍X输出后fresh读取refY；不合并取样，不加空指针检查。六已加载4B数据24B证明中心S32 320/240和四F32位值；中心在可写.data，各仅两直接读、无直接写/取地址引用，具名保现正常320/240承接，不造未证动态viewport/影子owner，不据直接引用排除全部间接别名。所有算式、double/F32承载、调用者和其它正文保持，无新helper/lambda/共享owner/外依赖。468F70源局部F32/ftol消费并返回Y的S64正确保持，不误改为透传投影指针。两个尾区3+5B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/所有数据与别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
         "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
         "BUH01地图回退4681B0/边界跨度468200/裁剪468290三完整根67条282B/三页三块、9直接call/四有符号业务jump/三RET/24入向来自16父。只Scene一既有468200正文一片段：原先W16读XEnd/YEnd后取XStart作差再取YStart作差，现先算X差后读YEnd改为两个终点各W16局部预取；原四Add参数-30/-20/+21/+31、独立读取和各AX→S16发布、共享四边界/两跨度、裁剪后四读及X→Y W16发布、U16 spanX观察适配保持。原EAX高16沿裁剪返回yEnd指针残留，AX为X跨度；469FC0后ECX/EDX参考槽发布再RET沿返回，当前已决U16局部观察保，不外推完整EAX/机器ABI或全上游弃返。4681B0现先Y snapshot再X snapshot经401EA0尾跳401EC0的既有Read接口、468330后468200、两W16/四W32清序及完整S32 0返回正确保；468290现X/Y start各S16<0置0、X/Y上限各W32先读后S16终点比较、真分支写此前上限低W16、返回借用原yEnd正确保，不猜fresh读或新增保护/NULL门禁。原业务裁剪四分支保，所有callee/字段/声明/调用者/其它正文和共享owner保，无新helper/lambda/header/owner/依赖。四相关局部窗口不代完整父，5093C0立即覆EAX、MainLoop下一4691D0、46AC90下一Construct仅局部观察；467F30已BRY01实修/纳管，不重复计量或造改动。三个尾区10+3+9B实际NN_NOP/90无入向/后真入口仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
-        "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。"
+        "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
+        "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1890,7 +1901,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
-        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state"
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state"
       ]
     },
     {
@@ -42718,6 +42730,194 @@
       "observation": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
       "expected": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。",
       "actual": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。"
+    },
+    {
+      "id": "E-MAP-ACTION-COORDINATE-SAMPLING-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUJ01两完整根166条599B/三页，19directcall/一jump/三RET/唯一父两窗口；四载荷先W32-W32-W8读齐后pub/同一临时四Construct-Destroy与创建返回、正确投影/FrameMove/父发布及fresh取槽、12B常量/9B用途，doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-action-coordinate-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-acceptance",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_46DE50",
+        "src/YobiRuntime.cpp#Sub_46DD90",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/world/MapSceneDrawing.cpp",
+        "src/world/MapDrawCache.cpp#Sub_46DFF0",
+        "src/world/SceneState.cpp#ProjectWorldToScreen_46CE30",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#AssignFromInt",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "doc/cg2d_map_switch_registry_baseline_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+          "decision_ref": "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "expected": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "actual": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+    },
+    {
+      "id": "E-MAP-ACTION-COORDINATE-SAMPLING-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUJ01两完整根166条599B/三页，19directcall/一jump/三RET/唯一父两窗口；四载荷先W32-W32-W8读齐后pub/同一临时四Construct-Destroy与创建返回、正确投影/FrameMove/父发布及fresh取槽、12B常量/9B用途，doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-action-coordinate-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-acceptance",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_46DE50",
+        "src/YobiRuntime.cpp#Sub_46DD90",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/world/MapSceneDrawing.cpp",
+        "src/world/MapDrawCache.cpp#Sub_46DFF0",
+        "src/world/SceneState.cpp#ProjectWorldToScreen_46CE30",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#AssignFromInt",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "doc/cg2d_map_switch_registry_baseline_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+          "decision_ref": "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "expected": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "actual": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+    },
+    {
+      "id": "E-MAP-ACTION-COORDINATE-SAMPLING-FUNC-MAP-I-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUJ01两完整根166条599B/三页，19directcall/一jump/三RET/唯一父两窗口；四载荷先W32-W32-W8读齐后pub/同一临时四Construct-Destroy与创建返回、正确投影/FrameMove/父发布及fresh取槽、12B常量/9B用途，doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-action-coordinate-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-acceptance",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_46DE50",
+        "src/YobiRuntime.cpp#Sub_46DD90",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/world/MapSceneDrawing.cpp",
+        "src/world/MapDrawCache.cpp#Sub_46DFF0",
+        "src/world/SceneState.cpp#ProjectWorldToScreen_46CE30",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#AssignFromInt",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "doc/cg2d_map_switch_registry_baseline_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+          "decision_ref": "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "expected": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "actual": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+    },
+    {
+      "id": "E-MAP-ACTION-COORDINATE-SAMPLING-FUNC-MAP-S-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUJ01两完整根166条599B/三页，19directcall/一jump/三RET/唯一父两窗口；四载荷先W32-W32-W8读齐后pub/同一临时四Construct-Destroy与创建返回、正确投影/FrameMove/父发布及fresh取槽、12B常量/9B用途，doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-action-coordinate-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-acceptance",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_evidence.json",
+        "src/YobiRuntime.cpp#Sub_46DE50",
+        "src/YobiRuntime.cpp#Sub_46DD90",
+        "src/YobiRuntime.cpp#NewYobiAction_404AE0",
+        "src/world/MapSceneDrawing.cpp",
+        "src/world/MapDrawCache.cpp#Sub_46DFF0",
+        "src/world/SceneState.cpp#ProjectWorldToScreen_46CE30",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/platform/LegacyCryptInt.cpp#ConstructFromInt_401CC0",
+        "src/platform/LegacyCryptInt.cpp#Destroy_401CF0",
+        "src/platform/LegacyCryptInt.cpp#AssignFromInt",
+        "src/platform/LegacyCryptInt.cpp#CopyPayload",
+        "src/platform/LegacyCryptInt.cpp#Multiply_401E90",
+        "include/cg/platform/LegacyCryptInt.hpp",
+        "doc/cg2d_map_switch_registry_baseline_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+          "decision_ref": "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "expected": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "actual": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。"
     }
   ],
   "task_acceptance": [
@@ -43209,7 +43409,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
-        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state"
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state"
       ]
     },
     {
@@ -43283,7 +43484,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
-        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state"
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state"
       ]
     },
     {
@@ -43832,7 +44034,8 @@
         "doc/cg2d_projection_sampling_return_spec.md#projection-sampling-return-source-state",
         "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
         "doc/cg2d_map_boundary_span_sampling_spec.md#map-boundary-span-source-state",
-        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state"
+        "doc/cg2d_map_switch_registry_baseline_spec.md#map-switch-registry-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state"
       ]
     },
     {
@@ -54100,6 +54303,32 @@
         "doc/cg2d_map_switch_registry_baseline_evidence.json"
       ],
       "boundary": "BUI01地图参数4682E0/模式46DA80/注册表清理46DD40三完整根81条263B/三页三块、9directcall/5jump/4RET/6入向来自5父，三局部后窗不代全父。现三正文/Scene和Yobi整源及私有声明全部正确保持，代码改动/新增实现0：六W32参数发布与a1/a2/a8/a7重排；先既有暂停音频调用再三W32状态，mode!=1早退、mode1按selected=-1选floor，两个选择槽发布后CUT→AUT→注册清理原序，不因加载返回删除后续调用。当前.cut/.aut真实文件链已实现/接线，733/734身份和全文保，不重复语义计量；旧Doc第14节未实现描述只属历史，当前具名纠正。注册矩阵399x399=159201，原BYTE旗表B65A80/原4B指针表B8C864-C27FE8，新唯一W8/原生非拥有YobiAction*表承接；逐行逐列flag==1时先清0，再现场取action并MarkDeath，指针槽不清，不提前真释放或批量清旗，余旗不改。原MarkDeath返借用action，DD40最后命中尾沿指针、无命中沿入向EAX；DA80非1完整W32 mode-1/模式1沿DD40、82E0收栈透传，只记录事实。沿既有void动作观察适配保持，不造固定返回/影子状态，不外推三后窗为全ABI或全父弃返。两尾11+14B实际NN_NOP/90无入向/后真入口仅用途，82E0紧接8330无尾区。所有owner/幅度/算式/callee/调用者/其他函数/源码保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全部正常生产消费/owner-alias寿命/全父/callee/机器ABI/链接/像素画面/明文互通与运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0006DE50",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-acceptance",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_evidence.json"
+      ],
+      "boundary": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0006DD90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-acceptance",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_evidence.json"
+      ],
+      "boundary": "BUJ01地图动作创建46DE50/更新绘制46DD90两完整根166条599B/三页两块、19directcall/一jump/三RET/各唯一46CF60入向。只Yobi一既有创建正文四片段：四AssignFromInt各原encoded W32/mask W32/count W8先读齐后目标发布，展开既有Construct/Destroy并复用同一临时对象、各三局部预取，四实参X/Y/X/Y和四构造/四析构/唯一RNG消费/目标pub序保；通用AssignFromInt/CopyPayload全文保，不扩工具行为。New(2,0)与原NULL失败、同一created action callback/image/action/direction/W8 priority10/W32 flags30/W16 field270/两W32零写、原scaled64/局部F32/投影/.5两ftol与X先于Y发布、最终借用原created action返回保；没有新保护/宽度/布局/影子owner。更新绘制正文正确全保：先worldY/X投影、Y biased先算后X pub再Y pub、X/Y Multiply64各单读与F32、FrameMove(action,100,0,0)、held offsetY/X后screenY/X取样和S32相加/W16坐标、graphicIndex/原16B描述符交已有46DFF0。两局部父窗口证实创建结果原指针发布与offsetX使用该created action，随后offsetY按原fresh取槽，绘制后收栈jmp；不改正确MapSceneDrawing父/1257 F46DFF0源，不代完整父/生命周期/机器ABI。原绘制尾EAX沿46DFF0，现既有void局部动作观察适配保，不造固定返回。已加载F32 64四B/F64 .5八B仅位值，不称完整数值/x87。创建尾9B实际NN_NOP/90无入向/后真入口仅用途，绘制根紧接创建无额外X。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通和运行R8未验。"
     }
   ],
   "auxiliary_dispositions": [
@@ -72804,6 +73033,96 @@
         },
         {
           "ea": "0x46dd8f",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:0006DFE7-0006DFF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-decision",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-acceptance",
+        "doc/cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-source-state",
+        "doc/cg2d_map_action_coordinate_sampling_evidence.json"
+      ],
+      "reason": "BUJ01地图动作创建根尾9B原显示align，实际逐insn_t.itype为NN_NOP/单BYTE90，无入向/后真入口，仅用途，不新F或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 9,
+      "original_bytes": "909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x46dfe7",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46dfe8",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46dfe9",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46dfea",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46dfeb",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46dfec",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46dfed",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46dfee",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46dfef",
           "size": 1,
           "bytes": "90",
           "text": "align 10h",

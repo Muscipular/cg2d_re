@@ -7915,3 +7915,11 @@ BUH01必要静态已通过：完整Scene仅一跨度正文一片段变化，正�
 第14节“.cut/.aut尚未实现”是2026-09-23历史状态。当前两个真实文件入口已落位并接线，旧语义733/734/文件路径、共享表、失败消息及关闭返回保持；本步不重复这两身份。当前三新身份1692/1693/1694与两尾25B纳管；原mode-1/mixed尾返回事实和既有void动作观察适配保，三局部后窗不代全部上游ABI。只标死、不提前释放，完整数据/owner-alias寿命/所有callee/机器ABI/像素画面和运行继续。
 
 BUI01必要静态已通过：Scene/Yobi完整源及私有声明零改动，三正确正文/399平方矩阵与当前CUT-AUT接线、81条263B/三页及三窗口/25B用途与台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1695/有效1688、合同1806（49.08%）、处置836/E976、R7已审403/余2658、LOOP107/MAP104。旧对象/733-734/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/全callee/机器ABI及R8继续。命名快照：cg2d-re-map-switch-registry-baseline-20261008。
+
+## 地图动作创建与更新消费取样（BUJ01，2026-10-08）
+
+[完整基线](cg2d_map_action_coordinate_sampling_spec.md#map-action-coordinate-baseline)覆盖46DE50/46DD90两根166条599B/三页、19directcall/一jump/三RET及唯一46CF60两窗口。Yobi只一创建正文四片段展开现四AssignFromInt：同一临时四Construct/Destroy，每组encoded W32/mask W32/count W8先读齐再原序发布，四实参X/Y/X/Y和唯一RNG次数保；通用工具及更新绘制正文保持。
+
+父创建结果发布共享槽，offsetX使用created指针、offsetY后按原fresh取槽，当前MapSceneDrawing正确全文保持；原1257/46DFF0图形消费也保持。不加父NULL保护或统一偏移取槽，创建原NULL失败/借用返回和W8/W16/W32字段、投影/数值公式保。12B常量与9B用途只局部事实，完整数值/x87/父/正常回收及机器ABI/画面运行继续。
+
+BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四组W32/W32/W8预取、同一临时四Construct/Destroy及原创建/返回/数值保持；正确更新绘制、父/通用工具/1257全源保持。两原根166条599B/三页、两窗口/12B常量/9B用途与证据/台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657、LOOP109/MAP106。旧对象/1257/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-map-action-coordinate-sampling-20261008。

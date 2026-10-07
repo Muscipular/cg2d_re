@@ -638,3 +638,11 @@ select/CONNECT OK日志/提示后实际检查与关闭使用当时共享句柄�
 按[BRZ01 SPEC](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state)，UpdateLoginProgress恢复阶段0原strlen、U32九倍长度右移列数与正常S32窗口居中；绘制在readiness后按rows／y、第二strlen、columns／x现场取样，保原8B横向公式和低W16接口。轮询非零只取一次非拥有action，原MarkDeath后清槽、结果透传；原同帧启动、阶段宽度、失败提示与成功进入scene9保持。当前6B文案原坐标和旧固定值相同，本步恢复原计算与读取过程，不声称已观察到画面错误。
 
 三完整原根176条565B／五页，父45E960新增正常基线，45EA50／45EA60完善已有192／193，父与Reset正文全文保持。三个X27B全90，无入向；第一段前是终端JMP，其余RET，仅登记填充用途。三F正常处置与LOGIN三成员、局部I-S可追，全部依赖／owner寿命／SDK-ABI和真实登录流程仍按整体标准推进，U10／V03保持open。原字节、原格式明文和音频暂停保持。
+
+## 服务器连接阶段与布局取样更新（BSK01，2026-10-07）
+
+按[BSK01裁决](cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision)，UpdateServerConnection三个片段恢复原现场读序：初始列数保留测宽所得本地S32，原初值发布／不足2时再发布2保持；x和width先计算再row／x／y发布，5044E0使用本地x／192／width。阶段2初始化失败和未进入2的路径重新读取W16 phase，对应同一个原45DB0E；成功2／3仍写4直达轮询，不新增读取覆盖这条路径。
+
+绘制在原readiness与测宽之后依次取row／计算高度／y／textY、column／计算宽度／x／textX，保普通S32运算及最终S16参数。普通几何值原正确，不称运行故障；newest既定0／1→2旁路、原失败／返回、非零结果才MarkDeath／清观察者再加载黑名单、原固定文案字节与256B缓冲以及其余整源保。Sub_508360与登录进度体未改动。
+
+原完整165条607B／三页、20直接调用／17目标（含newest五排除目标／六原调用点），29跳转／1RET，唯一45FEA0@4601B5；旧191补全不重复身份。1B邻接真实NOP无入向，只登记对齐用途。该局部静态不代完整父／范围内12依赖、连接人物链、全部消费／寿命、机器ABI或运行。

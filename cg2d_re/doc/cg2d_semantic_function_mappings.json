@@ -16073,20 +16073,26 @@
     {
       "original_entry": "0x45D990",
       "inventory_id": "F:0005D990",
-      "status": "已有服务器连接父正文及一真实固定文案格式入口，完整收发/运行未验",
+      "status": "已有服务器连接父正文及一真实固定文案格式入口，完整收发/运行未验 BSK01连接控制器三片段恢复初始化失败后的现场阶段读、创建参数/绘制字段阶段，保newest旁路，仅局部静态不代完整收发验收。",
       "sources": [
         {
           "path": "src/LoginState.cpp",
           "symbols": [
             "UpdateServerConnection"
-          ]
+          ],
+          "relationship": "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_login_state_controller.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-acceptance",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_evidence.json"
       ],
-      "boundary": "沿已批准newest排除跳至实际连接阶段，保留初始化/轮询、非零结果才死亡标记并清提示对象、随后加载黑名单及共享S32返回；不把发送回调与完整收发记为已闭合。 本步只有phase0连接提示原定长memcpy恢复真实53B304，原字节/NUL/源256B余部和之后layout/状态/对象/生命周期保持；其它消息复制和已批准newest排除不变，不将单文案接线或原父登记算完整连接/CRT验收。",
+      "boundary": "沿已批准newest排除跳至实际连接阶段，保留初始化/轮询、非零结果才死亡标记并清提示对象、随后加载黑名单及共享S32返回；不把发送回调与完整收发记为已闭合。 本步只有phase0连接提示原定长memcpy恢复真实53B304，原字节/NUL/源256B余部和之后layout/状态/对象/生命周期保持；其它消息复制和已批准newest排除不变，不将单文案接线或原父登记算完整连接/CRT验收。 BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
       "business_call_connections": [
         {
           "parent_entry": "0x45D990",
@@ -16126,7 +16132,75 @@
           "reference_type": 17
         }
       ],
-      "verification_level": "本次165条统计仅读26phase0格式邻指令，原无变参call/同源目的和字节、仅该复制恢复真实53B304静态核对；余139条/已有连接依赖及caller不重验，未执行。"
+      "verification_level": "本次165条统计仅读26phase0格式邻指令，原无变参call/同源目的和字节、仅该复制恢复真实53B304静态核对；余139条/已有连接依赖及caller不重验，未执行。 BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "server_connection_phase_layout_sampling": {
+        "spec_id": "BSK01",
+        "evidence_refs": [
+          "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
+          "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision",
+          "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-acceptance",
+          "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+          "doc/cg2d_server_connection_phase_layout_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 165,
+        "original_code_bytes": 607,
+        "original_page_count": 3,
+        "original_direct_call_count": 20,
+        "original_unique_callee_count": 17,
+        "original_indirect_call_count": 0,
+        "original_excluded_callees": [
+          "0x50fc30",
+          "0x50fe30",
+          "0x50ff10",
+          "0x50ff70",
+          "0x510120"
+        ],
+        "original_excluded_call_count": 6,
+        "included_original_unique_callee_count": 12,
+        "new_excluded_function_count": 0,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_changed_existing_function_count": 1,
+        "original_phase_reload_site": "0x45db0e",
+        "source_phase_reload_site_count": 2,
+        "source_phase_reload_sites_mutually_exclusive": true,
+        "initialization_success_and_phase3_direct_poll_kept": true,
+        "entry_w16_phase_sample_kept": true,
+        "prior_newest_bypass_kept": true,
+        "initial_column_sample_kept_for_creation": true,
+        "original_column_initial_publish_and_existing_minimum_two_kept": true,
+        "initial_geometry_arguments_before_layout_publish": true,
+        "initial_creation_arguments": [
+          "x",
+          "192",
+          "width",
+          "96",
+          "4",
+          "1"
+        ],
+        "draw_geometry_stage_order": [
+          "TextMeasure",
+          "rowCount",
+          "verticalHeight=rowCount*48-16",
+          "y",
+          "textY=verticalHeight/2+y",
+          "columnCount",
+          "horizontalWidth=columnCount*64-textWidth",
+          "x",
+          "textX=horizontalWidth/2+x"
+        ],
+        "draw_final_s16_arguments_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "new_semantic_record_count": 0,
+        "new_true_function_count": 0,
+        "new_function_disposition_count": 1,
+        "new_range_classification_count": 1,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x45EA50",

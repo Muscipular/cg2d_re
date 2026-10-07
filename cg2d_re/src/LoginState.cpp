@@ -336,21 +336,23 @@ std::int32_t UpdateServerConnection()
         static_cast<void>(platform::FormatLegacyString_53B304(
             gServerConnectingText, kServerConnectingText));
 
-        gServerConnectionLayout.columnCount =
+        std::int32_t columnCount =
             (detail::TextMeasure(gServerConnectingText, 0) + 111) / 64;
-        if (gServerConnectionLayout.columnCount < 2) {
-            gServerConnectionLayout.columnCount = 2;
+        gServerConnectionLayout.columnCount = columnCount;
+        if (columnCount < 2) {
+            columnCount = 2;
+            gServerConnectionLayout.columnCount = columnCount;
         }
 
-        const std::int32_t columnCount = gServerConnectionLayout.columnCount;
         const std::int32_t x = ((10 - columnCount) * 64) / 2;
+        const std::int32_t width = columnCount * 64;
         gServerConnectionLayout.rowCount = 2;
         gServerConnectionLayout.x = x;
         gServerConnectionLayout.y = 192;
         gServerConnectionAction = detail::Sub_5044E0(
-            gServerConnectionLayout.x,
-            gServerConnectionLayout.y,
-            columnCount * 64,
+            x,
+            192,
+            width,
             96,
             4,
             1);
@@ -373,7 +375,10 @@ std::int32_t UpdateServerConnection()
             phase = 4;
         } else {
             result = -1;
+            phase = gValue9A6E3C;
         }
+    } else {
+        phase = gValue9A6E3C;
     }
 
     if (phase == 3) {
@@ -402,13 +407,17 @@ std::int32_t UpdateServerConnection()
     YobiAction* const action = gServerConnectionAction;
     if (action != nullptr && detail::IsYobiActionReady(action, 1)) {
         const std::int32_t textWidth = detail::TextMeasure(gServerConnectingText, 0);
-        const std::int32_t y = gServerConnectionLayout.y
-            + (gServerConnectionLayout.rowCount * 48 - 16) / 2;
-        const std::int32_t x = gServerConnectionLayout.x
-            + (gServerConnectionLayout.columnCount * 64 - textWidth) / 2;
+        const std::int32_t rowCount = gServerConnectionLayout.rowCount;
+        const std::int32_t verticalHeight = rowCount * 48 - 16;
+        const std::int32_t y = gServerConnectionLayout.y;
+        const std::int32_t textY = verticalHeight / 2 + y;
+        const std::int32_t columnCount = gServerConnectionLayout.columnCount;
+        const std::int32_t horizontalWidth = columnCount * 64 - textWidth;
+        const std::int32_t x = gServerConnectionLayout.x;
+        const std::int32_t textX = horizontalWidth / 2 + x;
         detail::DrawText(
-            static_cast<std::int16_t>(x),
-            static_cast<std::int16_t>(y),
+            static_cast<std::int16_t>(textX),
+            static_cast<std::int16_t>(textY),
             2,
             0,
             0,

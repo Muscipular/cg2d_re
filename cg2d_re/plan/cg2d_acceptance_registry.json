@@ -721,7 +721,8 @@
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline",
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
-        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline"
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -732,7 +733,8 @@
         "F:0005F190",
         "F:00064840",
         "F:0005C5A0",
-        "F:0005FEA0"
+        "F:0005FEA0",
+        "F:0005D990"
       ],
       "closure_task_ids": [
         "P18",
@@ -753,7 +755,8 @@
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision",
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision",
-        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision"
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -763,7 +766,8 @@
         "BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。",
         "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
         "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
-        "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。"
+        "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
+        "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -773,7 +777,8 @@
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
-        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state"
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state"
       ]
     },
     {
@@ -36145,6 +36150,84 @@
       "observation": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
       "expected": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
       "actual": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。"
+    },
+    {
+      "id": "E-SERVER-CONNECTION-PHASE-LAYOUT-SAMPLING-I-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSK01原165条607B/三页、20direct17目标含既定排除五目标六call，29jump/1RET，唯一45FEA0@4601B5；45DB0E现场阶段读及创建/绘制字段阶段；doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-server-connection-phase-layout-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-acceptance",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_evidence.json",
+        "src/LoginState.cpp#UpdateServerConnection",
+        "include/cg/LoginState.hpp",
+        "include/cg/LoginConnection.hpp",
+        "include/cg/Blacklist.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_login_progress_layout_sampling_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "src/platform/LegacyFormat.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "src/LoginStateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "单源三片段/一既有业务体：初始列数保计算样本、两原发布与原最小2；x/width先算后发布布局，以本地参数创建；初始化失败或未进入2的两互斥源读恢复同原45DB0E现场W16阶段，成功2/3直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两S16保。普通几何值原正确，原newest旁路/格式字节256B/清理/所有其它整源保，不新异常/保护/身份或排除，完整父/范围内12依赖/机器ABI/寿命与运行未验",
+          "decision_ref": "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "expected": "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "actual": "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-SERVER-CONNECTION-PHASE-LAYOUT-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSK01原165条607B/三页、20direct17目标含既定排除五目标六call，29jump/1RET，唯一45FEA0@4601B5；45DB0E现场阶段读及创建/绘制字段阶段；doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-server-connection-phase-layout-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-acceptance",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_evidence.json",
+        "src/LoginState.cpp#UpdateServerConnection",
+        "include/cg/LoginState.hpp",
+        "include/cg/LoginConnection.hpp",
+        "include/cg/Blacklist.hpp",
+        "include/cg/YobiRuntime.hpp",
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_login_progress_layout_sampling_spec.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "src/platform/LegacyFormat.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "src/LoginStateDependencies.hpp"
+      ],
+      "differences": [
+        {
+          "description": "单源三片段/一既有业务体：初始列数保计算样本、两原发布与原最小2；x/width先算后发布布局，以本地参数创建；初始化失败或未进入2的两互斥源读恢复同原45DB0E现场W16阶段，成功2/3直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两S16保。普通几何值原正确，原newest旁路/格式字节256B/清理/所有其它整源保，不新异常/保护/身份或排除，完整父/范围内12依赖/机器ABI/寿命与运行未验",
+          "decision_ref": "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "expected": "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "actual": "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
     }
   ],
   "task_acceptance": [
@@ -36604,7 +36687,8 @@
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
-        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state"
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state"
       ]
     },
     {
@@ -36631,7 +36715,8 @@
         "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
         "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
-        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state"
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state"
       ]
     },
     {
@@ -37118,7 +37203,8 @@
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
-        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state"
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state"
       ]
     },
     {
@@ -45933,6 +46019,19 @@
         "doc/cg2d_server_category_click_sampling_evidence.json"
       ],
       "boundary": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。"
+    },
+    {
+      "inventory_id": "F:0005D990",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-acceptance",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_evidence.json"
+      ],
+      "boundary": "BSK01服务器连接控制器45D990完整165条607B/三页，20直接调用/17目标、无间接、29jump/1RET，唯一45FEA0@4601B5；17目标含既定newest五函数/六原call，继续排除，范围内12依赖不外推。单源三精确片段/一既有业务体：初始化列数保计算样本与原初值/最小2发布，x和width先算后row/x/y发布，5044E0借本地x/192/width；初始化失败与未进入phase2的两源互斥位置恢复同一原45DB0E W16现场读，成功phase2/3强制直达轮询保；绘制测宽后按row/算高/y/textY/column/算宽/x/textX阶段取样，两个S16边界保。普通几何值原正确，不称运行故障；入口W16/已批准0-1→2旁路、原失败和返回、非零MarkDeath清观察者/黑名单与ready/格式字节256B、其它整源保持，Sub_508360等不改。旧191/F:0005D990补关系不增身份或格式点/覆盖数，新增单adapted/LOGIN9→10/处置726/E842；语义1591有效1584/文档1702（46.25%）保持。单X1B真实90 NOP/无入向/前RET后真入口只用途登记，R7 297余2764。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保，U10/V03/R04只current/refs仍open。完整登录父及范围内12依赖/连接响应人物/全部消费与正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
     }
   ],
   "auxiliary_dispositions": [
@@ -53936,6 +54035,28 @@
               "is_nop": true
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "X:0005DBEF-0005DBF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-acceptance",
+        "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
+        "doc/cg2d_server_connection_phase_layout_sampling_evidence.json"
+      ],
+      "reason": "BSK01单1B90真实NOP、逐字节只读decode，无入向、前RET后真入口，仅原对齐用途，不新增F或范围排除/运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x45dbef",
+          "end_exclusive": "0x45dbf0",
+          "kind": "nop_padding",
+          "bytes": 1
         }
       ]
     }

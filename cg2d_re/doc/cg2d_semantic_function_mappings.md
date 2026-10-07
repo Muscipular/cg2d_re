@@ -3300,3 +3300,9 @@ LOGIN7→8／语义1591有效1584／文档1702／3680（46.25%）／724处置／
 旧1080／F:0005FEA0／ProcessScene_45FEA0补分类、图号阶段、点击单页号与三原INC来源；两个标题点的source_helper_call_expression更新为实际page参数，五原格式点、原字节、目标及三现callee数量保。见[基线](cg2d_server_category_click_sampling_spec.md#server-category-click-baseline)：完整1135条3576B／17页、47直接／20目标与6间接，唯一51C430@51C4CC。单源三片段、两既有函数；不造私有helper或表内函数身份。
 
 语义1591有效1584／文档1702／3680（46.25%）保持，新增单adapted／725处置，LOGIN8→9／E840；单104B原目标表＋对齐用途登记，R7 295→296余2765。冻结定位／pending18／缺口队列与完整门禁保；局部不代完整父、依赖消费、正常alias-owner寿命／机器ABI或运行。
+
+## BSK01 既有服务器连接控制器补全（2026-10-07）
+
+旧191／F:0005D990／UpdateServerConnection补关系和局部证据，原一固定文案格式点及来源符号全保，不增重复身份。见[基线](cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline)：完整165条607B／三页、20直接／17目标，唯一45FEA0@4601B5；其中newest五目标／六原调用继续排除。单源三片段、一既有函数恢复失败路径phase现场读取、创建参数和绘制字段阶段。
+
+语义1591有效1584／文档1702／3680（46.25%）保持，新增单adapted／726处置、LOGIN9→10／E842；单1B真实NOP原用途登记，R7 296→297余2764。不造现场读取块F，不恢复排除链；冻结定位／pending18／差队列与全部完整门禁保，局部不代范围内依赖／正常消费寿命／机器ABI或运行。

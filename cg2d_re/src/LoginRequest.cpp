@@ -70,8 +70,19 @@ std::int32_t Sub_51B110(const std::uint32_t selectedIndex)
 std::int32_t CharacterNameExists_51B140(const char* const name)
 {
     for (const CharacterRecordBytes& record : gCharacterRecords) {
-        if (std::strcmp(name, reinterpret_cast<const char*>(record.data())) == 0) {
-            return 1;
+        const auto* const storedName =
+            reinterpret_cast<const unsigned char*>(record.data());
+        std::size_t index = 0;
+        for (;;) {
+            const auto inputByte = static_cast<unsigned char>(name[index]);
+            const unsigned char storedByte = storedName[index];
+            if (inputByte != storedByte) {
+                break;
+            }
+            if (inputByte == 0) {
+                return 1;
+            }
+            ++index;
         }
     }
     return 0;

@@ -1430,3 +1430,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_logout_reply_sampling_spec.md#logout-reply-baseline)、[裁决](cg2d_logout_reply_sampling_spec.md#logout-reply-decision)、[验收](cg2d_logout_reply_sampling_spec.md#logout-reply-acceptance)与[原证据](cg2d_logout_reply_sampling_evidence.json)对应一个callback cpp三片段/私有hpp一片段、三完整原根/既有1065追加+两新语义、LOGIN三个成员与三处置、两局部I-S各28实际来源和两X27B原用途。U10/V03/R04仅current/引用保open，P05/P08原closed及原ECX未知/pending7保。
 
 原BYTE消费/S32比较与末次返回、三tuple样本先取齐后pub落实；发送/轮询正确顺序、W16码/超时原格式/两个正文、构造零/销毁/RNG/目的vft/保留区、转scene7及原音频调用保。唯一HMNy两文本原caller弃返回与现模板局部核对；全部512E40/发送层/正常资源寿命/ABI/链接/画面/原格式明文往返及运行R8仍需后续证据，不把本步静态代为完整门禁。集中静态/派生终态随唯一进度追加。
+
+## BTF01 人物名称查重开发验收（2026-10-07）
+
+[基线](cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline)、[裁决](cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision)、[验收](cg2d_character_name_byte_sampling_spec.md#character-name-byte-acceptance)与[原证据](cg2d_character_name_byte_sampling_evidence.json)对应一业务体一片段、单既有真F新语义/CHARACTER成员/处置、两局部I-S各15来源、单15B用途。U10/V03/R04只current/引用保open，P05-P08原closed及原ECX未知/pending7保。
+
+原45完整指令、输入→记录BYTE与同输入NUL、两槽148B/296B owner、每槽输入起点及原S321/0落实。原9A51E8参数/FF0D18复制截断/非零state102局部已证，创建父与其它验证和所有相关源头保持。全创建父/全部记录和输入的生产消费/间接别名/正常寿命/ABI/链接/画面/明文互通/运行R8继续，集中静态和派生结果随唯一进度追加。

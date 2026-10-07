@@ -187340,6 +187340,65 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x51B140",
+      "inventory_id": "F:0011B140",
+      "original_role": "人物创建名称查重",
+      "original_end_exclusive": "0x51b1a1",
+      "instruction_count": 45,
+      "original_direct_reference_count": 1,
+      "status": "BTF01名称查重一片段恢复输入/记录BYTE取样及同输入NUL，已有正确两记录和S32返回保持；完整45条97B和创建实际消费有限静态，全生产消费/寿命/ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/LoginRequest.cpp",
+          "symbols": [
+            "CharacterNameExists_51B140"
+          ],
+          "relationship": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-acceptance",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
+        "doc/cg2d_character_name_byte_sampling_evidence.json"
+      ],
+      "boundary": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
+      "verification_level": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
+      "character_name_byte_sampling": {
+        "spec_id": "BTF01",
+        "evidence_refs": [
+          "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
+          "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision",
+          "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-acceptance",
+          "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
+          "doc/cg2d_character_name_byte_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 45,
+        "original_code_bytes": 97,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_changed_existing_original_function_count": 1,
+        "source_input_byte_before_record_byte_restored": true,
+        "source_nul_uses_same_input_byte_sample_restored": true,
+        "source_original_two_records_and_per_record_input_restart_kept": true,
+        "original_record_stride_148_and_full_296_byte_owner_kept": true,
+        "original_only_equality_and_zero_one_signed_return_kept": true,
+        "original_creation_caller_message_validation_and_plain_protocol_kept": true,
+        "new_helper_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

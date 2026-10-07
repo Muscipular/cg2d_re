@@ -3402,3 +3402,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [完整基线](cg2d_logout_reply_sampling_spec.md#logout-reply-baseline)对应既有1065轮询全字段保持后追加、新1610启动/1611回复；三原根121条421B/四页、六direct两Tick/16jump七RET与45ED90/512E40 HMNy实际消费。仅callback cpp三片段/私有hpp一片段恢复逐BYTE比较和原S32±1/0/末次callee返回、原状态分支样本及三数值字段先取齐后pub；启动/轮询和原文本/格式/网络/音频调用保。
 
 语义1612有效1605、文档1723（46.82%）、处置751；LOGIN10→13/E876两局部I-S各28来源，R7 319→321余2740，两原X合27B只对齐。NETWORK54/LOOP38/INPUT27/CHARACTER22/MAP69、冻结定位/pending18/差队列和全部完整门禁保持；补两个已有原F的语义，不造新原函数或宣称完整协议/正常寿命/ABI/运行通过。
+
+## BTF01 创建名称查重读取合同（2026-10-07）
+
+[基线](cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline)对应F:0011B140／新语义1612／CharacterNameExists_51B140：完整45条97B/一页、无call七jump两RET与46388D真实创建消费。单片段恢复name BYTE→record BYTE、同输入样本NUL与失配短路，原两记录/每槽重比/148B跨度/296B owner和S32 1/0保持；不新增字符/空名/容量规则或辅助函数。
+
+语义1613有效1606、文档1724（46.85%）、处置752、CHARACTER23/E878两局部I-S各15来源，R7 321→322余2739，15B原NOP仅用途。LOGIN13/NETWORK54/LOOP38/INPUT27/MAP69、冻结定位/pending18/差队列/原P05-P08与全部完整门禁保；不以局部查重源纳管代人物创建/记录全部生产消费/ABI或运行。

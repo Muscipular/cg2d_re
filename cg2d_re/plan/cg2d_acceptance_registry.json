@@ -831,7 +831,8 @@
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-baseline",
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-baseline",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-baseline",
-        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline"
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0",
@@ -855,7 +856,8 @@
         "F:00060D00",
         "F:00061B30",
         "F:0005E3D0",
-        "F:00062330"
+        "F:00062330",
+        "F:0011B140"
       ],
       "closure_task_ids": [
         "P08",
@@ -884,7 +886,8 @@
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-decision",
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-decision",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-decision",
-        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision"
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -903,7 +906,8 @@
         "BSX01旧分隔符文本扫描45E770完整25条57B/一页，无call、八jump/两RET；10实际CALL分布7父，人物编辑4631D0@4638EA实际消费。单源一精确片段/一既有原语：先读current U8一次、同样本供NUL门禁与分类；每轮末读取cursor[1]后才++cursor，撤for门禁/分类重复取源字节。原普通值正确，不称运行故障；>=81 unsigned两字节状态、尾字节跳过/独立非尾7C或5C返回完整1、空串及结尾完整0/末lead遇NUL直接0与不写文本、不新增编码校验或保护/限长/owner/全局/协议，接口和整个Input其它源/所有父保。姓名原55C9BC/2000及55CE30/814000字节已证且现源码正确，不能猜编码统一到A140或自造规则。新1602单adapted F:0005E770；真实INPUT26→27与CHARACTER17→18两消费绑定，语义1603有效1596/文档1714（46.58%）/处置738/E862（两域各局部I-S）；单X7B全90逐BYTE真NOP/无入向前RET后入口仅用途，R7 309余2752。未变选择552/1992、编辑1146/4285、初始化52/196及矩形17/36不造新F/源码改动或全验身份；冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05/P08原closed）/完整叶0/globalfalse与全部门禁保，U11/V03/R04只current/引用仍open。全部实际父/输入与姓名/包转义原数据消费、所有正常alias-owner寿命/CRT-SDK-机器ABI与链接/人物创建-主地图及原格式明文/画面/运行R8仍待；音频暂停/RPLAN.24与执行/既定排除保，不构建测试运行或摘要。",
         "BSY01一源两片段／一既有完整预览函数，仅源码及原证据静态：恢复变体余数→共享槽→商→图号读取，以及五字段各自重读共享槽／优先级写后计算x；创建返回指针的初次图号、三原CALL消费点、四原图号表、失败和非拥有寿命保持。完整父／依赖／全部alias-owner寿命、机器ABI、链接与运行未验",
         "BSZ01人物槽461B30完整343条1375B／五页、20direct九目标／26jump一RET及两实际父调用；单源三片段移除私有IncrementWrapping及其唯一bit头依赖，空槽分支按原461DFC使用普通S32 mode+1。原七按钮／七坐标、148B记录／S16显示、局部10000→9999、%4d/%s与256B借用、两存在判定／所有门禁／预览两取槽与最终返回保持；局部源码静态不代完整两父／九依赖／全部正常alias-owner寿命、机器ABI或运行",
-        "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行"
+        "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行",
+        "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -922,7 +926,8 @@
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
-        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state"
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state"
       ]
     },
     {
@@ -37750,6 +37755,80 @@
       "observation": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
       "expected": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验",
       "actual": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+    },
+    {
+      "id": "E-CHARACTER-NAME-BYTE-SAMPLING-I-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTF01完整45条97B/一页、无call七jump两RET，创建表单46388D借9A51E8及非零state102；原两槽94h跨度/296B唯一owner与name-记录BYTE读取，doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-name-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-acceptance",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
+        "doc/cg2d_character_name_byte_sampling_evidence.json",
+        "src/LoginRequest.cpp#CharacterNameExists_51B140",
+        "include/cg/LoginRequest.hpp",
+        "src/CharacterSelectScene.cpp#Sub_4631D0",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/CharacterSelectState.hpp",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
+          "decision_ref": "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
+      "expected": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
+      "actual": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行"
+    },
+    {
+      "id": "E-CHARACTER-NAME-BYTE-SAMPLING-S-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTF01完整45条97B/一页、无call七jump两RET，创建表单46388D借9A51E8及非零state102；原两槽94h跨度/296B唯一owner与name-记录BYTE读取，doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-character-name-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-acceptance",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
+        "doc/cg2d_character_name_byte_sampling_evidence.json",
+        "src/LoginRequest.cpp#CharacterNameExists_51B140",
+        "include/cg/LoginRequest.hpp",
+        "src/CharacterSelectScene.cpp#Sub_4631D0",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/CharacterSelectState.hpp",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
+          "decision_ref": "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
+      "expected": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行",
+      "actual": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行"
     }
   ],
   "task_acceptance": [
@@ -38211,7 +38290,8 @@
         "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
         "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
         "doc/cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state",
-        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state"
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state"
       ]
     },
     {
@@ -38255,7 +38335,8 @@
         "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
         "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
         "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
-        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state"
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state"
       ]
     },
     {
@@ -38774,7 +38855,8 @@
         "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
         "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
         "doc/cg2d_logout_progress_sampling_spec.md#logout-progress-source-state",
-        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state"
+        "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-source-state",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state"
       ]
     },
     {
@@ -47927,6 +48009,19 @@
         "doc/cg2d_logout_reply_sampling_evidence.json"
       ],
       "boundary": "BTE01退出发送/轮询/回复三完整根121条421B/四页，六direct六目标与两Tick导入、16jump七RET；45ED90两消费及512E40@516442 HMNy两文本生产，原caller弃返回已证。LoginRequest.cpp回调三片段及私有头一片段恢复S32比较±1/等待成功0/异步末次callee返回、按原result→successful逐BYTE短路与入口状态一次样本、三W32/W32/W8先取齐后pub同world73ECD0。发送/轮询整体现有原序、独立W16码/完成态先读码后清/原600000阈值与U32 tick/未清1024B超时格式保持；原构造0/销毁一次与RNG、目的vft/保留字节、scene7待切换/音频原调用保且继续暂停。HMNy/WA及字段/文本owner与仅明文协议保持，非网络加解密。1065全部原格式/源/入向字段保后追加，两新语义、LOGIN10→13/三处置/两局部I-S及两X27B原NOP用途；完整父/全部callee/资源正常寿命/ABI/链接/明文互通与运行未验"
+    },
+    {
+      "inventory_id": "F:0011B140",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-acceptance",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
+        "doc/cg2d_character_name_byte_sampling_evidence.json"
+      ],
+      "boundary": "BTF01名称查重原45条97B/一页、无call七jump两RET，创建表单4631D0@46388D唯一消费原9A51E8文本。LoginRequest.cpp一个已有业务体一片段恢复每槽输入name BYTE先取再记录BYTE、仅相等/同输入样本判NUL、不同即下槽；每槽从name[0]重比、两连续148B记录/原两槽和末S32 0/匹配1保，无辅助函数/长度门槛/编码改写。原创建重复名消息/其它验证、记录唯一owner/非拥有name借用及所有其它源头保；15B真实NOP仅原对齐用途。只局部静态，不代创建全父/所有记录生产消费/间接别名/正常寿命、ABI/链接/画面/明文往返或运行"
     }
   ],
   "auxiliary_dispositions": [
@@ -57706,6 +57801,114 @@
         },
         {
           "ea": "0x508dff",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0011B1A1-0011B1B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-baseline",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-decision",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-acceptance",
+        "doc/cg2d_character_name_byte_sampling_spec.md#character-name-byte-source-state",
+        "doc/cg2d_character_name_byte_sampling_evidence.json"
+      ],
+      "reason": "BTF01单15B逐BYTE实际NN_NOP/90、无入向、前RET后51B1B0真入口；仅原对齐，不造F/helper/范围排除或运行验收",
+      "classification": "alignment_nop",
+      "original_size": 15,
+      "original_bytes": "909090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51b1a1",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1a2",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1a3",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1a4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1a5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1a6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1a7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1a8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1a9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1aa",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1ab",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1ac",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1ad",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1ae",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x51b1af",
           "size": 1,
           "bytes": "90",
           "is_nop": true

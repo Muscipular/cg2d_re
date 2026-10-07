@@ -237,7 +237,8 @@ std::int32_t Sub_455C90()
     }};
     std::int32_t clicked = 0;
     bool hovered = false;
-    if (gDisconnectAction62B5B4 == nullptr) {
+    login::YobiAction* action = gDisconnectAction62B5B4;
+    if (action == nullptr) {
         if (audio::Sub_5043D0(2) != 0) {
             static_cast<void>(audio::Sub_5042D0(100));
         }
@@ -246,22 +247,29 @@ std::int32_t Sub_455C90()
         gDisconnectHeight62B304 = 144;
         gDisconnectX62B390 = 130;
         gDisconnectY62B2EC = 156;
-        gDisconnectAction62B5B4 =
-            login::detail::Sub_5044E0(130, 156, 380, 144, 4, 1);
-        if (gDisconnectAction62B5B4 == nullptr) {
+        action = login::detail::Sub_5044E0(130, 156, 380, 144, 4, 1);
+        gDisconnectAction62B5B4 = action;
+        if (action == nullptr) {
             return 0;
         }
     }
-    if (!login::detail::IsYobiActionReady(gDisconnectAction62B5B4, 1)) {
+    if (!login::detail::IsYobiActionReady(action, 1)) {
         return 0;
     }
 
-    const std::int32_t left =
-        gDisconnectX62B390 + (gDisconnectWidth62B32C - 66) / 2;
-    const std::int32_t top =
-        gDisconnectY62B2EC + (gDisconnectHeight62B304 * 4) / 5 + 1;
+    const std::int32_t scaledHitHeight = gDisconnectHeight62B304 * 4;
+    const std::int32_t hitWidth = gDisconnectWidth62B32C;
+    const std::int32_t hitWidthDelta = hitWidth - 66;
+    const std::int32_t hitHeightStep = scaledHitHeight / 5;
+    const std::int32_t hitY = gDisconnectY62B2EC;
+    const std::int32_t hitBaseY = hitY + hitHeightStep;
+    const std::int32_t hitX = gDisconnectX62B390;
+    const std::int32_t left = (hitWidthDelta >> 1) + hitX;
+    const std::int32_t bottom = hitBaseY + 18;
+    const std::int32_t top = hitBaseY + 1;
+    const std::int32_t right = left + 66;
     hovered = login::detail::Sub_5049A0(
-        left, top, left + 66, top + 17, -1) != 0;
+        left, top, right, bottom, -1) != 0;
     if (hovered
         && (static_cast<std::uint8_t>(login::detail::gValueD68D9C) & 1U) != 0) {
         login::detail::MarkDeath(gDisconnectAction62B5B4);
@@ -271,16 +279,22 @@ std::int32_t Sub_455C90()
 
     const std::int32_t row = gDisconnectHeight62B304 / 5;
     std::int32_t width = login::detail::TextMeasure(gDisconnectText9A4D10, 2);
+    const std::int32_t firstWindowWidth = gDisconnectWidth62B32C;
+    const std::int32_t firstWindowY = gDisconnectY62B2EC;
+    const std::int32_t firstWidthDelta = firstWindowWidth - width;
+    const std::int32_t firstTextY = firstWindowY + row - 4;
+    const std::int32_t firstWindowX = gDisconnectX62B390;
+    const std::int32_t firstTextX = firstWindowX + firstWidthDelta / 2;
     static_cast<void>(render::DrawText_456780(
-        static_cast<std::int16_t>(
-            gDisconnectX62B390 + (gDisconnectWidth62B32C - width) / 2),
-        static_cast<std::int16_t>(gDisconnectY62B2EC + row - 4),
+        static_cast<std::int16_t>(firstTextX),
+        static_cast<std::int16_t>(firstTextY),
         2, 2, 0, gDisconnectText9A4D10, 0, 0));
 
     const char* secondText;
     const char* thirdText;
     char errorText[256];
-    if (login::gValue593FC0 != 0) {
+    const bool connectionError = login::gValue593FC0 != 0;
+    if (connectionError) {
         platform::FormatLegacyString_53B304(errorText, kErrorFormat, network::ReadNetworkErrorD9F2CC());
         secondText = errorText;
         thirdText = kTryOtherServer;
@@ -290,26 +304,57 @@ std::int32_t Sub_455C90()
     }
 
     width = login::detail::TextMeasure(secondText, 0);
+    const std::int32_t secondWindowWidth = gDisconnectWidth62B32C;
+    std::int32_t secondWidthDelta;
+    std::int32_t secondWindowY;
+    if (connectionError) {
+        secondWidthDelta = secondWindowWidth - width;
+        secondWindowY = gDisconnectY62B2EC;
+    } else {
+        secondWindowY = gDisconnectY62B2EC;
+        secondWidthDelta = secondWindowWidth - width;
+    }
+    const std::int32_t secondTextY = secondWindowY + 2 * row - 4;
+    const std::int32_t secondWindowX = gDisconnectX62B390;
+    const std::int32_t secondTextX = secondWindowX + secondWidthDelta / 2;
     static_cast<void>(render::DrawText_456780(
-        static_cast<std::int16_t>(
-            gDisconnectX62B390 + (gDisconnectWidth62B32C - width) / 2),
-        static_cast<std::int16_t>(gDisconnectY62B2EC + 2 * row - 4),
+        static_cast<std::int16_t>(secondTextX),
+        static_cast<std::int16_t>(secondTextY),
         2, 0, 0, secondText, 0, 0));
 
     width = login::detail::TextMeasure(thirdText, 0);
+    const std::int32_t thirdWindowWidth = gDisconnectWidth62B32C;
+    std::int32_t thirdTextX;
+    std::int32_t thirdTextY;
+    if (connectionError) {
+        const std::int32_t thirdWidthDelta = thirdWindowWidth - width;
+        const std::int32_t thirdWindowY = gDisconnectY62B2EC;
+        const std::int32_t thirdHalfWidth = thirdWidthDelta / 2;
+        const std::int32_t thirdBaseY = thirdWindowY + 2 * row;
+        thirdTextY = thirdBaseY + row - 4;
+        const std::int32_t thirdWindowX = gDisconnectX62B390;
+        thirdTextX = thirdWindowX + thirdHalfWidth;
+    } else {
+        const std::int32_t thirdWindowY = gDisconnectY62B2EC;
+        const std::int32_t thirdWidthDelta = thirdWindowWidth - width;
+        const std::int32_t thirdBaseY = thirdWindowY + 2 * row;
+        thirdTextY = thirdBaseY + row - 4;
+        const std::int32_t thirdWindowX = gDisconnectX62B390;
+        thirdTextX = thirdWindowX + thirdWidthDelta / 2;
+    }
     static_cast<void>(render::DrawText_456780(
-        static_cast<std::int16_t>(
-            gDisconnectX62B390 + (gDisconnectWidth62B32C - width) / 2),
-        static_cast<std::int16_t>(gDisconnectY62B2EC + 3 * row - 4),
+        static_cast<std::int16_t>(thirdTextX),
+        static_cast<std::int16_t>(thirdTextY),
         2, 0, 0, thirdText, 0, 0));
 
+    const std::int32_t imageWindowY = gDisconnectY62B2EC;
+    const std::int32_t imageWindowWidth = gDisconnectWidth62B32C;
+    const std::int32_t imageNo = hovered ? 243050 : 243048;
+    const std::int32_t imageY = imageWindowY + 4 * row + 9;
+    const std::int32_t imageWindowX = gDisconnectX62B390;
+    const std::int32_t imageX = (imageWindowWidth >> 1) + imageWindowX;
     static_cast<void>(login::detail::DrawGraphic(
-        gDisconnectX62B390 + gDisconnectWidth62B32C / 2,
-        gDisconnectY62B2EC + 4 * row + 9,
-        0xDF,
-        hovered ? 243050 : 243048,
-        0,
-        &descriptor));
+        imageX, imageY, 0xDF, imageNo, 0, &descriptor));
     return clicked;
 }
 

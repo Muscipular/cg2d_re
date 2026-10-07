@@ -7709,3 +7709,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 按[BTB01裁决](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision)实修world/WorldUpdate.cpp内Update三片段：先取S32 current sceneType再清C82204 W8；断线scene11两路径在原外调／tick发布后普通S32 ++当场共享状态，撤回绕模拟。bit头及后段真实W8→S8位型保持。pending发布、13主场景与5capability分派、所有子场景／渲染尾、七DWORD28B清理、同U32 tick→F64和失败逻辑保持。
 
 185旧“创建入口门禁待确认”句已按D01／P08既有实施事实更新；固定1是获批适配，原ECX未知／原4626A0 pending7保，不称原常量或全链完成。原188条758B／三页、73direct48目标及一GetTick导入间接CALL、17jump十一RET，MainLoop457117唯一消费。单74B用途精确2B自MOV／52B主表／20B次表，仅归原用途；LOOP32→33，两局部I-S各21来源，完整全部父／依赖／正常资源寿命／ABI与运行未验。
+
+## 断线提示对象与布局取样更新（BTC01，2026-10-07）
+
+按[BTC01裁决](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision)实修WorldUpdate.cpp内Sub_455C90八片段：入口或创建返回一次native非拥有action供NULL/GE1；命中height/width/y/x取样与真SAR1；三次测宽后新鲜宽/y/x、复用原错误分支样本及两路算术顺序；图像y/width/图号/算y/x及真SAR1。点击保现场另取槽、无附加保护、标死/清槽后继续画；row一次、文本半宽向零/2保。
+
+完整248条815B／四页、18direct十目标／八jump两RET，WorldUpdate51C6C4唯一消费；六存储32直接引用、四原正文/NUL、原%d未清256B及完整16B描述符保持。原默认布局此前正确，不称实测画面错误。1076全部格式字段/入向/role/source保后追加，LOOP33→34、两局部I-S各25来源，单1B真NOP只记原对齐用途；完整父/十依赖/间接别名和正常寿命/ABI/运行未验。

@@ -3384,3 +3384,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 既有185／F:0011C430／world::Update追加[完整基线](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline)：188条758B／三页、73直接CALL48目标＋一GetTick导入、17jump十一RET与MainLoop457117实际调用。一源三片段恢复scene type先取后清BYTE、scene11两个普通S32 ++；原pending／全部分派／生命周期与渲染尾、七DWORD／U32 tick→F64／真实W8边界及D01固定1保持，陈旧待决句按既有批准／接线更新，原ECX未知不变。
 
 无新语义／F：1606有效1599／文档1717（46.66%）保；LOOP32→33／处置743／E870两局部I-S各21来源，单74B完整用途使R7 313→314余2747。INPUT27／CHARACTER22／MAP69等其它域与冻结定位／pending18／差队列及全部完整门禁保。局部不代全部MainLoop／48目标／导入SDK／正常寿命／ABI或运行。
+
+## BTC01 断线提示完整根与取样合同（2026-10-07）
+
+既有1076／F:00055C90／Sub_455C90追加[完整基线](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline)：248条815B／四页70+70+70+38、18直接CALL十目标／八jump两RET，唯一WorldUpdate51C6C4、六存储32直接引用及四正文。八片段恢复入口样本/命中取样SAR/三文字现场布局与两错误分支运算序/图像取样SAR；点击新槽、row一次、文本向零/2、原%d生产消费及16B描述符保。
+
+无新语义或F，原1076字段及格式登记全部保持。语义1606有效1599／文档1717（46.66%）保；LOOP33→34、处置744、E872两局部I-S各25来源，单1B原用途使R7 314→315余2746。INPUT27／CHARACTER22／MAP69、冻结定位/pending18/差队列与完整门禁保；局部不代全部World父/十依赖/正常alias-owner寿命/ABI或运行。

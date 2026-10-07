@@ -599,7 +599,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
-        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline"
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -634,7 +635,8 @@
         "F:00073F80",
         "F:00104120",
         "F:0003CBB0",
-        "F:0011C430"
+        "F:0011C430",
+        "F:00055C90"
       ],
       "closure_task_ids": [
         "U11",
@@ -663,7 +665,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
-        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision"
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -683,7 +686,8 @@
         "YAS01真实共用节点生产依赖四片段实修/旧语义追加和同ID关联MAP，原U8/U32/原生分配域、默认字段与两失败/FIFO及无插链返回保持；完整118条保存只局部分配取样验收，全部场景/应用父与载荷/所有callee和链别名/owner寿命/SDK/ABI/PC53/RNG/画面运行未闭",
         "WRS01真实场景→504120→473F80窗口update/元素/focus-drag/draw/carry链纳管，单根三判定取样修正，两F同公共UI不双计。两个完整场景/所有callback及资源生产/时钟RNG/owner寿命/ABI/SDK/PC53与画面运行仍未闭，不代旧99表外层实际路由",
         "BMF01完整43CBB0十状态与公共尾741条2889B/真实51C430调用和三表纳管，十五项十八处取样/退出时序修复；仅场景一F入本域，主循环/全场景资源owner和画面运行仍待",
-        "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行"
+        "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
+        "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -704,7 +708,8 @@
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
         "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
-        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state"
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state"
       ]
     },
     {
@@ -37434,6 +37439,100 @@
       "observation": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
       "expected": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
       "actual": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行"
+    },
+    {
+      "id": "E-DISCONNECT-DIALOG-SAMPLING-I-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTC01完整248条815B/四页、18direct十目标/八jump两RET，WorldUpdate51C6C4唯一消费；六存储32直接引用/四正文/16B descriptor/真实SAR与文本向零半宽，doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-disconnect-dialog-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-acceptance",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_evidence.json",
+        "src/world/WorldUpdate.cpp#Sub_455C90",
+        "src/world/WorldUpdate.cpp#Update",
+        "include/cg/world/SceneState.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_5044E0",
+        "src/YobiRuntime.cpp#IsYobiActionReady",
+        "src/YobiRuntime.cpp#MarkDeath",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyCryptInt.cpp#GreaterEqual_401D70",
+        "src/LegacyHitTest.cpp#Sub_5049A0",
+        "src/render/Font.cpp#TextMeasure",
+        "src/render/TextPendingQueue.cpp#DrawText_456780",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/network/NetworkRuntime.cpp#ReadNetworkErrorD9F2CC",
+        "src/DrawGraphic.cpp#DrawGraphic",
+        "include/cg/LegacyAudio.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
+          "decision_ref": "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
+      "expected": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
+      "actual": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行"
+    },
+    {
+      "id": "E-DISCONNECT-DIALOG-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTC01完整248条815B/四页、18direct十目标/八jump两RET，WorldUpdate51C6C4唯一消费；六存储32直接引用/四正文/16B descriptor/真实SAR与文本向零半宽，doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-disconnect-dialog-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-acceptance",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_evidence.json",
+        "src/world/WorldUpdate.cpp#Sub_455C90",
+        "src/world/WorldUpdate.cpp#Update",
+        "include/cg/world/SceneState.hpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/YobiRuntime.cpp#Sub_5044E0",
+        "src/YobiRuntime.cpp#IsYobiActionReady",
+        "src/YobiRuntime.cpp#MarkDeath",
+        "include/cg/YobiRuntime.hpp",
+        "src/platform/LegacyCryptInt.cpp#GreaterEqual_401D70",
+        "src/LegacyHitTest.cpp#Sub_5049A0",
+        "src/render/Font.cpp#TextMeasure",
+        "src/render/TextPendingQueue.cpp#DrawText_456780",
+        "src/platform/LegacyFormat.cpp#FormatLegacyString_53B304",
+        "src/network/NetworkRuntime.cpp#ReadNetworkErrorD9F2CC",
+        "src/DrawGraphic.cpp#DrawGraphic",
+        "include/cg/LegacyAudio.hpp",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_closure_decisions_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
+          "decision_ref": "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
+      "expected": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行",
+      "actual": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行"
     }
   ],
   "task_acceptance": [
@@ -37935,7 +38034,8 @@
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
-        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state"
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state"
       ]
     },
     {
@@ -38216,7 +38316,8 @@
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
-        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state"
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state"
       ]
     },
     {
@@ -38449,7 +38550,8 @@
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
         "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
-        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state"
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state"
       ]
     },
     {
@@ -47498,6 +47600,19 @@
         "doc/cg2d_world_dispatch_state_sampling_evidence.json"
       ],
       "boundary": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行"
+    },
+    {
+      "inventory_id": "F:00055C90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-acceptance",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_evidence.json"
+      ],
+      "boundary": "BTC01既有1076断线对话框完整248条815B／四页、18direct十目标／八jump两RET，唯一WorldUpdate51C6C4；一源八片段／一原业务体恢复入口/创建返回一次native action供NULL及GE1，命中height→width→y→x和真S32 SAR1、三测宽后宽/y/x与原两错误分支运算序，图像y/width/图号/算y/x/SAR1。点击原现场新取action与标死/清槽/继续绘制、原row一次/文本÷2向零、四原正文/%d/未清256B、完整16B描述符/DF/两图号、音频调用和所有其它源头保。仅局部静态，不代完整父／十依赖／全部正常alias-owner寿命、ABI／链接或运行"
     }
   ],
   "auxiliary_dispositions": [
@@ -56896,6 +57011,30 @@
               "text": "call    sub_464840; jumptable 0051C48C case 4"
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "X:00055FBF-00055FC0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-acceptance",
+        "doc/cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-source-state",
+        "doc/cg2d_disconnect_dialog_sampling_evidence.json"
+      ],
+      "reason": "BTC01单1B90真NOP、无入向，前455FBE RET/后455FC0真入口；仅原对齐用途，不造F/helper/范围排除或运行验收",
+      "classification": "alignment_nop",
+      "original_size": 1,
+      "original_bytes": "90",
+      "original_decode": [
+        {
+          "ea": "0x455fbf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
         }
       ]
     }

@@ -1412,3 +1412,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline)、[裁决](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision)、[验收](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-acceptance)及[原证据](cg2d_world_dispatch_state_sampling_evidence.json)对应185既有完整根追加／无新语义、一源三片段／一原业务体、LOOP单真实成员与adapted处置、两局部I-S各21实际来源、单74B用途和U11／V03／R04引用仍open。P05／P08原closed、4626A0 pending7与全部完整门禁保。
 
 原current type→清BYTE取样和两条普通S32 ++落实，D01固定gate1／P08已接与原ECX未知分层记录。188完整指令、MainLoop唯一调用及两原目标表18项／2B自MOV只证本步边界；所有父／48callee／导入SDK／正常alias-owner资源寿命、ABI／链接／人物创建-主地图／明文互通／画面和运行R8继续。集中静态与派生结果随唯一进度追加。
+
+## BTC01 断线提示开发验收（2026-10-07）
+
+[基线](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-baseline)、[裁决](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-decision)、[验收](cg2d_disconnect_dialog_sampling_spec.md#disconnect-dialog-acceptance)及[原证据](cg2d_disconnect_dialog_sampling_evidence.json)对应既有1076完整根追加／无新语义、一源八片段／一业务体、LOOP一个真实成员与adapted处置、两局部I-S各25实际来源及单1B对齐用途。U11／V03／R04仅推进当前进展及引用，保open；P05/P08原closed、原ECX未知/pending7与所有完整门禁保。
+
+入口同action样本供NULL/GE1、点击另取槽、命中和图像真实SAR、三文字测宽后现场样本及原两分支运算序均落实；四正文/%d/未清256B/row一次/文本向零半宽/16B descriptor与音频调用保持。完整248条、唯一World消费与32存储直接引用只证本步边界；完整父/十依赖/间接别名与正常寿命/ABI/链接/画面/明文互通及运行R8继续。集中静态和派生结果随唯一进度追加。

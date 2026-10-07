@@ -1848,3 +1848,13 @@ LOOP158/INPUT51/RENDER59/STARTUP118，预期语义1745/有效1738、文档1856�
 集中静态通过：两完整根308条1147B/六页、十五局部累计210条697B含重叠邻指令、两21B实际NN_NOP；五相关源与HEAD全文相同，两完整正确正文/低S16声明/case18-19接线及原非对称写0/三字段发布保持。源码0改动/无新I，完整机器与派生快照只有具名差异；十四文件UTF8无BOM/LF、四锚点/两限定S各25真实来源通过。
 
 文本汇总与Check均退出0；实际语义1753/有效1746、合同1864（50.65%）、F894/E1056、R7已审456余2605、LOOP166/RENDER67。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有旧记录与完整闭包保持；完整五父/其他callee、owner-alias寿命、机器ABI/链接/像素/正常失败/运行及R8未验，整体目标继续。
+
+## BVC01共享助手实际修复的限定I-S（2026-10-08）
+
+[完整原基线](cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline)、[裁决](cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision)与[原证](cg2d_scanline_trigger_sampling_evidence.json)保存两扫描线完整根306条1062B/六页、七局部累计98条251B含重叠邻指令、两10B NN_NOP用途。[源态](cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state)和[验收](cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-acceptance)仅纳管既有助手触发先持样后RECT一cpp一个prefix、两wrapper/声明/真实七消费与原采样/方向发布保。四限定I-S各25来源，G02/R04/V04仅current/引用仍open；原全成员/叶/域门禁不提升。完整机器/派生只具名差集，不构建/测试/运行、产物或摘要，异常不专项处理/模拟或记等价，R8标准保持。
+
+### BVC01 当前修复限定静态结果
+
+集中静态通过：两完整根306条1062B/六页、七局部累计98条251B含重叠邻指令、两10B实际NN_NOP；整cpp仅既有助手一个prefix，完整W32触发先持样后RECT/按持样判定，两wrapper与其余四相关源全文保持，原采样/方向三字段齐采发布/native正常失败保。两完整机器及完整派生快照只有具名差异，十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1755/有效1748、合同1866（50.71%）、F896/E1060、R7已审458余2603、LOOP168/RENDER69。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有旧记录和全部闭包保持；完整控制父/其他callee、owner-alias寿命、机器ABI/链接/像素/正常失败/运行及R8未验，整体目标继续。

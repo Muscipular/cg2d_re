@@ -11785,9 +11785,10 @@ enum class ScanlineOrigin {
 std::int32_t ProcessScanlineTransition(
     const std::int32_t direction, const std::int32_t value, const ScanlineOrigin origin)
 {
+    const std::uint32_t trigger = gValue58B6D0;
     std::array<std::int32_t, 4> rectangle {0, 0, 640, 0};
     bool initialize;
-    if (gValue58B6D0 == 1) {
+    if (trigger == 1) {
         gValue58B6D0 = 0;
         initialize = true;
     } else {

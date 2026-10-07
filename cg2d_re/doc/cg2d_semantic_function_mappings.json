@@ -198313,6 +198313,182 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x51F860",
+      "inventory_id": "F:0011F860",
+      "original_role": "原上下扫描线转场根：Sub_51F860",
+      "original_end_exclusive": "0x51fa6c",
+      "original_chunks": [
+        {
+          "start": "0x51f860",
+          "end_exclusive": "0x51fa6c"
+        }
+      ],
+      "instruction_count": 151,
+      "status": "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51F860",
+            "ProcessScanlineTransition"
+          ],
+          "relationship": "原151条524B/三页；Top根wrapper保持，既有共享助手恢复58B6D0先持样后四S32 RECT/以持样判定，原清屏/除法逐行/直接全S32 native与复制后fresh比例、低S8零取8/方向更新与CryptInt方向三字段齐采发布/析构/初始化零和0/1保。完整控制父/callee/alias/ABI/像素运行未验"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51F860"
+          ],
+          "relationship": "既有两个S32实参与返回声明正确保持；原多压零实参不消费，新端不扩参数"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-acceptance",
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
+        "doc/cg2d_scanline_trigger_sampling_evidence.json"
+      ],
+      "boundary": "原151条524B/三页；Top根wrapper保持，既有共享助手恢复58B6D0先持样后四S32 RECT/以持样判定，原清屏/除法逐行/直接全S32 native与复制后fresh比例、低S8零取8/方向更新与CryptInt方向三字段齐采发布/析构/初始化零和0/1保。完整控制父/callee/alias/ABI/像素运行未验",
+      "verification_level": "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "scanline_trigger_sampling": {
+        "spec_id": "BVC01",
+        "evidence_refs": [
+          "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
+          "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
+          "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-acceptance",
+          "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
+          "doc/cg2d_scanline_trigger_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 151,
+        "original_code_bytes": 524,
+        "original_page_count": 3,
+        "original_direct_call_count": 10,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 19,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 3,
+        "already_existing_root_wrapper_kept": true,
+        "source_body_changed": false,
+        "shared_helper_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": true,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 306,
+        "original_root_total_code_bytes": 1062,
+        "original_total_page_count": 6,
+        "original_caller_window_count": 7,
+        "original_caller_window_instruction_count": 98,
+        "original_caller_window_code_bytes": 251,
+        "caller_window_totals_include_overlap": true,
+        "original_total_nop_tail_bytes": 10,
+        "original_native_resource_failure_scope_retained": true,
+        "shared_W32_trigger_sample_before_rectangle_restored": true,
+        "original_scanline_sampling_and_direction_publication_retained": true,
+        "crypt_int_fields_sampled_before_publication": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x51FA70",
+      "inventory_id": "F:0011FA70",
+      "original_role": "原上下扫描线转场根：Sub_51FA70",
+      "original_end_exclusive": "0x51fc8a",
+      "original_chunks": [
+        {
+          "start": "0x51fa70",
+          "end_exclusive": "0x51fc8a"
+        }
+      ],
+      "instruction_count": 155,
+      "status": "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51FA70",
+            "ProcessScanlineTransition"
+          ],
+          "relationship": "原155条538B/三页；Bottom根wrapper保持，共享助手同一prefix恢复触发持样早于RECT；原480-采样/480-row源和目的边界native正常失败保，不额外裁剪；原复制后fresh比例/低S8零取8/方向更新及方向三字段齐采发布/析构/初始化零和0/1保持。完整控制父/callee/alias/ABI/像素运行未验"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51FA70"
+          ],
+          "relationship": "既有两个S32实参与返回声明正确保持；原多压零实参不消费，新端不扩参数"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-acceptance",
+        "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
+        "doc/cg2d_scanline_trigger_sampling_evidence.json"
+      ],
+      "boundary": "原155条538B/三页；Bottom根wrapper保持，共享助手同一prefix恢复触发持样早于RECT；原480-采样/480-row源和目的边界native正常失败保，不额外裁剪；原复制后fresh比例/低S8零取8/方向更新及方向三字段齐采发布/析构/初始化零和0/1保持。完整控制父/callee/alias/ABI/像素运行未验",
+      "verification_level": "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "scanline_trigger_sampling": {
+        "spec_id": "BVC01",
+        "evidence_refs": [
+          "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
+          "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
+          "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-acceptance",
+          "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
+          "doc/cg2d_scanline_trigger_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 155,
+        "original_code_bytes": 538,
+        "original_page_count": 3,
+        "original_direct_call_count": 10,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 19,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 4,
+        "already_existing_root_wrapper_kept": true,
+        "source_body_changed": false,
+        "shared_helper_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": true,
+        "root_specific_contract_kept": true,
+        "original_root_total_instruction_count": 306,
+        "original_root_total_code_bytes": 1062,
+        "original_total_page_count": 6,
+        "original_caller_window_count": 7,
+        "original_caller_window_instruction_count": 98,
+        "original_caller_window_code_bytes": 251,
+        "caller_window_totals_include_overlap": true,
+        "original_total_nop_tail_bytes": 10,
+        "original_native_resource_failure_scope_retained": true,
+        "shared_W32_trigger_sample_before_rectangle_restored": true,
+        "original_scanline_sampling_and_direction_publication_retained": true,
+        "crypt_int_fields_sampled_before_publication": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

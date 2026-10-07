@@ -15924,7 +15924,7 @@
     {
       "original_entry": "0x51C430",
       "inventory_id": "F:0011C430",
-      "status": "已有启动/场景本体映射，完整依赖及运行未验",
+      "status": "已有启动/场景本体映射，完整依赖及运行未验；BTB01完整188条758B与三片段正常状态取样/递增静态；D01固定1/P08已接与原ECX未知保，全依赖/寿命/运行未验",
       "original_role": "场景更新分发",
       "sources": [
         {
@@ -15936,9 +15936,53 @@
       ],
       "evidence_documents": [
         "doc/cg2d_scene_state.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-acceptance",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+        "doc/cg2d_world_dispatch_state_sampling_evidence.json"
       ],
-      "boundary": "先提交非负pending类型并清pending类型为-1，保留共享状态及原场景分发表顺序；接口为void。场景4的4626A0入口门禁适配仍待确认，不以已有本体记全链闭合。"
+      "boundary": "先提交非负pending类型并清pending类型为-1，保留共享状态及原场景分发表顺序；接口为void。场景4已按D01采用显式固定门禁1，P08接线已完成；原各路径ECX仍未知，不将局部确定化记为原端常量或全链闭合。 BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
+      "original_end_exclusive": "0x51c726",
+      "instruction_count": 188,
+      "verification_level": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
+      "world_dispatch_state_sampling": {
+        "spec_id": "BTB01",
+        "evidence_refs": [
+          "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
+          "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision",
+          "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-acceptance",
+          "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+          "doc/cg2d_world_dispatch_state_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 188,
+        "original_code_bytes": 758,
+        "original_page_count": 3,
+        "original_direct_call_count": 73,
+        "original_unique_callee_count": 48,
+        "original_import_indirect_call_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_changed_existing_original_function_count": 1,
+        "source_scene_type_sample_precedes_flag_byte_clear_restored": true,
+        "source_two_normal_signed_shared_state_increments_restored": true,
+        "original_pending_publication_order_kept": true,
+        "original_scene_dispatch_and_callee_sequence_kept": true,
+        "original_d01_fixed_gate_one_and_unknown_ecx_boundary_kept": true,
+        "original_seven_dword_hover_clear_kept": true,
+        "original_same_unsigned_tick_to_f64_publication_kept": true,
+        "original_true_byte_conversion_and_bit_header_kept": true,
+        "original_mapping_role_and_sources_kept": true,
+        "new_semantic_record_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x51C770",

@@ -7703,3 +7703,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 按[BSA01 SPEC](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state)，DrawNormalScene_51C7D0恢复状态205、251、252三点和3共六次原509080调用，沿既有空叶；状态3的zero／one两组mask／encoded／W8 count先取齐再发布，原两个独立对象／2构2销与RNG、目的vft-padding保持。其余22状态、同帧转移／5与30帧等待、地图／输入／窗口／队列渲染与计时、音频全文保持。
 
 父736条3191B／十一页、直接初始化519A80 188条591B／三页全文保持并补基线；后者direction→Y→X→图号／三文本两分隔／HP-maxHP／五petmap首匹配和五W16清保持。原253值经23目标、226call中214direct／66callee和12indirect、三个实际入向可追；原两X362B五part包含92B目标／253B值表及17B NOP，仅用途纳管，不造功能或排除。两个正常F及MAP两成员、局部I-S不代完整所有provider、owner寿命、资源像素、SDK-ABI、明文互通或运行；U09／U11仍open，音频暂停。
+
+## 场景分派入口取样与正常递增更新（BTB01，2026-10-07）
+
+按[BTB01裁决](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision)实修world/WorldUpdate.cpp内Update三片段：先取S32 current sceneType再清C82204 W8；断线scene11两路径在原外调／tick发布后普通S32 ++当场共享状态，撤回绕模拟。bit头及后段真实W8→S8位型保持。pending发布、13主场景与5capability分派、所有子场景／渲染尾、七DWORD28B清理、同U32 tick→F64和失败逻辑保持。
+
+185旧“创建入口门禁待确认”句已按D01／P08既有实施事实更新；固定1是获批适配，原ECX未知／原4626A0 pending7保，不称原常量或全链完成。原188条758B／三页、73direct48目标及一GetTick导入间接CALL、17jump十一RET，MainLoop457117唯一消费。单74B用途精确2B自MOV／52B主表／20B次表，仅归原用途；LOOP32→33，两局部I-S各21来源，完整全部父／依赖／正常资源寿命／ABI与运行未验。

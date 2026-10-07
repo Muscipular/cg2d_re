@@ -1406,3 +1406,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline)、[裁决](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-decision)、[验收](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-acceptance)及[原证据](cg2d_version_upgrade_action_sampling_evidence.json)对应两真F／一源六片段／两个原业务体、CHARACTER两实际成员、两局部I-S各24真实来源、两510B用途与三任务引用仍open。原P05／P08 closed及全部完整门禁保。
 
 六分支恢复判断与EQ1／MarkDeath共用同取样，原单Read/RNG、状态写序、两观察槽／原清理差异、测宽／几何／下限、五文本及原版本明文发送不改。313完整指令、两实际消费点和96B目标／408B值表／2B自MOV＋4B真NOP只证本步边界；全部父／依赖／正常alias-owner寿命、CRT-SDK／ABI／链接、原格式互通／画面与运行R8继续。集中静态与派生终态结果随唯一进度追加。
+
+## BTB01 场景分派状态开发验收（2026-10-07）
+
+[基线](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline)、[裁决](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision)、[验收](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-acceptance)及[原证据](cg2d_world_dispatch_state_sampling_evidence.json)对应185既有完整根追加／无新语义、一源三片段／一原业务体、LOOP单真实成员与adapted处置、两局部I-S各21实际来源、单74B用途和U11／V03／R04引用仍open。P05／P08原closed、4626A0 pending7与全部完整门禁保。
+
+原current type→清BYTE取样和两条普通S32 ++落实，D01固定gate1／P08已接与原ECX未知分层记录。188完整指令、MainLoop唯一调用及两原目标表18项／2B自MOV只证本步边界；所有父／48callee／导入SDK／正常alias-owner资源寿命、ABI／链接／人物创建-主地图／明文互通／画面和运行R8继续。集中静态与派生结果随唯一进度追加。

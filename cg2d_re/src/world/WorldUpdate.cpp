@@ -34,8 +34,8 @@ void Update()
         gCurrentSceneState = pendingSceneState;
     }
 
-    gValueC82204 = 0;
     const std::int32_t sceneType = gCurrentSceneType;
+    gValueC82204 = 0;
     switch (sceneType) {
     case 1: {
         platform::gValue73ECC0 = 0;
@@ -147,13 +147,11 @@ void Update()
             detail::Sub_52B990();
             const std::uint32_t tick = platform::ReadTickCount32();
             platform::gLastRenderDt = static_cast<double>(tick);
-            gCurrentSceneState = std::bit_cast<std::int32_t>(
-                std::bit_cast<std::uint32_t>(gCurrentSceneState) + 1u);
+            ++gCurrentSceneState;
         } else if (sceneState == 1
             && detail::Sub_51FDE0(2, 0, 0x3F19999Au) == 1) {
             platform::gValue73ECC0 = 0;
-            gCurrentSceneState = std::bit_cast<std::int32_t>(
-                std::bit_cast<std::uint32_t>(gCurrentSceneState) + 1u);
+            ++gCurrentSceneState;
         }
 
         if (detail::Sub_455C90() == 0) {

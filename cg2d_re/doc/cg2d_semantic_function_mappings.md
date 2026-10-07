@@ -3378,3 +3378,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 新增1604／F:0005E3D0／ProcessLegacyVersionScene_45E3D0与1605／F:00062330／ProcessScene_462330，来源同一CharacterVersionUpgrade.cpp，见[基线](cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-baseline)。两根313条1154B／五页、34CALL十三目标、54jump两RET，WorldUpdate两实际CALL；六case恢复一次对象样本／作用域隔离，原EQ1及所有文字／发送／成功清理差异保持。
 
 语义1606有效1599／文档1717／3680（46.66%）／742处置／CHARACTER22／E868两局部I-S各24来源；两区间510B全用途使R7 311→313余2748。旧2B自MOV与普通4B真NOP有据区分；冻结定位／pending18／差队列和全部完整门禁保。局部不代全部WorldUpdate／十三callee／正常寿命／ABI或运行。
+
+## BTB01 场景分派正常状态合同（2026-10-07）
+
+既有185／F:0011C430／world::Update追加[完整基线](cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline)：188条758B／三页、73直接CALL48目标＋一GetTick导入、17jump十一RET与MainLoop457117实际调用。一源三片段恢复scene type先取后清BYTE、scene11两个普通S32 ++；原pending／全部分派／生命周期与渲染尾、七DWORD／U32 tick→F64／真实W8边界及D01固定1保持，陈旧待决句按既有批准／接线更新，原ECX未知不变。
+
+无新语义／F：1606有效1599／文档1717（46.66%）保；LOOP32→33／处置743／E870两局部I-S各21来源，单74B完整用途使R7 313→314余2747。INPUT27／CHARACTER22／MAP69等其它域与冻结定位／pending18／差队列及全部完整门禁保。局部不代全部MainLoop／48目标／导入SDK／正常寿命／ABI或运行。

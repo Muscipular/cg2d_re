@@ -3336,3 +3336,15 @@ BSX01实际收口：单片段／一旧分隔符原语开发完成，源BYTE取�
 新1604／1605两adapted F与CHARACTER20→22，语义1606有效1599／文档1717（46.66%）／742处置／E868两局部I-S各24来源／R7 313余2748。冻结定位／无F代码区各7／pending18／差队列172及171缺定位43待归属、P05／P08原closed／closed11／完整叶0／globalfalse与全部门禁保，U11／V03／R04仅current／引用仍open。全部WorldUpdate／十三callee／正常alias-owner寿命、人物创建-主地图／原格式互通／画面、CRT-SDK／机器ABI／链接与运行R8继续；音频暂停与执行限制保。集中静态／派生终态后追加结果。
 
 集中静态已通过：整个版本源仅六case片段／两原业务体，五原正文逐字节及原分派／四测宽表达式／所有保持源头；两完整313连续指令／1154B、六对象样本、原EQ1／标死／两测宽入口及两实际父调用；两510B用途逐字节连续覆盖／十二目标和204状态值表各组、旧2B整自MOV与普通4B真NOP；整个机器增量和四文档／三任务整文本。measure与-Check同一会话94051已取得终态0，完整派生快照、12文件UTF-8无BOM-LF、四锚点、两I-S各24实际来源及差异检查通过。未编译、链接或运行，整体目标继续active。
+
+## BTB01 World分派入口与正常共享状态实修（2026-10-07）
+
+上一目标轮BTA01已实修两业务体六case／同步12文件并提交，属于进展。本轮沿人物登录进入主地图的实际WorldUpdate分派，定位current sceneType与C82204清W8倒序，以及断线scene11两处显式回绕模型。先落[子SPEC](../doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision)，实修world/WorldUpdate.cpp三唯一片段／一个已有原业务体：先取sceneType再清BYTE；初始化tick发布后与过渡返回1后，各普通S32 ++当场共享sceneState，撤位模式回绕。
+
+原pending发布顺序、13主场景与五capability分派、地图进入／各子场景及Yobi/Chara/Input尾、七DWORD28B／同U32 tick→F64、失败与断网/调色板序保持；bit头及后段真实低W8位型保持，所有其它整源／头与调用方保，普通值原正确，不称运行故障或增异常门禁。185旧boundary门禁待确认已按D01/P08既有批准及接线更新，固定1仍只获批适配，原ECX未知／原4626A0 pending7保，不造原常量或新决议。
+
+原完整188条758B／三页70+70+48、73direct48目标＋一GetTickCount导入间接CALL、17jump十一RET；MainLoop457020@457117唯一真实调用。单X:0011C726-0011C770完整74B：2B8BFF单MOV EDI,EDI对齐／52B十三主目标／20B五capability目标，两同父data引用／无code入向，各前RET后真入口，只原用途，不造F/x64 W32地址表或误记90 NOP。
+
+既有185追加无新语义，语义1606有效1599／文档1717（46.66%）保；LOOP32→33／743处置／E870两局部I-S各21来源／R7 314余2747。原CHARACTER22／INPUT27／MAP69、冻结定位／无F代码区各7／pending18／差队列172及171缺定位43待归属、P05／P08原closed／closed11／完整叶0／globalfalse与全部门禁保，三open任务仅current／引用推进。全部MainLoop／48目标／导入SDK／正常alias-owner资源寿命、人物创建-主地图／原格式明文／画面、ABI／链接与运行R8继续；音频暂停／执行限制保。集中静态／派生终态后追加结果。
+
+集中静态已通过：整World源仅三片段、真实S32/W8／七DWORD与D01、bit头及低W8位型保；完整188连续指令／758B、73direct四十八目标＋一GetTick导入、原type→清BYTE／共用INC／tick F64及七DWORD时点、唯一MainLoop实际入向；74B完整自MOV／两13-5表及两同父数据引用；整个机器185仅具名追加与陈旧句更新／原role和sources保，四文档／三任务整文本。measure及-Check同一会话13643已取得终态0；完整派生快照／原pending7和D01边界、12文件UTF-8无BOM-LF、四锚点、两I-S各21实际来源及差异检查通过。语义／文档覆盖数保持，未编译、链接或运行，整体目标继续active。

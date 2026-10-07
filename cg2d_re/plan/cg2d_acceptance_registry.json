@@ -598,7 +598,8 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-baseline",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-baseline",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-baseline",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-baseline",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -632,7 +633,8 @@
         "F:00004AE0",
         "F:00073F80",
         "F:00104120",
-        "F:0003CBB0"
+        "F:0003CBB0",
+        "F:0011C430"
       ],
       "closure_task_ids": [
         "U11",
@@ -660,7 +662,8 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-decision",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-decision",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-decision",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-decision",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -679,7 +682,8 @@
         "YSS01哨兵初终三旧依赖来源/真实应用初始化与终止调用者纳管，仅初始化四片段实修；清场先缓存节点、46DD40后标死/UpdateAll回收及首free后再读尾free保持。同三ID/证据关联MAP，完整所有应用/场景parent及callee/资源生产/owner重进退出和借用失效/SDK/ABI/PC53/RNG/画面运行未闭",
         "YAS01真实共用节点生产依赖四片段实修/旧语义追加和同ID关联MAP，原U8/U32/原生分配域、默认字段与两失败/FIFO及无插链返回保持；完整118条保存只局部分配取样验收，全部场景/应用父与载荷/所有callee和链别名/owner寿命/SDK/ABI/PC53/RNG/画面运行未闭",
         "WRS01真实场景→504120→473F80窗口update/元素/focus-drag/draw/carry链纳管，单根三判定取样修正，两F同公共UI不双计。两个完整场景/所有callback及资源生产/时钟RNG/owner寿命/ABI/SDK/PC53与画面运行仍未闭，不代旧99表外层实际路由",
-        "BMF01完整43CBB0十状态与公共尾741条2889B/真实51C430调用和三表纳管，十五项十八处取样/退出时序修复；仅场景一F入本域，主循环/全场景资源owner和画面运行仍待"
+        "BMF01完整43CBB0十状态与公共尾741条2889B/真实51C430调用和三表纳管，十五项十八处取样/退出时序修复；仅场景一F入本域，主循环/全场景资源owner和画面运行仍待",
+        "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -699,7 +703,8 @@
         "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
         "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
         "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
-        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state"
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state"
       ]
     },
     {
@@ -37343,6 +37348,92 @@
       "observation": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行；旧场景保mode1窗口、abcdefg及无预览清场 BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行；普通场景保mode4窗口、三发送路径／清预览与双slot mode1消费",
       "expected": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行；旧场景保mode1窗口、abcdefg及无预览清场 BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行；普通场景保mode4窗口、三发送路径／清预览与双slot mode1消费",
       "actual": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行"
+    },
+    {
+      "id": "E-WORLD-DISPATCH-STATE-SAMPLING-I-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTB01World Update完整188条758B/三页、73direct四十八目标+一GetTick导入间接CALL、17jump十一RET，MainLoop457117真实入向；原scene取样/标志清及scene11共用INC与RPLAN.24，doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-world-dispatch-state-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-acceptance",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+        "doc/cg2d_world_dispatch_state_sampling_evidence.json",
+        "src/world/WorldUpdate.cpp#Update",
+        "include/cg/world/SceneState.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp#SetCurrentSceneType",
+        "src/CharacterSelectScene.cpp#ProcessCreationScene_4626A0",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "doc/cg2d_creation_gate_adaptation_spec.md",
+        "doc/cg2d_local_determinism_spec.md",
+        "src/LoginState.cpp",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "include/cg/platform/MainLoop.hpp"
+      ],
+      "differences": [
+        {
+          "description": "单源三片段/一原业务体：先S32 sceneType取样再清C82204 W8；tick发布后与过渡完成后各普通S32 ++共享当前state，撤位模式回绕。既有185 role/source及pending/全主次分派/子场景与渲染序/7 DWORD/同U32 tick→F64/失败/真实低W8/所有其它源头保；门禁陈旧句按D01/P08已实施更新，原ECX未知/pending7保。单74B全用途两表18目标/2B自MOV仅局部，不代MainLoop/48callee/导入SDK/全部正常资源寿命/ABI/链接/运行",
+          "decision_ref": "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
+      "expected": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
+      "actual": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行"
+    },
+    {
+      "id": "E-WORLD-DISPATCH-STATE-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTB01World Update完整188条758B/三页、73direct四十八目标+一GetTick导入间接CALL、17jump十一RET，MainLoop457117真实入向；原scene取样/标志清及scene11共用INC与RPLAN.24，doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-world-dispatch-state-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-acceptance",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+        "doc/cg2d_world_dispatch_state_sampling_evidence.json",
+        "src/world/WorldUpdate.cpp#Update",
+        "include/cg/world/SceneState.hpp",
+        "src/platform/MainLoop.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp#SetCurrentSceneType",
+        "src/CharacterSelectScene.cpp#ProcessCreationScene_4626A0",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "doc/cg2d_creation_gate_adaptation_spec.md",
+        "doc/cg2d_local_determinism_spec.md",
+        "src/LoginState.cpp",
+        "src/YobiRuntime.cpp#YobiUpdateAll_404C50",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "include/cg/platform/MainLoop.hpp"
+      ],
+      "differences": [
+        {
+          "description": "单源三片段/一原业务体：先S32 sceneType取样再清C82204 W8；tick发布后与过渡完成后各普通S32 ++共享当前state，撤位模式回绕。既有185 role/source及pending/全主次分派/子场景与渲染序/7 DWORD/同U32 tick→F64/失败/真实低W8/所有其它源头保；门禁陈旧句按D01/P08已实施更新，原ECX未知/pending7保。单74B全用途两表18目标/2B自MOV仅局部，不代MainLoop/48callee/导入SDK/全部正常资源寿命/ABI/链接/运行",
+          "decision_ref": "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
+      "expected": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行",
+      "actual": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行"
     }
   ],
   "task_acceptance": [
@@ -37843,7 +37934,8 @@
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
-        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state"
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state"
       ]
     },
     {
@@ -38123,7 +38215,8 @@
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
-        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state"
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state"
       ]
     },
     {
@@ -38355,7 +38448,8 @@
         "doc/cg2d_legacy_separator_byte_sampling_spec.md#legacy-separator-byte-source-state",
         "doc/cg2d_character_preview_slot_sampling_spec.md#character-preview-slot-source-state",
         "doc/cg2d_character_slot_normal_mode_spec.md#character-slot-normal-mode-source-state",
-        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state"
+        "doc/cg2d_version_upgrade_action_sampling_spec.md#version-upgrade-action-source-state",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state"
       ]
     },
     {
@@ -47391,6 +47485,19 @@
         "doc/cg2d_version_upgrade_action_sampling_evidence.json"
       ],
       "boundary": "BTA01两版本升级场景313条1154B／五页、34direct十三目标／54jump两RET及WorldUpdate两实际CALL；一源六片段／两个既有业务体，case4/100/200各取一次native非拥有action，供非空判断与原EQ1／MarkDeath复用；添加case局部块隔离变量。原测宽/居中/列数业务下限、阶段写序/原版本mode2-4-5正文与旧abcdefg、两独立owner/成功清预览差异与背景、EQ401D00单Read/RNG和所有其它源头保。仅局部静态，不代完整父／十三依赖／全部正常alias-owner寿命、ABI／链接或运行；普通场景保mode4窗口、三发送路径／清预览与双slot mode1消费"
+    },
+    {
+      "inventory_id": "F:0011C430",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-acceptance",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+        "doc/cg2d_world_dispatch_state_sampling_evidence.json"
+      ],
+      "boundary": "BTB01既有185／World::Update完整188条758B／三页，73direct四十八目标加一GetTickCount导入间接CALL／17jump十一RET，MainLoop457117实际入向；一源三片段恢复先S32 sceneType取样后清W8 C82204，scene11两路径普通S32 ++共享当前状态／撤回绕模拟。pending发布/13主场景与五次分派/子场景调用序列、七DWORD清理、同一U32 tick→F64、原失败和渲染尾、D01固定gate1及原ECX未知/P08closed全部保；既有映射只追加基线并更新陈旧待决句。仅局部静态，不代MainLoop／48目标及导入SDK／所有正常alias-owner资源寿命、ABI／链接或运行"
     }
   ],
   "auxiliary_dispositions": [
@@ -56548,6 +56655,245 @@
               "size": 1,
               "bytes": "90",
               "is_nop": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "X:0011C726-0011C770",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-baseline",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-decision",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-acceptance",
+        "doc/cg2d_world_dispatch_state_sampling_spec.md#world-dispatch-state-source-state",
+        "doc/cg2d_world_dispatch_state_sampling_evidence.json"
+      ],
+      "reason": "BTB01完整74B：2B8BFF单MOV EDI,EDI中性对齐/52B十三主目标/20B五capability目标，两同父data读取/无code入向/前RET后真入口；只原用途，不造F/x64 W32地址表或范围排除/运行验收",
+      "classification": "switch_table_with_alignment",
+      "parts": [
+        {
+          "start": "0x51c726",
+          "end_exclusive": "0x51c728",
+          "size": 2,
+          "kind": "register_self_move_alignment",
+          "bytes": "8bff",
+          "decode": [
+            {
+              "ea": "0x51c726",
+              "size": 2,
+              "bytes": "8bff",
+              "itype": 122,
+              "is_mov": true,
+              "is_register_self_move": true,
+              "operand_types": [
+                1,
+                1
+              ],
+              "operand_registers": [
+                7,
+                7
+              ]
+            }
+          ]
+        },
+        {
+          "start": "0x51c728",
+          "end_exclusive": "0x51c75c",
+          "size": 52,
+          "kind": "switch_target_table",
+          "bytes": "77c45100c6c45100e0c45100fac451005cc5510013c651002dc6510021c751003cc651001cc7510046c6510021c7510023c55100",
+          "targets": [
+            {
+              "index": 0,
+              "case": 1,
+              "ea": "0x51c728",
+              "bytes": "77c45100",
+              "target": "0x51c477",
+              "code": true,
+              "function": "0x51c430",
+              "text": "mov     dword_73ECC0, ebx; jumptable 0051C470 case 1"
+            },
+            {
+              "index": 1,
+              "case": 2,
+              "ea": "0x51c72c",
+              "bytes": "c6c45100",
+              "target": "0x51c4c6",
+              "code": true,
+              "function": "0x51c430",
+              "text": "mov     dword_73ECC0, ebx; jumptable 0051C470 case 2"
+            },
+            {
+              "index": 2,
+              "case": 3,
+              "ea": "0x51c730",
+              "bytes": "e0c45100",
+              "target": "0x51c4e0",
+              "code": true,
+              "function": "0x51c430",
+              "text": "mov     dword_73ECC0, ebx; jumptable 0051C470 case 3"
+            },
+            {
+              "index": 3,
+              "case": 4,
+              "ea": "0x51c734",
+              "bytes": "fac45100",
+              "target": "0x51c4fa",
+              "code": true,
+              "function": "0x51c430",
+              "text": "mov     dword_73ECC0, ebx; jumptable 0051C470 case 4"
+            },
+            {
+              "index": 4,
+              "case": 5,
+              "ea": "0x51c738",
+              "bytes": "5cc55100",
+              "target": "0x51c55c",
+              "code": true,
+              "function": "0x51c430",
+              "text": "push    edi; jumptable 0051C470 case 5"
+            },
+            {
+              "index": 5,
+              "case": 6,
+              "ea": "0x51c73c",
+              "bytes": "13c65100",
+              "target": "0x51c613",
+              "code": true,
+              "function": "0x51c430",
+              "text": "mov     dword_73ECC0, ebx; jumptable 0051C470 case 6"
+            },
+            {
+              "index": 6,
+              "case": 7,
+              "ea": "0x51c740",
+              "bytes": "2dc65100",
+              "target": "0x51c62d",
+              "code": true,
+              "function": "0x51c430",
+              "text": "call    sub_45EBB0; jumptable 0051C470 case 7"
+            },
+            {
+              "index": 7,
+              "case": 8,
+              "ea": "0x51c744",
+              "bytes": "21c75100",
+              "target": "0x51c721",
+              "code": true,
+              "function": "0x51c430",
+              "text": "pop     ebx; jumptable 0051C470 default case, cases 8,12"
+            },
+            {
+              "index": 8,
+              "case": 9,
+              "ea": "0x51c748",
+              "bytes": "3cc65100",
+              "target": "0x51c63c",
+              "code": true,
+              "function": "0x51c430",
+              "text": "call    World__DrawNormalScene; jumptable 0051C470 case 9"
+            },
+            {
+              "index": 9,
+              "case": 10,
+              "ea": "0x51c74c",
+              "bytes": "1cc75100",
+              "target": "0x51c71c",
+              "code": true,
+              "function": "0x51c430",
+              "text": "call    World__DrawBattleScene; jumptable 0051C470 case 10"
+            },
+            {
+              "index": 10,
+              "case": 11,
+              "ea": "0x51c750",
+              "bytes": "46c65100",
+              "target": "0x51c646",
+              "code": true,
+              "function": "0x51c430",
+              "text": "mov     eax, gWorld__SceneState; jumptable 0051C470 case 11"
+            },
+            {
+              "index": 11,
+              "case": 12,
+              "ea": "0x51c754",
+              "bytes": "21c75100",
+              "target": "0x51c721",
+              "code": true,
+              "function": "0x51c430",
+              "text": "pop     ebx; jumptable 0051C470 default case, cases 8,12"
+            },
+            {
+              "index": 12,
+              "case": 13,
+              "ea": "0x51c758",
+              "bytes": "23c55100",
+              "target": "0x51c523",
+              "code": true,
+              "function": "0x51c430",
+              "text": "mov     dword_73ECC0, ebx; jumptable 0051C470 case 13"
+            }
+          ]
+        },
+        {
+          "start": "0x51c75c",
+          "end_exclusive": "0x51c770",
+          "size": 20,
+          "kind": "switch_target_table",
+          "bytes": "93c4510093c451009ac45100a1c45100a8c45100",
+          "targets": [
+            {
+              "index": 0,
+              "case": 0,
+              "ea": "0x51c75c",
+              "bytes": "93c45100",
+              "target": "0x51c493",
+              "code": true,
+              "function": "0x51c430",
+              "text": "call    sub_45C5A0; jumptable 0051C48C cases 0,1"
+            },
+            {
+              "index": 1,
+              "case": 1,
+              "ea": "0x51c760",
+              "bytes": "93c45100",
+              "target": "0x51c493",
+              "code": true,
+              "function": "0x51c430",
+              "text": "call    sub_45C5A0; jumptable 0051C48C cases 0,1"
+            },
+            {
+              "index": 2,
+              "case": 2,
+              "ea": "0x51c764",
+              "bytes": "9ac45100",
+              "target": "0x51c49a",
+              "code": true,
+              "function": "0x51c430",
+              "text": "call    sub_45C2D0; jumptable 0051C48C case 2"
+            },
+            {
+              "index": 3,
+              "case": 3,
+              "ea": "0x51c768",
+              "bytes": "a1c45100",
+              "target": "0x51c4a1",
+              "code": true,
+              "function": "0x51c430",
+              "text": "call    sub_45F190; jumptable 0051C48C case 3"
+            },
+            {
+              "index": 4,
+              "case": 4,
+              "ea": "0x51c76c",
+              "bytes": "a8c45100",
+              "target": "0x51c4a8",
+              "code": true,
+              "function": "0x51c430",
+              "text": "call    sub_464840; jumptable 0051C48C case 4"
             }
           ]
         }

@@ -1688,3 +1688,11 @@ BUM01必要静态已通过：完整MapDrawCache仅一个私有CopyMapDrawRecord�
 LOOP116→120/MAP113→117、U10/G02/R04/V03只current/引用，四任务open。全部父/callee、510710完整原体/正常寿命/数值/x87/机器ABI/链接/像素/明文互通与R8继续；差队列/closed11/完整门禁及网络原格式明文、内部LegacyCryptInt/音频暂停/RPLAN.24保持。
 
 BUN01必要静态已通过：四既有正确根及SceneState/相关CPP/声明/owner/网络源全文保持，源码0改动、仅新增两域S/新增I为0。四原根388条1302B/八页、五局部后窗/四尾26B用途与完整证据/机器及文档模型一致。汇总及 -Check 通过，派生实值：语义1708/有效1701、合同1819（49.43%）、处置849/E994、R7已审415/余2646、LOOP120/MAP117。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保；FUNC-NETWORK原57成员/既有门禁保持，510710原体不由本步外推。未编译、测试或运行，完整正常寿命/数值/x87/全父/callee/ABI/像素/明文互通及R8继续。命名快照：cg2d-re-map-window-search-baseline-20261008。
+
+## BUO01 原请求与CRC表数据开发验收（2026-10-08）
+
+[基线](cg2d_map_request_original_tables_spec.md#map-request-tables-baseline)、[裁决](cg2d_map_request_original_tables_spec.md#map-request-tables-decision)、[验收](cg2d_map_request_original_tables_spec.md#map-request-tables-acceptance)与[证据](cg2d_map_request_original_tables_evidence.json)覆盖四根229条724B/六页、原两表768B/512元素及命令/空格6B、三尾28B和两个后窗。只一cpp两同名同类型表原值承接，四正确体/接口/缓冲与原格式明文保持，原初值身份不代所有写别名或运行表寿命。
+
+LOOP120→124/MAP117→119/NETWORK57→59，三域S、I仅前两域数据开发，各25来源；U10/G02/R04/V03只current/引用，四任务open。全部160 token父/正常生产消费/数值/机器ABI/链接/像素/明文互通及R8继续，原差队列/closed11/完整门禁和音频暂停/RPLAN.24/内部LegacyCryptInt/网络两叶排除持续。
+
+BUO01必要静态已通过：完整Scene只两数据初始化改原768B/512常量，类型/符号/owner/断言和四正确正文及NetworkRuntime/全部其它源保持；每个源常量与原实际字节对应，未执行生成/CRC或摘要，不称旧值错误。四根229条724B/六页、原表/字串774B、三28B用途及两个后窗/完整引用身份与证据和台账/文档模型一致。单引用检查曾因顶层单元素数组展开不匹配，已保留数组形状并重做该项通过。汇总及 -Check 通过，派生实值：语义1712/有效1705、合同1823（49.54%）、处置853/E999、R7已审418/余2643、LOOP124/MAP119/NETWORK59。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11与完整门禁保。未编译、测试或运行，原全部写别名/160全父/正常寿命/数值/机器ABI/像素/明文互通及R8继续。命名快照：cg2d-re-map-request-original-tables-20261008。

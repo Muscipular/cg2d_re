@@ -194368,6 +194368,342 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x510710",
+      "inventory_id": "F:00110710",
+      "original_role": "UUN六S32字段按原共享缓冲/容量时序构造并明文发送",
+      "original_end_exclusive": "0x510807",
+      "original_chunks": [
+        {
+          "start": "0x510710",
+          "end_exclusive": "0x510807"
+        }
+      ],
+      "instruction_count": 77,
+      "status": "BUO01四完整根229条724B/六页，原UUN及整数token/地图核验-CRC正常本体保持；仅两既有表改原768B/512常量，表初值可逐项静态对照，不计算算法/摘要或称旧值错误；完整160父/寿命/数值/ABI/互通运行未验",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "Sub_510710"
+          ],
+          "relationship": "BUO01 UUN构造510710、整数token517120、地图核验请求469290及查表校验469240四完整根229条724B/六页四块、23directcall/11jump/五RET。只SceneState两已有静态表初始化由公式改为原768B直接常量：55DAAC 256 U8、55DBAC 256 W16，同std::array类型/符号/owner/引用/既有只读宿主视图保，512元素逐项原值，不执行生成/校验算法或文件摘要，不称旧生成值错误或原表所有间接写别名已排除。四函数正文全部正确保持，无新函数/helper/布局/owner/保护。CRC原BYTE取样、U8→W16表值、状态lowW16高BYTE索引/XOR lowByte<<8、S32长度/返回零扩展与原表引用保。地图验证原加载返回仍不加检查，held W32 mode==1时hit WORD &1FF否则&FFF，原三1458B校验、tile/obj/hit顺序和低W16观察/三个S32 expected比较，匹配1；不匹配原七实参交UUN后0返回保；原栈页由现三2602 WORD数组/局部宿主承接保持，不复制alloca_probe/猜新增失败默认。UUN已加载55554E00命令，六S32字段各先采W32 capacity→format token→fresh目标buffer append，尾fresh buffer/socket交既有SendProtocolBuffer，返回沿发送；原格式字段/空格/NUL/帧与明文合同不改。token两capacity/buffer各独立取样，format→copy→空格append→fresh共享buffer返回，原2000空格值有据；517730原数值算法已1220承接，不扩全部CRT。UUN两入向、token160引用/68父、核验一入向、CRC三入向仅身份与本链六token调用/两个实际UUN父及509090局部窗，不复审所有160父。两网络根纳NETWORK/LOOP，两地图根纳MAP/LOOP，Loop124/Map119/Network59；I仅MAP/LOOP两表实际开发，S三域，完整门禁不伪闭。三尾12+7+9=28B NN_NOP无入向/后真入口仅用途，token紧接517160无额外X。完整正常生产消费/owner-alias寿命/全父/callee/数值/机器ABI/链接/像素/明文互通及R8未验，内部LegacyCryptInt/音频暂停/RPLAN.24/两网络加解密叶排除持续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-acceptance",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
+        "doc/cg2d_map_request_original_tables_evidence.json"
+      ],
+      "boundary": "BUO01 UUN构造510710、整数token517120、地图核验请求469290及查表校验469240四完整根229条724B/六页四块、23directcall/11jump/五RET。只SceneState两已有静态表初始化由公式改为原768B直接常量：55DAAC 256 U8、55DBAC 256 W16，同std::array类型/符号/owner/引用/既有只读宿主视图保，512元素逐项原值，不执行生成/校验算法或文件摘要，不称旧生成值错误或原表所有间接写别名已排除。四函数正文全部正确保持，无新函数/helper/布局/owner/保护。CRC原BYTE取样、U8→W16表值、状态lowW16高BYTE索引/XOR lowByte<<8、S32长度/返回零扩展与原表引用保。地图验证原加载返回仍不加检查，held W32 mode==1时hit WORD &1FF否则&FFF，原三1458B校验、tile/obj/hit顺序和低W16观察/三个S32 expected比较，匹配1；不匹配原七实参交UUN后0返回保；原栈页由现三2602 WORD数组/局部宿主承接保持，不复制alloca_probe/猜新增失败默认。UUN已加载55554E00命令，六S32字段各先采W32 capacity→format token→fresh目标buffer append，尾fresh buffer/socket交既有SendProtocolBuffer，返回沿发送；原格式字段/空格/NUL/帧与明文合同不改。token两capacity/buffer各独立取样，format→copy→空格append→fresh共享buffer返回，原2000空格值有据；517730原数值算法已1220承接，不扩全部CRT。UUN两入向、token160引用/68父、核验一入向、CRC三入向仅身份与本链六token调用/两个实际UUN父及509090局部窗，不复审所有160父。两网络根纳NETWORK/LOOP，两地图根纳MAP/LOOP，Loop124/Map119/Network59；I仅MAP/LOOP两表实际开发，S三域，完整门禁不伪闭。三尾12+7+9=28B NN_NOP无入向/后真入口仅用途，token紧接517160无额外X。完整正常生产消费/owner-alias寿命/全父/callee/数值/机器ABI/链接/像素/明文互通及R8未验，内部LegacyCryptInt/音频暂停/RPLAN.24/两网络加解密叶排除持续。",
+      "verification_level": "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
+      "map_request_original_tables": {
+        "spec_id": "BUO01",
+        "evidence_refs": [
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-acceptance",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
+          "doc/cg2d_map_request_original_tables_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 77,
+        "original_code_bytes": 247,
+        "original_page_count": 2,
+        "original_direct_call_count": 14,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 2,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "source_existing_static_table_symbols_and_types_kept": true,
+        "source_original_512_loaded_elements_directly_restored": true,
+        "original_all_four_correct_function_bodies_kept": true,
+        "original_UUN_and_space_literal_bytes_kept": true,
+        "original_six_capacity_before_format_then_fresh_buffer_append_and_send_return_kept": true,
+        "original_token_two_capacity_two_destination_and_fresh_return_kept": true,
+        "original_validation_W16_masks_three_lengths_low_W16_views_and_request_zero_one_returns_kept": true,
+        "original_crc_byte_and_W16_state_table_indices_and_zeroextended_return_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_loaded_table_bytes": 768,
+        "original_loaded_table_elements": 512,
+        "original_literal_bytes": 6,
+        "original_nop_tail_bytes": 28,
+        "original_local_caller_window_count": 2,
+        "original_initial_table_identity_verified": true,
+        "original_all_indirect_table_write_aliases_ruled_out": false,
+        "all_160_token_inbound_parents_verified": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x517120",
+      "inventory_id": "F:00117120",
+      "original_role": "原整数格式→共享token复制/空格追加及native借用返回",
+      "original_end_exclusive": "0x517160",
+      "original_chunks": [
+        {
+          "start": "0x517120",
+          "end_exclusive": "0x517160"
+        }
+      ],
+      "instruction_count": 19,
+      "status": "BUO01四完整根229条724B/六页，原UUN及整数token/地图核验-CRC正常本体保持；仅两既有表改原768B/512常量，表初值可逐项静态对照，不计算算法/摘要或称旧值错误；完整160父/寿命/数值/ABI/互通运行未验",
+      "sources": [
+        {
+          "path": "src/network/NetworkRuntime.cpp",
+          "symbols": [
+            "FormatProtocolIntegerToken_517120"
+          ],
+          "relationship": "BUO01 UUN构造510710、整数token517120、地图核验请求469290及查表校验469240四完整根229条724B/六页四块、23directcall/11jump/五RET。只SceneState两已有静态表初始化由公式改为原768B直接常量：55DAAC 256 U8、55DBAC 256 W16，同std::array类型/符号/owner/引用/既有只读宿主视图保，512元素逐项原值，不执行生成/校验算法或文件摘要，不称旧生成值错误或原表所有间接写别名已排除。四函数正文全部正确保持，无新函数/helper/布局/owner/保护。CRC原BYTE取样、U8→W16表值、状态lowW16高BYTE索引/XOR lowByte<<8、S32长度/返回零扩展与原表引用保。地图验证原加载返回仍不加检查，held W32 mode==1时hit WORD &1FF否则&FFF，原三1458B校验、tile/obj/hit顺序和低W16观察/三个S32 expected比较，匹配1；不匹配原七实参交UUN后0返回保；原栈页由现三2602 WORD数组/局部宿主承接保持，不复制alloca_probe/猜新增失败默认。UUN已加载55554E00命令，六S32字段各先采W32 capacity→format token→fresh目标buffer append，尾fresh buffer/socket交既有SendProtocolBuffer，返回沿发送；原格式字段/空格/NUL/帧与明文合同不改。token两capacity/buffer各独立取样，format→copy→空格append→fresh共享buffer返回，原2000空格值有据；517730原数值算法已1220承接，不扩全部CRT。UUN两入向、token160引用/68父、核验一入向、CRC三入向仅身份与本链六token调用/两个实际UUN父及509090局部窗，不复审所有160父。两网络根纳NETWORK/LOOP，两地图根纳MAP/LOOP，Loop124/Map119/Network59；I仅MAP/LOOP两表实际开发，S三域，完整门禁不伪闭。三尾12+7+9=28B NN_NOP无入向/后真入口仅用途，token紧接517160无额外X。完整正常生产消费/owner-alias寿命/全父/callee/数值/机器ABI/链接/像素/明文互通及R8未验，内部LegacyCryptInt/音频暂停/RPLAN.24/两网络加解密叶排除持续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-acceptance",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
+        "doc/cg2d_map_request_original_tables_evidence.json"
+      ],
+      "boundary": "BUO01 UUN构造510710、整数token517120、地图核验请求469290及查表校验469240四完整根229条724B/六页四块、23directcall/11jump/五RET。只SceneState两已有静态表初始化由公式改为原768B直接常量：55DAAC 256 U8、55DBAC 256 W16，同std::array类型/符号/owner/引用/既有只读宿主视图保，512元素逐项原值，不执行生成/校验算法或文件摘要，不称旧生成值错误或原表所有间接写别名已排除。四函数正文全部正确保持，无新函数/helper/布局/owner/保护。CRC原BYTE取样、U8→W16表值、状态lowW16高BYTE索引/XOR lowByte<<8、S32长度/返回零扩展与原表引用保。地图验证原加载返回仍不加检查，held W32 mode==1时hit WORD &1FF否则&FFF，原三1458B校验、tile/obj/hit顺序和低W16观察/三个S32 expected比较，匹配1；不匹配原七实参交UUN后0返回保；原栈页由现三2602 WORD数组/局部宿主承接保持，不复制alloca_probe/猜新增失败默认。UUN已加载55554E00命令，六S32字段各先采W32 capacity→format token→fresh目标buffer append，尾fresh buffer/socket交既有SendProtocolBuffer，返回沿发送；原格式字段/空格/NUL/帧与明文合同不改。token两capacity/buffer各独立取样，format→copy→空格append→fresh共享buffer返回，原2000空格值有据；517730原数值算法已1220承接，不扩全部CRT。UUN两入向、token160引用/68父、核验一入向、CRC三入向仅身份与本链六token调用/两个实际UUN父及509090局部窗，不复审所有160父。两网络根纳NETWORK/LOOP，两地图根纳MAP/LOOP，Loop124/Map119/Network59；I仅MAP/LOOP两表实际开发，S三域，完整门禁不伪闭。三尾12+7+9=28B NN_NOP无入向/后真入口仅用途，token紧接517160无额外X。完整正常生产消费/owner-alias寿命/全父/callee/数值/机器ABI/链接/像素/明文互通及R8未验，内部LegacyCryptInt/音频暂停/RPLAN.24/两网络加解密叶排除持续。",
+      "verification_level": "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
+      "map_request_original_tables": {
+        "spec_id": "BUO01",
+        "evidence_refs": [
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-acceptance",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
+          "doc/cg2d_map_request_original_tables_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 19,
+        "original_code_bytes": 64,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 160,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "source_existing_static_table_symbols_and_types_kept": true,
+        "source_original_512_loaded_elements_directly_restored": true,
+        "original_all_four_correct_function_bodies_kept": true,
+        "original_UUN_and_space_literal_bytes_kept": true,
+        "original_six_capacity_before_format_then_fresh_buffer_append_and_send_return_kept": true,
+        "original_token_two_capacity_two_destination_and_fresh_return_kept": true,
+        "original_validation_W16_masks_three_lengths_low_W16_views_and_request_zero_one_returns_kept": true,
+        "original_crc_byte_and_W16_state_table_indices_and_zeroextended_return_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_loaded_table_bytes": 768,
+        "original_loaded_table_elements": 512,
+        "original_literal_bytes": 6,
+        "original_nop_tail_bytes": 28,
+        "original_local_caller_window_count": 2,
+        "original_initial_table_identity_verified": true,
+        "original_all_indirect_table_write_aliases_ruled_out": false,
+        "all_160_token_inbound_parents_verified": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x469290",
+      "inventory_id": "F:00069290",
+      "original_role": "原地图三平面校验比较/失配UUN请求生产",
+      "original_end_exclusive": "0x4693e9",
+      "original_chunks": [
+        {
+          "start": "0x469290",
+          "end_exclusive": "0x4693e9"
+        }
+      ],
+      "instruction_count": 106,
+      "status": "BUO01四完整根229条724B/六页，原UUN及整数token/地图核验-CRC正常本体保持；仅两既有表改原768B/512常量，表初值可逐项静态对照，不计算算法/摘要或称旧值错误；完整160父/寿命/数值/ABI/互通运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_469290"
+          ],
+          "relationship": "BUO01 UUN构造510710、整数token517120、地图核验请求469290及查表校验469240四完整根229条724B/六页四块、23directcall/11jump/五RET。只SceneState两已有静态表初始化由公式改为原768B直接常量：55DAAC 256 U8、55DBAC 256 W16，同std::array类型/符号/owner/引用/既有只读宿主视图保，512元素逐项原值，不执行生成/校验算法或文件摘要，不称旧生成值错误或原表所有间接写别名已排除。四函数正文全部正确保持，无新函数/helper/布局/owner/保护。CRC原BYTE取样、U8→W16表值、状态lowW16高BYTE索引/XOR lowByte<<8、S32长度/返回零扩展与原表引用保。地图验证原加载返回仍不加检查，held W32 mode==1时hit WORD &1FF否则&FFF，原三1458B校验、tile/obj/hit顺序和低W16观察/三个S32 expected比较，匹配1；不匹配原七实参交UUN后0返回保；原栈页由现三2602 WORD数组/局部宿主承接保持，不复制alloca_probe/猜新增失败默认。UUN已加载55554E00命令，六S32字段各先采W32 capacity→format token→fresh目标buffer append，尾fresh buffer/socket交既有SendProtocolBuffer，返回沿发送；原格式字段/空格/NUL/帧与明文合同不改。token两capacity/buffer各独立取样，format→copy→空格append→fresh共享buffer返回，原2000空格值有据；517730原数值算法已1220承接，不扩全部CRT。UUN两入向、token160引用/68父、核验一入向、CRC三入向仅身份与本链六token调用/两个实际UUN父及509090局部窗，不复审所有160父。两网络根纳NETWORK/LOOP，两地图根纳MAP/LOOP，Loop124/Map119/Network59；I仅MAP/LOOP两表实际开发，S三域，完整门禁不伪闭。三尾12+7+9=28B NN_NOP无入向/后真入口仅用途，token紧接517160无额外X。完整正常生产消费/owner-alias寿命/全父/callee/数值/机器ABI/链接/像素/明文互通及R8未验，内部LegacyCryptInt/音频暂停/RPLAN.24/两网络加解密叶排除持续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-acceptance",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
+        "doc/cg2d_map_request_original_tables_evidence.json"
+      ],
+      "boundary": "BUO01 UUN构造510710、整数token517120、地图核验请求469290及查表校验469240四完整根229条724B/六页四块、23directcall/11jump/五RET。只SceneState两已有静态表初始化由公式改为原768B直接常量：55DAAC 256 U8、55DBAC 256 W16，同std::array类型/符号/owner/引用/既有只读宿主视图保，512元素逐项原值，不执行生成/校验算法或文件摘要，不称旧生成值错误或原表所有间接写别名已排除。四函数正文全部正确保持，无新函数/helper/布局/owner/保护。CRC原BYTE取样、U8→W16表值、状态lowW16高BYTE索引/XOR lowByte<<8、S32长度/返回零扩展与原表引用保。地图验证原加载返回仍不加检查，held W32 mode==1时hit WORD &1FF否则&FFF，原三1458B校验、tile/obj/hit顺序和低W16观察/三个S32 expected比较，匹配1；不匹配原七实参交UUN后0返回保；原栈页由现三2602 WORD数组/局部宿主承接保持，不复制alloca_probe/猜新增失败默认。UUN已加载55554E00命令，六S32字段各先采W32 capacity→format token→fresh目标buffer append，尾fresh buffer/socket交既有SendProtocolBuffer，返回沿发送；原格式字段/空格/NUL/帧与明文合同不改。token两capacity/buffer各独立取样，format→copy→空格append→fresh共享buffer返回，原2000空格值有据；517730原数值算法已1220承接，不扩全部CRT。UUN两入向、token160引用/68父、核验一入向、CRC三入向仅身份与本链六token调用/两个实际UUN父及509090局部窗，不复审所有160父。两网络根纳NETWORK/LOOP，两地图根纳MAP/LOOP，Loop124/Map119/Network59；I仅MAP/LOOP两表实际开发，S三域，完整门禁不伪闭。三尾12+7+9=28B NN_NOP无入向/后真入口仅用途，token紧接517160无额外X。完整正常生产消费/owner-alias寿命/全父/callee/数值/机器ABI/链接/像素/明文互通及R8未验，内部LegacyCryptInt/音频暂停/RPLAN.24/两网络加解密叶排除持续。",
+      "verification_level": "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
+      "map_request_original_tables": {
+        "spec_id": "BUO01",
+        "evidence_refs": [
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-acceptance",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
+          "doc/cg2d_map_request_original_tables_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 106,
+        "original_code_bytes": 345,
+        "original_page_count": 2,
+        "original_direct_call_count": 6,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 9,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "source_existing_static_table_symbols_and_types_kept": true,
+        "source_original_512_loaded_elements_directly_restored": true,
+        "original_all_four_correct_function_bodies_kept": true,
+        "original_UUN_and_space_literal_bytes_kept": true,
+        "original_six_capacity_before_format_then_fresh_buffer_append_and_send_return_kept": true,
+        "original_token_two_capacity_two_destination_and_fresh_return_kept": true,
+        "original_validation_W16_masks_three_lengths_low_W16_views_and_request_zero_one_returns_kept": true,
+        "original_crc_byte_and_W16_state_table_indices_and_zeroextended_return_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_loaded_table_bytes": 768,
+        "original_loaded_table_elements": 512,
+        "original_literal_bytes": 6,
+        "original_nop_tail_bytes": 28,
+        "original_local_caller_window_count": 2,
+        "original_initial_table_identity_verified": true,
+        "original_all_indirect_table_write_aliases_ruled_out": false,
+        "all_160_token_inbound_parents_verified": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x469240",
+      "inventory_id": "F:00069240",
+      "original_role": "原BYTE/W16双表状态校验值生产",
+      "original_end_exclusive": "0x469284",
+      "original_chunks": [
+        {
+          "start": "0x469240",
+          "end_exclusive": "0x469284"
+        }
+      ],
+      "instruction_count": 27,
+      "status": "BUO01四完整根229条724B/六页，原UUN及整数token/地图核验-CRC正常本体保持；仅两既有表改原768B/512常量，表初值可逐项静态对照，不计算算法/摘要或称旧值错误；完整160父/寿命/数值/ABI/互通运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_469240"
+          ],
+          "relationship": "BUO01 UUN构造510710、整数token517120、地图核验请求469290及查表校验469240四完整根229条724B/六页四块、23directcall/11jump/五RET。只SceneState两已有静态表初始化由公式改为原768B直接常量：55DAAC 256 U8、55DBAC 256 W16，同std::array类型/符号/owner/引用/既有只读宿主视图保，512元素逐项原值，不执行生成/校验算法或文件摘要，不称旧生成值错误或原表所有间接写别名已排除。四函数正文全部正确保持，无新函数/helper/布局/owner/保护。CRC原BYTE取样、U8→W16表值、状态lowW16高BYTE索引/XOR lowByte<<8、S32长度/返回零扩展与原表引用保。地图验证原加载返回仍不加检查，held W32 mode==1时hit WORD &1FF否则&FFF，原三1458B校验、tile/obj/hit顺序和低W16观察/三个S32 expected比较，匹配1；不匹配原七实参交UUN后0返回保；原栈页由现三2602 WORD数组/局部宿主承接保持，不复制alloca_probe/猜新增失败默认。UUN已加载55554E00命令，六S32字段各先采W32 capacity→format token→fresh目标buffer append，尾fresh buffer/socket交既有SendProtocolBuffer，返回沿发送；原格式字段/空格/NUL/帧与明文合同不改。token两capacity/buffer各独立取样，format→copy→空格append→fresh共享buffer返回，原2000空格值有据；517730原数值算法已1220承接，不扩全部CRT。UUN两入向、token160引用/68父、核验一入向、CRC三入向仅身份与本链六token调用/两个实际UUN父及509090局部窗，不复审所有160父。两网络根纳NETWORK/LOOP，两地图根纳MAP/LOOP，Loop124/Map119/Network59；I仅MAP/LOOP两表实际开发，S三域，完整门禁不伪闭。三尾12+7+9=28B NN_NOP无入向/后真入口仅用途，token紧接517160无额外X。完整正常生产消费/owner-alias寿命/全父/callee/数值/机器ABI/链接/像素/明文互通及R8未验，内部LegacyCryptInt/音频暂停/RPLAN.24/两网络加解密叶排除持续。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-acceptance",
+        "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
+        "doc/cg2d_map_request_original_tables_evidence.json"
+      ],
+      "boundary": "BUO01 UUN构造510710、整数token517120、地图核验请求469290及查表校验469240四完整根229条724B/六页四块、23directcall/11jump/五RET。只SceneState两已有静态表初始化由公式改为原768B直接常量：55DAAC 256 U8、55DBAC 256 W16，同std::array类型/符号/owner/引用/既有只读宿主视图保，512元素逐项原值，不执行生成/校验算法或文件摘要，不称旧生成值错误或原表所有间接写别名已排除。四函数正文全部正确保持，无新函数/helper/布局/owner/保护。CRC原BYTE取样、U8→W16表值、状态lowW16高BYTE索引/XOR lowByte<<8、S32长度/返回零扩展与原表引用保。地图验证原加载返回仍不加检查，held W32 mode==1时hit WORD &1FF否则&FFF，原三1458B校验、tile/obj/hit顺序和低W16观察/三个S32 expected比较，匹配1；不匹配原七实参交UUN后0返回保；原栈页由现三2602 WORD数组/局部宿主承接保持，不复制alloca_probe/猜新增失败默认。UUN已加载55554E00命令，六S32字段各先采W32 capacity→format token→fresh目标buffer append，尾fresh buffer/socket交既有SendProtocolBuffer，返回沿发送；原格式字段/空格/NUL/帧与明文合同不改。token两capacity/buffer各独立取样，format→copy→空格append→fresh共享buffer返回，原2000空格值有据；517730原数值算法已1220承接，不扩全部CRT。UUN两入向、token160引用/68父、核验一入向、CRC三入向仅身份与本链六token调用/两个实际UUN父及509090局部窗，不复审所有160父。两网络根纳NETWORK/LOOP，两地图根纳MAP/LOOP，Loop124/Map119/Network59；I仅MAP/LOOP两表实际开发，S三域，完整门禁不伪闭。三尾12+7+9=28B NN_NOP无入向/后真入口仅用途，token紧接517160无额外X。完整正常生产消费/owner-alias寿命/全父/callee/数值/机器ABI/链接/像素/明文互通及R8未验，内部LegacyCryptInt/音频暂停/RPLAN.24/两网络加解密叶排除持续。",
+      "verification_level": "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
+      "map_request_original_tables": {
+        "spec_id": "BUO01",
+        "evidence_refs": [
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-acceptance",
+          "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
+          "doc/cg2d_map_request_original_tables_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 27,
+        "original_code_bytes": 68,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 3,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_data_initializer_patch_count": 2,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "source_existing_static_table_symbols_and_types_kept": true,
+        "source_original_512_loaded_elements_directly_restored": true,
+        "original_all_four_correct_function_bodies_kept": true,
+        "original_UUN_and_space_literal_bytes_kept": true,
+        "original_six_capacity_before_format_then_fresh_buffer_append_and_send_return_kept": true,
+        "original_token_two_capacity_two_destination_and_fresh_return_kept": true,
+        "original_validation_W16_masks_three_lengths_low_W16_views_and_request_zero_one_returns_kept": true,
+        "original_crc_byte_and_W16_state_table_indices_and_zeroextended_return_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_loaded_table_bytes": 768,
+        "original_loaded_table_elements": 512,
+        "original_literal_bytes": 6,
+        "original_nop_tail_bytes": 28,
+        "original_local_caller_window_count": 2,
+        "original_initial_table_identity_verified": true,
+        "original_all_indirect_table_write_aliases_ruled_out": false,
+        "all_160_token_inbound_parents_verified": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

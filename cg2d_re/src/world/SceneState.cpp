@@ -7630,15 +7630,21 @@ std::int32_t __cdecl Sub_469030()
 
     const std::int32_t yEnd = gMapYEnd;
     const std::int32_t xStart = gMapXStart;
-    std::int32_t row = gMapSpanY - 1;
+    const std::int32_t spanY = gMapSpanY;
+    // 原 X 符号修正后取投影 C，Y 三倍项后取 D，再完成乘 16。
     const std::int32_t rawX = (xStart + yEnd) * 64 - 64;
-    std::int32_t baseX = std::bit_cast<std::int32_t>(gWorldProjectionSourceC)
-        + ((rawX - (rawX < 0 ? -1 : 0)) >> 1);
-    const std::int32_t rawY = 48 * (yEnd - xStart - 1);
+    const std::int32_t adjustedX = rawX - (rawX < 0 ? -1 : 0);
+    const std::int32_t projectionX =
+        std::bit_cast<std::int32_t>(gWorldProjectionSourceC);
+    std::int32_t baseX = (adjustedX >> 1) + projectionX;
+    const std::int32_t yTriple = 3 * (yEnd - xStart - 1);
+    const std::int32_t projectionY =
+        std::bit_cast<std::int32_t>(gWorldProjectionSourceD);
+    const std::int32_t rawY = yTriple * 16;
     std::int32_t result = rawY - (rawY < 0 ? -1 : 0);
-    std::int32_t drawY =
-        std::bit_cast<std::int32_t>(gWorldProjectionSourceD) + (result >> 1);
+    std::int32_t drawY = (result >> 1) + projectionY;
     std::int32_t column = 0;
+    std::int32_t row = spanY - 1;
 
     while (row >= 0) {
         std::int32_t scanRow = row;

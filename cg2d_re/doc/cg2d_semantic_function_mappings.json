@@ -194939,6 +194939,322 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x468C00",
+      "inventory_id": "F:00068C00",
+      "original_role": "原增量hit WORD共享缓存写者与S16左界返回",
+      "original_end_exclusive": "0x468c32",
+      "original_chunks": [
+        {
+          "start": "0x468c00",
+          "end_exclusive": "0x468c32"
+        }
+      ],
+      "instruction_count": 11,
+      "status": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468C00"
+          ],
+          "relationship": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "boundary": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。",
+      "verification_level": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "map_projection_cache_sampling": {
+        "spec_id": "BUR01",
+        "evidence_refs": [
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+          "doc/cg2d_map_projection_cache_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 50,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_projection_C_after_X_sign_adjust_sampling_restored": true,
+        "original_projection_D_between_Y_triple_and_times_16_sampling_restored": true,
+        "original_column_then_held_spanY_row_setup_restored": true,
+        "original_correct_hit_WORD_write_and_S16_sampled_return_kept": true,
+        "original_correct_origin_F32_F64_half_S64_conversion_and_split_W32_publish_kept": true,
+        "original_correct_four_projection_slot_interleaved_copy_and_return_kept": true,
+        "original_load_failure_skips_walk_only_and_diagonal_tile_draw_clips_steps_returns_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 8,
+        "original_nop_tail_bytes": 36,
+        "original_local_caller_window_count": 6,
+        "original_map_write_parent_window_captured": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x468F70",
+      "inventory_id": "F:00068F70",
+      "original_role": "原点投影/半值整数转换及共享投影W32分段发布",
+      "original_end_exclusive": "0x468fe4",
+      "original_chunks": [
+        {
+          "start": "0x468f70",
+          "end_exclusive": "0x468fe4"
+        }
+      ],
+      "instruction_count": 28,
+      "status": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468F70"
+          ],
+          "relationship": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "boundary": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。",
+      "verification_level": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "map_projection_cache_sampling": {
+        "spec_id": "BUR01",
+        "evidence_refs": [
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+          "doc/cg2d_map_projection_cache_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 28,
+        "original_code_bytes": 116,
+        "original_page_count": 1,
+        "original_direct_call_count": 3,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 3,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_projection_C_after_X_sign_adjust_sampling_restored": true,
+        "original_projection_D_between_Y_triple_and_times_16_sampling_restored": true,
+        "original_column_then_held_spanY_row_setup_restored": true,
+        "original_correct_hit_WORD_write_and_S16_sampled_return_kept": true,
+        "original_correct_origin_F32_F64_half_S64_conversion_and_split_W32_publish_kept": true,
+        "original_correct_four_projection_slot_interleaved_copy_and_return_kept": true,
+        "original_load_failure_skips_walk_only_and_diagonal_tile_draw_clips_steps_returns_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 8,
+        "original_nop_tail_bytes": 36,
+        "original_local_caller_window_count": 6,
+        "original_map_write_parent_window_captured": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x468FF0",
+      "inventory_id": "F:00068FF0",
+      "original_role": "原共享投影四槽交错取样和快照发布",
+      "original_end_exclusive": "0x46901d",
+      "original_chunks": [
+        {
+          "start": "0x468ff0",
+          "end_exclusive": "0x46901d"
+        }
+      ],
+      "instruction_count": 9,
+      "status": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "CopyWorldProjectionState_468FF0"
+          ],
+          "relationship": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "boundary": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。",
+      "verification_level": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "map_projection_cache_sampling": {
+        "spec_id": "BUR01",
+        "evidence_refs": [
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+          "doc/cg2d_map_projection_cache_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 9,
+        "original_code_bytes": 45,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_projection_C_after_X_sign_adjust_sampling_restored": true,
+        "original_projection_D_between_Y_triple_and_times_16_sampling_restored": true,
+        "original_column_then_held_spanY_row_setup_restored": true,
+        "original_correct_hit_WORD_write_and_S16_sampled_return_kept": true,
+        "original_correct_origin_F32_F64_half_S64_conversion_and_split_W32_publish_kept": true,
+        "original_correct_four_projection_slot_interleaved_copy_and_return_kept": true,
+        "original_load_failure_skips_walk_only_and_diagonal_tile_draw_clips_steps_returns_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 8,
+        "original_nop_tail_bytes": 36,
+        "original_local_caller_window_count": 6,
+        "original_map_write_parent_window_captured": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x469030",
+      "inventory_id": "F:00069030",
+      "original_role": "真实地图平面加载/走通与tile对角重绘消费",
+      "original_end_exclusive": "0x4691c9",
+      "original_chunks": [
+        {
+          "start": "0x469030",
+          "end_exclusive": "0x4691c9"
+        }
+      ],
+      "instruction_count": 130,
+      "status": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_469030"
+          ],
+          "relationship": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "boundary": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。",
+      "verification_level": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "map_projection_cache_sampling": {
+        "spec_id": "BUR01",
+        "evidence_refs": [
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+          "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+          "doc/cg2d_map_projection_cache_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 130,
+        "original_code_bytes": 409,
+        "original_page_count": 2,
+        "original_direct_call_count": 4,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 15,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_projection_C_after_X_sign_adjust_sampling_restored": true,
+        "original_projection_D_between_Y_triple_and_times_16_sampling_restored": true,
+        "original_column_then_held_spanY_row_setup_restored": true,
+        "original_correct_hit_WORD_write_and_S16_sampled_return_kept": true,
+        "original_correct_origin_F32_F64_half_S64_conversion_and_split_W32_publish_kept": true,
+        "original_correct_four_projection_slot_interleaved_copy_and_return_kept": true,
+        "original_load_failure_skips_walk_only_and_diagonal_tile_draw_clips_steps_returns_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 8,
+        "original_nop_tail_bytes": 36,
+        "original_local_caller_window_count": 6,
+        "original_map_write_parent_window_captured": true,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

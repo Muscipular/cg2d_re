@@ -1716,3 +1716,13 @@ LOOP126→127/MAP121→122/NETWORK60→61，三I三S各25来源，全部仅此�
 ### BUQ01 本步实际结果
 
 本步必要静态通过：完整原根197条/三页、aBS局部85条/字串/七段布局/10B用途，源码全文仅四片段、两机器台账及五文档/四任务完整模型均核定；四锚点/25来源和UTF-8无BOM/LF通过。文本汇总与-Check通过，完整派生快照其余对象保持：语义1715/有效1708、文档1826（49.62%）、处置856/E1010、R7已审421/余2640，LOOP127/MAP122/NETWORK61。三I三S均仅此根实际开发/静态，四任务open、完整叶验收0、整体未验收。旧异常-1/额外WORD已撤，既有帧零初始化适配保留并披露，不记故障等价PASS。未编译、测试或运行，不代完整寿命/文件运行/互通及R8。命名快照cg2d-re-map-incremental-reply-sampling-20261008，整体目标active。
+
+## BUR01 地图缓存投影消费开发验收（2026-10-08）
+
+[基线](cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline)、[裁决](cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision)、[验收](cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance)及[证据](cg2d_map_projection_cache_sampling_evidence.json)覆盖四完整根178条620B/五页、半值8B/六局部窗/hit父局部和四尾36B用途。只一cpp一初始坐标片段，三个正确叶保持，真实加载/走通/重绘与共享缓存承接不加默认或失败保护。
+
+LOOP127→131/MAP122→126，两I两S各25来源，网络成员61/源码和明文合同不变，无本域新增或完整门禁闭合。U10/G02/R04/V03只current/引用、各open；完整生产消费/owner-alias寿命、全父/callee、数值/x87/机器ABI、链接、文件运行/像素/互通及R8未验，原差队列/closed11和全部执行限制保持。
+
+### BUR01 本步实际结果
+
+必要静态通过：四完整原根178条620B/五页、六局部后窗/半值8B/hit父局部/四尾36B，源码全文仅重绘初始坐标一片段、两机器台账和五文档/四任务完整模型核定；四锚点/25来源及UTF-8无BOM/LF通过。文本汇总与-Check通过，完整派生快照其余对象保持：语义1719/有效1712、文档1830（49.73%）、处置860/E1014、R7已审425/余2636，LOOP131/MAP126、NETWORK61保持。两I两S仅本片段开发/静态，四任务open、完整叶验收0、整体未验收；三个正确叶和既有I/O/渲染/网络全文保，未编译、测试或运行，不代全部父/callee、x87/ABI、寿命/文件/像素/明文互通及R8。命名快照cg2d-re-map-projection-cache-sampling-20261008，整体目标active。

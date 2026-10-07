@@ -634,7 +634,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -763,7 +764,11 @@
         "F:00069240",
         "F:00109090",
         "F:000691D0",
-        "F:00109100"
+        "F:00109100",
+        "F:00068C00",
+        "F:00068F70",
+        "F:00068FF0",
+        "F:00069030"
       ],
       "closure_task_ids": [
         "U11",
@@ -827,7 +832,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -882,7 +888,8 @@
         "BUN01地图窗口搜索→窗口请求与查表/填表四根388条1302B/八页真实基线纳管，当前四正确体及原正常读写/返回/窗口owner/请求参数与已有接线全保；代码新增/改动0，仅新增两域S，不新增I成果；五局部窗口/四26B用途不代所有父/510710原体/数值/ABI/生命周期/像素或明文运行",
         "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
         "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
-        "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验"
+        "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
+        "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -938,7 +945,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
       ]
     },
     {
@@ -1721,7 +1729,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-baseline",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-baseline",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -1845,7 +1854,11 @@
         "F:00069240",
         "F:00109090",
         "F:000691D0",
-        "F:00109100"
+        "F:00109100",
+        "F:00068C00",
+        "F:00068F70",
+        "F:00068FF0",
+        "F:00069030"
       ],
       "closure_task_ids": [
         "U11",
@@ -1905,7 +1918,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-decision",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-decision",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1956,7 +1970,8 @@
         "BUN01地图窗口搜索→窗口请求与查表/填表四根388条1302B/八页真实基线纳管，当前四正确体及原正常读写/返回/窗口owner/请求参数与已有接线全保；代码新增/改动0，仅新增两域S，不新增I成果；五局部窗口/四26B用途不代所有父/510710原体/数值/ABI/生命周期/像素或明文运行",
         "BUO01完整四根229条724B/六页，原UUN/空格6B与CRC两表768B初值、三尾28B/两个局部窗归档；只SceneState两同名同类型数据表恢复原512常量，四正确函数与网络源码/原容量-token-buffer顺序/字段-明文发送保持，不执行任何生成/校验算法或摘要，完整寿命/全父/ABI/像素/互通未验",
         "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
-        "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验"
+        "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
+        "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2008,7 +2023,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
       ]
     },
     {
@@ -44434,6 +44450,194 @@
       "observation": "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
       "expected": "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
       "actual": "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验"
+    },
+    {
+      "id": "E-MAP-PROJECTION-CACHE-SAMPLING-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUR01四原根178条620B/五页、七call/十五jump/四RET，hit低WORD写/原点投影半值分段发布/四槽交错复制和地图重绘C-D取样，一片段实修，半值8B/六后窗及四36B用途，doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-projection-cache-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_468C00",
+        "src/world/SceneState.cpp#Sub_468F70",
+        "src/world/SceneState.cpp#CopyWorldProjectionState_468FF0",
+        "src/world/SceneState.cpp#Sub_469030",
+        "src/world/SceneState.cpp#Sub_4688A0",
+        "src/world/SceneState.cpp#Sub_468C40",
+        "src/world/SceneState.cpp#ProjectWorldToScreen_46CE30",
+        "src/world/SceneState.cpp#Sub_46D9C0",
+        "src/world/SceneState.cpp#Sub_46CF00",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/world/SceneState.hpp",
+        "src/world/MapSceneDrawing.cpp#Sub_46CF60",
+        "src/DrawGraphic.cpp#DrawGraphic",
+        "src/platform/MainLoop.cpp",
+        "doc/cg2d_world_projection_state.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+          "decision_ref": "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "expected": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "actual": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验"
+    },
+    {
+      "id": "E-MAP-PROJECTION-CACHE-SAMPLING-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUR01四原根178条620B/五页、七call/十五jump/四RET，hit低WORD写/原点投影半值分段发布/四槽交错复制和地图重绘C-D取样，一片段实修，半值8B/六后窗及四36B用途，doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-projection-cache-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_468C00",
+        "src/world/SceneState.cpp#Sub_468F70",
+        "src/world/SceneState.cpp#CopyWorldProjectionState_468FF0",
+        "src/world/SceneState.cpp#Sub_469030",
+        "src/world/SceneState.cpp#Sub_4688A0",
+        "src/world/SceneState.cpp#Sub_468C40",
+        "src/world/SceneState.cpp#ProjectWorldToScreen_46CE30",
+        "src/world/SceneState.cpp#Sub_46D9C0",
+        "src/world/SceneState.cpp#Sub_46CF00",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/world/SceneState.hpp",
+        "src/world/MapSceneDrawing.cpp#Sub_46CF60",
+        "src/DrawGraphic.cpp#DrawGraphic",
+        "src/platform/MainLoop.cpp",
+        "doc/cg2d_world_projection_state.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+          "decision_ref": "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "expected": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "actual": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验"
+    },
+    {
+      "id": "E-MAP-PROJECTION-CACHE-SAMPLING-FUNC-MAP-I-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUR01四原根178条620B/五页、七call/十五jump/四RET，hit低WORD写/原点投影半值分段发布/四槽交错复制和地图重绘C-D取样，一片段实修，半值8B/六后窗及四36B用途，doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-projection-cache-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_468C00",
+        "src/world/SceneState.cpp#Sub_468F70",
+        "src/world/SceneState.cpp#CopyWorldProjectionState_468FF0",
+        "src/world/SceneState.cpp#Sub_469030",
+        "src/world/SceneState.cpp#Sub_4688A0",
+        "src/world/SceneState.cpp#Sub_468C40",
+        "src/world/SceneState.cpp#ProjectWorldToScreen_46CE30",
+        "src/world/SceneState.cpp#Sub_46D9C0",
+        "src/world/SceneState.cpp#Sub_46CF00",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/world/SceneState.hpp",
+        "src/world/MapSceneDrawing.cpp#Sub_46CF60",
+        "src/DrawGraphic.cpp#DrawGraphic",
+        "src/platform/MainLoop.cpp",
+        "doc/cg2d_world_projection_state.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+          "decision_ref": "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "expected": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "actual": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验"
+    },
+    {
+      "id": "E-MAP-PROJECTION-CACHE-SAMPLING-FUNC-MAP-S-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUR01四原根178条620B/五页、七call/十五jump/四RET，hit低WORD写/原点投影半值分段发布/四槽交错复制和地图重绘C-D取样，一片段实修，半值8B/六后窗及四36B用途，doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-map-projection-cache-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json",
+        "src/world/SceneState.cpp#Sub_468C00",
+        "src/world/SceneState.cpp#Sub_468F70",
+        "src/world/SceneState.cpp#CopyWorldProjectionState_468FF0",
+        "src/world/SceneState.cpp#Sub_469030",
+        "src/world/SceneState.cpp#Sub_4688A0",
+        "src/world/SceneState.cpp#Sub_468C40",
+        "src/world/SceneState.cpp#ProjectWorldToScreen_46CE30",
+        "src/world/SceneState.cpp#Sub_46D9C0",
+        "src/world/SceneState.cpp#Sub_46CF00",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "include/cg/world/SceneState.hpp",
+        "src/world/MapSceneDrawing.cpp#Sub_46CF60",
+        "src/DrawGraphic.cpp#DrawGraphic",
+        "src/platform/MainLoop.cpp",
+        "doc/cg2d_world_projection_state.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+          "decision_ref": "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "expected": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
+      "actual": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验"
     }
   ],
   "task_acceptance": [
@@ -44932,7 +45136,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
       ]
     },
     {
@@ -45013,7 +45218,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
       ]
     },
     {
@@ -45571,7 +45777,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
       ]
     },
     {
@@ -46114,7 +46321,8 @@
         "doc/cg2d_map_window_search_baseline_spec.md#map-window-search-source-state",
         "doc/cg2d_map_request_original_tables_spec.md#map-request-tables-source-state",
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
-        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state"
+        "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state"
       ]
     },
     {
@@ -56105,6 +56313,58 @@
         "doc/cg2d_map_incremental_reply_sampling_evidence.json"
       ],
       "boundary": "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验。原52CED0九调用与52D050六调用分别按三段初取、首项/续项解析消费；不新增字段、容量、编码、计数上限或业务保护，首socket原未消费。整帧外异常按RPLAN.24不专项处理，不称宿主越界或x86故障已解决/等价；正常帧内相邻区覆盖与原WORD位型继续承接。早期Scene第111节具名整帧零初始化只定义未写局部，仍披露差异；其旧异常返-1/额外WORD和未接线时态由本步覆盖。当前NetworkDispatch512E40/模板1216真实绑定六I一T，第七字段反转义后capacity→workspace基址→slot读取/复制，原八实参交509100后xor EAX0返回；全文网络/声明/提供者不改。LOOP/MAP/NETWORK各增一成员与一I一S，不关闭完整功能门禁，网络原格式仅明文/两加解密叶排除、内部LegacyCryptInt与音频暂停保持。"
+    },
+    {
+      "inventory_id": "F:00068C00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "boundary": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:00068F70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "boundary": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:00068FF0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "boundary": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。"
+    },
+    {
+      "inventory_id": "F:00069030",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "boundary": "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验。468C00依YStart S16/spanX S16/XStart S16取样，参数只低WORD写唯一2601 WORD hit owner，返held left S32，现正确保持；4688A0局部原C000处理held WORD经floor/半开矩形后调用，不猜fresh重取。468F70两__ftol以既有普通S64转换局部承接，X低W32先发布A再转Y，再C/快照A/B/D/快照B及两W32零序保，尾along第二转换EDX:EAX；不代全x87或异常逐次等价。468FF0 A/B/C三读→pubA→D读→pubB/C/D→返D正确不改。469030加载负结果只跳走通仍进入绘制，正常W16/fresh跨度、clip[-32,672)/[-24,504)、tile>999和layer5/步长64/32/24、原无循环初始返回时持值保持，不新增失败保护/影子owner/渲染或协议。LOOP/MAP各四新成员，仅这两域I/S四E；网络/明文/两加解密叶排除、音频暂停/RPLAN.24保持。"
     }
   ],
   "auxiliary_dispositions": [
@@ -76478,6 +76738,366 @@
         },
         {
           "ea": "0x5093bf",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:00068C32-00068C40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "reason": "BUR01四完整原根尾合36B实际NN_NOP/90，此区14B无入向/后真入口，仅对齐用途，不新增函数或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 14,
+      "original_bytes": "9090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x468c32",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c33",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c34",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c35",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c36",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c37",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c38",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c39",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c3a",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c3b",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c3c",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c3d",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c3e",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468c3f",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:00068FE4-00068FF0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "reason": "BUR01四完整原根尾合36B实际NN_NOP/90，此区12B无入向/后真入口，仅对齐用途，不新增函数或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 12,
+      "original_bytes": "909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x468fe4",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fe5",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fe6",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fe7",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fe8",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fe9",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fea",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468feb",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fec",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fed",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fee",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468fef",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:0006901D-00069020",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "reason": "BUR01四完整原根尾合36B实际NN_NOP/90，此区3B无入向/后真入口，仅对齐用途，不新增函数或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 3,
+      "original_bytes": "909090",
+      "original_decode": [
+        {
+          "ea": "0x46901d",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46901e",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46901f",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ]
+    },
+    {
+      "id": "X:000691C9-000691D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-acceptance",
+        "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
+        "doc/cg2d_map_projection_cache_sampling_evidence.json"
+      ],
+      "reason": "BUR01四完整原根尾合36B实际NN_NOP/90，此区7B无入向/后真入口，仅对齐用途，不新增函数或范围排除",
+      "classification": "alignment_nop",
+      "original_size": 7,
+      "original_bytes": "90909090909090",
+      "original_decode": [
+        {
+          "ea": "0x4691c9",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x4691ca",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x4691cb",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x4691cc",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x4691cd",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x4691ce",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x4691cf",
           "size": 1,
           "bytes": "90",
           "text": "align 10h",

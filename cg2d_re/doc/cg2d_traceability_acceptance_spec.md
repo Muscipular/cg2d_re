@@ -1210,3 +1210,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQT01 命令按钮与消费局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance)/[三完整304条1152B](cg2d_battle_pet_command_button_sampling_evidence.json)，六页34直接call十callee/24jump六ret；按钮两片段恢复原取样/两个W8和条件发布，两个正确command体/原negative与Check0-非0/target及阈值/映射、原256B/13B packet/明文、重复声/不同计数发布/Close与末phase2保持。两旧格式历史及业务保/当前状态同步，真实元素8/32B字段和八PUSH/30B提示有据；两I/S各21来源不代全keyboard/目标后发送/全部父/数据生产/owner/运行。四任务open/60源码closed10/完整验收0/叶0/global=false和R7保持；12精确文件，音频及验证限制保。
+
+## BQU01 主分发与两叶局部I/S、三表用途（2026-10-07）
+
+[限定验收](cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-acceptance)/[三完整988条3638B](cg2d_battle_command_state_dispatch_sampling_evidence.json)，14页92物理CALL=91direct/24callee+1IAT、137jump/三switch/四RET；两体18位置/15真实W8、两cost-first/一个W32谓词阶段修复，原256B/16B和格式/明文、重复N与fresh socket/finish/MarkDeath清槽、提示12B→取点击→3B/图尾与状态写序保持。两旧业务历史与一正确提示源纳管；62B X实际用途，三处置/242open成员和两I/S各23来源不代上游/全生产/全部owner/运行。五任务open、60源码closed10/完整验收0/叶0/global=false；13精确文件、音频及验证限制保。

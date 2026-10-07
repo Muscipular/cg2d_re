@@ -32,7 +32,7 @@
 7. 骑乘nonnegative：selectionMode0→held骑宠→skill pub→target S16→fresh当前位置直接Check（不映射）。非0不发送，0才fresh骑宠先fresh skill→原256B/原格式→fresh socket→发送/Flush/声57→旧count/held fresh骑宠→count+1/command5/lastPet→Close。两回调所有nonnegative路径最后都声51/phase2，包括Check0已Close路径；不能用业务直觉加早退、改phase或假成功。
 8. 旧命令字节553FB8 W|FF含NUL5B、554060 W|%X|%X含NUL8B共13B唯一字节；每个回调各一格式真实53B304原点，保既有FormatLegacyString接口/两个U32参数次序与256B栈buffer、不补零。网络格式/明文发送不改、不加解密，不据本步验收完整网络互通。
 9. 两旧tooltip554078/5871D4各15B含首NUL共30B，保源原字节。window26元素8 [56B810,56B830)32B，data56B628/callback字段56B82C→498160，原数据xref56B710是数组头；现源行/typed声明一致。两command的八PUSH指令为数据引用，传给两个已过selector后由已过consumer调用，不造直接CALL记录。
-10. 实际另一父498520已定位761条2882B、74个物理CALL元信息；本步仅登记其六个回调地址PUSH和六个selector CALL，不核全keyboard、本体及倒计时/其它命令。后续沿该真实剩余父推进，不能据元信息计完整父通过。音效保实际两参数57/51与x320，音频暂停；已过Flush/Close/Check/selector不全面重验。
+10. 实际另一父498520已定位761条2882B、74个物理CALL元信息；本步仅登记其六个回调地址PUSH和六个selector CALL，不核全命令状态/鼠标分发、本体及倒计时/其它命令。后续沿该真实剩余父推进，不能据元信息计完整父通过。音效保实际两参数57/51与x320，音频暂停；已过Flush/Close/Check/selector不全面重验。
 
 ## 当前台账与历史
 
@@ -46,9 +46,13 @@
 - 原负/正/Check非0分支、target S16/阈值/位置映射差别、未清256B/13B唯一旧命令字节和原格式实接、socket采样/弃返与重复声/不同计数pub/lastPet/Close/最后phase2对照；两15B旧提示保持。
 - 一新F/两旧完整续记与历史业务保、三处置/成员、两局部I/S及四任务U08/R01/R04/V04只本批增量。定向静态/measure/-Check、完整派生快照与编码/引用/diff通过后精确提交12文件。
 
-当前限正常源与本步原字节静态对应。完整keyboard/target后发送阶段、技能/pet数据生产、全部父/窗口/owner寿命、SDK/机器ABI/画面运行与R8另验；音频及不构建测试运行摘要/RPLAN.24保持，不降低原失败分支和适用完整门禁。
+当前限正常源与本步原字节静态对应。完整命令状态/鼠标分发/target后发送阶段、技能/pet数据生产、全部父/窗口/owner寿命、SDK/机器ABI/画面运行与R8另验；音频及不构建测试运行摘要/RPLAN.24保持，不降低原失败分支和适用完整门禁。
 
 <a id="battle-pet-command-button-sampling-source-state"></a>
 ## 本步交付
 
 先落本SPEC和证据，修一个按钮体两片段、纳管两正确command体，再同步台账/四任务/唯一进度/看板。快照`cg2d-re-battle-pet-command-button-sampling-20261007`；整体SPEC目标保持，不以三静态处置或文档数代完整流程和运行验收。
+
+## BQU01当前名称与剩余更新（2026-10-07）
+
+[完整主分发及倒计时/提示](cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state)已补498520本体761条2882B及两依赖。此前keyboard为泛称，真实本体没有键盘读，当前名称纠正为战斗命令状态/鼠标分发；本SPEC的三根原成果、旧证据与历史不改。当前剩余为43CBB0上游、完整技能/宠物生产及全部窗口/owner寿命/运行，不能继续把已补本体当未取证，也不据本步宣称完整战斗验收。

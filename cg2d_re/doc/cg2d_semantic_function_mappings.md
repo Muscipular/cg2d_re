@@ -3186,3 +3186,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQT01 按钮正常F与两命令记录完整续记（2026-10-07）
 
 [原基线](cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline)/[三冻结定位及两旧记录全文](cg2d_battle_pet_command_button_sampling_evidence.json)：1558一新正常语义，990/991两旧格式记录保全部business_*与原字段/历史，当前status/source关系与完整子基线/五引用同步，不重复F。三equivalent/三成员，语义1559/有效1552、关联1670/3680（45.38%）、分类687/BATTLE239枚举open/E792；无F/有效区间各7/R7 264余2797/差队列172与43待归属及其余完整状态保持。九数据入向（原型头和八PUSH）不当直接CALL；另父498520元信息761/2882B/74call只定位，不代完整父。
+
+## BQU01 一新提示F、两旧格式记录完整续记及一R7（2026-10-07）
+
+[原基线](cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline)/[两旧记录与冻结定位](cg2d_battle_command_state_dispatch_sampling_evidence.json)：1559新正常提示F，899/922既有格式记录保全部business_*、原边界/指令数/历史，当前状态/关系与完整子基线/五引用同步；1558按钮当前名称和剩余更新，原BQT历史保。三equivalent/三成员，语义1560/有效1553、文档关联1671/3680（45.41%）、分类690/BATTLE242枚举open/E794。62B X=2B MOV EDI,EDI对齐+24/20/16B三W32表，十五目标及三个入向用途mapped，R7 265/3061余2796，不造新F。无F/有效区间各7、差队列172/缺定位171/43待归属和完整门禁保持。

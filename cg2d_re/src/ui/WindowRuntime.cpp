@@ -36442,12 +36442,13 @@ void Sub_498520()
         if (position < 20) {
             login::YobiAction* const player = gBattleEntries59E980[position];
             if (*login::detail::BorrowBattleRiderSlot13C8(player) != nullptr) {
-                if ((gBattlePlayerFlags5ABCAC & 8u) != 0) {
+                if ((reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0] & 8u) != 0) {
                     static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
                     const std::int32_t petCount = gBattlePetActionCount5ABBBC;
                     const std::uint32_t flags = gBattlePlayerFlags5ABCAC;
+                    const bool skipPlayer = (flags & 0x20000u) != 0;
                     gBattlePetActionCount5ABBBC = petCount + 1;
-                    if ((flags & 0x20000u) != 0) {
+                    if (skipPlayer) {
                         static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
                         const std::int32_t count = gBattleSkillActionCount5ABBF4;
                         world::gCurrentSceneState = 5;
@@ -36469,7 +36470,7 @@ void Sub_498520()
                 if (!open) {
                     const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
                     const std::int32_t cost = gPetRuntimeF633F8[pet].techniquesD8[technique].fp;
-                    open = login::detail::IsYobiActionFpLessThan(player, cost);
+                    open = login::detail::IsCostGreaterThanYobiActionFp(cost, player);
                 }
                 if (!open) {
                     const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
@@ -36563,7 +36564,7 @@ void Sub_498520()
         default:
             break;
         }
-        const auto modeFlags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+        const auto modeFlags = reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0];
         gBattleCommandState5ABC3C = 1;
         std::int32_t commandType = 0;
         if ((modeFlags & 0x10u) == 0) {
@@ -36575,14 +36576,14 @@ void Sub_498520()
         break;
     }
     case 1: {
-        if (gBattleSelectionModes5ABC7C[0] == 1 && (platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+        if (gBattleSelectionModes5ABC7C[0] == 1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0) {
             gBattleSelectionModes5ABC7C[0] = 0;
             login::detail::FlushBattleEntries_43C060();
             static_cast<void>(audio::PlaySe_52C450(57, 320));
         }
         if (gBattleValueCB054C != 0) {
             const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
-            if (target != -1 && (platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 1u) != 0) {
                 bool send = true;
                 switch (gBattleSelectionMode5ABC70) {
                 case 0:
@@ -36631,7 +36632,7 @@ void Sub_498520()
             const std::int32_t count = gBattleSkillActionCount5ABBF4;
             gBattlePlayerActionState5ABC74 = 0;
             if (count == 1) {
-                const bool singleAction = (gBattlePlayerFlags5ABCAC & 0x10u) != 0;
+                const bool singleAction = (reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0] & 0x10u) != 0;
                 std::int32_t mode = gBattleSelectionMode5ABC70;
                 if (!singleAction) {
                     gBattleCommandState5ABC3C = 0;
@@ -36667,7 +36668,7 @@ void Sub_498520()
         }
         break;
     case 3: {
-        const auto flags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+        const auto flags = reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0];
         if ((flags & 0x20u) == 0) {
             world::gCurrentSceneState = 5;
             break;
@@ -36689,7 +36690,7 @@ void Sub_498520()
             const std::int32_t pet = Sub_43C4B0();
             const std::int32_t currentTechnique = gValue553F84;
             const std::int32_t cost = gPetRuntimeF633F8[pet].techniquesD8[currentTechnique].fp;
-            open = login::detail::IsYobiActionFpLessThan(action, cost);
+            open = login::detail::IsCostGreaterThanYobiActionFp(cost, action);
         }
         if (!open) {
             const std::int32_t pet = Sub_43C4B0();
@@ -36713,7 +36714,7 @@ void Sub_498520()
     case 4: {
         if (gBattlePetCommandPhase553F88 == 3) {
             const std::int32_t target = login::detail::GetSelectedBattleEntry_43C120();
-            if (target != -1 && (platform::gLegacyMouseState.edgeButtons & 1u) != 0) {
+            if (target != -1 && (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 1u) != 0) {
                 const std::int32_t technique = gValue553F84;
                 platform::FormatLegacyString_53B304(buffer.data(), "W|%X|%X",
                     static_cast<std::uint32_t>(technique), static_cast<std::uint32_t>(target));
@@ -36732,7 +36733,7 @@ void Sub_498520()
         std::int32_t imageNo = 0;
         switch (phase) {
         case 0: {
-            if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+            if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0) {
                 const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
                 gBattlePetCommandPhase553F88 = 1;
                 if (pet < 0) {
@@ -36744,7 +36745,7 @@ void Sub_498520()
             const std::int32_t graphicIndex = gBattlePetSkillGraphicIndex553F8C;
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             if (graphicIndex == hover) {
-                const auto clicks = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 std::strcpy(gHoverTextD68AE8.data(),
                     "\xA5\xB4\xB6\x7D\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43");
                 if ((clicks & 1u) != 0) {
@@ -36762,7 +36763,7 @@ void Sub_498520()
                 constexpr char hint[] = "\xC3\xF6\xB3\xAC\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43";
                 // 原498DF9复制12B，498DFD取点击位，498E07再复制末3B。
                 std::memcpy(gHoverTextD68AE8.data(), hint, 12);
-                const auto clicks = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 std::memcpy(gHoverTextD68AE8.data() + 12, hint + 12, 3);
                 if ((clicks & 1u) != 0) {
                     WindowInstance* const window = gWindowStates[10].window;
@@ -36779,7 +36780,7 @@ void Sub_498520()
         }
         case 2:
         case 3: {
-            if ((platform::gLegacyMouseState.edgeButtons & 2u) != 0) {
+            if ((reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0) {
                 login::detail::FlushBattleEntries_43C060();
                 const auto pet = std::bit_cast<std::int32_t>(gBattleRidePet5ABC38);
                 gBattlePetCommandPhase553F88 = 1;
@@ -36794,7 +36795,7 @@ void Sub_498520()
             const std::int32_t hover = render::gHoveredGraphicPendingIndex;
             bool clickedReturn = false;
             if (graphicIndex == hover) {
-                const auto clicks = static_cast<std::uint8_t>(platform::gLegacyMouseState.edgeButtons);
+                const auto clicks = reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0];
                 std::strcpy(gHoverTextD68AE8.data(),
                     "\xAA\xF0\xA6\x5E\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43");
                 if ((clicks & 1u) != 0) {
@@ -36860,7 +36861,7 @@ void Sub_498520()
     default:
         break;
     }
-    const auto flags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+    const auto flags = reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0];
     if ((flags & 0x1Cu) != 0x1Cu) {
         Sub_4982C0();
     }
@@ -36885,7 +36886,7 @@ void Sub_4982C0()
             static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "W|FF"));
             finish = true;
         } else {
-            std::uint8_t flags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+            std::uint8_t flags = reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0];
             const std::int32_t skillCount = gBattleSkillActionCount5ABBF4;
             if ((flags & 0x20u) != 0) {
                 if (skillCount == 0 && (flags & 4u) == 0) {
@@ -36900,7 +36901,7 @@ void Sub_4982C0()
                 if (skillCount == 0) {
                     static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
                     static_cast<void>(network::SendBattlePacket_5109B0(platform::gConnectionSocket, "N"));
-                    flags = static_cast<std::uint8_t>(gBattlePlayerFlags5ABCAC);
+                    flags = reinterpret_cast<const std::uint8_t*>(&gBattlePlayerFlags5ABCAC)[0];
                     finish = true;
                 }
                 if (gBattleSkillActionCount5ABBF4 == 1 && (flags & 4u) == 0) {

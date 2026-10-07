@@ -219,3 +219,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQT01 宠物命令按钮与两回调（2026-10-07）
 
 [完整合同](cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state)/[三完整304条1152B](cg2d_battle_pet_command_button_sampling_evidence.json)沿selector/consumer接window26元素8按钮与普通/骑乘命令回调；一体两片段恢复state/window/一次pending阶段、global点击与动作两个W8观察及phase1-predicate-index发布序。普通值一致，入口state/共享状态W32、原Yobi结果/图尾fresh window-slot清理保持；两正确command体保负/正/Check非0、target S16/200600和映射差别、原W|FF/W|%X|%X/256B、freshsocket明文、重复声/不同count-command-lastPet/Close及两非负末phase2。真实32B/56B82C/30B提示和13B packet有据；一新F/两旧990/991完整续记与历史保，239成员open/不新R7，完整keyboard/目标后发送/数据生产/owner与运行另验。
+
+## BQU01 完整命令状态/鼠标分发与倒计时、目标提示（2026-10-07）
+
+[完整合同](cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state)/[三完整988条3638B](cg2d_battle_command_state_dispatch_sampling_evidence.json)沿真实498520主根与两依赖，修两体18位置：15实际W8、两cost-first桥与held W32 flags谓词先count pub；正常值/FP单Read/RNG保持。state0..5/模式0..4/phase0..3、原目标后H/S/I/W与256B/fresh socket、三提示复制中间取样/图尾与计数/关闭序、到期多次N/W|FF/finish/MarkDeath清槽/16B显示保持；正确目标提示体纳管不改。62B X三W32表/2B对齐用途收口；899/922旧业务历史保、一新F/242成员open，纠正keyboard泛称。当前主根正常静态完整，上游43CBB0/全生产/其它窗口与owner/运行另验。

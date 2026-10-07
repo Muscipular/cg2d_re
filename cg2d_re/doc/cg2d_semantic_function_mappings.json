@@ -122481,7 +122481,7 @@
     {
       "original_entry": "0x498520",
       "inventory_id": "F:00098520",
-      "status": "既有战斗命令四组包/两宠物显示真实格式依赖已接；完整命令/场景与运行未据本步验收",
+      "status": "BQU01完整命令状态/鼠标分发及倒计时正常源已纳管；本根与叶15实际W8/两cost-first/谓词阶段已修，原格式/重复发送/关闭/目标显示/状态序保；上游/全生产/owner寿命/运行未验",
       "original_end_exclusive": "0x499062",
       "instruction_count": 761,
       "sources": [
@@ -122490,12 +122490,17 @@
           "symbols": [
             "Sub_498520"
           ],
-          "relationship": "仅六现格式callee接六原53B304点，其余正文不变"
+          "relationship": "498520完整命令状态0..5、选择模式0..4与phase0..3鼠标分发；主游标20槽/目标提示/骑宠与普通初始化、H/S/I/W原格式256B/fresh socket、状态计数/关闭/三阶段提示/名称费用/图尾/倒计时门禁；13实际W8观察、两个cost-first既有桥及held skipPlayer谓词先发布恢复，原W32共享存储/寄存器AL测试、S16 target/坐标和原重读/弃创建返回保持。"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_battle.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_command_state_dispatch_sampling_evidence.json"
       ],
       "boundary": "仅六现格式callee接六原53B304点，void签名、未清std::array<char,256>同源buffer和全部正文保持。state1目标非-1/左键/CB054C及selection0/2/3门槛，state4 phase3目标门槛保持；H/S/I/W变参以U32保持原S32位模式，S先取technique再skill且输出skill/technique/target，发送5109B0后Flush再actionState1顺序不变，其他selection仍不发送。%-16s借原宠物技能name T*，名称格式/DrawText2后再次43C4B0及重读gValue553F84取原fp dword S32；两次格式后分别重读Y/X，再沿原S16坐标与DrawText2不同显示属性消费。共享owner/原指针/未清局部/鼠标和状态次序、既有音频调用及暂停边界不变，不改网络/渲染/宠物选择/关联函数，不增加保护或补值；完整命令分派/目标往返/场景与运行未据本步验收。",
       "original_incoming": [
@@ -122629,7 +122634,38 @@
           "relationship": "名称DrawText2后再次43C4B0及重读gValue553F84，原fp dword S32→%4d→456670"
         }
       ],
-      "verification_level": "原761仅统计，只读193新格式/参数/发送-状态及绘制消费者邻窗，余568/已过正文/核心不重验；六原点/callee/六现表达式/五新原格式字节/U32-S32-T*与未清256B局部/取样和消费次序/整份源限定静态核对；一普通call43CBB0@43D05A仅登记；未构建或执行"
+      "verification_level": "原761仅统计，只读193新格式/参数/发送-状态及绘制消费者邻窗，余568/已过正文/核心不重验；六原点/callee/六现表达式/五新原格式字节/U32-S32-T*与未清256B局部/取样和消费次序/整份源限定静态核对；一普通call43CBB0@43D05A仅登记；未构建或执行",
+      "battle_command_state_dispatch_sampling": {
+        "spec_id": "BQU01",
+        "evidence_refs": [
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline",
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision",
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-acceptance",
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+          "doc/cg2d_battle_command_state_dispatch_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 761,
+        "original_code_bytes": 2882,
+        "original_page_count": 10,
+        "original_outgoing_call_count": 74,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 16,
+        "previous_mapping_status": "既有战斗命令四组包/两宠物显示真实格式依赖已接；完整命令/场景与运行未据本步验收",
+        "previous_source_relationship": "仅六现格式callee接六原53B304点，其余正文不变",
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_callback_branches_and_write_orders_kept": true,
+        "original_normal_w32_s32_s16_storage_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_battle_dispatch_normal_source_static_mapped": true,
+        "upstream_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x499C30",
@@ -126197,7 +126233,7 @@
     {
       "original_entry": "0x4982C0",
       "inventory_id": "F:000982C0",
-      "status": "既有战斗倒计时两真实格式依赖已接；完整战斗/父路由/运行未据本步验收",
+      "status": "BQU01完整命令状态/鼠标分发及倒计时正常源已纳管；本根与叶15实际W8/两cost-first/谓词阶段已修，原格式/重复发送/关闭/目标显示/状态序保；上游/全生产/owner寿命/运行未验",
       "original_end_exclusive": "0x498511",
       "instruction_count": 171,
       "sources": [
@@ -126206,12 +126242,17 @@
           "symbols": [
             "Sub_4982C0"
           ],
-          "relationship": "仅两倒计时显示格式callee接原点，保留计时/发送/绘制正文"
+          "relationship": "4982C0完整tick/deadline/active门禁与到期源：Flush/Close后fresh player骑宠谓词或flags实际W8/计数采样，原W|FF/N/N多次fresh socket发送、finish门禁/声55→held action→scene5→MarkDeath→清槽；最后十秒声202/秒发布、未清16B原%2d两S8数字图与原11B回合格式/DrawText3保持，两实际W8读恢复。"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/shared_battle.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_command_state_dispatch_sampling_evidence.json"
       ],
       "boundary": "仅两现callee接498488/4984E7两个原点，void()和全部正文保持。先取tick/原U32截止差按S32处理、有效门槛与超时剩余归0、发送/收尾/图号基数/提醒次序均不动。未清16B buffer先按%2d写S32 remaining/1000，原只读前两字节，空格跳过、其他按S8参与图号，x304/336 y240 layer209；不改成全串绘制。5ABFCC恰1复用同buffer写5ABC08位型+1的S32回合数，沿5871E4原编码字节，288/180→DrawText3(mode0,color4,value0)。保留超时后继续本帧绘制、关联方与音频暂停，不加清理/保护/缓存，不据本步验收完整计时/战斗/父路由/画面或运行。",
       "original_incoming": [
@@ -126267,7 +126308,38 @@
           "relationship": "5ABFCC恰1时，原5ABC08位型+1为S32 turn，复用同16B按5871E4原编码写，288/180→DrawText3(mode0,color4,value0)；不改超时后的本帧绘制"
         }
       ],
-      "verification_level": "原171统计/只读61格式、参数与数字/回合绘制消费邻窗，余110及已过正文/核心不重验；两原点/两现callee、553FB4/5871E4沿既有共享战斗合同原串字节（不重读）、S32与16B同源/前两S8字符及回合消费次序、整份源仅两标识符限定静态核对。498520@498B6E一普通caller/data0只登记，未构建或执行。"
+      "verification_level": "原171统计/只读61格式、参数与数字/回合绘制消费邻窗，余110及已过正文/核心不重验；两原点/两现callee、553FB4/5871E4沿既有共享战斗合同原串字节（不重读）、S32与16B同源/前两S8字符及回合消费次序、整份源仅两标识符限定静态核对。498520@498B6E一普通caller/data0只登记，未构建或执行。",
+      "battle_command_state_dispatch_sampling": {
+        "spec_id": "BQU01",
+        "evidence_refs": [
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline",
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision",
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-acceptance",
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+          "doc/cg2d_battle_command_state_dispatch_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 171,
+        "original_code_bytes": 593,
+        "original_page_count": 3,
+        "original_outgoing_call_count": 16,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "previous_mapping_status": "既有战斗倒计时两真实格式依赖已接；完整战斗/父路由/运行未据本步验收",
+        "previous_source_relationship": "仅两倒计时显示格式callee接原点，保留计时/发送/绘制正文",
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_callback_branches_and_write_orders_kept": true,
+        "original_normal_w32_s32_s16_storage_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_battle_dispatch_normal_source_static_mapped": true,
+        "upstream_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4991C0",
@@ -183377,7 +183449,7 @@
       "original_role": "Sub_498160",
       "original_end_exclusive": "0x4982C0",
       "instruction_count": 109,
-      "status": "BQT01完整宠物命令按钮正常源纳管，两片段恢复state/window/pending阶段及两W8观察/held riding谓词、原返回和图尾清保持；完整keyboard/数据生产/owner寿命/运行未验",
+      "status": "BQT01完整宠物命令按钮正常源已纳管；BQU01已补完整498520命令状态/鼠标分发及倒计时/提示，不称键盘回调；原W32状态/两W8/真返回与图尾清保，全生产/43CBB0上游/owner寿命/运行未验",
       "sources": [
         {
           "path": "src/ui/WindowRuntime.cpp",
@@ -183422,6 +183494,63 @@
         "new_r7_classification": false,
         "full_normal_source_static_mapped": true,
         "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43c3e0",
+      "inventory_id": "F:0003C3E0",
+      "original_role": "Sub_43C3E0",
+      "original_end_exclusive": "0x43c483",
+      "instruction_count": 56,
+      "status": "BQU01完整正确目标提示源已纳管，20槽/flags低W8/状态坐标/原提示字节与hover写序保持；上游/全生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_43C3E0"
+          ],
+          "relationship": "43C3E0完整正确源保持：CommandValue非0早退，前20槽首非空动作flags低W8 bit8；command4 y88否则91、58B1图/低S16目标提示文本和原19B hover复制，不添加无目标fallback。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-acceptance",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_command_state_dispatch_sampling_evidence.json"
+      ],
+      "boundary": "43C3E0完整正确源保持：CommandValue非0早退，前20槽首非空动作flags低W8 bit8；command4 y88否则91、58B1图/低S16目标提示文本和原19B hover复制，不添加无目标fallback。 三完整原根988条3638B/14页、92物理CALL（91直接/24callee+1 GetTickCount IAT）、137普通jump/三个W32switch/四RET。两体18处恢复15实际W8内存观察（主13/计时2）、两cost-first既有桥及一个held W32 flags谓词先于count发布；普通值与FP单Read/RNG不变。主命令state0..5/模式0..4/phase0..3、20槽/三提示复制阶段/target后H-S-I-W原256B和socket取样/弃返、名称费用W32坐标→低S16、图尾/不同计数-command-lastPet与Close保持。完整正确目标提示体不改；倒计时tick/deadline/active/原W|FF-N-N发送门禁/重读/finish/MarkDeath清槽/末十秒声与两S8数字/16B显示格式保。62B X含2B同寄存器MOV对齐及三W32表60B，仅用途mapped，R7 265/3061余2796。899/922旧业务与原字段/历史全文保，当前status/source关系和完整子基线同步，1559一新正常F/三equivalent/BATTLE242枚举open；语义1560/有效1553、关联1671/3680（45.41%）、分类690/E794。纠正此前498520 keyboard泛称为命令状态/鼠标分发，不增加键盘事实；已证本根完整正常源，43CBB0上游/全数据生产/全部窗口-owner寿命/SDK/机器ABI/画面运行/R8未验，无F/有效区间各7/差队列172/43待归属及完整门禁保，音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保。",
+      "verification_level": "三完整原根988条3638B/14页、92物理CALL（91直接/24callee+1 GetTickCount IAT）、137普通jump/三个W32switch/四RET。两体18处恢复15实际W8内存观察（主13/计时2）、两cost-first既有桥及一个held W32 flags谓词先于count发布；普通值与FP单Read/RNG不变。主命令state0..5/模式0..4/phase0..3、20槽/三提示复制阶段/target后H-S-I-W原256B和socket取样/弃返、名称费用W32坐标→低S16、图尾/不同计数-command-lastPet与Close保持。完整正确目标提示体不改；倒计时tick/deadline/active/原W|FF-N-N发送门禁/重读/finish/MarkDeath清槽/末十秒声与两S8数字/16B显示格式保。62B X含2B同寄存器MOV对齐及三W32表60B，仅用途mapped，R7 265/3061余2796。899/922旧业务与原字段/历史全文保，当前status/source关系和完整子基线同步，1559一新正常F/三equivalent/BATTLE242枚举open；语义1560/有效1553、关联1671/3680（45.41%）、分类690/E794。纠正此前498520 keyboard泛称为命令状态/鼠标分发，不增加键盘事实；已证本根完整正常源，43CBB0上游/全数据生产/全部窗口-owner寿命/SDK/机器ABI/画面运行/R8未验，无F/有效区间各7/差队列172/43待归属及完整门禁保，音频暂停/不构建测试运行摘要/RPLAN.24和原协议明文保。",
+      "battle_command_state_dispatch_sampling": {
+        "spec_id": "BQU01",
+        "evidence_refs": [
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-baseline",
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-decision",
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-acceptance",
+          "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+          "doc/cg2d_battle_command_state_dispatch_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 56,
+        "original_code_bytes": 163,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 2,
+        "original_inbound_count": 1,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "previous_mapping_status": null,
+        "previous_source_relationship": null,
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_callback_branches_and_write_orders_kept": true,
+        "original_normal_w32_s32_s16_storage_kept": true,
+        "dependency_r7_classification_count": 1,
+        "full_normal_source_static_mapped": true,
+        "full_battle_dispatch_normal_source_static_mapped": true,
+        "upstream_parent_newly_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false

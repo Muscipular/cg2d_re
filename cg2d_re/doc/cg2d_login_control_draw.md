@@ -74,3 +74,9 @@ bottom16 = low16(top + height + 2)
 需要 signed W32 参数时再 `bit_cast<int32_t>` 恢复，不触发 C++ signed overflow。
 基础图与覆盖图阶段的两次命中调用保持独立，不缓存跨调用的鼠标结果。
 `sub_45CA20` 两处 caller 接线留待其独立单项。
+
+## 正常S32坐标与原取样顺序更新（BSD01，2026-10-07）
+
+[BSD01 SPEC](cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state)替代旧文中的无符号回绕模型。两个独立命中各取top、height、left，先算bottom再取width／算right；基础图各分支汇合后先drawY再drawX。覆盖取top、left、height，先算height+top+2和top-2，再取width／算width+left+2和left-2，均用普通S32，最后仍四次转低W16交给既有绘制边界。
+
+descriptor16／NULL分支、mode1常态／2激活／其它命中选图、state非零才第二命中／mode严格0才覆盖及step规则、图号／layer保持；不缓存两次命中或跨调用记录。该入口四片段，其余整源保持。完整原根121条297B／两页、四直接调用三目标／45CA20两真实点纳管为F:00103780／映射1586，相邻7B只NOP用途。局部原顺序已修；完整绘制消费／像素、父、借用寿命和机器ABI／运行继续原验收标准。

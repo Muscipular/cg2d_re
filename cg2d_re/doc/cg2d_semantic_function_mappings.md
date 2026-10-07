@@ -3258,3 +3258,9 @@ LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布
 新增1582／1583／1584对应真实F:00064E30／F:00065430／F:00001DB0，入口ProcessCapability4Input_464E30、ProcessCapability4SavedSlotSelector_465430、Less_401DB0；见[基线](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline)。三根616条2058B／十页、51directcall／十八callee、61jump／两RET及RET4；六上界原点均AL条件，比较叶只该调用域，完整父／EAX或ABI不外推。
 
 两源九片段恢复三普通S32体、六原上界单读，保低W16／BSB下界／原短路与其它正文、两轮计数／图号除余；库体全文保持。两X2／3B仅NOP用途，语义1585／有效1578、文档1696／3680（46.09%）、718处置／INPUT23／E826／R7 290余2771。冻结定义行／pending／缺口队列、源码closed11（P05原closed）／完整0及全部完整门禁保持。
+
+## BSD01 登录控件公共查询／绘制（2026-10-07）
+
+新增1585／1586对应真实F:001036F0／F:00103780，QueryLoginControlState_5036F0／DrawLoginControl_503780。见[基线](cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline)：两根176条439B／三页、5直接调用／3目标、20跳转／3RET，45CA20四真实入向。单源五片段恢复普通S32和字段取样阶段，保低W16、鼠标位域与模式／描述符／图号及其它整源；两X9B只填充用途。
+
+语义1587／有效1580、文档1698／3680（46.14%）、720处置／INPUT25／E828／R7 292余2769。两既有源码体的冻结定位行不刷新；pending18／缺口队列和完整门禁保持。本步只局部源码与原顺序，不代完整父、命中／绘制消费、SDK-机器ABI、寿命或运行。

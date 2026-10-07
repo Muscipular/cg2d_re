@@ -1031,7 +1031,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-baseline",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline",
-        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline"
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline"
       ],
       "original_inventory_ids": [
         "F:00106340",
@@ -1056,7 +1057,9 @@
         "F:00001FA0",
         "F:00064E30",
         "F:00065430",
-        "F:00001DB0"
+        "F:00001DB0",
+        "F:001036F0",
+        "F:00103780"
       ],
       "closure_task_ids": [
         "T01",
@@ -1082,7 +1085,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision",
-        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision"
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1102,7 +1106,8 @@
         "BPI01旧807两源阶段恢复，29条109B定向原窗口和两片段精确静态；原完整基线/正常值、现有父接线与成员保。完整字体队列消费/焦点/IME/间接alias-owner和寿命、SDK/链接/机器及画面运行仍待",
         "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待",
         "BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
-        "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
+        "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+        "BSD01登录控件查询55条142B/一页与绘制121条297B/两页，合176条439B/三页、5directcall/三唯一callee、20jump/三RET；原45CA20四真实入向保持。单源五精确片段恢复普通S32矩形与覆盖±2算式、两命中width延后及基础图drawY→drawX/覆盖top→left→height→width取样原序，最终覆盖低W16边界保；原正常算术值正确，不称已观察运行故障。NULL/未命中返回、edge-held-pulse低BYTE各一次与edge复用/九位结果、descriptor16和模式/状态/图号/layer/step/两独立命中及借用记录保持，不新异常/保护/限制或共享owner。新两F1585/1586 adapted局部纳管，INPUT23→25、语义1587有效1580/文档1698（46.14%）/处置720/E828；两真X2+7B canonical nop/无入向前RET后入口仅用途mapped，R7 292余2769。无F/code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和全部完整门禁保持；U10/R04只current/refs仍open。完整调用父/命中或绘制依赖、未知alias-owner寿命、SDK-机器ABI/链接与像素运行仍待，原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1123,7 +1128,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
-        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state"
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state"
       ]
     },
     {
@@ -35586,6 +35592,78 @@
       "observation": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。 完整262条781B/四页、19directcall/五callee/19jump/一RET，唯一464840@464DD5。私有AddW32恢复正常S32几何/图号/递增，两个上界接401DB0先算阈值再单读；两BSB整数左侧下界及短路、原10x16几何/命中保存后现场count、两轮现场visibleCount/序号、选中/悬停/默认图号与层、signed除10/余10、绘制偏移/返回及原声音保持，不新增容量限制、保护或字体测量；内部4655C0不是新F。 完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。",
       "expected": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。 完整262条781B/四页、19directcall/五callee/19jump/一RET，唯一464840@464DD5。私有AddW32恢复正常S32几何/图号/递增，两个上界接401DB0先算阈值再单读；两BSB整数左侧下界及短路、原10x16几何/命中保存后现场count、两轮现场visibleCount/序号、选中/悬停/默认图号与层、signed除10/余10、绘制偏移/返回及原声音保持，不新增容量限制、保护或字体测量；内部4655C0不是新F。 完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。",
       "actual": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LOGIN-CONTROL-NORMAL-GEOMETRY-I-20261007",
+      "feature_id": "FUNC-INPUT",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSD01两原根176条439B/三页、5directcall3callee/20jump3RET，四真实45CA20入向、普通S32和字段取样/低位边界；doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-control-normal-geometry-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-acceptance",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
+        "doc/cg2d_login_control_normal_geometry_evidence.json",
+        "src/LoginInput.cpp#QueryLoginControlState_5036F0",
+        "src/LoginInput.cpp#DrawLoginControl_503780",
+        "include/cg/LoginInput.hpp",
+        "src/LoginMessageDependencies.hpp",
+        "doc/cg2d_login_control_hit.md",
+        "doc/cg2d_login_control_draw.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_traceability_acceptance_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源五片段：三命中矩形与覆盖±2恢复普通S32，绘制两处width在bottom后取、drawY先drawX、覆盖top/left/height/width按原计算阶段取样；最终四低W16、原鼠标三别名单读/edge复用九位结果、descriptor16/模式与state/step/图号和layer/所有其它正文保持。正常数值原正确、不称已观察运行故障，不新异常/保护/限制；完整依赖与ABI/寿命/运行不外推",
+          "decision_ref": "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整55条142B/一页/1directcall/1callee/10jump/两RET，45CA20两真实点45CAF7/45CB7A。非空top-left-height-width取样后先bottom=height+top再right=width+left，普通S32恢复；未命中返0，命中后三唯一鼠标别名低BYTE按edge-held-pulse各一次并复用edge，0x40与八位累计/返回保持。仅本步算式、已证取样和调用边界，不代完整父/命中叶/输入生命周期和运行。 完整121条297B/两页/4directcall/3callee/10jump/一RET，45CA20两真实点45CD95/45CDA4。基础图三分支/两独立命中保持，top-height-left后bottom再width/right，基础图drawY先于drawX；覆盖top-left-height后bottom+2/top-2再width/right+2/left-2，普通S32计算后保低W16边界。descriptor16、state/renderMode/step、layer低W8和完整overlay图号/原早退与借用记录保持；完整绘制消费/像素、父与ABI/生命周期及运行未验。",
+      "expected": "完整55条142B/一页/1directcall/1callee/10jump/两RET，45CA20两真实点45CAF7/45CB7A。非空top-left-height-width取样后先bottom=height+top再right=width+left，普通S32恢复；未命中返0，命中后三唯一鼠标别名低BYTE按edge-held-pulse各一次并复用edge，0x40与八位累计/返回保持。仅本步算式、已证取样和调用边界，不代完整父/命中叶/输入生命周期和运行。 完整121条297B/两页/4directcall/3callee/10jump/一RET，45CA20两真实点45CD95/45CDA4。基础图三分支/两独立命中保持，top-height-left后bottom再width/right，基础图drawY先于drawX；覆盖top-left-height后bottom+2/top-2再width/right+2/left-2，普通S32计算后保低W16边界。descriptor16、state/renderMode/step、layer低W8和完整overlay图号/原早退与借用记录保持；完整绘制消费/像素、父与ABI/生命周期及运行未验。",
+      "actual": "BSD01登录控件查询55条142B/一页与绘制121条297B/两页，合176条439B/三页、5directcall/三唯一callee、20jump/三RET；原45CA20四真实入向保持。单源五精确片段恢复普通S32矩形与覆盖±2算式、两命中width延后及基础图drawY→drawX/覆盖top→left→height→width取样原序，最终覆盖低W16边界保；原正常算术值正确，不称已观察运行故障。NULL/未命中返回、edge-held-pulse低BYTE各一次与edge复用/九位结果、descriptor16和模式/状态/图号/layer/step/两独立命中及借用记录保持，不新异常/保护/限制或共享owner。新两F1585/1586 adapted局部纳管，INPUT23→25、语义1587有效1580/文档1698（46.14%）/处置720/E828；两真X2+7B canonical nop/无入向前RET后入口仅用途mapped，R7 292余2769。无F/code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和全部完整门禁保持；U10/R04只current/refs仍open。完整调用父/命中或绘制依赖、未知alias-owner寿命、SDK-机器ABI/链接与像素运行仍待，原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LOGIN-CONTROL-NORMAL-GEOMETRY-S-20261007",
+      "feature_id": "FUNC-INPUT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSD01两原根176条439B/三页、5directcall3callee/20jump3RET，四真实45CA20入向、普通S32和字段取样/低位边界；doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-control-normal-geometry-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-acceptance",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
+        "doc/cg2d_login_control_normal_geometry_evidence.json",
+        "src/LoginInput.cpp#QueryLoginControlState_5036F0",
+        "src/LoginInput.cpp#DrawLoginControl_503780",
+        "include/cg/LoginInput.hpp",
+        "src/LoginMessageDependencies.hpp",
+        "doc/cg2d_login_control_hit.md",
+        "doc/cg2d_login_control_draw.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_traceability_acceptance_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源五片段：三命中矩形与覆盖±2恢复普通S32，绘制两处width在bottom后取、drawY先drawX、覆盖top/left/height/width按原计算阶段取样；最终四低W16、原鼠标三别名单读/edge复用九位结果、descriptor16/模式与state/step/图号和layer/所有其它正文保持。正常数值原正确、不称已观察运行故障，不新异常/保护/限制；完整依赖与ABI/寿命/运行不外推",
+          "decision_ref": "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整55条142B/一页/1directcall/1callee/10jump/两RET，45CA20两真实点45CAF7/45CB7A。非空top-left-height-width取样后先bottom=height+top再right=width+left，普通S32恢复；未命中返0，命中后三唯一鼠标别名低BYTE按edge-held-pulse各一次并复用edge，0x40与八位累计/返回保持。仅本步算式、已证取样和调用边界，不代完整父/命中叶/输入生命周期和运行。 完整121条297B/两页/4directcall/3callee/10jump/一RET，45CA20两真实点45CD95/45CDA4。基础图三分支/两独立命中保持，top-height-left后bottom再width/right，基础图drawY先于drawX；覆盖top-left-height后bottom+2/top-2再width/right+2/left-2，普通S32计算后保低W16边界。descriptor16、state/renderMode/step、layer低W8和完整overlay图号/原早退与借用记录保持；完整绘制消费/像素、父与ABI/生命周期及运行未验。",
+      "expected": "完整55条142B/一页/1directcall/1callee/10jump/两RET，45CA20两真实点45CAF7/45CB7A。非空top-left-height-width取样后先bottom=height+top再right=width+left，普通S32恢复；未命中返0，命中后三唯一鼠标别名低BYTE按edge-held-pulse各一次并复用edge，0x40与八位累计/返回保持。仅本步算式、已证取样和调用边界，不代完整父/命中叶/输入生命周期和运行。 完整121条297B/两页/4directcall/3callee/10jump/一RET，45CA20两真实点45CD95/45CDA4。基础图三分支/两独立命中保持，top-height-left后bottom再width/right，基础图drawY先于drawX；覆盖top-left-height后bottom+2/top-2再width/right+2/left-2，普通S32计算后保低W16边界。descriptor16、state/renderMode/step、layer低W8和完整overlay图号/原早退与借用记录保持；完整绘制消费/像素、父与ABI/生命周期及运行未验。",
+      "actual": "BSD01登录控件查询55条142B/一页与绘制121条297B/两页，合176条439B/三页、5directcall/三唯一callee、20jump/三RET；原45CA20四真实入向保持。单源五精确片段恢复普通S32矩形与覆盖±2算式、两命中width延后及基础图drawY→drawX/覆盖top→left→height→width取样原序，最终覆盖低W16边界保；原正常算术值正确，不称已观察运行故障。NULL/未命中返回、edge-held-pulse低BYTE各一次与edge复用/九位结果、descriptor16和模式/状态/图号/layer/step/两独立命中及借用记录保持，不新异常/保护/限制或共享owner。新两F1585/1586 adapted局部纳管，INPUT23→25、语义1587有效1580/文档1698（46.14%）/处置720/E828；两真X2+7B canonical nop/无入向前RET后入口仅用途mapped，R7 292余2769。无F/code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和全部完整门禁保持；U10/R04只current/refs仍open。完整调用父/命中或绘制依赖、未知alias-owner寿命、SDK-机器ABI/链接与像素运行仍待，原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
     }
   ],
   "task_acceptance": [
@@ -36038,7 +36116,8 @@
         "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
         "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
         "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
-        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state"
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state"
       ]
     },
     {
@@ -36545,7 +36624,8 @@
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
         "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
-        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state"
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state"
       ]
     },
     {
@@ -45264,6 +45344,32 @@
         "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
       ],
       "boundary": "完整4条15B/一页：直接401EC0单读，S32读取值<stack maximum，SETL只覆盖AL/RET4。现bool Less_401DB0完整既有正文保，本步只新增六个已确认AL条件调用/正常语义来源；同唯一鼠标载体、计数/RNG不增，原保高24位的全部EAX消费/其它未知alias和机器thiscall ABI不宣验收，不能把BOOL适配扩成整个数值库完成。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:001036F0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-acceptance",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
+        "doc/cg2d_login_control_normal_geometry_evidence.json"
+      ],
+      "boundary": "完整55条142B/一页/1directcall/1callee/10jump/两RET，45CA20两真实点45CAF7/45CB7A。非空top-left-height-width取样后先bottom=height+top再right=width+left，普通S32恢复；未命中返0，命中后三唯一鼠标别名低BYTE按edge-held-pulse各一次并复用edge，0x40与八位累计/返回保持。仅本步算式、已证取样和调用边界，不代完整父/命中叶/输入生命周期和运行。 BSD01登录控件查询55条142B/一页与绘制121条297B/两页，合176条439B/三页、5directcall/三唯一callee、20jump/三RET；原45CA20四真实入向保持。单源五精确片段恢复普通S32矩形与覆盖±2算式、两命中width延后及基础图drawY→drawX/覆盖top→left→height→width取样原序，最终覆盖低W16边界保；原正常算术值正确，不称已观察运行故障。NULL/未命中返回、edge-held-pulse低BYTE各一次与edge复用/九位结果、descriptor16和模式/状态/图号/layer/step/两独立命中及借用记录保持，不新异常/保护/限制或共享owner。新两F1585/1586 adapted局部纳管，INPUT23→25、语义1587有效1580/文档1698（46.14%）/处置720/E828；两真X2+7B canonical nop/无入向前RET后入口仅用途mapped，R7 292余2769。无F/code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和全部完整门禁保持；U10/R04只current/refs仍open。完整调用父/命中或绘制依赖、未知alias-owner寿命、SDK-机器ABI/链接与像素运行仍待，原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:00103780",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-acceptance",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
+        "doc/cg2d_login_control_normal_geometry_evidence.json"
+      ],
+      "boundary": "完整121条297B/两页/4directcall/3callee/10jump/一RET，45CA20两真实点45CD95/45CDA4。基础图三分支/两独立命中保持，top-height-left后bottom再width/right，基础图drawY先于drawX；覆盖top-left-height后bottom+2/top-2再width/right+2/left-2，普通S32计算后保低W16边界。descriptor16、state/renderMode/step、layer低W8和完整overlay图号/原早退与借用记录保持；完整绘制消费/像素、父与ABI/生命周期及运行未验。 BSD01登录控件查询55条142B/一页与绘制121条297B/两页，合176条439B/三页、5directcall/三唯一callee、20jump/三RET；原45CA20四真实入向保持。单源五精确片段恢复普通S32矩形与覆盖±2算式、两命中width延后及基础图drawY→drawX/覆盖top→left→height→width取样原序，最终覆盖低W16边界保；原正常算术值正确，不称已观察运行故障。NULL/未命中返回、edge-held-pulse低BYTE各一次与edge复用/九位结果、descriptor16和模式/状态/图号/layer/step/两独立命中及借用记录保持，不新异常/保护/限制或共享owner。新两F1585/1586 adapted局部纳管，INPUT23→25、语义1587有效1580/文档1698（46.14%）/处置720/E828；两真X2+7B canonical nop/无入向前RET后入口仅用途mapped，R7 292余2769。无F/code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整功能叶0/globalfalse和全部完整门禁保持；U10/R04只current/refs仍open。完整调用父/命中或绘制依赖、未知alias-owner寿命、SDK-机器ABI/链接与像素运行仍待，原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
     }
   ],
   "auxiliary_dispositions": [
@@ -52543,6 +52649,50 @@
           "end_exclusive": "0x465740",
           "kind": "nop_padding",
           "bytes": 3
+        }
+      ]
+    },
+    {
+      "id": "X:0010377E-00103780",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-acceptance",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
+        "doc/cg2d_login_control_normal_geometry_evidence.json"
+      ],
+      "reason": "BSD01 2B全90/逐BYTE canonical nop，无入向，前RET/后真函数入口，仅原填充用途，不新增F/排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x50377e",
+          "end_exclusive": "0x503780",
+          "kind": "nop_padding",
+          "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:001038A9-001038B0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-acceptance",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
+        "doc/cg2d_login_control_normal_geometry_evidence.json"
+      ],
+      "reason": "BSD01 7B全90/逐BYTE canonical nop，无入向，前RET/后真函数入口，仅原填充用途，不新增F/排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x5038a9",
+          "end_exclusive": "0x5038b0",
+          "kind": "nop_padding",
+          "bytes": 7
         }
       ]
     }

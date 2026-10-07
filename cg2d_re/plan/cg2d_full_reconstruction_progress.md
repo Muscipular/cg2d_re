@@ -3108,3 +3108,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 三F1582／1583／1584、INPUT20→23／语义1585有效1578／文档1696／3680（46.09%）／718处置／E826／R7 290余2771。无F／code区各7、pending18、差队列172／171缺定位／43待归属、源码closed11（P05旧closed保）／完整功能叶0／globalfalse与所有完整门禁保持；U10／R04只current／refs仍open。现正常值正确，不称已发生运行故障；完整两父／所有数值接口与EAX／alias、数据生产消费／owner寿命／资源及CRT-SDK-机器ABI、原格式明文互通与运行R8继续推进。音频暂停、RPLAN.24与不构建测试运行／摘要限制保持。
 
 静态验收结果：两整源仅九授权片段／三普通S32体与六原上界、原BSB下界／低W16和库体保持，三完整原根／六AL后窗／两X用途、完整机器与文档增量均通过；文本汇总及-Check均完成，完整派生快照／14文件UTF-8无BOM-LF与两局部I-S各20实际来源核对通过。未构建、测试或运行，P05旧closed及全部完整门禁保持，整体SPEC目标继续。
+
+## BSD01 登录控件正常坐标与原字段取样（2026-10-07）
+
+先落[子SPEC](../doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision)，实际只改LoginInput.cpp两个既有体五片段：查询命中及绘制两命中／覆盖±2恢复普通S32，两绘制命中先算bottom再取width，基础图先drawY后drawX，覆盖按top／left／height／算bottom和top-2／width／算right和left-2取样与计算。保最终四低W16、NULL／未命中返回、edge-held-pulse低BYTE各一次与edge复用／九位结果、descriptor16／mode-state-step／图号与layer／两独立命中及借用记录；其余整源不改。正常数值原正确，本步纠正源码取样差异与专项回绕模型，不声称运行故障，不新异常／保护／限制。
+
+原查询55条142B／一页、绘制121条297B／两页，合176条439B／三页、5直接调用／3唯一目标、20跳转／3RET；45CA20四实际入向可追。两真X2+7B全90／canonical nop，无入向前RET后真实入口，仅填充用途。新增映射1585／1586和两adapted F，INPUT23→25／语义1587有效1580／文档1698／3680（46.14%）／720处置／E828／R7 292余2769。
+
+冻结定位／无F与code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整功能叶0／globalfalse和全部完整门禁保持；U10／R04只current／引用仍open。完整调用父／命中与图像依赖、未知alias与owner寿命、CRT-SDK-机器ABI／链接、原格式明文互通及像素运行R8继续推进。音频暂停、RPLAN.24和不构建测试运行／摘要限制保持。
+
+静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照仅两F／INPUT两成员与候选、两任务／两R7／六指标增量，13文件UTF-8无BOM-LF／实际引用及定向diff通过。未构建、测试或运行；P05原closed与全部完整门禁保持，整体SPEC目标继续。

@@ -1286,3 +1286,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline)、[裁决](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision)、[验收](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance)与[源码状态](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state)关联三原根616条2058B与两源九片段。三私有体改普通S32、六上界接现401DB0先算阈值再单次读，原BSB下界／同鼠标owner和短路、组合／焦点框／低W16及保存槽两轮／图号除余保持；比较库体不改，仅AL条件域不代完整EAX／ABI。
 
 三adapted原F／INPUT三实际成员，两X5B只填充用途，两局部I-S各20实际来源、E824→826；全部完整门禁／枚举、源码closed11／完整功能叶0保持，P05旧closed不重开，U10／R04仅current／refs仍open。数学异常不专项处理／不称修复，完整父／资源寿命、所有其它调用和SDK-机器ABI／明文互通及运行R8继续原标准。
+
+## BSD01 登录控件几何与取样开发验收（2026-10-07）
+
+[基线](cg2d_login_control_normal_geometry_spec.md#login-control-geometry-baseline)、[裁决](cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision)、[验收](cg2d_login_control_normal_geometry_spec.md#login-control-geometry-acceptance)和[源码状态](cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state)关联两完整原根176条439B与单源五片段。普通S32矩形／覆盖±2、width延后与drawY→drawX／覆盖取样阶段恢复，最终低W16及鼠标九位／三别名单读、descriptor16与模式／图号保持。
+
+两adapted原F／INPUT两实际成员，两X9B仅填充用途，两局部I-S各14实际来源，E826→828。U10／R04只current／引用仍open，源码closed11／P05既有closed、完整叶0／globalfalse及全部完整门禁保。正常值原正确、不新数学异常／保护或限制；完整父与依赖、所有别名／owner寿命、SDK-机器ABI及明文互通／运行R8继续原标准。

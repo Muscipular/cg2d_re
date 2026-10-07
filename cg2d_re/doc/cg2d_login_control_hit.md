@@ -74,3 +74,9 @@ login::detail::Sub_5049A0(left, top, right, bottom, -1)
   不复制共享状态；
 - 当前提供 `QueryLoginControlState_5036F0`；`sub_45CA20` 场景接线留待其
   独立单项。
+
+## 正常S32命中计算更新（BSD01，2026-10-07）
+
+按[BSD01裁决](cg2d_login_control_normal_geometry_spec.md#login-control-geometry-decision)，旧文中的uint32／bit_cast回绕模型已由普通S32替代：top、left、height、width各一次，先bottom=height+top，再right=width+left。单源本入口仅一片段；NULL／未命中返0、edge-held-pulse低BYTE各一次与edge复用、0x40及八位累计保持，原命中叶正文不改。
+
+完整原根55条142B／一页、唯一5049A0和45CA20两真实点纳管为F:001036F0／映射1585。正常数值原已正确，本步恢复正常算式，不声称运行故障或异常等价。相邻2B原NOP只登记用途；本步局部静态不代完整父／命中依赖、输入寿命及SDK-机器ABI／运行。

@@ -3138,3 +3138,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 新映射1588／adapted F:0005F190／LOGIN5→6，语义1589有效1582／文档1700／3680（46.20%）／722处置／E832／R7 294余2767。冻结定位／无F-code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整叶0／globalfalse及所有完整门禁保；U10／R04只current/引用仍open。完整World::Update父／19依赖与全部正常alias-owner寿命、图像输入消费／CRT-SDK-机器ABI和链接、明文互通与运行R8继续推进；32bpp既有裁决、音频暂停／屏幕键盘排除、RPLAN.24与执行限制保。
 
 静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照仅单F／LOGIN一成员与候选、两任务／单R7／六指标增量，12文件UTF-8无BOM-LF、实际引用／定向diff通过。未构建、测试或运行；P05原closed和完整门禁保，整体SPEC目标继续。
+
+## BSG01 能力4两普通提交长度先取齐（2026-10-07）
+
+先落[子SPEC](../doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-decision)，实修LoginInputController.cpp中ProcessCapability4Input_464E30两个普通成功块：按钮先密码／账号+12C，Enter先账号／密码+12C，各单读S32取齐后result1，再按各自同序写两NUL。保原字节和索引转换，不误用+128 caret、提前窄化或统一两块顺序；原正常值正确，不声称运行故障，不新增异常／保护／限制或owner。
+
+复用BSC01原完整350条1262B／五页、31直接调用／15目标、42跳转／一RET、唯一464840@464ADF；按钮464ED9..464EF0／Enter465033..46504A两原点可追，不重复取证。保BSC正常S32／原上下界单读和低W8-W16、strlen／校验／键盘短路、焦点-latch／计时声音／其它整源与屏幕键盘排除；ProcessLoginInput_45CA20已取齐两长度保持。
+
+只补旧1582/F:00064E30当前来源与原adapted处置引用，INPUT26／语义1589有效1582／文档1700／3680（46.20%）／处置722／R7 294余2767不增，E832→834两局部I-S。冻结定位／无F-code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整叶0/globalfalse及所有完整门禁保；U10／R04只current/引用仍open。完整464840父／所有输入依赖和正常alias-owner寿命、CRT-SDK-机器ABI／链接、原格式明文互通与运行R8继续；音频暂停、RPLAN.24与执行限制保。
+
+静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照只旧1582当前来源／原处置引用、INPUT来源和两任务增量，全部指标／成员／R7及冻结定位保持。12文件UTF-8无BOM-LF、实际引用／定向diff通过；未构建、测试或运行，P05原closed及完整门禁保，整体SPEC目标继续。

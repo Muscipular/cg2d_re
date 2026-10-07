@@ -3276,3 +3276,9 @@ LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布
 新增1588对应真实F:0005F190／Sub_45F190，三个私有正常S32工具及现有分发/绘制私有符号只作来源，不造F。见[基线](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline)：完整494条1965B／八页，48直接调用／19目标和1个PostMessageA间接、43跳转／一RET，唯一51C430@51C4A1。单源四片段实修三工具及状态3两owner先取齐再复制高BYTE，颜色位型／状态门槛／所有其它整源保持。
 
 单X51B分3B身份LEA／44B十一原目标／4B NOP，单父数据入向、无code进入，仅原用途。LOGIN5→6／语义1589有效1582／文档1700／3680（46.20%）／722处置／E832／R7 294余2767。冻结定位／pending18／缺口队列和完整门禁保，局部不代完整父、19依赖及全部alias-owner寿命／ABI或运行。
+
+## BSG01 能力4两成功提交取样补全（2026-10-07）
+
+只补已有1582／F:00064E30与原adapted处置的[当前来源](cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state)：按钮先密码→账号，Enter先账号→密码+12C S32，取齐后result1和两NUL按同序发布；单源两片段，其它整源保。原完整350条1262B／五页由BSC01复用，不重复取证或新增F／私有身份／X。
+
+语义1589／有效1582、文档1700／3680（46.20%）、722处置／INPUT26／R7 294余2767保持，E832→834两局部I-S。冻结定位／pending18／缺口队列、P05旧closed及所有完整门禁保持；局部来源更新不代完整父／依赖、ABI与寿命／运行。

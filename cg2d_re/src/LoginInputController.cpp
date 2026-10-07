@@ -104,11 +104,15 @@ std::int32_t ProcessCapability4Input_464E30()
         loginButton.normalImageNo = loginButton.clickedImageNo;
         if (std::strlen(gInputContext9A5678.text) != 0
             && std::strlen(gInputContext9A5960.text) != 0) {
+            const std::int32_t passwordByteLength =
+                gInputContext9A5678.totalByteLength;
+            const std::int32_t accountByteLength =
+                gInputContext9A5960.totalByteLength;
             result = 1;
             gInputContext9A5678.text[static_cast<std::size_t>(
-                gInputContext9A5678.totalByteLength)] = '\0';
+                passwordByteLength)] = '\0';
             gInputContext9A5960.text[static_cast<std::size_t>(
-                gInputContext9A5960.totalByteLength)] = '\0';
+                accountByteLength)] = '\0';
         } else if (std::strlen(gInputContext9A5678.text) != 0
             || std::strlen(gInputContext9A5960.text) != 0) {
             result = -1;
@@ -159,11 +163,15 @@ std::int32_t ProcessCapability4Input_464E30()
                     gInputContext9A5960.text)
                 && !input::IsRejectedInputText_404060(
                     gInputContext9A5678.text)) {
+                const std::int32_t accountByteLength =
+                    gInputContext9A5960.totalByteLength;
+                const std::int32_t passwordByteLength =
+                    gInputContext9A5678.totalByteLength;
                 result = 1;
                 gInputContext9A5960.text[static_cast<std::size_t>(
-                    gInputContext9A5960.totalByteLength)] = '\0';
+                    accountByteLength)] = '\0';
                 gInputContext9A5678.text[static_cast<std::size_t>(
-                    gInputContext9A5678.totalByteLength)] = '\0';
+                    passwordByteLength)] = '\0';
             } else {
                 gValue9A6E20 = 1;
             }

@@ -185065,7 +185065,7 @@
       "original_role": "ProcessCapability4Input_464E30",
       "original_end_exclusive": "0x46531e",
       "instruction_count": 350,
-      "status": "BSC01能力4输入两原根和比较叶纳管；三私有正常S32算式/六原上界接线实修，原正常值保持，完整父/全部EAX或alias/机器ABI与运行未验",
+      "status": "BSC01能力4输入两原根和比较叶纳管；三私有正常S32算式/六原上界接线实修，原正常值保持，完整父/全部EAX或alias/机器ABI与运行未验 BSG01两普通提交按各自原序取齐两个+12C S32后result1/两NUL，单源两片段，仅补局部来源/静态，不增身份或完整门禁。",
       "sources": [
         {
           "path": "src/LoginInputController.cpp",
@@ -185075,7 +185075,7 @@
             "SubtractW32",
             "LowW16"
           ],
-          "relationship": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。"
+          "relationship": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。 既有BSC01原350条1262B/五页、31directcall15callee/42jump一RET，唯一464840@464ADF。本步仅普通按钮464ED9..464EF0先密码/账号+12C，普通Enter465033..46504A先账号/密码+12C，各单读S32取齐后result1与两NUL同序发布；保BSC上下界/算式与LowW16/原字节和键盘短路、焦点及其它整源。只旧1582/F的局部证据完善，不造身份、不代完整父/生命周期/ABI和运行。"
         }
       ],
       "evidence_documents": [
@@ -185083,10 +185083,15 @@
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-decision",
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-acceptance",
         "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
-        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json"
+        "doc/cg2d_capability4_input_normal_arithmetic_evidence.json",
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-baseline",
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-decision",
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-acceptance",
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
+        "doc/cg2d_capability4_submit_length_sampling_evidence.json"
       ],
-      "boundary": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
-      "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "boundary": "完整350条1262B/五页、31directcall/15callee/42jump/一RET，唯一464840@464ADF。原组合框宽高、X/Y加372/26和焦点框Y-4/X-5正常S32原序；私有Add/Sub回绕模型改普通S32，四上界接既有401DB0单读/AL比较，阈值先算；原六BSB下界中的四点、键盘短路/提交返回/字节文本/NUL/焦点/按钮/图号/低W16和声音与现屏幕键盘排除保持，仅本步局部正常算式与上界，完整父/ABI/运行未验。 BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。 BSG01既有语义1582/F:00064E30仅补能力4两普通提交取样；沿BSC01既有原根350条1262B/五页、31directcall/15callee/42jump一RET、唯一464840@464ADF，不重复IDA整根取证。单源两精确片段：按钮先密码+12C再账号+12C，Enter先账号+12C再密码+12C，各一次取齐S32后result1，再按各自同序写两NUL；两路径顺序不同不统一，不误用+128 caret或新增长度门槛。原正常值正确、不称运行故障，BSC普通S32/原上下界与低W8-W16、模式/键序/strlen和校验短路/焦点-latch/计时声音及保存槽和ProcessLoginInput_45CA20全既有正文保持，屏幕键盘排除不恢复。只补1582当前source/证据与原adapted处置引用，INPUT26成员及枚举/完整门禁保持；两局部I-S使E832→834，语义1589有效1582/文档1700（46.20%）/处置722/R7 294余2767均不增，无新F/私有身份/X处置。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse保，U10/R04只current/refs仍open。完整464840父/全部输入依赖及正常alias-owner寿命、CRT-SDK-机器ABI/链接、原格式明文互通与运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+      "verification_level": "BSC01两输入根350/262条与比较叶4条共616条2058B/十页，51directcall/18唯一目标、61jump/两普通RET加一RET4；两父唯一464840@464ADF/464DD5，六上界已确认AL条件。两源九精确片段：三个私有Add/Sub不再uint32回绕bitcast、改普通S32；两个框四上界/保存槽两上界接既有Less_401DB0，原S32阈值先算后单次读取同鼠标owner。原正常值正确不称运行故障；其余整体源/BSB六下界低W8/低W16/真实位型、焦点/文字/计时/保存与声音、两轮现场visibleCount与原数字图号/除余/选中悬停默认保持。既有比较库体全文保持，只六AL调用域，原完整EAX高24其它消费/全部别名/机器ABI与所有父和依赖未验，不新异常/保护/限制/RNG。三F1582..1584 adapted局部纳管/INPUT20→23/语义1585有效1578/文档1696（46.09%）/处置718/E826；两真实X2+3B全90 canonical nop/无入向前RET后真入口仅用途mapped，R7 290余2771。无F/code区各7/pending18/差队列172与171缺定位43待归属/源码closed11（P05原closed保持）/完整功能叶0/globalfalse与所有完整门禁保，U10/R04只current/refs仍open。原格式明文/音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。 BSG01既有语义1582/F:00064E30仅补能力4两普通提交取样；沿BSC01既有原根350条1262B/五页、31directcall/15callee/42jump一RET、唯一464840@464ADF，不重复IDA整根取证。单源两精确片段：按钮先密码+12C再账号+12C，Enter先账号+12C再密码+12C，各一次取齐S32后result1，再按各自同序写两NUL；两路径顺序不同不统一，不误用+128 caret或新增长度门槛。原正常值正确、不称运行故障，BSC普通S32/原上下界与低W8-W16、模式/键序/strlen和校验短路/焦点-latch/计时声音及保存槽和ProcessLoginInput_45CA20全既有正文保持，屏幕键盘排除不恢复。只补1582当前source/证据与原adapted处置引用，INPUT26成员及枚举/完整门禁保持；两局部I-S使E832→834，语义1589有效1582/文档1700（46.20%）/处置722/R7 294余2767均不增，无新F/私有身份/X处置。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse保，U10/R04只current/refs仍open。完整464840父/全部输入依赖及正常alias-owner寿命、CRT-SDK-机器ABI/链接、原格式明文互通与运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
       "capability4_input_normal_arithmetic": {
         "spec_id": "BSC01",
         "evidence_refs": [
@@ -185115,6 +185120,41 @@
         "dependency_r7_classification_count": 2,
         "full_original_parent_or_machine_abi_verified": false,
         "full_eax_result_or_alias_domain_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      },
+      "capability4_submit_length_sampling": {
+        "spec_id": "BSG01",
+        "evidence_refs": [
+          "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-baseline",
+          "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-decision",
+          "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-acceptance",
+          "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
+          "doc/cg2d_capability4_submit_length_sampling_evidence.json"
+        ],
+        "original_evidence_reused": "doc/cg2d_capability4_input_normal_arithmetic_evidence.json",
+        "original_root_recaptured": false,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "original_success_snapshot_count": 2,
+        "button_read_and_write_order": [
+          "password",
+          "account"
+        ],
+        "enter_read_and_write_order": [
+          "account",
+          "password"
+        ],
+        "sampled_length_offset": "0x12C",
+        "sampled_length_type": "signed W32",
+        "lengths_sampled_before_result_and_both_nul": true,
+        "previous_normal_values_wrong": false,
+        "original_ordinary_branches_and_callees_kept": true,
+        "source_rest_unchanged": true,
+        "prior_screen_keyboard_exclusion_kept": true,
+        "new_true_functions": 0,
+        "new_range_classifications": 0,
+        "full_original_parent_or_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }

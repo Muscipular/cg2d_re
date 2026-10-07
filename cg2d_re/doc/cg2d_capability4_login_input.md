@@ -60,3 +60,9 @@ reader 前重新清空缓冲。
 按[BSC01 SPEC](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state)，LoginInput的一个AddW32与LoginInputController的AddW32／SubtractW32恢复普通S32加减，保int32形参与返回／noexcept及所有调用。两个输入框四上界、保存槽两上界接回既有Less_401DB0，S32阈值先算后单次读取同一原鼠标对象；原BSB01六下界、短路／计数-RNG、LowW16与实际位型、焦点／文字NUL／计时／保存和声音保持。
 
 两完整输入根612条2043B／九页，比较叶4条15B只六AL条件域；正常值原本正确，本步撤掉专项回绕模型，不模拟异常或新增保护／容量限制。保存槽两轮现场visibleCount、选中／悬停／默认图号和signed除余／偏移保持，4655C0属于内部绘制指令，不造函数。三真实F及INPUT三成员纳管、两X5B仅填充用途；完整所有父／ABI、未知EAX／alias与运行仍未验，音频暂停，U10／R04仍open、P05旧closed保持。
+
+## 两普通提交长度取样更新（BSG01，2026-10-07）
+
+按[BSG01裁决](cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-decision)，能力4按钮成功先读密码／账号+12C，普通Enter成功先读账号／密码+12C；每块两个S32值各一次取齐后才result1与两NUL，写序与本块读序相同。两路径顺序不同照原保持，不误用caret、不提前窄化或新增长度限制。原正常值已正确，本步恢复源码读取与发布先后，不宣称运行故障。
+
+单源两片段／一个既有体变更，保BSC01正常算式、原上下界单读与低W8/W16、strlen／文本校验／键盘短路、焦点与其余整源／屏幕键盘排除；ProcessLoginInput_45CA20既有先取齐实现保持。复用BSC01完整350条1262B和两原成功点，只补旧1582/F:00064E30当前来源，INPUT成员及R7不增；完整464840父／输入依赖、别名寿命、机器ABI／链接和运行继续原验收标准。

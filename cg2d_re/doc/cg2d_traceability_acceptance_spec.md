@@ -1304,3 +1304,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline)、[裁决](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision)、[验收](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-acceptance)与[源码状态](cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state)关联原494条1965B和单源四片段：三私有普通S32工具、状态3先左／右owner再读写透明度W8，保原颜色位型和状态／门槛／失败与寿命顺序及其它整源。
 
 单adapted原F／LOGIN一成员、单X51B三实际部分只用途，两局部I-S各17来源，E830→832。U10／R04只current／引用仍open；源码closed11（P05原closed）／完整叶0／globalfalse与所有完整门禁保。正常值原正确，不新异常／保护或业务；完整World::Update父／依赖消费、全部alias-owner寿命、SDK-机器ABI／链接／画面与明文互通R8继续原标准。
+
+## BSG01 能力4提交取样开发验收（2026-10-07）
+
+[基线](cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-baseline)、[裁决](cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-decision)、[验收](cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-acceptance)与[源码状态](cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state)关联既有1582及BSC01原350条1262B。单源两成功块恢复先读齐+12C S32、再result1／两NUL；按钮密码→账号／Enter账号→密码照原保持，不统一顺序或新增限制。
+
+仅旧F／adapted处置／INPUT来源更新，成员26与语义／文档／R7不增；两局部I-S各14实际来源、E832→834。U10／R04只current/引用仍open，源码closed11（P05旧closed）／完整叶0/globalfalse和全部门禁保。完整父、所有正常alias-owner寿命、依赖与SDK-机器ABI／链接／明文互通和运行仍待。

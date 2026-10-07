@@ -7751,3 +7751,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [BTN01基线](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline)纳管正确50BCD0，正文不改：原gate/Ripple一次读、','逐行与'|'1..9、观察完整EAX短路、6..9延后解析、玩家NULL/图号门禁→八参51A840及非玩家同查找ptr→九参444410。missing原0x1000B容量/0x1000项阈值与原写序保持，不补容量/邻栈/保护/发送，网络NI原格式明文。
 
 完整NI195条580B/三页、18call/9callee（含栈probe）、15jump/1RET，唯一512E40入向。现444410消费九片段实修与Reset四slot/路径取样已有承接保；两原F新1634-1635/equivalent-adapted、NETWORK56/LOOP48/四局部I-S各22来源。完整512E40/观察/provider生产消费/正常寿命、ABI/链接/互通及运行仍待整体验收。
+
+## 非玩家状态callee地址返回接线（BTO01，2026-10-07）
+
+[完整基线](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline)对应444410/440920实际11个弃返点及九状态叶。七真实标志地址返回随声明和定义恢复为非拥有原生W16字段指针，现所有调用仍弃返；无新持有/owner、无接口参数或原NI路由变化。
+
+D9D0范围provider仍原Sub_4410E0，NULL/负值短路及>=17普通归0、payload后取样/值发布保持；D9D0/DA10两个仅寄存器残值叶void合同已明确裁决，不编造数值或误作地址。九新语义1636-1644、LOOP48→57与两局部I-S各25来源、九区80B仅用途；其它域/原任务及完整门禁保，全观察/正常owner-alias寿命与ABI/运行继续。

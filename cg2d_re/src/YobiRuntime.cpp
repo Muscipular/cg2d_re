@@ -35817,22 +35817,26 @@ void Sub_442D90(login::YobiAction* const action)
     gWorldObjects[payload->index].flags42 &= 0xEBFFu;
 }
 
-void Sub_43D970(login::YobiAction* const action)
+std::uint16_t* Sub_43D970(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags120 |= 1u;
+    auto& flags = gWorldObjects[payload->index].flags120;
+    *reinterpret_cast<unsigned char*>(&flags) |= 1u;
+    return &flags;
 }
 
-void Sub_43D9A0(login::YobiAction* const action)
+std::uint16_t* Sub_43D9A0(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags120 &= 0xFFFEu;
+    auto& flags = gWorldObjects[payload->index].flags120;
+    flags &= 0xFFFEu;
+    return &flags;
 }
 
 void Sub_43D9D0(login::YobiAction* const action, std::int32_t value)
@@ -35845,7 +35849,7 @@ void Sub_43D9D0(login::YobiAction* const action, std::int32_t value)
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
     auto& record = gWorldObjects[payload->index];
-    record.flags120 |= 2u;
+    *reinterpret_cast<unsigned char*>(&record.flags120) |= 2u;
     record.value124 = value;
 }
 
@@ -35860,49 +35864,59 @@ void Sub_43DA10(login::YobiAction* const action)
     record.value124 = 0;
 }
 
-void Sub_43DA40(login::YobiAction* const action)
+std::uint16_t* Sub_43DA40(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags120 |= 0x24u;
+    auto& flags = gWorldObjects[payload->index].flags120;
+    *reinterpret_cast<unsigned char*>(&flags) |= 0x24u;
+    return &flags;
 }
 
-void Sub_43DA70(login::YobiAction* const action)
+std::uint16_t* Sub_43DA70(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags120 |= 8u;
+    auto& flags = gWorldObjects[payload->index].flags120;
+    *reinterpret_cast<unsigned char*>(&flags) |= 8u;
+    return &flags;
 }
 
-void Sub_43DAA0(login::YobiAction* const action)
+std::uint16_t* Sub_43DAA0(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags120 &= 0xFFF7u;
+    auto& flags = gWorldObjects[payload->index].flags120;
+    flags &= 0xFFF7u;
+    return &flags;
 }
 
-void Sub_43DAD0(login::YobiAction* const action)
+std::uint16_t* Sub_43DAD0(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags120 |= 0x50u;
+    auto& flags = gWorldObjects[payload->index].flags120;
+    *reinterpret_cast<unsigned char*>(&flags) |= 0x50u;
+    return &flags;
 }
 
-void Sub_43DB00(login::YobiAction* const action)
+std::uint16_t* Sub_43DB00(login::YobiAction* const action)
 {
     if (action == nullptr) {
-        return;
+        return nullptr;
     }
     const auto* const payload = static_cast<const login::detail::MapActorPayload*>(action->payload);
-    gWorldObjects[payload->index].flags120 |= 0x80u;
+    auto& flags = gWorldObjects[payload->index].flags120;
+    *reinterpret_cast<unsigned char*>(&flags) |= 0x80u;
+    return &flags;
 }
 
 void Sub_43DB30(login::YobiAction* const action)

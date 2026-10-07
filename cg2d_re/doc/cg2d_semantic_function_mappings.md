@@ -3456,3 +3456,9 @@ CHARACTER18→19，语义1604有效1597／文档1715／3680（46.60%）／739处
 [完整基线](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline)覆盖两根1072条3174B/十六页、98direct call（含栈probe）、91jump/32RET；195条NI正确体保持，877条非玩家消费体九片段实修。两新语义1634-1635一equivalent一adapted，NETWORK55→56/LOOP47→48，四局部I-S各22来源。
 
 预期语义1636有效1629/文档1747（47.47%）/处置777/E898、R7 347余2714。两区378B精确为12B NOP与366B的2B8BFF self-move/160B目标/201BYTE selector/3B NOP，不能全称NOP。全部旧1634语义/冻结定位/pending18/其它成员/队列任务和完整门禁保，不以两完整根代全上游/观察/provider、正常寿命/机器ABI或运行。
+
+## BTO01 九状态叶与七标志字段地址返回（2026-10-07）
+
+[基线与裁决](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision)纳九完整根112条368B/九页、1call/11jump/9RET和11点两父；八正文八片段/七声明七片段，六BYTE OR、三原W16 AND、七同字段native ptr与两个具名void观察适配分别记录，DA10正确正文保持。
+
+新1636-1644/八adapted一equivalent、LOOP57/两局部I-S各25来源，预期语义1645有效1638/文档1756（47.72%）/处置786/E900、R7 356余2705（九区80B只原用途）。全部旧1636语义/冻结定位/pending18/其它成员及完整门禁保持，不以恢复地址返回代跨slot回收/重用正常寿命或机器ABI/运行。

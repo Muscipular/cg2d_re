@@ -605,7 +605,8 @@
         "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-baseline",
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-baseline",
-        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline"
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -655,7 +656,16 @@
         "F:0011A620",
         "F:0011A630",
         "F:0011A840",
-        "F:00044410"
+        "F:00044410",
+        "F:0003D970",
+        "F:0003D9A0",
+        "F:0003D9D0",
+        "F:0003DA10",
+        "F:0003DA40",
+        "F:0003DA70",
+        "F:0003DAA0",
+        "F:0003DAD0",
+        "F:0003DB00"
       ],
       "closure_task_ids": [
         "U11",
@@ -690,7 +700,8 @@
         "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-decision",
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-decision",
-        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision"
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -716,7 +727,8 @@
         "BTK01玩家51A5A0/B0/E0/F0四完整状态叶15条68B/四页四chunk、无call两jump四RET，11直接入向六父；SceneState.cpp三个原正文三唯一片段恢复0100/0200仅flags18A高BYTE OR1/2、flags18C仅低BYTE依原时点写1/0。B0仍先取一次原action再写低BYTE0，NULL或现场field2E4!=2才真实W16 AND FEFF，否则保0100；同原action以原生T*返回不截指针，三父实用/弃返关系与所有接口保。F0原无门禁真实W16 AND FDFF正文正确保持，不能将两取消都误改W8。flags18A W16/flags18C W32唯一owner及跨字段观察、高24/低BYTE其它部分不读写扩展、所有其它源码/网络原格式明文/音频暂停保。四既有真F新语义1616-1619、LOOP38→42/三adapted加F0equivalent、两局部I-S和四NOP区28B仅用途；无新F/helper/状态/范围排除，无异常/保护/拒绝/钳制/补零/限长/回绕模型。测宽及三条文本清理父和现T**/free/新parent样本链正确只作定位证据，不造修改/处置或完整父验收；全六父/玩家资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行未验",
         "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
         "BTM01完整玩家动作分发51A840父630条1740B/九页单块、98实际直接CALL/27callee、无间接CALL、31jump（含一个表跳）/46RET，唯一50BCD0@50BE5C局部八参实用/弃返有据。两个cpp两个既有正文三唯一替换：case1先取同原生玩家action再发布walkSpeed→同指针field284→51A060(1)；case200非零仅flags18C[3] W8 OR10，零仅flags18C[2..3] W16 ANDEFFF用2B memcpy。外观60既有helper恢复三个子槽先取/三个创建返NULL条件先判后pub且沿同结果进分支、转换后fresh子槽写图号、第二pet原+38先取再普通S32++与三个旧子指针同NULL/MarkDeath/清槽。完整39有效case/默认路由、速度-1→100、原201项selector的39有效case与默认/动作70骑乘与80phase、两次原图号转换/gear-pet二次转换/四次Y→X原CryptInt调用及RNG/字段/普通失败/清序/value与原接口、唯一owner/正常布局保；不造helper/状态/保护/异常/回绕。40真实W32目标160B+201BYTE selector+11B逐90/NN_NOP共372B只用途（两同父data读，无code入向），不造x64 W32地址表。单既有F新语义1633与adapted处置/LOOP46→47/两局部I-S各21来源、R7 344→345；所有旧1633语义/冻结定位/其它成员/原pending18和任务/完整门禁保。完整入向父50BCD0、各27provider全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验；网络原格式明文/内部LegacyCryptInt、音频暂停保持。",
-        "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+        "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -743,7 +755,8 @@
         "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
-        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state"
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state"
       ]
     },
     {
@@ -38805,6 +38818,100 @@
       "observation": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
       "expected": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
       "actual": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-FLAG-LEAF-RETURNS-I-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTO01九完整根112条368B/九页、六W8/三W16/七真实标志地址返回与两个具名void适配、11弃返点两父及80B用途，doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-flag-leaf-returns-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43D970",
+        "src/YobiRuntime.cpp#Sub_43D9A0",
+        "src/YobiRuntime.cpp#Sub_43D9D0",
+        "src/YobiRuntime.cpp#Sub_43DA10",
+        "src/YobiRuntime.cpp#Sub_43DA40",
+        "src/YobiRuntime.cpp#Sub_43DA70",
+        "src/YobiRuntime.cpp#Sub_43DAA0",
+        "src/YobiRuntime.cpp#Sub_43DAD0",
+        "src/YobiRuntime.cpp#Sub_43DB00",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/WorldObjectState.hpp",
+        "src/YobiRuntime.cpp#Sub_444410",
+        "src/YobiRuntime.cpp#Sub_440920",
+        "src/world/SceneState.cpp#Sub_4410E0",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "expected": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actual": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "id": "E-ACTOR-FLAG-LEAF-RETURNS-S-20261007",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BTO01九完整根112条368B/九页、六W8/三W16/七真实标志地址返回与两个具名void适配、11弃返点两父及80B用途，doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-actor-flag-leaf-returns-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json",
+        "src/YobiRuntime.cpp#Sub_43D970",
+        "src/YobiRuntime.cpp#Sub_43D9A0",
+        "src/YobiRuntime.cpp#Sub_43D9D0",
+        "src/YobiRuntime.cpp#Sub_43DA10",
+        "src/YobiRuntime.cpp#Sub_43DA40",
+        "src/YobiRuntime.cpp#Sub_43DA70",
+        "src/YobiRuntime.cpp#Sub_43DAA0",
+        "src/YobiRuntime.cpp#Sub_43DAD0",
+        "src/YobiRuntime.cpp#Sub_43DB00",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/WorldObjectState.hpp",
+        "src/YobiRuntime.cpp#Sub_444410",
+        "src/YobiRuntime.cpp#Sub_440920",
+        "src/world/SceneState.cpp#Sub_4410E0",
+        "doc/cg2d_yobi_runtime.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md"
+      ],
+      "differences": [
+        {
+          "description": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+          "decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "expected": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actual": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
     }
   ],
   "task_acceptance": [
@@ -39275,7 +39382,8 @@
         "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
-        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state"
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state"
       ]
     },
     {
@@ -39328,7 +39436,8 @@
         "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
-        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state"
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state"
       ]
     },
     {
@@ -39856,7 +39965,8 @@
         "doc/cg2d_player_state_byte_publication_spec.md#player-state-byte-source-state",
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
         "doc/cg2d_player_action_dispatch_sampling_spec.md#player-action-dispatch-source-state",
-        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state"
+        "doc/cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state"
       ]
     },
     {
@@ -49352,6 +49462,123 @@
         "doc/cg2d_actor_reply_consumer_sampling_evidence.json"
       ],
       "boundary": "BTN01 NI角色回复50BCD0与非玩家444410消费两完整根1072条3174B/十六页两块，98实际direct CALL（含一原alloca_probe）/两根分别18-9与80-33 calls-callees，无indirect CALL、91jump/32RET，各唯一上游512E40与50BCD0。SceneState NI正文正确保持原gate/Ripple一次取值、','逐行与'|'1..9旧Base62/S32、观察整EAX短路及6..9延后、玩家同指针NULL/图号门禁和既有51A840/非玩家同查找指针444410路由；missing原0x1000B容量/0x1000项阈值、无补零/无发送/普通递增及写序保，不扩容量/邻栈或异常模型。实修YobiRuntime同444410一个正文九唯一片段：case50 difference>1短路后的flags42仅高BYTE TEST2；case200设置flags120仅高BYTE OR10，原W16 ANDEFFF取消保持；两个宠物fresh槽ptr同NULL/写图号，第二pet先取旧+38再普通S32++，三个旧子ptr同NULL/MarkDeath/清槽，骑乘同条件在counter48清前取样。非玩家原创建pub后fresh槽比较保持，不能套用玩家BTM01持有创建结果；两原图号转换/gear两次转换但pet直接held图号写、四次Y→X CryptInt/RNG、401FE0距离重复消费/SUB sign、case1原W16flags/unsigned field270/四跟随slot与已纳管Reset helpers、case70/80其余接口字段与owner保持。39有效case/默认对应40原W32目标160B+201BYTE selector；相邻两区12B NOP及366B（2B8BFF MOV EDI,EDI+两表361B+3B NOP）共378B只用途、两同父data读/无code入向，不统称NOP/不造x64 W32地址表。两既有F新语义1634-1635/一equivalent一adapted、NETWORK55→56/LOOP47→48、四局部I-S各22真实来源、R7 345→347；全部旧1634语义/冻结定位/其它成员/原pending18和任务/完整门禁保。原格式NI明文/无网络加解密、内部LegacyCryptInt及音频暂停保持；全512E40、观察440920、提供者全部正常生产消费/owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003D970",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003D9A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003D9D0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003DA10",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003DA40",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003DA70",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003DAA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003DAD0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+    },
+    {
+      "inventory_id": "F:0003DB00",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
     }
   ],
   "auxiliary_dispositions": [
@@ -63640,6 +63867,648 @@
             }
           ],
           "kind": "alignment_nop"
+        }
+      ]
+    },
+    {
+      "id": "X:0003D995-0003D9A0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "reason": "BTO01九相邻区80B逐BYTE真实90/NN_NOP/无入向、原RET后接真入口，只原对齐用途，不造F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 11,
+      "original_bytes": "9090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x43d995",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d996",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d997",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d998",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d999",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d99a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d99b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d99c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d99d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d99e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d99f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003D9C7-0003D9D0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "reason": "BTO01九相邻区80B逐BYTE真实90/NN_NOP/无入向、原RET后接真入口，只原对齐用途，不造F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 9,
+      "original_bytes": "909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x43d9c7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d9c8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d9c9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d9ca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d9cb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d9cc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d9cd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d9ce",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43d9cf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003DA0D-0003DA10",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "reason": "BTO01九相邻区80B逐BYTE真实90/NN_NOP/无入向、原RET后接真入口，只原对齐用途，不造F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 3,
+      "original_bytes": "909090",
+      "original_decode": [
+        {
+          "ea": "0x43da0d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da0e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da0f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003DA3C-0003DA40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "reason": "BTO01九相邻区80B逐BYTE真实90/NN_NOP/无入向、原RET后接真入口，只原对齐用途，不造F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 4,
+      "original_bytes": "90909090",
+      "original_decode": [
+        {
+          "ea": "0x43da3c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da3d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da3e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da3f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003DA65-0003DA70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "reason": "BTO01九相邻区80B逐BYTE真实90/NN_NOP/无入向、原RET后接真入口，只原对齐用途，不造F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 11,
+      "original_bytes": "9090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x43da65",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da66",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da67",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da68",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da69",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da6a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da6b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da6c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da6d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da6e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da6f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003DA95-0003DAA0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "reason": "BTO01九相邻区80B逐BYTE真实90/NN_NOP/无入向、原RET后接真入口，只原对齐用途，不造F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 11,
+      "original_bytes": "9090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x43da95",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da96",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da97",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da98",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da99",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da9a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da9b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da9c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da9d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da9e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43da9f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003DAC7-0003DAD0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "reason": "BTO01九相邻区80B逐BYTE真实90/NN_NOP/无入向、原RET后接真入口，只原对齐用途，不造F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 9,
+      "original_bytes": "909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x43dac7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dac8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dac9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43daca",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dacb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dacc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dacd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dace",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dacf",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003DAF5-0003DB00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "reason": "BTO01九相邻区80B逐BYTE真实90/NN_NOP/无入向、原RET后接真入口，只原对齐用途，不造F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 11,
+      "original_bytes": "9090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x43daf5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43daf6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43daf7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43daf8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43daf9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dafa",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dafb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dafc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dafd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43dafe",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43daff",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        }
+      ]
+    },
+    {
+      "id": "X:0003DB25-0003DB30",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "reason": "BTO01九相邻区80B逐BYTE真实90/NN_NOP/无入向、原RET后接真入口，只原对齐用途，不造F/helper/范围排除",
+      "classification": "alignment_nop",
+      "original_size": 11,
+      "original_bytes": "9090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x43db25",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db26",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db27",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db28",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db29",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db2a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db2b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db2c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db2d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db2e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
+        },
+        {
+          "ea": "0x43db2f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true
         }
       ]
     }

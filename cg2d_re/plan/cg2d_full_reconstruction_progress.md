@@ -3524,3 +3524,15 @@ BTM01完成结果：两个cpp两个正文三替换已修，完整两源/外观�
 所有旧1634语义与其它成员/冻结定位/pending18及原ECX pending7/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse和全部完整门禁保。网络原格式NI明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。全512E40、观察440920、provider正常生产消费与owner-alias寿命、SDK-ABI/链接/画面/互通与运行R8继续，不以两根静态代全生命周期。
 
 BTN01完成结果：非玩家同正文九片段已修、NI与其它源头保持，创建后fresh判断与pet/旧child/ride时点及两BYTE/原W16取消分界落实。四组集中静态和十六页全部1072原MCP字段检查通过；两根3174B/98direct CALL/91jump/32RET、39有效case/默认及378B每段用途有据。measure及-Check同次顺序执行均终态0；完整快照逐对象、十三文件UTF-8无BOM/LF、四锚点/四I-S各22真实来源及文本差异检查通过。实际语义1636有效1629/文档1747（47.47%）/处置777/E898、NETWORK56/LOOP48、R7 347余2714，全部旧对象/队列/pending18与pending7/任务及完整门禁保。十三文件精确提交并固定本步命名快照，用户六项既有改动保持；整体目标继续，未编译测试运行，不代完整上游/观察/provider生产消费及正常寿命或运行R8。
+
+## BTO01 非玩家状态六BYTE发布与七字段地址返回实修（2026-10-07）
+
+上一BTN01消费九片段已提交。本步沿444410/440920实际11入向，取九完整状态叶112条368B/九页九块、唯一D9D0→4410E0直接call、11jump/9RET及11弃返窗口。六置位仅低BYTE OR1/2/24/8/50/80，三取消真实W16 ANDFFFE/FFFD/FFF7；七叶原LEA同flags120地址/NULL返0，现void丢返回。另D9D0/DA10原EAX为数组字节偏移/NULL残值，D9D0 NULL未定义；全部消费者弃返，不猜业务值。
+
+先落[子SPEC](../doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision)，依既有委托明确两残值叶维持void观察适配、不模拟x86寄存器、不外推到七地址叶。落实YobiRuntime八既有正文八唯一片段/WorldUpdateDependencies七声明七片段：六OR仅低BYTE，七std::uint16_t*同字段非拥有地址/原NULL返nullptr，持同一次flags引用避免重取index。两个正确W16取消只补真实返回，DA10正确全正文保持；D9D0原NULL、负参数短路、非负>=17归0→payload后取样→BYTE2→value124 W32序保。
+
+九X逐BYTE90/NN_NOP/无入向、原RET后真入口，共80B只用途；九既有F新1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25来源。预期语义1645有效1638/文档1756（47.72%）/处置786/E900/R7 356余2705，集中静态及汇总结束后追加实际结果。
+
+全部旧1636语义/其它成员/冻结定位/pending18及原ECX pending7/差队列172与缺定位171/待归属43、三任务open/P05-P08原closed/closed11/完整叶0/globalfalse及完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保，无新owner/helper/状态/异常保护/回绕模型。全观察父、状态全部正常生产消费与owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8继续，地址恢复不代新持有寿命/运行通过。
+
+BTO01完成结果：八正文/七声明已落实，六W8/三原W16、七同字段非拥有原生地址与原NULL返回恢复；两void观察适配已明确，正确DA10及其它源头/调用保。四组集中静态、九页全部112原MCP字段与十一调用窗通过，1call/11jump/9RET及80B用途有据。弃返检查中覆盖后EAX误判已解决，覆盖前无消费与完整原窗检查保留，重跑通过。measure及-Check同次顺序执行均终态0；完整快照/十四UTF-8无BOM-LF文件、四锚点/两I-S各25来源及文本差异通过。实际语义1645有效1638/文档1756（47.72%）/处置786/E900、LOOP57/R7 356余2705，全部旧对象/队列/pending18与pending7/任务及完整门禁保持。十四文件精确提交并固定本步命名快照，用户六项既有改动保持；整体目标继续，未编译测试运行，不代正常寿命/SDK-ABI或运行R8。

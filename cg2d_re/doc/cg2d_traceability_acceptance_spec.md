@@ -1484,3 +1484,9 @@ source→共享BYTE/同输入NUL、未初始化FF不作原文本/现owner初值�
 [基线](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-baseline)、[裁决](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision)、[验收](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-acceptance)及[证据](cg2d_actor_reply_consumer_sampling_evidence.json)对应两完整根与一cpp一正文九片段。NI原布局/字段/路由和普通missing序保持，非玩家实际BYTE及同pet/旧child/ride取样已修，原创建后fresh槽判断保。
 
 两新原F语义/处置与NETWORK56/LOOP48，四局部I-S各22真实来源、378B两区只用途；三任务仅current/引用保open，原pending7/其它pending18、closed任务及所有完整门禁保。SDK栈probe与局部静态不能代机器ABI/全正常producer-consumer和owner-alias寿命/明文互通/运行R8。
+
+## BTO01 非玩家状态叶原宽度与地址返回开发验收（2026-10-07）
+
+[基线](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline)、[裁决](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision)、[验收](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance)与[证据](cg2d_actor_flag_leaf_returns_evidence.json)覆盖九完整叶及一cpp八正文/一头七声明。七真实地址与NULL、六W8/三原W16及两寄存器残值void观察合同有分别证据，未保留返回设计未决项。
+
+九实际原F语义/处置及LOOP57、两局部I-S各25来源与80B用途；三任务仅current/引用保open，原pending7/其它pending18、已closed任务及完整门禁保。现调用均弃返、未新增地址持有，不以局部静态代全正常producer-consumer/owner-alias寿命、SDK-ABI/链接/明文互通/运行R8。

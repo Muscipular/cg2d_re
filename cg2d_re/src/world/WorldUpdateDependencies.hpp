@@ -912,15 +912,15 @@ void Sub_442D00(login::YobiAction* action, std::int32_t value); // 置8000，再
 void Sub_442D30(login::YobiAction* action); // 清8000。
 void Sub_442D60(login::YobiAction* action, std::int32_t value); // 置0400，再写value10C。
 void Sub_442D90(login::YobiAction* action); // AND EBFF，同时清0400/1000。
-void Sub_43D970(login::YobiAction* action); // flags120置1。
-void Sub_43D9A0(login::YobiAction* action); // flags120清1。
+std::uint16_t* Sub_43D970(login::YobiAction* action); // flags120低BYTE置1，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43D9A0(login::YobiAction* action); // flags120原W16清1，返同字段非拥有地址；NULL返nullptr。
 void Sub_43D9D0(login::YobiAction* action, std::int32_t value); // 原范围回退后置2/写value124。
 void Sub_43DA10(login::YobiAction* action); // flags120清2，再清value124。
-void Sub_43DA40(login::YobiAction* action); // flags120置24。
-void Sub_43DA70(login::YobiAction* action); // flags120置8。
-void Sub_43DAA0(login::YobiAction* action); // flags120清8。
-void Sub_43DAD0(login::YobiAction* action); // flags120置50。
-void Sub_43DB00(login::YobiAction* action); // 观察处理只置flags120的80。
+std::uint16_t* Sub_43DA40(login::YobiAction* action); // flags120低BYTE置24，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DA70(login::YobiAction* action); // flags120低BYTE置8，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DAA0(login::YobiAction* action); // flags120原W16清8，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DAD0(login::YobiAction* action); // flags120低BYTE置50，返同字段非拥有地址；NULL返nullptr。
+std::uint16_t* Sub_43DB00(login::YobiAction* action); // flags120观察低BYTE置80，返同字段非拥有地址；NULL返nullptr。
 void Sub_43DB30(login::YobiAction* action); // 观察子对象结束时只清flags120的80。
 void Sub_444410(
     login::YobiAction* action, std::int32_t x, std::int32_t y,

@@ -4409,3 +4409,9 @@ Copy helper同CPP私有，不添公开接口或包装；335条全文沿已过完
 按[BTN01裁决](cg2d_actor_reply_consumer_sampling_spec.md#actor-reply-consumer-decision)实修既有444410一个正文九片段：距离>1短路后flags42只高BYTE TEST2；flags120设置只高BYTE OR10，取消原W16 ANDEFFF保；两个pet重读fresh槽后同ptr NULL/写图号、第二pet先取旧+38再普通S32++、三个同旧ptr删除、ride条件先取再counter48清。
 
 非玩家创建后原fresh槽NULL判断保持，与玩家BTM01原创建结果判断有别；gear转换后fresh槽写、pet直接held图号和原四次Y→X/CryptInt RNG消费保。877条2594B/十三页、80call/33callee、76jump/31RET，39有效case/默认及原跟随/骑乘/phase/返回接口保；无新helper/状态/保护。完整正常owner-alias寿命/提供者和SDK-ABI、链接/运行未验。
+
+## 非玩家状态叶BYTE与原生标志地址返回（BTO01，2026-10-07）
+
+按[裁决](cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision)修一cpp八原正文/一头七声明：六置位仅flags120低BYTE OR1/2/24/8/50/80；三取消原W16 ANDFFFE/FFFD/FFF7保持。七真实LEA叶恢复同字段非拥有std::uint16_t*返回/NULL返nullptr，同一次flags引用保地址身份与index取样，不截W32、不造owner或额外NULL保护。
+
+D9D0仍NULL早返/负参数短路不取范围provider/非负>=17归0→现场payload/index→BYTE置2→W32 value124发布；DA10原W16清2→W32零全正文保。两原EAX偏移/未定义残值仅按全部实际调用弃返明确保void观察适配，不猜业务返回或模拟x86寄存器，不外推到七地址叶。九完整叶112条368B/九页、1call/11jump/9RET、11点两父和80B NOP用途有据；全生产消费/正常寿命、SDK-ABI/链接/运行未验。

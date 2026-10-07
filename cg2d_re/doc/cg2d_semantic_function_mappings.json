@@ -189030,6 +189030,618 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x43D970",
+      "inventory_id": "F:0003D970",
+      "original_role": "非玩家bit0设置及同标志地址返回",
+      "original_end_exclusive": "0x43D995",
+      "original_chunks": [
+        {
+          "start": "0x43d970",
+          "end_exclusive": "0x43d995",
+          "bytes": "8b44240485c0741c8b400c8b008d0c80c1e1042bc8800c8de0c55a00018d048de0c55a00c3"
+        }
+      ],
+      "instruction_count": 11,
+      "status": "BTO01九完整状态叶、八正文/七声明实修，六真实BYTE置位/七原生标志地址返回恢复，原W16取消/参数与值序和两个void裁决保，完整正常寿命/ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43D970"
+          ],
+          "relationship": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_flag_leaf_returns": {
+        "spec_id": "BTO01",
+        "evidence_refs": [
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+          "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 37,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_declaration_changed": true,
+        "original_native_flag_pointer_return_restored": true,
+        "original_unexposed_register_residue_void_adaptation": false,
+        "original_void_adaptation_decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "actual_original_w8_or_and_w16_clear_restored_or_kept": true,
+        "original_null_checks_range_short_circuit_owner_and_value_publication_kept": true,
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "original_all_actual_callers_discard_return_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43D9A0",
+      "inventory_id": "F:0003D9A0",
+      "original_role": "非玩家bit0原W16清除及同标志地址返回",
+      "original_end_exclusive": "0x43D9C7",
+      "original_chunks": [
+        {
+          "start": "0x43d9a0",
+          "end_exclusive": "0x43d9c7",
+          "bytes": "8b44240485c0741e8b400c8b008d0c80c1e1042bc86681248de0c55a00feff8d048de0c55a00c3"
+        }
+      ],
+      "instruction_count": 11,
+      "status": "BTO01九完整状态叶、八正文/七声明实修，六真实BYTE置位/七原生标志地址返回恢复，原W16取消/参数与值序和两个void裁决保，完整正常寿命/ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43D9A0"
+          ],
+          "relationship": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_flag_leaf_returns": {
+        "spec_id": "BTO01",
+        "evidence_refs": [
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+          "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 39,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_declaration_changed": true,
+        "original_native_flag_pointer_return_restored": true,
+        "original_unexposed_register_residue_void_adaptation": false,
+        "original_void_adaptation_decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "actual_original_w8_or_and_w16_clear_restored_or_kept": true,
+        "original_null_checks_range_short_circuit_owner_and_value_publication_kept": true,
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "original_all_actual_callers_discard_return_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43D9D0",
+      "inventory_id": "F:0003D9D0",
+      "original_role": "非玩家bit1/值124发布",
+      "original_end_exclusive": "0x43DA0D",
+      "original_chunks": [
+        {
+          "start": "0x43d9d0",
+          "end_exclusive": "0x43da0d",
+          "bytes": "578b7c240885ff7432568b74241085f67c09e8f93600003bf07c0233f68b470c8b088d0489c1e0042bc1c1e0028088e0c55a000289b0e4c55a005e5fc3"
+        }
+      ],
+      "instruction_count": 23,
+      "status": "BTO01九完整状态叶、八正文/七声明实修，六真实BYTE置位/七原生标志地址返回恢复，原W16取消/参数与值序和两个void裁决保，完整正常寿命/ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43D9D0"
+          ],
+          "relationship": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_flag_leaf_returns": {
+        "spec_id": "BTO01",
+        "evidence_refs": [
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+          "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 23,
+        "original_code_bytes": 61,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_declaration_changed": false,
+        "original_native_flag_pointer_return_restored": false,
+        "original_unexposed_register_residue_void_adaptation": true,
+        "original_void_adaptation_decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "actual_original_w8_or_and_w16_clear_restored_or_kept": true,
+        "original_null_checks_range_short_circuit_owner_and_value_publication_kept": true,
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "original_all_actual_callers_discard_return_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43DA10",
+      "inventory_id": "F:0003DA10",
+      "original_role": "非玩家bit1原W16取消及值124清除",
+      "original_end_exclusive": "0x43DA3C",
+      "original_chunks": [
+        {
+          "start": "0x43da10",
+          "end_exclusive": "0x43da3c",
+          "bytes": "8b44240485c074238b400c8b088d0489c1e0042bc1c1e0026681a0e0c55a00fdffc780e4c55a0000000000c3"
+        }
+      ],
+      "instruction_count": 12,
+      "status": "BTO01九完整状态叶、八正文/七声明实修，六真实BYTE置位/七原生标志地址返回恢复，原W16取消/参数与值序和两个void裁决保，完整正常寿命/ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43DA10"
+          ],
+          "relationship": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_flag_leaf_returns": {
+        "spec_id": "BTO01",
+        "evidence_refs": [
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+          "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 12,
+        "original_code_bytes": 44,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_declaration_changed": false,
+        "original_native_flag_pointer_return_restored": false,
+        "original_unexposed_register_residue_void_adaptation": true,
+        "original_void_adaptation_decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "actual_original_w8_or_and_w16_clear_restored_or_kept": true,
+        "original_null_checks_range_short_circuit_owner_and_value_publication_kept": true,
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "original_all_actual_callers_discard_return_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43DA40",
+      "inventory_id": "F:0003DA40",
+      "original_role": "非玩家24设置及同标志地址返回",
+      "original_end_exclusive": "0x43DA65",
+      "original_chunks": [
+        {
+          "start": "0x43da40",
+          "end_exclusive": "0x43da65",
+          "bytes": "8b44240485c0741c8b400c8b008d0c80c1e1042bc8800c8de0c55a00248d048de0c55a00c3"
+        }
+      ],
+      "instruction_count": 11,
+      "status": "BTO01九完整状态叶、八正文/七声明实修，六真实BYTE置位/七原生标志地址返回恢复，原W16取消/参数与值序和两个void裁决保，完整正常寿命/ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43DA40"
+          ],
+          "relationship": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_flag_leaf_returns": {
+        "spec_id": "BTO01",
+        "evidence_refs": [
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+          "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 37,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_declaration_changed": true,
+        "original_native_flag_pointer_return_restored": true,
+        "original_unexposed_register_residue_void_adaptation": false,
+        "original_void_adaptation_decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "actual_original_w8_or_and_w16_clear_restored_or_kept": true,
+        "original_null_checks_range_short_circuit_owner_and_value_publication_kept": true,
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "original_all_actual_callers_discard_return_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43DA70",
+      "inventory_id": "F:0003DA70",
+      "original_role": "非玩家bit3设置及同标志地址返回",
+      "original_end_exclusive": "0x43DA95",
+      "original_chunks": [
+        {
+          "start": "0x43da70",
+          "end_exclusive": "0x43da95",
+          "bytes": "8b44240485c0741c8b400c8b008d0c80c1e1042bc8800c8de0c55a00088d048de0c55a00c3"
+        }
+      ],
+      "instruction_count": 11,
+      "status": "BTO01九完整状态叶、八正文/七声明实修，六真实BYTE置位/七原生标志地址返回恢复，原W16取消/参数与值序和两个void裁决保，完整正常寿命/ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43DA70"
+          ],
+          "relationship": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_flag_leaf_returns": {
+        "spec_id": "BTO01",
+        "evidence_refs": [
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+          "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 37,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_declaration_changed": true,
+        "original_native_flag_pointer_return_restored": true,
+        "original_unexposed_register_residue_void_adaptation": false,
+        "original_void_adaptation_decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "actual_original_w8_or_and_w16_clear_restored_or_kept": true,
+        "original_null_checks_range_short_circuit_owner_and_value_publication_kept": true,
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "original_all_actual_callers_discard_return_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43DAA0",
+      "inventory_id": "F:0003DAA0",
+      "original_role": "非玩家bit3原W16取消及同标志地址返回",
+      "original_end_exclusive": "0x43DAC7",
+      "original_chunks": [
+        {
+          "start": "0x43daa0",
+          "end_exclusive": "0x43dac7",
+          "bytes": "8b44240485c0741e8b400c8b008d0c80c1e1042bc86681248de0c55a00f7ff8d048de0c55a00c3"
+        }
+      ],
+      "instruction_count": 11,
+      "status": "BTO01九完整状态叶、八正文/七声明实修，六真实BYTE置位/七原生标志地址返回恢复，原W16取消/参数与值序和两个void裁决保，完整正常寿命/ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43DAA0"
+          ],
+          "relationship": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_flag_leaf_returns": {
+        "spec_id": "BTO01",
+        "evidence_refs": [
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+          "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 39,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_declaration_changed": true,
+        "original_native_flag_pointer_return_restored": true,
+        "original_unexposed_register_residue_void_adaptation": false,
+        "original_void_adaptation_decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "actual_original_w8_or_and_w16_clear_restored_or_kept": true,
+        "original_null_checks_range_short_circuit_owner_and_value_publication_kept": true,
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "original_all_actual_callers_discard_return_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43DAD0",
+      "inventory_id": "F:0003DAD0",
+      "original_role": "非玩家50设置及同标志地址返回",
+      "original_end_exclusive": "0x43DAF5",
+      "original_chunks": [
+        {
+          "start": "0x43dad0",
+          "end_exclusive": "0x43daf5",
+          "bytes": "8b44240485c0741c8b400c8b008d0c80c1e1042bc8800c8de0c55a00508d048de0c55a00c3"
+        }
+      ],
+      "instruction_count": 11,
+      "status": "BTO01九完整状态叶、八正文/七声明实修，六真实BYTE置位/七原生标志地址返回恢复，原W16取消/参数与值序和两个void裁决保，完整正常寿命/ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43DAD0"
+          ],
+          "relationship": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_flag_leaf_returns": {
+        "spec_id": "BTO01",
+        "evidence_refs": [
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+          "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 37,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_declaration_changed": true,
+        "original_native_flag_pointer_return_restored": true,
+        "original_unexposed_register_residue_void_adaptation": false,
+        "original_void_adaptation_decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "actual_original_w8_or_and_w16_clear_restored_or_kept": true,
+        "original_null_checks_range_short_circuit_owner_and_value_publication_kept": true,
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "original_all_actual_callers_discard_return_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x43DB00",
+      "inventory_id": "F:0003DB00",
+      "original_role": "观察bit7设置及同标志地址返回",
+      "original_end_exclusive": "0x43DB25",
+      "original_chunks": [
+        {
+          "start": "0x43db00",
+          "end_exclusive": "0x43db25",
+          "bytes": "8b44240485c0741c8b400c8b008d0c80c1e1042bc8800c8de0c55a00808d048de0c55a00c3"
+        }
+      ],
+      "instruction_count": 11,
+      "status": "BTO01九完整状态叶、八正文/七声明实修，六真实BYTE置位/七原生标志地址返回恢复，原W16取消/参数与值序和两个void裁决保，完整正常寿命/ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_43DB00"
+          ],
+          "relationship": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+        "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+        "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+      ],
+      "boundary": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "verification_level": "BTO01九完整非玩家状态叶112条368B/九页九块，唯一direct call为D9D0→4410E0，11jump/九RET，11direct入向两父444410/440920。实修一cpp八原正文与一头七声明，共15唯一片段：六OR实际只flags120低BYTE（1/2/24/8/50/80），三取消仍真实W16 AND FFFE/FFFD/FFF7；七真实LEA flags120地址叶恢复同字段非拥有std::uint16_t*返回/原NULL返nullptr，不截W32，不增加NULL保护/新owner/helper。D9D0仍NULL早返，负参数短路不取4410E0，非负>=17原归0，之后才取payload/index，同record BYTE OR2→value124完整W32发布；DA10原W16清2→完整W32零正确正文保持。两叶原EAX为数组字节偏移/NULL残值（D9D0 NULL未定义），全部实际调用弃返；依已有委托明确保现void观察合同，不猜统一数值/伪造零/指针或模拟x86寄存器，适配不外推机器ABI。其余全部源码/调用/共享布局与fields保持。九既有F新语义1636-1644/八adapted一equivalent、LOOP48→57/两局部I-S各25真实来源、九NOP区80B只用途；全部旧1636语义/其它成员/冻结定位/原pending18和任务/完整门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停及RPLAN.24保持，不增异常/溢出/回绕/拒绝/补零/钳制/保护/限长。全观察440920、全部状态生产消费/正常owner-alias寿命、SDK-ABI/链接/画面/明文互通/运行R8未验。",
+      "actor_flag_leaf_returns": {
+        "spec_id": "BTO01",
+        "evidence_refs": [
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-baseline",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-acceptance",
+          "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-source-state",
+          "doc/cg2d_actor_flag_leaf_returns_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 11,
+        "original_code_bytes": 37,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_declaration_changed": true,
+        "original_native_flag_pointer_return_restored": true,
+        "original_unexposed_register_residue_void_adaptation": false,
+        "original_void_adaptation_decision_ref": "doc/cg2d_actor_flag_leaf_returns_spec.md#actor-flag-leaf-decision",
+        "actual_original_w8_or_and_w16_clear_restored_or_kept": true,
+        "original_null_checks_range_short_circuit_owner_and_value_publication_kept": true,
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "original_all_actual_callers_discard_return_kept": true,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "full_parent_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -192664,6 +192664,234 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x46CEC0",
+      "inventory_id": "F:0006CEC0",
+      "original_role": "读取旧玩家Y再读取X并求和，保完整S32返回",
+      "original_end_exclusive": "0x46ced6",
+      "original_chunks": [
+        [
+          "0x46cec0",
+          "0x46ced6"
+        ]
+      ],
+      "instruction_count": 6,
+      "status": "BUG01坐标重置及两求和三完整根113条530B/四页；一重置正文七片段恢复六临时三字段预取及快照读写交错，两正确helper和末F32参考槽/完整W32返回保持。每轴三次读/六构造析构/唯一RNG/算式和所有调用者保持，全寿命/数值/x87/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46CEC0"
+          ],
+          "relationship": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline",
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision",
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-acceptance",
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
+        "doc/cg2d_coordinate_reset_sampling_evidence.json"
+      ],
+      "boundary": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "verification_level": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "coordinate_reset_sampling": {
+        "spec_id": "BUG01",
+        "evidence_refs": [
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline",
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision",
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-acceptance",
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
+          "doc/cg2d_coordinate_reset_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 6,
+        "original_code_bytes": 22,
+        "original_page_count": 1,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_six_temporary_payload_preloads_restored": true,
+        "original_player_snapshot_read_and_write_interleaving_restored": true,
+        "original_old_new_and_float_reads_three_per_axis_kept": true,
+        "original_six_constructions_and_six_destructions_kept": true,
+        "original_two_sum_helper_bodies_correctly_kept": true,
+        "existing_GetVal_tail_wrapper_evidence_ref": "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "existing_getval_and_add_host_interface_adaptation_decided": true,
+        "original_current_bits_preloads_and_reference_X_Y_publications_kept": true,
+        "original_full_W32_finalY_return_and_parent_tail_forwarding_kept": true,
+        "original_formulas_and_F32_narrowing_kept": true,
+        "original_loaded_f32_constant_count": 1,
+        "original_loaded_constant_bytes": 4,
+        "original_source_other_bodies_callers_and_network_plaintext_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x46CEE0",
+      "inventory_id": "F:0006CEE0",
+      "original_role": "读取新玩家Y再读取X并求和发布AF10C0，保完整S32返回",
+      "original_end_exclusive": "0x46cefb",
+      "original_chunks": [
+        [
+          "0x46cee0",
+          "0x46cefb"
+        ]
+      ],
+      "instruction_count": 7,
+      "status": "BUG01坐标重置及两求和三完整根113条530B/四页；一重置正文七片段恢复六临时三字段预取及快照读写交错，两正确helper和末F32参考槽/完整W32返回保持。每轴三次读/六构造析构/唯一RNG/算式和所有调用者保持，全寿命/数值/x87/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_46CEE0"
+          ],
+          "relationship": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline",
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision",
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-acceptance",
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
+        "doc/cg2d_coordinate_reset_sampling_evidence.json"
+      ],
+      "boundary": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "verification_level": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "coordinate_reset_sampling": {
+        "spec_id": "BUG01",
+        "evidence_refs": [
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline",
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision",
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-acceptance",
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
+          "doc/cg2d_coordinate_reset_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 7,
+        "original_code_bytes": 27,
+        "original_page_count": 1,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_six_temporary_payload_preloads_restored": true,
+        "original_player_snapshot_read_and_write_interleaving_restored": true,
+        "original_old_new_and_float_reads_three_per_axis_kept": true,
+        "original_six_constructions_and_six_destructions_kept": true,
+        "original_two_sum_helper_bodies_correctly_kept": true,
+        "existing_GetVal_tail_wrapper_evidence_ref": "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "existing_getval_and_add_host_interface_adaptation_decided": true,
+        "original_current_bits_preloads_and_reference_X_Y_publications_kept": true,
+        "original_full_W32_finalY_return_and_parent_tail_forwarding_kept": true,
+        "original_formulas_and_F32_narrowing_kept": true,
+        "original_loaded_f32_constant_count": 1,
+        "original_loaded_constant_bytes": 4,
+        "original_source_other_bodies_callers_and_network_plaintext_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x468330",
+      "inventory_id": "F:00068330",
+      "original_role": "玩家坐标重置、六临时载荷及快照/F32交错发布和投影参考生产",
+      "original_end_exclusive": "0x468511",
+      "original_chunks": [
+        [
+          "0x468330",
+          "0x468511"
+        ]
+      ],
+      "instruction_count": 100,
+      "status": "BUG01坐标重置及两求和三完整根113条530B/四页；一重置正文七片段恢复六临时三字段预取及快照读写交错，两正确helper和末F32参考槽/完整W32返回保持。每轴三次读/六构造析构/唯一RNG/算式和所有调用者保持，全寿命/数值/x87/机器ABI及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_468330"
+          ],
+          "relationship": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline",
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision",
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-acceptance",
+        "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
+        "doc/cg2d_coordinate_reset_sampling_evidence.json"
+      ],
+      "boundary": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "verification_level": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+      "coordinate_reset_sampling": {
+        "spec_id": "BUG01",
+        "evidence_refs": [
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline",
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision",
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-acceptance",
+          "doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-source-state",
+          "doc/cg2d_coordinate_reset_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 100,
+        "original_code_bytes": 481,
+        "original_page_count": 2,
+        "original_direct_call_count": 16,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_call_count": 4,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 7,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_six_temporary_payload_preloads_restored": true,
+        "original_player_snapshot_read_and_write_interleaving_restored": true,
+        "original_old_new_and_float_reads_three_per_axis_kept": true,
+        "original_six_constructions_and_six_destructions_kept": true,
+        "original_two_sum_helper_bodies_correctly_kept": true,
+        "existing_GetVal_tail_wrapper_evidence_ref": "doc/cg2d_cryptint_arithmetic_evidence.json",
+        "existing_getval_and_add_host_interface_adaptation_decided": true,
+        "original_current_bits_preloads_and_reference_X_Y_publications_kept": true,
+        "original_full_W32_finalY_return_and_parent_tail_forwarding_kept": true,
+        "original_formulas_and_F32_narrowing_kept": true,
+        "original_loaded_f32_constant_count": 1,
+        "original_loaded_constant_bytes": 4,
+        "original_source_other_bodies_callers_and_network_plaintext_kept": true,
+        "full_inbound_parents_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

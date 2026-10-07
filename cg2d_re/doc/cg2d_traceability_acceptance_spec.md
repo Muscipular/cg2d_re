@@ -1624,3 +1624,11 @@ BUE01集中静态已通过：完整Scene仅一既有正文六BYTE片段变化，
 LOOP96→98/MAP93→95各两局部I-S各25来源，仅本步静态；三任务current/引用仍open，差队列/closed11及完整门禁保持。完整正常生产消费/全部数据别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通与R8继续，网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
 
 BUF01必要静态已通过：完整Scene/公开声明仅五片段变化，两原根35条136B、三窗口/24B数据/8B用途与台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1686/有效1679、合同1797（48.83%）、处置827/E964、R7已审395/余2666、LOOP98/MAP95。原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-projection-sampling-return-20261008。
+
+## BUG01 坐标重置开发验收（2026-10-08）
+
+[基线](cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline)、[裁决](cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision)、[验收](cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-acceptance)及[证据](cg2d_coordinate_reset_sampling_evidence.json)覆盖三完整根113条530B/四页、四局部窗口/4B数据/三尾30B。一正文七片段实修六临时W8/W32预取及玩家快照-F32交错，两正确helper/原取值次数/RNG/构造析构/参考槽及完整W32返回保持。
+
+LOOP98→101/MAP95→98各两局部I-S各25来源，仅本步静态；三任务current/引用仍open，差队列/closed11及完整门禁保持。完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通与R8继续；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。
+
+BUG01必要静态已通过：完整Scene仅一正文七片段变化，两正确helper保持；三原根113条530B、四窗口/4B数据/三尾30B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1689/有效1682、合同1800（48.91%）、处置830/E968、R7已审398/余2663、LOOP101/MAP98。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-coordinate-reset-sampling-20261008。

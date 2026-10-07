@@ -264,3 +264,11 @@ R01/U11与完整CRT/owner/alias/实际ABI/运行未闭；不构建、测试、�
 [BSC01 SPEC](cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-baseline)登记真实F:00001DB0／Less_401DB0，完整4条15B：一次401EC0读取、S32 EAX<stack maximum、SETL AL、RET4。新端bool接口及整个库正文保持，能力4两个父六上界原点接回该入口，阈值计算先于单次读取，同唯一mouseX／mouseY、计数和RNG保。
 
 本步只六已确认TEST AL条件与现bool适配域；原读取值的高24位／未知完整EAX消费者、其它间接alias和机器thiscall ABI不据此记为完成，不能由AL正确外推整个数值库。此前BSB01整数在左的原W32返回与八调用保持，两种比较方向不混用。三私有回绕体的正常S32恢复不修改Read／构析／真实位型或低W16转换；所有完整门禁保持。
+
+## 坐标重置消费与六临时载荷（BUG01，2026-10-08）
+
+[坐标重置SPEC](cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision)沿既有401EA0→401EC0尾跳及Read/Add/Construct/Destroy合同，库正文保持。Scene 468330的六次临时构造，每次三个W8/W32字段先预取后原序发布，再独立析构；没有合并临时、减少RNG、缓存跨回调或改输入值。玩家X/9EE8D0/9EE8E0/Y/C27FF8/C27FE8各取样/发布序见具名基线。
+
+两个求和helper正确源码保持，玩家每轴旧helper、新helper、浮点转换三次读取的计数/mask/唯一RNG副作用保持。内部LegacyCryptInt与明文网络范围相互独立，不能删内部载体或恢复网络cipher。只局部静态，不代全部owner-alias寿命/数值/机器ABI/运行。
+
+BUG01必要静态已通过：完整Scene仅一正文七片段变化，两正确helper保持；三原根113条530B、四窗口/4B数据/三尾30B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1689/有效1682、合同1800（48.91%）、处置830/E968、R7已审398/余2663、LOOP101/MAP98。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-coordinate-reset-sampling-20261008。

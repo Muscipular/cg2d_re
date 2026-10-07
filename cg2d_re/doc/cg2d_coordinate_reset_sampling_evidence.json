@@ -1,0 +1,1972 @@
+{
+  "spec_id": "BUG01",
+  "recorded_on": "2026-10-08",
+  "instruction_page_size": 70,
+  "instruction_page_policy": "仅既有cg2d.exe MCP只读。两helper各完整一页，468330两页70/30完整，四父局部调用后窗口遇call/ret/jump止；不代全父。",
+  "implementation_static_scope": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。",
+  "source_functions": [
+    {
+      "index": 1686,
+      "original_index": 0,
+      "id": "F:0006CEC0",
+      "entry": "0x46CEC0",
+      "symbol": "Sub_46CEC0",
+      "role": "读取旧玩家Y再读取X并求和，保完整S32返回",
+      "source_path": "src/world/SceneState.cpp",
+      "source_cpp_patch_count": 0,
+      "new_local_lambda_count": 0,
+      "body_changed": false,
+      "disposition": "adapted",
+      "contract": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+    },
+    {
+      "index": 1687,
+      "original_index": 1,
+      "id": "F:0006CEE0",
+      "entry": "0x46CEE0",
+      "symbol": "Sub_46CEE0",
+      "role": "读取新玩家Y再读取X并求和发布AF10C0，保完整S32返回",
+      "source_path": "src/world/SceneState.cpp",
+      "source_cpp_patch_count": 0,
+      "new_local_lambda_count": 0,
+      "body_changed": false,
+      "disposition": "adapted",
+      "contract": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+    },
+    {
+      "index": 1688,
+      "original_index": 2,
+      "id": "F:00068330",
+      "entry": "0x468330",
+      "symbol": "Sub_468330",
+      "role": "玩家坐标重置、六临时载荷及快照/F32交错发布和投影参考生产",
+      "source_path": "src/world/SceneState.cpp",
+      "source_cpp_patch_count": 7,
+      "new_local_lambda_count": 0,
+      "body_changed": true,
+      "disposition": "adapted",
+      "contract": "BUG01坐标重置生产468330及46CEC0/46CEE0两求和根完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父；四468330父局部窗口不代完整父，519EC0收栈后RET沿完整W32返回，不外推全父弃返。Scene三既有正文仅468330七片段变化：六构造后各自三载荷按原次序预取后发布，W8 count与两W32 encoded/mask保持；玩家X快照三读先于首写、Y count/encoded/mask按原交错取得，Y F32仍夹在Y count与encoded/mask发布之间，Y倍64乘法按原X encoded与mask取样之间位置保。两求和helper现Y读后X Add正确，经原401EA0单条尾跳401EC0的已证包装承接，保源码，不误作无副作用读取；两helper以既有Read/Add宿主接口承接、不新造原thiscall包装，局部按adapted归类，不代全机器ABI；旧/新/浮点读各轴三次和唯一RNG消费、六独立构造/析构保持。末两个当前F32位槽先预取再X/Y参考槽W32发布、沿finalYBits完整W32返回正确保持；所有算式/参数/其它正文/共享owner和全体调用者保持，无新helper/lambda/header/owner/外依赖。54DD30实际已加载4B F32 64，三个尾区10+5+15B实际NN_NOP/90无入向/后真入口，仅用途。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续；完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通和运行R8未验。"
+    }
+  ],
+  "original_functions": [
+    {
+      "start": "0x46cec0",
+      "end_exclusive": "0x46ced6",
+      "count": 6,
+      "chunks": [
+        [
+          "0x46cec0",
+          "0x46ced6"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x468330",
+          "text": "call    sub_46CEC0",
+          "from": "0x468333"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46a700",
+          "text": "call    sub_46CEC0",
+          "from": "0x46a703"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x46cec0",
+          "size": 5,
+          "bytes": "b9c0e89e00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset gPlayerY",
+          "call_target": null
+        },
+        {
+          "ea": "0x46cec5",
+          "size": 5,
+          "bytes": "e8d64ff9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__GetVal",
+          "call_target": "0x401ea0"
+        },
+        {
+          "ea": "0x46ceca",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46cecb",
+          "size": 5,
+          "bytes": "b9a8e89e00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset gPlayerX",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ced0",
+          "size": 5,
+          "bytes": "e83b4ff9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x46ced5",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x46cec0",
+          "0x46ced6"
+        ]
+      ],
+      "code_bytes": 22,
+      "calls": [
+        {
+          "ea": "0x46cec5",
+          "size": 5,
+          "bytes": "e8d64ff9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__GetVal",
+          "call_target": "0x401ea0"
+        },
+        {
+          "ea": "0x46ced0",
+          "size": 5,
+          "bytes": "e83b4ff9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1,
+      "page_count": 1
+    },
+    {
+      "start": "0x46cee0",
+      "end_exclusive": "0x46cefb",
+      "count": 7,
+      "chunks": [
+        [
+          "0x46cee0",
+          "0x46cefb"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x468330",
+          "text": "call    sub_46CEE0",
+          "from": "0x4683a0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46a700",
+          "text": "call    sub_46CEE0",
+          "from": "0x46a750"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x46a700",
+          "text": "call    sub_46CEE0",
+          "from": "0x46a930"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x46cee0",
+          "size": 5,
+          "bytes": "b9c0e89e00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset gPlayerY",
+          "call_target": null
+        },
+        {
+          "ea": "0x46cee5",
+          "size": 5,
+          "bytes": "e8b64ff9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__GetVal",
+          "call_target": "0x401ea0"
+        },
+        {
+          "ea": "0x46ceea",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46ceeb",
+          "size": 5,
+          "bytes": "b9a8e89e00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset gPlayerX",
+          "call_target": null
+        },
+        {
+          "ea": "0x46cef0",
+          "size": 5,
+          "bytes": "e81b4ff9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        },
+        {
+          "ea": "0x46cef5",
+          "size": 5,
+          "bytes": "a3c010af00",
+          "mnemonic": "mov",
+          "text": "mov     dword_AF10C0, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46cefa",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x46cee0",
+          "0x46cefb"
+        ]
+      ],
+      "code_bytes": 27,
+      "calls": [
+        {
+          "ea": "0x46cee5",
+          "size": 5,
+          "bytes": "e8b64ff9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__GetVal",
+          "call_target": "0x401ea0"
+        },
+        {
+          "ea": "0x46cef0",
+          "size": 5,
+          "bytes": "e81b4ff9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt__add",
+          "call_target": "0x401e10"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1,
+      "page_count": 1
+    },
+    {
+      "start": "0x468330",
+      "end_exclusive": "0x468511",
+      "count": 100,
+      "chunks": [
+        [
+          "0x468330",
+          "0x468511"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x467f30",
+          "text": "call    sub_468330",
+          "from": "0x467f5b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4681b0",
+          "text": "call    sub_468330",
+          "from": "0x4681c6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5093f0",
+          "text": "call    sub_468330",
+          "from": "0x5094a3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x519ec0",
+          "text": "call    sub_468330",
+          "from": "0x519eca"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x468330",
+          "size": 3,
+          "bytes": "83ec10",
+          "mnemonic": "sub",
+          "text": "sub     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x468333",
+          "size": 5,
+          "bytes": "e8884b0000",
+          "mnemonic": "call",
+          "text": "call    sub_46CEC0",
+          "call_target": "0x46cec0"
+        },
+        {
+          "ea": "0x468338",
+          "size": 4,
+          "bytes": "8b442414",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+10h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46833c",
+          "size": 4,
+          "bytes": "8d4c2400",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+10h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468340",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x468341",
+          "size": 5,
+          "bytes": "e87a99f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x468346",
+          "size": 4,
+          "bytes": "8b4c2404",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+10h+var_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46834a",
+          "size": 4,
+          "bytes": "8b542408",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+10h+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46834e",
+          "size": 4,
+          "bytes": "8a44240c",
+          "mnemonic": "mov",
+          "text": "mov     al, [esp+10h+var_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468352",
+          "size": 6,
+          "bytes": "890dace89e00",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerX.NorVal, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x468358",
+          "size": 4,
+          "bytes": "8d4c2400",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+10h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46835c",
+          "size": 6,
+          "bytes": "8915b0e89e00",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerX.rndVal, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x468362",
+          "size": 5,
+          "bytes": "a2b4e89e00",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerX.getCount, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x468367",
+          "size": 5,
+          "bytes": "e88499f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x46836c",
+          "size": 4,
+          "bytes": "8b4c2418",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esp+10h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468370",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x468371",
+          "size": 4,
+          "bytes": "8d4c2404",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+14h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468375",
+          "size": 5,
+          "bytes": "e84699f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x46837a",
+          "size": 4,
+          "bytes": "8a4c240c",
+          "mnemonic": "mov",
+          "text": "mov     cl, [esp+10h+var_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46837e",
+          "size": 4,
+          "bytes": "8b542404",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+10h+var_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468382",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+10h+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468386",
+          "size": 6,
+          "bytes": "880dcce89e00",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerY.getCount, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x46838c",
+          "size": 4,
+          "bytes": "8d4c2400",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+10h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468390",
+          "size": 6,
+          "bytes": "8915c4e89e00",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerY.NorVal, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x468396",
+          "size": 5,
+          "bytes": "a3c8e89e00",
+          "mnemonic": "mov",
+          "text": "mov     gPlayerY.rndVal, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46839b",
+          "size": 5,
+          "bytes": "e85099f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x4683a0",
+          "size": 5,
+          "bytes": "e83b4b0000",
+          "mnemonic": "call",
+          "text": "call    sub_46CEE0",
+          "call_target": "0x46cee0"
+        },
+        {
+          "ea": "0x4683a5",
+          "size": 5,
+          "bytes": "b9a8e89e00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset gPlayerX",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683aa",
+          "size": 5,
+          "bytes": "e8019bf9ff",
+          "mnemonic": "call",
+          "text": "call    sub_401EB0",
+          "call_target": "0x401eb0"
+        },
+        {
+          "ea": "0x4683af",
+          "size": 6,
+          "bytes": "d80d30dd5400",
+          "mnemonic": "fmul",
+          "text": "fmul    ds:flt_54DD30",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683b5",
+          "size": 5,
+          "bytes": "b9c0e89e00",
+          "mnemonic": "mov",
+          "text": "mov     ecx, offset gPlayerY",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683ba",
+          "size": 6,
+          "bytes": "d91d4cad9d00",
+          "mnemonic": "fstp",
+          "text": "fstp    flt_9DAD4C",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683c0",
+          "size": 5,
+          "bytes": "e8eb9af9ff",
+          "mnemonic": "call",
+          "text": "call    sub_401EB0",
+          "call_target": "0x401eb0"
+        },
+        {
+          "ea": "0x4683c5",
+          "size": 6,
+          "bytes": "8a0db4e89e00",
+          "mnemonic": "mov",
+          "text": "mov     cl, gPlayerX.getCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683cb",
+          "size": 6,
+          "bytes": "8b15ace89e00",
+          "mnemonic": "mov",
+          "text": "mov     edx, gPlayerX.NorVal",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683d1",
+          "size": 6,
+          "bytes": "d80d30dd5400",
+          "mnemonic": "fmul",
+          "text": "fmul    ds:flt_54DD30",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683d7",
+          "size": 5,
+          "bytes": "a1b0e89e00",
+          "mnemonic": "mov",
+          "text": "mov     eax, gPlayerX.rndVal",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683dc",
+          "size": 6,
+          "bytes": "880dcc51c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751C0.getCount, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683e2",
+          "size": 6,
+          "bytes": "8a0dcce89e00",
+          "mnemonic": "mov",
+          "text": "mov     cl, gPlayerY.getCount",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683e8",
+          "size": 6,
+          "bytes": "8915c451c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751C0.NorVal, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683ee",
+          "size": 6,
+          "bytes": "8b15c4e89e00",
+          "mnemonic": "mov",
+          "text": "mov     edx, gPlayerY.NorVal",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683f4",
+          "size": 5,
+          "bytes": "a3c851c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751C0.rndVal, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683f9",
+          "size": 5,
+          "bytes": "a1c8e89e00",
+          "mnemonic": "mov",
+          "text": "mov     eax, gPlayerY.rndVal",
+          "call_target": null
+        },
+        {
+          "ea": "0x4683fe",
+          "size": 6,
+          "bytes": "880dbc51c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751B0.getCount, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x468404",
+          "size": 6,
+          "bytes": "d91d50ad9d00",
+          "mnemonic": "fstp",
+          "text": "fstp    flt_9DAD50",
+          "call_target": null
+        },
+        {
+          "ea": "0x46840a",
+          "size": 2,
+          "bytes": "6aff",
+          "mnemonic": "push",
+          "text": "push    0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x46840c",
+          "size": 4,
+          "bytes": "8d4c2404",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+14h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468410",
+          "size": 6,
+          "bytes": "8915b451c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751B0.NorVal, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x468416",
+          "size": 5,
+          "bytes": "a3b851c700",
+          "mnemonic": "mov",
+          "text": "mov     stru_C751B0.rndVal, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46841b",
+          "size": 10,
+          "bytes": "c705fce89e0000000000",
+          "mnemonic": "mov",
+          "text": "mov     flt_9EE8FC, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x468425",
+          "size": 10,
+          "bytes": "c70500e99e0000000000",
+          "mnemonic": "mov",
+          "text": "mov     flt_9EE900, 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x46842f",
+          "size": 10,
+          "bytes": "c70578ad9d000000803f",
+          "mnemonic": "mov",
+          "text": "mov     dword_9DAD78, 3F800000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x468439",
+          "size": 5,
+          "bytes": "e88298f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x46843e",
+          "size": 4,
+          "bytes": "8a4c240c",
+          "mnemonic": "mov",
+          "text": "mov     cl, [esp+10h+var_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468442",
+          "size": 4,
+          "bytes": "8b542404",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+10h+var_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468446",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+10h+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46844a",
+          "size": 6,
+          "bytes": "880ddce89e00",
+          "mnemonic": "mov",
+          "text": "mov     stru_9EE8D0.getCount, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x468450",
+          "size": 4,
+          "bytes": "8d4c2400",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+10h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468454",
+          "size": 6,
+          "bytes": "8915d4e89e00",
+          "mnemonic": "mov",
+          "text": "mov     stru_9EE8D0.NorVal, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46845a",
+          "size": 5,
+          "bytes": "a3d8e89e00",
+          "mnemonic": "mov",
+          "text": "mov     stru_9EE8D0.rndVal, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46845f",
+          "size": 5,
+          "bytes": "e88c98f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x468464",
+          "size": 2,
+          "bytes": "6aff",
+          "mnemonic": "push",
+          "text": "push    0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x468466",
+          "size": 4,
+          "bytes": "8d4c2404",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+14h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46846a",
+          "size": 5,
+          "bytes": "e85198f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x46846f",
+          "size": 4,
+          "bytes": "8a4c240c",
+          "mnemonic": "mov",
+          "text": "mov     cl, [esp+10h+var_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468473",
+          "size": 4,
+          "bytes": "8b542404",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+10h+var_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468477",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+10h+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46847b",
+          "size": 6,
+          "bytes": "880dece89e00",
+          "mnemonic": "mov",
+          "text": "mov     stru_9EE8E0.getCount, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x468481",
+          "size": 4,
+          "bytes": "8d4c2400",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+10h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x468485",
+          "size": 6,
+          "bytes": "8915e4e89e00",
+          "mnemonic": "mov",
+          "text": "mov     stru_9EE8E0.NorVal, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x46848b",
+          "size": 5,
+          "bytes": "a3e8e89e00",
+          "mnemonic": "mov",
+          "text": "mov     stru_9EE8E0.rndVal, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x468490",
+          "size": 5,
+          "bytes": "e85b98f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x468495",
+          "size": 2,
+          "bytes": "6aff",
+          "mnemonic": "push",
+          "text": "push    0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x468497",
+          "size": 4,
+          "bytes": "8d4c2404",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+14h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x46849b",
+          "size": 5,
+          "bytes": "e82098f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x4684a0",
+          "size": 4,
+          "bytes": "8b542404",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+10h+var_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684a4",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+10h+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684a8",
+          "size": 4,
+          "bytes": "8a4c240c",
+          "mnemonic": "mov",
+          "text": "mov     cl, [esp+10h+var_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684ac",
+          "size": 6,
+          "bytes": "8915fc7fc200",
+          "mnemonic": "mov",
+          "text": "mov     dword_C27FFC, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684b2",
+          "size": 5,
+          "bytes": "a30080c200",
+          "mnemonic": "mov",
+          "text": "mov     dword_C28000, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684b7",
+          "size": 6,
+          "bytes": "880d0480c200",
+          "mnemonic": "mov",
+          "text": "mov     byte_C28004, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684bd",
+          "size": 4,
+          "bytes": "8d4c2400",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+10h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684c1",
+          "size": 5,
+          "bytes": "e82a98f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x4684c6",
+          "size": 2,
+          "bytes": "6aff",
+          "mnemonic": "push",
+          "text": "push    0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684c8",
+          "size": 4,
+          "bytes": "8d4c2404",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+14h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684cc",
+          "size": 5,
+          "bytes": "e8ef97f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x4684d1",
+          "size": 4,
+          "bytes": "8a4c240c",
+          "mnemonic": "mov",
+          "text": "mov     cl, [esp+10h+var_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684d5",
+          "size": 4,
+          "bytes": "8b542404",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+10h+var_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684d9",
+          "size": 4,
+          "bytes": "8b442408",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+10h+var_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684dd",
+          "size": 6,
+          "bytes": "880df47fc200",
+          "mnemonic": "mov",
+          "text": "mov     byte_C27FF4, cl",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684e3",
+          "size": 4,
+          "bytes": "8d4c2400",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+10h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684e7",
+          "size": 6,
+          "bytes": "8915ec7fc200",
+          "mnemonic": "mov",
+          "text": "mov     dword_C27FEC, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684ed",
+          "size": 5,
+          "bytes": "a3f07fc200",
+          "mnemonic": "mov",
+          "text": "mov     dword_C27FF0, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684f2",
+          "size": 5,
+          "bytes": "e8f997f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x4684f7",
+          "size": 6,
+          "bytes": "8b154cad9d00",
+          "mnemonic": "mov",
+          "text": "mov     edx, flt_9DAD4C",
+          "call_target": null
+        },
+        {
+          "ea": "0x4684fd",
+          "size": 5,
+          "bytes": "a150ad9d00",
+          "mnemonic": "mov",
+          "text": "mov     eax, flt_9DAD50",
+          "call_target": null
+        },
+        {
+          "ea": "0x468502",
+          "size": 6,
+          "bytes": "8915a851c700",
+          "mnemonic": "mov",
+          "text": "mov     flt_C751A8, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x468508",
+          "size": 5,
+          "bytes": "a3a451c700",
+          "mnemonic": "mov",
+          "text": "mov     flt_C751A4, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x46850d",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x468510",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        [
+          "0x468330",
+          "0x468511"
+        ]
+      ],
+      "code_bytes": 481,
+      "calls": [
+        {
+          "ea": "0x468333",
+          "size": 5,
+          "bytes": "e8884b0000",
+          "mnemonic": "call",
+          "text": "call    sub_46CEC0",
+          "call_target": "0x46cec0"
+        },
+        {
+          "ea": "0x468341",
+          "size": 5,
+          "bytes": "e87a99f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x468367",
+          "size": 5,
+          "bytes": "e88499f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x468375",
+          "size": 5,
+          "bytes": "e84699f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x46839b",
+          "size": 5,
+          "bytes": "e85099f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x4683a0",
+          "size": 5,
+          "bytes": "e83b4b0000",
+          "mnemonic": "call",
+          "text": "call    sub_46CEE0",
+          "call_target": "0x46cee0"
+        },
+        {
+          "ea": "0x4683aa",
+          "size": 5,
+          "bytes": "e8019bf9ff",
+          "mnemonic": "call",
+          "text": "call    sub_401EB0",
+          "call_target": "0x401eb0"
+        },
+        {
+          "ea": "0x4683c0",
+          "size": 5,
+          "bytes": "e8eb9af9ff",
+          "mnemonic": "call",
+          "text": "call    sub_401EB0",
+          "call_target": "0x401eb0"
+        },
+        {
+          "ea": "0x468439",
+          "size": 5,
+          "bytes": "e88298f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x46845f",
+          "size": 5,
+          "bytes": "e88c98f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x46846a",
+          "size": 5,
+          "bytes": "e85198f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x468490",
+          "size": 5,
+          "bytes": "e85b98f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x46849b",
+          "size": 5,
+          "bytes": "e82098f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x4684c1",
+          "size": 5,
+          "bytes": "e82a98f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        },
+        {
+          "ea": "0x4684cc",
+          "size": 5,
+          "bytes": "e8ef97f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "call_target": "0x401cc0"
+        },
+        {
+          "ea": "0x4684f2",
+          "size": 5,
+          "bytes": "e8f997f9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_delete",
+          "call_target": "0x401cf0"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 0,
+      "return_count": 1,
+      "page_count": 2
+    }
+  ],
+  "original_unassigned_ranges": [
+    {
+      "start": "0x46ced6",
+      "end_exclusive": "0x46cee0",
+      "size": 10,
+      "bytes": "90909090909090909090",
+      "decode": [
+        {
+          "ea": "0x46ced6",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46ced7",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46ced8",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46ced9",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46ceda",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46cedb",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46cedc",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46cedd",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46cede",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46cedf",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x46cee0"
+    },
+    {
+      "start": "0x46cefb",
+      "end_exclusive": "0x46cf00",
+      "size": 5,
+      "bytes": "9090909090",
+      "decode": [
+        {
+          "ea": "0x46cefb",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46cefc",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46cefd",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46cefe",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46ceff",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x46cf00"
+    },
+    {
+      "start": "0x468511",
+      "end_exclusive": "0x468520",
+      "size": 15,
+      "bytes": "909090909090909090909090909090",
+      "decode": [
+        {
+          "ea": "0x468511",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468512",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468513",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468514",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468515",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468516",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468517",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468518",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x468519",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46851a",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46851b",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46851c",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46851d",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46851e",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        },
+        {
+          "ea": "0x46851f",
+          "size": 1,
+          "bytes": "90",
+          "text": "align 10h",
+          "is_nop": true,
+          "decoded_itype": 129
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x468520"
+    }
+  ],
+  "original_caller_flows": [
+    {
+      "call_site": "0x467f5b",
+      "parent": "0x467f30",
+      "parent_end_exclusive": "0x4681ab",
+      "instructions": [
+        {
+          "ea": "0x467f60",
+          "size": 3,
+          "bytes": "83c428",
+          "mnemonic": "add",
+          "text": "add     esp, 28h",
+          "target": null
+        },
+        {
+          "ea": "0x467f63",
+          "size": 4,
+          "bytes": "8d4c2418",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+44h+var_2C]",
+          "target": null
+        },
+        {
+          "ea": "0x467f67",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "target": null
+        },
+        {
+          "ea": "0x467f68",
+          "size": 5,
+          "bytes": "e8539df9ff",
+          "mnemonic": "call",
+          "text": "call    CryptInt_Init",
+          "target": "0x401cc0"
+        }
+      ]
+    },
+    {
+      "call_site": "0x4681c6",
+      "parent": "0x4681b0",
+      "parent_end_exclusive": "0x4681f6",
+      "instructions": [
+        {
+          "ea": "0x4681cb",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "target": null
+        },
+        {
+          "ea": "0x4681ce",
+          "size": 5,
+          "bytes": "e82d000000",
+          "mnemonic": "call",
+          "text": "call    sub_468200",
+          "target": "0x468200"
+        }
+      ]
+    },
+    {
+      "call_site": "0x5094a3",
+      "parent": "0x5093f0",
+      "parent_end_exclusive": "0x509548",
+      "instructions": [
+        {
+          "ea": "0x5094a8",
+          "size": 3,
+          "bytes": "83c444",
+          "mnemonic": "add",
+          "text": "add     esp, 44h",
+          "target": null
+        },
+        {
+          "ea": "0x5094ab",
+          "size": 5,
+          "bytes": "e820d0f3ff",
+          "mnemonic": "call",
+          "text": "call    sub_4464D0",
+          "target": "0x4464d0"
+        }
+      ]
+    },
+    {
+      "call_site": "0x519eca",
+      "parent": "0x519ec0",
+      "parent_end_exclusive": "0x519ed3",
+      "instructions": [
+        {
+          "ea": "0x519ecf",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "target": null
+        },
+        {
+          "ea": "0x519ed2",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "target": null
+        }
+      ]
+    }
+  ],
+  "original_loaded_constants": [
+    {
+      "ea": "0x54dd30",
+      "width_bytes": 4,
+      "bytes": "00008042",
+      "bits_u32": "0x42800000",
+      "all_bytes_loaded": true
+    }
+  ],
+  "source_patches": [
+    {
+      "symbol": "Sub_468330",
+      "kind": "temporary_three_field_preload_gPlayerX",
+      "original_site": "0x468346-0x468362",
+      "old": "    gPlayerX.encoded = temporary.encoded;\n    gPlayerX.mask = temporary.mask;\n    gPlayerX.readCount = temporary.readCount;\n",
+      "replacement": "    const std::uint32_t xTemporaryEncoded = temporary.encoded;\n    const std::uint32_t xTemporaryMask = temporary.mask;\n    const std::uint8_t xTemporaryReadCount = temporary.readCount;\n    gPlayerX.encoded = xTemporaryEncoded;\n    gPlayerX.mask = xTemporaryMask;\n    gPlayerX.readCount = xTemporaryReadCount;\n"
+    },
+    {
+      "symbol": "Sub_468330",
+      "kind": "temporary_three_field_preload_gPlayerY",
+      "original_site": "0x46837A-0x468396",
+      "old": "    gPlayerY.readCount = temporary.readCount;\n    gPlayerY.encoded = temporary.encoded;\n    gPlayerY.mask = temporary.mask;\n",
+      "replacement": "    const std::uint8_t yTemporaryReadCount = temporary.readCount;\n    const std::uint32_t yTemporaryEncoded = temporary.encoded;\n    const std::uint32_t yTemporaryMask = temporary.mask;\n    gPlayerY.readCount = yTemporaryReadCount;\n    gPlayerY.encoded = yTemporaryEncoded;\n    gPlayerY.mask = yTemporaryMask;\n"
+    },
+    {
+      "symbol": "Sub_468330",
+      "kind": "temporary_three_field_preload_gValue9EE8D0",
+      "original_site": "0x46843E-0x46845A",
+      "old": "    gValue9EE8D0.readCount = temporary.readCount;\n    gValue9EE8D0.encoded = temporary.encoded;\n    gValue9EE8D0.mask = temporary.mask;\n",
+      "replacement": "    const std::uint8_t reset8D0ReadCount = temporary.readCount;\n    const std::uint32_t reset8D0Encoded = temporary.encoded;\n    const std::uint32_t reset8D0Mask = temporary.mask;\n    gValue9EE8D0.readCount = reset8D0ReadCount;\n    gValue9EE8D0.encoded = reset8D0Encoded;\n    gValue9EE8D0.mask = reset8D0Mask;\n"
+    },
+    {
+      "symbol": "Sub_468330",
+      "kind": "temporary_three_field_preload_gValue9EE8E0",
+      "original_site": "0x46846F-0x46848B",
+      "old": "    gValue9EE8E0.readCount = temporary.readCount;\n    gValue9EE8E0.encoded = temporary.encoded;\n    gValue9EE8E0.mask = temporary.mask;\n",
+      "replacement": "    const std::uint8_t reset8E0ReadCount = temporary.readCount;\n    const std::uint32_t reset8E0Encoded = temporary.encoded;\n    const std::uint32_t reset8E0Mask = temporary.mask;\n    gValue9EE8E0.readCount = reset8E0ReadCount;\n    gValue9EE8E0.encoded = reset8E0Encoded;\n    gValue9EE8E0.mask = reset8E0Mask;\n"
+    },
+    {
+      "symbol": "Sub_468330",
+      "kind": "temporary_three_field_preload_gValueC27FF8",
+      "original_site": "0x4684A0-0x4684B7",
+      "old": "    gValueC27FF8.encoded = temporary.encoded;\n    gValueC27FF8.mask = temporary.mask;\n    gValueC27FF8.readCount = temporary.readCount;\n",
+      "replacement": "    const std::uint32_t resetC27FF8Encoded = temporary.encoded;\n    const std::uint32_t resetC27FF8Mask = temporary.mask;\n    const std::uint8_t resetC27FF8ReadCount = temporary.readCount;\n    gValueC27FF8.encoded = resetC27FF8Encoded;\n    gValueC27FF8.mask = resetC27FF8Mask;\n    gValueC27FF8.readCount = resetC27FF8ReadCount;\n"
+    },
+    {
+      "symbol": "Sub_468330",
+      "kind": "temporary_three_field_preload_gValueC27FE8",
+      "original_site": "0x4684D1-0x4684ED",
+      "old": "    gValueC27FE8.readCount = temporary.readCount;\n    gValueC27FE8.encoded = temporary.encoded;\n    gValueC27FE8.mask = temporary.mask;\n",
+      "replacement": "    const std::uint8_t resetC27FE8ReadCount = temporary.readCount;\n    const std::uint32_t resetC27FE8Encoded = temporary.encoded;\n    const std::uint32_t resetC27FE8Mask = temporary.mask;\n    gValueC27FE8.readCount = resetC27FE8ReadCount;\n    gValueC27FE8.encoded = resetC27FE8Encoded;\n    gValueC27FE8.mask = resetC27FE8Mask;\n"
+    },
+    {
+      "symbol": "Sub_468330",
+      "kind": "player_snapshot_reads_and_F32_Y_publication_interleaving",
+      "original_site": "0x4683C5-0x468416",
+      "old": "    const double scaledY = currentY * 64.0;\n\n    gPlayerSnapshotX.readCount = gPlayerX.readCount;\n    gPlayerSnapshotX.encoded = gPlayerX.encoded;\n    gPlayerSnapshotX.mask = gPlayerX.mask;\n    gPlayerSnapshotY.readCount = gPlayerY.readCount;\n    gWorldCurrentYBits = std::bit_cast<std::uint32_t>(\n        static_cast<float>(scaledY));\n    gPlayerSnapshotY.encoded = gPlayerY.encoded;\n    gPlayerSnapshotY.mask = gPlayerY.mask;\n",
+      "replacement": "    const std::uint8_t snapshotXCount = gPlayerX.readCount;\n    const std::uint32_t snapshotXEncoded = gPlayerX.encoded;\n    const double scaledY = currentY * 64.0;\n    const std::uint32_t snapshotXMask = gPlayerX.mask;\n    gPlayerSnapshotX.readCount = snapshotXCount;\n    const std::uint8_t snapshotYCount = gPlayerY.readCount;\n    gPlayerSnapshotX.encoded = snapshotXEncoded;\n    const std::uint32_t snapshotYEncoded = gPlayerY.encoded;\n    gPlayerSnapshotX.mask = snapshotXMask;\n    const std::uint32_t snapshotYMask = gPlayerY.mask;\n    gPlayerSnapshotY.readCount = snapshotYCount;\n    gWorldCurrentYBits = std::bit_cast<std::uint32_t>(\n        static_cast<float>(scaledY));\n    gPlayerSnapshotY.encoded = snapshotYEncoded;\n    gPlayerSnapshotY.mask = snapshotYMask;\n"
+    }
+  ],
+  "source_bodies": {
+    "Sub_46CEC0": "std::int32_t __cdecl Sub_46CEC0()\n{\n    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);\n    return platform::legacy_crypt_int::Add_401E10(&gPlayerX, y);\n}\n\n",
+    "Sub_46CEE0": "std::int32_t __cdecl Sub_46CEE0()\n{\n    const std::int32_t y = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);\n    const std::int32_t result =\n        platform::legacy_crypt_int::Add_401E10(&gPlayerX, y);\n    gValueAF10C0 = std::bit_cast<std::uint32_t>(result);\n    return result;\n}\n\n",
+    "Sub_468330": "std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)\n{\n    static_cast<void>(Sub_46CEC0());\n\n    platform::LegacyCryptInt temporary;\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);\n    gPlayerX.encoded = temporary.encoded;\n    gPlayerX.mask = temporary.mask;\n    gPlayerX.readCount = temporary.readCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);\n    gPlayerY.readCount = temporary.readCount;\n    gPlayerY.encoded = temporary.encoded;\n    gPlayerY.mask = temporary.mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    static_cast<void>(Sub_46CEE0());\n    const double currentX =\n        static_cast<double>(platform::legacy_crypt_int::Read_401EC0(&gPlayerX));\n    gWorldCurrentXBits = std::bit_cast<std::uint32_t>(\n        static_cast<float>(currentX * 64.0));\n    const double currentY =\n        static_cast<double>(platform::legacy_crypt_int::Read_401EC0(&gPlayerY));\n    const double scaledY = currentY * 64.0;\n\n    gPlayerSnapshotX.readCount = gPlayerX.readCount;\n    gPlayerSnapshotX.encoded = gPlayerX.encoded;\n    gPlayerSnapshotX.mask = gPlayerX.mask;\n    gPlayerSnapshotY.readCount = gPlayerY.readCount;\n    gWorldCurrentYBits = std::bit_cast<std::uint32_t>(\n        static_cast<float>(scaledY));\n    gPlayerSnapshotY.encoded = gPlayerY.encoded;\n    gPlayerSnapshotY.mask = gPlayerY.mask;\n\n    gValue9EE8FC = 0;\n    gValue9EE900 = 0;\n    gValue9DAD78 = 0x3F800000u;\n\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);\n    gValue9EE8D0.readCount = temporary.readCount;\n    gValue9EE8D0.encoded = temporary.encoded;\n    gValue9EE8D0.mask = temporary.mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);\n    gValue9EE8E0.readCount = temporary.readCount;\n    gValue9EE8E0.encoded = temporary.encoded;\n    gValue9EE8E0.mask = temporary.mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);\n    gValueC27FF8.encoded = temporary.encoded;\n    gValueC27FF8.mask = temporary.mask;\n    gValueC27FF8.readCount = temporary.readCount;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);\n    gValueC27FE8.readCount = temporary.readCount;\n    gValueC27FE8.encoded = temporary.encoded;\n    gValueC27FE8.mask = temporary.mask;\n    platform::legacy_crypt_int::Destroy_401CF0(&temporary);\n\n    const std::uint32_t xBits = gWorldCurrentXBits;\n    const std::uint32_t finalYBits = gWorldCurrentYBits;\n    gWorldProjectionReferenceXBits = xBits;\n    gWorldProjectionReferenceYBits = finalYBits;\n    return finalYBits;\n}\n\n"
+  },
+  "snapshot_functions_before": [
+    {
+      "id": "F:00068330",
+      "original_entry": "0x468330",
+      "original_name": "sub_468330",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_468330",
+          "definition_line": 5157,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0006CEC0",
+      "original_entry": "0x46CEC0",
+      "original_name": "sub_46CEC0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_46CEC0",
+          "definition_line": 5140,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:0006CEE0",
+      "original_entry": "0x46CEE0",
+      "original_name": "sub_46CEE0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbol": "Sub_46CEE0",
+          "definition_line": 5147,
+          "namespace": "cg::world::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "ranges_before": [
+    {
+      "id": "X:00068511-00068520",
+      "start": "0x468511",
+      "end_exclusive": "0x468520",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0006CED6-0006CEE0",
+      "start": "0x46CED6",
+      "end_exclusive": "0x46CEE0",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    },
+    {
+      "id": "X:0006CEFB-0006CF00",
+      "start": "0x46CEFB",
+      "end_exclusive": "0x46CF00",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    }
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "U10",
+      "state": "open",
+      "reference_count": 57
+    },
+    {
+      "task_id": "V03",
+      "state": "open",
+      "reference_count": 64
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 235
+    }
+  ],
+  "feature_member_counts_before": [
+    {
+      "id": "FUNC-LOOP",
+      "count": 98
+    },
+    {
+      "id": "FUNC-MAP",
+      "count": 95
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "cg2d_re/src/world/SceneState.cpp",
+      "length": 454327
+    }
+  ],
+  "predicted_document_link_percent": 48.91,
+  "existing_GetVal_tail_wrapper_evidence_ref": "doc/cg2d_cryptint_arithmetic_evidence.json",
+  "temporary_payload_sampling_contracts": [
+    {
+      "target": "gPlayerX",
+      "local_prefix": "xTemporary",
+      "source_field_order": [
+        "encoded",
+        "mask",
+        "readCount"
+      ],
+      "destination_field_order": [
+        "encoded",
+        "mask",
+        "readCount"
+      ],
+      "readCount_width_bytes": 1,
+      "encoded_width_bytes": 4,
+      "mask_width_bytes": 4,
+      "original_site": "0x468346-0x468362"
+    },
+    {
+      "target": "gPlayerY",
+      "local_prefix": "yTemporary",
+      "source_field_order": [
+        "readCount",
+        "encoded",
+        "mask"
+      ],
+      "destination_field_order": [
+        "readCount",
+        "encoded",
+        "mask"
+      ],
+      "readCount_width_bytes": 1,
+      "encoded_width_bytes": 4,
+      "mask_width_bytes": 4,
+      "original_site": "0x46837A-0x468396"
+    },
+    {
+      "target": "gValue9EE8D0",
+      "local_prefix": "reset8D0",
+      "source_field_order": [
+        "readCount",
+        "encoded",
+        "mask"
+      ],
+      "destination_field_order": [
+        "readCount",
+        "encoded",
+        "mask"
+      ],
+      "readCount_width_bytes": 1,
+      "encoded_width_bytes": 4,
+      "mask_width_bytes": 4,
+      "original_site": "0x46843E-0x46845A"
+    },
+    {
+      "target": "gValue9EE8E0",
+      "local_prefix": "reset8E0",
+      "source_field_order": [
+        "readCount",
+        "encoded",
+        "mask"
+      ],
+      "destination_field_order": [
+        "readCount",
+        "encoded",
+        "mask"
+      ],
+      "readCount_width_bytes": 1,
+      "encoded_width_bytes": 4,
+      "mask_width_bytes": 4,
+      "original_site": "0x46846F-0x46848B"
+    },
+    {
+      "target": "gValueC27FF8",
+      "local_prefix": "resetC27FF8",
+      "source_field_order": [
+        "encoded",
+        "mask",
+        "readCount"
+      ],
+      "destination_field_order": [
+        "encoded",
+        "mask",
+        "readCount"
+      ],
+      "readCount_width_bytes": 1,
+      "encoded_width_bytes": 4,
+      "mask_width_bytes": 4,
+      "original_site": "0x4684A0-0x4684B7"
+    },
+    {
+      "target": "gValueC27FE8",
+      "local_prefix": "resetC27FE8",
+      "source_field_order": [
+        "readCount",
+        "encoded",
+        "mask"
+      ],
+      "destination_field_order": [
+        "readCount",
+        "encoded",
+        "mask"
+      ],
+      "readCount_width_bytes": 1,
+      "encoded_width_bytes": 4,
+      "mask_width_bytes": 4,
+      "original_site": "0x4684D1-0x4684ED"
+    }
+  ],
+  "new_semantic_count": 3,
+  "new_function_disposition_count": 3,
+  "new_range_disposition_count": 3,
+  "source_cpp_count": 1,
+  "existing_source_body_count": 3,
+  "changed_source_body_count": 1,
+  "kept_source_body_count": 2,
+  "source_patch_count": 7,
+  "source_header_count": 0,
+  "new_local_lambda_count": 0,
+  "new_named_global_helper_count": 0,
+  "new_shared_owner_count": 0,
+  "original_six_temporary_payload_preloads_restored": true,
+  "original_player_snapshot_read_and_write_interleaving_restored": true,
+  "original_old_new_and_float_reads_three_per_axis_kept": true,
+  "original_six_constructions_and_six_destructions_kept": true,
+  "original_two_sum_helper_bodies_correctly_kept": true,
+  "original_current_bits_preloads_and_reference_X_Y_publications_kept": true,
+  "original_full_W32_finalY_return_and_parent_tail_forwarding_kept": true,
+  "original_formulas_and_F32_narrowing_kept": true,
+  "source_all_other_bodies_callers_and_network_plaintext_kept": true,
+  "runtime_verified": false,
+  "full_machine_abi_verified": false,
+  "full_lifecycle_closed": false,
+  "full_inbound_parents_verified": false,
+  "full_numeric_or_x87_rounding_verified": false,
+  "fault_equivalence_claimed": false,
+  "existing_getval_and_add_host_interface_adaptation_decided": true
+}

@@ -3786,3 +3786,19 @@ BUE01目标格生产六BYTE修复已提交。本步聚焦其双投影46CE30/46CE
 三任务仍open，pending18/ECX pending7、closed11/差队列/完整门禁保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active；完整正常生产消费/全部数据别名寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通及R8继续。
 
 BUF01必要静态已通过：完整Scene/公开声明仅五片段变化，两原根35条136B、三窗口/24B数据/8B用途与台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1686/有效1679、合同1797（48.83%）、处置827/E964、R7已审395/余2666、LOOP98/MAP95。原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-projection-sampling-return-20261008。
+
+## BUG01 坐标重置载荷取样与快照发布实修（2026-10-08）
+
+BUF01双投影修复已提交。本步沿真实参考坐标生产入口468330及两求和46CEC0/46CEE0推进。既有IDA只读MCP完整113条530B/四页三块、20直接call/0jump/三RET/9入向来自6父，补四468330父局部后窗、4B F32 64和三个尾区10+5+15B，不复核全部父。
+
+原两helper调401EA0而当前用Read_401EC0，经既有CQA01单条尾跳证据确认正确等效读取；不是缺失入口或无副作用读，保源码。实际差异在468330：六临时原各三字段先取后写，现逐字段取即发布；原快照X三读先于首写、Y count/encoded/mask读与X发布交错，Y F32夹在Y count及encoded/mask发布之间。先落[子SPEC](../doc/cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision)，只改一既有正文七片段，各局部W8/W32预取及精确交错恢复，Y倍64的计算位置随原X encoded/mask取样之间恢复。
+
+六次独立构造/析构、各实参、每轴旧/新/浮点三次Read及唯一RNG副作用、所有算式/double与F32承载保持；末两个当前F32先预取后参考X/Y发布并返回finalYBits完整W32原已正确，保源码。四父局部后窗中519EC0收栈→RET沿返回，不误称所有上游弃返；新1686/1687/1688 adapted，无新helper/lambda/header/共享owner/依赖，其它正文和所有调用者保持。
+
+三尾实际NN_NOP/90无入向/后真入口仅用途。LOOP98→101/MAP95→98各两局部I-S各25来源、三R7；预期语义1689/有效1682、合同1800（48.91%）、处置830/E968、R7已审398/余2663。必要静态/纯文本汇总后记录实值，不编译、测试或运行。
+
+三任务仍open，pending18/ECX pending7、closed11/差队列和完整门禁保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。整体目标active，完整正常生产消费/全部owner-alias寿命/数值/x87/全父/机器ABI/链接/像素画面/明文互通及R8继续。
+
+BUG01必要静态已通过：完整Scene仅一正文七片段变化，两正确helper保持；三原根113条530B、四窗口/4B数据/三尾30B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1689/有效1682、合同1800（48.91%）、处置830/E968、R7已审398/余2663、LOOP101/MAP98。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-coordinate-reset-sampling-20261008。
+
+首轮纯文本汇总拒绝两helper误填区间处置值mapped及单步代码引用误填src/world/YobiRuntime.cpp，未生成派生文件。按既有宿主Read/Add接口承接裁决，两F改为adapted；引用改到真实定义src/YobiRuntime.cpp。SPEC/证据/文档和机器模型同步纠正，相关静态及重新汇总/-Check和完整快照模型均通过后收口本步。

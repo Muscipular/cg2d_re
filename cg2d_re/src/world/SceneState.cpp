@@ -5560,15 +5560,21 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
 
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, x);
-    gPlayerX.encoded = temporary.encoded;
-    gPlayerX.mask = temporary.mask;
-    gPlayerX.readCount = temporary.readCount;
+    const std::uint32_t xTemporaryEncoded = temporary.encoded;
+    const std::uint32_t xTemporaryMask = temporary.mask;
+    const std::uint8_t xTemporaryReadCount = temporary.readCount;
+    gPlayerX.encoded = xTemporaryEncoded;
+    gPlayerX.mask = xTemporaryMask;
+    gPlayerX.readCount = xTemporaryReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, y);
-    gPlayerY.readCount = temporary.readCount;
-    gPlayerY.encoded = temporary.encoded;
-    gPlayerY.mask = temporary.mask;
+    const std::uint8_t yTemporaryReadCount = temporary.readCount;
+    const std::uint32_t yTemporaryEncoded = temporary.encoded;
+    const std::uint32_t yTemporaryMask = temporary.mask;
+    gPlayerY.readCount = yTemporaryReadCount;
+    gPlayerY.encoded = yTemporaryEncoded;
+    gPlayerY.mask = yTemporaryMask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
     static_cast<void>(Sub_46CEE0());
@@ -5578,43 +5584,60 @@ std::uint32_t __cdecl Sub_468330(const std::int32_t x, const std::int32_t y)
         static_cast<float>(currentX * 64.0));
     const double currentY =
         static_cast<double>(platform::legacy_crypt_int::Read_401EC0(&gPlayerY));
+    const std::uint8_t snapshotXCount = gPlayerX.readCount;
+    const std::uint32_t snapshotXEncoded = gPlayerX.encoded;
     const double scaledY = currentY * 64.0;
-
-    gPlayerSnapshotX.readCount = gPlayerX.readCount;
-    gPlayerSnapshotX.encoded = gPlayerX.encoded;
-    gPlayerSnapshotX.mask = gPlayerX.mask;
-    gPlayerSnapshotY.readCount = gPlayerY.readCount;
+    const std::uint32_t snapshotXMask = gPlayerX.mask;
+    gPlayerSnapshotX.readCount = snapshotXCount;
+    const std::uint8_t snapshotYCount = gPlayerY.readCount;
+    gPlayerSnapshotX.encoded = snapshotXEncoded;
+    const std::uint32_t snapshotYEncoded = gPlayerY.encoded;
+    gPlayerSnapshotX.mask = snapshotXMask;
+    const std::uint32_t snapshotYMask = gPlayerY.mask;
+    gPlayerSnapshotY.readCount = snapshotYCount;
     gWorldCurrentYBits = std::bit_cast<std::uint32_t>(
         static_cast<float>(scaledY));
-    gPlayerSnapshotY.encoded = gPlayerY.encoded;
-    gPlayerSnapshotY.mask = gPlayerY.mask;
+    gPlayerSnapshotY.encoded = snapshotYEncoded;
+    gPlayerSnapshotY.mask = snapshotYMask;
 
     gValue9EE8FC = 0;
     gValue9EE900 = 0;
     gValue9DAD78 = 0x3F800000u;
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
-    gValue9EE8D0.readCount = temporary.readCount;
-    gValue9EE8D0.encoded = temporary.encoded;
-    gValue9EE8D0.mask = temporary.mask;
+    const std::uint8_t reset8D0ReadCount = temporary.readCount;
+    const std::uint32_t reset8D0Encoded = temporary.encoded;
+    const std::uint32_t reset8D0Mask = temporary.mask;
+    gValue9EE8D0.readCount = reset8D0ReadCount;
+    gValue9EE8D0.encoded = reset8D0Encoded;
+    gValue9EE8D0.mask = reset8D0Mask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
-    gValue9EE8E0.readCount = temporary.readCount;
-    gValue9EE8E0.encoded = temporary.encoded;
-    gValue9EE8E0.mask = temporary.mask;
+    const std::uint8_t reset8E0ReadCount = temporary.readCount;
+    const std::uint32_t reset8E0Encoded = temporary.encoded;
+    const std::uint32_t reset8E0Mask = temporary.mask;
+    gValue9EE8E0.readCount = reset8E0ReadCount;
+    gValue9EE8E0.encoded = reset8E0Encoded;
+    gValue9EE8E0.mask = reset8E0Mask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
-    gValueC27FF8.encoded = temporary.encoded;
-    gValueC27FF8.mask = temporary.mask;
-    gValueC27FF8.readCount = temporary.readCount;
+    const std::uint32_t resetC27FF8Encoded = temporary.encoded;
+    const std::uint32_t resetC27FF8Mask = temporary.mask;
+    const std::uint8_t resetC27FF8ReadCount = temporary.readCount;
+    gValueC27FF8.encoded = resetC27FF8Encoded;
+    gValueC27FF8.mask = resetC27FF8Mask;
+    gValueC27FF8.readCount = resetC27FF8ReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
-    gValueC27FE8.readCount = temporary.readCount;
-    gValueC27FE8.encoded = temporary.encoded;
-    gValueC27FE8.mask = temporary.mask;
+    const std::uint8_t resetC27FE8ReadCount = temporary.readCount;
+    const std::uint32_t resetC27FE8Encoded = temporary.encoded;
+    const std::uint32_t resetC27FE8Mask = temporary.mask;
+    gValueC27FE8.readCount = resetC27FE8ReadCount;
+    gValueC27FE8.encoded = resetC27FE8Encoded;
+    gValueC27FE8.mask = resetC27FE8Mask;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
     const std::uint32_t xBits = gWorldCurrentXBits;

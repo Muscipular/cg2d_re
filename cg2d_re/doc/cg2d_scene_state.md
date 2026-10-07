@@ -7891,3 +7891,11 @@ BUE01集中静态已通过：完整Scene仅一既有正文六BYTE片段变化，
 六数据24B确认中心由FIADD/FILD消费为S32 320/240、四缩放为F32位值。中心位于可写.data且各仅两直接读，无直接写/取地址；按[裁决](cg2d_projection_sampling_return_spec.md#projection-sampling-return-decision)保正常中心现有承接，不造动态viewport或影子owner，不据直接引用排除全间接别名。所有数值表达式/调用者保持，468F70局部F32/ftol及最终Y的S64返回正确，不改源码。两尾3+5B仅用途；完整数值/x87/全父/数据别名寿命及运行未验。
 
 BUF01必要静态已通过：完整Scene/公开声明仅五片段变化，两原根35条136B、三窗口/24B数据/8B用途与台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1686/有效1679、合同1797（48.83%）、处置827/E964、R7已审395/余2666、LOOP98/MAP95。原对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-projection-sampling-return-20261008。
+
+## 坐标重置临时载荷与快照取样实修（BUG01，2026-10-08）
+
+[完整基线](cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-baseline)覆盖468330和两求和helper三根113条530B/四页、20直接call/0jump/三RET/9入向。只改468330一既有正文七片段：六构造后的三载荷按原次序预取再发布，count W8/encoded与mask W32保持；X快照三读先于首写，Y倍64夹在X encoded与mask取样之间，Y三读与X发布交错、Y F32夹在Y count和encoded/mask发布之间。
+
+按[裁决](cg2d_coordinate_reset_sampling_spec.md#coordinate-reset-sampling-decision)，两helper现Y Read→X Add、完整S32返回/AF10C0发布正确保持；401EA0尾跳401EC0已证，不能误改为无副作用读。两根沿既有Read/Add宿主接口承接，按adapted登记，不代原thiscall/完整机器ABI。每轴旧/新/浮点各三次读取，六Construct/Destroy、唯一RNG消费、所有算式/F32收窄、末当前X/Y预取→参考X/Y发布及finalYBits完整W32返回保持。四局部后窗中519EC0收栈后RET透传，不能外推全部上游弃返。4B F32 64与三尾30B仅位值/用途；完整正常寿命/数值/x87/机器ABI和运行继续。
+
+BUG01必要静态已通过：完整Scene仅一正文七片段变化，两正确helper保持；三原根113条530B、四窗口/4B数据/三尾30B与证据/台账/任务模型一致。汇总及 -Check 通过，完整派生实值：语义1689/有效1682、合同1800（48.91%）、处置830/E968、R7已审398/余2663、LOOP101/MAP98。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11及完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-coordinate-reset-sampling-20261008。

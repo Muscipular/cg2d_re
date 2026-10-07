@@ -193494,6 +193494,83 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x46CF60",
+      "inventory_id": "F:0006CF60",
+      "original_role": "CUT/普通地图加载-对角绘制-动作与图形/marker消费及X/Y尾快照生产",
+      "original_end_exclusive": "0x46d9b9",
+      "original_chunks": [
+        [
+          "0x46cf60",
+          "0x46d9b9"
+        ]
+      ],
+      "instruction_count": 704,
+      "status": "BUK01地图父完整704条2649B/十一页；一既有正文四片段恢复CUT count-encoded-mask与普通mask-encoded-count各X/Y三载荷先读齐后pub，原两读取/Construct/Destroy/RNG及全加载/失败/循环/三个helper/图形marker/owner和返回动作视图保，完整数值/寿命/机器ABI/像素运行未验",
+      "sources": [
+        {
+          "path": "src/world/MapSceneDrawing.cpp",
+          "symbols": [
+            "Sub_46CF60"
+          ],
+          "relationship": "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-baseline",
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-decision",
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-acceptance",
+        "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state",
+        "doc/cg2d_map_scene_snapshot_sampling_evidence.json"
+      ],
+      "boundary": "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。",
+      "verification_level": "BUK01地图绘制父46CF60完整704条2649B/十一页一块、49directcall/73jump/两RET/三直接父入向。只MapSceneDrawing一个既有正文四片段：CUT X/Y尾临时按W8 count→W32 encoded→W32 mask三读齐再同序pub，普通X/Y按W32 mask→W32 encoded→W8 count三读齐再同序pub；同一临时两Construct/Destroy、先X后Y各单次Player GetVal/唯一RNG和既有52CD60调用保，四原路径分支不合并。已正确held mode/原55DA8C W32=10000与increment、两NotEqual短路/dirty W16、加载失败、callback后独立边界采样/两walkability分流、movement/W16 flags、投影/普通S32算式/对角逐格/held index跨tile-obj调用/fresh外层span、CUT三原分支/16B描述符读写序与借用created/fresh-slot消费、普通图层/clip低W16/marker音频选择与请求保，所有三个既有内部绘制helper/其它源/声明/原owner保持，无新helper/lambda/header/共享owner/业务。原两正常尾EAX沿52CD60、失败沿加载负S32；469020后POP ECX/RET沿返回，另两父局部立即重写EAX，现既有void动作观察适配保，不造固定返或外推全ABI/全父弃返。原五零写完整16B覆盖记录；已加载4B 10000只位值，源counter保持原W32 field，不专项异常/回绕或数值/x87模拟。原7B NN_NOP/90无入向/后46D9C0只用途。原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/全像素画面/明文互通与运行R8未验。",
+      "map_scene_snapshot_sampling": {
+        "spec_id": "BUK01",
+        "evidence_refs": [
+          "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-baseline",
+          "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-decision",
+          "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-acceptance",
+          "doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-source-state",
+          "doc/cg2d_map_scene_snapshot_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 704,
+        "original_code_bytes": 2649,
+        "original_page_count": 11,
+        "original_direct_call_count": 49,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 73,
+        "original_return_count": 2,
+        "original_inbound_call_count": 3,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 4,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "existing_internal_draw_helper_count": 3,
+        "original_four_mode_specific_tail_payload_preloads_restored": true,
+        "original_same_temporary_X_Y_read_construct_destroy_and_RNG_counts_kept": true,
+        "original_mode_and_reload_walkability_shortcircuit_failure_states_kept": true,
+        "original_held_cell_index_tile_then_object_and_fresh_outer_span_kept": true,
+        "original_cut_descriptor_and_created_pointer_then_fresh_slot_consumption_kept": true,
+        "original_normal_layer_clip_low_word_marker_audio_calls_and_request_kept": true,
+        "original_full_descriptor_zero_coverage_kept": true,
+        "original_tail_audio_or_negative_load_return_and_existing_void_action_view_adaptation_kept": true,
+        "source_all_other_bodies_helpers_callers_owners_and_network_plaintext_kept": true,
+        "original_loaded_constant_count": 1,
+        "original_loaded_constant_bytes": 4,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

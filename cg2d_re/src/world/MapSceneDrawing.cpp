@@ -287,25 +287,37 @@ void __cdecl Sub_46CF60(const std::int32_t markers)
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, playerX);
     if (cutMode) {
-        gValue9EE8D0.readCount = temporary.readCount;
-        gValue9EE8D0.encoded = temporary.encoded;
-        gValue9EE8D0.mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        gValue9EE8D0.readCount = readCount;
+        gValue9EE8D0.encoded = encoded;
+        gValue9EE8D0.mask = mask;
     } else {
-        gValue9EE8D0.mask = temporary.mask;
-        gValue9EE8D0.encoded = temporary.encoded;
-        gValue9EE8D0.readCount = temporary.readCount;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint8_t readCount = temporary.readCount;
+        gValue9EE8D0.mask = mask;
+        gValue9EE8D0.encoded = encoded;
+        gValue9EE8D0.readCount = readCount;
     }
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     const std::int32_t playerY = platform::legacy_crypt_int::Read_401EC0(&gPlayerY);
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, playerY);
     if (cutMode) {
-        gValue9EE8E0.readCount = temporary.readCount;
-        gValue9EE8E0.encoded = temporary.encoded;
-        gValue9EE8E0.mask = temporary.mask;
+        const std::uint8_t readCount = temporary.readCount;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint32_t mask = temporary.mask;
+        gValue9EE8E0.readCount = readCount;
+        gValue9EE8E0.encoded = encoded;
+        gValue9EE8E0.mask = mask;
     } else {
-        gValue9EE8E0.mask = temporary.mask;
-        gValue9EE8E0.encoded = temporary.encoded;
-        gValue9EE8E0.readCount = temporary.readCount;
+        const std::uint32_t mask = temporary.mask;
+        const std::uint32_t encoded = temporary.encoded;
+        const std::uint8_t readCount = temporary.readCount;
+        gValue9EE8E0.mask = mask;
+        gValue9EE8E0.encoded = encoded;
+        gValue9EE8E0.readCount = readCount;
     }
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
     audio::Sub_52CD60();

@@ -3628,3 +3628,11 @@ BUI01必要静态已通过：Scene/Yobi完整源及私有声明零改动，三�
 LOOP109/MAP106各两局部I-S各25来源、一X9B仅用途；预期语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657。旧1695条/1257/冻结定位/pending18与ECX pending7、三任务open及完整门禁保持。
 
 BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四组W32/W32/W8预取、同一临时四Construct/Destroy及原创建/返回/数值保持；正确更新绘制、父/通用工具/1257全源保持。两原根166条599B/三页、两窗口/12B常量/9B用途与证据/台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657、LOOP109/MAP106。旧对象/1257/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-map-action-coordinate-sampling-20261008。
+
+## BUK01 地图绘制父与四尾快照身份（2026-10-08）
+
+[基线](cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-baseline)704条2649B/十一页对应新1697/F:0006CF60/adapted。一父正文四片段恢复CUT count/encoded/mask与普通mask/encoded/count各X/Y三预取，原读取/Construct/Destroy/RNG、所有模式/失败/循环/描述符/三个helper/音频marker/owner和动作返回视图保持。
+
+LOOP110/MAP107各两局部I-S各25来源、一X7B仅用途；预期语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656。旧1697条/冻结定位/pending18与ECX pending7、三任务open及完整门禁保持。
+
+BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片段变化，CUT与普通X/Y按各自W8/W32顺序三载荷先取齐后发布；同一临时两读取/Construct/Destroy、RNG次数和三个helper及其它全源保持。704条2649B/十一页、三局部窗口/4B初值/7B用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656、LOOP110/MAP107。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持。未编译、测试或运行；完整正常寿命/数值/x87/机器ABI/全像素画面及R8继续。命名快照：cg2d-re-map-scene-snapshot-sampling-20261008。

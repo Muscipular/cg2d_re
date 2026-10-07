@@ -3844,3 +3844,19 @@ New(2,0)/原NULL失败、同一created action的callback/图像/action/direction
 三任务仍open，pending18/ECX pending7/closed11/差队列和完整门禁保持；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，不编译、测试或运行。整体目标active，完整正常生产消费/owner-alias寿命/全父/callee/数值/x87/机器ABI/链接/像素画面/明文互通及R8继续。
 
 BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四组W32/W32/W8预取、同一临时四Construct/Destroy及原创建/返回/数值保持；正确更新绘制、父/通用工具/1257全源保持。两原根166条599B/三页、两窗口/12B常量/9B用途与证据/台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657、LOOP109/MAP106。旧对象/1257/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-map-action-coordinate-sampling-20261008。
+
+## BUK01 地图绘制父四模式尾快照预取实修（2026-10-08）
+
+BUJ01地图动作四坐标载荷已实修提交，本步进入真实父46CF60。既有IDA只读MCP完整704条2649B/十一页一块，49directcall/73jump/两RET及43CB10/466B80/469020三父入向，补三局部后窗/4B已加载10000与尾7B；只本父全量，不复核所有callee或全父。
+
+确认尾部CUT X/Y原count W8、encoded W32、mask W32先读齐后pub；普通X/Y原mask/encoded W32、count W8先读齐后pub。现四分支逐字段取即pub。先落[子SPEC](../doc/cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-decision)，只改MapSceneDrawing一个既有正文四片段，各自具名预取再原序pub；同一临时先X后Y、两GetVal等效Read/Construct/Destroy/唯一RNG和既有尾52CD60调用保持，不统一模式样本或扩工具。
+
+完整根同时确认源held mode与counter/NotEqual短路/dirty W16、加载失败和回调后独立边界采样/两walkability分流/运动状态、投影/普通S32几何/对角逐格及外层fresh span保持。原tile-obj沿同一held index跨渲染/marker调用，不凭猜测改为重取；对象音效另fresh span取raw word。CUT三个分支/各16B描述符发布及created指针/后fresh槽消费、普通图层范围/低S16 clip/marker选择和BGM请求均源码保持，三个既有helper不新增原F、不制造修改。
+
+原描述符偏移2/6/10三W32、0/14两W16完整全零覆盖，现值初始化正确保持。原尾成功沿52CD60、失败沿加载负S32；469020清栈RET沿返回，两战斗父局部重写EAX后绘制背景，现void沿既有动作观察适配，不造fixed返或全父弃返/全机器ABI。源W32 counter与4B初值保持，不专项异常/回绕模拟。
+
+新1697/adapted，原7B NN_NOP/90无入向/后46D9C0仅用途；LOOP109→110/MAP106→107各两局部I-S各25来源、一R7。预期语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656，必要静态/纯文本汇总后记实值。
+
+三任务仍open，pending18/ECX pending7/closed11/差队列与完整门禁保持；原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，不编译、测试或运行。整体目标active，完整正常生产消费/owner-alias寿命/全callee/父/数值/x87/机器ABI/链接/全像素画面/明文互通及R8继续。
+
+BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片段变化，CUT与普通X/Y按各自W8/W32顺序三载荷先取齐后发布；同一临时两读取/Construct/Destroy、RNG次数和三个helper及其它全源保持。704条2649B/十一页、三局部窗口/4B初值/7B用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656、LOOP110/MAP107。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持。未编译、测试或运行；完整正常寿命/数值/x87/机器ABI/全像素画面及R8继续。命名快照：cg2d-re-map-scene-snapshot-sampling-20261008。

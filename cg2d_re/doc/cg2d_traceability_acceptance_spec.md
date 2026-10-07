@@ -1656,3 +1656,11 @@ BUI01必要静态已通过：Scene/Yobi完整源及私有声明零改动，三�
 LOOP107→109/MAP104→106各两局部I-S各25来源，三任务current/引用仍open；完整正常生产消费/全父/callee/数值/寿命/机器ABI/链接/像素画面/明文互通与R8继续，差队列/closed11/完整门禁与网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
 
 BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四组W32/W32/W8预取、同一临时四Construct/Destroy及原创建/返回/数值保持；正确更新绘制、父/通用工具/1257全源保持。两原根166条599B/三页、两窗口/12B常量/9B用途与证据/台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657、LOOP109/MAP106。旧对象/1257/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-map-action-coordinate-sampling-20261008。
+
+## BUK01 地图绘制父模式快照开发验收（2026-10-08）
+
+[基线](cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-baseline)、[裁决](cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-decision)、[验收](cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-acceptance)及[证据](cg2d_map_scene_snapshot_sampling_evidence.json)覆盖704条2649B/十一页、三父局部窗口/4B初值/7B用途。一正文四片段恢复四CUT/普通X/Y尾载荷预取，原宽度/读取/构造析构/RNG和正常全部控制/三个helper源保持。
+
+LOOP109→110/MAP106→107各两局部I-S各25来源，三任务current/引用仍open；完整正常生产消费/全callee/父/数值/x87/owner-alias寿命/机器ABI/链接/全像素画面/明文互通与R8继续，差队列/closed11/完整门禁和网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24保持。
+
+BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片段变化，CUT与普通X/Y按各自W8/W32顺序三载荷先取齐后发布；同一临时两读取/Construct/Destroy、RNG次数和三个helper及其它全源保持。704条2649B/十一页、三局部窗口/4B初值/7B用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656、LOOP110/MAP107。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持。未编译、测试或运行；完整正常寿命/数值/x87/机器ABI/全像素画面及R8继续。命名快照：cg2d-re-map-scene-snapshot-sampling-20261008。

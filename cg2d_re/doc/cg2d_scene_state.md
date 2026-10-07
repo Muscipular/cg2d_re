@@ -7923,3 +7923,11 @@ BUI01必要静态已通过：Scene/Yobi完整源及私有声明零改动，三�
 父创建结果发布共享槽，offsetX使用created指针、offsetY后按原fresh取槽，当前MapSceneDrawing正确全文保持；原1257/46DFF0图形消费也保持。不加父NULL保护或统一偏移取槽，创建原NULL失败/借用返回和W8/W16/W32字段、投影/数值公式保。12B常量与9B用途只局部事实，完整数值/x87/父/正常回收及机器ABI/画面运行继续。
 
 BUJ01必要静态已通过：完整Yobi仅创建一正文四片段变化，四组W32/W32/W8预取、同一临时四Construct/Destroy及原创建/返回/数值保持；正确更新绘制、父/通用工具/1257全源保持。两原根166条599B/三页、两窗口/12B常量/9B用途与证据/台账/文档模型一致。汇总及 -Check 通过，完整派生实值：语义1697/有效1690、合同1808（49.13%）、处置838/E980、R7已审404/余2657、LOOP109/MAP106。旧对象/1257/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持；仅本步静态，未编译、测试或运行，完整正常寿命/数值/x87/机器ABI及R8继续。命名快照：cg2d-re-map-action-coordinate-sampling-20261008。
+
+## 地图绘制父704条与尾部模式载荷实修（BUK01，2026-10-08）
+
+[完整基线](cg2d_map_scene_snapshot_sampling_spec.md#map-scene-snapshot-baseline)覆盖46CF60单块704条2649B/十一页、49directcall/73jump/两RET及三父局部窗口。只MapSceneDrawing一既有正文四片段恢复尾临时预取：CUT X/Y各count W8→encoded/mask W32先读齐再pub，普通X/Y各mask/encoded W32→count W8先读齐再pub；不合并模式取样序，两Player读取/Construct/Destroy/同一临时与唯一RNG次数保。
+
+已正确held模式/加载失败/回调后各自边界采样、两walkability分流、运动/dirty状态、投影/S32对角循环、同格tile→obj held index/fresh外层跨度、CUT描述符与动态指针消费、普通图层/低S16 clip与marker/音频调用保持全部源码。三个helper不造新原F或修改；原描述符五零写完整16B覆盖、10000已加载4B初值和7B用途有据，void局部动作观察不外推全ABI/全父弃返。完整正常生产消费/数值/x87/寿命/像素画面和运行继续。
+
+BUK01必要静态已通过：完整MapSceneDrawing仅一个既有父正文四片段变化，CUT与普通X/Y按各自W8/W32顺序三载荷先取齐后发布；同一临时两读取/Construct/Destroy、RNG次数和三个helper及其它全源保持。704条2649B/十一页、三局部窗口/4B初值/7B用途与证据/台账/文档模型一致。汇总及 -Check 通过，派生实值：语义1698/有效1691、合同1809（49.16%）、处置839/E984、R7已审405/余2656、LOOP110/MAP107。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11和完整门禁保持。未编译、测试或运行；完整正常寿命/数值/x87/机器ABI/全像素画面及R8继续。命名快照：cg2d-re-map-scene-snapshot-sampling-20261008。

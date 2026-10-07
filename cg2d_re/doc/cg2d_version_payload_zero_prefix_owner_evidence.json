@@ -1,0 +1,950 @@
+{
+  "schema_version": 1,
+  "batch_id": "BRT01",
+  "date": "2026-10-07",
+  "instance_id": "ida-17524",
+  "binary_name": "cg2d.exe",
+  "scope": "U03版本起点加载零值与两个只读消费者，源最小正常1B owner，不声称原未使用预留容量",
+  "version_code_scan": {
+    "range": [
+      "0x9a5b00",
+      "0x9a5d6c"
+    ],
+    "code_instruction_count": 389569,
+    "target_matches": [
+      {
+        "ea": "0x461a56",
+        "function": "0x460ff0",
+        "text": "push    offset unk_9A5C10",
+        "operand": 0,
+        "type": 5,
+        "value": "0x9a5c10"
+      },
+      {
+        "ea": "0x462384",
+        "function": "0x462330",
+        "text": "push    offset unk_9A5C10",
+        "operand": 0,
+        "type": 5,
+        "value": "0x9a5c10"
+      }
+    ],
+    "adjacent_message_pointer_matches": [
+      {
+        "ea": "0x45ec2c",
+        "text": "push    offset byte_9A5B08"
+      },
+      {
+        "ea": "0x45ec6c",
+        "text": "push    offset byte_9A5B08"
+      },
+      {
+        "ea": "0x45ece8",
+        "text": "mov     edi, offset byte_9A5B08"
+      },
+      {
+        "ea": "0x45ed26",
+        "text": "mov     edi, offset byte_9A5B08"
+      },
+      {
+        "ea": "0x45ed68",
+        "text": "mov     edi, offset byte_9A5B08"
+      }
+    ],
+    "all_range_match_count": 30,
+    "other_matches": "9A5B00状态W8与9A5B04选择W32读写；不进入独立版本正文；本次定向代码操作数检索结果不外推整个原函数验收"
+  },
+  "static_alias_and_padding_scan": {
+    "padding_code_scan": {
+      "range": [
+        "0xd68ac0",
+        "0xd68ac8"
+      ],
+      "code_instruction_count": 389569,
+      "matches": []
+    },
+    "loaded_noncode_alias_scan": {
+      "ranges": [
+        [
+          "0x9a5b08",
+          "0x9a5d6c"
+        ],
+        [
+          "0xd68ac0",
+          "0xd68ac8"
+        ]
+      ],
+      "segments": [
+        {
+          "start": "0x54d000",
+          "end": "0x54d39c",
+          "bytes_scanned": 924,
+          "loaded_matches": 0
+        },
+        {
+          "start": "0x54d39c",
+          "end": "0x553000",
+          "bytes_scanned": 23652,
+          "loaded_matches": 0
+        },
+        {
+          "start": "0x553000",
+          "end": "0x1088000",
+          "bytes_scanned": 11751424,
+          "loaded_matches": 0
+        }
+      ],
+      "unaligned_w32_matches": []
+    },
+    "storage": [
+      {
+        "ea": "0x9a5c10",
+        "loaded": false,
+        "file_offset": -1,
+        "item_head": "0x9a5c10",
+        "item_end": "0x9a5c11"
+      },
+      {
+        "ea": "0xd68ac6",
+        "loaded": false,
+        "file_offset": -1,
+        "item_head": "0xd68ac6",
+        "item_end": "0xd68ac7"
+      }
+    ]
+  },
+  "version_sender": {
+    "start": "0x512d30",
+    "end": "0x512d9b",
+    "count": 33,
+    "instructions": [
+      {
+        "ea": "0x512d30",
+        "size": 5,
+        "text": "mov     eax, dword_58B5F0"
+      },
+      {
+        "ea": "0x512d35",
+        "size": 5,
+        "text": "push    offset aXoee; \"Xoee\""
+      },
+      {
+        "ea": "0x512d3a",
+        "size": 1,
+        "text": "push    eax; Buffer"
+      },
+      {
+        "ea": "0x512d3b",
+        "size": 5,
+        "text": "call    sub_517510"
+      },
+      {
+        "ea": "0x512d40",
+        "size": 6,
+        "text": "mov     ecx, outBufferLen"
+      },
+      {
+        "ea": "0x512d46",
+        "size": 4,
+        "text": "mov     edx, [esp+8+arg_4]"
+      },
+      {
+        "ea": "0x512d4a",
+        "size": 3,
+        "text": "add     esp, 8"
+      },
+      {
+        "ea": "0x512d4d",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x512d4e",
+        "size": 1,
+        "text": "push    edx"
+      },
+      {
+        "ea": "0x512d4f",
+        "size": 5,
+        "text": "call    sub_517120"
+      },
+      {
+        "ea": "0x512d54",
+        "size": 3,
+        "text": "add     esp, 4"
+      },
+      {
+        "ea": "0x512d57",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "ea": "0x512d58",
+        "size": 5,
+        "text": "mov     eax, dword_58B5F0"
+      },
+      {
+        "ea": "0x512d5d",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "ea": "0x512d5e",
+        "size": 5,
+        "text": "call    sub_5170D0"
+      },
+      {
+        "ea": "0x512d63",
+        "size": 6,
+        "text": "mov     ecx, outBufferLen"
+      },
+      {
+        "ea": "0x512d69",
+        "size": 4,
+        "text": "mov     edx, [esp+0Ch+arg_8]"
+      },
+      {
+        "ea": "0x512d6d",
+        "size": 3,
+        "text": "add     esp, 0Ch"
+      },
+      {
+        "ea": "0x512d70",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x512d71",
+        "size": 1,
+        "text": "push    edx"
+      },
+      {
+        "ea": "0x512d72",
+        "size": 5,
+        "text": "call    sub_517160"
+      },
+      {
+        "ea": "0x512d77",
+        "size": 3,
+        "text": "add     esp, 4"
+      },
+      {
+        "ea": "0x512d7a",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "ea": "0x512d7b",
+        "size": 5,
+        "text": "mov     eax, dword_58B5F0"
+      },
+      {
+        "ea": "0x512d80",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "ea": "0x512d81",
+        "size": 5,
+        "text": "call    sub_5170D0"
+      },
+      {
+        "ea": "0x512d86",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F0"
+      },
+      {
+        "ea": "0x512d8c",
+        "size": 4,
+        "text": "mov     edx, [esp+0Ch+arg_0]"
+      },
+      {
+        "ea": "0x512d90",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x512d91",
+        "size": 1,
+        "text": "push    edx"
+      },
+      {
+        "ea": "0x512d92",
+        "size": 5,
+        "text": "call    sub_517480"
+      },
+      {
+        "ea": "0x512d97",
+        "size": 3,
+        "text": "add     esp, 14h"
+      },
+      {
+        "ea": "0x512d9a",
+        "size": 1,
+        "text": "retn"
+      }
+    ]
+  },
+  "text_token_sender": {
+    "start": "0x517160",
+    "end": "0x517186",
+    "count": 14,
+    "instructions": [
+      {
+        "ea": "0x517160",
+        "size": 4,
+        "text": "mov     eax, [esp+arg_0]"
+      },
+      {
+        "ea": "0x517164",
+        "size": 1,
+        "text": "push    esi"
+      },
+      {
+        "ea": "0x517165",
+        "size": 1,
+        "text": "push    eax"
+      },
+      {
+        "ea": "0x517166",
+        "size": 5,
+        "text": "call    sub_5171F0"
+      },
+      {
+        "ea": "0x51716b",
+        "size": 6,
+        "text": "mov     ecx, outBufferLen"
+      },
+      {
+        "ea": "0x517171",
+        "size": 2,
+        "text": "mov     esi, eax"
+      },
+      {
+        "ea": "0x517173",
+        "size": 1,
+        "text": "push    ecx"
+      },
+      {
+        "ea": "0x517174",
+        "size": 5,
+        "text": "push    offset asc_55C9BC; \" \""
+      },
+      {
+        "ea": "0x517179",
+        "size": 1,
+        "text": "push    esi"
+      },
+      {
+        "ea": "0x51717a",
+        "size": 5,
+        "text": "call    sub_5170D0"
+      },
+      {
+        "ea": "0x51717f",
+        "size": 3,
+        "text": "add     esp, 10h"
+      },
+      {
+        "ea": "0x517182",
+        "size": 2,
+        "text": "mov     eax, esi"
+      },
+      {
+        "ea": "0x517184",
+        "size": 1,
+        "text": "pop     esi"
+      },
+      {
+        "ea": "0x517185",
+        "size": 1,
+        "text": "retn"
+      }
+    ]
+  },
+  "escape_consumer": {
+    "start": "0x5171f0",
+    "end": "0x5172ce",
+    "count": 66,
+    "page_start": 0,
+    "instructions": [
+      {
+        "ea": "0x5171f0",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x5171f6",
+        "size": 2,
+        "text": "xor     eax, eax"
+      },
+      {
+        "ea": "0x5171f8",
+        "size": 2,
+        "text": "mov     [ecx], al"
+      },
+      {
+        "ea": "0x5171fa",
+        "size": 4,
+        "text": "mov     ecx, [esp+arg_0]"
+      },
+      {
+        "ea": "0x5171fe",
+        "size": 3,
+        "text": "cmp     byte ptr [ecx], 0"
+      },
+      {
+        "ea": "0x517201",
+        "size": 6,
+        "text": "jz      loc_5172BE"
+      },
+      {
+        "ea": "0x517207",
+        "size": 1,
+        "text": "push    esi"
+      },
+      {
+        "ea": "0x517208",
+        "size": 2,
+        "text": "mov     edx, ecx"
+      },
+      {
+        "ea": "0x51720a",
+        "size": 2,
+        "text": "mov     cl, [edx]"
+      },
+      {
+        "ea": "0x51720c",
+        "size": 3,
+        "text": "cmp     cl, 80h"
+      },
+      {
+        "ea": "0x51720f",
+        "size": 2,
+        "text": "jl      short loc_517247"
+      },
+      {
+        "ea": "0x517211",
+        "size": 3,
+        "text": "cmp     cl, 0FFh"
+      },
+      {
+        "ea": "0x517214",
+        "size": 2,
+        "text": "jg      short loc_517247"
+      },
+      {
+        "ea": "0x517216",
+        "size": 6,
+        "text": "mov     esi, dword_58B5F8"
+      },
+      {
+        "ea": "0x51721c",
+        "size": 1,
+        "text": "inc     eax"
+      },
+      {
+        "ea": "0x51721d",
+        "size": 1,
+        "text": "inc     edx"
+      },
+      {
+        "ea": "0x51721e",
+        "size": 4,
+        "text": "mov     [esi+eax-1], cl"
+      },
+      {
+        "ea": "0x517222",
+        "size": 2,
+        "text": "mov     cl, [edx]"
+      },
+      {
+        "ea": "0x517224",
+        "size": 6,
+        "text": "mov     esi, dword_58B5F8"
+      },
+      {
+        "ea": "0x51722a",
+        "size": 3,
+        "text": "mov     [esi+eax], cl"
+      },
+      {
+        "ea": "0x51722d",
+        "size": 3,
+        "text": "mov     cl, [edx+1]"
+      },
+      {
+        "ea": "0x517230",
+        "size": 1,
+        "text": "inc     eax"
+      },
+      {
+        "ea": "0x517231",
+        "size": 1,
+        "text": "inc     edx"
+      },
+      {
+        "ea": "0x517232",
+        "size": 2,
+        "text": "test    cl, cl"
+      },
+      {
+        "ea": "0x517234",
+        "size": 2,
+        "text": "jnz     short loc_51720A"
+      },
+      {
+        "ea": "0x517236",
+        "size": 6,
+        "text": "mov     edx, dword_58B5F8"
+      },
+      {
+        "ea": "0x51723c",
+        "size": 1,
+        "text": "pop     esi"
+      },
+      {
+        "ea": "0x51723d",
+        "size": 4,
+        "text": "mov     byte ptr [edx+eax], 0"
+      },
+      {
+        "ea": "0x517241",
+        "size": 5,
+        "text": "mov     eax, dword_58B5F8"
+      },
+      {
+        "ea": "0x517246",
+        "size": 1,
+        "text": "retn"
+      },
+      {
+        "ea": "0x517247",
+        "size": 3,
+        "text": "cmp     cl, 5Ch ; '\\'"
+      },
+      {
+        "ea": "0x51724a",
+        "size": 2,
+        "text": "jnz     short loc_517264"
+      },
+      {
+        "ea": "0x51724c",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x517252",
+        "size": 1,
+        "text": "inc     eax"
+      },
+      {
+        "ea": "0x517253",
+        "size": 5,
+        "text": "mov     byte ptr [ecx+eax-1], 5Ch ; '\\'"
+      },
+      {
+        "ea": "0x517258",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x51725e",
+        "size": 4,
+        "text": "mov     byte ptr [ecx+eax], 5Ch ; '\\'"
+      },
+      {
+        "ea": "0x517262",
+        "size": 2,
+        "text": "jmp     short loc_51722D"
+      },
+      {
+        "ea": "0x517264",
+        "size": 3,
+        "text": "cmp     cl, 20h ; ' '"
+      },
+      {
+        "ea": "0x517267",
+        "size": 2,
+        "text": "jnz     short loc_517281"
+      },
+      {
+        "ea": "0x517269",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x51726f",
+        "size": 1,
+        "text": "inc     eax"
+      },
+      {
+        "ea": "0x517270",
+        "size": 5,
+        "text": "mov     byte ptr [ecx+eax-1], 5Ch ; '\\'"
+      },
+      {
+        "ea": "0x517275",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x51727b",
+        "size": 4,
+        "text": "mov     byte ptr [ecx+eax], 53h ; 'S'"
+      },
+      {
+        "ea": "0x51727f",
+        "size": 2,
+        "text": "jmp     short loc_51722D"
+      },
+      {
+        "ea": "0x517281",
+        "size": 3,
+        "text": "cmp     cl, 0Ah"
+      },
+      {
+        "ea": "0x517284",
+        "size": 2,
+        "text": "jnz     short loc_51729E"
+      },
+      {
+        "ea": "0x517286",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x51728c",
+        "size": 1,
+        "text": "inc     eax"
+      },
+      {
+        "ea": "0x51728d",
+        "size": 5,
+        "text": "mov     byte ptr [ecx+eax-1], 5Ch ; '\\'"
+      },
+      {
+        "ea": "0x517292",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x517298",
+        "size": 4,
+        "text": "mov     byte ptr [ecx+eax], 6Eh ; 'n'"
+      },
+      {
+        "ea": "0x51729c",
+        "size": 2,
+        "text": "jmp     short loc_51722D"
+      },
+      {
+        "ea": "0x51729e",
+        "size": 3,
+        "text": "cmp     cl, 0Dh"
+      },
+      {
+        "ea": "0x5172a1",
+        "size": 2,
+        "text": "jnz     short loc_517224"
+      },
+      {
+        "ea": "0x5172a3",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x5172a9",
+        "size": 1,
+        "text": "inc     eax"
+      },
+      {
+        "ea": "0x5172aa",
+        "size": 5,
+        "text": "mov     byte ptr [ecx+eax-1], 5Ch ; '\\'"
+      },
+      {
+        "ea": "0x5172af",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x5172b5",
+        "size": 4,
+        "text": "mov     byte ptr [ecx+eax], 72h ; 'r'"
+      },
+      {
+        "ea": "0x5172b9",
+        "size": 5,
+        "text": "jmp     loc_51722D"
+      },
+      {
+        "ea": "0x5172be",
+        "size": 6,
+        "text": "mov     ecx, dword_58B5F8"
+      },
+      {
+        "ea": "0x5172c4",
+        "size": 4,
+        "text": "mov     byte ptr [ecx+eax], 0"
+      },
+      {
+        "ea": "0x5172c8",
+        "size": 5,
+        "text": "mov     eax, dword_58B5F8"
+      },
+      {
+        "ea": "0x5172cd",
+        "size": 1,
+        "text": "retn"
+      }
+    ]
+  },
+  "original_bytes_and_call_sites": {
+    "functions": [
+      {
+        "start": "0x512d30",
+        "end_exclusive": "0x512d9b",
+        "size": 107,
+        "bytes": "a1f0b558006898b3580050e8d04700008b0decb558008b54241083c4085152e8cc43000083c40450a1f0b5580050e86d4300008b0decb558008b54241883c40c5152e8e943000083c40450a1f0b5580050e84a4300008b0df0b558008b5424105152e8e946000083c414c3"
+      },
+      {
+        "start": "0x517160",
+        "end_exclusive": "0x517186",
+        "size": 38,
+        "bytes": "8b4424045650e8850000008b0decb558008bf05168bcc9550056e851ffffff83c4108bc65ec3"
+      },
+      {
+        "start": "0x5171f0",
+        "end_exclusive": "0x5172ce",
+        "size": 222,
+        "bytes": "8b0df8b5580033c088018b4c24048039000f84b7000000568bd18a0a80f9807c3680f9ff7f318b35f8b558004042884c06ff8a0a8b35f8b55800880c068a4a01404284c975d48b15f8b558005ec6040200a1f8b55800c380f95c75188b0df8b5580040c64401ff5c8b0df8b55800c604015cebc980f92075188b0df8b5580040c64401ff5c8b0df8b55800c6040153ebac80f90a75188b0df8b5580040c64401ff5c8b0df8b55800c604016eeb8f80f90d75818b0df8b5580040c64401ff5c8b0df8b55800c6040172e96fffffff8b0df8b55800c6040100a1f8b55800c3"
+      }
+    ],
+    "call_sites": [
+      {
+        "start": "0x461a43",
+        "end_exclusive": "0x461a72",
+        "instructions": [
+          {
+            "ea": "0x461a46",
+            "text": "push    offset a2003122930; \"20031229_30\""
+          },
+          {
+            "ea": "0x461a4b",
+            "text": "push    4"
+          },
+          {
+            "ea": "0x461a4d",
+            "text": "push    eax"
+          },
+          {
+            "ea": "0x461a4e",
+            "text": "jmp     short loc_461A5E"
+          },
+          {
+            "ea": "0x461a50",
+            "text": "mov     ecx, s; jumptable 00461A2A case 7"
+          },
+          {
+            "ea": "0x461a56",
+            "text": "push    offset unk_9A5C10"
+          },
+          {
+            "ea": "0x461a5b",
+            "text": "push    5"
+          },
+          {
+            "ea": "0x461a5d",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x461a5e",
+            "text": "call    sub_512D30"
+          },
+          {
+            "ea": "0x461a63",
+            "text": "add     esp, 0Ch"
+          },
+          {
+            "ea": "0x461a66",
+            "text": "mov     gWorld__SceneState, edi; jumptable 00461A2A default case, cases 1,3,4"
+          },
+          {
+            "ea": "0x461a6c",
+            "text": "pop     edi"
+          },
+          {
+            "ea": "0x461a6d",
+            "text": "pop     esi"
+          },
+          {
+            "ea": "0x461a6e",
+            "text": "pop     ebp"
+          },
+          {
+            "ea": "0x461a6f",
+            "text": "pop     ebx"
+          },
+          {
+            "ea": "0x461a70",
+            "text": "add     esp, 118h"
+          }
+        ]
+      },
+      {
+        "start": "0x462379",
+        "end_exclusive": "0x46239b",
+        "instructions": [
+          {
+            "ea": "0x46237a",
+            "text": "cmp     al, 7"
+          },
+          {
+            "ea": "0x46237c",
+            "text": "jnz     short loc_46238E"
+          },
+          {
+            "ea": "0x46237e",
+            "text": "mov     edx, s"
+          },
+          {
+            "ea": "0x462384",
+            "text": "push    offset unk_9A5C10"
+          },
+          {
+            "ea": "0x462389",
+            "text": "push    5"
+          },
+          {
+            "ea": "0x46238b",
+            "text": "push    edx"
+          },
+          {
+            "ea": "0x46238c",
+            "text": "jmp     short loc_4623BA"
+          },
+          {
+            "ea": "0x46238e",
+            "text": "cmp     al, 5"
+          },
+          {
+            "ea": "0x462390",
+            "text": "jz      short loc_4623D1"
+          },
+          {
+            "ea": "0x462392",
+            "text": "cmp     al, 6"
+          },
+          {
+            "ea": "0x462394",
+            "text": "jz      short loc_4623D1"
+          },
+          {
+            "ea": "0x462396",
+            "text": "cmp     al, bl"
+          },
+          {
+            "ea": "0x462398",
+            "text": "jz      short loc_4623AD"
+          },
+          {
+            "ea": "0x46239a",
+            "text": "cmp     al, 2"
+          }
+        ]
+      }
+    ]
+  },
+  "original_reserved_capacity_known": false,
+  "original_normal_read_footprint_bytes": 1,
+  "chosen_native_capacity_bytes": 1,
+  "chosen_native_mutability": "const",
+  "original_input_writes_in_escape_path": 0,
+  "original_runtime_payload_writer": "正常内容由原未装载静态区加载零初始化；全部两次指针外传为只读输入，不补运行生成逻辑",
+  "implementation_snapshot": "cg2d-re-version-payload-zero-prefix-owner-20261007",
+  "verification_level": "仅正常1B数据生产消费与唯一owner源码静态，不是全三函数或运行验收",
+  "upgrade_shared_send_call": [
+    {
+      "ea": "0x4623ad",
+      "bytes": "a1b8b2d900",
+      "text": "mov     eax, s"
+    },
+    {
+      "ea": "0x4623b2",
+      "bytes": "680cc85500",
+      "text": "push    offset a2003122920; \"20031229_20\""
+    },
+    {
+      "ea": "0x4623b7",
+      "bytes": "6a02",
+      "text": "push    2"
+    },
+    {
+      "ea": "0x4623b9",
+      "bytes": "50",
+      "text": "push    eax"
+    },
+    {
+      "ea": "0x4623ba",
+      "bytes": "e871090b00",
+      "text": "call    sub_512D30"
+    },
+    {
+      "ea": "0x4623bf",
+      "bytes": "83c40c",
+      "text": "add     esp, 0Ch"
+    },
+    {
+      "ea": "0x4623c2",
+      "bytes": "c705640dff0003000000",
+      "text": "mov     gWorld__SceneState, 3"
+    }
+  ],
+  "feature_before": {
+    "id": "FUNC-CHARACTER",
+    "kind": "flow",
+    "parent_id": null,
+    "title": "角色选择与创建",
+    "domain": "CHARACTER",
+    "scope": "included",
+    "baseline_documents": [
+      "doc/cg2d_character_select_scene.md",
+      "doc/cg2d_creation_gate_adaptation_spec.md"
+    ],
+    "original_inventory_ids": [
+      "F:000626A0"
+    ],
+    "closure_task_ids": [
+      "P08",
+      "U03",
+      "V03"
+    ],
+    "dependencies": [
+      "FUNC-LOGIN"
+    ],
+    "acceptance_focus": "角色记录、创建gate、version正文和请求往返",
+    "decision_refs": [
+      "doc/cg2d_closure_decisions_spec.md",
+      "doc/cg2d_character_select_scene.md#character-message-storage-decision"
+    ],
+    "blockers": [
+      "基线成员及门禁证据尚待逐项归档"
+    ],
+    "gates": {},
+    "member_inventory_closed": false,
+    "member_inventory_evidence_refs": []
+  },
+  "task_acceptance_before": {
+    "task_id": "U03",
+    "state": "open",
+    "epoch": "2026-10-04.1",
+    "evidence_refs": [
+      "doc/cg2d_character_select_scene.md#character-message-storage-source-state"
+    ]
+  },
+  "header_before": "#pragma once\n\n#include \"LoginMessageDependencies.hpp\"\n#include \"world/MailState.hpp\"\n\n#include \"cg/LegacyAudio.hpp\"\n#include \"cg/LoginRequest.hpp\"\n#include \"cg/network/NetworkRuntime.hpp\"\n#include \"cg/render/TextPendingQueue.hpp\"\n\n#include <array>\n#include <cstddef>\n#include <cstdint>\n#include <cstdio>\n\nnamespace cg::character_select::detail {\n\n// 原 UI 记录严格由 7 个 32 位整数组成；接口保留强类型原生指针。\nstruct CharacterSelectUiRecord {\n    std::array<std::int32_t, 7> values;\n};\n\nstatic_assert(sizeof(CharacterSelectUiRecord) == 0x1C);\n\n// sub_462090 的六个定宽坐标字段和一个原生文本指针。\nstruct CharacterModalUiRecord {\n    std::int32_t textX;\n    std::int32_t textY;\n    std::int32_t left;\n    std::int32_t top;\n    std::int32_t width;\n    std::int32_t height;\n    const char* text;\n};\n\nstatic_assert(offsetof(CharacterModalUiRecord, textX) == 0x00);\nstatic_assert(offsetof(CharacterModalUiRecord, textY) == 0x04);\nstatic_assert(offsetof(CharacterModalUiRecord, left) == 0x08);\nstatic_assert(offsetof(CharacterModalUiRecord, top) == 0x0C);\nstatic_assert(offsetof(CharacterModalUiRecord, width) == 0x10);\nstatic_assert(offsetof(CharacterModalUiRecord, height) == 0x14);\nstatic_assert(offsetof(CharacterModalUiRecord, text) == 0x18);\nstatic_assert(sizeof(CharacterModalUiRecord) == 0x20);\n\n// sub_503990@0x503990 与 sub_503A20@0x503A20 的还原入口。\nstd::int32_t Sub_503990(const CharacterModalUiRecord* uiRecord);\nstd::int32_t Sub_503A20(\n    const CharacterModalUiRecord* uiRecord,\n    std::uint8_t renderMode,\n    std::int8_t color,\n    std::int32_t hoverMode,\n    std::uint32_t hoverImageSequence,\n    std::uint8_t layer);\n\nusing cg::login::Sub_51B3B0;\n// 原 sub_520200@0x520200：共享当前记录持久化核心的角色选择侧薄包装。\nstd::int32_t Sub_520200();\n\n// sub_460D00@0x460D00 与 sub_461B30@0x461B30 共享的真实直接目标。\nusing cg::login::Sub_51B110;\n\nstd::int32_t Sub_45E7B0(); // 创建请求前局部重置当前资料并保存，透传保存结果。\nstd::int32_t Sub_45E7D0(); // 创建请求消息父入口；0等待、1成功、2失败。\n\n// 原4626A0完整本体；WorldUpdate按D01显式传入口gate=1，不使用默认参数。\nvoid ProcessCreationScene_4626A0(std::int32_t entryGate);\n\n// 原 [0x464290,0x4642B4)：四项 left/top/width/height 转换为鼠标命中矩形。\nstd::int32_t Sub_464290(const std::int32_t* rectangle);\n\n// 原 [0x462870,0x46287C)：清理 Yobi 后递增共享场景状态。\nvoid Sub_462870();\n\n// 原 [0x462880,0x462926)：创建两枚角色创建界面 action，写共享五槽并清输入上下文。\nvoid Sub_462880(std::uint8_t resetSelection);\n\nstd::int32_t Sub_462930(); // 创建角色选择页，完整命中/版本/变体/双预览与绘制。\nstd::uint32_t Sub_463100(); // 标死两预览对象但不清槽，初始化创建输入与字段，返回采样的PUK。\nstd::int32_t Sub_4631D0(); // 创建页完整交互/确认/绘制，返回0继续、1确认、2返回。\nstd::int32_t Sub_4642C0(); // 保存14个W32及完整15CH输入上下文，返回最后有符号字节快照。\nstd::uint8_t Sub_464380(); // 从备份低字节恢复创建字段，整块恢复输入，返回末次AL。\n\n// 原 [0x50E770,0x50E77A)：忽略网络首参，写 Puk 版本 W8 并返回该字节。\nstd::uint8_t Sub_50E770(std::uintptr_t unusedSocket, std::uint8_t pukVersion);\n\nusing cg::world::detail::Sub_519290;\nusing cg::world::detail::Sub_5194C0;\nusing cg::world::detail::Sub_519300;\nusing cg::world::detail::Sub_519550;\n// 原 [0x51BA10,0x51BAB5)：按原区间顺序返回图号类别 0..5。\nstd::int32_t Sub_51BA10(std::int32_t imageNo);\n// 原 [0x51BF00,0x51BFEF)：三段早退后按 signed 商索引 14 项局部图号表。\nstd::int32_t Sub_51BF00(std::int32_t imageNo);\n// 原 [0x51BAC0,0x51BB76)：旧图号逆变换，仅在有效区间分解。\nstd::int32_t Sub_51BAC0(std::int32_t imageNo);\n// 原 [0x51BD00,0x51BDA8)：按图号区间映射 33100/33101 或 -1。\nstd::int32_t Sub_51BD00(std::int32_t imageNo);\n// 原 [0x51BFF0,0x51C0CA)：14 项类别查找及特殊区间转换。\nstd::int32_t Sub_51BFF0(std::int32_t imageNo);\n// 原 [0x51BB80,0x51BC4E)：旧图号的分段换算，类别 3/4 交换。\nstd::int32_t Sub_51BB80(std::int32_t imageNo);\n// 原 [0x51BC50,0x51BCFF)：按覆盖/Puk允许类别回退，独立于51B740。\nstd::int32_t Sub_51BC50(std::int32_t imageNo);\n// 原 [0x51B7D0,0x51B90F)：图号的有序区间类别判定，供 51B740 消费。\nstd::int32_t Sub_51B7D0(std::int32_t imageNo);\n// 原 [0x51B740,0x51B7CE)：采样覆盖/Puk版本后按类别决定保留或回退图号。\nstd::int32_t Sub_51B740(std::int32_t imageNo);\n// 原 [0x51B910,0x51BA08)：图号映射至 100900/100901/100902/110598 或 -1。\nstd::int32_t Sub_51B910(std::int32_t imageNo);\n// 原 [0x4C56E0,0x4C5789)：依序写类别、余数及三层分解，返回首个输出指针。\nstd::int32_t* Sub_4C56E0(\n    std::int32_t imageNo,\n    std::int32_t* outBase,\n    std::int32_t* outClass,\n    std::int32_t* outQuarter,\n    std::int32_t* outFifth,\n    std::int32_t* outOnes);\n// 原 [0x4C5650,0x4C56DA)：按类别组合五项图号分量，其他类别透传首参。\nstd::int32_t Sub_4C5650(\n    std::int32_t base,\n    std::int32_t imageClass,\n    std::int32_t quarter,\n    std::int32_t fifth,\n    std::int32_t ones);\nusing cg::audio::Sub_52B990;\n\nstd::int32_t Sub_45F100(const CharacterSelectUiRecord* uiRecord);\nvoid Sub_45EFD0(\n    const CharacterSelectUiRecord* uiRecord,\n    std::uint8_t layer,\n    std::int32_t overlayMode,\n    std::int32_t overlayImageNo,\n    std::int32_t style);\nusing cg::render::Sub_45F090;\nusing cg::network::Sub_512D30;\n\n// 原 0x9A5C10 的容量未决，只保留未定长外部数组声明。\nextern char gVersionPayload9A5C10[];\n\n// 原9A4EAC唯一128B提示正文；508800真实回复生产，角色选择显示借用同一存储。\n// 容量不适用于独立9A5C10版本正文；SDB01合同见角色选择文档。\nextern char gText9A4EAC[128];\nstatic_assert(sizeof(gText9A4EAC) == 128);\n\n} // namespace cg::character_select::detail\n",
+  "source_before": "#include \"cg/CharacterSelectScene.hpp\"\n\n#include \"CharacterSelectSceneDependencies.hpp\"\n#include \"CharacterSelectState.hpp\"\n\n#include \"cg/LoginMessage.hpp\"\n#include \"cg/Palette.hpp\"\n#include \"cg/platform/MainLoop.hpp\"\n#include \"cg/render/GraphicCacheState.hpp\"\n#include \"cg/world/SceneState.hpp\"\n\n#include <bit>\n#include <cstdint>\n\nnamespace cg::character_select {\nnamespace {\n\n// 原 0x55AC58/0x55C8F0/0x55C900/0x55C8E0，供两条版本场景复用原字节。\nconstexpr char kUpgradeProgressText[] =\n    \"\\xAA\\xA9\\xA5\\xBB\\xA4\\xC9\\xAF\\xC5\\xA4\\xA4\\xA1\\x45\\xA1\\x45\\xA1\\x45\";\nconstexpr char kUpgradeSucceededText[] =\n    \"\\xAA\\xA9\\xA5\\xBB\\xA4\\x77\\xB8\\x67\\xA4\\xC9\\xAF\\xC5\\xA1\\x43\";\nconstexpr char kUpgradeFailedText[] =\n    \"\\xAA\\xA9\\xA5\\xBB\\xA4\\xC9\\xAF\\xC5\\xA5\\xA2\\xB1\\xD1\\xA1\\x43\";\nconstexpr char kCannotUpgradeText[] =\n    \"\\xB5\\x4C\\xAA\\x6B\\xA7\\xF3\\xB7\\x73\\xAA\\xA9\\xA5\\xBB\\xA1\\x43\";\nconstexpr char kLegacyVersionRequest[] = \"abcdefg\"; // 原 0x55C910。\n\nstatic_assert(sizeof(kUpgradeProgressText) == 17);\nstatic_assert(sizeof(kUpgradeSucceededText) == 15);\nstatic_assert(sizeof(kUpgradeFailedText) == 15);\nstatic_assert(sizeof(kCannotUpgradeText) == 15);\nstatic_assert(sizeof(kLegacyVersionRequest) == 8);\n\n// 原 0x9A6EB4，映像初值为空，只由 sub_462330 直接持有。\nlogin::YobiAction* gVersionUpgradeAction = nullptr;\n// 原 0x9A6E68，仅 sub_45E3D0 直接读写，与 0x9A6EB4 分槽。\nlogin::YobiAction* gLegacyVersionUpgradeAction = nullptr;\n\nstd::uint32_t UnsignedBits(std::int32_t value)\n{\n    return std::bit_cast<std::uint32_t>(value);\n}\n\n} // namespace\n\nstd::int32_t ProcessLegacyVersionScene_45E3D0()\n{\n    switch (UnsignedBits(world::gCurrentSceneState)) {\n    case 0:\n        gLegacyVersionUpgradeAction = nullptr;\n        [[fallthrough]];\n    case 1:\n        world::gCurrentSceneState = 2;\n        break;\n    case 2:\n        if (render::gPaletteCapability >= 2) {\n            const std::uint8_t pukVersion = state::gPukVersion;\n            if (pukVersion == 0 || pukVersion == 2) {\n                static_cast<void>(detail::Sub_512D30(\n                    platform::gConnectionSocket,\n                    2,\n                    kLegacyVersionRequest));\n                world::gCurrentSceneState = 3;\n            } else {\n                world::gCurrentSceneState = 202;\n            }\n        }\n        break;\n    case 3: {\n        gLegacyVersionUpgradeAction = nullptr;\n        std::int32_t columns =\n            (login::detail::TextMeasure(kUpgradeProgressText, 0) + 111) / 64;\n        if (columns < 2) {\n            columns = 2;\n        }\n        gLegacyVersionUpgradeAction = login::detail::Sub_5044E0(\n            ((10 - columns) * 64) / 2,\n            192,\n            columns * 64,\n            96,\n            1,\n            1);\n        world::gCurrentSceneState = 4;\n        break;\n    }\n    case 4:\n        if (gLegacyVersionUpgradeAction != nullptr\n            && login::detail::IsYobiActionStateEqual(\n                gLegacyVersionUpgradeAction,\n                1)) {\n            const std::int32_t width =\n                login::detail::TextMeasure(kUpgradeProgressText, 0);\n            login::detail::DrawText(\n                static_cast<std::int16_t>(320 - width / 2),\n                232,\n                2,\n                0,\n                0,\n                kUpgradeProgressText,\n                0,\n                0);\n        }\n        break;\n    case 100:\n        if (gLegacyVersionUpgradeAction != nullptr) {\n            login::detail::MarkDeath(gLegacyVersionUpgradeAction);\n        }\n        world::gCurrentSceneState = 101;\n        login::ResetLoginMessage();\n        break;\n    case 101:\n        if (login::UpdateLoginMessage(kUpgradeSucceededText) != 0) {\n            world::SetCurrentSceneType(3);\n        }\n        break;\n    case 200:\n        if (gLegacyVersionUpgradeAction != nullptr) {\n            login::detail::MarkDeath(gLegacyVersionUpgradeAction);\n        }\n        login::ResetLoginMessage();\n        world::gCurrentSceneState = 201;\n        break;\n    case 201:\n        if (login::UpdateLoginMessage(kUpgradeFailedText) != 0) {\n            world::gCurrentSceneState = 1;\n        }\n        break;\n    case 202:\n        world::gCurrentSceneState = 203;\n        login::ResetLoginMessage();\n        break;\n    case 203:\n        if (login::UpdateLoginMessage(kCannotUpgradeText) != 0) {\n            world::gCurrentSceneState = 1;\n        }\n        break;\n    default:\n        break;\n    }\n\n    return login::detail::DrawGraphic(320, 240, 3, 22030, 0, nullptr);\n}\n\nstd::int32_t ProcessScene_462330()\n{\n    switch (UnsignedBits(world::gCurrentSceneState)) {\n    case 0:\n        gVersionUpgradeAction = nullptr;\n        [[fallthrough]];\n    case 1:\n        world::gCurrentSceneState = 2;\n        break;\n    case 2:\n        if (render::gPaletteCapability >= 2) {\n            const std::uint8_t pukVersion = state::gPukVersion;\n            switch (pukVersion) {\n            case 7:\n                detail::Sub_512D30(\n                    platform::gConnectionSocket,\n                    5,\n                    detail::gVersionPayload9A5C10);\n                world::gCurrentSceneState = 3;\n                break;\n            case 5:\n            case 6:\n                detail::Sub_512D30(\n                    platform::gConnectionSocket,\n                    4,\n                    state::kVersion30);\n                world::gCurrentSceneState = 3;\n                break;\n            case 0:\n            case 2:\n                detail::Sub_512D30(\n                    platform::gConnectionSocket,\n                    2,\n                    state::kVersion20);\n                world::gCurrentSceneState = 3;\n                break;\n            default:\n                world::gCurrentSceneState = 202;\n                break;\n            }\n        }\n        break;\n    case 3: {\n        gVersionUpgradeAction = nullptr;\n        std::int32_t columns =\n            (login::detail::TextMeasure(kUpgradeProgressText, 0) + 111) / 64;\n        if (columns < 2) {\n            columns = 2;\n        }\n        gVersionUpgradeAction = login::detail::Sub_5044E0(\n            ((10 - columns) * 64) / 2,\n            192,\n            columns * 64,\n            96,\n            4,\n            1);\n        world::gCurrentSceneState = 4;\n        break;\n    }\n    case 4:\n        if (gVersionUpgradeAction != nullptr\n            && login::detail::IsYobiActionStateEqual(\n                gVersionUpgradeAction,\n                1)) {\n            const std::int32_t width =\n                login::detail::TextMeasure(kUpgradeProgressText, 0);\n            login::detail::DrawText(\n                static_cast<std::int16_t>(320 - width / 2),\n                232,\n                2,\n                0,\n                0,\n                kUpgradeProgressText,\n                0,\n                0);\n        }\n        break;\n    case 100:\n        if (gVersionUpgradeAction != nullptr) {\n            login::detail::MarkDeath(gVersionUpgradeAction);\n        }\n        world::gCurrentSceneState = 101;\n        login::ResetLoginMessage();\n        break;\n    case 101:\n        if (login::UpdateLoginMessage(kUpgradeSucceededText) != 0) {\n            login::detail::YobiClearUp_404D30();\n            if (state::gPreviewActions[0] != nullptr) {\n                state::gPreviewActions[0] = nullptr;\n            }\n            if (state::gPreviewActions[1] != nullptr) {\n                state::gPreviewActions[1] = nullptr;\n            }\n            world::SetCurrentSceneType(3);\n        }\n        break;\n    case 200:\n        if (gVersionUpgradeAction != nullptr) {\n            login::detail::MarkDeath(gVersionUpgradeAction);\n        }\n        login::ResetLoginMessage();\n        world::gCurrentSceneState = 201;\n        break;\n    case 201:\n        if (login::UpdateLoginMessage(kUpgradeFailedText) != 0) {\n            world::gCurrentSceneState = 1;\n        }\n        break;\n    case 202:\n        world::gCurrentSceneState = 203;\n        login::ResetLoginMessage();\n        break;\n    case 203:\n        if (login::UpdateLoginMessage(kCannotUpgradeText) != 0) {\n            world::gCurrentSceneState = 1;\n        }\n        break;\n    default:\n        break;\n    }\n\n    render::gGraphicCache4Queue[3] = 0;\n    static_cast<void>(ProcessCharacterSlot_461B30(0, 1));\n    static_cast<void>(ProcessCharacterSlot_461B30(1, 1));\n    return detail::Sub_45F090(0, 0, 3, 245060, 0, -1);\n}\n\n} // namespace cg::character_select\n",
+  "implementation_static_scope": "BRT01仅U03正常只读正文数据合同：9A5C10未装载/文件偏移-1，389569条目标操作数检索仅两版本起点PUSH，无非代码加载W32地址别名；两指针外传经512D30/517160到5171F0，原首BYTE零分支不读+1/不写输入，正常内容由原静态零初始化生产。新端唯一const char[1]静态owner与定长extern/sizeof=1，两原consumer/整个网络和其父全文保，原mode5/Xoee/空格/失败/返回和明文格式不改。1B为正常读取足迹对应工程容量，不冒称未知原未使用预留长度，不造默认版本或容错补空；U03源码closed，完整CHARACTER枚举/门禁、V03/互通/生命周期/资源未验。无新增F/语义处置/R7，不配置构建测试运行摘要，负分类另继续开发。",
+  "checklist_task_row_before": "| U03 / version payload | 创建/升级消费者已有；SDB01确认独立提示正文9A4EAC/128B声明一致，不借给版本正文 | 9A5C10实际容量、内容、存活期与生产者 | 不造空正文或默认版本；[创建](../doc/cg2d_character_select_scene.md)、[声明](../src/CharacterSelectSceneDependencies.hpp)、[SDB01](../doc/cg2d_character_select_scene.md#character-message-storage-source-state) |"
+}

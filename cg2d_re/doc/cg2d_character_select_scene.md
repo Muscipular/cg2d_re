@@ -2391,3 +2391,10 @@ needle分别为2000与814000，不转码、按token拆分或改成其他空白�
 限定静态验收检查精确补丁、共享声明/定义/消费引用、新增文档引用和台账汇总；
 不增加原身份、函数处置或运行证据，不提升T01/U03/完整功能门禁。
 固定快照`cg2d-re-character-message-storage-source-20261005`；不构建、测试、运行或计算摘要。
+
+<a id="version-zero-prefix-current"></a>
+## 版本7正文唯一owner（BRT01，2026-10-07）
+
+9A5C10缺定义已按[零前缀SPEC](cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-source-state)解决。定向代码地址形成／非代码加载别名与全部两次指针外传取证表明：原未装载零值仅供创建／升级mode5发送只读，512D30→517160→5171F0首BYTE零分支不读下一字节或修改输入。新端在既有CharacterVersionUpgrade.cpp定义唯一const char[1]静态对象，头文件同类型及sizeof=1，两consumer继续借同一正文；原Xoee、mode5、空格、socket／失败／返回与明文格式保持。
+
+1B是正常读取足迹对应的新端工程容量，原未使用预留尾部总长不冒称已知，也不反推相邻字段或借提示128B。此裁决沿工程委托解除旧“只保留未定长数组／不得固定容量”的当前限制，保留旧文历史时点；加载零初始化是真实生产，未制造默认版本或容错空正文。U03源码合同已关闭，完整角色／网络互通／生命周期及V03、运行门禁仍开放。

@@ -1230,3 +1230,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BRS01 宿主客户端可执行目标（2026-10-07）
 
 [目标SPEC](cg2d_hosted_client_executable_target_spec.md#hosted-client-target-source-state)纳入FUNC-STARTUP基线，新增局部I/S两条E-HOSTED-CLIENT-TARGET，证据800→802。唯一真实WIN32目标/ClientEntry归属与startup-render依赖已接，原三库、WinMain本体及宿主活动初始化保持；没有私有入口、整表重调或占位函数。C02/C04/V02只加本批引用且仍open。函数/语义/处置/成员/R7及完整feature gates不改；源码目标存在不代替链接、运行或整体启动退出验收。源变更和完整前态见[证据](cg2d_hosted_client_executable_target_evidence.json)。
+
+## BRT01 版本正文正常零足迹owner（2026-10-07）
+
+[局部SPEC](cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-source-state)纳入FUNC-CHARACTER，E802→804仅两局部I/S，各12真实来源。原未装载零值／全部两次只读外传／真实首BYTE零分支对应唯一const char[1]静态owner，新端容量裁决与未知原未使用预留长度分开；不增语义F/处置/成员或R7，不改网络本体和原两个父。U03源码closed，60任务源码closed10→11，完整功能／叶验收0和global=false保持；V03与完整角色门禁未验。见[证据](cg2d_version_payload_zero_prefix_owner_evidence.json)。

@@ -749,7 +749,8 @@
       "scope": "included",
       "baseline_documents": [
         "doc/cg2d_character_select_scene.md",
-        "doc/cg2d_creation_gate_adaptation_spec.md"
+        "doc/cg2d_creation_gate_adaptation_spec.md",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0"
@@ -765,10 +766,12 @@
       "acceptance_focus": "角色记录、创建gate、version正文和请求往返",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_character_select_scene.md#character-message-storage-decision"
+        "doc/cg2d_character_select_scene.md#character-message-storage-decision",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-decision"
       ],
       "blockers": [
-        "基线成员及门禁证据尚待逐项归档"
+        "基线成员及门禁证据尚待逐项归档",
+        "BRT01仅U03正常只读正文数据合同：9A5C10未装载/文件偏移-1，389569条目标操作数检索仅两版本起点PUSH，无非代码加载W32地址别名；两指针外传经512D30/517160到5171F0，原首BYTE零分支不读+1/不写输入，正常内容由原静态零初始化生产。新端唯一const char[1]静态owner与定长extern/sizeof=1，两原consumer/整个网络和其父全文保，原mode5/Xoee/空格/失败/返回和明文格式不改。1B为正常读取足迹对应工程容量，不冒称未知原未使用预留长度，不造默认版本或容错补空；U03源码closed，完整CHARACTER枚举/门禁、V03/互通/生命周期/资源未验。无新增F/语义处置/R7，不配置构建测试运行摘要，负分类另继续开发。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -34538,6 +34541,74 @@
       "observation": "原仅三STATIC，真实WinMain已存在，无可执行目标",
       "expected": "唯一WIN32客户端目标/ClientEntry归属及startup-render依赖，无私有入口或重复初始化",
       "actual": "BRS01仅源码目标接线：新增唯一WIN32客户端目标并把已有ClientEntry.cpp从startup迁至客户端，显式接startup/render，继承core/C++20/include和现系统/SDL3依赖；宿主标准CRT进入已有WinMain，函数体/应用活动初始化/旧CRT表全文未改，无/ENTRY、替代main或占位依赖。三库和Windows/MSVC/x64限制/预设保持。静态接线通过；未配置构建测试运行摘要，完整链接/初始化构析/退出及登录负分类/U03/资源依赖继续开发，C02/C04/V02仍open、完整feature门禁/global不改。"
+    },
+    {
+      "id": "E-VERSION-ZERO-PREFIX-OWNER-I-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-version-payload-zero-prefix-owner-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-baseline",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-decision",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-acceptance",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-source-state",
+        "doc/cg2d_version_payload_zero_prefix_owner_evidence.json",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/CharacterVersionUpgrade.cpp",
+        "src/CharacterSelectScene.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "原正常1B只读零足迹以唯一静态const char[1]承接；未知未使用尾部不猜容量，两个既有发送caller及封包保持",
+          "decision_ref": "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "U03缺定义；原未装载零起点只有两只读发送外传，实际消费者首零BYTE即返回独立输出",
+      "expected": "唯一1B静态只读owner、extern与sizeof一致，两原mode5发送共享同对象，原网络格式及父行为保持",
+      "actual": "BRT01仅U03正常只读正文数据合同：9A5C10未装载/文件偏移-1，389569条目标操作数检索仅两版本起点PUSH，无非代码加载W32地址别名；两指针外传经512D30/517160到5171F0，原首BYTE零分支不读+1/不写输入，正常内容由原静态零初始化生产。新端唯一const char[1]静态owner与定长extern/sizeof=1，两原consumer/整个网络和其父全文保，原mode5/Xoee/空格/失败/返回和明文格式不改。1B为正常读取足迹对应工程容量，不冒称未知原未使用预留长度，不造默认版本或容错补空；U03源码closed，完整CHARACTER枚举/门禁、V03/互通/生命周期/资源未验。无新增F/语义处置/R7，不配置构建测试运行摘要，负分类另继续开发。"
+    },
+    {
+      "id": "E-VERSION-ZERO-PREFIX-OWNER-S-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-version-payload-zero-prefix-owner-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-baseline",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-decision",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-acceptance",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-source-state",
+        "doc/cg2d_version_payload_zero_prefix_owner_evidence.json",
+        "src/CharacterSelectSceneDependencies.hpp",
+        "src/CharacterVersionUpgrade.cpp",
+        "src/CharacterSelectScene.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "doc/cg2d_character_select_scene.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "原正常1B只读零足迹以唯一静态const char[1]承接；未知未使用尾部不猜容量，两个既有发送caller及封包保持",
+          "decision_ref": "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "U03缺定义；原未装载零起点只有两只读发送外传，实际消费者首零BYTE即返回独立输出",
+      "expected": "唯一1B静态只读owner、extern与sizeof一致，两原mode5发送共享同对象，原网络格式及父行为保持",
+      "actual": "BRT01仅U03正常只读正文数据合同：9A5C10未装载/文件偏移-1，389569条目标操作数检索仅两版本起点PUSH，无非代码加载W32地址别名；两指针外传经512D30/517160到5171F0，原首BYTE零分支不读+1/不写输入，正常内容由原静态零初始化生产。新端唯一const char[1]静态owner与定长extern/sizeof=1，两原consumer/整个网络和其父全文保，原mode5/Xoee/空格/失败/返回和明文格式不改。1B为正常读取足迹对应工程容量，不冒称未知原未使用预留长度，不造默认版本或容错补空；U03源码closed，完整CHARACTER枚举/门禁、V03/互通/生命周期/资源未验。无新增F/语义处置/R7，不配置构建测试运行摘要，负分类另继续开发。"
     }
   ],
   "task_acceptance": [
@@ -35232,10 +35303,11 @@
     },
     {
       "task_id": "U03",
-      "state": "open",
+      "state": "closed",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_character_select_scene.md#character-message-storage-source-state"
+        "doc/cg2d_character_select_scene.md#character-message-storage-source-state",
+        "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-source-state"
       ]
     },
     {

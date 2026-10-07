@@ -3294,3 +3294,9 @@ LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布
 新增1590对应真实F:0005C5A0／ProcessModeScene_45C5A0，保已有void接口，不造私有辅助或共享INC块F。见[基线](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline)：完整161条544B／三页、19直接调用／12目标和1个PostMessageA间接、31跳转／两RET，唯一51C430@51C493。单源五片段恢复三现源正常++／两原INC点与负返回直接重置，非负100／后续101现场取样、原提示字节和其余整源保持。
 
 LOGIN7→8／语义1591有效1584／文档1702／3680（46.25%）／724处置／E838；无新X，R7 295余2766保持。冻结定位／pending18／缺口队列、P05旧closed及完整门禁保；局部不代完整父、依赖消费、全部alias-owner寿命／机器ABI或运行。
+
+## BSJ01 既有选服场景补全（2026-10-07）
+
+旧1080／F:0005FEA0／ProcessScene_45FEA0补分类、图号阶段、点击单页号与三原INC来源；两个标题点的source_helper_call_expression更新为实际page参数，五原格式点、原字节、目标及三现callee数量保。见[基线](cg2d_server_category_click_sampling_spec.md#server-category-click-baseline)：完整1135条3576B／17页、47直接／20目标与6间接，唯一51C430@51C4CC。单源三片段、两既有函数；不造私有helper或表内函数身份。
+
+语义1591有效1584／文档1702／3680（46.25%）保持，新增单adapted／725处置，LOGIN8→9／E840；单104B原目标表＋对齐用途登记，R7 295→296余2765。冻结定位／pending18／缺口队列与完整门禁保；局部不代完整父、依赖消费、正常alias-owner寿命／机器ABI或运行。

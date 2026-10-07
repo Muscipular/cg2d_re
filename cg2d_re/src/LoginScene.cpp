@@ -359,8 +359,7 @@ void CopyText(char (&destination)[DestinationSize], const char (&source)[SourceS
 
 void IncrementSceneState()
 {
-    cg::world::gCurrentSceneState = std::bit_cast<std::int32_t>(
-        std::bit_cast<std::uint32_t>(cg::world::gCurrentSceneState) + 1u);
+    ++cg::world::gCurrentSceneState;
 }
 
 void SetBaseWindowTitle(char (&buffer)[256])
@@ -506,35 +505,31 @@ std::int32_t ProcessScene_45FEA0()
             gServerPage = 0;
             detail::PlaySe(54, 320, 240);
         } else {
+            std::int32_t category;
             for (std::int32_t index = 0; index < 60; ++index) {
                 const std::int32_t input = detail::Sub_45F100(CategoryScanRecord(index));
+                category = gValue55A054;
                 if ((input & 1) != 0
                     && gValueD9F2D4[static_cast<std::size_t>(index)] > 0
-                    && gValue55A054 < 0) {
+                    && category < 0) {
                     gValue55A054 = index;
                     detail::PlaySe(51, 320, 240);
 
                     const std::int32_t sourceA = CategoryField(index, 5);
                     const std::int32_t sourceB = CategoryField(index, 4);
+                    const std::int32_t imageDelta = sourceB - sourceA;
+                    std::int32_t imageNo = sourceA + 2;
                     for (std::int32_t server = 0; server < 20; ++server) {
-                        const std::uint32_t imageOffset =
-                            static_cast<std::uint32_t>(server) * 2u;
                         gServerUi[static_cast<std::size_t>(server)].values[4] =
-                            std::bit_cast<std::int32_t>(
-                                std::bit_cast<std::uint32_t>(sourceB)
-                                + 2u
-                                + imageOffset);
+                            imageDelta + imageNo;
                         gServerUi[static_cast<std::size_t>(server)].values[5] =
-                            std::bit_cast<std::int32_t>(
-                                std::bit_cast<std::uint32_t>(sourceA)
-                                + 2u
-                                + imageOffset);
+                            imageNo;
+                        imageNo += 2;
                     }
+                    category = gValue55A054;
                     break;
                 }
             }
-
-            const std::int32_t category = gValue55A054;
             for (std::int32_t slot = 0; slot < 10; ++slot) {
                 if (category >= 0) {
                     const std::uint8_t input = static_cast<std::uint8_t>(
@@ -542,19 +537,21 @@ std::int32_t ProcessScene_45FEA0()
                     if ((input & 0x40u) != 0) {
                         gSelectedServerGroup = slot;
                     }
-                    const std::int32_t serverIndex =
-                        category * 20 + gServerPage * 10 + slot;
-                    if (static_cast<std::int8_t>(input) < 0
-                        && gValueD69798[static_cast<std::size_t>(serverIndex)].available != 0) {
-                        SetServerWindowTitle(title, serverIndex, gServerPage, slot);
-                        gValue58AD94 = static_cast<std::int16_t>(serverIndex);
-                        gSelectedServerGroup = slot;
-                        detail::PlaySe(53, 320, 240);
-                        platform::ComputeExecutableDigest_5202E0(gValueDA3A1C);
-                        ReadInputValueFF494F_5203E0(gValueDA38DC);
-                        ReadInputValueFF4982_520440(gValueDA3A5C);
-                        IncrementSceneState();
-                        break;
+                    if (static_cast<std::int8_t>(input) < 0) {
+                        const std::int32_t page = gServerPage;
+                        const std::int32_t serverIndex =
+                            category * 20 + page * 10 + slot;
+                        if (gValueD69798[static_cast<std::size_t>(serverIndex)].available != 0) {
+                            SetServerWindowTitle(title, serverIndex, page, slot);
+                            gValue58AD94 = static_cast<std::int16_t>(serverIndex);
+                            gSelectedServerGroup = slot;
+                            detail::PlaySe(53, 320, 240);
+                            platform::ComputeExecutableDigest_5202E0(gValueDA3A1C);
+                            ReadInputValueFF494F_5203E0(gValueDA38DC);
+                            ReadInputValueFF4982_520440(gValueDA3A5C);
+                            IncrementSceneState();
+                            break;
+                        }
                     }
                 }
             }

@@ -146339,7 +146339,7 @@
       "original_entry": "0x45FEA0",
       "inventory_id": "F:0005FEA0",
       "original_role": "登录场景控制器中的基础/选服窗口标题",
-      "status": "已有登录场景父正文及五原标题格式接线，完整登录场景/运行未验",
+      "status": "已有登录场景父正文及五原标题格式接线，完整登录场景/运行未验 BSJ01单源三片段恢复分类/图号阶段和点击后单页号取样及普通状态递增，仅局部静态，不代完整场景验收。",
       "original_end_exclusive": "0x460C98",
       "instruction_count": 1135,
       "original_direct_reference_count": 1,
@@ -146350,9 +146350,12 @@
           "symbols": [
             "ProcessScene_45FEA0",
             "SetBaseWindowTitle",
-            "SetServerWindowTitle"
+            "SetServerWindowTitle",
+            "IncrementSceneState",
+            "CategoryField",
+            "CategoryScanRecord"
           ],
-          "relationship": "三现格式callee承接五原call，两个源码helper不独立绑定原函数地址"
+          "relationship": "三现格式callee承接五原call，两个源码helper不独立绑定原函数地址 BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。"
         }
       ],
       "business_call_connections": [
@@ -146441,7 +146444,7 @@
           "destination_expression": "buffer",
           "destination_capacity": 256,
           "entry_symbol": "ProcessScene_45FEA0",
-          "source_helper_call_expression": "SetServerWindowTitle(title, serverIndex, gServerPage, slot);",
+          "source_helper_call_expression": "SetServerWindowTitle(title, serverIndex, page, slot);",
           "argument_constant_evidence": [
             {
               "source_expression": "kWindowName",
@@ -146474,7 +146477,7 @@
           "destination_expression": "buffer",
           "destination_capacity": 256,
           "entry_symbol": "ProcessScene_45FEA0",
-          "source_helper_call_expression": "SetServerWindowTitle(title, serverIndex, gServerPage, slot);",
+          "source_helper_call_expression": "SetServerWindowTitle(title, serverIndex, page, slot);",
           "argument_constant_evidence": [
             {
               "source_expression": "kWindowName",
@@ -146572,10 +146575,67 @@
       ],
       "evidence_documents": [
         "doc/cg2d_login_scene.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-acceptance",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+        "doc/cg2d_server_category_click_sampling_evidence.json"
       ],
-      "verification_level": "1135条统计仅读140五标题邻指令、三格式和两原名/版本字节、槽9双格式及真实三次Base helper调用、源码只三格式callee/撤容量参静态核对；余995条/原状态机及caller不重验，未执行。",
-      "boundary": "三Base原点共享一现callee，普通选服和slot9特殊各实际原点；原窗口名/版本原字节T*、category/server借用、未清256B title、state先写/原选择门禁、普通后特殊覆盖和窗口文本发布保持。仅标题原格式入口恢复，撤现snprintf截断参数，不改原状态/错误文案/表或调用、音频暂停和newest排除；不执行任何模块摘要/资源/登陆操作，不宣原父/完整标题容量链/场景/CRT或总PLAN验收。"
+      "verification_level": "1135条统计仅读140五标题邻指令、三格式和两原名/版本字节、槽9双格式及真实三次Base helper调用、源码只三格式callee/撤容量参静态核对；余995条/原状态机及caller不重验，未执行。 BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
+      "boundary": "三Base原点共享一现callee，普通选服和slot9特殊各实际原点；原窗口名/版本原字节T*、category/server借用、未清256B title、state先写/原选择门禁、普通后特殊覆盖和窗口文本发布保持。仅标题原格式入口恢复，撤现snprintf截断参数，不改原状态/错误文案/表或调用、音频暂停和newest排除；不执行任何模块摘要/资源/登陆操作，不宣原父/完整标题容量链/场景/CRT或总PLAN验收。 BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
+      "server_category_click_sampling": {
+        "spec_id": "BSJ01",
+        "evidence_refs": [
+          "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
+          "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision",
+          "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-acceptance",
+          "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+          "doc/cg2d_server_category_click_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 1135,
+        "original_code_bytes": 3576,
+        "original_page_count": 17,
+        "original_direct_call_count": 47,
+        "original_unique_callee_count": 20,
+        "original_indirect_call_count": 6,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 3,
+        "source_changed_existing_function_count": 2,
+        "source_normal_s32_helper_count": 1,
+        "original_increment_sites": [
+          "0x460188",
+          "0x46019c",
+          "0x4608fd"
+        ],
+        "category_scan_count": 60,
+        "category_sample_before_conditional_count_read": true,
+        "category_default_sample_added": false,
+        "category_refresh_after_success_only": true,
+        "server_image_pair_count": 20,
+        "server_image_stage_order": [
+          "field5",
+          "field4",
+          "delta=B-A",
+          "imageNo=A+2",
+          "field4=delta+imageNo",
+          "field5=imageNo",
+          "imageNo+=2"
+        ],
+        "page_sample_after_click_only": true,
+        "page_title_reuses_same_sample": true,
+        "title_actual_format_call_count": 2,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "new_semantic_record_count": 0,
+        "new_true_function_count": 0,
+        "new_function_disposition_count": 1,
+        "new_range_classification_count": 1,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x544294",

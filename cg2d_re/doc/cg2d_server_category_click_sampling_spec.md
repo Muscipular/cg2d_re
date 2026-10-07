@@ -44,3 +44,5 @@ category声明不预设默认值；固定60轮for在首轮调用后无条件赋�
 预定固定命名快照：cg2d-re-server-category-click-sampling-20261007。对应[原证据](cg2d_server_category_click_sampling_evidence.json)、[登录场景](cg2d_login_scene.md)、[唯一进度](../plan/cg2d_full_reconstruction_progress.md)。本节在完成集中静态与派生检查后记录实际结果，不预记链接／运行通过。
 
 实际结果：原证据JSON分段保存被自动审批拒绝，本轮停止写入并清理未完成JSON。源码尚未实施，映射／登记簿及验收数字保持；未运行measure或构建／测试／运行，未创建实施快照。见唯一进度BSJ01记录。
+
+续推实际结果（2026-10-07）：原证据通过文件补丁保存成功，并显式UTF-8规范化；单源三片段／两既有函数已实施。源码／原证据／完整机器／文档集中静态、measure与-Check终态0、完整派生快照、12文件UTF-8无BOM-LF／四锚点／两I-S各17真实来源及定向差异通过。原1080补全、单adapted／LOGIN一成员／单104B区间分类和两局部I-S均已落实；语义1591／有效1584／文档1702（46.25%）保持，处置725／E840／R7 296余2765。原完整门禁、任务open与P05原closed及其余差集保持；链接／运行与整体验收未达成，不外推。

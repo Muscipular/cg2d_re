@@ -798,3 +798,11 @@ NUL/长度/LF、25项顺序、实际使用位置和源码限定差异；不执�
 [20BYTE SPEC](cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state)已落实已有ReadNegativeSelectionAvailability声明：LegacyUiRecord.cpp直接借现底部栏/hover/mouseY原token/左锚/服务器伴随值，独立D68AC6加载零BYTE有目标代码地址形成/无加载静态别名及邻近正常对象边界证据；固定池12点由既有tracker只读桥提供，七坐标直接读BYTE、五链接按实际handle投影原固定节点/哨兵身份BYTE。整体adapter不是固定可用，不建影子状态，不调用CryptInt::Read额外消费RNG。
 
 原handle布局/解析/全部重置与追踪体保持；动态nativePool切换不改变固定池观察归属，不把当前节点编号或本机指针低字节当原BYTE。两个尾先读后判原位置和整个LoginScene.cpp保持。此当前裁决覆盖此前“仍未实现／暂不添加”的历史定位；完整登录／网络／人物／主地图与V03仍未验，运行限制保持。
+
+## 选服分类、图号阶段与点击页号更新（BSJ01，2026-10-07）
+
+按[BSJ01裁决](cg2d_server_category_click_sampling_spec.md#server-category-click-decision)，分类60轮各在45F100调用后先读取selected，供本轮门禁与末轮选服；成功后写selected／Play51，再按字段5→4、B-A与A+2、20对字段4／5写入及每轮+2（含末轮），成功完成后才再次读取分类。普通S32算式恢复，真实CategoryField位型和原420W32分类映像保持，不设置默认分类。
+
+低W8输入先处理40组选中、再80点击，点击成立才单读page，同值用于available、索引与既有两标题；slot9先普通再特殊、旧字节／同256B缓冲、S16发布、声音／摘要／账号／密码／现场状态读取及break保。私有状态helper改普通S32 ++，三调用对应460188／46019C／4608FD；其余完整源码保持。摘要调用只是保留接线，本步没有执行摘要。
+
+原父完整1135条3576B／17页、47直接／20目标及6间接、95跳转／1RET，唯一51C430@51C4CC；旧映射1080补全，不重复身份。104B邻接只登记92B／23目标表与12B真实NOP原用途。正常值原正确，单源三片段的局部静态不代完整父／20依赖、全部消费／寿命、机器ABI或运行。

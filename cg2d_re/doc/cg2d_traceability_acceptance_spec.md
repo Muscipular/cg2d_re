@@ -1322,3 +1322,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline)、[裁决](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision)、[验收](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-acceptance)与[源码状态](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state)关联原161条544B与单源五片段：三现源普通S32++映两原INC、负返回短路直接重置／非负100和随后101独立取样，保一次输入／返回流程、原提示和全部其它正文。
 
 单adapted原F／LOGIN一成员，两局部I-S各14来源，E836→838；无新X和内部块F，R7保持。U10／R04只current/引用仍open，源码closed11（P05原closed）／完整叶0/globalfalse及全部完整门禁保。原正常值正确、不新异常／保护或业务；完整World::Update父／12依赖、消息输入与持久／图像消费、正常alias-owner寿命、SDK-机器ABI／链接、明文互通／运行继续原标准。
+
+## BSJ01 选服取样与图号阶段开发验收（2026-10-07）
+
+[基线](cg2d_server_category_click_sampling_spec.md#server-category-click-baseline)、[裁决](cg2d_server_category_click_sampling_spec.md#server-category-click-decision)、[验收](cg2d_server_category_click_sampling_spec.md#server-category-click-acceptance)和[源码状态](cg2d_server_category_click_sampling_spec.md#server-category-click-source-state)关联原1135条3576B与单源三片段：普通S32状态递增；分类每轮先取样、成功后刷新；图号字段5→4和差值／递增阶段；点击后单页号复用于available／索引／两标题。真实位型、原映像／字节、原门禁及声音摘要账号密码先后与其它完整正文保持。
+
+旧1080补全，不增语义身份或文档覆盖数；新增单adapted／LOGIN一真实成员，两局部I-S各17实际来源，E838→840。单104B原X只登记23目标表和12B真实NOP用途，R7 296；U10／R04只current／引用仍open，P05原closed、源码closed11／完整叶0／globalfalse和全部完整门禁保持。完整World::Update父／20依赖、窗口输入消息和图像消费、全部正常alias-owner寿命、SDK-机器ABI／链接、原格式明文互通与运行继续原标准；没有运行摘要或任何测试。

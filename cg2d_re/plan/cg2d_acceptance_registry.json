@@ -720,7 +720,8 @@
         "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline",
-        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline"
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -730,7 +731,8 @@
         "F:0005EA60",
         "F:0005F190",
         "F:00064840",
-        "F:0005C5A0"
+        "F:0005C5A0",
+        "F:0005FEA0"
       ],
       "closure_task_ids": [
         "P18",
@@ -750,7 +752,8 @@
         "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision",
-        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision"
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -759,7 +762,8 @@
         "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
         "BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。",
         "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
-        "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
+        "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+        "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -768,7 +772,8 @@
         "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
-        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state"
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state"
       ]
     },
     {
@@ -36062,6 +36067,84 @@
       "observation": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。",
       "expected": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。",
       "actual": "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-SERVER-CATEGORY-CLICK-SAMPLING-I-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSJ01原1135条3576B/17页、47direct20callee与6间接、95jump/1RET，唯一51C430@51C4CC；分类每轮取样/20图号阶段/点击后单页号与三INC；doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-server-category-click-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-acceptance",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+        "doc/cg2d_server_category_click_sampling_evidence.json",
+        "src/LoginScene.cpp#ProcessScene_45FEA0",
+        "src/LoginScene.cpp#IncrementSceneState",
+        "src/LoginScene.cpp#CategoryField",
+        "src/LoginScene.cpp#CategoryScanRecord",
+        "src/LoginScene.cpp#SetServerWindowTitle",
+        "include/cg/world/SceneState.hpp",
+        "include/cg/LoginScene.hpp",
+        "doc/cg2d_login_scene.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源三片段/两既有函数：普通S32状态++；分类每轮调用后先取样、成功生成后刷新/未成功沿末样本，字段5→4/B-A与A+2/20对写入与末轮+2；点击成立才单读page供available/索引及两标题。原正常值正确，原位型/映像/低W8与S16/字节、声音摘要账号密码现场读序及其它整源保。不执行摘要、不新异常/保护/限制。旧1080补全不增F或文档覆盖数，完整父/20依赖/机器ABI/寿命与运行未验",
+          "decision_ref": "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
+      "expected": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
+      "actual": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。"
+    },
+    {
+      "id": "E-SERVER-CATEGORY-CLICK-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSJ01原1135条3576B/17页、47direct20callee与6间接、95jump/1RET，唯一51C430@51C4CC；分类每轮取样/20图号阶段/点击后单页号与三INC；doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-server-category-click-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-acceptance",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+        "doc/cg2d_server_category_click_sampling_evidence.json",
+        "src/LoginScene.cpp#ProcessScene_45FEA0",
+        "src/LoginScene.cpp#IncrementSceneState",
+        "src/LoginScene.cpp#CategoryField",
+        "src/LoginScene.cpp#CategoryScanRecord",
+        "src/LoginScene.cpp#SetServerWindowTitle",
+        "include/cg/world/SceneState.hpp",
+        "include/cg/LoginScene.hpp",
+        "doc/cg2d_login_scene.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "单源三片段/两既有函数：普通S32状态++；分类每轮调用后先取样、成功生成后刷新/未成功沿末样本，字段5→4/B-A与A+2/20对写入与末轮+2；点击成立才单读page供available/索引及两标题。原正常值正确，原位型/映像/低W8与S16/字节、声音摘要账号密码现场读序及其它整源保。不执行摘要、不新异常/保护/限制。旧1080补全不增F或文档覆盖数，完整父/20依赖/机器ABI/寿命与运行未验",
+          "decision_ref": "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
+      "expected": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。",
+      "actual": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。"
     }
   ],
   "task_acceptance": [
@@ -36520,7 +36603,8 @@
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
-        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state"
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state"
       ]
     },
     {
@@ -37033,7 +37117,8 @@
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
         "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
-        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state"
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state"
       ]
     },
     {
@@ -45835,6 +45920,19 @@
         "doc/cg2d_login_mode_normal_message_branch_evidence.json"
       ],
       "boundary": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。 BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:0005FEA0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-acceptance",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+        "doc/cg2d_server_category_click_sampling_evidence.json"
+      ],
+      "boundary": "BSJ01选服父45FEA0完整1135条3576B/17页，53原call=47direct/20callee+6间接、95jump/1RET，唯一51C430@51C4CC。单源三精确片段、两既有函数：状态helper普通S32++对应460188/46019C/4608FD；分类每轮45F100后先读selected，成功生成后二次读、未成功沿末样本；字段5→4、先B-A/A+2再20对字段4/5及末轮+2；点击低W8门禁后单读page用于available/索引/两标题。原正常值正确；真实位型/原映像与字节、三递增调用及声音/摘要/账号/密码现场取样、返回/消息/分页/其它整源保持，不执行摘要。只补旧1080/F:0005FEA0及两实际page调用表达式，新增单adapted/LOGIN8→9/E840；语义1591有效1584/文档1702（46.25%）保持，处置725；单X104B分92B23目标+12B真实NOP、单父数据引用/无code入向，仅用途R7 296余2765，不造新F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保，U10/R04只current/refs仍open。完整World::Update父/20依赖、输入消息与窗口/图像消费、正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文互通/运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或文件摘要。"
     }
   ],
   "auxiliary_dispositions": [
@@ -53488,6 +53586,354 @@
               "index": 4,
               "ea": "0x464e2c",
               "target": "0x464b5a"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "X:00060C98-00060D00",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-baseline",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-decision",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-acceptance",
+        "doc/cg2d_server_category_click_sampling_spec.md#server-category-click-source-state",
+        "doc/cg2d_server_category_click_sampling_evidence.json"
+      ],
+      "reason": "BSJ01完整104B：92B23项W32原目标表+12B真实90 NOP，46022E同父数据引用/无代码入向，前RET后真入口，仅原用途，不新增F/新端W32指针表或外推结果分支与运行验收",
+      "classification": "switch_table_with_alignment",
+      "parts": [
+        {
+          "start": "0x460c98",
+          "end_exclusive": "0x460cf4",
+          "size": 92,
+          "kind": "switch_target_table",
+          "bytes": "350246004f0446003f024600450446004f0446005a0546006405460097054600a1054600d4054600de05460011064600de054600110646001b0646004e0646005e084600580646008b06460095064600c8064600be074600f1074600",
+          "targets": [
+            {
+              "ea": "0x460c98",
+              "bytes": "35024600",
+              "target": "0x460235",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C7B8; jumptable 0046022E case 1",
+              "index": 0,
+              "case": 1
+            },
+            {
+              "ea": "0x460c9c",
+              "bytes": "4f044600",
+              "target": "0x46044f",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "or      ecx, 0FFFFFFFFh; jumptable 0046022E cases 2,5",
+              "index": 1,
+              "case": 2
+            },
+            {
+              "ea": "0x460ca0",
+              "bytes": "3f024600",
+              "target": "0x46023f",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "or      ecx, 0FFFFFFFFh; jumptable 0046022E case 3",
+              "index": 2,
+              "case": 3
+            },
+            {
+              "ea": "0x460ca4",
+              "bytes": "45044600",
+              "target": "0x460445",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6F4; jumptable 0046022E case 4",
+              "index": 3,
+              "case": 4
+            },
+            {
+              "ea": "0x460ca8",
+              "bytes": "4f044600",
+              "target": "0x46044f",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "or      ecx, 0FFFFFFFFh; jumptable 0046022E cases 2,5",
+              "index": 4,
+              "case": 5
+            },
+            {
+              "ea": "0x460cac",
+              "bytes": "5a054600",
+              "target": "0x46055a",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6E4; jumptable 0046022E case 6",
+              "index": 5,
+              "case": 6
+            },
+            {
+              "ea": "0x460cb0",
+              "bytes": "64054600",
+              "target": "0x460564",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6E4; jumptable 0046022E case 7",
+              "index": 6,
+              "case": 7
+            },
+            {
+              "ea": "0x460cb4",
+              "bytes": "97054600",
+              "target": "0x460597",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6D0; jumptable 0046022E case 8",
+              "index": 7,
+              "case": 8
+            },
+            {
+              "ea": "0x460cb8",
+              "bytes": "a1054600",
+              "target": "0x4605a1",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6C0; jumptable 0046022E case 9",
+              "index": 8,
+              "case": 9
+            },
+            {
+              "ea": "0x460cbc",
+              "bytes": "d4054600",
+              "target": "0x4605d4",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6B0; jumptable 0046022E case 10",
+              "index": 9,
+              "case": 10
+            },
+            {
+              "ea": "0x460cc0",
+              "bytes": "de054600",
+              "target": "0x4605de",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6A4; jumptable 0046022E cases 11,13",
+              "index": 10,
+              "case": 11
+            },
+            {
+              "ea": "0x460cc4",
+              "bytes": "11064600",
+              "target": "0x460611",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6A4; jumptable 0046022E cases 12,14",
+              "index": 11,
+              "case": 12
+            },
+            {
+              "ea": "0x460cc8",
+              "bytes": "de054600",
+              "target": "0x4605de",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6A4; jumptable 0046022E cases 11,13",
+              "index": 12,
+              "case": 13
+            },
+            {
+              "ea": "0x460ccc",
+              "bytes": "11064600",
+              "target": "0x460611",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C6A4; jumptable 0046022E cases 12,14",
+              "index": 13,
+              "case": 14
+            },
+            {
+              "ea": "0x460cd0",
+              "bytes": "1b064600",
+              "target": "0x46061b",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C698; jumptable 0046022E case 15",
+              "index": 14,
+              "case": 15
+            },
+            {
+              "ea": "0x460cd4",
+              "bytes": "4e064600",
+              "target": "0x46064e",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C678; jumptable 0046022E case 16",
+              "index": 15,
+              "case": 16
+            },
+            {
+              "ea": "0x460cd8",
+              "bytes": "5e084600",
+              "target": "0x46085e",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C62C; jumptable 0046022E default case, case 17",
+              "index": 16,
+              "case": 17
+            },
+            {
+              "ea": "0x460cdc",
+              "bytes": "58064600",
+              "target": "0x460658",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C658; jumptable 0046022E case 18",
+              "index": 17,
+              "case": 18
+            },
+            {
+              "ea": "0x460ce0",
+              "bytes": "8b064600",
+              "target": "0x46068b",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55C640; jumptable 0046022E case 19",
+              "index": 18,
+              "case": 19
+            },
+            {
+              "ea": "0x460ce4",
+              "bytes": "95064600",
+              "target": "0x460695",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55CC00; jumptable 0046022E case 20",
+              "index": 19,
+              "case": 20
+            },
+            {
+              "ea": "0x460ce8",
+              "bytes": "c8064600",
+              "target": "0x4606c8",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "or      ecx, 0FFFFFFFFh; jumptable 0046022E case 21",
+              "index": 20,
+              "case": 21
+            },
+            {
+              "ea": "0x460cec",
+              "bytes": "be074600",
+              "target": "0x4607be",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55CB70; jumptable 0046022E case 22",
+              "index": 21,
+              "case": 22
+            },
+            {
+              "ea": "0x460cf0",
+              "bytes": "f1074600",
+              "target": "0x4607f1",
+              "code": true,
+              "function": "0x45fea0",
+              "text": "mov     edi, offset asc_55CAE4; jumptable 0046022E case 23",
+              "index": 22,
+              "case": 23
+            }
+          ]
+        },
+        {
+          "start": "0x460cf4",
+          "end_exclusive": "0x460d00",
+          "size": 12,
+          "kind": "alignment_nop",
+          "bytes": "909090909090909090909090",
+          "decode": [
+            {
+              "ea": "0x460cf4",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cf5",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cf6",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cf7",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cf8",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cf9",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cfa",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cfb",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cfc",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cfd",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cfe",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
+            },
+            {
+              "ea": "0x460cff",
+              "bytes": "90",
+              "size": 1,
+              "itype": 129,
+              "is_nop": true
             }
           ]
         }

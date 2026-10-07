@@ -92,9 +92,9 @@ std::uint32_t FillRect_44C9A0(
     std::int16_t left, std::int16_t right, std::int16_t top, std::int16_t bottom,
     std::uint32_t color, std::uint8_t mixMode);
 
-// 原 44D520：整数裁剪、可选四顶点或变换缓存路径；rectangle 为值副本。
+// 原 44D520：完整 S32 坐标实参，交集/位移取低 S16，负值门禁保原宽度；矩形为值副本。
 std::int32_t RenderTextureToSurface_44D520(
-    std::int16_t x, std::int16_t y, TextureRectangle rectangle,
+    std::int32_t x, std::int32_t y, TextureRectangle rectangle,
     TextureSurface* surface, std::int32_t imageNo, std::int16_t paletteIndex,
     std::uint8_t mixMode, std::uint32_t color);
 

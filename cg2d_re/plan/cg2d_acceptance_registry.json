@@ -645,7 +645,8 @@
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-baseline",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-baseline",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-baseline",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -805,7 +806,9 @@
         "F:00106E00",
         "F:00106DE0",
         "F:00106DD0",
-        "F:00106870"
+        "F:00106870",
+        "F:0004D520",
+        "F:0004DA90"
       ],
       "closure_task_ids": [
         "U11",
@@ -875,7 +878,8 @@
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -936,7 +940,8 @@
         "BUT01仅窗口消息键/鼠标十个局部分支376条1307B、14个ftol及两F32常量8B静态；删除两个键索引拒绝和鼠标两零轴回原值策略，恢复F10局部按位运算后唯一W8发布；普通按下多写/末次重读、抬起单写、原门禁/重建/七鼠标调用与返回保。原WIN_PROC892条身份不作本次完整重验；源一cpp四片段，既有语义181更新无新增F/处置/R7，LOOP/INPUT各限定I/S，完整焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/画面与运行未验，RPLAN.24异常不专项策略/不模拟或记等价通过。",
         "BUU01鼠标位置/六按键/滚轮八完整原根307条1279B/八页、34directcall/四GetTick间接call/两jump/八RET和十四窗口引用、八尾65B实际NN_NOP用途静态；一cpp七配对片段恢复同一临时量各次Ctor→按分支读齐三字段→按原序发布→Dtor，再构造Y，四标量/flags、tick/追踪比较/真实report与reset及返回正确保持。滚轮正确代码保持不计I；八新原新基线/adapted及八R7用途、LOOP/INPUT各局部I-S共四证据，完整父/callee、焦点/IME、owner/alias寿命、业务失败、机器ABI/链接/运行未验；RPLAN.24异常不专项策略或模拟，原网络格式仅明文/音频暂停保。",
         "BUV01十完整根262条799B/十一页、14directcall/34jump/19RET，25引用13父仅身份，PGXE5B/默认阈值容量池指针12B及七65B NN_NOP用途静态；追踪一cpp十一片段和一hpp一布局片段，七原根/既有BYTE桥恢复Native T*地址字段、原malloc先发布返回含空值再回退、原池/容量采样与最终index，移除handle解析/额外拒绝及计数回绕helper。保原真实nullptr/哨兵失败、链写序/LRU、S32标量/固定24B字节视图与原PGXE明文；默认/配置/Report三正确根不计I。十新adapted/七R7，LOOP-INPUT限定I/S、NETWORK/LOGIN仅限定S共六证据；完整父/callee/owner-alias寿命/业务失败/ABI/链接/画面/明文互通运行未验，音频暂停/RPLAN.24及执行限制保。",
-        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+        "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -998,7 +1003,8 @@
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state"
       ]
     },
     {
@@ -2365,7 +2371,8 @@
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-baseline",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-baseline",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -2426,7 +2433,9 @@
         "F:000512C0",
         "F:00066B80",
         "F:00106E00",
-        "F:00106DE0"
+        "F:00106DE0",
+        "F:0004D520",
+        "F:0004DA90"
       ],
       "closure_task_ids": [
         "C09",
@@ -2469,7 +2478,8 @@
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -2501,7 +2511,8 @@
         "BPF01既有1204正常S32计数与无用bit头实修，104项/原回收和基址、唯一公共尾保持；21条86B/11条40B父窗局部纳盘，域成员不增。完整绘制父/所有上游与正常alias-owner/寿命、SDK-ABI/链接和全模式像素运行、R1/R7/R8仍待",
         "BPL01悬停两发布判定实修/原17条72B，新查询完整19条47B/两点一父现有count1正常基线；仅局部I/S，悬停799根仍无整体处置。全部命中/消息/主循环父、旧99路由/焦点、间接alias-owner/寿命及SDK-ABI/链接/输入画面运行仍待",
         "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
-        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+        "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
+        "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2534,7 +2545,8 @@
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state"
       ]
     },
     {
@@ -46018,6 +46030,194 @@
       "observation": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
       "expected": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。",
       "actual": "BUW01四完整原根193条708B/六页、六directcall/六indirectcall/27jump/四RET、18引用15父身份；六事件36条214B原数值字段读写窗和光标11标量记录88B/四28B NN_NOP用途。两cpp十三片段恢复六旗位held/edge/pulse数值地址顺序、左tick入口/左右elapsed保存和两pulse阶段，撤光标额外state拒绝与S32回绕helper；原三状态读取、Y后X/原表/描述符/API局部/尾序/RNG时钟及六配对三字段保。BUU01的旗位名称推断无效，四旧I/S改fail并保原历史标记，八旧语义/F追加数值地址更正，三正确根不计I；四新adapted/四R7和四域七限定证据，完整父/提供者/owner-alias/正常业务失败/ABI/画面/链接/运行未验，网络原格式明文/音频暂停/RPLAN.24保。"
+    },
+    {
+      "id": "E-TEXTURE-VIEWPORT-SAMPLING-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUX01两完整原根812条2960B/13页、三caller134条415B、原12B F32/两16B用途；I仅逻辑尺寸取样与整数完整参数恢复，S含已正确浮点/UV/混合/尾/helper保持。doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-texture-viewport-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json",
+        "src/render/LegacyTextureDrawing.cpp",
+        "src/render/LegacyTextureDrawing.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "include/cg/render/RendererResources.hpp",
+        "src/render/RendererResources.cpp",
+        "src/render/GraphicDxCache.cpp",
+        "src/render/GraphicDxCacheState.hpp",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_queued_draw_alignment_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json"
+      ],
+      "differences": [
+        {
+          "description": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+          "decision_ref": "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "expected": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "actual": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。"
+    },
+    {
+      "id": "E-TEXTURE-VIEWPORT-SAMPLING-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUX01两完整原根812条2960B/13页、三caller134条415B、原12B F32/两16B用途；I仅逻辑尺寸取样与整数完整参数恢复，S含已正确浮点/UV/混合/尾/helper保持。doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-texture-viewport-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json",
+        "src/render/LegacyTextureDrawing.cpp",
+        "src/render/LegacyTextureDrawing.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "include/cg/render/RendererResources.hpp",
+        "src/render/RendererResources.cpp",
+        "src/render/GraphicDxCache.cpp",
+        "src/render/GraphicDxCacheState.hpp",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_queued_draw_alignment_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json"
+      ],
+      "differences": [
+        {
+          "description": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+          "decision_ref": "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "expected": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "actual": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。"
+    },
+    {
+      "id": "E-TEXTURE-VIEWPORT-SAMPLING-FUNC-RENDER-I-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUX01两完整原根812条2960B/13页、三caller134条415B、原12B F32/两16B用途；I仅逻辑尺寸取样与整数完整参数恢复，S含已正确浮点/UV/混合/尾/helper保持。doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-texture-viewport-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json",
+        "src/render/LegacyTextureDrawing.cpp",
+        "src/render/LegacyTextureDrawing.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "include/cg/render/RendererResources.hpp",
+        "src/render/RendererResources.cpp",
+        "src/render/GraphicDxCache.cpp",
+        "src/render/GraphicDxCacheState.hpp",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_queued_draw_alignment_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json"
+      ],
+      "differences": [
+        {
+          "description": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+          "decision_ref": "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "expected": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "actual": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。"
+    },
+    {
+      "id": "E-TEXTURE-VIEWPORT-SAMPLING-FUNC-RENDER-S-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BUX01两完整原根812条2960B/13页、三caller134条415B、原12B F32/两16B用途；I仅逻辑尺寸取样与整数完整参数恢复，S含已正确浮点/UV/混合/尾/helper保持。doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-texture-viewport-sampling-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json",
+        "src/render/LegacyTextureDrawing.cpp",
+        "src/render/LegacyTextureDrawing.hpp",
+        "src/render/DrawAllQueued.cpp",
+        "include/cg/render/RendererResources.hpp",
+        "src/render/RendererResources.cpp",
+        "src/render/GraphicDxCache.cpp",
+        "src/render/GraphicDxCacheState.hpp",
+        "include/cg/render/GraphicPendingQueue.hpp",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_queued_draw_alignment_spec.md",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json"
+      ],
+      "differences": [
+        {
+          "description": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+          "decision_ref": "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "expected": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "actual": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。"
     }
   ],
   "task_acceptance": [
@@ -47169,7 +47369,8 @@
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state"
       ]
     },
     {
@@ -47342,7 +47543,8 @@
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-source-state",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-source-state",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-source-state",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state"
       ]
     },
     {
@@ -47719,7 +47921,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state"
       ]
     },
     {
@@ -48867,11 +49070,22 @@
     },
     {
       "inventory_id": "F:00120DD0",
-      "disposition": "equivalent",
+      "disposition": "adapted",
       "epoch": "2026-10-04.1",
       "evidence_refs": [
-        "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-source-closure"
-      ]
+        "doc/cg2d_queued_draw_alignment_spec.md#queued-draw-source-closure",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json"
+      ],
+      "texture_integer_argument_correction": {
+        "spec_id": "BUX01",
+        "boundary": "BUX01仅DrawIntegerNodes撤x/y实参S16窄化，恢复完整S32传给44D520；原低S16交集/位移与分支DWORD门禁在新callee保，三caller134条415B局部有据；原六基址/head实修与其限定证据保，完整所有父/callee/COM/alias寿命/像素/ABI/运行未验。",
+        "native_SDK_substitution_retained": true,
+        "runtime_verified": false
+      }
     },
     {
       "inventory_id": "F:0004E150",
@@ -58236,6 +58450,32 @@
         "doc/cg2d_cursor_flag_sampling_restore_evidence.json"
       ],
       "boundary": "原请求/尾字段清零/鼠标D0清理三正确根之一：ResetLegacyMouseState_506870，现完整源保持只补基线，不计I；现真实父/唯一owner与定宽载荷保，完整生命周期/ABI/运行未验。"
+    },
+    {
+      "inventory_id": "F:0004D520",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json"
+      ],
+      "boundary": "原整数根完整378条1391B/六页；同源+94/+98在初始交集和各裁剪后取样，x/y完整S32实参保留，交集/位移低S16，flipX负值判断低S16、正向X/两Y负值判断完整S32；矩形值副本/UV偏置和flip减一/混合/场景缓存/真实返回及caller busy消费保持；既有native SDK边界未运行验证"
+    },
+    {
+      "inventory_id": "F:0004DA90",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json"
+      ],
+      "boundary": "原缩放根完整434条1569B/七页；x/y仅低S16已正确保持，+94/+98初始分别保存供四裁剪，源RECT形成后重新读取两轴边界决定+1；F32局部/F64中间/原纵向flip减法、源/目标各四次ftol与两SetRect、UV无整数flip减一/混合/变换缓存/返回及caller busy消费保持；既有native SDK边界未运行验证"
     }
   ],
   "auxiliary_dispositions": [
@@ -80914,6 +81154,154 @@
         },
         {
           "ea": "0x50708f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0004DA8F-0004DA90",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json"
+      ],
+      "reason": "BUX01两纹理根尾合16B实际NN_NOP/90，本区1B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 1,
+      "original_bytes": "90",
+      "original_decode": [
+        {
+          "ea": "0x44da8f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0004E0B1-0004E0C0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json"
+      ],
+      "reason": "BUX01两纹理根尾合16B实际NN_NOP/90，本区15B无入向/后真入口，仅对齐用途，不新增函数或排除",
+      "classification": "alignment_nop",
+      "original_size": 15,
+      "original_bytes": "909090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x44e0b1",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0b2",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0b3",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0b4",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0b5",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0b6",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0b7",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0b8",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0b9",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0ba",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0bb",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0bc",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0bd",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0be",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44e0bf",
           "size": 1,
           "bytes": "90",
           "is_nop": true,

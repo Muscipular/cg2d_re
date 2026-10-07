@@ -159470,7 +159470,7 @@
     {
       "original_entry": "0x520DD0",
       "inventory_id": "F:00120DD0",
-      "status": "GQD01完整769条适用批准范围/六基址与链头阶段实修局部静态；完整父/资源寿命和模式画面运行未验",
+      "status": "BUX01整数实参宽度局部实修；GQD01完整769条适用批准范围/六基址与链头阶段实修局部静态；完整父/资源寿命和模式画面运行未验",
       "original_end_exclusive": "0x521832",
       "instruction_count": 769,
       "original_chunks": [
@@ -159506,10 +159506,15 @@
         "doc/cg2d_sdl_presenter.md",
         "doc/cg2d_graphic_dx_cache.md",
         "doc/cg2d_queued_draw_alignment_spec.md",
-        "doc/cg2d_queued_draw_alignment_evidence.json"
+        "doc/cg2d_queued_draw_alignment_evidence.json",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json"
       ],
-      "boundary": "入口上传count清0与获批Back IsLost→CPU存活失败门禁保持，正常非正计数仍按Has/Begin/End走完整公共尾。S16 count/cacheIndex/W8 batch与0..12分发、各资源/几何门禁、描述符/S32原点、x87 C3分派/三比例/各轴取样、矩形/镜像/三回调和busy/next写序保持。普通bounds保存DX base，负X/Y分支分别按原时点重取，final clip/head沿保存base；固定宽基址沿head。空head palette沿旧base，有链处理结束后才重取base再dirtyCount0，helpers只接原head不另定位。各批次/Frame/版本老化/特殊旗与队列重读保持，所有公开/native/owner不改。原COM操作偏移未解析，不当绝对callee。14原call经13源码关系承接，仅局部窗口/实际连接，完整父/callee/间接alias及资源对象清理、SDK/机器ABI/像素画面未验，RPLAN.24异常不记安全/故障等价。",
-      "verification_level": "完整769条/2658B、13跳表、14callers112条窗口和原data/call类型；六限定CPP补丁外全文/公开分发与其它源、所有旧语义/登记外部保持，未构建/测试/运行/摘要",
+      "boundary": "BUX01仅DrawIntegerNodes撤x/y实参S16窄化，恢复完整S32传给44D520；原低S16交集/位移与分支DWORD门禁在新callee保，三caller134条415B局部有据；原六基址/head实修与其限定证据保，完整所有父/callee/COM/alias寿命/像素/ABI/运行未验。 入口上传count清0与获批Back IsLost→CPU存活失败门禁保持，正常非正计数仍按Has/Begin/End走完整公共尾。S16 count/cacheIndex/W8 batch与0..12分发、各资源/几何门禁、描述符/S32原点、x87 C3分派/三比例/各轴取样、矩形/镜像/三回调和busy/next写序保持。普通bounds保存DX base，负X/Y分支分别按原时点重取，final clip/head沿保存base；固定宽基址沿head。空head palette沿旧base，有链处理结束后才重取base再dirtyCount0，helpers只接原head不另定位。各批次/Frame/版本老化/特殊旗与队列重读保持，所有公开/native/owner不改。原COM操作偏移未解析，不当绝对callee。14原call经13源码关系承接，仅局部窗口/实际连接，完整父/callee/间接alias及资源对象清理、SDK/机器ABI/像素画面未验，RPLAN.24异常不记安全/故障等价。",
+      "verification_level": "BUX01仅DrawIntegerNodes撤x/y实参S16窄化，恢复完整S32传给44D520；原低S16交集/位移与分支DWORD门禁在新callee保，三caller134条415B局部有据；原六基址/head实修与其限定证据保，完整所有父/callee/COM/alias寿命/像素/ABI/运行未验。 完整769条/2658B、13跳表、14callers112条窗口和原data/call类型；六限定CPP补丁外全文/公开分发与其它源、所有旧语义/登记外部保持，未构建/测试/运行/摘要",
       "native_provider": {
         "source": "src/render/DrawAllQueued.cpp",
         "symbol": "DrawAllQueued_520DD0",
@@ -159526,6 +159531,25 @@
         "existing_cpu_back_gate_retained": true,
         "runtime_verified": false,
         "full_lifecycle_closed": false,
+        "fault_equivalence_claimed": false
+      },
+      "texture_integer_argument_correction": {
+        "spec_id": "BUX01",
+        "evidence_refs": [
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+          "doc/cg2d_texture_viewport_sampling_evidence.json"
+        ],
+        "source_symbol": "DrawIntegerNodes",
+        "source_cpp_patch_count": 1,
+        "full_integer_coordinate_arguments_restored": true,
+        "old_six_base_and_head_fix_evidence_kept_with_original_scope": true,
+        "old_evidence_not_extended_to_integer_argument_width": true,
+        "full_parent_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
     },
@@ -197627,6 +197651,167 @@
         "full_machine_abi_verified": false,
         "full_lifecycle_closed": false,
         "full_pixel_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x44D520",
+      "inventory_id": "F:0004D520",
+      "original_role": "原纹理整数/缩放绘制根：RenderTextureToSurface_44D520",
+      "original_end_exclusive": "0x44da8f",
+      "original_chunks": [
+        [
+          "0x44d520",
+          "0x44da8f"
+        ]
+      ],
+      "instruction_count": 378,
+      "status": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "sources": [
+        {
+          "path": "src/render/LegacyTextureDrawing.cpp",
+          "symbols": [
+            "RenderTextureToSurface_44D520"
+          ],
+          "relationship": "原整数根完整378条1391B/六页；同源+94/+98在初始交集和各裁剪后取样，x/y完整S32实参保留，交集/位移低S16，flipX负值判断低S16、正向X/两Y负值判断完整S32；矩形值副本/UV偏置和flip减一/混合/场景缓存/真实返回及caller busy消费保持；既有native SDK边界未运行验证"
+        },
+        {
+          "path": "src/render/LegacyTextureDrawing.hpp",
+          "symbols": [
+            "RenderTextureToSurface_44D520"
+          ],
+          "relationship": "私有整数接口保完整S32实参，交集/位移低S16；现有面借用与矩形值副本不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json"
+      ],
+      "boundary": "原整数根完整378条1391B/六页；同源+94/+98在初始交集和各裁剪后取样，x/y完整S32实参保留，交集/位移低S16，flipX负值判断低S16、正向X/两Y负值判断完整S32；矩形值副本/UV偏置和flip减一/混合/场景缓存/真实返回及caller busy消费保持；既有native SDK边界未运行验证",
+      "verification_level": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "texture_viewport_sampling": {
+        "spec_id": "BUX01",
+        "evidence_refs": [
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+          "doc/cg2d_texture_viewport_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 378,
+        "original_code_bytes": 1391,
+        "original_page_count": 6,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 8,
+        "original_jump_count": 35,
+        "original_return_count": 4,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_header_patch_count": 1,
+        "total_cpp_file_count": 2,
+        "total_cpp_fragment_count": 3,
+        "total_header_file_count": 1,
+        "total_header_fragment_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "same_renderer_logical_dimensions_original_sampling_restored": true,
+        "integer_full_argument_and_mixed_width_guards_restored": true,
+        "scaled_low_S16_arguments_kept": true,
+        "scaled_initial_dimensions_held_and_later_axis_reads_restored": true,
+        "original_floating_stages_eight_ftol_two_rect_UV_blend_cache_and_returns_kept": true,
+        "original_two_helpers_and_native_SDK_Back_owner_raster_kept": true,
+        "original_caller_window_instruction_count": 134,
+        "original_caller_window_code_bytes": 415,
+        "original_constants_byte_count": 12,
+        "original_nop_tail_bytes": 16,
+        "full_inbound_parent_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x44DA90",
+      "inventory_id": "F:0004DA90",
+      "original_role": "原纹理整数/缩放绘制根：RenderTexture_44DA90",
+      "original_end_exclusive": "0x44e0b1",
+      "original_chunks": [
+        [
+          "0x44da90",
+          "0x44e0b1"
+        ]
+      ],
+      "instruction_count": 434,
+      "status": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "sources": [
+        {
+          "path": "src/render/LegacyTextureDrawing.cpp",
+          "symbols": [
+            "RenderTexture_44DA90"
+          ],
+          "relationship": "原缩放根完整434条1569B/七页；x/y仅低S16已正确保持，+94/+98初始分别保存供四裁剪，源RECT形成后重新读取两轴边界决定+1；F32局部/F64中间/原纵向flip减法、源/目标各四次ftol与两SetRect、UV无整数flip减一/混合/变换缓存/返回及caller busy消费保持；既有native SDK边界未运行验证"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+        "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+        "doc/cg2d_texture_viewport_sampling_evidence.json"
+      ],
+      "boundary": "原缩放根完整434条1569B/七页；x/y仅低S16已正确保持，+94/+98初始分别保存供四裁剪，源RECT形成后重新读取两轴边界决定+1；F32局部/F64中间/原纵向flip减法、源/目标各四次ftol与两SetRect、UV无整数flip减一/混合/变换缓存/返回及caller busy消费保持；既有native SDK边界未运行验证",
+      "verification_level": "BUX01两纹理完整原根812条2960B/13页及三caller134条415B局部；两入口逻辑尺寸取样恢复、整数完整S32实参/原低S16交集与混合宽度负值判断实修。两cpp三片段/一hpp一片段，仅局部静态；两新F及既有1201更新、两16B NN_NOP用途；原F32/F64阶段、八ftol、两SetRect/UV/混合/变换缓存/返回保。完整所有父、callees/COM/owner别名寿命/ABI/链接/像素/运行未验；RPLAN.24异常不专项处理或模拟，不记异常等价。",
+      "texture_viewport_sampling": {
+        "spec_id": "BUX01",
+        "evidence_refs": [
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline",
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision",
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-acceptance",
+          "doc/cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-source-state",
+          "doc/cg2d_texture_viewport_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 434,
+        "original_code_bytes": 1569,
+        "original_page_count": 7,
+        "original_direct_call_count": 10,
+        "original_indirect_call_count": 10,
+        "original_jump_count": 33,
+        "original_return_count": 4,
+        "original_inbound_reference_count": 2,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 1,
+        "source_header_patch_count": 0,
+        "total_cpp_file_count": 2,
+        "total_cpp_fragment_count": 3,
+        "total_header_file_count": 1,
+        "total_header_fragment_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "same_renderer_logical_dimensions_original_sampling_restored": true,
+        "integer_full_argument_and_mixed_width_guards_restored": true,
+        "scaled_low_S16_arguments_kept": true,
+        "scaled_initial_dimensions_held_and_later_axis_reads_restored": true,
+        "original_floating_stages_eight_ftol_two_rect_UV_blend_cache_and_returns_kept": true,
+        "original_two_helpers_and_native_SDK_Back_owner_raster_kept": true,
+        "original_caller_window_instruction_count": 134,
+        "original_caller_window_code_bytes": 415,
+        "original_constants_byte_count": 12,
+        "original_nop_tail_bytes": 16,
+        "full_inbound_parent_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }

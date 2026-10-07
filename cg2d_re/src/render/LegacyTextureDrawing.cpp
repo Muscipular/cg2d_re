@@ -301,7 +301,7 @@ std::uint32_t FillRect_44C9A0(
 }
 
 std::int32_t RenderTextureToSurface_44D520(
-    const std::int16_t x, const std::int16_t y, TextureRectangle rectangle,
+    const std::int32_t x, const std::int32_t y, TextureRectangle rectangle,
     TextureSurface* surface, const std::int32_t imageNo, const std::int16_t paletteIndex,
     const std::uint8_t mixMode, const std::uint32_t color)
 {
@@ -309,48 +309,55 @@ std::int32_t RenderTextureToSurface_44D520(
     auto& top = rectangle[1];
     auto& right = rectangle[2];
     auto& bottom = rectangle[3];
-    if (x >= kCpuSurfaceWidth || x - left + right <= 0
-        || y >= kCpuSurfaceHeight || y - top + bottom <= 0) {
+    // 原初始交集和裁剪位移用低 S16；负值分支仍读取完整 S32 实参。
+    const std::int32_t lowX = static_cast<std::int16_t>(x);
+    const std::int32_t lowY = static_cast<std::int16_t>(y);
+    if (lowX >= GetRendererLogicalWidth() || lowX - left + right <= 0
+        || lowY >= GetRendererLogicalHeight() || lowY - top + bottom <= 0) {
         return 0;
     }
 
-    std::int32_t destinationX = x;
+    std::int32_t destinationX = lowX;
     const bool flipX = (mixMode & kFlipX) != 0;
     if (flipX) {
-        if (x < 0) {
-            right += x;
+        if (lowX < 0) {
+            right += lowX;
             destinationX = 0;
         }
-        if (destinationX - left + right > kCpuSurfaceWidth) {
-            left = destinationX - kCpuSurfaceWidth + right;
+        const std::int32_t width = GetRendererLogicalWidth();
+        if (destinationX - left + right > width) {
+            left = destinationX - width + right;
         }
     } else {
         if (x < 0) {
-            left -= x;
+            left -= lowX;
             destinationX = 0;
         }
-        if (destinationX - left + right > kCpuSurfaceWidth) {
-            right = kCpuSurfaceWidth - destinationX + left;
+        const std::int32_t width = GetRendererLogicalWidth();
+        if (destinationX - left + right > width) {
+            right = width - destinationX + left;
         }
     }
 
-    std::int32_t destinationY = y;
+    std::int32_t destinationY = lowY;
     const bool flipY = (mixMode & kFlipY) != 0;
     if (flipY) {
         if (y < 0) {
-            bottom += y;
+            bottom += lowY;
             destinationY = 0;
         }
-        if (destinationY - top + bottom > kCpuSurfaceHeight) {
-            top = destinationY - kCpuSurfaceHeight + bottom;
+        const std::int32_t height = GetRendererLogicalHeight();
+        if (destinationY - top + bottom > height) {
+            top = destinationY - height + bottom;
         }
     } else {
         if (y < 0) {
-            top -= y;
+            top -= lowY;
             destinationY = 0;
         }
-        if (destinationY - top + bottom > kCpuSurfaceHeight) {
-            bottom = kCpuSurfaceHeight - destinationY + top;
+        const std::int32_t height = GetRendererLogicalHeight();
+        if (destinationY - top + bottom > height) {
+            bottom = height - destinationY + top;
         }
     }
 
@@ -402,13 +409,15 @@ std::int32_t RenderTexture_44DA90(
     float destinationX = originalX;
     const auto originalY = static_cast<float>(y);
     float destinationY = originalY;
-    if (x >= kCpuSurfaceWidth) {
+    const std::int32_t width = GetRendererLogicalWidth();
+    if (x >= width) {
         return 0;
     }
     if (!(static_cast<double>(right) - left + originalX > 0.0)) {
         return 0;
     }
-    if (y >= kCpuSurfaceHeight
+    const std::int32_t height = GetRendererLogicalHeight();
+    if (y >= height
         || !(static_cast<double>(bottom) - top + originalY > 0.0)) {
         return 0;
     }
@@ -420,8 +429,8 @@ std::int32_t RenderTexture_44DA90(
             destinationX = 0.0f;
         }
         const double extent = static_cast<double>(right) - left + destinationX;
-        if (extent > kCpuSurfaceWidth) {
-            left = static_cast<float>((extent - kCpuSurfaceWidth) + left);
+        if (extent > width) {
+            left = static_cast<float>((extent - width) + left);
         }
     } else {
         if (destinationX < 0.0f) {
@@ -429,8 +438,8 @@ std::int32_t RenderTexture_44DA90(
             destinationX = 0.0f;
         }
         const double extent = static_cast<double>(right) - left + destinationX;
-        if (extent > kCpuSurfaceWidth) {
-            right = static_cast<float>(right - (extent - kCpuSurfaceWidth));
+        if (extent > width) {
+            right = static_cast<float>(right - (extent - width));
         }
     }
     const bool flipY = (mixMode & kFlipY) != 0;
@@ -440,9 +449,9 @@ std::int32_t RenderTexture_44DA90(
             destinationY = 0.0f;
         }
         const double extent = static_cast<double>(bottom) - top + destinationY;
-        if (extent > kCpuSurfaceHeight) {
+        if (extent > height) {
             // 原 44DC61 的 fsubr；这里确为减去超出量，不改成横向的加法。
-            top = static_cast<float>(top - (extent - kCpuSurfaceHeight));
+            top = static_cast<float>(top - (extent - height));
         }
     } else {
         if (destinationY < 0.0f) {
@@ -450,8 +459,8 @@ std::int32_t RenderTexture_44DA90(
             destinationY = 0.0f;
         }
         const double extent = static_cast<double>(bottom) - top + destinationY;
-        if (extent > kCpuSurfaceHeight) {
-            bottom = static_cast<float>(bottom - (extent - kCpuSurfaceHeight));
+        if (extent > height) {
+            bottom = static_cast<float>(bottom - (extent - height));
         }
     }
 
@@ -461,11 +470,11 @@ std::int32_t RenderTexture_44DA90(
     const std::int32_t sourceLeft = TruncateTextureCoordinate(static_cast<double>(left) / scaleX);
     const TextureRectangle source {sourceLeft, sourceTop, sourceRight, sourceBottom};
     double expandedRight = right;
-    if (kCpuSurfaceWidth > static_cast<double>(destinationX) + right - left) {
+    if (GetRendererLogicalWidth() > static_cast<double>(destinationX) + right - left) {
         expandedRight += 1.0;
     }
     double expandedBottom = bottom;
-    if (kCpuSurfaceHeight > static_cast<double>(destinationY) + bottom - top) {
+    if (GetRendererLogicalHeight() > static_cast<double>(destinationY) + bottom - top) {
         expandedBottom += 1.0;
     }
     const std::int32_t destinationBottom =

@@ -1182,3 +1182,15 @@ caller 仍未落位，不计完整初始化、链接或运行。
 依工程委托裁决，InitializeClient_4576B0的存档失败std::sprintf接真实53B304，加既有内部LegacyFormat.hpp。原5201B0恢复返回0才在457818读取FF4E28 U8、零扩展W32按S32交%d；5592F8原字节写未清1024B message→原确认标题/错误旗标MessageBox→返回0。成功路径不读此码/不格式，原初始化顺序、鼠标/字体/IME/资源/游标与失败行为全不改。
 
 原[4576B0,457A3C)253条统计仅读28错误邻指令，余225条/原MainLoop caller和初始化依赖不重验；原call/U8零扩展/格式字节与源一callee静态核对。本步未构建、测试、初始化/恢复存档、运行或hash，不把一提示接线算完整初始化/CRT或总PLAN通过，音频暂停及现有门禁保持。
+
+## 队列下游纹理取样差异收口（BUX01，2026-10-08）
+
+[本步原证](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline)、[裁决](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision)与[结构化证据](cg2d_texture_viewport_sampling_evidence.json)沿真实DrawAllQueued三纹理消费纳管两已有根1745/1746。主循环完整入口不重取证，整数caller撤坐标S16窄化、两纹理入口恢复同源逻辑尺寸读点，源码外的完整主循环/其他队列分支保持。
+
+两根812条2960B/13页，三caller134条415B只证局部实参与busy/next；LOOP158→160/RENDER59→61各限定I/S，不称完整Loop门禁闭合。原F32/F64阶段/八ftol/原纵flip减法及返回/变换缓存尾保，完整所有父/callee/alias寿命与运行继续。
+
+### BUX01 当前修复限定静态结果
+
+集中静态已通过：两完整根812条2960B/13页、三caller134条415B/原12B/两16B用途，三个源仅四具名片段；完整语义/登记簿及派生快照只有具名模型差异，七对应文档/三个任务变更和十七文件UTF8无BOM/LF、四限定证据各25真实来源均通过。检查脚本中的比较参数空格和旧字段层级已纠正后通过，不留下失败模型。
+
+文本汇总与Check均退出0；实际语义1747/有效1740、合同1858（50.49%）、F888/E1043/R7已审450余2611、LOOP160/RENDER61。pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU过宽通过仍fail；仅本步开发修复/静态证据通过，完整所有父/callee/COM/owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

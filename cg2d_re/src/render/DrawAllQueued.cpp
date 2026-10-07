@@ -106,7 +106,7 @@ void DrawIntegerNodes(
         const std::int32_t nodeImageNo = node->imageNo;
         TextureSurface* const surface = node->surface;
         if (RenderTextureToSurface_44D520(
-                static_cast<std::int16_t>(destinationX), static_cast<std::int16_t>(destinationY),
+                destinationX, destinationY,
                 rectangle, surface, nodeImageNo, paletteIndex, mixMode, color) == kSurfaceBusy) {
             gGraphicDirty = 1;
         }

@@ -12,10 +12,11 @@
 
 ## 类型与返回
 
-- `44D520`：x/y 为 S16，矩形为四项 S32 按值传递；
+- `44D520`：x/y 保留完整 S32 实参；交集/位移取低 S16，负值门禁
+  按分支保原宽度（BUX01 原数字指令纠正早期 S16 声明）。矩形为四项 S32 按值传递；
   surface 是非拥有 `TextureSurface*`，图号 S32、调色板 S16、
   mixMode 取低 W8、color 保留 W32。
-- `44DA90`：同样的 x/y、surface、图号、调色板、mixMode/color；
+- `44DA90`：x/y 仅消费低 S16；surface、图号、调色板、mixMode/color 同前；
   矩形以指针同步只读借用，两个比例为 F32，不回写 caller。
 - 两函数早拒绝及无 3D 时 bit3 置位均返回 0；实际绘制透传完整
   W32 状态，不把返回固定成成功。三个 caller 后续比较
@@ -26,13 +27,17 @@
 
 ## 44D520 不缩放路径
 
-1. 按序拒绝 x>=640、right+x-left<=0、y>=480、
-   bottom+y-top<=0。先检查交集，再按 bit0/bit1 裁剪，不额外
-   添加空矩形或源面范围校验。
-2. 横向正向：x<0 时 left-=x、x=0；超过右边时
-   right=left+640-x。翻转时 x<0 改 right+=x、x=0；
-   超过右边时 left=right+x-640。
-3. 纵向同理：正向改 top/bottom；翻转改 bottom/top。
+1. 保存低 S16 的 lowX/lowY，按序拒绝 lowX>=renderer逻辑宽、
+   right+lowX-left<=0、lowY>=renderer逻辑高、bottom+lowY-top<=0。
+   +94/+98 在各短路阶段取样；640/480 只是初始化值。
+   先检查交集，再按 bit0/bit1 裁剪，不额外添加空矩形或源面范围校验。
+2. 横向正向以完整 S32 x<0 判断，left-=lowX、目标x=0；
+   翻转以低 S16 lowX<0 判断，right+=lowX、目标x=0。
+   两分支负值裁剪之后各重新读逻辑宽，再按原式裁剪右/左边。
+   目标x平时为lowX；不得在caller先窄化完整实参。
+3. 纵向两分支都以完整 S32 y<0 判断，用lowY改top或bottom，
+   目标y=0；否则目标y=lowY。负值裁剪之后分别重新读逻辑高，
+   正向再改bottom、翻转再改top。原门禁宽度与横向不同，不作对称化。
    这是整数裁剪，不借缩放入口替代。
 4. `44D6DB` 查询 `44B610`，真才读取 renderer `+BC`；
    两者均非零才构造纹理顶点。目标四角为裁剪后的 x/y 与原矩形
@@ -49,8 +54,9 @@
 ## 44DA90 缩放路径
 
 1. 依 top、left、right、bottom 次序乘各自比例，每项先 F64
-   运算再存回 F32；x/y 转 F32。先拒绝 x>=640，再比较横向
-   宽度+x，之后 y>=480、纵向高度+y。两次浮点检查对应
+   运算再存回 F32；低 S16 x/y 转 F32。先保存逻辑宽并拒绝x>=宽，
+   再比较横向宽度+x，通过后才保存逻辑高、比较y>=高与纵向高度+y。
+   四裁剪使用这两个保存尺寸。两次浮点检查对应
    `fnstsw/test ah,41h`，有序严格大于零才继续，unordered 也拒绝。
 2. clipping 的中间算式按原 x87 PC53 用 F64，只有原 `fstp`
    到 F32 局部的位置才收窄；禁止合并或代数重排。翻转横向超界
@@ -60,8 +66,9 @@
 3. 先 bottom/scaleY、right/scaleX、top/scaleY、left/scaleX
    各自 F64 除法，按既有 CRT PC53/`__ftol` 合同转 S64、
    取低 W32，形成源矩形。RPLAN.24 下不额外处理越界或数学异常。
-4. 当前 x+right-left 小于 640 才给 right 的 F64 临时值加 1；
-   当前 y+bottom-top 小于 480 才给 bottom 的临时值加 1。
+4. 源矩形形成后重新读取+94，当前x+right-left小于该逻辑宽才给
+   right的F64临时值加1；随后重新读取+98，当前y+bottom-top小于
+   该逻辑高才给bottom临时值加1。不沿用初始保存尺寸或固定640/480。
    随后依 bottom、right、top、left 顺序转换形成目标矩形，
    不一律补 1，不把该 F64 临时值先收窄 F32。
 5. 同样查询 `44B610` 和 `+BC`。四顶点来自转换后的目标矩形；
@@ -571,3 +578,15 @@ caller `520AEF`。沿工程委托复用已有四顶点 native 提交，不另建
 GraphicPendingQueue 删除旧局部候选声明并包含该头。
 仅静态核对门禁、混合/解绑/返回和现有 caller；
 不编译、不新增或运行测试，不把本体接线当矩形像素验收。
+
+## 逻辑尺寸与整数实参恢复（BUX01，2026-10-08）
+
+[本步原证](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline)、[裁决](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision)与[结构化证据](cg2d_texture_viewport_sampling_evidence.json)纠正本文早期固定尺寸/整数S16声明。两完整入口812条2960B/13页、三实际caller134条415B，完整S32坐标仅整数caller恢复，缩放低S16保持。整数初始与各负值裁剪后重取尺寸，缩放初始保存供裁剪/源RECT后两轴fresh决定+1；沿同源RendererResources既有接口，不新建owner或getter。
+
+两cpp三片段、一私有hpp一片段；原UV/混合/缓存/返回尾、两个正确helper、八ftol/两SetRect/原纵flip减法全文保。纳管1745/1746、纠正1201调用合同，原三busy/next消费保。12B常量及两16B NN_NOP用途有实际原证；既有SDK替换不豁免这些上层差异，完整像素/寿命/ABI/运行未验。
+
+### BUX01 当前修复限定静态结果
+
+集中静态已通过：两完整根812条2960B/13页、三caller134条415B/原12B/两16B用途，三个源仅四具名片段；完整语义/登记簿及派生快照只有具名模型差异，七对应文档/三个任务变更和十七文件UTF8无BOM/LF、四限定证据各25真实来源均通过。检查脚本中的比较参数空格和旧字段层级已纠正后通过，不留下失败模型。
+
+文本汇总与Check均退出0；实际语义1747/有效1740、合同1858（50.49%）、F888/E1043/R7已审450余2611、LOOP160/RENDER61。pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU过宽通过仍fail；仅本步开发修复/静态证据通过，完整所有父/callee/COM/owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

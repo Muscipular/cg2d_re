@@ -61,3 +61,15 @@ G01/G02/G04、完整功能门禁/全局闭包不提升。
 1201旧语义全文、75旧证据/115旧处置及全局policy和登记外部保持；新增唯一F:00120DD0后1202条/1199有效原ID、审核116/3680、局部证据78。3无独立ID/18 pending/4分类引用、任务10/60、叶0/182、完整RENDER/RESOURCE/G01/G02/G04和全局闭包不提升。固定源码快照为`cg2d-re-queued-draw-source-20261005`。
 
 完整14父/所有callee和上游、间接alias、节点/表/文本/对象借用及场景/退出清理、SDK/机器浮点ABI、同资源输入的全模式/像素画面运行仍未验。未构建/查产物/新增或执行测试/运行/摘要；异常不记安全/故障等价。
+
+## 整数纹理实参与当前合同（BUX01，2026-10-08）
+
+[本步原证](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline)、[裁决](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision)与[结构化证据](cg2d_texture_viewport_sampling_evidence.json)固定521393前ECX/EDX完整W32 push与44D520混合宽度门禁。DrawIntegerNodes撤实参两个S16转换，保原点/偏移、描述符、面/图号/调色板取样、完整busy比较和next读序；两缩放caller仅低S16被原入口消费，全文保。
+
+原GQD01六基址/head实修及其限定I/W/S证据仍有效，只覆盖原具名范围；不能把它们扩称完整整数参数已正确。既有1201追加这次修复引用/边界，处置adapted注明native SDK承接，原完整根基线不重新取证。两纹理完整根812条2960B/13页纳管1745/1746；所有完整父、callee/COM、alias寿命、链接/像素/机器ABI/运行仍未验。
+
+### BUX01 当前修复限定静态结果
+
+集中静态已通过：两完整根812条2960B/13页、三caller134条415B/原12B/两16B用途，三个源仅四具名片段；完整语义/登记簿及派生快照只有具名模型差异，七对应文档/三个任务变更和十七文件UTF8无BOM/LF、四限定证据各25真实来源均通过。检查脚本中的比较参数空格和旧字段层级已纠正后通过，不留下失败模型。
+
+文本汇总与Check均退出0；实际语义1747/有效1740、合同1858（50.49%）、F888/E1043/R7已审450余2611、LOOP160/RENDER61。pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU过宽通过仍fail；仅本步开发修复/静态证据通过，完整所有父/callee/COM/owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

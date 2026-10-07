@@ -2012,3 +2012,15 @@ FadeIn还有最终直接调用。上述是源码/指定接线静态，完整父/
 ### BUS01 本步实际结果
 
 必要静态通过：四完整原根200条699B/五页、九局部后窗/28B原消息/四尾53B，四正确正文与四cpp/声明/提供者完整保持，两机器台账及五文档/四任务完整模型核定；四锚点/25来源及UTF-8无BOM/LF通过。派生核对模型按汇总器既有成员排序规范对齐，成员集合和数量未改，完整快照其余对象保持。文本汇总与-Check通过：语义1723/有效1716、文档1834（49.84%）、处置864/E1018、R7已审429/余2632，LOOP135/MAP128/RENDER57/BATTLE263，NETWORK61保持。代码改动/新增实现0，四域只S、无I；四任务open、完整叶验收0、整体未验收。未编译、测试或运行，不代全父/callee、资源寿命/业务失败/机器ABI、链接/像素/文件/明文互通及R8。命名快照cg2d-re-renderer-rebuild-baseline-20261008，整体目标active。
+
+## 纹理逻辑裁剪与原坐标参数（BUX01，2026-10-08）
+
+[本步原证](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline)、[裁决](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision)与[结构化证据](cg2d_texture_viewport_sampling_evidence.json)补齐44D520/44DA90机器身份及两处生产差异。整数完整S32实参保留，交集/位移和flipX负值判断低S16，其余三负值门禁完整S32；尺寸沿既有同源owner接口在原阶段取样。缩放初始宽/高各保存、源矩形之后fresh取两轴供+1，不将初值640/480固化到消费者。
+
+两cpp三片段/一hpp一片段，CPU Back物理范围/owner、设备/SDK替换、raster和原UV/混合/缓存/返回保持。原两根812条2960B/13页、三caller134条415B、原12B及两16B用途；RENDER61/LOOP160四限定I/S，完整呈现/像素/COM资源寿命/ABI未验。
+
+### BUX01 当前修复限定静态结果
+
+集中静态已通过：两完整根812条2960B/13页、三caller134条415B/原12B/两16B用途，三个源仅四具名片段；完整语义/登记簿及派生快照只有具名模型差异，七对应文档/三个任务变更和十七文件UTF8无BOM/LF、四限定证据各25真实来源均通过。检查脚本中的比较参数空格和旧字段层级已纠正后通过，不留下失败模型。
+
+文本汇总与Check均退出0；实际语义1747/有效1740、合同1858（50.49%）、F888/E1043/R7已审450余2611、LOOP160/RENDER61。pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU过宽通过仍fail；仅本步开发修复/静态证据通过，完整所有父/callee/COM/owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

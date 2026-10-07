@@ -3755,3 +3755,15 @@ LOOP135/RENDER57/MAP128/BATTLE263，NETWORK61保持；只四S各25来源、无I�
 四完整原根193条708B/六页、六数值旗位36条214B编码/地址双证、原11标量88B/四28B用途、两cpp仅十三片段/正确配对与tick-tracker尾链保、光标原计时-pulse-请求-Y-X-API/公共尾阶段、完整机器/派生差异模型、十五文件编码/四锚点及七新限定证据各25来源均通过。文本汇总与Check均退出0。
 四旧BUU01过宽I/S已明确fail，previous pass/独立正确坐标事实和更正引用保留，当前修复七新限定证据pass；这是旧snapshot判断失效的历史记录，不是当前代码故障遗留，未删除失败或用新修复改写旧通过。
 实际语义1745/有效1738、文档1856（50.43%）、F886/E1039、R7已审448/余2613、LOOP158/INPUT51/RENDER59/STARTUP118；其他域/原分母/差队列/pending18与ECX pending7/closed11和完整门禁保持。未编译、链接、运行或证明完整原父/别名/ABI/显示验收，整体目标继续active。
+
+## BUX01 两纹理新身份与既有队列合同纠正（2026-10-08）
+
+[本步原证](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-baseline)、[裁决](cg2d_texture_viewport_sampling_spec.md#texture-viewport-sampling-decision)与[结构化证据](cg2d_texture_viewport_sampling_evidence.json)纳管1745/F:0004D520、1746/F:0004DA90两adapted，原812条2960B/13页、三caller134条415B、12B常量与两16B NN_NOP用途。两cpp三片段/一hpp一片段恢复尺寸阶段与整数完整S32参数；既有1201追加纠正，原六基址/head证据范围保，不重复计函数实现。
+
+LOOP160/RENDER61四限定I/S各25来源；预期语义1747/有效1740、合同1858（50.49%）、F888/E1043、R7已审450余2611。G02/R04/V04仍open，pending18/未知ECX、closed11/差队列与全门禁保；完整父/callee/COM/owner-alias/ABI/链接/像素/运行未验。
+
+### BUX01 当前修复限定静态结果
+
+集中静态已通过：两完整根812条2960B/13页、三caller134条415B/原12B/两16B用途，三个源仅四具名片段；完整语义/登记簿及派生快照只有具名模型差异，七对应文档/三个任务变更和十七文件UTF8无BOM/LF、四限定证据各25真实来源均通过。检查脚本中的比较参数空格和旧字段层级已纠正后通过，不留下失败模型。
+
+文本汇总与Check均退出0；实际语义1747/有效1740、合同1858（50.49%）、F888/E1043/R7已审450余2611、LOOP160/RENDER61。pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU过宽通过仍fail；仅本步开发修复/静态证据通过，完整所有父/callee/COM/owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

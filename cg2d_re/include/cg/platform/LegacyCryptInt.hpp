@@ -86,6 +86,8 @@ bool LessEqual_401DA0(LegacyCryptInt* value, std::int32_t maximum);
 bool Less_401DB0(LegacyCryptInt* value, std::int32_t maximum);
 bool LessCrypt_401DC0(LegacyCryptInt* lhs, LegacyCryptInt* rhs); // 先右后左独立读取，即使别名。
 bool IntGreaterCrypt_401F80(std::int32_t lhs, LegacyCryptInt* rhs); // 右值单读，保留计数/RNG副作用。
+// 原401FA0：单读右对象，S32 lhs<rhs覆盖返回AL，高24位保留读取值；条件只消费低W8。
+std::uint32_t IntLessCryptRaw_401FA0(std::int32_t lhs, LegacyCryptInt* rhs);
 bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs);
 
 // 原401FE0经401EA0尾跳单读右对象；新端S32 lhs-rhs，异常域同CQA01。

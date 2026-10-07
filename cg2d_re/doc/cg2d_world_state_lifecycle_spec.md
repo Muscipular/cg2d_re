@@ -79,3 +79,9 @@ WorldObjectState.cpp与SceneState.cpp的17个Init已改为完成既有构造后�
 [BSA01 SPEC](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state)恢复控制器状态3两个独立zero／one载体先mask／encoded／W8 count取齐再发布，原2次显式构造／2次销毁顺序及RNG不增；前一组已经暂存的9FB918→C821E8保持，目标vft／padding不写。六原空调用仍交既有NullSub_509080，不增加资源或业务寿命。
 
 初始化519A80全文保持，HP／MaxHP各按原当时action复制，五petmap按持有编号首匹配现场重取action，非拥有引用和五W16清保持。完整原父及直接初始化根924条3782B，局部基线与源取样可追；不据此提升正常owner-alias、地图退出／重进、全部资源或运行门禁。原表与填充仅X用途，音频暂停保持。
+
+## 玩家坐标比较的原读取副作用（BSB01，2026-10-07）
+
+[BSB01 SPEC](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state)把4417E0的两个上界比较接具名401FA0：先保持原Add_401E10结果，再单次读取当前action的mapX1E0／mapY1F0，左S32比较和原AL条件保持。具名体保返回高24位，调用只取低W8；没有额外数值构造／销毁、计数或RNG，也不改同一action／载荷与回调其余正文。
+
+同一入口六鼠标下界复用既有唯一LegacyMouseState，原薄读取没有附加副作用。4417E0完整原块仅两点上下文，AAS01既有骑乘取样／附加绘制范围保持，不以本步升级所有回调／资源／owner寿命、SDK或机器ABI／运行门禁；U11继续open，网络原格式明文和音频暂停保持。

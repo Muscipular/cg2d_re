@@ -5,6 +5,7 @@
 
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"
+#include "cg/platform/LegacyMouse.hpp"
 #include "cg/render/GraphicPendingQueue.hpp"
 
 #include <bit>
@@ -566,10 +567,14 @@ std::int32_t ProcessCapability4SavedSlotSelector_465430()
     do {
         const Capability4SavedSlotGeometry& geometry =
             kCapability4SavedSlotGeometry[slotIndex];
-        if (geometry.x < detail::ReadLegacyMouseX()
+        if (static_cast<std::uint8_t>(
+                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                    geometry.x, &platform::gLegacyMouseState.mouseX)) != 0
             && detail::ReadLegacyMouseX()
                 < AddW32(geometry.x, geometry.width)
-            && geometry.y < detail::ReadLegacyMouseY()
+            && static_cast<std::uint8_t>(
+                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                    geometry.y, &platform::gLegacyMouseState.mouseY)) != 0
             && detail::ReadLegacyMouseY()
                 < AddW32(geometry.y, geometry.height)) {
             const std::uint8_t click =

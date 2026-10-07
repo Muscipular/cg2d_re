@@ -5086,7 +5086,9 @@ void Sub_4417E0(YobiAction* const action)
             if (!outside) {
                 const std::int32_t upperX =
                     platform::legacy_crypt_int::Add_401E10(&world::detail::gPlayerX, 16);
-                outside = platform::legacy_crypt_int::Greater_401D40(&action->mapX1E0, upperX);
+                outside = static_cast<std::uint8_t>(
+                    platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                        upperX, &action->mapX1E0)) != 0;
             }
             if (!outside) {
                 const std::int32_t lowerY =
@@ -5096,7 +5098,9 @@ void Sub_4417E0(YobiAction* const action)
             if (!outside) {
                 const std::int32_t upperY =
                     platform::legacy_crypt_int::Add_401E10(&world::detail::gPlayerY, 16);
-                outside = platform::legacy_crypt_int::Greater_401D40(&action->mapY1F0, upperY);
+                outside = static_cast<std::uint8_t>(
+                    platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                        upperY, &action->mapY1F0)) != 0;
             }
             if (outside) {
                 world::detail::Sub_4462E0(world::detail::gWorldObjects[

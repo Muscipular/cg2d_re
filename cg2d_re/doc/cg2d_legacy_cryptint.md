@@ -252,3 +252,9 @@ std::free沿现行Free标准库替换口径，不用C++ delete表达式推导原
 原读取一次、W8计数/刷新/共享RNG、encoded^mask、16B载荷、两赋值包装及其他完整正文保持。
 四根15条/55B/114直接入向与401EA0唯一尾跳归档；只补四原身份的语义/归属，不重验全部父。
 R01/U11与完整CRT/owner/alias/实际ABI/运行未闭；不构建、测试、运行样例或计算摘要。
+
+## 401FA0具名原体与完整W32返回（BSB01，2026-10-07）
+
+依[BSB01 SPEC](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state)，既有LegacyCryptInt库新增IntLessCryptRaw_401FA0：右载体单次Read_401EC0，S32 lhs<right仅替换低BYTE，保读取值高24位。原401FA0完整5条17B，经既有401EA0五字节尾跳到Read；八直接调用的32条96B后窗均TEST AL。调用条件现显式取uint8低BYTE，避免将完整W32返回当布尔值。
+
+主地图两个上界／两输入框四下界／保存槽两下界全部接同一原入口，保持同一原生非拥有对象／鼠标owner、短路与原±16／其余几何、计数及RNG。旧正常布尔逻辑正确，本步补具名原体与完整原返回；不新增数值状态、保护或网络算法。语义82身份保持，新增单adapted／MAP与INPUT各一实际成员，原已审X15B用途不重复计R7；完整机器ABI、未知间接alias／调用与所有生命周期／运行仍未验。

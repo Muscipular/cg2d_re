@@ -7941,15 +7941,17 @@
     {
       "original_entry": "0x401FA0",
       "inventory_id": "F:00001FA0",
-      "status": "已有调用点内联或尾跳映射，运行未验",
+      "status": "BSB01补具名原体/完整W32高24位与低AL结果及八原点接线；历史内联基线保留，机器ABI和整体运行未验",
       "original_role": "整数小于CryptInt",
       "sources": [
         {
           "path": "src/platform/LegacyCryptInt.cpp",
           "symbols": [
             "Read_401EC0",
-            "Greater_401D40"
-          ]
+            "Greater_401D40",
+            "IntLessCryptRaw_401FA0"
+          ],
+          "relationship": "BSB01当前具名原401FA0：一次Read_401EC0，S32左整数<右载体，保高24位只替换AL；其余旧读取/比较符号保历史与现有其它源使用"
         },
         {
           "path": "src/YobiRuntime.cpp",
@@ -7972,13 +7974,63 @@
             "ReadLegacyMouseX",
             "ReadLegacyMouseY"
           ]
+        },
+        {
+          "path": "include/cg/platform/LegacyCryptInt.hpp",
+          "symbols": [
+            "IntLessCryptRaw_401FA0"
+          ],
+          "relationship": "既有数字载体库内声明，S32左值/原生非拥有右对象，uint32原返回位型"
         }
       ],
       "evidence_documents": [
         "doc/cg2d_legacy_cryptint.md",
-        "doc/cg2d_semantic_function_mappings.md"
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-acceptance",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
+        "doc/cg2d_integer_left_compare_dispatch_evidence.json"
       ],
-      "boundary": "原cmp整数,Read值后setl，是有符号整数<读取值，不能反成CryptInt<整数；八处直接callsite由同方向比较和单次读取承接，保留输入命中短路顺序。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。"
+      "boundary": "原cmp整数,Read值后setl，是有符号整数<读取值，不能反成CryptInt<整数；八处直接callsite由同方向比较和单次读取承接，保留输入命中短路顺序。原叶保留Read结果高24位并仅改AL；已核直接callsite以AL作条件，本映射不推广到未知的完整EAX消费者。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "original_end_exclusive": "0x401fb1",
+      "instruction_count": 5,
+      "verification_level": "BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "integer_left_compare_dispatch": {
+        "spec_id": "BSB01",
+        "evidence_refs": [
+          "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline",
+          "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision",
+          "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-acceptance",
+          "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
+          "doc/cg2d_integer_left_compare_dispatch_evidence.json"
+        ],
+        "full_original_leaf_captured": true,
+        "original_instruction_count": 5,
+        "original_code_bytes": 17,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_direct_callee": "0x401EA0",
+        "existing_read_thunk_target": "0x401EC0",
+        "source_new_named_body": true,
+        "single_right_read_kept": true,
+        "full_w32_high24_and_low_byte_return_restored": true,
+        "original_s32_comparison_kept": true,
+        "known_direct_call_count": 8,
+        "known_direct_calls_consume_low_byte": true,
+        "source_known_call_routes_restored": 8,
+        "source_changed_file_count": 5,
+        "source_patch_count": 12,
+        "normal_previous_values_wrong": false,
+        "new_shared_state_or_numeric_rng_consumption_added": false,
+        "existing_range_classification_unchanged": true,
+        "r7_classification_delta": 0,
+        "full_caller_context_verified": false,
+        "full_sdk_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x402000",
@@ -165500,7 +165552,7 @@
     {
       "original_entry": "0x4417e0",
       "inventory_id": "F:000417E0",
-      "status": "AAS01普通骑乘附件取样实修与真实回调身份纳管；完整实体/父/callee及运行未验",
+      "status": "AAS01普通骑乘附件取样实修与真实回调身份纳管；完整实体/父/callee及运行未验；BSB01仅两个整数左侧比较原点接具名401FA0，回调其它正文保持",
       "original_end_exclusive": "0x441dab",
       "instruction_count": 466,
       "original_direct_reference_count": 1,
@@ -165528,10 +165580,32 @@
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-decision",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-acceptance",
         "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
-        "doc/cg2d_actor_attachment_sampling_evidence.json"
+        "doc/cg2d_actor_attachment_sampling_evidence.json",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-acceptance",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
+        "doc/cg2d_integer_left_compare_dispatch_evidence.json"
       ],
       "verification_level": "原466条1483B/唯一type1 callback绑定完整保存；仅附件五路径与共同读取点、两局部入口及源码十片段静态，完整其它语义/父/callee/owner寿命/运行未验",
-      "boundary": "既有真实实体回调，在普通骑乘路径恢复Y相加后取X查询子槽、X相加前取图形子槽，初descriptor与最后graphicIndex分别借用，原Y→X查询/before0/batch0及窄化保持。共用选择不套用阶段1/2其它三种顺序；本轮不重验原466条的其它语义/父与callee/生产/ABI/SDK/PC53/RNG/场景画面及owner重进退出/borrow失效，异常不增加保护/模拟或称等价。"
+      "boundary": "既有真实实体回调，在普通骑乘路径恢复Y相加后取X查询子槽、X相加前取图形子槽，初descriptor与最后graphicIndex分别借用，原Y→X查询/before0/batch0及窄化保持。共用选择不套用阶段1/2其它三种顺序；本轮不重验原466条的其它语义/父与callee/生产/ABI/SDK/PC53/RNG/场景画面及owner重进退出/borrow失效，异常不增加保护/模拟或称等价。 BSB01原401FA0完整5条17B/一页，单call401EA0/单RET，后者一条5B跳401EC0只既有转发元信息；八真实直接入向与32条96B后窗均TEST AL。当前源码新增IntLessCryptRaw_401FA0具名体：单次Read右值，S32 lhs<right仅覆盖低BYTE并保Read值高24位；原正常布尔结果/计数/RNG正确，不称已观察运行错误。五源文件12精确片段/原8点（地图2/能力4输入4/保存槽2）显式低W8结果，右侧同一action坐标/唯一鼠标owner和原短路/±16/其它矩形/输入焦点/声音及现原数值机制保持；1新函数体/3原父局部变更，不新共享状态/保护/位宽扩展或网络算法。4417E0完整466条1483B/七页只两点上下文，不新验其全部原语/骑乘/删除/资源或两输入父。既有语义82完善/1297仅两调用同步，语义1582有效1575/文档1693（46.01%）保持，原401FA0单adapted处置714→715，MAP68→69/INPUT19→20/E820→824四局部I-S。X15B全90/无入向前RET后入口已RPA01分类，全文保持/R7 288余2773不增；无F/code区各7/pending18/差队列172与171缺定位43待归属/closed11/完整功能叶0/globalfalse和整体门禁保。R01/R04/U11仅current/refs仍open；完整alias-owner寿命/所有其它调用与CRT-SDK-机器ABI/明文互通与运行R8未验。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "integer_left_compare_dispatch": {
+        "spec_id": "BSB01",
+        "evidence_refs": [
+          "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline",
+          "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision",
+          "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-acceptance",
+          "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
+          "doc/cg2d_integer_left_compare_dispatch_evidence.json"
+        ],
+        "original_context_captured_instruction_count": 466,
+        "original_context_code_bytes": 1483,
+        "original_context_page_count": 7,
+        "source_original_call_route_count": 2,
+        "source_body_otherwise_unchanged": true,
+        "parent_full_original_or_source_newly_verified": false,
+        "runtime_verified": false
+      }
     },
     {
       "original_entry": "0x441db0",

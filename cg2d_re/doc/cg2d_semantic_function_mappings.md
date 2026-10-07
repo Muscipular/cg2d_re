@@ -3246,3 +3246,9 @@ LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布
 新增1580／1581对应真实F:0011C7D0／F:00119A80，SceneState.cpp的DrawNormalScene_51C7D0／Sub_519A80；见[完整基线](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-baseline)。两根924条3782B／十四页、226call（214direct／66callee与十二indirect）、61jump／十五RET与三个真实caller；控制器22具名状态、253BYTE索引和23W32目标完整纳管。
 
 控制器八片段落实六原空回调／两先读tuple，2构2销与正常状态及其余整源保持，初始化仅补基线。两个X362B为五连续part／两本父data引用、无code进入、17B真NOP与两表，只mapped用途；语义1582／有效1575、文档1693／3680（46.01%）、714处置、MAP68／E820／R7 288余2773。冻结原定义行、pending／开发缺口队列、源码closed11／完整功能叶0和所有完整门禁保持。
+
+## BSB01 整数左侧比较原入口（2026-10-07）
+
+已有语义82/F:00001FA0补IntLessCryptRaw_401FA0的实际声明与正文／完整W32返回，1297/F:000417E0仅同步两比较点；见[原基线](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline)。原叶5条17B／单call、八直接入向与32条96B AL后窗、401EA0一条5B尾跳可追，回调466条1483B仅局部上下文；不重复新增F或重新验完整父。
+
+五源码12片段含一新体／声明、八原点及两既有鼠标头引用，保一次右读取／S32方向与高24位＋AL、原同一对象与短路。语义1582／有效1575、文档1693／3680（46.01%）保持，单adapted处置715、MAP69／INPUT20、四局部I-S／E824；RPA01已审X15B及R7 288余2773全文保持。冻结定义行／pending／差队列、源码closed11／完整0与完整门禁保持。

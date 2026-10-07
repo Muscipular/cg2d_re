@@ -206,6 +206,14 @@ bool IntGreaterCrypt_401F80(const std::int32_t lhs, LegacyCryptInt* const rhs)
     return lhs > Read_401EC0(rhs);
 }
 
+std::uint32_t IntLessCryptRaw_401FA0(
+    const std::int32_t lhs, LegacyCryptInt* const rhs)
+{
+    const std::int32_t right = Read_401EC0(rhs);
+    return (ToBits(right) & 0xFFFFFF00U)
+        | static_cast<std::uint32_t>(lhs < right);
+}
+
 bool IntLessEqualCrypt_401FC0(std::int32_t lhs, LegacyCryptInt* rhs)
 {
     return lhs <= Read_401EC0(rhs);

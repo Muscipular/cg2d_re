@@ -1274,3 +1274,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-baseline)、[裁决](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-decision)、[验收](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-acceptance)与[源码状态](cg2d_normal_scene_controller_callee_order_spec.md#normal-scene-callee-source-state)关联两个完整924条3782B原根与控制器八片段。六原空叶位置恢复／两个mask-encoded-W8先读齐发布，原状态／调用、2construct-destroy／RNG及目的vft-padding保；直接初始化正确正文保持，实际数据生产消费局部可追。
 
 两个正常F／MAP两成员，两X362B仅原目标表／值表及填充用途，局部I-S各19项真实来源、E818→820。完整gates与枚举、源码closed11／完整功能叶0保持，U09／U11仅current／refs仍open；全部正常alias-owner寿命／资源像素／地图重进与所有传递provider、SDK-ABI及明文互通／运行R8继续逐项推进，音频暂停和RPLAN.24保持。
+
+## BSB01 整数左侧比较的具名开发验收（2026-10-07）
+
+[基线](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-baseline)、[裁决](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-decision)、[验收](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-acceptance)与[源码状态](cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state)关联完整5条17B原叶、八AL条件和五源12片段。具名体一次右读取、S32 lhs<right覆盖AL／保高24位，八原点显式低W8；既有单读副作用／原鼠标与action对象、短路和原其余正文保持，旧正常条件结果正确。
+
+语义82补原体／1297仅局部两点，不增语义或文档计数；单adapted／MAP及INPUT各一成员，四局部I-S各18来源、E820→824。已审X与R7不重复变更，R01／R04／U11只current／refs、仍open；完整gates／成员枚举、源码closed11与完整功能叶0保持，未知alias／所有数值入口与父流程、CRT-SDK-机器ABI／正常owner寿命／明文互通及运行R8继续原标准。

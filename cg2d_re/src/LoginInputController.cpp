@@ -8,6 +8,7 @@
 #include "cg/GraphicInfo.hpp"
 #include "cg/Palette.hpp"
 #include "cg/platform/KeyState.hpp"
+#include "cg/platform/LegacyMouse.hpp"
 #include "cg/platform/Startup.hpp"
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
@@ -177,14 +178,18 @@ std::int32_t ProcessCapability4Input_464E30()
     }
 
     if (platform::gMonitorKeyboard == 0) {
-        if (static_cast<std::int32_t>(gInputContext9A5678X)
-                < detail::ReadLegacyMouseX()
+        if (static_cast<std::uint8_t>(
+                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                    static_cast<std::int32_t>(gInputContext9A5678X),
+                    &platform::gLegacyMouseState.mouseX)) != 0
             && detail::ReadLegacyMouseX()
                 < AddW32(
                     static_cast<std::int32_t>(gInputContext9A5678X),
                     372)
-            && static_cast<std::int32_t>(gInputContext9A5678Y)
-                < detail::ReadLegacyMouseY()
+            && static_cast<std::uint8_t>(
+                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                    static_cast<std::int32_t>(gInputContext9A5678Y),
+                    &platform::gLegacyMouseState.mouseY)) != 0
             && detail::ReadLegacyMouseY()
                 < AddW32(
                     static_cast<std::int32_t>(gInputContext9A5678Y),
@@ -195,14 +200,18 @@ std::int32_t ProcessCapability4Input_464E30()
             static_cast<void>(detail::PlaySe(51, 320, 240));
             gValue9A6E20 = 1;
         }
-        if (static_cast<std::int32_t>(gInputContext9A5960X)
-                < detail::ReadLegacyMouseX()
+        if (static_cast<std::uint8_t>(
+                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                    static_cast<std::int32_t>(gInputContext9A5960X),
+                    &platform::gLegacyMouseState.mouseX)) != 0
             && detail::ReadLegacyMouseX()
                 < AddW32(
                     static_cast<std::int32_t>(gInputContext9A5960X),
                     372)
-            && static_cast<std::int32_t>(gInputContext9A5960Y)
-                < detail::ReadLegacyMouseY()
+            && static_cast<std::uint8_t>(
+                platform::legacy_crypt_int::IntLessCryptRaw_401FA0(
+                    static_cast<std::int32_t>(gInputContext9A5960Y),
+                    &platform::gLegacyMouseState.mouseY)) != 0
             && detail::ReadLegacyMouseY()
                 < AddW32(
                     static_cast<std::int32_t>(gInputContext9A5960Y),

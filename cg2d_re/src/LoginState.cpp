@@ -82,12 +82,7 @@ struct ServerConnectionLayout {
 
 ServerConnectionLayout gServerConnectionLayout {};
 
-constexpr std::int32_t kProgressActionX = 256;
-constexpr std::int32_t kProgressActionY = 192;
-constexpr std::int32_t kProgressActionWidth = 128;
-constexpr std::int32_t kProgressActionHeight = 96;
-constexpr std::int16_t kProgressTextX = 296;
-constexpr std::int16_t kProgressTextY = 232;
+// 原登录进度布局计算见doc/cg2d_login_progress_layout_sampling_spec.md。
 
 static_assert(sizeof(kLoginTimeoutMessage) == 15);
 static_assert(sizeof(kLoginFailureMessage) == 43);
@@ -474,16 +469,22 @@ std::int32_t UpdateLoginProgress()
     std::int32_t result = 0;
 
     if (phase == 0) {
+        const std::uint32_t textLength =
+            static_cast<std::uint32_t>(std::strlen(kLoginProgressText));
         gLoginProgressPhase = 1;
+        const std::int32_t columnCount =
+            static_cast<std::int32_t>(((textLength * 9U) >> 6U) + 2U);
         gLoginProgressLayout.rowCount = 2;
-        gLoginProgressLayout.columnCount = 2;
-        gLoginProgressLayout.y = kProgressActionY;
-        gLoginProgressLayout.x = kProgressActionX;
+        gLoginProgressLayout.columnCount = columnCount;
+        const std::int32_t actionX = ((10 - columnCount) * 64) / 2;
+        gLoginProgressLayout.y = 192;
+        const std::int32_t actionWidth = columnCount * 64;
+        gLoginProgressLayout.x = actionX;
         gLoginProgressAction = detail::Sub_5044E0(
-            kProgressActionX,
-            kProgressActionY,
-            kProgressActionWidth,
-            kProgressActionHeight,
+            actionX,
+            192,
+            actionWidth,
+            96,
             4,
             1);
         phase = gLoginProgressPhase;
@@ -495,8 +496,9 @@ std::int32_t UpdateLoginProgress()
     } else if (phase == 2) {
         result = PollLoginRequest();
         if (result != 0) {
-            if (gLoginProgressAction != nullptr) {
-                detail::MarkDeath(gLoginProgressAction);
+            YobiAction* const action = gLoginProgressAction;
+            if (action != nullptr) {
+                detail::MarkDeath(action);
                 gLoginProgressAction = nullptr;
             }
             return result;
@@ -505,7 +507,21 @@ std::int32_t UpdateLoginProgress()
 
     YobiAction* const action = gLoginProgressAction;
     if (action != nullptr && detail::IsYobiActionReady(action, 1)) {
-        detail::DrawText3(kProgressTextX, kProgressTextY, 2, 0, kLoginProgressText, 0);
+        const std::int32_t rowCount = gLoginProgressLayout.rowCount;
+        const std::int32_t y = gLoginProgressLayout.y;
+        const std::int32_t textY = ((rowCount * 48 - 16) / 2) + y;
+        const std::int32_t textLength =
+            static_cast<std::int32_t>(std::strlen(kLoginProgressText));
+        const std::int32_t columnCount = gLoginProgressLayout.columnCount;
+        const std::int32_t horizontalWidth = (columnCount * 8 - textLength) * 8;
+        const std::int32_t x = gLoginProgressLayout.x;
+        detail::DrawText3(
+            static_cast<std::int16_t>(horizontalWidth / 2 + x),
+            static_cast<std::int16_t>(textY),
+            2,
+            0,
+            kLoginProgressText,
+            0);
     }
     return result;
 }

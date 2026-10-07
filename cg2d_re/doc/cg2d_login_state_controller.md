@@ -632,3 +632,9 @@ select/CONNECT OK日志/提示后实际检查与关闭使用当时共享句柄�
 调用/错误/关闭/NoDelay/超时/提示与账号/adapter/明文请求保持，
 不新增状态、校验或异常捕获。单CPP八处外全文保持；
 完整登录/网络父、所有权/间接alias及SDK/运行不据本组验收关闭。
+
+## 登录进度布局与对象取样（BRZ01，2026-10-07）
+
+按[BRZ01 SPEC](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state)，UpdateLoginProgress恢复阶段0原strlen、U32九倍长度右移列数与正常S32窗口居中；绘制在readiness后按rows／y、第二strlen、columns／x现场取样，保原8B横向公式和低W16接口。轮询非零只取一次非拥有action，原MarkDeath后清槽、结果透传；原同帧启动、阶段宽度、失败提示与成功进入scene9保持。当前6B文案原坐标和旧固定值相同，本步恢复原计算与读取过程，不声称已观察到画面错误。
+
+三完整原根176条565B／五页，父45E960新增正常基线，45EA50／45EA60完善已有192／193，父与Reset正文全文保持。三个X27B全90，无入向；第一段前是终端JMP，其余RET，仅登记填充用途。三F正常处置与LOGIN三成员、局部I-S可追，全部依赖／owner寿命／SDK-ABI和真实登录流程仍按整体标准推进，U10／V03保持open。原字节、原格式明文和音频暂停保持。

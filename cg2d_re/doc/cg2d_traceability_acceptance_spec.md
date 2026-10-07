@@ -1262,3 +1262,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-baseline)、[裁决](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-decision)、[验收](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-acceptance)及[源码状态](cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state)关联两完整211条883B、真实三chunk与一体八源片段。七tuple先读齐／C821E8两pub后count／末独立第三对象，原构析RNG与状态／vft-padding／返回保；第二体正确正文保持，六清区／选槽／恢复／数组和数据owner可追。原EH尾仅归属元信息，不扩故障门禁或称SDK-EH运行通过。
 
 两个normal F／MAP两成员，两X7B原填充用途，局部I-S各二十一真实来源，E814→816。完整gates／成员枚举、源码closed11与完整0保持；U09／U10／U11只current／引用仍open，全部正常alias／owner寿命、生产消费／资源／所有callee／主地图流程／SDK-ABI／明文互通／运行继续逐项开发验收，音频暂停和RPLAN.24保。
+
+## BRZ01 登录进度布局局部开发验收（2026-10-07）
+
+[基线](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline)、[裁决](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision)、[验收](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance)与[源码状态](cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state)对应三根176条565B和四源片段。原字节长度与两种原公式、rows／y再长度／columns／x现场消费、非零轮询一次对象／死亡后清槽恢复；W16阶段与父成功失败／原字节消息和现网络格式保持。
+
+新父F与两个已有F补全分开计量，正常处置加三、LOGIN加三；三X27B仅原填充用途，两局部I-S各18个真实来源，E816→818。成员枚举与完整门禁、源码closed11／完整功能叶0保持，U10／V03仅current与引用同步、仍open。局部正常源码验收不代资源与对象寿命、全部callee、真实明文互通或运行／R8；当前执行限制继续适用。

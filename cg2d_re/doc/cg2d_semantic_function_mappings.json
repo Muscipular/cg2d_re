@@ -16079,7 +16079,7 @@
     {
       "original_entry": "0x45EA50",
       "inventory_id": "F:0005EA50",
-      "status": "已有命名本体映射，完整依赖及运行未验",
+      "status": "已有命名本体映射，完整依赖及运行未验；BRZ01补全正常原根，布局与对象取样实修仅193，完整依赖与运行未验",
       "sources": [
         {
           "path": "src/LoginState.cpp",
@@ -16089,14 +16089,57 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json"
       ],
-      "boundary": "仅以W16清gLoginProgressPhase，不清布局、提示对象、请求状态或计时器。"
+      "boundary": "仅以W16清gLoginProgressPhase，不清布局、提示对象、请求状态或计时器。 完整两条10B/一页、无call/jump/一RET，唯一45E960@45E969。既有正文全文保持，只W16阶段0，不清四S32布局/对象/请求/计时器；补全已有192映射真实正常基线，原身份及源码来源保。 BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "original_role": "ResetLoginProgress",
+      "original_end_exclusive": "0x45ea5a",
+      "instruction_count": 2,
+      "verification_level": "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "login_progress_layout_sampling": {
+        "spec_id": "BRZ01",
+        "evidence_refs": [
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+          "doc/cg2d_login_progress_layout_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 2,
+        "original_code_bytes": 10,
+        "original_page_count": 1,
+        "original_chunk_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_callee_count": 0,
+        "original_code_inbound_count": 1,
+        "source_body_changed": false,
+        "new_semantic_record": false,
+        "source_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "two_strlen_calls_restored": null,
+        "four_layout_field_read_order_restored": null,
+        "single_death_object_sampling_restored": null,
+        "original_phase_width_and_control_flow_kept": true,
+        "original_pointer_owner_and_call_order_kept": true,
+        "no_network_algorithm_changed": true,
+        "dependency_r7_classification_count": 3,
+        "full_normal_source_static_mapped": true,
+        "full_sdk_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x45EA60",
       "inventory_id": "F:0005EA60",
-      "status": "已有命名本体映射，完整依赖及运行未验",
+      "status": "已有命名本体映射，完整依赖及运行未验；BRZ01补全正常原根，布局与对象取样实修仅193，完整依赖与运行未验",
       "sources": [
         {
           "path": "src/LoginState.cpp",
@@ -16106,9 +16149,52 @@
         }
       ],
       "evidence_documents": [
-        "doc/cg2d_login_state_controller.md"
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json"
       ],
-      "boundary": "阶段0创建提示后重读阶段，同帧阶段1启动请求；阶段2轮询非零时清对象并返回，等待才按readiness绘制。保留W16阶段与S32轮询结果。"
+      "boundary": "阶段0创建提示后重读阶段，同帧阶段1启动请求；阶段2轮询非零时清对象并返回，等待才按readiness绘制。保留W16阶段与S32轮询结果。 完整102条325B/两页、六直接call/六callee、七jump/两RET，唯一45E960@45E985。恢复初始化strlen→W16phase1→U32(9len>>6)+2 cols、S32 rows/cols/y/x原序发布及正常居中，创建后重读phase/同帧Start再INC；绘制readiness后rows/y→第二strlen→cols/x现场取样和原8B横向公式，低W16绘制边界保。poll非零只一次非拥有action取样、死亡后清槽并透传，无保护/限制/新状态/销毁/RNG或网络变化。 BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "original_role": "UpdateLoginProgress",
+      "original_end_exclusive": "0x45eba5",
+      "instruction_count": 102,
+      "verification_level": "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "login_progress_layout_sampling": {
+        "spec_id": "BRZ01",
+        "evidence_refs": [
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+          "doc/cg2d_login_progress_layout_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 102,
+        "original_code_bytes": 325,
+        "original_page_count": 2,
+        "original_chunk_count": 1,
+        "original_direct_call_count": 6,
+        "original_unique_callee_count": 6,
+        "original_code_inbound_count": 1,
+        "source_body_changed": true,
+        "new_semantic_record": false,
+        "source_patch_count": 4,
+        "normal_previous_values_wrong": false,
+        "two_strlen_calls_restored": true,
+        "four_layout_field_read_order_restored": true,
+        "single_death_object_sampling_restored": true,
+        "original_phase_width_and_control_flow_kept": true,
+        "original_pointer_owner_and_call_order_kept": true,
+        "no_network_algorithm_changed": true,
+        "dependency_r7_classification_count": 3,
+        "full_normal_source_static_mapped": true,
+        "full_sdk_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x45CE00",
@@ -184702,6 +184788,66 @@
         "original_seh_tail_metadata_only": false,
         "full_normal_source_static_mapped": true,
         "full_seh_or_sdk_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x45E960",
+      "inventory_id": "F:0005E960",
+      "original_role": "ProcessState_45E960",
+      "original_end_exclusive": "0x45ea46",
+      "instruction_count": 72,
+      "status": "BRZ01已有登录完成父正文保持并纳管正常完整基线；完整依赖与运行未验",
+      "sources": [
+        {
+          "path": "src/LoginState.cpp",
+          "symbols": [
+            "ProcessState_45E960"
+          ],
+          "relationship": "完整72条230B/两页、8直接call/七callee、10jump/一RET，唯一51C430@51C619。已有正文保持：0重置→532D80→状态递增同帧1；1成功534290后转scene9，-1/-2先pub100及原15/43B消息复制，同帧消息重置/递增101；101消息零返0/非零转scene2，其它原状态透传。所有阶段/原字节与调用序保，只新增正常父基线，不冒称新增主流程业务。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json"
+      ],
+      "boundary": "完整72条230B/两页、8直接call/七callee、10jump/一RET，唯一51C430@51C619。已有正文保持：0重置→532D80→状态递增同帧1；1成功534290后转scene9，-1/-2先pub100及原15/43B消息复制，同帧消息重置/递增101；101消息零返0/非零转scene2，其它原状态透传。所有阶段/原字节与调用序保，只新增正常父基线，不冒称新增主流程业务。 BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "verification_level": "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+      "login_progress_layout_sampling": {
+        "spec_id": "BRZ01",
+        "evidence_refs": [
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+          "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+          "doc/cg2d_login_progress_layout_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 72,
+        "original_code_bytes": 230,
+        "original_page_count": 2,
+        "original_chunk_count": 1,
+        "original_direct_call_count": 8,
+        "original_unique_callee_count": 7,
+        "original_code_inbound_count": 1,
+        "source_body_changed": false,
+        "new_semantic_record": true,
+        "source_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "two_strlen_calls_restored": null,
+        "four_layout_field_read_order_restored": null,
+        "single_death_object_sampling_restored": null,
+        "original_phase_width_and_control_flow_kept": true,
+        "original_pointer_owner_and_call_order_kept": true,
+        "no_network_algorithm_changed": true,
+        "dependency_r7_classification_count": 3,
+        "full_normal_source_static_mapped": true,
+        "full_sdk_verified": false,
         "full_lifecycle_closed": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false

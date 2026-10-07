@@ -716,11 +716,15 @@
         "doc/cg2d_login_input_controller.md",
         "doc/cg2d_login_request.md",
         "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline",
-        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline"
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline"
       ],
       "original_inventory_ids": [
         "F:001202E0",
-        "F:00108BC0"
+        "F:00108BC0",
+        "F:0005E960",
+        "F:0005EA50",
+        "F:0005EA60"
       ],
       "closure_task_ids": [
         "P18",
@@ -736,17 +740,20 @@
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision",
-        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision"
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "BRU01仅既有登录负分类provider/20正常BYTE与固定池读取适配：LegacyUiRecord唯一定义直接借底部两W32字节/hover正文与标题/mouseY真实token/左锚和服务器伴随值，D68AC6原未装载独立1B加载零内容有目标地址形成/无加载别名及邻近20B标记、独立计时/伴随值边界证据，私有const零BYTE不补业务。12固定池点始终读唯一fixedPool，七坐标BYTE现场读/五链接BYTE由实际handle还原原固定节点与四哨兵身份再提取，0映射0，不把handle或本机指针低字节冒充原BYTE；不造可解引用地址、影子池/链接状态或反查表，动态nativePool不借。原登录父、所有tracker逻辑/布局和mutable生产/RNG/申请释放/初始化/网络全保，只加现缺provider和只读桥/声明/注释；两原尾先读后判调用位置保持。E804→806仅LOGIN局部I/S，V03仍open、源码closed11与所有语义/F/R7/枚举/完整门禁保持；不配置构建测试运行摘要，原格式明文/音频暂停/RPLAN.24保持。",
-        "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
+        "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。",
+        "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state"
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state"
       ]
     },
     {
@@ -35150,6 +35157,86 @@
       "observation": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。",
       "expected": "完整152条661B/三页，主[467F30,4681AB)635B加实际尾chunk[54B890,54B8AA)26B。21directcall/七callee，主正常无jump/一RET，尾三JMP只EH元信息；唯一51C430@51C572入向。八原显式Construct和八Destroy顺序保：前两对first-second/second-first、第二对second-first/first-second，后四逐构逐销；七tuple mask-encoded-W8 count先读齐再pub，C821E8特例encoded-mask先读齐/两pub后才count读pub；最后第三var1C独立临时对象恢复，原mask/encoded/W8写序/共享owner/vft-padding保持。其余五实际helper、全部W16/W32状态/FFFF与末46CF20非拥有一过尾指针保，内部数值载体非网络加解密；不专项或验EH/SDK-ABI/异常。 完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。",
       "actual": "BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。"
+    },
+    {
+      "id": "E-LOGIN-PROGRESS-LAYOUT-SAMPLING-I-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRZ01三完整176条565B/五页、14call十三callee/17jump四RET、三实际caller和六owner引用；两长度公式与布局/一次死亡取样及三X27B；doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-progress-layout-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json",
+        "src/LoginState.cpp#ProcessState_45E960",
+        "src/LoginState.cpp#ResetLoginProgress",
+        "src/LoginState.cpp#UpdateLoginProgress",
+        "src/LoginStateDependencies.hpp",
+        "src/world/WorldUpdate.cpp#Update",
+        "src/LoginRequest.cpp#StartLoginRequest",
+        "src/LoginRequest.cpp#PollLoginRequest",
+        "src/LoginMessage.cpp#ResetLoginMessage",
+        "src/LoginMessage.cpp#UpdateLoginMessage",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "四精确源码片段恢复两次字节strlen、U32九倍右移列数/正常S32几何和rows-y/长度/columns-x现场消费，轮询非零一次原native action取样/死亡后清槽；父与Reset全文保持，原阶段/同帧请求/成功失败及原格式明文保持，旧固定文案正常坐标本来相同",
+          "decision_ref": "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整72条230B/两页、8直接call/七callee、10jump/一RET，唯一51C430@51C619。已有正文保持：0重置→532D80→状态递增同帧1；1成功534290后转scene9，-1/-2先pub100及原15/43B消息复制，同帧消息重置/递增101；101消息零返0/非零转scene2，其它原状态透传。所有阶段/原字节与调用序保，只新增正常父基线，不冒称新增主流程业务。 完整两条10B/一页、无call/jump/一RET，唯一45E960@45E969。既有正文全文保持，只W16阶段0，不清四S32布局/对象/请求/计时器；补全已有192映射真实正常基线，原身份及源码来源保。 完整102条325B/两页、六直接call/六callee、七jump/两RET，唯一45E960@45E985。恢复初始化strlen→W16phase1→U32(9len>>6)+2 cols、S32 rows/cols/y/x原序发布及正常居中，创建后重读phase/同帧Start再INC；绘制readiness后rows/y→第二strlen→cols/x现场取样和原8B横向公式，低W16绘制边界保。poll非零只一次非拥有action取样、死亡后清槽并透传，无保护/限制/新状态/销毁/RNG或网络变化。",
+      "expected": "完整72条230B/两页、8直接call/七callee、10jump/一RET，唯一51C430@51C619。已有正文保持：0重置→532D80→状态递增同帧1；1成功534290后转scene9，-1/-2先pub100及原15/43B消息复制，同帧消息重置/递增101；101消息零返0/非零转scene2，其它原状态透传。所有阶段/原字节与调用序保，只新增正常父基线，不冒称新增主流程业务。 完整两条10B/一页、无call/jump/一RET，唯一45E960@45E969。既有正文全文保持，只W16阶段0，不清四S32布局/对象/请求/计时器；补全已有192映射真实正常基线，原身份及源码来源保。 完整102条325B/两页、六直接call/六callee、七jump/两RET，唯一45E960@45E985。恢复初始化strlen→W16phase1→U32(9len>>6)+2 cols、S32 rows/cols/y/x原序发布及正常居中，创建后重读phase/同帧Start再INC；绘制readiness后rows/y→第二strlen→cols/x现场取样和原8B横向公式，低W16绘制边界保。poll非零只一次非拥有action取样、死亡后清槽并透传，无保护/限制/新状态/销毁/RNG或网络变化。",
+      "actual": "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LOGIN-PROGRESS-LAYOUT-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRZ01三完整176条565B/五页、14call十三callee/17jump四RET、三实际caller和六owner引用；两长度公式与布局/一次死亡取样及三X27B；doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-progress-layout-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json",
+        "src/LoginState.cpp#ProcessState_45E960",
+        "src/LoginState.cpp#ResetLoginProgress",
+        "src/LoginState.cpp#UpdateLoginProgress",
+        "src/LoginStateDependencies.hpp",
+        "src/world/WorldUpdate.cpp#Update",
+        "src/LoginRequest.cpp#StartLoginRequest",
+        "src/LoginRequest.cpp#PollLoginRequest",
+        "src/LoginMessage.cpp#ResetLoginMessage",
+        "src/LoginMessage.cpp#UpdateLoginMessage",
+        "include/cg/YobiRuntime.hpp",
+        "include/cg/render/TextPendingQueue.hpp",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "四精确源码片段恢复两次字节strlen、U32九倍右移列数/正常S32几何和rows-y/长度/columns-x现场消费，轮询非零一次原native action取样/死亡后清槽；父与Reset全文保持，原阶段/同帧请求/成功失败及原格式明文保持，旧固定文案正常坐标本来相同",
+          "decision_ref": "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整72条230B/两页、8直接call/七callee、10jump/一RET，唯一51C430@51C619。已有正文保持：0重置→532D80→状态递增同帧1；1成功534290后转scene9，-1/-2先pub100及原15/43B消息复制，同帧消息重置/递增101；101消息零返0/非零转scene2，其它原状态透传。所有阶段/原字节与调用序保，只新增正常父基线，不冒称新增主流程业务。 完整两条10B/一页、无call/jump/一RET，唯一45E960@45E969。既有正文全文保持，只W16阶段0，不清四S32布局/对象/请求/计时器；补全已有192映射真实正常基线，原身份及源码来源保。 完整102条325B/两页、六直接call/六callee、七jump/两RET，唯一45E960@45E985。恢复初始化strlen→W16phase1→U32(9len>>6)+2 cols、S32 rows/cols/y/x原序发布及正常居中，创建后重读phase/同帧Start再INC；绘制readiness后rows/y→第二strlen→cols/x现场取样和原8B横向公式，低W16绘制边界保。poll非零只一次非拥有action取样、死亡后清槽并透传，无保护/限制/新状态/销毁/RNG或网络变化。",
+      "expected": "完整72条230B/两页、8直接call/七callee、10jump/一RET，唯一51C430@51C619。已有正文保持：0重置→532D80→状态递增同帧1；1成功534290后转scene9，-1/-2先pub100及原15/43B消息复制，同帧消息重置/递增101；101消息零返0/非零转scene2，其它原状态透传。所有阶段/原字节与调用序保，只新增正常父基线，不冒称新增主流程业务。 完整两条10B/一页、无call/jump/一RET，唯一45E960@45E969。既有正文全文保持，只W16阶段0，不清四S32布局/对象/请求/计时器；补全已有192映射真实正常基线，原身份及源码来源保。 完整102条325B/两页、六直接call/六callee、七jump/两RET，唯一45E960@45E985。恢复初始化strlen→W16phase1→U32(9len>>6)+2 cols、S32 rows/cols/y/x原序发布及正常居中，创建后重读phase/同帧Start再INC；绘制readiness后rows/y→第二strlen→cols/x现场取样和原8B横向公式，低W16绘制边界保。poll非零只一次非拥有action取样、死亡后清槽并透传，无保护/限制/新状态/销毁/RNG或网络变化。",
+      "actual": "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
     }
   ],
   "task_acceptance": [
@@ -35600,7 +35687,8 @@
         "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
         "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
-        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state"
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state"
       ]
     },
     {
@@ -35626,7 +35714,8 @@
         "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state",
         "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
-        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state"
+        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state"
       ]
     },
     {
@@ -44702,6 +44791,45 @@
         "doc/cg2d_main_entry_state_carrier_sampling_evidence.json"
       ],
       "boundary": "完整59条222B/一页，四directcall/四callee、三loop jump/一RET，唯一51C430@51C577；已有正常正文不改。六原清区player15BE0/pets19550/petmapF0/skills4790C/contacts1B30/pairs28，沿已批x64只拓指针/typed清区承接，不冒称字节大小相等；三独立S16选槽分别空509080/520550设置/520770 BGM目标恢复，最后不播放。W16 FF0D36零/五PetMap flags-index-native action清、两个S32先读齐再pub图号/值104、28B步长六title id=-1/十五519950 recipe清、最终S32 direction=-1，原顺序/唯一owner保；正常数据绑定不代完整alias/寿命/资源或SDK-ABI。 BRY01两个完整原初始化根211条883B/四页：467F30两个真实chunk635+26B/152条，5199A0单块222B/59条，25directCALL/十一callee、六jump（含EH三jmp仅元数据）/两RET、两真实WorldUpdate::Update51C572/51C577入向。源SceneState一个实际母体八补丁：七tuple先mask-encoded-W8 count读齐再按原pub，C821E8 encoded-mask先读齐/两pub后count现场读pub；末独立第三ripple临时对象恢复，不加构造、析构或RNG消费，三对象身份/八显式construct-destroy及原callee/state/W16-W32/FFFF/vft-padding/末native一过尾返回保。内部数值载体原机制继承，非网络算法；所有CRT/SDK/原SEH异常尾仅原字节来源，不新异常门禁或EH实现。另5199A0既有六区清零/三S16/两S32先读齐后pub、5petmap-6title-15recipe/direction-1及typed-x64指针owner源码全文保，只新增正常基线，设置/BGM目标恢复不触发播放。两真实X5/2B全90/canonical nop，无入向前RET后入口，仅用途mapped；R7 283余2778，两个F1577/1578 normal equivalent/MAP64→66/语义1579有效1572/文档1690/3680（45.92%）/分类709/E816。无F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse与全部门禁保持，U09/U10/U11只current/refs仍open；完整数据生产消费/alias-owner寿命/所有callee/主地图与资源/SDK-ABI/明文互通/运行R8未验。原格式明文/音频暂停/RPLAN.24保持，不构建测试运行或摘要，旧正常值正确不称已观察运行故障。"
+    },
+    {
+      "inventory_id": "F:0005E960",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json"
+      ],
+      "boundary": "完整72条230B/两页、8直接call/七callee、10jump/一RET，唯一51C430@51C619。已有正文保持：0重置→532D80→状态递增同帧1；1成功534290后转scene9，-1/-2先pub100及原15/43B消息复制，同帧消息重置/递增101；101消息零返0/非零转scene2，其它原状态透传。所有阶段/原字节与调用序保，只新增正常父基线，不冒称新增主流程业务。 BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:0005EA50",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json"
+      ],
+      "boundary": "完整两条10B/一页、无call/jump/一RET，唯一45E960@45E969。既有正文全文保持，只W16阶段0，不清四S32布局/对象/请求/计时器；补全已有192映射真实正常基线，原身份及源码来源保。 BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:0005EA60",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json"
+      ],
+      "boundary": "完整102条325B/两页、六直接call/六callee、七jump/两RET，唯一45E960@45E985。恢复初始化strlen→W16phase1→U32(9len>>6)+2 cols、S32 rows/cols/y/x原序发布及正常居中，创建后重读phase/同帧Start再INC；绘制readiness后rows/y→第二strlen→cols/x现场取样和原8B横向公式，低W16绘制边界保。poll非零只一次非拥有action取样、死亡后清槽并透传，无保护/限制/新状态/销毁/RNG或网络变化。 BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。"
     }
   ],
   "auxiliary_dispositions": [
@@ -51527,6 +51655,72 @@
           "end_exclusive": "0x519a80",
           "kind": "nop_padding",
           "bytes": 2
+        }
+      ]
+    },
+    {
+      "id": "X:0005EA46-0005EA50",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json"
+      ],
+      "reason": "BRZ01 10B全90/逐BYTE canonical nop，无入向，前原根终端JMP或RET/后真函数入口，仅原填充用途，不生成F或范围排除/运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x45ea46",
+          "end_exclusive": "0x45ea50",
+          "kind": "nop_padding",
+          "bytes": 10
+        }
+      ]
+    },
+    {
+      "id": "X:0005EA5A-0005EA60",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json"
+      ],
+      "reason": "BRZ01 6B全90/逐BYTE canonical nop，无入向，前原根终端JMP或RET/后真函数入口，仅原填充用途，不生成F或范围排除/运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x45ea5a",
+          "end_exclusive": "0x45ea60",
+          "kind": "nop_padding",
+          "bytes": 6
+        }
+      ]
+    },
+    {
+      "id": "X:0005EBA5-0005EBB0",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-acceptance",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_login_progress_layout_sampling_evidence.json"
+      ],
+      "reason": "BRZ01 11B全90/逐BYTE canonical nop，无入向，前原根终端JMP或RET/后真函数入口，仅原填充用途，不生成F或范围排除/运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x45eba5",
+          "end_exclusive": "0x45ebb0",
+          "kind": "nop_padding",
+          "bytes": 11
         }
       ]
     }

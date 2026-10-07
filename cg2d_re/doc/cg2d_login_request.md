@@ -743,3 +743,11 @@ NUL 终止名字与记录首字段；`51B151–51B17E`
 写入器先真实解码再解析slot，原0／1之外返回-1不写；有效槽完整清148B，姓名原byte长度<=16或???，17整数原ordinal、t3低W16／四signed除10／全部offset与写序保持；t14不读，最后t16最大63写+54，外字段最大1023，各字段返回仍弃，第一写入失败不短路，最终仍返回第二写入结果。命名中的“通知”尾为509080空RET，不新增通知业务。
 
 当前Daj已在NetworkDispatch_512E40绑定该回复，原caller覆盖返回有据；旧“未接”及私有解析描述仅反映历史状态。启动／轮询／超时、同两record owner及dispatcher／公共原语／Input owner正文保持。两完整原根281条811B、两真实入向及两相邻X21B填充用途纳管；完整人物／所有回复／原格式明文往返／SDK-ABI与运行继续保留实际缺口，不据局部静态验收关闭U10／U11／V03。
+
+## 登录／创建／删除回复的原字节取样（BRW01，2026-10-07）
+
+按[BRW01 SPEC](cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state)，三现有循环六精确片段只恢复原L8读序：每轮先取回复unsigned char，再取successful标记unsigned char，相等后复用同回复取样判NUL。原正常比较值逻辑已正确，本步不称发生运行错误，不引入strcmp包装、状态、校验／转码／保护或回绕模型。
+
+三完整原根508BC0／508EE0／509020合114条341B、21jump／三RET；登录两call为IAT GetTickCount／direct512DF0，创建与删除无callee。原状态非1不写、状态1先S32状态2，失败不改回复；登录成功W16回复1→S32 outcome1→tick→512DF0(socket,tick)，创建成功S16选槽→W16回复1→S32 preview取样→同148B record+4C注册号／+50预览，删除仅W16回复1。已有成功尾与字段读写顺序均保持。
+
+三原caller在512E40，现hPUd／DZ／oy分派已接；原三个caller各XOR EAX覆盖返回，业务void声明保持，不将寄存器残值改作返回合同。各Start／Poll／超时、登出、名称查询、两record owner及dispatcher全文保持；三F正常源身份／三个X27B原NOP填充用途补对照，完整流程／SDK-ABI／明文互通与运行、U10／V03继续按实际缺口推进。

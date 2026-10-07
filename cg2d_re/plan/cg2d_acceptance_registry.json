@@ -715,10 +715,12 @@
         "doc/cg2d_login_state_controller.md",
         "doc/cg2d_login_input_controller.md",
         "doc/cg2d_login_request.md",
-        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline"
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline"
       ],
       "original_inventory_ids": [
-        "F:001202E0"
+        "F:001202E0",
+        "F:00108BC0"
       ],
       "closure_task_ids": [
         "P18",
@@ -733,15 +735,19 @@
       "acceptance_focus": "输入、提交、回复和状态转换及失败副作用",
       "decision_refs": [
         "doc/cg2d_closure_decisions_spec.md",
-        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision"
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
-        "BRU01仅既有登录负分类provider/20正常BYTE与固定池读取适配：LegacyUiRecord唯一定义直接借底部两W32字节/hover正文与标题/mouseY真实token/左锚和服务器伴随值，D68AC6原未装载独立1B加载零内容有目标地址形成/无加载别名及邻近20B标记、独立计时/伴随值边界证据，私有const零BYTE不补业务。12固定池点始终读唯一fixedPool，七坐标BYTE现场读/五链接BYTE由实际handle还原原固定节点与四哨兵身份再提取，0映射0，不把handle或本机指针低字节冒充原BYTE；不造可解引用地址、影子池/链接状态或反查表，动态nativePool不借。原登录父、所有tracker逻辑/布局和mutable生产/RNG/申请释放/初始化/网络全保，只加现缺provider和只读桥/声明/注释；两原尾先读后判调用位置保持。E804→806仅LOGIN局部I/S，V03仍open、源码closed11与所有语义/F/R7/枚举/完整门禁保持；不配置构建测试运行摘要，原格式明文/音频暂停/RPLAN.24保持。"
+        "BRU01仅既有登录负分类provider/20正常BYTE与固定池读取适配：LegacyUiRecord唯一定义直接借底部两W32字节/hover正文与标题/mouseY真实token/左锚和服务器伴随值，D68AC6原未装载独立1B加载零内容有目标地址形成/无加载别名及邻近20B标记、独立计时/伴随值边界证据，私有const零BYTE不补业务。12固定池点始终读唯一fixedPool，七坐标BYTE现场读/五链接BYTE由实际handle还原原固定节点与四哨兵身份再提取，0映射0，不把handle或本机指针低字节冒充原BYTE；不造可解引用地址、影子池/链接状态或反查表，动态nativePool不借。原登录父、所有tracker逻辑/布局和mutable生产/RNG/申请释放/初始化/网络全保，只加现缺provider和只读桥/声明/注释；两原尾先读后判调用位置保持。E804→806仅LOGIN局部I/S，V03仍open、源码closed11与所有语义/F/R7/枚举/完整门禁保持；不配置构建测试运行摘要，原格式明文/音频暂停/RPLAN.24保持。",
+        "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
-      "member_inventory_evidence_refs": []
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state"
+      ]
     },
     {
       "id": "FUNC-CHARACTER",
@@ -754,12 +760,15 @@
         "doc/cg2d_character_select_scene.md",
         "doc/cg2d_creation_gate_adaptation_spec.md",
         "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-baseline",
-        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline"
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:000626A0",
         "F:001089B0",
-        "F:0011B1B0"
+        "F:0011B1B0",
+        "F:00108EE0",
+        "F:00109020"
       ],
       "closure_task_ids": [
         "P08",
@@ -774,17 +783,20 @@
         "doc/cg2d_closure_decisions_spec.md",
         "doc/cg2d_character_select_scene.md#character-message-storage-decision",
         "doc/cg2d_version_payload_zero_prefix_owner_spec.md#version-zero-prefix-decision",
-        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision"
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
         "BRT01仅U03正常只读正文数据合同：9A5C10未装载/文件偏移-1，389569条目标操作数检索仅两版本起点PUSH，无非代码加载W32地址别名；两指针外传经512D30/517160到5171F0，原首BYTE零分支不读+1/不写输入，正常内容由原静态零初始化生产。新端唯一const char[1]静态owner与定长extern/sizeof=1，两原consumer/整个网络和其父全文保，原mode5/Xoee/空格/失败/返回和明文格式不改。1B为正常读取足迹对应工程容量，不冒称未知原未使用预留长度，不造默认版本或容错补空；U03源码closed，完整CHARACTER枚举/门禁、V03/互通/生命周期/资源未验。无新增F/语义处置/R7，不配置构建测试运行摘要，负分类另继续开发。",
-        "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
+        "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。",
+        "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
       "member_inventory_evidence_refs": [
-        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state"
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state"
       ]
     },
     {
@@ -813,7 +825,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-switch",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-baseline",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-baseline",
-        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline"
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00003C50",
@@ -866,7 +879,10 @@
         "F:0012CFF0",
         "F:0012D050",
         "F:0012D0D0",
-        "F:001089B0"
+        "F:001089B0",
+        "F:00108BC0",
+        "F:00108EE0",
+        "F:00109020"
       ],
       "closure_task_ids": [
         "P09",
@@ -893,7 +909,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-decision",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-decision",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-decision",
-        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision"
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -912,7 +929,8 @@
         "RPA01仅两原跳转表/边界字节与既有父来源关联，无源码/网络格式或加解密接线改动；八原目标/局部窗口不代整父/未知alias/全部owner/SDK/ABI或明文互通运行",
         "BPD01三分段数值解析新1419-1421、完整104条286B/26点分根父1-6-9纳盘；base62正常S32/原下一字节取样实修、两正确体保持，NETWORK50枚举open。原格式明文不变，完整108回复/所有调用父与字段/正常alias-缓冲和输出owner/SDK-ABI与互通、R1/R7/R8仍待",
         "BPE01两既有整数根1217/1219续记，57条132B/158普通点两父纳盘；5176B0正常S32算式实修，首位负号和原格式明文保，六BPD引用修复。NETWORK50枚举仍open；完整157点之父/108回复和正常owner/alias/寿命、SDK-ABI与真实互通、R1/R7/R8仍待",
-        "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
+        "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。",
+        "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -931,7 +949,8 @@
         "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
-        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state"
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state"
       ]
     },
     {
@@ -34784,6 +34803,170 @@
       "observation": "完整107条313B/两页。状态非1返回1无写；result谓词先取后PUB共享状态2，非0按原unsigned归一化OUTOFSERVICE比较、匹配W16回复2/返0否则只返±1。成功先W16回复1，每组先两次现场593850 NUL前缀复制至同两1024B buffer，再最大1023的52CED0外字段(1,2)/(3,4)，返回弃，固定两Write调用/第一失败不短路不回滚，最终第二完整S32返回；原Daj caller覆盖EAX不外推全分派。 完整174条498B/三页。先原52D2F0解码（52D150/原空509080尾/原text返弃）后52CFA0 slot1，原0/1 guard/无效返-1不动记录；有效37DWORD完整148B清零，name byte长度<=16含NUL复制否则原???，17整数ordinal含slot按原顺序，t3仅低W16、四正常signed/10及全部目标offset保；t14不取，末t16以最大63提取至+54/弃返、返0。复用真实公共原语/Atoi与同两record owner，不引严格parser/UTF-8/额外限制/回绕模型，不验所有原语或ABI。",
       "expected": "完整107条313B/两页。状态非1返回1无写；result谓词先取后PUB共享状态2，非0按原unsigned归一化OUTOFSERVICE比较、匹配W16回复2/返0否则只返±1。成功先W16回复1，每组先两次现场593850 NUL前缀复制至同两1024B buffer，再最大1023的52CED0外字段(1,2)/(3,4)，返回弃，固定两Write调用/第一失败不短路不回滚，最终第二完整S32返回；原Daj caller覆盖EAX不外推全分派。 完整174条498B/三页。先原52D2F0解码（52D150/原空509080尾/原text返弃）后52CFA0 slot1，原0/1 guard/无效返-1不动记录；有效37DWORD完整148B清零，name byte长度<=16含NUL复制否则原???，17整数ordinal含slot按原顺序，t3仅低W16、四正常signed/10及全部目标offset保；t14不取，末t16以最大63提取至+54/弃返、返0。复用真实公共原语/Atoi与同两record owner，不引严格parser/UTF-8/额外限制/回绕模型，不验所有原语或ABI。",
       "actual": "BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
+    },
+    {
+      "id": "E-LOGIN-REPLY-BYTE-SAMPLING-I-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRW01三完整114条341B/三页21jump三RET、原回复U8先标记U8后/同回复值判NUL及对应成功尾、三个X27B；doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-character-reply-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json",
+        "src/LoginRequest.cpp#HandleLoginResponse_508BC0",
+        "src/CharacterCreationRequest.cpp#HandleCharacterCreationResponse_508EE0",
+        "src/CharacterDeletionRequest.cpp#HandleCharacterDeletionResponse_509020",
+        "include/cg/LoginRequest.hpp",
+        "include/cg/CharacterCreationRequest.hpp",
+        "include/cg/CharacterDeletionRequest.hpp",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectScene.cpp#Sub_45E7D0",
+        "src/CharacterDeletionProgress.cpp",
+        "src/LoginScene.cpp",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "src/platform/MainLoop.cpp#ReadTickCount32"
+      ],
+      "differences": [
+        {
+          "description": "三循环六片段：显式U8先取回复再取标记，相等后以同回复取样判NUL，原状态2先pub与成功尾/失败/格式/正常值保持；不新增helper/协议/保护或状态，不外推ABI/互通",
+          "decision_ref": "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整40条121B，状态非1不写返回；状态1先发布S32状态2，原U8逐字节先回复后successful标记、匹配后以同一次回复U8判NUL；不相等只结束，成功W16回复1→S32 outcome1→GetTickCount→512DF0(socket,tick)，不提前flag/计时。唯一512E40@51630E入向/516316覆盖EAX；正常业务声明void保持，原寄存器残值不作公开返回或异常模型。",
+      "expected": "完整40条121B，状态非1不写返回；状态1先发布S32状态2，原U8逐字节先回复后successful标记、匹配后以同一次回复U8判NUL；不相等只结束，成功W16回复1→S32 outcome1→GetTickCount→512DF0(socket,tick)，不提前flag/计时。唯一512E40@51630E入向/516316覆盖EAX；正常业务声明void保持，原寄存器残值不作公开返回或异常模型。",
+      "actual": "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LOGIN-REPLY-BYTE-SAMPLING-S-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRW01三完整114条341B/三页21jump三RET、原回复U8先标记U8后/同回复值判NUL及对应成功尾、三个X27B；doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-character-reply-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json",
+        "src/LoginRequest.cpp#HandleLoginResponse_508BC0",
+        "src/CharacterCreationRequest.cpp#HandleCharacterCreationResponse_508EE0",
+        "src/CharacterDeletionRequest.cpp#HandleCharacterDeletionResponse_509020",
+        "include/cg/LoginRequest.hpp",
+        "include/cg/CharacterCreationRequest.hpp",
+        "include/cg/CharacterDeletionRequest.hpp",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectScene.cpp#Sub_45E7D0",
+        "src/CharacterDeletionProgress.cpp",
+        "src/LoginScene.cpp",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "src/platform/MainLoop.cpp#ReadTickCount32"
+      ],
+      "differences": [
+        {
+          "description": "三循环六片段：显式U8先取回复再取标记，相等后以同回复取样判NUL，原状态2先pub与成功尾/失败/格式/正常值保持；不新增helper/协议/保护或状态，不外推ABI/互通",
+          "decision_ref": "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整40条121B，状态非1不写返回；状态1先发布S32状态2，原U8逐字节先回复后successful标记、匹配后以同一次回复U8判NUL；不相等只结束，成功W16回复1→S32 outcome1→GetTickCount→512DF0(socket,tick)，不提前flag/计时。唯一512E40@51630E入向/516316覆盖EAX；正常业务声明void保持，原寄存器残值不作公开返回或异常模型。",
+      "expected": "完整40条121B，状态非1不写返回；状态1先发布S32状态2，原U8逐字节先回复后successful标记、匹配后以同一次回复U8判NUL；不相等只结束，成功W16回复1→S32 outcome1→GetTickCount→512DF0(socket,tick)，不提前flag/计时。唯一512E40@51630E入向/516316覆盖EAX；正常业务声明void保持，原寄存器残值不作公开返回或异常模型。",
+      "actual": "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-CHARACTER-REPLY-BYTE-SAMPLING-I-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRW01三完整114条341B/三页21jump三RET、原回复U8先标记U8后/同回复值判NUL及对应成功尾、三个X27B；doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-character-reply-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json",
+        "src/LoginRequest.cpp#HandleLoginResponse_508BC0",
+        "src/CharacterCreationRequest.cpp#HandleCharacterCreationResponse_508EE0",
+        "src/CharacterDeletionRequest.cpp#HandleCharacterDeletionResponse_509020",
+        "include/cg/LoginRequest.hpp",
+        "include/cg/CharacterCreationRequest.hpp",
+        "include/cg/CharacterDeletionRequest.hpp",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectScene.cpp#Sub_45E7D0",
+        "src/CharacterDeletionProgress.cpp",
+        "src/LoginScene.cpp",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "src/platform/MainLoop.cpp#ReadTickCount32"
+      ],
+      "differences": [
+        {
+          "description": "三循环六片段：显式U8先取回复再取标记，相等后以同回复取样判NUL，原状态2先pub与成功尾/失败/格式/正常值保持；不新增helper/协议/保护或状态，不外推ABI/互通",
+          "decision_ref": "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整41条129B，无callee。状态1先状态2，再原回复U8→successful U8比较、同回复值判NUL；不匹配不改回复与record。成功先S16选槽→W16回复1→S32预览取样，再同两148B记录+4C S32注册号／+50 S32预览顺序发布；不增slot guard或record owner。唯一512E40@5161C4/5161CC覆盖EAX，现void保持。 完整33条91B，无callee。状态非1不写；状态1发布S32状态2后原回复U8→successful U8比较、同回复值判NUL；不匹配只结束，完全相等才W16删除回复1。唯一512E40@516269/516271覆盖EAX；本父不清角色记录，保void/原失败，不增加业务或严格parser。",
+      "expected": "完整41条129B，无callee。状态1先状态2，再原回复U8→successful U8比较、同回复值判NUL；不匹配不改回复与record。成功先S16选槽→W16回复1→S32预览取样，再同两148B记录+4C S32注册号／+50 S32预览顺序发布；不增slot guard或record owner。唯一512E40@5161C4/5161CC覆盖EAX，现void保持。 完整33条91B，无callee。状态非1不写；状态1发布S32状态2后原回复U8→successful U8比较、同回复值判NUL；不匹配只结束，完全相等才W16删除回复1。唯一512E40@516269/516271覆盖EAX；本父不清角色记录，保void/原失败，不增加业务或严格parser。",
+      "actual": "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-CHARACTER-REPLY-BYTE-SAMPLING-S-20261007",
+      "feature_id": "FUNC-CHARACTER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BRW01三完整114条341B/三页21jump三RET、原回复U8先标记U8后/同回复值判NUL及对应成功尾、三个X27B；doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-character-reply-byte-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json",
+        "src/LoginRequest.cpp#HandleLoginResponse_508BC0",
+        "src/CharacterCreationRequest.cpp#HandleCharacterCreationResponse_508EE0",
+        "src/CharacterDeletionRequest.cpp#HandleCharacterDeletionResponse_509020",
+        "include/cg/LoginRequest.hpp",
+        "include/cg/CharacterCreationRequest.hpp",
+        "include/cg/CharacterDeletionRequest.hpp",
+        "src/network/NetworkRuntime.cpp#NetworkDispatch_512E40",
+        "src/CharacterSelectState.hpp",
+        "src/CharacterSelectScene.cpp#Sub_45E7D0",
+        "src/CharacterDeletionProgress.cpp",
+        "src/LoginScene.cpp",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "src/platform/MainLoop.cpp#ReadTickCount32"
+      ],
+      "differences": [
+        {
+          "description": "三循环六片段：显式U8先取回复再取标记，相等后以同回复取样判NUL，原状态2先pub与成功尾/失败/格式/正常值保持；不新增helper/协议/保护或状态，不外推ABI/互通",
+          "decision_ref": "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整41条129B，无callee。状态1先状态2，再原回复U8→successful U8比较、同回复值判NUL；不匹配不改回复与record。成功先S16选槽→W16回复1→S32预览取样，再同两148B记录+4C S32注册号／+50 S32预览顺序发布；不增slot guard或record owner。唯一512E40@5161C4/5161CC覆盖EAX，现void保持。 完整33条91B，无callee。状态非1不写；状态1发布S32状态2后原回复U8→successful U8比较、同回复值判NUL；不匹配只结束，完全相等才W16删除回复1。唯一512E40@516269/516271覆盖EAX；本父不清角色记录，保void/原失败，不增加业务或严格parser。",
+      "expected": "完整41条129B，无callee。状态1先状态2，再原回复U8→successful U8比较、同回复值判NUL；不匹配不改回复与record。成功先S16选槽→W16回复1→S32预览取样，再同两148B记录+4C S32注册号／+50 S32预览顺序发布；不增slot guard或record owner。唯一512E40@5161C4/5161CC覆盖EAX，现void保持。 完整33条91B，无callee。状态非1不写；状态1发布S32状态2后原回复U8→successful U8比较、同回复值判NUL；不匹配只结束，完全相等才W16删除回复1。唯一512E40@516269/516271覆盖EAX；本父不清角色记录，保void/原失败，不增加业务或严格parser。",
+      "actual": "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
     }
   ],
   "task_acceptance": [
@@ -35231,7 +35414,8 @@
         "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
-        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state"
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state"
       ]
     },
     {
@@ -35255,7 +35439,8 @@
         "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
         "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
         "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-source-state",
-        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state"
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state"
       ]
     },
     {
@@ -44250,6 +44435,45 @@
         "doc/cg2d_character_list_record_production_callees_evidence.json"
       ],
       "boundary": "完整174条498B/三页。先原52D2F0解码（52D150/原空509080尾/原text返弃）后52CFA0 slot1，原0/1 guard/无效返-1不动记录；有效37DWORD完整148B清零，name byte长度<=16含NUL复制否则原???，17整数ordinal含slot按原顺序，t3仅低W16、四正常signed/10及全部目标offset保；t14不取，末t16以最大63提取至+54/弃返、返0。复用真实公共原语/Atoi与同两record owner，不引严格parser/UTF-8/额外限制/回绕模型，不验所有原语或ABI。 BRV01两完整281条811B/五页，22directcall/四callee、12jump四RET/两真实code入向；源一文件恢复每组两次593850现场种子复制（四次）/result谓词先pub前采样，原52D2F0一次、17个52CFA0原ordinal和52CED0外4×1023/末1×63接既有唯一核心，删除五私有副本及bit/numeric常量。两148B整清/slot0-1原失败、姓名<=16或???、t3低W16、四signed/10及全部field写序/t14不取、提取返回弃/第一失败不短路/第二S32返回和状态/回复码、原Daj/OUTOFSERVICE/字节与明文格式保；名义通知尾实为原空叶，不增业务或故障/回绕保护，Start/Poll/当前dispatcher及全部primitive/Input owner源码保持。两原F1571..1572 normal equivalent/两CHARACTER成员及NETWORK仅回复父绑定，不刷新原冻结定义行；两个X7/14B共21B全90/逐byte nop无入向前RET后入口仅用途mapped，R7 277余2784。语义1573/有效1566、文档1684/3680（45.76%）、分类703/CHARACTER3/NETWORK51/E808；无F/code区各7、差队列172/缺定位171/43待归属/源码任务11、完整功能/叶0/globalfalse与整体门禁保持。所有owner/字符选择创建/主地图依赖/资源/整个原语-CRT/SDK/ABI/互通和运行/R8未验；音频暂停、不构建测试运行摘要、原格式明文与RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00108BC0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json"
+      ],
+      "boundary": "完整40条121B，状态非1不写返回；状态1先发布S32状态2，原U8逐字节先回复后successful标记、匹配后以同一次回复U8判NUL；不相等只结束，成功W16回复1→S32 outcome1→GetTickCount→512DF0(socket,tick)，不提前flag/计时。唯一512E40@51630E入向/516316覆盖EAX；正常业务声明void保持，原寄存器残值不作公开返回或异常模型。 BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:00108EE0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json"
+      ],
+      "boundary": "完整41条129B，无callee。状态1先状态2，再原回复U8→successful U8比较、同回复值判NUL；不匹配不改回复与record。成功先S16选槽→W16回复1→S32预览取样，再同两148B记录+4C S32注册号／+50 S32预览顺序发布；不增slot guard或record owner。唯一512E40@5161C4/5161CC覆盖EAX，现void保持。 BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:00109020",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json"
+      ],
+      "boundary": "完整33条91B，无callee。状态非1不写；状态1发布S32状态2后原回复U8→successful U8比较、同回复值判NUL；不匹配只结束，完全相等才W16删除回复1。唯一512E40@516269/516271覆盖EAX；本父不清角色记录，保void/原失败，不增加业务或严格parser。 BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。"
     }
   ],
   "auxiliary_dispositions": [
@@ -50826,6 +51050,72 @@
           "end_exclusive": "0x51b3b0",
           "kind": "nop_padding",
           "bytes": 14
+        }
+      ]
+    },
+    {
+      "id": "X:00108C39-00108C40",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json"
+      ],
+      "reason": "BRW01 7B全90/逐BYTE canonical nop，无入向，前本批完整根RET/后真函数入口，仅原填充用途，不造业务身份/排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x508c39",
+          "end_exclusive": "0x508c40",
+          "kind": "nop_padding",
+          "bytes": 7
+        }
+      ]
+    },
+    {
+      "id": "X:00108F61-00108F70",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json"
+      ],
+      "reason": "BRW01 15B全90/逐BYTE canonical nop，无入向，前本批完整根RET/后真函数入口，仅原填充用途，不造业务身份/排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x508f61",
+          "end_exclusive": "0x508f70",
+          "kind": "nop_padding",
+          "bytes": 15
+        }
+      ]
+    },
+    {
+      "id": "X:0010907B-00109080",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_evidence.json"
+      ],
+      "reason": "BRW01 5B全90/逐BYTE canonical nop，无入向，前本批完整根RET/后真函数入口，仅原填充用途，不造业务身份/排除或运行验收",
+      "classification": "nop_padding",
+      "parts": [
+        {
+          "start": "0x50907b",
+          "end_exclusive": "0x509080",
+          "kind": "nop_padding",
+          "bytes": 5
         }
       ]
     }

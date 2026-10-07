@@ -2404,3 +2404,9 @@ needle分别为2000与814000，不转码、按token拆分或改成其他空白�
 [BRV01 SPEC](cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state)修复两148B角色记录的生产入口：既有Daj→5089B0→51B1B0现直接承接共享593850种子、公共解码／整数／字段核心；现角色槽名称、+12／+14数值、+54职业文本与预览继续读同一记录，未新增角色存储或改显示代码。原固定两组、slot0／1、整记录清零、姓名阈值、低W16及整数写序／末文本和失败返回保。
 
 两生产根补入CHARACTER成员，网络只绑定回复父；两完整原体／局部I-S可追，完整角色枚举、选择／创建／入主地图全部依赖、请求往返、资源寿命与运行仍按各自门禁推进。此步不改旧创建门禁、版本正文、输入／音频或其它已登记父，不以角色记录接线代替完整人物流程验收。
+
+## 创建／删除成功回复发布取样（BRW01，2026-10-07）
+
+[BRW01 SPEC](cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state)将已接创建508EE0／删除509020循环恢复为回复U8先取、successful U8后取，匹配后复用回复U8判NUL；正常值逻辑与原失败保持。创建仍S16选槽→W16回复1→S32预览取样→同两148B记录+4C／+50按序发布，删除仍只发布W16回复1，不在回复父清记录或增加slot限制。
+
+选择／创建显示、预览、场景及请求Start-Poll正文保持；两根完整41条129B／33条91B、真实512E40入向及caller覆盖EAX补入基线。CHARACTER成员3→5、NETWORK仅两回复父局部绑定，完整人物枚举／请求往返／入主地图／owner寿命和资源／运行仍未验；局部I-S不代完整门禁。

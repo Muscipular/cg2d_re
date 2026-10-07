@@ -3038,3 +3038,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 两F1571／1572、两角色成员及一个网络回复父绑定；语义1573／有效1566、文档1684／3680（45.76%）、分类703、CHARACTER3／NETWORK51、E808、R7 277余2784。无F／code区各7、172差队列／171缺定位／43待归属、源码closed11／完整功能和叶0／globalfalse保持，U10／U11／V03仅当前和引用open。Start／Poll／两record owner、Input／公共原语／Daj dispatcher与显示正文保持；后续人物、创建、入主地图／正常owner与资源／完整分派／SDK-ABI／明文互通／运行及R8继续实际推进。原格式明文、音频暂停与RPLAN.24保持，不配置构建测试运行或计算摘要。
 
 验收记录：源码／完整原证据／机器台账／文档四组集中静态检查通过；measure_cg2d.ps1及-Check在同一会话退出0。完整派生快照逐对象核对，仅两F／三成员及来源候选、三任务、两R7和六指标变化，其余全部对象和原冻结定位保持；十三文件UTF-8无BOM／LF、四真实锚点、两局部I-S各十九实际来源及定向diff通过。仅文本／源码静态验收，不构建测试执行或计算摘要。命名快照cg2d-re-character-list-record-production-callees-20261007，精确十三文件提交，用户六项另有变更保持。
+
+## BRW01 登录／创建／删除回复原字节取样（2026-10-07）
+
+沿主流程，先落[子SPEC](../doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision)，实际改三已有回复循环、共六精确片段：回复unsigned char先取、successful标记后取，相等后复用同回复值判NUL。原正常值逻辑已正确，本步恢复原读序，不称观察到运行错误；无新helper／保护／校验／转码或状态。原状态2先pub、登录W16回复1→S32 outcome1→tick→512DF0，创建S16选槽→W16回复1→S32预览取样→原record+4C／+50，删除只W16回复1与全部失败保。
+
+三完整原根114条341B／三页，21jump三RET，登录两call为IAT GetTickCount／direct512DF0，其余两个无callee；三512E40真实入向和caller覆盖EAX有据。现三分派已接，业务void声明保持；所有Start／Poll／超时、登出与名称查询、同两148B owner／全部成功尾和dispatcher正文保。三个真实X7／15／5B共27B全90／canonical nop，无入向前RET后入口，仅填充用途。
+
+三F1573..1575／六真实成员（LOGIN2／CHARACTER5／NETWORK54），语义1576／有效1569、文档1687／3680（45.84%）、分类706／E812／R7 280余2781。无F／code区各7、pending18、172差队列／171缺定位／43待归属、源码closed11／完整功能叶0／globalfalse保持，U10／V03只当前／引用open。完整人物／创建入主地图、所有正常owner／资源／生命周期、全分派／CRT-SDK-ABI／明文互通与运行／R8继续实际推进；原格式明文、音频暂停、RPLAN.24及不构建测试运行摘要保持。
+
+验收记录：三源／完整原证据、机器台账及文档三组集中静态检查通过；measure_cg2d.ps1与-Check同一会话退出0。完整派生快照仅三F／六真实成员及来源候选、两任务、三R7和六指标变化，其余所有对象及原冻结定位保持；十五文件UTF-8无BOM／LF、四真实锚点、四局部I-S各十九实际来源与定向diff通过。仅正常源码／文本静态验收，不构建测试执行或摘要。命名快照cg2d-re-login-character-reply-byte-sampling-20261007，精确十五文件提交，用户六项既有改动保持。

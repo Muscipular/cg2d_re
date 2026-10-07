@@ -3210,3 +3210,11 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 实修每组两次共享593850前缀复制／result谓词取样，接一次真实解码、17整数与外4／末1字段核心，删五私有副本；原两148B、固定两组、低W16／signed除10、失败／返回与原Daj明文格式保持。真实通知尾为空RET，无新增业务。两F作normal equivalent，继承已登记primitive，不刷新原冻结定位行或新验整个分派／CRT／SDK-ABI。
 
 两相邻原X7／14B共21B逐byte canonical nop、无入向、前RET后入口，仅mapped填充用途。语义1573／有效F1566、文档1684／3680（45.76%）、分类703、R7 277／3061余2784；CHARACTER成员3、NETWORK成员51，局部证据E808。无身份／code区各7、源码closed11、完整验收0、全部门禁及未知范围保持。
+
+## BRW01 三成功回复正常读序（2026-10-07）
+
+新增1573／1574／1575为真实F:00108BC0／F:00108EE0／F:00109020，源码为LoginRequest.cpp、CharacterCreationRequest.cpp、CharacterDeletionRequest.cpp对应Handle入口。完整40／41／33条及121／129／91B共114条341B，21jump／三RET，登录IAT GetTickCount及direct512DF0、其余无callee；三真实code入向及原caller覆盖EAX有证。合同见[BRW01 SPEC](cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state)及相邻完整证据JSON。
+
+三体六片段恢复回复U8→标记U8读取、匹配后同回复值判NUL；已有正常值与状态2、各W16／登录S32 flag／tick与创建S16选槽／preview及两记录字段发布、失败和原明文格式保持，不新增helper或ABI返回。LOGIN加一／CHARACTER加二／NETWORK三回复父绑定，原冻结源码定位行不刷新；同文档候选不等于真实成员。
+
+三个真实X7／15／5B共27B canonical nop、无入向／前RET后入口，仅填充用途mapped。语义1576／有效1569、文档1687／3680（45.84%）、分类706、R7 280余2781，LOGIN2／CHARACTER5／NETWORK54、E812；源码closed11、无身份和code区各7、全部完整功能／运行门禁保持。

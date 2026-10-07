@@ -90,11 +90,12 @@ void HandleCharacterCreationResponse_508EE0(
     gRequestStatus = 2;
     std::size_t index = 0;
     for (;;) {
-        const char expected = kSuccessfulResult[index];
-        if (result[index] != expected) {
+        const auto received = static_cast<unsigned char>(result[index]);
+        const auto expected = static_cast<unsigned char>(kSuccessfulResult[index]);
+        if (received != expected) {
             return;
         }
-        if (expected == '\0') {
+        if (received == 0) {
             break;
         }
         ++index;

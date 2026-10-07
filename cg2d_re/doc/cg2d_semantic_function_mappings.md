@@ -3288,3 +3288,9 @@ LoginState.cpp四精确片段恢复两次strlen、两种原长度公式／四布
 新增1589对应真实F:00064840／Sub_464840，AddW32／基础绘制／公共尾只附加来源，不造F。见[基线](cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline)：完整385条1437B／六页，45直接调用／24目标与两Win32间接、28跳转／八RET，唯一51C430@51C4A8。单源八片段实修普通S32、入口一次状态与计数-phase原序、四分支现场alpha，真实颜色位型／状态保存与其余整源保持。
 
 单X83B为3B身份LEA／44B十一状态／16B四phase／20B五结果目标，三同父data引用／无code进入，只原用途。LOGIN6→7／语义1590有效1583／文档1701／3680（46.22%）／723处置／E836／R7 295余2766。冻结定位／pending18／缺口队列和所有完整门禁保，局部不代全部父、依赖／消费／寿命／ABI或运行。
+
+## BSI01 能力0/1登录模式（2026-10-07）
+
+新增1590对应真实F:0005C5A0／ProcessModeScene_45C5A0，保已有void接口，不造私有辅助或共享INC块F。见[基线](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline)：完整161条544B／三页、19直接调用／12目标和1个PostMessageA间接、31跳转／两RET，唯一51C430@51C493。单源五片段恢复三现源正常++／两原INC点与负返回直接重置，非负100／后续101现场取样、原提示字节和其余整源保持。
+
+LOGIN7→8／语义1591有效1584／文档1702／3680（46.25%）／724处置／E838；无新X，R7 295余2766保持。冻结定位／pending18／缺口队列、P05旧closed及完整门禁保；局部不代完整父、依赖消费、全部alias-owner寿命／机器ABI或运行。

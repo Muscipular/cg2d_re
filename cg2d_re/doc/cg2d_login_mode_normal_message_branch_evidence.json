@@ -1,0 +1,1839 @@
+{
+  "schema_version": 1,
+  "batch_id": "BSI01",
+  "date": "2026-10-07",
+  "instance_id": "ida-17524",
+  "binary_name": "cg2d.exe",
+  "source_functions": [
+    {
+      "index": 1590,
+      "id": "F:0005C5A0",
+      "entry": "0x45C5A0",
+      "source_path": "src/LoginModeScene.cpp",
+      "symbol": "ProcessModeScene_45C5A0",
+      "body_changed": true,
+      "source_patch_count": 5,
+      "additional_symbols": [],
+      "contract": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。"
+    }
+  ],
+  "original_functions": [
+    {
+      "start": "0x45c5a0",
+      "end_exclusive": "0x45c7c0",
+      "count": 161,
+      "chunks": [
+        [
+          "0x45c5a0",
+          "0x45c7c0"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x51c430",
+          "text": "call    sub_45C5A0; jumptable 0051C48C cases 0,1",
+          "from": "0x51c493"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x45c5a0",
+          "size": 5,
+          "bytes": "a1640dff00",
+          "mnemonic": "mov",
+          "text": "mov     eax, gWorld__SceneState",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5a5",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5a6",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5a8",
+          "size": 5,
+          "bytes": "be02000000",
+          "mnemonic": "mov",
+          "text": "mov     esi, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5ad",
+          "size": 2,
+          "bytes": "756f",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C61E",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5af",
+          "size": 10,
+          "bytes": "c705640dff0001000000",
+          "mnemonic": "mov",
+          "text": "mov     gWorld__SceneState, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5b9",
+          "size": 5,
+          "bytes": "e8b2030000",
+          "mnemonic": "call",
+          "text": "call    sub_45C970",
+          "call_target": "0x45c970"
+        },
+        {
+          "ea": "0x45c5be",
+          "size": 5,
+          "bytes": "a3647f9a00",
+          "mnemonic": "mov",
+          "text": "mov     dword_9A7F64, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5c3",
+          "size": 5,
+          "bytes": "e8f8010000",
+          "mnemonic": "call",
+          "text": "call    sub_45C7C0",
+          "call_target": "0x45c7c0"
+        },
+        {
+          "ea": "0x45c5c8",
+          "size": 5,
+          "bytes": "a1647f9a00",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_9A7F64",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5cd",
+          "size": 3,
+          "bytes": "83f803",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5d0",
+          "size": 2,
+          "bytes": "7511",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C5E3",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5d2",
+          "size": 2,
+          "bytes": "6a1e",
+          "mnemonic": "push",
+          "text": "push    1Eh",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5d4",
+          "size": 2,
+          "bytes": "6a1d",
+          "mnemonic": "push",
+          "text": "push    1Dh",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5d6",
+          "size": 5,
+          "bytes": "e89545ffff",
+          "mnemonic": "call",
+          "text": "call    sub_450B70",
+          "call_target": "0x450b70"
+        },
+        {
+          "ea": "0x45c5db",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5de",
+          "size": 5,
+          "bytes": "e9be000000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5e3",
+          "size": 3,
+          "bytes": "83f802",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5e6",
+          "size": 2,
+          "bytes": "7511",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C5F9",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5e8",
+          "size": 2,
+          "bytes": "6a1e",
+          "mnemonic": "push",
+          "text": "push    1Eh",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5ea",
+          "size": 2,
+          "bytes": "6a20",
+          "mnemonic": "push",
+          "text": "push    20h ; ' '",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5ec",
+          "size": 5,
+          "bytes": "e87f45ffff",
+          "mnemonic": "call",
+          "text": "call    sub_450B70",
+          "call_target": "0x450b70"
+        },
+        {
+          "ea": "0x45c5f1",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5f4",
+          "size": 5,
+          "bytes": "e9a8000000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5f9",
+          "size": 3,
+          "bytes": "83f801",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5fc",
+          "size": 2,
+          "bytes": "6a1e",
+          "mnemonic": "push",
+          "text": "push    1Eh",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c5fe",
+          "size": 2,
+          "bytes": "750f",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C60F",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c600",
+          "size": 2,
+          "bytes": "6a20",
+          "mnemonic": "push",
+          "text": "push    20h ; ' '",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c602",
+          "size": 5,
+          "bytes": "e86945ffff",
+          "mnemonic": "call",
+          "text": "call    sub_450B70",
+          "call_target": "0x450b70"
+        },
+        {
+          "ea": "0x45c607",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c60a",
+          "size": 5,
+          "bytes": "e992000000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c60f",
+          "size": 2,
+          "bytes": "6a18",
+          "mnemonic": "push",
+          "text": "push    18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c611",
+          "size": 5,
+          "bytes": "e85a45ffff",
+          "mnemonic": "call",
+          "text": "call    sub_450B70",
+          "call_target": "0x450b70"
+        },
+        {
+          "ea": "0x45c616",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c619",
+          "size": 5,
+          "bytes": "e983000000",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c61e",
+          "size": 3,
+          "bytes": "83f801",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c621",
+          "size": 2,
+          "bytes": "7515",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C638",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c623",
+          "size": 5,
+          "bytes": "a1ec8f6200",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_628FEC",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c628",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c62a",
+          "size": 2,
+          "bytes": "7575",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c62c",
+          "size": 10,
+          "bytes": "c705640dff0002000000",
+          "mnemonic": "mov",
+          "text": "mov     gWorld__SceneState, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c636",
+          "size": 2,
+          "bytes": "eb69",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c638",
+          "size": 3,
+          "bytes": "83f802",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c63b",
+          "size": 2,
+          "bytes": "7504",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C641",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c63d",
+          "size": 2,
+          "bytes": "33f6",
+          "mnemonic": "xor",
+          "text": "xor     esi, esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c63f",
+          "size": 2,
+          "bytes": "eb60",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c641",
+          "size": 3,
+          "bytes": "83f803",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c644",
+          "size": 2,
+          "bytes": "7531",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C677",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c646",
+          "size": 5,
+          "bytes": "a1ec8f6200",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_628FEC",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c64b",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c64d",
+          "size": 2,
+          "bytes": "7552",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c64f",
+          "size": 5,
+          "bytes": "a1647f9a00",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_9A7F64",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c654",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c656",
+          "size": 2,
+          "bytes": "7506",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C65E",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c658",
+          "size": 2,
+          "bytes": "6a1e",
+          "mnemonic": "push",
+          "text": "push    1Eh",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c65a",
+          "size": 2,
+          "bytes": "6a12",
+          "mnemonic": "push",
+          "text": "push    12h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c65c",
+          "size": 2,
+          "bytes": "eb04",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_45C662",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c65e",
+          "size": 2,
+          "bytes": "6a3c",
+          "mnemonic": "push",
+          "text": "push    3Ch ; '<'",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c660",
+          "size": 2,
+          "bytes": "6a13",
+          "mnemonic": "push",
+          "text": "push    13h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c662",
+          "size": 5,
+          "bytes": "e80945ffff",
+          "mnemonic": "call",
+          "text": "call    sub_450B70",
+          "call_target": "0x450b70"
+        },
+        {
+          "ea": "0x45c667",
+          "size": 5,
+          "bytes": "a1640dff00",
+          "mnemonic": "mov",
+          "text": "mov     eax, gWorld__SceneState",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c66c",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c66f",
+          "size": 1,
+          "bytes": "40",
+          "mnemonic": "inc",
+          "text": "inc     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c670",
+          "size": 5,
+          "bytes": "a3640dff00",
+          "mnemonic": "mov",
+          "text": "mov     gWorld__SceneState, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c675",
+          "size": 2,
+          "bytes": "eb2a",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c677",
+          "size": 3,
+          "bytes": "83f804",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c67a",
+          "size": 2,
+          "bytes": "750d",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C689",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c67c",
+          "size": 5,
+          "bytes": "a1ec8f6200",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_628FEC",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c681",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c683",
+          "size": 2,
+          "bytes": "751c",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c685",
+          "size": 2,
+          "bytes": "6a1e",
+          "mnemonic": "push",
+          "text": "push    1Eh",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c687",
+          "size": 2,
+          "bytes": "ebd7",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_45C660",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c689",
+          "size": 3,
+          "bytes": "83f805",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 5",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c68c",
+          "size": 2,
+          "bytes": "7513",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c68e",
+          "size": 5,
+          "bytes": "a1ec8f6200",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_628FEC",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c693",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c695",
+          "size": 2,
+          "bytes": "750a",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C6A1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c697",
+          "size": 2,
+          "bytes": "6a02",
+          "mnemonic": "push",
+          "text": "push    2",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c699",
+          "size": 5,
+          "bytes": "e8d2000c00",
+          "mnemonic": "call",
+          "text": "call    sub_51C770",
+          "call_target": "0x51c770"
+        },
+        {
+          "ea": "0x45c69e",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6a1",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6a2",
+          "size": 5,
+          "bytes": "e879030000",
+          "mnemonic": "call",
+          "text": "call    sub_45CA20",
+          "call_target": "0x45ca20"
+        },
+        {
+          "ea": "0x45c6a7",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6aa",
+          "size": 3,
+          "bytes": "83f801",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6ad",
+          "size": 2,
+          "bytes": "7559",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C708",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6af",
+          "size": 5,
+          "bytes": "68204d9a00",
+          "mnemonic": "push",
+          "text": "push    offset stru_9A4D20",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6b4",
+          "size": 5,
+          "bytes": "e8c7c90a00",
+          "mnemonic": "call",
+          "text": "call    nullsub_1",
+          "call_target": "0x509080"
+        },
+        {
+          "ea": "0x45c6b9",
+          "size": 5,
+          "bytes": "6860599a00",
+          "mnemonic": "push",
+          "text": "push    offset stru_9A5960",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6be",
+          "size": 5,
+          "bytes": "e8ed3c0c00",
+          "mnemonic": "call",
+          "text": "call    sub_5203B0",
+          "call_target": "0x5203b0"
+        },
+        {
+          "ea": "0x45c6c3",
+          "size": 5,
+          "bytes": "6878569a00",
+          "mnemonic": "push",
+          "text": "push    offset stru_9A5678",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6c8",
+          "size": 5,
+          "bytes": "e8433d0c00",
+          "mnemonic": "call",
+          "text": "call    sub_520410",
+          "call_target": "0x520410"
+        },
+        {
+          "ea": "0x45c6cd",
+          "size": 5,
+          "bytes": "e82e3b0c00",
+          "mnemonic": "call",
+          "text": "call    sub_520200",
+          "call_target": "0x520200"
+        },
+        {
+          "ea": "0x45c6d2",
+          "size": 5,
+          "bytes": "68f0000000",
+          "mnemonic": "push",
+          "text": "push    0F0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6d7",
+          "size": 5,
+          "bytes": "6840010000",
+          "mnemonic": "push",
+          "text": "push    140h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6dc",
+          "size": 2,
+          "bytes": "6a35",
+          "mnemonic": "push",
+          "text": "push    35h ; '5'",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6de",
+          "size": 5,
+          "bytes": "e86dfd0c00",
+          "mnemonic": "call",
+          "text": "call    World__PlaySe",
+          "call_target": "0x52c450"
+        },
+        {
+          "ea": "0x45c6e3",
+          "size": 5,
+          "bytes": "a1647f9a00",
+          "mnemonic": "mov",
+          "text": "mov     eax, dword_9A7F64",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6e8",
+          "size": 3,
+          "bytes": "83c418",
+          "mnemonic": "add",
+          "text": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6eb",
+          "size": 3,
+          "bytes": "83f801",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6ee",
+          "size": 2,
+          "bytes": "7c0c",
+          "mnemonic": "jl",
+          "text": "jl      short loc_45C6FC",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6f0",
+          "size": 2,
+          "bytes": "6a1e",
+          "mnemonic": "push",
+          "text": "push    1Eh",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6f2",
+          "size": 2,
+          "bytes": "6a13",
+          "mnemonic": "push",
+          "text": "push    13h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6f4",
+          "size": 5,
+          "bytes": "e87744ffff",
+          "mnemonic": "call",
+          "text": "call    sub_450B70",
+          "call_target": "0x450b70"
+        },
+        {
+          "ea": "0x45c6f9",
+          "size": 3,
+          "bytes": "83c408",
+          "mnemonic": "add",
+          "text": "add     esp, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c6fc",
+          "size": 10,
+          "bytes": "c705640dff0003000000",
+          "mnemonic": "mov",
+          "text": "mov     gWorld__SceneState, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c706",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c707",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c708",
+          "size": 3,
+          "bytes": "83f802",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c70b",
+          "size": 2,
+          "bytes": "7579",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C786",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c70d",
+          "size": 5,
+          "bytes": "68f0000000",
+          "mnemonic": "push",
+          "text": "push    0F0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c712",
+          "size": 5,
+          "bytes": "6840010000",
+          "mnemonic": "push",
+          "text": "push    140h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c717",
+          "size": 2,
+          "bytes": "6a36",
+          "mnemonic": "push",
+          "text": "push    36h ; '6'",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c719",
+          "size": 5,
+          "bytes": "e832fd0c00",
+          "mnemonic": "call",
+          "text": "call    World__PlaySe",
+          "call_target": "0x52c450"
+        },
+        {
+          "ea": "0x45c71e",
+          "size": 5,
+          "bytes": "a1346f9a00",
+          "mnemonic": "mov",
+          "text": "mov     eax, hWnd",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c723",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c726",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; lParam",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c728",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; wParam",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c72a",
+          "size": 2,
+          "bytes": "6a10",
+          "mnemonic": "push",
+          "text": "push    10h; Msg",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c72c",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; hWnd",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c72d",
+          "size": 6,
+          "bytes": "ff15f0d25400",
+          "mnemonic": "call",
+          "text": "call    ds:PostMessageA",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c733",
+          "size": 7,
+          "bytes": "833d640dff0064",
+          "mnemonic": "cmp",
+          "text": "cmp     gWorld__SceneState, 64h ; 'd'",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c73a",
+          "size": 2,
+          "bytes": "7524",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C760",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c73c",
+          "size": 5,
+          "bytes": "e8bf060000",
+          "mnemonic": "call",
+          "text": "call    sub_45CE00",
+          "call_target": "0x45ce00"
+        },
+        {
+          "ea": "0x45c741",
+          "size": 5,
+          "bytes": "68f0000000",
+          "mnemonic": "push",
+          "text": "push    0F0h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c746",
+          "size": 5,
+          "bytes": "6840010000",
+          "mnemonic": "push",
+          "text": "push    140h",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c74b",
+          "size": 2,
+          "bytes": "6a38",
+          "mnemonic": "push",
+          "text": "push    38h ; '8'",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c74d",
+          "size": 5,
+          "bytes": "e8fefc0c00",
+          "mnemonic": "call",
+          "text": "call    World__PlaySe",
+          "call_target": "0x52c450"
+        },
+        {
+          "ea": "0x45c752",
+          "size": 5,
+          "bytes": "a1640dff00",
+          "mnemonic": "mov",
+          "text": "mov     eax, gWorld__SceneState",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c757",
+          "size": 3,
+          "bytes": "83c40c",
+          "mnemonic": "add",
+          "text": "add     esp, 0Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c75a",
+          "size": 1,
+          "bytes": "40",
+          "mnemonic": "inc",
+          "text": "inc     eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c75b",
+          "size": 5,
+          "bytes": "a3640dff00",
+          "mnemonic": "mov",
+          "text": "mov     gWorld__SceneState, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c760",
+          "size": 7,
+          "bytes": "833d640dff0065",
+          "mnemonic": "cmp",
+          "text": "cmp     gWorld__SceneState, 65h ; 'e'",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c767",
+          "size": 2,
+          "bytes": "751b",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_45C784",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c769",
+          "size": 5,
+          "bytes": "68e05f9a00",
+          "mnemonic": "push",
+          "text": "push    offset byte_9A5FE0",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c76e",
+          "size": 5,
+          "bytes": "e89d060000",
+          "mnemonic": "call",
+          "text": "call    sub_45CE10",
+          "call_target": "0x45ce10"
+        },
+        {
+          "ea": "0x45c773",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c776",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c778",
+          "size": 2,
+          "bytes": "740a",
+          "mnemonic": "jz",
+          "text": "jz      short loc_45C784",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c77a",
+          "size": 10,
+          "bytes": "c705640dff0001000000",
+          "mnemonic": "mov",
+          "text": "mov     gWorld__SceneState, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c784",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c785",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c786",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c788",
+          "size": 2,
+          "bytes": "7da9",
+          "mnemonic": "jge",
+          "text": "jge     short loc_45C733",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c78a",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c78b",
+          "size": 5,
+          "bytes": "bf9cc55500",
+          "mnemonic": "mov",
+          "text": "mov     edi, offset aIdPassword_0; \"請輸入ＩＤ和ＰＡＳＳＷＯＲＤ\"",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c790",
+          "size": 3,
+          "bytes": "83c9ff",
+          "mnemonic": "or",
+          "text": "or      ecx, 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c793",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c795",
+          "size": 2,
+          "bytes": "f2ae",
+          "mnemonic": "scasb",
+          "text": "repne scasb",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c797",
+          "size": 2,
+          "bytes": "f7d1",
+          "mnemonic": "not",
+          "text": "not     ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c799",
+          "size": 2,
+          "bytes": "2bf9",
+          "mnemonic": "sub",
+          "text": "sub     edi, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c79b",
+          "size": 10,
+          "bytes": "c705640dff0064000000",
+          "mnemonic": "mov",
+          "text": "mov     gWorld__SceneState, 64h ; 'd'",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7a5",
+          "size": 2,
+          "bytes": "8bd1",
+          "mnemonic": "mov",
+          "text": "mov     edx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7a7",
+          "size": 2,
+          "bytes": "8bf7",
+          "mnemonic": "mov",
+          "text": "mov     esi, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7a9",
+          "size": 5,
+          "bytes": "bfe05f9a00",
+          "mnemonic": "mov",
+          "text": "mov     edi, offset byte_9A5FE0",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7ae",
+          "size": 3,
+          "bytes": "c1e902",
+          "mnemonic": "shr",
+          "text": "shr     ecx, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7b1",
+          "size": 2,
+          "bytes": "f3a5",
+          "mnemonic": "movsd",
+          "text": "rep movsd",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7b3",
+          "size": 2,
+          "bytes": "8bca",
+          "mnemonic": "mov",
+          "text": "mov     ecx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7b5",
+          "size": 3,
+          "bytes": "83e103",
+          "mnemonic": "and",
+          "text": "and     ecx, 3",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7b8",
+          "size": 2,
+          "bytes": "f3a4",
+          "mnemonic": "movsb",
+          "text": "rep movsb",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7ba",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x45c7bb",
+          "size": 5,
+          "bytes": "e97cffffff",
+          "mnemonic": "jmp",
+          "text": "jmp     loc_45C73C",
+          "call_target": null
+        }
+      ],
+      "pages": [
+        {
+          "start": 0,
+          "count": 70
+        },
+        {
+          "start": 70,
+          "count": 70
+        },
+        {
+          "start": 140,
+          "count": 21
+        }
+      ],
+      "code_bytes": 544,
+      "calls": [
+        {
+          "ea": "0x45c5b9",
+          "target": "0x45c970",
+          "text": "call    sub_45C970"
+        },
+        {
+          "ea": "0x45c5c3",
+          "target": "0x45c7c0",
+          "text": "call    sub_45C7C0"
+        },
+        {
+          "ea": "0x45c5d6",
+          "target": "0x450b70",
+          "text": "call    sub_450B70"
+        },
+        {
+          "ea": "0x45c5ec",
+          "target": "0x450b70",
+          "text": "call    sub_450B70"
+        },
+        {
+          "ea": "0x45c602",
+          "target": "0x450b70",
+          "text": "call    sub_450B70"
+        },
+        {
+          "ea": "0x45c611",
+          "target": "0x450b70",
+          "text": "call    sub_450B70"
+        },
+        {
+          "ea": "0x45c662",
+          "target": "0x450b70",
+          "text": "call    sub_450B70"
+        },
+        {
+          "ea": "0x45c699",
+          "target": "0x51c770",
+          "text": "call    sub_51C770"
+        },
+        {
+          "ea": "0x45c6a2",
+          "target": "0x45ca20",
+          "text": "call    sub_45CA20"
+        },
+        {
+          "ea": "0x45c6b4",
+          "target": "0x509080",
+          "text": "call    nullsub_1"
+        },
+        {
+          "ea": "0x45c6be",
+          "target": "0x5203b0",
+          "text": "call    sub_5203B0"
+        },
+        {
+          "ea": "0x45c6c8",
+          "target": "0x520410",
+          "text": "call    sub_520410"
+        },
+        {
+          "ea": "0x45c6cd",
+          "target": "0x520200",
+          "text": "call    sub_520200"
+        },
+        {
+          "ea": "0x45c6de",
+          "target": "0x52c450",
+          "text": "call    World__PlaySe"
+        },
+        {
+          "ea": "0x45c6f4",
+          "target": "0x450b70",
+          "text": "call    sub_450B70"
+        },
+        {
+          "ea": "0x45c719",
+          "target": "0x52c450",
+          "text": "call    World__PlaySe"
+        },
+        {
+          "ea": "0x45c73c",
+          "target": "0x45ce00",
+          "text": "call    sub_45CE00"
+        },
+        {
+          "ea": "0x45c74d",
+          "target": "0x52c450",
+          "text": "call    World__PlaySe"
+        },
+        {
+          "ea": "0x45c76e",
+          "target": "0x45ce10",
+          "text": "call    sub_45CE10"
+        }
+      ],
+      "indirect_calls": [
+        {
+          "ea": "0x45c72d",
+          "target": null,
+          "text": "call    ds:PostMessageA"
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x45c5a0",
+          "end_exclusive": "0x45c7c0",
+          "bytes": "a1640dff005685c0be02000000756fc705640dff0001000000e8b2030000a3647f9a00e8f8010000a1647f9a0083f80375116a1e6a1de89545ffff83c408e9be00000083f80275116a1e6a20e87f45ffff83c408e9a800000083f8016a1e750f6a20e86945ffff83c408e9920000006a18e85a45ffff83c408e98300000083f8017515a1ec8f620085c07575c705640dff0002000000eb6983f802750433f6eb6083f8037531a1ec8f620085c07552a1647f9a0085c075066a1e6a12eb046a3c6a13e80945ffffa1640dff0083c40840a3640dff00eb2a83f804750da1ec8f620085c0751c6a1eebd783f8057513a1ec8f620085c0750a6a02e8d2000c0083c40456e87903000083c40483f801755968204d9a00e8c7c90a006860599a00e8ed3c0c006878569a00e8433d0c00e82e3b0c0068f000000068400100006a35e86dfd0c00a1647f9a0083c41883f8017c0c6a1e6a13e87744ffff83c408c705640dff00030000005ec383f802757968f000000068400100006a36e832fd0c00a1346f9a0083c40c6a006a006a1050ff15f0d25400833d640dff00647524e8bf06000068f000000068400100006a38e8fefc0c00a1640dff0083c40c40a3640dff00833d640dff0065751b68e05f9a00e89d06000083c40485c0740ac705640dff00010000005ec385c07da957bf9cc5550083c9ff33c0f2aef7d12bf9c705640dff00640000008bd18bf7bfe05f9a00c1e902f3a58bca83e103f3a45fe97cffffff"
+        }
+      ]
+    }
+  ],
+  "original_unassigned_ranges": [],
+  "source_patches": [
+    {
+      "ordinal": 1,
+      "path": "cg2d_re/src/LoginModeScene.cpp",
+      "kind": "remove_unused_bit_include",
+      "from": "#include <bit>\n",
+      "to": ""
+    },
+    {
+      "ordinal": 2,
+      "path": "cg2d_re/src/LoginModeScene.cpp",
+      "kind": "state3_normal_s32_post_palette_increment",
+      "from": "            } else {\n                static_cast<void>(render::SelectPalette(19, 60));\n            }\n            world::gCurrentSceneState = std::bit_cast<std::int32_t>(\n                std::bit_cast<std::uint32_t>(world::gCurrentSceneState) + 1u);",
+      "to": "            } else {\n                static_cast<void>(render::SelectPalette(19, 60));\n            }\n            ++world::gCurrentSceneState;"
+    },
+    {
+      "ordinal": 3,
+      "path": "cg2d_re/src/LoginModeScene.cpp",
+      "kind": "state4_normal_s32_post_palette_increment",
+      "from": "            static_cast<void>(render::SelectPalette(19, 30));\n            world::gCurrentSceneState = std::bit_cast<std::int32_t>(\n                std::bit_cast<std::uint32_t>(world::gCurrentSceneState) + 1u);",
+      "to": "            static_cast<void>(render::SelectPalette(19, 30));\n            ++world::gCurrentSceneState;"
+    },
+    {
+      "ordinal": 4,
+      "path": "cg2d_re/src/LoginModeScene.cpp",
+      "kind": "state100_normal_s32_post_sound_increment",
+      "from": "        static_cast<void>(detail::PlaySe(56, 320, 240));\n        world::gCurrentSceneState = std::bit_cast<std::int32_t>(\n            std::bit_cast<std::uint32_t>(world::gCurrentSceneState) + 1u);",
+      "to": "        static_cast<void>(detail::PlaySe(56, 320, 240));\n        ++world::gCurrentSceneState;"
+    },
+    {
+      "ordinal": 5,
+      "path": "cg2d_re/src/LoginModeScene.cpp",
+      "kind": "negative_result_goes_directly_to_message_reset",
+      "from": "    if (world::gCurrentSceneState == 100) {",
+      "to": "    if (result < 0 || world::gCurrentSceneState == 100) {"
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "cg2d_re/src/LoginModeScene.cpp",
+      "whole_length": 4020
+    }
+  ],
+  "source_snapshot_before": "Git命名快照 cg2d-re-capability4-scene-sampling-20261007",
+  "implementation_snapshot": "cg2d-re-login-mode-normal-message-branch-20261007",
+  "snapshot_functions_before": [
+    {
+      "id": "F:0005C5A0",
+      "original_entry": "0x45C5A0",
+      "original_name": "sub_45C5A0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/LoginModeScene.cpp",
+          "symbol": "ProcessModeScene_45C5A0",
+          "definition_line": 30,
+          "namespace": "cg::login"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "features_before": [
+    {
+      "id": "FUNC-LOGIN",
+      "kind": "flow",
+      "parent_id": null,
+      "title": "登录与连接状态",
+      "domain": "LOGIN",
+      "scope": "included",
+      "baseline_documents": [
+        "doc/cg2d_login_outer_scene.md",
+        "doc/cg2d_login_mode_scene.md",
+        "doc/cg2d_login_state_controller.md",
+        "doc/cg2d_login_input_controller.md",
+        "doc/cg2d_login_request.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-baseline",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline"
+      ],
+      "original_inventory_ids": [
+        "F:001202E0",
+        "F:00108BC0",
+        "F:0005E960",
+        "F:0005EA50",
+        "F:0005EA60",
+        "F:0005F190",
+        "F:00064840"
+      ],
+      "closure_task_ids": [
+        "P18",
+        "U10",
+        "V03"
+      ],
+      "dependencies": [
+        "FUNC-NETWORK",
+        "FUNC-INPUT",
+        "FUNC-SAVED"
+      ],
+      "acceptance_focus": "输入、提交、回复和状态转换及失败副作用",
+      "decision_refs": [
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_login_negative_selection_byte_owner_spec.md#login-negative-byte-decision",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision",
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision"
+      ],
+      "blockers": [
+        "基线成员及门禁证据尚待逐项归档",
+        "BRU01仅既有登录负分类provider/20正常BYTE与固定池读取适配：LegacyUiRecord唯一定义直接借底部两W32字节/hover正文与标题/mouseY真实token/左锚和服务器伴随值，D68AC6原未装载独立1B加载零内容有目标地址形成/无加载别名及邻近20B标记、独立计时/伴随值边界证据，私有const零BYTE不补业务。12固定池点始终读唯一fixedPool，七坐标BYTE现场读/五链接BYTE由实际handle还原原固定节点与四哨兵身份再提取，0映射0，不把handle或本机指针低字节冒充原BYTE；不造可解引用地址、影子池/链接状态或反查表，动态nativePool不借。原登录父、所有tracker逻辑/布局和mutable生产/RNG/申请释放/初始化/网络全保，只加现缺provider和只读桥/声明/注释；两原尾先读后判调用位置保持。E804→806仅LOGIN局部I/S，V03仍open、源码closed11与所有语义/F/R7/枚举/完整门禁保持；不配置构建测试运行摘要，原格式明文/音频暂停/RPLAN.24保持。",
+        "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。",
+        "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
+        "BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。",
+        "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
+      ],
+      "gates": {},
+      "member_inventory_closed": false,
+      "member_inventory_evidence_refs": [
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state"
+      ]
+    }
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "U10",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_winsock_import_binding_spec.md#winsock-import-source-closure",
+        "doc/cg2d_network_buffer_lifecycle_spec.md#network-buffer-lifecycle-source-closure",
+        "doc/cg2d_command_checksum_publication_spec.md#command-checksum-source-closure",
+        "doc/cg2d_append_transform_spec.md#append-transform-source-closure",
+        "doc/cg2d_dispatch_account_field_read_spec.md#dispatch-account-field-source-closure",
+        "doc/cg2d_workspace_byte_pointer_spec.md#workspace-byte-source-closure",
+        "doc/cg2d_saved_codec_arithmetic_spec.md#saved-codec-arithmetic-source-closure",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_character_list_record_production_callees_spec.md#character-list-callees-source-state",
+        "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
+        "doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state",
+        "doc/cg2d_main_entry_state_carrier_sampling_spec.md#main-entry-carrier-source-state",
+        "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
+        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state"
+      ]
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_development_gap_queue_spec.md#development-gap-queue-source-state",
+        "doc/cg2d_code_range_identity_spec.md#code-range-identity-source-state",
+        "doc/cg2d_source_gap_status_spec.md#source-gap-status-source-state",
+        "doc/cg2d_declared_exclusion_registry_spec.md#declared-exclusion-source-state",
+        "doc/cg2d_mixed_upload_identity_spec.md#mixed-upload-source-state",
+        "doc/cg2d_metadata_padding_disposition_spec.md#metadata-padding-source-state",
+        "doc/cg2d_memory_compare_sampling_spec.md#memory-compare-sampling-source-state",
+        "doc/cg2d_boundary_merged_identity_spec.md#boundary-merged-identity-source-state",
+        "doc/cg2d_network_adapter_sampling_spec.md#adapter-sampling-source-state",
+        "doc/cg2d_legacy_line_sampling_spec.md#legacy-line-sampling-source-state",
+        "doc/cg2d_delimited_field_identity_spec.md#delimited-field-identity-source-state",
+        "doc/cg2d_font_width_arithmetic_spec.md#font-width-arithmetic-source-state",
+        "doc/cg2d_legacy_ui_add_arithmetic_spec.md#legacy-ui-add-arithmetic-source-state",
+        "doc/cg2d_network_queue_arithmetic_spec.md#network-queue-arithmetic-source-state",
+        "doc/cg2d_trade_target_production_spec.md#trade-target-production-source-state",
+        "doc/cg2d_audio_paused_identity_spec.md#audio-paused-identity-source-state",
+        "doc/cg2d_compiler_helper_spec.md#compiler-helper-source-state",
+        "doc/cg2d_map_record_identity_spec.md#map-record-identity-source-state",
+        "doc/cg2d_input_terminal_length_spec.md#input-terminal-length-source-state",
+        "doc/cg2d_input_caret_arithmetic_spec.md#caret-arithmetic-source-state",
+        "doc/cg2d_input_text_arithmetic_spec.md#input-text-arithmetic-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-classification-source-state",
+        "doc/cg2d_ime_display_arithmetic_spec.md#ime-display-arithmetic-source-state",
+        "doc/cg2d_animation_capacity_spec.md#animation-capacity-source-state",
+        "doc/cg2d_animation_pointer_spec.md#animation-pointer-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#map-effect-arithmetic-source-state",
+        "doc/cg2d_map_coordinate_arithmetic_spec.md#map-coordinate-arithmetic-source-state",
+        "doc/cg2d_map_effect_producer_spec.md#map-effect-producer-source-state",
+        "doc/cg2d_map_effect_pool_spec.md#map-effect-pool-source-state",
+        "doc/cg2d_scene_snapshot_width_spec.md#scene-snapshot-width-source-state",
+        "doc/cg2d_map_chara_lookup_spec.md#map-chara-lookup-source-state",
+        "doc/cg2d_map_chara_link_spec.md#map-chara-link-source-state",
+        "doc/cg2d_map_chara_producer_spec.md#map-chara-producer-source-state",
+        "doc/cg2d_map_observation_source_spec.md#map-observation-source-source-state",
+        "doc/cg2d_map_observer_callback_order_spec.md#map-observer-callback-order-source-state",
+        "doc/cg2d_map_child_stage_sampling_spec.md#map-child-stage-sampling-source-state",
+        "doc/cg2d_map_child_exit_sampling_spec.md#map-child-exit-sampling-source-state",
+        "doc/cg2d_map_observation_branch_spec.md#map-observation-branch-source-state",
+        "doc/cg2d_actor_attachment_sampling_spec.md#actor-attachment-sampling-source-state",
+        "doc/cg2d_actor_coordinate_producer_spec.md#actor-coordinate-producer-source-state",
+        "doc/cg2d_yobi_cleanup_sampling_spec.md#yobi-cleanup-sampling-source-state",
+        "doc/cg2d_yobi_sentinel_sampling_spec.md#yobi-sentinel-sampling-source-state",
+        "doc/cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state",
+        "doc/cg2d_ui_preview_sampling_spec.md#ui-preview-sampling-source-state",
+        "doc/cg2d_gather_result_sampling_spec.md#gather-result-sampling-source-state",
+        "doc/cg2d_window_routing_sampling_spec.md#window-routing-sampling-source-state",
+        "doc/cg2d_battle_copy_sampling_spec.md#battle-copy-sampling-source-state",
+        "doc/cg2d_battle_tail_sampling_spec.md#battle-tail-sampling-source-state",
+        "doc/cg2d_battle_attachment_sampling_spec.md#battle-attachment-sampling-source-state",
+        "doc/cg2d_battle_attachment_producer_spec.md#battle-attachment-producer-source-state",
+        "doc/cg2d_battle_attachment_recovery_spec.md#battle-attachment-recovery-source-state",
+        "doc/cg2d_battle_ride_exit_sampling_spec.md#battle-ride-exit-sampling-source-state",
+        "doc/cg2d_battle_ride_animation_sampling_spec.md#battle-ride-animation-sampling-source-state",
+        "doc/cg2d_battle_ride_transition_sampling_spec.md#battle-ride-transition-sampling-source-state",
+        "doc/cg2d_battle_event_production_sampling_spec.md#battle-event-production-sampling-source-state",
+        "doc/cg2d_battle_queue_readiness_sampling_spec.md#battle-queue-readiness-sampling-source-state",
+        "doc/cg2d_battle_reset_append_baseline_spec.md#battle-reset-append-baseline-source-state",
+        "doc/cg2d_battle_m_read_sampling_spec.md#battle-m-read-sampling-source-state",
+        "doc/cg2d_battle_m_scan_sampling_spec.md#battle-m-scan-sampling-source-state",
+        "doc/cg2d_battle_m_dispatch_sampling_spec.md#battle-m-dispatch-sampling-source-state",
+        "doc/cg2d_battle_m_event_dispatch_sampling_spec.md#battle-m-event-dispatch-sampling-source-state",
+        "doc/cg2d_battle_event_finish_scene_lifecycle_sampling_spec.md#battle-event-finish-scene-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_event_execution_gates_spec.md#battle-event-execution-gates-source-state",
+        "doc/cg2d_battle_m_data_sampling_spec.md#battle-m-data-sampling-source-state",
+        "doc/cg2d_battle_m_transition_sampling_spec.md#battle-m-transition-sampling-source-state",
+        "doc/cg2d_battle_m_status_sampling_spec.md#battle-m-status-sampling-source-state",
+        "doc/cg2d_battle_m_position_monster_sampling_spec.md#battle-m-position-monster-sampling-source-state",
+        "doc/cg2d_battle_m_ride_gmn_sampling_spec.md#battle-m-ride-gmn-sampling-source-state",
+        "doc/cg2d_battle_m_item_combo_sampling_spec.md#battle-m-item-combo-sampling-source-state",
+        "doc/cg2d_battle_m_skill_entry_waiting_sampling_spec.md#battle-m-skill-entry-waiting-sampling-source-state",
+        "doc/cg2d_battle_m_skill4_sampling_spec.md#battle-m-skill4-sampling-source-state",
+        "doc/cg2d_battle_m_skill61_sampling_spec.md#battle-m-skill61-sampling-source-state",
+        "doc/cg2d_battle_m_skill50_sampling_spec.md#battle-m-skill50-sampling-source-state",
+        "doc/cg2d_battle_m_skill12_82_97_sampling_spec.md#battle-m-skill12-82-97-sampling-source-state",
+        "doc/cg2d_battle_m_skill93_sampling_spec.md#battle-m-skill93-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_prepare_sampling_spec.md#battle-m-skill98-prepare-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode6_sampling_spec.md#battle-m-skill98-mode6-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode7_8_sampling_spec.md#battle-m-skill98-mode7-8-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode12_13_14_sampling_spec.md#battle-m-skill98-mode12-13-14-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode15_16_sampling_spec.md#battle-m-skill98-mode15-16-sampling-source-state",
+        "doc/cg2d_battle_m_skill98_mode17_status_sampling_spec.md#battle-m-skill98-mode17-status-sampling-source-state",
+        "doc/cg2d_battle_m_skill99_family_sampling_spec.md#battle-m-skill99-family-sampling-source-state",
+        "doc/cg2d_battle_m_skill107_sampling_spec.md#battle-m-skill107-sampling-source-state",
+        "doc/cg2d_battle_m_skill108_sampling_spec.md#battle-m-skill108-sampling-source-state",
+        "doc/cg2d_battle_m_skill109_sampling_spec.md#battle-m-skill109-sampling-source-state",
+        "doc/cg2d_battle_m_skill112_sampling_spec.md#battle-m-skill112-sampling-source-state",
+        "doc/cg2d_battle_m_skill114_sampling_spec.md#battle-m-skill114-sampling-source-state",
+        "doc/cg2d_battle_m_skill117_sampling_spec.md#battle-m-skill117-sampling-source-state",
+        "doc/cg2d_battle_m_skill73_sampling_spec.md#battle-m-skill73-sampling-source-state",
+        "doc/cg2d_battle_m_skill106_family_sampling_spec.md#battle-m-skill106-family-sampling-source-state",
+        "doc/cg2d_battle_m_attack_targets_call_sampling_spec.md#battle-m-attack-targets-call-sampling-source-state",
+        "doc/cg2d_battle_m_attack_nonzero_sampling_spec.md#battle-m-attack-nonzero-sampling-source-state",
+        "doc/cg2d_battle_m_skill263_400_401_sampling_spec.md#battle-m-skill263-400-401-sampling-source-state",
+        "doc/cg2d_battle_m_skill402_405_sampling_spec.md#battle-m-skill402-405-sampling-source-state",
+        "doc/cg2d_battle_m_skill404_family_sampling_spec.md#battle-m-skill404-family-sampling-source-state",
+        "doc/cg2d_battle_m_skill2028_2005_sampling_spec.md#battle-m-skill2028-2005-sampling-source-state",
+        "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-source-state",
+        "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-source-state",
+        "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-source-state",
+        "doc/cg2d_battle_skill_targets_core_spec.md#battle-skill-targets-core-source-state",
+        "doc/cg2d_battle_redirect_aux_baseline_spec.md#battle-redirect-aux-baseline-source-state",
+        "doc/cg2d_battle_effect_creation_sampling_spec.md#battle-effect-creation-sampling-source-state",
+        "doc/cg2d_battle_effect_callbacks_sampling_spec.md#battle-effect-callbacks-sampling-source-state",
+        "doc/cg2d_battle_rising_emitter_fade_sampling_spec.md#battle-rising-emitter-fade-sampling-source-state",
+        "doc/cg2d_battle_rising_emitters_sampling_spec.md#battle-rising-emitters-sampling-source-state",
+        "doc/cg2d_battle_effect_factory_sampling_spec.md#battle-effect-factory-sampling-source-state",
+        "doc/cg2d_battle_completion_scale_sampling_spec.md#battle-completion-scale-sampling-source-state",
+        "doc/cg2d_battle_initializers_sampling_spec.md#battle-initializers-sampling-source-state",
+        "doc/cg2d_battle_impact_callbacks_sampling_spec.md#battle-impact-callbacks-sampling-source-state",
+        "doc/cg2d_battle_frame_event_callback_sampling_spec.md#battle-frame-event-callback-sampling-source-state",
+        "doc/cg2d_battle_moving_impact_callback_sampling_spec.md#battle-moving-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_homing_impact_callback_sampling_spec.md#battle-homing-impact-callback-sampling-source-state",
+        "doc/cg2d_battle_motion_angle_dependency_spec.md#battle-motion-angle-dependency-source-state",
+        "doc/cg2d_battle_flags_aux_icon_consumer_spec.md#battle-flags-aux-icon-consumer-source-state",
+        "doc/cg2d_battle_number_production_update_spec.md#battle-number-production-update-source-state",
+        "doc/cg2d_battle_time_default_measure_spec.md#battle-time-default-measure-source-state",
+        "doc/cg2d_graphic_record_production_lookup_spec.md#graphic-record-production-lookup-source-state",
+        "doc/cg2d_graphic_read_decode_sampling_spec.md#graphic-read-decode-sampling-source-state",
+        "doc/cg2d_independent_palette_production_refresh_spec.md#independent-palette-production-refresh-source-state",
+        "doc/cg2d_palette_transition_channel_sampling_spec.md#palette-transition-channel-sampling-source-state",
+        "doc/cg2d_palette_initialization_read_sampling_spec.md#palette-initialization-read-sampling-source-state",
+        "doc/cg2d_automap_palette_color_production_spec.md#automap-palette-color-production-source-state",
+        "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-source-state",
+        "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-source-state",
+        "doc/cg2d_graphic_enqueue_descriptor_production_spec.md#graphic-enqueue-descriptor-production-source-state",
+        "doc/cg2d_graphic_secondary_enqueue_production_spec.md#graphic-secondary-enqueue-production-source-state",
+        "doc/cg2d_map_colored_enqueue_production_spec.md#map-colored-enqueue-production-source-state",
+        "doc/cg2d_hover_batch_unconditional_publication_spec.md#hover-batch-publication-source-state",
+        "doc/cg2d_renderer_node_release_sampling_spec.md#renderer-node-release-source-state",
+        "doc/cg2d_renderer_lost_probe_sampling_spec.md#renderer-lost-probe-source-state",
+        "doc/cg2d_audio_control_paused_scope_spec.md#audio-control-paused-source-state",
+        "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+        "doc/cg2d_matching_hover_record_sampling_spec.md#matching-hover-record-source-state",
+        "doc/cg2d_ripple_full_strip_production_spec.md#ripple-full-strip-source-state",
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-source-state",
+        "doc/cg2d_delimited_numeric_normal_sampling_spec.md#delimited-numeric-normal-source-state",
+        "doc/cg2d_protocol_integer_normal_arithmetic_spec.md#protocol-integer-normal-source-state",
+        "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-source-state",
+        "doc/cg2d_input_scan_budget_sampling_spec.md#input-scan-budget-source-state",
+        "doc/cg2d_key_index_preset_source_spec.md#key-index-preset-source-state",
+        "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-twotos-source-state",
+        "doc/cg2d_native_cpp_exception_spec.md#cpp-catch-private-host-source-state",
+        "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-source-state",
+        "doc/cg2d_map_effect_arithmetic_spec.md#pow-input-control-source-state",
+        "doc/cg2d_float_decimal_estimate_spec.md#float-decimal-estimate-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-second-batch-source-state",
+        "doc/cg2d_unassigned_range_classification_spec.md#range-third-batch-source-state",
+        "doc/cg2d_battle_action_141_143_spec.md#battle-action-141-143-source-state",
+        "doc/cg2d_battle_action_114_spec.md#battle-action-114-source-state",
+        "doc/cg2d_battle_motion_scale_lifecycle_spec.md#battle-motion-scale-source-state",
+        "doc/cg2d_battle_resource_copy_spec.md#battle-resource-copy-source-state",
+        "doc/cg2d_battle_rebirth_transition_spec.md#battle-rebirth-transition-source-state",
+        "doc/cg2d_battle_count_timer_flags_spec.md#battle-count-timer-flags-source-state",
+        "doc/cg2d_battle_attachment_alpha_background_spec.md#battle-attachment-alpha-background-source-state",
+        "doc/cg2d_battle_transition_effect_sampling_spec.md#battle-transition-effect-sampling-source-state",
+        "doc/cg2d_battle_scene_words_death_sampling_spec.md#battle-scene-words-death-sampling-source-state",
+        "doc/cg2d_battle_clone_restore_sampling_spec.md#battle-clone-restore-sampling-source-state",
+        "doc/cg2d_battle_effect_pair_distance_sampling_spec.md#battle-effect-pair-distance-sampling-source-state",
+        "doc/cg2d_battle_pet_rider_sampling_spec.md#battle-pet-rider-sampling-source-state",
+        "doc/cg2d_battle_timing_coordinate_damage_sampling_spec.md#battle-timing-coordinate-damage-sampling-source-state",
+        "doc/cg2d_battle_bounce_reflection_sampling_spec.md#battle-bounce-reflection-sampling-source-state",
+        "doc/cg2d_battle_shared_cast_arc_sampling_spec.md#battle-shared-cast-arc-sampling-source-state",
+        "doc/cg2d_battle_skill_display_motion_sampling_spec.md#battle-skill-display-motion-sampling-source-state",
+        "doc/cg2d_battle_factory_batch_exit_sampling_spec.md#battle-factory-batch-exit-sampling-source-state",
+        "doc/cg2d_battle_participant_turn_name_sampling_spec.md#battle-participant-turn-name-sampling-source-state",
+        "doc/cg2d_battle_command_target_width_sampling_spec.md#battle-command-target-width-sampling-source-state",
+        "doc/cg2d_battle_selection_cleanup_entry_sampling_spec.md#battle-selection-cleanup-entry-sampling-source-state",
+        "doc/cg2d_battle_shortcut_defense_state_sampling_spec.md#battle-shortcut-defense-state-sampling-source-state",
+        "doc/cg2d_battle_button_reopen_click_sampling_spec.md#battle-button-reopen-click-sampling-source-state",
+        "doc/cg2d_battle_skill_window_click_sampling_spec.md#battle-skill-window-click-sampling-source-state",
+        "doc/cg2d_battle_technique_selection_sampling_spec.md#battle-technique-selection-sampling-source-state",
+        "doc/cg2d_battle_skill_window_lifecycle_sampling_spec.md#battle-skill-window-lifecycle-sampling-source-state",
+        "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_command_state_dispatch_sampling_spec.md#battle-command-state-dispatch-sampling-source-state",
+        "doc/cg2d_battle_target_hover_sampling_spec.md#battle-target-hover-sampling-source-state",
+        "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
+        "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
+        "doc/cg2d_integer_left_compare_dispatch_spec.md#integer-left-compare-source-state",
+        "doc/cg2d_capability4_input_normal_arithmetic_spec.md#capability4-arithmetic-source-state",
+        "doc/cg2d_login_control_normal_geometry_spec.md#login-control-geometry-source-state",
+        "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
+        "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
+        "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state"
+      ]
+    }
+  ],
+  "implementation_static_scope": "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+  "normal_previous_values_wrong": false,
+  "source_changed_file_count": 1,
+  "source_changed_existing_function_count": 1,
+  "source_patch_count": 5,
+  "source_normal_s32_increment_count": 3,
+  "original_increment_sites": [
+    "0x45c66f",
+    "0x45c75a"
+  ],
+  "source_negative_message_reset_short_circuit": true,
+  "new_range_classification_count": 0,
+  "source_closed_task_delta": 0,
+  "full_original_parent_or_machine_abi_verified": false,
+  "runtime_verified": false,
+  "fault_equivalence_claimed": false
+}

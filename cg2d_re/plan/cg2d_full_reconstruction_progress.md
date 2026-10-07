@@ -3158,3 +3158,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 新映射1589／adapted F:00064840／LOGIN6→7，语义1590有效1583／文档1701／3680（46.22%）／723处置／E836／R7 295余2766。冻结定位／无F-code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整叶0/globalfalse及完整门禁保；U10／R04只current/引用仍open。完整World::Update父／24依赖、保存输入和图像消费、全部正常alias-owner寿命／CRT-SDK-机器ABI与链接、原格式明文互通与运行R8继续；音频暂停、RPLAN.24及执行限制保。
 
 静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照仅单F／LOGIN一成员与候选、两任务／单R7／六指标增量，12文件UTF-8无BOM-LF、实际引用与定向diff通过。未构建、测试或运行；P05原closed及完整门禁保，整体SPEC目标继续。
+
+## BSI01 登录模式正常递增与负返回直达消息重置（2026-10-07）
+
+先落[子SPEC](../doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision)，实修LoginModeScene.cpp五精确片段：状态3／4／100三现源++改普通S32并保palette／重置和声音调用后的现场状态取样；负返回复制29B原提示后短路直接消息重置，不额外检查状态100，非负100与随后101独立现场读保；移除无用bit include，不新增工具或owner。仅一个既有业务体变更，正常数值原正确，不声称运行故障，不新异常／保护／限制。
+
+原完整161条544B／三页，20原call为19直接／12目标和1个PostMessageA间接、31跳转／两RET，唯一World::Update 51C430@51C493。状态3/4共享45C66F、状态100用45C75A，仅两原INC；负提示45C7BB直接跳45C73C，非负45C733检查100、45C760检查101。原入口样本/mode、两能力探测与palette取样、一次控制器／返回1空操作与持久槽／保存声音及早退、返回2关闭后贯穿、原字节缓冲／同帧100→101和所有其它正文保持。原根邻接45C7C0，无新X分类或共享块身份。
+
+新映射1590／adapted F:0005C5A0／LOGIN7→8，语义1591有效1584／文档1702／3680（46.25%）／724处置／E838，R7 295余2766保。冻结定位／无F-code区各7／pending18／缺口队列172与171缺定位43待归属、源码closed11（P05原closed）／完整叶0/globalfalse及完整门禁保；U10／R04只current/引用仍open。完整World::Update父／12依赖与消息输入/持久/图像消费、全部正常alias-owner寿命／CRT-SDK-机器ABI与链接、原格式明文互通和运行R8继续；音频暂停、RPLAN.24及执行限制保。
+
+静态验收结果：源码／原证据／完整机器／文档四集中检查通过，measure及-Check均完成；完整派生快照仅单F／LOGIN一成员与候选、两任务／五指标增量，R7所有区间与冻结定位／其它对象保，12文件UTF-8无BOM-LF／实际引用与定向diff通过。未构建、测试或运行，P05原closed及完整门禁保，整体SPEC目标继续。

@@ -1316,3 +1316,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline)、[裁决](cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision)、[验收](cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-acceptance)和[源码状态](cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state)关联原385条1437B与单源八片段：普通S32、一次入口状态／默认返回、计数-phase原序及四fade现场alpha，保原颜色位型和所有其它整源。
 
 单adapted原F／LOGIN一成员、单X83B四真实部分只用途，两局部I-S各17来源，E834→836；U10／R04仅current/引用仍open，源码closed11（P05原closed）／完整叶0/globalfalse及全部门禁保。正常值原正确、不新异常／保护或业务；完整World::Update父／24依赖、输入保存与图像消费、所有正常alias-owner寿命／SDK-机器ABI和链接、明文互通／运行R8继续原标准。
+
+## BSI01 登录模式消息分支开发验收（2026-10-07）
+
+[基线](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline)、[裁决](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision)、[验收](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-acceptance)与[源码状态](cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state)关联原161条544B与单源五片段：三现源普通S32++映两原INC、负返回短路直接重置／非负100和随后101独立取样，保一次输入／返回流程、原提示和全部其它正文。
+
+单adapted原F／LOGIN一成员，两局部I-S各14来源，E836→838；无新X和内部块F，R7保持。U10／R04只current/引用仍open，源码closed11（P05原closed）／完整叶0/globalfalse及全部完整门禁保。原正常值正确、不新异常／保护或业务；完整World::Update父／12依赖、消息输入与持久／图像消费、正常alias-owner寿命、SDK-机器ABI／链接、明文互通／运行继续原标准。

@@ -10,7 +10,6 @@
 #include "cg/platform/LegacyWindow.hpp"
 #include "cg/world/SceneState.hpp"
 
-#include <bit>
 #include <cstdint>
 #include <cstring>
 
@@ -60,14 +59,12 @@ void ProcessModeScene_45C5A0()
             } else {
                 static_cast<void>(render::SelectPalette(19, 60));
             }
-            world::gCurrentSceneState = std::bit_cast<std::int32_t>(
-                std::bit_cast<std::uint32_t>(world::gCurrentSceneState) + 1u);
+            ++world::gCurrentSceneState;
         }
     } else if (initialState == 4) {
         if (render::gPaletteChanging == 0) {
             static_cast<void>(render::SelectPalette(19, 30));
-            world::gCurrentSceneState = std::bit_cast<std::int32_t>(
-                std::bit_cast<std::uint32_t>(world::gCurrentSceneState) + 1u);
+            ++world::gCurrentSceneState;
         }
     } else if (initialState == 5 && render::gPaletteChanging == 0) {
         static_cast<void>(world::SetCurrentSceneType(2));
@@ -101,11 +98,10 @@ void ProcessModeScene_45C5A0()
             sizeof(kMissingCredentials));
     }
 
-    if (world::gCurrentSceneState == 100) {
+    if (result < 0 || world::gCurrentSceneState == 100) {
         ResetLoginMessage();
         static_cast<void>(detail::PlaySe(56, 320, 240));
-        world::gCurrentSceneState = std::bit_cast<std::int32_t>(
-            std::bit_cast<std::uint32_t>(world::gCurrentSceneState) + 1u);
+        ++world::gCurrentSceneState;
     }
     if (world::gCurrentSceneState == 101
         && UpdateLoginMessage(gLoginModeMessage) != 0) {

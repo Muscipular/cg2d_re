@@ -719,7 +719,8 @@
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline",
         "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-baseline",
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-baseline",
-        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline"
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-baseline",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline"
       ],
       "original_inventory_ids": [
         "F:001202E0",
@@ -728,7 +729,8 @@
         "F:0005EA50",
         "F:0005EA60",
         "F:0005F190",
-        "F:00064840"
+        "F:00064840",
+        "F:0005C5A0"
       ],
       "closure_task_ids": [
         "P18",
@@ -747,7 +749,8 @@
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision",
         "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-decision",
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-decision",
-        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision"
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-decision",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -755,7 +758,8 @@
         "BRW01三完整114条341B/三页、21jump三RET，两个实际call（GetTickCount IAT及512DF0 direct）、三真实code入向。三已有回复循环共六精确片段：每轮先取回复U8，再取successful U8；匹配后复用同回复取样判NUL，不重读、不新增strcmp helper/共享状态/协议保护。原已有正常值逻辑正确，本步恢复原读序，不称实际运行错误；状态2先pub、成功匹配才各W16与登录S32 flag/计时命令、创建S16 slot→reply1→S32 preview→+4C/+50及删除只reply保持。全部启动/轮询/超时、同两148B record/字段/当前三原分派、计时与数值构析/RNG/音频保持；原格式明文及RPLAN.24保。三F1573..1575 normal equivalent；LOGIN加一为2、CHARACTER加二为5、NETWORK三回复父为54，实际member与同文档候选区分，不刷新冻结定义行。三真实X7/15/5B共27B全90/逐BYTE canonical nop，无入向前RET后入口，仅用途mapped，R7 280余2781。语义1576/有效1569、文档1687/3680（45.84%）、分类706/E812，未带F/code区各7、pending18、172差队列/171缺定位/43待归属、源码closed11/完整功能叶0/globalfalse及全部完整门禁保持；U10/V03只current/refs仍open。完整登录/人物/创建-主地图与数据owner/所有回复/CRT-SDK-ABI/互通/资源寿命、运行/R8未验，音频暂停，不构建测试运行或摘要。",
         "BRZ01三完整登录进度根176条565B/五页、三chunk，14directcall十三callee、17jump四RET和三真实caller。源LoginState.cpp四精确片段恢复两次原字节strlen/初始U32九倍列数及正常S32几何与四字段现场消费、轮询非零一次native action取样；原当前6B文案仍窗口256/192/128/96和文字296/232，不称旧正常值错误或运行故障。父/Reset全文保持，W16阶段/同帧启动-轮询/成功scene9/两失败原15-43B提示及转scene2保持；正常生命周期/所有callee/SDK-ABI与流程运行不新验。已有192/193身份保，仅父新1579/有效1573/文档1691（45.95%），三F处置712/LOGIN5、三X27B全90 canonical nop/无入向，仅填充用途（首前JMP其余RET），R7 286余2775/E818。无F/code区各7/pending18/差队列172与171缺定位/43待归属/closed11/完整功能叶0/globalfalse和全部完整门禁保，U10/V03只current/refs仍open。原格式明文/音频暂停/RPLAN.24保，不构建测试运行或摘要。",
         "BSF01能力3场景完整494条1965B/八页，49原call=48direct/19callee+1PostMessageA间接，43jump（含switch）/一RET，唯一51C430@51C4A1。单源四精确片段恢复私有AddW32/SubW32/ShiftLeftW32普通S32加减与相位移位；状态3复制透明度先依次采左/右非拥有指针，再读左+30F W8并写右，原取样/颜色低24保。原正常值正确，不称运行故障；ComposeWhiteAlpha/32bpp灰度真位型、状态0..10/unsigned默认与公共分发、初值/门槛/两Action失败返回/FrameMove/MarkDeath清观察者/原数值发布和全部其它正文保持。新F:0005F190映射1588单adapted/LOGIN5→6，语义1589有效1582/文档1700（46.20%）/处置722/E832；单真X51B分3B身份LEA对齐+44B十一W32目标+4B canonical nop，一父数据引用、无代码入向，零外造F，仅用途mapped，R7 294余2767。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/源码closed11（P05原closed）/完整叶0/globalfalse和全部完整门禁保；U10/R04只current/refs仍open。完整World::Update父与19依赖/图像和输入消费、全部正常alias-owner寿命、CRT-SDK-机器ABI/链接/明文互通及运行R8继续原标准。既有32bpp裁决/音频暂停/屏幕键盘排除、RPLAN.24与执行限制保，不构建测试运行或摘要。",
-        "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
+        "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。",
+        "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -763,7 +767,8 @@
         "doc/cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state",
         "doc/cg2d_login_progress_layout_sampling_spec.md#login-progress-layout-source-state",
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
-        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state"
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state"
       ]
     },
     {
@@ -35985,6 +35990,78 @@
       "observation": "完整385条1437B/六页、45direct24callee/两Win32间接、28jump八RET；唯一51C430@51C4A8。两既有源函数八片段恢复普通S32、入口样本默认返回、计数→phase读算序和四分支alpha现场取样（阶段1/2/3在前层绘制后）；真实颜色位型/状态与保存槽/消息和返回及其它正文保。单F及三跳表用途仅本步局部，不代完整父/24依赖、保存输入/图像消费与全部寿命/ABI或运行。",
       "expected": "完整385条1437B/六页、45direct24callee/两Win32间接、28jump八RET；唯一51C430@51C4A8。两既有源函数八片段恢复普通S32、入口样本默认返回、计数→phase读算序和四分支alpha现场取样（阶段1/2/3在前层绘制后）；真实颜色位型/状态与保存槽/消息和返回及其它正文保。单F及三跳表用途仅本步局部，不代完整父/24依赖、保存输入/图像消费与全部寿命/ABI或运行。",
       "actual": "BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LOGIN-MODE-NORMAL-MESSAGE-BRANCH-I-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSI01原161条544B/三页、19directcall12callee及一PostMessageA间接/31jump两RET，唯一51C430@51C493，三现源普通++对应两原INC/负返回直接消息重置；doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-mode-normal-message-branch-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-acceptance",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
+        "doc/cg2d_login_mode_normal_message_branch_evidence.json",
+        "src/LoginModeScene.cpp#ProcessModeScene_45C5A0",
+        "include/cg/world/SceneState.hpp",
+        "include/cg/LoginScene.hpp",
+        "doc/cg2d_login_mode_scene.md",
+        "doc/cg2d_login_input_controller.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_login_shared_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "单源五片段：状态3/4/100三现源普通S32++映原两INC点，保SelectPalette/PlaySe调用后重读；负返回复制提示后短路直接重置，不额外读状态100，非负100与随后101仍独立现场检查。删无用bit include，原入口/一次控制器mode/返回1早退/关闭路径贯穿/原提示和owner及全部其它正文保。正常数值原正确，不新异常/保护/限制/工具；完整父/12依赖/寿命/ABI和运行未验",
+          "decision_ref": "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。",
+      "expected": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。",
+      "actual": "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "id": "E-LOGIN-MODE-NORMAL-MESSAGE-BRANCH-S-20261007",
+      "feature_id": "FUNC-LOGIN",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BSI01原161条544B/三页、19directcall12callee及一PostMessageA间接/31jump两RET，唯一51C430@51C493，三现源普通++对应两原INC/负返回直接消息重置；doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-login-mode-normal-message-branch-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-acceptance",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
+        "doc/cg2d_login_mode_normal_message_branch_evidence.json",
+        "src/LoginModeScene.cpp#ProcessModeScene_45C5A0",
+        "include/cg/world/SceneState.hpp",
+        "include/cg/LoginScene.hpp",
+        "doc/cg2d_login_mode_scene.md",
+        "doc/cg2d_login_input_controller.md",
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_network_compatibility_spec.md",
+        "doc/cg2d_text_encoding_spec.md",
+        "doc/cg2d_login_shared_input_context.md"
+      ],
+      "differences": [
+        {
+          "description": "单源五片段：状态3/4/100三现源普通S32++映原两INC点，保SelectPalette/PlaySe调用后重读；负返回复制提示后短路直接重置，不额外读状态100，非负100与随后101仍独立现场检查。删无用bit include，原入口/一次控制器mode/返回1早退/关闭路径贯穿/原提示和owner及全部其它正文保。正常数值原正确，不新异常/保护/限制/工具；完整父/12依赖/寿命/ABI和运行未验",
+          "decision_ref": "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。",
+      "expected": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。",
+      "actual": "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
     }
   ],
   "task_acceptance": [
@@ -36442,7 +36519,8 @@
         "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
-        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state"
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state"
       ]
     },
     {
@@ -36954,7 +37032,8 @@
         "doc/cg2d_capability3_input_normal_sampling_spec.md#capability3-normal-sampling-source-state",
         "doc/cg2d_capability3_scene_normal_sampling_spec.md#capability3-scene-normal-source-state",
         "doc/cg2d_capability4_submit_length_sampling_spec.md#capability4-submit-length-source-state",
-        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state"
+        "doc/cg2d_capability4_scene_sampling_spec.md#capability4-scene-sampling-source-state",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state"
       ]
     },
     {
@@ -45743,6 +45822,19 @@
         "doc/cg2d_capability4_scene_sampling_evidence.json"
       ],
       "boundary": "完整385条1437B/六页、45direct24callee/两Win32间接、28jump八RET；唯一51C430@51C4A8。两既有源函数八片段恢复普通S32、入口样本默认返回、计数→phase读算序和四分支alpha现场取样（阶段1/2/3在前层绘制后）；真实颜色位型/状态与保存槽/消息和返回及其它正文保。单F及三跳表用途仅本步局部，不代完整父/24依赖、保存输入/图像消费与全部寿命/ABI或运行。 BSH01能力4场景完整385条1437B/六页，47原call=45direct/24callee+PostMessageA和ShowCursor两间接、28jump（含三switch）/八RET，唯一51C430@51C4A8。单源八精确片段：私有AddW32恢复普通S32；入口一次S32状态快照用于unsigned分发/默认及结构性末尾返回；状态1计数先读再phase读后发布+1；四fade分支各在现场层提交前读alpha，阶段1/2/3在1/2/3个不透明层调用后才读，四真实高BYTE位型表达式不改。原正常值正确，不称运行故障；状态0..10/phase推进/alpha+6与255阈值、保存槽三独立选中读/负分支、显示前后取样、消息原字节/模态删除/公共尾与返回及其它整源保持。新F:00064840映射1589单adapted/LOGIN6→7，语义1590有效1583/文档1701（46.22%）/处置723/E836；单真X83B分3B身份LEA+44B十一状态目标+16B四phase目标+20B五输入结果目标，三同父data引用/无code入向，仅原用途mapped/R7 295余2766，不造表内F或新端W32指针表。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse和全部门禁保；U10/R04只current/refs仍open。完整World::Update父/24依赖与保存输入/图像消费、所有正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文互通和运行R8仍待；音频暂停/RPLAN.24与执行限制保，不构建测试运行或摘要。"
+    },
+    {
+      "inventory_id": "F:0005C5A0",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-acceptance",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
+        "doc/cg2d_login_mode_normal_message_branch_evidence.json"
+      ],
+      "boundary": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。 BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。"
     }
   ],
   "auxiliary_dispositions": [

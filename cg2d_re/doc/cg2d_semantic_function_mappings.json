@@ -185582,6 +185582,69 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45C5A0",
+      "inventory_id": "F:0005C5A0",
+      "original_role": "ProcessModeScene_45C5A0",
+      "original_end_exclusive": "0x45c7c0",
+      "instruction_count": 161,
+      "status": "BSI01登录模式三现源普通S32递增和负返回直接消息重置实修；单源五片段，一次输入/原取样、返回/提示和其它正文保，仅局部静态，完整父/依赖/ABI/寿命与运行未验",
+      "sources": [
+        {
+          "path": "src/LoginModeScene.cpp",
+          "symbols": [
+            "ProcessModeScene_45C5A0"
+          ],
+          "relationship": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-acceptance",
+        "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
+        "doc/cg2d_login_mode_normal_message_branch_evidence.json"
+      ],
+      "boundary": "完整161条544B/三页、19direct12callee/一PostMessageA间接、31jump两RET，唯一51C430@51C493。三现源正常S32++映原两INC点，保SelectPalette/PlaySe返回后重读；负返回提示复制后直接消息重置、非负100与101现场检查保。单源五片段（含无用include移除）、一次输入mode/返回和原字节/状态流程及其余正文保持；公开void沿已有未消费返回接口，不称完整父/全部依赖或ABI/寿命与运行验收。 BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "verification_level": "BSI01登录模式45C5A0完整161条544B/三页、20原call=19direct/12callee+1PostMessageA间接、31jump/两RET，唯一51C430@51C493。单源五精确片段：三现源状态3/4/100普通S32加一（原两INC点45C66F/45C75A）保调用后重读；负返回复制29B原提示后短路跳消息重置，不额外检查状态100，非负仍现场检查100，101仍独立重读；移除无用bit include，无新工具。原正常数值正确，不称运行故障；入口一次状态/仅入口2 mode0、两能力探测与palette读序、一次45CA20和返回1早退/2关闭继续检查、持久槽/空原语/声音和同帧100→101/原字节缓冲及全部其它正文保持。新F:0005C5A0映射1590单adapted/LOGIN7→8，语义1591有效1584/文档1702（46.25%）/处置724/E838；原根紧邻45C7C0无新X/分类，R7 295余2766保持，不造INC共享块/内部地址F。冻结定位/无F-code区各7/pending18/缺口队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse及完整门禁保；U10/R04只current/refs仍open。完整World::Update父/12依赖和输入消息持久/画面消费、正常alias-owner寿命、CRT-SDK-机器ABI/链接/原格式明文与运行R8仍待；音频暂停/RPLAN.24和执行限制保，不构建测试运行或摘要。",
+      "login_mode_normal_message_branch": {
+        "spec_id": "BSI01",
+        "evidence_refs": [
+          "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-baseline",
+          "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-decision",
+          "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-acceptance",
+          "doc/cg2d_login_mode_normal_message_branch_spec.md#login-mode-message-source-state",
+          "doc/cg2d_login_mode_normal_message_branch_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 161,
+        "original_code_bytes": 544,
+        "original_page_count": 3,
+        "original_direct_call_count": 19,
+        "original_unique_callee_count": 12,
+        "original_indirect_call_count": 1,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 5,
+        "source_normal_s32_increment_count": 3,
+        "original_increment_sites": [
+          "0x45c66f",
+          "0x45c75a"
+        ],
+        "source_negative_message_reset_short_circuit_restored": true,
+        "source_changed_existing_function_count": 1,
+        "original_post_palette_and_sound_live_state_samples_kept": true,
+        "original_two_live_message_state_checks_kept": true,
+        "original_input_mode_and_result_one_early_return_kept": true,
+        "original_raw_prompt_and_private_owner_kept": true,
+        "original_source_rest_unchanged": true,
+        "public_void_interface_unchanged": true,
+        "normal_previous_values_wrong": false,
+        "dependency_r7_classification_count": 0,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

@@ -3182,3 +3182,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQS01 四新原F与两费用行完整续记（2026-10-07）
 
 [原基线](cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline)/[六冻结定位与两旧记录全文](cg2d_battle_pet_skill_selection_sampling_evidence.json)：1554..1557四新正常语义，983/984两格式记录保business_*和原证据，只当前status/source关系、五引用及完整子基线增量；旧状态/关系和全文在证据保留，不重复原ID。六equivalent/六成员，语义1558/有效1551、关联1669/3680（45.35%）、分类684/BATTLE236枚举open/E790；无F/有效区间各7/R7 264余2797/差队列172与43待归属保持。原三间接operand0/slot/2不是函数地址，三数据xref不等actual字段；28入向只登记，不据引用验收全部父。
+
+## BQT01 按钮正常F与两命令记录完整续记（2026-10-07）
+
+[原基线](cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline)/[三冻结定位及两旧记录全文](cg2d_battle_pet_command_button_sampling_evidence.json)：1558一新正常语义，990/991两旧格式记录保全部business_*与原字段/历史，当前status/source关系与完整子基线/五引用同步，不重复F。三equivalent/三成员，语义1559/有效1552、关联1670/3680（45.38%）、分类687/BATTLE239枚举open/E792；无F/有效区间各7/R7 264余2797/差队列172与43待归属及其余完整状态保持。九数据入向（原型头和八PUSH）不当直接CALL；另父498520元信息761/2882B/74call只定位，不代完整父。

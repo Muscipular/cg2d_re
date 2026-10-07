@@ -133356,7 +133356,7 @@
     {
       "original_entry": "0x497E30",
       "inventory_id": "F:00097E30",
-      "status": "既有窗口26 FP/战斗命令真实格式依赖已接；完整战斗数据/父路由/CRT/画面/运行未据本步验收",
+      "status": "BQT01两既有命令回调完整正确源已纳管，原W|FF/W|%X|%X/256B、普通骑乘分支/重读/计数发布/关闭与末phase2保；完整目标后发送/数据生产/owner寿命/运行未验",
       "original_end_exclusive": "0x497FE4",
       "instruction_count": 107,
       "sources": [
@@ -133365,12 +133365,17 @@
           "symbols": [
             "Sub_497E30"
           ],
-          "relationship": "仅一格式callee接一原点，原状态重读/发送后写序及所有其他正文保持"
+          "relationship": "普通命令：negative仅phase0→声57→位置<20才原W|FF明文→Flush/声57→held actionCount/command5再count+1→fresh活宠/lastPet→Close/return。非负pub skill→fresh活宠/skill/target S16→fresh当前位置映射/Check；Check0才fresh活宠/skill，techId>=200600映射fresh位置否则fresh活宠→freshskill/原W|%X|%X/256B→freshsocket发送弃返→Flush/声57→count/command5/count+1→fresh活宠last/Close。Check非0不发送；两非负分支均最后声51/phase2，包括已Close路径，不能提前return或改phase。"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_26.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_evidence.json"
       ],
       "boundary": "仅一现callee接一原点；原非负路径/43C560门槛及宠物独立查询、target S16符号扩展和技术ID S32>=200600目标分支保持，先确定targetIndex再重读553F84技术，两个U32按既有W|%X|%X写未清256B。后取socket真实发送弃返回→刷新/SE57→命令5/次数+1→再查43C4B0发布553F90→496AE0；公共SE51/phase2及负参数的独立W|FF/两SE57/条件发送/刷新/状态和次数/末宠物写序全文不动，W|FF不是新格式点，不预清、缓存或加保护。",
       "original_incoming": [],
@@ -133430,12 +133435,42 @@
           "relationship": "原非负/43C560零路径技术ID S32>=200600分支按原求宠物位置或再查宠物索引，之后重取553F84/U32两W参数/未清256B，后取socket/发送弃返回/刷新/SE57/状态5及次数/再查宠物和关闭，原负路/公共SE51和phase2保持"
         }
       ],
-      "verification_level": "原107指令统计，仅51条命令来源/格式/发送后刷新-状态-音效-关闭及相邻返回新邻窗仅读，余56与前段/核心不重验；一原点/callee、U32/既有原字节/未清256B/来源和消费者-写序/void裁决限定静态核。call0/data4只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原107指令统计，仅51条命令来源/格式/发送后刷新-状态-音效-关闭及相邻返回新邻窗仅读，余56与前段/核心不重验；一原点/callee、U32/既有原字节/未清256B/来源和消费者-写序/void裁决限定静态核。call0/data4只登记，不推完整父路由，未构建执行。",
+      "battle_pet_command_button_sampling": {
+        "spec_id": "BQT01",
+        "evidence_refs": [
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+          "doc/cg2d_battle_pet_command_button_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 107,
+        "original_code_bytes": 436,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 19,
+        "original_inbound_count": 4,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "previous_mapping_status": "既有窗口26 FP/战斗命令真实格式依赖已接；完整战斗数据/父路由/CRT/画面/运行未据本步验收",
+        "previous_source_relationship": "仅一格式callee接一原点，原状态重读/发送后写序及所有其他正文保持",
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_callback_branches_and_write_orders_kept": true,
+        "original_normal_w32_s32_s16_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x497FF0",
       "inventory_id": "F:00097FF0",
-      "status": "既有窗口26 FP/战斗命令真实格式依赖已接；完整战斗数据/父路由/CRT/画面/运行未据本步验收",
+      "status": "BQT01两既有命令回调完整正确源已纳管，原W|FF/W|%X|%X/256B、普通骑乘分支/重读/计数发布/关闭与末phase2保；完整目标后发送/数据生产/owner寿命/运行未验",
       "original_end_exclusive": "0x49815C",
       "instruction_count": 88,
       "sources": [
@@ -133444,12 +133479,17 @@
           "symbols": [
             "Sub_497FF0"
           ],
-          "relationship": "仅一格式callee接一原点，原状态重读/发送后写序及所有其他正文保持"
+          "relationship": "骑乘命令：negative先phase0/selectionMode0→同W|FF/Flush/声57，但count旧值→held骑宠→count+1 pub→command5→lastPet held→Close/return。非负selectionMode0→held骑宠→pub skill→原target S16/当前位置不映射/Check；Check0 fresh骑宠先fresh skill/原256B W|%X|%X→freshsocket发送→Flush/声57→旧count/held fresh骑宠/count+1 pub/command5/lastPet→Close；Check!=0不发送，两非负末声51/phase2保。"
         }
       ],
       "evidence_documents": [
         "doc/ui_windows/window_26.md",
-        "doc/cg2d_stdio_contract.md"
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_evidence.json"
       ],
       "boundary": "仅一现callee接一原点；原两路清5ABC70、骑乘5ABC38和技术S16 target/当前位置43C560保持；非负零路径先重读骑乘U32、再重读553F84技术S32位模式，两个U32按W|%X|%X写未清256B。后取socket真实发送弃返回→刷新/SE57→重取次数和骑乘→次数+1/状态5/末宠物→关闭；公共SE51/phase2、负路W|FF及原独立状态/次数/骑乘写序全文不动，不套普通宠物查询序、不预清或加保护。",
       "original_incoming": [],
@@ -133508,7 +133548,37 @@
           "relationship": "原非负/43C560零路径再读5ABC38骑乘U32与553F84技术S32位模式，两U32 W命令写未清256B/后取socket发送弃返回，保留模式清理/计数-状态-末宠物的独立写序/负路及公共SE51和phase2"
         }
       ],
-      "verification_level": "原88指令统计，仅47条命令来源/格式/发送后刷新-状态-音效-关闭及相邻返回新邻窗仅读，余41与前段/核心不重验；一原点/callee、U32/既有原字节/未清256B/来源和消费者-写序/void裁决限定静态核。call0/data4只登记，不推完整父路由，未构建执行。"
+      "verification_level": "原88指令统计，仅47条命令来源/格式/发送后刷新-状态-音效-关闭及相邻返回新邻窗仅读，余41与前段/核心不重验；一原点/callee、U32/既有原字节/未清256B/来源和消费者-写序/void裁决限定静态核。call0/data4只登记，不推完整父路由，未构建执行。",
+      "battle_pet_command_button_sampling": {
+        "spec_id": "BQT01",
+        "evidence_refs": [
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+          "doc/cg2d_battle_pet_command_button_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 88,
+        "original_code_bytes": 364,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 12,
+        "original_inbound_count": 4,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "previous_mapping_status": "既有窗口26 FP/战斗命令真实格式依赖已接；完整战斗数据/父路由/CRT/画面/运行未据本步验收",
+        "previous_source_relationship": "仅一格式callee接一原点，原状态重读/发送后写序及所有其他正文保持",
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_callback_branches_and_write_orders_kept": true,
+        "original_normal_w32_s32_s16_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x4A33C0",
@@ -183293,6 +183363,62 @@
         "original_fp_single_read_effects_kept": true,
         "original_callback_fresh_held_difference_kept": true,
         "original_normal_s32_w32_and_s16_storage_kept": true,
+        "new_r7_classification": false,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x498160",
+      "inventory_id": "F:00098160",
+      "original_role": "Sub_498160",
+      "original_end_exclusive": "0x4982C0",
+      "instruction_count": 109,
+      "status": "BQT01完整宠物命令按钮正常源纳管，两片段恢复state/window/pending阶段及两W8观察/held riding谓词、原返回和图尾清保持；完整keyboard/数据生产/owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_498160"
+          ],
+          "relationship": "借graphic T*后window26.userState W32非0返0；state W32→window10 T*→held hover，先关闭提示再一次held pendingAction，hover且window null/pending null打开提示；pending null且入口click2或短路global W8 click2：window非空仅W32关闭，空则Flush→窗口26动作W8→phase1→held riding4→index-1→47A580(497FF0)或47A540(497E30)，真Yobi结果存槽/consumed1。图default/hover后fresh window/slot判选中，fresh window非空才清同槽，不把阶段cache用于尾。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_evidence.json"
+      ],
+      "boundary": "借graphic T*后window26.userState W32非0返0；state W32→window10 T*→held hover，先关闭提示再一次held pendingAction，hover且window null/pending null打开提示；pending null且入口click2或短路global W8 click2：window非空仅W32关闭，空则Flush→窗口26动作W8→phase1→held riding4→index-1→47A580(497FF0)或47A540(497E30)，真Yobi结果存槽/consumed1。图default/hover后fresh window/slot判选中，fresh window非空才清同槽，不把阶段cache用于尾。 三完整304条1152B/六页，34直接CALL/十callee、24普通jump/六RET。一按钮体两片段恢复state W32先借window T*、同阶段一次pendingAction T*/关闭-打开提示序、global鼠标点击与窗口26动作state两个实际W8读、phase1→held riding谓词→index-1→真实selector/回调/Yobi结果存槽；普通值一致，不称并发/数值/异常故障。两命令回调完整正确体保持：普通/骑乘负参数phase与selectionMode区别、W|FF门禁/原重复声57、正参数target S16和映射/不映射、>=200600分支、256B未清buffer/原W|%X|%X与fresh socket明文/弃返、不同count-command-lastPet写序/Close、两非负末声51/phase2（含已经Close路径）保。图先后fresh window/slot尾清、原空创建结果/返回和W32共享状态保。原window26元素8真实32B/56B82C字段、30B旧tooltip/13B唯一packet字节、八callback指令引用/两个父有据，九数据入向只登记，keyboard498520761条2882B元信息仅定位，不据此验完整父。1558一新正常语义、990/991旧格式记录完整续记/业务字段与历史全文保/当前status-source关系同步、三equivalent/BATTLE239枚举open；语义1559/有效1552、关联1670/3680（45.38%）/分类687/E792。R7 264/3061余2797、无F/有效区间各7/差队列172及43待归属、全部完整门禁保；完整keyboard/目标选择后发送阶段/数据生产/窗口/owner寿命/SDK/机器ABI/运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24和原格式明文保。",
+      "verification_level": "三完整304条1152B/六页，34直接CALL/十callee、24普通jump/六RET。一按钮体两片段恢复state W32先借window T*、同阶段一次pendingAction T*/关闭-打开提示序、global鼠标点击与窗口26动作state两个实际W8读、phase1→held riding谓词→index-1→真实selector/回调/Yobi结果存槽；普通值一致，不称并发/数值/异常故障。两命令回调完整正确体保持：普通/骑乘负参数phase与selectionMode区别、W|FF门禁/原重复声57、正参数target S16和映射/不映射、>=200600分支、256B未清buffer/原W|%X|%X与fresh socket明文/弃返、不同count-command-lastPet写序/Close、两非负末声51/phase2（含已经Close路径）保。图先后fresh window/slot尾清、原空创建结果/返回和W32共享状态保。原window26元素8真实32B/56B82C字段、30B旧tooltip/13B唯一packet字节、八callback指令引用/两个父有据，九数据入向只登记，keyboard498520761条2882B元信息仅定位，不据此验完整父。1558一新正常语义、990/991旧格式记录完整续记/业务字段与历史全文保/当前status-source关系同步、三equivalent/BATTLE239枚举open；语义1559/有效1552、关联1670/3680（45.38%）/分类687/E792。R7 264/3061余2797、无F/有效区间各7/差队列172及43待归属、全部完整门禁保；完整keyboard/目标选择后发送阶段/数据生产/窗口/owner寿命/SDK/机器ABI/运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24和原格式明文保。",
+      "battle_pet_command_button_sampling": {
+        "spec_id": "BQT01",
+        "evidence_refs": [
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+          "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+          "doc/cg2d_battle_pet_command_button_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 109,
+        "original_code_bytes": 352,
+        "original_page_count": 2,
+        "original_outgoing_call_count": 3,
+        "original_inbound_count": 1,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "previous_mapping_status": null,
+        "previous_source_relationship": null,
+        "normal_previous_values_wrong": false,
+        "original_packet_formats_kept": true,
+        "original_callback_branches_and_write_orders_kept": true,
+        "original_normal_w32_s32_s16_storage_kept": true,
         "new_r7_classification": false,
         "full_normal_source_static_mapped": true,
         "full_parent_newly_verified": false,

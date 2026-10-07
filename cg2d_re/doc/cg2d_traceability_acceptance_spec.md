@@ -1206,3 +1206,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQS01 宠物消费/费用行局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-acceptance)/[六完整654条2060B](cg2d_battle_pet_skill_selection_sampling_evidence.json)，十一页39CALL（36直接/13callee和三间接）、40jump/九RET；五体13片段恢复取样/低W8/八W16及原FP callee桥，正确>=叶/每次单读与计数RNG、普通fresh/骑宠held/null收尾和返回/无声差别/格式与图序保。两个旧记录完整续记且保原业务/历史，三数据绑定/十槽store/首NUL及表有据；局部DrawText Word消费不代全renderer/全部父/数据生产/owner/运行。两I/S各23实际来源，四任务open/60源码closed10/完整验收0/叶0/global=false和R7保持；12精确文件，音频及验证限制保。
+
+## BQT01 命令按钮与消费局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance)/[三完整304条1152B](cg2d_battle_pet_command_button_sampling_evidence.json)，六页34直接call十callee/24jump六ret；按钮两片段恢复原取样/两个W8和条件发布，两个正确command体/原negative与Check0-非0/target及阈值/映射、原256B/13B packet/明文、重复声/不同计数发布/Close与末phase2保持。两旧格式历史及业务保/当前状态同步，真实元素8/32B字段和八PUSH/30B提示有据；两I/S各21来源不代全keyboard/目标后发送/全部父/数据生产/owner/运行。四任务open/60源码closed10/完整验收0/叶0/global=false和R7保持；12精确文件，音频及验证限制保。

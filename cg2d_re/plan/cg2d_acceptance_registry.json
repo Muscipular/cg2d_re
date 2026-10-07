@@ -2291,7 +2291,8 @@
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline",
         "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-baseline",
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-baseline",
-        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline"
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-baseline",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -2529,7 +2530,10 @@
         "F:0007CFE0",
         "F:0007CB00",
         "F:0007CE70",
-        "F:00001D70"
+        "F:00001D70",
+        "F:00098160",
+        "F:00097E30",
+        "F:00097FF0"
       ],
       "closure_task_ids": [
         "P01",
@@ -2646,7 +2650,8 @@
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-decision",
         "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-decision",
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-decision",
-        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision"
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-decision",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -2752,7 +2757,8 @@
         "BQP01七完整393条1373B/九页、十call/六callee/37普通jump及一47A140外尾转移/七ret，四体六片段与一bool/S32/非拥有T* cost-first桥及两父接线。原普通列表held position/counter减后发布与谓词、旧W8 cell取序/两宠物loop初尾界先index++/骑宠名称目标读取实修；正常值/FP单读与计数RNG一致。401EA0实际尾跳401EC0，既有坐标读取正确不改；原401F80正确叶及其它三正确体/负maximum/真实失败与模式callback、原MIS(socket,x,y,62)明文序/返回保。38入向仅登记、四无IDA父代码区间真实CALL不排除/伪造F，不新R7。219成员枚举open，所有生产/其它callback与父/owner寿命、SDK/生成机器/画面运行及R8未验",
         "BQQ01两无IDA函数父关闭代码42条145B/两页、六call四callee/九jump两ret完整正常源纳管；一制造体两片段保持D67AFD旧W8→window12 T*→减后W8发布及D67AFE减后发布/同held谓词，普通旧值一致。窗口10初mode/回退后fresh mode差别、原W8/W32状态/正常S32条件保持；两个48B原型release字段54E44C/54E4AC绑定与471276实际弃返有据，现void适配正确。两X整236B含代码/11W32目标/26W8索引/LEA对齐及NOP分项mapped，R7 264/3061余2797；inventory_id=null/有效code_identity，不增3680函数分母与BATTLE219。完整制造/技能生产、其它窗口/父/owner寿命及运行/R8未验",
         "BQR02十一完整112条361B/十一页、七call五callee/十jump十一ret；九正确体保持，两动作状态体三片段恢复FDA88E入口W8读×2、发送后W8 OR2及held value0的fresh W16 ANDFFFD/2B memcpy，普通值一致且共享W32存储保持。原入口低S8去重返回/负参数短路和真实4410E0常量11h、Y-X单Read/计数RNG、fresh socket与原fS/klF格式及返回、发送后flag与最后value190发布序保；五清增计数/技能回复held真假/两宠物selector原生callback发布与W32关闭位/原结果透传正确。71入向25父仅登记，两无父CALL来自已过BQQ01；CC4D14两写四读三consumer仅定位，原格式两前缀不是完整封包验收。230成员枚举open，不新R7；全部数据生产/consumer/其它父/窗口/owner寿命及SDK/机器ABI/运行/R8未验",
-        "BQS01六完整654条2060B/十一页、39物理call（36直接13callee/三间接）、40jump/九ret；五体13片段恢复skip初尾界先row++/held hover、两选择四实际点击W8/各尾一次W8 cache、八坐标W16按elementY-X/windowY-X及2B memcpy、三个cost-first父。普通值/每次FP单Read及计数RNG同旧源，原普通fresh callback与骑宠held callback、null也关闭/声51/返回1、mask禁用声55/FP不足无声、W32状态/S32/费用%3d与20B/数字-图/34B旧tooltip/三图表保；正确>=叶及既有桥纳管。元素8原32B真实561C94与两列表17..26十槽实际store有据，mode5/6可见入口和其他原未写position不新fallback/故障模型。28入向25代码/三数据20父只登记，原operand0/2/slot不是F；983/984业务/历史保，当前source状态同步。236枚举open，不新R7；全部技能/pet/FP生产/其它父/consumer/窗口与owner寿命、SDK/机器ABI/运行/R8未验"
+        "BQS01六完整654条2060B/十一页、39物理call（36直接13callee/三间接）、40jump/九ret；五体13片段恢复skip初尾界先row++/held hover、两选择四实际点击W8/各尾一次W8 cache、八坐标W16按elementY-X/windowY-X及2B memcpy、三个cost-first父。普通值/每次FP单Read及计数RNG同旧源，原普通fresh callback与骑宠held callback、null也关闭/声51/返回1、mask禁用声55/FP不足无声、W32状态/S32/费用%3d与20B/数字-图/34B旧tooltip/三图表保；正确>=叶及既有桥纳管。元素8原32B真实561C94与两列表17..26十槽实际store有据，mode5/6可见入口和其他原未写position不新fallback/故障模型。28入向25代码/三数据20父只登记，原operand0/2/slot不是F；983/984业务/历史保，当前source状态同步。236枚举open，不新R7；全部技能/pet/FP生产/其它父/consumer/窗口与owner寿命、SDK/机器ABI/运行/R8未验",
+        "BQT01三完整304条1152B/六页、34直接call十callee/24jump六ret，一按钮体两片段恢复state W32→window T*→hover、关闭提示→一次pendingAction→打开提示/点击gate、global鼠标与动作两个W8观察及phase1→held riding→index-1/真selector返回存槽。普通值一致，W32共享存储/关闭与图先fresh window/slot尾清保；两正确命令体保负/正/Check非0/target S16/阈值200600和映射差别、原256B未清buffer/W|FF-W|%X|%X/freshsocket明文/弃返、重复声57/不同count-command-lastPet/Close及两非负末声51/phase2。原元素8完整32B/真实56B82C、30B提示/13B唯一旧packet和八PUSH指令/九数据入向有据；另父keyboard只定位761/2882B/74CALL，不据此验完整本体。990/991原业务与历史保当前status/source关系同步，一新原F/三equivalent及239成员枚举open；R7保，完整keyboard/目标后发送/数据生产/父/窗口/owner寿命/SDK/机器ABI/运行/R8未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2858,7 +2864,8 @@
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
         "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state"
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state"
       ]
     },
     {
@@ -33988,6 +33995,92 @@
       "observation": "借graphic先mode；mode5活宠/映射位置，mode6骑宠/原位置；有效名称才FP cost-first单Read后短路flags，初/尾capacity取样先row++；有可用技能即element8.visible=0/返0。否则原W32 hover cache、click callback held(-1)→fresh窗口W32关闭→声音51/consumed1，原graphic借用尾default-hover-pressed/返回保。 pairIndex=index-17 S32，五次活宠获取/三次S16 pair读取按实际阶段，先nameNUL返0；enabled flags mask后FP≥cost单读/低W8点击，callback先判slot非空→fresh活宠/pair→fresh同slot间接call(selected S16)；callback空也W32关闭/声音51/consumed1；mask禁用点击声音55，FP不足不补声。尾一次W8 visualFlags/hover提示/pressed优先、四W16坐标原序→47CB00/返consumed。 同前三正常门禁但held入口骑宠/pair/record，callback一次held T*后fresh骑宠/pair，再call同T*；保FP不足无声和null也关闭/声51/consumed1。一次W8尾visualFlags/四W16坐标→47CE70/返consumed；S32形参/共享坐标、W32关闭状态不窄化。 两活宠分别held record和pair，完整descriptor零初始化/color W32/byte13=4；nameNUL直接return。ClearTextTail→空DrawText→fresh位置/映射/action/FP cost→原401F80单右Read→flags禁用色7覆缺FP色6→nameDrawText→fresh record.fp到同20B %3d/既有原格式接口→数字绘制→三图表按S8visual/descriptor图，原坐标/层/颜色/返回保持。 入口held骑宠/pair/record，descriptor初始化顺序和nameNUL保持；同空字/颜色/名称→fresh费用%3d/20B→数字→图序，位置不映射；原401F80桥以同cost/action单读，表3B5B7/8/9及S8visual不新钳制。 原401D70四条15B，左FP对象一次Read401EC0→S32 CMP other/SETNL→RET4，当前GreaterEqual与既有Yobi typed桥正确保；不删FP检查/改读次数或新增恒定成功。",
       "expected": "借graphic先mode；mode5活宠/映射位置，mode6骑宠/原位置；有效名称才FP cost-first单Read后短路flags，初/尾capacity取样先row++；有可用技能即element8.visible=0/返0。否则原W32 hover cache、click callback held(-1)→fresh窗口W32关闭→声音51/consumed1，原graphic借用尾default-hover-pressed/返回保。 pairIndex=index-17 S32，五次活宠获取/三次S16 pair读取按实际阶段，先nameNUL返0；enabled flags mask后FP≥cost单读/低W8点击，callback先判slot非空→fresh活宠/pair→fresh同slot间接call(selected S16)；callback空也W32关闭/声音51/consumed1；mask禁用点击声音55，FP不足不补声。尾一次W8 visualFlags/hover提示/pressed优先、四W16坐标原序→47CB00/返consumed。 同前三正常门禁但held入口骑宠/pair/record，callback一次held T*后fresh骑宠/pair，再call同T*；保FP不足无声和null也关闭/声51/consumed1。一次W8尾visualFlags/四W16坐标→47CE70/返consumed；S32形参/共享坐标、W32关闭状态不窄化。 两活宠分别held record和pair，完整descriptor零初始化/color W32/byte13=4；nameNUL直接return。ClearTextTail→空DrawText→fresh位置/映射/action/FP cost→原401F80单右Read→flags禁用色7覆缺FP色6→nameDrawText→fresh record.fp到同20B %3d/既有原格式接口→数字绘制→三图表按S8visual/descriptor图，原坐标/层/颜色/返回保持。 入口held骑宠/pair/record，descriptor初始化顺序和nameNUL保持；同空字/颜色/名称→fresh费用%3d/20B→数字→图序，位置不映射；原401F80桥以同cost/action单读，表3B5B7/8/9及S8visual不新钳制。 原401D70四条15B，左FP对象一次Read401EC0→S32 CMP other/SETNL→RET4，当前GreaterEqual与既有Yobi typed桥正确保；不删FP检查/改读次数或新增恒定成功。",
       "actual": "六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。"
+    },
+    {
+      "id": "E-BATTLE-PET-COMMAND-BUTTON-SAMPLING-I-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQT01三完整304条1152B/六页、34call十callee/24jump六ret、两W8/32B真实字段和30B提示/13B唯一packet字节及八PUSH绑定；doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-pet-command-button-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_498160",
+        "src/ui/WindowRuntime.cpp#Sub_497E30",
+        "src/ui/WindowRuntime.cpp#Sub_497FF0",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/YobiRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "一个按钮体两片段恢复state/window/pending阶段、global点击与窗口动作两个W8及phase-predicate-index发布序，普通值一致；两命令正确体/原negative与Check0-非0、target和阈值/位置映射差别、W|FF与256B W|%X|%X/freshsocket明文/重复声/不同count-command-lastPet写序/Close及两非负末phase2保持",
+          "decision_ref": "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "借graphic T*后window26.userState W32非0返0；state W32→window10 T*→held hover，先关闭提示再一次held pendingAction，hover且window null/pending null打开提示；pending null且入口click2或短路global W8 click2：window非空仅W32关闭，空则Flush→窗口26动作W8→phase1→held riding4→index-1→47A580(497FF0)或47A540(497E30)，真Yobi结果存槽/consumed1。图default/hover后fresh window/slot判选中，fresh window非空才清同槽，不把阶段cache用于尾。 普通命令：negative仅phase0→声57→位置<20才原W|FF明文→Flush/声57→held actionCount/command5再count+1→fresh活宠/lastPet→Close/return。非负pub skill→fresh活宠/skill/target S16→fresh当前位置映射/Check；Check0才fresh活宠/skill，techId>=200600映射fresh位置否则fresh活宠→freshskill/原W|%X|%X/256B→freshsocket发送弃返→Flush/声57→count/command5/count+1→fresh活宠last/Close。Check非0不发送；两非负分支均最后声51/phase2，包括已Close路径，不能提前return或改phase。 骑乘命令：negative先phase0/selectionMode0→同W|FF/Flush/声57，但count旧值→held骑宠→count+1 pub→command5→lastPet held→Close/return。非负selectionMode0→held骑宠→pub skill→原target S16/当前位置不映射/Check；Check0 fresh骑宠先fresh skill/原256B W|%X|%X→freshsocket发送→Flush/声57→旧count/held fresh骑宠/count+1 pub/command5/lastPet→Close；Check!=0不发送，两非负末声51/phase2保。",
+      "expected": "借graphic T*后window26.userState W32非0返0；state W32→window10 T*→held hover，先关闭提示再一次held pendingAction，hover且window null/pending null打开提示；pending null且入口click2或短路global W8 click2：window非空仅W32关闭，空则Flush→窗口26动作W8→phase1→held riding4→index-1→47A580(497FF0)或47A540(497E30)，真Yobi结果存槽/consumed1。图default/hover后fresh window/slot判选中，fresh window非空才清同槽，不把阶段cache用于尾。 普通命令：negative仅phase0→声57→位置<20才原W|FF明文→Flush/声57→held actionCount/command5再count+1→fresh活宠/lastPet→Close/return。非负pub skill→fresh活宠/skill/target S16→fresh当前位置映射/Check；Check0才fresh活宠/skill，techId>=200600映射fresh位置否则fresh活宠→freshskill/原W|%X|%X/256B→freshsocket发送弃返→Flush/声57→count/command5/count+1→fresh活宠last/Close。Check非0不发送；两非负分支均最后声51/phase2，包括已Close路径，不能提前return或改phase。 骑乘命令：negative先phase0/selectionMode0→同W|FF/Flush/声57，但count旧值→held骑宠→count+1 pub→command5→lastPet held→Close/return。非负selectionMode0→held骑宠→pub skill→原target S16/当前位置不映射/Check；Check0 fresh骑宠先fresh skill/原256B W|%X|%X→freshsocket发送→Flush/声57→旧count/held fresh骑宠/count+1 pub/command5/lastPet→Close；Check!=0不发送，两非负末声51/phase2保。",
+      "actual": "三完整304条1152B/六页，34直接CALL/十callee、24普通jump/六RET。一按钮体两片段恢复state W32先借window T*、同阶段一次pendingAction T*/关闭-打开提示序、global鼠标点击与窗口26动作state两个实际W8读、phase1→held riding谓词→index-1→真实selector/回调/Yobi结果存槽；普通值一致，不称并发/数值/异常故障。两命令回调完整正确体保持：普通/骑乘负参数phase与selectionMode区别、W|FF门禁/原重复声57、正参数target S16和映射/不映射、>=200600分支、256B未清buffer/原W|%X|%X与fresh socket明文/弃返、不同count-command-lastPet写序/Close、两非负末声51/phase2（含已经Close路径）保。图先后fresh window/slot尾清、原空创建结果/返回和W32共享状态保。原window26元素8真实32B/56B82C字段、30B旧tooltip/13B唯一packet字节、八callback指令引用/两个父有据，九数据入向只登记，keyboard498520761条2882B元信息仅定位，不据此验完整父。1558一新正常语义、990/991旧格式记录完整续记/业务字段与历史全文保/当前status-source关系同步、三equivalent/BATTLE239枚举open；语义1559/有效1552、关联1670/3680（45.38%）/分类687/E792。R7 264/3061余2797、无F/有效区间各7/差队列172及43待归属、全部完整门禁保；完整keyboard/目标选择后发送阶段/数据生产/窗口/owner寿命/SDK/机器ABI/运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24和原格式明文保。"
+    },
+    {
+      "id": "E-BATTLE-PET-COMMAND-BUTTON-SAMPLING-S-20261007",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BQT01三完整304条1152B/六页、34call十callee/24jump六ret、两W8/32B真实字段和30B提示/13B唯一packet字节及八PUSH绑定；doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-battle-pet-command-button-sampling-20261007",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_evidence.json",
+        "src/ui/WindowRuntime.cpp#Sub_498160",
+        "src/ui/WindowRuntime.cpp#Sub_497E30",
+        "src/ui/WindowRuntime.cpp#Sub_497FF0",
+        "src/ui/WindowRuntimeState.hpp",
+        "src/ui/WindowPrototypes.cpp",
+        "include/cg/YobiRuntime.hpp",
+        "src/YobiRuntime.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/world/SceneState.cpp",
+        "src/network/NetworkRuntime.cpp",
+        "include/cg/network/NetworkRuntime.hpp",
+        "include/cg/platform/LegacyMouse.hpp",
+        "src/platform/LegacyMouse.cpp",
+        "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_stdio_contract.md"
+      ],
+      "differences": [
+        {
+          "description": "一个按钮体两片段恢复state/window/pending阶段、global点击与窗口动作两个W8及phase-predicate-index发布序，普通值一致；两命令正确体/原negative与Check0-非0、target和阈值/位置映射差别、W|FF与256B W|%X|%X/freshsocket明文/重复声/不同count-command-lastPet写序/Close及两非负末phase2保持",
+          "decision_ref": "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-07",
+      "observation": "借graphic T*后window26.userState W32非0返0；state W32→window10 T*→held hover，先关闭提示再一次held pendingAction，hover且window null/pending null打开提示；pending null且入口click2或短路global W8 click2：window非空仅W32关闭，空则Flush→窗口26动作W8→phase1→held riding4→index-1→47A580(497FF0)或47A540(497E30)，真Yobi结果存槽/consumed1。图default/hover后fresh window/slot判选中，fresh window非空才清同槽，不把阶段cache用于尾。 普通命令：negative仅phase0→声57→位置<20才原W|FF明文→Flush/声57→held actionCount/command5再count+1→fresh活宠/lastPet→Close/return。非负pub skill→fresh活宠/skill/target S16→fresh当前位置映射/Check；Check0才fresh活宠/skill，techId>=200600映射fresh位置否则fresh活宠→freshskill/原W|%X|%X/256B→freshsocket发送弃返→Flush/声57→count/command5/count+1→fresh活宠last/Close。Check非0不发送；两非负分支均最后声51/phase2，包括已Close路径，不能提前return或改phase。 骑乘命令：negative先phase0/selectionMode0→同W|FF/Flush/声57，但count旧值→held骑宠→count+1 pub→command5→lastPet held→Close/return。非负selectionMode0→held骑宠→pub skill→原target S16/当前位置不映射/Check；Check0 fresh骑宠先fresh skill/原256B W|%X|%X→freshsocket发送→Flush/声57→旧count/held fresh骑宠/count+1 pub/command5/lastPet→Close；Check!=0不发送，两非负末声51/phase2保。",
+      "expected": "借graphic T*后window26.userState W32非0返0；state W32→window10 T*→held hover，先关闭提示再一次held pendingAction，hover且window null/pending null打开提示；pending null且入口click2或短路global W8 click2：window非空仅W32关闭，空则Flush→窗口26动作W8→phase1→held riding4→index-1→47A580(497FF0)或47A540(497E30)，真Yobi结果存槽/consumed1。图default/hover后fresh window/slot判选中，fresh window非空才清同槽，不把阶段cache用于尾。 普通命令：negative仅phase0→声57→位置<20才原W|FF明文→Flush/声57→held actionCount/command5再count+1→fresh活宠/lastPet→Close/return。非负pub skill→fresh活宠/skill/target S16→fresh当前位置映射/Check；Check0才fresh活宠/skill，techId>=200600映射fresh位置否则fresh活宠→freshskill/原W|%X|%X/256B→freshsocket发送弃返→Flush/声57→count/command5/count+1→fresh活宠last/Close。Check非0不发送；两非负分支均最后声51/phase2，包括已Close路径，不能提前return或改phase。 骑乘命令：negative先phase0/selectionMode0→同W|FF/Flush/声57，但count旧值→held骑宠→count+1 pub→command5→lastPet held→Close/return。非负selectionMode0→held骑宠→pub skill→原target S16/当前位置不映射/Check；Check0 fresh骑宠先fresh skill/原256B W|%X|%X→freshsocket发送→Flush/声57→旧count/held fresh骑宠/count+1 pub/command5/lastPet→Close；Check!=0不发送，两非负末声51/phase2保。",
+      "actual": "三完整304条1152B/六页，34直接CALL/十callee、24普通jump/六RET。一按钮体两片段恢复state W32先借window T*、同阶段一次pendingAction T*/关闭-打开提示序、global鼠标点击与窗口26动作state两个实际W8读、phase1→held riding谓词→index-1→真实selector/回调/Yobi结果存槽；普通值一致，不称并发/数值/异常故障。两命令回调完整正确体保持：普通/骑乘负参数phase与selectionMode区别、W|FF门禁/原重复声57、正参数target S16和映射/不映射、>=200600分支、256B未清buffer/原W|%X|%X与fresh socket明文/弃返、不同count-command-lastPet写序/Close、两非负末声51/phase2（含已经Close路径）保。图先后fresh window/slot尾清、原空创建结果/返回和W32共享状态保。原window26元素8真实32B/56B82C字段、30B旧tooltip/13B唯一packet字节、八callback指令引用/两个父有据，九数据入向只登记，keyboard498520761条2882B元信息仅定位，不据此验完整父。1558一新正常语义、990/991旧格式记录完整续记/业务字段与历史全文保/当前status-source关系同步、三equivalent/BATTLE239枚举open；语义1559/有效1552、关联1670/3680（45.38%）/分类687/E792。R7 264/3061余2797、无F/有效区间各7/差队列172及43待归属、全部完整门禁保；完整keyboard/目标选择后发送阶段/数据生产/窗口/owner寿命/SDK/机器ABI/运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24和原格式明文保。"
     }
   ],
   "task_acceptance": [
@@ -34639,7 +34732,8 @@
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
         "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state"
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state"
       ]
     },
     {
@@ -34910,7 +35004,8 @@
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
         "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state"
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state"
       ]
     },
     {
@@ -35072,7 +35167,8 @@
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
         "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state"
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state"
       ]
     },
     {
@@ -35566,7 +35662,8 @@
         "doc/cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state",
         "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
         "doc/cg2d_battle_skill_state_producer_sampling_spec.md#battle-skill-state-producer-sampling-source-state",
-        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state"
+        "doc/cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state"
       ]
     },
     {
@@ -43175,6 +43272,45 @@
         "doc/cg2d_battle_pet_skill_selection_sampling_evidence.json"
       ],
       "boundary": "原401D70四条15B，左FP对象一次Read401EC0→S32 CMP other/SETNL→RET4，当前GreaterEqual与既有Yobi typed桥正确保；不删FP检查/改读次数或新增恒定成功。 六完整654条2060B/十一页，39物理CALL（36直接/13callee及三间接），40普通jump/九RET；五体13片段恢复skip loop初尾W32界先row++/入口hover缓存、两选择回调四原点击低W8/各尾一次W8 visual cache、八坐标W16按elementY-X/windowY-X且2B memcpy、三个父接既有cost-first FP桥。普通值/每次FP单Read与计数RNG同旧源，不称并发/数值/异常故障。原三consumer参数/普通fresh callback与骑宠held callback差别、null也关闭/声51/返回1、mask禁用声55/FP不足无声、原W32状态/正常S32/名称和费用%3d/20B及数字-图序/34B旧tooltip/三图表保持。正确GreaterEqual401D70四条15B单左Read和既有Yobi桥纳管，无新函数/接口/依赖。跳过元素8原32B/实际561C94与列表两原10槽callback发布有据；mode5/6可见入口/原其它mode不写position保，不新增fallback/故障模拟。28入向25代码/三数据/20有父只登记，原数据xref不等callback字段/被指令加载不等实际写位；两既有983/984格式台账保业务字段/历史全文，只当前source状态关系/五新引用和完整子基线更新。四新正常F与六equivalent、BATTLE236枚举open；语义1558/有效1551、关联1669/3680（45.35%）/分类684/E790。R7 264/3061余2797、无F/有效区间各7/差队列172和43待归属及完整门禁保。全部技能/pet/FP生产、全部consumer/窗口/owner寿命、SDK/机器ABI/画面运行/R8未验，明文原格式与音频暂停、不构建测试运行摘要/RPLAN.24保。"
+    },
+    {
+      "inventory_id": "F:00098160",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_evidence.json"
+      ],
+      "boundary": "借graphic T*后window26.userState W32非0返0；state W32→window10 T*→held hover，先关闭提示再一次held pendingAction，hover且window null/pending null打开提示；pending null且入口click2或短路global W8 click2：window非空仅W32关闭，空则Flush→窗口26动作W8→phase1→held riding4→index-1→47A580(497FF0)或47A540(497E30)，真Yobi结果存槽/consumed1。图default/hover后fresh window/slot判选中，fresh window非空才清同槽，不把阶段cache用于尾。 三完整304条1152B/六页，34直接CALL/十callee、24普通jump/六RET。一按钮体两片段恢复state W32先借window T*、同阶段一次pendingAction T*/关闭-打开提示序、global鼠标点击与窗口26动作state两个实际W8读、phase1→held riding谓词→index-1→真实selector/回调/Yobi结果存槽；普通值一致，不称并发/数值/异常故障。两命令回调完整正确体保持：普通/骑乘负参数phase与selectionMode区别、W|FF门禁/原重复声57、正参数target S16和映射/不映射、>=200600分支、256B未清buffer/原W|%X|%X与fresh socket明文/弃返、不同count-command-lastPet写序/Close、两非负末声51/phase2（含已经Close路径）保。图先后fresh window/slot尾清、原空创建结果/返回和W32共享状态保。原window26元素8真实32B/56B82C字段、30B旧tooltip/13B唯一packet字节、八callback指令引用/两个父有据，九数据入向只登记，keyboard498520761条2882B元信息仅定位，不据此验完整父。1558一新正常语义、990/991旧格式记录完整续记/业务字段与历史全文保/当前status-source关系同步、三equivalent/BATTLE239枚举open；语义1559/有效1552、关联1670/3680（45.38%）/分类687/E792。R7 264/3061余2797、无F/有效区间各7/差队列172及43待归属、全部完整门禁保；完整keyboard/目标选择后发送阶段/数据生产/窗口/owner寿命/SDK/机器ABI/运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24和原格式明文保。"
+    },
+    {
+      "inventory_id": "F:00097E30",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_evidence.json"
+      ],
+      "boundary": "普通命令：negative仅phase0→声57→位置<20才原W|FF明文→Flush/声57→held actionCount/command5再count+1→fresh活宠/lastPet→Close/return。非负pub skill→fresh活宠/skill/target S16→fresh当前位置映射/Check；Check0才fresh活宠/skill，techId>=200600映射fresh位置否则fresh活宠→freshskill/原W|%X|%X/256B→freshsocket发送弃返→Flush/声57→count/command5/count+1→fresh活宠last/Close。Check非0不发送；两非负分支均最后声51/phase2，包括已Close路径，不能提前return或改phase。 三完整304条1152B/六页，34直接CALL/十callee、24普通jump/六RET。一按钮体两片段恢复state W32先借window T*、同阶段一次pendingAction T*/关闭-打开提示序、global鼠标点击与窗口26动作state两个实际W8读、phase1→held riding谓词→index-1→真实selector/回调/Yobi结果存槽；普通值一致，不称并发/数值/异常故障。两命令回调完整正确体保持：普通/骑乘负参数phase与selectionMode区别、W|FF门禁/原重复声57、正参数target S16和映射/不映射、>=200600分支、256B未清buffer/原W|%X|%X与fresh socket明文/弃返、不同count-command-lastPet写序/Close、两非负末声51/phase2（含已经Close路径）保。图先后fresh window/slot尾清、原空创建结果/返回和W32共享状态保。原window26元素8真实32B/56B82C字段、30B旧tooltip/13B唯一packet字节、八callback指令引用/两个父有据，九数据入向只登记，keyboard498520761条2882B元信息仅定位，不据此验完整父。1558一新正常语义、990/991旧格式记录完整续记/业务字段与历史全文保/当前status-source关系同步、三equivalent/BATTLE239枚举open；语义1559/有效1552、关联1670/3680（45.38%）/分类687/E792。R7 264/3061余2797、无F/有效区间各7/差队列172及43待归属、全部完整门禁保；完整keyboard/目标选择后发送阶段/数据生产/窗口/owner寿命/SDK/机器ABI/运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24和原格式明文保。"
+    },
+    {
+      "inventory_id": "F:00097FF0",
+      "disposition": "equivalent",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-baseline",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-decision",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-acceptance",
+        "doc/cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state",
+        "doc/cg2d_battle_pet_command_button_sampling_evidence.json"
+      ],
+      "boundary": "骑乘命令：negative先phase0/selectionMode0→同W|FF/Flush/声57，但count旧值→held骑宠→count+1 pub→command5→lastPet held→Close/return。非负selectionMode0→held骑宠→pub skill→原target S16/当前位置不映射/Check；Check0 fresh骑宠先fresh skill/原256B W|%X|%X→freshsocket发送→Flush/声57→旧count/held fresh骑宠/count+1 pub/command5/lastPet→Close；Check!=0不发送，两非负末声51/phase2保。 三完整304条1152B/六页，34直接CALL/十callee、24普通jump/六RET。一按钮体两片段恢复state W32先借window T*、同阶段一次pendingAction T*/关闭-打开提示序、global鼠标点击与窗口26动作state两个实际W8读、phase1→held riding谓词→index-1→真实selector/回调/Yobi结果存槽；普通值一致，不称并发/数值/异常故障。两命令回调完整正确体保持：普通/骑乘负参数phase与selectionMode区别、W|FF门禁/原重复声57、正参数target S16和映射/不映射、>=200600分支、256B未清buffer/原W|%X|%X与fresh socket明文/弃返、不同count-command-lastPet写序/Close、两非负末声51/phase2（含已经Close路径）保。图先后fresh window/slot尾清、原空创建结果/返回和W32共享状态保。原window26元素8真实32B/56B82C字段、30B旧tooltip/13B唯一packet字节、八callback指令引用/两个父有据，九数据入向只登记，keyboard498520761条2882B元信息仅定位，不据此验完整父。1558一新正常语义、990/991旧格式记录完整续记/业务字段与历史全文保/当前status-source关系同步、三equivalent/BATTLE239枚举open；语义1559/有效1552、关联1670/3680（45.38%）/分类687/E792。R7 264/3061余2797、无F/有效区间各7/差队列172及43待归属、全部完整门禁保；完整keyboard/目标选择后发送阶段/数据生产/窗口/owner寿命/SDK/机器ABI/运行/R8未验，音频暂停/不构建测试运行摘要/RPLAN.24和原格式明文保。"
     }
   ],
   "auxiliary_dispositions": [

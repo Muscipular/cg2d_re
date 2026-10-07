@@ -36350,27 +36350,31 @@ std::int32_t Sub_498160(const std::int32_t index, const std::int32_t state)
         return 0;
     }
     std::int32_t consumed = 0;
+    const std::int32_t entryState = state;
     WindowInstance* const window = gWindowStates[10].window;
-    const std::int32_t hover = state & 1;
-    if (hover != 0) {
-        if (window != nullptr) {
-            std::strcpy(gHoverTextD68AE8.data(),
-                "\xC3\xF6\xB3\xAC\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43");
-        } else if (gBattlePetSkillWindowActionCC423C == nullptr) {
-            std::strcpy(gHoverTextD68AE8.data(),
-                "\xB6\x7D\xB1\xD2\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43");
-        }
+    const std::int32_t hover = entryState & 1;
+    if (hover != 0 && window != nullptr) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xC3\xF6\xB3\xAC\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43");
     }
-    if (gBattlePetSkillWindowActionCC423C == nullptr
-        && ((state & 2) != 0 || (platform::gLegacyMouseState.edgeButtons & 2u) != 0)) {
+    login::YobiAction* const pendingAction = gBattlePetSkillWindowActionCC423C;
+    if (hover != 0 && window == nullptr && pendingAction == nullptr) {
+        std::strcpy(gHoverTextD68AE8.data(),
+            "\xB6\x7D\xB1\xD2\xA7\xDE\xAF\xE0\xB5\xF8\xB5\xA1\xA1\x43");
+    }
+    if (pendingAction == nullptr
+        && ((entryState & 2) != 0
+            || (reinterpret_cast<const std::uint8_t*>(&platform::gLegacyMouseState.edgeButtons)[0] & 2u) != 0)) {
         if (window != nullptr) {
             window->state |= 0x8000u;
         } else {
             login::detail::FlushBattleEntries_43C060();
-            const auto actionState = static_cast<std::uint8_t>(gWindowStates[26].actionFlags1C);
+            const std::uint8_t actionState =
+                reinterpret_cast<const std::uint8_t*>(&gWindowStates[26].actionFlags1C)[0];
             world::detail::gBattlePetCommandPhase553F88 = 1;
+            const bool riding = actionState == 4;
             world::detail::gValue553F84 = -1;
-            gBattlePetSkillWindowActionCC423C = actionState == 4
+            gBattlePetSkillWindowActionCC423C = riding
                 ? Sub_47A580(&Sub_497FF0) : Sub_47A540(&Sub_497E30);
         }
         consumed = 1;

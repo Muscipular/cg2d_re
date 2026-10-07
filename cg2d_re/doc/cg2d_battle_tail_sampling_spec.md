@@ -215,3 +215,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQS01 宠物选择消费与费用行（2026-10-07）
 
 [完整合同](cg2d_battle_pet_skill_selection_sampling_spec.md#battle-pet-skill-selection-sampling-source-state)/[六完整654条2060B](cg2d_battle_pet_skill_selection_sampling_evidence.json)纳管skip/普通/骑乘consumer、两费用行和正确>=叶。五体13片段恢复loop初尾界先row++/held hover、四点击W8与两尾W8 cache、八坐标W16/2B memcpy及三cost-first父；普通值/FP单读与计数RNG保。普通fresh callback与骑宠held callback/null收尾/FP不足无声、原费用%3d/20B/数字图及34B旧tooltip/三图表保。元素8实际561C94/两列表17..26十槽store有据；mode5/6正常可见不新fallback。两旧983/984历史/格式业务字段保且当前状态同步，236成员open/不新R7，完整生产/父/owner/运行另验。
+
+## BQT01 宠物命令按钮与两回调（2026-10-07）
+
+[完整合同](cg2d_battle_pet_command_button_sampling_spec.md#battle-pet-command-button-sampling-source-state)/[三完整304条1152B](cg2d_battle_pet_command_button_sampling_evidence.json)沿selector/consumer接window26元素8按钮与普通/骑乘命令回调；一体两片段恢复state/window/一次pending阶段、global点击与动作两个W8观察及phase1-predicate-index发布序。普通值一致，入口state/共享状态W32、原Yobi结果/图尾fresh window-slot清理保持；两正确command体保负/正/Check非0、target S16/200600和映射差别、原W|FF/W|%X|%X/256B、freshsocket明文、重复声/不同count-command-lastPet/Close及两非负末phase2。真实32B/56B82C/30B提示和13B packet有据；一新F/两旧990/991完整续记与历史保，239成员open/不新R7，完整keyboard/目标后发送/数据生产/owner与运行另验。

@@ -1696,3 +1696,13 @@ BUN01必要静态已通过：四既有正确根及SceneState/相关CPP/声明/ow
 LOOP120→124/MAP117→119/NETWORK57→59，三域S、I仅前两域数据开发，各25来源；U10/G02/R04/V03只current/引用，四任务open。全部160 token父/正常生产消费/数值/机器ABI/链接/像素/明文互通及R8继续，原差队列/closed11/完整门禁和音频暂停/RPLAN.24/内部LegacyCryptInt/网络两叶排除持续。
 
 BUO01必要静态已通过：完整Scene只两数据初始化改原768B/512常量，类型/符号/owner/断言和四正确正文及NetworkRuntime/全部其它源保持；每个源常量与原实际字节对应，未执行生成/CRC或摘要，不称旧值错误。四根229条724B/六页、原表/字串774B、三28B用途及两个后窗/完整引用身份与证据和台账/文档模型一致。单引用检查曾因顶层单元素数组展开不匹配，已保留数组形状并重做该项通过。汇总及 -Check 通过，派生实值：语义1712/有效1705、合同1823（49.54%）、处置853/E999、R7已审418/余2643、LOOP124/MAP119/NETWORK59。旧对象/冻结定位/pending18与ECX pending7、差队列172/171/43、closed11与完整门禁保。未编译、测试或运行，原全部写别名/160全父/正常寿命/数值/机器ABI/像素/明文互通及R8继续。命名快照：cg2d-re-map-request-original-tables-20261008。
+
+## BUP01 地图回包复位开发验收（2026-10-08）
+
+[基线](cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline)、[裁决](cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision)、[验收](cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-acceptance)与[证据](cg2d_map_reply_reset_sampling_evidence.json)固定两完整根60条213B/两页、jmb92条局部/原字串4B、六reset后窗和两尾11B。只一cpp两先读齐再pub片段，构造/析构/RNG/正确回包/原模板接线保持；源/台账/文档及派生完整模型核对后记录实值。
+
+LOOP124→126/MAP119→121/NETWORK59→60，两I仅LOOP/MAP实修，S三域各25来源；U10/G02/R04/V03仅current与引用，各open。成员全集、正常生产消费、寿命、全父/callee、数值/ABI、像素、链接、明文互通和R8未验，不以本步数量关闭完整门禁；既有规则与范围保持。
+
+### BUP01 本步实际结果
+
+本步必要静态通过：源码全文仅两取样片段、原两完整根/jmb局部接线/六后窗/两尾、两机器台账及五文档/四任务完整模型均核定；25来源/四锚点和UTF-8无BOM/LF通过。文本汇总与-Check通过，完整派生快照保持其余对象：语义1714/有效1707、文档1825（49.59%）、处置855/E1004、R7已审420/余2641，LOOP126/MAP121/NETWORK60。两I三S均仅本步静态范围，四任务仍open，完整叶验收0、整体未验收；未编译、测试或运行，不以静态替代完整互通、寿命及R8。提交固定命名快照cg2d-re-map-reply-reset-sampling-20261008，整体目标active。

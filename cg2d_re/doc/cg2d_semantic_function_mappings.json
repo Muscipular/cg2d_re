@@ -194704,6 +194704,158 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x509090",
+      "inventory_id": "F:00109090",
+      "original_role": "原jmb地图校验回包门禁/floor状态及快照复位消费",
+      "original_end_exclusive": "0x5090fc",
+      "original_chunks": [
+        {
+          "start": "0x509090",
+          "end_exclusive": "0x5090fc"
+        }
+      ],
+      "instruction_count": 35,
+      "status": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_509090"
+          ],
+          "relationship": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验。原socket首参数不消费，现nativeuintptr动作视图保，不造fixedsuccess或全ABI等价；509090原EAX不作新业务返回，512E40该局部回调后明确xorEAX0返回。其余reset后窗只记录实际返回流，不称所有父弃返。两根纳LOOP/MAP，509090另NETWORK；I仅LOOP/MAP实修两片段，S三域，完整门禁保持。网络原格式兼容且仅明文，两加解密叶仍排除；内部LegacyCryptInt不是网络加解密，音频暂停与RPLAN.24保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
+        "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
+        "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-acceptance",
+        "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
+        "doc/cg2d_map_reply_reset_sampling_evidence.json"
+      ],
+      "boundary": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验。原socket首参数不消费，现nativeuintptr动作视图保，不造fixedsuccess或全ABI等价；509090原EAX不作新业务返回，512E40该局部回调后明确xorEAX0返回。其余reset后窗只记录实际返回流，不称所有父弃返。两根纳LOOP/MAP，509090另NETWORK；I仅LOOP/MAP实修两片段，S三域，完整门禁保持。网络原格式兼容且仅明文，两加解密叶仍排除；内部LegacyCryptInt不是网络加解密，音频暂停与RPLAN.24保持。",
+      "verification_level": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
+      "map_reply_reset_sampling": {
+        "spec_id": "BUP01",
+        "evidence_refs": [
+          "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
+          "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
+          "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-acceptance",
+          "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
+          "doc/cg2d_map_reply_reset_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 35,
+        "original_code_bytes": 108,
+        "original_page_count": 1,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_two_groups_read_all_before_publish_restored": true,
+        "original_two_minus_one_construct_destroy_and_rng_order_kept": true,
+        "original_gate_validation_floor_zero_and_fresh_byte_clear_kept": true,
+        "source_original_jmb_template_dispatch_and_nine_integer_fields_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 4,
+        "original_nop_tail_bytes": 11,
+        "original_local_caller_window_count": 6,
+        "original_dispatch_local_instruction_count": 92,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4691D0",
+      "inventory_id": "F:000691D0",
+      "original_role": "原地图共享双坐标快照-1构造及先读齐再发布复位",
+      "original_end_exclusive": "0x469239",
+      "original_chunks": [
+        {
+          "start": "0x4691d0",
+          "end_exclusive": "0x469239"
+        }
+      ],
+      "instruction_count": 25,
+      "status": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_4691D0"
+          ],
+          "relationship": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验。原socket首参数不消费，现nativeuintptr动作视图保，不造fixedsuccess或全ABI等价；509090原EAX不作新业务返回，512E40该局部回调后明确xorEAX0返回。其余reset后窗只记录实际返回流，不称所有父弃返。两根纳LOOP/MAP，509090另NETWORK；I仅LOOP/MAP实修两片段，S三域，完整门禁保持。网络原格式兼容且仅明文，两加解密叶仍排除；内部LegacyCryptInt不是网络加解密，音频暂停与RPLAN.24保持。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
+        "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
+        "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-acceptance",
+        "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
+        "doc/cg2d_map_reply_reset_sampling_evidence.json"
+      ],
+      "boundary": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验。原socket首参数不消费，现nativeuintptr动作视图保，不造fixedsuccess或全ABI等价；509090原EAX不作新业务返回，512E40该局部回调后明确xorEAX0返回。其余reset后窗只记录实际返回流，不称所有父弃返。两根纳LOOP/MAP，509090另NETWORK；I仅LOOP/MAP实修两片段，S三域，完整门禁保持。网络原格式兼容且仅明文，两加解密叶仍排除；内部LegacyCryptInt不是网络加解密，音频暂停与RPLAN.24保持。",
+      "verification_level": "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
+      "map_reply_reset_sampling": {
+        "spec_id": "BUP01",
+        "evidence_refs": [
+          "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
+          "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
+          "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-acceptance",
+          "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
+          "doc/cg2d_map_reply_reset_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 25,
+        "original_code_bytes": 105,
+        "original_page_count": 1,
+        "original_direct_call_count": 4,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 6,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_data_initializer_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "original_two_groups_read_all_before_publish_restored": true,
+        "original_two_minus_one_construct_destroy_and_rng_order_kept": true,
+        "original_gate_validation_floor_zero_and_fresh_byte_clear_kept": true,
+        "source_original_jmb_template_dispatch_and_nine_integer_fields_kept": true,
+        "source_all_other_initializers_bodies_headers_owners_network_format_and_plaintext_kept": true,
+        "original_literal_bytes": 4,
+        "original_nop_tail_bytes": 11,
+        "original_local_caller_window_count": 6,
+        "original_dispatch_local_instruction_count": 92,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "full_numeric_or_x87_rounding_verified": false,
+        "full_pixel_rendering_verified": false,
+        "full_plaintext_interop_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

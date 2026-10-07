@@ -5917,15 +5917,23 @@ void __cdecl Sub_4691D0()
 {
     platform::LegacyCryptInt temporary;
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
-    gValue9EE8D0.mask = temporary.mask;
-    gValue9EE8D0.encoded = temporary.encoded;
-    gValue9EE8D0.readCount = temporary.readCount;
+    // 原第一组先读齐两个 W32 和 BYTE 计数，再依原序发布。
+    const std::uint32_t firstMask = temporary.mask;
+    const std::uint32_t firstEncoded = temporary.encoded;
+    const std::uint8_t firstReadCount = temporary.readCount;
+    gValue9EE8D0.mask = firstMask;
+    gValue9EE8D0.encoded = firstEncoded;
+    gValue9EE8D0.readCount = firstReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 
     platform::legacy_crypt_int::ConstructFromInt_401CC0(&temporary, -1);
-    gValue9EE8E0.mask = temporary.mask;
-    gValue9EE8E0.encoded = temporary.encoded;
-    gValue9EE8E0.readCount = temporary.readCount;
+    // 原第二组先读齐两个 W32 和 BYTE 计数，再依原序发布。
+    const std::uint32_t secondMask = temporary.mask;
+    const std::uint32_t secondEncoded = temporary.encoded;
+    const std::uint8_t secondReadCount = temporary.readCount;
+    gValue9EE8E0.mask = secondMask;
+    gValue9EE8E0.encoded = secondEncoded;
+    gValue9EE8E0.readCount = secondReadCount;
     platform::legacy_crypt_int::Destroy_401CF0(&temporary);
 }
 

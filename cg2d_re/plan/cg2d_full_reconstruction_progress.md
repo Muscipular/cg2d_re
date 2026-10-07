@@ -3048,3 +3048,13 @@ BPD01本步实测：整NetworkRuntime.cpp仅52D050单正文，正常S32 value/si
 三F1573..1575／六真实成员（LOGIN2／CHARACTER5／NETWORK54），语义1576／有效1569、文档1687／3680（45.84%）、分类706／E812／R7 280余2781。无F／code区各7、pending18、172差队列／171缺定位／43待归属、源码closed11／完整功能叶0／globalfalse保持，U10／V03只当前／引用open。完整人物／创建入主地图、所有正常owner／资源／生命周期、全分派／CRT-SDK-ABI／明文互通与运行／R8继续实际推进；原格式明文、音频暂停、RPLAN.24及不构建测试运行摘要保持。
 
 验收记录：三源／完整原证据、机器台账及文档三组集中静态检查通过；measure_cg2d.ps1与-Check同一会话退出0。完整派生快照仅三F／六真实成员及来源候选、两任务、三R7和六指标变化，其余所有对象及原冻结定位保持；十五文件UTF-8无BOM／LF、四真实锚点、四局部I-S各十九实际来源与定向diff通过。仅正常源码／文本静态验收，不构建测试执行或摘要。命名快照cg2d-re-login-character-reply-byte-sampling-20261007，精确十五文件提交，用户六项既有改动保持。
+
+## BRX01 角色选择主分派图号／选槽取样（2026-10-07）
+
+沿人物→主地图，先落[子SPEC](../doc/cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-decision)，只改已有母体与其图号helper六精确片段：PUK>=7／5-6门禁后分别取图号，<5不提前读；九源码mapper实参现场+18、两级原返回先pub再交后级，selector正常S32 class+2*action-7替代wrap模拟。删除清record后第二S16取样、入地图复制姓名后S16重取／同record指针读图号与版本尾标志一次取／同值判定落实，case1新局部值花括号隔离，未跨case初始化。
+
+完整原460FF0 721条2695B／十一页、78directCALL／41callee、155jump／两RET、四switch及唯一51C430@51C4E6。22主状态／21压缩次级门禁、两槽7动作／8版本真实表与现接线纳管；原正常值、所有区间／状态／失败、148B／预览／姓名复制、中间pub／调用-构析RNG／清理／音频／三版本mode2-4-5与正文和明文保。原末PUK W32&FF只消费低W8，沿现W8 owner，不猜邻三byte或冒称物理足迹一致；既有只读提示的立即复制显示核心不改。已有业务本体不冒充新增实现。
+
+一个真实185B X四目标表156B／值表21B／五90 NOP／三8D4900整体LEA对齐分八块，五data入向均本parent／无code进入、前RET后真入口，仅用途mapped；不把对齐中间byte解成叶函数。一个F1576／CHARACTER6、语义1577／有效1570、文档1688／3680（45.87%）／分类707／E814／R7 281余2780。无F／code区各7、pending18／172差队列／171缺定位／43待归属、源码closed11／完整功能叶0／globalfalse与整体门禁保，U10／U11／V03只current／refs仍open。所有41callee、正常owner-alias与资源寿命、完整人物／创建入地图／SDK-ABI／画面和原格式明文互通、运行／R8未验，音频暂停与RPLAN.24保，不构建测试运行摘要。
+
+验收记录：源码／完整原体与四表-185B混合范围／机器台账／文档四组集中静态通过；measure_cg2d.ps1及-Check同一会话退出0。来源symbol检查发现WorldUpdate地址化名称不对应当前CPP定义，已更正为真实Update、两I-S引用及完整机器校验／-Check再次通过，没有留下错误引用。完整派生快照仅一个母体F／成员与候选、三任务、一混合R7及六指标变化，其余全部对象与冻结定义保持；十三文件UTF-8无BOM／LF、四真实锚点、两局部I-S各二十一来源文件及CPP符号、定向diff通过。正常源／文本静态不代编译链接或运行，未构建测试执行或摘要。命名快照cg2d-re-character-select-dispatch-sampling-20261007，精确十三文件提交，用户六项既有改动保持。

@@ -1250,3 +1250,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-baseline)、[裁决](cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-decision)、[验收](cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-acceptance)及[源码状态](cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state)关联三完整114条341B与六源码片段。回复U8先读／同值判NUL恢复，原正确正常值、状态／回复／计时及创建字段发布和失败保持。三已有hPUd／DZ／oy入口仅局部绑定，不补协议／SDK或推断寄存器业务返回。
 
 三normal F／六真实功能成员、三个原X27B仅nop_padding用途；LOGIN和CHARACTER各局部I／S共四项，每项十九真实来源，E808→812，完整gates／成员枚举保持open。U10／V03仅当前／引用，仍open；源码closed11与完整验收0不变，不代全部正常owner／数据生产消费／原语／全分派／资源寿命／CRT-SDK-ABI／明文互通／运行。RPLAN.24与音频暂停保持。
+
+## BRX01 角色选择母体局部开发验收（2026-10-07）
+
+[基线](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-baseline)、[裁决](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-decision)、[验收](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-acceptance)及[源码状态](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state)关联完整721条2695B／四真实switch及一源六补丁。图号原门禁／mapper取样、正常S32 selector、删除／入地图S16与版本尾一次标志、case作用域落实，原正常有效值／成功失败／状态／返回和共享owner保。末PUK低W8与物理足迹边界明确，不夸称新验所有41callee或ABI。
+
+一个normal F／一个CHARACTER成员、一185B混合X分八块仅原表／填充用途；两局部I-S各二十一实际来源，E812→814。原成员枚举／完整gates空、源码closed11与完整0保持，U10／U11／V03只current／refs仍open；正常alias／资源寿命／其它场景／SDK-ABI／原格式明文互通／画面运行仍逐项推进。音频暂停、RPLAN.24及执行限制保持。

@@ -7683,3 +7683,9 @@ signed余数与镜像表达式静态数域X[-2319,2559]/Y[-400,480]的缩放可�
 [动作分配合同](cg2d_yobi_allocation_sampling_spec.md#yobi-allocation-sampling-source-state)在既有404AE0修四片段：载荷返回快照先判空/发布/同值清零；16B描述符五W16/一W32/两W8逐项原序默认发布；start/end先取再两next，action.next/prev写后复读point.prev再发布前驱next。原U8优先级/U32载荷数量、两失败路径消息/释放与无符号同值FIFO、到stop未链接返回保持。
 
 [完整118条354B/113call/86已知父+1未归属调用点](cg2d_yobi_allocation_sampling_evidence.json)只纳管本组分配/插链取样，既有实体/附件/战斗/UI调用不变；所有父实参/载荷类型及callee/资源生产、未链接对象和owner重进退出/借用失效/SDK/ABI/PC53/场景运行未验。
+
+## 场景3角色选择母体取样与原分派基线（BRX01，2026-10-07）
+
+[BRX01 SPEC](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state)完善当前场景3已接的ProcessScene_460FF0，WorldUpdate调用和其它scene正文保持。完整原母体721条／四switch绑定22主状态、压缩次级门禁、两槽7动作与8版本；列表回复→记录→预览、删除成功清record／计数、创建转场4与选择入地图转场5的现真实生产消费可对照。源恢复图号门禁和mapper实参取样、正常S32分类算式／S16选槽重取、版本尾一次标志读取及case作用域，原状态／失败／清理／返回保。
+
+只纳管本母体正常源码与185B实际表／填充用途；不重写WorldUpdate、创建gate或其它场景，不代全部传递依赖／owner与资源寿命／地图加载或运行。U11仍open，已有主流程目标与验收标准保持。

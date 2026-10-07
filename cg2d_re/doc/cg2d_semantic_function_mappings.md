@@ -3218,3 +3218,11 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 三体六片段恢复回复U8→标记U8读取、匹配后同回复值判NUL；已有正常值与状态2、各W16／登录S32 flag／tick与创建S16选槽／preview及两记录字段发布、失败和原明文格式保持，不新增helper或ABI返回。LOGIN加一／CHARACTER加二／NETWORK三回复父绑定，原冻结源码定位行不刷新；同文档候选不等于真实成员。
 
 三个真实X7／15／5B共27B canonical nop、无入向／前RET后入口，仅填充用途mapped。语义1576／有效1569、文档1687／3680（45.84%）、分类706、R7 280余2781，LOGIN2／CHARACTER5／NETWORK54、E812；源码closed11、无身份和code区各7、全部完整功能／运行门禁保持。
+
+## BRX01 角色选择主母体与混合范围（2026-10-07）
+
+新增1576为真实F:00060FF0／ProcessScene_460FF0，CharacterSelectScene.cpp已有完整正文及派生图号／姓名复制／预览清槽helper，基线见[BRX01 SPEC](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state)及相邻证据JSON。原721条2695B／十一页、78directcall／41callee、155jump／两RET／四switch与唯一51C430@51C4E6；六源补丁恢复图号门禁／九源码现场实参／正常S32算式、两S16取样／版本尾一次标志及case局部作用域，原正常值／失败／状态和发布／构析RNG保。
+
+一个真实X:[461A77,461B30)185B分八实际块，四W32目标表156B／21B值表／五90 NOP／三8D4900整体LEA对齐，五本父data入向及无code进入，仅原用途；不把对齐中间byte另当代码或造叶身份／范围排除。母体normal equivalent，末PUK只低W8有效值承接明确、不冒称完整物理足迹或全部callee／SDK-ABI；冻结定义行保持。
+
+语义1577／有效F1570、文档1688／3680（45.87%）、分类707／CHARACTER6／E814、R7 281余2780。无F与code区各7、pending18、源码closed11／完整功能和叶0／globalfalse及完整枚举／门禁保持；局部数量不作整体功能完成率。

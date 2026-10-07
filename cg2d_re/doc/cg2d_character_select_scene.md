@@ -2410,3 +2410,13 @@ needle分别为2000与814000，不转码、按token拆分或改成其他空白�
 [BRW01 SPEC](cg2d_login_character_reply_byte_sampling_spec.md#reply-byte-sampling-source-state)将已接创建508EE0／删除509020循环恢复为回复U8先取、successful U8后取，匹配后复用回复U8判NUL；正常值逻辑与原失败保持。创建仍S16选槽→W16回复1→S32预览取样→同两148B记录+4C／+50按序发布，删除仍只发布W16回复1，不在回复父清记录或增加slot限制。
 
 选择／创建显示、预览、场景及请求Start-Poll正文保持；两根完整41条129B／33条91B、真实512E40入向及caller覆盖EAX补入基线。CHARACTER成员3→5、NETWORK仅两回复父局部绑定，完整人物枚举／请求往返／入主地图／owner寿命和资源／运行仍未验；局部I-S不代完整门禁。
+
+## 角色选择主分派正常图号与选槽取样（BRX01，2026-10-07）
+
+按[BRX01 SPEC](cg2d_character_select_dispatch_sampling_spec.md#character-dispatch-sampling-source-state)，只改已有母体及其图号helper六精确片段：PUK>=7／5-6分别门禁后读图号，<5不先读；九处源码mapper实参现场重取+18，两级返回先pub再交下级保持。selector改正常S32 class+2*action-7，不再unsigned回绕模拟；其它真正unsigned状态／动作范围判定保持。
+
+删除成功清record后恢复第二次独立S16选槽读取／原空叶，进入主地图的姓名复制后再读S16，用同两record的非拥有指针取+18图号；版本尾以一次持有S32标志判定。case1两新局部值加花括号，不跨越其它case。其余状态、失败、两148B／预览toggle、所有分类区间／中间返回发布／SetScene与原构析RNG／清理／音频调用及三版本mode2-4-5正文与明文保；没有新增控制器本体、影子owner或业务。
+
+完整原460FF0 721条2695B／十一页、78直接call／41callee、155jump／两RET、四真实switch及唯一51C430@51C4E6可追；22主状态／21压缩次级状态门禁、两槽七动作和八版本表完整绑定。末PUK原W32&FF只消费低W8，沿现W8 owner表达该有效值，不猜相邻三byte或宣称原全部物理读足迹一致；原只读文案的既有立即复制显示核心保持。
+
+相邻185B X四原W32目标表156B／值表21B／五90 NOP／三8D4900整体LEA对齐分八块，五data引用均本父／无code入向、前RET后真入口，仅mapped用途。母体F1576补正常基线、CHARACTER成员6／局部I-S，完整所有41callee／数据alias／owner与资源寿命、完整人物／主地图／SDK-ABI／画面互通和运行仍未验。

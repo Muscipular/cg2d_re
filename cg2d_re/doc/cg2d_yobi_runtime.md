@@ -4445,3 +4445,13 @@ AreMapActorTargetsAdjacent四对独立current→previous显式取样、符号条
 按[裁决](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision)，442110以本入口局部lambda在Construct后先encoded W32→mask W32→readCount W8取齐，再同序pub/Destroy，X后Y；4422F0两轴各先mask→encoded→readCount取齐再同序pub/Destroy。共两正文三片段、局部lambda1/全局helper0；通用AssignFromInt/CopyPayload、ASM/数值头和所有其它源保持。
 
 原S16路径数/override/1、2、1.6、1.2和0.01、4实际F32常数、现PC53数值叶/表达式及原Double承接F32 rate结果/NULL0、两构造/两销毁/RNG和步进→坐标→方向/标志保持；七原常数28B已实际loaded/完整flags核实。218条823B/10call与5局部路径有据，全正常寿命/数值运行/SDK-ABI未验，不据本步未改数值叶外推数值等价。
+
+## 运动更新两轴count-first预取（BTV01，2026-10-07）
+
+按[裁决](cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision)，Sub_4424B0每轴Construct后先const W8 readCount、W32 encoded、W32 mask取齐，再按原count→encoded→mask发布、Destroy。共一正文两片段，不新增lambda/helper/声明；Sub_442460的S16计数减一/W16发布、每轮界限重读与X/Y搬移保持完整原样。
+
+原目标浮点落点、路径Y/X/speed、父rate真实F32消费/child速度、完整W32 flags、距离前持有步值与未到时fresh双轴求和、到格清步进/动画/W16标志及ftol现承接保。实际1/64 F32数据4B已loaded/完整flags核实，两构造/两销毁/RNG与X先完后fresh Y保。两完整根192条711B/10局部窗口有据，两现void寄存器观察适配具名，完整父/机器ABI与数值运行不据局部证据外推。
+
+### BTV01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：完整YobiRuntime仅一正文两预取/pub片段变化，正确442460/两构造两销毁/原运动与其它源保持；完整原根四归档段及10调用窗口、全部证据字段、机器台账/五文档/三任务、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1668/有效1661、文档1779（48.34%）、处置809/E924、R7已审377/余2684、LOOP80/MAP77；原pending18/pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保持。未编译、测试、运行或计算摘要，完整父/正常寿命/数值/机器ABI与运行R8继续。

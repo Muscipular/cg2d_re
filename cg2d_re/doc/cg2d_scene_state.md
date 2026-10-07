@@ -7793,3 +7793,13 @@ D9D0范围provider仍原Sub_4410E0，NULL/负值短路及>=17普通归0、payloa
 [原端基线](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline)覆盖442110/4422F0两完整根218条823B/四页、10call/17jump/3RET、5四父局部路径。442110四点中442549真实FSTP F32消费速率，其余三点弹栈，Double结果承接原F32 rate/NULL0保持；4422F0单点后下一call、现void局部观察保，不概括全点弃返。
 
 Yobi两入口按各自encoded-first/mask-first取齐W32/W32/W8再pub，原27C→280→两坐标→条件方向/W16标志和RNG/数值接口保持。LOOP78/MAP75各两局部I-S、25B真实对齐用途，全四父/正常寿命/数值和机器ABI/运行仍未验。
+
+## 首点移除与运动坐标发布（BTV01，2026-10-07）
+
+[基线](cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline)覆盖两完整根192条711B、18call/17jump/2RET及10入向八父局部路径。442460正确正文保；4424B0保首X-F32/首Y-Double与world短路、父rate FSTP F32/child同指针和完整W32 flags门禁，以及距离调用前持有stepY/X、worldY/X和后续fresh步进/到格/动画序。
+
+一既有正文两片段实修尾部两轴count W8→encoded W32→mask W32先取齐后同序发布/销毁，X完整临时寿命后才读取worldY。LOOP80/MAP77各两局部I-S，9B真实对齐仅用途；完整八父/正常寿命/数值/机器ABI与运行仍未验。
+
+### BTV01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：完整YobiRuntime仅一正文两预取/pub片段变化，正确442460/两构造两销毁/原运动与其它源保持；完整原根四归档段及10调用窗口、全部证据字段、机器台账/五文档/三任务、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1668/有效1661、文档1779（48.34%）、处置809/E924、R7已审377/余2684、LOOP80/MAP77；原pending18/pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保持。未编译、测试、运行或计算摘要，完整父/正常寿命/数值/机器ABI与运行R8继续。

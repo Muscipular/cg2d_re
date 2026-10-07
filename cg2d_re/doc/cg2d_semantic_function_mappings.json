@@ -191131,6 +191131,150 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x442460",
+      "inventory_id": "F:00042460",
+      "original_role": "按原S16计数移除首点，每轮重读计数并按X/Y次序搬移下一点",
+      "original_end_exclusive": "0x4424aa",
+      "original_chunks": [
+        [
+          "0x442460",
+          "0x4424aa"
+        ]
+      ],
+      "instruction_count": 24,
+      "status": "BTV01两完整根192条711B，一既有正文两片段恢复两轴count-first预取/发布；正确首点移除正文与其它运动取样/数值/RNG序保，现void局部观察适配，完整父/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_442460"
+          ],
+          "relationship": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-acceptance",
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json"
+      ],
+      "boundary": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
+      "verification_level": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
+      "actor_motion_update_sampling": {
+        "spec_id": "BTV01",
+        "evidence_refs": [
+          "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
+          "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
+          "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-acceptance",
+          "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
+          "doc/cg2d_actor_motion_update_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 24,
+        "original_code_bytes": 74,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 4,
+        "original_return_count": 1,
+        "original_inbound_call_count": 4,
+        "source_body_changed": false,
+        "source_cpp_patch_count": 0,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "original_entry_coordinate_order": "not_applicable",
+        "original_two_axes_three_preloads_before_publication_restored": false,
+        "original_correct_front_remove_body_kept": true,
+        "original_motion_child_distance_animation_and_ftol_expressions_kept": true,
+        "original_complete_w32_flags_and_held_step_samples_kept": true,
+        "original_two_construct_publish_destroy_rng_and_x_then_fresh_y_order_kept": true,
+        "original_loaded_reciprocal_f32_verified": true,
+        "original_void_local_caller_observation_adaptation_decided": true,
+        "original_caller_observation_decision_ref": "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x4424B0",
+      "inventory_id": "F:000424B0",
+      "original_role": "完成目标路径/子对象速度、运动到格和动画标志更新后按count-first次序发布两坐标",
+      "original_end_exclusive": "0x44272d",
+      "original_chunks": [
+        [
+          "0x4424b0",
+          "0x44272d"
+        ]
+      ],
+      "instruction_count": 168,
+      "status": "BTV01两完整根192条711B，一既有正文两片段恢复两轴count-first预取/发布；正确首点移除正文与其它运动取样/数值/RNG序保，现void局部观察适配，完整父/寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "Sub_4424B0"
+          ],
+          "relationship": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-acceptance",
+        "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
+        "doc/cg2d_actor_motion_update_sampling_evidence.json"
+      ],
+      "boundary": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
+      "verification_level": "BTV01完整首点移除442460/运动更新4424B0两根192条711B/四归档页两块、18直接call/17jump/2RET、10入向八父局部路径；只实修YobiRuntime运动更新一既有正文两片段：每轴Construct后先readCount W8→encoded W32→mask W32三项全部取齐，再按同序发布到X1E0/Y1F0，随后Destroy，X构造/发布/销毁完才读取worldY。正确442460正文不改，保S16计数>0才减/写W16、每轮重读S16界限以及下点X读写→下点Y读写。原首targetX落F32/首targetY保Double及短路worldY、路径Y→X→speed、父速率FSTP F32消费/child同指针与完整W32 flags门禁保；moving先持有stepY/stepX再worldY/worldX供距离调用，后持有步平方和、未到时fresh双轴求和/发布、到格后清步进以及原动画/标志序保。原尾1/64 F32数据4B实际loaded/完整flags，现数值叶/表达式、两构造/两销毁/RNG消费保，两个现void寄存器观察具名适配，不假造统一机器返回；两区6/3共9B NN_NOP只用途。无新lambda/helper/声明/owner/布局/业务，所有其它源与原网络明文/内部LegacyCryptInt/音频暂停/RPLAN.24保；完整八父/全部正常寿命/机器ABI/数值运行R8未验。",
+      "actor_motion_update_sampling": {
+        "spec_id": "BTV01",
+        "evidence_refs": [
+          "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline",
+          "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
+          "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-acceptance",
+          "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-source-state",
+          "doc/cg2d_actor_motion_update_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 168,
+        "original_code_bytes": 637,
+        "original_page_count": 3,
+        "original_direct_call_count": 18,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 13,
+        "original_return_count": 1,
+        "original_inbound_call_count": 6,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 2,
+        "source_header_patch_count": 0,
+        "new_local_lambda_count": 0,
+        "new_named_global_helper_count": 0,
+        "original_entry_coordinate_order": "readCount-encoded-mask",
+        "original_two_axes_three_preloads_before_publication_restored": true,
+        "original_correct_front_remove_body_kept": false,
+        "original_motion_child_distance_animation_and_ftol_expressions_kept": true,
+        "original_complete_w32_flags_and_held_step_samples_kept": true,
+        "original_two_construct_publish_destroy_rng_and_x_then_fresh_y_order_kept": true,
+        "original_loaded_reciprocal_f32_verified": true,
+        "original_void_local_caller_observation_adaptation_decided": true,
+        "original_caller_observation_decision_ref": "doc/cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision",
+        "original_owner_crossfield_observations_and_other_bodies_kept": true,
+        "new_shared_owner_count": 0,
+        "full_inbound_parents_verified": false,
+        "full_callees_or_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

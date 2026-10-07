@@ -1526,3 +1526,13 @@ BTP01十三元数据只改为真实观察描述，不修改其证据/代码/分�
 [基线](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-baseline)、[裁决](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-decision)、[验收](cg2d_actor_velocity_coordinate_sampling_spec.md#actor-velocity-coordinate-acceptance)及[证据](cg2d_actor_velocity_coordinate_sampling_evidence.json)对应两完整根218条823B/5局部路径、不同三预取/pub次序/真实速率消费、七已加载常数及25B用途。两正文三片段、局部lambda1/全局helper0，数值叶/声明/通用工具保；LOOP76→78/MAP73→75各两局部I-S各25来源，仅本步静态。
 
 三任务current/引用保open，原pending18/pending7/closed11及完整门禁保；网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续。全正常生产消费及owner-alias寿命、完整四父/数值/SDK-ABI/链接/画面/明文互通与运行R8继续。
+
+## BTV01 运动坐标取样开发验收（2026-10-07）
+
+[基线](cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-baseline)、[裁决](cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-decision)、[验收](cg2d_actor_motion_update_sampling_spec.md#actor-motion-update-acceptance)及[完整证据](cg2d_actor_motion_update_sampling_evidence.json)对应192条711B/10局部窗口、两轴count-first预取/pub、实际F32 1/64与9B用途。一正文两片段实修，正确首点移除/其它运动源保持；LOOP78→80/MAP75→77各两局部I-S各25来源，仅本步静态。
+
+三任务current/引用保持open，pending18/原ECX pending7/closed11/全叶与运行门禁保。网络原格式明文/内部LegacyCryptInt/音频暂停/RPLAN.24持续，全正常生产消费/owner-alias寿命、全部八父/callee/数值/机器ABI/链接/画面/明文互通及运行R8继续。
+
+### BTV01 集中静态与汇总实值（2026-10-07）
+
+集中静态通过：完整YobiRuntime仅一正文两预取/pub片段变化，正确442460/两构造两销毁/原运动与其它源保持；完整原根四归档段及10调用窗口、全部证据字段、机器台账/五文档/三任务、十三文件UTF8无BOM/LF与四局部I-S各25真实引用通过。纯文本汇总与-Check沿同一次执行均终0，完整派生快照模型比对通过。实际语义1668/有效1661、文档1779（48.34%）、处置809/E924、R7已审377/余2684、LOOP80/MAP77；原pending18/pending7、差队列172/缺定位171/待归属43、closed11/完整叶0/globalfalse保持。未编译、测试、运行或计算摘要，完整父/正常寿命/数值/机器ABI与运行R8继续。

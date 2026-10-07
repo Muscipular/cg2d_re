@@ -203,3 +203,7 @@ callback原正确图值/禁用/hover旧字节/点击关闭清理选择链与返�
 ## BQP01 技能列表与制造回退取样（2026-10-07）
 
 [完整合同](cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-source-state)/[七完整393条1373B](cg2d_battle_skill_lists_rollback_sampling_evidence.json)纳管普通列表/技术、计数回退/字节减计数、两宠物模式与原401F80。四体六片段恢复held position/counter减后held谓词与旧cell序、loop尾界先index++/骑宠名称目标取序；一typed cost-first桥/两父接原单右FP读。普通值/FP单读次数和计数RNG同旧源，401EA0实际尾跳401EC0/坐标取值正确不改，不称不同解码。三正确体/原失败/負maximum/模式callback/原MIS明文及尾转移保；四无IDA父代码区间CALL只登记不造F/排除。219成员open/两I-S不代生产/其它模式callback/完整父/owner寿命与运行，无新R7。
+
+## BQQ01 窗口关闭代码区间取样（2026-10-07）
+
+[完整合同](cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state)/[两完整42条145B](cg2d_battle_window_release_range_sampling_evidence.json)沿上批四个真实CALL，纳管窗口10/12关闭原代码区间；一制造体两片段恢复旧W8→借window12 T*→减后发布及D67AFE减后先发布/同held谓词。普通旧值一致，窗口10正确体/初后mode取样差别、原W8/W32储存和S32动作条件保。两48B原型release真实字段与471276局部弃返核清，void适配正确保。两X整236B分项mapped/两个有效code_identity，F分母及219成员保持；完整制造/技能生产、其它父/owner寿命和运行另验。

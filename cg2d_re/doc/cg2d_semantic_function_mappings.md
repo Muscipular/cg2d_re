@@ -3170,3 +3170,7 @@ R7用途已审259/3061/余2802；语义1431/有效ID1426、文档1544/41.96%、B
 ## BQP01 七列表/回退及cost-first正常源身份（2026-10-07）
 
 [完整合同](cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-baseline)/[七冻结前态](cg2d_battle_skill_lists_rollback_sampling_evidence.json)：1534..1540七原已有定义正常语义/equivalent，七冻结定位保；401F80现正确平台叶加Yobi typed桥secondary source，不虚造新原函数给桥。四体六片段/一桥及两父，普通值/FP单读/计数RNG不变；原坐标getter别名保。语义1541/有效1536、关联1654/3680（44.95%）、分类667/BATTLE219枚举open/E784；R7 262/3061余2799、差队列172/待归属43与其它完整门禁保。38入向/四无IDA父代码区间只真实登记，不凭父缺失排除。
+
+## BQQ01 两关闭代码身份与两区间用途（2026-10-07）
+
+[原基线](cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-baseline)/[完整证据](cg2d_battle_window_release_range_sampling_evidence.json)：记录1541/1542使用inventory_id=null/既有code_identity绑定X:0007B0C1-0007B110、X:00085663-00085700内确切关闭片段，不创建F或改3680分母。语义1543/有效F1536、无F与有效区间记录各7；F分类667、关联1654/3680（44.95%）、BATTLE219枚举open保持。两X整236B代码/11W32目标/26W8索引/LEA对齐与NOP分项mapped，R7 264/3061余2797；两局部I/S使E786，开发队列172/待归属43保持。不是原型头数据xref等于callback字段，也不以原末尾EAX1改实际弃返void适配。

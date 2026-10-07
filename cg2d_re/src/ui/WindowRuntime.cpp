@@ -33565,12 +33565,14 @@ void Sub_485690()
     if (mode == 1 || mode == 2) {
         Sub_4796E0();
     }
-    const auto references = static_cast<std::uint8_t>(gValueD67AFD - 1);
+    const std::uint8_t previousReferences = gValueD67AFD;
     WindowInstance* const window = gWindowStates[12].window;
-    gValueD67AFD = references;
+    gValueD67AFD = static_cast<std::uint8_t>(previousReferences - 1);
     window->state |= 0x8000u;
-    --gValueD67AFE;
-    if (gValueD67AFE == 0) {
+    // 原4856C1..4856CD：W8减后发布，分支消费同一结果。
+    const auto skillReferences = static_cast<std::uint8_t>(gValueD67AFE - 1);
+    gValueD67AFE = skillReferences;
+    if (skillReferences == 0) {
         const std::int32_t state = world::detail::Sub_51BEC0();
         if ((state >= 5 && state <= 7) || state == 16) {
             static_cast<void>(world::detail::Sub_51BE50(0));

@@ -1194,3 +1194,7 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 ## BQP01 列表与回退局部I/S（2026-10-07）
 
 [限定验收](cg2d_battle_skill_lists_rollback_sampling_spec.md#battle-skill-lists-rollback-sampling-acceptance)/[七完整393条1373B](cg2d_battle_skill_lists_rollback_sampling_evidence.json)。九页十call/六callee/37普通jump加一外尾转移/七ret、坐标GetVal真实尾别名、cost-first单右FP读与计数RNG有据；四体六片段/一typed桥/两父/三正确体保。普通值和原FP单读副作用同旧源，原MIS明文/回调/失败/负maximum及原序保持。两I/S各二十真实来源不代全解码/异常/父/owner/运行；14精确文件，1654/44.95%文档关联、BATTLE219枚举open/E784、四任务open/60源码closed10/完整验收0/叶0/global=false和R7/差队列保持。
+
+## BQQ01 关闭片段与区间用途局部I/S（2026-10-07）
+
+[限定验收](cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-acceptance)/[42条145B与整236B用途](cg2d_battle_window_release_range_sampling_evidence.json)。一制造体两片段修复发布/取样序，另一正确体、两48B原型真实release绑定及局部弃返适配保持；六实际CALL/九分支/两RET有据。两个code_identity不增F分母/219成员，两个X mapped只证字节用途；两I/S各15真实来源不代通用回收/全部dispatch/数据生产/父/owner寿命或运行。五任务open/60源码closed10/完整验收0/叶0/global=false，音频暂停及不构建测试运行摘要限制保。

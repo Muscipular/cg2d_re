@@ -182221,6 +182221,190 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x47b0e0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_47B0E0",
+      "original_end_exclusive": "0x47b10e",
+      "instruction_count": 12,
+      "status": "BQQ01两真实关闭回调完整代码区间正常源纳管，一制造体两片段恢复W8旧值/窗口借用/发布序与减后held谓词，原void弃返适配正确；完整生产/窗口与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_47B0E0"
+          ],
+          "relationship": "窗口10关闭：一次W32 mode取样1或2才479660；调用后fresh W32 mode=2才4796E0及D67AFD W8减；其它mode直接结束。原EAX=1由实际release调用弃返，现void正确保。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-baseline",
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-decision",
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-acceptance",
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
+        "doc/cg2d_battle_window_release_range_sampling_evidence.json"
+      ],
+      "boundary": "窗口10关闭：一次W32 mode取样1或2才479660；调用后fresh W32 mode=2才4796E0及D67AFD W8减；其它mode直接结束。原EAX=1由实际release调用弃返，现void正确保。 两完整无IDA函数父的关闭代码片段42条145B/两页、六直接call/四callee、九普通jump/两ret；一体两片段恢复D67AFD旧W8/window12 T*/减后发布序与D67AFE减后发布/同held谓词，普通旧值一致，不称故障或并发差。47B0E0正确体保，mode初值与回退后fresh mode差别、W32关闭状态/原W8计数/正常S32条件/原MIS和klF明文传送保持。两48B原型release字段54E44C/54E4AC真实绑定，471276弃返消费仅局部核清，原EAX1对应现void适配有效。两X整236B分项连续覆盖，11个W32目标/26个W8索引及LEA对齐与NOP用途有据，R7 264/3061余2797；inventory_id=null/既有code_identity、不增3680函数分母和219BATTLE成员。完整制造/技能数据生产、其它父/窗口/owner寿命、全部dispatch/SDK/机器ABI/运行及R8未验，原格式明文、音频暂停及不构建测试运行摘要/RPLAN.24限制保。",
+      "verification_level": "两完整无IDA函数父的关闭代码片段42条145B/两页、六直接call/四callee、九普通jump/两ret；一体两片段恢复D67AFD旧W8/window12 T*/减后发布序与D67AFE减后发布/同held谓词，普通旧值一致，不称故障或并发差。47B0E0正确体保，mode初值与回退后fresh mode差别、W32关闭状态/原W8计数/正常S32条件/原MIS和klF明文传送保持。两48B原型release字段54E44C/54E4AC真实绑定，471276弃返消费仅局部核清，原EAX1对应现void适配有效。两X整236B分项连续覆盖，11个W32目标/26个W8索引及LEA对齐与NOP用途有据，R7 264/3061余2797；inventory_id=null/既有code_identity、不增3680函数分母和219BATTLE成员。完整制造/技能数据生产、其它父/窗口/owner寿命、全部dispatch/SDK/机器ABI/运行及R8未验，原格式明文、音频暂停及不构建测试运行摘要/RPLAN.24限制保。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:0007B0C1-0007B110",
+        "start": "0x47b0e0",
+        "end_exclusive": "0x47b10e",
+        "evidence_refs": [
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-baseline",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-decision",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-acceptance",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
+          "doc/cg2d_battle_window_release_range_sampling_evidence.json"
+        ]
+      },
+      "original_incoming": [
+        {
+          "to": "0x47b0e0",
+          "from": "0x54e420",
+          "type": 1,
+          "code": false,
+          "parent_entry": null
+        }
+      ],
+      "original_outgoing_calls": [
+        {
+          "ea": "0x47b0ef",
+          "target": "0x479660",
+          "bytes": "e86ce5ffff"
+        },
+        {
+          "ea": "0x47b0fd",
+          "target": "0x4796e0",
+          "bytes": "e8dee5ffff"
+        }
+      ],
+      "battle_window_release_range_sampling": {
+        "spec_id": "BQQ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-baseline",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-decision",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-acceptance",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
+          "doc/cg2d_battle_window_release_range_sampling_evidence.json"
+        ],
+        "full_original_code_fragment_captured": true,
+        "original_instruction_count": 12,
+        "original_code_bytes": 46,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 2,
+        "source_body_changed": false,
+        "source_body_patch_count": 0,
+        "normal_previous_values_wrong": false,
+        "original_return_discard_adapter_kept": true,
+        "original_normal_s32_w8_w32_storage_kept": true,
+        "new_r7_classification": true,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x485690",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_485690",
+      "original_end_exclusive": "0x4856f3",
+      "instruction_count": 30,
+      "status": "BQQ01两真实关闭回调完整代码区间正常源纳管，一制造体两片段恢复W8旧值/窗口借用/发布序与减后held谓词，原void弃返适配正确；完整生产/窗口与owner寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_485690"
+          ],
+          "relationship": "窗口12关闭：479660→fresh CC3E80 W8 mode1/2才4796E0；D67AFD旧W8→window12非拥有T*→减后W8发布→window.state W32|8000；D67AFE减后W8先发布/同held谓词为0才51BEC0，S32 state5..7或16才51BE50(0)且弃S8返回；原EAX=1 release弃返。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-baseline",
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-decision",
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-acceptance",
+        "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
+        "doc/cg2d_battle_window_release_range_sampling_evidence.json"
+      ],
+      "boundary": "窗口12关闭：479660→fresh CC3E80 W8 mode1/2才4796E0；D67AFD旧W8→window12非拥有T*→减后W8发布→window.state W32|8000；D67AFE减后W8先发布/同held谓词为0才51BEC0，S32 state5..7或16才51BE50(0)且弃S8返回；原EAX=1 release弃返。 两完整无IDA函数父的关闭代码片段42条145B/两页、六直接call/四callee、九普通jump/两ret；一体两片段恢复D67AFD旧W8/window12 T*/减后发布序与D67AFE减后发布/同held谓词，普通旧值一致，不称故障或并发差。47B0E0正确体保，mode初值与回退后fresh mode差别、W32关闭状态/原W8计数/正常S32条件/原MIS和klF明文传送保持。两48B原型release字段54E44C/54E4AC真实绑定，471276弃返消费仅局部核清，原EAX1对应现void适配有效。两X整236B分项连续覆盖，11个W32目标/26个W8索引及LEA对齐与NOP用途有据，R7 264/3061余2797；inventory_id=null/既有code_identity、不增3680函数分母和219BATTLE成员。完整制造/技能数据生产、其它父/窗口/owner寿命、全部dispatch/SDK/机器ABI/运行及R8未验，原格式明文、音频暂停及不构建测试运行摘要/RPLAN.24限制保。",
+      "verification_level": "两完整无IDA函数父的关闭代码片段42条145B/两页、六直接call/四callee、九普通jump/两ret；一体两片段恢复D67AFD旧W8/window12 T*/减后发布序与D67AFE减后发布/同held谓词，普通旧值一致，不称故障或并发差。47B0E0正确体保，mode初值与回退后fresh mode差别、W32关闭状态/原W8计数/正常S32条件/原MIS和klF明文传送保持。两48B原型release字段54E44C/54E4AC真实绑定，471276弃返消费仅局部核清，原EAX1对应现void适配有效。两X整236B分项连续覆盖，11个W32目标/26个W8索引及LEA对齐与NOP用途有据，R7 264/3061余2797；inventory_id=null/既有code_identity、不增3680函数分母和219BATTLE成员。完整制造/技能数据生产、其它父/窗口/owner寿命、全部dispatch/SDK/机器ABI/运行及R8未验，原格式明文、音频暂停及不构建测试运行摘要/RPLAN.24限制保。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00085663-00085700",
+        "start": "0x485690",
+        "end_exclusive": "0x4856f3",
+        "evidence_refs": [
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-baseline",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-decision",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-acceptance",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
+          "doc/cg2d_battle_window_release_range_sampling_evidence.json"
+        ]
+      },
+      "original_incoming": [
+        {
+          "to": "0x485690",
+          "from": "0x54e480",
+          "type": 1,
+          "code": false,
+          "parent_entry": null
+        }
+      ],
+      "original_outgoing_calls": [
+        {
+          "ea": "0x485690",
+          "target": "0x479660",
+          "bytes": "e8cb3fffff"
+        },
+        {
+          "ea": "0x4856a2",
+          "target": "0x4796e0",
+          "bytes": "e83940ffff"
+        },
+        {
+          "ea": "0x4856cf",
+          "target": "0x51bec0",
+          "bytes": "e8ec670900"
+        },
+        {
+          "ea": "0x4856e5",
+          "target": "0x51be50",
+          "bytes": "e866670900"
+        }
+      ],
+      "battle_window_release_range_sampling": {
+        "spec_id": "BQQ01",
+        "evidence_refs": [
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-baseline",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-decision",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-acceptance",
+          "doc/cg2d_battle_window_release_range_sampling_spec.md#battle-window-release-range-sampling-source-state",
+          "doc/cg2d_battle_window_release_range_sampling_evidence.json"
+        ],
+        "full_original_code_fragment_captured": true,
+        "original_instruction_count": 30,
+        "original_code_bytes": 99,
+        "original_page_count": 1,
+        "original_outgoing_call_count": 4,
+        "source_body_changed": true,
+        "source_body_patch_count": 2,
+        "normal_previous_values_wrong": false,
+        "original_return_discard_adapter_kept": true,
+        "original_normal_s32_w8_w32_storage_kept": true,
+        "new_r7_classification": true,
+        "full_normal_source_static_mapped": true,
+        "full_parent_newly_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

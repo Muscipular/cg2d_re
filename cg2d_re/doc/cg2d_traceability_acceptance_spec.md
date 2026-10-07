@@ -1882,3 +1882,15 @@ G02/R04/V04仅current/引用仍open，完整机器/派生只具名差集、成�
 集中静态通过：两完整原根1252条5152B/19页，BVD完整285条752B父及18局部252条707B准确复用、两9项表72B/24B NN_NOP与两X96B用途；整cpp仅两根各一个prefix，W32触发先持样后RECT/按同持样判定，完整余体/四其它源/声明与实际mode/value/payload消费保持。两完整机器和完整派生只具名差集；十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
 
 文本汇总与Check均退出0；实际语义1761/有效1754、合同1872（50.87%）、F902/E1066、R7已审464余2597、LOOP174/RENDER75。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/1758与所有旧记录/完整闭包保持。仅取样prefix/接口及用途局部通过，完整数值分支/FPU精度、像素/其他callee/owner-alias寿命、机器ABI/链接/正常失败/运行与R8仍未验；完整原证不代这些门禁，整体目标继续。
+
+## BVF01准备与整源复制的限定验收（2026-10-08）
+
+[原基线](cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline)、[实施决定](cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision)及[原证](cg2d_back_temp_full_source_snapshot_evidence.json)：准备根完整18条49B/一页，六调用局部84条418B/四父均弃返回；九共享复制窗200条712B含邻指令/重叠与场景9完整40条163B，GQD01完整769条2658B及case7准确复用，三零生产窗口58条219B；一X15B逐字节NN_NOP用途。[验收](cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance)及[源态](cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state)只涵盖完整W32随机写入/返回、整源复制请求及原native正常失败，六/九真实调用不改控制流、接口和15B用途。四域八I-S各28来源，不以该局部合同替代所有上层父/像素或借用寿命。
+
+两cpp两hpp共四片段、零新helper/owner/接口函数；其余五源/调用方和完整函数保持，原native正常资源失败保，不增异常保护。四域八限定I-S各28真实来源，G02/R04/V04仍open；全像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验，完整门禁保持。不构建/测试/运行、产物或摘要，RPLAN.24不增异常策略，成员/叶/全局门禁与R8标准保持。
+
+### BVF01 当前准备与整源复制实修限定静态结果
+
+集中静态通过：准备完整18条49B/六调用局部84条418B/四父、九共享复制窗200条712B含邻指令及重叠，GQD01完整769条2658B及case7精确复用/三零生产窗口58条219B，场景9既有1719保持、一X15B逐字节NN_NOP用途。两cpp两hpp仅四片段：完整W32同值写入/返回，真实Back整源面及原native正常资源失败，不部分裁剪/缩放/色键；六准备/九复制消费均弃值、失败后仍一次RNG，其他五源/所有余体和调用方控制流保。完整机器与完整派生仅具名差集，十八文件UTF8无BOM/LF、四锚点/八限定I-S各28真实来源通过。
+
+文本汇总及Check均退出0；实际语义1762/有效1755、合同1873（50.90%）、F903/E1074、R7已审465余2596、LOOP175/RENDER76/MAP129/BATTLE264。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有旧记录及完整闭包保持；仅准备/整源复制合同、接口接线与用途静态通过，全像素/其它父-callee/owner-alias寿命、机器ABI链接/正常失败实测/运行和R8仍未验，整体目标继续。

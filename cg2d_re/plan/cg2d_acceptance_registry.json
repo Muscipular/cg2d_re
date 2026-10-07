@@ -653,7 +653,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
-        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline"
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline"
       ],
       "original_inventory_ids": [
         "F:0011D5B0",
@@ -829,7 +830,8 @@
         "F:0011FC90",
         "F:0011FDE0",
         "F:0011D790",
-        "F:0011E0D0"
+        "F:0011E0D0",
+        "F:0011D750"
       ],
       "closure_task_ids": [
         "U11",
@@ -907,7 +909,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
-        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision"
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -976,7 +979,8 @@
         "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
-        "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。"
+        "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
+        "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -1046,7 +1050,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
-        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state"
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
       ]
     },
     {
@@ -1879,7 +1884,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-baseline",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-baseline",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-baseline",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline"
       ],
       "original_inventory_ids": [
         "F:0003D760",
@@ -2009,7 +2015,8 @@
         "F:00068FF0",
         "F:00069030",
         "F:0011D640",
-        "F:00066B80"
+        "F:00066B80",
+        "F:0011D750"
       ],
       "closure_task_ids": [
         "U11",
@@ -2071,7 +2078,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-decision",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-decision",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2124,7 +2132,8 @@
         "BUP01地图回包509090与复位4691D0两完整根60条213B/两页、六call/四jump/两RET；只复位两组mask W32→encoded W32→count W8先读齐再同序发布，同临时两次-1构造/析构/RNG消费保持。正确回包门禁/九参数核验/floor清零及复位后fresh BYTE清bit0、jmb原字串/模板接线保持；六复位局部后窗和两尾11B用途归档。仅必要静态，完整父/callee/寿命/数值/机器ABI/像素/明文互通及运行未验",
         "BUQ01地图增量回包509100完整197条694B/三页、22directcall/14jump/一RET；只既有根四片段：入口W32门禁一次取样原值返回，撤旧整帧外-1早退/额外终止WORD，BYTE标记与当前地图号先读齐再pub。既有连续0x10594七段布局/零初始化窄适配、原tile-obj-hit提取解码与终止轮三WORD写入、地图更新/复位/四坐标读取/三槽清零及原返回保；aBS原字串4B/85条分发局部及10B尾用途归档。仅静态与文本汇总，全部父/callee/寿命/数值/机器ABI/文件运行/像素/明文互通及R8未验",
         "BUR01共享hit写者468C00、原点投影468F70、投影复制468FF0及重绘469030四完整根178条620B/五页、七call/十五jump/四RET；只Scene既有469030初始坐标一片段，恢复X符号修正后读C、Y三倍项后读D再乘16及原末列/行设置顺序。三个正确叶全文/WORD写及S16读、原0点F32→F64半值/两整数转换与W32发布、交错四槽复制及返回保持；六局部后窗/半值8B/四尾36B用途归档。地图I/O728/729/走通1699/索引表1706/DrawGraphic承接不重做，全部父/callee/机器ABI/数值x87/寿命/像素/文件和明文互通运行未验",
-        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
+        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+        "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2178,7 +2187,8 @@
         "doc/cg2d_map_reply_reset_sampling_spec.md#map-reply-reset-source-state",
         "doc/cg2d_map_incremental_reply_sampling_spec.md#map-incremental-reply-source-state",
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-source-state",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
       ]
     },
     {
@@ -2427,7 +2437,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-baseline",
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-baseline",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
-        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline"
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -2504,7 +2515,8 @@
         "F:0011FC90",
         "F:0011FDE0",
         "F:0011D790",
-        "F:0011E0D0"
+        "F:0011E0D0",
+        "F:0011D750"
       ],
       "closure_task_ids": [
         "C09",
@@ -2555,7 +2567,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-decision",
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-decision",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
-        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision"
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -2595,7 +2608,8 @@
         "BVB01两已有正确复制/四块转场完整根308条1147B/六页、七direct/一indirect/34跳转/四返回、十五引用五父；十五局部210条697B为窗口累计，含重叠邻指令，不当独立总覆盖；两21B NN_NOP用途。五相关源/两完整正确正文保持，源码改动0/无新增I；两adapted、LOOP/RENDER仅限定S，原SDK失败/低S16与四块生产发布保持，完整所有父/callee、owner-alias寿命、机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVC01上下扫描线完整两根306条1062B/六页、20direct/两indirect/38跳转/四返回/七引用同父；七局部累计98条251B含邻接重叠，不当完整控制父。原触发槽持样早于RECT生产，共用助手一cpp一个prefix已恢复先持样后矩形/以持样判定，两个根wrapper/声明/现case26–33接线、原逐行比例fresh/低S8零取8/方向三字段发布和native正常失败正确保，两10B实际NN_NOP用途；新1753/1754 adapted，LOOP/RENDER四限定I-S各25来源，完整父/callee/alias寿命/ABI链接/像素运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
-        "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。"
+        "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
+        "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2636,7 +2650,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
-        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state"
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
       ]
     },
     {
@@ -3178,7 +3193,8 @@
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-baseline",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-baseline",
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-baseline",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline"
       ],
       "original_inventory_ids": [
         "F:00024620",
@@ -3443,7 +3459,8 @@
         "F:0011BE30",
         "F:0011BE40",
         "F:0011BEE0",
-        "F:00066B80"
+        "F:00066B80",
+        "F:0011D750"
       ],
       "closure_task_ids": [
         "P01",
@@ -3567,7 +3584,8 @@
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-decision",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-decision",
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -3680,7 +3698,8 @@
         "BQW01四完整164条542B/五页，7CALL=6direct四callee+1GetTickCount IAT/16jump八RET、五入向四父；两体三片段恢复live endBits W32→S32 SAR低1和C/M各word-copy→held next→tail-copy→CMP4谓词→pub/可选0，正常结果/共享W32及原20槽四1000H槽保。正确初始化30秒/计数/clear-发布/显示/活宠-last门禁与clear W32 AND~40体不改，P六%X/A双%X原text+2/24B格式和真实输出地址、scan返回弃置及partial失败后续、pending严格1的held turn→pending0→snapshot→结束位发布、C-P-A优先于第二BYTE U且U优先M/原首参未使用和全部return保。四X18B NOP全字节/逐byte无入向/前RET后真入口用途mapped，R7 273余2788；250成员open，BMF01既有43CBB0完整十状态正常源静态与三域局部I-S继承不复检，完整512E40分派/全技能-pet生产/全部owner及窗口寿命/SDK/ABI/画面运行/R8未验，原协议明文及音频/执行限制保",
         "BQX01三完整323条1177B/六页、34directcall十九callee/24jump五RET无switch，三真实入向同512E40只局部绑定。两主根11片段恢复四数值载体mask-encoded-W8 count读齐再pub/非正type count先独立序，四construct-destroy/RNG保；type2及非2 type3谓词先pub、两field首parser前递增/低S16-S32 pub后判持有返回值，原负值零写/姓名<=28或只首BYTE清保。既有ReadPlayerFlags18A改同private owner一次4B跨字段观察、offsetof adjacency assert与注释，原W16 flags18A/W32 flags18C不扩/旧caller不改。原4结果/3图名/15技能与8B/29B、三2048B未清buffer/2047容量/comma-bar/Base62/两Unescape链和解析返弃、旧格式明文/各种失败及清理保持。正确W16 sZWu三指令叶及caller覆盖EAX有据，原53BDC0栈探测只元信息，音频暂停，不据本步验callee或ABI。真实两X4/3B共7B全NOP无入向/前RET后入口用途mapped，R7 275余2786；253成员open，全部owner/窗口寿命/全生产/其它resultconsumer/完整512E40分派/CRT-SDK-ABI/画面运行/R8未验",
         "BTL01十三完整玩家/动作状态叶29条133B/十三页十三chunk、无CALL无jump十三RET，15直接入向两父51A840/440920。SceneState.cpp十一原正文十一唯一片段：八实际W8 OR（flags18A高BYTE40/80及flags18C[2]的1/2/24/8/50/80），三flags18C[2..3]实际W16 AND FFFE/FFFD/FFF7恢复2B读改写；两flags18A本来正确W16 AND BFFF/7FFF整正文保持。BDD0同入参S32先取/OR2→value190 W32发布→同值返回，BDF0 W16清bit1→value190 W32零顺序保。唯一PlayerRuntimeSlots布局/跨字段W32观察、已纳管BEC0 W8→W32取样及BE50明文发送/状态尾、两父全部原正文与现接口保。十三既有真F新语义1620-1632/十一adapted两equivalent；LOOP42→46四实际成员，BATTLE253→262九实际成员，四局部I-S各29真实来源，十三NOP区107B只用途。不造新F/helper/owner/影子状态/范围排除，不加异常/保护/拒绝/补零/钳制/限长或回绕；普通旧值同位，不称数值/并发故障。网络原格式明文、内部LegacyCryptInt与音频暂停保持；全两父/资料生产消费与全部正常owner-alias寿命、SDK-ABI/链接/画面/明文互通及运行未验。",
-        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验"
+        "BUS01场景9重绘51D640、六槽复位456D30、清屏4512C0及重建466B80四完整根200条699B/五页、23directcall/11indirectcall/十jump/四RET；四现有正文、四cpp/声明/所有提供者完整保持，源码改动和新增实现0。原两计数W16/W32、BYTE暂存恢复/两种queueMode、独立tick、低S8重试/原错误消息/继续执行、场景10/9/其他与公共鼠标W32清理保持；原文28B/九局部消费/四尾53B用途归档。已批准DX原生替换承接CPU Back-Temp/整面32位清屏，不扩HRESULT/COM逐次验收；仅四域S，不新增I/关闭完整门禁，全部父/callee/寿命/文件像素/机器ABI/互通及运行未验",
+        "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -3793,7 +3812,8 @@
         "doc/cg2d_battle_command_init_packet_producer_sampling_spec.md#battle-command-init-packet-producer-sampling-source-state",
         "doc/cg2d_battle_entry_result_producer_sampling_spec.md#battle-entry-result-producer-sampling-source-state",
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-source-state",
-        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state"
+        "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
       ]
     },
     {
@@ -47389,6 +47409,406 @@
       "observation": "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
       "expected": "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
       "actual": "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。"
+    },
+    {
+      "id": "E-BACK-TEMP-FULL-SOURCE-FUNC-LOOP-I-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVF01完整准备18条49B、六窗84条418B/四父、九共享复制窗200条712B含邻指令和重叠；GQD01完整根准确复用/三零生产窗口58条219B和15B用途。I/S只两cpp两hpp四片段完整W32写入/返回、实际整源复制及原native正常失败/接口/用途，完整像素等门禁不外推。doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-back-temp-full-source-snapshot-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/WorldUpdate.cpp",
+        "src/render/DrawAllQueued.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/world/MapSceneDrawing.cpp",
+        "src/platform/RendererRebuild.cpp",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_ripple_full_strip_production_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+          "decision_ref": "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "expected": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "actual": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+    },
+    {
+      "id": "E-BACK-TEMP-FULL-SOURCE-FUNC-LOOP-S-20261008",
+      "feature_id": "FUNC-LOOP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVF01完整准备18条49B、六窗84条418B/四父、九共享复制窗200条712B含邻指令和重叠；GQD01完整根准确复用/三零生产窗口58条219B和15B用途。I/S只两cpp两hpp四片段完整W32写入/返回、实际整源复制及原native正常失败/接口/用途，完整像素等门禁不外推。doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-back-temp-full-source-snapshot-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/WorldUpdate.cpp",
+        "src/render/DrawAllQueued.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/world/MapSceneDrawing.cpp",
+        "src/platform/RendererRebuild.cpp",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_ripple_full_strip_production_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+          "decision_ref": "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "expected": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "actual": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+    },
+    {
+      "id": "E-BACK-TEMP-FULL-SOURCE-FUNC-RENDER-I-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVF01完整准备18条49B、六窗84条418B/四父、九共享复制窗200条712B含邻指令和重叠；GQD01完整根准确复用/三零生产窗口58条219B和15B用途。I/S只两cpp两hpp四片段完整W32写入/返回、实际整源复制及原native正常失败/接口/用途，完整像素等门禁不外推。doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-back-temp-full-source-snapshot-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/WorldUpdate.cpp",
+        "src/render/DrawAllQueued.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/world/MapSceneDrawing.cpp",
+        "src/platform/RendererRebuild.cpp",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_ripple_full_strip_production_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+          "decision_ref": "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "expected": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "actual": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+    },
+    {
+      "id": "E-BACK-TEMP-FULL-SOURCE-FUNC-RENDER-S-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVF01完整准备18条49B、六窗84条418B/四父、九共享复制窗200条712B含邻指令和重叠；GQD01完整根准确复用/三零生产窗口58条219B和15B用途。I/S只两cpp两hpp四片段完整W32写入/返回、实际整源复制及原native正常失败/接口/用途，完整像素等门禁不外推。doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-back-temp-full-source-snapshot-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/WorldUpdate.cpp",
+        "src/render/DrawAllQueued.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/world/MapSceneDrawing.cpp",
+        "src/platform/RendererRebuild.cpp",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_ripple_full_strip_production_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+          "decision_ref": "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "expected": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "actual": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+    },
+    {
+      "id": "E-BACK-TEMP-FULL-SOURCE-FUNC-MAP-I-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVF01完整准备18条49B、六窗84条418B/四父、九共享复制窗200条712B含邻指令和重叠；GQD01完整根准确复用/三零生产窗口58条219B和15B用途。I/S只两cpp两hpp四片段完整W32写入/返回、实际整源复制及原native正常失败/接口/用途，完整像素等门禁不外推。doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-back-temp-full-source-snapshot-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/WorldUpdate.cpp",
+        "src/render/DrawAllQueued.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/world/MapSceneDrawing.cpp",
+        "src/platform/RendererRebuild.cpp",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_ripple_full_strip_production_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+          "decision_ref": "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "expected": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "actual": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+    },
+    {
+      "id": "E-BACK-TEMP-FULL-SOURCE-FUNC-MAP-S-20261008",
+      "feature_id": "FUNC-MAP",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVF01完整准备18条49B、六窗84条418B/四父、九共享复制窗200条712B含邻指令和重叠；GQD01完整根准确复用/三零生产窗口58条219B和15B用途。I/S只两cpp两hpp四片段完整W32写入/返回、实际整源复制及原native正常失败/接口/用途，完整像素等门禁不外推。doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-back-temp-full-source-snapshot-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/WorldUpdate.cpp",
+        "src/render/DrawAllQueued.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/world/MapSceneDrawing.cpp",
+        "src/platform/RendererRebuild.cpp",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_ripple_full_strip_production_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+          "decision_ref": "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "expected": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "actual": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+    },
+    {
+      "id": "E-BACK-TEMP-FULL-SOURCE-FUNC-BATTLE-I-20261008",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "I",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVF01完整准备18条49B、六窗84条418B/四父、九共享复制窗200条712B含邻指令和重叠；GQD01完整根准确复用/三零生产窗口58条219B和15B用途。I/S只两cpp两hpp四片段完整W32写入/返回、实际整源复制及原native正常失败/接口/用途，完整像素等门禁不外推。doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-back-temp-full-source-snapshot-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/WorldUpdate.cpp",
+        "src/render/DrawAllQueued.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/world/MapSceneDrawing.cpp",
+        "src/platform/RendererRebuild.cpp",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_ripple_full_strip_production_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+          "decision_ref": "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "expected": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "actual": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
+    },
+    {
+      "id": "E-BACK-TEMP-FULL-SOURCE-FUNC-BATTLE-S-20261008",
+      "feature_id": "FUNC-BATTLE",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVF01完整准备18条49B、六窗84条418B/四父、九共享复制窗200条712B含邻指令和重叠；GQD01完整根准确复用/三零生产窗口58条219B和15B用途。I/S只两cpp两hpp四片段完整W32写入/返回、实际整源复制及原native正常失败/接口/用途，完整像素等门禁不外推。doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-back-temp-full-source-snapshot-20261008",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json",
+        "src/world/SceneState.cpp",
+        "src/world/WorldUpdateDependencies.hpp",
+        "src/render/SurfaceState.cpp",
+        "include/cg/render/SurfaceState.hpp",
+        "src/world/WorldUpdate.cpp",
+        "src/render/DrawAllQueued.cpp",
+        "src/render/GraphicPendingQueue.cpp",
+        "src/world/MapSceneDrawing.cpp",
+        "src/platform/RendererRebuild.cpp",
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_texture_rendering.md",
+        "doc/cg2d_scene_state.md",
+        "doc/cg2d_main_loop.md",
+        "doc/cg2d_semantic_function_mappings.md",
+        "doc/cg2d_traceability_acceptance_spec.md",
+        "plan/cg2d_full_reconstruction_progress.md",
+        "doc/cg2d_semantic_function_mappings.json",
+        "doc/cg2d_ida_inventory.json",
+        "plan/cg2d_spec_closure_checklist.md",
+        "plan/cg2d_acceptance_registry.json",
+        "plan/cg2d_traceability_snapshot.json",
+        "plan/cg2d_measurement_dashboard.md",
+        "doc/cg2d_ripple_full_strip_production_spec.md"
+      ],
+      "differences": [
+        {
+          "description": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+          "decision_ref": "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "expected": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "actual": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验"
     }
   ],
   "task_acceptance": [
@@ -48550,7 +48970,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
-        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state"
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
       ]
     },
     {
@@ -48731,7 +49152,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
-        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state"
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
       ]
     },
     {
@@ -49116,7 +49538,8 @@
         "doc/cg2d_quadrant_transition_blit_baseline_spec.md#quadrant-transition-blit-source-state",
         "doc/cg2d_scanline_trigger_sampling_spec.md#scanline-trigger-source-state",
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
-        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state"
+        "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state"
       ]
     },
     {
@@ -59853,6 +60276,19 @@
         "doc/cg2d_fx_trigger_sampling_evidence.json"
       ],
       "boundary": "原682条2832B/十页；51E0D3完整W32触发持样早于四S32 RECT。已有根同一个prefix模式恢复先持样/后矩形及同持样判定，原零写回/phase=-1及另一分支fresh phase、完整余体/九模式/owner和低S16复制/完成发布/正常返回保持；控制父九实际mode0–8/value/payload与结果透传保。I-S仅取样实修/接口及用途，完整数值/精度/像素/其余callee/alias寿命/ABI运行未验"
+    },
+    {
+      "inventory_id": "F:0011D750",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json"
+      ],
+      "boundary": "原18条49B：先整Back→Temp复制，忽略结果后一次RAND(0,35)，仅AL&FE、完整EAX写FF48E4并原位返回。现恢复完整W32写入/返回，六原调用点及六源调用均弃值；共享九处NULL源RECT请求恢复实际Back整面/无缩放无色键和原native正常资源失败，失败后RNG控制流保。I-S限定准备/整源复制合同、接口接线与15B用途，不代完整上层父/像素/其它callee/owner-alias寿命/机器ABI链接运行验收"
     }
   ],
   "auxiliary_dispositions": [
@@ -84484,6 +84920,129 @@
           "destination_register": 0,
           "source_register": 0,
           "source_displacement": 0,
+          "text": "align 10h"
+        }
+      ]
+    },
+    {
+      "id": "X:0011D781-0011D790",
+      "disposition": "mapped",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json"
+      ],
+      "reason": "BVF01原51D781-51D790共15B逐字节90/NN_NOP，无入向/后真入口；仅对齐用途，不新增函数/排除",
+      "classification": "alignment_nop",
+      "original_size": 15,
+      "original_bytes": "909090909090909090909090909090",
+      "original_decode": [
+        {
+          "ea": "0x51d781",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d782",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d783",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d784",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d785",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d786",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d787",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d788",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d789",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d78a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d78b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d78c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d78d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d78e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x51d78f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
           "text": "align 10h"
         }
       ]

@@ -630,10 +630,15 @@ bool CopyBackToTemp() noexcept
     if (gCpuBackSurface == nullptr || gCpuTempSurface == nullptr) {
         return false;
     }
-    const SDL_Rect rectangle {0, 0, kCpuSurfaceWidth, kCpuSurfaceHeight};
-    return BlitWithoutSourceColorKey(
-        gCpuBackSurface->blitSurface.get(), rectangle,
-        GetTextureSdlSurface(gCpuTempSurface), rectangle);
+    SDL_Surface* const source = gCpuBackSurface->blitSurface.get();
+    SDL_Surface* const destination = GetTextureSdlSurface(gCpuTempSurface);
+    // 原空源 RECT 复制完整 Back；BltFast 不裁剪，目标无法容纳时失败。
+    if (source == nullptr || destination == nullptr
+        || source->w > destination->w || source->h > destination->h) {
+        return false;
+    }
+    const SDL_Rect rectangle {0, 0, source->w, source->h};
+    return BlitWithoutSourceColorKey(source, rectangle, destination, rectangle);
 }
 
 TextureSurface* BorrowCpuTempSurface() noexcept

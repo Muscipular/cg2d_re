@@ -68,8 +68,8 @@ std::int32_t DrawColorAutoMap_44FEB0(
     std::int32_t x, std::int32_t y, const std::uint32_t* source,
     std::int32_t width, std::int32_t height);
 
-// 原 Back→Temp 的 BltFast：只复制左上 640x480，不拉伸或使用色键。
-// 源或目标尚未创建时不复制。
+// 原 Back→Temp 的 BltFast：空源 RECT 复制完整 Back，不拉伸或使用色键。
+// 源/目标尚未创建，或目标无法容纳完整源面时，返回原正常资源失败。
 bool CopyBackToTemp() noexcept;
 
 // 非拥有原生 T*；仅同步借用同一 Temp，不延长其生命周期。

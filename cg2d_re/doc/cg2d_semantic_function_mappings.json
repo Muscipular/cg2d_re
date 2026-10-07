@@ -199060,6 +199060,129 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x51D750",
+      "inventory_id": "F:0011D750",
+      "original_role": "原转场准备完整随机状态写入/返回及整Back快照",
+      "original_end_exclusive": "0x51d781",
+      "original_chunks": [
+        {
+          "start": "0x51d750",
+          "end_exclusive": "0x51d781"
+        }
+      ],
+      "instruction_count": 18,
+      "status": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "sources": [
+        {
+          "path": "src/world/SceneState.cpp",
+          "symbols": [
+            "Sub_51D750"
+          ],
+          "relationship": "原18条49B：先整Back→Temp复制，忽略结果后一次RAND(0,35)，仅AL&FE、完整EAX写FF48E4并原位返回。现恢复完整W32写入/返回，六原调用点及六源调用均弃值；共享九处NULL源RECT请求恢复实际Back整面/无缩放无色键和原native正常资源失败，失败后RNG控制流保。I-S限定准备/整源复制合同、接口接线与15B用途，不代完整上层父/像素/其它callee/owner-alias寿命/机器ABI链接运行验收"
+        },
+        {
+          "path": "src/world/WorldUpdateDependencies.hpp",
+          "symbols": [
+            "Sub_51D750"
+          ],
+          "relationship": "原完整EAX位型恢复为std::uint32_t私有声明；六现消费仍弃值，不以IDA char原型窄化"
+        },
+        {
+          "path": "src/render/SurfaceState.cpp",
+          "symbols": [
+            "CopyBackToTemp"
+          ],
+          "relationship": "关联既有九共用复制请求：实际Back整源面/原native正常资源失败，不部分裁剪或新增处理器"
+        },
+        {
+          "path": "include/cg/render/SurfaceState.hpp",
+          "symbols": [
+            "CopyBackToTemp"
+          ],
+          "relationship": "既有bool接口不改；公开说明纠正固定640x480为NULL源RECT整面合同"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+        "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+        "doc/cg2d_back_temp_full_source_snapshot_evidence.json"
+      ],
+      "boundary": "原18条49B：先整Back→Temp复制，忽略结果后一次RAND(0,35)，仅AL&FE、完整EAX写FF48E4并原位返回。现恢复完整W32写入/返回，六原调用点及六源调用均弃值；共享九处NULL源RECT请求恢复实际Back整面/无缩放无色键和原native正常资源失败，失败后RNG控制流保。I-S限定准备/整源复制合同、接口接线与15B用途，不代完整上层父/像素/其它callee/owner-alias寿命/机器ABI链接运行验收",
+      "verification_level": "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
+      "back_temp_full_source_snapshot": {
+        "spec_id": "BVF01",
+        "evidence_refs": [
+          "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
+          "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
+          "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-acceptance",
+          "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
+          "doc/cg2d_back_temp_full_source_snapshot_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 18,
+        "original_code_bytes": 49,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 0,
+        "original_return_count": 1,
+        "original_inbound_reference_count": 6,
+        "already_existing_root_kept": true,
+        "source_body_changed": true,
+        "source_cpp_file_count": 2,
+        "source_header_file_count": 2,
+        "source_patch_count": 4,
+        "root_specific_source_patch_count": 2,
+        "associated_copy_and_comment_patch_count": 2,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "new_I_claimed": true,
+        "original_caller_window_count": 6,
+        "original_caller_window_instruction_count": 84,
+        "original_caller_window_code_bytes": 418,
+        "original_parent_count": 4,
+        "original_shared_copy_window_count": 9,
+        "original_shared_copy_window_instruction_count": 200,
+        "original_shared_copy_window_code_bytes": 712,
+        "caller_window_totals_include_neighbors_and_overlap": true,
+        "existing_GQD01_original_root_reused": true,
+        "existing_queue_original_instruction_count": 769,
+        "existing_queue_original_code_bytes": 2658,
+        "existing_scene9_original_root_kept": true,
+        "existing_scene9_semantic_index": 1719,
+        "existing_scene9_original_instruction_count": 40,
+        "existing_scene9_original_code_bytes": 163,
+        "original_zero_production_window_count": 3,
+        "original_zero_production_instruction_count": 58,
+        "original_zero_production_code_bytes": 219,
+        "original_unassigned_range_count": 1,
+        "original_unassigned_total_bytes": 15,
+        "original_NN_NOP_bytes": 15,
+        "original_RNG_count_and_range_retained": true,
+        "copy_failure_followed_by_RNG_retained": true,
+        "complete_W32_write_and_return_restored": true,
+        "six_existing_return_discarding_calls_kept": true,
+        "nine_shared_full_source_requests_retained": true,
+        "full_source_rectangle_restored": true,
+        "original_native_resource_failure_scope_retained": true,
+        "partial_clipping_not_introduced": true,
+        "existing_no_source_color_key_and_no_scaling_retained": true,
+        "existing_owners_and_consumers_kept": true,
+        "static_scope_only_preparation_full_source_copy_interfaces_and_range_usage": true,
+        "full_pixels_verified": false,
+        "full_inbound_parents_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "normal_failure_runtime_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

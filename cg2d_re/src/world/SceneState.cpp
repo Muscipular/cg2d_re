@@ -7051,14 +7051,15 @@ std::uint32_t Sub_51D640()
 }
 
 // 原 [0x51D750,0x51D781)：复制结果不影响后续随机调用和完整 W32 写入。
-std::int8_t Sub_51D750()
+std::uint32_t Sub_51D750()
 {
     static_cast<void>(render::CopyBackToTemp());
     const std::uint32_t bits = static_cast<std::uint32_t>(
         platform::RandomRange_46FAF0(0, 35));
     const std::uint8_t low = static_cast<std::uint8_t>(bits) & 0xFEu;
-    render::gValueFF48E4 = (bits & 0xFFFFFF00u) | low;
-    return static_cast<std::int8_t>(low);
+    const std::uint32_t result = (bits & 0xFFFFFF00u) | low;
+    render::gValueFF48E4 = result;
+    return result;
 }
 
 // 原 [0x51D6F0,0x51D743)：只消费 -1 与非负回复，其他负值保持原状态。

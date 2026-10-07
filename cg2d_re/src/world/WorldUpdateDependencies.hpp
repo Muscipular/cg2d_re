@@ -1233,7 +1233,7 @@ std::int8_t Sub_51BE50(std::int32_t requested); // 原 51BE50：去重、klF 发
 void* __cdecl Sub_51D5B0();               // 原 [0x51D5B0,0x51D63A)；非空链尾返指针，空链 EAX 未定义；46ADA0 透传位型。
 void __cdecl Sub_4464D0();                // 原 [0x4464D0,0x446604)，场景对象/Yobi 清理。
 void Sub_446640(); // 普通场景全1000槽补建；四类名称门槛与附加标志按原序处理。
-std::int8_t Sub_51D750();                  // 原 0x51D750，IDA 原型 char()。
+std::uint32_t Sub_51D750();              // 原 0x51D750；完整 EAX 写入/返回，六调用点均弃值。
 // 原 [51D640,51D6E3)：场景地图画入 Back 后复制到 Temp，返回同次 tick。
 std::uint32_t Sub_51D640();
 // 原 59F9F8，战斗背景 W32 图号；重建与战斗绘制/协议生产共用，非地址。

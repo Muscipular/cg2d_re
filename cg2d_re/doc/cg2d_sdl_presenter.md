@@ -2024,3 +2024,15 @@ FadeIn还有最终直接调用。上述是源码/指定接线静态，完整父/
 集中静态已通过：两完整根812条2960B/13页、三caller134条415B/原12B/两16B用途，三个源仅四具名片段；完整语义/登记簿及派生快照只有具名模型差异，七对应文档/三个任务变更和十七文件UTF8无BOM/LF、四限定证据各25真实来源均通过。检查脚本中的比较参数空格和旧字段层级已纠正后通过，不留下失败模型。
 
 文本汇总与Check均退出0；实际语义1747/有效1740、合同1858（50.49%）、F888/E1043/R7已审450余2611、LOOP160/RENDER61。pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU过宽通过仍fail；仅本步开发修复/静态证据通过，完整所有父/callee/COM/owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。
+
+## BUZ01矩形填充的原逻辑裁剪尺寸（2026-10-08）
+
+[本步原基线](cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline)、[裁决](cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision)与[证据](cg2d_fill_rectangle_dimension_sampling_evidence.json)恢复44C9A0既有填充路径尺寸阶段，不新增填色器。width入口保存供left/right比较，right超界才fresh取宽窄化S16；top初始门禁短路读高，top负值裁剪后fresh height用于bottom比较/低W16发布，初值640/480不能取代同源owner读点。
+
+完整162条625B/三页与原正确19条57B caller复用，一cpp一片段/零头，四S16、两Has/+BC、混合/共享stage解绑null/真实Draw与完整返回保，既有Back物理范围/设备/raster/helpers不改。LOOP163/RENDER64限定I-S；只静态，完整像素/呈现/COM之外业务寿命/机器ABI/运行未验。
+
+### BUZ01 当前修复限定静态结果
+
+集中静态已通过：完整162条625B/三页、BOZ01既有19条57B原caller准确复用和15B NN_NOP用途；整cpp仅一个具名片段，正确caller整源/四其他函数及原混合解绑/返回尾保持。完整语义/登记簿与派生快照只有具名模型差异，七对应文档/三任务与十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1750/有效1743、合同1861（50.57%）、F891/E1050、R7已审453余2608、LOOP163/RENDER64。既有1412/BOZ证据及四旧BUU错误证据fail保持，pending18/未知ECX、closed11/原差队列与全部闭包保持；只有本步尺寸取样修复/静态对照通过，完整父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

@@ -42,3 +42,15 @@ U08/U09/G01/G02/R01/R04/V04仅进展和引用，仍open；总分发及所有父/
 交付两源码正文、独立原证据/SPEC、两机器映射/成员与分类、四局部static I/S及任务/唯一进度/看板对照。命名快照：`cg2d-re-queued-rectangle-consumption-sampling-20261006`；13文件精确提交，用户既有六项排除。只做必要静态和measure/-Check，未构建、测试、运行或计算摘要。
 
 后续沿实际描边/着色生产—同一record—排序层—case2/3—Back/调色板/纹理消费者及dirty重建门禁推进真实owner/画面链；不借本步重验未变算法。网络兼容原格式只明文、内存CryptInt保持、音频暂停，整体SPEC目标不缩。
+
+## BOZ01正确调用消费与BUZ01下游尺寸实修（2026-10-08）
+
+[本步原基线](cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline)、[裁决](cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision)与[证据](cg2d_fill_rectangle_dimension_sampling_evidence.json)只修44C9A0逻辑宽高阶段：保存宽作比较/right超界fresh低W16、初始top短路读高/top裁剪后fresh高作bottom比较与发布。BOZ01原FillDirtyArea19条57B/同record描述符及四次W16、原完整W32等887601AE才dirty=1已有正确证据，准确复用并整源保持；既有1412/BOZ限定I-S记录全文保。
+
+一cpp一片段，私有四S16接口、色/mix、两查询/+BC、blend→共享stage解绑null→Draw与真实返回不改。不把上层尺寸错归为SDK豁免，原162条625B/三页/15B用途新纳管1749；完整父/callee/像素/owner-alias寿命/ABI/运行未验。
+
+### BUZ01 当前修复限定静态结果
+
+集中静态已通过：完整162条625B/三页、BOZ01既有19条57B原caller准确复用和15B NN_NOP用途；整cpp仅一个具名片段，正确caller整源/四其他函数及原混合解绑/返回尾保持。完整语义/登记簿与派生快照只有具名模型差异，七对应文档/三任务与十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1750/有效1743、合同1861（50.57%）、F891/E1050、R7已审453余2608、LOOP163/RENDER64。既有1412/BOZ证据及四旧BUU错误证据fail保持，pending18/未知ECX、closed11/原差队列与全部闭包保持；只有本步尺寸取样修复/静态对照通过，完整父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

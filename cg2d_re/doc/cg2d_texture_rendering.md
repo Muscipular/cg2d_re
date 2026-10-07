@@ -557,10 +557,13 @@ caller `520AEF`。沿工程委托复用已有四顶点 native 提交，不另建
    低 W8 mixMode；返回保留完整 W32，现有 dirty 包装只认
    `0x887601AE`。不将返回改为 bool。
 2. 先调用 `HasLegacy3DDevice_44B610`，零立即返回 0；
-   然后依序检查 left>=640、right<=0、top>=480、bottom<=0。
+   随后保存逻辑宽，依序检查left>=保存width、right<=0、
+   top>=此阶段读取的逻辑高、bottom<=0；640/480只是初始化值。
    只按原条件拒绝，不新增 left>=right 或 top>=bottom 门禁。
-3. left<0 改零，right>640 改 640；top<0 改零，
-   bottom>480 改 480，仍承接 S16 局部。随后再次查询接口，
+3. left<0改零，right>入口保存width才fresh读逻辑宽低W16写right；
+   top<0改零后fresh保存逻辑高，bottom>该height才将其低W16写bottom。
+   两者仍承接S16局部，不能统一用固定640/480或同一次宽高取样。
+   随后再次查询接口，
    非零才读 renderer +BC；任一门禁为零返回 0。
 4. 将裁剪后的四角按左上、右上、右下、左下提交，
    每点 z=0、rhw=1、color 相同，全部 UV=0。
@@ -602,3 +605,15 @@ GraphicPendingQueue 删除旧局部候选声明并包含该头。
 集中静态已通过：两完整根526条1769B/八页、四局部72条252B（两绘制窗准确复用BUX01）/两23B用途，两正确正文及六相关生产/构析源与HEAD保持；完整语义/登记簿和派生快照只有具名模型差异，七对应文档/四任务和十四文件UTF8无BOM/LF、四锚点/三限定S各25真实来源通过。源码/头文件改动0、无新I。
 
 文本汇总与Check均退出0；实际语义1749/有效1742、合同1860（50.54%）、F890/E1046、R7已审452余2609、LOOP162/RENDER63/RESOURCE43。旧未接线误述已纠正；pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU错误通过仍fail。完整所有父/callee、owner/alias寿命、机器ABI/链接/像素/运行与R8未验，整体目标继续。
+
+## 填充入口的逻辑尺寸取样实修（BUZ01，2026-10-08）
+
+[本步原基线](cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline)、[裁决](cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision)与[证据](cg2d_fill_rectangle_dimension_sampling_evidence.json)纠正早期FillRect固定640/480描述。完整44C9A0原162条625B/三页，两Has与六indirect/15跳转/两返回，唯一caller原19条57B复用BOZ01；尾15B实际NN_NOP用途。
+
+一cpp一个片段恢复：第一次Has后保存width用于left/right比较，right超界才fresh宽低W16发布；初始top门禁按短路读高，top负值裁剪后fresh保存高用于bottom比较及低W16发布。四S16坐标/两Has/+BC、顶点/原混合/共享stage解绑null/Draw/完整W32与原caller busy消费保持，零头/新helper/owner，其他函数全文保。仅本步局部静态，完整像素/所有父/寿命/ABI/运行未验。
+
+### BUZ01 当前修复限定静态结果
+
+集中静态已通过：完整162条625B/三页、BOZ01既有19条57B原caller准确复用和15B NN_NOP用途；整cpp仅一个具名片段，正确caller整源/四其他函数及原混合解绑/返回尾保持。完整语义/登记簿与派生快照只有具名模型差异，七对应文档/三任务与十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1750/有效1743、合同1861（50.57%）、F891/E1050、R7已审453余2608、LOOP163/RENDER64。既有1412/BOZ证据及四旧BUU错误证据fail保持，pending18/未知ECX、closed11/原差队列与全部闭包保持；只有本步尺寸取样修复/静态对照通过，完整父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

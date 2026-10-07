@@ -1812,3 +1812,15 @@ LOOP158/INPUT51/RENDER59/STARTUP118，预期语义1745/有效1738、文档1856�
 集中静态已通过：两完整根526条1769B/八页、四局部72条252B（两绘制窗准确复用BUX01）/两23B用途，两正确正文及六相关生产/构析源与HEAD保持；完整语义/登记簿和派生快照只有具名模型差异，七对应文档/四任务和十四文件UTF8无BOM/LF、四锚点/三限定S各25真实来源通过。源码/头文件改动0、无新I。
 
 文本汇总与Check均退出0；实际语义1749/有效1742、合同1860（50.54%）、F890/E1046、R7已审452余2609、LOOP162/RENDER63/RESOURCE43。旧未接线误述已纠正；pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU错误通过仍fail。完整所有父/callee、owner/alias寿命、机器ABI/链接/像素/运行与R8未验，整体目标继续。
+
+## BUZ01填充取样差异的限定开发验收（2026-10-08）
+
+[本步原基线](cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline)、[裁决](cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision)与[证据](cg2d_fill_rectangle_dimension_sampling_evidence.json)具名原162条625B/三页、19条57B BOZ01调用证据复用和15B实际NN_NOP用途。先SPEC后一cpp一片段，恢复原保存宽/条件fresh低W16与高两阶段；正确四S16、两Has/+BC、混合/共享stage解绑null/完整Draw返回和原caller/四其他函数全文保持。已批SDK机制不豁免这些上层取样。
+
+一个新F adapted与一个X用途，LOOP163/RENDER64四限定I-S各25来源，G02/R04/V04只current/引用仍open；预期语义1750/有效1743、合同1861/50.57%、F891/E1050、R7已审453余2608。既有1412/BOZ限定证据和旧四BUU fail保持，完整分母/闭包不变；完整所有父/callee、owner-alias寿命、像素/ABI/链接/正常失败/运行及R8继续。
+
+### BUZ01 当前修复限定静态结果
+
+集中静态已通过：完整162条625B/三页、BOZ01既有19条57B原caller准确复用和15B NN_NOP用途；整cpp仅一个具名片段，正确caller整源/四其他函数及原混合解绑/返回尾保持。完整语义/登记簿与派生快照只有具名模型差异，七对应文档/三任务与十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1750/有效1743、合同1861（50.57%）、F891/E1050、R7已审453余2608、LOOP163/RENDER64。既有1412/BOZ证据及四旧BUU错误证据fail保持，pending18/未知ECX、closed11/原差队列与全部闭包保持；只有本步尺寸取样修复/静态对照通过，完整父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

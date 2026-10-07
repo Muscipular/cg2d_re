@@ -1,0 +1,1860 @@
+{
+  "schema_version": 1,
+  "spec_id": "BUZ01",
+  "recorded_on": "2026-10-08",
+  "ida_instance": "ida-17524",
+  "ida_root_file": "cg2d.exe",
+  "implementation_static_scope": "BUZ01填充根完整162条625B/三页、两direct/六indirect call/15跳转/两返回、一入向一父；caller19条57B原证准确复用BOZ01，一15B NN_NOP用途。原逻辑宽高保存/条件fresh低W16发布阶段恢复，一cpp一个具名片段、零头/新helper/owner；四S16坐标/两接口检查/原混合-共享stage解绑null-Draw/完整W32与busy消费保。新F adapted，LOOP/RENDER各限定I-S，完整所有父/callee/owner-alias/机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+  "evidence_refs": [
+    "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline",
+    "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision",
+    "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-acceptance",
+    "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
+    "doc/cg2d_fill_rectangle_dimension_sampling_evidence.json"
+  ],
+  "artifacts": [
+    "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline",
+    "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision",
+    "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-acceptance",
+    "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
+    "doc/cg2d_fill_rectangle_dimension_sampling_evidence.json",
+    "src/render/LegacyTextureDrawing.cpp",
+    "src/render/LegacyTextureDrawing.hpp",
+    "src/render/GraphicPendingQueue.cpp",
+    "include/cg/render/GraphicPendingQueue.hpp",
+    "src/render/RendererResources.cpp",
+    "include/cg/render/RendererResources.hpp",
+    "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json",
+    "doc/cg2d_queued_rectangle_consumption_sampling_spec.md",
+    "doc/cg2d_texture_rendering.md",
+    "doc/cg2d_sdl_presenter.md",
+    "doc/cg2d_main_loop.md",
+    "doc/cg2d_graphic_dx_cache.md",
+    "doc/cg2d_semantic_function_mappings.md",
+    "doc/cg2d_semantic_function_mappings.json",
+    "doc/cg2d_traceability_acceptance_spec.md",
+    "doc/cg2d_ida_inventory.json",
+    "plan/cg2d_spec_closure_checklist.md",
+    "plan/cg2d_full_reconstruction_progress.md",
+    "plan/cg2d_acceptance_registry.json",
+    "plan/cg2d_traceability_snapshot.json"
+  ],
+  "original_functions": [
+    {
+      "start": "0x44c9a0",
+      "end_exclusive": "0x44cc11",
+      "count": 162,
+      "chunks": [
+        [
+          "0x44c9a0",
+          "0x44cc11"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x520ad0",
+          "text": "call    Renderer__FillRect",
+          "from": "0x520aef"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x44c9a0",
+          "size": 3,
+          "bytes": "83ec74",
+          "mnemonic": "sub",
+          "text": "sub     esp, 74h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9a3",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9a4",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9a5",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9a6",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9a7",
+          "size": 5,
+          "bytes": "e864ecffff",
+          "mnemonic": "call",
+          "text": "call    hasIDirect3D7",
+          "call_target": "0x44b610"
+        },
+        {
+          "ea": "0x44c9ac",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9ae",
+          "size": 6,
+          "bytes": "0f8453020000",
+          "mnemonic": "jz",
+          "text": "jz      loc_44CC07",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9b4",
+          "size": 7,
+          "bytes": "8bac2488000000",
+          "mnemonic": "mov",
+          "text": "mov     ebp, [esp+84h+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9bb",
+          "size": 6,
+          "bytes": "8b0d60736200",
+          "mnemonic": "mov",
+          "text": "mov     ecx, gCRenderer",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9c1",
+          "size": 3,
+          "bytes": "0fbfd5",
+          "mnemonic": "movsx",
+          "text": "movsx   edx, bp",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9c4",
+          "size": 6,
+          "bytes": "8b8194000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [ecx+94h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9ca",
+          "size": 2,
+          "bytes": "3bd0",
+          "mnemonic": "cmp",
+          "text": "cmp     edx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9cc",
+          "size": 6,
+          "bytes": "0f8d35020000",
+          "mnemonic": "jge",
+          "text": "jge     loc_44CC07",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9d2",
+          "size": 7,
+          "bytes": "8b9c248c000000",
+          "mnemonic": "mov",
+          "text": "mov     ebx, [esp+84h+arg_4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9d9",
+          "size": 3,
+          "bytes": "6685db",
+          "mnemonic": "test",
+          "text": "test    bx, bx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9dc",
+          "size": 6,
+          "bytes": "0f8e25020000",
+          "mnemonic": "jle",
+          "text": "jle     loc_44CC07",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9e2",
+          "size": 7,
+          "bytes": "8bbc2490000000",
+          "mnemonic": "mov",
+          "text": "mov     edi, [esp+84h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9e9",
+          "size": 6,
+          "bytes": "8b9198000000",
+          "mnemonic": "mov",
+          "text": "mov     edx, [ecx+98h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9ef",
+          "size": 3,
+          "bytes": "0fbff7",
+          "mnemonic": "movsx",
+          "text": "movsx   esi, di",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9f2",
+          "size": 2,
+          "bytes": "3bf2",
+          "mnemonic": "cmp",
+          "text": "cmp     esi, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9f4",
+          "size": 6,
+          "bytes": "0f8d0d020000",
+          "mnemonic": "jge",
+          "text": "jge     loc_44CC07",
+          "call_target": null
+        },
+        {
+          "ea": "0x44c9fa",
+          "size": 7,
+          "bytes": "8bb42494000000",
+          "mnemonic": "mov",
+          "text": "mov     esi, [esp+84h+arg_C]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca01",
+          "size": 3,
+          "bytes": "6685f6",
+          "mnemonic": "test",
+          "text": "test    si, si",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca04",
+          "size": 6,
+          "bytes": "0f8efd010000",
+          "mnemonic": "jle",
+          "text": "jle     loc_44CC07",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca0a",
+          "size": 3,
+          "bytes": "6685ed",
+          "mnemonic": "test",
+          "text": "test    bp, bp",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca0d",
+          "size": 2,
+          "bytes": "7d02",
+          "mnemonic": "jge",
+          "text": "jge     short loc_44CA11",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca0f",
+          "size": 2,
+          "bytes": "33ed",
+          "mnemonic": "xor",
+          "text": "xor     ebp, ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca11",
+          "size": 3,
+          "bytes": "0fbfd3",
+          "mnemonic": "movsx",
+          "text": "movsx   edx, bx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca14",
+          "size": 2,
+          "bytes": "3bd0",
+          "mnemonic": "cmp",
+          "text": "cmp     edx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca16",
+          "size": 2,
+          "bytes": "7e07",
+          "mnemonic": "jle",
+          "text": "jle     short loc_44CA1F",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca18",
+          "size": 7,
+          "bytes": "668b9994000000",
+          "mnemonic": "mov",
+          "text": "mov     bx, [ecx+94h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca1f",
+          "size": 3,
+          "bytes": "6685ff",
+          "mnemonic": "test",
+          "text": "test    di, di",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca22",
+          "size": 2,
+          "bytes": "7d02",
+          "mnemonic": "jge",
+          "text": "jge     short loc_44CA26",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca24",
+          "size": 2,
+          "bytes": "33ff",
+          "mnemonic": "xor",
+          "text": "xor     edi, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca26",
+          "size": 6,
+          "bytes": "8b9198000000",
+          "mnemonic": "mov",
+          "text": "mov     edx, [ecx+98h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca2c",
+          "size": 3,
+          "bytes": "0fbfc6",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, si",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca2f",
+          "size": 2,
+          "bytes": "3bc2",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca31",
+          "size": 2,
+          "bytes": "7e03",
+          "mnemonic": "jle",
+          "text": "jle     short loc_44CA36",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca33",
+          "size": 3,
+          "bytes": "668bf2",
+          "mnemonic": "mov",
+          "text": "mov     si, dx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca36",
+          "size": 5,
+          "bytes": "e8d5ebffff",
+          "mnemonic": "call",
+          "text": "call    hasIDirect3D7",
+          "call_target": "0x44b610"
+        },
+        {
+          "ea": "0x44ca3b",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca3d",
+          "size": 6,
+          "bytes": "0f84c4010000",
+          "mnemonic": "jz",
+          "text": "jz      loc_44CC07",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca43",
+          "size": 6,
+          "bytes": "8b0d60736200",
+          "mnemonic": "mov",
+          "text": "mov     ecx, gCRenderer",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca49",
+          "size": 6,
+          "bytes": "8b81bc000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [ecx+0BCh]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca4f",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca51",
+          "size": 6,
+          "bytes": "0f84b0010000",
+          "mnemonic": "jz",
+          "text": "jz      loc_44CC07",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca57",
+          "size": 3,
+          "bytes": "0fbfd5",
+          "mnemonic": "movsx",
+          "text": "movsx   edx, bp",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca5a",
+          "size": 4,
+          "bytes": "89542410",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_74], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca5e",
+          "size": 8,
+          "bytes": "c744241c00000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.z], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca66",
+          "size": 4,
+          "bytes": "db442410",
+          "mnemonic": "fild",
+          "text": "fild    [esp+84h+var_74]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca6a",
+          "size": 3,
+          "bytes": "0fbfc7",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, di",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca6d",
+          "size": 4,
+          "bytes": "d9542414",
+          "mnemonic": "fst",
+          "text": "fst     [esp+84h+var_70.x]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca71",
+          "size": 4,
+          "bytes": "89442410",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_74], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca75",
+          "size": 7,
+          "bytes": "8b842498000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esp+84h+keyColor]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca7c",
+          "size": 4,
+          "bytes": "db442410",
+          "mnemonic": "fild",
+          "text": "fild    [esp+84h+var_74]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca80",
+          "size": 3,
+          "bytes": "0fbfd3",
+          "mnemonic": "movsx",
+          "text": "movsx   edx, bx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca83",
+          "size": 4,
+          "bytes": "d9542418",
+          "mnemonic": "fst",
+          "text": "fst     [esp+84h+var_70.y]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca87",
+          "size": 4,
+          "bytes": "89542410",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_74], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca8b",
+          "size": 8,
+          "bytes": "c74424200000803f",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.rhw], 3F800000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca93",
+          "size": 4,
+          "bytes": "db442410",
+          "mnemonic": "fild",
+          "text": "fild    [esp+84h+var_74]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca97",
+          "size": 4,
+          "bytes": "89442424",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.color], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44ca9b",
+          "size": 8,
+          "bytes": "c744242800000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.u], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44caa3",
+          "size": 8,
+          "bytes": "c744242c00000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.v], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44caab",
+          "size": 8,
+          "bytes": "c744243800000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.z+1Ch], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cab3",
+          "size": 4,
+          "bytes": "d95c2430",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+84h+var_70.x+1Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cab7",
+          "size": 4,
+          "bytes": "8b542430",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+84h+var_70.x+1Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cabb",
+          "size": 8,
+          "bytes": "c744243c0000803f",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.rhw+1Ch], 3F800000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cac3",
+          "size": 4,
+          "bytes": "d95c2434",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+84h+var_70.y+1Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cac7",
+          "size": 4,
+          "bytes": "8954244c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.x+38h], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cacb",
+          "size": 4,
+          "bytes": "89442440",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.color+1Ch], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cacf",
+          "size": 3,
+          "bytes": "0fbfd6",
+          "mnemonic": "movsx",
+          "text": "movsx   edx, si",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cad2",
+          "size": 4,
+          "bytes": "89542410",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_74], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cad6",
+          "size": 8,
+          "bytes": "c744244400000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.u+1Ch], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cade",
+          "size": 4,
+          "bytes": "db442410",
+          "mnemonic": "fild",
+          "text": "fild    [esp+84h+var_74]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cae2",
+          "size": 8,
+          "bytes": "c744244800000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.v+1Ch], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44caea",
+          "size": 8,
+          "bytes": "c744245400000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.z+38h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44caf2",
+          "size": 8,
+          "bytes": "c74424580000803f",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.rhw+38h], 3F800000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cafa",
+          "size": 4,
+          "bytes": "8944245c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.color+38h], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cafe",
+          "size": 4,
+          "bytes": "d95c2450",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+84h+var_70.y+38h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb02",
+          "size": 4,
+          "bytes": "8b542450",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+84h+var_70.y+38h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb06",
+          "size": 8,
+          "bytes": "c744246000000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.u+38h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb0e",
+          "size": 4,
+          "bytes": "d95c2468",
+          "mnemonic": "fstp",
+          "text": "fstp    [esp+84h+var_70.x+54h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb12",
+          "size": 4,
+          "bytes": "8954246c",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.y+54h], edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb16",
+          "size": 7,
+          "bytes": "8a94249c000000",
+          "mnemonic": "mov",
+          "text": "mov     dl, [esp+9Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb1d",
+          "size": 3,
+          "bytes": "80e208",
+          "mnemonic": "and",
+          "text": "and     dl, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb20",
+          "size": 8,
+          "bytes": "c744246400000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.v+38h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb28",
+          "size": 3,
+          "bytes": "80fa08",
+          "mnemonic": "cmp",
+          "text": "cmp     dl, 8",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb2b",
+          "size": 8,
+          "bytes": "c744247000000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.z+54h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb33",
+          "size": 8,
+          "bytes": "c74424740000803f",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.rhw+54h], 3F800000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb3b",
+          "size": 4,
+          "bytes": "89442478",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.color+54h], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb3f",
+          "size": 8,
+          "bytes": "c744247c00000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.u+54h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb47",
+          "size": 11,
+          "bytes": "c784248000000000000000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+84h+var_70.v+54h], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb52",
+          "size": 2,
+          "bytes": "7522",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_44CB76",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb54",
+          "size": 6,
+          "bytes": "8b81a0000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [ecx+0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb5a",
+          "size": 2,
+          "bytes": "6a02",
+          "mnemonic": "push",
+          "text": "push    2",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb5c",
+          "size": 2,
+          "bytes": "6a13",
+          "mnemonic": "push",
+          "text": "push    13h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb5e",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb5f",
+          "size": 2,
+          "bytes": "8b08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb61",
+          "size": 3,
+          "bytes": "ff5150",
+          "mnemonic": "call",
+          "text": "call    dword ptr [ecx+50h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb64",
+          "size": 6,
+          "bytes": "8b1560736200",
+          "mnemonic": "mov",
+          "text": "mov     edx, gCRenderer",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb6a",
+          "size": 2,
+          "bytes": "6a02",
+          "mnemonic": "push",
+          "text": "push    2",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb6c",
+          "size": 6,
+          "bytes": "8b82a0000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [edx+0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb72",
+          "size": 2,
+          "bytes": "8b08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb74",
+          "size": 2,
+          "bytes": "eb44",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_44CBBA",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb76",
+          "size": 5,
+          "bytes": "25000000ff",
+          "mnemonic": "and",
+          "text": "and     eax, 0FF000000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb7b",
+          "size": 5,
+          "bytes": "3d000000ff",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 0FF000000h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb80",
+          "size": 6,
+          "bytes": "8b81a0000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [ecx+0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb86",
+          "size": 2,
+          "bytes": "8b10",
+          "mnemonic": "mov",
+          "text": "mov     edx, [eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb88",
+          "size": 2,
+          "bytes": "7519",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_44CBA3",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb8a",
+          "size": 2,
+          "bytes": "6a02",
+          "mnemonic": "push",
+          "text": "push    2",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb8c",
+          "size": 2,
+          "bytes": "6a13",
+          "mnemonic": "push",
+          "text": "push    13h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb8e",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb8f",
+          "size": 3,
+          "bytes": "ff5250",
+          "mnemonic": "call",
+          "text": "call    dword ptr [edx+50h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb92",
+          "size": 5,
+          "bytes": "a160736200",
+          "mnemonic": "mov",
+          "text": "mov     eax, gCRenderer",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb97",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb99",
+          "size": 6,
+          "bytes": "8b80a0000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [eax+0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb9f",
+          "size": 2,
+          "bytes": "8b08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cba1",
+          "size": 2,
+          "bytes": "eb17",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_44CBBA",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cba3",
+          "size": 2,
+          "bytes": "6a05",
+          "mnemonic": "push",
+          "text": "push    5",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cba5",
+          "size": 2,
+          "bytes": "6a13",
+          "mnemonic": "push",
+          "text": "push    13h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cba7",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cba8",
+          "size": 3,
+          "bytes": "ff5250",
+          "mnemonic": "call",
+          "text": "call    dword ptr [edx+50h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbab",
+          "size": 5,
+          "bytes": "a160736200",
+          "mnemonic": "mov",
+          "text": "mov     eax, gCRenderer",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbb0",
+          "size": 2,
+          "bytes": "6a06",
+          "mnemonic": "push",
+          "text": "push    6",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbb2",
+          "size": 6,
+          "bytes": "8b80a0000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [eax+0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbb8",
+          "size": 2,
+          "bytes": "8b08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbba",
+          "size": 2,
+          "bytes": "6a14",
+          "mnemonic": "push",
+          "text": "push    14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbbc",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbbd",
+          "size": 3,
+          "bytes": "ff5150",
+          "mnemonic": "call",
+          "text": "call    dword ptr [ecx+50h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbc0",
+          "size": 6,
+          "bytes": "8b1560736200",
+          "mnemonic": "mov",
+          "text": "mov     edx, gCRenderer",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbc6",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbc8",
+          "size": 6,
+          "bytes": "8b82a0000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [edx+0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbce",
+          "size": 6,
+          "bytes": "8b1548a66200",
+          "mnemonic": "mov",
+          "text": "mov     edx, dwStage",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbd4",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbd5",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbd6",
+          "size": 2,
+          "bytes": "8b08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbd8",
+          "size": 6,
+          "bytes": "ff918c000000",
+          "mnemonic": "call",
+          "text": "call    dword ptr [ecx+8Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbde",
+          "size": 5,
+          "bytes": "a160736200",
+          "mnemonic": "mov",
+          "text": "mov     eax, gCRenderer",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbe3",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbe5",
+          "size": 4,
+          "bytes": "8d542418",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+88h+var_70]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbe9",
+          "size": 2,
+          "bytes": "6a04",
+          "mnemonic": "push",
+          "text": "push    4",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbeb",
+          "size": 6,
+          "bytes": "8b80a0000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, [eax+0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbf1",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbf2",
+          "size": 5,
+          "bytes": "6844010000",
+          "mnemonic": "push",
+          "text": "push    144h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbf7",
+          "size": 2,
+          "bytes": "6a06",
+          "mnemonic": "push",
+          "text": "push    6",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbf9",
+          "size": 2,
+          "bytes": "8b08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [eax]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbfb",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbfc",
+          "size": 3,
+          "bytes": "ff5164",
+          "mnemonic": "call",
+          "text": "call    dword ptr [ecx+64h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbff",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc00",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc01",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc02",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc03",
+          "size": 3,
+          "bytes": "83c474",
+          "mnemonic": "add",
+          "text": "add     esp, 74h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc06",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc07",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc08",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc09",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc0a",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc0c",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc0d",
+          "size": 3,
+          "bytes": "83c474",
+          "mnemonic": "add",
+          "text": "add     esp, 74h",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cc10",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "original_chunks": [
+        {
+          "start": "0x44c9a0",
+          "end_exclusive": "0x44cc11"
+        }
+      ],
+      "code_bytes": 625,
+      "page_count": 3,
+      "calls": [
+        {
+          "ea": "0x44c9a7",
+          "size": 5,
+          "bytes": "e864ecffff",
+          "mnemonic": "call",
+          "text": "call    hasIDirect3D7",
+          "call_target": "0x44b610"
+        },
+        {
+          "ea": "0x44ca36",
+          "size": 5,
+          "bytes": "e8d5ebffff",
+          "mnemonic": "call",
+          "text": "call    hasIDirect3D7",
+          "call_target": "0x44b610"
+        }
+      ],
+      "indirect_calls": [
+        {
+          "ea": "0x44cb61",
+          "size": 3,
+          "bytes": "ff5150",
+          "mnemonic": "call",
+          "text": "call    dword ptr [ecx+50h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cb8f",
+          "size": 3,
+          "bytes": "ff5250",
+          "mnemonic": "call",
+          "text": "call    dword ptr [edx+50h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cba8",
+          "size": 3,
+          "bytes": "ff5250",
+          "mnemonic": "call",
+          "text": "call    dword ptr [edx+50h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbbd",
+          "size": 3,
+          "bytes": "ff5150",
+          "mnemonic": "call",
+          "text": "call    dword ptr [ecx+50h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbd8",
+          "size": 6,
+          "bytes": "ff918c000000",
+          "mnemonic": "call",
+          "text": "call    dword ptr [ecx+8Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x44cbfc",
+          "size": 3,
+          "bytes": "ff5164",
+          "mnemonic": "call",
+          "text": "call    dword ptr [ecx+64h]",
+          "call_target": null
+        }
+      ],
+      "jump_count": 15,
+      "return_count": 2
+    }
+  ],
+  "original_unassigned_ranges": [
+    {
+      "start": "0x44cc11",
+      "end_exclusive": "0x44cc20",
+      "size": 15,
+      "loaded": true,
+      "bytes": "909090909090909090909090909090",
+      "decode": [
+        {
+          "ea": "0x44cc11",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc12",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc13",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc14",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc15",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc16",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc17",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc18",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc19",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc1a",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc1b",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc1c",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc1d",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc1e",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        },
+        {
+          "ea": "0x44cc1f",
+          "size": 1,
+          "bytes": "90",
+          "is_nop": true,
+          "text": "align 10h"
+        }
+      ],
+      "inbound": [],
+      "following_function": "0x44cc20"
+    }
+  ],
+  "original_reused_caller_region": {
+    "start": "0x520ad0",
+    "end_exclusive": "0x520b09",
+    "parent_entry": "0x520ad0",
+    "instruction_count": 19,
+    "code_bytes": 57,
+    "page_count": 1,
+    "outgoing_calls": [
+      {
+        "ea": "0x520aef",
+        "target": "0x44c9a0"
+      }
+    ],
+    "branches": [
+      {
+        "ea": "0x520afc",
+        "target": "0x520b08"
+      }
+    ],
+    "switches": [],
+    "instruction_pages": [
+      {
+        "page_index": 0,
+        "start": "0x520ad0",
+        "end_exclusive": "0x520b09",
+        "instructions": [
+          {
+            "ea": "0x520ad0",
+            "size": 4,
+            "bytes": "8b442404",
+            "text": "mov     eax, [esp+a1]"
+          },
+          {
+            "ea": "0x520ad4",
+            "size": 3,
+            "bytes": "8a4821",
+            "text": "mov     cl, [eax+21h]"
+          },
+          {
+            "ea": "0x520ad7",
+            "size": 3,
+            "bytes": "8b501c",
+            "text": "mov     edx, [eax+1Ch]"
+          },
+          {
+            "ea": "0x520ada",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x520adb",
+            "size": 4,
+            "bytes": "668b4806",
+            "text": "mov     cx, [eax+6]"
+          },
+          {
+            "ea": "0x520adf",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx"
+          },
+          {
+            "ea": "0x520ae0",
+            "size": 4,
+            "bytes": "668b5004",
+            "text": "mov     dx, [eax+4]"
+          },
+          {
+            "ea": "0x520ae4",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x520ae5",
+            "size": 4,
+            "bytes": "668b4802",
+            "text": "mov     cx, [eax+2]"
+          },
+          {
+            "ea": "0x520ae9",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx"
+          },
+          {
+            "ea": "0x520aea",
+            "size": 3,
+            "bytes": "668b10",
+            "text": "mov     dx, [eax]"
+          },
+          {
+            "ea": "0x520aed",
+            "size": 1,
+            "bytes": "51",
+            "text": "push    ecx"
+          },
+          {
+            "ea": "0x520aee",
+            "size": 1,
+            "bytes": "52",
+            "text": "push    edx"
+          },
+          {
+            "ea": "0x520aef",
+            "size": 5,
+            "bytes": "e8acbef2ff",
+            "text": "call    Renderer__FillRect"
+          },
+          {
+            "ea": "0x520af4",
+            "size": 3,
+            "bytes": "83c418",
+            "text": "add     esp, 18h"
+          },
+          {
+            "ea": "0x520af7",
+            "size": 5,
+            "bytes": "3dae017688",
+            "text": "cmp     eax, 887601AEh"
+          },
+          {
+            "ea": "0x520afc",
+            "size": 2,
+            "bytes": "750a",
+            "text": "jnz     short locret_520B08"
+          },
+          {
+            "ea": "0x520afe",
+            "size": 10,
+            "bytes": "c705e80e020101000000",
+            "text": "mov     gGraphicDirty, 1"
+          },
+          {
+            "ea": "0x520b08",
+            "size": 1,
+            "bytes": "c3",
+            "text": "retn"
+          }
+        ]
+      }
+    ]
+  },
+  "reused_caller_evidence": "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json",
+  "reused_caller_existing_semantic": {
+    "index": 1412,
+    "entry": "0x520AD0",
+    "id": "F:00120AD0",
+    "references": [
+      "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-baseline",
+      "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-decision",
+      "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-acceptance",
+      "doc/cg2d_queued_rectangle_consumption_sampling_spec.md#queued-rectangle-consumption-source-state",
+      "doc/cg2d_queued_rectangle_consumption_sampling_evidence.json"
+    ],
+    "boundary": "先同一实际record descriptor+0D U8 mix再+08 W32 color，随后四次实际W16：y高(+6)bottom、y低(+4)top、x高(+2)right、x低(+0)left；各S16传FillRect44C9A0(left,right,top,bottom,color,mix)。原完整返回W32严格等887601AE才写共享gGraphicDirty=1，其余不清/改dirty；不合并x/y两W32读取或复制record。原caller case3及现行CPU/native既有接口保持，不扩大HRESULT机制或新增保护/拒绝、布局/owner/计数或异常回绕策略。"
+  },
+  "source_functions": [
+    {
+      "index": 1749,
+      "id": "F:0004C9A0",
+      "entry": "0x44C9A0",
+      "original_index": 0,
+      "symbol": "FillRect_44C9A0",
+      "source_path": "src/render/LegacyTextureDrawing.cpp",
+      "disposition": "adapted",
+      "body_changed": true,
+      "contract": "原完整162条625B/三页；四坐标仅低S16、W32色/W8mix，第一次接口查询后保存+94供left初始及right比较，right<=0之后top门禁读+98，right超界时fresh读+94低W16发布，top负值裁剪后fresh读+98供bottom比较/低W16发布；两次接口检查与+BC、原z0/rhw1/UV0/同色四顶点、blend→共享stage解绑null→Draw与完整W32返回保，原caller19条57B/四次W16与busy才置dirty保持；既有native SDK边界仅获批范围，完整父/alias寿命/像素/ABI/运行未验"
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "src/render/LegacyTextureDrawing.cpp",
+      "length": 20311
+    }
+  ],
+  "source_bodies_before": {
+    "FillRect_44C9A0": "std::uint32_t FillRect_44C9A0(\n    std::int16_t left, std::int16_t right, std::int16_t top, std::int16_t bottom,\n    const std::uint32_t color, const std::uint8_t mixMode)\n{\n    if (HasLegacy3DDevice_44B610() == 0) {\n        return 0;\n    }\n    if (left >= kCpuSurfaceWidth || right <= 0\n        || top >= kCpuSurfaceHeight || bottom <= 0) {\n        return 0;\n    }\n    if (left < 0) {\n        left = 0;\n    }\n    if (right > kCpuSurfaceWidth) {\n        right = static_cast<std::int16_t>(kCpuSurfaceWidth);\n    }\n    if (top < 0) {\n        top = 0;\n    }\n    if (bottom > kCpuSurfaceHeight) {\n        bottom = static_cast<std::int16_t>(kCpuSurfaceHeight);\n    }\n    if (HasLegacy3DDevice_44B610() == 0 || GetLegacyTextureState().colorKeyEnabled == 0) {\n        return 0;\n    }\n    const TextureRectangle destination {left, top, right, bottom};\n    return std::bit_cast<std::uint32_t>(SubmitTexturedRectangle(\n        nullptr, destination, 0.0f, 0.0f, 0.0f, 0.0f, mixMode, color));\n}\n\n",
+    "SubmitTexturedRectangle": "std::int32_t SubmitTexturedRectangle(\n    TextureSurface* surface, const TextureRectangle& destination,\n    const float u0, const float v0, const float u1, const float v1,\n    const std::uint8_t mixMode, const std::uint32_t color)\n{\n    const auto left = static_cast<float>(destination[0]);\n    const auto top = static_cast<float>(destination[1]);\n    const auto right = static_cast<float>(destination[2]);\n    const auto bottom = static_cast<float>(destination[3]);\n    const std::array<LegacyTextureVertex, 4> vertices {{\n        {left, top, 0.0f, 1.0f, color, u0, v0},\n        {right, top, 0.0f, 1.0f, color, u1, v0},\n        {right, bottom, 0.0f, 1.0f, color, u1, v1},\n        {left, bottom, 0.0f, 1.0f, color, u0, v1}\n    }};\n    LegacyTextureBlend sourceBlend = LegacyTextureBlend::One;\n    LegacyTextureBlend destinationBlend = LegacyTextureBlend::One;\n    if ((mixMode & kAdditive) == 0) {\n        if ((color & 0xFF000000u) == 0xFF000000u) {\n            destinationBlend = LegacyTextureBlend::Zero;\n        } else {\n            sourceBlend = LegacyTextureBlend::SourceAlpha;\n            destinationBlend = LegacyTextureBlend::InverseSourceAlpha;\n        }\n    }\n    return SubmitLegacyTextureFan(surface, vertices, sourceBlend, destinationBlend);\n}\n\n",
+    "TruncateTextureCoordinate": "std::int32_t TruncateTextureCoordinate(const double value)\n{\n    return static_cast<std::int32_t>(static_cast<std::int64_t>(value));\n}\n\n",
+    "RenderTextureToSurface_44D520": "std::int32_t RenderTextureToSurface_44D520(\n    const std::int32_t x, const std::int32_t y, TextureRectangle rectangle,\n    TextureSurface* surface, const std::int32_t imageNo, const std::int16_t paletteIndex,\n    const std::uint8_t mixMode, const std::uint32_t color)\n{\n    auto& left = rectangle[0];\n    auto& top = rectangle[1];\n    auto& right = rectangle[2];\n    auto& bottom = rectangle[3];\n    // 原初始交集和裁剪位移用低 S16；负值分支仍读取完整 S32 实参。\n    const std::int32_t lowX = static_cast<std::int16_t>(x);\n    const std::int32_t lowY = static_cast<std::int16_t>(y);\n    if (lowX >= GetRendererLogicalWidth() || lowX - left + right <= 0\n        || lowY >= GetRendererLogicalHeight() || lowY - top + bottom <= 0) {\n        return 0;\n    }\n\n    std::int32_t destinationX = lowX;\n    const bool flipX = (mixMode & kFlipX) != 0;\n    if (flipX) {\n        if (lowX < 0) {\n            right += lowX;\n            destinationX = 0;\n        }\n        const std::int32_t width = GetRendererLogicalWidth();\n        if (destinationX - left + right > width) {\n            left = destinationX - width + right;\n        }\n    } else {\n        if (x < 0) {\n            left -= lowX;\n            destinationX = 0;\n        }\n        const std::int32_t width = GetRendererLogicalWidth();\n        if (destinationX - left + right > width) {\n            right = width - destinationX + left;\n        }\n    }\n\n    std::int32_t destinationY = lowY;\n    const bool flipY = (mixMode & kFlipY) != 0;\n    if (flipY) {\n        if (y < 0) {\n            bottom += lowY;\n            destinationY = 0;\n        }\n        const std::int32_t height = GetRendererLogicalHeight();\n        if (destinationY - top + bottom > height) {\n            top = destinationY - height + bottom;\n        }\n    } else {\n        if (y < 0) {\n            top -= lowY;\n            destinationY = 0;\n        }\n        const std::int32_t height = GetRendererLogicalHeight();\n        if (destinationY - top + bottom > height) {\n            bottom = height - destinationY + top;\n        }\n    }\n\n    if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().colorKeyEnabled != 0) {\n        const auto textureWidth = static_cast<float>(GetLegacyTextureState().width);\n        const double u0 =\n            (static_cast<double>(flipX ? right - 1 : left) + kTextureBias) / textureWidth;\n        const double u1 = static_cast<double>(flipX ? left - 1 : right) / textureWidth;\n        const double textureHeight = GetLegacyTextureState().height;\n        const auto v0 = static_cast<float>(\n            (static_cast<double>(flipY ? bottom - 1 : top) + kTextureBias) / textureHeight);\n        const double v1 = static_cast<double>(flipY ? top - 1 : bottom) / textureHeight;\n        const TextureRectangle destination {\n            destinationX, destinationY,\n            destinationX + (right - left), destinationY + (bottom - top)\n        };\n        return SubmitTexturedRectangle(surface, destination,\n            static_cast<float>(u0), v0, static_cast<float>(u1), static_cast<float>(v1),\n            mixMode, color);\n    }\n    if ((mixMode & kAdditive) != 0) {\n        return 0;\n    }\n    const TextureRectangle destination {\n        destinationX, destinationY,\n        destinationX - left + right, destinationY - top + bottom\n    };\n    if (flipX || flipY) {\n        const auto& key = world::gCurrentSceneType == 10 ? destination : rectangle;\n        surface = TransformTextureSurface_44CD80(\n            surface, imageNo, paletteIndex,\n            static_cast<std::uint8_t>(flipX), static_cast<std::uint8_t>(flipY),\n            rectangle.data(), key.data());\n    }\n    return BlitTextureToBack(surface, rectangle, destination);\n}\n\n",
+    "RenderTexture_44DA90": "std::int32_t RenderTexture_44DA90(\n    const std::int16_t x, const std::int16_t y, const TextureRectangle* rectangle,\n    const float scaleX, const float scaleY, TextureSurface* surface,\n    const std::int32_t imageNo, const std::int16_t paletteIndex,\n    const std::uint8_t mixMode, const std::uint32_t color)\n{\n    float top = static_cast<float>(static_cast<double>((*rectangle)[1]) * scaleY);\n    float left = static_cast<float>(static_cast<double>((*rectangle)[0]) * scaleX);\n    float right = static_cast<float>(static_cast<double>((*rectangle)[2]) * scaleX);\n    float bottom = static_cast<float>(static_cast<double>((*rectangle)[3]) * scaleY);\n    const auto originalX = static_cast<float>(x);\n    float destinationX = originalX;\n    const auto originalY = static_cast<float>(y);\n    float destinationY = originalY;\n    const std::int32_t width = GetRendererLogicalWidth();\n    if (x >= width) {\n        return 0;\n    }\n    if (!(static_cast<double>(right) - left + originalX > 0.0)) {\n        return 0;\n    }\n    const std::int32_t height = GetRendererLogicalHeight();\n    if (y >= height\n        || !(static_cast<double>(bottom) - top + originalY > 0.0)) {\n        return 0;\n    }\n\n    const bool flipX = (mixMode & kFlipX) != 0;\n    if (flipX) {\n        if (destinationX < 0.0f) {\n            right = static_cast<float>(static_cast<double>(destinationX) + right);\n            destinationX = 0.0f;\n        }\n        const double extent = static_cast<double>(right) - left + destinationX;\n        if (extent > width) {\n            left = static_cast<float>((extent - width) + left);\n        }\n    } else {\n        if (destinationX < 0.0f) {\n            left = static_cast<float>(static_cast<double>(left) - originalX);\n            destinationX = 0.0f;\n        }\n        const double extent = static_cast<double>(right) - left + destinationX;\n        if (extent > width) {\n            right = static_cast<float>(right - (extent - width));\n        }\n    }\n    const bool flipY = (mixMode & kFlipY) != 0;\n    if (flipY) {\n        if (destinationY < 0.0f) {\n            bottom = static_cast<float>(static_cast<double>(destinationY) + bottom);\n            destinationY = 0.0f;\n        }\n        const double extent = static_cast<double>(bottom) - top + destinationY;\n        if (extent > height) {\n            // 原 44DC61 的 fsubr；这里确为减去超出量，不改成横向的加法。\n            top = static_cast<float>(top - (extent - height));\n        }\n    } else {\n        if (destinationY < 0.0f) {\n            top = static_cast<float>(static_cast<double>(top) - destinationY);\n            destinationY = 0.0f;\n        }\n        const double extent = static_cast<double>(bottom) - top + destinationY;\n        if (extent > height) {\n            bottom = static_cast<float>(bottom - (extent - height));\n        }\n    }\n\n    const std::int32_t sourceBottom = TruncateTextureCoordinate(static_cast<double>(bottom) / scaleY);\n    const std::int32_t sourceRight = TruncateTextureCoordinate(static_cast<double>(right) / scaleX);\n    const std::int32_t sourceTop = TruncateTextureCoordinate(static_cast<double>(top) / scaleY);\n    const std::int32_t sourceLeft = TruncateTextureCoordinate(static_cast<double>(left) / scaleX);\n    const TextureRectangle source {sourceLeft, sourceTop, sourceRight, sourceBottom};\n    double expandedRight = right;\n    if (GetRendererLogicalWidth() > static_cast<double>(destinationX) + right - left) {\n        expandedRight += 1.0;\n    }\n    double expandedBottom = bottom;\n    if (GetRendererLogicalHeight() > static_cast<double>(destinationY) + bottom - top) {\n        expandedBottom += 1.0;\n    }\n    const std::int32_t destinationBottom =\n        TruncateTextureCoordinate(static_cast<double>(destinationY) + expandedBottom - top);\n    const std::int32_t destinationRight =\n        TruncateTextureCoordinate(static_cast<double>(destinationX) + expandedRight - left);\n    const std::int32_t destinationTop = TruncateTextureCoordinate(destinationY);\n    const std::int32_t destinationLeft = TruncateTextureCoordinate(destinationX);\n    const TextureRectangle destination {\n        destinationLeft, destinationTop, destinationRight, destinationBottom\n    };\n\n    if (HasLegacy3DDevice_44B610() != 0 && GetLegacyTextureState().colorKeyEnabled != 0) {\n        const auto textureWidth = static_cast<float>(GetLegacyTextureState().width);\n        const double u0 =\n            (static_cast<double>(flipX ? sourceRight : sourceLeft) + kTextureBias) / textureWidth;\n        const double u1 = static_cast<double>(flipX ? sourceLeft : sourceRight) / textureWidth;\n        const double textureHeight = GetLegacyTextureState().height;\n        const auto v0 = static_cast<float>(\n            (static_cast<double>(flipY ? sourceBottom : sourceTop) + kTextureBias) / textureHeight);\n        const double v1 = static_cast<double>(flipY ? sourceTop : sourceBottom) / textureHeight;\n        return SubmitTexturedRectangle(surface, destination,\n            static_cast<float>(u0), v0, static_cast<float>(u1), static_cast<float>(v1),\n            mixMode, color);\n    }\n    if ((mixMode & kAdditive) != 0) {\n        return 0;\n    }\n    if (flipX || flipY) {\n        const auto& key = world::gCurrentSceneType == 10 ? destination : source;\n        surface = TransformTextureSurface_44CD80(\n            surface, imageNo, paletteIndex,\n            static_cast<std::uint8_t>(flipX), static_cast<std::uint8_t>(flipY),\n            source.data(), key.data());\n    }\n    return BlitTextureToBack(surface, source, destination);\n}\n\n"
+  },
+  "source_caller_before": "void FillDirtyArea_520AD0(const GraphicCacheItem32* const graphic)\n{\n    const std::uint8_t mixMode = graphic->descriptor[0x0D];\n    std::uint32_t color;\n    std::memcpy(&color, graphic->descriptor.data() + 0x08, sizeof(color));\n\n    // 原520ADB/520AE0/520AE5/520AEA：同一记录的四次W16读取，不能合并成W32。\n    std::int16_t bottom;\n    std::memcpy(\n        &bottom,\n        reinterpret_cast<const std::uint8_t*>(&graphic->y) + sizeof(bottom),\n        sizeof(bottom));\n    std::int16_t top;\n    std::memcpy(&top, &graphic->y, sizeof(top));\n    std::int16_t right;\n    std::memcpy(\n        &right,\n        reinterpret_cast<const std::uint8_t*>(&graphic->x) + sizeof(right),\n        sizeof(right));\n    std::int16_t left;\n    std::memcpy(&left, &graphic->x, sizeof(left));\n\n    if (FillRect_44C9A0(left, right, top, bottom, color, mixMode)\n        == 0x887601AEu) {\n        gGraphicDirty = 1;\n    }\n}\n\n",
+  "source_caller_file_length_before": 15051,
+  "source_patches": [
+    {
+      "path": "cg2d_re/src/render/LegacyTextureDrawing.cpp",
+      "symbol": "FillRect_44C9A0",
+      "old": "std::uint32_t FillRect_44C9A0(\n    std::int16_t left, std::int16_t right, std::int16_t top, std::int16_t bottom,\n    const std::uint32_t color, const std::uint8_t mixMode)\n{\n    if (HasLegacy3DDevice_44B610() == 0) {\n        return 0;\n    }\n    if (left >= kCpuSurfaceWidth || right <= 0\n        || top >= kCpuSurfaceHeight || bottom <= 0) {\n        return 0;\n    }\n    if (left < 0) {\n        left = 0;\n    }\n    if (right > kCpuSurfaceWidth) {\n        right = static_cast<std::int16_t>(kCpuSurfaceWidth);\n    }\n    if (top < 0) {\n        top = 0;\n    }\n    if (bottom > kCpuSurfaceHeight) {\n        bottom = static_cast<std::int16_t>(kCpuSurfaceHeight);\n    }\n",
+      "replacement": "std::uint32_t FillRect_44C9A0(\n    std::int16_t left, std::int16_t right, std::int16_t top, std::int16_t bottom,\n    const std::uint32_t color, const std::uint8_t mixMode)\n{\n    if (HasLegacy3DDevice_44B610() == 0) {\n        return 0;\n    }\n    const std::int32_t width = GetRendererLogicalWidth();\n    if (left >= width || right <= 0\n        || top >= GetRendererLogicalHeight() || bottom <= 0) {\n        return 0;\n    }\n    if (left < 0) {\n        left = 0;\n    }\n    if (right > width) {\n        right = static_cast<std::int16_t>(GetRendererLogicalWidth());\n    }\n    if (top < 0) {\n        top = 0;\n    }\n    const std::int32_t height = GetRendererLogicalHeight();\n    if (bottom > height) {\n        bottom = static_cast<std::int16_t>(height);\n    }\n"
+    }
+  ],
+  "snapshot_functions_before": [
+    {
+      "id": "F:0004C9A0",
+      "original_entry": "0x44C9A0",
+      "original_name": "Renderer::FillRect",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/render/LegacyTextureDrawing.cpp",
+          "symbol": "FillRect_44C9A0",
+          "definition_line": 272,
+          "namespace": "cg::render"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "ranges_before": [
+    {
+      "id": "X:0004CC11-0004CC20",
+      "start": "0x44CC11",
+      "end_exclusive": "0x44CC20",
+      "state": "unassessed",
+      "source": "doc/cg2d_ida_inventory.json",
+      "disposition": null
+    }
+  ],
+  "metrics_before": {
+    "inventory_functions": 3680,
+    "functions_with_document_links": 1860,
+    "document_link_percent": 50.54,
+    "historical_direct_location_ids": 2762,
+    "semantic_records": 1749,
+    "semantic_inventory_ids": 1742,
+    "semantic_without_inventory_id": 7,
+    "semantic_code_range_records": 7,
+    "pending_records": 18,
+    "functions_with_classification_refs": 119,
+    "reviewed_function_dispositions": 890,
+    "imports": 218,
+    "unassigned_ranges": 3061,
+    "reviewed_imports": 16,
+    "reviewed_ranges": 452,
+    "registered_features": 183,
+    "registered_leaf_features": 182,
+    "paused_features": 1,
+    "accepted_leaf_features": 0,
+    "tasks": 60,
+    "tasks_closed": 11,
+    "global_accepted": false
+  },
+  "task_acceptance_before": [
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 254
+    },
+    {
+      "task_id": "V04",
+      "state": "open",
+      "reference_count": 168
+    },
+    {
+      "task_id": "G02",
+      "state": "open",
+      "reference_count": 117
+    }
+  ],
+  "feature_briefs_before": [
+    {
+      "id": "FUNC-LOOP",
+      "count": 162,
+      "closed": false,
+      "gates": {}
+    },
+    {
+      "id": "FUNC-RENDER",
+      "count": 63,
+      "closed": false,
+      "gates": {}
+    }
+  ],
+  "source_cpp_file_count": 1,
+  "source_cpp_patch_count": 1,
+  "source_header_file_count": 0,
+  "new_helper_count": 0,
+  "new_owner_count": 0,
+  "new_function_count": 0,
+  "retained_boundaries": {
+    "network_original_format_plaintext": true,
+    "network_encryption_decryption_added": false,
+    "audio_paused": true,
+    "cpu_Back_physical_extent_and_owner_kept": true,
+    "existing_renderer_logical_dimension_owner_and_getters_kept": true,
+    "private_header_and_caller_and_other_functions_kept": true,
+    "native_SDK_scope_kept": true,
+    "full_parent_verified": false,
+    "full_callees_verified": false,
+    "full_lifecycle_closed": false,
+    "full_machine_ABI_verified": false,
+    "runtime_verified": false,
+    "fault_equivalence_claimed": false
+  }
+}

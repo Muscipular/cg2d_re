@@ -276,21 +276,23 @@ std::uint32_t FillRect_44C9A0(
     if (HasLegacy3DDevice_44B610() == 0) {
         return 0;
     }
-    if (left >= kCpuSurfaceWidth || right <= 0
-        || top >= kCpuSurfaceHeight || bottom <= 0) {
+    const std::int32_t width = GetRendererLogicalWidth();
+    if (left >= width || right <= 0
+        || top >= GetRendererLogicalHeight() || bottom <= 0) {
         return 0;
     }
     if (left < 0) {
         left = 0;
     }
-    if (right > kCpuSurfaceWidth) {
-        right = static_cast<std::int16_t>(kCpuSurfaceWidth);
+    if (right > width) {
+        right = static_cast<std::int16_t>(GetRendererLogicalWidth());
     }
     if (top < 0) {
         top = 0;
     }
-    if (bottom > kCpuSurfaceHeight) {
-        bottom = static_cast<std::int16_t>(kCpuSurfaceHeight);
+    const std::int32_t height = GetRendererLogicalHeight();
+    if (bottom > height) {
+        bottom = static_cast<std::int16_t>(height);
     }
     if (HasLegacy3DDevice_44B610() == 0 || GetLegacyTextureState().colorKeyEnabled == 0) {
         return 0;

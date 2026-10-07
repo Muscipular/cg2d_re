@@ -197983,6 +197983,87 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x44C9A0",
+      "inventory_id": "F:0004C9A0",
+      "original_role": "原矩形填充/混合/解绑null绘制入口",
+      "original_end_exclusive": "0x44cc11",
+      "original_chunks": [
+        {
+          "start": "0x44c9a0",
+          "end_exclusive": "0x44cc11"
+        }
+      ],
+      "instruction_count": 162,
+      "status": "BUZ01填充根完整162条625B/三页、两direct/六indirect call/15跳转/两返回、一入向一父；caller19条57B原证准确复用BOZ01，一15B NN_NOP用途。原逻辑宽高保存/条件fresh低W16发布阶段恢复，一cpp一个具名片段、零头/新helper/owner；四S16坐标/两接口检查/原混合-共享stage解绑null-Draw/完整W32与busy消费保。新F adapted，LOOP/RENDER各限定I-S，完整所有父/callee/owner-alias/机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "sources": [
+        {
+          "path": "src/render/LegacyTextureDrawing.cpp",
+          "symbols": [
+            "FillRect_44C9A0"
+          ],
+          "relationship": "原完整162条625B/三页；四坐标仅低S16、W32色/W8mix，第一次接口查询后保存+94供left初始及right比较，right<=0之后top门禁读+98，right超界时fresh读+94低W16发布，top负值裁剪后fresh读+98供bottom比较/低W16发布；两次接口检查与+BC、原z0/rhw1/UV0/同色四顶点、blend→共享stage解绑null→Draw与完整W32返回保，原caller19条57B/四次W16与busy才置dirty保持；既有native SDK边界仅获批范围，完整父/alias寿命/像素/ABI/运行未验"
+        },
+        {
+          "path": "src/render/LegacyTextureDrawing.hpp",
+          "symbols": [
+            "FillRect_44C9A0"
+          ],
+          "relationship": "既有私有四S16坐标/W32色/W8mix与完整W32返回保持，零头改动"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline",
+        "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision",
+        "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-acceptance",
+        "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
+        "doc/cg2d_fill_rectangle_dimension_sampling_evidence.json"
+      ],
+      "boundary": "原完整162条625B/三页；四坐标仅低S16、W32色/W8mix，第一次接口查询后保存+94供left初始及right比较，right<=0之后top门禁读+98，right超界时fresh读+94低W16发布，top负值裁剪后fresh读+98供bottom比较/低W16发布；两次接口检查与+BC、原z0/rhw1/UV0/同色四顶点、blend→共享stage解绑null→Draw与完整W32返回保，原caller19条57B/四次W16与busy才置dirty保持；既有native SDK边界仅获批范围，完整父/alias寿命/像素/ABI/运行未验",
+      "verification_level": "BUZ01填充根完整162条625B/三页、两direct/六indirect call/15跳转/两返回、一入向一父；caller19条57B原证准确复用BOZ01，一15B NN_NOP用途。原逻辑宽高保存/条件fresh低W16发布阶段恢复，一cpp一个具名片段、零头/新helper/owner；四S16坐标/两接口检查/原混合-共享stage解绑null-Draw/完整W32与busy消费保。新F adapted，LOOP/RENDER各限定I-S，完整所有父/callee/owner-alias/机器ABI/链接/像素/运行未验；RPLAN.24异常不专项处理/模拟或记等价。",
+      "fill_rectangle_dimension_sampling": {
+        "spec_id": "BUZ01",
+        "evidence_refs": [
+          "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-baseline",
+          "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision",
+          "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-acceptance",
+          "doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-source-state",
+          "doc/cg2d_fill_rectangle_dimension_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 162,
+        "original_code_bytes": 625,
+        "original_page_count": 3,
+        "original_direct_call_count": 2,
+        "original_indirect_call_count": 6,
+        "original_jump_count": 15,
+        "original_return_count": 2,
+        "original_inbound_reference_count": 1,
+        "source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_cpp_patch_count": 1,
+        "source_header_file_count": 0,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_held_width_for_initial_and_right_comparison_restored": true,
+        "original_conditional_fresh_width_low_W16_publication_restored": true,
+        "original_height_initial_short_circuit_and_later_saved_height_low_W16_publication_restored": true,
+        "original_four_S16_parameters_two_Has_colorKey_blend_null_binding_Draw_and_full_return_kept": true,
+        "original_caller_reused_from_BOZ01": true,
+        "original_caller_instruction_count": 19,
+        "original_caller_code_bytes": 57,
+        "original_caller_four_W16_and_busy_dirty_contract_kept": true,
+        "existing_helpers_texture_roots_Back_owner_and_native_SDK_kept": true,
+        "original_nop_tail_bytes": 15,
+        "full_inbound_parent_verified": false,
+        "full_callees_verified": false,
+        "full_machine_abi_verified": false,
+        "full_lifecycle_closed": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

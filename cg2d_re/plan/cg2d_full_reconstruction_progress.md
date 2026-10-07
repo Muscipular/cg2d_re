@@ -4095,3 +4095,21 @@ BUV01原生追踪实修已固定，继续逐帧光标/鼠标生产。只读原ID
 集中静态已通过：两完整根526条1769B/八页、四局部72条252B（两绘制窗准确复用BUX01）/两23B用途，两正确正文及六相关生产/构析源与HEAD保持；完整语义/登记簿和派生快照只有具名模型差异，七对应文档/四任务和十四文件UTF8无BOM/LF、四锚点/三限定S各25真实来源通过。源码/头文件改动0、无新I。
 
 文本汇总与Check均退出0；实际语义1749/有效1742、合同1860（50.54%）、F890/E1046、R7已审452余2609、LOOP162/RENDER63/RESOURCE43。旧未接线误述已纠正；pending18/未知ECX、closed11/原差队列与完整门禁保持，四旧BUU错误通过仍fail。完整所有父/callee、owner/alias寿命、机器ABI/链接/像素/运行与R8未验，整体目标继续。
+
+## BUZ01矩形填充逻辑尺寸取样实修（2026-10-08）
+
+BUY01两个正确缓存根基线已提交，继续同一绘制链FillRect44C9A0。核完整162条625B/三页、两direct/六indirect/15跳转/两返回，一引用一父；BOZ01既有FillDirtyArea原19条57B只准确复用，不重取其完整根。原描述符/四次W16/完整W32等busy才dirty=1与现caller一致，保持正确源和1412记录/E。
+
+实际差异是原逻辑尺寸读点被固定640/480。[先行SPEC](../doc/cg2d_fill_rectangle_dimension_sampling_spec.md#fill-rectangle-dimension-decision)后已在一cpp一个具名片段解决：第一次Has成功后保存+94宽，left初始及right后续比较沿保存值；right超界才按44CA18 fresh读+94低W16发布。初始top短路门禁读+98，top负值裁剪后44CA26重新保存+98高，bottom比较与44CA33低W16发布沿该保存值。沿已有RendererResources/GetLogical接口，不新增owner/helper/镜像或钳制门禁。
+
+原四S16接口和两Has/+BC门禁、left/top原负值置零、四顶点/UV0/z0/rhw1/同色、三blend/共享stage解绑null/Draw/完整W32尾全文保。正确caller及同源四其他函数保持，零头文件/新入口；CPU Back物理范围/设备/raster/SDK已批边界不改，现FillRect文档的固定640/480描述已纠正。
+
+[证据](../doc/cg2d_fill_rectangle_dimension_sampling_evidence.json)保存完整原入口、原caller复用出处/既有1412边界、15B NN_NOP/90无入向后真入口、一源前态/片段和机器前态。新1749/F:0004C9A0 adapted、一个X用途；LOOP162→163/RENDER63→64四限定I-S各25来源，G02/R04/V04仅current/引用仍open。预期语义1750/有效1743、合同1861（50.57%）、F891/E1050/R7已审453余2608，pending18/未知ECX、closed11/原差队列与完整闭包保；集中静态后补实值。
+
+所有完整父/callee、owner-alias寿命、像素/ABI/链接/正常失败/运行与R8继续；网络原格式仅明文/两叶排除、音频暂停、RPLAN.24异常不专项处理/模拟/记等价、单线程与不构建/测试/运行/产物或摘要保，整体目标active。
+
+### BUZ01 当前修复限定静态结果
+
+集中静态已通过：完整162条625B/三页、BOZ01既有19条57B原caller准确复用和15B NN_NOP用途；整cpp仅一个具名片段，正确caller整源/四其他函数及原混合解绑/返回尾保持。完整语义/登记簿与派生快照只有具名模型差异，七对应文档/三任务与十五文件UTF8无BOM/LF、四锚点/四限定I-S各25真实来源通过。
+
+文本汇总与Check均退出0；实际语义1750/有效1743、合同1861（50.57%）、F891/E1050、R7已审453余2608、LOOP163/RENDER64。既有1412/BOZ证据及四旧BUU错误证据fail保持，pending18/未知ECX、closed11/原差队列与全部闭包保持；只有本步尺寸取样修复/静态对照通过，完整父/callee、owner-alias寿命、机器ABI/链接/像素/运行及R8未验，整体目标继续。

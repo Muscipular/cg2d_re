@@ -1334,3 +1334,9 @@ X:0001305D-00013070逐字节owner/xref和RET/实际块边界、LEA解码及四W3
 [基线](cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline)、[裁决](cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-decision)、[验收](cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-acceptance)和[源码状态](cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-source-state)关联原165条607B与单源三片段：失败或未进入2时现场读phase，两互斥源位置对应一个原45DB0E；创建用测宽计算样本与已计算参数，绘制明确row-y-column-x取样及正常几何阶段。原两次列数发布／最小2、成功2／3直达、newest旁路、原清理／返回／字节和其它整源保持。
 
 旧191补全不增语义或文档覆盖数；新增单adapted／LOGIN一成员，两局部I-S各17真实来源，E840→842，单1B区间只原对齐用途。U10／V03／R04只current／证据仍open，P05原closed／closed11／完整叶0／globalfalse和全部完整门禁保持。完整父及范围内12依赖、网络明文往返／人物／显示链、正常alias-owner寿命、CRT-SDK／机器ABI和运行仍按原标准；本步不恢复既定排除或执行测试。
+
+## BSL01 人物列表进度长度与字段阶段开发验收（2026-10-07）
+
+[基线](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-baseline)、[裁决](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-decision)、[验收](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-acceptance)与[源码状态](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-source-state)关联原118条377B和单源四片段：两当前缓冲扫描、初次U32×8右移6＋2在stage发布前算好、原S32创建字段与本地参数；非零轮询原非空才MarkDeath／清槽；绘制rows-y-columns-length-x取样及原算式阶段，两S16保。原普通值正确，不新异常／保护／限制。
+
+单adapted／CHARACTER一真实成员，两局部I-S各17真实来源，E842→844；单7B真实NOP仅对齐用途，不造未变Reset或布局F。U11／V03／R04只current／引用仍open，P05原closed、closed11／完整叶0／globalfalse及完整门禁保持。完整人物父／六依赖、真实请求回复／创建-主地图、输入图像生产消费、正常alias-owner寿命、CRT-SDK／机器ABI与链接、原格式明文往返／显示与运行仍待，局部不外推。

@@ -2420,3 +2420,11 @@ needle分别为2000与814000，不转码、按token拆分或改成其他空白�
 完整原460FF0 721条2695B／十一页、78直接call／41callee、155jump／两RET、四真实switch及唯一51C430@51C4E6可追；22主状态／21压缩次级状态门禁、两槽七动作和八版本表完整绑定。末PUK原W32&FF只消费低W8，沿现W8 owner表达该有效值，不猜相邻三byte或宣称原全部物理读足迹一致；原只读文案的既有立即复制显示核心保持。
 
 相邻185B X四原W32目标表156B／值表21B／五90 NOP／三8D4900整体LEA对齐分八块，五data引用均本父／无code入向、前RET后真入口，仅mapped用途。母体F1576补正常基线、CHARACTER成员6／局部I-S，完整所有41callee／数据alias／owner与资源寿命、完整人物／主地图／SDK-ABI／画面互通和运行仍未验。
+
+## 人物列表进度文本与布局更新（BSL01，2026-10-07）
+
+按[BSL01裁决](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-decision)，列表进度原21B提示复制后从当前256B缓冲取长度，以原U32×8／逻辑右移6／加2计算列数，在W16 stage1发布前完成；保本地列数和原创建阶段，以本地x／192／width调用5044E0。移除固定20长度，正常原文案与几何值保持，不声称运行故障。
+
+轮询非零一次取非拥有action，非空才MarkDeath／清槽；绘制在ready之后先rows／算高／y／textY，再columns／当前缓冲strlen／(columns*8-length)*8，最后x／textX，两S16和六参数保。columns在绘制长度扫描前取样，不能照搬其他进度窗口顺序。Reset／入口快照／创建后重读、启动后现场W16++／阶段2非零早退、原字节与256B余部及其余整源保；请求回复／解析／dispatcher和人物父不改。
+
+原完整118条377B／两页、6直接／6目标、7跳转／2RET，唯一460FF0@461041；新真实F:0005DD60／映射1591纳管，邻接7B真实NOP仅原用途分类。单源四片段、一既有业务体的局部静态不代完整人物父、六依赖、消费／寿命、机器ABI或运行。

@@ -3306,3 +3306,9 @@ LOGIN7→8／语义1591有效1584／文档1702／3680（46.25%）／724处置／
 旧191／F:0005D990／UpdateServerConnection补关系和局部证据，原一固定文案格式点及来源符号全保，不增重复身份。见[基线](cg2d_server_connection_phase_layout_sampling_spec.md#server-connection-phase-layout-baseline)：完整165条607B／三页、20直接／17目标，唯一45FEA0@4601B5；其中newest五目标／六原调用继续排除。单源三片段、一既有函数恢复失败路径phase现场读取、创建参数和绘制字段阶段。
 
 语义1591有效1584／文档1702／3680（46.25%）保持，新增单adapted／726处置、LOGIN9→10／E842；单1B真实NOP原用途登记，R7 296→297余2764。不造现场读取块F，不恢复排除链；冻结定位／pending18／差队列与全部完整门禁保，局部不代范围内依赖／正常消费寿命／机器ABI或运行。
+
+## BSL01 人物列表进度（2026-10-07）
+
+新增1591对应真实F:0005DD60／UpdateCharacterListProgress_45DD60，保现S32接口，不为未变Reset／私有布局或共享块造身份。见[基线](cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-baseline)：完整118条377B／两页、6直接／6目标，唯一460FF0@461041。四源片段恢复两次当前缓冲长度、初次U32×8逻辑移位／原创建与绘制字段阶段和非空才清槽；原普通值、文案与其它完整源码保持。
+
+CHARACTER6→7，语义1592有效1585／文档1703／3680（46.28%）／727处置／E844；单7B原对齐用途使R7 297→298余2763。冻结定位／pending18／差队列及所有完整门禁保，局部不代完整父、六依赖、正常消费寿命／机器ABI或运行。

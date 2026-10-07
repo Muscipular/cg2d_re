@@ -14,7 +14,6 @@ namespace {
 constexpr char kCharacterListProgressText[] =
     "\xB5\x6E\xA4\x4A\xA6\xA8\xA5\x5C\xA1\x41"
     "\xB6\x7D\xA9\x6C\xAD\x70\xB6\x4F\xA1\x49";
-constexpr std::int32_t kLegacyTextLength = 20;
 constexpr std::int32_t kLegacyGlyphWidth = 8;
 constexpr std::int32_t kColumnWidth = 64;
 constexpr std::int32_t kRowHeight = 48;
@@ -50,17 +49,23 @@ std::int32_t UpdateCharacterListProgress_45DD60()
             gCharacterListProgressText,
             kCharacterListProgressText,
             sizeof(kCharacterListProgressText));
+        const std::uint32_t textLength =
+            static_cast<std::uint32_t>(std::strlen(gCharacterListProgressText));
+        const std::int32_t columns =
+            static_cast<std::int32_t>(((textLength * 8U) >> 6U) + 2U);
         gCharacterListProgressStage = 1;
-        gCharacterListProgressColumns =
-            kLegacyTextLength / kLegacyGlyphWidth + 2;
+        const std::int32_t unscaledX = 10 - columns;
+        gCharacterListProgressColumns = columns;
+        const std::int32_t centeredWidth = unscaledX * kColumnWidth;
         gCharacterListProgressRows = 2;
-        gCharacterListProgressX =
-            ((10 - gCharacterListProgressColumns) * kColumnWidth) / 2;
+        const std::int32_t width = columns * kColumnWidth;
+        const std::int32_t x = centeredWidth / 2;
+        gCharacterListProgressX = x;
         gCharacterListProgressY = 192;
         gCharacterListProgressAction = login::detail::Sub_5044E0(
-            gCharacterListProgressX,
-            gCharacterListProgressY,
-            gCharacterListProgressColumns * kColumnWidth,
+            x,
+            192,
+            width,
             96,
             4,
             1);
@@ -76,20 +81,25 @@ std::int32_t UpdateCharacterListProgress_45DD60()
             login::YobiAction* const action = gCharacterListProgressAction;
             if (action != nullptr) {
                 login::detail::MarkDeath(action);
+                gCharacterListProgressAction = nullptr;
             }
-            gCharacterListProgressAction = nullptr;
             return result;
         }
     }
 
     login::YobiAction* const action = gCharacterListProgressAction;
     if (action != nullptr && login::detail::IsYobiActionReady(action, 1)) {
-        const std::int32_t textX = gCharacterListProgressX
-            + (gCharacterListProgressColumns * kColumnWidth
-                - kLegacyTextLength * kLegacyGlyphWidth)
-                / 2;
-        const std::int32_t textY = gCharacterListProgressY
-            + (gCharacterListProgressRows * kRowHeight - kTextHeight) / 2;
+        const std::int32_t rows = gCharacterListProgressRows;
+        const std::int32_t verticalHeight = rows * kRowHeight - kTextHeight;
+        const std::int32_t y = gCharacterListProgressY;
+        const std::int32_t textY = verticalHeight / 2 + y;
+        const std::int32_t columns = gCharacterListProgressColumns;
+        const std::int32_t textLength =
+            static_cast<std::int32_t>(std::strlen(gCharacterListProgressText));
+        const std::int32_t horizontalWidth =
+            (columns * kLegacyGlyphWidth - textLength) * kLegacyGlyphWidth;
+        const std::int32_t x = gCharacterListProgressX;
+        const std::int32_t textX = horizontalWidth / 2 + x;
         login::detail::DrawText3(
             static_cast<std::int16_t>(textX),
             static_cast<std::int16_t>(textY),

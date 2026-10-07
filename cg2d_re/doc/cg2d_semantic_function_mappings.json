@@ -185779,6 +185779,92 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x45DD60",
+      "inventory_id": "F:0005DD60",
+      "original_role": "UpdateCharacterListProgress_45DD60",
+      "original_end_exclusive": "0x45ded9",
+      "instruction_count": 118,
+      "status": "BSL01人物列表进度四片段恢复两现场缓冲长度、原创建/绘制阶段与非空才清槽；单源一既有业务体，仅局部静态，完整父/六依赖/消费寿命/机器ABI与运行未验",
+      "sources": [
+        {
+          "path": "src/CharacterListProgress.cpp",
+          "symbols": [
+            "UpdateCharacterListProgress_45DD60"
+          ],
+          "relationship": "BSL01人物列表进度45DD60完整118条377B/两页，6直接调用/6目标无间接、7jump/2RET，唯一460FF0@461041。单源四精确片段/一既有业务体：移除固定20长度，复制原21B后现场取256B缓冲长度，原U32×8/逻辑右移6+2先算后W16 stage1发布；列数/x/width与rows/x/y按原阶段，创建借本地x/192/width；轮询非零一次取action，非空才MarkDeath/清槽；ready后rows/算高/y/textY、columns先取再现场strlen/算(columns*8-length)*8、x/textX，两S16和六参数保。原普通文案/几何值正确，不称运行故障；Reset/入口W16/创建后重读/阶段1启动后现场++与阶段2非零早退、原21B/256B余部/同非拥有观察者/其余整源与所有请求回复/公共解析和dispatcher保持。新映射1591/单adapted F:0005DD60，CHARACTER6→7；语义1592有效1585/文档1703（46.28%）/处置727/E844。单X7B全90逐BYTE真实NOP/无入向/前RET后入口只用途登记，R7 298余2763，不造Reset/布局/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与所有门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/六依赖、真实请求回复/人物创建-主地图与图像输入消费、全部正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24/执行与既定排除保，不构建测试运行或摘要。"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-baseline",
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-decision",
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-acceptance",
+        "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-source-state",
+        "doc/cg2d_character_list_progress_length_sampling_evidence.json"
+      ],
+      "boundary": "BSL01人物列表进度45DD60完整118条377B/两页，6直接调用/6目标无间接、7jump/2RET，唯一460FF0@461041。单源四精确片段/一既有业务体：移除固定20长度，复制原21B后现场取256B缓冲长度，原U32×8/逻辑右移6+2先算后W16 stage1发布；列数/x/width与rows/x/y按原阶段，创建借本地x/192/width；轮询非零一次取action，非空才MarkDeath/清槽；ready后rows/算高/y/textY、columns先取再现场strlen/算(columns*8-length)*8、x/textX，两S16和六参数保。原普通文案/几何值正确，不称运行故障；Reset/入口W16/创建后重读/阶段1启动后现场++与阶段2非零早退、原21B/256B余部/同非拥有观察者/其余整源与所有请求回复/公共解析和dispatcher保持。新映射1591/单adapted F:0005DD60，CHARACTER6→7；语义1592有效1585/文档1703（46.28%）/处置727/E844。单X7B全90逐BYTE真实NOP/无入向/前RET后入口只用途登记，R7 298余2763，不造Reset/布局/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与所有门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/六依赖、真实请求回复/人物创建-主地图与图像输入消费、全部正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24/执行与既定排除保，不构建测试运行或摘要。",
+      "verification_level": "BSL01人物列表进度45DD60完整118条377B/两页，6直接调用/6目标无间接、7jump/2RET，唯一460FF0@461041。单源四精确片段/一既有业务体：移除固定20长度，复制原21B后现场取256B缓冲长度，原U32×8/逻辑右移6+2先算后W16 stage1发布；列数/x/width与rows/x/y按原阶段，创建借本地x/192/width；轮询非零一次取action，非空才MarkDeath/清槽；ready后rows/算高/y/textY、columns先取再现场strlen/算(columns*8-length)*8、x/textX，两S16和六参数保。原普通文案/几何值正确，不称运行故障；Reset/入口W16/创建后重读/阶段1启动后现场++与阶段2非零早退、原21B/256B余部/同非拥有观察者/其余整源与所有请求回复/公共解析和dispatcher保持。新映射1591/单adapted F:0005DD60，CHARACTER6→7；语义1592有效1585/文档1703（46.28%）/处置727/E844。单X7B全90逐BYTE真实NOP/无入向/前RET后入口只用途登记，R7 298余2763，不造Reset/布局/块内F。冻结定位/无F代码区各7/pending18/差队列172与171缺定位43待归属/closed11（P05原closed）/完整叶0/globalfalse与所有门禁保，U11/V03/R04只current/refs仍open。完整460FF0父/六依赖、真实请求回复/人物创建-主地图与图像输入消费、全部正常alias-owner寿命/CRT-SDK-机器ABI与链接、原格式明文往返/显示/运行R8仍待；音频暂停/RPLAN.24/执行与既定排除保，不构建测试运行或摘要。",
+      "character_list_progress_length_sampling": {
+        "spec_id": "BSL01",
+        "evidence_refs": [
+          "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-baseline",
+          "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-decision",
+          "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-acceptance",
+          "doc/cg2d_character_list_progress_length_sampling_spec.md#character-list-progress-length-source-state",
+          "doc/cg2d_character_list_progress_length_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 118,
+        "original_code_bytes": 377,
+        "original_page_count": 2,
+        "original_direct_call_count": 6,
+        "original_unique_callee_count": 6,
+        "original_indirect_call_count": 0,
+        "source_body_changed": true,
+        "source_cpp_patch_count": 4,
+        "source_changed_existing_function_count": 1,
+        "source_live_length_sample_count": 2,
+        "source_live_length_buffer": "gCharacterListProgressText",
+        "source_fixed_length_constant_removed": true,
+        "initial_length_width_type": "unsigned W32",
+        "initial_columns_formula": "((textLength * 8U) >> 6U) + 2U",
+        "initial_length_before_stage_publish": true,
+        "initial_geometry_stage_order": [
+          "stage=1",
+          "unscaledX=10-columns",
+          "columns publish",
+          "centeredWidth=unscaledX*64",
+          "rows=2",
+          "width=columns*64",
+          "x=centeredWidth/2",
+          "x publish",
+          "y=192",
+          "create(x,192,width,96,4,1)"
+        ],
+        "nonzero_poll_action_sample_once_kept": true,
+        "nonnull_mark_and_clear_only": true,
+        "draw_geometry_stage_order": [
+          "rows",
+          "verticalHeight=rows*48-16",
+          "y",
+          "textY=verticalHeight/2+y",
+          "columns",
+          "strlen(current buffer)",
+          "horizontalWidth=(columns*8-textLength)*8",
+          "x",
+          "textX=horizontalWidth/2+x"
+        ],
+        "draw_final_s16_arguments_kept": true,
+        "normal_previous_values_wrong": false,
+        "original_source_rest_unchanged": true,
+        "new_true_function_count": 1,
+        "new_semantic_record_count": 1,
+        "new_range_classification_count": 1,
+        "full_original_parent_or_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

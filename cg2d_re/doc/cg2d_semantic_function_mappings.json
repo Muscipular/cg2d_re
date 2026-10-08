@@ -93974,7 +93974,7 @@
     {
       "original_entry": "0x453760",
       "inventory_id": "F:00053760",
-      "status": "既有截图父的文件/格式整链已接；GDI替换沿既有裁决，捕获/完整运行未验",
+      "status": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
       "original_end_exclusive": "0x453DE0",
       "instruction_count": 491,
       "original_direct_reference_count": 1,
@@ -93983,7 +93983,15 @@
           "path": "src/render/SdlPresenter.cpp",
           "symbols": [
             "TakeScreenshot_453760"
-          ]
+          ],
+          "relationship": "453760：既有文件/格式接线记录保持并补完整根/批准GDI源合同。原客户区屏幕原点、mkdir/errno17、借同localtime月→日→年、0..999读探测及满额消息保持；32位三个mask先取再写。批准沿4539BC..453B71 GDI分支，12C000H分配/640x480/24位GetDIBits非零、成功才restore/Delete及两fresh hWnd ReleaseDC→BMP→原GDI消息→free，失败残留原样，不恢复Primary锁/像素转换、低色深渲染或故障分支。"
+        },
+        {
+          "path": "include/cg/render/SdlPresenter.hpp",
+          "symbols": [
+            "TakeScreenshot_453760"
+          ],
+          "relationship": "既有公开声明和宽度保持，无新增接口"
         }
       ],
       "inbound_evidence": [
@@ -94177,10 +94185,79 @@
       ],
       "evidence_documents": [
         "doc/cg2d_stdio_contract.md",
-        "doc/cg2d_sdl_presenter.md"
+        "doc/cg2d_sdl_presenter.md",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
       ],
-      "verification_level": "完整491条/唯一入向、五原调用对应十源码表达式、六GDI格式来源与十字符串272B含NUL及限定源码/JSON差异静态核对；仅文件/格式整链，未重验捕获/掩码/BMP/释放/节流，未执行",
-      "boundary": "公共文件前导及已批准GDI路径的原FILE/三原格式点统一真实核心；256B path未清、共享localtime每轮月/日/年重取、S32序号0至999、r失败即停止/非空close忽略结果后递增保持。满1000先1280B未清无参格式/消息后返回，不捕获。六GDI格式各256B未清message与同一path，动态一次；原字节/消息/分配/释放/失败残留与原BMP调用正文不改。SDL不提供Primary锁，沿既有GDI替换，不复刻Primary格式/故障；完整捕获/资源/像素输出/实际文件内容与运行验收仍待。"
+      "verification_level": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "boundary": "公共文件前导及已批准GDI路径的原FILE/三原格式点统一真实核心；256B path未清、共享localtime每轮月/日/年重取、S32序号0至999、r失败即停止/非空close忽略结果后递增保持。满1000先1280B未清无参格式/消息后返回，不捕获。六GDI格式各256B未清message与同一path，动态一次；原字节/消息/分配/释放/失败残留与原BMP调用正文不改。SDL不提供Primary锁，沿既有GDI替换，不复刻Primary格式/故障；完整捕获/资源/像素输出/实际文件内容与运行验收仍待。 453760：既有文件/格式接线记录保持并补完整根/批准GDI源合同。原客户区屏幕原点、mkdir/errno17、借同localtime月→日→年、0..999读探测及满额消息保持；32位三个mask先取再写。批准沿4539BC..453B71 GDI分支，12C000H分配/640x480/24位GetDIBits非零、成功才restore/Delete及两fresh hWnd ReleaseDC→BMP→原GDI消息→free，失败残留原样，不恢复Primary锁/像素转换、低色深渲染或故障分支。 BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "original_chunks": [
+        [
+          "0x453760",
+          "0x453de0"
+        ]
+      ],
+      "screenshot_chain_baseline": {
+        "spec_id": "BVT01",
+        "evidence_refs": [
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 491,
+        "original_code_bytes": 1664,
+        "original_page_count": 8,
+        "original_direct_call_count": 24,
+        "original_indirect_call_count": 14,
+        "original_jump_count": 49,
+        "original_return_count": 4,
+        "original_inbound_call_count": 1,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 612,
+        "original_total_code_bytes": 2007,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 25,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_indirect_call_count": 22,
+        "original_total_jump_count": 58,
+        "original_total_return_count": 8,
+        "original_total_inbound_call_count": 5,
+        "original_total_inbound_data_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_three_source_bodies_kept": true,
+        "whole_backend_header_and_shortcut_kept": true,
+        "old_757_file_format_byte_evidence_kept": true,
+        "old_SDL_GDI_decision_reused": true,
+        "original_500_strict_unsigned_throttle_and_actual_tick_return_kept": true,
+        "original_directory_calendar_probes_masks_and_messages_kept": true,
+        "original_GDI_resource_order_and_failure_residue_kept": true,
+        "original_BMP_three_BOOL_length_checks_and_signed_height_kept": true,
+        "key_table_data_reference_not_dispatch_proof": true,
+        "no_Primary_equivalence_claimed": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_files_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     },
     {
       "original_entry": "0x508360",
@@ -203802,6 +203879,200 @@
         "full_input_production_verified": false,
         "full_lifecycle_closed": false,
         "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x503c80",
+      "inventory_id": "F:00103C80",
+      "original_role": "503C80：入口先读tick，再读专用D68A78+500并unsigned严格大于判断；未到返回入口tick，到期完整453760后再读tick、发布并返回。两4C7AE0普通CALL弃返回，一个5596DC数据引用单列，不证明旧键表实际分派。",
+      "original_end_exclusive": "0x503ca7",
+      "original_chunks": [
+        [
+          "0x503c80",
+          "0x503ca7"
+        ]
+      ],
+      "instruction_count": 12,
+      "status": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/render/SdlPresenter.cpp",
+          "symbols": [
+            "TakeScreenshotThrottled_503C80"
+          ],
+          "relationship": "503C80：入口先读tick，再读专用D68A78+500并unsigned严格大于判断；未到返回入口tick，到期完整453760后再读tick、发布并返回。两4C7AE0普通CALL弃返回，一个5596DC数据引用单列，不证明旧键表实际分派。"
+        },
+        {
+          "path": "include/cg/render/SdlPresenter.hpp",
+          "symbols": [
+            "TakeScreenshotThrottled_503C80"
+          ],
+          "relationship": "既有公开声明和宽度保持，无新增接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+      ],
+      "boundary": "503C80：入口先读tick，再读专用D68A78+500并unsigned严格大于判断；未到返回入口tick，到期完整453760后再读tick、发布并返回。两4C7AE0普通CALL弃返回，一个5596DC数据引用单列，不证明旧键表实际分派。 BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "screenshot_chain_baseline": {
+        "spec_id": "BVT01",
+        "evidence_refs": [
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 12,
+        "original_code_bytes": 39,
+        "original_page_count": 1,
+        "original_direct_call_count": 1,
+        "original_indirect_call_count": 2,
+        "original_jump_count": 1,
+        "original_return_count": 1,
+        "original_inbound_call_count": 2,
+        "original_inbound_data_reference_count": 1,
+        "original_total_instruction_count": 612,
+        "original_total_code_bytes": 2007,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 25,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_indirect_call_count": 22,
+        "original_total_jump_count": 58,
+        "original_total_return_count": 8,
+        "original_total_inbound_call_count": 5,
+        "original_total_inbound_data_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_three_source_bodies_kept": true,
+        "whole_backend_header_and_shortcut_kept": true,
+        "old_757_file_format_byte_evidence_kept": true,
+        "old_SDL_GDI_decision_reused": true,
+        "original_500_strict_unsigned_throttle_and_actual_tick_return_kept": true,
+        "original_directory_calendar_probes_masks_and_messages_kept": true,
+        "original_GDI_resource_order_and_failure_residue_kept": true,
+        "original_BMP_three_BOOL_length_checks_and_signed_height_kept": true,
+        "key_table_data_reference_not_dispatch_proof": true,
+        "no_Primary_equivalence_claimed": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_files_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x453e80",
+      "inventory_id": "F:00053E80",
+      "original_role": "453E80：借用已排好行BGR24及S32宽高，pitch四字节对齐/abs仅文件大小，原signed height写头；14B/40B/像素三次WriteFile分别BOOL及实写长度判断，失败关闭返0/保留部分文件，成功忽略关闭结果返1；原生HANDLE不截断，不新增保护或转换。",
+      "original_end_exclusive": "0x453fb0",
+      "original_chunks": [
+        [
+          "0x453e80",
+          "0x453fb0"
+        ]
+      ],
+      "instruction_count": 109,
+      "status": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/render/SdlPresenter.cpp",
+          "symbols": [
+            "SaveScreenshotBitmap_453E80"
+          ],
+          "relationship": "453E80：借用已排好行BGR24及S32宽高，pitch四字节对齐/abs仅文件大小，原signed height写头；14B/40B/像素三次WriteFile分别BOOL及实写长度判断，失败关闭返0/保留部分文件，成功忽略关闭结果返1；原生HANDLE不截断，不新增保护或转换。"
+        },
+        {
+          "path": "include/cg/render/SdlPresenter.hpp",
+          "symbols": [
+            "SaveScreenshotBitmap_453E80"
+          ],
+          "relationship": "既有公开声明和宽度保持，无新增接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+      ],
+      "boundary": "453E80：借用已排好行BGR24及S32宽高，pitch四字节对齐/abs仅文件大小，原signed height写头；14B/40B/像素三次WriteFile分别BOOL及实写长度判断，失败关闭返0/保留部分文件，成功忽略关闭结果返1；原生HANDLE不截断，不新增保护或转换。 BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "screenshot_chain_baseline": {
+        "spec_id": "BVT01",
+        "evidence_refs": [
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+          "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 109,
+        "original_code_bytes": 304,
+        "original_page_count": 2,
+        "original_direct_call_count": 0,
+        "original_indirect_call_count": 6,
+        "original_jump_count": 8,
+        "original_return_count": 3,
+        "original_inbound_call_count": 2,
+        "original_inbound_data_reference_count": 0,
+        "original_total_instruction_count": 612,
+        "original_total_code_bytes": 2007,
+        "original_total_page_count": 11,
+        "original_total_direct_call_count": 25,
+        "original_total_unique_direct_callee_count": 11,
+        "original_total_indirect_call_count": 22,
+        "original_total_jump_count": 58,
+        "original_total_return_count": 8,
+        "original_total_inbound_call_count": 5,
+        "original_total_inbound_data_reference_count": 1,
+        "source_body_changed": false,
+        "source_cpp_file_count": 0,
+        "source_header_file_count": 0,
+        "source_patch_count": 0,
+        "new_implementation_function_count": 0,
+        "new_helper_count": 0,
+        "new_api_count": 0,
+        "new_shared_owner_count": 0,
+        "new_I_claimed": false,
+        "all_three_source_bodies_kept": true,
+        "whole_backend_header_and_shortcut_kept": true,
+        "old_757_file_format_byte_evidence_kept": true,
+        "old_SDL_GDI_decision_reused": true,
+        "original_500_strict_unsigned_throttle_and_actual_tick_return_kept": true,
+        "original_directory_calendar_probes_masks_and_messages_kept": true,
+        "original_GDI_resource_order_and_failure_residue_kept": true,
+        "original_BMP_three_BOOL_length_checks_and_signed_height_kept": true,
+        "key_table_data_reference_not_dispatch_proof": true,
+        "no_Primary_equivalence_claimed": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_files_verified": false,
         "full_machine_abi_verified": false,
         "runtime_verified": false,
         "fault_equivalence_claimed": false

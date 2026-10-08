@@ -2008,3 +2008,11 @@ G02/R04/V04仅current/引用仍open，完整机器/派生只具名差集、成�
 BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。
 
 BVP01七整源/十三正文保持是原命名快照历史；本次只纠正4FA8E0当前跨opaque直接访问，既有getter/声明及其它源保持。语义1800/有效1793、F948、公共UI49、基线1910（51.90%）保持，仅E1102→1104；编译、链接与运行未执行。
+
+## BVT01截图链追踪缺口收口（2026-10-08）
+
+[基线](cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline)、[合同与决定](cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision)、[验收标准](cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance)及[状态](cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state)；[完整原证](cg2d_screenshot_chain_baseline_evidence.json)。
+
+BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。
+
+旧757的五文件/格式原点、十源码表达式及十条原字符串保持；早期“主函数仍待”仅是旧阶段状态。现有目录/time/localtime/探测已接真实Legacy边界，截图仍沿原GDI。预期语义1802/有效1795、基线1912（51.96%）、F951/E1105；正确本体不重建，不称新增I或完整截图运行通过。

@@ -4390,3 +4390,17 @@ BVS01表情请求单处opaque访问已改为既有GetYobiActionField2A8；S32读
 已修复表情请求4FA8E0直接访问不完整YobiAction的源码缺口，单处改用既有GetYobiActionField2A8。原4FA9C1六字节W32读取与BVP01完整根一致；调用方整源仅一个表达式替换，getter/声明及其它源码保持，无新增接口、保护或函数身份。只在原分支以同action读取一次S32图号，所有表情选择、两表、Y/X/MIS→本地动作→完成tick及返回保持，网络原格式明文。
 
 源码、完整机器台账与派生差集通过，文本汇总/-Check退出0。旧1782/F更新不重计，语义1800/有效1793、基线1910（51.90%）、F948、公共UI49保持，仅E1102→1104；四任务仍open，pending18/R7已审467余2594/closed11/全叶0/globalfalse、原差队列及CRT43保持。BVP01“正文保持”仅为历史快照，不代当前编译结论；未执行编译、链接或运行。音频暂停/RPLAN.24及执行限制保，整体SPEC目标继续推进。
+
+## BVT01截图完整链基线与两映射缺口（2026-10-08）
+
+BVT01截图节流/GDI/BMP三根已纳管；两个新原新、旧757补全，RENDER79仅限定S；正确源码保持，实际输入/像素文件/运行待。
+
+[实施及验收](../doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision)、[完整证据](../doc/cg2d_screenshot_chain_baseline_evidence.json)。三完整612条2007B/11页，五CALL/一DATA分列；旧GDI裁决和757真实文件/格式及十字符串复用。零源改/零新增I，不扩Primary豁免；三F新增处置、两个新原新1800/1801，已有757追加，RENDER76→79，仅一限定S，四任务保持open。静态结果完成后追加。
+
+### BVT01本步实际静态结果
+
+集中静态通过：三完整612条2007B/11页，25直接11目标、22间接、58跳8RET；五普通CALL与5596DC单DATA分列，原两个快捷CALL复用BVN01完整父证据。三个正确既有正文、SdlPresenter整源/公共头和快捷父整源全文保持，零源码改动/零新增I。
+
+节流严格unsigned门槛及截图后无条件fresh tick发布/返回有据；原目录、共享日期逐轮月→日→年、十原字符串含NUL、三个mask先取后写、GDI实际分支与两fresh hWnd/失败残留、BMP三次BOOL及长度检查和signed height均保持。沿既有批准GDI替换，不扩Primary或错误配对/故障等价裁决。
+
+完整机器与派生差集、文本汇总/-Check通过。两个新记录1800/1801、旧757完整文件/格式及原字节保留并追加；三adapted F、RENDER79，仅一限定S。实际语义1802/有效1795、合同1912（51.96%）、F951/E1105；四任务仍open，pending18/R7已审467余2594/closed11/全叶0/globalfalse、原差队列及CRT43保持。未执行编译、截图、文件写入或运行；全部callee/真实输入分派、正常owner-alias寿命、SDK/机器ABI、遮挡/全屏/像素文件及完整运行仍待验，原格式明文/音频暂停/RPLAN.24和整体SPEC目标保持。

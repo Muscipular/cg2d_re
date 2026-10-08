@@ -2492,7 +2492,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-baseline",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-baseline",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-baseline",
-        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline"
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-baseline",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline"
       ],
       "original_inventory_ids": [
         "F:0004CC20",
@@ -2570,7 +2571,10 @@
         "F:0011FDE0",
         "F:0011D790",
         "F:0011E0D0",
-        "F:0011D750"
+        "F:0011D750",
+        "F:00103C80",
+        "F:00053E80",
+        "F:00053760"
       ],
       "closure_task_ids": [
         "C09",
@@ -2623,7 +2627,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-decision",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
-        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision"
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -2665,7 +2670,8 @@
         "BVD01四已有正确转场/分派完整根979条3326B/17页、61direct/三indirect/87跳转/44返回、21引用五父；21局部累计293条953B含重叠邻指令，九窗准确复用本轮完整控制父，最后一窗受真实末界为13条，不冒称完整所有父。五相关源/五完整正文正确保持，源码0改动/无新I；两实际表40项160B及15B NN_NOP/3B同寄存器零位移LEA对齐，四X178B用途；四adapted/LOOP-RENDER各限定S，完整两大FX根/其他父/callee/alias寿命/ABI链接/像素运行未验，RPLAN.24异常不专项处理/模拟或记等价。",
         "BVE01正/反向FX完整两根1252条5152B/19页、35direct/零indirect/208跳转/五返回、18引用同已纳管51FDE0；18局部252条707B准确复用BVD01完整父，窗口含重叠不当全链。原51D793/51E0D3触发完整W32持样早于RECT生产；一cpp两个prefix恢复先持样后RECT/按同持样判定，完整余体/四相关源/声明/18真实消费保持。两实际9项表72B/24B NN_NOP、两X96B用途；两adapted/LOOP-RENDER四限定I-S只取样实修/接口及用途，完整数值分支/浮点精度/像素/其余callee与owner-alias寿命/ABI链接运行仍未验，不把完整取证等同完整语义验收；RPLAN.24异常不专项处理/模拟或记等价。",
         "BVF01限定静态：原51D750完整18条49B、六局部84条418B/四父和九共享复制窗200条712B含邻指令及重叠，既有GQD01队列完整根准确复用；两cpp两hpp共四片段恢复完整W32随机写入/返回与Back实际整源面复制，不裁剪部分成功，保原native正常资源失败及失败后一次RNG、九调用方原控制流；一X15B用途。四域八I-S仅该准备/复制合同、接口接线与用途，完整像素/其它父-callee/owner-alias寿命/ABI链接运行未验",
-        "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验"
+        "BVG01限定静态：精确复用BVE01两完整FX原根1252条5152B/19页，MCP只读复核八条带生产窗口170条571B，其中七实修151条506B及一正确19条65B；一cpp七RECT片段恢复top→bottom→left→right四S32写入，原坐标持样/__ftol/S16及行循环/native正常失败与所有余体保持。1759/1760已有原新承接/零新F-X，LOOP/RENDER四I-S仅RECT生产/消费接线，完整数值/FP精度/像素/其它父-callee/owner-alias寿命/机器ABI链接运行未验",
+        "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。"
       ],
       "gates": {},
       "member_inventory_closed": false,
@@ -2708,7 +2714,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
-        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
       ]
     },
     {
@@ -49244,6 +49251,43 @@
       "observation": "BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。",
       "expected": "BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。",
       "actual": "BVS01修复4FA8E0表情请求跨opaque YobiAction直接取imageNo的真实源码缺口；原4FA9C1一次W32读取由既有GetYobiActionField2A8原样承接，仍仅在附件44为空且计时门禁已过后同action读取。一个CPP一个调用表达式，零新函数/helper/API/owner/保护；正文其余、现有getter/公共头和两动作表保持。复用BVP01完整117条437B/两页基线，本步只重取一实际指令；既有1782/F:000FA8E0和公共UI49不重计，两个限定I/S，原格式明文/音频暂停/RPLAN.24保。只验本源码边界，未宣编译链接、机器ABI或运行通过，四任务仍open。"
+    },
+    {
+      "id": "E-SCREENSHOT-CHAIN-FUNC-RENDER-S-20261008",
+      "feature_id": "FUNC-RENDER",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "BVT01三完整612条2007B/11页；五CALL/一DATA分列，整源正确保持及已批准GDI替换复用，零新I。doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+      "implementation_reference": "Git固定命名快照 cg2d-re-screenshot-chain-baseline-20261008",
+      "method": "static",
+      "artifacts": [
+        "src/render/SdlPresenter.cpp#TakeScreenshotThrottled_503C80",
+        "src/render/SdlPresenter.cpp#SaveScreenshotBitmap_453E80",
+        "src/render/SdlPresenter.cpp#TakeScreenshot_453760",
+        "include/cg/render/SdlPresenter.hpp#TakeScreenshotThrottled_503C80",
+        "include/cg/render/SdlPresenter.hpp#SaveScreenshotBitmap_453E80",
+        "include/cg/render/SdlPresenter.hpp#TakeScreenshot_453760",
+        "src/ui/WindowRuntime.cpp#ProcessWindowShortcuts_4C7AE0",
+        "doc/cg2d_sdl_presenter.md#screenshot-bitmap-writer",
+        "doc/cg2d_stdio_contract.md",
+        "doc/cg2d_window_shortcut_publication_evidence.json",
+        "doc/cg2d_screenshot_chain_baseline_evidence.json",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+      ],
+      "differences": [
+        {
+          "description": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+          "decision_ref": "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-08",
+      "observation": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "expected": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "actual": "BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。"
     }
   ],
   "task_acceptance": [
@@ -50143,7 +50187,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
       ]
     },
     {
@@ -50445,7 +50490,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
       ]
     },
     {
@@ -50628,7 +50674,8 @@
         "doc/cg2d_transition_dispatch_grid_baseline_spec.md#transition-dispatch-grid-source-state",
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-source-state",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-source-state",
-        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state"
+        "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-source-state",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
       ]
     },
     {
@@ -50773,7 +50820,8 @@
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-source-state",
         "doc/cg2d_window_close_mode_publication_spec.md#window-close-mode-source-state",
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state",
-        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state"
+        "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-source-state",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
       ]
     },
     {
@@ -62349,6 +62397,42 @@
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state"
       ],
       "boundary": "472220：原71个state，每次仅window非空才marker50 W32=1，空槽旧marker和其余字段保持；当前void原正常写全体正确，不新全局或默认清零。 BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00103C80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+      ],
+      "boundary": "503C80：入口先读tick，再读专用D68A78+500并unsigned严格大于判断；未到返回入口tick，到期完整453760后再读tick、发布并返回。两4C7AE0普通CALL弃返回，一个5596DC数据引用单列，不证明旧键表实际分派。 BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00053E80",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+      ],
+      "boundary": "453E80：借用已排好行BGR24及S32宽高，pitch四字节对齐/abs仅文件大小，原signed height写头；14B/40B/像素三次WriteFile分别BOOL及实写长度判断，失败关闭返0/保留部分文件，成功忽略关闭结果返1；原生HANDLE不截断，不新增保护或转换。 BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。"
+    },
+    {
+      "inventory_id": "F:00053760",
+      "disposition": "adapted",
+      "epoch": "2026-10-04.1",
+      "evidence_refs": [
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance",
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state"
+      ],
+      "boundary": "453760：既有文件/格式接线记录保持并补完整根/批准GDI源合同。原客户区屏幕原点、mkdir/errno17、借同localtime月→日→年、0..999读探测及满额消息保持；32位三个mask先取再写。批准沿4539BC..453B71 GDI分支，12C000H分配/640x480/24位GetDIBits非零、成功才restore/Delete及两fresh hWnd ReleaseDC→BMP→原GDI消息→free，失败残留原样，不恢复Primary锁/像素转换、低色深渲染或故障分支。 BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。"
     }
   ],
   "auxiliary_dispositions": [

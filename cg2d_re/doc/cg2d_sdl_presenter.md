@@ -2098,3 +2098,11 @@ FadeIn还有最终直接调用。上述是源码/指定接线静态，完整父/
 集中静态通过：BVE两完整原根1252条5152B/19页元数据/边界精确复用，八实际生产窗170条571B逐条一致，七实修151条506B及一正确19条65B、八原坐标/__ftol/4535B0接线准确承接。一cpp七字段片段恢复top→bottom→left→right四S32写入；入口/反向7-8正确穿插及全部数值/所有余体、坐标持样/截断/低S16、行范围、四相关源/声明和原native正常失败保持。完整机器/派生只两已有原新/两域四限定I-S与三任务差集；十五文件UTF8无BOM/LF、四锚点/四证据各25真实来源通过。
 
 文本汇总及Check均退出0；实际语义1762/有效1755、合同1873（50.90%）、F903、R7已审465余2596、LOOP175/RENDER76均保持，E1078。原分类120/mixed3/完整入口排除113、pending18/未知ECX、closed11/差队列/所有其他旧记录及完整闭包保持；零新F/X/成员，只七RECT生产/实际消费及一正确片段保持的静态通过，完整数值/FP精度/全像素、其它父-callee/owner-alias寿命、机器ABI链接/正常失败实测/运行及R8未验，整体目标继续。
+
+## BVT01截图链追踪缺口收口（2026-10-08）
+
+[基线](cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-baseline)、[合同与决定](cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision)、[验收标准](cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-acceptance)及[状态](cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-source-state)；[完整原证](cg2d_screenshot_chain_baseline_evidence.json)。
+
+BVT01截图三完整根612条2007B/11页、25direct11目标/22间接、58跳8RET，五普通CALL与一个旧键表DATA引用分列。既有节流/GDI父/BMP写叶三个正文及整个后端、公共头/快捷父全保持，零源码改动/零新增I；复用757文件格式与原字节证据及已批准SDL→原GDI替换。两新原新1800/1801、旧757更新，三adapted F纳入RENDER76→79，仅一个限定S；U04/U11/V04/R04仍open。原目录日期探测、mask读写、GDI实际分支/原资源残留、BMP三次长度/BOOL和完整节流返回已静态归档，不以一DATA引用证明实际键表分派，不扩DX豁免或称全捕获/像素文件/所有callee与正常寿命、机器ABI/运行验收通过。原格式明文/音频暂停/RPLAN.24与执行限制保。
+
+旧757的五文件/格式原点、十源码表达式及十条原字符串保持；早期“主函数仍待”仅是旧阶段状态。现有目录/time/localtime/探测已接真实Legacy边界，截图仍沿原GDI。预期语义1802/有效1795、基线1912（51.96%）、F951/E1105；正确本体不重建，不称新增I或完整截图运行通过。

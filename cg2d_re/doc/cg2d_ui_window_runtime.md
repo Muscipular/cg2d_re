@@ -245,3 +245,11 @@ git -c core.autocrlf=false -c i18n.logOutputEncoding=utf-8 show 810c6f75:cg2d_re
 一cpp两片段恢复入口x→width、关闭一次非拥有action供判断/清理，原normal数值及全部公共页签/提示/关闭等余体保持。共享99表仍借LegacyAudio唯一owner的action/dirty，模块名称不作为新音频恢复授权；现不写音频源/头，不加原+04回调分派或新表。43个未归属幂/浮点入口保既有专用x87裁决，无直接入向不能当不可达/宿主已迁移证明。
 
 1061原格式/%s/128B及97入向等全部旧字段保，新增单adapted F处置/公共UI流15→16和两限定I-S，各19真实来源；U04/U11/V03/R04仍open。预期F914/E1090，语义1766/有效1759、合同1876（50.98%）及R7已审467余2594保持。所有父/callee、生产和正常owner-alias寿命、旧输入外路由/机器ABI链接/运行及R8未验，音频暂停/原格式明文/RPLAN.24和完整门禁保持。
+
+## BVM01旧面板绘制/查询三根及共用桥实修（2026-10-08）
+
+[BVM01原基线](cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline)、[取样裁决](cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision)及[原证](cg2d_legacy_panel_button_bridge_sampling_evidence.json)：三完整绘制/关闭/按钮根252条662B/五页、10直接五目标/零间接/15跳4RET，373实际CALL仅引用定位；503990既有BSP基线复用，本步25条只取样邻窗不重计身份。
+
+桥接四源字段按原顺序取齐，不引入新原地址、helper或第二记录owner；Query core不用图号尾作文本，既有局部转换保。三原根已正确，补真实原新/处置即可；原descriptor全清与mode差异有完整指令证据，不为统一而删除、改造正常像素或新增拒绝。七整源只一桥片段，其余六源/声明与BVL公共入口保。
+
+新1766..1768/三adapted F，公共UI流16→19/两限定I-S各18来源，I仅现有桥接一个取样片段；U04/U11/V03/R04仍open。预期语义1769/有效1762、合同1879（51.06%）、F917/E1092，R7已审467余2594及pending18/closed11/全叶0/globalfalse保。原格式明文/音频暂停/99项同owner及0/100空handler、完整门禁和执行限制保持；全373调用处/其他父-callee、生产/正常owner-alias寿命/像素/机器ABI链接运行与R8未验。

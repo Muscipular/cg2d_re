@@ -246,3 +246,11 @@ LegacyUiRecord.cpp一个既有体两个片段：入口initialX→initialWidth→
 99原表+04的97非零行/97目标与原99项owner已证，xref和指定立即数不足证明外层间接用途；本公共入口不调+04，不补造回调表或绕过真实旧输入来源。
 
 1061原格式/%s/128B及97入向等全部旧字段保，新增单adapted F处置/公共UI流15→16和两限定I-S，各19真实来源；U04/U11/V03/R04仍open。预期F914/E1090，语义1766/有效1759、合同1876（50.98%）及R7已审467余2594保持。所有父/callee、生产和正常owner-alias寿命、旧输入外路由/机器ABI链接/运行及R8未验，音频暂停/原格式明文/RPLAN.24和完整门禁保持。
+
+## BVM01公共绘制依赖与按钮桥源字段取样（2026-10-08）
+
+[BVM01原基线](../cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline)、[取样裁决](../cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision)及[原证](../cg2d_legacy_panel_button_bridge_sampling_evidence.json)：三完整绘制/关闭/按钮根252条662B/五页、10直接五目标/零间接/15跳4RET，373实际CALL仅引用定位；503990既有BSP基线复用，本步25条只取样邻窗不重计身份。
+
+现有QueryPanelButtonState原局部初始化left/top/width/height读源，已用top/left/height/width四S32持样恢复503998/9B/9E/A1原序，再构造相同矩形并交原核心/沿完整返回；一cpp一桥一片段。三个主体/核心/所有其它源正确保持：16B原全清合法，面板mix4/按钮mix0、五页含零图号/原除2/unsigned999返回、按下与两悬停查询/低W16和层次不改。BVL已修入口/action与音频源头保持。
+
+新1766..1768/三adapted F，公共UI流16→19/两限定I-S各18来源，I仅现有桥接一个取样片段；U04/U11/V03/R04仍open。预期语义1769/有效1762、合同1879（51.06%）、F917/E1092，R7已审467余2594及pending18/closed11/全叶0/globalfalse保。原格式明文/音频暂停/99项同owner及0/100空handler、完整门禁和执行限制保持；全373调用处/其他父-callee、生产/正常owner-alias寿命/像素/机器ABI链接运行与R8未验。

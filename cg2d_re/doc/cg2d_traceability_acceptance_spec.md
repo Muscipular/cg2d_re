@@ -1950,3 +1950,11 @@ G02/R04/V04仅current/引用仍open，完整机器/派生只具名差集、成�
 [验收](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-acceptance)/[源态](cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state)仅覆盖两取样片段、完整共享入口与原表用途观察；六整源其余内容/暂停音频源头保持。公共UI流I只两真实源码取样，S只本根/现同owner等合同，不称全97调用处、真实旧输入分派或一般pow/CRT43迁移完成。
 
 1061原格式/%s/128B及97入向等全部旧字段保，新增单adapted F处置/公共UI流15→16和两限定I-S，各19真实来源；U04/U11/V03/R04仍open。预期F914/E1090，语义1766/有效1759、合同1876（50.98%）及R7已审467余2594保持。所有父/callee、生产和正常owner-alias寿命、旧输入外路由/机器ABI链接/运行及R8未验，音频暂停/原格式明文/RPLAN.24和完整门禁保持。
+
+## BVM01共用按钮桥与正确描画限定验收（2026-10-08）
+
+[BVM01原基线](cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline)、[取样裁决](cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision)及[原证](cg2d_legacy_panel_button_bridge_sampling_evidence.json)：三完整绘制/关闭/按钮根252条662B/五页、10直接五目标/零间接/15跳4RET，373实际CALL仅引用定位；503990既有BSP基线复用，本步25条只取样邻窗不重计身份。
+
+[验收](cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-acceptance)/[源态](cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state)限定现有桥四源字段取样与三完整正确合同；两个证据各18真实来源，I只桥接实修，S只本链。不把合法清零当故障、不记全373引用/所有旧页/像素或实际输入外路由通过，全部闭包继续原标准。
+
+新1766..1768/三adapted F，公共UI流16→19/两限定I-S各18来源，I仅现有桥接一个取样片段；U04/U11/V03/R04仍open。预期语义1769/有效1762、合同1879（51.06%）、F917/E1092，R7已审467余2594及pending18/closed11/全叶0/globalfalse保。原格式明文/音频暂停/99项同owner及0/100空handler、完整门禁和执行限制保持；全373调用处/其他父-callee、生产/正常owner-alias寿命/像素/机器ABI链接运行与R8未验。

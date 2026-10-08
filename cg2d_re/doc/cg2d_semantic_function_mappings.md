@@ -3921,3 +3921,11 @@ LOOP174→175/RENDER75→76/MAP128→129/BATTLE263→264、八限定I-S各28来�
 已有1061/F:00103160更新完整原证/当前状态与主源关系，原business格式、调用、incoming列表等字段原样保；旧状态/边界/验证级别具名留存。仅新增该原根adapted处置及FUNC-UIRUNTIME一真实成员/两限定I-S，不新增语义或其它97父/99页通过身份。
 
 1061原格式/%s/128B及97入向等全部旧字段保，新增单adapted F处置/公共UI流15→16和两限定I-S，各19真实来源；U04/U11/V03/R04仍open。预期F914/E1090，语义1766/有效1759、合同1876（50.98%）及R7已审467余2594保持。所有父/callee、生产和正常owner-alias寿命、旧输入外路由/机器ABI链接/运行及R8未验，音频暂停/原格式明文/RPLAN.24和完整门禁保持。
+
+## BVM01三正确绘制根原新与既有桥取样（2026-10-08）
+
+[BVM01原基线](cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline)、[取样裁决](cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision)及[原证](cg2d_legacy_panel_button_bridge_sampling_evidence.json)：三完整绘制/关闭/按钮根252条662B/五页、10直接五目标/零间接/15跳4RET，373实际CALL仅引用定位；503990既有BSP基线复用，本步25条只取样邻窗不重计身份。
+
+新1766/F:00103440、1767/F:00103590、1768/F:001035E0均来源既有cpp/hpp，正文无改动/无新这些主体I；仅1767关联现有Query桥一个取样实修。503990/BSP与503160/BVL已有身份、全部旧记录保持，不把桥新造F或重复纳管核心。只有公共UI流成员增加三，所有其它域/成员及分类不变。
+
+新1766..1768/三adapted F，公共UI流16→19/两限定I-S各18来源，I仅现有桥接一个取样片段；U04/U11/V03/R04仍open。预期语义1769/有效1762、合同1879（51.06%）、F917/E1092，R7已审467余2594及pending18/closed11/全叶0/globalfalse保。原格式明文/音频暂停/99项同owner及0/100空handler、完整门禁和执行限制保持；全373调用处/其他父-callee、生产/正常owner-alias寿命/像素/机器ABI链接运行与R8未验。

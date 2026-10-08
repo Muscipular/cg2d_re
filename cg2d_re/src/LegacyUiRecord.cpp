@@ -102,9 +102,13 @@ std::int32_t QueryCharacterSelectState(const void* const uiRecord)
 
 std::int32_t QueryPanelButtonState(const cg::login::detail::LegacyPanelButtonRecord* const button)
 {
-    // 503990仅消费矩形；避免将图号尾部当作CharacterModalUiRecord的文本指针。
+    // 503990仅消费矩形；按原top/left/height/width次序取齐，避免将图号尾部当作文本指针。
+    const std::int32_t top = button->top;
+    const std::int32_t left = button->left;
+    const std::int32_t height = button->height;
+    const std::int32_t width = button->width;
     const cg::character_select::detail::CharacterModalUiRecord rectangle {
-        0, 0, button->left, button->top, button->width, button->height, nullptr,
+        0, 0, left, top, width, height, nullptr,
     };
     return cg::character_select::detail::Sub_503990(&rectangle);
 }

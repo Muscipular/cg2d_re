@@ -4281,3 +4281,17 @@ BVD控制父已固定，本轮继续两大FX完整根：正向570条2320B/九页
 集中静态通过：503160完整231条735B/四页、13直接九目标/一初始化间接调用、22跳五RET，97真实CALL只定位96已归父及一未归点。六整源仅一个既有体两个取样片段，入口x→width明确持样，关闭一次native非拥有action供判空/MarkDeath后清同一槽；原字段发布、dirty处理、创建失败仍SE56/初始化、fresh槽LTE0、五页/hint128B和同源提示、点击BYTE/两次关闭查询、所有其它音频调用与返回保持。原99表三字段与既有owner逐项吻合；编号0/100两空handler，97非零行/97目标。完整原新/登记及派生仅具名差集，两限定I-S各19来源，四任务仍open。
 
 文本汇总及Check均退出0。实际语义1766/有效1759、合同1876（50.98%）、F914/E1090、公共UI流16，R7已审467余2594、pending18/closed11/全叶0/globalfalse与原差队列/CRT43、其它全体成员/门禁保持。十三具名文件显式UTF8/LF；不新造外层分派/表、一般pow宿主或暂停音频恢复，不称旧正常值错误或已观察运行故障。完整父-callee/数据生产/正常owner-alias寿命、旧输入外路由/机器ABI链接运行和R8未验，不构建/调试/测试/执行或计算摘要，整体SPEC目标继续推进。
+
+## BVM01旧面板按钮桥四源字段实修与描画基线（2026-10-08）
+
+[BVM01原基线](../doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline)、[取样裁决](../doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision)及[原证](../doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json)：三完整绘制/关闭/按钮根252条662B/五页、10直接五目标/零间接/15跳4RET，373实际CALL仅引用定位；503990既有BSP基线复用，本步25条只取样邻窗不重计身份。
+
+沿BVL公共旧面板继续503440/503590/5035E0完整根，原descriptor确实全清与mix4/0、原geometry/返回等与源码一致，正确保持。真实差异在QueryPanelButtonState局部初始化按left/top/width/height读源，先行SPEC后仅一个现有桥片段恢复top/left/height/width四S32取齐；局部矩形、原核心及结果不变，七整源其余六文件/声明/三主体/BVL入口/音频完全保。新增三真实原新及三F，公共UI流19和两限定证据18来源，四任务仍open；集中静态/汇总后补实际值，不重复创建或宣称新三主体实现。
+
+新1766..1768/三adapted F，公共UI流16→19/两限定I-S各18来源，I仅现有桥接一个取样片段；U04/U11/V03/R04仍open。预期语义1769/有效1762、合同1879（51.06%）、F917/E1092，R7已审467余2594及pending18/closed11/全叶0/globalfalse保。原格式明文/音频暂停/99项同owner及0/100空handler、完整门禁和执行限制保持；全373调用处/其他父-callee、生产/正常owner-alias寿命/像素/机器ABI链接运行与R8未验。 整体SPEC目标继续推进。
+
+### BVM01本步实际静态结果
+
+集中静态通过：三个完整根252条662B/五页、10直接五目标/零间接/15跳4RET及373真实引用；503990本步25条仅核原top/left/height/width取样和首命中，完整核心沿BSP已有基线。七整源仅现有QueryPanelButtonState一个桥接片段，四次S32源字段按原序取齐，局部矩形/核心与完整返回保；三正确主体与BVL公共入口/所有其它源头保持。两处原16B descriptor确实全清，面板mix4/按钮mix0、五页/原除2和unsigned999、层次/悬停/按下/几何/结果保，不误删合法初始化。完整原新/登记和派生仅具名差集，两个限定I-S各18来源，I仅桥接实修、四任务仍open。
+
+文本汇总及Check均退出0。实际语义1769/有效1762、合同1879（51.06%）、F917/E1092、公共UI流19；R7已审467余2594、pending18/closed11/全叶0/globalfalse、原差队列/CRT43及所有其它成员和门禁保持。三正确主体无新实现I，核心不重计；不新造外路由/99回调或恢复暂停音频，原格式明文/RPLAN.24与执行限制保。所有父-callee/数据生产/正常owner-alias寿命、像素/机器ABI链接运行/旧输入外路由与R8未验，不构建/调试/测试/运行/产物或摘要，整体SPEC目标继续推进。

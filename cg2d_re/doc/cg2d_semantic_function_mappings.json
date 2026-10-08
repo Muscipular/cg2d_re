@@ -200291,6 +200291,307 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x503440",
+      "inventory_id": "F:00103440",
+      "original_role": "公共旧面板悬停/五页/关闭按钮及背景绘制",
+      "original_end_exclusive": "0x503585",
+      "original_chunks": [
+        [
+          "0x503440",
+          "0x503585"
+        ]
+      ],
+      "instruction_count": 116,
+      "status": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_503440"
+          ],
+          "relationship": "BVM01完整116条325B/两页公共绘制正文正确保持：S8 hover→原悬停字段读序/低W16边界，五页每轮fresh S8 selected、含零图号仍绘，原有符号height/width除2；flags低bit0才绘关闭钮，之后fresh选页/背景图号，unsigned image<=999原W32透传，否则按height/y/width/x绘212层并沿返回。16B descriptor原全清后FFFFFFF及mode4，现正确保持，不误删合法清零。仅此根完整基线与现相关桥接，所有父/像素/ABI运行未验。"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_503440"
+          ],
+          "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-acceptance",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json"
+      ],
+      "boundary": "BVM01完整116条325B/两页公共绘制正文正确保持：S8 hover→原悬停字段读序/低W16边界，五页每轮fresh S8 selected、含零图号仍绘，原有符号height/width除2；flags低bit0才绘关闭钮，之后fresh选页/背景图号，unsigned image<=999原W32透传，否则按height/y/width/x绘212层并沿返回。16B descriptor原全清后FFFFFFF及mode4，现正确保持，不误删合法清零。仅此根完整基线与现相关桥接，所有父/像素/ABI运行未验。",
+      "verification_level": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+      "panel_button_bridge_sampling": {
+        "spec_id": "BVM01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-acceptance",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 116,
+        "original_code_bytes": 325,
+        "original_page_count": 2,
+        "original_direct_call_count": 4,
+        "original_unique_direct_callee_count": 3,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 5,
+        "original_return_count": 1,
+        "original_inbound_call_count": 97,
+        "original_total_instruction_count": 252,
+        "original_total_code_bytes": 662,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 10,
+        "original_unique_direct_callee_count_total": 5,
+        "original_total_inbound_call_count": 373,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_bridge_source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_source_top_left_height_width_samples_restored_at_bridge": true,
+        "local_rectangle_values_and_full_core_result_retained": true,
+        "existing_BSP01_query_core_body_and_identity_kept": true,
+        "query_core_25_instruction_window_only": true,
+        "query_core_recounted_as_new_F": false,
+        "all_three_correct_bodies_kept": true,
+        "original_16B_descriptor_whole_zero_initialization_kept": true,
+        "original_panel_mode4_and_button_mode0_kept": true,
+        "original_five_tabs_and_fresh_selected_reads_kept": true,
+        "original_signed_halving_and_unsigned_999_threshold_kept": true,
+        "original_hover_and_pressed_geometry_and_layer_kept": true,
+        "original_0_1_and_W32_void_return_contracts_kept": true,
+        "existing_BVL01_action_dirty_and_table_source_kept": true,
+        "audio_pause_kept": true,
+        "new_native_99_dispatch_added": false,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x503590",
+      "inventory_id": "F:00103590",
+      "original_role": "旧面板内部关闭区域状态查询",
+      "original_end_exclusive": "0x5035d8",
+      "original_chunks": [
+        [
+          "0x503590",
+          "0x5035d8"
+        ]
+      ],
+      "instruction_count": 29,
+      "status": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_503590"
+          ],
+          "relationship": "BVM01完整29条72B/一页关闭区域查询正确保持：y→height→x→width，bottom/right+1原S32；只区域命中才交closeButton给503990，低AL&40非零→1，否则0。实际Cpp借既有QueryPanelButtonState，当前桥接源矩形改原top→left→height→width四阶段，正常值/核心命中与1/0结果保；此原函数正文无改动、新I只桥接，不冒充全68调用处/外路由或运行完成。"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_503590"
+          ],
+          "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口"
+        },
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "QueryPanelButtonState"
+          ],
+          "relationship": "原503990实际命中兼容桥；仅一个桥接片段恢复源top/left/height/width，核心及本查询主体不改"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-acceptance",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json"
+      ],
+      "boundary": "BVM01完整29条72B/一页关闭区域查询正确保持：y→height→x→width，bottom/right+1原S32；只区域命中才交closeButton给503990，低AL&40非零→1，否则0。实际Cpp借既有QueryPanelButtonState，当前桥接源矩形改原top→left→height→width四阶段，正常值/核心命中与1/0结果保；此原函数正文无改动、新I只桥接，不冒充全68调用处/外路由或运行完成。",
+      "verification_level": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+      "panel_button_bridge_sampling": {
+        "spec_id": "BVM01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-acceptance",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 29,
+        "original_code_bytes": 72,
+        "original_page_count": 1,
+        "original_direct_call_count": 2,
+        "original_unique_direct_callee_count": 2,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 2,
+        "original_inbound_call_count": 68,
+        "original_total_instruction_count": 252,
+        "original_total_code_bytes": 662,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 10,
+        "original_unique_direct_callee_count_total": 5,
+        "original_total_inbound_call_count": 373,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_bridge_source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_source_top_left_height_width_samples_restored_at_bridge": true,
+        "local_rectangle_values_and_full_core_result_retained": true,
+        "existing_BSP01_query_core_body_and_identity_kept": true,
+        "query_core_25_instruction_window_only": true,
+        "query_core_recounted_as_new_F": false,
+        "all_three_correct_bodies_kept": true,
+        "original_16B_descriptor_whole_zero_initialization_kept": true,
+        "original_panel_mode4_and_button_mode0_kept": true,
+        "original_five_tabs_and_fresh_selected_reads_kept": true,
+        "original_signed_halving_and_unsigned_999_threshold_kept": true,
+        "original_hover_and_pressed_geometry_and_layer_kept": true,
+        "original_0_1_and_W32_void_return_contracts_kept": true,
+        "existing_BVL01_action_dirty_and_table_source_kept": true,
+        "audio_pause_kept": true,
+        "new_native_99_dispatch_added": false,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x5035E0",
+      "inventory_id": "F:001035E0",
+      "original_role": "旧图形按钮普通/按下图及独立悬停边框绘制",
+      "original_end_exclusive": "0x5036e9",
+      "original_chunks": [
+        [
+          "0x5035e0",
+          "0x5036e9"
+        ]
+      ],
+      "instruction_count": 107,
+      "status": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+      "sources": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbols": [
+            "Sub_5035E0"
+          ],
+          "relationship": "BVM01完整107条265B/两页图形按钮正文正确保持：原top/height/left/width首查询，区域命中才读按下BYTE/低bit0再style0，按下/普通各image→y→x绘制；hoverMode非零才第二独立查询，style0和命中才第三fresh四边，±2/低W16边框、hoverMode==2细节1否则0。16B descriptor原全清/FFFFFFF、mode0正确保，不套面板mode4；void结果、层低W8与全部几何/失败/参数保，无新该体I，完整208调用处/65父/像素寿命/机器ABI运行未验。"
+        },
+        {
+          "path": "src/LegacyPanelRuntime.hpp",
+          "symbols": [
+            "Sub_5035E0"
+          ],
+          "relationship": "既有公共旧面板/图形按钮声明与类型保持，无新接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-acceptance",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+        "doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json"
+      ],
+      "boundary": "BVM01完整107条265B/两页图形按钮正文正确保持：原top/height/left/width首查询，区域命中才读按下BYTE/低bit0再style0，按下/普通各image→y→x绘制；hoverMode非零才第二独立查询，style0和命中才第三fresh四边，±2/低W16边框、hoverMode==2细节1否则0。16B descriptor原全清/FFFFFFF、mode0正确保，不套面板mode4；void结果、层低W8与全部几何/失败/参数保，无新该体I，完整208调用处/65父/像素寿命/机器ABI运行未验。",
+      "verification_level": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+      "panel_button_bridge_sampling": {
+        "spec_id": "BVM01",
+        "evidence_refs": [
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-acceptance",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+          "doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 107,
+        "original_code_bytes": 265,
+        "original_page_count": 2,
+        "original_direct_call_count": 4,
+        "original_unique_direct_callee_count": 3,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 8,
+        "original_return_count": 1,
+        "original_inbound_call_count": 208,
+        "original_total_instruction_count": 252,
+        "original_total_code_bytes": 662,
+        "original_total_page_count": 5,
+        "original_total_direct_call_count": 10,
+        "original_unique_direct_callee_count_total": 5,
+        "original_total_inbound_call_count": 373,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "existing_bridge_source_body_changed": true,
+        "source_cpp_file_count": 1,
+        "source_header_file_count": 0,
+        "source_patch_count": 1,
+        "new_helper_count": 0,
+        "new_shared_owner_count": 0,
+        "new_implementation_function_count": 0,
+        "original_source_top_left_height_width_samples_restored_at_bridge": true,
+        "local_rectangle_values_and_full_core_result_retained": true,
+        "existing_BSP01_query_core_body_and_identity_kept": true,
+        "query_core_25_instruction_window_only": true,
+        "query_core_recounted_as_new_F": false,
+        "all_three_correct_bodies_kept": true,
+        "original_16B_descriptor_whole_zero_initialization_kept": true,
+        "original_panel_mode4_and_button_mode0_kept": true,
+        "original_five_tabs_and_fresh_selected_reads_kept": true,
+        "original_signed_halving_and_unsigned_999_threshold_kept": true,
+        "original_hover_and_pressed_geometry_and_layer_kept": true,
+        "original_0_1_and_W32_void_return_contracts_kept": true,
+        "existing_BVL01_action_dirty_and_table_source_kept": true,
+        "audio_pause_kept": true,
+        "new_native_99_dispatch_added": false,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

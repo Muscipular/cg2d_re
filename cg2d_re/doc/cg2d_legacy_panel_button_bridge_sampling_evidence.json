@@ -1,0 +1,5203 @@
+{
+  "spec_id": "BVM01",
+  "captured_on": "2026-10-08",
+  "original_database": "已打开cg2d.exe只读会话",
+  "original_route": "ida-17524 / a1def68e",
+  "original_functions": [
+    {
+      "start": "0x503440",
+      "end_exclusive": "0x503585",
+      "count": 116,
+      "chunks": [
+        [
+          "0x503440",
+          "0x503585"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4014b0",
+          "text": "call    sub_503440",
+          "from": "0x401902"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "text": "call    sub_503440",
+          "from": "0x402b13"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d3210",
+          "text": "call    sub_503440",
+          "from": "0x4d33f3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d3410",
+          "text": "call    sub_503440",
+          "from": "0x4d3695"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "text": "call    sub_503440",
+          "from": "0x4d4940"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4a50",
+          "text": "call    sub_503440",
+          "from": "0x4d4eba"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4f00",
+          "text": "call    sub_503440",
+          "from": "0x4d520c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d5250",
+          "text": "call    sub_503440",
+          "from": "0x4d5572"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "text": "call    sub_503440",
+          "from": "0x4d61c9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d62a0",
+          "text": "call    sub_503440",
+          "from": "0x4d6628"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6710",
+          "text": "call    sub_503440",
+          "from": "0x4d6a18"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6a60",
+          "text": "call    sub_503440",
+          "from": "0x4d6e59"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6ea0",
+          "text": "call    sub_503440",
+          "from": "0x4d7429"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "text": "call    sub_503440",
+          "from": "0x4d7bd7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7c20",
+          "text": "call    sub_503440",
+          "from": "0x4d81ee"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8230",
+          "text": "call    sub_503440",
+          "from": "0x4d88a6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d88c0",
+          "text": "call    sub_503440",
+          "from": "0x4d8d50"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "text": "call    sub_503440",
+          "from": "0x4d91c6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "text": "call    sub_503440",
+          "from": "0x4da3d6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4da580",
+          "text": "call    sub_503440",
+          "from": "0x4da9e7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "text": "call    sub_503440",
+          "from": "0x4dbd06"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dbd30",
+          "text": "call    sub_503440",
+          "from": "0x4dc27d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc290",
+          "text": "call    sub_503440",
+          "from": "0x4dc77f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "text": "call    sub_503440",
+          "from": "0x4dda0d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddb20",
+          "text": "call    sub_503440",
+          "from": "0x4ddf64"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "text": "call    sub_503440",
+          "from": "0x4df1ed"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df300",
+          "text": "call    sub_503440",
+          "from": "0x4df715"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "text": "call    sub_503440",
+          "from": "0x4e00e3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e0380",
+          "text": "call    sub_503440",
+          "from": "0x4e0bac"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4460",
+          "text": "call    sub_503440",
+          "from": "0x4e4842"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4a50",
+          "text": "call    sub_503440",
+          "from": "0x4e4e49"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e4ea0",
+          "text": "call    sub_503440",
+          "from": "0x4e5299"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "text": "call    sub_503440",
+          "from": "0x4e6cac"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e92a0",
+          "text": "call    sub_503440",
+          "from": "0x4e979c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e97e0",
+          "text": "call    sub_503440",
+          "from": "0x4e9c3b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e9c80",
+          "text": "call    sub_503440",
+          "from": "0x4ea10a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea1b0",
+          "text": "call    sub_503440",
+          "from": "0x4ea656"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea690",
+          "text": "call    sub_503440",
+          "from": "0x4eaa38"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "text": "call    sub_503440",
+          "from": "0x4eb104"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "text": "call    sub_503440",
+          "from": "0x4eb875"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "text": "call    sub_503440",
+          "from": "0x4eba8c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ebaa0",
+          "text": "call    sub_503440",
+          "from": "0x4ebd03"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ebd20",
+          "text": "call    sub_503440",
+          "from": "0x4ebf2a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "text": "call    sub_503440",
+          "from": "0x4ecddd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ece00",
+          "text": "call    sub_503440",
+          "from": "0x4ecfd0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ed020",
+          "text": "call    sub_503440",
+          "from": "0x4ed640"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4edb20",
+          "text": "call    sub_503440",
+          "from": "0x4ee111"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ee380",
+          "text": "call    sub_503440",
+          "from": "0x4ee655"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ef0f0",
+          "text": "call    sub_503440",
+          "from": "0x4ef5db"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4efb70",
+          "text": "call    sub_503440",
+          "from": "0x4f01eb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0460",
+          "text": "call    sub_503440",
+          "from": "0x4f0b21"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0b40",
+          "text": "call    sub_503440",
+          "from": "0x4f0cbd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0cd0",
+          "text": "call    sub_503440",
+          "from": "0x4f0e10"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0e20",
+          "text": "call    sub_503440",
+          "from": "0x4f0f60"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "text": "call    sub_503440",
+          "from": "0x4f17e8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f1c40",
+          "text": "call    sub_503440",
+          "from": "0x4f2116"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2130",
+          "text": "call    sub_503440",
+          "from": "0x4f2491"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2a30",
+          "text": "call    sub_503440",
+          "from": "0x4f3994"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f3ed0",
+          "text": "call    sub_503440",
+          "from": "0x4f441f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f4790",
+          "text": "call    sub_503440",
+          "from": "0x4f5097"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f51d0",
+          "text": "call    sub_503440",
+          "from": "0x4f5a4b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "text": "call    sub_503440",
+          "from": "0x4f61a1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_503440",
+          "from": "0x4f6bda"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6ca0",
+          "text": "call    sub_503440",
+          "from": "0x4f7124"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7150",
+          "text": "call    sub_503440",
+          "from": "0x4f7855"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f83b0",
+          "text": "call    sub_503440",
+          "from": "0x4f8537"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fa050",
+          "text": "call    sub_503440",
+          "from": "0x4fa337"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fa350",
+          "text": "call    sub_503440",
+          "from": "0x4fa8c9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4faef0",
+          "text": "call    sub_503440",
+          "from": "0x4fb8d7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "text": "call    sub_503440",
+          "from": "0x4fc407"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": null,
+          "text": "call    sub_503440",
+          "from": "0x4fc7dc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "text": "call    sub_503440",
+          "from": "0x4fcb7a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd1a0",
+          "text": "call    sub_503440",
+          "from": "0x4fd4ae"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd6a0",
+          "text": "call    sub_503440",
+          "from": "0x4fd9d6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fdbd0",
+          "text": "call    sub_503440",
+          "from": "0x4fdd51"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fe0e0",
+          "text": "call    sub_503440",
+          "from": "0x4fe301"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fe860",
+          "text": "call    sub_503440",
+          "from": "0x4feaa3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fef30",
+          "text": "call    sub_503440",
+          "from": "0x4fefdc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff1a0",
+          "text": "call    sub_503440",
+          "from": "0x4ff2f4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff4c0",
+          "text": "call    sub_503440",
+          "from": "0x4ff606"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "text": "call    sub_503440",
+          "from": "0x500345"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x500370",
+          "text": "call    sub_503440",
+          "from": "0x5006d4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5006f0",
+          "text": "call    sub_503440",
+          "from": "0x5008a7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5029b0",
+          "text": "call    sub_503440",
+          "from": "0x502b50"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505170",
+          "text": "call    sub_503440",
+          "from": "0x505b8a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505c20",
+          "text": "call    sub_503440",
+          "from": "0x50628c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52d7b0",
+          "text": "call    sub_503440",
+          "from": "0x52dc3a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52dce0",
+          "text": "call    sub_503440",
+          "from": "0x52e16e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e240",
+          "text": "call    sub_503440",
+          "from": "0x52e5e8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "text": "call    sub_503440",
+          "from": "0x52ec9b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "text": "call    sub_503440",
+          "from": "0x52f44d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "text": "call    sub_503440",
+          "from": "0x52f65c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f670",
+          "text": "call    sub_503440",
+          "from": "0x52f900"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f910",
+          "text": "call    sub_503440",
+          "from": "0x52fb1a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_503440",
+          "from": "0x530b5d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "text": "call    sub_503440",
+          "from": "0x532419"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "text": "call    sub_503440",
+          "from": "0x532d65"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x503440",
+          "size": 3,
+          "bytes": "83ec10",
+          "mnemonic": "sub",
+          "text": "sub     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503443",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503445",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503446",
+          "size": 4,
+          "bytes": "89442406",
+          "mnemonic": "mov",
+          "text": "mov     [esp+14h+var_E], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50344a",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x50344b",
+          "size": 4,
+          "bytes": "8944240e",
+          "mnemonic": "mov",
+          "text": "mov     [esp+18h+var_A], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50344f",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503450",
+          "size": 4,
+          "bytes": "8b742420",
+          "mnemonic": "mov",
+          "text": "mov     esi, [esp+1Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503454",
+          "size": 4,
+          "bytes": "89442416",
+          "mnemonic": "mov",
+          "text": "mov     [esp+1Ch+var_6], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503458",
+          "size": 5,
+          "bytes": "668944241a",
+          "mnemonic": "mov",
+          "text": "mov     [esp+1Ch+var_2], ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50345d",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50345e",
+          "size": 6,
+          "bytes": "8a86a1000000",
+          "mnemonic": "mov",
+          "text": "mov     al, [esi+0A1h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503464",
+          "size": 7,
+          "bytes": "66c74424100000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+20h+var_10], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x50346b",
+          "size": 2,
+          "bytes": "84c0",
+          "mnemonic": "test",
+          "text": "test    al, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x50346d",
+          "size": 8,
+          "bytes": "c7442418ffffffff",
+          "mnemonic": "mov",
+          "text": "mov     [esp+20h+var_A+2], 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x503475",
+          "size": 5,
+          "bytes": "c644241d04",
+          "mnemonic": "mov",
+          "text": "mov     byte ptr [esp+20h+var_6+3], 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x50347a",
+          "size": 2,
+          "bytes": "7c4e",
+          "mnemonic": "jl",
+          "text": "jl      short loc_5034CA",
+          "call_target": null
+        },
+        {
+          "ea": "0x50347c",
+          "size": 3,
+          "bytes": "0fbec0",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, al",
+          "call_target": null
+        },
+        {
+          "ea": "0x50347f",
+          "size": 6,
+          "bytes": "8b2d6897d600",
+          "mnemonic": "mov",
+          "text": "mov     ebp, gHoverImageSeq",
+          "call_target": null
+        },
+        {
+          "ea": "0x503485",
+          "size": 2,
+          "bytes": "8b1e",
+          "mnemonic": "mov",
+          "text": "mov     ebx, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503487",
+          "size": 3,
+          "bytes": "8d0c40",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [eax+eax*2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50348a",
+          "size": 4,
+          "bytes": "8d544006",
+          "mnemonic": "lea",
+          "text": "lea     edx, [eax+eax*2+6]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50348e",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0; a7",
+          "call_target": null
+        },
+        {
+          "ea": "0x503490",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp; a6",
+          "call_target": null
+        },
+        {
+          "ea": "0x503491",
+          "size": 3,
+          "bytes": "8b04d6",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+edx*8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503494",
+          "size": 3,
+          "bytes": "8b5604",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503497",
+          "size": 4,
+          "bytes": "8b7cce2c",
+          "mnemonic": "mov",
+          "text": "mov     edi, [esi+ecx*8+2Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50349b",
+          "size": 4,
+          "bytes": "8b6cce38",
+          "mnemonic": "mov",
+          "text": "mov     ebp, [esi+ecx*8+38h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50349f",
+          "size": 3,
+          "bytes": "8d0cce",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esi+ecx*8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034a2",
+          "size": 2,
+          "bytes": "03ea",
+          "mnemonic": "add",
+          "text": "add     ebp, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034a4",
+          "size": 5,
+          "bytes": "68d6000000",
+          "mnemonic": "push",
+          "text": "push    0D6h; a5",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034a9",
+          "size": 4,
+          "bytes": "8d5402fd",
+          "mnemonic": "lea",
+          "text": "lea     edx, [edx+eax-3]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034ad",
+          "size": 3,
+          "bytes": "8b4934",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [ecx+34h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034b0",
+          "size": 4,
+          "bytes": "8d6c2803",
+          "mnemonic": "lea",
+          "text": "lea     ebp, [eax+ebp+3]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034b4",
+          "size": 2,
+          "bytes": "03cb",
+          "mnemonic": "add",
+          "text": "add     ecx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034b6",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp; a4",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034b7",
+          "size": 4,
+          "bytes": "8d443bfd",
+          "mnemonic": "lea",
+          "text": "lea     eax, [ebx+edi-3]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034bb",
+          "size": 4,
+          "bytes": "8d4c3904",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [ecx+edi+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034bf",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; a3",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034c0",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034c1",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; a1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034c2",
+          "size": 5,
+          "bytes": "e8b9ec0100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "call_target": "0x522180"
+        },
+        {
+          "ea": "0x5034c7",
+          "size": 3,
+          "bytes": "83c41c",
+          "mnemonic": "add",
+          "text": "add     esp, 1Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034ca",
+          "size": 2,
+          "bytes": "33ff",
+          "mnemonic": "xor",
+          "text": "xor     edi, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034cc",
+          "size": 3,
+          "bytes": "8d5e28",
+          "mnemonic": "lea",
+          "text": "lea     ebx, [esi+28h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034cf",
+          "size": 7,
+          "bytes": "0fbe8ea0000000",
+          "mnemonic": "movsx",
+          "text": "movsx   ecx, byte ptr [esi+0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034d6",
+          "size": 2,
+          "bytes": "3bcf",
+          "mnemonic": "cmp",
+          "text": "cmp     ecx, edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034d8",
+          "size": 2,
+          "bytes": "7432",
+          "mnemonic": "jz",
+          "text": "jz      short loc_50350C",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034da",
+          "size": 2,
+          "bytes": "8b03",
+          "mnemonic": "mov",
+          "text": "mov     eax, [ebx]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034dc",
+          "size": 4,
+          "bytes": "8d542410",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esp+20h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034e0",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034e1",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034e3",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034e4",
+          "size": 3,
+          "bytes": "8b460c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034e7",
+          "size": 3,
+          "bytes": "8b6e04",
+          "mnemonic": "mov",
+          "text": "mov     ebp, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034ea",
+          "size": 5,
+          "bytes": "68da000000",
+          "mnemonic": "push",
+          "text": "push    0DAh",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034ef",
+          "size": 1,
+          "bytes": "99",
+          "mnemonic": "cdq",
+          "text": "cdq",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034f0",
+          "size": 2,
+          "bytes": "2bc2",
+          "mnemonic": "sub",
+          "text": "sub     eax, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034f2",
+          "size": 2,
+          "bytes": "d1f8",
+          "mnemonic": "sar",
+          "text": "sar     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034f4",
+          "size": 2,
+          "bytes": "03c5",
+          "mnemonic": "add",
+          "text": "add     eax, ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034f6",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034f7",
+          "size": 3,
+          "bytes": "8b4608",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034fa",
+          "size": 1,
+          "bytes": "99",
+          "mnemonic": "cdq",
+          "text": "cdq",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034fb",
+          "size": 2,
+          "bytes": "2bc2",
+          "mnemonic": "sub",
+          "text": "sub     eax, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034fd",
+          "size": 2,
+          "bytes": "8b16",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5034ff",
+          "size": 2,
+          "bytes": "d1f8",
+          "mnemonic": "sar",
+          "text": "sar     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503501",
+          "size": 2,
+          "bytes": "03c2",
+          "mnemonic": "add",
+          "text": "add     eax, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503503",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503504",
+          "size": 5,
+          "bytes": "e807e60100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        },
+        {
+          "ea": "0x503509",
+          "size": 3,
+          "bytes": "83c418",
+          "mnemonic": "add",
+          "text": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x50350c",
+          "size": 1,
+          "bytes": "47",
+          "mnemonic": "inc",
+          "text": "inc     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50350d",
+          "size": 3,
+          "bytes": "83c318",
+          "mnemonic": "add",
+          "text": "add     ebx, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503510",
+          "size": 3,
+          "bytes": "83ff05",
+          "mnemonic": "cmp",
+          "text": "cmp     edi, 5",
+          "call_target": null
+        },
+        {
+          "ea": "0x503513",
+          "size": 2,
+          "bytes": "72ba",
+          "mnemonic": "jb",
+          "text": "jb      short loc_5034CF",
+          "call_target": null
+        },
+        {
+          "ea": "0x503515",
+          "size": 5,
+          "bytes": "f644242801",
+          "mnemonic": "test",
+          "text": "test    [esp+20h+arg_4], 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x50351a",
+          "size": 2,
+          "bytes": "741f",
+          "mnemonic": "jz",
+          "text": "jz      short loc_50353B",
+          "call_target": null
+        },
+        {
+          "ea": "0x50351c",
+          "size": 6,
+          "bytes": "8b0d6897d600",
+          "mnemonic": "mov",
+          "text": "mov     ecx, gHoverImageSeq",
+          "call_target": null
+        },
+        {
+          "ea": "0x503522",
+          "size": 2,
+          "bytes": "6a00",
+          "mnemonic": "push",
+          "text": "push    0",
+          "call_target": null
+        },
+        {
+          "ea": "0x503524",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503525",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503527",
+          "size": 6,
+          "bytes": "8d96a4000000",
+          "mnemonic": "lea",
+          "text": "lea     edx, [esi+0A4h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50352d",
+          "size": 5,
+          "bytes": "68da000000",
+          "mnemonic": "push",
+          "text": "push    0DAh",
+          "call_target": null
+        },
+        {
+          "ea": "0x503532",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503533",
+          "size": 5,
+          "bytes": "e8a8000000",
+          "mnemonic": "call",
+          "text": "call    sub_5035E0",
+          "call_target": "0x5035e0"
+        },
+        {
+          "ea": "0x503538",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x50353b",
+          "size": 7,
+          "bytes": "0fbe86a0000000",
+          "mnemonic": "movsx",
+          "text": "movsx   eax, byte ptr [esi+0A0h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503542",
+          "size": 4,
+          "bytes": "8b448614",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+eax*4+14h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503546",
+          "size": 5,
+          "bytes": "3de7030000",
+          "mnemonic": "cmp",
+          "text": "cmp     eax, 3E7h",
+          "call_target": null
+        },
+        {
+          "ea": "0x50354b",
+          "size": 2,
+          "bytes": "7630",
+          "mnemonic": "jbe",
+          "text": "jbe     short loc_50357D",
+          "call_target": null
+        },
+        {
+          "ea": "0x50354d",
+          "size": 4,
+          "bytes": "8d4c2410",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+20h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503551",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503552",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503554",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503555",
+          "size": 3,
+          "bytes": "8b460c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503558",
+          "size": 3,
+          "bytes": "8b4e04",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50355b",
+          "size": 5,
+          "bytes": "68d4000000",
+          "mnemonic": "push",
+          "text": "push    0D4h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503560",
+          "size": 1,
+          "bytes": "99",
+          "mnemonic": "cdq",
+          "text": "cdq",
+          "call_target": null
+        },
+        {
+          "ea": "0x503561",
+          "size": 2,
+          "bytes": "2bc2",
+          "mnemonic": "sub",
+          "text": "sub     eax, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503563",
+          "size": 2,
+          "bytes": "d1f8",
+          "mnemonic": "sar",
+          "text": "sar     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503565",
+          "size": 2,
+          "bytes": "03c1",
+          "mnemonic": "add",
+          "text": "add     eax, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503567",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503568",
+          "size": 3,
+          "bytes": "8b4608",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50356b",
+          "size": 1,
+          "bytes": "99",
+          "mnemonic": "cdq",
+          "text": "cdq",
+          "call_target": null
+        },
+        {
+          "ea": "0x50356c",
+          "size": 2,
+          "bytes": "2bc2",
+          "mnemonic": "sub",
+          "text": "sub     eax, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50356e",
+          "size": 2,
+          "bytes": "8b16",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503570",
+          "size": 2,
+          "bytes": "d1f8",
+          "mnemonic": "sar",
+          "text": "sar     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503572",
+          "size": 2,
+          "bytes": "03c2",
+          "mnemonic": "add",
+          "text": "add     eax, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503574",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503575",
+          "size": 5,
+          "bytes": "e896e50100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        },
+        {
+          "ea": "0x50357a",
+          "size": 3,
+          "bytes": "83c418",
+          "mnemonic": "add",
+          "text": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x50357d",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50357e",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x50357f",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x503580",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503581",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503584",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "code_bytes": 325,
+      "page_count": 2,
+      "calls": [
+        {
+          "ea": "0x5034c2",
+          "size": 5,
+          "bytes": "e8b9ec0100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "call_target": "0x522180"
+        },
+        {
+          "ea": "0x503504",
+          "size": 5,
+          "bytes": "e807e60100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        },
+        {
+          "ea": "0x503533",
+          "size": 5,
+          "bytes": "e8a8000000",
+          "mnemonic": "call",
+          "text": "call    sub_5035E0",
+          "call_target": "0x5035e0"
+        },
+        {
+          "ea": "0x503575",
+          "size": 5,
+          "bytes": "e896e50100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 5,
+      "return_count": 1
+    },
+    {
+      "start": "0x503590",
+      "end_exclusive": "0x5035d8",
+      "count": 29,
+      "chunks": [
+        [
+          "0x503590",
+          "0x5035d8"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4014b0",
+          "text": "call    sub_503590",
+          "from": "0x40173a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "text": "call    sub_503590",
+          "from": "0x402a0a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "text": "call    sub_503590",
+          "from": "0x4d4814"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d4f00",
+          "text": "call    sub_503590",
+          "from": "0x4d5189"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d5250",
+          "text": "call    sub_503590",
+          "from": "0x4d54a3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "text": "call    sub_503590",
+          "from": "0x4d5f69"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6710",
+          "text": "call    sub_503590",
+          "from": "0x4d6998"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6a60",
+          "text": "call    sub_503590",
+          "from": "0x4d6df1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d6ea0",
+          "text": "call    sub_503590",
+          "from": "0x4d73a1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "text": "call    sub_503590",
+          "from": "0x4d7aff"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7c20",
+          "text": "call    sub_503590",
+          "from": "0x4d80d2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8230",
+          "text": "call    sub_503590",
+          "from": "0x4d87f3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "text": "call    sub_503590",
+          "from": "0x4d909f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8da0",
+          "text": "call    sub_503590",
+          "from": "0x4d911d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "text": "call    sub_503590",
+          "from": "0x4da284"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "text": "call    sub_503590",
+          "from": "0x4dba9b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "text": "call    sub_503590",
+          "from": "0x4dd7b1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "text": "call    sub_503590",
+          "from": "0x4def91"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "text": "call    sub_503590",
+          "from": "0x4dff82"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e0380",
+          "text": "call    sub_503590",
+          "from": "0x4e0b1c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "text": "call    sub_503590",
+          "from": "0x4e6b42"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e92a0",
+          "text": "call    sub_503590",
+          "from": "0x4e9742"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e97e0",
+          "text": "call    sub_503590",
+          "from": "0x4e9be1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e9c80",
+          "text": "call    sub_503590",
+          "from": "0x4ea0a3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea1b0",
+          "text": "call    sub_503590",
+          "from": "0x4ea5ee"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea690",
+          "text": "call    sub_503590",
+          "from": "0x4ea9a7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "text": "call    sub_503590",
+          "from": "0x4eb03a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "text": "call    sub_503590",
+          "from": "0x4eb74f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "text": "call    sub_503590",
+          "from": "0x4eba0c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "text": "call    sub_503590",
+          "from": "0x4eccf0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4edb20",
+          "text": "call    sub_503590",
+          "from": "0x4ee07c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ef0f0",
+          "text": "call    sub_503590",
+          "from": "0x4ef573"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "text": "call    sub_503590",
+          "from": "0x4f16ac"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f1c40",
+          "text": "call    sub_503590",
+          "from": "0x4f20c6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2a30",
+          "text": "call    sub_503590",
+          "from": "0x4f3543"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f3ed0",
+          "text": "call    sub_503590",
+          "from": "0x4f4374"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f4790",
+          "text": "call    sub_503590",
+          "from": "0x4f4ed6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f51d0",
+          "text": "call    sub_503590",
+          "from": "0x4f599d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "text": "call    sub_503590",
+          "from": "0x4f60b6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_503590",
+          "from": "0x4f6b17"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6ca0",
+          "text": "call    sub_503590",
+          "from": "0x4f7082"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7150",
+          "text": "call    sub_503590",
+          "from": "0x4f77d2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f83b0",
+          "text": "call    sub_503590",
+          "from": "0x4f84ff"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4faef0",
+          "text": "call    sub_503590",
+          "from": "0x4fb6e7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "text": "call    sub_503590",
+          "from": "0x4fc237"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": null,
+          "text": "call    sub_503590",
+          "from": "0x4fc7a0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fc8f0",
+          "text": "call    sub_503590",
+          "from": "0x4fcadc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd1a0",
+          "text": "call    sub_503590",
+          "from": "0x4fd30f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd6a0",
+          "text": "call    sub_503590",
+          "from": "0x4fd929"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fdbd0",
+          "text": "call    sub_503590",
+          "from": "0x4fdc90"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fe0e0",
+          "text": "call    sub_503590",
+          "from": "0x4fe1f7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fe860",
+          "text": "call    sub_503590",
+          "from": "0x4fe9e2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fef30",
+          "text": "call    sub_503590",
+          "from": "0x4fefa0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff1a0",
+          "text": "call    sub_503590",
+          "from": "0x4ff278"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff4c0",
+          "text": "call    sub_503590",
+          "from": "0x4ff58b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "text": "call    sub_503590",
+          "from": "0x5001e5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x500370",
+          "text": "call    sub_503590",
+          "from": "0x500667"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5006f0",
+          "text": "call    sub_503590",
+          "from": "0x50086b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5029b0",
+          "text": "call    sub_503590",
+          "from": "0x502aae"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505170",
+          "text": "call    sub_503590",
+          "from": "0x50595a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505c20",
+          "text": "call    sub_503590",
+          "from": "0x5061f9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52d7b0",
+          "text": "call    sub_503590",
+          "from": "0x52dbd3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52dce0",
+          "text": "call    sub_503590",
+          "from": "0x52e106"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e240",
+          "text": "call    sub_503590",
+          "from": "0x52e557"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "text": "call    sub_503590",
+          "from": "0x52ebd1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "text": "call    sub_503590",
+          "from": "0x52f2f3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "text": "call    sub_503590",
+          "from": "0x52f5dc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_503590",
+          "from": "0x530a33"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x503590",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503591",
+          "size": 4,
+          "bytes": "8b742408",
+          "mnemonic": "mov",
+          "text": "mov     esi, [esp+4+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503595",
+          "size": 2,
+          "bytes": "6aff",
+          "mnemonic": "push",
+          "text": "push    0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x503597",
+          "size": 3,
+          "bytes": "8b4604",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50359a",
+          "size": 3,
+          "bytes": "8b560c",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50359d",
+          "size": 2,
+          "bytes": "8b0e",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50359f",
+          "size": 4,
+          "bytes": "8d540201",
+          "mnemonic": "lea",
+          "text": "lea     edx, [edx+eax+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035a3",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035a4",
+          "size": 3,
+          "bytes": "8b5608",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035a7",
+          "size": 4,
+          "bytes": "8d540a01",
+          "mnemonic": "lea",
+          "text": "lea     edx, [edx+ecx+1]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035ab",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035ac",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035ad",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035ae",
+          "size": 5,
+          "bytes": "e8ed130000",
+          "mnemonic": "call",
+          "text": "call    sub_5049A0",
+          "call_target": "0x5049a0"
+        },
+        {
+          "ea": "0x5035b3",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035b6",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035b8",
+          "size": 2,
+          "bytes": "741a",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5035D4",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035ba",
+          "size": 6,
+          "bytes": "81c6a4000000",
+          "mnemonic": "add",
+          "text": "add     esi, 0A4h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035c0",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035c1",
+          "size": 5,
+          "bytes": "e8ca030000",
+          "mnemonic": "call",
+          "text": "call    sub_503990",
+          "call_target": "0x503990"
+        },
+        {
+          "ea": "0x5035c6",
+          "size": 3,
+          "bytes": "83c404",
+          "mnemonic": "add",
+          "text": "add     esp, 4",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035c9",
+          "size": 2,
+          "bytes": "a840",
+          "mnemonic": "test",
+          "text": "test    al, 40h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035cb",
+          "size": 2,
+          "bytes": "7407",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5035D4",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035cd",
+          "size": 5,
+          "bytes": "b801000000",
+          "mnemonic": "mov",
+          "text": "mov     eax, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035d2",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035d3",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035d4",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035d6",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035d7",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "code_bytes": 72,
+      "page_count": 1,
+      "calls": [
+        {
+          "ea": "0x5035ae",
+          "size": 5,
+          "bytes": "e8ed130000",
+          "mnemonic": "call",
+          "text": "call    sub_5049A0",
+          "call_target": "0x5049a0"
+        },
+        {
+          "ea": "0x5035c1",
+          "size": 5,
+          "bytes": "e8ca030000",
+          "mnemonic": "call",
+          "text": "call    sub_503990",
+          "call_target": "0x503990"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 2,
+      "return_count": 2
+    },
+    {
+      "start": "0x5035e0",
+      "end_exclusive": "0x5036e9",
+      "count": 107,
+      "chunks": [
+        [
+          "0x5035e0",
+          "0x5036e9"
+        ]
+      ],
+      "inbound": [
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4014b0",
+          "text": "call    sub_5035E0",
+          "from": "0x401730"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "text": "call    sub_5035E0",
+          "from": "0x402836"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "text": "call    sub_5035E0",
+          "from": "0x40284e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "text": "call    sub_5035E0",
+          "from": "0x402868"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "text": "call    sub_5035E0",
+          "from": "0x402880"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "text": "call    sub_5035E0",
+          "from": "0x40289b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "text": "call    sub_5035E0",
+          "from": "0x4029e2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4021a0",
+          "text": "call    sub_5035E0",
+          "from": "0x4029fd"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d44d7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d44f4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d46f7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d4717"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d47ed"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d36f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d480a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d5eaf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d5eca"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d5ee9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d5f05"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d5f43"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d55c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4d5f5f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "text": "call    sub_5035E0",
+          "from": "0x4d7ac1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "text": "call    sub_5035E0",
+          "from": "0x4d7ad9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7470",
+          "text": "call    sub_5035E0",
+          "from": "0x4d7af5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d7c20",
+          "text": "call    sub_5035E0",
+          "from": "0x4d80c8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d8230",
+          "text": "call    sub_5035E0",
+          "from": "0x4d87e6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "text": "call    sub_5035E0",
+          "from": "0x4da023"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "text": "call    sub_5035E0",
+          "from": "0x4da043"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "text": "call    sub_5035E0",
+          "from": "0x4da200"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "text": "call    sub_5035E0",
+          "from": "0x4da21f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "text": "call    sub_5035E0",
+          "from": "0x4da25e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4d9220",
+          "text": "call    sub_5035E0",
+          "from": "0x4da27a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "text": "call    sub_5035E0",
+          "from": "0x4db7ec"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "text": "call    sub_5035E0",
+          "from": "0x4db80c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "text": "call    sub_5035E0",
+          "from": "0x4dba13"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "text": "call    sub_5035E0",
+          "from": "0x4dba33"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "text": "call    sub_5035E0",
+          "from": "0x4dba74"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4daa40",
+          "text": "call    sub_5035E0",
+          "from": "0x4dba91"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "text": "call    sub_5035E0",
+          "from": "0x4dd511"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "text": "call    sub_5035E0",
+          "from": "0x4dd531"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "text": "call    sub_5035E0",
+          "from": "0x4dd72a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "text": "call    sub_5035E0",
+          "from": "0x4dd749"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "text": "call    sub_5035E0",
+          "from": "0x4dd788"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4dc7e0",
+          "text": "call    sub_5035E0",
+          "from": "0x4dd7a7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "text": "call    sub_5035E0",
+          "from": "0x4decf1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "text": "call    sub_5035E0",
+          "from": "0x4ded11"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "text": "call    sub_5035E0",
+          "from": "0x4def0a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "text": "call    sub_5035E0",
+          "from": "0x4def29"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "text": "call    sub_5035E0",
+          "from": "0x4def6b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ddfc0",
+          "text": "call    sub_5035E0",
+          "from": "0x4def87"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "text": "call    sub_5035E0",
+          "from": "0x4dfebc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "text": "call    sub_5035E0",
+          "from": "0x4dff02"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "text": "call    sub_5035E0",
+          "from": "0x4dff1e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "text": "call    sub_5035E0",
+          "from": "0x4dff44"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4df730",
+          "text": "call    sub_5035E0",
+          "from": "0x4dff6a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e0380",
+          "text": "call    sub_5035E0",
+          "from": "0x4e0ac5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e0380",
+          "text": "call    sub_5035E0",
+          "from": "0x4e0af6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e0380",
+          "text": "call    sub_5035E0",
+          "from": "0x4e0b0f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e1759"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e17a6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e17be"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e17da"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e17f6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e10f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e1811"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "text": "call    sub_5035E0",
+          "from": "0x4e345c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "text": "call    sub_5035E0",
+          "from": "0x4e347f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "text": "call    sub_5035E0",
+          "from": "0x4e34a1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "text": "call    sub_5035E0",
+          "from": "0x4e34bc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e2d90",
+          "text": "call    sub_5035E0",
+          "from": "0x4e34d8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "text": "call    sub_5035E0",
+          "from": "0x4e3d83"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "text": "call    sub_5035E0",
+          "from": "0x4e3da7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "text": "call    sub_5035E0",
+          "from": "0x4e3dc8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "text": "call    sub_5035E0",
+          "from": "0x4e3de4"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e3750",
+          "text": "call    sub_5035E0",
+          "from": "0x4e3e00"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "text": "call    sub_5035E0",
+          "from": "0x4e6a9e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e5e40",
+          "text": "call    sub_5035E0",
+          "from": "0x4e6aed"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "text": "call    sub_5035E0",
+          "from": "0x4e7ed9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "text": "call    sub_5035E0",
+          "from": "0x4e7f26"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "text": "call    sub_5035E0",
+          "from": "0x4e7f3e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "text": "call    sub_5035E0",
+          "from": "0x4e7f5a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "text": "call    sub_5035E0",
+          "from": "0x4e7f76"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e7870",
+          "text": "call    sub_5035E0",
+          "from": "0x4e7f91"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e90ca"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e90ec"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e9104"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4e8ad0",
+          "text": "call    sub_5035E0",
+          "from": "0x4e9120"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea1b0",
+          "text": "call    sub_5035E0",
+          "from": "0x4ea5c1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea1b0",
+          "text": "call    sub_5035E0",
+          "from": "0x4ea5da"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ea690",
+          "text": "call    sub_5035E0",
+          "from": "0x4ea99d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "text": "call    sub_5035E0",
+          "from": "0x4eafe3"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "text": "call    sub_5035E0",
+          "from": "0x4eafff"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "text": "call    sub_5035E0",
+          "from": "0x4eb017"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eaaa0",
+          "text": "call    sub_5035E0",
+          "from": "0x4eb030"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4eb6e8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4eb704"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4eb71c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb1c0",
+          "text": "call    sub_5035E0",
+          "from": "0x4eb738"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "text": "call    sub_5035E0",
+          "from": "0x4eb9cf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "text": "call    sub_5035E0",
+          "from": "0x4eb9e8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4eb890",
+          "text": "call    sub_5035E0",
+          "from": "0x4eba02"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ebd20",
+          "text": "call    sub_5035E0",
+          "from": "0x4ebf1e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "text": "call    sub_5035E0",
+          "from": "0x4ecbcc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "text": "call    sub_5035E0",
+          "from": "0x4ecbe9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "text": "call    sub_5035E0",
+          "from": "0x4ecc05"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "text": "call    sub_5035E0",
+          "from": "0x4ecc93"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "text": "call    sub_5035E0",
+          "from": "0x4eccaf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "text": "call    sub_5035E0",
+          "from": "0x4eccc9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ec240",
+          "text": "call    sub_5035E0",
+          "from": "0x4ecce6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ece00",
+          "text": "call    sub_5035E0",
+          "from": "0x4ecfc1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ed020",
+          "text": "call    sub_5035E0",
+          "from": "0x4ed635"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4edb20",
+          "text": "call    sub_5035E0",
+          "from": "0x4ee105"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ef0f0",
+          "text": "call    sub_5035E0",
+          "from": "0x4ef5cf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "text": "call    sub_5035E0",
+          "from": "0x4f15ef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "text": "call    sub_5035E0",
+          "from": "0x4f1633"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "text": "call    sub_5035E0",
+          "from": "0x4f164f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "text": "call    sub_5035E0",
+          "from": "0x4f166b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "text": "call    sub_5035E0",
+          "from": "0x4f1686"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f0f70",
+          "text": "call    sub_5035E0",
+          "from": "0x4f16a2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f1c40",
+          "text": "call    sub_5035E0",
+          "from": "0x4f20bc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2130",
+          "text": "call    sub_5035E0",
+          "from": "0x4f246c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2130",
+          "text": "call    sub_5035E0",
+          "from": "0x4f2485"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f2a30",
+          "text": "call    sub_5035E0",
+          "from": "0x4f3434"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f3ed0",
+          "text": "call    sub_5035E0",
+          "from": "0x4f436a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f4790",
+          "text": "call    sub_5035E0",
+          "from": "0x4f4d3b"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f51d0",
+          "text": "call    sub_5035E0",
+          "from": "0x4f5976"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f51d0",
+          "text": "call    sub_5035E0",
+          "from": "0x4f5993"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "text": "call    sub_5035E0",
+          "from": "0x4f6078"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "text": "call    sub_5035E0",
+          "from": "0x4f6092"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f5a60",
+          "text": "call    sub_5035E0",
+          "from": "0x4f60ac"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_5035E0",
+          "from": "0x4f6a9e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_5035E0",
+          "from": "0x4f6aba"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_5035E0",
+          "from": "0x4f6ad6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_5035E0",
+          "from": "0x4f6aee"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6220",
+          "text": "call    sub_5035E0",
+          "from": "0x4f6b0a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6ca0",
+          "text": "call    sub_5035E0",
+          "from": "0x4f7016"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f6ca0",
+          "text": "call    sub_5035E0",
+          "from": "0x4f7032"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7150",
+          "text": "call    sub_5035E0",
+          "from": "0x4f7748"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7870",
+          "text": "call    sub_5035E0",
+          "from": "0x4f80b5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f7870",
+          "text": "call    sub_5035E0",
+          "from": "0x4f80cf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "text": "call    sub_5035E0",
+          "from": "0x4f8d63"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "text": "call    sub_5035E0",
+          "from": "0x4f8d7c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "text": "call    sub_5035E0",
+          "from": "0x4f8d99"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8550",
+          "text": "call    sub_5035E0",
+          "from": "0x4f8db6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "text": "call    sub_5035E0",
+          "from": "0x4f9922"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "text": "call    sub_5035E0",
+          "from": "0x4f9945"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "text": "call    sub_5035E0",
+          "from": "0x4f9961"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f8e40",
+          "text": "call    sub_5035E0",
+          "from": "0x4f997e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f9b10",
+          "text": "call    sub_5035E0",
+          "from": "0x4f9f46"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f9b10",
+          "text": "call    sub_5035E0",
+          "from": "0x4f9f62"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4f9b10",
+          "text": "call    sub_5035E0",
+          "from": "0x4f9f7c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fa050",
+          "text": "call    sub_5035E0",
+          "from": "0x4fa30f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fa050",
+          "text": "call    sub_5035E0",
+          "from": "0x4fa328"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4faef0",
+          "text": "call    sub_5035E0",
+          "from": "0x4fb6da"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "text": "call    sub_5035E0",
+          "from": "0x4fc17a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "text": "call    sub_5035E0",
+          "from": "0x4fc1bf"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "text": "call    sub_5035E0",
+          "from": "0x4fc1da"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "text": "call    sub_5035E0",
+          "from": "0x4fc1f6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "text": "call    sub_5035E0",
+          "from": "0x4fc212"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fbb40",
+          "text": "call    sub_5035E0",
+          "from": "0x4fc22d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4fd6a0",
+          "text": "call    sub_5035E0",
+          "from": "0x4fd91f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "text": "call    sub_5035E0",
+          "from": "0x50014f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "text": "call    sub_5035E0",
+          "from": "0x5001a5"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "text": "call    sub_5035E0",
+          "from": "0x5001c1"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x4ff650",
+          "text": "call    sub_5035E0",
+          "from": "0x5001db"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5008c0",
+          "text": "call    sub_5035E0",
+          "from": "0x501335"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x5014a0",
+          "text": "call    sub_5035E0",
+          "from": "0x501e54"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x501fd0",
+          "text": "call    sub_5035E0",
+          "from": "0x50276d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x501fd0",
+          "text": "call    sub_5035E0",
+          "from": "0x50278a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x501fd0",
+          "text": "call    sub_5035E0",
+          "from": "0x5027a6"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x501fd0",
+          "text": "call    sub_5035E0",
+          "from": "0x5027e2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x503440",
+          "text": "call    sub_5035E0",
+          "from": "0x503533"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505170",
+          "text": "call    sub_5035E0",
+          "from": "0x505885"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505c20",
+          "text": "call    sub_5035E0",
+          "from": "0x5061d2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x505c20",
+          "text": "call    sub_5035E0",
+          "from": "0x5061ef"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52dce0",
+          "text": "call    sub_5035E0",
+          "from": "0x52e0d9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52dce0",
+          "text": "call    sub_5035E0",
+          "from": "0x52e0f2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e240",
+          "text": "call    sub_5035E0",
+          "from": "0x52e54d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "text": "call    sub_5035E0",
+          "from": "0x52eb7a"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "text": "call    sub_5035E0",
+          "from": "0x52eb95"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "text": "call    sub_5035E0",
+          "from": "0x52ebae"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52e650",
+          "text": "call    sub_5035E0",
+          "from": "0x52ebc7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "text": "call    sub_5035E0",
+          "from": "0x52f28c"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "text": "call    sub_5035E0",
+          "from": "0x52f2a8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "text": "call    sub_5035E0",
+          "from": "0x52f2c0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52ed50",
+          "text": "call    sub_5035E0",
+          "from": "0x52f2dc"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "text": "call    sub_5035E0",
+          "from": "0x52f59f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "text": "call    sub_5035E0",
+          "from": "0x52f5b8"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f460",
+          "text": "call    sub_5035E0",
+          "from": "0x52f5d2"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52f910",
+          "text": "call    sub_5035E0",
+          "from": "0x52fb0e"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_5035E0",
+          "from": "0x5308ce"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_5035E0",
+          "from": "0x5308eb"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_5035E0",
+          "from": "0x530907"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_5035E0",
+          "from": "0x530924"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_5035E0",
+          "from": "0x5309b0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_5035E0",
+          "from": "0x5309d0"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_5035E0",
+          "from": "0x5309ed"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_5035E0",
+          "from": "0x530a09"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x52fd60",
+          "text": "call    sub_5035E0",
+          "from": "0x530a26"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "text": "call    sub_5035E0",
+          "from": "0x531f24"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "text": "call    sub_5035E0",
+          "from": "0x531f73"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "text": "call    sub_5035E0",
+          "from": "0x531f8f"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "text": "call    sub_5035E0",
+          "from": "0x531fc9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "text": "call    sub_5035E0",
+          "from": "0x532003"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "text": "call    sub_5035E0",
+          "from": "0x5321e7"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x530ba0",
+          "text": "call    sub_5035E0",
+          "from": "0x532203"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "text": "call    sub_5035E0",
+          "from": "0x532bde"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "text": "call    sub_5035E0",
+          "from": "0x532bf9"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "text": "call    sub_5035E0",
+          "from": "0x532c6d"
+        },
+        {
+          "type": 17,
+          "code": true,
+          "function": "0x532450",
+          "text": "call    sub_5035E0",
+          "from": "0x532c86"
+        }
+      ],
+      "instructions": [
+        {
+          "ea": "0x5035e0",
+          "size": 3,
+          "bytes": "83ec10",
+          "mnemonic": "sub",
+          "text": "sub     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035e3",
+          "size": 2,
+          "bytes": "33c0",
+          "mnemonic": "xor",
+          "text": "xor     eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035e5",
+          "size": 1,
+          "bytes": "53",
+          "mnemonic": "push",
+          "text": "push    ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035e6",
+          "size": 4,
+          "bytes": "89442406",
+          "mnemonic": "mov",
+          "text": "mov     [esp+14h+var_E], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035ea",
+          "size": 1,
+          "bytes": "55",
+          "mnemonic": "push",
+          "text": "push    ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035eb",
+          "size": 4,
+          "bytes": "8944240e",
+          "mnemonic": "mov",
+          "text": "mov     [esp+18h+var_A], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035ef",
+          "size": 1,
+          "bytes": "56",
+          "mnemonic": "push",
+          "text": "push    esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035f0",
+          "size": 4,
+          "bytes": "8b742420",
+          "mnemonic": "mov",
+          "text": "mov     esi, [esp+1Ch+arg_0]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035f4",
+          "size": 4,
+          "bytes": "89442416",
+          "mnemonic": "mov",
+          "text": "mov     [esp+1Ch+var_6], eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035f8",
+          "size": 5,
+          "bytes": "668944241a",
+          "mnemonic": "mov",
+          "text": "mov     [esp+1Ch+var_2], ax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035fd",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5035fe",
+          "size": 3,
+          "bytes": "8b460c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503601",
+          "size": 3,
+          "bytes": "8b6e14",
+          "mnemonic": "mov",
+          "text": "mov     ebp, [esi+14h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503604",
+          "size": 3,
+          "bytes": "8b4e08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503607",
+          "size": 2,
+          "bytes": "8bd0",
+          "mnemonic": "mov",
+          "text": "mov     edx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503609",
+          "size": 2,
+          "bytes": "03d5",
+          "mnemonic": "add",
+          "text": "add     edx, ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x50360b",
+          "size": 2,
+          "bytes": "6aff",
+          "mnemonic": "push",
+          "text": "push    0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x50360d",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50360e",
+          "size": 3,
+          "bytes": "8b5610",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503611",
+          "size": 2,
+          "bytes": "03d1",
+          "mnemonic": "add",
+          "text": "add     edx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503613",
+          "size": 7,
+          "bytes": "66c74424180000",
+          "mnemonic": "mov",
+          "text": "mov     [esp+28h+var_10], 0",
+          "call_target": null
+        },
+        {
+          "ea": "0x50361a",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50361b",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50361c",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50361d",
+          "size": 8,
+          "bytes": "c744242cffffffff",
+          "mnemonic": "mov",
+          "text": "mov     [esp+34h+var_A+2], 0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x503625",
+          "size": 5,
+          "bytes": "e876130000",
+          "mnemonic": "call",
+          "text": "call    sub_5049A0",
+          "call_target": "0x5049a0"
+        },
+        {
+          "ea": "0x50362a",
+          "size": 4,
+          "bytes": "8b6c2448",
+          "mnemonic": "mov",
+          "text": "mov     ebp, [esp+34h+arg_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50362e",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x503631",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503633",
+          "size": 2,
+          "bytes": "7426",
+          "mnemonic": "jz",
+          "text": "jz      short loc_50365B",
+          "call_target": null
+        },
+        {
+          "ea": "0x503635",
+          "size": 7,
+          "bytes": "f605988dd60001",
+          "mnemonic": "test",
+          "text": "test    byte ptr gMouseBtnDown2, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x50363c",
+          "size": 2,
+          "bytes": "741d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_50365B",
+          "call_target": null
+        },
+        {
+          "ea": "0x50363e",
+          "size": 2,
+          "bytes": "85ed",
+          "mnemonic": "test",
+          "text": "test    ebp, ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x503640",
+          "size": 2,
+          "bytes": "7519",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_50365B",
+          "call_target": null
+        },
+        {
+          "ea": "0x503642",
+          "size": 3,
+          "bytes": "8b4e1c",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi+1Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503645",
+          "size": 4,
+          "bytes": "8b7c2428",
+          "mnemonic": "mov",
+          "text": "mov     edi, dword ptr [esp+20h+a5]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503649",
+          "size": 3,
+          "bytes": "8b5604",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50364c",
+          "size": 4,
+          "bytes": "8d442410",
+          "mnemonic": "lea",
+          "text": "lea     eax, [esp+20h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503650",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503651",
+          "size": 2,
+          "bytes": "8b06",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503653",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503655",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503656",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503657",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503658",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503659",
+          "size": 2,
+          "bytes": "eb17",
+          "mnemonic": "jmp",
+          "text": "jmp     short loc_503672",
+          "call_target": null
+        },
+        {
+          "ea": "0x50365b",
+          "size": 3,
+          "bytes": "8b5618",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+18h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50365e",
+          "size": 4,
+          "bytes": "8b7c2428",
+          "mnemonic": "mov",
+          "text": "mov     edi, dword ptr [esp+20h+a5]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503662",
+          "size": 3,
+          "bytes": "8b4604",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+4]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503665",
+          "size": 4,
+          "bytes": "8d4c2410",
+          "mnemonic": "lea",
+          "text": "lea     ecx, [esp+20h+var_10]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503669",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50366a",
+          "size": 2,
+          "bytes": "8b0e",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50366c",
+          "size": 2,
+          "bytes": "6a01",
+          "mnemonic": "push",
+          "text": "push    1",
+          "call_target": null
+        },
+        {
+          "ea": "0x50366e",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x50366f",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x503670",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503671",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503672",
+          "size": 5,
+          "bytes": "e899e40100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        },
+        {
+          "ea": "0x503677",
+          "size": 4,
+          "bytes": "8b5c2444",
+          "mnemonic": "mov",
+          "text": "mov     ebx, [esp+38h+arg_8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50367b",
+          "size": 3,
+          "bytes": "83c418",
+          "mnemonic": "add",
+          "text": "add     esp, 18h",
+          "call_target": null
+        },
+        {
+          "ea": "0x50367e",
+          "size": 2,
+          "bytes": "85db",
+          "mnemonic": "test",
+          "text": "test    ebx, ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503680",
+          "size": 2,
+          "bytes": "745f",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5036E1",
+          "call_target": null
+        },
+        {
+          "ea": "0x503682",
+          "size": 3,
+          "bytes": "8b460c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503685",
+          "size": 3,
+          "bytes": "8b4e08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503688",
+          "size": 2,
+          "bytes": "8bd0",
+          "mnemonic": "mov",
+          "text": "mov     edx, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x50368a",
+          "size": 2,
+          "bytes": "6aff",
+          "mnemonic": "push",
+          "text": "push    0FFFFFFFFh",
+          "call_target": null
+        },
+        {
+          "ea": "0x50368c",
+          "size": 3,
+          "bytes": "035614",
+          "mnemonic": "add",
+          "text": "add     edx, [esi+14h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x50368f",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503690",
+          "size": 3,
+          "bytes": "8b5610",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x503693",
+          "size": 2,
+          "bytes": "03d1",
+          "mnemonic": "add",
+          "text": "add     edx, ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503695",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503696",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x503697",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx",
+          "call_target": null
+        },
+        {
+          "ea": "0x503698",
+          "size": 5,
+          "bytes": "e803130000",
+          "mnemonic": "call",
+          "text": "call    sub_5049A0",
+          "call_target": "0x5049a0"
+        },
+        {
+          "ea": "0x50369d",
+          "size": 3,
+          "bytes": "83c414",
+          "mnemonic": "add",
+          "text": "add     esp, 14h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036a0",
+          "size": 2,
+          "bytes": "85c0",
+          "mnemonic": "test",
+          "text": "test    eax, eax",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036a2",
+          "size": 2,
+          "bytes": "743d",
+          "mnemonic": "jz",
+          "text": "jz      short loc_5036E1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036a4",
+          "size": 2,
+          "bytes": "85ed",
+          "mnemonic": "test",
+          "text": "test    ebp, ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036a6",
+          "size": 2,
+          "bytes": "7539",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5036E1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036a8",
+          "size": 2,
+          "bytes": "33d2",
+          "mnemonic": "xor",
+          "text": "xor     edx, edx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036aa",
+          "size": 3,
+          "bytes": "83fb02",
+          "mnemonic": "cmp",
+          "text": "cmp     ebx, 2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036ad",
+          "size": 2,
+          "bytes": "7505",
+          "mnemonic": "jnz",
+          "text": "jnz     short loc_5036B4",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036af",
+          "size": 5,
+          "bytes": "ba01000000",
+          "mnemonic": "mov",
+          "text": "mov     edx, 1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036b4",
+          "size": 3,
+          "bytes": "8b460c",
+          "mnemonic": "mov",
+          "text": "mov     eax, [esi+0Ch]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036b7",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a7",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036b8",
+          "size": 4,
+          "bytes": "8b542434",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esp+24h+a6]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036bc",
+          "size": 3,
+          "bytes": "8b4e08",
+          "mnemonic": "mov",
+          "text": "mov     ecx, [esi+8]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036bf",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a6",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036c0",
+          "size": 3,
+          "bytes": "8b5614",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+14h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036c3",
+          "size": 1,
+          "bytes": "57",
+          "mnemonic": "push",
+          "text": "push    edi; a5",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036c4",
+          "size": 4,
+          "bytes": "8d541002",
+          "mnemonic": "lea",
+          "text": "lea     edx, [eax+edx+2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036c8",
+          "size": 3,
+          "bytes": "83c0fe",
+          "mnemonic": "add",
+          "text": "add     eax, 0FFFFFFFEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036cb",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a4",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036cc",
+          "size": 3,
+          "bytes": "8b5610",
+          "mnemonic": "mov",
+          "text": "mov     edx, [esi+10h]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036cf",
+          "size": 4,
+          "bytes": "8d540a02",
+          "mnemonic": "lea",
+          "text": "lea     edx, [edx+ecx+2]",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036d3",
+          "size": 3,
+          "bytes": "83c1fe",
+          "mnemonic": "add",
+          "text": "add     ecx, 0FFFFFFFEh",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036d6",
+          "size": 1,
+          "bytes": "52",
+          "mnemonic": "push",
+          "text": "push    edx; a3",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036d7",
+          "size": 1,
+          "bytes": "50",
+          "mnemonic": "push",
+          "text": "push    eax; a2",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036d8",
+          "size": 1,
+          "bytes": "51",
+          "mnemonic": "push",
+          "text": "push    ecx; a1",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036d9",
+          "size": 5,
+          "bytes": "e8a2ea0100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "call_target": "0x522180"
+        },
+        {
+          "ea": "0x5036de",
+          "size": 3,
+          "bytes": "83c41c",
+          "mnemonic": "add",
+          "text": "add     esp, 1Ch",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036e1",
+          "size": 1,
+          "bytes": "5f",
+          "mnemonic": "pop",
+          "text": "pop     edi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036e2",
+          "size": 1,
+          "bytes": "5e",
+          "mnemonic": "pop",
+          "text": "pop     esi",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036e3",
+          "size": 1,
+          "bytes": "5d",
+          "mnemonic": "pop",
+          "text": "pop     ebp",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036e4",
+          "size": 1,
+          "bytes": "5b",
+          "mnemonic": "pop",
+          "text": "pop     ebx",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036e5",
+          "size": 3,
+          "bytes": "83c410",
+          "mnemonic": "add",
+          "text": "add     esp, 10h",
+          "call_target": null
+        },
+        {
+          "ea": "0x5036e8",
+          "size": 1,
+          "bytes": "c3",
+          "mnemonic": "retn",
+          "text": "retn",
+          "call_target": null
+        }
+      ],
+      "code_bytes": 265,
+      "page_count": 2,
+      "calls": [
+        {
+          "ea": "0x503625",
+          "size": 5,
+          "bytes": "e876130000",
+          "mnemonic": "call",
+          "text": "call    sub_5049A0",
+          "call_target": "0x5049a0"
+        },
+        {
+          "ea": "0x503672",
+          "size": 5,
+          "bytes": "e899e40100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic",
+          "call_target": "0x521b10"
+        },
+        {
+          "ea": "0x503698",
+          "size": 5,
+          "bytes": "e803130000",
+          "mnemonic": "call",
+          "text": "call    sub_5049A0",
+          "call_target": "0x5049a0"
+        },
+        {
+          "ea": "0x5036d9",
+          "size": 5,
+          "bytes": "e8a2ea0100",
+          "mnemonic": "call",
+          "text": "call    Renderer__DrawGraphic_Hover",
+          "call_target": "0x522180"
+        }
+      ],
+      "indirect_calls": [],
+      "jump_count": 8,
+      "return_count": 1
+    }
+  ],
+  "original_query_sample_window": {
+    "start": "0x503990",
+    "end_exclusive": "0x503a15",
+    "count": 54,
+    "chunks": [
+      [
+        "0x503990",
+        "0x503a15"
+      ]
+    ],
+    "inbound": [],
+    "inbound_count": 472,
+    "instructions": [
+      {
+        "ea": "0x503990",
+        "size": 4,
+        "bytes": "8b442404",
+        "mnemonic": "mov",
+        "text": "mov     eax, [esp+arg_0]",
+        "call_target": null
+      },
+      {
+        "ea": "0x503994",
+        "size": 1,
+        "bytes": "56",
+        "mnemonic": "push",
+        "text": "push    esi",
+        "call_target": null
+      },
+      {
+        "ea": "0x503995",
+        "size": 1,
+        "bytes": "57",
+        "mnemonic": "push",
+        "text": "push    edi",
+        "call_target": null
+      },
+      {
+        "ea": "0x503996",
+        "size": 2,
+        "bytes": "6aff",
+        "mnemonic": "push",
+        "text": "push    0FFFFFFFFh",
+        "call_target": null
+      },
+      {
+        "ea": "0x503998",
+        "size": 3,
+        "bytes": "8b480c",
+        "mnemonic": "mov",
+        "text": "mov     ecx, [eax+0Ch]",
+        "call_target": null
+      },
+      {
+        "ea": "0x50399b",
+        "size": 3,
+        "bytes": "8b5008",
+        "mnemonic": "mov",
+        "text": "mov     edx, [eax+8]",
+        "call_target": null
+      },
+      {
+        "ea": "0x50399e",
+        "size": 3,
+        "bytes": "8b7814",
+        "mnemonic": "mov",
+        "text": "mov     edi, [eax+14h]",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039a1",
+        "size": 3,
+        "bytes": "8b4010",
+        "mnemonic": "mov",
+        "text": "mov     eax, [eax+10h]",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039a4",
+        "size": 2,
+        "bytes": "03f9",
+        "mnemonic": "add",
+        "text": "add     edi, ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039a6",
+        "size": 2,
+        "bytes": "03c2",
+        "mnemonic": "add",
+        "text": "add     eax, edx",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039a8",
+        "size": 1,
+        "bytes": "57",
+        "mnemonic": "push",
+        "text": "push    edi",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039a9",
+        "size": 1,
+        "bytes": "50",
+        "mnemonic": "push",
+        "text": "push    eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039aa",
+        "size": 1,
+        "bytes": "51",
+        "mnemonic": "push",
+        "text": "push    ecx",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039ab",
+        "size": 1,
+        "bytes": "52",
+        "mnemonic": "push",
+        "text": "push    edx",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039ac",
+        "size": 2,
+        "bytes": "33f6",
+        "mnemonic": "xor",
+        "text": "xor     esi, esi",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039ae",
+        "size": 5,
+        "bytes": "e8ed0f0000",
+        "mnemonic": "call",
+        "text": "call    sub_5049A0",
+        "call_target": "0x5049a0"
+      },
+      {
+        "ea": "0x5039b3",
+        "size": 3,
+        "bytes": "83c414",
+        "mnemonic": "add",
+        "text": "add     esp, 14h",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039b6",
+        "size": 2,
+        "bytes": "85c0",
+        "mnemonic": "test",
+        "text": "test    eax, eax",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039b8",
+        "size": 2,
+        "bytes": "7456",
+        "mnemonic": "jz",
+        "text": "jz      short loc_503A10",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039ba",
+        "size": 6,
+        "bytes": "8a159c8dd600",
+        "mnemonic": "mov",
+        "text": "mov     dl, byte ptr gMouseClickState",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039c0",
+        "size": 5,
+        "bytes": "b840000000",
+        "mnemonic": "mov",
+        "text": "mov     eax, 40h ; '@'",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039c5",
+        "size": 3,
+        "bytes": "f6c201",
+        "mnemonic": "test",
+        "text": "test    dl, 1",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039c8",
+        "size": 2,
+        "bytes": "7405",
+        "mnemonic": "jz",
+        "text": "jz      short loc_5039CF",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039ca",
+        "size": 5,
+        "bytes": "b841000000",
+        "mnemonic": "mov",
+        "text": "mov     eax, 41h ; 'A'",
+        "call_target": null
+      },
+      {
+        "ea": "0x5039cf",
+        "size": 3,
+        "bytes": "f6c202",
+        "mnemonic": "test",
+        "text": "test    dl, 2",
+        "call_target": null
+      }
+    ]
+  },
+  "source_functions": [
+    {
+      "index": 1766,
+      "id": "F:00103440",
+      "entry": "0x503440",
+      "original_index": 0,
+      "symbol": "Sub_503440",
+      "role": "公共旧面板悬停/五页/关闭按钮及背景绘制",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "disposition": "adapted",
+      "contract": "BVM01完整116条325B/两页公共绘制正文正确保持：S8 hover→原悬停字段读序/低W16边界，五页每轮fresh S8 selected、含零图号仍绘，原有符号height/width除2；flags低bit0才绘关闭钮，之后fresh选页/背景图号，unsigned image<=999原W32透传，否则按height/y/width/x绘212层并沿返回。16B descriptor原全清后FFFFFFF及mode4，现正确保持，不误删合法清零。仅此根完整基线与现相关桥接，所有父/像素/ABI运行未验。"
+    },
+    {
+      "index": 1767,
+      "id": "F:00103590",
+      "entry": "0x503590",
+      "original_index": 1,
+      "symbol": "Sub_503590",
+      "role": "旧面板内部关闭区域状态查询",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "disposition": "adapted",
+      "contract": "BVM01完整29条72B/一页关闭区域查询正确保持：y→height→x→width，bottom/right+1原S32；只区域命中才交closeButton给503990，低AL&40非零→1，否则0。实际Cpp借既有QueryPanelButtonState，当前桥接源矩形改原top→left→height→width四阶段，正常值/核心命中与1/0结果保；此原函数正文无改动、新I只桥接，不冒充全68调用处/外路由或运行完成。"
+    },
+    {
+      "index": 1768,
+      "id": "F:001035E0",
+      "entry": "0x5035E0",
+      "original_index": 2,
+      "symbol": "Sub_5035E0",
+      "role": "旧图形按钮普通/按下图及独立悬停边框绘制",
+      "source_path": "src/LegacyUiRecord.cpp",
+      "disposition": "adapted",
+      "contract": "BVM01完整107条265B/两页图形按钮正文正确保持：原top/height/left/width首查询，区域命中才读按下BYTE/低bit0再style0，按下/普通各image→y→x绘制；hoverMode非零才第二独立查询，style0和命中才第三fresh四边，±2/低W16边框、hoverMode==2细节1否则0。16B descriptor原全清/FFFFFFF、mode0正确保，不套面板mode4；void结果、层低W8与全部几何/失败/参数保，无新该体I，完整208调用处/65父/像素寿命/机器ABI运行未验。"
+    }
+  ],
+  "functions_before": [
+    {
+      "id": "F:00103440",
+      "original_entry": "0x503440",
+      "original_name": "sub_503440",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503440",
+          "definition_line": 17445,
+          "namespace": "cg::login::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:00103590",
+      "original_entry": "0x503590",
+      "original_name": "sub_503590",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_503590",
+          "definition_line": 17498,
+          "namespace": "cg::login::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    },
+    {
+      "id": "F:001035E0",
+      "original_entry": "0x5035E0",
+      "original_name": "sub_5035E0",
+      "semantic_indices": [],
+      "pending_indices": [],
+      "direct_snapshot_definitions": [
+        {
+          "path": "src/LegacyUiRecord.cpp",
+          "symbol": "Sub_5035E0",
+          "definition_line": 17512,
+          "namespace": "cg::login::detail"
+        }
+      ],
+      "baseline_documents": [],
+      "classification_refs": [],
+      "disposition": null,
+      "feature_memberships": [],
+      "sources": []
+    }
+  ],
+  "source_files_before": [
+    {
+      "path": "src/LegacyUiRecord.cpp",
+      "length": 928435
+    },
+    {
+      "path": "src/LegacyPanelRuntime.hpp",
+      "length": 23481
+    },
+    {
+      "path": "src/CharacterModalButton.cpp",
+      "length": 3714
+    },
+    {
+      "path": "src/CharacterSelectSceneDependencies.hpp",
+      "length": 4980
+    },
+    {
+      "path": "include/cg/render/GraphicPendingQueue.hpp",
+      "length": 6547
+    },
+    {
+      "path": "src/LegacyAudio.cpp",
+      "length": 49891
+    },
+    {
+      "path": "include/cg/LegacyAudio.hpp",
+      "length": 2838
+    }
+  ],
+  "source_bodies_before": {
+    "Sub_503440": "std::uint32_t Sub_503440(LegacyPanelRecord* const panel, const std::int32_t flags)\n{\n    const std::int32_t hovered = panel->hovered;\n    GraphicDescriptor16 descriptor {};\n    const std::uint32_t color = 0xFFFFFFFFu;\n    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));\n    descriptor.bytes[13] = 4;\n    if (hovered >= 0) {\n        const std::uint32_t hoverImage = gValueD69768;\n        const std::int32_t panelX = panel->x;\n        const LegacyPanelTabRecord* const tab = &panel->tabs[hovered];\n        const std::int32_t tabY = tab->y;\n        const std::int32_t panelY = panel->y;\n        const std::int32_t tabX = tab->x;\n        const std::int32_t tabHeight = tab->height;\n        const std::int32_t tabWidth = tab->width;\n        DrawGraphicHover(\n            static_cast<std::uint16_t>(panelX + tabX - 3),\n            static_cast<std::uint16_t>(panelY + tabY - 3),\n            static_cast<std::uint16_t>(panelX + tabWidth + tabX + 4),\n            static_cast<std::uint16_t>(panelY + tabY + tabHeight + 3),\n            214, hoverImage, 0);\n    }\n    for (std::int32_t index = 0; index < 5; ++index) {\n        if (panel->selected != index) {\n            const std::int32_t image = panel->tabs[index].image;\n            const std::int32_t height = panel->height;\n            const std::int32_t top = panel->y;\n            const std::int32_t y = height / 2 + top;\n            const std::int32_t width = panel->width;\n            const std::int32_t left = panel->x;\n            const std::int32_t x = width / 2 + left;\n            static_cast<void>(DrawGraphic(x, y, 218, image, 0, &descriptor));\n        }\n    }\n    if ((flags & 1) != 0) {\n        const std::uint32_t hoverImage = gValueD69768;\n        Sub_5035E0(&panel->closeButton, 218, 1, hoverImage, 0);\n    }\n    const std::int32_t selected = panel->selected;\n    const std::int32_t image = panel->backgrounds[selected];\n    if (static_cast<std::uint32_t>(image) <= 999) {\n        return static_cast<std::uint32_t>(image);\n    }\n    const std::int32_t height = panel->height;\n    const std::int32_t top = panel->y;\n    const std::int32_t y = height / 2 + top;\n    const std::int32_t width = panel->width;\n    const std::int32_t left = panel->x;\n    const std::int32_t x = width / 2 + left;\n    return static_cast<std::uint32_t>(DrawGraphic(x, y, 212, image, 1, &descriptor));\n}\n\n",
+    "Sub_503590": "std::int32_t Sub_503590(LegacyPanelRecord* const panel)\n{\n    const std::int32_t y = panel->y;\n    const std::int32_t height = panel->height;\n    const std::int32_t x = panel->x;\n    const std::int32_t bottom = height + y + 1;\n    const std::int32_t right = panel->width + x + 1;\n    if (Sub_5049A0(x, y, right, bottom, -1) != 0\n        && (QueryPanelButtonState(&panel->closeButton) & 0x40) != 0) {\n        return 1;\n    }\n    return 0;\n}\n\n",
+    "Sub_5035E0": "void Sub_5035E0(\n    LegacyPanelButtonRecord* const button, const std::uint8_t layer,\n    const std::int32_t hoverMode, const std::uint32_t hoverImage, const std::int32_t style)\n{\n    GraphicDescriptor16 descriptor {};\n    const std::int32_t top = button->top;\n    const std::int32_t height = button->height;\n    const std::int32_t left = button->left;\n    const std::int32_t bottom = top + height;\n    const std::int32_t right = left + button->width;\n    const std::uint32_t color = 0xFFFFFFFFu;\n    std::memcpy(descriptor.bytes.data() + 8, &color, sizeof(color));\n    const bool pressed = Sub_5049A0(left, top, right, bottom, -1) != 0\n        && (gValueD68D98 & 1u) != 0 && style == 0;\n    const std::int32_t image = pressed ? button->pressedImage : button->normalImage;\n    const std::int32_t y = button->imageY;\n    const std::int32_t x = button->imageX;\n    static_cast<void>(DrawGraphic(x, y, layer, image, 1, &descriptor));\n    if (hoverMode != 0) {\n        const std::int32_t hoverTop = button->top;\n        const std::int32_t hoverLeft = button->left;\n        const std::int32_t hoverBottom = hoverTop + button->height;\n        const std::int32_t hoverRight = button->width + hoverLeft;\n        if (Sub_5049A0(hoverLeft, hoverTop, hoverRight, hoverBottom, -1) != 0 && style == 0) {\n            const std::int32_t frameTop = button->top;\n            const std::int32_t frameLeft = button->left;\n            const std::int32_t frameBottom = frameTop + button->height + 2;\n            const std::int32_t frameRight = button->width + frameLeft + 2;\n            DrawGraphicHover(\n                static_cast<std::uint16_t>(frameLeft - 2),\n                static_cast<std::uint16_t>(frameTop - 2),\n                static_cast<std::uint16_t>(frameRight),\n                static_cast<std::uint16_t>(frameBottom),\n                layer, hoverImage, hoverMode == 2 ? 1 : 0);\n        }\n    }\n}\n\n",
+    "QueryPanelButtonState": "std::int32_t QueryPanelButtonState(const cg::login::detail::LegacyPanelButtonRecord* const button)\n{\n    // 503990仅消费矩形；避免将图号尾部当作CharacterModalUiRecord的文本指针。\n    const cg::character_select::detail::CharacterModalUiRecord rectangle {\n        0, 0, button->left, button->top, button->width, button->height, nullptr,\n    };\n    return cg::character_select::detail::Sub_503990(&rectangle);\n}\n\n",
+    "Sub_503160": "std::int32_t Sub_503160(\n    const std::int32_t opened, LegacyPanelRecord* const panel,\n    void (*const initialize)(), const std::int32_t flags)\n{\n    const std::int32_t initialX = panel->x;\n    const std::int32_t initialWidth = panel->width;\n    const std::int32_t right = initialX + initialWidth;\n    const std::int32_t top = panel->y;\n    panel->closeButton.normalImage = 22509;\n    panel->closeButton.pressedImage = 22510;\n    panel->closeButton.left = right - 26;\n    panel->closeButton.imageX = right - 16;\n    panel->closeButton.width = 20;\n    panel->closeButton.height = 20;\n    const std::uint32_t id = panel->id;\n    panel->closeButton.imageY = top + 16;\n    panel->closeButton.top = top + 6;\n    const std::int32_t index = audio::Sub_5044C0(id);\n    if (index < 0) {\n        return 0;\n    }\n    YobiAction*& actionSlot = audio::BorrowLegacyPanelAction57C374(index);\n    if (opened == 0) {\n        YobiAction* const actionToDestroy = actionSlot;\n        if (actionToDestroy != nullptr) {\n            static_cast<void>(MarkDeath(actionToDestroy));\n            actionSlot = nullptr;\n        }\n        std::uint8_t& dirty = audio::BorrowLegacyPanelDirty57C378(index);\n        if (dirty != 0) {\n            dirty = 0;\n            return 2;\n        }\n        return 0;\n    }\n    if (actionSlot == nullptr) {\n        const std::int32_t background = panel->backgrounds[0];\n        std::int32_t x;\n        std::int32_t y;\n        std::int32_t width;\n        const std::int32_t height = panel->height;\n        const std::int32_t style = static_cast<std::uint32_t>(background) <= 999 ? background : -2;\n        if (static_cast<std::uint32_t>(background) > 999) {\n            width = panel->width;\n            y = panel->y;\n            x = panel->x;\n        } else {\n            y = panel->y;\n            width = panel->width;\n            x = panel->x;\n        }\n        actionSlot = Sub_5044E0(x, y, width, height, style, 1);\n        static_cast<void>(audio::PlaySe_52C450(56, 320));\n        if (initialize != nullptr) {\n            initialize();\n        }\n    }\n    YobiAction* const action = actionSlot;\n    if (action == nullptr || IsYobiActionStateLessOrEqual(action, 0)) {\n        return 0;\n    }\n    const std::int32_t firstTabImage = panel->tabs[0].image;\n    panel->hovered = -1;\n    if (firstTabImage != 0) {\n        for (std::int32_t tabIndex = 0; tabIndex < 5; ++tabIndex) {\n            if (panel->selected == tabIndex) {\n                continue;\n            }\n            LegacyPanelTabRecord* const tab = &panel->tabs[tabIndex];\n            const std::int32_t tabY = tab->y;\n            const std::int32_t tabHeight = tab->height;\n            const std::int32_t panelY = panel->y;\n            const std::int32_t tabX = tab->x;\n            const std::int32_t panelX = panel->x;\n            const std::int32_t bottom = panelY + tabY + tabHeight;\n            const std::int32_t tabRight = panelX + tabX + tab->width;\n            if (Sub_5049A0(panelX + tabX, panelY + tabY, tabRight, bottom, -1) != 0\n                && tab->image != 0) {\n                panel->hovered = static_cast<std::int8_t>(tabIndex);\n                const char* const hint = tab->hint;\n                if (hint != nullptr) {\n                    char buffer[128];\n                    platform::FormatLegacyString_53B304(buffer, \"%s\", hint);\n                    std::strcpy(ui::detail::gHoverTextD68AE8.data(), buffer);\n                }\n                if ((gValueD68D9C & 1u) != 0) {\n                    panel->selected = static_cast<std::int8_t>(tabIndex);\n                    static_cast<void>(audio::PlaySe_52C450(52, 320));\n                    break;\n                }\n            }\n        }\n    }\n    const std::int32_t panelY = panel->y;\n    const std::int32_t panelHeight = panel->height;\n    const std::int32_t panelX = panel->x;\n    const std::int32_t bottom = panelHeight + panelY + 1;\n    const std::int32_t panelRight = panelX + panel->width + 1;\n    if (Sub_5049A0(panelX, panelY, panelRight, bottom, -1) != 0\n        && (QueryPanelButtonState(&panel->closeButton) & 0x40) == 0) {\n        gLegacyPanelHitIdD046C0 = panel->id;\n    }\n    if ((flags & 1) != 0 && (QueryPanelButtonState(&panel->closeButton) & 1) != 0) {\n        static_cast<void>(audio::Sub_5042D0(panel->id));\n        static_cast<void>(audio::PlaySe_52C450(57, 320));\n    }\n    return 1;\n}\n\n"
+  },
+  "source_patch": {
+    "path": "src/LegacyUiRecord.cpp",
+    "symbol": "QueryPanelButtonState",
+    "old": "    // 503990仅消费矩形；避免将图号尾部当作CharacterModalUiRecord的文本指针。\n    const cg::character_select::detail::CharacterModalUiRecord rectangle {\n        0, 0, button->left, button->top, button->width, button->height, nullptr,\n    };\n",
+    "new": "    // 503990仅消费矩形；按原top/left/height/width次序取齐，避免将图号尾部当作文本指针。\n    const std::int32_t top = button->top;\n    const std::int32_t left = button->left;\n    const std::int32_t height = button->height;\n    const std::int32_t width = button->width;\n    const cg::character_select::detail::CharacterModalUiRecord rectangle {\n        0, 0, left, top, width, height, nullptr,\n    };\n"
+  },
+  "source_bridge_after": "std::int32_t QueryPanelButtonState(const cg::login::detail::LegacyPanelButtonRecord* const button)\n{\n    // 503990仅消费矩形；按原top/left/height/width次序取齐，避免将图号尾部当作文本指针。\n    const std::int32_t top = button->top;\n    const std::int32_t left = button->left;\n    const std::int32_t height = button->height;\n    const std::int32_t width = button->width;\n    const cg::character_select::detail::CharacterModalUiRecord rectangle {\n        0, 0, left, top, width, height, nullptr,\n    };\n    return cg::character_select::detail::Sub_503990(&rectangle);\n}\n\n",
+  "source_cpp_file_count": 1,
+  "source_header_file_count": 0,
+  "source_patch_count": 1,
+  "new_helper_count": 0,
+  "new_owner_count": 0,
+  "new_implementation_function_count": 0,
+  "correct_three_original_bodies_changed": false,
+  "existing_query_core_changed": false,
+  "evidence_refs": [
+    "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
+    "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
+    "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-acceptance",
+    "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+    "doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json"
+  ],
+  "artifacts": [
+    "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-baseline",
+    "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-decision",
+    "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-acceptance",
+    "doc/cg2d_legacy_panel_button_bridge_sampling_spec.md#panel-button-bridge-source-state",
+    "doc/cg2d_legacy_panel_button_bridge_sampling_evidence.json",
+    "src/LegacyUiRecord.cpp",
+    "src/LegacyPanelRuntime.hpp",
+    "src/CharacterModalButton.cpp",
+    "src/CharacterSelectSceneDependencies.hpp",
+    "include/cg/render/GraphicPendingQueue.hpp",
+    "src/LegacyAudio.cpp",
+    "include/cg/LegacyAudio.hpp",
+    "doc/ui_windows/shared_legacy_panels.md",
+    "doc/cg2d_ui_window_runtime.md",
+    "doc/cg2d_modal_button_geometry_sampling_spec.md#modal-button-geometry-source-state",
+    "doc/cg2d_legacy_panel_native_sampling_spec.md#legacy-panel-native-source-state",
+    "doc/cg2d_semantic_function_mappings.json",
+    "plan/cg2d_acceptance_registry.json"
+  ],
+  "task_acceptance_before": [
+    {
+      "task_id": "V03",
+      "state": "open",
+      "reference_count": 81
+    },
+    {
+      "task_id": "U11",
+      "state": "open",
+      "reference_count": 50
+    },
+    {
+      "task_id": "R04",
+      "state": "open",
+      "reference_count": 267
+    },
+    {
+      "task_id": "U04",
+      "state": "open",
+      "reference_count": 10
+    }
+  ],
+  "implementation_static_scope": "BVM01限定静态：公共旧面板绘制503440/关闭查询503590/图形按钮5035E0三完整根252条662B/五页、10直接五目标/零间接、15跳/4RET，373实际CALL只引用定位；503990已有BSP01完整基线复用，本步新读取前25条仅取样/第一命中邻窗，不重计472调用或新F。三正文已正确保持，只有LegacyUiRecord.cpp既有QueryPanelButtonState一个桥接片段恢复top→left→height→width四个源字段取齐，再沿原矩形/核心/返回传递；不改变正常值/0-40-各BIT/S32返回或新helper、owner/API。16B descriptor原确实全清、面板mode4/按钮mode0保，五页/原unsigned999、两除2/层次/悬停/几何与BVL原action-dirty/99表及全部音频调用保。三新原新1766..1768/三adapted F，公共UI流16→19两限定I-S各真实来源，I仅桥接实修；其他族/外路由和全373调用处/数据生产/正常寿命/像素/机器ABI链接运行未验，原格式明文/音频暂停/RPLAN.24和完整门禁保持。",
+  "query_core_original_F_recounted": false,
+  "runtime_verified": false,
+  "fault_equivalence_claimed": false,
+  "native_99_handler_dispatch_added": false,
+  "audio_pause_lifted": false,
+  "network_wire_format_changed": false,
+  "encryption_added": false,
+  "all_parents_or_callees_acceptance_claimed": false
+}

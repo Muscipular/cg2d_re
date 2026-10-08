@@ -19,7 +19,7 @@ namespace cg::login {
 namespace {
 
 // 原55C584「不正確的帳號和密碼。」；20B正文，字面量隐式追加NUL。
-constexpr char kIncorrectAccountOrPassword[] = "\xA4\xA3\xA5\xBF\xBD\x54\xAA\xBA\xB1\x62\xB8\xB9\xA9\x4D\xB1\x4B\xBD\x58\xA1\x43";
+constexpr char kIncorrectAccountOrPassword[] = "\xB2\xBB\xD5\xFD\xB4\x5F\xB5\xC4\x8E\xA4\xCC\x96\xBA\xCD\xC3\xDC\xB4\x61\xA1\xA3";
 static_assert(sizeof(kIncorrectAccountOrPassword) == 21);
 
 // 原 0x9A6E24 只有 sub_45C2D0 内一写一读；保持唯一非拥有原生指针。

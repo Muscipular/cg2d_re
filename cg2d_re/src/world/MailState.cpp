@@ -89,8 +89,8 @@ ProfileRuntimeRecord gCurrentProfile10738E8 {};
 ProfileRuntimeRecord gReceivedProfile1074110 {};
 ProfileRuntimeRecord gViewedProfile105ECE0 {};
 static_assert(sizeof(gProfiles1074938) == 0x1050);
-constexpr char kProfileDefault58F614[] = "\xA5\xBC\xB3\x5D\xA9\x77";
-constexpr char kProfileHidden58F61C[] = "\xA4\xA3\xA4\xBD\xB6\x7D";
+constexpr char kProfileDefault58F614[] = "\xCE\xB4\xD4\x4F\xB6\xA8";
+constexpr char kProfileHidden58F61C[] = "\xB2\xBB\xB9\xAB\xE9\x5F";
 static_assert(sizeof(kProfileDefault58F614) == 7);
 static_assert(sizeof(kProfileHidden58F61C) == 7);
 
@@ -139,16 +139,16 @@ static_assert(sizeof(CategoryRuntimeSlots) == 0x13ED4);
 CategoryRuntimeSlots gCategory105FA10 {};
 
 constexpr char kReceivedMailFormat58B07C[] =
-    "\xA6\xAC\xA8\xEC\xB1\x71" "%s" "\xB1\x48\xA8\xD3\xAA\xBA"
-    "\xB6\x6C\xA5\xF3\xA1\x49";
+    "\xCA\xD5\xB5\xBD\x8F\xC4" "%s" "\xBC\xC4\x81\xED\xB5\xC4"
+    "\xE0\x5D\xBC\xFE\xA3\xA1";
 constexpr char kReceivedPetMailFormat58B064[] =
-    "\xA5\xD1" "%s" "\xB0\x65\xA8\xD3\xA4\x46\xC3\x64\xAA\xAB"
-    "\xB6\x6C\xA5\xF3\xA1\x49";
+    "\xD3\xC9" "%s" "\xCB\xCD\x81\xED\xC1\xCB\x8C\x99\xCE\xEF"
+    "\xE0\x5D\xBC\xFE\xA3\xA1";
 static_assert(sizeof(kReceivedMailFormat58B07C) == 21);
 static_assert(sizeof(kReceivedPetMailFormat58B064) == 21);
 constexpr char kReceivedMiniMailFormat58B108[] =
-    "\xB4\xA3\xA5\xDC\xA1\x49\xB1\x7A\xA6\xAC\xA8\xEC\xA8\xD3\xA6\xDB"
-    " %s " "\xAA\xBA\xB0\x67\xA7\x41\xB6\x6C\xA5\xF3\xA1\xE3";
+    "\xCC\xE1\xCA\xBE\xA3\xA1\xC4\xFA\xCA\xD5\xB5\xBD\x81\xED\xD7\xD4"
+    " %s " "\xB5\xC4\xC3\xD4\xC4\xE3\xE0\x5D\xBC\xFE\xA1\xAB";
 static_assert(sizeof(kReceivedMiniMailFormat58B108) == 33);
 
 constexpr std::ptrdiff_t kMailGroupBytes = 0x2EE00;

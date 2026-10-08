@@ -12,7 +12,7 @@ namespace {
 
 // 原 0x55ABE8：正文 10 字节，含隐式 NUL 共 11 字节。
 constexpr char kCharacterDeletionProgressText[] =
-    "\xA8\xA4\xA6\xE2\xA7\x52\xB0\xA3\xA4\xA4";
+    "\xBD\xC7\xC9\xAB\x84\x68\xB3\xFD\xD6\xD0";
 static_assert(sizeof(kCharacterDeletionProgressText) == 11);
 constexpr std::int32_t kColumnWidth = 64;
 constexpr std::int32_t kRowHeight = 48;

@@ -228,13 +228,13 @@ constexpr std::uint8_t kModalDisplayPriority = 0xD4;
 constexpr std::uint8_t kSpriteBatch = 0;
 constexpr std::uint8_t kModalLayer = 0xD4;
 
-constexpr char kConfirmCaption[] = "\xBD\x54\xBB\x7B";
+constexpr char kConfirmCaption[] = "\xB4\x5F\xD5\x4A";
 constexpr char kActionAllocationText[] = "GetAction Erorr!!";
 constexpr char kActionAllocationCaption[] = "GetAction Erorr";
 constexpr char kActionPayloadText[] =
-    "\xB0\x4F\xBE\xD0\xC5\xE9\xAE\x65\xB6\x71\xA4\xA3\xA8\xAC\xA1\x49" "pAct";
+    "\xD3\x9B\x91\x9B\xF3\x77\xC8\xDD\xC1\xBF\xB2\xBB\xD7\xE3\xA3\xA1" "pAct";
 constexpr char kYobiAllocationText[] =
-    "\xB0\x4F\xBE\xD0\xC5\xE9\xAE\x65\xB6\x71\xA4\xA3\xA8\xAC\xA1\x49" "yobi";
+    "\xD3\x9B\x91\x9B\xF3\x77\xC8\xDD\xC1\xBF\xB2\xBB\xD7\xE3\xA3\xA1" "yobi";
 constexpr char kYobiAllocationCaption[] = "GetYobi Erorr";
 
 // 原448810模式0生产，4483A0消费；两槽均属PE虚拟零区。
@@ -510,9 +510,9 @@ std::array<std::int32_t, 1025> gBattleEffectPositions59E9D8 = [] {
     positions.fill(-1);
     return positions;
 }();
-constexpr char kBattleInspectFailure5539BC[] = "\xB5\x4C\xAA\x6B\xBD\xD5\xAC\x64\xA5\x58 %s \xAA\xBA\xB1\xA1\xB3\xF8";
-constexpr char kBattleInspectHp5539E8[] = "%s \xAA\xBA\xA5\xCD\xA9\x52\xAC\xB0 %d / %d";
-constexpr char kBattleInspectFp5539D4[] = "%s \xAA\xBA\xC5\x5D\xA4\x4F\xAC\xB0 %d / %d";
+constexpr char kBattleInspectFailure5539BC[] = "\x9F\x6F\xB7\xA8\xD5\x7B\xB2\xE9\xB3\xF6 %s \xB5\xC4\xC7\xE9\x88\xF3";
+constexpr char kBattleInspectHp5539E8[] = "%s \xB5\xC4\xC9\xFA\xC3\xFC\x9E\xE9 %d / %d";
+constexpr char kBattleInspectFp5539D4[] = "%s \xB5\xC4\xC4\xA7\xC1\xA6\x9E\xE9 %d / %d";
 YobiAction* gBattleFactoryEffect59F9E8 = nullptr;
 
 // 原553A74已证六型、每型16项图号；41E890共享相位，41E920另用对象内相位。
@@ -34682,17 +34682,17 @@ std::uint32_t ReadYobiActionFlags(const YobiAction* const action) noexcept
 void DescribeHoveredYobi_507140(const render::GraphicCacheItem32* const graphic)
 {
     constexpr char kFull58AD04[] =
-        "\xB5\xA5\xAF\xC5 %-3d %-16s  \xA5\xCD\xA9\x52 %4d/%-4d  \xC5\x5D\xA4\x4F %4d/%-4d";
-    constexpr char kLevel58AD5C[] = "\xB5\xA5\xAF\xC5 %-3d %-16s";
-    constexpr char kTitle58AD44[] = "\xB5\xA5\xAF\xC5 %-3d %-16s [%-16s]";
+        "\xB5\xC8\xBC\x89 %-3d %-16s  \xC9\xFA\xC3\xFC %4d/%-4d  \xC4\xA7\xC1\xA6 %4d/%-4d";
+    constexpr char kLevel58AD5C[] = "\xB5\xC8\xBC\x89 %-3d %-16s";
+    constexpr char kTitle58AD44[] = "\xB5\xC8\xBC\x89 %-3d %-16s [%-16s]";
     constexpr char kFullBlacklist553294[] =
-        "\xA7\x41\xAA\xBA\xB6\xC2\xA6\x57\xB3\xE6\xA4\x77\xBA\xA1\xA1\x41\xB5\x4C\xAA\x6B\xA6\x41\xA5\x5B\xA4\x4A";
-    constexpr char kAddFailed5532B0[] = "%s\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6\xA5\xA2\xB1\xD1";
-    constexpr char kAdded5532C4[] = "\xA4\x77\xB1\x4E%s\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6";
-    constexpr char kRemoveFailed5532D8[] = "\xB1\x71\xB6\xC2\xA6\x57\xB3\xE6\xB2\xBE\xB0\xA3%s\xA5\xA2\xB1\xD1";
-    constexpr char kRemoved5532EC[] = "\xA4\x77\xB1\x4E%s\xB1\x71\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4\xB2\xBE\xB0\xA3";
-    constexpr char kAlready554928[] = "%s\xA4\x77\xA6\x62\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4";
-    constexpr char kAbsent58AD34[] = "%s\xA4\xA3\xA6\x62\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4";
+        "\xC4\xE3\xB5\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xD1\x9D\x4D\xA3\xAC\x9F\x6F\xB7\xA8\xD4\xD9\xBC\xD3\xC8\xEB";
+    constexpr char kAddFailed5532B0[] = "%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE\xCA\xA7\x94\xA1";
+    constexpr char kAdded5532C4[] = "\xD2\xD1\x8C\xA2%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE";
+    constexpr char kRemoveFailed5532D8[] = "\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD2\xC6\xB3\xFD%s\xCA\xA7\x94\xA1";
+    constexpr char kRemoved5532EC[] = "\xD2\xD1\x8C\xA2%s\x8F\xC4\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0\xD2\xC6\xB3\xFD";
+    constexpr char kAlready554928[] = "%s\xD2\xD1\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0";
+    constexpr char kAbsent58AD34[] = "%s\xB2\xBB\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0";
     using namespace ui::detail;
     using namespace world::detail;
 
@@ -35569,9 +35569,9 @@ void Sub_4EF5F0(YobiAction* const action, const std::int32_t result)
 std::uintptr_t Sub_4EE380(const std::int32_t opened)
 {
     const char* const texts[] {
-        "\xA5\xEF\xA4\xEC\xA4\xA4\xA1\x45\xA1\x45\xA1\x45",
-        "\xA5\xB4\xC2\x79\xA4\xA4\xA1\x45\xA1\x45\xA1\x45",
-        "\xAB\xF5\xB1\xB8\xA4\xA4\xA1\x45\xA1\x45\xA1\x45",
+        "\xB7\xA5\xC4\xBE\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4",
+        "\xB4\xF2\xAB\x43\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4",
+        "\xCD\xDA\xBE\xF2\xD6\xD0\xA1\xA4\xA1\xA4\xA1\xA4",
     };
     constexpr std::int8_t imageOffsets[] {-2, -1, 0};
     const std::int32_t result = Sub_503160(
@@ -35660,7 +35660,7 @@ namespace cg::world::detail {
 
 namespace {
 
-constexpr char kChatFamilyPrefix554580[] = "[\xAE\x61\xB1\xDA]";
+constexpr char kChatFamilyPrefix554580[] = "[\xBC\xD2\xD7\xE5]";
 static_assert(sizeof(kChatFamilyPrefix554580) == 7);
 
 void AllocateActorChatText(

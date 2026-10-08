@@ -10,22 +10,22 @@ namespace cg::character_select {
 namespace {
 
 // 原55C8D4「  確  定 」；9B正文，字面量隐式追加NUL。
-constexpr char kConfirmText[] = "\x20\x20\xBD\x54\x20\x20\xA9\x77\x20";
+constexpr char kConfirmText[] = "\x20\x20\xB4\x5F\x20\x20\xB6\xA8\x20";
 static_assert(sizeof(kConfirmText) == 10);
 // 原55C8C8「  取  消 」；9B正文，字面量隐式追加NUL。
-constexpr char kCancelText[] = "\x20\x20\xA8\xFA\x20\x20\xAE\xF8\x20";
+constexpr char kCancelText[] = "\x20\x20\xC8\xA1\x20\x20\xCF\xFB\x20";
 static_assert(sizeof(kCancelText) == 10);
 // 原55C8B0「＊＊＊ 警  告 ＊＊＊」；20B正文，字面量隐式追加NUL。
-constexpr char kWarningTitle[] = "\xA1\xAF\xA1\xAF\xA1\xAF\x20\xC4\xB5\x20\x20\xA7\x69\x20\xA1\xAF\xA1\xAF\xA1\xAF";
+constexpr char kWarningTitle[] = "\xA3\xAA\xA3\xAA\xA3\xAA\x20\xBE\xAF\x20\x20\xB8\xE6\x20\xA3\xAA\xA3\xAA\xA3\xAA";
 static_assert(sizeof(kWarningTitle) == 21);
 // 原55C898「所選擇的人物一經刪除」；20B正文，字面量隐式追加NUL。
-constexpr char kDeletionCannotRecoverLine1[] = "\xA9\xD2\xBF\xEF\xBE\xDC\xAA\xBA\xA4\x48\xAA\xAB\xA4\x40\xB8\x67\xA7\x52\xB0\xA3";
+constexpr char kDeletionCannotRecoverLine1[] = "\xCB\xF9\xDF\x78\x93\xF1\xB5\xC4\xC8\xCB\xCE\xEF\xD2\xBB\xBD\x9B\x84\x68\xB3\xFD";
 static_assert(sizeof(kDeletionCannotRecoverLine1) == 21);
 // 原55C88C「將無法恢復」；10B正文，字面量隐式追加NUL。
-constexpr char kDeletionCannotRecoverLine2[] = "\xB1\x4E\xB5\x4C\xAA\x6B\xAB\xEC\xB4\x5F";
+constexpr char kDeletionCannotRecoverLine2[] = "\x8C\xA2\x9F\x6F\xB7\xA8\xBB\xD6\x8F\xCD";
 static_assert(sizeof(kDeletionCannotRecoverLine2) == 11);
 // 原55C87C「確定要刪除嗎？」；14B正文，字面量隐式追加NUL。
-constexpr char kDeletionQuestion[] = "\xBD\x54\xA9\x77\xAD\x6E\xA7\x52\xB0\xA3\xB6\xDC\xA1\x48";
+constexpr char kDeletionQuestion[] = "\xB4\x5F\xB6\xA8\xD2\xAA\x84\x68\xB3\xFD\x86\xE1\xA3\xBF";
 static_assert(sizeof(kDeletionQuestion) == 15);
 
 } // namespace

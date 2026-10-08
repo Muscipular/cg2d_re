@@ -5,7 +5,6 @@
 #include "cg/render/Font.hpp"
 #include "cg/render/TextPendingQueue.hpp"
 
-#include <array>
 #include <bit>
 #include <cstddef>
 #include <cstdint>
@@ -13,11 +12,8 @@
 namespace cg::world::detail {
 namespace {
 
-inline constexpr std::array<char, 3> kCaretText {{
-    std::bit_cast<char>(std::uint8_t {0xA2}),
-    std::bit_cast<char>(std::uint8_t {0x78}),
-    '\0',
-}};
+// 原 CP950 A2 78「│」按用户要求改用单字节 ASCII「|」，绘制按单字节宽度居中。
+inline constexpr char kCaretText[] = "|";
 
 std::int32_t AddW32(
     const std::int32_t left,
@@ -59,17 +55,17 @@ void DrawBasicCaret()
     const std::int8_t renderMode = IncrementModeW8(context->field138[0]);
     const std::int32_t y = context->y;
     const std::int32_t x = context->x;
-    const std::int32_t halfDoubleWidth =
-        render::gFontMetrics[static_cast<std::size_t>(fontType)].doubleWidth
+    const std::int32_t halfCaretWidth =
+        render::gFontMetrics[static_cast<std::size_t>(fontType)].sWidth
         / 2;
-    const std::int32_t drawX = SubW32(x, halfDoubleWidth);
+    const std::int32_t drawX = SubW32(x, halfCaretWidth);
     static_cast<void>(render::DrawText2_456670(
         LowS16(drawX),
         LowS16(y),
         renderMode,
         LowS8(fontType),
         LowS8(color),
-        kCaretText.data(),
+        kCaretText,
         0));
 }
 
@@ -95,20 +91,20 @@ void DrawImeCaret()
     const std::int32_t postMeasureFontType =
         postMeasureContext->field13C;
     const std::int32_t postMeasureX = postMeasureContext->x;
-    const std::int32_t halfDoubleWidth =
+    const std::int32_t halfCaretWidth =
         render::gFontMetrics[
-            static_cast<std::size_t>(postMeasureFontType)].doubleWidth
+            static_cast<std::size_t>(postMeasureFontType)].sWidth
         / 2;
     const std::int32_t drawX = AddW32(
         measuredWidth,
-        SubW32(postMeasureX, halfDoubleWidth));
+        SubW32(postMeasureX, halfCaretWidth));
     static_cast<void>(render::DrawText2_456670(
         LowS16(drawX),
         LowS16(y),
         renderMode,
         LowS8(fontType),
         LowS8(color),
-        kCaretText.data(),
+        kCaretText,
         0));
 }
 

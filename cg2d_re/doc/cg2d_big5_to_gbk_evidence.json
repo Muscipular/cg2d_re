@@ -1,0 +1,487 @@
+{
+  "任务": "按用户2026-10-09要求，将cg2d_re源码中的Big5字符串换成GBK；随后统一宋体，并处理ASCII | 光标",
+  "原始来源": "现有源码中明确高位字节转义及原字节注释；CP950严格解码，不以繁体字推断其他输入来源",
+  "版本": "Git固定命名快照 cg2d-re-big5-to-gbk-20261009",
+  "源码文件编码": "UTF-8，原行尾保持；GBK运行字节继续采用显式字节常量",
+  "转换数量": 1663,
+  "文件数量": 43,
+  "每文件数量": {
+    "cg2d_re/src/CharacterAuthenticationFailure.cpp": 1,
+    "cg2d_re/src/CharacterCreationRequest.cpp": 1,
+    "cg2d_re/src/CharacterDeletionConfirmation.cpp": 6,
+    "cg2d_re/src/CharacterDeletionProgress.cpp": 1,
+    "cg2d_re/src/CharacterDeletionRequest.cpp": 1,
+    "cg2d_re/src/CharacterListProgress.cpp": 1,
+    "cg2d_re/src/CharacterListRequest.cpp": 1,
+    "cg2d_re/src/CharacterSelectModal.cpp": 5,
+    "cg2d_re/src/CharacterSelectScene.cpp": 17,
+    "cg2d_re/src/CharacterVersionUpgrade.cpp": 4,
+    "cg2d_re/src/GraphicInfo.cpp": 1,
+    "cg2d_re/src/Input.cpp": 7,
+    "cg2d_re/src/LegacyCatalogWindows.cpp": 16,
+    "cg2d_re/src/LegacyPanelTexts.hpp": 9,
+    "cg2d_re/src/LegacyUiRecord.cpp": 515,
+    "cg2d_re/src/LoginCapability3Scene.cpp": 1,
+    "cg2d_re/src/LoginCapability4Scene.cpp": 3,
+    "cg2d_re/src/LoginMessage.cpp": 1,
+    "cg2d_re/src/LoginModeScene.cpp": 1,
+    "cg2d_re/src/LoginOuterScene.cpp": 1,
+    "cg2d_re/src/LoginRequest.cpp": 2,
+    "cg2d_re/src/LoginScene.cpp": 62,
+    "cg2d_re/src/LoginState.cpp": 11,
+    "cg2d_re/src/network/NetworkRuntime.cpp": 5,
+    "cg2d_re/src/Palette.cpp": 3,
+    "cg2d_re/src/platform/LegacyExternalKeyboard.cpp": 4,
+    "cg2d_re/src/platform/LoadingScreen.cpp": 1,
+    "cg2d_re/src/platform/MainLoop.cpp": 1,
+    "cg2d_re/src/platform/MainLoopWindowEnumeration.cpp": 3,
+    "cg2d_re/src/platform/RendererRebuild.cpp": 2,
+    "cg2d_re/src/platform/StartupState.cpp": 1,
+    "cg2d_re/src/platform/WindowProcedure.cpp": 2,
+    "cg2d_re/src/render/Font.cpp": 1,
+    "cg2d_re/src/render/GraphicDxCache.cpp": 4,
+    "cg2d_re/src/render/RendererResources.cpp": 7,
+    "cg2d_re/src/render/SdlPresenter.cpp": 1,
+    "cg2d_re/src/ui/WindowPrototypes.cpp": 86,
+    "cg2d_re/src/ui/WindowRuntime.cpp": 825,
+    "cg2d_re/src/world/MailState.cpp": 5,
+    "cg2d_re/src/world/SceneState.cpp": 19,
+    "cg2d_re/src/world/WorldUpdate.cpp": 4,
+    "cg2d_re/src/YobiRuntime.cpp": 20,
+    "cg2d_re/src/InputCaret.cpp": 1
+  },
+  "静态核对": {
+    "GBK严格编码及解码回读": "逐条相符；不允许?替代或丢字",
+    "新增源码差异": "43个文件全部字面量逐组核对通过；未批准代码或原ASCII变化为0，C++十六进制转义无越界或吞并；68处非Big5或混合串保持",
+    "字节长度及NUL位置": "1661处纯转码保持；字体名正文6B改4B、光标正文2B改1B，NUL随新正文；未改变共享缓冲容量、协议字段或字节索引",
+    "原字节算法": "文字测宽、换行、复制、输入索引算法保持；ASCII光标的普通/IME绘制居中偏移改为单字节sWidth/2",
+    "显示边界": "当前系统ACP=936；A系接口保持，CreateFontA采用宋体与GB2312_CHARSET，所有族及创建分支共用字体名",
+    "编译或客户端运行": "未执行"
+  },
+  "标点裁决": {
+    "原字符": "U+2027 ‧",
+    "GBK字符": "U+00B7 ·",
+    "影响字符串数": 5,
+    "理由": "GBK不表示U+2027；使用相近的双字节中点，保留长度和原有个数，明确记录文字差异"
+  },
+  "边界": "仅静态Big5文本与用户明确指定的宋体/ASCII光标；保留其他繁体文字，协议格式、资源、存档、外部输入或MIDI/WAV二进制保持；非Big5及混合非法字节原样保留。未安装宋体或系统ACP不同的环境未验证。",
+  "非Big5或混合字符串": [
+    {
+      "file": "cg2d_re/src/AnimationRuntime.cpp",
+      "line": 68,
+      "原字节": "8341836A3F815B83563F3F8366815B835E82AA946A91B982B582C482A282DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/AnimationRuntime.cpp",
+      "line": 352,
+      "原字节": "8DC095578366815B835E97CA82AA88D98FED82C582B78142"
+    },
+    {
+      "file": "cg2d_re/src/CharacterSelectScene.cpp",
+      "line": 908,
+      "原字节": "8140"
+    },
+    {
+      "file": "cg2d_re/src/Input.cpp",
+      "line": 1419,
+      "原字节": "20253032643A253032643A25303264814025730A"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 255,
+      "原字节": "0A20253032643A253032643A2530326481402573"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 514,
+      "原字节": "2573282564817E256429"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 516,
+      "原字节": "817E"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1246,
+      "原字节": "82B182CC834583423F8368834582F095C282B682DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1247,
+      "原字节": "8379815B835782F090D882E891D682A682DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1248,
+      "原字节": "834D3F83683F3F836F815B82CC955C8EA63F94D482F0835C815B836782B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1249,
+      "原字节": "834D3F83688FDA8DD782F0955C8EA682B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1250,
+      "原字节": "834183683F835883758362834E82F0955C8EA682B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1251,
+      "原字节": "82B182CC834D3F83683F3F836F815B82C93F815B3F82F03F82E882DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1252,
+      "原字节": "82B182CC834D3F83683F3F836F815B82CC3F815B3F82CC3F97F082F08CA982DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1253,
+      "原字节": "82B182CC834D3F83683F3F836F815B82F08DED3F82B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1254,
+      "原字节": "834D3F8368835E834383673F82F095CF8D5882B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1258,
+      "原字节": "936F985E3F"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1259,
+      "原字节": "8254824F89B93F"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1260,
+      "原字节": "83493F3F83433F3F"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1264,
+      "原字节": "82CD82A2"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1265,
+      "原字节": "82A282A282A6"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1267,
+      "原字节": "834D3F836883758362834E82A982E7"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1268,
+      "原字节": "82F08DED3F82B582DC82B7"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1269,
+      "原字节": "8DED3F82B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1270,
+      "原字节": "8DED3F82F08EE682E882E282DF82DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1274,
+      "原字节": "92CA8FED3F815B3F82C53F904D82B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1275,
+      "原字节": "3F3F8358835E815B3F815B3F82C53F904D82B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1276,
+      "原字节": "834D3F836883758362834E834583433F8368834582C996DF82E882DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1281,
+      "原字节": "82B182CC8E6782A23F82C93F815B3F82F0895E82CE82B982DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1291,
+      "原字节": "82B182CC8341834383653F82F0834D3F83683F3F836F815B82C93F82E882DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1295,
+      "原字节": "914991F082B582C482A282E9834D3F83683F3F836F815B82C93F815B3F82F03F82E882DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1304,
+      "原字节": "82B182CC834D3F83683F3F836F815B82C93F815B3F82F03F82E982CC82F082E282DF82DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1305,
+      "原字节": "3F904D3F8EE882F0914991F082B582C482AD82BE82B382A28142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1317,
+      "原字节": "834D3F8368835E834383673F82F08A4F82B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1318,
+      "原字节": "834D3F8368835E834383673F82F0914991F082B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1330,
+      "原字节": "834D3F836896BC82F093FC97CD82B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1331,
+      "原字节": "834D3F8368836E8345835896BC82F093FC97CD82B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1332,
+      "原字节": "834D3F8368835E834383673F82F093FC97CD82B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1333,
+      "原字节": "89C193FC3F8CC082F03F89C282B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1334,
+      "原字节": "3F96BC3F8CC082F03F89C282B582DC82B78142"
+    },
+    {
+      "file": "cg2d_re/src/render/GraphicDxCache.cpp",
+      "line": 515,
+      "原字节": "8354815B837483468358957391AB82C582B7814225640A"
+    },
+    {
+      "file": "cg2d_re/src/render/SdlPresenter.cpp",
+      "line": 54,
+      "原字节": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD283729814228257329"
+    },
+    {
+      "file": "cg2d_re/src/render/SdlPresenter.cpp",
+      "line": 57,
+      "原字节": "89E63F82F095DB91B682B582DC82B582BD814228257329"
+    },
+    {
+      "file": "cg2d_re/src/render/SdlPresenter.cpp",
+      "line": 60,
+      "原字节": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD28473429814228257329"
+    },
+    {
+      "file": "cg2d_re/src/render/SdlPresenter.cpp",
+      "line": 63,
+      "原字节": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD28473329814228257329"
+    },
+    {
+      "file": "cg2d_re/src/render/SdlPresenter.cpp",
+      "line": 66,
+      "原字节": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD28473229814228257329"
+    },
+    {
+      "file": "cg2d_re/src/render/SdlPresenter.cpp",
+      "line": 69,
+      "原字节": "89E63F82CC95DB91B682C98EB8947382B582DC82B582BD28473129814228257329"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 229,
+      "原字节": "834D3F8368835E834383673F"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 230,
+      "原字节": "91CE8FDB96BC914F"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 360,
+      "原字节": "A7F092B0"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 863,
+      "原字节": "8148814881488148"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1191,
+      "原字节": "4D415353414745373839B2313233343536373839C6313233343536373839BB313233343536373839D6313233343536373839"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1321,
+      "原字节": "3F82A282C482DE"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1332,
+      "原字节": "834A836583533F"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1342,
+      "原字节": "834A836583533F"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1343,
+      "原字节": "3F8362835A815B8357"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1344,
+      "原字节": "82C882DC82A6"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1345,
+      "原字节": "3F8DF595B63F"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1365,
+      "原字节": "96BC914F"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1366,
+      "原字节": "3F83783F"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1367,
+      "原字节": "82BD82A282C682E9"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1368,
+      "原字节": "82B582E582AD82AC82E582A4"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1369,
+      "原字节": "82AC82E982C7"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1370,
+      "原字节": "82B982E9"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1371,
+      "原字节": "82CE82A2"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1372,
+      "原字节": "3F82CE82A482C6"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowPrototypes.cpp",
+      "line": 1403,
+      "原字节": "82C482B782C682B382F1"
+    },
+    {
+      "file": "cg2d_re/src/ui/WindowRuntime.cpp",
+      "line": 31662,
+      "原字节": "8140"
+    }
+  ],
+  "原源码版本": "Git提交09f64ac8；完整转码差异见固定快照与该提交的43个源码文件比较",
+  "特殊字符记录": [
+    {
+      "file": "cg2d_re/src/CharacterVersionUpgrade.cpp",
+      "line": 26,
+      "kind": "string",
+      "hex": "AAA9A5BBA4C9AFC5A4A4A145A145A145",
+      "text": "版本升級中‧‧‧",
+      "gbk_hex": "B0E6B1BEC9FDBC89D6D0A1A4A1A4A1A4",
+      "gbk_text": "版本升級中···"
+    },
+    {
+      "file": "cg2d_re/src/LegacyUiRecord.cpp",
+      "line": 1436,
+      "kind": "string",
+      "hex": "A55BA475A4A4A145A145A145A145A145A145",
+      "text": "加工中‧‧‧‧‧‧",
+      "gbk_hex": "BCD3B9A4D6D0A1A4A1A4A1A4A1A4A1A4A1A4",
+      "gbk_text": "加工中······"
+    },
+    {
+      "file": "cg2d_re/src/YobiRuntime.cpp",
+      "line": 35572,
+      "kind": "string",
+      "hex": "A5EFA4ECA4A4A145A145A145",
+      "text": "伐木中‧‧‧",
+      "gbk_hex": "B7A5C4BED6D0A1A4A1A4A1A4",
+      "gbk_text": "伐木中···"
+    },
+    {
+      "file": "cg2d_re/src/YobiRuntime.cpp",
+      "line": 35573,
+      "kind": "string",
+      "hex": "A5B4C279A4A4A145A145A145",
+      "text": "打獵中‧‧‧",
+      "gbk_hex": "B4F2AB43D6D0A1A4A1A4A1A4",
+      "gbk_text": "打獵中···"
+    },
+    {
+      "file": "cg2d_re/src/YobiRuntime.cpp",
+      "line": 35574,
+      "kind": "string",
+      "hex": "ABF5B1B8A4A4A145A145A145",
+      "text": "挖掘中‧‧‧",
+      "gbk_hex": "CDDABEF2D6D0A1A4A1A4A1A4",
+      "gbk_text": "挖掘中···"
+    }
+  ],
+  "非Big5或混合字符串数": 68,
+  "纯转码数量": 1661,
+  "用户指定替换数量": 2,
+  "用户指定替换": [
+    {
+      "file": "cg2d_re/src/render/Font.cpp",
+      "原文本": "細明體",
+      "原CP950字节": "B2D3A9FAC5E9",
+      "当前文本": "宋体",
+      "当前GBK字节": "CBCECCE5",
+      "含NUL长度": [
+        7,
+        5
+      ],
+      "相关修改": "sizeof断言改为5；GB2312_CHARSET；原字号/字重/字体序和度量表保持"
+    },
+    {
+      "file": "cg2d_re/src/InputCaret.cpp",
+      "原文本": "│",
+      "原CP950字节": "A278",
+      "当前文本": "|",
+      "当前ASCII字节": "7C",
+      "含NUL长度": [
+        3,
+        2
+      ],
+      "相关修改": "两处doubleWidth/2改为sWidth/2，保留闪烁、IME组合测宽及前后输入对象取样"
+    }
+  ]
+}

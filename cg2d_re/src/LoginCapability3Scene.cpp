@@ -24,7 +24,7 @@ constexpr std::uint64_t kFrameGateIncrementBits = 0x4030AAAAAAAAAAABULL;
 constexpr double kFrameGateIncrement =
     std::bit_cast<double>(kFrameGateIncrementBits);
 // 原55CA8C「請設定ID、PASSWORD。」；20B正文，字面量隐式追加NUL。
-constexpr char kCredentialsPrompt[] = "\xBD\xD0\xB3\x5D\xA9\x77\x49\x44\xA1\x42\x50\x41\x53\x53\x57\x4F\x52\x44\xA1\x43";
+constexpr char kCredentialsPrompt[] = "\xD5\x88\xD4\x4F\xB6\xA8\x49\x44\xA1\xA2\x50\x41\x53\x53\x57\x4F\x52\x44\xA1\xA3";
 static_assert(sizeof(kCredentialsPrompt) == 21);
 
 // sub_45F190 的七个唯一私有 owner；原映像均为 virtual-only 零填充。

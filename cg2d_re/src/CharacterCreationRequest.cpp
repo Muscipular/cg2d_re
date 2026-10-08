@@ -17,7 +17,7 @@ constexpr std::size_t kPreviewToggleOffset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 原 0x58AFC4：新建角色逾時。正文 14 字节，末尾唯一 NUL。
 constexpr char kRequestTimeoutMessage[] =
-    "\xB7\x73\xAB\xD8\xA8\xA4\xA6\xE2\xB9\x4F\xAE\xC9\xA1\x43";
+    "\xD0\xC2\xBD\xA8\xBD\xC7\xC9\xAB\xD3\xE2\x95\x72\xA1\xA3";
 constexpr char kSuccessfulResult[] = "successful";
 
 static_assert(kRegistNumberOffset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);

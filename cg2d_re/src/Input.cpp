@@ -87,14 +87,14 @@ constexpr std::array<std::uint8_t, 8> kEscapePairs58E944 {{
 }};
 
 constexpr char kBlacklistSelfText554938[] =
-    "\xB1\x7A\xA1\x4B\xA6\x70\xA6\xB9\xB9\xBD\xB4\x63\xA6\xDB"
-    "\xA4\x76\xAA\xBA\xC1\x6E\xAD\xB5\xB6\xDC\xA1\x48";
+    "\xC4\xFA\xA1\xAD\xC8\xE7\xB4\xCB\x85\x92\x90\xBA\xD7\xD4"
+    "\xBC\xBA\xB5\xC4\xC2\x95\xD2\xF4\x86\xE1\xA3\xBF";
 constexpr char kBlacklistExistingFormat554928[] =
-    "%s\xA4\x77\xA6\x62\xB6\xC2\xA6\x57\xB3\xE6\xA4\xA4";
+    "%s\xD2\xD1\xD4\xDA\xBA\xDA\xC3\xFB\x86\xCE\xD6\xD0";
 constexpr char kBlacklistAddedFormat5532C4[] =
-    "\xA4\x77\xB1\x4E%s\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6";
+    "\xD2\xD1\x8C\xA2%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE";
 constexpr char kBlacklistFailedFormat5532B0[] =
-    "%s\xA5\x5B\xA4\x4A\xB6\xC2\xA6\x57\xB3\xE6\xA5\xA2\xB1\xD1";
+    "%s\xBC\xD3\xC8\xEB\xBA\xDA\xC3\xFB\x86\xCE\xCA\xA7\x94\xA1";
 static_assert(sizeof(kBlacklistSelfText554938) == 27);
 static_assert(sizeof(kBlacklistExistingFormat554928) == 15);
 static_assert(sizeof(kBlacklistAddedFormat5532C4) == 17);
@@ -577,7 +577,7 @@ bool IsRejectedInputText_404060(const char* const legacyText)
     // 原EDI/ESI为S32；控制分类在空白分类调用后独立重读源字节。
     const std::int32_t length = std::bit_cast<std::int32_t>(
         static_cast<std::uint32_t>(std::strlen(legacyText)));
-    if (platform::StrStr_53BE40(legacyText, "\xA1\x40") != nullptr) {
+    if (platform::StrStr_53BE40(legacyText, "\xA1\xA1") != nullptr) {
         return true;
     }
     if (length == 0) {
@@ -1171,8 +1171,8 @@ constexpr auto kFirstSeparator_5548CC = [] {
 }();
 
 constexpr char kDateTitle_55488C[] =
-    "        >>  \xC5\x5D \xA4\x4F \xC4\x5F \xA8\xA9 \xAB\x5F "
-    "\xC0\x49 \xAA\xCC \xA4\xE9 \xBB\x78 [ %02d/%02d/%02d ]  <<\n";
+    "        >>  \xC4\xA7 \xC1\xA6 \x8C\x9A \xD8\x90 \xC3\xB0 "
+    "\xEB\x55 \xD5\xDF \xC8\xD5 \xD5\x49 [ %02d/%02d/%02d ]  <<\n";
 
 constexpr auto kBeforeSession_554848 = [] {
     std::array<char, 65> text {};
@@ -1187,7 +1187,7 @@ constexpr auto kBeforeSession_554848 = [] {
 }();
 
 constexpr char kSessionTime_554820[] =
-    " \xA1\xBD %02d/%02d/%02d %02d:%02d:%02d \xAC\xF6\xBF\xFD\n";
+    " \xA1\xF6 %02d/%02d/%02d %02d:%02d:%02d \xBC\x6F\xE4\x9B\n";
 
 constexpr auto kAfterSession_5547DC = [] {
     std::array<char, 65> text {};

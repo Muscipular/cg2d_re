@@ -21,9 +21,9 @@ namespace cg::platform {
 void ShowModeChange_458A40()
 {
     static constexpr char kModeChangeText[] {
-        '\xA5', '\xBF', '\xA6', '\x62', '\xA7', '\xEF',
-        '\xC5', '\xDC', '\xB4', '\x79', '\xC3', '\xB8',
-        '\xBC', '\xD2', '\xA6', '\xA1', '\xA1', '\x43', '\0',
+        '\xD5', '\xFD', '\xD4', '\xDA', '\xB8', '\xC4',
+        '\xD7', '\x83', '\xC3', '\xE8', '\xC0', '\x4C',
+        '\xC4', '\xA3', '\xCA', '\xBD', '\xA1', '\xA3', '\0',
     };
 
     gPendingGraphicCount = 0;

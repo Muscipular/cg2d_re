@@ -12,10 +12,10 @@
 namespace cg::platform {
 namespace {
 
-// 原 0x559384、0x55937C、0x559370：按字节比较原 ANSI 标题前缀，不经 UTF-8 转码。
-constexpr char kPrefix559384[] = "\xC5\x5D\xA4\x4F\xC4\x5F\xA8\xA9";
-constexpr char kPrefix55937C[] = "\x50\x43\xBA\xEB\xC6\x46";
-constexpr char kPrefix559370[] = "\x20\xAB\x48\xAE\xA7\xB8\xEA\xAE\xC6\x20";
+// 原0x559384、0x55937C、0x559370：当前按字节比较GBK标题前缀。
+constexpr char kPrefix559384[] = "\xC4\xA7\xC1\xA6\x8C\x9A\xD8\x90";
+constexpr char kPrefix55937C[] = "\x50\x43\xBE\xAB\xEC\x60";
+constexpr char kPrefix559370[] = "\x20\xD0\xC5\xCF\xA2\xD9\x59\xC1\xCF\x20";
 
 // 原 CALLBACK@0x458840；保持 EnumWindows 的 HWND/LPARAM/BOOL 原生调用约定。
 BOOL CALLBACK EnumerateWindowsCallback_458840(HWND window, LPARAM)

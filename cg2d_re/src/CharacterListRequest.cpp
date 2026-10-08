@@ -13,7 +13,7 @@ namespace {
 
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 原 0x58AF94“取得角色列表逾時。”的原字节，正文 18B，含隐式 NUL 共 19B。
-constexpr char kRequestTimeoutMessage[] = "\xA8\xFA\xB1\x6F\xA8\xA4\xA6\xE2\xA6\x43\xAA\xED\xB9\x4F\xAE\xC9\xA1\x43";
+constexpr char kRequestTimeoutMessage[] = "\xC8\xA1\xB5\xC3\xBD\xC7\xC9\xAB\xC1\xD0\xB1\xED\xD3\xE2\x95\x72\xA1\xA3";
 constexpr char kOutOfServiceResult[] = "OUTOFSERVICE";
 constexpr char kInvalidCharacterName[] = "???";
 constexpr std::size_t kOuterTokenCapacity = 1024;

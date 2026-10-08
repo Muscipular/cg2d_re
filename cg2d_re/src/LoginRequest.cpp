@@ -19,9 +19,9 @@ constexpr std::size_t kRequestField4COffset = 0x4C;
 constexpr std::size_t kRequestField50Offset = 0x50;
 constexpr std::uint32_t kRequestTimeoutMilliseconds = 600000;
 // 0x55C9F8 原文：處理登入逾時。
-constexpr char kRequestTimeoutMessage[] = "\xB3\x42\xB2\x7A\xB5\x6E\xA4\x4A\xB9\x4F\xAE\xC9\xA1\x43";
+constexpr char kRequestTimeoutMessage[] = "\xCC\x8E\xC0\xED\xB5\xC7\xC8\xEB\xD3\xE2\x95\x72\xA1\xA3";
 // 0x55CA18 原文：處理登出逾時。
-constexpr char kLogoutTimeoutMessage[] = "\xB3\x42\xB2\x7A\xB5\x6E\xA5\x58\xB9\x4F\xAE\xC9\xA1\x43";
+constexpr char kLogoutTimeoutMessage[] = "\xCC\x8E\xC0\xED\xB5\xC7\xB3\xF6\xD3\xE2\x95\x72\xA1\xA3";
 constexpr char kSuccessfulResult[] = "successful";
 
 static_assert(kRequestField18Offset + sizeof(std::int32_t) <= cg::login::CharacterRecordSize);

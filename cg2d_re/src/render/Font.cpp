@@ -9,8 +9,8 @@
 namespace cg::render {
 namespace {
 
-// 原 5590E0；558F08 起四个可写族指针的初值均指向这段窄字节。
-constexpr char kFaceName5590E0[] = "\xB2\xD3\xA9\xFA\xC5\xE9";
+// 原 5590E0 字体名按用户要求统一改为 GBK「宋体」；四个族指针共用此名。
+constexpr char kFaceName5590E0[] = "\xCB\xCE\xCC\xE5";
 std::array<const char*, 4> gFaceFamilies558F08 {
     kFaceName5590E0, kFaceName5590E0, kFaceName5590E0, kFaceName5590E0,
 };
@@ -39,7 +39,7 @@ std::array<std::int32_t, 8> gDerived5545AC {};
 // 原 554618 初值 0x39；随后每项 55461C+i*4 先写钳制值再被商覆盖。
 std::array<std::int32_t, 9> gDerived554618 {{0x39}};
 
-static_assert(sizeof(kFaceName5590E0) == 7);
+static_assert(sizeof(kFaceName5590E0) == 5);
 static_assert(sizeof(gDerived558F30) == 0x20);
 static_assert(sizeof(gDerived5545AC) == 0x20);
 
@@ -51,7 +51,7 @@ HFONT CreateLegacyFont(
 {
     return ::CreateFontA(
         height, width, 0, 0, weight, 0, 0, 0,
-        DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
+        GB2312_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS,
         DEFAULT_QUALITY, 0x11, face);
 }
 

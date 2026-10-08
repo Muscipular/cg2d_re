@@ -20,8 +20,8 @@ namespace cg::render {
 void RebuildRenderer_466B80()
 {
     constexpr char kRendererError[] =
-        "DirectDraw\xAA\xEC\xB4\xC1\xA4\xC6\xA5\xA2\xB1\xD1\xA1\x43";
-    constexpr char kConfirmCaption[] = "\xBD\x54\xBB\x7B";
+        "DirectDraw\xB3\xF5\xC6\xDA\xBB\xAF\xCA\xA7\x94\xA1\xA1\xA3";
+    constexpr char kConfirmCaption[] = "\xB4\x5F\xD5\x4A";
 
     const std::uint32_t previousQueueMode = gRenderQueueMode103CF10;
     RendererDestroy_44C3C0();

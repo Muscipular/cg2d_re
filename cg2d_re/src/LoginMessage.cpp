@@ -30,7 +30,7 @@ namespace {
 constexpr char kMultilineToken[] = "Multiline";
 constexpr char kMultilineNewToken[] = "Multiline_New";
 // 原 0x55C5D4：“確定”，4 字节正文，字符串字面量隐式追加唯一 NUL。
-constexpr char kConfirmText[] = "\xBD\x54\xA9\x77";
+constexpr char kConfirmText[] = "\xB4\x5F\xB6\xA8";
 
 constexpr std::int32_t kScreenWidth = 640;
 constexpr std::int32_t kScreenHeight = 480;

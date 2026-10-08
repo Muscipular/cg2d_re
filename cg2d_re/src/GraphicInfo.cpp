@@ -147,7 +147,7 @@ std::int32_t GraphicInit_459960(
         platform::FormatLegacyString_53B304(message, "MAX_GRAPHICS=%d,Need=%d",
             gMaxGraphicCount, gGraphicRequiredCount);
         platform::ShowLegacyMessage(
-            message, "sprmgr: MAX_GRAPHICS \xA4\xA3\xB0\xF7\xA1\x43", 0);
+            message, "sprmgr: MAX_GRAPHICS \xB2\xBB\x89\xF2\xA1\xA3", 0);
         return failAndCloseData(9);
     }
 

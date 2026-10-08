@@ -76,9 +76,9 @@ namespace {
 
 inline constexpr UINT kResizeWindowFlags = 0x26u;
 inline constexpr char kCloseQuestion[] =
-    "\xA5\x69\xA5\x48\xB5\xB2\xA7\xF4\xC5\x5D"
-    "\xA4\x4F\xC4\x5F\xA8\xA9\xB6\xDC\xA1\x48";
-inline constexpr char kConfirmCaption[] = "\xBD\x54\xBB\x7B";
+    "\xBF\xC9\xD2\xD4\xBD\x59\xCA\xF8\xC4\xA7"
+    "\xC1\xA6\x8C\x9A\xD8\x90\x86\xE1\xA3\xBF";
+inline constexpr char kConfirmCaption[] = "\xB4\x5F\xD5\x4A";
 
 struct MouseCoordinates {
     std::int32_t x;

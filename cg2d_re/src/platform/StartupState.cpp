@@ -13,7 +13,7 @@ std::uintptr_t gInstance = 0;
 std::uintptr_t gStartupMutex = 0;
 std::uintptr_t gCursorHandles[11] {};
 std::int32_t gShowCommand = 0;
-char gWindowClassName[9] = "\xC5\x5D\xA4\x4F\xC4\x5F\xA8\xA9";
+char gWindowClassName[9] = "\xC4\xA7\xC1\xA6\x8C\x9A\xD8\x90";
 std::int32_t gWindowMode = 0;
 std::int32_t gWindowWidth = 640;
 std::int32_t gWindowHeight = 480;

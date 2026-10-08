@@ -219,7 +219,7 @@ int InitPalette32()
         if (file == nullptr) {
             // 原 0x556530 字节，保持 MessageBoxA 的旧编码边界。
             platform::ShowLegacyMessage(
-                "\xBD\xD5\xA6\xE2\xBD\x4C\xC0\xC9\xAE\xD7\xB6\x7D\xB1\xD2\xA5\xA2\xB1\xD1",
+                "\xD5\x7B\xC9\xAB\xB1\x50\x99\x6E\xB0\xB8\xE9\x5F\x86\xA2\xCA\xA7\x94\xA1",
                 "Error Code = 13", 0x10);
             return 0;
         }
@@ -242,7 +242,7 @@ int InitPalette32()
 
     if (!CreateRendererPaletteBinding(gPalette)) {
         platform::ShowLegacyMessage(
-            "\xAB\xD8\xA5\xDF\xBD\xD5\xA6\xE2\xBD\x4C\xA5\xA2\xB1\xD1",
+            "\xBD\xA8\xC1\xA2\xD5\x7B\xC9\xAB\xB1\x50\xCA\xA7\x94\xA1",
             "Error Code = 15", 0x10);
         return 0;
     }
@@ -282,7 +282,7 @@ int ReadPalette(std::int32_t index, PaletteEntry* output)
         platform::OpenLegacyStream_53B2F1(path, "rb");
     if (file == nullptr) {
         platform::ShowLegacyMessage(
-            "\xB5\x4C\xAA\x6B\xA5\xB4\xB6\x7D\xA6\xE2\xBD\x4C\xC0\xC9\xAE\xD7\xA1\x43",
+            "\x9F\x6F\xB7\xA8\xB4\xF2\xE9\x5F\xC9\xAB\xB1\x50\x99\x6E\xB0\xB8\xA1\xA3",
             "Error", 0x10);
         return 0;
     }

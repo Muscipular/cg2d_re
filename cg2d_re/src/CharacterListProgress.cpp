@@ -12,8 +12,8 @@ namespace {
 
 // 原 0x55C864：正文 20 字节，含隐式 NUL 共 21 字节。
 constexpr char kCharacterListProgressText[] =
-    "\xB5\x6E\xA4\x4A\xA6\xA8\xA5\x5C\xA1\x41"
-    "\xB6\x7D\xA9\x6C\xAD\x70\xB6\x4F\xA1\x49";
+    "\xB5\xC7\xC8\xEB\xB3\xC9\xB9\xA6\xA3\xAC"
+    "\xE9\x5F\xCA\xBC\xD3\x8B\xD9\x4D\xA3\xA1";
 constexpr std::int32_t kLegacyGlyphWidth = 8;
 constexpr std::int32_t kColumnWidth = 64;
 constexpr std::int32_t kRowHeight = 48;

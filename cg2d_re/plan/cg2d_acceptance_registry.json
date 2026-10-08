@@ -244,7 +244,8 @@
         "doc/cg2d_standard_stream_exit_migration_spec.md#standard-stream-exit-decision",
         "doc/cg2d_standard_stream_controller_gates_spec.md#standard-stream-gates-decision",
         "doc/cg2d_hosted_client_executable_target_spec.md#hosted-client-target-decision",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -1061,7 +1062,8 @@
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
-        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision"
+        "doc/cg2d_shared_random_source_baseline_spec.md#shared-random-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1276,7 +1278,8 @@
         "doc/cg2d_logout_reply_sampling_spec.md#logout-reply-decision",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
-        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision"
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1404,7 +1407,8 @@
         "doc/cg2d_creation_controller_baseline_spec.md#creation-controller-decision",
         "doc/cg2d_creation_request_tick_sampling_spec.md#creation-request-decision",
         "doc/cg2d_logout_deletion_request_tick_sampling_spec.md#request-tick-decision",
-        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision"
+        "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1605,7 +1609,8 @@
         "doc/cg2d_login_deletion_send_chain_baseline_spec.md#send-chain-decision",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-chat-mis-decision",
         "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
-        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision"
+        "doc/cg2d_dispatch_header_byte_spec.md#dispatch-header-byte-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "本次只核两帧父成员；全部命令/回复/状态生产、数据与间接目标及生命周期枚举未闭合",
@@ -1835,7 +1840,8 @@
         "doc/cg2d_window_input_gate_restore_spec.md#window-input-gate-decision",
         "doc/cg2d_mouse_coordinate_publication_spec.md#mouse-coordinate-publication-decision",
         "doc/cg2d_mouse_tracker_native_links_spec.md#mouse-tracker-native-links-decision",
-        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision"
+        "doc/cg2d_cursor_flag_sampling_restore_spec.md#cursor-flag-sampling-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -1989,7 +1995,8 @@
         "doc/cg2d_input_text_alignment_spec.md#input-text-source-phase-decision",
         "doc/cg2d_hover_input_publication_spec.md#hover-input-publication-decision",
         "doc/cg2d_actor_chat_text_sampling_spec.md#actor-chat-text-decision",
-        "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-decision"
+        "doc/cg2d_actor_chat_consumer_sampling_spec.md#actor-chat-consumer-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2294,7 +2301,8 @@
         "doc/cg2d_map_projection_cache_sampling_spec.md#map-projection-cache-decision",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
-        "doc/cg2d_power_application_wiring_spec.md#power-app-decision"
+        "doc/cg2d_power_application_wiring_spec.md#power-app-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2512,7 +2520,8 @@
         "doc/cg2d_palette_dbf_index_production_spec.md#palette-dbf-index-production-decision",
         "doc/cg2d_independent_palette_initialization_sampling_spec.md#independent-palette-initialization-sampling-decision",
         "doc/cg2d_palette_age_normal_counter_spec.md#palette-age-normal-decision",
-        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision"
+        "doc/cg2d_surface_transform_cache_baseline_spec.md#surface-transform-cache-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -2792,7 +2801,8 @@
         "doc/cg2d_fx_trigger_sampling_spec.md#fx-trigger-decision",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
         "doc/cg2d_fx_strip_rectangle_publication_spec.md#fx-strip-rectangle-decision",
-        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision"
+        "doc/cg2d_screenshot_chain_baseline_spec.md#screenshot-chain-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "C09本组构析与即时宿主登记已接；原全应用相对顺序、全部owner/间接目标及场景/退出清理仍未闭",
@@ -2902,7 +2912,8 @@
       "dependencies": [],
       "acceptance_focus": "仅域导航；现代与旧ID分开，不计入叶功能分母",
       "decision_refs": [
-        "doc/cg2d_closure_decisions_spec.md"
+        "doc/cg2d_closure_decisions_spec.md",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档"
@@ -3030,7 +3041,8 @@
         "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision",
         "doc/cg2d_emote_chat_mis_chain_spec.md#emote-opaque-decision",
         "doc/cg2d_legacy_selection_category_sampling_spec.md#legacy-selection-decision",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -3261,7 +3273,8 @@
         "doc/cg2d_battle_m_skill32_family_sampling_spec.md#battle-m-skill32-family-sampling-decision",
         "doc/cg2d_battle_m_skill19_family_sampling_spec.md#battle-m-skill19-family-sampling-decision",
         "doc/cg2d_battle_m_skill267_sampling_spec.md#battle-m-skill267-sampling-decision",
-        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision"
+        "doc/cg2d_character_enqueue_record_production_spec.md#character-enqueue-production-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "基线成员及门禁证据尚待逐项归档",
@@ -3897,7 +3910,8 @@
         "doc/cg2d_player_action_flag_widths_spec.md#player-action-flag-widths-decision",
         "doc/cg2d_renderer_rebuild_baseline_spec.md#renderer-rebuild-decision",
         "doc/cg2d_back_temp_full_source_snapshot_spec.md#back-temp-decision",
-        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision"
+        "doc/cg2d_legacy_result_stage_baseline_spec.md#result-stage-decision",
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
       ],
       "blockers": [
         "P01完整攻击生产已落位；全战斗成员、间接目标及全部生产/动作/载荷生命周期仍未闭合",
@@ -52284,6 +52298,33 @@
       "observation": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅完整123条329B、两窗口39条98B/原scope与15CC用途、两源两改及原infoType/不同W32请求-填充/非缩源合同，不代运行或整个CRT。",
       "expected": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅完整123条329B、两窗口39条98B/原scope与15CC用途、两源两改及原infoType/不同W32请求-填充/非缩源合同，不代运行或整个CRT。",
       "actual": "BWY01补原545208完整123条329B/两页七参数NLS分类，原两个参数消费窗口39条98B/一scope与相邻15CC有证。两现源两改、一个完整GetLegacyStringTypes_545208及声明、原info1薄转调，零ASM/C桥/owner/依赖或新应用调用。原W32 infoType/CP-locale-strict与S32源长度直接交API，不缩源；分类专用10862E4、A-locale0/W-CP0回退、首次strict flags1或9/实际1和实际转换数量/完整W32返回保。原SEH内计算count*2低W32字节数，_alloca用+3低两位清零对齐请求，Fill5419D0只原字节数；原filter1/置空指针/失败0与全部caller/掩码和表生产保，不造FS/旧栈或故障样例。完善既有341和填充连接当前源符号、一个F adapted/F1027及CRT204、E1187两限定I-S；一个15CC仅对齐用途/R7已审483余2578。语义1859/有效1852、文档1969/3680（53.51%）和队列/pending保持；完整间接父/SEH链-CRT库存及寿命、系统NLS/SDK-ABI链接运行未代验，原格式明文/音频暂停/RPLAN.24保。 仅完整123条329B、两窗口39条98B/原scope与15CC用途、两源两改及原infoType/不同W32请求-填充/非缩源合同，不代运行或整个CRT。"
+    },
+    {
+      "id": "E-BIG5-GBK-STATIC-S-20261009",
+      "feature_id": "FUNC-TEXT",
+      "gate": "S",
+      "epoch": "2026-10-04.1",
+      "baseline_reference": "Git提交09f64ac8的43个源码文件静态CP950字节；doc/cg2d_text_encoding_spec.md",
+      "implementation_reference": "Git固定命名快照 cg2d-re-big5-to-gbk-20261009",
+      "method": "static",
+      "artifacts": [
+        "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state",
+        "doc/cg2d_big5_to_gbk_evidence.json",
+        "src/render/Font.cpp#CreateLegacyFont",
+        "src/InputCaret.cpp#DrawBasicCaret",
+        "src/InputCaret.cpp#DrawImeCaret"
+      ],
+      "observation": "仅1663处静态文本及宋体/ASCII光标新增差异，不覆盖全输入/字体运行或所有源编码",
+      "expected": "1661处严格GBK转码，保留长度/NUL/ASCII；五处不可表示中点具名替代；统一宋体和ASCII光标居中",
+      "actual": "43个文件完成文字转码；字体名4B、光标1B，两绘制偏移采用sWidth/2；原格式明文、输入索引和共享容量保持，68处非Big5或混合串保持",
+      "differences": [
+        {
+          "description": "Big5静态文字改GBK；五处‧改·；字体名/字符集改宋体/GB2312_CHARSET，光标改ASCII |及单字节居中",
+          "decision_ref": "doc/cg2d_text_encoding_spec.md#big5-to-gbk-source-state"
+        }
+      ],
+      "result": "pass",
+      "recorded_on": "2026-10-09"
     }
   ],
   "task_acceptance": [

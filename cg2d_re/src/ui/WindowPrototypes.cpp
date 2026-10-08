@@ -138,7 +138,7 @@ WindowGraphicData gWindowGraphic55F580 {0x3B95C, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55F598 {0x3B95D, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowTextPrototype gWindowText55F5B0 {
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}},
-    "\xAC\xDB\xC3\xF6\xB8\xEA\xB0\x54",
+    "\xCF\xE0\xEA\x50\xD9\x59\xD3\x8D",
 };
 WindowTextPrototype gWindowText55F5B8 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, "--------",
@@ -158,12 +158,12 @@ WindowGraphicData gWindowGraphic561AE8 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic561B00 {0x3B57A, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic561B18 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic561B30 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindow10Job5860A4[] = "\xB5\x4C\xC2\xBE";
+constexpr char kWindow10Job5860A4[] = "\x9F\x6F\xC2\x9A";
 constexpr char kWindow10Slots58609C[] = "10/10";
-constexpr char kWindow10Experience5861E0[] = "\xB8\x67\xC5\xE7\xAD\xC8";
-constexpr char kWindow10Level586228[] = "\xB5\xA5\xAF\xC5";
-constexpr char kWindow10Skill586094[] = "\xA7\xDE\xAF\xE0";
-constexpr char kWindow10Fp5861C0[] = "\xC5\x5D\xA4\x4F";
+constexpr char kWindow10Experience5861E0[] = "\xBD\x9B\xF2\x9E\xD6\xB5";
+constexpr char kWindow10Level586228[] = "\xB5\xC8\xBC\x89";
+constexpr char kWindow10Skill586094[] = "\xBC\xBC\xC4\xDC";
+constexpr char kWindow10Fp5861C0[] = "\xC4\xA7\xC1\xA6";
 WindowTextPrototype gWindowText561B48 {
     {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow10Job5860A4,
 };
@@ -239,9 +239,9 @@ WindowGraphicData gWindowGraphic56FCF0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56FD08 {0x3BA0C, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56FD20 {0x3BA06, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56FD38 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu};
-constexpr char kWindow40Content585EC4[] = "\xA4\xBA\xAE\x65";
-constexpr char kWindow40Page585EBC[] = "\xAD\xB6\xBC\xC6";
-constexpr char kWindow40Name586230[] = "\xA6\x57\xBA\xD9";
+constexpr char kWindow40Content585EC4[] = "\x83\xC8\xC8\xDD";
+constexpr char kWindow40Page585EBC[] = "\xED\x93\x94\xB5";
+constexpr char kWindow40Name586230[] = "\xC3\xFB\xB7\x51";
 constexpr char kWindow40Time585EB0[] = "00/00 00:00";
 WindowTextPrototype gWindowText56FD50 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow40Content585EC4};
 WindowTextPrototype gWindowText56FD58 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow40Page585EBC};
@@ -254,7 +254,7 @@ WindowGraphicData gWindowGraphic5700E8 {0x3BA07, 0, 0, 0, 0, 0x80FFFFFFu};
 WindowGraphicData gWindowGraphic570148 {0x3BA08, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic570160 {0x3BA1B, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic570190 {0x3B539, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kMailTarget585EA4[] = "\xB4\xFA\xB8\xD5\xA4\x48\xAD\xFB";
+constexpr char kMailTarget585EA4[] = "\x9C\x79\xD4\x87\xC8\xCB\x86\x54";
 WindowTextPrototype gWindowText5701F0 {{std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kMailTarget585EA4};
 
 WindowGraphicData gWindowGraphic570118 {0x3BA0D, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -295,13 +295,13 @@ WindowGraphicData gWindowGraphic56C798 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56C7B0 {0x3BA74, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56C7C8 {0x3BA75, 0, 0, 0, 0, 0x80FFFFFFu};
 WindowGraphicData gWindowGraphic56C7E0 {0x3BA76, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindow29Text554184[] = "\xC6\x5B\xBE\xD4\xB5\xB2\xA7\xF4";
+constexpr char kWindow29Text554184[] = "\xD3\x5E\x91\xF0\xBD\x59\xCA\xF8";
 WindowTextPrototype gWindowText56B8D0 {{}, kWindow29Text554184};
 WindowGraphicData gWindowGraphic56B918 {0x3BA7E, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56B930 {0x3BA7F, 0, 0, 0, 0, 0x80FFFFFFu};
 WindowGraphicData gWindowGraphic56B960 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56B978 {0x3BA80, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindow30Text585FA0[] = "\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48";
+constexpr char kWindow30Text585FA0[] = "\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF";
 constexpr char kWindow30Text585F98[] = "+000000";
 constexpr char kWindow30Text585F90[] = "+000";
 WindowTextPrototype gWindowText56B990 {
@@ -318,7 +318,7 @@ WindowTextPrototype gWindowText56B9B0 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow30Text585F90,
 };
 WindowGraphicData gWindowGraphic56C2A0 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindow31Text585F88[] = "\xB5\xB2\xAA\x47";
+constexpr char kWindow31Text585F88[] = "\xBD\x59\xB9\xFB";
 constexpr char kWindow31Text585F78[] = "\x3F\x3F\x3F\x3F\x3F\x20\x20\x2B\x30\x30\x30\x30\x30\x30";
 WindowTextPrototype gWindowText56C2B8 {
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow31Text585F88,
@@ -326,11 +326,11 @@ WindowTextPrototype gWindowText56C2B8 {
 WindowTextPrototype gWindowText56C2C0 {
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow31Text585F78,
 };
-constexpr char kWindow32Text585F70[] = "\xB0\xBD\xC5\xA7";
-constexpr char kWindow32Text585F68[] = "\xB3\x51\xB0\xBD\xC5\xA7";
+constexpr char kWindow32Text585F70[] = "\xCD\xB5\xD2\x75";
+constexpr char kWindow32Text585F68[] = "\xB1\xBB\xCD\xB5\xD2\x75";
 WindowTextPrototype gWindowText56C9A8 {{}, kWindow32Text585F70};
 WindowTextPrototype gWindowText56C9B0 {{}, kWindow32Text585F68};
-constexpr char kWindow26Name586230[] = "\xA6\x57\xBA\xD9";
+constexpr char kWindow26Name586230[] = "\xC3\xFB\xB7\x51";
 WindowTextPrototype gWindowText56B6F8 {
     {std::byte{0x7F}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
 };
@@ -358,7 +358,7 @@ WindowGraphicData gWindowGraphic565908 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic565920 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
 constexpr char kPetPage58600C[] = "1/5";
 constexpr char kPetTechnique586004[] = "\xA7\xF0\x92\xB0";
-constexpr char kPetTechniqueDescription585FF4[] = "\xB6\x69\xA6\xE6\xA7\xF0\xC0\xBB";
+constexpr char kPetTechniqueDescription585FF4[] = "\xDF\x4D\xD0\xD0\xB9\xA5\x93\xF4";
 WindowTextPrototype gWindowText565950 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
 };
@@ -389,7 +389,7 @@ WindowGraphicData gWindowGraphic565668 {0x3BAEF, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic565938 {0x3B614, 0, 0, 0, 0, 0xFFFFFFFFu};
 constexpr char kPetExperience586020[] = "10000000/10000000";
 constexpr char kPetVital586034[] = "100000/100000";
-constexpr char kPetTribe586018[] = "\xBA\xD8\xC3\xFE";
+constexpr char kPetTribe586018[] = "\xB7\x4E\xEE\x90";
 constexpr char kPetTriple586014[] = "999";
 constexpr char kPetDouble586010[] = "99";
 constexpr char kPetWeight585FF0[] = "0/0";
@@ -432,7 +432,7 @@ WindowGraphicData gWindowGraphic566FC0 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic566FD8 {0x3BB05, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic566FF0 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic567008 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kAlbumName586048[] = "\xC3\x64\xAA\xAB\xA6\x57\xBA\xD9";
+constexpr char kAlbumName586048[] = "\x8C\x99\xCE\xEF\xC3\xFB\xB7\x51";
 WindowTextPrototype gWindowText567020 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kAlbumName586048,
 };
@@ -531,15 +531,15 @@ WindowGraphicData gWindowGraphic55FCA8 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic55FCC0 {0x3BAB1, 0, 0, 0, 0, 0x80808080u};
 WindowGraphicData gWindowGraphic55FCD8 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu};
 constexpr char kWindow7Penalty586224[] = "x5";
-constexpr char kWindow7Job58621C[] = "\xC2\xBE\xB7\x7E";
-constexpr char kWindow7Guild586214[] = "\xAE\x61\xB1\xDA";
-constexpr char kWindow7GuildTitle586208[] = "\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9";
-constexpr char kWindow7Title5861FC[] = "\xAF\x53\xAE\xED\xBA\xD9\xB8\xB9";
-constexpr char kWindow7OwnTitle5861F0[] = "\xA6\xDB\xA9\x77\xBA\xD9\xB8\xB9";
-constexpr char kWindow7Tribe5861E8[] = "\xBA\xD8\xB1\xDA";
-constexpr char kWindow7NextExperience5861D0[] = "\xA4\x55\xA4\x40\xAF\xC5\xB8\x67\xC5\xE7\xAD\xC8";
-constexpr char kWindow7Hp5861C8[] = "\xA5\xCD\xA9\x52\xAD\xC8";
-constexpr char kWindow7DuelPoint5861B4[] = "\xB9\xEF\xBE\xD4\xB3\xD3\xA7\x51\xAD\xC8";
+constexpr char kWindow7Job58621C[] = "\xC2\x9A\x98\x49";
+constexpr char kWindow7Guild586214[] = "\xBC\xD2\xD7\xE5";
+constexpr char kWindow7GuildTitle586208[] = "\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96";
+constexpr char kWindow7Title5861FC[] = "\xCC\xD8\xCA\xE2\xB7\x51\xCC\x96";
+constexpr char kWindow7OwnTitle5861F0[] = "\xD7\xD4\xB6\xA8\xB7\x51\xCC\x96";
+constexpr char kWindow7Tribe5861E8[] = "\xB7\x4E\xD7\xE5";
+constexpr char kWindow7NextExperience5861D0[] = "\xCF\xC2\xD2\xBB\xBC\x89\xBD\x9B\xF2\x9E\xD6\xB5";
+constexpr char kWindow7Hp5861C8[] = "\xC9\xFA\xC3\xFC\xD6\xB5";
+constexpr char kWindow7DuelPoint5861B4[] = "\x8C\xA6\x91\xF0\x84\xD9\xC0\xFB\xD6\xB5";
 WindowTextPrototype gWindowText55FCF0 {
     {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
 };
@@ -592,7 +592,7 @@ WindowGraphicData gWindowGraphic563478 {0x3B586, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic563490 {0x3B589, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5634A8 {0x3B58C, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5634C0 {0x3B58F, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindow15Name586048[] = "\xC3\x64\xAA\xAB\xA6\x57\xBA\xD9";
+constexpr char kWindow15Name586048[] = "\x8C\x99\xCE\xEF\xC3\xFB\xB7\x51";
 constexpr char kWindow15Level586044[] = "300";
 constexpr char kWindow15Points586034[] = "100000/100000";
 WindowTextPrototype gWindowText5634D8 {
@@ -621,33 +621,33 @@ WindowGraphicData gWindowGraphic5606F8 {0x3BAB4, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic560710 {0x3C10E, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic560728 {0x3BAB1, 0, 0, 0, 0, 0x80FFFFFFu};
 WindowGraphicData gWindowGraphic560740 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindow8Text5861A8[] = "\xB7\x73\xBC\x57\xC2\x49\xBC\xC6";
-constexpr char kWindow8Text5861A0[] = "\xC5\xE9\xA4\x4F";
-constexpr char kWindow8Text586198[] = "\xA4\x4F\xB6\x71";
-constexpr char kWindow8Text586190[] = "\xB1\x6A\xAB\xD7";
-constexpr char kWindow8Text586188[] = "\xB3\x74\xAB\xD7";
-constexpr char kWindow8Text586180[] = "\xC5\x5D\xAA\x6B";
-constexpr char kWindow8Text586178[] = "\xA7\xF0\xC0\xBB";
-constexpr char kWindow8Text586170[] = "\xA8\xBE\xBF\x6D";
-constexpr char kWindow8Text586168[] = "\xB1\xD3\xB1\xB6";
-constexpr char kWindow8Text586160[] = "\xBA\xEB\xAF\xAB";
-constexpr char kWindow8Text586158[] = "\xA6\x5E\xB4\x5F";
-constexpr char kWindow8Text586150[] = "\xBE\x79\xA4\x4F";
-constexpr char kWindow8Text586148[] = "\xA7\xDC\xAC\x72";
-constexpr char kWindow8Text586140[] = "\xA7\xDC\xA9\xFC\xBA\xCE";
-constexpr char kWindow8Text586138[] = "\xA7\xDC\xA5\xDB\xA4\xC6";
-constexpr char kWindow8Text586130[] = "\xA7\xDC\xBE\x4B";
-constexpr char kWindow8Text586128[] = "\xA7\xDC\xB2\x56\xB6\xC3";
-constexpr char kWindow8Text586120[] = "\xA7\xDC\xBF\xF2\xA7\xD1";
-constexpr char kWindow8Text586118[] = "\xA5\xB2\xB1\xFE\xB2\x76";
-constexpr char kWindow8Text586110[] = "\xA4\xCF\xC0\xBB\xB2\x76";
-constexpr char kWindow8Text586108[] = "\xA9\x52\xA4\xA4\xB2\x76";
-constexpr char kWindow8Text586100[] = "\xB0\x7B\xB8\xFA\xB2\x76";
-constexpr char kWindow8Text5860F8[] = "\xAD\x40\xA4\x4F";
-constexpr char kWindow8Text5860F0[] = "\xC6\x46\xA5\xA9";
-constexpr char kWindow8Text5860E8[] = "\xB4\xBC\xA4\x4F";
-constexpr char kWindow8Text5860E0[] = "\xC5\x5D\xA7\xF0";
-constexpr char kWindow8Text5860D8[] = "\xC5\x5D\xA8\xBE";
+constexpr char kWindow8Text5861A8[] = "\xD0\xC2\xD4\xF6\xFC\x63\x94\xB5";
+constexpr char kWindow8Text5861A0[] = "\xF3\x77\xC1\xA6";
+constexpr char kWindow8Text586198[] = "\xC1\xA6\xC1\xBF";
+constexpr char kWindow8Text586190[] = "\x8F\x8A\xB6\xC8";
+constexpr char kWindow8Text586188[] = "\xCB\xD9\xB6\xC8";
+constexpr char kWindow8Text586180[] = "\xC4\xA7\xB7\xA8";
+constexpr char kWindow8Text586178[] = "\xB9\xA5\x93\xF4";
+constexpr char kWindow8Text586170[] = "\xB7\xC0\xB6\x52";
+constexpr char kWindow8Text586168[] = "\xC3\xF4\xBD\xDD";
+constexpr char kWindow8Text586160[] = "\xBE\xAB\xC9\xF1";
+constexpr char kWindow8Text586158[] = "\xBB\xD8\x8F\xCD";
+constexpr char kWindow8Text586150[] = "\xF7\xC8\xC1\xA6";
+constexpr char kWindow8Text586148[] = "\xBF\xB9\xB6\xBE";
+constexpr char kWindow8Text586140[] = "\xBF\xB9\xBB\xE8\xCB\xAF";
+constexpr char kWindow8Text586138[] = "\xBF\xB9\xCA\xAF\xBB\xAF";
+constexpr char kWindow8Text586130[] = "\xBF\xB9\xD7\xED";
+constexpr char kWindow8Text586128[] = "\xBF\xB9\xBB\xEC\x81\x79";
+constexpr char kWindow8Text586120[] = "\xBF\xB9\xDF\x7A\xCD\xFC";
+constexpr char kWindow8Text586118[] = "\xB1\xD8\x9A\xA2\xC2\xCA";
+constexpr char kWindow8Text586110[] = "\xB7\xB4\x93\xF4\xC2\xCA";
+constexpr char kWindow8Text586108[] = "\xC3\xFC\xD6\xD0\xC2\xCA";
+constexpr char kWindow8Text586100[] = "\xE9\x57\xB6\xE3\xC2\xCA";
+constexpr char kWindow8Text5860F8[] = "\xC4\xCD\xC1\xA6";
+constexpr char kWindow8Text5860F0[] = "\xEC\x60\xC7\xC9";
+constexpr char kWindow8Text5860E8[] = "\xD6\xC7\xC1\xA6";
+constexpr char kWindow8Text5860E0[] = "\xC4\xA7\xB9\xA5";
+constexpr char kWindow8Text5860D8[] = "\xC4\xA7\xB7\xC0";
 WindowTextPrototype gWindowText560758 {
     {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
 };
@@ -753,7 +753,7 @@ WindowGraphicData gWindowGraphic560ED8 {0x3B598, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic560EF0 {0x3B592, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic560F08 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic560F20 {0x3C110, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindow9Title5860D0[] = "\xBA\xD9\xB8\xB9";
+constexpr char kWindow9Title5860D0[] = "\xB7\x51\xCC\x96";
 WindowTextPrototype gWindowText560F38 {
     {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow26Name586230,
 };
@@ -778,7 +778,7 @@ WindowGraphicData gWindowGraphic5614B0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5614C8 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5614E0 {0x3C0F0, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5614F8 {0x3C113, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindow58Guild5860C8[] = "\xA4\xBD\xB7\x7C";
+constexpr char kWindow58Guild5860C8[] = "\xB9\xAB\x95\xFE";
 constexpr char kWindow58Sell5860B8[] = "SELL";
 constexpr char kWindow58Buy5860B4[] = "BUY";
 constexpr char kWindow58About5860AC[] = "ABOUT";
@@ -818,8 +818,8 @@ WindowGraphicData gWindowGraphic562088 {0x3BA3C, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5620A0 {0x3B5C3, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5620B8 {0x3BAC2, 0, 0, 0, 0, 0xFFFFFFFFu};
 constexpr char kWindow11Placeholder586078[] =
-    "\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48"
-    "\xA1\x40\xA1\x40\x30\x30\x30";
+    "\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF"
+    "\xA1\xA1\xA1\xA1\x30\x30\x30";
 WindowTextPrototype gWindowText5620D0 {
     {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow11Placeholder586078,
 };
@@ -832,7 +832,7 @@ WindowGraphicData gWindowGraphic5628D8 {0x3BA3E, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5628F0 {0x3BA31, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic562908 {0x3B565, 0, 0, 0, 0, 0xFFFFFFFFu};
 constexpr char kWindow13Placeholder586060[] =
-    "\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48\xA1\x48";
+    "\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF";
 WindowTextPrototype gWindowText562920 {
     {std::byte{0x7F}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindow13Placeholder586060,
 };
@@ -897,8 +897,8 @@ WindowGraphicData gWindowGraphic56D040 {243093, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56D058 {243042, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56D070 {243030, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56D088 {243033, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindowChoicePlaceholder585F64[] = "\xA1\xBD";
-constexpr char kWindowChoiceTitle585F54[] = "\xBD\xD0\xBF\xEF\xBE\xDC\xB9\xEF\xB6\x48\xA1\x43";
+constexpr char kWindowChoicePlaceholder585F64[] = "\xA1\xF6";
+constexpr char kWindowChoiceTitle585F54[] = "\xD5\x88\xDF\x78\x93\xF1\x8C\xA6\xCF\xF3\xA1\xA3";
 WindowTextPrototype gWindowText56D0A0 {
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowChoicePlaceholder585F64,
 };
@@ -922,10 +922,10 @@ WindowTextPrototype gWindowText56D3D8 {
 };
 WindowTextPrototype gWindowText56D3E0 {
     {std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}},
-    "\xB0\xB7\xB1\x64\xB5\x7B\xAB\xD7\x20\x20\xB5\xA5\xAF\xC5\x20\xA6"
-    "\x57\xBA\xD9\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20"
-    "\xC5\xE9\xA4\x4F\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20"
-    "\xC5\x5D\xA4\x4F",
+    "\xBD\xA1\xBF\xB5\xB3\xCC\xB6\xC8\x20\x20\xB5\xC8\xBC\x89\x20\xC3"
+    "\xFB\xB7\x51\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20"
+    "\xF3\x77\xC1\xA6\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20"
+    "\xC4\xA7\xC1\xA6",
 };
 
 WindowTextPrototype gWindowText56D828 {
@@ -944,13 +944,13 @@ WindowGraphicData gWindowGraphic573580 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic573598 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowTextPrototype gWindowText5735B0 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "\xAF\x64\xA8\xA5\xAA\x4F\xA4\xE5\xA6\x72\xA6\x43",
+    "\xC1\xF4\xD1\xD4\xB0\xE5\xCE\xC4\xD7\xD6\xC1\xD0",
 };
 WindowTextPrototype gWindowText5735B8 {
-    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, "\xA6\x57\xBA\xD9",
+    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, "\xC3\xFB\xB7\x51",
 };
 WindowTextPrototype gWindowText5735C0 {
-    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, "\xAF\x64\xA8\xA5\xAE\xC9\xB6\xA1",
+    {std::byte{0}, std::byte{10}, std::byte{0}, std::byte{0}}, "\xC1\xF4\xD1\xD4\x95\x72\xE9\x67",
 };
 
 WindowGraphicData gWindowGraphic573AF0 {0x3B538, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -974,9 +974,9 @@ WindowGraphicData gWindowGraphic573C88 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic573CA0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic573CB8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic573CD0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindowShopPlaceholder585DE8[] = "\xA1\x48\xA1\x48\xA1\x48\xA1\x48";
+constexpr char kWindowShopPlaceholder585DE8[] = "\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF";
 constexpr char kWindowShopUnavailable585DD8[] =
-    "\xA1\xAF\xA5\xD8\xAB\x65\xB5\x4C\xAA\x6B\xB8\xCB\xB3\xC6";
+    "\xA3\xAA\xC4\xBF\xC7\xB0\x9F\x6F\xB7\xA8\xD1\x62\x82\xE4";
 WindowTextPrototype gWindowText573CF8 {
     {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopPlaceholder585DE8,
 };
@@ -1020,7 +1020,7 @@ WindowGraphicData gWindowGraphic572F10 {0x3BA18, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic572F28 {0x3BA1E, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic572F40 {0x3BA21, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowTextPrototype gWindowText572F70 {
-    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, "\xA4\x48\xAD\xFB",
+    {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, "\xC8\xCB\x86\x54",
 };
 
 WindowGraphicData gWindowGraphic574668 {243000, 0, 0, 0, 0, 0xFFFFFFFFu};
@@ -1106,7 +1106,7 @@ WindowGraphicData gWindowGraphic575888 {0x3B568, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5758A0 {0x3BE48, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5758B8 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic5758D0 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindowShopRemaining585DCC[] = "\xB3\xD1\xBE\x6C\x20\x25\x32\x64\x20\xAD\xD3";
+constexpr char kWindowShopRemaining585DCC[] = "\xCA\xA3\xF0\x4E\x20\x25\x32\x64\x20\x82\x80";
 WindowTextPrototype gWindowText5758F8 {
     {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}}, kWindowShopPlaceholder585DE8,
 };
@@ -1189,9 +1189,9 @@ WindowGraphicData gWindowGraphic576F38 {243030, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic576F50 {243033, 0, 0, 0, 0, 0xFFFFFFFFu};
 constexpr char kWindow56Message585D98[] =
     "MASSAGE789\xB2" "123456789\xC6" "123456789\xBB" "123456789\xD6" "123456789";
-constexpr char kWindow56Class585D90[] = "\xC1\x79\xB3\xA1";
-constexpr char kWindow56Fifth585D88[] = "\xB2\xB4\xB7\xFA";
-constexpr char kWindow56Ones585D80[] = "\xBC\x4C\xA4\xDA";
+constexpr char kWindow56Class585D90[] = "\xC4\x98\xB2\xBF";
+constexpr char kWindow56Fifth585D88[] = "\xD1\xDB\xBE\xA6";
+constexpr char kWindow56Ones585D80[] = "\xD7\xEC\xB0\xCD";
 WindowTextPrototype gWindowText576F68 {{}, kWindow56Message585D98};
 WindowTextPrototype gWindowText576F70 {{}, kWindow56Class585D90};
 WindowTextPrototype gWindowText576F78 {{}, kWindow56Fifth585D88};
@@ -1240,8 +1240,8 @@ WindowGraphicData gWindowGraphic571938 {0x3B9F7, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic571950 {0x3BA6C, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic571968 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic571980 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindowTitle585E88[] = "\xAE\x61\xB1\xDA\xC3\x7E";
-constexpr char kWindowLine585E80[] = "\xAA\xAC\xBA\x41";
+constexpr char kWindowTitle585E88[] = "\xBC\xD2\xD7\xE5\xAB\x46";
+constexpr char kWindowLine585E80[] = "\xA0\xEE\x91\x42";
 WindowTextPrototype gWindowText571998 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}}, kWindowTitle585E88,
 };
@@ -1293,9 +1293,9 @@ WindowGraphicData gWindowGraphic56CD20 {0x3B595, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56CD38 {0x3B562, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56CD50 {0x3B556, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic56CD68 {0x3B559, 0, 0, 0, 0, 0xFFFFFFFFu};
-constexpr char kWindowListPlaceholder585F64[] = "\xA1\xBD";
+constexpr char kWindowListPlaceholder585F64[] = "\xA1\xF6";
 constexpr char kWindowListTitle585F54[] =
-    "\xBD\xD0\xBF\xEF\xBE\xDC\xB9\xEF\xB6\x48\xA1\x43";
+    "\xD5\x88\xDF\x78\x93\xF1\x8C\xA6\xCF\xF3\xA1\xA3";
 WindowTextPrototype gWindowTexts56CD80[5] {
     {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
     {{std::byte{0}, std::byte{1}, std::byte{0}, std::byte{0}}, kWindowListPlaceholder585F64},
@@ -1452,15 +1452,15 @@ WindowGraphicData gWindowGraphic57B3F0 {98864, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowGraphicData gWindowGraphic57B408 {98867, 0, 0, 0, 0, 0xFFFFFFFFu};
 WindowTextPrototype gWindowText57B420 {
     {std::byte{0x7F}, std::byte{8}, std::byte{0}, std::byte{0}},
-    "\xA3\xBF\xA3\xBF\xA3\xBF\xA3\xBF",
+    "\xA8\x41\xA8\x41\xA8\x41\xA8\x41",
 };
 WindowTextPrototype gWindowText57B428 {
     {std::byte{0x8C}, std::byte{4}, std::byte{0}, std::byte{0}},
-    "\xBD\xD0\xBF\xE9\xA4\x4A\xA9\xB1\xA6\x57\xA4\x4B\xAD\xD3\xA6\x72",
+    "\xD5\x88\xDD\x94\xC8\xEB\xB5\xEA\xC3\xFB\xB0\xCB\x82\x80\xD7\xD6",
 };
 WindowTextPrototype gWindowText57B430 {
     {std::byte{0}, std::byte{8}, std::byte{0}, std::byte{0}},
-    "\xBD\xD0\xBF\xE9\xA4\x4A\xA9\xB1\xE7\x45\xB4\x79\xAD\x7A",
+    "\xD5\x88\xDD\x94\xC8\xEB\xB5\xEA\xC5\x6D\xC3\xE8\xCA\xF6",
 };
 WindowNumberData gWindowNumber57B450 {gStallMoneyText57B440.data(), 0, 3, 1, 0};
 std::int32_t gWindowAnimationImage57B458 = 100000;
@@ -1551,27 +1551,27 @@ std::array<WindowPrototype, 70> gWindowPrototypeRecords {{
 WindowPrototype& gWindowPrototype54E2A0 = gWindowPrototypeRecords[1];
 WindowTextPrototype gWindowText572F58 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "\xAB\xF9\xA6\xB3\xA6\x57\xA4\xF9\xA1\xAE\xA4\x57\xBD\x75\xAA\xBA\xA4\x48\xAD\xFB",
+    "\xB3\xD6\xD3\xD0\xC3\xFB\xC6\xAC\xA3\xA6\xC9\xCF\xBE\x80\xB5\xC4\xC8\xCB\x86\x54",
 };
 WindowTextPrototype gWindowText572F60 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "\xA6\x50\xAE\x61\xB1\xDA\xA4\xBA\xA4\x57\xBD\x75\xAA\xBA\xA4\x48\xAD\xFB",
+    "\xCD\xAC\xBC\xD2\xD7\xE5\x83\xC8\xC9\xCF\xBE\x80\xB5\xC4\xC8\xCB\x86\x54",
 };
 WindowTextPrototype gWindowText572F68 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "\xA6\x50\xAE\x61\xB1\xDA\xA5\xFE\xB3\xA1\xAA\xBA\xA4\x48\xAD\xFB",
+    "\xCD\xAC\xBC\xD2\xD7\xE5\xC8\xAB\xB2\xBF\xB5\xC4\xC8\xCB\x86\x54",
 };
 WindowTextPrototype gWindowText572F78 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "\xA5\xE6\xB4\xAB\xB9\x4C\xA6\x57\xA4\xF9\xAA\xBA\xA4\x48",
+    "\xBD\xBB\x93\x51\xDF\x5E\xC3\xFB\xC6\xAC\xB5\xC4\xC8\xCB",
 };
 WindowTextPrototype gWindowText572F80 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "\xAE\x61\xB1\xDA\xA6\xA8\xAD\xFB",
+    "\xBC\xD2\xD7\xE5\xB3\xC9\x86\x54",
 };
 WindowTextPrototype gWindowText572F88 {
     {std::byte{0}, std::byte{12}, std::byte{0}, std::byte{0}},
-    "\xAE\x61\xB1\xDA\xBA\xD9\xB8\xB9",
+    "\xBC\xD2\xD7\xE5\xB7\x51\xCC\x96",
 };
 WindowPrototype& gWindowPrototype54E240 = gWindowPrototypeRecords[4];
 WindowPrototype& gWindowPrototype54E330 = gWindowPrototypeRecords[6];

@@ -29,6 +29,11 @@
 #include <Windows.h>
 #include <mmsystem.h>
 
+// 原52BA38..52BBC8局部数值段；只同步借128项S32表，不暴露x87或SDL对象。
+namespace cg::platform {
+extern "C" void Cg2dInitializeSoundTablesX87(std::int32_t* pan, std::int32_t* volume) noexcept;
+}
+
 namespace cg::login::detail {
 
 std::int32_t Sub_520750(std::int32_t selected);
@@ -977,46 +982,7 @@ SpatialAudioRecord* __cdecl Sub_52B9E0()
         request.requestCount = 0;
     }
 
-    const double logBase = std::log(100.0);
-    const double logMax = std::log(127.0) / logBase;
-    const std::int32_t panMax =
-        static_cast<std::int32_t>(logMax * 5000.0);
-    std::size_t panIndex = 64;
-    for (std::int32_t level = 127; level >= 1; level -= 2) {
-        std::int32_t pan =
-            panMax - static_cast<std::int32_t>(
-                std::log(static_cast<double>(level)) / logBase * 5000.0);
-        if (pan > 5000) {
-            pan = 10000;
-        }
-        gPanVal103CFBC[panIndex++] = pan;
-    }
-
-    panIndex = 64;
-    for (std::int32_t level = 127; level >= 1; level -= 2) {
-        std::int32_t pan =
-            panMax - static_cast<std::int32_t>(
-                std::log(static_cast<double>(level)) / logBase * 5000.0);
-        if (pan > 5000) {
-            pan = 10000;
-        }
-        gPanVal103CFBC[panIndex--] = -pan;
-    }
-    gPanVal103CFBC[0] = -10000;
-    gPanVal103CFBC[127] = 10000;
-
-    const std::int32_t volumeMax =
-        static_cast<std::int32_t>(logMax * -10000.0);
-    for (std::int32_t level = 127; level >= 1; --level) {
-        std::int32_t volume =
-            -volumeMax - static_cast<std::int32_t>(
-                std::log(static_cast<double>(level)) / logBase * 10000.0);
-        if (volume > 10000) {
-            volume = 10000;
-        }
-        gSoundVolValue10505D0[static_cast<std::size_t>(level)] = -volume;
-    }
-    gSoundVolValue10505D0[0] = gSoundVolValue10505D0[1];
+    platform::Cg2dInitializeSoundTablesX87(gPanVal103CFBC.data(), gSoundVolValue10505D0.data());
     return Sub_52CD40();
 }
 

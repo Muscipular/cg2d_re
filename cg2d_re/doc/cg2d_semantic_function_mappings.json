@@ -213800,6 +213800,43 @@
         ]
       },
       "verification_level": "原两完整代码/两回调字段/483B区间及一个现源两个参数片段限定静态，未编译/测试/运行或摘要"
+    },
+    {
+      "original_entry": "0x52B9E0",
+      "inventory_id": "F:0012B9E0",
+      "original_role": "64通道/50请求、声像音量运行表初始化，透传空间记录一过尾指针",
+      "original_end_exclusive": "0x52BBD6",
+      "instruction_count": 147,
+      "original_byte_count": 502,
+      "status": "CAB16已恢复原x87表计算并保既有初始化/真实接线，当前Debug链接部署通过；限定静态/编译，不代机器状态/声音/寿命或完整音频",
+      "sources": [
+        {
+          "path": "src/LegacyAudio.cpp",
+          "symbols": [
+            "Sub_52B9E0"
+          ],
+          "relationship": "保64通道/三128B清零/50请求及末52CD40，只替换F64/std::log数学段并借同源两128*S32表"
+        },
+        {
+          "path": "src/platform/LegacyAudioMath.asm",
+          "symbols": [
+            "Cg2dInitializeSoundTablesX87",
+            "TruncateSoundIntermediate"
+          ],
+          "relationship": "原116条数值段与十处CW/S64截断的局部原生指针接口，不新增通用CRT入口"
+        },
+        {
+          "path": "CMakeLists.txt",
+          "relationship": "既有目标实际抽取该MASM源，MAP实际符号可追"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_audio_update.md#audio-table-x87-decision",
+        "doc/cg2d_audio_update.md#audio-table-x87-source-state",
+        "doc/cg2d_audio_table_x87_evidence.json"
+      ],
+      "boundary": "两表容量/写序与原常量/比较/向零S64低W32保持，当前CW不强设PC；完整147条502B父与15条39B截断有来源。CPP其它正文不改；仅该父与原已知初始化/数值接线，不代全上游CW/全消费者/机器ABI/声音/正常寿命或成员枚举，F13B498其余CPH01 host处置不变。",
+      "verification_level": "原完整两根/七常量及新源116条投影/十展开转换限定静态；本次Debug编译链接0错误/0增量警告、符号部署，未执行算法或客户端"
     }
   ]
 }

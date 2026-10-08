@@ -1,0 +1,847 @@
+{
+  "schema_version": 1,
+  "step": "CAB16",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-audio-table-x87-20261009",
+  "source_base_commit": "e88a8eb1",
+  "decision_ref": "doc/cg2d_audio_update.md#audio-table-x87-decision",
+  "authorization": "沿用户整体SPEC目标、继续完善音频与既有CAA01相关Debug必要构建授权；工程委托先记录本局部方案再实施，客户端运行授权仍待回复",
+  "verification_level": "当前原会话只读147条完整父/15条截断、七F64常量；数值段116条与新源逐行归一化匹配、十处展开转换；实际Debug编译链接/符号及部署通过，不执行算法",
+  "original_functions": [
+    {
+      "start": "0x52b9e0",
+      "end": "0x52bbd6",
+      "bytes": "5633d257b8ccd0040183ceff8950fc893089502c83c03c3dccdf04017ceeb92000000033c0bffcdd0301f3abb920000000bf7cdd0301f3abb920000000bf34a30401f3abb8c0c904018970f8891083c0243dc8d004017cf1dd0598dd5400bebcd00301d9c0e84efa0000a801744dd9eddd05a0dd5400d9f1d9c1d9edd9c9d9f1d8f1dc0d98f65400e82bfa0000d9ed8bf8dd0598dd5400d9f1d8f1dc0d98f65400e812fa00002bc73d88130000ddd87e05b810270000890683c604dc25c0d55400dc15d0d55400dfe0f6c4017495ddd8dd0598dd5400bebcd00301d9c0e8d6f90000a801744fd9eddd05a0dd5400d9f1d9c1d9edd9c9d9f1d8f1dc0d98f65400e8b3f90000d9ed8bf8dd0598dd5400d9f1d8f1dc0d98f65400e89af900002bc73d88130000ddd87e05b810270000f7d8890683ee04dc25c0d55400dc15d0d55400dfe0f6c4017493ddd8dd0598dd5400d9edc705bccf0301f0d8ffffc705b8d1030110270000dd05a0dd5400d9f1d9eddd0598dd5400d9f1d8f1dc0d90dd5400e833f900008bf8d9c1d9edd9c9d9f1d8f1dc0d88dd5400e81cf900008bf7f7de2bf081fe102700007e05be10270000d9c1f7dee800f90000d9c9dc25c0d55400d9c9d9c1dc1dd0d55400893485d0050501dfe0f6c44174afddd8e8d9f80000c1e0028b88d40505018988d0050501e86d1100005f5ec3",
+      "instructions": [
+        {
+          "ea": "0x52b9e0",
+          "asm": "push    esi"
+        },
+        {
+          "ea": "0x52b9e1",
+          "asm": "xor     edx, edx"
+        },
+        {
+          "ea": "0x52b9e3",
+          "asm": "push    edi"
+        },
+        {
+          "ea": "0x52b9e4",
+          "asm": "mov     eax, offset gSeChannelState.currentSeNo"
+        },
+        {
+          "ea": "0x52b9e9",
+          "asm": "or      esi, 0FFFFFFFFh"
+        },
+        {
+          "ea": "0x52b9ec",
+          "asm": "mov     [eax-4], edx"
+        },
+        {
+          "ea": "0x52b9ef",
+          "asm": "mov     [eax], esi"
+        },
+        {
+          "ea": "0x52b9f1",
+          "asm": "mov     [eax+2Ch], edx"
+        },
+        {
+          "ea": "0x52b9f4",
+          "asm": "add     eax, 3Ch ; '<'"
+        },
+        {
+          "ea": "0x52b9f7",
+          "asm": "cmp     eax, offset dword_104DFCC"
+        },
+        {
+          "ea": "0x52b9fc",
+          "asm": "jl      short loc_52B9EC"
+        },
+        {
+          "ea": "0x52b9fe",
+          "asm": "mov     ecx, 20h ; ' '"
+        },
+        {
+          "ea": "0x52ba03",
+          "asm": "xor     eax, eax"
+        },
+        {
+          "ea": "0x52ba05",
+          "asm": "mov     edi, offset byte_103DDFC"
+        },
+        {
+          "ea": "0x52ba0a",
+          "asm": "rep stosd"
+        },
+        {
+          "ea": "0x52ba0c",
+          "asm": "mov     ecx, 20h ; ' '"
+        },
+        {
+          "ea": "0x52ba11",
+          "asm": "mov     edi, offset byte_103DD7C"
+        },
+        {
+          "ea": "0x52ba16",
+          "asm": "rep stosd"
+        },
+        {
+          "ea": "0x52ba18",
+          "asm": "mov     ecx, 20h ; ' '"
+        },
+        {
+          "ea": "0x52ba1d",
+          "asm": "mov     edi, offset byte_104A334"
+        },
+        {
+          "ea": "0x52ba22",
+          "asm": "rep stosd"
+        },
+        {
+          "ea": "0x52ba24",
+          "asm": "mov     eax, offset stru_104C9B8.requestCount"
+        },
+        {
+          "ea": "0x52ba29",
+          "asm": "mov     [eax-8], esi"
+        },
+        {
+          "ea": "0x52ba2c",
+          "asm": "mov     [eax], edx"
+        },
+        {
+          "ea": "0x52ba2e",
+          "asm": "add     eax, 24h ; '$'"
+        },
+        {
+          "ea": "0x52ba31",
+          "asm": "cmp     eax, offset gSeChannelState"
+        },
+        {
+          "ea": "0x52ba36",
+          "asm": "jl      short loc_52BA29"
+        },
+        {
+          "ea": "0x52ba38",
+          "asm": "fld     ds:dbl_54DD98"
+        },
+        {
+          "ea": "0x52ba3e",
+          "asm": "mov     esi, (offset gPanVal+100h)"
+        },
+        {
+          "ea": "0x52ba43",
+          "asm": "fld     st"
+        },
+        {
+          "ea": "0x52ba45",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52ba4a",
+          "asm": "test    al, 1"
+        },
+        {
+          "ea": "0x52ba4c",
+          "asm": "jz      short loc_52BA9B"
+        },
+        {
+          "ea": "0x52ba4e",
+          "asm": "fldln2"
+        },
+        {
+          "ea": "0x52ba50",
+          "asm": "fld     ds:dbl_54DDA0"
+        },
+        {
+          "ea": "0x52ba56",
+          "asm": "fyl2x"
+        },
+        {
+          "ea": "0x52ba58",
+          "asm": "fld     st(1)"
+        },
+        {
+          "ea": "0x52ba5a",
+          "asm": "fldln2"
+        },
+        {
+          "ea": "0x52ba5c",
+          "asm": "fxch    st(1)"
+        },
+        {
+          "ea": "0x52ba5e",
+          "asm": "fyl2x"
+        },
+        {
+          "ea": "0x52ba60",
+          "asm": "fdiv    st, st(1)"
+        },
+        {
+          "ea": "0x52ba62",
+          "asm": "fmul    ds:dbl_54F698"
+        },
+        {
+          "ea": "0x52ba68",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52ba6d",
+          "asm": "fldln2"
+        },
+        {
+          "ea": "0x52ba6f",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "ea": "0x52ba71",
+          "asm": "fld     ds:dbl_54DD98"
+        },
+        {
+          "ea": "0x52ba77",
+          "asm": "fyl2x"
+        },
+        {
+          "ea": "0x52ba79",
+          "asm": "fdiv    st, st(1)"
+        },
+        {
+          "ea": "0x52ba7b",
+          "asm": "fmul    ds:dbl_54F698"
+        },
+        {
+          "ea": "0x52ba81",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52ba86",
+          "asm": "sub     eax, edi"
+        },
+        {
+          "ea": "0x52ba88",
+          "asm": "cmp     eax, 1388h"
+        },
+        {
+          "ea": "0x52ba8d",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x52ba8f",
+          "asm": "jle     short loc_52BA96"
+        },
+        {
+          "ea": "0x52ba91",
+          "asm": "mov     eax, 2710h"
+        },
+        {
+          "ea": "0x52ba96",
+          "asm": "mov     [esi], eax"
+        },
+        {
+          "ea": "0x52ba98",
+          "asm": "add     esi, 4"
+        },
+        {
+          "ea": "0x52ba9b",
+          "asm": "fsub    ds:dbl_54D5C0"
+        },
+        {
+          "ea": "0x52baa1",
+          "asm": "fcom    ds:dbl_54D5D0"
+        },
+        {
+          "ea": "0x52baa7",
+          "asm": "fnstsw  ax"
+        },
+        {
+          "ea": "0x52baa9",
+          "asm": "test    ah, 1"
+        },
+        {
+          "ea": "0x52baac",
+          "asm": "jz      short loc_52BA43"
+        },
+        {
+          "ea": "0x52baae",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x52bab0",
+          "asm": "fld     ds:dbl_54DD98"
+        },
+        {
+          "ea": "0x52bab6",
+          "asm": "mov     esi, (offset gPanVal+100h)"
+        },
+        {
+          "ea": "0x52babb",
+          "asm": "fld     st"
+        },
+        {
+          "ea": "0x52babd",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52bac2",
+          "asm": "test    al, 1"
+        },
+        {
+          "ea": "0x52bac4",
+          "asm": "jz      short loc_52BB15"
+        },
+        {
+          "ea": "0x52bac6",
+          "asm": "fldln2"
+        },
+        {
+          "ea": "0x52bac8",
+          "asm": "fld     ds:dbl_54DDA0"
+        },
+        {
+          "ea": "0x52bace",
+          "asm": "fyl2x"
+        },
+        {
+          "ea": "0x52bad0",
+          "asm": "fld     st(1)"
+        },
+        {
+          "ea": "0x52bad2",
+          "asm": "fldln2"
+        },
+        {
+          "ea": "0x52bad4",
+          "asm": "fxch    st(1)"
+        },
+        {
+          "ea": "0x52bad6",
+          "asm": "fyl2x"
+        },
+        {
+          "ea": "0x52bad8",
+          "asm": "fdiv    st, st(1)"
+        },
+        {
+          "ea": "0x52bada",
+          "asm": "fmul    ds:dbl_54F698"
+        },
+        {
+          "ea": "0x52bae0",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52bae5",
+          "asm": "fldln2"
+        },
+        {
+          "ea": "0x52bae7",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "ea": "0x52bae9",
+          "asm": "fld     ds:dbl_54DD98"
+        },
+        {
+          "ea": "0x52baef",
+          "asm": "fyl2x"
+        },
+        {
+          "ea": "0x52baf1",
+          "asm": "fdiv    st, st(1)"
+        },
+        {
+          "ea": "0x52baf3",
+          "asm": "fmul    ds:dbl_54F698"
+        },
+        {
+          "ea": "0x52baf9",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52bafe",
+          "asm": "sub     eax, edi"
+        },
+        {
+          "ea": "0x52bb00",
+          "asm": "cmp     eax, 1388h"
+        },
+        {
+          "ea": "0x52bb05",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x52bb07",
+          "asm": "jle     short loc_52BB0E"
+        },
+        {
+          "ea": "0x52bb09",
+          "asm": "mov     eax, 2710h"
+        },
+        {
+          "ea": "0x52bb0e",
+          "asm": "neg     eax"
+        },
+        {
+          "ea": "0x52bb10",
+          "asm": "mov     [esi], eax"
+        },
+        {
+          "ea": "0x52bb12",
+          "asm": "sub     esi, 4"
+        },
+        {
+          "ea": "0x52bb15",
+          "asm": "fsub    ds:dbl_54D5C0"
+        },
+        {
+          "ea": "0x52bb1b",
+          "asm": "fcom    ds:dbl_54D5D0"
+        },
+        {
+          "ea": "0x52bb21",
+          "asm": "fnstsw  ax"
+        },
+        {
+          "ea": "0x52bb23",
+          "asm": "test    ah, 1"
+        },
+        {
+          "ea": "0x52bb26",
+          "asm": "jz      short loc_52BABB"
+        },
+        {
+          "ea": "0x52bb28",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x52bb2a",
+          "asm": "fld     ds:dbl_54DD98"
+        },
+        {
+          "ea": "0x52bb30",
+          "asm": "fldln2"
+        },
+        {
+          "ea": "0x52bb32",
+          "asm": "mov     gPanVal, 0FFFFD8F0h"
+        },
+        {
+          "ea": "0x52bb3c",
+          "asm": "mov     gPanVal+1FCh, 2710h"
+        },
+        {
+          "ea": "0x52bb46",
+          "asm": "fld     ds:dbl_54DDA0"
+        },
+        {
+          "ea": "0x52bb4c",
+          "asm": "fyl2x"
+        },
+        {
+          "ea": "0x52bb4e",
+          "asm": "fldln2"
+        },
+        {
+          "ea": "0x52bb50",
+          "asm": "fld     ds:dbl_54DD98"
+        },
+        {
+          "ea": "0x52bb56",
+          "asm": "fyl2x"
+        },
+        {
+          "ea": "0x52bb58",
+          "asm": "fdiv    st, st(1)"
+        },
+        {
+          "ea": "0x52bb5a",
+          "asm": "fmul    ds:dbl_54DD90"
+        },
+        {
+          "ea": "0x52bb60",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52bb65",
+          "asm": "mov     edi, eax"
+        },
+        {
+          "ea": "0x52bb67",
+          "asm": "fld     st(1)"
+        },
+        {
+          "ea": "0x52bb69",
+          "asm": "fldln2"
+        },
+        {
+          "ea": "0x52bb6b",
+          "asm": "fxch    st(1)"
+        },
+        {
+          "ea": "0x52bb6d",
+          "asm": "fyl2x"
+        },
+        {
+          "ea": "0x52bb6f",
+          "asm": "fdiv    st, st(1)"
+        },
+        {
+          "ea": "0x52bb71",
+          "asm": "fmul    ds:dbl_54DD88"
+        },
+        {
+          "ea": "0x52bb77",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52bb7c",
+          "asm": "mov     esi, edi"
+        },
+        {
+          "ea": "0x52bb7e",
+          "asm": "neg     esi"
+        },
+        {
+          "ea": "0x52bb80",
+          "asm": "sub     esi, eax"
+        },
+        {
+          "ea": "0x52bb82",
+          "asm": "cmp     esi, 2710h"
+        },
+        {
+          "ea": "0x52bb88",
+          "asm": "jle     short loc_52BB8F"
+        },
+        {
+          "ea": "0x52bb8a",
+          "asm": "mov     esi, 2710h"
+        },
+        {
+          "ea": "0x52bb8f",
+          "asm": "fld     st(1)"
+        },
+        {
+          "ea": "0x52bb91",
+          "asm": "neg     esi"
+        },
+        {
+          "ea": "0x52bb93",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52bb98",
+          "asm": "fxch    st(1)"
+        },
+        {
+          "ea": "0x52bb9a",
+          "asm": "fsub    ds:dbl_54D5C0"
+        },
+        {
+          "ea": "0x52bba0",
+          "asm": "fxch    st(1)"
+        },
+        {
+          "ea": "0x52bba2",
+          "asm": "fld     st(1)"
+        },
+        {
+          "ea": "0x52bba4",
+          "asm": "fcomp   ds:dbl_54D5D0"
+        },
+        {
+          "ea": "0x52bbaa",
+          "asm": "mov     gSoundVolValue[eax*4], esi"
+        },
+        {
+          "ea": "0x52bbb1",
+          "asm": "fnstsw  ax"
+        },
+        {
+          "ea": "0x52bbb3",
+          "asm": "test    ah, 41h"
+        },
+        {
+          "ea": "0x52bbb6",
+          "asm": "jz      short loc_52BB67"
+        },
+        {
+          "ea": "0x52bbb8",
+          "asm": "fstp    st"
+        },
+        {
+          "ea": "0x52bbba",
+          "asm": "call    __ftol"
+        },
+        {
+          "ea": "0x52bbbf",
+          "asm": "shl     eax, 2"
+        },
+        {
+          "ea": "0x52bbc2",
+          "asm": "mov     ecx, (gSoundVolValue+4)[eax]"
+        },
+        {
+          "ea": "0x52bbc8",
+          "asm": "mov     gSoundVolValue[eax], ecx"
+        },
+        {
+          "ea": "0x52bbce",
+          "asm": "call    sub_52CD40"
+        },
+        {
+          "ea": "0x52bbd3",
+          "asm": "pop     edi"
+        },
+        {
+          "ea": "0x52bbd4",
+          "asm": "pop     esi"
+        },
+        {
+          "ea": "0x52bbd5",
+          "asm": "retn"
+        }
+      ],
+      "inventory_id": "F:0012B9E0",
+      "instruction_count": 147,
+      "byte_count": 502,
+      "scope": "完整原父；本次改数学段52BA38..52BBCE，其余初始化/末callee保留"
+    },
+    {
+      "start": "0x53b498",
+      "end": "0x53b4bf",
+      "bytes": "558bec83c4f49bd97dfe9b668b45fe80cc0c668945fcd96dfcdf7df4d96dfe8b45f48b55f8c9c3",
+      "instructions": [
+        {
+          "ea": "0x53b498",
+          "asm": "push    ebp"
+        },
+        {
+          "ea": "0x53b499",
+          "asm": "mov     ebp, esp"
+        },
+        {
+          "ea": "0x53b49b",
+          "asm": "add     esp, 0FFFFFFF4h"
+        },
+        {
+          "ea": "0x53b49e",
+          "asm": "fstcw   [ebp+var_2]"
+        },
+        {
+          "ea": "0x53b4a2",
+          "asm": "wait"
+        },
+        {
+          "ea": "0x53b4a3",
+          "asm": "mov     ax, [ebp+var_2]"
+        },
+        {
+          "ea": "0x53b4a7",
+          "asm": "or      ah, 0Ch"
+        },
+        {
+          "ea": "0x53b4aa",
+          "asm": "mov     [ebp+var_4], ax"
+        },
+        {
+          "ea": "0x53b4ae",
+          "asm": "fldcw   [ebp+var_4]"
+        },
+        {
+          "ea": "0x53b4b1",
+          "asm": "fistp   [ebp+var_C]"
+        },
+        {
+          "ea": "0x53b4b4",
+          "asm": "fldcw   [ebp+var_2]"
+        },
+        {
+          "ea": "0x53b4b7",
+          "asm": "mov     eax, dword ptr [ebp+var_C]"
+        },
+        {
+          "ea": "0x53b4ba",
+          "asm": "mov     edx, dword ptr [ebp+var_C+4]"
+        },
+        {
+          "ea": "0x53b4bd",
+          "asm": "leave"
+        },
+        {
+          "ea": "0x53b4be",
+          "asm": "retn"
+        }
+      ],
+      "inventory_id": "F:0013B498",
+      "instruction_count": 15,
+      "byte_count": 39,
+      "scope": "只为局部截断指令来源；本步不新增此身份或通用CRT入口，D02/CPH01 host处置保持"
+    }
+  ],
+  "original_constants": [
+    {
+      "ea": "0x54dd98",
+      "bytes": "0000000000c05f40",
+      "F64": 127
+    },
+    {
+      "ea": "0x54dda0",
+      "bytes": "0000000000005940",
+      "F64": 100
+    },
+    {
+      "ea": "0x54f698",
+      "bytes": "000000000088b340",
+      "F64": 5000
+    },
+    {
+      "ea": "0x54dd90",
+      "bytes": "000000000088c3c0",
+      "F64": -10000
+    },
+    {
+      "ea": "0x54dd88",
+      "bytes": "000000000088c340",
+      "F64": 10000
+    },
+    {
+      "ea": "0x54d5c0",
+      "bytes": "000000000000f03f",
+      "F64": 1
+    },
+    {
+      "ea": "0x54d5d0",
+      "bytes": "0000000000000000",
+      "F64": 0
+    }
+  ],
+  "original_instruction_count": 162,
+  "original_byte_count": 541,
+  "source_changes": [
+    {
+      "path": "src/platform/LegacyAudioMath.asm",
+      "symbols": [
+        "Cg2dInitializeSoundTablesX87",
+        "TruncateSoundIntermediate"
+      ],
+      "change": "一个平台私有原生S32表接口；保持连续x87、当前CW、F64原常量、比较/写序，十处局部FISTP S64展开不落F64/调用宿主log"
+    },
+    {
+      "path": "src/LegacyAudio.cpp",
+      "symbols": [
+        "Sub_52B9E0"
+      ],
+      "change": "删原double/std::log段，交同源128项声像/音量表；64通道、三128B清零、50请求、末Sub_52CD40及其它正文保持"
+    },
+    {
+      "path": "CMakeLists.txt",
+      "change": "新增该实际MASM源到既有目标，不引依赖或修改生成项目"
+    }
+  ],
+  "projection_checks": {
+    "original_math_instruction_count": 116,
+    "source_projection_instruction_count": 116,
+    "inline_truncation_sites": 10,
+    "differences": [],
+    "inline_truncation_matches_original_body": true,
+    "inline_truncation_instruction_count": 10,
+    "stack_frame_bytes": 64,
+    "saved_nonvolatile_registers": [
+      "RSI",
+      "RDI",
+      "RBX"
+    ],
+    "stack_scratch": {
+      "saved_cw": [
+        40,
+        42
+      ],
+      "working_cw": [
+        42,
+        44
+      ],
+      "int64_result": [
+        48,
+        56
+      ]
+    }
+  },
+  "abi_scope": "RCX/RDX只借两个128*S32表原生地址；RBX/RSI/RDI保存恢复，64B正常展开帧；CW两W16与S64临时槽不重叠。仅按源静态/编译证明，不宣实际CW生产、机器状态/ABI或全应用寿命已验",
+  "mechanism_boundary": "恢复本应用数值段；截断原39B帮助体只提供实际指令来源，局部展开不改变其他340call/3jump的CPH01宿主承接或消费者，不虚构统一旧CRT替代入口",
+  "trace": [
+    {
+      "original": "52B9EC–52BA36 / 52BBCE",
+      "source": "Sub_52B9E0",
+      "fact": "保既有64通道/三128B/50请求初始化及末52CD40原生指针返回"
+    },
+    {
+      "original": "52BA38–52BB28",
+      "source": "SoundPanPositive/SoundPanNegative",
+      "fact": "逐整数递减，奇数写表，64中心先正后负，原比较/上界及两端覆盖保持"
+    },
+    {
+      "original": "52BB2A–52BBC8",
+      "source": "SoundVolume",
+      "fact": "原双独立截断/符号变换，127..1逐项写，最后0←1"
+    },
+    {
+      "original": "53B49E–53B4BA",
+      "source": "TruncateSoundIntermediate",
+      "fact": "FSTCW/WAIT、只OR RC为向零、FISTP S64、恢复同CW、读低/高W32，与原10条实际转换体顺序一致"
+    }
+  ],
+  "build": {
+    "command": "cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client --parallel 4",
+    "log": "build/windows-msvc-x64/build-audio-table-x87-20261009.log",
+    "configure_performed": true,
+    "configure_mode": "automatic-regeneration",
+    "configure_exit_code": 0,
+    "build_exit_code": 0,
+    "static_libraries_exit_code": 0,
+    "client_link_exit_code": 0,
+    "errors": 0,
+    "incremental_warning_count": 0,
+    "full_warning_count_unmeasured": true,
+    "map_symbol": "Cg2dInitializeSoundTablesX87",
+    "map_symbol_present": true,
+    "client_bytes": 8024064,
+    "converter_build_performed": false,
+    "converter_last_build_step": "CAB15"
+  },
+  "deployment": {
+    "destination": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe",
+    "backup": "H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe.before-audio-table-x87-20261009",
+    "previous_bytes": 8024064,
+    "current_bytes": 8024064,
+    "performed": true,
+    "verification": "两次Copy-Item成功并核长度；两版长度相同不证明内容相同，未计算摘要或逐字节比对",
+    "client_launched": false
+  },
+  "execution": {
+    "tests_performed": false,
+    "client_executed": false,
+    "algorithm_executed": false,
+    "converter_executed": false,
+    "wav_regenerated": false,
+    "hash_performed": false
+  },
+  "inventory_change": {
+    "new_semantic_record": "F:0012B9E0",
+    "new_function_disposition": "adapted",
+    "audio_known_members_before": 32,
+    "audio_known_members_after": 33,
+    "audio_member_inventory_closed": false,
+    "no_change_to_host_helper_identity": "F:0013B498",
+    "r7_unchanged": true
+  },
+  "remaining": [
+    "当前CW真实上游/全应用x87与硬件状态/机器ABI、表值及声音的运行对照仍未验",
+    "音频成员枚举仍未闭，旧7/旧8实际外层及设备/声音/失败/通知/循环/正常退出仍待",
+    "IP2真实登录仍无新使用反馈，客户端运行授权待回复；网络格式/明文/字段/LF不变",
+    "局部数学源/编译链接不代音频或整体SPEC验收"
+  ],
+  "compile_verified": true,
+  "runtime_verified": false,
+  "global_accepted": false
+}

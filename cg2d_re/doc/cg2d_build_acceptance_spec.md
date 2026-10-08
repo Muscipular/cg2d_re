@@ -71,3 +71,10 @@
 客户端MAP存在实际混响、流式BGM、共同PCM头、两设置页和两摆摊回调符号；LegacyMidiSynth/MidiToWav未进入客户端，转换器保持独立目标。客户端8024064B，转换器780800B。游戏目录 `H:/Games/cgmsv_21.2a/CrossGate7.1.0/cg2d_re_client.exe` 已更新，旧7980032B版本备份为同目录 `cg2d_re_client.exe.before-current-audio-20261009`；只核复制后长度，未计算摘要或逐字节比对。
 
 [CAB15记录](cg2d_current_audio_build_evidence.json)保存两轮实际诊断、修复、符号和部署事实，源码快照 `cg2d-re-current-audio-build-20261009`。未运行客户端/转换器、测试或算法，未重生成WAV、计算摘要。当前编译链接通过替代CAB05历史快照作为最新构建状态；实际IP2登录、系统效果创建/格式/声音、全部失败/正常寿命、V02/V05及整体SPEC仍未验收。
+
+<a id="audio-table-x87-debug-build"></a>
+## CAB16 声像音量表当前编译（2026-10-09）
+
+沿同一CAA01音频必要构建授权，执行 `cmake --build --preset windows-msvc-x64-debug --target cg2d_re_client --parallel 4`。CMake因新增实际MASM源自动再配置/生成成功，三库/客户端编译链接全部返回0，0错误/0增量警告；日志 `build/windows-msvc-x64/build-audio-table-x87-20261009.log`，MAP包含Cg2dInitializeSoundTablesX87。仅编译当前数值段与必要依赖，不是全量诊断/机器状态/表值运行验收，CAB15的窗口警告未因此关闭。离线工具本步未构建，最近通过仍CAB15。
+
+8024064B客户端已更新用户原游戏目录，旧同长版备份cg2d_re_client.exe.before-audio-table-x87-20261009；只核复制成功及长度，不以同长证明同内容、不计算摘要。[CAB16记录](cg2d_audio_table_x87_evidence.json)与[当前源码](cg2d_audio_update.md#audio-table-x87-source-state)保存边界，未运行客户端/工具/算法、测试或重生成WAV；IP2登录、真实音频/正常寿命及V02/整体SPEC仍未验收。

@@ -1,0 +1,2305 @@
+{
+  "schema_version": 1,
+  "step": "CAB13",
+  "recorded_on": "2026-10-09",
+  "source_snapshot": "cg2d-re-player-panel-range-identity-20261009",
+  "scope": "已实现玩家资料按钮的无IDA函数代码身份与一个R7区间归属；不重验已过本体或新增实现",
+  "baseline_ref": "doc/ui_windows/window_7.md#player-panel-button-range-source-state",
+  "original_range": {
+    "id": "X:00074BDB-00074FB0",
+    "start": "0x474BDB",
+    "end_exclusive": "0x474FB0",
+    "byte_count": 981,
+    "bytes": "90909090908b4424045633f6578d48ed83f9050f8793030000ff248d8c4f47008a542410f6c20174428b0d9446cf008d04c0bfc05858008b492c8b44811c83c9ffc70085b5030033c0f2aef7d12bf98bc18bf7bfe88ad600c1e902f3a58bc883e103f3a4be01000000eb158d0cc0a19446cf008b402c8b4c881cc70183b50300f6c2020f8423030000a15cacc90085c00f8516030000a19446cf006a088b0880cd808908e8bcc7ffff8b159446cf008b0d5cacc90068f000000068400100008b420c6a3889410c8b159446cf008b0d5cacc9008b4210894110e897770b0083c410be010000008bc65f5ec38a542410f6c20174428b0d9446cf008d04c0bfa85858008b492c8b44811c83c9ffc700baba030033c0f2aef7d12bf98bc18bf7bfe88ad600c1e902f3a58bc883e103f3a4be01000000eb158d0cc0a19446cf008b402c8b4c881cc701b8ba0300f6c2020f8458020000a1b0acc90085c00f854b020000a19446cf006a098b0880cd808908e8f1c6ffff8b159446cf008b0db0acc90068f000000068400100008b420c6a3889410c8b159446cf008b0db0acc9008b4210894110e8cc760b0083c410be010000008bc65f5ec3803d1c6e9a00080f82cb0000008a542410f6c20174428b0d9446cf008d04c0bf7c6358008b492c8b44811c83c9ffc70012c1030033c0f2aef7d12bf98bc18bf7bfe88ad600c1e902f3a58bc883e103f3a4be01000000eb158d0cc0a19446cf008b402c8b4c881cc70111c10300f6c2020f8480010000a1c4bcc90085c00f8573010000a19446cf006a3a8b0880cd808908e819c6ffff8b159446cf008b0dc4bcc90068f000000068400100008b420c6a3889410c8b159446cf008b0dc4bcc9008b4210894110e8f4750b0083c410be010000008bc65f5ec38d14c0a19446cf005f8b482c8bc65e8b54911cc70211c10300c38a542410f6c2017440a19446cf00bf606358008b482c8b815803000083c9ffc700c1ba030033c0f2aef7d12bf98bc18bf7bfe88ad600c1e902f3a58bc883e103f3a4be01000000eb158b0d9446cf008b412c8b8858030000c701c0ba0300f6c2020f849d00000066833da0a8fd00000f858f000000eb6d8a542410f6c2017440a19446cf00bf446358008b482c8b817c03000083c9ffc700beba030033c0f2aef7d12bf98bc18bf7bfe88ad600c1e902f3a58bc883e103f3a4be01000000eb158b0d9446cf008b412c8b887c030000c701bdba0300f6c202742a66833da0a8fd000175208b15b8b2d90052e8fdd5090068f000000068400100006a33e8cc740b0083c4108bc65f5ec3fb4b4700c64c4700914d4700874f4700834e4700fa4e4700909090909090909090909090",
+    "parts": [
+      {
+        "start": "0x474BDB",
+        "end_exclusive": "0x474BE0",
+        "kind": "nop_padding",
+        "bytes": 5,
+        "raw_bytes": "9090909090"
+      },
+      {
+        "start": "0x474BE0",
+        "end_exclusive": "0x474F8C",
+        "kind": "source_mapped_code",
+        "bytes": 940,
+        "source_symbol": "Sub_474BE0"
+      },
+      {
+        "start": "0x474F8C",
+        "end_exclusive": "0x474FA4",
+        "kind": "jump_table",
+        "bytes": 24
+      },
+      {
+        "start": "0x474FA4",
+        "end_exclusive": "0x474FB0",
+        "kind": "nop_padding",
+        "bytes": 12,
+        "raw_bytes": "909090909090909090909090"
+      }
+    ],
+    "previous_function": {
+      "start": "0x474550",
+      "end_exclusive": "0x474BDB"
+    },
+    "next_function": "0x474FB0"
+  },
+  "bounded_code": {
+    "start": "0x474BE0",
+    "end_exclusive": "0x474F8C",
+    "byte_count": 940,
+    "instruction_count": 268,
+    "ida_function_exists": false,
+    "instructions": [
+      {
+        "ea": "0x474be0",
+        "end": "0x474be4",
+        "code": true,
+        "asm": "mov     eax, [esp+4]",
+        "bytes": "8b442404",
+        "refs": []
+      },
+      {
+        "ea": "0x474be4",
+        "end": "0x474be5",
+        "code": true,
+        "asm": "push    esi",
+        "bytes": "56",
+        "refs": []
+      },
+      {
+        "ea": "0x474be5",
+        "end": "0x474be7",
+        "code": true,
+        "asm": "xor     esi, esi",
+        "bytes": "33f6",
+        "refs": []
+      },
+      {
+        "ea": "0x474be7",
+        "end": "0x474be8",
+        "code": true,
+        "asm": "push    edi",
+        "bytes": "57",
+        "refs": []
+      },
+      {
+        "ea": "0x474be8",
+        "end": "0x474beb",
+        "code": true,
+        "asm": "lea     ecx, [eax-13h]; switch 6 cases",
+        "bytes": "8d48ed",
+        "refs": []
+      },
+      {
+        "ea": "0x474beb",
+        "end": "0x474bee",
+        "code": true,
+        "asm": "cmp     ecx, 5",
+        "bytes": "83f905",
+        "refs": []
+      },
+      {
+        "ea": "0x474bee",
+        "end": "0x474bf4",
+        "code": true,
+        "asm": "ja      def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "0f8793030000",
+        "refs": []
+      },
+      {
+        "ea": "0x474bf4",
+        "end": "0x474bfb",
+        "code": true,
+        "asm": "jmp     ds:jpt_474BF4[ecx*4]; switch jump",
+        "bytes": "ff248d8c4f4700",
+        "refs": []
+      },
+      {
+        "ea": "0x474bfb",
+        "end": "0x474bff",
+        "code": true,
+        "asm": "mov     dl, [esp+10h]; jumptable 00474BF4 case 19",
+        "bytes": "8a542410",
+        "refs": []
+      },
+      {
+        "ea": "0x474bff",
+        "end": "0x474c02",
+        "code": true,
+        "asm": "test    dl, 1",
+        "bytes": "f6c201",
+        "refs": []
+      },
+      {
+        "ea": "0x474c02",
+        "end": "0x474c04",
+        "code": true,
+        "asm": "jz      short loc_474C46",
+        "bytes": "7442",
+        "refs": []
+      },
+      {
+        "ea": "0x474c04",
+        "end": "0x474c0a",
+        "code": true,
+        "asm": "mov     ecx, gCurrentWindow",
+        "bytes": "8b0d9446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474c0a",
+        "end": "0x474c0d",
+        "code": true,
+        "asm": "lea     eax, [eax+eax*8]",
+        "bytes": "8d04c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474c0d",
+        "end": "0x474c12",
+        "code": true,
+        "asm": "mov     edi, offset asc_5858C0; \"切換成玩家明細視窗。\"",
+        "bytes": "bfc0585800",
+        "refs": []
+      },
+      {
+        "ea": "0x474c12",
+        "end": "0x474c15",
+        "code": true,
+        "asm": "mov     ecx, [ecx+2Ch]",
+        "bytes": "8b492c",
+        "refs": []
+      },
+      {
+        "ea": "0x474c15",
+        "end": "0x474c19",
+        "code": true,
+        "asm": "mov     eax, [ecx+eax*4+1Ch]",
+        "bytes": "8b44811c",
+        "refs": []
+      },
+      {
+        "ea": "0x474c19",
+        "end": "0x474c1c",
+        "code": true,
+        "asm": "or      ecx, 0FFFFFFFFh",
+        "bytes": "83c9ff",
+        "refs": []
+      },
+      {
+        "ea": "0x474c1c",
+        "end": "0x474c22",
+        "code": true,
+        "asm": "mov     dword ptr [eax], 3B585h",
+        "bytes": "c70085b50300",
+        "refs": []
+      },
+      {
+        "ea": "0x474c22",
+        "end": "0x474c24",
+        "code": true,
+        "asm": "xor     eax, eax",
+        "bytes": "33c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474c24",
+        "end": "0x474c26",
+        "code": true,
+        "asm": "repne scasb",
+        "bytes": "f2ae",
+        "refs": []
+      },
+      {
+        "ea": "0x474c26",
+        "end": "0x474c28",
+        "code": true,
+        "asm": "not     ecx",
+        "bytes": "f7d1",
+        "refs": []
+      },
+      {
+        "ea": "0x474c28",
+        "end": "0x474c2a",
+        "code": true,
+        "asm": "sub     edi, ecx",
+        "bytes": "2bf9",
+        "refs": []
+      },
+      {
+        "ea": "0x474c2a",
+        "end": "0x474c2c",
+        "code": true,
+        "asm": "mov     eax, ecx",
+        "bytes": "8bc1",
+        "refs": []
+      },
+      {
+        "ea": "0x474c2c",
+        "end": "0x474c2e",
+        "code": true,
+        "asm": "mov     esi, edi",
+        "bytes": "8bf7",
+        "refs": []
+      },
+      {
+        "ea": "0x474c2e",
+        "end": "0x474c33",
+        "code": true,
+        "asm": "mov     edi, offset byte_D68AE8",
+        "bytes": "bfe88ad600",
+        "refs": []
+      },
+      {
+        "ea": "0x474c33",
+        "end": "0x474c36",
+        "code": true,
+        "asm": "shr     ecx, 2",
+        "bytes": "c1e902",
+        "refs": []
+      },
+      {
+        "ea": "0x474c36",
+        "end": "0x474c38",
+        "code": true,
+        "asm": "rep movsd",
+        "bytes": "f3a5",
+        "refs": []
+      },
+      {
+        "ea": "0x474c38",
+        "end": "0x474c3a",
+        "code": true,
+        "asm": "mov     ecx, eax",
+        "bytes": "8bc8",
+        "refs": []
+      },
+      {
+        "ea": "0x474c3a",
+        "end": "0x474c3d",
+        "code": true,
+        "asm": "and     ecx, 3",
+        "bytes": "83e103",
+        "refs": []
+      },
+      {
+        "ea": "0x474c3d",
+        "end": "0x474c3f",
+        "code": true,
+        "asm": "rep movsb",
+        "bytes": "f3a4",
+        "refs": []
+      },
+      {
+        "ea": "0x474c3f",
+        "end": "0x474c44",
+        "code": true,
+        "asm": "mov     esi, 1",
+        "bytes": "be01000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474c44",
+        "end": "0x474c46",
+        "code": true,
+        "asm": "jmp     short loc_474C5B",
+        "bytes": "eb15",
+        "refs": []
+      },
+      {
+        "ea": "0x474c46",
+        "end": "0x474c49",
+        "code": true,
+        "asm": "lea     ecx, [eax+eax*8]",
+        "bytes": "8d0cc0",
+        "refs": []
+      },
+      {
+        "ea": "0x474c49",
+        "end": "0x474c4e",
+        "code": true,
+        "asm": "mov     eax, gCurrentWindow",
+        "bytes": "a19446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474c4e",
+        "end": "0x474c51",
+        "code": true,
+        "asm": "mov     eax, [eax+2Ch]",
+        "bytes": "8b402c",
+        "refs": []
+      },
+      {
+        "ea": "0x474c51",
+        "end": "0x474c55",
+        "code": true,
+        "asm": "mov     ecx, [eax+ecx*4+1Ch]",
+        "bytes": "8b4c881c",
+        "refs": []
+      },
+      {
+        "ea": "0x474c55",
+        "end": "0x474c5b",
+        "code": true,
+        "asm": "mov     dword ptr [ecx], 3B583h",
+        "bytes": "c70183b50300",
+        "refs": []
+      },
+      {
+        "ea": "0x474c5b",
+        "end": "0x474c5e",
+        "code": true,
+        "asm": "test    dl, 2",
+        "bytes": "f6c202",
+        "refs": []
+      },
+      {
+        "ea": "0x474c5e",
+        "end": "0x474c64",
+        "code": true,
+        "asm": "jz      def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "0f8423030000",
+        "refs": []
+      },
+      {
+        "ea": "0x474c64",
+        "end": "0x474c69",
+        "code": true,
+        "asm": "mov     eax, gWindowState.window+2A0h",
+        "bytes": "a15cacc900",
+        "refs": []
+      },
+      {
+        "ea": "0x474c69",
+        "end": "0x474c6b",
+        "code": true,
+        "asm": "test    eax, eax",
+        "bytes": "85c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474c6b",
+        "end": "0x474c71",
+        "code": true,
+        "asm": "jnz     def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "0f8516030000",
+        "refs": []
+      },
+      {
+        "ea": "0x474c71",
+        "end": "0x474c76",
+        "code": true,
+        "asm": "mov     eax, gCurrentWindow",
+        "bytes": "a19446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474c76",
+        "end": "0x474c78",
+        "code": true,
+        "asm": "push    8",
+        "bytes": "6a08",
+        "refs": []
+      },
+      {
+        "ea": "0x474c78",
+        "end": "0x474c7a",
+        "code": true,
+        "asm": "mov     ecx, [eax]",
+        "bytes": "8b08",
+        "refs": []
+      },
+      {
+        "ea": "0x474c7a",
+        "end": "0x474c7d",
+        "code": true,
+        "asm": "or      ch, 80h",
+        "bytes": "80cd80",
+        "refs": []
+      },
+      {
+        "ea": "0x474c7d",
+        "end": "0x474c7f",
+        "code": true,
+        "asm": "mov     [eax], ecx",
+        "bytes": "8908",
+        "refs": []
+      },
+      {
+        "ea": "0x474c7f",
+        "end": "0x474c84",
+        "code": true,
+        "asm": "call    Window__open",
+        "bytes": "e8bcc7ffff",
+        "refs": []
+      },
+      {
+        "ea": "0x474c84",
+        "end": "0x474c8a",
+        "code": true,
+        "asm": "mov     edx, gCurrentWindow",
+        "bytes": "8b159446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474c8a",
+        "end": "0x474c90",
+        "code": true,
+        "asm": "mov     ecx, gWindowState.window+2A0h",
+        "bytes": "8b0d5cacc900",
+        "refs": []
+      },
+      {
+        "ea": "0x474c90",
+        "end": "0x474c95",
+        "code": true,
+        "asm": "push    0F0h",
+        "bytes": "68f0000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474c95",
+        "end": "0x474c9a",
+        "code": true,
+        "asm": "push    140h",
+        "bytes": "6840010000",
+        "refs": []
+      },
+      {
+        "ea": "0x474c9a",
+        "end": "0x474c9d",
+        "code": true,
+        "asm": "mov     eax, [edx+0Ch]",
+        "bytes": "8b420c",
+        "refs": []
+      },
+      {
+        "ea": "0x474c9d",
+        "end": "0x474c9f",
+        "code": true,
+        "asm": "push    38h ; '8'",
+        "bytes": "6a38",
+        "refs": []
+      },
+      {
+        "ea": "0x474c9f",
+        "end": "0x474ca2",
+        "code": true,
+        "asm": "mov     [ecx+0Ch], eax",
+        "bytes": "89410c",
+        "refs": []
+      },
+      {
+        "ea": "0x474ca2",
+        "end": "0x474ca8",
+        "code": true,
+        "asm": "mov     edx, gCurrentWindow",
+        "bytes": "8b159446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474ca8",
+        "end": "0x474cae",
+        "code": true,
+        "asm": "mov     ecx, gWindowState.window+2A0h",
+        "bytes": "8b0d5cacc900",
+        "refs": []
+      },
+      {
+        "ea": "0x474cae",
+        "end": "0x474cb1",
+        "code": true,
+        "asm": "mov     eax, [edx+10h]",
+        "bytes": "8b4210",
+        "refs": []
+      },
+      {
+        "ea": "0x474cb1",
+        "end": "0x474cb4",
+        "code": true,
+        "asm": "mov     [ecx+10h], eax",
+        "bytes": "894110",
+        "refs": []
+      },
+      {
+        "ea": "0x474cb4",
+        "end": "0x474cb9",
+        "code": true,
+        "asm": "call    World__PlaySe",
+        "bytes": "e897770b00",
+        "refs": []
+      },
+      {
+        "ea": "0x474cb9",
+        "end": "0x474cbc",
+        "code": true,
+        "asm": "add     esp, 10h",
+        "bytes": "83c410",
+        "refs": []
+      },
+      {
+        "ea": "0x474cbc",
+        "end": "0x474cc1",
+        "code": true,
+        "asm": "mov     esi, 1",
+        "bytes": "be01000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474cc1",
+        "end": "0x474cc3",
+        "code": true,
+        "asm": "mov     eax, esi",
+        "bytes": "8bc6",
+        "refs": []
+      },
+      {
+        "ea": "0x474cc3",
+        "end": "0x474cc4",
+        "code": true,
+        "asm": "pop     edi",
+        "bytes": "5f",
+        "refs": []
+      },
+      {
+        "ea": "0x474cc4",
+        "end": "0x474cc5",
+        "code": true,
+        "asm": "pop     esi",
+        "bytes": "5e",
+        "refs": []
+      },
+      {
+        "ea": "0x474cc5",
+        "end": "0x474cc6",
+        "code": true,
+        "asm": "retn",
+        "bytes": "c3",
+        "refs": []
+      },
+      {
+        "ea": "0x474cc6",
+        "end": "0x474cca",
+        "code": true,
+        "asm": "mov     dl, [esp+10h]; jumptable 00474BF4 case 20",
+        "bytes": "8a542410",
+        "refs": []
+      },
+      {
+        "ea": "0x474cca",
+        "end": "0x474ccd",
+        "code": true,
+        "asm": "test    dl, 1",
+        "bytes": "f6c201",
+        "refs": []
+      },
+      {
+        "ea": "0x474ccd",
+        "end": "0x474ccf",
+        "code": true,
+        "asm": "jz      short loc_474D11",
+        "bytes": "7442",
+        "refs": []
+      },
+      {
+        "ea": "0x474ccf",
+        "end": "0x474cd5",
+        "code": true,
+        "asm": "mov     ecx, gCurrentWindow",
+        "bytes": "8b0d9446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474cd5",
+        "end": "0x474cd8",
+        "code": true,
+        "asm": "lea     eax, [eax+eax*8]",
+        "bytes": "8d04c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474cd8",
+        "end": "0x474cdd",
+        "code": true,
+        "asm": "mov     edi, offset asc_5858A8; \"切換成玩家稱號視窗。\"",
+        "bytes": "bfa8585800",
+        "refs": []
+      },
+      {
+        "ea": "0x474cdd",
+        "end": "0x474ce0",
+        "code": true,
+        "asm": "mov     ecx, [ecx+2Ch]",
+        "bytes": "8b492c",
+        "refs": []
+      },
+      {
+        "ea": "0x474ce0",
+        "end": "0x474ce4",
+        "code": true,
+        "asm": "mov     eax, [ecx+eax*4+1Ch]",
+        "bytes": "8b44811c",
+        "refs": []
+      },
+      {
+        "ea": "0x474ce4",
+        "end": "0x474ce7",
+        "code": true,
+        "asm": "or      ecx, 0FFFFFFFFh",
+        "bytes": "83c9ff",
+        "refs": []
+      },
+      {
+        "ea": "0x474ce7",
+        "end": "0x474ced",
+        "code": true,
+        "asm": "mov     dword ptr [eax], 3BABAh",
+        "bytes": "c700baba0300",
+        "refs": []
+      },
+      {
+        "ea": "0x474ced",
+        "end": "0x474cef",
+        "code": true,
+        "asm": "xor     eax, eax",
+        "bytes": "33c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474cef",
+        "end": "0x474cf1",
+        "code": true,
+        "asm": "repne scasb",
+        "bytes": "f2ae",
+        "refs": []
+      },
+      {
+        "ea": "0x474cf1",
+        "end": "0x474cf3",
+        "code": true,
+        "asm": "not     ecx",
+        "bytes": "f7d1",
+        "refs": []
+      },
+      {
+        "ea": "0x474cf3",
+        "end": "0x474cf5",
+        "code": true,
+        "asm": "sub     edi, ecx",
+        "bytes": "2bf9",
+        "refs": []
+      },
+      {
+        "ea": "0x474cf5",
+        "end": "0x474cf7",
+        "code": true,
+        "asm": "mov     eax, ecx",
+        "bytes": "8bc1",
+        "refs": []
+      },
+      {
+        "ea": "0x474cf7",
+        "end": "0x474cf9",
+        "code": true,
+        "asm": "mov     esi, edi",
+        "bytes": "8bf7",
+        "refs": []
+      },
+      {
+        "ea": "0x474cf9",
+        "end": "0x474cfe",
+        "code": true,
+        "asm": "mov     edi, offset byte_D68AE8",
+        "bytes": "bfe88ad600",
+        "refs": []
+      },
+      {
+        "ea": "0x474cfe",
+        "end": "0x474d01",
+        "code": true,
+        "asm": "shr     ecx, 2",
+        "bytes": "c1e902",
+        "refs": []
+      },
+      {
+        "ea": "0x474d01",
+        "end": "0x474d03",
+        "code": true,
+        "asm": "rep movsd",
+        "bytes": "f3a5",
+        "refs": []
+      },
+      {
+        "ea": "0x474d03",
+        "end": "0x474d05",
+        "code": true,
+        "asm": "mov     ecx, eax",
+        "bytes": "8bc8",
+        "refs": []
+      },
+      {
+        "ea": "0x474d05",
+        "end": "0x474d08",
+        "code": true,
+        "asm": "and     ecx, 3",
+        "bytes": "83e103",
+        "refs": []
+      },
+      {
+        "ea": "0x474d08",
+        "end": "0x474d0a",
+        "code": true,
+        "asm": "rep movsb",
+        "bytes": "f3a4",
+        "refs": []
+      },
+      {
+        "ea": "0x474d0a",
+        "end": "0x474d0f",
+        "code": true,
+        "asm": "mov     esi, 1",
+        "bytes": "be01000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474d0f",
+        "end": "0x474d11",
+        "code": true,
+        "asm": "jmp     short loc_474D26",
+        "bytes": "eb15",
+        "refs": []
+      },
+      {
+        "ea": "0x474d11",
+        "end": "0x474d14",
+        "code": true,
+        "asm": "lea     ecx, [eax+eax*8]",
+        "bytes": "8d0cc0",
+        "refs": []
+      },
+      {
+        "ea": "0x474d14",
+        "end": "0x474d19",
+        "code": true,
+        "asm": "mov     eax, gCurrentWindow",
+        "bytes": "a19446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474d19",
+        "end": "0x474d1c",
+        "code": true,
+        "asm": "mov     eax, [eax+2Ch]",
+        "bytes": "8b402c",
+        "refs": []
+      },
+      {
+        "ea": "0x474d1c",
+        "end": "0x474d20",
+        "code": true,
+        "asm": "mov     ecx, [eax+ecx*4+1Ch]",
+        "bytes": "8b4c881c",
+        "refs": []
+      },
+      {
+        "ea": "0x474d20",
+        "end": "0x474d26",
+        "code": true,
+        "asm": "mov     dword ptr [ecx], 3BAB8h",
+        "bytes": "c701b8ba0300",
+        "refs": []
+      },
+      {
+        "ea": "0x474d26",
+        "end": "0x474d29",
+        "code": true,
+        "asm": "test    dl, 2",
+        "bytes": "f6c202",
+        "refs": []
+      },
+      {
+        "ea": "0x474d29",
+        "end": "0x474d2f",
+        "code": true,
+        "asm": "jz      def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "0f8458020000",
+        "refs": []
+      },
+      {
+        "ea": "0x474d2f",
+        "end": "0x474d34",
+        "code": true,
+        "asm": "mov     eax, gWindowState.window+2F4h",
+        "bytes": "a1b0acc900",
+        "refs": []
+      },
+      {
+        "ea": "0x474d34",
+        "end": "0x474d36",
+        "code": true,
+        "asm": "test    eax, eax",
+        "bytes": "85c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474d36",
+        "end": "0x474d3c",
+        "code": true,
+        "asm": "jnz     def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "0f854b020000",
+        "refs": []
+      },
+      {
+        "ea": "0x474d3c",
+        "end": "0x474d41",
+        "code": true,
+        "asm": "mov     eax, gCurrentWindow",
+        "bytes": "a19446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474d41",
+        "end": "0x474d43",
+        "code": true,
+        "asm": "push    9",
+        "bytes": "6a09",
+        "refs": []
+      },
+      {
+        "ea": "0x474d43",
+        "end": "0x474d45",
+        "code": true,
+        "asm": "mov     ecx, [eax]",
+        "bytes": "8b08",
+        "refs": []
+      },
+      {
+        "ea": "0x474d45",
+        "end": "0x474d48",
+        "code": true,
+        "asm": "or      ch, 80h",
+        "bytes": "80cd80",
+        "refs": []
+      },
+      {
+        "ea": "0x474d48",
+        "end": "0x474d4a",
+        "code": true,
+        "asm": "mov     [eax], ecx",
+        "bytes": "8908",
+        "refs": []
+      },
+      {
+        "ea": "0x474d4a",
+        "end": "0x474d4f",
+        "code": true,
+        "asm": "call    Window__open",
+        "bytes": "e8f1c6ffff",
+        "refs": []
+      },
+      {
+        "ea": "0x474d4f",
+        "end": "0x474d55",
+        "code": true,
+        "asm": "mov     edx, gCurrentWindow",
+        "bytes": "8b159446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474d55",
+        "end": "0x474d5b",
+        "code": true,
+        "asm": "mov     ecx, gWindowState.window+2F4h",
+        "bytes": "8b0db0acc900",
+        "refs": []
+      },
+      {
+        "ea": "0x474d5b",
+        "end": "0x474d60",
+        "code": true,
+        "asm": "push    0F0h",
+        "bytes": "68f0000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474d60",
+        "end": "0x474d65",
+        "code": true,
+        "asm": "push    140h",
+        "bytes": "6840010000",
+        "refs": []
+      },
+      {
+        "ea": "0x474d65",
+        "end": "0x474d68",
+        "code": true,
+        "asm": "mov     eax, [edx+0Ch]",
+        "bytes": "8b420c",
+        "refs": []
+      },
+      {
+        "ea": "0x474d68",
+        "end": "0x474d6a",
+        "code": true,
+        "asm": "push    38h ; '8'",
+        "bytes": "6a38",
+        "refs": []
+      },
+      {
+        "ea": "0x474d6a",
+        "end": "0x474d6d",
+        "code": true,
+        "asm": "mov     [ecx+0Ch], eax",
+        "bytes": "89410c",
+        "refs": []
+      },
+      {
+        "ea": "0x474d6d",
+        "end": "0x474d73",
+        "code": true,
+        "asm": "mov     edx, gCurrentWindow",
+        "bytes": "8b159446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474d73",
+        "end": "0x474d79",
+        "code": true,
+        "asm": "mov     ecx, gWindowState.window+2F4h",
+        "bytes": "8b0db0acc900",
+        "refs": []
+      },
+      {
+        "ea": "0x474d79",
+        "end": "0x474d7c",
+        "code": true,
+        "asm": "mov     eax, [edx+10h]",
+        "bytes": "8b4210",
+        "refs": []
+      },
+      {
+        "ea": "0x474d7c",
+        "end": "0x474d7f",
+        "code": true,
+        "asm": "mov     [ecx+10h], eax",
+        "bytes": "894110",
+        "refs": []
+      },
+      {
+        "ea": "0x474d7f",
+        "end": "0x474d84",
+        "code": true,
+        "asm": "call    World__PlaySe",
+        "bytes": "e8cc760b00",
+        "refs": []
+      },
+      {
+        "ea": "0x474d84",
+        "end": "0x474d87",
+        "code": true,
+        "asm": "add     esp, 10h",
+        "bytes": "83c410",
+        "refs": []
+      },
+      {
+        "ea": "0x474d87",
+        "end": "0x474d8c",
+        "code": true,
+        "asm": "mov     esi, 1",
+        "bytes": "be01000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474d8c",
+        "end": "0x474d8e",
+        "code": true,
+        "asm": "mov     eax, esi",
+        "bytes": "8bc6",
+        "refs": []
+      },
+      {
+        "ea": "0x474d8e",
+        "end": "0x474d8f",
+        "code": true,
+        "asm": "pop     edi",
+        "bytes": "5f",
+        "refs": []
+      },
+      {
+        "ea": "0x474d8f",
+        "end": "0x474d90",
+        "code": true,
+        "asm": "pop     esi",
+        "bytes": "5e",
+        "refs": []
+      },
+      {
+        "ea": "0x474d90",
+        "end": "0x474d91",
+        "code": true,
+        "asm": "retn",
+        "bytes": "c3",
+        "refs": []
+      },
+      {
+        "ea": "0x474d91",
+        "end": "0x474d98",
+        "code": true,
+        "asm": "cmp     gPukVer, 8; jumptable 00474BF4 case 21",
+        "bytes": "803d1c6e9a0008",
+        "refs": []
+      },
+      {
+        "ea": "0x474d98",
+        "end": "0x474d9e",
+        "code": true,
+        "asm": "jb      loc_474E69",
+        "bytes": "0f82cb000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474d9e",
+        "end": "0x474da2",
+        "code": true,
+        "asm": "mov     dl, [esp+10h]",
+        "bytes": "8a542410",
+        "refs": []
+      },
+      {
+        "ea": "0x474da2",
+        "end": "0x474da5",
+        "code": true,
+        "asm": "test    dl, 1",
+        "bytes": "f6c201",
+        "refs": []
+      },
+      {
+        "ea": "0x474da5",
+        "end": "0x474da7",
+        "code": true,
+        "asm": "jz      short loc_474DE9",
+        "bytes": "7442",
+        "refs": []
+      },
+      {
+        "ea": "0x474da7",
+        "end": "0x474dad",
+        "code": true,
+        "asm": "mov     ecx, gCurrentWindow",
+        "bytes": "8b0d9446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474dad",
+        "end": "0x474db0",
+        "code": true,
+        "asm": "lea     eax, [eax+eax*8]",
+        "bytes": "8d04c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474db0",
+        "end": "0x474db5",
+        "code": true,
+        "asm": "mov     edi, offset asc_58637C; \"切換成玩家簡介視窗\"",
+        "bytes": "bf7c635800",
+        "refs": []
+      },
+      {
+        "ea": "0x474db5",
+        "end": "0x474db8",
+        "code": true,
+        "asm": "mov     ecx, [ecx+2Ch]",
+        "bytes": "8b492c",
+        "refs": []
+      },
+      {
+        "ea": "0x474db8",
+        "end": "0x474dbc",
+        "code": true,
+        "asm": "mov     eax, [ecx+eax*4+1Ch]",
+        "bytes": "8b44811c",
+        "refs": []
+      },
+      {
+        "ea": "0x474dbc",
+        "end": "0x474dbf",
+        "code": true,
+        "asm": "or      ecx, 0FFFFFFFFh",
+        "bytes": "83c9ff",
+        "refs": []
+      },
+      {
+        "ea": "0x474dbf",
+        "end": "0x474dc5",
+        "code": true,
+        "asm": "mov     dword ptr [eax], 3C112h",
+        "bytes": "c70012c10300",
+        "refs": []
+      },
+      {
+        "ea": "0x474dc5",
+        "end": "0x474dc7",
+        "code": true,
+        "asm": "xor     eax, eax",
+        "bytes": "33c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474dc7",
+        "end": "0x474dc9",
+        "code": true,
+        "asm": "repne scasb",
+        "bytes": "f2ae",
+        "refs": []
+      },
+      {
+        "ea": "0x474dc9",
+        "end": "0x474dcb",
+        "code": true,
+        "asm": "not     ecx",
+        "bytes": "f7d1",
+        "refs": []
+      },
+      {
+        "ea": "0x474dcb",
+        "end": "0x474dcd",
+        "code": true,
+        "asm": "sub     edi, ecx",
+        "bytes": "2bf9",
+        "refs": []
+      },
+      {
+        "ea": "0x474dcd",
+        "end": "0x474dcf",
+        "code": true,
+        "asm": "mov     eax, ecx",
+        "bytes": "8bc1",
+        "refs": []
+      },
+      {
+        "ea": "0x474dcf",
+        "end": "0x474dd1",
+        "code": true,
+        "asm": "mov     esi, edi",
+        "bytes": "8bf7",
+        "refs": []
+      },
+      {
+        "ea": "0x474dd1",
+        "end": "0x474dd6",
+        "code": true,
+        "asm": "mov     edi, offset byte_D68AE8",
+        "bytes": "bfe88ad600",
+        "refs": []
+      },
+      {
+        "ea": "0x474dd6",
+        "end": "0x474dd9",
+        "code": true,
+        "asm": "shr     ecx, 2",
+        "bytes": "c1e902",
+        "refs": []
+      },
+      {
+        "ea": "0x474dd9",
+        "end": "0x474ddb",
+        "code": true,
+        "asm": "rep movsd",
+        "bytes": "f3a5",
+        "refs": []
+      },
+      {
+        "ea": "0x474ddb",
+        "end": "0x474ddd",
+        "code": true,
+        "asm": "mov     ecx, eax",
+        "bytes": "8bc8",
+        "refs": []
+      },
+      {
+        "ea": "0x474ddd",
+        "end": "0x474de0",
+        "code": true,
+        "asm": "and     ecx, 3",
+        "bytes": "83e103",
+        "refs": []
+      },
+      {
+        "ea": "0x474de0",
+        "end": "0x474de2",
+        "code": true,
+        "asm": "rep movsb",
+        "bytes": "f3a4",
+        "refs": []
+      },
+      {
+        "ea": "0x474de2",
+        "end": "0x474de7",
+        "code": true,
+        "asm": "mov     esi, 1",
+        "bytes": "be01000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474de7",
+        "end": "0x474de9",
+        "code": true,
+        "asm": "jmp     short loc_474DFE",
+        "bytes": "eb15",
+        "refs": []
+      },
+      {
+        "ea": "0x474de9",
+        "end": "0x474dec",
+        "code": true,
+        "asm": "lea     ecx, [eax+eax*8]",
+        "bytes": "8d0cc0",
+        "refs": []
+      },
+      {
+        "ea": "0x474dec",
+        "end": "0x474df1",
+        "code": true,
+        "asm": "mov     eax, gCurrentWindow",
+        "bytes": "a19446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474df1",
+        "end": "0x474df4",
+        "code": true,
+        "asm": "mov     eax, [eax+2Ch]",
+        "bytes": "8b402c",
+        "refs": []
+      },
+      {
+        "ea": "0x474df4",
+        "end": "0x474df8",
+        "code": true,
+        "asm": "mov     ecx, [eax+ecx*4+1Ch]",
+        "bytes": "8b4c881c",
+        "refs": []
+      },
+      {
+        "ea": "0x474df8",
+        "end": "0x474dfe",
+        "code": true,
+        "asm": "mov     dword ptr [ecx], 3C111h",
+        "bytes": "c70111c10300",
+        "refs": []
+      },
+      {
+        "ea": "0x474dfe",
+        "end": "0x474e01",
+        "code": true,
+        "asm": "test    dl, 2",
+        "bytes": "f6c202",
+        "refs": []
+      },
+      {
+        "ea": "0x474e01",
+        "end": "0x474e07",
+        "code": true,
+        "asm": "jz      def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "0f8480010000",
+        "refs": []
+      },
+      {
+        "ea": "0x474e07",
+        "end": "0x474e0c",
+        "code": true,
+        "asm": "mov     eax, gWindowState.window+1308h",
+        "bytes": "a1c4bcc900",
+        "refs": []
+      },
+      {
+        "ea": "0x474e0c",
+        "end": "0x474e0e",
+        "code": true,
+        "asm": "test    eax, eax",
+        "bytes": "85c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474e0e",
+        "end": "0x474e14",
+        "code": true,
+        "asm": "jnz     def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "0f8573010000",
+        "refs": []
+      },
+      {
+        "ea": "0x474e14",
+        "end": "0x474e19",
+        "code": true,
+        "asm": "mov     eax, gCurrentWindow",
+        "bytes": "a19446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474e19",
+        "end": "0x474e1b",
+        "code": true,
+        "asm": "push    3Ah ; ':'",
+        "bytes": "6a3a",
+        "refs": []
+      },
+      {
+        "ea": "0x474e1b",
+        "end": "0x474e1d",
+        "code": true,
+        "asm": "mov     ecx, [eax]",
+        "bytes": "8b08",
+        "refs": []
+      },
+      {
+        "ea": "0x474e1d",
+        "end": "0x474e20",
+        "code": true,
+        "asm": "or      ch, 80h",
+        "bytes": "80cd80",
+        "refs": []
+      },
+      {
+        "ea": "0x474e20",
+        "end": "0x474e22",
+        "code": true,
+        "asm": "mov     [eax], ecx",
+        "bytes": "8908",
+        "refs": []
+      },
+      {
+        "ea": "0x474e22",
+        "end": "0x474e27",
+        "code": true,
+        "asm": "call    Window__open",
+        "bytes": "e819c6ffff",
+        "refs": []
+      },
+      {
+        "ea": "0x474e27",
+        "end": "0x474e2d",
+        "code": true,
+        "asm": "mov     edx, gCurrentWindow",
+        "bytes": "8b159446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474e2d",
+        "end": "0x474e33",
+        "code": true,
+        "asm": "mov     ecx, gWindowState.window+1308h",
+        "bytes": "8b0dc4bcc900",
+        "refs": []
+      },
+      {
+        "ea": "0x474e33",
+        "end": "0x474e38",
+        "code": true,
+        "asm": "push    0F0h",
+        "bytes": "68f0000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474e38",
+        "end": "0x474e3d",
+        "code": true,
+        "asm": "push    140h",
+        "bytes": "6840010000",
+        "refs": []
+      },
+      {
+        "ea": "0x474e3d",
+        "end": "0x474e40",
+        "code": true,
+        "asm": "mov     eax, [edx+0Ch]",
+        "bytes": "8b420c",
+        "refs": []
+      },
+      {
+        "ea": "0x474e40",
+        "end": "0x474e42",
+        "code": true,
+        "asm": "push    38h ; '8'",
+        "bytes": "6a38",
+        "refs": []
+      },
+      {
+        "ea": "0x474e42",
+        "end": "0x474e45",
+        "code": true,
+        "asm": "mov     [ecx+0Ch], eax",
+        "bytes": "89410c",
+        "refs": []
+      },
+      {
+        "ea": "0x474e45",
+        "end": "0x474e4b",
+        "code": true,
+        "asm": "mov     edx, gCurrentWindow",
+        "bytes": "8b159446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474e4b",
+        "end": "0x474e51",
+        "code": true,
+        "asm": "mov     ecx, gWindowState.window+1308h",
+        "bytes": "8b0dc4bcc900",
+        "refs": []
+      },
+      {
+        "ea": "0x474e51",
+        "end": "0x474e54",
+        "code": true,
+        "asm": "mov     eax, [edx+10h]",
+        "bytes": "8b4210",
+        "refs": []
+      },
+      {
+        "ea": "0x474e54",
+        "end": "0x474e57",
+        "code": true,
+        "asm": "mov     [ecx+10h], eax",
+        "bytes": "894110",
+        "refs": []
+      },
+      {
+        "ea": "0x474e57",
+        "end": "0x474e5c",
+        "code": true,
+        "asm": "call    World__PlaySe",
+        "bytes": "e8f4750b00",
+        "refs": []
+      },
+      {
+        "ea": "0x474e5c",
+        "end": "0x474e5f",
+        "code": true,
+        "asm": "add     esp, 10h",
+        "bytes": "83c410",
+        "refs": []
+      },
+      {
+        "ea": "0x474e5f",
+        "end": "0x474e64",
+        "code": true,
+        "asm": "mov     esi, 1",
+        "bytes": "be01000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474e64",
+        "end": "0x474e66",
+        "code": true,
+        "asm": "mov     eax, esi",
+        "bytes": "8bc6",
+        "refs": []
+      },
+      {
+        "ea": "0x474e66",
+        "end": "0x474e67",
+        "code": true,
+        "asm": "pop     edi",
+        "bytes": "5f",
+        "refs": []
+      },
+      {
+        "ea": "0x474e67",
+        "end": "0x474e68",
+        "code": true,
+        "asm": "pop     esi",
+        "bytes": "5e",
+        "refs": []
+      },
+      {
+        "ea": "0x474e68",
+        "end": "0x474e69",
+        "code": true,
+        "asm": "retn",
+        "bytes": "c3",
+        "refs": []
+      },
+      {
+        "ea": "0x474e69",
+        "end": "0x474e6c",
+        "code": true,
+        "asm": "lea     edx, [eax+eax*8]",
+        "bytes": "8d14c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474e6c",
+        "end": "0x474e71",
+        "code": true,
+        "asm": "mov     eax, gCurrentWindow",
+        "bytes": "a19446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474e71",
+        "end": "0x474e72",
+        "code": true,
+        "asm": "pop     edi",
+        "bytes": "5f",
+        "refs": []
+      },
+      {
+        "ea": "0x474e72",
+        "end": "0x474e75",
+        "code": true,
+        "asm": "mov     ecx, [eax+2Ch]",
+        "bytes": "8b482c",
+        "refs": []
+      },
+      {
+        "ea": "0x474e75",
+        "end": "0x474e77",
+        "code": true,
+        "asm": "mov     eax, esi",
+        "bytes": "8bc6",
+        "refs": []
+      },
+      {
+        "ea": "0x474e77",
+        "end": "0x474e78",
+        "code": true,
+        "asm": "pop     esi",
+        "bytes": "5e",
+        "refs": []
+      },
+      {
+        "ea": "0x474e78",
+        "end": "0x474e7c",
+        "code": true,
+        "asm": "mov     edx, [ecx+edx*4+1Ch]",
+        "bytes": "8b54911c",
+        "refs": []
+      },
+      {
+        "ea": "0x474e7c",
+        "end": "0x474e82",
+        "code": true,
+        "asm": "mov     dword ptr [edx], 3C111h",
+        "bytes": "c70211c10300",
+        "refs": []
+      },
+      {
+        "ea": "0x474e82",
+        "end": "0x474e83",
+        "code": true,
+        "asm": "retn",
+        "bytes": "c3",
+        "refs": []
+      },
+      {
+        "ea": "0x474e83",
+        "end": "0x474e87",
+        "code": true,
+        "asm": "mov     dl, [esp+10h]; jumptable 00474BF4 case 23",
+        "bytes": "8a542410",
+        "refs": []
+      },
+      {
+        "ea": "0x474e87",
+        "end": "0x474e8a",
+        "code": true,
+        "asm": "test    dl, 1",
+        "bytes": "f6c201",
+        "refs": []
+      },
+      {
+        "ea": "0x474e8a",
+        "end": "0x474e8c",
+        "code": true,
+        "asm": "jz      short loc_474ECC",
+        "bytes": "7440",
+        "refs": []
+      },
+      {
+        "ea": "0x474e8c",
+        "end": "0x474e91",
+        "code": true,
+        "asm": "mov     eax, gCurrentWindow",
+        "bytes": "a19446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474e91",
+        "end": "0x474e96",
+        "code": true,
+        "asm": "mov     edi, offset asc_586360; \"把戰鬥時的位置變更為前排。\"",
+        "bytes": "bf60635800",
+        "refs": []
+      },
+      {
+        "ea": "0x474e96",
+        "end": "0x474e99",
+        "code": true,
+        "asm": "mov     ecx, [eax+2Ch]",
+        "bytes": "8b482c",
+        "refs": []
+      },
+      {
+        "ea": "0x474e99",
+        "end": "0x474e9f",
+        "code": true,
+        "asm": "mov     eax, [ecx+358h]",
+        "bytes": "8b8158030000",
+        "refs": []
+      },
+      {
+        "ea": "0x474e9f",
+        "end": "0x474ea2",
+        "code": true,
+        "asm": "or      ecx, 0FFFFFFFFh",
+        "bytes": "83c9ff",
+        "refs": []
+      },
+      {
+        "ea": "0x474ea2",
+        "end": "0x474ea8",
+        "code": true,
+        "asm": "mov     dword ptr [eax], 3BAC1h",
+        "bytes": "c700c1ba0300",
+        "refs": []
+      },
+      {
+        "ea": "0x474ea8",
+        "end": "0x474eaa",
+        "code": true,
+        "asm": "xor     eax, eax",
+        "bytes": "33c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474eaa",
+        "end": "0x474eac",
+        "code": true,
+        "asm": "repne scasb",
+        "bytes": "f2ae",
+        "refs": []
+      },
+      {
+        "ea": "0x474eac",
+        "end": "0x474eae",
+        "code": true,
+        "asm": "not     ecx",
+        "bytes": "f7d1",
+        "refs": []
+      },
+      {
+        "ea": "0x474eae",
+        "end": "0x474eb0",
+        "code": true,
+        "asm": "sub     edi, ecx",
+        "bytes": "2bf9",
+        "refs": []
+      },
+      {
+        "ea": "0x474eb0",
+        "end": "0x474eb2",
+        "code": true,
+        "asm": "mov     eax, ecx",
+        "bytes": "8bc1",
+        "refs": []
+      },
+      {
+        "ea": "0x474eb2",
+        "end": "0x474eb4",
+        "code": true,
+        "asm": "mov     esi, edi",
+        "bytes": "8bf7",
+        "refs": []
+      },
+      {
+        "ea": "0x474eb4",
+        "end": "0x474eb9",
+        "code": true,
+        "asm": "mov     edi, offset byte_D68AE8",
+        "bytes": "bfe88ad600",
+        "refs": []
+      },
+      {
+        "ea": "0x474eb9",
+        "end": "0x474ebc",
+        "code": true,
+        "asm": "shr     ecx, 2",
+        "bytes": "c1e902",
+        "refs": []
+      },
+      {
+        "ea": "0x474ebc",
+        "end": "0x474ebe",
+        "code": true,
+        "asm": "rep movsd",
+        "bytes": "f3a5",
+        "refs": []
+      },
+      {
+        "ea": "0x474ebe",
+        "end": "0x474ec0",
+        "code": true,
+        "asm": "mov     ecx, eax",
+        "bytes": "8bc8",
+        "refs": []
+      },
+      {
+        "ea": "0x474ec0",
+        "end": "0x474ec3",
+        "code": true,
+        "asm": "and     ecx, 3",
+        "bytes": "83e103",
+        "refs": []
+      },
+      {
+        "ea": "0x474ec3",
+        "end": "0x474ec5",
+        "code": true,
+        "asm": "rep movsb",
+        "bytes": "f3a4",
+        "refs": []
+      },
+      {
+        "ea": "0x474ec5",
+        "end": "0x474eca",
+        "code": true,
+        "asm": "mov     esi, 1",
+        "bytes": "be01000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474eca",
+        "end": "0x474ecc",
+        "code": true,
+        "asm": "jmp     short loc_474EE1",
+        "bytes": "eb15",
+        "refs": []
+      },
+      {
+        "ea": "0x474ecc",
+        "end": "0x474ed2",
+        "code": true,
+        "asm": "mov     ecx, gCurrentWindow",
+        "bytes": "8b0d9446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474ed2",
+        "end": "0x474ed5",
+        "code": true,
+        "asm": "mov     eax, [ecx+2Ch]",
+        "bytes": "8b412c",
+        "refs": []
+      },
+      {
+        "ea": "0x474ed5",
+        "end": "0x474edb",
+        "code": true,
+        "asm": "mov     ecx, [eax+358h]",
+        "bytes": "8b8858030000",
+        "refs": []
+      },
+      {
+        "ea": "0x474edb",
+        "end": "0x474ee1",
+        "code": true,
+        "asm": "mov     dword ptr [ecx], 3BAC0h",
+        "bytes": "c701c0ba0300",
+        "refs": []
+      },
+      {
+        "ea": "0x474ee1",
+        "end": "0x474ee4",
+        "code": true,
+        "asm": "test    dl, 2",
+        "bytes": "f6c202",
+        "refs": []
+      },
+      {
+        "ea": "0x474ee4",
+        "end": "0x474eea",
+        "code": true,
+        "asm": "jz      def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "0f849d000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474eea",
+        "end": "0x474ef2",
+        "code": true,
+        "asm": "cmp     gPlayerDataVal.field_1A0, 0",
+        "bytes": "66833da0a8fd0000",
+        "refs": []
+      },
+      {
+        "ea": "0x474ef2",
+        "end": "0x474ef8",
+        "code": true,
+        "asm": "jnz     def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "0f858f000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474ef8",
+        "end": "0x474efa",
+        "code": true,
+        "asm": "jmp     short loc_474F67",
+        "bytes": "eb6d",
+        "refs": []
+      },
+      {
+        "ea": "0x474efa",
+        "end": "0x474efe",
+        "code": true,
+        "asm": "mov     dl, [esp+10h]; jumptable 00474BF4 case 24",
+        "bytes": "8a542410",
+        "refs": []
+      },
+      {
+        "ea": "0x474efe",
+        "end": "0x474f01",
+        "code": true,
+        "asm": "test    dl, 1",
+        "bytes": "f6c201",
+        "refs": []
+      },
+      {
+        "ea": "0x474f01",
+        "end": "0x474f03",
+        "code": true,
+        "asm": "jz      short loc_474F43",
+        "bytes": "7440",
+        "refs": []
+      },
+      {
+        "ea": "0x474f03",
+        "end": "0x474f08",
+        "code": true,
+        "asm": "mov     eax, gCurrentWindow",
+        "bytes": "a19446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474f08",
+        "end": "0x474f0d",
+        "code": true,
+        "asm": "mov     edi, offset asc_586344; \"把戰鬥時的位置變更為後排。\"",
+        "bytes": "bf44635800",
+        "refs": []
+      },
+      {
+        "ea": "0x474f0d",
+        "end": "0x474f10",
+        "code": true,
+        "asm": "mov     ecx, [eax+2Ch]",
+        "bytes": "8b482c",
+        "refs": []
+      },
+      {
+        "ea": "0x474f10",
+        "end": "0x474f16",
+        "code": true,
+        "asm": "mov     eax, [ecx+37Ch]",
+        "bytes": "8b817c030000",
+        "refs": []
+      },
+      {
+        "ea": "0x474f16",
+        "end": "0x474f19",
+        "code": true,
+        "asm": "or      ecx, 0FFFFFFFFh",
+        "bytes": "83c9ff",
+        "refs": []
+      },
+      {
+        "ea": "0x474f19",
+        "end": "0x474f1f",
+        "code": true,
+        "asm": "mov     dword ptr [eax], 3BABEh",
+        "bytes": "c700beba0300",
+        "refs": []
+      },
+      {
+        "ea": "0x474f1f",
+        "end": "0x474f21",
+        "code": true,
+        "asm": "xor     eax, eax",
+        "bytes": "33c0",
+        "refs": []
+      },
+      {
+        "ea": "0x474f21",
+        "end": "0x474f23",
+        "code": true,
+        "asm": "repne scasb",
+        "bytes": "f2ae",
+        "refs": []
+      },
+      {
+        "ea": "0x474f23",
+        "end": "0x474f25",
+        "code": true,
+        "asm": "not     ecx",
+        "bytes": "f7d1",
+        "refs": []
+      },
+      {
+        "ea": "0x474f25",
+        "end": "0x474f27",
+        "code": true,
+        "asm": "sub     edi, ecx",
+        "bytes": "2bf9",
+        "refs": []
+      },
+      {
+        "ea": "0x474f27",
+        "end": "0x474f29",
+        "code": true,
+        "asm": "mov     eax, ecx",
+        "bytes": "8bc1",
+        "refs": []
+      },
+      {
+        "ea": "0x474f29",
+        "end": "0x474f2b",
+        "code": true,
+        "asm": "mov     esi, edi",
+        "bytes": "8bf7",
+        "refs": []
+      },
+      {
+        "ea": "0x474f2b",
+        "end": "0x474f30",
+        "code": true,
+        "asm": "mov     edi, offset byte_D68AE8",
+        "bytes": "bfe88ad600",
+        "refs": []
+      },
+      {
+        "ea": "0x474f30",
+        "end": "0x474f33",
+        "code": true,
+        "asm": "shr     ecx, 2",
+        "bytes": "c1e902",
+        "refs": []
+      },
+      {
+        "ea": "0x474f33",
+        "end": "0x474f35",
+        "code": true,
+        "asm": "rep movsd",
+        "bytes": "f3a5",
+        "refs": []
+      },
+      {
+        "ea": "0x474f35",
+        "end": "0x474f37",
+        "code": true,
+        "asm": "mov     ecx, eax",
+        "bytes": "8bc8",
+        "refs": []
+      },
+      {
+        "ea": "0x474f37",
+        "end": "0x474f3a",
+        "code": true,
+        "asm": "and     ecx, 3",
+        "bytes": "83e103",
+        "refs": []
+      },
+      {
+        "ea": "0x474f3a",
+        "end": "0x474f3c",
+        "code": true,
+        "asm": "rep movsb",
+        "bytes": "f3a4",
+        "refs": []
+      },
+      {
+        "ea": "0x474f3c",
+        "end": "0x474f41",
+        "code": true,
+        "asm": "mov     esi, 1",
+        "bytes": "be01000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474f41",
+        "end": "0x474f43",
+        "code": true,
+        "asm": "jmp     short loc_474F58",
+        "bytes": "eb15",
+        "refs": []
+      },
+      {
+        "ea": "0x474f43",
+        "end": "0x474f49",
+        "code": true,
+        "asm": "mov     ecx, gCurrentWindow",
+        "bytes": "8b0d9446cf00",
+        "refs": []
+      },
+      {
+        "ea": "0x474f49",
+        "end": "0x474f4c",
+        "code": true,
+        "asm": "mov     eax, [ecx+2Ch]",
+        "bytes": "8b412c",
+        "refs": []
+      },
+      {
+        "ea": "0x474f4c",
+        "end": "0x474f52",
+        "code": true,
+        "asm": "mov     ecx, [eax+37Ch]",
+        "bytes": "8b887c030000",
+        "refs": []
+      },
+      {
+        "ea": "0x474f52",
+        "end": "0x474f58",
+        "code": true,
+        "asm": "mov     dword ptr [ecx], 3BABDh",
+        "bytes": "c701bdba0300",
+        "refs": []
+      },
+      {
+        "ea": "0x474f58",
+        "end": "0x474f5b",
+        "code": true,
+        "asm": "test    dl, 2",
+        "bytes": "f6c202",
+        "refs": []
+      },
+      {
+        "ea": "0x474f5b",
+        "end": "0x474f5d",
+        "code": true,
+        "asm": "jz      short def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "742a",
+        "refs": []
+      },
+      {
+        "ea": "0x474f5d",
+        "end": "0x474f65",
+        "code": true,
+        "asm": "cmp     gPlayerDataVal.field_1A0, 1",
+        "bytes": "66833da0a8fd0001",
+        "refs": []
+      },
+      {
+        "ea": "0x474f65",
+        "end": "0x474f67",
+        "code": true,
+        "asm": "jnz     short def_474BF4; jumptable 00474BF4 default case, case 22",
+        "bytes": "7520",
+        "refs": []
+      },
+      {
+        "ea": "0x474f67",
+        "end": "0x474f6d",
+        "code": true,
+        "asm": "mov     edx, s",
+        "bytes": "8b15b8b2d900",
+        "refs": []
+      },
+      {
+        "ea": "0x474f6d",
+        "end": "0x474f6e",
+        "code": true,
+        "asm": "push    edx",
+        "bytes": "52",
+        "refs": []
+      },
+      {
+        "ea": "0x474f6e",
+        "end": "0x474f73",
+        "code": true,
+        "asm": "call    sub_512570",
+        "bytes": "e8fdd50900",
+        "refs": []
+      },
+      {
+        "ea": "0x474f73",
+        "end": "0x474f78",
+        "code": true,
+        "asm": "push    0F0h",
+        "bytes": "68f0000000",
+        "refs": []
+      },
+      {
+        "ea": "0x474f78",
+        "end": "0x474f7d",
+        "code": true,
+        "asm": "push    140h",
+        "bytes": "6840010000",
+        "refs": []
+      },
+      {
+        "ea": "0x474f7d",
+        "end": "0x474f7f",
+        "code": true,
+        "asm": "push    33h ; '3'",
+        "bytes": "6a33",
+        "refs": []
+      },
+      {
+        "ea": "0x474f7f",
+        "end": "0x474f84",
+        "code": true,
+        "asm": "call    World__PlaySe",
+        "bytes": "e8cc740b00",
+        "refs": []
+      },
+      {
+        "ea": "0x474f84",
+        "end": "0x474f87",
+        "code": true,
+        "asm": "add     esp, 10h",
+        "bytes": "83c410",
+        "refs": []
+      },
+      {
+        "ea": "0x474f87",
+        "end": "0x474f89",
+        "code": true,
+        "asm": "mov     eax, esi; jumptable 00474BF4 default case, case 22",
+        "bytes": "8bc6",
+        "refs": []
+      },
+      {
+        "ea": "0x474f89",
+        "end": "0x474f8a",
+        "code": true,
+        "asm": "pop     edi",
+        "bytes": "5f",
+        "refs": []
+      },
+      {
+        "ea": "0x474f8a",
+        "end": "0x474f8b",
+        "code": true,
+        "asm": "pop     esi",
+        "bytes": "5e",
+        "refs": []
+      },
+      {
+        "ea": "0x474f8b",
+        "end": "0x474f8c",
+        "code": true,
+        "asm": "retn",
+        "bytes": "c3",
+        "refs": []
+      }
+    ],
+    "direct_calls": [
+      {
+        "ea": "0x474c7f",
+        "asm": "call    Window__open",
+        "bytes": "e8bcc7ffff"
+      },
+      {
+        "ea": "0x474cb4",
+        "asm": "call    World__PlaySe",
+        "bytes": "e897770b00"
+      },
+      {
+        "ea": "0x474d4a",
+        "asm": "call    Window__open",
+        "bytes": "e8f1c6ffff"
+      },
+      {
+        "ea": "0x474d7f",
+        "asm": "call    World__PlaySe",
+        "bytes": "e8cc760b00"
+      },
+      {
+        "ea": "0x474e22",
+        "asm": "call    Window__open",
+        "bytes": "e819c6ffff"
+      },
+      {
+        "ea": "0x474e57",
+        "asm": "call    World__PlaySe",
+        "bytes": "e8f4750b00"
+      },
+      {
+        "ea": "0x474f6e",
+        "asm": "call    sub_512570",
+        "bytes": "e8fdd50900"
+      },
+      {
+        "ea": "0x474f7f",
+        "asm": "call    World__PlaySe",
+        "bytes": "e8cc740b00"
+      }
+    ],
+    "direct_incoming_references": []
+  },
+  "switch_table": {
+    "address": "0x474F8C",
+    "bytes": "fb4b4700c64c4700914d4700874f4700834e4700fa4e4700",
+    "consumer": "0x474BF4",
+    "input": "U32(index-19) > 5走默认，否则六个W32目标",
+    "cases": [
+      {
+        "index": 19,
+        "target": "0x474BFB"
+      },
+      {
+        "index": 20,
+        "target": "0x474CC6"
+      },
+      {
+        "index": 21,
+        "target": "0x474D91"
+      },
+      {
+        "index": 22,
+        "target": "0x474F87"
+      },
+      {
+        "index": 23,
+        "target": "0x474E83"
+      },
+      {
+        "index": 24,
+        "target": "0x474EFA"
+      }
+    ]
+  },
+  "existing_contract": {
+    "cases": "19/20切8/9，21仅puk>=8切58，否则只写idle并0；22及范围外0。23/24前后排只有共享玩家字段匹配0/1才发原512570请求/音效。",
+    "graphics": "五idle/hover图号保持，悬停复制五既定GBK文案；原三切页先标关闭、真实open后分别fresh取X/Y来源/目标。",
+    "result": "悬停1，切页成功路径1；位置请求不写玩家字段，也不另外提高返回值。",
+    "wiring": "WindowPrototypes.cpp现有窗口7元素19/20/21/23/24均绑定Sub_474BE0；沿该窗口已有元素完整基线，本步不外推全父/窗口8/9/58或正常寿命/运行。",
+    "source_changed": false,
+    "third_party_dependency_added": false
+  },
+  "source_files": [
+    "src/ui/WindowRuntime.cpp#Sub_474BE0",
+    "src/ui/WindowRuntimeState.hpp#Sub_474BE0",
+    "src/ui/WindowPrototypes.cpp"
+  ],
+  "ledger_decision": "inventory_id=null与bounded_code_without_ida_function，作为现有X区间内代码身份，不新增/虚构库存F或3680函数分母。R7一个mixed_table_data处置仅记录连续字节用途与源码对应，不计范围排除/新实现I或完整软件门禁。",
+  "verification": {
+    "utf8": true,
+    "range_parts_contiguous": true,
+    "all_range_bytes_recorded": true,
+    "six_switch_targets_recorded": true,
+    "existing_callback_declaration_and_five_bindings": true,
+    "source_changed": false,
+    "new_implementation_evidence": false,
+    "compile_verified": false,
+    "runtime_verified": false,
+    "full_window_accepted": false,
+    "whole_spec_accepted": false
+  },
+  "remaining": "窗口7完整成员/8-9-58交互/全部数据及正常owner寿命/画面/声音/SDK-ABI与运行，旧99外层、当前链接/真实本机登录与整体SPEC继续；编译授权待用户答复。"
+}

@@ -893,3 +893,7 @@
 ## 2026-10-09 cg2d_re 离线音色寿命与原职责来源
 
 修正离线LoadBank失败保留旧音色：先Clear后实际载入，最后PCM后显式Clear再close，两源各一行且其余正文保持；三原音色/loader职责具名适配至实际离线载入/样本区域与清理，原138条450B、GUID/清理父及新增差异静态通过。已知AUDIO32均有来源，未定位音频3→0；当前未编译/运行/重生成WAV，成员枚举/全部DLS/原默认波形/声音/设备/失败/寿命、旧外层和完整门禁仍开放。SPEC/台账同步，整体目标继续；详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-offline-bank-lifetime-20261009。
+
+## 2026-10-09 cg2d_re 玩家资料按钮代码身份
+
+补已实现474BE0按钮的无F代码身份及一个R7区间归属，完整268条940B/六项跳表和981B四段用途、五现有绑定可追；三个现源保持，无新实现I或门禁关闭，R7已审483→484。同步窗口7基线/台账/看板，并纠正总SPEC历史链接与固定旧计数、网络音频暂停旧阻碍；当前未编译或运行，编译授权/真实登录反馈仍待，整体目标继续。详见cg2d_re/plan/cg2d_full_reconstruction_progress.md，快照cg2d-re-player-panel-range-identity-20261009。

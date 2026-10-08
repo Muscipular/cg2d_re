@@ -11,11 +11,11 @@
 | 合同文件关联 | 1994/3680（54.18%） | 文件关联率，不是功能/基线验收完成率 |
 | 尚无合同关联 | 1686 | 完整ID见快照metrics.functions_without_document_links；可能已有局部合同尚未机器登记 |
 | 历史源码定位 | 2762 | 自动定位快照，非当前实现数 |
-| 语义登记 | 1891条/1884个原ID | 无独立函数ID另列7条，其中原区间绑定 |
+| 语义登记 | 1892条/1884个原ID | 无独立函数ID另列8条，其中原区间绑定 |
 | 具名分类引用 | 120个原ID | 含排除/混合/合并，不计为实现 |
 | 已具名全入口排除 / 混合入口 | 113 / 3 | 不计为实现/验收；混合入口不得整体扣除 |
 | 已审核函数处置 | 1059/3680 | 初始仅导入关系，未逐ID重新认定 |
-| 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置16 / 483 |
+| 导入槽 / 未归属区间 | 218 / 3061 | 全部保留稳定ID；已审处置16 / 484 |
 | 已登记叶功能 | 184 | 非全功能分母；域不重复计入，暂停保留 |
 | 已验收叶功能 | 0/184 | 仅登记集合，不能代表整体完成率 |
 | 已知收尾任务 | 60；验收关闭11 | 任务不是全功能目录 |
@@ -64,7 +64,7 @@ unassessed=未按门禁归档；blocked=执行限制/阻碍；pass/fail=有具�
 | UI-M-004 | included：现代窗口4：快捷交互栏 | [window_4](../doc/ui_windows/window_4.md) | 0/0 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-005 | included：现代窗口5：折叠快捷交互栏 | [window_5](../doc/ui_windows/window_5.md) | 0/0 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-006 | included：现代窗口6：底栏与悬停描述 | [window_6](../doc/ui_windows/window_6.md) | 0/0 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
-| UI-M-007 | included：现代窗口7：玩家资料 | [window_7](../doc/ui_windows/window_7.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
+| UI-M-007 | included：现代窗口7：玩家资料 | [window_7](../doc/ui_windows/window_7.md)、[window_7](../doc/ui_windows/window_7.md#player-panel-button-range-source-state)、[cg2d_player_panel_range_identity_evidence](../doc/cg2d_player_panel_range_identity_evidence.json) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-008 | included：现代窗口8：玩家明细 | [window_8](../doc/ui_windows/window_8.md) | 0/1 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-009 | included：现代窗口9：玩家称号 | [window_9](../doc/ui_windows/window_9.md) | 0/2 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |
 | UI-M-010 | included：现代窗口10：技能、技术与宠物技能 | [window_10](../doc/ui_windows/window_10.md) | 0/6 | U04、V04 | unassessed/unassessed/unassessed/unassessed/blocked |

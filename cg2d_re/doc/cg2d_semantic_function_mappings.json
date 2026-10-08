@@ -213656,6 +213656,54 @@
         "waveform_equivalence_verified": false
       },
       "verification_level": "原三完整根/默认GUID/清理父、SDK声明与两源各一行限定静态；未编译/执行转换/运行/重生成资产或摘要"
+    },
+    {
+      "original_entry": "0x474BE0",
+      "inventory_id": null,
+      "original_entry_kind": "bounded_code_without_ida_function",
+      "original_role": "Sub_474BE0",
+      "original_end_exclusive": "0x474F8C",
+      "instruction_count": 268,
+      "original_byte_count": 940,
+      "status": "CAB13既有玩家资料五按钮代码身份与R7区间已纳管，原本体/六项跳表和五现有绑定可追；源码保持、无新I，完整窗口/正常寿命/运行未验",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_474BE0"
+          ],
+          "relationship": "既有窗口7按钮处理，五分支与默认；沿已归档完整元素/原指令基线，不重复改写本体或计新增开发。"
+        },
+        {
+          "path": "src/ui/WindowPrototypes.cpp",
+          "symbols": [
+            "Sub_474BE0"
+          ],
+          "relationship": "现有窗口7元素19/20/21/23/24各一次原生回调绑定；本步不外推原外部入向、完整场景或旧99路由。"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_474BE0"
+          ]
+        }
+      ],
+      "evidence_documents": [
+        "doc/ui_windows/window_7.md#player-panel-button-range-source-state",
+        "doc/cg2d_player_panel_range_identity_evidence.json"
+      ],
+      "boundary": "无IDA函数的268条940B片段，属于原X:00074BDB-00074FB0；5B NOP→940B既有按钮代码→24B六W32目标→12B NOP覆盖981B。19/20/21切8/9/58，21保版本8门槛；23/24只匹配玩家位置后请求/音效，保悬停/切页返回与原数据不写。当前原直接入向为空不证明不可达，现有五原生绑定与已归档元素基线分列。inventory_id=null，不新增F/3680分母、实现I或全窗口门禁。",
+      "code_identity": {
+        "kind": "unassigned_range_fragment",
+        "inventory_range_id": "X:00074BDB-00074FB0",
+        "start": "0x474BE0",
+        "end_exclusive": "0x474F8C",
+        "evidence_refs": [
+          "doc/ui_windows/window_7.md#player-panel-button-range-source-state",
+          "doc/cg2d_player_panel_range_identity_evidence.json"
+        ]
+      },
+      "verification_level": "仅原缺失代码身份/完整981B区间用途与现有源/声明/五绑定关联，既有本体保持；未编译、运行、复检全部场景或摘要"
     }
   ]
 }

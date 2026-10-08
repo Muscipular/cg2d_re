@@ -44741,15 +44741,19 @@ void FreeWindow_471270(WindowInstance* const window)
     gCurrentWindowState->flags &= ~std::uint32_t{0x80};
     gCurrentWindowState->flags |= 1u;
     gCurrentWindowState->window = nullptr;
-    if (gFocusWindowId57C120 == window->id) {
+    const std::int32_t focusWindowId = gFocusWindowId57C120;
+    const std::int32_t windowId = window->id;
+    if (focusWindowId == windowId) {
         CancelWindowDrag_476410();
     }
     for (std::int32_t index = 0; index < window->elementCount; ++index) {
         WindowElement* const element = &window->elements[index];
         switch (element->type) {
         case 1:
-        case 5:
-            if (element->data == gFocusedElementDataD45F94) {
+        case 5: {
+            void* const focusedData = gFocusedElementDataD45F94;
+            void* const elementData = element->data;
+            if (elementData == focusedData) {
                 static_cast<void>(Sub_4A7B00());
             }
             if (void* const data = window->elements[index].data; data != nullptr) {
@@ -44757,18 +44761,21 @@ void FreeWindow_471270(WindowInstance* const window)
                 window->elements[index].data = nullptr;
             }
             break;
-        case 2:
-            if (element->data != nullptr) {
-                const auto* const data = static_cast<const WindowAnimationData*>(element->data);
-                login::detail::MarkDeath(data->action);
+        }
+        case 2: {
+            const auto* const data = static_cast<const WindowAnimationData*>(element->data);
+            if (data != nullptr) {
+                login::detail::MarkDeathUnchecked(data->action);
                 std::free(window->elements[index].data);
                 window->elements[index].data = nullptr;
             }
             break;
+        }
         case 3: {
             auto* const data = static_cast<WindowTextData*>(element->data);
-            if (data->text != nullptr) {
-                std::free(data->text);
+            auto* const textToFree = data->text;
+            if (textToFree != nullptr) {
+                std::free(textToFree);
                 static_cast<WindowTextData*>(window->elements[index].data)->text = nullptr;
             }
             if (void* const current = window->elements[index].data; current != nullptr) {
@@ -44779,18 +44786,21 @@ void FreeWindow_471270(WindowInstance* const window)
         }
         case 4:
         case 6:
-        case 7:
-            if (element->data != nullptr) {
-                std::free(element->data);
+        case 7: {
+            void* const data = element->data;
+            if (data != nullptr) {
+                std::free(data);
                 window->elements[index].data = nullptr;
             }
             break;
+        }
         default:
             break;
         }
     }
-    if (window->elements != nullptr) {
-        std::free(window->elements);
+    WindowElement* const elementsToFree = window->elements;
+    if (elementsToFree != nullptr) {
+        std::free(elementsToFree);
     }
     window->elements = nullptr;
     std::free(window);

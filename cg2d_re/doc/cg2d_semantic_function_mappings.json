@@ -203421,6 +203421,337 @@
         "runtime_verified": false,
         "fault_equivalence_claimed": false
       }
+    },
+    {
+      "original_entry": "0x471270",
+      "inventory_id": "F:00071270",
+      "original_role": "471270：release()后fresh id/state，回存x/y、两次原W32旗位/清state.window，先focusId后fresh window.id取消拖动。当前元素/数量按原fresh，1/5先global focused后element data及输入取消后fresh free；2同data样本/经唯一Yobi native边界承接原直接deathFlag=1、后fresh槽free；3固定text指针、后fresh field清null/载荷释放；4/6/7固定data样本，后fresh槽null；最后固定fresh元素数组样本释放→清数组→释放保存实例。六阶段实修，不借MarkDeath额外跳过空action，通用helper不变；无异常模拟/额外保护。",
+      "original_end_exclusive": "0x47141a",
+      "original_chunks": [
+        [
+          "0x471270",
+          "0x47141a"
+        ]
+      ],
+      "instruction_count": 140,
+      "status": "BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "FreeWindow_471270"
+          ],
+          "relationship": "471270：release()后fresh id/state，回存x/y、两次原W32旗位/清state.window，先focusId后fresh window.id取消拖动。当前元素/数量按原fresh，1/5先global focused后element data及输入取消后fresh free；2同data样本/经唯一Yobi native边界承接原直接deathFlag=1、后fresh槽free；3固定text指针、后fresh field清null/载荷释放；4/6/7固定data样本，后fresh槽null；最后固定fresh元素数组样本释放→清数组→释放保存实例。六阶段实修，不借MarkDeath额外跳过空action，通用helper不变；无异常模拟/额外保护。"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "FreeWindow_471270"
+          ],
+          "relationship": "既有实际释放/关闭公开声明保持，不增加接口"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "WindowAnimationData",
+            "WindowTextData"
+          ],
+          "relationship": "既有typed非拥有action/text指针承载保持，本根经唯一Yobi边界承接原内联标志写，不借通用helper额外空判断"
+        },
+        {
+          "path": "src/YobiRuntime.cpp",
+          "symbols": [
+            "MarkDeathUnchecked"
+          ],
+          "relationship": "为UI中opaque YobiAction提供必要native边界，无空判断只写deathFlag=1，原内联写不新F"
+        },
+        {
+          "path": "include/cg/YobiRuntime.hpp",
+          "symbols": [
+            "MarkDeathUnchecked"
+          ],
+          "relationship": "唯一非拥有T*写接口，不公开布局或SDL类型；通用MarkDeath签名/正文保"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline",
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision",
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-acceptance",
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state"
+      ],
+      "boundary": "471270：release()后fresh id/state，回存x/y、两次原W32旗位/清state.window，先focusId后fresh window.id取消拖动。当前元素/数量按原fresh，1/5先global focused后element data及输入取消后fresh free；2同data样本/经唯一Yobi native边界承接原直接deathFlag=1、后fresh槽free；3固定text指针、后fresh field清null/载荷释放；4/6/7固定data样本，后fresh槽null；最后固定fresh元素数组样本释放→清数组→释放保存实例。六阶段实修，不借MarkDeath额外跳过空action，通用helper不变；无异常模拟/额外保护。 BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "window_release_source_sampling": {
+        "spec_id": "BVR01",
+        "evidence_refs": [
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline",
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision",
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-acceptance",
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 140,
+        "original_code_bytes": 426,
+        "original_page_count": 2,
+        "original_direct_call_count": 10,
+        "original_unique_direct_callee_count": 3,
+        "original_indirect_call_count": 1,
+        "original_jump_count": 23,
+        "original_return_count": 1,
+        "original_inbound_call_count": 4,
+        "original_inbound_tail_jump_count": 0,
+        "original_total_instruction_count": 184,
+        "original_total_code_bytes": 565,
+        "original_total_page_count": 4,
+        "original_total_direct_call_count": 14,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_release_call_count": 1,
+        "original_total_jump_count": 28,
+        "original_total_return_count": 3,
+        "original_total_inbound_call_count": 11,
+        "original_total_inbound_tail_jump_count": 4,
+        "source_body_changed": true,
+        "root_specific_new_I_claimed": true,
+        "source_root_stage_count": 6,
+        "source_cpp_file_count": 2,
+        "source_header_file_count": 1,
+        "source_changed_body_count": 1,
+        "source_stage_count": 6,
+        "new_implementation_function_count": 1,
+        "new_helper_count": 1,
+        "new_boundary_API_count": 1,
+        "new_boundary_original_identity_count": 0,
+        "new_shared_owner_count": 0,
+        "ordered_focus_samples_restored": true,
+        "fixed_payload_text_and_array_samples_restored": true,
+        "type2_original_direct_deathFlag_store_restored": true,
+        "extra_type2_action_null_skip_removed_only_at_original_site": true,
+        "generic_MarkDeath_for_other_callers_kept": true,
+        "original_two_W32_flags_operations_kept": true,
+        "original_post_callback_fresh_fields_slots_and_counts_kept": true,
+        "correct_close_all_marker_bodies_kept": true,
+        "two_correct_bodies_not_new_I": true,
+        "original_71_slots_7_W32_occupancy_MIS62_and_return_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "all_release_targets_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x472190",
+      "inventory_id": "F:00072190",
+      "original_role": "472190：71槽按原CloseWindow后清nil，七W32占用清零，BYTE标志0返回0；非0才Y→X→socket MIS62，发送后清BYTE并透传实际S32，不加成功门槛/回滚；当前正确全文保持，无该主体新I，原入向三CALL/四尾跳不混计。",
+      "original_end_exclusive": "0x4721fe",
+      "original_chunks": [
+        [
+          "0x472190",
+          "0x4721fe"
+        ]
+      ],
+      "instruction_count": 35,
+      "status": "BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "CloseAllWindows_472190"
+          ],
+          "relationship": "472190：71槽按原CloseWindow后清nil，七W32占用清零，BYTE标志0返回0；非0才Y→X→socket MIS62，发送后清BYTE并透传实际S32，不加成功门槛/回滚；当前正确全文保持，无该主体新I，原入向三CALL/四尾跳不混计。"
+        },
+        {
+          "path": "include/cg/ui/WindowRuntime.hpp",
+          "symbols": [
+            "CloseAllWindows_472190"
+          ],
+          "relationship": "既有实际释放/关闭公开声明保持，不增加接口"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline",
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision",
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-acceptance",
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state"
+      ],
+      "boundary": "472190：71槽按原CloseWindow后清nil，七W32占用清零，BYTE标志0返回0；非0才Y→X→socket MIS62，发送后清BYTE并透传实际S32，不加成功门槛/回滚；当前正确全文保持，无该主体新I，原入向三CALL/四尾跳不混计。 BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "window_release_source_sampling": {
+        "spec_id": "BVR01",
+        "evidence_refs": [
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline",
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision",
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-acceptance",
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 35,
+        "original_code_bytes": 110,
+        "original_page_count": 1,
+        "original_direct_call_count": 4,
+        "original_unique_direct_callee_count": 3,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 3,
+        "original_return_count": 1,
+        "original_inbound_call_count": 3,
+        "original_inbound_tail_jump_count": 4,
+        "original_total_instruction_count": 184,
+        "original_total_code_bytes": 565,
+        "original_total_page_count": 4,
+        "original_total_direct_call_count": 14,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_release_call_count": 1,
+        "original_total_jump_count": 28,
+        "original_total_return_count": 3,
+        "original_total_inbound_call_count": 11,
+        "original_total_inbound_tail_jump_count": 4,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "source_root_stage_count": 0,
+        "source_cpp_file_count": 2,
+        "source_header_file_count": 1,
+        "source_changed_body_count": 1,
+        "source_stage_count": 6,
+        "new_implementation_function_count": 1,
+        "new_helper_count": 1,
+        "new_boundary_API_count": 1,
+        "new_boundary_original_identity_count": 0,
+        "new_shared_owner_count": 0,
+        "ordered_focus_samples_restored": true,
+        "fixed_payload_text_and_array_samples_restored": true,
+        "type2_original_direct_deathFlag_store_restored": true,
+        "extra_type2_action_null_skip_removed_only_at_original_site": true,
+        "generic_MarkDeath_for_other_callers_kept": true,
+        "original_two_W32_flags_operations_kept": true,
+        "original_post_callback_fresh_fields_slots_and_counts_kept": true,
+        "correct_close_all_marker_bodies_kept": true,
+        "two_correct_bodies_not_new_I": true,
+        "original_71_slots_7_W32_occupancy_MIS62_and_return_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "all_release_targets_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
+    },
+    {
+      "original_entry": "0x472220",
+      "inventory_id": "F:00072220",
+      "original_role": "472220：原71个state，每次仅window非空才marker50 W32=1，空槽旧marker和其余字段保持；当前void原正常写全体正确，不新全局或默认清零。",
+      "original_end_exclusive": "0x47223d",
+      "original_chunks": [
+        [
+          "0x472220",
+          "0x47223d"
+        ]
+      ],
+      "instruction_count": 9,
+      "status": "BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "sources": [
+        {
+          "path": "src/ui/WindowRuntime.cpp",
+          "symbols": [
+            "Sub_472220"
+          ],
+          "relationship": "472220：原71个state，每次仅window非空才marker50 W32=1，空槽旧marker和其余字段保持；当前void原正常写全体正确，不新全局或默认清零。"
+        },
+        {
+          "path": "src/ui/WindowRuntimeState.hpp",
+          "symbols": [
+            "Sub_472220"
+          ],
+          "relationship": "既有marker声明/共享state类型保持"
+        }
+      ],
+      "evidence_documents": [
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline",
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision",
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-acceptance",
+        "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state"
+      ],
+      "boundary": "472220：原71个state，每次仅window非空才marker50 W32=1，空槽旧marker和其余字段保持；当前void原正常写全体正确，不新全局或默认清零。 BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "verification_level": "BVR01三完整184条565B/四页、14direct六目标/一release间接、28跳3RET，11CALL/四尾跳分列与原7类释放表有据。FreeWindow单既有根六阶段实修：焦点/载荷读取原序，同data/text/数组样本判断和释放，类型2经唯一新Yobi边界承接原直接deathFlag=1替代通用MarkDeath额外空判断；所有回调后fresh槽/字段、原W32 flags、正常释放次序和两正确全关闭/marker主体保持，通用MarkDeath正文/载荷与窗口接口头保。三原新/F、公共UI49两限定I-S各24来源，I仅单根六阶段；原MIS62/七占用W32/71标记/实际结果保持，两个CPP/一个Yobi公共头、一个必要native边界helper/API，无新原身份/owner/保护、异常模拟或故障等价。全部15入向/各父/release目标/callee、资源生产/正常owner-alias寿命、机器ABI/画面运行待；网络原格式明文/音频暂停/RPLAN.24与执行限制保。",
+      "window_release_source_sampling": {
+        "spec_id": "BVR01",
+        "evidence_refs": [
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline",
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision",
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-acceptance",
+          "doc/cg2d_window_release_source_sampling_spec.md#window-release-source-state"
+        ],
+        "full_original_root_captured": true,
+        "original_instruction_count": 9,
+        "original_code_bytes": 29,
+        "original_page_count": 1,
+        "original_direct_call_count": 0,
+        "original_unique_direct_callee_count": 0,
+        "original_indirect_call_count": 0,
+        "original_jump_count": 2,
+        "original_return_count": 1,
+        "original_inbound_call_count": 4,
+        "original_inbound_tail_jump_count": 0,
+        "original_total_instruction_count": 184,
+        "original_total_code_bytes": 565,
+        "original_total_page_count": 4,
+        "original_total_direct_call_count": 14,
+        "original_total_unique_direct_callee_count": 6,
+        "original_total_indirect_release_call_count": 1,
+        "original_total_jump_count": 28,
+        "original_total_return_count": 3,
+        "original_total_inbound_call_count": 11,
+        "original_total_inbound_tail_jump_count": 4,
+        "source_body_changed": false,
+        "root_specific_new_I_claimed": false,
+        "source_root_stage_count": 0,
+        "source_cpp_file_count": 2,
+        "source_header_file_count": 1,
+        "source_changed_body_count": 1,
+        "source_stage_count": 6,
+        "new_implementation_function_count": 1,
+        "new_helper_count": 1,
+        "new_boundary_API_count": 1,
+        "new_boundary_original_identity_count": 0,
+        "new_shared_owner_count": 0,
+        "ordered_focus_samples_restored": true,
+        "fixed_payload_text_and_array_samples_restored": true,
+        "type2_original_direct_deathFlag_store_restored": true,
+        "extra_type2_action_null_skip_removed_only_at_original_site": true,
+        "generic_MarkDeath_for_other_callers_kept": true,
+        "original_two_W32_flags_operations_kept": true,
+        "original_post_callback_fresh_fields_slots_and_counts_kept": true,
+        "correct_close_all_marker_bodies_kept": true,
+        "two_correct_bodies_not_new_I": true,
+        "original_71_slots_7_W32_occupancy_MIS62_and_return_kept": true,
+        "network_wire_format_changed": false,
+        "encryption_added": false,
+        "audio_pause_kept": true,
+        "new_99_dispatch_added": false,
+        "full_all_parents_verified": false,
+        "full_all_callees_verified": false,
+        "all_release_targets_verified": false,
+        "full_input_production_verified": false,
+        "full_lifecycle_closed": false,
+        "full_pixels_verified": false,
+        "full_machine_abi_verified": false,
+        "runtime_verified": false,
+        "fault_equivalence_claimed": false
+      }
     }
   ]
 }

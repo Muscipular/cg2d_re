@@ -4361,3 +4361,20 @@ BVD控制父已固定，本轮继续两大FX完整根：正向570条2320B/九页
 一个CPP四既有正文四判定阶段/五文本替换：10号首判定、技能窗口存在、S32 DEC负号和S16阈值先持样，再共享发布及同判定分流。分类关闭全文保，原47227E释放前复读槽位不误缓存；所有其它Restore/fresh实例、六RAND表达式与原区间/消费、业务坐标修正/回退、decreased返回和后调用/实际action结果保持。正确关闭无新I、零新helper/函数/API/owner；仅源顺序对应，不宣生成EFLAGS或运行故障等价。
 
 完整机器/派生差集通过，文本汇总/-Check均退出0。新1792..1796五adapted F、公共UI46，两限定I/S各21来源；实际语义1797/有效1790、基线1907（51.82%）、F945/E1100。四任务仍open，R7已审467余2594、pending18/closed11/全叶0/globalfalse、原差队列与CRT43保持。原格式明文、音频暂停/RPLAN.24和执行限制保持；全部21调用处/各父/四callee、生产与正常owner-alias寿命、机器ABI/完整画面运行及R8待验，整体SPEC目标继续推进。
+
+## BVR01窗口释放六阶段/终止标志实修（2026-10-08）
+
+[BVR01基线](../doc/cg2d_window_release_source_sampling_spec.md#window-release-source-baseline)、[实施决定](../doc/cg2d_window_release_source_sampling_spec.md#window-release-source-decision)、[验收](../doc/cg2d_window_release_source_sampling_spec.md#window-release-source-acceptance)及[原证](../doc/cg2d_window_release_source_sampling_evidence.json)。
+
+三完整根184条565B/四页、14direct六目标/一个release间接、28跳3RET；11CALL/四尾跳及七类释放表分列有据。FreeWindow单既有根六阶段实修：焦点/载荷按原顺序读取，同data/text/数组样本判断和释放，类型2经唯一Yobi native边界承接直接deathFlag=1恢复原写、撤本调用点借通用MarkDeath产生的额外空判断。原release后fresh字段/槽、两W32 flags、循环数量与释放次序保，通用MarkDeath正文/载荷与窗口接口头及全关闭/marker两正确主体不动。
+
+新1797..1799三adapted F、公共UI46→49，两限定I/S各24来源，I仅单根六阶段，两个正确主体不计新I；两个CPP/一个Yobi公共头，一个必要native边界helper/API不新原身份，无新owner/保护或故障模拟。预期语义1800/有效1793、基线1910（51.90%）、F948/E1102；U04/U11/V03/R04仍open。MIS62/七W32占用清理/71标记和实际返回保；全部release目标/15入向及父/callee、生产和正常owner-alias寿命、机器ABI/画面运行待，原格式明文/音频暂停/RPLAN.24及执行限制保持。
+先SPEC/原证与前态后单根六阶段，类型2额外空判断差异实际处理；集中静态/文本汇总后补实际结果，整体SPEC目标继续推进。
+
+### BVR01本步实际静态结果
+
+集中静态通过：三完整184条565B/四页、14direct六目标/一个release间接、28跳3RET；11CALL与四尾跳分列，原七类释放表逐项对应，71 marker与七W32 occupancy范围有据。原flags实际两W32读写，AND DL不是BYTE存储；现正确字段操作保。
+
+FreeWindow单根六阶段精确实修：focusId→window.id、focusedData→elementData原序保存，类型2同data样本且经唯一Yobi边界承接原直接deathFlag=1，类型3固定text、类型4/6/7固定data，最后固定fresh元素数组。两个CPP/一个Yobi公共头、唯一必要native helper/API；UI不直接访问不完整YobiAction。局部变量各自case作用域，回调后fresh字段/槽、文本free后的fresh清null、元素数量复读和最终实例释放保。通用MarkDeath的额外空判断只在本原调用点不再借用，通用正文及其它调用/载荷/窗口接口保；为opaque YobiAction新增唯一void MarkDeathUnchecked(T*)在既有runtime/公共头内只写flag，不公开布局、不造原函数地址/身份；不加action保护、异常模拟或故障等价验收。全关闭与marker两正确主体全文保持、不计新增I。
+
+完整机器和派生差集通过，文本汇总/-Check均退出0。新增1797..1799三adapted F、公共UI49，两限定I/S各24来源，I仅单根六阶段；实际语义1800/有效1793、基线1910（51.90%）、F948/E1102。四任务仍open，R7已审467余2594、pending18/closed11/全叶0/globalfalse、原差队列与CRT43保持。原格式明文/MIS62与实际结果、音频暂停/RPLAN.24及执行限制保；所有15入向/父/release目标/callee、资源生产与正常owner-alias寿命、机器ABI/完整画面运行与R8待验，整体SPEC目标继续推进。

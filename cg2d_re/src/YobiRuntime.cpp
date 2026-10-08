@@ -6669,6 +6669,11 @@ YobiAction* MarkDeath(YobiAction* const action)
     return action;
 }
 
+void MarkDeathUnchecked(YobiAction* const action)
+{
+    action->deathFlag = 1;
+}
+
 void UpdateBattleText_421750(YobiAction* const action)
 {
     auto* const payload = static_cast<BattleTextPayload*>(action->payload);

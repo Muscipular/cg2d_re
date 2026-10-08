@@ -259,6 +259,9 @@ std::int32_t SortBattleActions_405C30(); // flags筛选、原次序排序及低W
 // 原 Yobi::MarkDeath@[0x404D00,0x404D10)，只置死亡标志并返回原指针。
 YobiAction* MarkDeath(YobiAction* action);
 
+// 原471334内联终止写的native边界；不判断空指针，不对应独立原函数。
+void MarkDeathUnchecked(YobiAction* action);
+
 std::int32_t GetBattleMHeader_439070(char* destination); // 独立头游标，读3B并补NUL，结束返回1。
 std::int32_t TakeBattleMInteger_438F70(YobiAction* action); // 对象载荷64游标读取大写十六进制。
 void TakeBattleMString_438FE0(YobiAction* action, char* destination, std::int32_t capacity);

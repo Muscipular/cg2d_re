@@ -1992,3 +1992,11 @@ G02/R04/V04仅current/引用仍open，完整机器/派生只具名差集、成�
 五完整原根159条494B/六页、九direct四目标/零间接18跳4RET及21真实CALL与两旧键表数据引用定位；原两表各71槽、随机位置编号10/11/12/14/27有据。单CPP四既有正文四判定阶段/五文本替换，10号首判定/技能窗口存在/S32负号/S16阈值先持样再共享发布并据同判定分流。正确分类关闭保原fresh槽参数；所有其它Restore/fresh实例、六原RAND区间/消费、业务位置修正/回退与真实返回保持。
 
 新1792..1796五adapted F、公共UI41→46，两限定I/S各21来源，I仅四阶段实修/正确分类关闭不计新I；无新实现函数/helper/API/owner。预期语义1797/有效1790、基线1907（51.82%）、F945/E1100；四任务仍open，所有21调用处/各父/四callee、生产和正常owner-alias寿命、生成EFLAGS/机器ABI/画面运行仍待。网络原格式明文、音频暂停/RPLAN.24与执行限制保持。
+
+## BVR01释放单根限定I-S与两正确主体（2026-10-08）
+
+[BVR01基线](cg2d_window_release_source_sampling_spec.md#window-release-source-baseline)、[实施决定](cg2d_window_release_source_sampling_spec.md#window-release-source-decision)、[验收](cg2d_window_release_source_sampling_spec.md#window-release-source-acceptance)及[原证](cg2d_window_release_source_sampling_evidence.json)。
+
+三完整根184条565B/四页、14direct六目标/一个release间接、28跳3RET；11CALL/四尾跳及七类释放表分列有据。FreeWindow单既有根六阶段实修：焦点/载荷按原顺序读取，同data/text/数组样本判断和释放，类型2经唯一Yobi native边界承接直接deathFlag=1恢复原写、撤本调用点借通用MarkDeath产生的额外空判断。原release后fresh字段/槽、两W32 flags、循环数量与释放次序保，通用MarkDeath正文/载荷与窗口接口头及全关闭/marker两正确主体不动。
+
+新1797..1799三adapted F、公共UI46→49，两限定I/S各24来源，I仅单根六阶段，两个正确主体不计新I；两个CPP/一个Yobi公共头，一个必要native边界helper/API不新原身份，无新owner/保护或故障模拟。预期语义1800/有效1793、基线1910（51.90%）、F948/E1102；U04/U11/V03/R04仍open。MIS62/七W32占用清理/71标记和实际返回保；全部release目标/15入向及父/callee、生产和正常owner-alias寿命、机器ABI/画面运行待，原格式明文/音频暂停/RPLAN.24及执行限制保持。
